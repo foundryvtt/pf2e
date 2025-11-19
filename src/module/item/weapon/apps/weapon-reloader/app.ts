@@ -86,11 +86,15 @@ class WeaponReloader extends SvelteApplicationMixin<
                     max: weapon.system.ammo?.capacity ?? 1,
                 },
                 weapon: getBasePhysicalItemViewData(weapon),
-                compatible: compatible.map((c) => ({
-                    ...getBasePhysicalItemViewData(c),
-                    quantity: c.quantity,
-                    uses: c.isOfType("ammo") && c.uses.max > 1 ? c.uses : null,
-                })),
+                compatible: R.sortBy(
+                    compatible.map((c) => ({
+                        ...getBasePhysicalItemViewData(c),
+                        quantity: c.quantity,
+                        uses: c.isOfType("ammo") && c.uses.max > 1 ? c.uses : null,
+                        depleted: c.quantity === 0 || (c.isOfType("ammo") && c.uses.value === 0),
+                    })),
+                    (c) => (c.depleted ? 1 : 0),
+                ),
             },
         };
     }
@@ -212,6 +216,7 @@ interface ReloadWeaponContext extends SvelteApplicationRenderContext {
 interface AmmoChoiceViewData extends BasePhysicalItemViewData {
     quantity: number;
     uses: ValueAndMax | null;
+    depleted: boolean;
 }
 
 export { WeaponReloader };
