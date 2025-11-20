@@ -203,6 +203,8 @@ abstract class IWR<TType extends IWRType> {
                 return ["item:category:unarmed"];
             case "unholy":
                 return [{ or: ["origin:action:trait:unholy", "item:trait:unholy"] }];
+            case "weapons":
+                return ["item:type:weapon", { not: "item:category:unarmed" }];
             default: {
                 if (iwrType in CONFIG.PF2E.damageTypes) {
                     return [`damage:type:${iwrType}`];
