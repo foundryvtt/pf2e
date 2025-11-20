@@ -266,23 +266,31 @@
                 "containerId": null,
                 "craftableAs": [],
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>explosive ammunition</em> hits a target, the missile explodes in a @Template[burst|distance:10], dealing [[/r10d6]] fire damage to each creature in the area (including the target). Each creature must attempt a @Check[reflex|dc:30|basic|name:Greater Explosive Ammunition] save.</p>"
+                    "value": "<p><strong>Ammunition</strong> any</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>greater explosive ammunition</em> hits a target, the missile explodes in a @Template[burst|distance:10], dealing @Damage[10d6[fire]|options:area-damage] damage to each creature in the area (including the target). Each creature must attempt a @Check[reflex|dc:30|basic|options:area-effect] save.</p>"
                 },
                 "level": {
                     "value": 13
                 },
                 "price": {
+                    "per": 1,
                     "value": {
                         "gp": 520
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 5,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.AmmunitionNotes.ExplosiveAmmunition.Greater.Text",
+                        "title": "PF2E.AmmunitionNotes.ExplosiveAmmunition.Greater.Title"
+                    }
+                ],
                 "size": "med",
                 "slug": "explosive-ammunition-greater",
                 "traits": {
