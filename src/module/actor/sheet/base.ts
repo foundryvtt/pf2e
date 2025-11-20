@@ -69,11 +69,10 @@ import type {
 } from "./data-types.ts";
 import { createBulkPerLabel, onClickCreateSpell } from "./helpers.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
-import { AddCurrencyDialog } from "./popups/add-currency-dialog.ts";
 import { IdentifyItemPopup } from "./popups/identify-popup.ts";
 import { ItemTransferDialog } from "./popups/item-transfer-dialog.ts";
 import { IWREditor } from "./popups/iwr-editor.ts";
-import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
+import { UpdateCurrencyDialog } from "./popups/update-currency-dialog.ts";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -707,7 +706,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             },
             // INVENTORY
             "add-coins": () => {
-                return new AddCurrencyDialog({ actor: this.actor }).render({ force: true });
+                return new UpdateCurrencyDialog({ actor: this.actor, mode: "add" }).render({ force: true });
             },
             "decrease-quantity": async (event) => {
                 const item = await inventoryItemFromDOM(event);
@@ -727,7 +726,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 return item.update({ "system.quantity": item.quantity + addend });
             },
             "remove-coins": () => {
-                return new RemoveCoinsPopup(this.actor).render(true);
+                return new UpdateCurrencyDialog({ actor: this.actor, mode: "remove" }).render({ force: true });
             },
             "repair-item": async (event) => {
                 const item = await inventoryItemFromDOM(event);
