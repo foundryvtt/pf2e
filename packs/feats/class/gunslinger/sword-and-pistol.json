@@ -25,7 +25,51 @@
             "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Gunslinger.SwordAndPistol.RollOptionLabel",
+                "option": "sword-and-pistol-reach",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "sword-and-pistol-reach",
+                    "item:hands-held:1",
+                    {
+                        "or": [
+                            "item:group:crossbow",
+                            "item:group:firearm"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "ranged-strike-attack-roll"
+                ],
+                "text": "PF2E.SpecificRule.Gunslinger.SwordAndPistol.RangedNote",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "item:hands-held:1"
+                ],
+                "selector": [
+                    "melee-strike-attack-roll"
+                ],
+                "text": "PF2E.SpecificRule.Gunslinger.SwordAndPistol.MeleeNote",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
