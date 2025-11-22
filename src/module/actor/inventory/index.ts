@@ -1,11 +1,11 @@
 import type { ActorPF2e } from "@actor";
-import { applyActorGroupUpdate, iterateAllItems } from "@actor/helpers.ts";
+import { applyActorGroupUpdate, createActorGroupUpdate, iterateAllItems } from "@actor/helpers.ts";
 import type { DatabaseDeleteOperation } from "@common/abstract/_module.d.mts";
 import { ContainerPF2e, ItemPF2e, ItemProxyPF2e, KitPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e, KitSource, PhysicalItemSource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { RawCoins } from "@item/physical/data.ts";
-import { Coins, coinCompendiumIds } from "@item/physical/helpers.ts";
+import { Coins } from "@item/physical/helpers.ts";
 import { DENOMINATIONS } from "@item/physical/values.ts";
 import { DelegatedCollection, ErrorPF2e, groupBy } from "@util";
 import * as R from "remeda";
@@ -73,137 +73,118 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
     ): Promise<void> {
         const topLevelCoins = this.actor.itemTypes.treasure.filter((item) => combineStacks && item.isCoinage);
         const coinsByDenomination = groupBy(topLevelCoins, (item) => item.denomination);
-
+        const updates = createActorGroupUpdate();
         for (const denomination of DENOMINATIONS) {
             const quantity = coins[denomination] ?? 0;
             if (quantity > 0) {
                 const item = coinsByDenomination.get(denomination)?.at(0);
                 if (item) {
-                    await item.update({ "system.quantity": item.quantity + quantity });
+                    updates.itemUpdates.push({ _id: item.id, "system.quantity": item.quantity + quantity });
                 } else {
-                    const compendiumId = coinCompendiumIds[denomination];
-                    const pack = game.packs.find<fd.collections.CompendiumCollection<PhysicalItemPF2e<null>>>(
-                        (p) => p.collection === "pf2e.equipment-srd",
-                    );
-                    if (!pack) throw ErrorPF2e("Unexpected error retrieving equipment compendium");
-
-                    const item = (await pack.getDocument(compendiumId))?.clone();
-                    if (item?.isOfType("treasure")) {
-                        item.updateSource({ "system.quantity": quantity });
-                        await this.actor.createEmbeddedDocuments("Item", [item.toObject()]);
-                    }
+                    const source = (await fromUuid<ItemPF2e>(coinCompendiumUuids[denomination]))?.toObject(true);
+                    if (source?.type !== "treasure") throw ErrorPF2e("Unexpected error retrieving currency item");
+                    source.system.quantity = quantity;
+                    updates.itemCreates.push(source);
                 }
             }
         }
+
+        await applyActorGroupUpdate(this.actor, updates);
     }
 
     async removeCoins(coins: Partial<RawCoins>, { byValue = true }: { byValue?: boolean } = {}): Promise<boolean> {
-        const coinsToRemove = new Coins(coins);
+        // Store what we have available. This is a copy. Exist early if total value is insufficient
         const actorCoins = this.coins;
-        const coinsToAdd = new Coins();
+        const totalValueToRemove = new Coins(coins).copperValue;
+        if (totalValueToRemove > actorCoins.copperValue) return false; // insufficient
 
-        if (byValue) {
-            let valueToRemoveInCopper = coinsToRemove.copperValue;
-            if (valueToRemoveInCopper > actorCoins.copperValue) {
-                return false;
-            }
+        // Variables to store the final operation we need to perform
+        // Sometimes a coin may need to be added, for example removing 1 cp from 1 gp needs to also add 9 cp
+        const removeResult = R.mapToObj(DENOMINATIONS, (d) => [d, 0]);
+        const addResult = R.mapToObj(DENOMINATIONS, (d) => [d, 0]);
 
-            // Choose quantities of each coin to remove from smallest to largest to ensure we don't end in a situation
-            // where we need to break a coin that has already been "removed"
-            if (valueToRemoveInCopper % 10 > actorCoins.cp) {
-                coinsToAdd.cp = 10;
-                coinsToRemove.cp = valueToRemoveInCopper % 10;
-                valueToRemoveInCopper += 10 - coinsToRemove.cp;
-            } else {
-                coinsToRemove.cp = valueToRemoveInCopper % 10; //  remove the units that other coins can't handle first
-                valueToRemoveInCopper -= coinsToRemove.cp;
-                const newCopper = actorCoins.cp - coinsToRemove.cp;
-                const extraCopper = Math.min(valueToRemoveInCopper / 10, Math.trunc(newCopper / 10)) * 10;
-                coinsToRemove.cp += extraCopper;
-                valueToRemoveInCopper -= extraCopper;
-            }
-
-            if ((valueToRemoveInCopper / 10) % 10 > actorCoins.sp) {
-                coinsToAdd.sp = 10;
-                coinsToRemove.sp = (valueToRemoveInCopper / 10) % 10;
-                valueToRemoveInCopper += 100 - coinsToRemove.sp * 10;
-            } else {
-                coinsToRemove.sp = (valueToRemoveInCopper / 10) % 10; //  remove the units that other coins can't handle first
-                valueToRemoveInCopper -= coinsToRemove.sp * 10;
-                const newSilver = actorCoins.sp - coinsToRemove.sp;
-                const extraSilver = Math.min(valueToRemoveInCopper / 100, Math.trunc(newSilver / 10)) * 10;
-                coinsToRemove.sp += extraSilver;
-                valueToRemoveInCopper -= extraSilver * 10;
-            }
-
-            if ((valueToRemoveInCopper / 100) % 10 > actorCoins.gp) {
-                coinsToAdd.gp = 10;
-                coinsToRemove.gp = (valueToRemoveInCopper / 100) % 10;
-                valueToRemoveInCopper += 1000 - coinsToRemove.gp * 100;
-            } else {
-                coinsToRemove.gp = (valueToRemoveInCopper / 100) % 10; //  remove the units that other coins can't handle first
-                valueToRemoveInCopper -= coinsToRemove.gp * 100;
-                const newGold = actorCoins.gp - coinsToRemove.gp;
-                const extraGold = Math.min(valueToRemoveInCopper / 1000, Math.trunc(newGold / 10)) * 10;
-                coinsToRemove.gp += extraGold;
-                valueToRemoveInCopper -= extraGold * 100;
-            }
-
-            coinsToRemove.pp = valueToRemoveInCopper / 1000;
+        // Phase 1 - remove exact without converting or splitting
+        for (const denomination of DENOMINATIONS) {
+            const toRemove = Math.min(coins[denomination] ?? 0, actorCoins[denomination]);
+            removeResult[denomination] = toRemove;
+            actorCoins[denomination] -= toRemove;
         }
 
-        // Test if the actor has enough coins to pull
-        const coinsToPull = actorCoins.plus(coinsToAdd);
-        const sufficient =
-            coinsToRemove.pp <= coinsToPull.pp &&
-            coinsToRemove.gp <= coinsToPull.gp &&
-            coinsToRemove.sp <= coinsToPull.sp &&
-            coinsToRemove.cp <= coinsToPull.cp;
-        if (!sufficient) {
-            return false;
+        // Determine how much value we still need to remove. Exit early if insufficient.
+        let valueToRemove = totalValueToRemove - new Coins(removeResult).copperValue;
+        if (valueToRemove && !byValue) return false;
+
+        if (byValue && valueToRemove) {
+            // Phase 2 - remove by converting but without breaking any coins (best effort currency type maintenance)
+            for (const [denomination, rate] of R.entries(denominationValues).toReversed()) {
+                const toRemove = Math.min(actorCoins[denomination], Math.floor(valueToRemove / rate));
+                if (!toRemove) continue;
+                removeResult[denomination] += toRemove;
+                actorCoins[denomination] -= toRemove;
+                valueToRemove -= toRemove * rate;
+            }
+
+            // Phase 3 - Choose quantities of each coin to remove from smallest to largest to ensure we don't end in a situation
+            // where we need to break a coin that has already been "removed".
+            for (const [denomination, rate] of R.entries(R.pick(denominationValues, ["cp", "sp", "gp"]))) {
+                if ((valueToRemove / rate) % 10 > actorCoins[denomination]) {
+                    const toRemove = (valueToRemove / rate) % 10;
+                    valueToRemove += (10 - toRemove) * rate;
+                    addResult[denomination] += 10;
+                    removeResult[denomination] += toRemove;
+                } else {
+                    const toRemove = (valueToRemove / rate) % 10; //  remove the units that other coins can't handle first
+                    valueToRemove -= toRemove * rate;
+                    const newValue = actorCoins[denomination] - toRemove;
+                    const extraCoins = Math.min(valueToRemove / rate, Math.trunc(newValue / 10)) * 10;
+                    removeResult[denomination] += toRemove + extraCoins;
+                    valueToRemove -= extraCoins * rate;
+                }
+            }
+
+            removeResult.pp = valueToRemove / 1000;
+
+            // Phase 4 - Simplify and cancel out additions / removals
+            for (const denomination of DENOMINATIONS) {
+                const min = Math.min(addResult[denomination], removeResult[denomination]);
+                addResult[denomination] -= min;
+                removeResult[denomination] -= min;
+            }
         }
 
         // If there are coins to add (because of rollover), add them first
-        if (Object.values(coinsToAdd).some((value) => value !== 0)) {
-            await this.addCoins(coinsToAdd);
-        }
+        await this.addCoins(addResult);
 
         // Begin reducing item quantities and deleting coinage
         const topLevelCoins = this.actor.itemTypes.treasure.filter((item) => item.isCoinage);
         const coinsByDenomination = groupBy(topLevelCoins, (item) => item.denomination);
+        const update = createActorGroupUpdate();
         for (const denomination of DENOMINATIONS) {
-            let quantityToRemove = coinsToRemove[denomination];
             const coinItems = coinsByDenomination.get(denomination);
-            if (!!quantityToRemove && coinItems) {
-                const itemsToUpdate: EmbeddedDocumentUpdateData[] = [];
-                const itemsToDelete: string[] = [];
-                for (const item of coinItems) {
-                    if (quantityToRemove === 0) break;
-                    if (item.quantity > quantityToRemove) {
-                        itemsToUpdate.push({ _id: item.id, "system.quantity": item.quantity - quantityToRemove });
-                        quantityToRemove = 0;
-                        break;
-                    } else {
-                        quantityToRemove -= item.quantity;
-                        itemsToDelete.push(item.id);
-                    }
-                }
+            if (!removeResult[denomination] || !coinItems) continue;
 
-                if (itemsToUpdate.length > 0) {
-                    await this.actor.updateEmbeddedDocuments("Item", itemsToUpdate);
+            for (const item of coinItems) {
+                if (removeResult[denomination] === 0) break;
+                if (item.quantity > removeResult[denomination]) {
+                    update.itemUpdates.push({
+                        _id: item.id,
+                        "system.quantity": item.quantity - removeResult[denomination],
+                    });
+                    removeResult[denomination] = 0;
+                    break;
+                } else {
+                    removeResult[denomination] -= item.quantity;
+                    update.itemDeletes.push(item.id);
                 }
+            }
 
-                if (itemsToDelete.length > 0) {
-                    await this.actor.deleteEmbeddedDocuments("Item", itemsToDelete);
-                }
-
-                // If there any remaining, show a warning. This should probably be validated in a future version
-                if (quantityToRemove > 0) {
-                    console.warn("Attempted to remove more coinage than exists");
-                }
+            // If there any remaining, show a warning. This should probably be validated in a future version
+            if (removeResult[denomination] > 0) {
+                console.warn("Attempted to remove more coinage than exists");
             }
         }
 
+        await applyActorGroupUpdate(this.actor, update);
         return true;
     }
 
@@ -324,6 +305,20 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
         return resultIds.map((id) => this.actor.inventory.get(id, { strict: true }));
     }
 }
+
+const coinCompendiumUuids = {
+    pp: "Compendium.pf2e.equipment-srd.Item.JuNPeK5Qm1w6wpb4",
+    gp: "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz",
+    sp: "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f",
+    cp: "Compendium.pf2e.equipment-srd.Item.lzJ8AVhRcbFul5fh",
+};
+
+const denominationValues = {
+    cp: 1,
+    sp: 10,
+    gp: 100,
+    pp: 1000,
+};
 
 type AddItemParam = AddableItemSourceOrEntry | AddableItemSourceOrEntry[];
 type AddableItemSourceOrEntry = PhysicalItemPF2e | KitPF2e | PreCreate<PhysicalItemSource | KitSource>;

@@ -168,13 +168,6 @@ class Coins implements RawCoins {
     }
 }
 
-const coinCompendiumIds = {
-    pp: "JuNPeK5Qm1w6wpb4",
-    gp: "B6B7tBWJSqOBz5zz",
-    sp: "5Ew82vBF9YfaiY9f",
-    cp: "lzJ8AVhRcbFul5fh",
-};
-
 interface CoinStringParams {
     /** If true, indicates that space is limited. This omits displaying "credits" in sf2e */
     short?: boolean;
@@ -184,4 +177,4 @@ interface CoinStringParams {
     normalize?: boolean;
 }
 
-export { coinCompendiumIds, Coins };
+export { Coins };

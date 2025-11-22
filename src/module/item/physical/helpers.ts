@@ -336,7 +336,6 @@ function getDefaultEquipStatus(item: PhysicalItemPF2e): EquippedData {
     return equipStatus;
 }
 
-export { coinCompendiumIds } from "./coins.ts";
 export {
     Coins,
     checkPhysicalItemSystemChange,
