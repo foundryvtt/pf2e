@@ -765,7 +765,7 @@ function createDamageRollFunctions(
     const createDamageRoll =
         (outcome: "success" | "criticalSuccess"): DamageRollFunction =>
         async (params: DamageRollParams = {}): Promise<Rolled<DamageRoll> | string | null> => {
-            const domains = getAttackDamageDomains(item, proficiencyRank);
+            const domains = getAttackDamageDomains(item, proficiencyRank, action);
             const targetToken = (params.target ?? game.user.targets.first())?.document ?? null;
             const context = await new DamageContext({
                 viewOnly: params.getFormula ?? false,
