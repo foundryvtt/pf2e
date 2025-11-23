@@ -159,28 +159,22 @@ class ChatMessagePF2e extends ChatMessage {
             (context && "identifier" in context ? context.identifier : null) ??
             htmlQuery(document.body, `li.message[data-message-id="${this.id}"] [data-identifier]`)?.dataset.identifier;
 
-        // First check for an exact match with the identifier, which is a bit more specific (this catches area/auto fire rn, expand later)
-        for (const action of actor.system.actions ?? []) {
-            if (action.slug === identifier) return action;
-            const altUsageMatch = action.altUsages?.find((u) => u.slug === identifier);
-            if (altUsageMatch) return action;
-        }
-
         // Parse the identifier and attempt to figure it out based on weapon type matching
-        const [itemId, slug, meleeOrRanged] = identifier?.split(".") ?? [null, null, null];
-        if (!meleeOrRanged || !["melee", "ranged"].includes(meleeOrRanged)) {
-            return null;
-        }
+        const [itemId, slug, actionOrMeleeRanged] = identifier?.split(".") ?? [null, null, null];
+        if (!actionOrMeleeRanged) return null;
 
         const strikeData = actor.system.actions?.find((s) => s.slug === slug && s.item.id === itemId);
-        const itemMeleeOrRanged = strikeData?.item.isMelee ? "melee" : "ranged";
+        return (
+            [strikeData, ...(strikeData?.altUsages ?? [])].find((attack) => {
+                if (!attack) return false;
+                if (attack.type !== "strike") {
+                    return attack.type === actionOrMeleeRanged;
+                }
 
-        return meleeOrRanged === itemMeleeOrRanged
-            ? (strikeData ?? null)
-            : (strikeData?.altUsages?.find((u) => {
-                  const altUsageMeleeOrRanged = u.item.isMelee ? "melee" : "ranged";
-                  return meleeOrRanged === altUsageMeleeOrRanged;
-              }) ?? null);
+                const usageMeleeOrRanged = attack.item.isMelee ? "melee" : "ranged";
+                return usageMeleeOrRanged === actionOrMeleeRanged;
+            }) ?? null
+        );
     }
 
     async showDetails(): Promise<void> {

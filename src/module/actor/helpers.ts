@@ -693,7 +693,7 @@ function areaFireFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAreaAttack {
     });
 
     return {
-        slug: identifier,
+        slug: attackSlug,
         type: action,
         attackRollType: NPC_ATTACK_ACTIONS[action],
         label: item.name,

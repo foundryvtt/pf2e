@@ -1218,7 +1218,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const handsAvailable = !weapon.system.graspingAppendage || handsReallyFree > 0;
 
         return {
-            slug: identifier,
+            slug: weaponSlug,
             type: action,
             attackRollType: actionLabel,
             label: weapon.name,
