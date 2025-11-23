@@ -29,7 +29,39 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "dodging-roll",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Monk.DodgingRoll.StepIn",
+                        "value": "in"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Monk.DodgingRoll.StepOut",
+                        "value": "out"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "dodging-roll:in"
+                ],
+                "type": "all-damage",
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "dodging-roll:out"
+                ],
+                "type": "all-damage",
+                "value": "@actor.level + @actor.abilities.dex.mod"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
