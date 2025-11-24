@@ -6,7 +6,7 @@ import { ItemSourcePF2e, KitSource, PhysicalItemSource } from "@item/base/data/i
 import { itemIsOfType } from "@item/helpers.ts";
 import { RawCoins } from "@item/physical/data.ts";
 import { Coins } from "@item/physical/helpers.ts";
-import { DENOMINATIONS } from "@item/physical/values.ts";
+import { DENOMINATION_RATES, DENOMINATIONS } from "@item/physical/values.ts";
 import { DelegatedCollection, ErrorPF2e, groupBy } from "@util";
 import * as R from "remeda";
 import { InventoryBulk } from "./bulk.ts";
@@ -116,7 +116,7 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
 
         if (byValue && valueToRemove) {
             // Phase 2 - remove by converting but without breaking any coins (best effort currency type maintenance)
-            for (const [denomination, rate] of R.entries(denominationValues).toReversed()) {
+            for (const [denomination, rate] of R.entries(DENOMINATION_RATES).toReversed()) {
                 const toRemove = Math.min(actorCoins[denomination], Math.floor(valueToRemove / rate));
                 if (!toRemove) continue;
                 removeResult[denomination] += toRemove;
@@ -126,7 +126,7 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
 
             // Phase 3 - Choose quantities of each coin to remove from smallest to largest to ensure we don't end in a situation
             // where we need to break a coin that has already been "removed".
-            for (const [denomination, rate] of R.entries(R.pick(denominationValues, ["cp", "sp", "gp"]))) {
+            for (const [denomination, rate] of R.entries(R.pick(DENOMINATION_RATES, ["cp", "sp", "gp"]))) {
                 if ((valueToRemove / rate) % 10 > actorCoins[denomination]) {
                     const toRemove = (valueToRemove / rate) % 10;
                     valueToRemove += (10 - toRemove) * rate;
@@ -311,13 +311,6 @@ const coinCompendiumUuids = {
     gp: "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz",
     sp: "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f",
     cp: "Compendium.pf2e.equipment-srd.Item.lzJ8AVhRcbFul5fh",
-};
-
-const denominationValues = {
-    cp: 1,
-    sp: 10,
-    gp: 100,
-    pp: 1000,
 };
 
 type AddItemParam = AddableItemSourceOrEntry | AddableItemSourceOrEntry[];

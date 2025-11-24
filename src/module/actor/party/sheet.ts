@@ -11,7 +11,7 @@ import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { ActorUUID } from "@common/documents/_module.d.mts";
 import { ItemPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { Bulk } from "@item/physical/index.ts";
+import { Bulk, Coins } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import type { ZeroToFour } from "@module/data.ts";
@@ -95,6 +95,14 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             speed: Number(key),
             activities,
         }));
+
+        const totalCurrency =
+            R.sumBy(members, (actor) => actor.inventory.coins.copperValue ?? 0) +
+            this.actor.inventory.coins.copperValue;
+        const totalWealth =
+            R.sumBy(members, (actor) => actor.inventory.totalWealth.copperValue ?? 0) +
+            this.actor.inventory.totalWealth.copperValue;
+
         return {
             ...base,
             playerRestricted: !game.pf2e.settings.metagame.partyStats,
@@ -102,12 +110,8 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             members: this.#prepareMembers(),
             overviewSummary: this.#prepareOverviewSummary(),
             inventorySummary: {
-                totalCoins:
-                    R.sumBy(members, (actor) => actor.inventory.coins.goldValue ?? 0) +
-                    this.actor.inventory.coins.goldValue,
-                totalWealth:
-                    R.sumBy(members, (actor) => actor.inventory.totalWealth.goldValue ?? 0) +
-                    this.actor.inventory.totalWealth.goldValue,
+                totalCurrency: new Coins({ cp: totalCurrency }).toString({ decimal: true }),
+                totalWealth: new Coins({ cp: totalWealth }).toString({ decimal: true }),
                 totalBulk: members
                     .map((actor) => actor.inventory.bulk.value)
                     .reduce((a, b) => a.plus(b), this.actor.inventory.bulk.value),
@@ -179,8 +183,8 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     img: action.img,
                     traits: createSheetTags(CONFIG.PF2E.actionTraits, action.system.traits?.value ?? []),
                 })),
-                coins: actor.inventory.coins.goldValue,
-                wealth: actor.inventory.totalWealth.goldValue,
+                currency: new Coins(actor.inventory.coins.copperValue).toString({ decimal: true }),
+                wealth: actor.inventory.totalWealth.toString({ decimal: true }),
                 restricted,
             };
         });
@@ -537,8 +541,8 @@ interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
         };
     } | null;
     inventorySummary: {
-        totalCoins: number;
-        totalWealth: number;
+        totalCurrency: string;
+        totalWealth: string;
         totalBulk: Bulk;
     };
     explorationSummary: {
@@ -585,8 +589,8 @@ interface MemberBreakdown {
         traits: SheetOptions;
     }[];
 
-    coins: number;
-    wealth: number;
+    currency: string;
+    wealth: string;
 
     /** If true, the current user is restricted from seeing meta details */
     restricted: boolean;

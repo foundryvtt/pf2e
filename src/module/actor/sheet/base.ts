@@ -14,7 +14,6 @@ import type { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellcastingItemCreator } from "@item/consumable/apps/spellcasting-item-creator/app.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import type { RawCoins } from "@item/physical/data.ts";
 import { sizeItemForActor } from "@item/physical/helpers.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
@@ -63,7 +62,7 @@ import { ActorSizePF2e } from "../data/size.ts";
 import type {
     ActorSheetDataPF2e,
     ActorSheetRenderOptionsPF2e,
-    CoinageSummary,
+    CurrencySummary,
     InventoryItem,
     SheetInventory,
 } from "./data-types.ts";
@@ -136,14 +135,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             attributes[key] = [...attributes[key]].sort((a, b) => a.label.localeCompare(b.label));
         }
 
-        // Calculate financial and total wealth
-        const coins = actor.inventory.coins;
-        const totalCoinage = ActorSheetPF2e.coinsToSheetData(coins);
-        const totalCoinageGold = (coins.copperValue / 100).toFixed(2);
-
-        const totalWealth = actor.inventory.totalWealth;
-        const totalWealthGold = (totalWealth.copperValue / 100).toFixed(2);
-
         const traitsMap = ((): Record<string, string> => {
             switch (actor.type) {
                 case "hazard":
@@ -178,10 +169,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             owner: this.actor.isOwner,
             title: this.title,
             toggles,
-            totalCoinage,
-            totalCoinageGold,
-            totalWealth,
-            totalWealthGold,
+            currency: this.#prepareCurrency(),
             traits: createSheetTags(traitsMap, { value: this.actor.system.traits?.value ?? [] }),
             user: { isGM: game.user.isGM },
             publicationLicenses: [
@@ -247,6 +235,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         const itemSize = new ActorSizePF2e({ value: item.size });
         const sizeDifference = itemSize.difference(actorSize, { smallIsMedium: true });
         const isCurrency = item.isOfType("treasure") && item.isCoinage;
+        const priceUnit = (isCurrency ? item.denomination : null) ?? "primary";
 
         return {
             item,
@@ -269,8 +258,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             isSellable: editable && item.isOfType("treasure") && !item.isCoinage,
             itemSize: sizeDifference !== 0 ? itemSize : null,
             unitBulk: actor.isOfType("loot") ? createBulkPerLabel(item) : null,
-            unitPrice: item.price.value.toString({ short: true }),
-            assetValue: item.assetValue.toString({ short: true, denomination: isCurrency ? item.denomination : null }),
+            unitPrice: item.price.value.toString({ short: true, unit: priceUnit }),
+            assetValue: item.assetValue.toString({ short: true, unit: priceUnit }),
             hidden: false,
         };
     }
@@ -319,14 +308,22 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         }
     }
 
-    protected static coinsToSheetData(coins: RawCoins): CoinageSummary {
-        return DENOMINATIONS.reduce(
-            (accumulated, d) => ({
-                ...accumulated,
-                [d]: { value: coins[d], label: CONFIG.PF2E.currencies[d] },
-            }),
-            {} as CoinageSummary,
-        );
+    #prepareCurrency(): CurrencySummary {
+        const actor = this.actor;
+        const coins = actor.inventory.coins;
+        const totalWealth = actor.inventory.totalWealth;
+
+        return {
+            units: DENOMINATIONS.reduce(
+                (accumulated, d) => ({
+                    ...accumulated,
+                    [d]: { value: coins[d], label: CONFIG.PF2E.currencies[d] },
+                }),
+                {} as CurrencySummary["units"],
+            ),
+            totalCurrency: coins.toString({ decimal: true }),
+            totalWealth: totalWealth.toString({ decimal: true }),
+        };
     }
 
     protected getAttackActionFromDOM(button: HTMLElement, readyOnly = false): AttackAction | null {
