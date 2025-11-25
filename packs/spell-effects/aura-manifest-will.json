@@ -22,31 +22,89 @@
         },
         "rules": [
             {
-                "actorFlag": true,
-                "choices": [
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "manifest-will-tradition",
+                "placement": "spellcasting",
+                "suboptions": [
                     {
                         "label": "PF2E.TraitArcane",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:tag:multifaceted-will",
+                                    "parent:spellcasting:tradition:arcane"
+                                ]
+                            }
+                        ],
                         "value": "arcane"
                     },
                     {
                         "label": "PF2E.TraitDivine",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:tag:multifaceted-will",
+                                    "parent:spellcasting:tradition:divine"
+                                ]
+                            }
+                        ],
                         "value": "divine"
                     },
                     {
                         "label": "PF2E.TraitOccult",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:tag:multifaceted-will",
+                                    "parent:spellcasting:tradition:occult"
+                                ]
+                            }
+                        ],
                         "value": "occult"
                     },
                     {
                         "label": "PF2E.TraitPrimal",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:tag:multifaceted-will",
+                                    "parent:spellcasting:tradition:primal"
+                                ]
+                            }
+                        ],
                         "value": "primal"
                     }
                 ],
-                "flag": "manifestWill",
-                "key": "ChoiceSet",
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.manifestWillTradition",
+                "value": "{item|flags.pf2e.rulesSelections.manifestWillTradition}"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
                 "predicate": [
-                    "parent:origin:item:tag:multifaceted-will"
+                    "item:slug:manifest-will"
                 ],
-                "prompt": "PF2E.SpecificRule.Prompt.Tradition"
+                "property": "other-tags",
+                "value": "manifest-will:{item|flags.pf2e.rulesSelections.manifestWillTradition}"
             },
             {
                 "effects": [
