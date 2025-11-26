@@ -21,9 +21,8 @@ class TreasurePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         this: TreasurePF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
     ): Promise<RawItemChatData> {
-        const systemData = this.system;
         const traits = this.traitChatData({});
-        return this.processChatData(htmlOptions, { ...systemData, traits });
+        return this.processChatData(htmlOptions, { ...(await super.getChatData()), traits });
     }
 }
 

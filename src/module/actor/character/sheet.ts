@@ -486,7 +486,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             item: f.item,
             dc: f.dc,
             batchSize: this.#formulaQuantities[f.uuid] ?? f.batchSize,
-            cost: Coins.fromPrice(f.item.price, this.#formulaQuantities[f.uuid] ?? f.batchSize),
+            cost: Coins.fromPrice(f.item.price, this.#formulaQuantities[f.uuid] ?? f.batchSize).toString(),
         }));
         const knownFormulas = R.pipe(
             sheetFormulas,
@@ -1607,7 +1607,7 @@ interface FormulaSheetData {
     item: ItemPF2e;
     dc: number;
     batchSize: number;
-    cost: Coins;
+    cost: string;
 }
 
 interface FormulaByLevel {

@@ -776,6 +776,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return {
             rarity,
             description: this.system.description,
+            price: this.system.price.value.toString(),
             material,
         };
     }

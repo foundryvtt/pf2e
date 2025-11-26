@@ -34,7 +34,7 @@
 
     <footer{{#unless item.isIdentified}} data-visibility="gm"{{/unless}}>
         <span>{{localize "PF2E.Item.Physical.LevelLabel" level=item.level}}</span>
-        <span>{{localize "PF2E.Item.Physical.PriceLabel" price=(coinLabel item.price)}}</span>
+        <span>{{localize "PF2E.Item.Physical.PriceLabel" price=data.price}}</span>
         {{#each data.properties as |property|}}
             <span class="tag tag_alt">{{localize property}}</span>
         {{/each}}

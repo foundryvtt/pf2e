@@ -1,5 +1,3 @@
-import type { PartialPrice, RawCoins } from "@item/physical/data.ts";
-import { Coins } from "@item/physical/helpers.ts";
 import { getActionGlyph, ordinalString, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
 
@@ -100,15 +98,6 @@ export function registerHandlebarsHelpers(): void {
         const emptyStringZero = !!options.hash.emptyStringZero;
         const zeroIsNegative = !!options.hash.zeroIsNegative;
         return signedInteger(number, { emptyStringZero, zeroIsNegative });
-    });
-
-    Handlebars.registerHelper("coinLabel", (value: Maybe<RawCoins | PartialPrice>): Coins | null => {
-        if (!value) return null;
-        if ("value" in value) {
-            // todo: handle per pricing
-            return new Coins(value.value);
-        }
-        return new Coins(value);
     });
 
     Handlebars.registerHelper("includes", (data: unknown, element: unknown): boolean => {
