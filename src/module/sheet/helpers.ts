@@ -180,6 +180,7 @@ function getBasePhysicalItemViewData(item: PhysicalItemPF2e): BasePhysicalItemVi
         level: item.level,
         rarity: item.rarity,
         traits: item.traitChatData(),
+        isTemporary: item.isTemporary,
     };
 }
 
@@ -333,6 +334,7 @@ interface BasePhysicalItemViewData {
     traits: TraitChatData[];
     level: number | null;
     rarity: Rarity | null;
+    isTemporary: boolean;
 }
 
 export {

@@ -39,8 +39,11 @@
             >
                 <span>
                     {ammo.name}
+                    {#if ammo.isTemporary}
+                        <i class="fa-solid fa-clock" inert></i>
+                    {/if}
                     {#if ammo.uses}
-                        <span>
+                        <span class="uses">
                             <span class="icon">
                                 <HeavyBullets />
                             </span>
@@ -123,6 +126,7 @@
                 }
             }
 
+            .uses,
             .quantity {
                 margin-left: var(--space-4);
             }
