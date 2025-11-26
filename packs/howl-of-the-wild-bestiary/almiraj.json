@@ -197,7 +197,40 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "reactive-strike-horn",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "hideIfDisabled": true,
+                        "key": "DamageDice",
+                        "predicate": [
+                            "reactive-strike-horn",
+                            "target:condition:fleeing"
+                        ],
+                        "selector": "horn-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "reactive-strike-horn"
+                        ],
+                        "selector": [
+                            "horn-attack"
+                        ],
+                        "text": "PF2E.NPCAbility.Almiraj.ReactiveStrikeNote",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "reactive-strike",
                 "traits": {
                     "rarity": "common",
