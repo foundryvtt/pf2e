@@ -330,8 +330,9 @@
                     "value": null
                 },
                 "category": "defensive",
+                "deathNote": true,
                 "description": {
-                    "value": "<p>When the stone spider reaches 0 Hit Points, its spirit dissipates. If its bonded vessel is intact, the stone spider re-forms in this vessel after [[/br 2d4 #days]]{2d4 days}, fully healed. If the vessel is broken, it must first be Repaired, after which the stone spider re-forms in [[/br 3d4 #days]]{3d4 days}.</p>"
+                    "value": "<p>When the stone spider reaches 0 Hit Points, its spirit dissipates. If its bonded vessel is intact, the stone spider re-forms in this vessel after [[/gmr 2d4 #days]]{2d4 days}, fully healed. If the vessel is broken, it must first be Repaired, after which the stone spider re-forms in [[/gmr 3d4 #days]]{3d4 days}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -362,7 +363,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The spider touches and melds with its bonded vessel, bringing it to life. It can cease Inhabiting its Vessel by spending a single action, which has the concentrate trait. While Inhabiting the Vessel, it loses its fly Speed and gains</p>\n<p><strong>Immunities</strong> healing, nonlethal</p>\n<p><strong>Resistances</strong> physical 6 (except bludgeoning)</p>\n<p><strong>Speed</strong> 25 feet, climb 25 feet</p>\n<p>and the following Strike.</p>\n<ul>\n<li>Melee <span class=\"action-glyph\">1</span> stone fangs +14 (finesse), Damage 2d8+7 piercing</li>\n</ul>"
+                    "value": "<p>The spider touches and melds with its bonded vessel, bringing it to life. It can cease Inhabiting its Vessel by spending a single action, which has the concentrate trait. While Inhabiting the Vessel, it loses its fly Speed and gains</p>\n<p><strong>Immunities</strong> healing, nonlethal</p>\n<p><strong>Resistances</strong> physical 6 (except bludgeoning)</p>\n<p><strong>Speed</strong> 25 feet, climb 25 feet</p>\n<p>and the following Strike.</p><ul><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> stone fangs +14 (finesse), <strong>Damage</strong> 2d8+7 piercing</li></ul>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -466,7 +467,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When not Inhabiting its Vessel, the stone spider is incorporeal and gains resistance 6 to all damage (except force damage and ghost touch; double resistance against non-magical).</p>"
+                    "value": "<p>When not Inhabiting its Vessel, the stone spider is incorporeal and gains resistance 6 to all damage (except force damage and <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em>; double resistance against non-magical).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -474,6 +475,17 @@
                     "title": ""
                 },
                 "rules": [
+                    {
+                        "add": [
+                            "incorporeal"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            {
+                                "not": "inhabit-vessel"
+                            }
+                        ]
+                    },
                     {
                         "doubleVs": [
                             "non-magical"
