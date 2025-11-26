@@ -4,9 +4,11 @@
         <h3>{{item.name}}</h3>
     </header>
 
-    <div class="card-content">
-        {{{data.description.value}}}
-    </div>
+    {{#if data.description.value}}
+        <div class="card-content">
+            {{{data.description.value}}}
+        </div>
+    {{/if}}
 
     {{#unless (eq item.system.stackGroup "coins")}}
         <footer{{#unless item.isIdentified}} data-visibility="gm"{{/unless}}>

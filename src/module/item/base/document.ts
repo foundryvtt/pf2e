@@ -214,7 +214,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         // Basic template rendering data
         const sluggifiedType = sluggify(this.type);
-        const templateBase = ["weapon", "armor", "backpack"].includes(sluggifiedType) ? "equipment" : sluggifiedType;
+        const templateBase = this.isOfType("weapon", "ammo", "armor", "backpack") ? "equipment" : sluggifiedType;
         const template = `${SYSTEM_ROOT}/templates/chat/${templateBase}-card.hbs`;
         const token = this.actor.token;
         const nearestItem = htmlClosest(event?.target, ".item");
