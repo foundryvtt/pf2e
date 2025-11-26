@@ -1,0 +1,67 @@
+{
+    "_id": "x73LKNcaRwurr0fR",
+    "img": "systems/pf2e/icons/actions/FreeAction.webp",
+    "name": "Sickening Assault",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": null,
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Requirements</strong> Your eidolon is dispersed.</p><hr /><p>Your eidolon focuses on inflicting the most damage possible on its foes. If your eidolon's next action is to use @UUID[Compendium.pf2e.actionspf2e.Item.Swarming Assault], the number of damage dice of the Swarming Assault are doubled. Additionally, creatures that fail their Reflex save against that Swarming Assault are @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 4} on a critical failure).</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT1M"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "sickening-assault",
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:swarming-assault",
+                    "sickening-assault"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "@Embed[Compendium.pf2e.actionspf2e.Item.x73LKNcaRwurr0fR inline]"
+                    }
+                ]
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "multiply",
+                "predicate": [
+                    "sickening-assault"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "swarming-assault-inline-damage"
+                ],
+                "value": 2
+            }
+        ],
+        "traits": {
+            "value": [
+                "concentrate",
+                "eidolon"
+            ]
+        }
+    },
+    "type": "action"
+}
