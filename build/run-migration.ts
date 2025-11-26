@@ -1,3 +1,5 @@
+import "./global.ts";
+
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ACTOR_TYPES } from "@actor/values.ts";
 import type { CompendiumDocument } from "@client/documents/_module.d.mts";
@@ -8,7 +10,6 @@ import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { sluggify } from "@util";
 import fs from "fs-extra";
-import { JSDOM } from "jsdom";
 import path from "path";
 import * as R from "remeda";
 import "./lib/foundry-utils.ts";
@@ -29,12 +30,6 @@ import { Migration950AmmoConsumableToAmmoAmmo } from "@module/migration/migratio
 import { Migration951TreasureCategories } from "@module/migration/migrations/951-treasure-categories.ts";
 import { Migration952AmmoTraitsAndOptions } from "@module/migration/migrations/952-ammo-traits-options.ts";
 import { Migration953NotStrikeDamage } from "@module/migration/migrations/953-not-strike-damage.ts";
-
-const { window } = new JSDOM();
-globalThis.document = window.document;
-globalThis.HTMLElement = window.HTMLElement;
-globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
-globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
     new Migration937RemoveInvalidAuraTraits(),
