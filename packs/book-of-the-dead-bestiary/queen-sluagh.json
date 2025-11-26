@@ -740,7 +740,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The queen sluagh becomes incorporeal until the start of their next turn, and Flies up to their fly Speed. While incorporeal, they are immune to precision damage, and have resistance 10 to all damage (except force, ghost touch, or vitality); this resistance is doubled against non-magical damage.</p>\n<p>After using Ghostly Swoop, the queen sluagh can't use it again for [[/gmr 1d4 #Recharge]]{1d4 rounds}.</p>"
+                    "value": "<p>The queen sluagh becomes incorporeal until the start of their next turn, and Flies up to their fly Speed. While incorporeal, they are immune to precision damage, and have resistance 10 to all damage (except force, <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em>, or vitality); this resistance is doubled against non-magical damage.</p>\n<p>After using Ghostly Swoop, the queen sluagh can't use it again for [[/gmr 1d4 #Recharge Ghostly Swoop]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -754,6 +754,25 @@
                         "toggleable": true
                     },
                     {
+                        "add": [
+                            "incorporeal"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            "ghostly-swoop"
+                        ]
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "ghostly-swoop"
+                        ],
+                        "type": "precision"
+                    },
+                    {
+                        "doubleVs": [
+                            "non-magical"
+                        ],
                         "exceptions": [
                             "force",
                             "ghost-touch",
