@@ -39,6 +39,22 @@
             {
                 "key": "GrantItem",
                 "uuid": "{item|flags.pf2e.rulesSelections.instinct}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.ragingResistance",
+                "value": "3 + @actor.abilities.con.mod"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.ragingResistance",
+                "priority": 55,
+                "predicate": [
+                    "feat:unstoppable-juggernaut"
+                ],
+                "value": "8 + @actor.abilities.con.mod"
             }
         ],
         "traits": {
