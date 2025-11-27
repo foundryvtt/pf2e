@@ -33,7 +33,6 @@ import type {
 } from "./data.ts";
 import { Coins, computeLevelRarityPrice, getDefaultEquipStatus, handleHPChange, prepareBulkData } from "./helpers.ts";
 import { getUsageDetails, isEquipped } from "./usage.ts";
-import { DENOMINATIONS } from "./values.ts";
 
 abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     /** The item in which this item is embedded */
@@ -270,7 +269,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         if (traits.includes("infused")) this.system.temporary = true;
 
         // Normalize and fill price data
-        this.system.price.value = new Coins(this.system.temporary ? {} : this.system.price.value);
+        this.system.price.value = this.system.temporary ? 0 : this.system.price.value;
         this.system.price.per = Math.max(1, this.system.price.per ?? 1);
         this.system.price.sizeSensitive ??= true;
 
@@ -352,7 +351,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         const { level, rarity, price } = computeLevelRarityPrice(this);
         this.system.level.value = level;
         this.system.traits.rarity = rarity;
-        this.system.price.value = price;
+        this.system.price.value = price.value;
 
         // Update properties according to identification status
         const mystifiedData = this.getMystifiedData(this.identificationStatus);
@@ -639,8 +638,6 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         const thisData = this.toObject().system;
         const otherData = item.toObject().system;
-        thisData.price.value = { cp: new Coins(thisData.price.value).copperValue };
-        otherData.price.value = { cp: new Coins(otherData.price.value).copperValue };
         thisData.quantity = otherData.quantity;
         thisData.equipped = otherData.equipped;
         thisData.containerId = otherData.containerId;
@@ -918,14 +915,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         if (operation.checkHP ?? true) handleHPChange(this, changed);
 
-        // Clear 0 price denominations and per fields with values 0 or 1
+        // Some modules may continue to try to save coins as an object. Don't error for now, but we will need to warn soon
         if (R.isPlainObject(changed.system.price)) {
             const price: Record<string, unknown> = changed.system.price;
             if (R.isPlainObject(price.value)) {
-                const coins = price.value;
-                for (const denomination of DENOMINATIONS) {
-                    if (coins[denomination] === 0) coins[`-=${denomination}`] = null;
-                }
+                price.value = new Coins(price.value).value;
             }
             if ("per" in price) price.per = Math.max(1, Math.floor(Number(price.per) || 1));
         }

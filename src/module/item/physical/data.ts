@@ -5,7 +5,6 @@ import type { Size, TraitsWithRarity, ZeroToTwo } from "@module/data.ts";
 import type { MaterialDamageEffect } from "@system/damage/types.ts";
 import type { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, TraitConfig } from "../base/data/system.ts";
 import type { ITEM_CARRY_TYPES } from "../base/data/values.ts";
-import type { Coins } from "./helpers.ts";
 import type { PhysicalItemTrait, PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
 import type { UsageDetails } from "./usage.ts";
 
@@ -24,7 +23,7 @@ interface PhysicalSystemSource extends ItemSystemSource {
     bulk: { value: number };
     hp: PhysicalItemHPSource;
     hardness: number;
-    price: PartialPrice;
+    price: Price;
     equipped: EquippedData;
     identification: IdentificationSource;
     containerId: string | null;
@@ -137,15 +136,11 @@ type RawCoins = {
     cp?: number;
 };
 
-interface PartialPrice {
-    value: RawCoins;
-    per?: number;
+interface Price {
+    value: number;
+    per: number;
     /** Whether the price adjusts according to its size */
     sizeSensitive?: boolean;
-}
-
-interface Price extends Required<PartialPrice> {
-    value: Coins;
 }
 
 export type {
@@ -160,7 +155,6 @@ export type {
     ItemMaterialData,
     ItemMaterialSource,
     MystifiedData,
-    PartialPrice,
     PhysicalItemHitPoints,
     PhysicalItemHPSource,
     PhysicalItemTrait,

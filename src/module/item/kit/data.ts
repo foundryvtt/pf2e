@@ -4,8 +4,10 @@ import type { KitPF2e } from "@item";
 import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/model.ts";
 import type { BaseItemSourcePF2e, ItemSystemSource } from "@item/base/data/system.ts";
 import type { ClassTrait } from "@item/class/types.ts";
+import { Coins } from "@item/physical/coins.ts";
 import { PriceField } from "@item/physical/schema.ts";
 import { NullField, RecordField, SlugField } from "@system/schema-data-fields.ts";
+import * as R from "remeda";
 import fields = foundry.data.fields;
 
 class KitEntriesField extends RecordField<
@@ -95,6 +97,18 @@ class KitSystemData extends ItemSystemModel<KitPF2e, KitSystemSchema> {
             items: new KitEntriesField(),
             price: new PriceField(),
         };
+    }
+
+    static override migrateData(source: Record<string, unknown>): Record<string, unknown> {
+        const migrated = super.migrateData(source);
+        if (R.isPlainObject(migrated?.price)) {
+            if (R.isPlainObject(migrated.price.value)) {
+                migrated.price.value = new Coins(migrated.price.value).value;
+            } else if (typeof migrated.price.value === "string") {
+                migrated.price.value = Coins.fromString(migrated.price.value).value;
+            }
+        }
+        return migrated;
     }
 }
 

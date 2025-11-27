@@ -14,7 +14,7 @@ import type { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellcastingItemCreator } from "@item/consumable/apps/spellcasting-item-creator/app.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { sizeItemForActor } from "@item/physical/helpers.ts";
+import { Coins, sizeItemForActor } from "@item/physical/helpers.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
@@ -258,7 +258,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             isSellable: editable && item.isOfType("treasure") && !item.isCoinage,
             itemSize: sizeDifference !== 0 ? itemSize : null,
             unitBulk: actor.isOfType("loot") ? createBulkPerLabel(item) : null,
-            unitPrice: item.price.value.toString({ short: true, unit: priceUnit }),
+            unitPrice: new Coins(item.price.value).toString({ short: true, unit: priceUnit }),
             assetValue: item.assetValue.toString({ short: true, unit: priceUnit }),
             hidden: false,
         };

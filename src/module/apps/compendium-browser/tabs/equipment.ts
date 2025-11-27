@@ -84,7 +84,6 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     const priceValue = itemData.system.price.value;
                     const priceCoins =
                         typeof priceValue === "string" ? Coins.fromString(priceValue) : new Coins(priceValue);
-                    const coinValue = priceCoins.copperValue;
 
                     // Prepare publication source
                     const { system } = itemData;
@@ -114,7 +113,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         category: itemData.system.category ?? "",
                         group: itemData.system.group ?? "",
                         price: priceCoins,
-                        priceInCopper: coinValue,
+                        priceInCopper: priceCoins.copperValue,
                         traits: R.unique(itemData.system.traits.value),
                         rarity: itemData.system.traits.rarity,
                         source: sourceSlug,
@@ -207,8 +206,8 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             const minCoins = Coins.fromString(lower);
             const maxCoins = Coins.fromString(upper);
             return {
-                min: minCoins.copperValue,
-                max: maxCoins.copperValue,
+                min: minCoins.value,
+                max: maxCoins.value,
                 inputMin: minCoins.toString({ short: true, unit: "raw" }),
                 inputMax: maxCoins.toString({ short: true, unit: "raw" }),
             };

@@ -18,7 +18,7 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         );
         return {
             ...(await super.getData(options)),
-            priceString: this.item.price.value.toString(),
+            priceString: new Coins(this.item.price.value).toString(),
             items,
         };
     }
@@ -77,9 +77,7 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        // Convert price from a string to an actual object
-        const priceString = String(formData["system.price.value"] ?? "").trim();
-        formData["system.price.value"] = Coins.fromString(priceString).toObject();
+        formData["system.price.value"] = Coins.fromString(String(formData["system.price.value"] ?? "").trim()).value;
         return super._updateObject(event, formData);
     }
 }

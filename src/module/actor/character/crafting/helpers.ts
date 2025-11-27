@@ -23,7 +23,7 @@ interface Costs {
 }
 
 function calculateDaysToNoCost(costs: Costs): number {
-    return Math.ceil((costs.itemPrice.copperValue - costs.materials.copperValue) / costs.reductionPerDay.copperValue);
+    return Math.ceil((costs.itemPrice.value - costs.materials.value) / costs.reductionPerDay.value);
 }
 
 async function prepStrings(costs: Costs, item: PhysicalItemPF2e) {

@@ -14,7 +14,7 @@ import { getMaterialValuationData } from "./materials.ts";
 import { RUNE_DATA, getRuneValuationData } from "./runes.ts";
 
 function computePrice(item: PhysicalItemPF2e): Coins {
-    if (item.isOfType("treasure")) return item.price.value;
+    if (item.isOfType("treasure")) return new Coins(item.price.value);
 
     // Adjust the item price according to precious material and runes
     // Base prices are not included in these cases
@@ -34,12 +34,12 @@ function computePrice(item: PhysicalItemPF2e): Coins {
             : (RUNE_DATA.shield.reinforcing[item.system.runes.reinforcing]?.price ?? 0);
     const runeValue = item.isSpecific ? 0 : runesData.reduce((sum, rune) => sum + rune.price, 0) - reinforcingRuneValue;
 
-    const basePrice = materialValue > 0 || runeValue > 0 ? new Coins() : item.price.value;
+    const basePrice = new Coins(materialValue > 0 || runeValue > 0 ? 0 : item.price.value);
     const gradeValue = item.isSpecific ? 0 : getGradeData(item).price;
     const afterMaterialAndRunes = runeValue
         ? new Coins({ gp: runeValue + materialValue })
         : basePrice.plus({ gp: gradeValue + materialValue });
-    const higher = afterMaterialAndRunes.copperValue > basePrice.copperValue ? afterMaterialAndRunes : basePrice;
+    const higher = afterMaterialAndRunes.value > basePrice.value ? afterMaterialAndRunes : basePrice;
     const afterReinforcingRune = higher.plus(new Coins({ gp: reinforcingRuneValue }));
     const afterShoddy = item.isShoddy ? afterReinforcingRune.scale(0.5) : afterReinforcingRune;
 

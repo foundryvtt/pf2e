@@ -2,6 +2,7 @@ import type { ImageFilePath } from "@common/constants.d.mts";
 import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/model.ts";
 import type { ItemDescriptionData } from "@item/base/data/system.ts";
 import { ITEM_CARRY_TYPES } from "@item/base/data/values.ts";
+import { Coins } from "@item/physical/coins.ts";
 import type {
     BasePhysicalItemSource,
     BulkData,
@@ -14,12 +15,13 @@ import type {
     Price,
 } from "@item/physical/data.ts";
 import { PriceField } from "@item/physical/schema.ts";
-import type { PreciousMaterialGrade, PreciousMaterialType } from "@item/physical/types.ts";
+import type { CoinDenomination, PreciousMaterialGrade, PreciousMaterialType } from "@item/physical/types.ts";
 import type { CarriedUsage } from "@item/physical/usage.ts";
-import { PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
+import { DENOMINATION_RATES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
 import { ItemSize } from "@item/types.ts";
 import { RarityField } from "@module/model.ts";
 import { LaxArrayField, SlugField } from "@system/schema-data-fields.ts";
+import * as R from "remeda";
 import type { TreasurePF2e } from "./document.ts";
 import { TreasureCategory } from "./types.ts";
 import { TREASURE_CATEGORIES } from "./values.ts";
@@ -131,6 +133,15 @@ class TreasureSystemData extends ItemSystemModel<TreasurePF2e, TreasureSystemSch
         if (migrated.size === "sm") migrated.size = "med";
         if (migrated.stackGroup === "coins") migrated.category = "coin";
         else if (migrated.stackGroup === "gems") migrated.category = "gem";
+        if (migrated.category === "coin" && migrated.denomination) {
+            migrated.price = { value: DENOMINATION_RATES[migrated.denomination as CoinDenomination] ?? 1 };
+        } else if (R.isPlainObject(migrated?.price)) {
+            if (R.isPlainObject(migrated.price.value)) {
+                migrated.price.value = new Coins(migrated.price.value).value;
+            } else if (typeof migrated.price.value === "string") {
+                migrated.price.value = Coins.fromString(migrated.price.value).value;
+            }
+        }
         return migrated;
     }
 
