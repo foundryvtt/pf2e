@@ -1,0 +1,51 @@
+{
+    "_id": "m5kXngVAHiprZea1",
+    "img": "icons/magic/fire/barrier-shield-explosion-yellow.webp",
+    "name": "Effect: Consume Power",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Consume Power]</p>\n<p>You gain a status bonus equal to half your level to the damage of your metal impulse.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:metal",
+                    "item:trait:impulse"
+                ],
+                "selector": [
+                    "inline-damage",
+                    "impulse-damage"
+                ],
+                "type": "status",
+                "value": "floor(@actor.level/2 )"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
