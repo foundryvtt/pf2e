@@ -4,7 +4,7 @@
     "name": "Spell Effect: Helpful Reload",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Helpful Reload]</p>\n<p>You gain a +1 status bonus to your next Strike.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Helpful Reload]</p>\n<p>You gain a +1 status bonus to your next Strike with the chosen weapon.</p>"
         },
         "duration": {
             "expiry": null,
@@ -44,7 +44,7 @@
             {
                 "key": "FlatModifier",
                 "removeAfterRoll": "if-enabled",
-                "selector": "{item|id}-attack",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-attack",
                 "type": "status",
                 "value": 1
             }
