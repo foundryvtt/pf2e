@@ -1,7 +1,7 @@
 import type { Size } from "@module/data.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
-import type { PartialPrice, RawCoins } from "./data.ts";
+import type { Price, RawCoins } from "./data.ts";
 import type { CoinDenomination } from "./types.ts";
 import { DENOMINATION_RATES, DENOMINATIONS } from "./values.ts";
 
@@ -34,14 +34,19 @@ class Coins implements RawCoins {
         this.sp = value;
     }
 
-    /** The total value of this coins in copper */
-    get copperValue(): number {
+    /** The total value of this coins in an integer format. */
+    get value(): number {
         const { cp, sp, gp, pp } = this;
         return cp + sp * 10 + gp * 100 + pp * 1000;
     }
 
+    /** The total value of this coins in copper. Equal to value */
+    get copperValue(): number {
+        return this.value;
+    }
+
     get goldValue(): number {
-        return this.copperValue / 100;
+        return this.value / 100;
     }
 
     plus(coins: RawCoins): Coins {
@@ -138,9 +143,9 @@ class Coins implements RawCoins {
         return new Coins(result);
     }
 
-    static fromPrice(price: PartialPrice, factor: number): Coins {
+    static fromPrice(price: Partial<Price>, factor: number): Coins {
         const per = Math.max(1, price.per ?? 1);
-        return new Coins(price.value).scale(factor / per);
+        return new Coins(price.value ?? 0).scale(factor / per);
     }
 
     /** Creates a new price string such as "5 gp" from this object */
@@ -160,7 +165,7 @@ class Coins implements RawCoins {
         }
 
         // Simplify to GP if normalization is enabled
-        const coins = normalize ? new Coins({ cp: this.copperValue }) : this;
+        const coins = normalize ? new Coins(this.value) : this;
         if (normalize) {
             coins.sp += Math.floor(coins.cp / 10);
             coins.cp = coins.cp % 10;

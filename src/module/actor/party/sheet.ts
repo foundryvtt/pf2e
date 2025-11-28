@@ -88,7 +88,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const members = this.actor.members;
         const canDistributeCoins =
             game.user.isGM && this.isEditable
-                ? { enabled: this.actor.inventory.coins.copperValue > 0 && members.some(isReallyPC) }
+                ? { enabled: this.actor.inventory.coins.value > 0 && members.some(isReallyPC) }
                 : null;
         const travelSpeed = this.actor.system.movement.speeds.travel.value;
         const hexplorationActivities = Object.entries(CONFIG.PF2E.hexplorationActivities).map(([key, activities]) => ({

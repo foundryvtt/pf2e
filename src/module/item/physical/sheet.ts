@@ -26,7 +26,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             better: "lower",
         });
         const basePrice = new Coins(item._source.system.price.value);
-        const priceAdjustment = getAdjustment(item.system.price.value.copperValue, basePrice.copperValue);
+        const priceAdjustment = getAdjustment(item.system.price.value, basePrice.value);
 
         // Enrich content
         const rollData = { ...item.getRollData(), ...this.actor?.getRollData() };
@@ -54,8 +54,8 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         const adjustedPriceHint = (() => {
             if (!priceAdjustment) return null;
             const baseData = item._source;
-            const basePrice = new Coins(baseData.system.price.value).scale(baseData.system.quantity).copperValue;
-            const derivedPrice = item.assetValue.copperValue;
+            const basePrice = new Coins(baseData.system.price.value).scale(baseData.system.quantity).value;
+            const derivedPrice = item.assetValue.value;
             const priceLabel =
                 game.i18n.lang === "de"
                     ? game.i18n.localize("PF2E.PriceLabel")
@@ -83,7 +83,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             adjustedLevelHint,
             price: {
                 base: new Coins(item._source.system.price.value).toString({ short: true }),
-                label: item.system.price.value.toString({ short: true }),
+                label: new Coins(item.system.price.value).toString({ short: true }),
                 adjustment: priceAdjustment,
                 adjustmentHint: adjustedPriceHint,
                 per: item.system.price.per,
@@ -203,10 +203,8 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             formData["system.baseItem"] = null;
         }
 
-        // Convert price from a string to an actual object
         if ("system.price.value" in formData) {
-            formData["system.price.==value"] = Coins.fromString(String(formData["system.price.value"])).toObject();
-            delete formData["system.price.value"];
+            formData["system.price.value"] = Coins.fromString(String(formData["system.price.value"])).value;
         }
 
         return super._updateObject(event, formData);

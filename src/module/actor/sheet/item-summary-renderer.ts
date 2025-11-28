@@ -3,6 +3,7 @@ import type Application from "@client/appv1/api/application-v1.d.mts";
 import type { ClientDocument } from "@client/documents/abstract/client-document.d.mts";
 import { AbstractEffectPF2e, ItemPF2e } from "@item";
 import type { RawItemChatData } from "@item/base/data/index.ts";
+import { Coins } from "@item/physical/coins.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, htmlSelectorFor } from "@util";
 
@@ -121,8 +122,8 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
                 price: !price
                     ? null
                     : price.per > 1
-                      ? `${price.value.toString()} / ${price.per}`
-                      : price.value.toString(),
+                      ? `${new Coins(price.value).toString()} / ${price.per}`
+                      : new Coins(price.value).toString(),
             },
         );
 
