@@ -91,7 +91,18 @@
                     "value": ""
                 },
                 "counteraction": false,
-                "damage": {},
+                "damage": {
+                    "O3qtZtTquCRAFJRB": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "6d12",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "mental"
+                    }
+                },
                 "defense": {
                     "save": {
                         "basic": false,
@@ -99,7 +110,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You send a wave of nightmarish visions crashing over your targets, leaving them @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] by fear. These visions inflict real wounds on vulnerable targets, dealing 6d12 mental damage. If you target a sleeping creature, it wakes up as it attempts the save but takes one degree of success worse than the result it rolled on its save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and takes half the mental damage.</p>\n<p><strong>Failure</strong> The target is frightened 2, is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round, and takes the full mental damage.</p>\n<p><strong>Critical Failure</strong> The target is frightened 2, is paralyzed for 2 rounds, and takes double the mental damage.</p>"
+                    "value": "<p>You send a wave of nightmarish visions crashing over your targets, leaving them paralyzed by fear. These visions inflict real wounds on vulnerable targets, dealing 6d12 mental damage. If you target a sleeping creature, it wakes up as it attempts the save but takes one degree of success worse than the result it rolled on its save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and takes half the mental damage.</p>\n<p><strong>Failure</strong> The target is frightened 2, is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round, and takes the full mental damage.</p>\n<p><strong>Critical Failure</strong> The target is frightened 2, is paralyzed for 2 rounds, and takes double the mental damage.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -190,9 +201,9 @@
                     "value": "i9n83kpzodl3aipv"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "120 feet"
@@ -216,6 +227,7 @@
                         "illusion",
                         "incapacitation",
                         "manipulate",
+                        "subtle",
                         "visual"
                     ]
                 }
@@ -231,7 +243,10 @@
             "name": "Strange Geometry",
             "sort": 400000,
             "system": {
-                "area": null,
+                "area": {
+                    "type": "cube",
+                    "value": 10
+                },
                 "cost": {
                     "value": ""
                 },
@@ -244,7 +259,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You cause the areas to appear to swell, bend, and break, twisting together in a bizarre spatial geometry. The cubes of the spell's area can't be adjacent to one another. A creature must attempt a Will save if it's in one of the cubes when you Cast the Spell, or if it later enters one of the areas, with the following effects. A creature interacting with the illusion can also attempt a Will save to disbelieve the illusion, as normal.</p>\n<hr />\n<p><strong>Success</strong> The creature disbelieves the illusion.</p>\n<p><strong>Failure</strong> All terrain in the cubes is difficult terrain for the creature, including the air if the creature is flying, walls if it's climbing, and so on. When the creature would exit one of the cubes, it exits from one randomly determined by the GM. This is a teleportation effect. It can exit from any edge of that cube it chooses. When selecting a random cube, the GM excludes any that don't match the creature's terrain; for instance, if the creature were exiting along the ground, the GM would exclude any cube that didn't have an exit on the ground.</p>"
+                    "value": "<p><strong>Area</strong> 4 cubes, each 10 feet on a side</p>\n<p>You cause the areas to appear to swell, bend, and break, twisting together in a bizarre spatial geometry. The cubes of the spell's area can't be adjacent to one another. A creature must attempt a Will save if it's in one of the cubes when you Cast the Spell, or if it later enters one of the areas, with the following effects. A creature interacting with the illusion can also attempt a Will save to disbelieve the illusion, as normal.</p><hr /><p><strong>Success</strong> The creature disbelieves the illusion.</p>\n<p><strong>Failure</strong> All terrain in the cubes is difficult terrain for the creature, including the air if the creature is flying, walls if it's climbing, and so on. When the creature would exit one of the cubes, it exits from one randomly determined by the GM. This is a teleportation effect. It can exit from any edge of that cube it chooses. When selecting a random cube, the GM excludes any that don't match the creature's terrain; for instance, if the creature were exiting along the ground, the GM would exclude any cube that didn't have an exit on the ground.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -262,9 +277,9 @@
                     "value": "i9n83kpzodl3aipv"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "range": {
                     "value": "60 feet"
@@ -326,9 +341,9 @@
                     "value": "i9n83kpzodl3aipv"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "120 feet"
@@ -376,16 +391,11 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>The target makes no sound, preventing creatures from noticing it using hearing or other senses alone. The target can't use sonic attacks, nor can it use actions with the auditory trait. This prevents it from casting spells that include verbal components.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell effect emanates from the touched creature, silencing all sound in or passing through a 10- foot radius and preventing any auditory and sonic effects in the affected area. While within the radius, creatures are subject to the same effects as the target. Depending upon the position of the effect, a creature might notice the lack of sound reaching it (blocking off the noise coming from a party, for example).</p>"
+                    "value": "<p>The target makes no sound, preventing creatures from noticing it using hearing alone. The target can't use sonic attacks, nor can it use actions with the auditory trait. This prevents it from casting spells due to the magical words involved in casting, with the exception of subtle spells.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Silence]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell creates an aura in a 10-foot emanation around the touched creature, silencing all sound in or passing through it. While within the aura, creatures are subject to the same effects as the target. Depending upon the position of the effect, a creature might notice the lack of sound reaching it (blocking off the noise coming from a party, for example).</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": "1 minute"
-                },
-                "heightening": {
-                    "damage": {},
-                    "interval": 1,
-                    "type": "interval"
                 },
                 "level": {
                     "value": 2
@@ -395,9 +405,9 @@
                     "value": "i9n83kpzodl3aipv"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "touch"
@@ -419,7 +429,8 @@
                     ],
                     "value": [
                         "illusion",
-                        "manipulate"
+                        "manipulate",
+                        "subtle"
                     ]
                 }
             },
@@ -464,9 +475,9 @@
                     "value": "i9n83kpzodl3aipv"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
