@@ -1,19 +1,19 @@
 {
-    "_id": "6embuvXCpS3YOD5u",
-    "img": "systems/pf2e/icons/spells/lay-on-hands.webp",
-    "name": "Spell Effect: Resilient Touch",
+    "_id": "94Vuzui165y0rgP5",
+    "img": "icons/magic/light/beam-red-orange.webp",
+    "name": "Effect: Amplifying Touch",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands] if you have @UUID[Compendium.pf2e.feats-srd.Item.Resilient Touch]</p>\n<p>You gain a +2 status bonus to AC and a +1 status bonus to your saving throws.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Amplifying Touch]</p>\n<p>You gain a +1 status bonus to your attack rolls and deal 1 additional spirit damage on all your strikes. In addition, all your Strikes are holy.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": "turn-end",
             "sustained": false,
             "unit": "rounds",
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 12
         },
         "publication": {
             "license": "OGL",
@@ -23,17 +23,21 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Lay on Hands",
-                "selector": "ac",
-                "type": "status",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Resilient Touch",
-                "selector": "saving-throw",
+                "selector": "attack",
                 "type": "status",
                 "value": 1
+            },
+            {
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "selector": "strike-damage",
+                "value": 1
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "holy"
             }
         ],
         "start": {
@@ -44,7 +48,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },
