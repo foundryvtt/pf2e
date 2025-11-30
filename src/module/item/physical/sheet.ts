@@ -205,7 +205,8 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
 
         // Convert price from a string to an actual object
         if ("system.price.value" in formData) {
-            formData["system.price.value"] = Coins.fromString(String(formData["system.price.value"])).toObject();
+            formData["system.price.==value"] = Coins.fromString(String(formData["system.price.value"])).toObject();
+            delete formData["system.price.value"];
         }
 
         return super._updateObject(event, formData);

@@ -918,16 +918,13 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         if (operation.checkHP ?? true) handleHPChange(this, changed);
 
-        // Clear empty price denominations and per fields with values 0 or 1
+        // Clear 0 price denominations and per fields with values 0 or 1
         if (R.isPlainObject(changed.system.price)) {
             const price: Record<string, unknown> = changed.system.price;
             if (R.isPlainObject(price.value)) {
                 const coins = price.value;
-                const sourceCoins = this._source.system.price.value;
                 for (const denomination of DENOMINATIONS) {
-                    if (!coins[denomination] && denomination in sourceCoins) {
-                        coins[`-=${denomination}`] = null;
-                    }
+                    if (coins[denomination] === 0) coins[`-=${denomination}`] = null;
                 }
             }
             if ("per" in price) price.per = Math.max(1, Math.floor(Number(price.per) || 1));
