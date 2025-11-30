@@ -1,5 +1,6 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { Coins } from "@item/physical/helpers.ts";
+import { COIN_DENOMINATIONS } from "@item/physical/values.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 
 /** Allows the distribution and split of coins to multiple players */
@@ -37,6 +38,7 @@ export class DistributeCoinsDialog extends fa.api.HandlebarsApplicationMixin(fa.
 
     override async _prepareContext(options: fa.ApplicationRenderOptions): Promise<DistributeCoinsContext> {
         const data = await super._prepareContext(options);
+        const currency = this.actor.inventory.currency;
         const playerActors = (this.options.recipients ?? game.actors.contents).filter(
             (a) =>
                 a.hasPlayerOwner &&
@@ -52,6 +54,7 @@ export class DistributeCoinsDialog extends fa.api.HandlebarsApplicationMixin(fa.
         return {
             ...data,
             rootId: this.id,
+            canBreakCoins: SYSTEM_ID === "pf2e" || COIN_DENOMINATIONS.some((d) => currency[d] > 0),
             actorInfo: playerActors.map((a) => ({
                 id: a.id,
                 name: a.name,
@@ -80,49 +83,48 @@ export class DistributeCoinsDialog extends fa.api.HandlebarsApplicationMixin(fa.
         const playerCount = selectedActors.length;
         if (playerCount === 0) return;
 
-        const coinShare = new Coins();
+        // Calculate the share and what we're removing. Credits/UPB cannot be split
+        const available = actor.inventory.currency;
+        const share = new Coins({
+            credits: Math.trunc(available.credits / playerCount),
+            upb: Math.trunc(available.upb / playerCount),
+        });
         if (formData.object.breakCoins) {
-            const thisActorCopperValue = actor.inventory.coins.copperValue;
+            const thisActorCopperValue = actor.inventory.coins.copperValue - share.scale(playerCount).copperValue;
             const copperToDistribute = Math.trunc(thisActorCopperValue / playerCount);
-            // return if there is nothing to distribute
-            if (copperToDistribute === 0) {
-                ui.notifications.warn("Nothing to distribute");
-                return;
-            }
-            actor.inventory.removeCoins({ cp: copperToDistribute * playerCount });
-            coinShare.cp = copperToDistribute % 10;
-            coinShare.sp = Math.trunc(copperToDistribute / 10) % 10;
-            coinShare.gp = Math.trunc(copperToDistribute / 100) % 10;
-            coinShare.pp = Math.trunc(copperToDistribute / 1000);
+            share.cp = copperToDistribute % 10;
+            share.sp = Math.trunc(copperToDistribute / 10) % 10;
+            share.gp = Math.trunc(copperToDistribute / 100) % 10;
+            share.pp = Math.trunc(copperToDistribute / 1000);
         } else {
-            const thisActorCurrency = actor.inventory.coins;
-            coinShare.pp = Math.trunc(thisActorCurrency.pp / playerCount);
-            coinShare.cp = Math.trunc(thisActorCurrency.cp / playerCount);
-            coinShare.gp = Math.trunc(thisActorCurrency.gp / playerCount);
-            coinShare.sp = Math.trunc(thisActorCurrency.sp / playerCount);
-            // return if there is nothing to distribute
-            if (coinShare.pp === 0 && coinShare.gp === 0 && coinShare.sp === 0 && coinShare.cp === 0) {
-                ui.notifications.warn("Nothing to distribute");
-                return;
-            }
-
-            const coinsToRemove = coinShare.scale(playerCount);
-            actor.inventory.removeCoins(coinsToRemove, { byValue: false });
+            share.pp = Math.trunc(available.pp / playerCount);
+            share.cp = Math.trunc(available.cp / playerCount);
+            share.gp = Math.trunc(available.gp / playerCount);
+            share.sp = Math.trunc(available.sp / playerCount);
         }
-        let message = `Distributed `;
-        if (coinShare.pp !== 0) message += `${coinShare.pp} pp `;
-        if (coinShare.gp !== 0) message += `${coinShare.gp} gp `;
-        if (coinShare.sp !== 0) message += `${coinShare.sp} sp `;
-        if (coinShare.cp !== 0) message += `${coinShare.cp} cp `;
+
+        // return if there is nothing to distribute
+        if (share.copperValue === 0) {
+            ui.notifications.warn("Nothing to distribute");
+            return;
+        }
+
+        await Promise.all([
+            actor.inventory.removeCoins(share.scale(playerCount), { byValue: !!formData.object.breakCoins }),
+            ...selectedActors.map((a) => a.inventory.addCurrency(share)),
+        ]);
+
         const each = playerCount > 1 ? "each " : "";
-        message += `${each}from ${actor.name} to `;
+        let message = `Distributed ${share.toString({ unit: "raw" })} ${each}from ${actor.name} to `;
+
+        // Distribute to actors
         for (const actor of selectedActors) {
-            await actor.inventory.addCoins(coinShare);
             const index = selectedActors.indexOf(actor);
             if (index === 0) message += `${actor.name}`;
             else if (index < playerCount - 1) message += `, ${actor.name}`;
             else message += ` and ${actor.name}.`;
         }
+
         ChatMessagePF2e.create({
             author: game.user.id,
             style: CONST.CHAT_MESSAGE_STYLES.OTHER,
@@ -139,6 +141,7 @@ interface DistributeCoinsConfiguration extends fa.api.DialogV2Configuration {
 
 interface DistributeCoinsContext extends fa.ApplicationRenderContext {
     rootId: string;
+    canBreakCoins: boolean;
     actorInfo: {
         id: string;
         name: string;
