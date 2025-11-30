@@ -16,7 +16,7 @@ class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TAct
     #blasts: ElementalBlastConfig[] = [];
 
     override get template(): string {
-        return "systems/pf2e/templates/actors/character/attack-popout.hbs";
+        return `${SYSTEM_ROOT}/templates/actors/character/attack-popout.hbs`;
     }
 
     override get id(): string {

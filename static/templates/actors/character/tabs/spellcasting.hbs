@@ -6,7 +6,7 @@
     </nav>
 
     <div class="spell-collections" data-panels>
-        {{#if toggles.spellcasting}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.spellcasting}}{{/if}}
+        {{#if toggles.spellcasting}}{{> (resolvePath "templates/actors/partials/toggles.hbs") toggles=toggles.spellcasting}}{{/if}}
 
         {{#each spellCollectionGroups as |group tab|}}
             <div class="tab {{tab}}" data-group="spell-collections" data-tab="{{tab}}">
@@ -67,7 +67,7 @@
                                         data-statistic="{{entry.statistic.slug}}"
                                         data-tooltip="{{entry.statistic.check.breakdown}}"
                                     >
-                                        {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
+                                        {{> (resolvePath "templates/actors/character/icons/d20.hbs")}}
                                         <span class="skill-score">{{numberFormat entry.statistic.check.mod decimals=0 sign=true}}</span>
                                     </a>
                                 )
@@ -101,7 +101,7 @@
                     </div>
                 {{/unless}}
                 {{#if entry.hasCollection}}
-                    {{> "systems/pf2e/templates/actors/partials/spell-collection.hbs" entry=entry}}
+                    {{> (resolvePath "templates/actors/partials/spell-collection.hbs") entry=entry}}
                 {{/if}}
             </li>
         {{/each}}

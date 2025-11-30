@@ -1,0 +1,55 @@
+{
+    "_id": "Wukpm200zHDuS85V",
+    "img": "systems/pf2e/icons/actions/TwoActions.webp",
+    "name": "Swarming Assault",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": null,
+        "description": {
+            "value": "<p><strong>Requirements</strong> Your eidolon is dispersed.</p><hr /><p>Your eidolon swarms over each creature occupying its space, biting, pecking, clawing, or making similar attacks with its component bodies. It deals @Damage[(ceil(@actor.level / 2))d6|options:area-damage] damage to each creature in the area, with a @Check[reflex|basic|options:area-effect] save against your spell DC. You choose each time your eidolon uses Swarming Assault whether it deals piercing or slashing damage. Your eidolon then can't use Swarming Assault again for the next [[/r 1d4 #Recharge Swarming Assault]]{1d4 rounds}.</p>\n<p>At 3rd level and every 2 levels thereafter, the damage increases by 1d6.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "swarming-assault",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "value": "slashing"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-inline-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.swarmingAssault}"
+            }
+        ],
+        "traits": {
+            "value": [
+                "eidolon"
+            ]
+        }
+    },
+    "type": "action"
+}

@@ -163,7 +163,7 @@ export class Load {
         CONFIG.queries["pf2e.trade"] = TradeDialog.handleQuery;
 
         // Mystery Man but with a drop shadow
-        Actor.DEFAULT_ICON = "systems/pf2e/icons/default-icons/mystery-man.svg";
+        Actor.DEFAULT_ICON = `${SYSTEM_ROOT}/icons/default-icons/mystery-man.svg`;
 
         // Inline link icons
         CONFIG.Actor.typeIcons = {

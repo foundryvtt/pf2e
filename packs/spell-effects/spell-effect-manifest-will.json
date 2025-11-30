@@ -4,7 +4,7 @@
     "name": "Spell Effect: Manifest Will",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Manifest Will]</p>\n<p>The effect depends on the patron's tradition.</p><ul><li><strong>Arcane</strong> You gain weakness to spell damage.</li><li><strong>Divine</strong> You gain temporary Hit Points.</li><li><strong>Primal</strong> You have a –10-foot status penalty to all its Speeds.</li></ul>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Manifest Will]</p>\n<p>You gain an effect depending on the spell's tradition, or the tradition selected with Multifaceted Will.</p><ul><li><strong>Arcane</strong> You gain weakness to spell damage equal to the spell's rank.</li><li><strong>Divine</strong> You gain temporary Hit Points equal to twice the spell's rank.</li><li><strong>Occult</strong> You gain lesser cover.</li><li><strong>Primal</strong> You have a –10-foot status penalty to all its Speeds.</li></ul>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -28,11 +28,22 @@
                         "predicate": [
                             {
                                 "or": [
+                                    "parent:origin:item:tag:manifest-will:arcane",
+                                    {
+                                        "and": [
+                                            "parent:spellcasting:tradition:arcane",
+                                            {
+                                                "nor": [
+                                                    "parent:origin:item:tag:manifest-will:divine",
+                                                    "parent:origin:item:tag:manifest-will:occult",
+                                                    "parent:origin:item:tag:manifest-will:primal"
+                                                ]
+                                            }
+                                        ]
+                                    },
                                     {
                                         "not": "parent:origin:item"
-                                    },
-                                    "parent:spellcasting:tradition:arcane",
-                                    "parent:origin:item:tag:multifaceted-will"
+                                    }
                                 ]
                             }
                         ],
@@ -43,26 +54,74 @@
                         "predicate": [
                             {
                                 "or": [
+                                    "parent:origin:item:tag:manifest-will:divine",
+                                    {
+                                        "and": [
+                                            "parent:spellcasting:tradition:divine",
+                                            {
+                                                "nor": [
+                                                    "parent:origin:item:tag:manifest-will:arcane",
+                                                    "parent:origin:item:tag:manifest-will:occult",
+                                                    "parent:origin:item:tag:manifest-will:primal"
+                                                ]
+                                            }
+                                        ]
+                                    },
                                     {
                                         "not": "parent:origin:item"
-                                    },
-                                    "parent:spellcasting:tradition:divine",
-                                    "parent:origin:item:tag:multifaceted-will"
+                                    }
                                 ]
                             }
                         ],
                         "value": "divine"
                     },
                     {
+                        "label": "PF2E.TraitOccult",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:tag:manifest-will:occult",
+                                    {
+                                        "and": [
+                                            "parent:spellcasting:tradition:occult",
+                                            {
+                                                "nor": [
+                                                    "parent:origin:item:tag:manifest-will:arcane",
+                                                    "parent:origin:item:tag:manifest-will:divine",
+                                                    "parent:origin:item:tag:manifest-will:primal"
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "occult"
+                    },
+                    {
                         "label": "PF2E.TraitPrimal",
                         "predicate": [
                             {
                                 "or": [
+                                    "parent:origin:item:tag:manifest-will:primal",
+                                    {
+                                        "and": [
+                                            "parent:spellcasting:tradition:primal",
+                                            {
+                                                "nor": [
+                                                    "parent:origin:item:tag:manifest-will:arcane",
+                                                    "parent:origin:item:tag:manifest-will:divine",
+                                                    "parent:origin:item:tag:manifest-will:occult"
+                                                ]
+                                            }
+                                        ]
+                                    },
                                     {
                                         "not": "parent:origin:item"
-                                    },
-                                    "parent:spellcasting:tradition:primal",
-                                    "parent:origin:item:tag:multifaceted-will"
+                                    }
                                 ]
                             }
                         ],
@@ -96,6 +155,16 @@
                 "selector": "all-speeds",
                 "type": "status",
                 "value": -10
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "granter": "detach"
+                },
+                "predicate": [
+                    "manifest-will:occult"
+                ],
+                "uuid": "Compendium.pf2e.other-effects.Item.Effect: Cover"
             }
         ],
         "start": {

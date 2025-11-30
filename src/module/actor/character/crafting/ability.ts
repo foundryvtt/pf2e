@@ -362,11 +362,12 @@ class CraftingAbility implements CraftingAbilityData {
             items: prepared
                 .filter((f) => !f.expended)
                 .map((formula) => {
-                    const itemSource: PhysicalItemSource = formula.item.toObject();
+                    const item = formula.item;
+                    const itemSource: PhysicalItemSource = item.toObject();
                     itemSource.system.quantity = formula.quantity;
                     itemSource.system.temporary = true;
                     itemSource.system.size = this.actor.ancestry?.size === "tiny" ? "tiny" : "med";
-                    if (formula.item.isAlchemical && itemIsOfType(itemSource, "consumable", "equipment", "weapon")) {
+                    if (item.isAlchemical && itemIsOfType(itemSource, "consumable", "equipment", "weapon", "ammo")) {
                         itemSource.system.traits.value.push("infused");
                         itemSource.system.traits.value.sort(); // required for stack matching
                     }

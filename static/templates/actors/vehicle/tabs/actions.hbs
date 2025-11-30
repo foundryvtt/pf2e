@@ -3,7 +3,7 @@
         <div class="actions-tabs-wrapper">
             <section class="actions-panels major">
                 <div class="toggles section-container headerless">
-                    {{#if toggles.actions}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.actions}}{{/if}}
+                    {{#if toggles.actions}}{{> (resolvePath "templates/actors/partials/toggles.hbs") toggles=toggles.actions}}{{/if}}
                 </div>
                 {{#each actions as |section sid|}}
                     <header class="action-header">
@@ -24,7 +24,7 @@
                     </header>
                     <ol class="actions-list item-list directory-list strikes-list">
                         {{#each section.actions as |action aid|}}
-                            {{> "systems/pf2e/templates/actors/partials/action.hbs" action=action}}
+                            {{> (resolvePath "templates/actors/partials/action.hbs") action=action}}
                         {{/each}}
                     </ol>
                 {{/each}}

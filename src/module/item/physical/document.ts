@@ -9,7 +9,7 @@ import type {
     DatabaseUpdateCallbackOptions,
     DatabaseUpdateOperation,
 } from "@common/abstract/_types.d.mts";
-import { ItemPF2e, ItemProxyPF2e, type ContainerPF2e } from "@item";
+import { ItemPF2e, ItemProxyPF2e, type AmmoPF2e, type ContainerPF2e } from "@item";
 import type { ItemSourcePF2e, PhysicalItemSource, RawItemChatData, TraitChatData } from "@item/base/data/index.ts";
 import { MystifiedTraits } from "@item/base/data/values.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
@@ -465,24 +465,49 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return super.getEmbeddedDocument(embeddedName, id, options);
     }
 
+    /** Attaches an item to this item as a subitem. If it is an ammo to a weapon, also performs reloading */
     async attach(
         item: PhysicalItemPF2e,
         { quantity = 1, stack = false }: { quantity?: number; stack?: boolean } = {},
     ): Promise<boolean> {
         if (!this._source.system.subitems) throw ErrorPF2e("This item does not accept attachments");
+        const actor = this.actor;
 
         // Get subitems, excluding those that will need to be purged this update
-        // Empty ammo removal is deferred for reloading, since the ammo may still needed for rule elements to function
+        // Some empty ammo removal is deferred for reloading due to rule element for damage reasons
         const purgedItems = this.isOfType("weapon")
-            ? this.subitems
-                  .filter((i) => i.isOfType("ammo", "weapon") && i.isAmmoFor(this) && !i.quantity)
-                  .map((i) => i.id)
+            ? this.subitems.filter(
+                  (i) =>
+                      i.isOfType("ammo", "weapon") &&
+                      i.isAmmoFor(this) &&
+                      (!i.quantity || (i.isOfType("ammo") && i.isMagazine && !i.system.uses.value)),
+              )
             : [];
+        const purgedItemIds = purgedItems.map((i) => i.id);
         const subitems = fu
             .deepClone(this._source.system.subitems)
-            .filter((i) => i._id && !purgedItems.includes(i._id));
+            .filter((i) => i._id && !purgedItemIds.includes(i._id));
 
-        // Add to subitems, matching with a stackable item if stack is true
+        // Add any ejected ammo we need to preserve to the inventory
+        // If any are consumables, this is someone's attempt at infinite ammo, so we need to restore uses
+        // Later one we can remove infinite ammo handling for a real setting
+        const ejected = purgedItems.filter(
+            (i): i is AmmoPF2e<TParent> => i.isOfType("ammo") && i.isMagazine && !i.system.uses.autoDestroy,
+        );
+        if (actor && ejected.length) {
+            const items = ejected.map((e) => {
+                const source = e.toObject();
+                source.system.equipped = getDefaultEquipStatus(e);
+                if (e.system.traits.value.includes("consumable")) {
+                    source.system = fu.mergeObject(source.system, { uses: { value: e.system.uses.max } });
+                }
+                return source;
+            });
+            await actor.inventory.add(items, { stack: true, render: false });
+        }
+
+        // Create attachment source data.
+        // If it is unattributed special ammo, lock in the time so removal doesn't re-prompt
         const validCarryTypes = ["attached", "installed"] as const;
         const attachmentSource = item.toObject();
         attachmentSource.system.quantity = quantity;
@@ -490,6 +515,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             carryType: validCarryTypes.find((c) => c === item.system.usage.type) ?? "attached",
             handsHeld: 0,
         };
+        if (item.isOfType("ammo") && this.isOfType("weapon") && !item.system.baseItem && item.system.craftableAs) {
+            attachmentSource.system.baseItem = this.system.ammo?.baseType ?? "arrows";
+        }
+
+        // Add to subitems, matching with a stackable item if stack is true
         const matchingId = stack ? this.subitems.contents.find((s) => s.isStackableWith(item))?.id : null;
         const matching = matchingId ? subitems.find((s) => s._id === matchingId) : null;
         if (matching) {
@@ -501,24 +531,26 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             subitems.push(attachmentSource);
         }
 
-        // Calculate new quantity for the existing item, and apply updates
+        // Calculate new quantity for the existing item, and create the update data (unused if deleted)
         const newQuantity = item.quantity - quantity;
-        const actor = this.actor;
+        const existingItemUpdate: Record<string, unknown> = { "system.quantity": newQuantity };
+        if (item.isOfType("ammo")) existingItemUpdate["system.uses.value"] = item.system.uses.max;
+
+        // Calculate new quantity for the existing item, and apply updates
         if (actor && actor.uuid === item.actor?.uuid && this.id && !this.parentItem) {
-            // Do an update that minimizes updates and rerendering if its all the same actor
+            // Do an update that minimizes updates and rerendering if its all the same actor and top level
             const updates = createActorGroupUpdate({
                 itemUpdates: [{ _id: this.id, "system.subitems": subitems }],
+                itemDeletes: newQuantity <= 0 ? [item.id] : [],
             });
-            if (newQuantity <= 0) {
-                updates.itemDeletes.push(item.id);
-            } else {
-                updates.itemUpdates.push({ _id: item.id, "system.quantity": newQuantity });
+            if (newQuantity > 0) {
+                updates.itemUpdates.push({ _id: item.id, ...existingItemUpdate });
             }
             await applyActorGroupUpdate(actor, updates);
             return true;
         } else {
             const updated = await Promise.all([
-                newQuantity <= 0 ? item.delete() : item.update({ "system.quantity": newQuantity }),
+                newQuantity <= 0 ? item.delete() : item.update(existingItemUpdate),
                 this.update({ "system.subitems": subitems }),
             ]);
             return updated.every((u) => !!u);
@@ -529,8 +561,13 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
      * Detach a subitem from another physical item, either creating it as a new, independent item or incrementing the
      * quantity of an existing stack.
      */
-    async detach({ skipConfirm }: { skipConfirm?: boolean } = {}): Promise<void> {
+    async detach({
+        skipConfirm,
+        quantity = this.quantity,
+        keepZero = false,
+    }: { skipConfirm?: boolean; quantity?: number; keepZero?: boolean } = {}): Promise<void> {
         const parentItem = this.parentItem;
+        quantity = Math.clamp(quantity, 0, this.quantity);
         if (!parentItem) throw ErrorPF2e("Subitem has no parent item");
 
         const localize = localizer("PF2E.Item.Physical.Attach.Detach");
@@ -544,7 +581,10 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             }));
 
         if (confirmed) {
-            const deletePromise = this.delete();
+            const updateDeletePromise =
+                quantity >= this.quantity && !keepZero
+                    ? this.delete()
+                    : this.update({ "system.quantity": Math.max(0, this.quantity - quantity) });
             const createPromise = (async (): Promise<unknown> => {
                 // Find a stack match, cloning the subitem as worn so the search won't fail due to it being equipped
                 const subitemData: PhysicalItemSource = this.toObject();
@@ -557,7 +597,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
                         : null;
                 const keepId = !!parentItem.actor && !parentItem.actor.items.has(this.id);
                 return (
-                    stack?.update({ "system.quantity": stack.quantity + this.quantity }) ??
+                    stack?.update({ "system.quantity": stack.quantity + quantity }) ??
                     Item.implementation.create(
                         fu.mergeObject(subitemData, { "system.containerId": parentItem.system.containerId }),
                         { parent: parentItem.actor, keepId },
@@ -565,7 +605,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
                 );
             })();
 
-            await Promise.all([deletePromise, createPromise]);
+            await Promise.all([updateDeletePromise, createPromise]);
         }
     }
 
@@ -581,6 +621,13 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             this.name === item.name &&
             this.isIdentified === item.isIdentified;
         if (!preCheck) return false;
+
+        // Items with uses are intended to spill over to the next depleted.
+        // 2x quantity 3/6 magazines are actually one 6/6 magazine and one 3/6 magazine.
+        // Avoid stacking partially depleted items to avoid incorrect results
+        if (item.isOfType("ammo", "consumable") && item.system.uses.value < item.system.uses.max) {
+            return false;
+        }
 
         // Additional checks to make sure the worn state is what we want
         // These checks are skipped for sub-items or items that are in a container
@@ -729,6 +776,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return {
             rarity,
             description: this.system.description,
+            price: this.system.price.value.toString(),
             material,
         };
     }

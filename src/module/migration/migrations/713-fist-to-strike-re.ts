@@ -12,7 +12,7 @@ export class Migration713FistToStrikeRE extends MigrationBase {
 
         const strike = {
             key: "Strike",
-            img: "systems/pf2e/icons/features/classes/powerful-fist.webp",
+            img: `${SYSTEM_ROOT}/icons/features/classes/powerful-fist.webp`,
             slug: "fist",
             category: "unarmed",
             damage: { base: { damageType: "bludgeoning", dice: 1, die: "d6" } },

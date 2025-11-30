@@ -9,7 +9,7 @@ import { tagify } from "@util/tags.ts";
 import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 
 class FastHealingForm extends RuleElementForm<FastHealingSource, FastHealingRuleElement> {
-    override template = "systems/pf2e/templates/items/rules/fast-healing.hbs";
+    override template = `${SYSTEM_ROOT}/templates/items/rules/fast-healing.hbs`;
     override activateListeners(html: HTMLElement): void {
         super.activateListeners(html);
 

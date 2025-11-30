@@ -1,7 +1,7 @@
 <form autocomplete="off" onsubmit="event.preventDefault();">
     <p class="instructions">{{localize instructions}}</p>
     {{#each settings as |setting|}}
-        {{> systems/pf2e/templates/system/settings/basic-setting.hbs setting=setting}}
+        {{> (resolvePath "templates/system/settings/basic-setting.hbs") setting=setting}}
     {{/each}}
 
     <footer>

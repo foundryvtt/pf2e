@@ -39,9 +39,6 @@
                     "value": [
                         "magical"
                     ]
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -84,9 +81,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -190,7 +184,21 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    },
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "vitality"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

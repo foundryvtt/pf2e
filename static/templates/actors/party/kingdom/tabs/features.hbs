@@ -38,7 +38,7 @@
             </header>
             <ol class="feats-list" data-foundry-list>
                 {{#each section.feats as |featSlot|}}
-                    {{> "systems/pf2e/templates/actors/character/partials/feat-slot.hbs" featSlot=featSlot featFilter=section.featFilter}}
+                    {{> (resolvePath "templates/actors/character/partials/feat-slot.hbs") featSlot=featSlot featFilter=section.featFilter}}
                 {{/each}}
             </ol>
         </section>
@@ -62,7 +62,7 @@
         </div>
         <div class="item-summary" hidden="hidden">
             {{{item.description}}}
-            {{> "systems/pf2e/templates/actors/party/kingdom/partials/build-entry-boosts.hbs" buildEntry=item}}
+            {{> (resolvePath "templates/actors/party/kingdom/partials/build-entry-boosts.hbs") buildEntry=item}}
         </div>
     </li>
 {{/inline}}

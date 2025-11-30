@@ -5,13 +5,13 @@ import { isReallyPC } from "@actor/helpers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import type { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
 import { condenseSenses } from "@actor/sheet/helpers.ts";
-import { DistributeCoinsPopup } from "@actor/sheet/popups/distribute-coins-popup.ts";
+import { DistributeCoinsDialog } from "@actor/sheet/popups/distribute-coins-dialog.ts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { ActorUUID } from "@common/documents/_module.d.mts";
 import { ItemPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { Bulk } from "@item/physical/index.ts";
+import { Bulk, Coins } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import type { ZeroToFour } from "@module/data.ts";
@@ -40,7 +40,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             classes: [...options.classes, "party"],
             width: 720,
             height: 720,
-            template: "systems/pf2e/templates/actors/party/sheet.hbs",
+            template: `${SYSTEM_ROOT}/templates/actors/party/sheet.hbs`,
             scrollY: [...options.scrollY, ".tab.active", ".tab.active .content", ".sidebar"],
             tabs: [
                 {
@@ -95,6 +95,14 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             speed: Number(key),
             activities,
         }));
+
+        const totalCurrency =
+            R.sumBy(members, (actor) => actor.inventory.coins.copperValue ?? 0) +
+            this.actor.inventory.coins.copperValue;
+        const totalWealth =
+            R.sumBy(members, (actor) => actor.inventory.totalWealth.copperValue ?? 0) +
+            this.actor.inventory.totalWealth.copperValue;
+
         return {
             ...base,
             playerRestricted: !game.pf2e.settings.metagame.partyStats,
@@ -102,12 +110,8 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             members: this.#prepareMembers(),
             overviewSummary: this.#prepareOverviewSummary(),
             inventorySummary: {
-                totalCoins:
-                    R.sumBy(members, (actor) => actor.inventory.coins.goldValue ?? 0) +
-                    this.actor.inventory.coins.goldValue,
-                totalWealth:
-                    R.sumBy(members, (actor) => actor.inventory.totalWealth.goldValue ?? 0) +
-                    this.actor.inventory.totalWealth.goldValue,
+                totalCurrency: new Coins({ cp: totalCurrency }).toString({ decimal: true }),
+                totalWealth: new Coins({ cp: totalWealth }).toString({ decimal: true }),
                 totalBulk: members
                     .map((actor) => actor.inventory.bulk.value)
                     .reduce((a, b) => a.plus(b), this.actor.inventory.bulk.value),
@@ -179,8 +183,8 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     img: action.img,
                     traits: createSheetTags(CONFIG.PF2E.actionTraits, action.system.traits?.value ?? []),
                 })),
-                coins: actor.inventory.coins.goldValue,
-                wealth: actor.inventory.totalWealth.goldValue,
+                currency: new Coins(actor.inventory.coins.copperValue).toString({ decimal: true }),
+                wealth: actor.inventory.totalWealth.toString({ decimal: true }),
                 restricted,
             };
         });
@@ -408,7 +412,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
 
         htmlQuery(html, "button[data-action=distribute-coins]")?.addEventListener("click", () => {
-            new DistributeCoinsPopup(this.actor, { recipients: this.actor.members }).render(true);
+            new DistributeCoinsDialog({ actor: this.actor, recipients: this.actor.members }).render(true);
         });
 
         htmlQuery(html, "[data-action=clear-exploration]")?.addEventListener("click", async () => {
@@ -474,7 +478,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const templateName = this.regionTemplates[regionId];
             if (!templateName) continue;
 
-            const template = `systems/pf2e/templates/actors/party/regions/${templateName}`;
+            const template = `${SYSTEM_ROOT}/templates/actors/party/regions/${templateName}`;
             const result = await fa.handlebars.renderTemplate(template, data);
 
             region.innerHTML = result;
@@ -537,8 +541,8 @@ interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
         };
     } | null;
     inventorySummary: {
-        totalCoins: number;
-        totalWealth: number;
+        totalCurrency: string;
+        totalWealth: string;
         totalBulk: Bulk;
     };
     explorationSummary: {
@@ -585,8 +589,8 @@ interface MemberBreakdown {
         traits: SheetOptions;
     }[];
 
-    coins: number;
-    wealth: number;
+    currency: string;
+    wealth: string;
 
     /** If true, the current user is restricted from seeing meta details */
     restricted: boolean;

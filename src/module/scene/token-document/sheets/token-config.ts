@@ -3,6 +3,14 @@ import type { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/a
 import { TokenConfigMixinPF2e } from "./mixin.ts";
 
 class TokenConfigPF2e extends TokenConfigMixinPF2e(fa.sheets.TokenConfig) {
+    get linkToActorSize(): boolean {
+        return !!this.token.flags.pf2e.linkToActorSize;
+    }
+
+    get autoscale(): boolean {
+        return !!this.token.flags.pf2e.autoscale;
+    }
+
     protected override _processFormData(
         event: SubmitEvent | null,
         form: HTMLFormElement,

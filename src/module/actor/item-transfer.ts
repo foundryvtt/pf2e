@@ -27,8 +27,8 @@ export interface ItemTransferData {
 
 export class ItemTransfer implements ItemTransferData {
     #templatePaths = {
-        flavor: "./systems/pf2e/templates/chat/action/flavor.hbs",
-        content: "./systems/pf2e/templates/chat/action/content.hbs",
+        flavor: `./${SYSTEM_ROOT}/templates/chat/action/flavor.hbs`,
+        content: `./${SYSTEM_ROOT}/templates/chat/action/content.hbs`,
     };
 
     source: ItemTransferData["source"];

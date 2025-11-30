@@ -31,20 +31,19 @@
         },
         "rules": [
             {
-                "domain": "ac",
-                "key": "RollOption",
-                "label": "Spend a Focus Point on a Domain Spell",
-                "option": "shield-of-faith",
-                "toggleable": true
-            },
-            {
-                "key": "FlatModifier",
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
                 "predicate": [
-                    "shield-of-faith"
+                    "item:trait:focus",
+                    "item:trait:cleric"
                 ],
-                "selector": "ac",
-                "type": "status",
-                "value": 1
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
             }
         ],
         "traits": {

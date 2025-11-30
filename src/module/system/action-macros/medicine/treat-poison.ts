@@ -1,5 +1,5 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { SingleCheckAction } from "@actor/actions/index.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 function treatPoison(options: SkillActionOptions): void {
     const slug = options?.skill ?? "medicine";
@@ -28,7 +28,7 @@ function treatPoison(options: SkillActionOptions): void {
 const action = new SingleCheckAction({
     cost: 1,
     description: "PF2E.Actions.TreatPoison.Description",
-    img: "systems/pf2e/icons/effects/treat-poison.webp",
+    img: `${SYSTEM_ROOT}/icons/effects/treat-poison.webp`,
     name: "PF2E.Actions.TreatPoison.Title",
     notes: [
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.TreatPoison.Notes.criticalSuccess" },
@@ -41,4 +41,4 @@ const action = new SingleCheckAction({
     traits: ["manipulate"],
 });
 
-export { treatPoison as legacy, action };
+export { action, treatPoison as legacy };

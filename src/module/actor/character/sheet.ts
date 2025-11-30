@@ -32,7 +32,7 @@ import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
 import type { LabeledValueAndMax, ZeroToFour } from "@module/data.ts";
-import { eventToRollMode, eventToRollParams } from "@module/sheet/helpers.ts";
+import { eventToRollMode, eventToRollParams, getActionIcon } from "@module/sheet/helpers.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import type { CheckDC } from "@system/degree-of-success.ts";
@@ -40,7 +40,6 @@ import { TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
     fontAwesomeIcon,
-    getActionIcon,
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
@@ -109,7 +108,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     override get template(): string {
         const template = this.actor.limited && !game.user.isGM ? "limited" : "sheet";
-        return `systems/pf2e/templates/actors/character/${template}.hbs`;
+        return `${SYSTEM_ROOT}/templates/actors/character/${template}.hbs`;
     }
 
     override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData<TActor>> {
@@ -487,7 +486,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             item: f.item,
             dc: f.dc,
             batchSize: this.#formulaQuantities[f.uuid] ?? f.batchSize,
-            cost: Coins.fromPrice(f.item.price, this.#formulaQuantities[f.uuid] ?? f.batchSize),
+            cost: Coins.fromPrice(f.item.price, this.#formulaQuantities[f.uuid] ?? f.batchSize).toString(),
         }));
         const knownFormulas = R.pipe(
             sheetFormulas,
@@ -667,10 +666,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 const item = weapon.subitems.get(itemId, { strict: true });
                 if (!item.isOfType("ammo", "weapon")) return;
 
-                const value = Number(ammoQuantity.value);
-                if (value === 0) {
+                const value = Math.max(0, Number(ammoQuantity.value));
+                if (value === 0 && !(item.isOfType("ammo") && item.isMagazine && !item.system.uses.autoDestroy)) {
                     item.delete();
-                } else if (item.isOfType("ammo") && item.system.uses.max > 1) {
+                } else if (item.isOfType("ammo") && item.isMagazine) {
                     item.update({ "system.uses.value": value });
                 } else {
                     item.update({ "system.quantity": value });
@@ -914,11 +913,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             return item.system.traits.toggles?.update({ trait, selected: !toggle.selected });
         };
 
-        handlers["unload"] = async (_, button) => {
+        handlers["unload"] = async (event, button) => {
             const weapon = this.getAttackActionFromDOM(button)?.item;
             if (weapon) {
                 const itemId = htmlClosest(button, "[data-item-id]")?.dataset.itemId;
-                weapon.subitems.get(itemId, { strict: true }).detach();
+                weapon.subitems.get(itemId, { strict: true }).detach({ skipConfirm: event.shiftKey });
             }
         };
 
@@ -1608,7 +1607,7 @@ interface FormulaSheetData {
     item: ItemPF2e;
     dc: number;
     batchSize: number;
-    cost: Coins;
+    cost: string;
 }
 
 interface FormulaByLevel {

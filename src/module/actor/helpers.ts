@@ -656,7 +656,7 @@ function areaFireFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAreaAttack {
     const actor = item.actor;
     const attackSlug = item.slug ?? sluggify(item.name);
     const meleeOrRanged = item.isMelee ? "melee" : "ranged";
-    const domains = ["all", `${action}-save`];
+    const domains = ["all", `${action}-dc`];
     const baseOptions = [
         `self:action:slug:${action}`,
         meleeOrRanged,
@@ -686,13 +686,14 @@ function areaFireFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAreaAttack {
     const actionCost: ActionCost = { type: "action", value: item.system.traits.value.includes("consumable") ? 1 : 2 };
     const identifier = `${item.id}.${attackSlug}.${action}`;
     const statistic = new Statistic(actor, {
+        domains,
         slug: attackSlug,
         label: item.name,
         modifiers,
     });
 
     return {
-        slug: identifier,
+        slug: attackSlug,
         type: action,
         attackRollType: NPC_ATTACK_ACTIONS[action],
         label: item.name,
@@ -704,6 +705,10 @@ function areaFireFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAreaAttack {
         item,
         statistic,
         additionalEffects,
+        traits: [
+            ["attack"].map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
+            item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits)),
+        ].flat(),
         variants: [
             {
                 label: game.i18n.format("PF2E.ActionWithDC", {
@@ -719,7 +724,6 @@ function areaFireFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAreaAttack {
                         action,
                         identifier,
                         actionCost,
-                        domains,
                         options: baseOptions,
                         area: item.system.area,
                     });
@@ -761,7 +765,7 @@ function createDamageRollFunctions(
     const createDamageRoll =
         (outcome: "success" | "criticalSuccess"): DamageRollFunction =>
         async (params: DamageRollParams = {}): Promise<Rolled<DamageRoll> | string | null> => {
-            const domains = getAttackDamageDomains(item, proficiencyRank);
+            const domains = getAttackDamageDomains(item, proficiencyRank, action);
             const targetToken = (params.target ?? game.user.targets.first())?.document ?? null;
             const context = await new DamageContext({
                 viewOnly: params.getFormula ?? false,
@@ -837,7 +841,6 @@ interface AreaAttackOptions {
     statistic: Statistic;
     identifier: string;
     actionCost: ActionCost;
-    domains: string[];
     options: string[];
     area: { type: EffectAreaShape; value: number };
 }
@@ -850,7 +853,6 @@ async function createAreaAttackMessage({
     statistic,
     identifier,
     actionCost,
-    domains,
     options,
     area,
 }: AreaAttackOptions): Promise<void> {
@@ -863,12 +865,12 @@ async function createAreaAttackMessage({
     const token = actor.getActiveTokens(false, true).shift();
     const speaker = ChatMessagePF2e.getSpeaker({ actor, token });
     const glyph = getActionGlyph(actionCost);
-    const flavor = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/flavor.hbs", {
+    const flavor = await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/action/flavor.hbs`, {
         action: { title, glyph },
         item,
         traits: [traitSlugToObject("attack", CONFIG.PF2E.actionTraits)],
     });
-    const content = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/area-fire.hbs", {
+    const content = await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/action/area-fire.hbs`, {
         actor,
         description,
         saveLabel: game.i18n.format("PF2E.SaveDCLabelBasic", {
@@ -883,7 +885,7 @@ async function createAreaAttackMessage({
         type: action,
         area,
         identifier,
-        domains,
+        domains: dc.domains,
         options,
     };
 

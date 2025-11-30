@@ -16,6 +16,7 @@ import { sluggify } from "./src/util/misc.ts";
 import systemJSON from "./static/system.json" with { type: "json" };
 
 const SYSTEM_ID = "pf2e" as "pf2e" | "sf2e";
+const SYSTEM_ROOT = `systems/pf2e`;
 const CONDITION_SOURCES = ((): ConditionSource[] => {
     const output = execSync("npm run build:conditions", { encoding: "utf-8" });
     return JSON.parse(output.slice(output.indexOf("[")));
@@ -135,7 +136,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                             context.server.ws.send({
                                 type: "custom",
                                 event: "lang-update",
-                                data: { path: `systems/pf2e/${basePath}` },
+                                data: { path: `${SYSTEM_ROOT}/${basePath}` },
                             });
                         });
                     } else if (context.file.endsWith(".hbs")) {
@@ -145,7 +146,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                             context.server.ws.send({
                                 type: "custom",
                                 event: "template-update",
-                                data: { path: `systems/pf2e/${basePath}` },
+                                data: { path: `${SYSTEM_ROOT}/${basePath}` },
                             });
                         });
                     }
@@ -182,10 +183,11 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     const reEscape = (s: string) => s.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
 
     return {
-        base: command === "build" ? "./" : "/systems/pf2e/",
+        base: command === "build" ? "./" : `/${SYSTEM_ROOT}/`,
         publicDir: "static",
         define: {
             SYSTEM_ID: JSON.stringify(SYSTEM_ID),
+            SYSTEM_ROOT: JSON.stringify(SYSTEM_ROOT),
             BUILD_MODE: JSON.stringify(buildMode),
             CONDITION_SOURCES: JSON.stringify(CONDITION_SOURCES),
             EN_JSON: JSON.stringify(EN_JSON),

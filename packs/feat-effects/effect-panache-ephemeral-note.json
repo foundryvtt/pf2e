@@ -1,0 +1,66 @@
+{
+    "_id": "fJD0yIkVPMwdNjLy",
+    "img": "icons/commodities/treasure/crown-gold-laurel-wreath.webp",
+    "name": "Effect: Panache (Ephemeral Note)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Flashy Dodge], @UUID[Compendium.pf2e.feats-srd.Item.Extravagant Parry] via Ephemeral Effect.</p>\n<p>If your Strike misses, the origin gains panache.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "parent:tag:failure-note"
+                ],
+                "selector": [
+                    "strike-attack-roll"
+                ],
+                "text": "PF2E.SpecificRule.Swashbuckler.PanacheFailure",
+                "title": "PF2E.Check.Result.Degree.Check.failure"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    "parent:tag:critical-failure-note"
+                ],
+                "selector": [
+                    "strike-attack-roll"
+                ],
+                "text": "PF2E.SpecificRule.Swashbuckler.PanacheFailure",
+                "title": "PF2E.Check.Result.Degree.Check.criticalFailure"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

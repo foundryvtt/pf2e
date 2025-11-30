@@ -11,7 +11,7 @@ export default class BaseWorld extends packages.BasePackage<WorldSchema> {
     /** The default icon used for this type of Package. */
     static icon: string;
 
-    static override migrateData(data: Record<string, unknown>): fields.SourceFromSchema<WorldSchema>;
+    static override migrateData(source: Record<string, unknown>): Record<string, unknown>;
 
     static override testAvailability(
         data?: Partial<PackageManifestData>,

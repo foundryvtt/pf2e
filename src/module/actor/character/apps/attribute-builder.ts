@@ -25,7 +25,7 @@ class AttributeBuilder extends appv1.api.Application {
             ...super.defaultOptions,
             classes: ["attribute-builder"],
             title: game.i18n.localize("PF2E.Actor.Character.Attribute.Boosts"),
-            template: "systems/pf2e/templates/actors/character/attribute-builder.hbs",
+            template: `${SYSTEM_ROOT}/templates/actors/character/attribute-builder.hbs`,
             width: "auto",
             height: "auto",
         };

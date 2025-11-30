@@ -1,30 +1,33 @@
 {
-    "_id": "xxkCSwizAu2wC7Fo",
-    "img": "icons/magic/life/heart-glowing-red.webp",
+    "_id": "58QyKgMWfsUPqZn1",
+    "img": "icons/skills/melee/maneuver-daggers-paired-orange.webp",
     "name": "Effect: Even the Odds",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Even the Odds (Eagle Knight)]</p>\n<p>You gain 25 temporary Hit Points.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Even the Odds]</p>\n<p>You gain panache.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": "turn-end",
             "sustained": false,
-            "unit": "minutes",
-            "value": 1
+            "unit": "rounds",
+            "value": 0
         },
         "fromSpell": false,
         "level": {
-            "value": 14
+            "value": 4
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
-            "title": "Pathfinder Lost Omens Shining Kingdoms"
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
-                "key": "TempHP",
-                "value": 25
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade"
+                },
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Panache"
             }
         ],
         "start": {

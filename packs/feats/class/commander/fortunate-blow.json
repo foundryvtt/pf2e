@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You set an enemy up for a devastating follow-through from your allies. When you successfully damage an opponent with either Guiding Shot or Set-Up Strike, the next creature other than you to attack the same target before the start of your next turn rolls twice on their attack roll and takes the higher result.</p>"
+            "value": "<p>You set an enemy up for a devastating follow-through from your allies. When you successfully damage an opponent with either @UUID[Compendium.pf2e.feats-srd.Item.Guiding Shot] or @UUID[Compendium.pf2e.feats-srd.Item.Set-Up Strike], the next creature other than you to attack the same target before the start of your next turn rolls twice on their attack roll and takes the higher result.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Fortunate Blow]</p>"
         },
         "level": {
             "value": 12
@@ -29,7 +29,27 @@
             "remaster": true,
             "title": "Pathfinder Battlecry!"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:guiding-shot",
+                            "item:slug:set-up-strike"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

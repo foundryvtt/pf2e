@@ -46,9 +46,9 @@ abstract class AbstractDamageRoll extends Roll {
 }
 
 class DamageRoll extends AbstractDamageRoll {
-    static override CHAT_TEMPLATE = "systems/pf2e/templates/dice/damage-roll.hbs";
+    static override CHAT_TEMPLATE = `${SYSTEM_ROOT}/templates/dice/damage-roll.hbs`;
 
-    static override TOOLTIP_TEMPLATE = "systems/pf2e/templates/dice/damage-tooltip.hbs";
+    static override TOOLTIP_TEMPLATE = `${SYSTEM_ROOT}/templates/dice/damage-tooltip.hbs`;
 
     static override parse(formula: string, data: Record<string, unknown>): InstancePool[] {
         const replaced = this.replaceFormulaData(formula, data, { missing: "0" });

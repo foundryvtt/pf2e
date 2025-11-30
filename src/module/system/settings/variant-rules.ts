@@ -21,7 +21,7 @@ export class VariantRulesSettings extends fa.api.HandlebarsApplicationMixin(fa.a
     };
 
     static override PARTS = {
-        settings: { template: "systems/pf2e/templates/system/settings/variant-rules.hbs" },
+        settings: { template: `${SYSTEM_ROOT}/templates/system/settings/variant-rules.hbs` },
         footer: { template: "templates/generic/form-footer.hbs" },
     };
 

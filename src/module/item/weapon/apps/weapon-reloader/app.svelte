@@ -12,7 +12,7 @@
         {game.i18n.localize("PF2E.Item.Weapon.Reloader.EmptyMessage")}
     {/if}
     {#each data.compatible as ammo}
-        <div class="choice">
+        <div class="choice" class:depleted={ammo.depleted}>
             <button
                 type="button"
                 class="icon fa-solid fa-check select"
@@ -39,8 +39,11 @@
             >
                 <span>
                     {ammo.name}
+                    {#if ammo.isTemporary}
+                        <i class="fa-solid fa-clock" inert></i>
+                    {/if}
                     {#if ammo.uses}
-                        <span>
+                        <span class="uses">
                             <span class="icon">
                                 <HeavyBullets />
                             </span>
@@ -74,6 +77,11 @@
         gap: var(--space-8);
         padding: var(--space-4) var(--space-8);
         width: 100%;
+
+        &.depleted {
+            opacity: 0.8;
+            filter: grayscale(0.85);
+        }
 
         /* Make Icon White */
         button,
@@ -118,6 +126,7 @@
                 }
             }
 
+            .uses,
             .quantity {
                 margin-left: var(--space-4);
             }

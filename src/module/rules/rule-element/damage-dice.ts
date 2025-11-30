@@ -204,3 +204,4 @@ type DamageDiceRuleSchema = RuleElementSchema & {
 };
 
 export { DamageDiceRuleElement };
+export type { DamageDiceSource };

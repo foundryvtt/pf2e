@@ -477,6 +477,11 @@ class PackExtractor {
                                 withToken.prototypeToken.texture = {
                                     src: withToken.img.replace("Full", "") as ImageFilePath,
                                 };
+                                const scale = docSource.prototypeToken.texture?.scaleX ?? 1;
+                                if (scale !== 1) {
+                                    withToken.prototypeToken.texture.scaleX = scale;
+                                    withToken.prototypeToken.texture.scaleY = scale;
+                                }
                             }
                             // If using dynamic ring, preserve enabled status and subject texture
                             if (ringSetting?.enabled) {

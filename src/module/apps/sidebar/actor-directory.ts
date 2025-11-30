@@ -32,11 +32,11 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
 
     static override PARTS = ((): Record<string, HandlebarsTemplatePart> => {
         const parts = { ...super.PARTS };
-        parts["parties"] = { template: "systems/pf2e/templates/sidebar/party-document-partial.hbs" };
+        parts["parties"] = { template: `${SYSTEM_ROOT}/templates/sidebar/party-document-partial.hbs` };
         return parts;
     })();
 
-    protected static override _entryPartial = "systems/pf2e/templates/sidebar/actor-document-partial.hbs";
+    protected static override _entryPartial = `${SYSTEM_ROOT}/templates/sidebar/actor-document-partial.hbs`;
 
     /** Any additional "folder like" elements (such as parties) that are maintained separately */
     #extraFolders: Record<string, boolean> = {};

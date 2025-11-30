@@ -1,0 +1,54 @@
+{
+    "_id": "w0k59TPWUZ9Me4yF",
+    "img": "icons/skills/ranged/arrow-strike-glowing-teal.webp",
+    "name": "Effect: Equitable Defense",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Equitable Defense]</p>\n<p>You gain a +1 circumstance bonus on the next Strike you make against the marked creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Impossible Lands"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "equitable-defense"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:equitable-defense"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": [
+                    "strike-attack-roll"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

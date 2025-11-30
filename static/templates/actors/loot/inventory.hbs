@@ -1,10 +1,10 @@
 <section class="sheet-body content sheet-content-loot inventory">
     {{#if (or document.isOwner isLoot)}}
-        {{> "systems/pf2e/templates/actors/partials/coinage.hbs" owner=owner}}
+        {{> (resolvePath "templates/actors/partials/coinage.hbs") owner=owner}}
     {{/if}}
-    {{> "systems/pf2e/templates/actors/partials/inventory-header.hbs"}}
-    {{> "systems/pf2e/templates/actors/partials/inventory.hbs"}}
+    {{> (resolvePath "templates/actors/partials/inventory-header.hbs")}}
+    {{> (resolvePath "templates/actors/partials/inventory.hbs")}}
     {{#if (or document.isOwner isLoot)}}
-        {{> "systems/pf2e/templates/actors/partials/total-bulk.hbs"}}
+        {{> (resolvePath "templates/actors/partials/total-bulk.hbs")}}
     {{/if}}
 </section>

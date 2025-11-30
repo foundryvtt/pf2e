@@ -148,7 +148,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         img: ImageFilePath;
         texture: { src: ImageFilePath | VideoFilePath };
     } {
-        const img: ImageFilePath = `systems/pf2e/icons/default-icons/${actorData.type}.svg`;
+        const img: ImageFilePath = `${SYSTEM_ROOT}/icons/default-icons/${actorData.type}.svg`;
         return { img, texture: { src: img } };
     }
 
@@ -1374,7 +1374,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         ) as ConditionPF2e<this>[];
 
         const canUndoDamage = !!(damageResult.totalApplied || shieldDamage || persistentCreated.length);
-        const content = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
+        const content = await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/damage/damage-taken.hbs`, {
             breakdown,
             statements,
             persistent: persistentCreated.map((p) => p.system.persistent?.damage.formula).filter(R.isTruthy),
@@ -1386,7 +1386,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
         const flavor = await (async (): Promise<string | undefined> => {
             if (breakdown.length || notes.length) {
-                return fa.handlebars.renderTemplate("systems/pf2e/templates/chat/damage/damage-taken-flavor.hbs", {
+                return fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/damage/damage-taken-flavor.hbs`, {
                     breakdown,
                     notes: RollNotePF2e.notesToHTML(notes)?.outerHTML,
                 });
@@ -1916,7 +1916,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         userId: string,
     ): void {
         super._onUpdateDescendantDocuments(parent, collection, documents, changes, options, userId);
-        if (this !== parent || collection !== "items") return;
+        if (this !== parent || collection !== "items" || game.user.id !== userId) return;
 
         // Ensure the items being updated are all permanent character building options.
         // These updates should not occur due to temporary changes from something like drained
@@ -1932,6 +1932,29 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 this.update({ "system.attributes.hp.value": newHitPoints }, { allowHPOverage: true });
             }
         }
+
+        // Check through changes for any containerId updates.
+        // If items have been moved into backpacks, and the quantity exceeds 1, it splits it
+        const containersToCheck: string[] = [];
+        for (const change of changes) {
+            if (!R.isPlainObject(change)) continue;
+            const expanded = fu.expandObject(change);
+            if (R.isPlainObject(expanded.system) && expanded.system.containerId) {
+                containersToCheck.push(String(expanded.system.containerId));
+            }
+        }
+        const updates = createActorGroupUpdate();
+        for (const containerId of R.unique(containersToCheck)) {
+            const container = this.items.get(containerId);
+            if (container?.isOfType("backpack") && container.system.quantity > 1 && container.contents.size > 0) {
+                const clone = container.toObject(true);
+                clone._id = null;
+                clone.system.quantity = container.system.quantity - 1;
+                updates.itemCreates.push(clone);
+                updates.itemUpdates.push({ _id: container.id, "system.quantity": 1 });
+            }
+        }
+        applyActorGroupUpdate(this, updates); // no-ops if empty
     }
 
     protected override _onUpdate(

@@ -129,7 +129,7 @@ class DicePF2e {
             if (parts.indexOf("@statusBonus") === -1) parts = parts.concat(["@statusBonus"]);
 
             // Render modal dialog
-            template = template || "systems/pf2e/templates/chat/roll-dialog.hbs";
+            template = template || `${SYSTEM_ROOT}/templates/chat/roll-dialog.hbs`;
             const dialogData = {
                 data,
                 rollMode,

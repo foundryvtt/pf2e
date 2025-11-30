@@ -1,6 +1,6 @@
 <div class="tab spells" data-group="primary" data-tab="spells">
     <div class="toggles section-container headerless">
-        {{#if toggles.spellcasting}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.spellcasting}}{{/if}}
+        {{#if toggles.spellcasting}}{{> (resolvePath "templates/actors/partials/toggles.hbs") toggles=toggles.spellcasting}}{{/if}}
     </div>
     <ol class="entries-list" data-foundry-list>
         {{#each spellcastingEntries as |entry eid|}}
@@ -78,7 +78,7 @@
                 </div>
                 {{#if entry.hasCollection}}
                     <div class="body">
-                        {{> "systems/pf2e/templates/actors/partials/spell-collection.hbs" entry=entry}}
+                        {{> (resolvePath "templates/actors/partials/spell-collection.hbs") entry=entry}}
                     </div>
                 {{/if}}
             </li>

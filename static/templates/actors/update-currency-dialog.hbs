@@ -1,0 +1,26 @@
+{{#each denominations as |denomination|}}
+    <div class="form-group">
+        <label for="{{@root.id}}-{{denomination.key}}">{{denomination.label}}</label>
+        <div class="form-fields">
+            <input id="{{@root.id}}-{{denomination.key}}" name="{{denomination.key}}" type="number" min="0" step="1"/>
+        </div>
+    </div>
+{{/each}}
+{{#if (eq mode "add")}}
+    <div class="form-group slim">
+        <label for="{{@root.id}}-combine-stacks">{{localize "PF2E.AddCoinsCombineStacksLabel"}}</label>
+        <div class="form-fields">
+            <input id="{{@root.id}}-combine-stacks" type="checkbox" name="combineStacks" checked />
+        </div>
+    </div>
+{{else}}
+    <div class="form-group slim">
+        <label for="{{@root.id}}-by-value">{{localize "PF2E.RemoveCoinsByValueLabel"}}</label>
+        <div class="form-fields">
+            <input id="{{@root.id}}-by-value" type="checkbox" name="removeByValue" />
+        </div>
+    </div>
+{{/if}}
+<div class="form-footer">
+    <button type="submit"><i class="fa-regular fa-floppy-disk"></i>{{actionLabel}}</button>
+</div>

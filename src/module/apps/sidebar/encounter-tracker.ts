@@ -25,7 +25,7 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
 
     static override PARTS = {
         ...super.PARTS,
-        metrics: { template: "systems/pf2e/templates/sidebar/encounter-tracker/metrics.hbs" },
+        metrics: { template: `${SYSTEM_ROOT}/templates/sidebar/encounter-tracker/metrics.hbs` },
     };
 
     #sortable: Sortable | null = null;

@@ -12,7 +12,7 @@ class CompendiumMigrationStatus extends appv1.api.Application {
 
     static override get defaultOptions(): appv1.api.ApplicationV1Options {
         const options = super.defaultOptions;
-        options.template = "systems/pf2e/templates/system/compendium-migration-status.hbs";
+        options.template = `${SYSTEM_ROOT}/templates/system/compendium-migration-status.hbs`;
         options.classes = ["compendium-migration-status"];
         options.height = "auto";
         options.title = game.i18n.localize("PF2E.CompendiumMigrationStatus.Title");

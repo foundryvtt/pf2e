@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Requirements</strong> You're wielding one or more one-handed weapons</p><hr /><p>You use one-handed weapons to parry with style. You gain a +1 circumstance bonus to AC until the start of your next turn, or a +2 circumstance bonus if you have a free hand or are wielding a weapon with the parry trait. You lose this circumstance bonus if you no longer meet this feat's requirement. If a creature misses you with a Strike while you have this bonus, you gain panache until the end of your next turn.</p>"
+            "value": "<p><strong>Requirements</strong> You're wielding one or more one-handed weapons</p><hr /><p>You use one-handed weapons to parry with style. You gain a +1 circumstance bonus to AC until the start of your next turn, or a +2 circumstance bonus if you have a free hand or are wielding a weapon with the parry trait. You lose this circumstance bonus if you no longer meet this feat's requirement. If a creature misses you with a Strike while you have this bonus, you gain panache until the end of your next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache (Temporary)]</p>"
         },
         "level": {
             "value": 1
@@ -25,35 +25,10 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [
-            {
-                "key": "AdjustModifier",
-                "mode": "upgrade",
-                "predicate": [
-                    {
-                        "or": [
-                            {
-                                "gte": [
-                                    "hands-free",
-                                    1
-                                ]
-                            },
-                            "parry-bonus-upgrade:yes"
-                        ]
-                    }
-                ],
-                "selector": "ac",
-                "slug": "parry-bonus",
-                "value": 2
-            },
-            {
-                "key": "RollOption",
-                "option": "weapon-parry"
-            }
-        ],
+        "rules": [],
         "selfEffect": {
-            "name": "Effect: Parry",
-            "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Parry"
+            "name": "Effect: Extravagant Parry",
+            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Extravagant Parry"
         },
         "traits": {
             "rarity": "common",

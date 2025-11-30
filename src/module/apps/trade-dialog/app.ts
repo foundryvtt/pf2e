@@ -353,8 +353,8 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             traits: [traitSlugToObject("manipulate", CONFIG.PF2E.actionTraits)],
         };
         const templates = {
-            flavor: "systems/pf2e/templates/chat/action/flavor.hbs",
-            content: "systems/pf2e/templates/chat/action/content.hbs",
+            flavor: `${SYSTEM_ROOT}/templates/chat/action/flavor.hbs`,
+            content: `${SYSTEM_ROOT}/templates/chat/action/content.hbs`,
         };
         const itemExchanged = mutualExchange
             ? null
@@ -369,7 +369,7 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         });
         const other = speakerActor === self.actor ? trader.actor : self.actor;
         const content = await fa.handlebars.renderTemplate(templates.content, {
-            imgPath: itemExchanged?.img ?? "systems/pf2e/icons/actions/interact/trade.webp",
+            imgPath: itemExchanged?.img ?? `${SYSTEM_ROOT}/icons/actions/interact/trade.webp`,
             message: game.i18n.format(`PF2E.Actions.Interact.${annotationKey}.Description`, {
                 actor: speaker.alias,
                 other: TradeDialog.#getObfuscatedActorName(other),

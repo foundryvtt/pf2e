@@ -3,7 +3,7 @@ import * as R from "remeda";
 import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } from "./base.ts";
 
 class TokenLightForm extends RuleElementForm<TokenLightRuleSource, TokenLightRuleElement> {
-    override template = "systems/pf2e/templates/items/rules/token-light.hbs";
+    override template = `${SYSTEM_ROOT}/templates/items/rules/token-light.hbs`;
     protected override tabs: RuleElementFormTabData = {
         names: ["basic", "animation", "advanced"],
         displayStyle: "grid",

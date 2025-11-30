@@ -105,7 +105,7 @@
                         <span class="unit">{{localize "PF2E.TravelSpeed.FeetAcronym"}}</span>
                     </div>
                 {{else if speed.action}}
-                    <a class="value rollable" data-action="use-action" data-action-slug="{{speed.action}}">{{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}</a>
+                    <a class="value rollable" data-action="use-action" data-action-slug="{{speed.action}}">{{> (resolvePath "templates/actors/character/icons/d20.hbs")}}</a>
                 {{else}}
                     <div class="value empty">&mdash;</div>
                 {{/if}}

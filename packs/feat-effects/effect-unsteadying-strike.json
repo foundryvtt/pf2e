@@ -1,0 +1,68 @@
+{
+    "_id": "uUIpCXtvKvPVNunx",
+    "img": "icons/skills/melee/strike-flail-spiked-red.webp",
+    "name": "Effect: Unsteadying Strike",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Unsteadying Strike]</p>\n<p>You take a –2 circumstance penalty to your Fortitude DC to resist being Grappled, Repositioned, or Shoved and a –2 circumstance penalty to your Reflex DC to resist being Disarmed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:reposition",
+                            "action:shove"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude-dc"
+                ],
+                "slug": "unsteadying-strike-fortitude",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:disarm"
+                ],
+                "selector": [
+                    "reflex-dc"
+                ],
+                "slug": "unsteadying-strike-reflex",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

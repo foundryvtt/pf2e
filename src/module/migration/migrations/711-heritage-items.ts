@@ -186,7 +186,7 @@ export class Migration711HeritageItems extends MigrationBase {
         return {
             _id: fu.randomID(),
             type: "heritage",
-            img: feature.img.endsWith("/feat.svg") ? "systems/pf2e/icons/default-icons/heritage.svg" : feature.img,
+            img: feature.img.endsWith("/feat.svg") ? `${SYSTEM_ROOT}/icons/default-icons/heritage.svg` : feature.img,
             name: feature.name,
             effects: [],
             folder: feature.folder,
@@ -238,8 +238,8 @@ export class Migration711HeritageItems extends MigrationBase {
 
         const newSource: { type: string; img: ImageFilePath; system: object } = itemSource;
         newSource.type = "heritage";
-        if (itemSource.img === "systems/pf2e/icons/default-icons/feat.svg") {
-            itemSource.img = "systems/pf2e/icons/default-icons/heritage.svg";
+        if (itemSource.img === `${SYSTEM_ROOT}/icons/default-icons/feat.svg`) {
+            itemSource.img = `${SYSTEM_ROOT}/icons/default-icons/heritage.svg`;
         }
         type WithPropertyDeletions = HeritageSystemSourceWithNoAncestrySlug & FeatPropertyDeletions;
         const newSystemData: WithPropertyDeletions = this.#heritageFromFeat(itemSource).system;

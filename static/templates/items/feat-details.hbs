@@ -1,5 +1,5 @@
 <fieldset class="basics">
-    {{> "systems/pf2e/templates/items/partials/ability-activation.hbs"}}
+    {{> (resolvePath "templates/items/partials/ability-activation.hbs")}}
 
     {{#if item.isFeat}}
         <div class="form-group">
@@ -259,7 +259,7 @@
 </fieldset>
 
 {{#unless (eq item.system.actionType.value "passive")}}
-    {{> "systems/pf2e/templates/items/partials/self-applied-effect.hbs"}}
+    {{> (resolvePath "templates/items/partials/self-applied-effect.hbs")}}
 {{/unless}}
 
-{{> "systems/pf2e/templates/items/partials/other-tags.hbs"}}
+{{> (resolvePath "templates/items/partials/other-tags.hbs")}}

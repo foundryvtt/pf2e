@@ -1,0 +1,50 @@
+{
+    "_id": "x9xNnTl1sRGCqthu",
+    "img": "icons/weapons/swords/sword-broad-crystal-paired.webp",
+    "name": "Effect: Fortunate Blow",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Fortunate Blow]</p>\n<p>You roll twice on your next attack roll against the marked target and take the higher result.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "fortunate-blow"
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "target:mark:fortunate-blow"
+                ],
+                "selector": "attack-roll"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

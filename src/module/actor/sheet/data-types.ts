@@ -19,6 +19,8 @@ interface InventoryItem<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> {
     itemSize?: ActorSizePF2e | null;
     isContainer: boolean;
     canBeEquipped: boolean;
+    /** If true, the quantity cannot be edited, and the controls should be hidden. Used for containers and cred sticks */
+    canEditQuantity: boolean;
     /** Bulk for each item is shown on an individual basis from merchant sheets */
     unitBulk: string | null;
     isInvestable: boolean;
@@ -40,7 +42,11 @@ interface CoinDisplayData {
     label: string;
 }
 
-export type CoinageSummary = { [K in keyof RawCoins]?: CoinDisplayData };
+interface CurrencySummary {
+    units: { [K in keyof RawCoins]?: CoinDisplayData };
+    totalCurrency: string;
+    totalWealth: string;
+}
 
 interface SheetItemList {
     label: string;
@@ -66,10 +72,7 @@ interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheetData<TA
     isLootSheet: boolean;
     isTargetFlatFooted: boolean;
     toggles: Record<string, RollOptionToggle[]>;
-    totalCoinage: CoinageSummary;
-    totalCoinageGold: string;
-    totalWealth: RawCoins;
-    totalWealthGold: string;
+    currency: CurrencySummary;
     traits: SheetOptions;
     user: { isGM: boolean };
     publicationLicenses: FormSelectOption[];
@@ -96,4 +99,11 @@ interface ActorSheetRenderOptionsPF2e extends AppV1RenderOptions {
     tab?: string;
 }
 
-export type { AbilityViewData, ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e, InventoryItem, SheetInventory };
+export type {
+    AbilityViewData,
+    ActorSheetDataPF2e,
+    ActorSheetRenderOptionsPF2e,
+    CurrencySummary,
+    InventoryItem,
+    SheetInventory,
+};

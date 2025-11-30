@@ -53,7 +53,7 @@ export class CheckModifiersDialog extends fav1.api.Application {
     static override get defaultOptions(): ApplicationV1Options {
         return {
             ...super.defaultOptions,
-            template: "systems/pf2e/templates/chat/check-modifiers-dialog.hbs",
+            template: `${SYSTEM_ROOT}/templates/chat/check-modifiers-dialog.hbs`,
             classes: ["roll-modifiers-dialog", "dice-checks", "dialog"],
             popOut: true,
             width: 380,

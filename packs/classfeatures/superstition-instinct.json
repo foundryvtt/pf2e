@@ -230,26 +230,7 @@
                     "feature:raging-resistance"
                 ],
                 "type": "custom",
-                "value": "3+@actor.abilities.con.mod"
-            },
-            {
-                "definition": [
-                    "item:type:spell",
-                    {
-                        "or": [
-                            "item:trait:{item|flags.pf2e.rulesSelections.ragingResistance.resistanceOne}",
-                            "item:trait:{item|flags.pf2e.rulesSelections.ragingResistance.resistanceTwo}"
-                        ]
-                    }
-                ],
-                "key": "Resistance",
-                "label": "{item|flags.pf2e.rulesSelections.ragingResistance.label}",
-                "predicate": [
-                    "self:effect:rage",
-                    "feat:unstoppable-juggernaut"
-                ],
-                "type": "custom",
-                "value": "8+@actor.abilities.con.mod"
+                "value": "@actor.flags.pf2e.ragingResistance"
             }
         ],
         "traits": {

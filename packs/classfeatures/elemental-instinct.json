@@ -170,6 +170,80 @@
                 ],
                 "slug": "rage",
                 "value": 12
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "elemental-instinct:air"
+                ],
+                "type": [
+                    "electricity",
+                    "slashing"
+                ],
+                "value": "@actor.flags.pf2e.ragingResistance"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    {
+                        "or": [
+                            "elemental-instinct:earth",
+                            "elemental-instinct:wood"
+                        ]
+                    }
+                ],
+                "type": [
+                    "bludgeoning",
+                    "piercing"
+                ],
+                "value": "@actor.flags.pf2e.ragingResistance"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "elemental-instinct:fire"
+                ],
+                "type": "fire",
+                "value": "@actor.flags.pf2e.ragingResistance"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "elemental-instinct:metal"
+                ],
+                "type": [
+                    "piercing",
+                    "slashing"
+                ],
+                "value": "@actor.flags.pf2e.ragingResistance"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "elemental-instinct:water"
+                ],
+                "type": [
+                    "bludgeoning",
+                    "cold"
+                ],
+                "value": "@actor.flags.pf2e.ragingResistance"
+            },
+            {
+                "definition": [
+                    "origin:trait:{item|flags.pf2e.rulesSelections.elementalInstinctElement}"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.ElementalInstinct",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "type": "custom",
+                "value": "@actor.flags.pf2e.ragingResistance"
             }
         ],
         "traits": {

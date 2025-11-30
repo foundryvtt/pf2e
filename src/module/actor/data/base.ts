@@ -225,6 +225,8 @@ interface BasicAttackAction {
     slug: string;
     label: string;
     type: string;
+    /** Action traits associated with this action */
+    traits: TraitViewData[];
     /** The glyph for this attack (how many actions it takes, reaction, etc). */
     glyph: string;
     /** A description of this attack. */
@@ -250,7 +252,7 @@ interface BasicAttackAction {
 
 interface AttackAmmunitionData {
     compatible: { id: string; label: string }[];
-    loaded: { id: string; img: ImageFilePath; name: string; quantity: number; max: number }[];
+    loaded: { id: string; img: ImageFilePath; name: string; quantity: number; max: number; isTemporary: boolean }[];
     selected: {
         id: string;
         compatible: boolean;
@@ -266,12 +268,6 @@ interface StrikeData extends StatisticModifier, BasicAttackAction {
     label: string;
     /** The type of action; currently just 'strike'. */
     type: "strike";
-    /** A description of what happens on a critical success. */
-    criticalSuccess: string;
-    /** A description of what happens on a success. */
-    success: string;
-    /** Action traits associated with this strike */
-    traits: TraitViewData[];
     /** Any options always applied to this strike */
     options: string[];
     /** Alias for `attack`. */

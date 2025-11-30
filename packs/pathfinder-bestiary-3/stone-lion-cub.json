@@ -261,7 +261,7 @@
                 "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the cub reaches 0 Hit Points, its spirit dissipates. If its bonded vessel is intact, the cub re-forms in this vessel after [[/br 2d4 #Reconstitution]]{2d4 days}, fully healed. If the vessel is broken, it must first be @UUID[Compendium.pf2e.actionspf2e.Item.Repair]{Repaired}, after which the cub reforms in [[/br 3d4 #Reconstitution]]{3d4 days}.</p>"
+                    "value": "<p>When the cub reaches 0 Hit Points, its spirit dissipates. If its bonded vessel is intact, the cub re-forms in this vessel after [[/gmr 2d4 #Reconstitution]]{2d4 days}, fully healed. If the vessel is broken, it must first be @UUID[Compendium.pf2e.actionspf2e.Item.Repair]{Repaired}, after which the cub reforms in [[/gmr 3d4 #Reconstitution]]{3d4 days}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -304,7 +304,6 @@
                     {
                         "key": "RollOption",
                         "option": "inhabit-vessel",
-                        "priority": 50,
                         "toggleable": true
                     },
                     {
@@ -409,6 +408,20 @@
                 },
                 "rules": [
                     {
+                        "add": [
+                            "incorporeal"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            {
+                                "not": "inhabit-vessel"
+                            }
+                        ]
+                    },
+                    {
+                        "doubleVs": [
+                            "non-magical"
+                        ],
                         "exceptions": [
                             "force",
                             "ghost-touch"

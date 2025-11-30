@@ -78,7 +78,7 @@ class ElementalBlast {
                 required: true,
                 categories: ["IMAGE"],
                 nullable: false,
-                initial: "systems/pf2e/icons/default-icons/spell.svg" as ImageFilePath,
+                initial: `${SYSTEM_ROOT}/icons/default-icons/spell.svg` as ImageFilePath,
             }),
             damageTypes: new fields.ArrayField(
                 new fields.StringField({ required: true, choices: () => CONFIG.PF2E.damageTypes, initial: undefined }),
@@ -350,7 +350,7 @@ class ElementalBlast {
         }
 
         const blastStatistic = this.#createAttackStatistic(statistic, item);
-        const label = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+        const label = await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/action/header.hbs`, {
             title: item.name,
             glyph: actionCost.toString(),
             subtitle: game.i18n.format("PF2E.ActionsCheck.x-attack-roll", { type: statistic.label }),

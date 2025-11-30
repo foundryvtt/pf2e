@@ -22,7 +22,10 @@
         },
         "rules": [
             {
-                "choices": [
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "energy-shot",
+                "suboptions": [
                     {
                         "label": "PF2E.TraitAcid",
                         "value": "acid"
@@ -40,22 +43,15 @@
                         "value": "fire"
                     }
                 ],
-                "flag": "energyShot",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
+                "toggleable": true
             },
             {
                 "damageType": "{item|flags.pf2e.rulesSelections.energyShot}",
                 "key": "FlatModifier",
-                "predicate": [
-                    {
-                        "or": [
-                            "item:group:firearm",
-                            "item:group:crossbow"
-                        ]
-                    }
+                "selector": [
+                    "crossbow-weapon-group-damage",
+                    "firearm-weapon-group-damage"
                 ],
-                "selector": "strike-damage",
                 "value": "@weapon.system.damage.dice"
             }
         ],

@@ -6,7 +6,7 @@ export const RenderCombatTrackerConfig = {
         Hooks.on("renderCombatTrackerConfig", async (_app, html) => {
             // Add "death icon" and "actors dead at zero"
             const template = await (async () => {
-                const path = "systems/pf2e/templates/sidebar/encounter-tracker/config.hbs";
+                const path = `${SYSTEM_ROOT}/templates/sidebar/encounter-tracker/config.hbs`;
                 const markup = await fa.handlebars.renderTemplate(path, {
                     values: {
                         deathIcon: game.settings.get("pf2e", "deathIcon"),

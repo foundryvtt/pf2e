@@ -37,7 +37,7 @@ export class DamagePF2e {
         let flavor = data.name.startsWith("<h4")
             ? data.name
             : data.name || subtitle
-              ? await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+              ? await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/action/header.hbs`, {
                     title: data.name,
                     outcome,
                     subtitle,

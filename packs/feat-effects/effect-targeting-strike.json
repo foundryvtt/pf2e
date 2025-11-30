@@ -1,0 +1,53 @@
+{
+    "_id": "VBsWZHdYymig9WsH",
+    "img": "icons/skills/targeting/target-strike-gray.webp",
+    "name": "Effect: Targeting Strike",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Targeting Strike]</p>\n<p>Your attack against the marked target deals an amount of additional precision damage equal to the origin's Intelligence modifier.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "targeting-strike"
+            },
+            {
+                "damageCategory": "precision",
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:targeting-strike"
+                ],
+                "selector": [
+                    "attack-damage"
+                ],
+                "value": "@item.origin.abilities.int.mod"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

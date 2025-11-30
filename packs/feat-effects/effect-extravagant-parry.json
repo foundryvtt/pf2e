@@ -1,0 +1,81 @@
+{
+    "_id": "FkouUFpwUrPjhMNw",
+    "img": "icons/weapons/swords/sword-machete-white.webp",
+    "name": "Effect: Extravagant Parry",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Extravagant Parry]</p>\n<p>You gain a +1 circumstance bonus to AC until the start of your next turn, or a +2 circumstance bonus if you have a free hand or are wielding a weapon with the parry trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": 1
+                    }
+                ],
+                "flag": "bonus",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Swashbuckler.ExtravagantParry.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac"
+                ],
+                "slug": "extravagant-parry",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.bonus"
+            },
+            {
+                "affects": "origin",
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "failure-note"
+                    },
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "critical-failure-note"
+                    }
+                ],
+                "key": "EphemeralEffect",
+                "selectors": "strike-attack-roll",
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Panache (Ephemeral Note)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

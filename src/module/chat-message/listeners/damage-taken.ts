@@ -43,7 +43,7 @@ export const DamageTaken = {
             $(iwrInfo).tooltipster({
                 theme: "crb-hover",
                 maxWidth: 400,
-                content: await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/damage/iwr-breakdown.hbs", {
+                content: await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/damage/iwr-breakdown.hbs`, {
                     applications: iwrApplications,
                 }),
                 contentAsHTML: true,

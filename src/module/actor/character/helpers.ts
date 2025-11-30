@@ -314,7 +314,8 @@ function getAttackAmmo(
     const selected = ammo ? { id: ammo.id, compatible: ammo.isAmmoFor(weapon) } : null;
     const loaded = getLoadedAmmo(weapon);
     const capacity = weapon.system.ammo?.capacity ?? 0;
-    const remaining = Math.max(0, capacity - R.sumBy(loaded, (l) => l.quantity));
+    const magsDepleted = loaded.every((a) => a.isOfType("ammo") && a.isMagazine && a.system.uses.value === 0);
+    const remaining = magsDepleted ? 1 : Math.max(0, capacity - R.sumBy(loaded, (l) => l.quantity));
 
     // Get reload glyph. Repeating weapons always take 3 actions total
     const numActions = weapon.system.traits.value.includes("repeating") ? 3 : Number(weapon.reload);
@@ -330,6 +331,7 @@ function getAttackAmmo(
                 ...R.pick(ammo, ["id", "name", "img"]),
                 quantity: isMagazine ? ammo.system.uses.value : ammo.quantity,
                 max: isMagazine ? ammo.system.uses.max : remaining + ammo.quantity,
+                isTemporary: ammo.isTemporary,
             };
         }),
         // A repeating weapon may have reload 0, and still requires reloading

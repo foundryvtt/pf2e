@@ -1,0 +1,93 @@
+{
+    "_id": "BKyq3deWdCbYzAHA",
+    "img": "icons/skills/melee/strike-blade-hooked-orange-blue.webp",
+    "name": "Effect: Resounding Cascade",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Resounding Cascade]</p>\n<p>You emanate a 5-foot aura. If you're not the origin, you deal extra damage with your melee Strikes of the same damage type as the origin's Arcane Cascade damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "includesSelf": false,
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Resounding Cascade"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "self:effect:arcane-cascade",
+                    "self:signature:{item|origin.signature}"
+                ]
+            },
+            {
+                "damageType": "{item|origin.flags.pf2e.stanceArcaneCascade}",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": [
+                    "melee-strike-damage"
+                ],
+                "slug": "resounding-cascade",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "feature:weapon-specialization",
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": "melee-strike-damage",
+                "slug": "resounding-cascade",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "feature:greater-weapon-specialization",
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": "melee-strike-damage",
+                "slug": "resounding-cascade",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

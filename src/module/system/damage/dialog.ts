@@ -58,7 +58,7 @@ class DamageModifierDialog extends fav1.api.Application {
     static override get defaultOptions(): fav1.api.ApplicationV1Options {
         return {
             ...super.defaultOptions,
-            template: "systems/pf2e/templates/chat/damage/damage-modifier-dialog.hbs",
+            template: `${SYSTEM_ROOT}/templates/chat/damage/damage-modifier-dialog.hbs`,
             classes: ["roll-modifiers-dialog", "damage-dialog", "dialog"],
             popOut: true,
             width: 440,

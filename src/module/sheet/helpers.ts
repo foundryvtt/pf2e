@@ -2,9 +2,10 @@ import { ActorPF2e } from "@actor";
 import type Application from "@client/appv1/api/application-v1.d.mts";
 import type { TooltipDirection } from "@client/helpers/interaction/tooltip-manager.d.mts";
 import type { RollMode } from "@common/constants.d.mts";
+import type { ImageFilePath } from "@common/constants.mjs";
 import type { ItemUUID } from "@common/documents/_module.d.mts";
 import { ItemPF2e, ItemProxyPF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
-import type { TraitChatData } from "@item/base/data/index.ts";
+import type { ActionCost, TraitChatData } from "@item/base/data/index.ts";
 import { createEffectAreaLabel } from "@item/helpers.ts";
 import type { ItemType } from "@item/types.ts";
 import type { Rarity } from "@module/data.ts";
@@ -179,6 +180,7 @@ function getBasePhysicalItemViewData(item: PhysicalItemPF2e): BasePhysicalItemVi
         level: item.level,
         rarity: item.rarity,
         traits: item.traitChatData(),
+        isTemporary: item.isTemporary,
     };
 }
 
@@ -256,6 +258,34 @@ function createNPCAttackTraitsAndTags(item: MeleePF2e): NPCAttackTraitOrTag[] {
     return tags.sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
 }
 
+const actionImgMap: Record<string, ImageFilePath> = {
+    0: `${SYSTEM_ROOT}/icons/actions/FreeAction.webp`,
+    free: `${SYSTEM_ROOT}/icons/actions/FreeAction.webp`,
+    1: `${SYSTEM_ROOT}/icons/actions/OneAction.webp`,
+    2: `${SYSTEM_ROOT}/icons/actions/TwoActions.webp`,
+    3: `${SYSTEM_ROOT}/icons/actions/ThreeActions.webp`,
+    "1 or 2": `${SYSTEM_ROOT}/icons/actions/OneTwoActions.webp`,
+    "1 to 3": `${SYSTEM_ROOT}/icons/actions/OneThreeActions.webp`,
+    "2 or 3": `${SYSTEM_ROOT}/icons/actions/TwoThreeActions.webp`,
+    reaction: `${SYSTEM_ROOT}/icons/actions/Reaction.webp`,
+    passive: `${SYSTEM_ROOT}/icons/actions/Passive.webp`,
+};
+
+function getActionIcon(actionType: string | ActionCost | null, fallback: ImageFilePath): ImageFilePath;
+function getActionIcon(actionType: string | ActionCost | null, fallback: ImageFilePath | null): ImageFilePath | null;
+function getActionIcon(actionType: string | ActionCost | null): ImageFilePath;
+function getActionIcon(
+    action: string | ActionCost | null,
+    fallback: ImageFilePath | null = `${SYSTEM_ROOT}/icons/actions/Empty.webp`,
+): ImageFilePath | null {
+    if (action === null) return actionImgMap.passive;
+    const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;
+    const sanitized = String(value ?? "")
+        .toLowerCase()
+        .trim();
+    return actionImgMap[sanitized] ?? fallback;
+}
+
 interface SheetOption {
     value: string;
     label: string;
@@ -304,6 +334,7 @@ interface BasePhysicalItemViewData {
     traits: TraitChatData[];
     level: number | null;
     rarity: Rarity | null;
+    isTemporary: boolean;
 }
 
 export {
@@ -314,6 +345,7 @@ export {
     createTooltipListener,
     eventToRollMode,
     eventToRollParams,
+    getActionIcon,
     getAdjustedValue,
     getAdjustment,
     getBasePhysicalItemViewData,

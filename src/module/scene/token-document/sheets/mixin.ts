@@ -26,15 +26,13 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
             },
         };
 
-        static override PARTS = (() => {
-            const parts = super.PARTS;
-            parts["appearance"].template = "systems/pf2e/templates/scene/token/appearance.hbs";
-            return parts;
-        })();
+        static override PARTS = fu.mergeObject(super.PARTS, {
+            appearance: { template: `${SYSTEM_ROOT}/templates/scene/token/appearance.hbs` },
+        });
 
-        get linkToActorSize(): boolean {
-            return !!this.token.flags.pf2e.linkToActorSize;
-        }
+        abstract get linkToActorSize(): boolean;
+
+        abstract get autoscale(): boolean;
 
         /** Get this token's dimensions were they linked to its actor's size */
         get dimensionsFromActorSize(): number {
@@ -61,13 +59,14 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
             const context = (await super._prepareContext(options)) as DocumentSheetRenderContext;
             const actor = this.actor;
             const sizeLinkable = !!actor && SIZE_LINKABLE_ACTOR_TYPES.has(actor.type);
-            const linkToActorSize = sizeLinkable && this.token.flags.pf2e.linkToActorSize;
+            const linkToActorSize = sizeLinkable && this.linkToActorSize;
+            const autoscale = this.autoscale;
             return Object.assign(context, {
                 sizeLinkable,
                 linkToActorSize,
-                autoscale: sizeLinkable && this.token.flags.pf2e.autoscale,
+                autoscale: sizeLinkable && autoscale,
                 linkToSizeTitle: linkToActorSize ? "Unlink" : "Link",
-                autoscaleTitle: this.token.flags.pf2e.autoscale ? "Unlink" : "Link",
+                autoscaleTitle: autoscale ? "Unlink" : "Link",
             });
         }
 
@@ -185,12 +184,12 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
         /** Disable the range input for token scale and style to indicate as much */
         static async #onClickToggleAutoscale(this: PrototypeTokenConfigPF2e): Promise<void> {
             await this.submit({ operation: { render: false } });
-            await this.token.update({ "flags.pf2e.autoscale": !this.token.flags.pf2e.autoscale });
+            await this.token.update({ "flags.pf2e.autoscale": !this.autoscale });
         }
 
         static async #onClickToggleSizeLink(this: PrototypeTokenConfigPF2e): Promise<void> {
             await this.submit({ operation: { render: false } });
-            await this.token.update({ "flags.pf2e.linkToActorSize": !this.token.flags.pf2e.linkToActorSize });
+            await this.token.update({ "flags.pf2e.linkToActorSize": !this.linkToActorSize });
         }
 
         /* -------------------------------------------- */

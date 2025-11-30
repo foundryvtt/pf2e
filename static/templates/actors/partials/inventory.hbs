@@ -39,7 +39,7 @@
         <ul class="items" data-item-list data-item-types="{{section.types}}"{{#if @root.isLootSheet}} data-loot{{/if}}>
             {{#each section.items as |rowData|}}
                 {{#if (or (not rowData.hidden) @root.document.isOwner)}}
-                    {{> "systems/pf2e/templates/actors/partials/item-line.hbs" this=rowData}}
+                    {{> (resolvePath "templates/actors/partials/item-line.hbs") this=rowData}}
                 {{/if}}
             {{/each}}
         </ul>

@@ -9,7 +9,7 @@ import type { PhysicalItemPF2e } from "@item";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlClosest, htmlQuery } from "@util";
 import { ActorSheetPF2e } from "../sheet/base.ts";
-import { DistributeCoinsPopup } from "../sheet/popups/distribute-coins-popup.ts";
+import { DistributeCoinsDialog } from "../sheet/popups/distribute-coins-dialog.ts";
 import { LootNPCsPopup } from "../sheet/popups/loot-npcs-popup.ts";
 import type { LootSystemSchema } from "./data.ts";
 
@@ -28,7 +28,7 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
     }
 
     override get template(): string {
-        return "systems/pf2e/templates/actors/loot/sheet.hbs";
+        return `${SYSTEM_ROOT}/templates/actors/loot/sheet.hbs`;
     }
 
     override async getData(): Promise<LootSheetDataPF2e<TActor>> {
@@ -59,7 +59,7 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
         htmlQuery(html, "[data-sidebar-buttons]")?.addEventListener("click", (event) => {
             const button = htmlClosest(event.target, "button[data-action]");
             if (button?.dataset.action === "split-coins") {
-                new DistributeCoinsPopup(this.actor).render(true);
+                new DistributeCoinsDialog({ actor: this.actor }).render(true);
             } else if (button?.dataset.action === "loot-npcs") {
                 if (canvas.tokens.controlled.some((token) => token.actor?.id !== this.actor.id)) {
                     new LootNPCsPopup(this.actor).render(true);

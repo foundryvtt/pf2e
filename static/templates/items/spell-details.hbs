@@ -223,7 +223,7 @@
     {{!-- Spell heightening for fixed levels --}}
     {{#unless (eq data.heightening.type "interval")}}
         {{#each heightenOverlays}}
-            {{> systems/pf2e/templates/items/spell-overlay.hbs this=this}}
+            {{> (resolvePath "templates/items/spell-overlay.hbs") this=this}}
         {{/each}}
     {{/unless}}
 </fieldset>

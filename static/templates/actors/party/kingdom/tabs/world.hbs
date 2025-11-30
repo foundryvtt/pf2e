@@ -39,7 +39,7 @@
     </header>
     <ol class="directory-list settlement-list">
         {{#each settlements as |settlement|}}
-            {{> "systems/pf2e/templates/actors/party/kingdom/partials/settlement.hbs" settlement=settlement }}
+            {{> (resolvePath "templates/actors/party/kingdom/partials/settlement.hbs") settlement=settlement }}
         {{/each}}
     </ol>
 </section>

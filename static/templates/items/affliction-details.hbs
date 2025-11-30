@@ -96,7 +96,7 @@
 
         <div class="form-group">
             <label class="short">{{localize "PF2E.Time.Duration"}}</label>
-            {{> systems/pf2e/templates/items/partials/duration.hbs base=(concat "system.stages." stageIdx ".duration") duration=stage.duration units=../durationUnits}}
+            {{> (resolvePath "templates/items/partials/duration.hbs") base=(concat "system.stages." stageIdx ".duration") duration=stage.duration units=../durationUnits}}
         </div>
     </fieldset>
 {{/each}}

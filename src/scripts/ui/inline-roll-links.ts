@@ -154,8 +154,8 @@ export class InlineRollLinks {
                 return [sheetActor];
             }
 
-            // If the rolling actor is a party actor, return it (likely kingmaker)
-            if (parentActor?.isOfType("party")) {
+            // If the rolling actor is a party actor and has the requested statistic, return it (likely kingmaker)
+            if (parentActor?.isOfType("party") && parentActor?.getStatistic(pf2Check)) {
                 return [parentActor];
             }
 
@@ -302,7 +302,7 @@ export class InlineRollLinks {
                         : statistic.check.type === "attack-roll"
                           ? "PF2E.ActionsCheck.x-attack-roll"
                           : "PF2E.ActionsCheck.x";
-                args.label = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+                args.label = await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/action/header.hbs`, {
                     glyph: getActionGlyph(item.actionCost),
                     subtitle: game.i18n.format(subtitleLocKey, { type: statistic.label }),
                     title: item.name,

@@ -1,3 +1,5 @@
+import "./global.ts";
+
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ACTOR_TYPES } from "@actor/values.ts";
 import type { CompendiumDocument } from "@client/documents/_module.d.mts";
@@ -8,7 +10,6 @@ import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { sluggify } from "@util";
 import fs from "fs-extra";
-import { JSDOM } from "jsdom";
 import path from "path";
 import * as R from "remeda";
 import "./lib/foundry-utils.ts";
@@ -28,12 +29,7 @@ import { Migration949NPCRangeData } from "@module/migration/migrations/949-npc-r
 import { Migration950AmmoConsumableToAmmoAmmo } from "@module/migration/migrations/950-ammo-consumable-to-ammo-ammo.ts";
 import { Migration951TreasureCategories } from "@module/migration/migrations/951-treasure-categories.ts";
 import { Migration952AmmoTraitsAndOptions } from "@module/migration/migrations/952-ammo-traits-options.ts";
-
-const { window } = new JSDOM();
-globalThis.document = window.document;
-globalThis.HTMLElement = window.HTMLElement;
-globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
-globalThis.Text = window.Text;
+import { Migration953NotStrikeDamage } from "@module/migration/migrations/953-not-strike-damage.ts";
 
 const migrations: MigrationBase[] = [
     new Migration937RemoveInvalidAuraTraits(),
@@ -49,6 +45,7 @@ const migrations: MigrationBase[] = [
     new Migration950AmmoConsumableToAmmoAmmo(),
     new Migration951TreasureCategories(),
     new Migration952AmmoTraitsAndOptions(),
+    new Migration953NotStrikeDamage(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");

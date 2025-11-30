@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You've learned a flexible way to position your @UUID[Compendium.pf2e.equipment-srd.Item.Buckler] to provide more protection. When you @UUID[Compendium.pf2e.actionspf2e.Item.Raise a Shield] to gain a circumstance bonus to AC from a buckler, increase the bonus from +1 to +2.</p>\n<p>While you have a buckler raised, if a creature critically misses you with a Strike, you gain panache until the end of your next turn.</p>"
+            "value": "<p>You've learned a flexible way to position your @UUID[Compendium.pf2e.equipment-srd.Item.Buckler] to provide more protection. When you @UUID[Compendium.pf2e.actionspf2e.Item.Raise a Shield] to gain a circumstance bonus to AC from a buckler, increase the bonus from +1 to +2.</p>\n<p>While you have a buckler raised, if a creature critically misses you with a Strike, you gain panache until the end of your next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache (Temporary)]</p>"
         },
         "level": {
             "value": 1
@@ -27,11 +27,37 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Swashbuckler.ElegantBuckler.RollOptionLabel",
+                "option": "elegant-buckler",
+                "toggleable": true
+            },
+            {
                 "key": "AdjustModifier",
                 "mode": "upgrade",
+                "predicate": [
+                    "elegant-buckler"
+                ],
                 "selector": "ac",
                 "slug": "raised-shield",
                 "value": 2
+            },
+            {
+                "affects": "origin",
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "critical-failure-note"
+                    }
+                ],
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "elegant-buckler",
+                    "self:shield:raised"
+                ],
+                "selectors": "strike-attack-roll",
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Panache (Ephemeral Note)"
             }
         ],
         "traits": {

@@ -440,6 +440,7 @@
                 "slug": null,
                 "traits": {
                     "value": [
+                        "unarmed",
                         "unholy"
                     ]
                 }
@@ -478,6 +479,7 @@
                 "traits": {
                     "value": [
                         "agile",
+                        "unarmed",
                         "unholy"
                     ]
                 }
@@ -577,7 +579,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Vermleks can't stand the sight of a good meal presented and then swiftly taken away. Whenever a dying creature within sight of the vermlek has its dying condition removed, the vermlek takes @Damage[1d6[mental]] damage.</p>"
+                    "value": "<p>Vermleks can't stand the sight of a good meal presented and then swiftly taken away. Whenever a @UUID[Compendium.pf2e.conditionitems.Item.Dying] creature within sight of the vermlek has its dying condition removed, the vermlek takes @Damage[1d6[mental]] damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -606,7 +608,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The vermlek is Inhabiting a Body</p><hr /><p><strong>Effect</strong> The vermlek crawls out of the body they are inhabiting, devouring much of the body's remaining flesh and regaining 10 Hit Points in the process. The corpse they leave behind is little more than a husk.</p>"
+                    "value": "<p><strong>Requirements</strong> The vermlek is Inhabiting a Body</p><hr /><p><strong>Effect</strong> The vermlek crawls out of the body they are inhabiting, devouring much of the body's remaining flesh and regaining @Damage[10[healing]] Hit Points in the process. The corpse they leave behind is little more than a husk.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -625,7 +627,7 @@
         },
         {
             "_id": "IPog4z95kZnznJaz",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Inhabit Body",
             "sort": 1100000,
             "system": {
@@ -633,18 +635,44 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": 3
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The vermlek isn't already Inhabiting a Body</p><hr /><p><strong>Effect</strong> The vermlek crawls into the body of an adjacent Medium humanoid that has been dead for no more than 1 week, consuming the bulk of the victim's skeleton and internal organs as they do so and cramming themself into the cavity. As long as they Inhabit a Body, the vermlek loses their bite attack, can wield weapons like a humanoid, gains a +3 circumstance bonus to AC, and gains a +3 circumstance bonus to Deception checks to Impersonate the creature they are inhabiting.</p>"
+                    "value": "<p><strong>Requirements</strong> The vermlek isn't already Inhabiting a Body</p><hr /><p><strong>Effect</strong> The vermlek crawls into the body of an adjacent Medium humanoid that has been dead for no more than 1 week, consuming the bulk of the victim's skeleton and internal organs as they do so and cramming themself into the cavity. As long as they Inhabit a Body, the vermlek loses their bite attack, can wield weapons like a humanoid, gains a +3 circumstance bonus to AC, and gains a +3 circumstance bonus to Deception checks to [[/act impersonate options=impersonate-inhabited-creature]] the creature they are inhabiting.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "inhabit-body",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "inhabit-body"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 3
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:impersonate",
+                            "impersonate-inhabited-creature",
+                            "inhabit-body"
+                        ],
+                        "selector": "deception",
+                        "type": "circumstance",
+                        "value": 3
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -668,7 +696,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Whenever the vermlek Abandons a Body or Inhabits a Body, all creatures within 30 feet who can see the vermlek must succeed at a @Check[will|dc:19] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. On a critical failure, the creature is frightened 1 and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. Regardless of the result, creatures are immune to the same vermlek's unsettling movement for 24 hours.</p>"
+                    "value": "<p>Whenever the vermlek Abandons a Body or Inhabits a Body, all creatures within @Template[emanation|distance:30]{30 feet} who can see the vermlek must succeed at a @Check[will|dc:19|options:inflicts:frightened,inflicts:sickened] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. On a critical failure, the creature is frightened 1 and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. Regardless of the result, creatures are immune to the same vermlek's unsettling movement for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -713,7 +741,7 @@
         },
         "attributes": {
             "ac": {
-                "details": "",
+                "details": "(19 while Inhabiting a Body)",
                 "value": 16
             },
             "allSaves": {
@@ -752,7 +780,7 @@
         "details": {
             "blurb": "",
             "languages": {
-                "details": "Telepathy 100 feet",
+                "details": "telepathy 100 feet",
                 "value": [
                     "chthonian",
                     "draconic",
@@ -811,10 +839,7 @@
                 "special": [
                     {
                         "base": 10,
-                        "label": "to Impersonate while Inhabiting a Body",
-                        "predicate": [
-                            "inhabiting-a-body"
-                        ]
+                        "label": "to Impersonate while Inhabiting a Body"
                     }
                 ]
             },

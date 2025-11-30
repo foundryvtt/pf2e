@@ -139,7 +139,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
                 if (traits.length === 0) {
                     return createHTMLElement("strong", { children: [this.name] }).outerHTML;
                 }
-                return fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/flavor.hbs", {
+                return fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/action/flavor.hbs`, {
                     action: { title: this.name },
                     traits: traits.map((t) => traitSlugToObject(t, CONFIG.PF2E.effectTraits)),
                 });

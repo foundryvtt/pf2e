@@ -1,5 +1,3 @@
-import type { PartialPrice, RawCoins } from "@item/physical/data.ts";
-import { Coins } from "@item/physical/helpers.ts";
 import { getActionGlyph, ordinalString, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
 
@@ -102,15 +100,6 @@ export function registerHandlebarsHelpers(): void {
         return signedInteger(number, { emptyStringZero, zeroIsNegative });
     });
 
-    Handlebars.registerHelper("coinLabel", (value: Maybe<RawCoins | PartialPrice>): Coins | null => {
-        if (!value) return null;
-        if ("value" in value) {
-            // todo: handle per pricing
-            return new Coins(value.value);
-        }
-        return new Coins(value);
-    });
-
     Handlebars.registerHelper("includes", (data: unknown, element: unknown): boolean => {
         if (Array.isArray(data)) return data.includes(element);
         if (typeof data === "string") return data.includes(String(element));
@@ -149,6 +138,13 @@ export function registerHandlebarsHelpers(): void {
     // https://stackoverflow.com/questions/33704495/how-to-use-raw-helper-in-a-handlebars-template
     Handlebars.registerHelper("raw", function (this: unknown, options: Handlebars.HelperOptions): string {
         return options.fn(this);
+    });
+
+    /** Resolves either a systems/pf2e or a systems/sf2e path based on system variables */
+    Handlebars.registerHelper("resolvePath", function (path: unknown): string {
+        const stringPath = String(path);
+        const pathNormalized = stringPath[0] === "/" || stringPath[0] === "\\" ? stringPath.substring(1) : stringPath;
+        return `${SYSTEM_ROOT}/${pathNormalized}`;
     });
 }
 

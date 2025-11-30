@@ -4,7 +4,7 @@
     "name": "Stance: Desert Wind",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Desert Wind]</p>\n<p>Each creature inside your kinetic aura (including you) is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] from any creature outside your kinetic aura, and creatures outside the aura are concealed from creatures inside the aura other than you. Your air impulses carry sands that cut at great speed.</p>\n<p>When you use a damaging air impulse that affects at least one creature in your kinetic aura, that impulse deals 1 additional slashing damage, or 2 if the impulse has a single target.</p><hr /><p><strong>Level (+2)</strong> The extra damage increases by 1, or 2 if the impulse has a single target.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Desert Wind]</p>\n<p>When you use a damaging air impulse that affects at least one creature in your kinetic aura, that impulse deals additional slashing damage. This damage is doubled if the impulse has a single target.</p>"
         },
         "duration": {
             "expiry": null,
@@ -13,14 +13,59 @@
             "value": -1
         },
         "level": {
-            "value": 1
+            "value": 6
         },
         "publication": {
             "license": "OGL",
             "remaster": true,
             "title": "Pathfinder Rage of Elements"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Kineticist.DesertWind.DamageToggle",
+                "option": "desert-wind-damage",
+                "suboptions": [
+                    {
+                        "label": "PF2E.GenericLabel.TargetNumber.Multiple",
+                        "value": "multiple"
+                    },
+                    {
+                        "label": "PF2E.GenericLabel.TargetNumber.Single",
+                        "value": "single"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "damageType": "slashing",
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:air",
+                    "item:trait:impulse",
+                    "desert-wind-damage"
+                ],
+                "selector": [
+                    "inline-damage",
+                    "impulse-damage"
+                ],
+                "slug": "desert-wind",
+                "value": "floor(@actor.level/2) - 2"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "desert-wind-damage:single"
+                ],
+                "selectors": [
+                    "inline-damage",
+                    "impulse-damage"
+                ],
+                "slug": "desert-wind",
+                "value": 2
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0

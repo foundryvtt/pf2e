@@ -3,6 +3,7 @@ import type { RawItemChatData } from "@item/base/data/index.ts";
 import type { ConsumableTrait } from "@item/consumable/types.ts";
 import { PhysicalItemPF2e } from "@item/physical/index.ts";
 import type { WeaponPF2e } from "@item/weapon/document.ts";
+import { getLoadedAmmo } from "@item/weapon/helpers.ts";
 import { PickAThingPrompt } from "@module/apps/pick-a-thing-prompt/app.ts";
 import type { ValueAndMax } from "@module/data.ts";
 import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
@@ -16,17 +17,24 @@ class AmmoPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phys
         return CONFIG.PF2E.consumableTraits;
     }
 
+    get isMagazine(): boolean {
+        return this.system.uses.max > 1 || !!CONFIG.PF2E.ammoTypes[this.system.baseItem ?? "arrows"]?.magazine;
+    }
+
     get uses(): ValueAndMax {
         return R.pick(this.system.uses, ["value", "max"]);
     }
 
     override prepareBaseData(): void {
-        // Determine stack group from ammo type. This must happen first for bulk calculation to work
+        // Determine stack group from ammo type. This must happen before super for bulk calculation to work
         const ammoTypeData = this.system.baseItem ? CONFIG.PF2E.ammoTypes[this.system.baseItem] : null;
         this.system.stackGroup = ammoTypeData?.stackGroup ?? null;
 
         super.prepareBaseData();
         this.system.uses.max ||= 1;
+        if (!this.system.traits.value.includes("consumable")) {
+            this.system.uses.autoDestroy = false;
+        }
 
         // Refuse to serve rule elements if this item is ammunition and has types that perform writes
         for (const rule of this.system.rules) {
@@ -52,9 +60,7 @@ class AmmoPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phys
         const weaponData = weapon.system.ammo;
 
         // If this is not ammo or the weapon doesn't take ammo, return
-        if (!this.system.baseItem || !weaponData || weaponData.builtIn) {
-            return false;
-        }
+        if (!weaponData || weaponData.builtIn) return false;
 
         const thisAmmoTypeData = this.system.baseItem ? CONFIG.PF2E.ammoTypes[this.system.baseItem] : null;
         const weaponAmmoTypeData = objectHasKey(CONFIG.PF2E.ammoTypes, weaponData.baseType)
@@ -65,6 +71,14 @@ class AmmoPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phys
         const isMagazine = thisAmmoTypeData?.magazine || this.system.uses.max > 1;
 
         return (
+            // Unselected special ammo. The attach() function should lock in the ammo type after
+            (!this.system.baseItem &&
+                this.system.craftableAs &&
+                !isMagazine &&
+                !!weaponAmmoTypeData &&
+                (this.system.craftableAs.length === 0 ||
+                    !basicWeaponAmmoType ||
+                    tupleHasValue(this.system.craftableAs, basicWeaponAmmoType))) ||
             // Return true if it is an exact match
             this.system.baseItem === weaponData.baseType ||
             // Return true if this is a non-magazine and the weapon accepts anything
@@ -101,23 +115,35 @@ class AmmoPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phys
             ChatMessage.create({ speaker, content, flags });
         }
 
-        // Optionally destroy the item or deduct charges or quantity
-        // Also keep if it has rule elements
-        if (this.system.uses.autoDestroy && uses.value <= thisMany) {
-            const newQuantity = Math.max(this.quantity - (uses.max > 1 ? 1 : thisMany), 0);
-            const isPreservedAmmo = this.system.rules.length > 0;
-            if (newQuantity <= 0 && !isPreservedAmmo) {
-                await this.delete();
-            } else {
-                await this.update({
-                    "system.quantity": newQuantity,
-                    "system.uses.value": uses.max,
-                });
-            }
+        // If we have more uses than we need to spend, update uses and return early
+        if (uses.value > thisMany) {
+            await this.update({ "system.uses.value": Math.max(uses.value - thisMany, 0) });
+            return;
+        }
+
+        const autoDestroy = this.system.uses.autoDestroy;
+        const newQuantity = Math.max(this.quantity - (uses.max > 1 ? 1 : thisMany), 0);
+
+        // Check if we need to preserve 0 quantity ammo for rule element reasons,
+        // either because the ammo has it or the next in line might have some.
+        const loadedAmmo = this.parentItem?.isOfType("weapon")
+            ? getLoadedAmmo(this.parentItem).filter((a) => a.quantity > 0)
+            : null;
+        const isPreservedAmmo = this.system.rules.length > 0 || (loadedAmmo?.length ?? 0) > 1;
+
+        if (autoDestroy && newQuantity <= 0 && !isPreservedAmmo) {
+            // Delete ammo if this is the last one and we don't care about preserving it
+            await this.delete();
+        } else if (this.parentItem && !this.isMagazine && !autoDestroy) {
+            // Detach loaded non-destroyable ammo
+            const numDetach = this.quantity - newQuantity;
+            await this.detach({ quantity: numDetach, keepZero: isPreservedAmmo, skipConfirm: true });
+        } else if (this.parentItem && this.isMagazine) {
+            // Internal non-destroyable magazines (batteries) keep 1 quantity and 0 uses
+            await this.update({ "system.quantity": 1, "system.uses.value": 0 });
         } else {
-            await this.update({
-                "system.uses.value": Math.max(uses.value - thisMany, 0),
-            });
+            // Update quantity to new value, and roll over uses in case this is non-loaded magazine ammo
+            await this.update({ "system.quantity": newQuantity, "system.uses.value": uses.max });
         }
     }
 
@@ -188,7 +214,8 @@ class AmmoPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phys
         const baseItem = "baseItem" in changed.system ? changed.system.baseItem : this._source.system.baseItem;
         const data = baseItem ? CONFIG.PF2E.ammoTypes[baseItem] : null;
         if (!data?.magazine || craftableAs?.length) {
-            changed.system.uses = { value: 1, max: 1 };
+            const autoDestroy = changed.system.uses?.autoDestroy ?? this._source.system.uses.autoDestroy;
+            changed.system.uses = { value: 1, max: 1, autoDestroy };
         }
 
         if (changed.system.uses) {

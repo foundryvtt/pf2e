@@ -38,7 +38,7 @@ class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory {
 
     static override PARTS = {
         ...super.PARTS,
-        match: { template: "systems/pf2e/templates/sidebar/compendium-directory/search-result.hbs" },
+        match: { template: `${SYSTEM_ROOT}/templates/sidebar/compendium-directory/search-result.hbs` },
     };
 
     get searchEngine(): MiniSearch<CompendiumIndexData> {

@@ -1,5 +1,5 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { SingleCheckAction } from "@actor/actions/index.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 function avoidNotice(options: SkillActionOptions): void {
     const slug = options?.skill ?? "stealth";
@@ -26,7 +26,7 @@ function avoidNotice(options: SkillActionOptions): void {
 
 const action = new SingleCheckAction({
     description: "PF2E.Actions.AvoidNotice.Description",
-    img: "systems/pf2e/icons/conditions/unnoticed.webp",
+    img: `${SYSTEM_ROOT}/icons/conditions/unnoticed.webp`,
     name: "PF2E.Actions.AvoidNotice.Title",
     notes: [
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.AvoidNotice.Notes.criticalSuccess" },
@@ -37,4 +37,4 @@ const action = new SingleCheckAction({
     traits: ["exploration"],
 });
 
-export { avoidNotice as legacy, action };
+export { action, avoidNotice as legacy };

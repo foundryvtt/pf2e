@@ -136,7 +136,7 @@
             <span data-tooltip="{{data.initiative.breakdown}}">{{localize "PF2E.InitiativeLabel"}}</span>
         </label>
         <a class="roll{{#unless editable}} disabled{{/unless}}" data-action="roll-initiative" data-tooltip="{{data.initiative.breakdown}}">
-            {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
+            {{> (resolvePath "templates/actors/character/icons/d20.hbs")}}
             <span>{{numberFormat data.initiative.totalModifier sign=true}}</span>
         </a>
     </header>

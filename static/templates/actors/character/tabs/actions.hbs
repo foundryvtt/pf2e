@@ -9,7 +9,7 @@
         <div class="actions-tabs-wrapper">
             <section class="actions-panels">
                 <section class="actions-panel tab major" data-tab="encounter" data-group="actions-tabs">
-                    {{#if toggles.actions}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.actions}}{{/if}}
+                    {{#if toggles.actions}}{{> (resolvePath "templates/actors/partials/toggles.hbs") toggles=toggles.actions}}{{/if}}
 
                     <header>
                         {{localize "PF2E.Actor.Attacks"}}
@@ -29,14 +29,14 @@
                         {{!-- ELEMENTAL BLASTS --}}
                         <ol class="actions-list directory-list elemental-blasts" data-elemental-blasts>
                             {{#each elementalBlasts as |blast|}}
-                                {{> "systems/pf2e/templates/actors/character/partials/elemental-blast.hbs" action=blast}}
+                                {{> (resolvePath "templates/actors/character/partials/elemental-blast.hbs") action=blast}}
                             {{/each}}
                         </ol>
                     {{/if}}
 
                     <ol class="actions-list item-list directory-list strikes-list" data-strikes>
                         {{#each data.actions as |strike ai|}}
-                            {{> "systems/pf2e/templates/actors/character/partials/strike.hbs" action=strike index=ai}}
+                            {{> (resolvePath "templates/actors/character/partials/strike.hbs") action=strike index=ai}}
                         {{/each}}
                     </ol>
 
@@ -57,7 +57,7 @@
 
                         <ol class="actions-list item-list directory-list">
                             {{#each section.actions as |action|}}
-                                {{> "systems/pf2e/templates/actors/partials/action.hbs" action=action}}
+                                {{> (resolvePath "templates/actors/partials/action.hbs") action=action}}
                             {{/each}}
                         </ol>
                     {{/each}}
@@ -79,7 +79,7 @@
 
                         <ol class="actions-list item-list directory-list">
                             {{#each actions.exploration.active as |action|}}
-                                {{> "systems/pf2e/templates/actors/partials/action.hbs" action=action}}
+                                {{> (resolvePath "templates/actors/partials/action.hbs") action=action}}
                             {{/each}}
                         </ol>
                     {{/if}}
@@ -100,7 +100,7 @@
 
                     <ol class="actions-list item-list directory-list">
                         {{#each actions.exploration.other as |action|}}
-                            {{> "systems/pf2e/templates/actors/partials/action.hbs" action=action}}
+                            {{> (resolvePath "templates/actors/partials/action.hbs") action=action}}
                         {{/each}}
                     </ol>
                 </section>
@@ -122,7 +122,7 @@
 
                     <ol class="actions-list item-list directory-list">
                         {{#each actions.downtime as |action aid|}}
-                            {{> "systems/pf2e/templates/actors/partials/action.hbs" action=action}}
+                            {{> (resolvePath "templates/actors/partials/action.hbs") action=action}}
                         {{/each}}
                     </ol>
                 </section>

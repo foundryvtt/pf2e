@@ -25,7 +25,7 @@ abstract class SettingsMenuPF2e extends fav1.api.FormApplication {
             ...options,
             title: `PF2E.SETTINGS.${this.namespace.titleCase()}.Name`,
             id: `${this.namespace}-settings`,
-            template: `systems/pf2e/templates/system/settings/menu.hbs`,
+            template: `${SYSTEM_ROOT}/templates/system/settings/menu.hbs`,
             width: 550,
             height: "auto",
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: "form" }],

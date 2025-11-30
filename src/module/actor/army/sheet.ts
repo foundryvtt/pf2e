@@ -28,7 +28,7 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
             classes: [...options.classes, "army"],
             width: 750,
             height: 625,
-            template: "systems/pf2e/templates/actors/army/sheet.hbs",
+            template: `${SYSTEM_ROOT}/templates/actors/army/sheet.hbs`,
             scrollY: [".sheet-body"],
         };
     }
@@ -211,7 +211,7 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
                 const gear = gearData[gearType];
                 ChatMessagePF2e.create({
                     speaker: ChatMessagePF2e.getSpeaker({ actor: this.actor }),
-                    content: await fa.handlebars.renderTemplate("systems/pf2e/templates/actors/army/gear-card.hbs", {
+                    content: await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/actors/army/gear-card.hbs`, {
                         ...gear,
                         level: gear.level ?? (gear.ranks?.length ? `${gear.ranks[0].level}+` : null),
                         traits: gear.traits.map((t) => ({

@@ -1,0 +1,43 @@
+{
+    "_id": "k8bmDh3nWi2FUyz5",
+    "img": "icons/creatures/abilities/dragon-breath-purple.webp",
+    "name": "Effect: Soul Anchor",
+    "system": {
+        "description": {
+            "value": "<p>You gain fast healing equal to the origin's level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core 2"
+        },
+        "rules": [
+            {
+                "key": "FastHealing",
+                "type": "fast-healing",
+                "value": "@item.origin.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

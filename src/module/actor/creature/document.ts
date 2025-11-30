@@ -364,7 +364,7 @@ abstract class CreaturePF2e<
                 raised: false,
                 broken: false,
                 destroyed: false,
-                icon: "systems/pf2e/icons/actions/raise-a-shield.webp",
+                icon: `${SYSTEM_ROOT}/icons/actions/raise-a-shield.webp`,
             };
         }
 
@@ -398,7 +398,7 @@ abstract class CreaturePF2e<
                     "You are accessing CreaturePF2e#system#attributes#speed.",
                     "Movement data is now found at #system#movement#speeds.",
                 ].join(" ");
-                fu.logCompatibilityWarning(message, { since: "7.5.0", until: "8.0.0" });
+                fu.logCompatibilityWarning(message, { since: "7.5.0", until: "8.0.0", once: true });
                 const speeds = this.system.movement.speeds;
                 const land = speeds.land;
                 const otherSpeeds = Object.entries(speeds)

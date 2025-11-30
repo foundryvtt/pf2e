@@ -60,7 +60,7 @@
         <div class="save-roll">
             {{#if options.editable}}
                 <a class="roll-icon" data-action="roll-check" data-statistic="fortitude">
-                    {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
+                    {{> (resolvePath "templates/actors/character/icons/d20.hbs")}}
                 </a>
             {{/if}}
             <input class="adjustable {{saves.fortitude.adjustmentClass}}" data-property="system.saves.fortitude.value" type="number" value="{{saves.fortitude.value}}" placeholder="0" />

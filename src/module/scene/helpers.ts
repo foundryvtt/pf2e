@@ -47,7 +47,7 @@ const checkAuras = fu.debounce(async function (this: ScenePF2e): Promise<void> {
 
 /** Returns true if this token has the default actor image or the default image for its actor type */
 function isDefaultTokenImage(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): boolean {
-    const defaultIcons = [ActorPF2e.DEFAULT_ICON, `systems/pf2e/icons/default-icons/${token.actor?.type}.svg`];
+    const defaultIcons = [ActorPF2e.DEFAULT_ICON, `${SYSTEM_ROOT}/icons/default-icons/${token.actor?.type}.svg`];
     return defaultIcons.some((path) => token.texture.src?.endsWith(path));
 }
 

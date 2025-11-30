@@ -1,0 +1,61 @@
+{
+    "_id": "aQkzGG9RCII50a4b",
+    "img": "icons/sundries/flags/banner-symbol-sun-gold-red.webp",
+    "name": "Effect: Pennant of Victory",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Pennant of Victory]</p>\n<p>You gain a +4 status bonus to attack and damage rolls, a +10-foot status bonus to all your Speeds, and 40 temporary Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 20
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack-roll",
+                    "damage"
+                ],
+                "slug": "pennant-of-victory-attack-damage",
+                "type": "status",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "all-speeds"
+                ],
+                "slug": "pennant-of-victory-speeds",
+                "type": "status",
+                "value": 10
+            },
+            {
+                "key": "TempHP",
+                "value": 40
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

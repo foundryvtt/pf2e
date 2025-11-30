@@ -302,7 +302,7 @@ export abstract class CompendiumBrowserTab {
             return;
         }
 
-        const templatePath = "systems/pf2e/templates/compendium-browser/roll-table-dialog.hbs";
+        const templatePath = `${SYSTEM_ROOT}/templates/compendium-browser/roll-table-dialog.hbs`;
         const content = await fa.handlebars.renderTemplate(templatePath, { count: this.results.length });
         foundry.applications.api.DialogV2.confirm({
             content,
@@ -344,7 +344,7 @@ export abstract class CompendiumBrowserTab {
             return;
         }
 
-        const templatePath = "systems/pf2e/templates/compendium-browser/roll-table-dialog.hbs";
+        const templatePath = `${SYSTEM_ROOT}/templates/compendium-browser/roll-table-dialog.hbs`;
         const content = await fa.handlebars.renderTemplate(templatePath, {
             count: this.results.length,
             rollTables: game.tables.contents,

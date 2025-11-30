@@ -2,7 +2,7 @@
     <div class="form-group">
         <label>{{localize "PF2E.Item.Affliction.OnsetLabel"}}</label>
         {{#if data.onset}}
-            {{> systems/pf2e/templates/items/partials/duration.hbs base="system.onset" duration=data.onset units=onsetUnits}}
+            {{> (resolvePath "templates/items/partials/duration.hbs") base="system.onset" duration=data.onset units=onsetUnits}}
             <div class="item-controls">
                 <a data-action="onset-delete"><i class="fa-solid fa-fw fa-times"></i></a>
             </div>
@@ -14,7 +14,7 @@
     </div>
     <div class="form-group">
         <label>{{localize "PF2E.Time.Duration"}}</label>
-        {{> systems/pf2e/templates/items/partials/duration.hbs base="system.duration" duration=data.duration units=durationUnits}}
+        {{> (resolvePath "templates/items/partials/duration.hbs") base="system.duration" duration=data.duration units=durationUnits}}
     </div>
 
     {{#if user.isGM}}

@@ -15,6 +15,7 @@ import { getLegacyRangeData } from "@module/migration/migrations/949-npc-range-d
 import { damageCategoriesUnique } from "@scripts/config/damage.ts";
 import type { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
 import { LaxArrayField, RecordField, SlugField } from "@system/schema-data-fields.ts";
+import * as R from "remeda";
 import type { NPCAttackActionType, NPCAttackTrait } from "./types.ts";
 import { NPC_ATTACK_ACTIONS } from "./values.ts";
 import fields = foundry.data.fields;
@@ -140,13 +141,21 @@ class MeleeSystemData extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema> 
     override prepareBaseData(): void {
         super.prepareBaseData();
         if (this.action !== "strike") this.area ??= { type: "burst", value: 5 };
+
+        // Set precious material (currently unused)
+        this.material = { type: null, grade: null, effects: [] };
+
+        // Set empty property runes array for use by rule elements
+        this.runes = { property: [] };
+
+        for (const attackDamage of Object.values(this.damageRolls)) {
+            if (attackDamage.damageType === "bleed") attackDamage.category = "persistent";
+        }
     }
 
-    static override migrateData<T extends foundry.abstract.DataModel>(
-        this: ConstructorOf<T>,
-        source: Record<string, unknown>,
-    ): MeleeSystemSource {
-        const migrated = super.migrateData<MeleeSystemData>(source);
+    static override migrateData(source: Record<string, unknown>): Record<string, unknown> {
+        const migrated = super.migrateData(source);
+        if (!R.isPlainObject(migrated.traits) || !Array.isArray(migrated.traits.value)) return migrated;
         const rangeData = getLegacyRangeData(migrated.traits.value);
         if (rangeData) {
             migrated.range ??= { increment: rangeData.increment, max: rangeData.max };

@@ -1,7 +1,7 @@
 <div class="inventory-details" spellcheck="false">
     <div class="form-group duration">
         <label for="{{item.uuid}}-duration">{{localize "PF2E.Time.Duration"}}</label>
-        {{> systems/pf2e/templates/items/partials/duration.hbs base="system.duration" duration=data.duration units=timeUnits}}
+        {{> (resolvePath "templates/items/partials/duration.hbs") base="system.duration" duration=data.duration units=timeUnits}}
     </div>
     <div class="form-group">
         <label for="{{item.uuid}}-sustained">{{localize "PF2E.Item.Spell.Sustained.Label"}}</label>

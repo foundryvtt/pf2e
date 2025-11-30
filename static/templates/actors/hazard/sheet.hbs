@@ -1,12 +1,12 @@
 <form class="{{cssClass}}{{#if editing}} editing{{/if}}" autocomplete="off" spellcheck="false" data-tooltip-class="pf2e">
-    {{> "systems/pf2e/templates/actors/hazard/partials/header.hbs"}}
+    {{> (resolvePath "templates/actors/hazard/partials/header.hbs")}}
     <div class="container">
-        {{> "systems/pf2e/templates/actors/hazard/partials/sidebar.hbs"}}
+        {{> (resolvePath "templates/actors/hazard/partials/sidebar.hbs")}}
         {{!-- BODY --}}
         <section class="content">
             {{#if toggles.actions}}
                 <section class="toggles section-container">
-                    {{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.actions}}
+                    {{> (resolvePath "templates/actors/partials/toggles.hbs") toggles=toggles.actions}}
                 </section>
             {{/if}}
 
@@ -194,7 +194,7 @@
                     <h4>{{localize "PF2E.Publication.Label"}}</h4>
                 </div>
                 <div class="section-body">
-                    {{> "systems/pf2e/templates/partials/publication-data.hbs" path="system.details.publication" data=data.details.publication}}
+                    {{> (resolvePath "templates/partials/publication-data.hbs") path="system.details.publication" data=data.details.publication}}
                 </div>
             </div>
         </section>

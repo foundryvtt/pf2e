@@ -209,9 +209,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             token.texture.src = ((): ImageFilePath | VideoFilePath => {
                 switch (actor.alliance) {
                     case "party":
-                        return "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp";
+                        return `${SYSTEM_ROOT}/icons/default-icons/alternatives/nath/ally.webp`;
                     case "opposition":
-                        return "systems/pf2e/icons/default-icons/alternatives/nath/enemy.webp";
+                        return `${SYSTEM_ROOT}/icons/default-icons/alternatives/nath/enemy.webp`;
                     default:
                         return token.texture.src ?? CONST.DEFAULT_TOKEN;
                 }

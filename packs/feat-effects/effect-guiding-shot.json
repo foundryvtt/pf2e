@@ -1,0 +1,68 @@
+{
+    "_id": "21pCT4n3Aixyvp4h",
+    "img": "icons/skills/ranged/target-bullseye-arrow-yellow.webp",
+    "name": "Effect: Guiding Shot",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Guiding Shot]</p>\n<p>You gain a +1 circumstance bonus against the marked target, or a +2 circumstance bonus if the origin's Strike was a critical hit.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "guiding-shot"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": 2
+                    }
+                ],
+                "flag": "bonus",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:guiding-shot"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": [
+                    "strike-attack-roll"
+                ],
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.bonus"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

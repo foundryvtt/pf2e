@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Trigger</strong> A creature you can see targets you with an attack.</p>\n<p><strong>Requirements</strong> You aren't encumbered.</p><hr /><p>You deftly dodge out of the way, gaining a +2 circumstance bonus to AC against the triggering attack. If the Strike misses, you gain panache until the end of your next turn</p>"
+            "value": "<p><strong>Trigger</strong> A creature you can see targets you with an attack.</p>\n<p><strong>Requirements</strong> You aren't @UUID[Compendium.pf2e.conditionitems.Item.Encumbered].</p><hr /><p>You deftly dodge out of the way, gaining a +2 circumstance bonus to AC against the triggering attack. If the Strike misses, you gain panache until the end of your next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache (Temporary)]</p>"
         },
         "level": {
             "value": 1
@@ -27,7 +27,6 @@
         },
         "rules": [
             {
-                "domain": "ac",
                 "key": "RollOption",
                 "option": "flashy-dodge",
                 "toggleable": true
@@ -40,6 +39,27 @@
                 "selector": "ac",
                 "type": "circumstance",
                 "value": 2
+            },
+            {
+                "affects": "origin",
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "failure-note"
+                    },
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "critical-failure-note"
+                    }
+                ],
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "flashy-dodge"
+                ],
+                "selectors": "strike-attack-roll",
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Panache (Ephemeral Note)"
             }
         ],
         "traits": {

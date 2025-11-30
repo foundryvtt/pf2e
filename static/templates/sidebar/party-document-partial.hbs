@@ -47,7 +47,7 @@
         </header>
         <ol class="subdirectory plain">
             {{#each party.members~}}
-            {{> "systems/pf2e/templates/sidebar/actor-document-partial.hbs"}}
+            {{> (resolvePath "templates/sidebar/actor-document-partial.hbs")}}
             {{else}}
                 <li class="blank" data-entry-id="">{{localize "PF2E.Actor.Party.NoMembers"}}</li>
             {{/each}}

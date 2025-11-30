@@ -3,6 +3,7 @@
     "img": "icons/equipment/hand/gauntlet-plate-gold.webp",
     "name": "Scalding Gauntlets",
     "system": {
+        "ammo": null,
         "baseItem": "spiked-gauntlet",
         "bonus": {
             "value": 0
@@ -21,7 +22,7 @@
             "die": "d4"
         },
         "description": {
-            "value": "<p>Prized by naari geniekin who prefer to fight with their fists, <em>scalding gauntlets</em> are a pair of <em>+2 striking spiked gauntlets</em>. The intricate golden gauntlets are engraved with Pyric writing praising the glories of the Dominion of Flame and embellished with shimmering black and red gemstones. A creature you grab or restrain while wearing the gauntlets must succeed at a @Check[fortitude|dc:26] save or take @Damage[2d6[persistent,fire]] damage and be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} from the pain; it's temporarily immune to being sickened by <em>scalding gauntlets</em> for 1 hour.</p>"
+            "value": "<p>Prized by naari geniekin who prefer to fight with their fists, <em>scalding gauntlets</em> are a pair of <em>+2 striking spiked gauntlets</em>. The intricate golden gauntlets are engraved with Pyric writing praising the glories of the Dominion of Flame and embellished with shimmering black and red gemstones. A creature you grab or restrain while wearing the gauntlets must succeed at a @Check[fortitude|dc:26|options:damaging-effect,inflicts:sickened|showDC:all] save or take @Damage[2d6[persistent,fire]] damage and be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} from the pain; it's temporarily immune to being sickened by <em>scalding gauntlets</em> for 1 hour.</p>"
         },
         "expend": null,
         "grade": null,
@@ -53,7 +54,23 @@
         "reload": {
             "value": null
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:grapple"
+                ],
+                "selector": [
+                    "skill-check"
+                ],
+                "text": "PF2E.SpecificRule.Equipment.ScaldingGauntlet.Basic",
+                "title": "{item|name}"
+            }
+        ],
         "runes": {
             "potency": 2,
             "property": [],

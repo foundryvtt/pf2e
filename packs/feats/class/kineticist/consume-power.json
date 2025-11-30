@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Trigger</strong> You would take acid, electricity, fire, or sonic damage.</p>\n<hr />\n<p>You absorb energy and hold it in your kinetic gate. You gain resistance equal to your level to the triggering damage—choose one eligible type of resistance. If this reaction prevents any damage, you gain a status bonus equal to half your level to the damage roll of the next metal impulse you use before the end of your next turn.</p>"
+            "value": "<p><strong>Trigger</strong> You would take acid, electricity, fire, or sonic damage.</p><hr /><p>You absorb energy and hold it in your kinetic gate. You gain resistance equal to your level to the triggering damage—choose one eligible type of resistance. If this reaction prevents any damage, you gain a status bonus equal to half your level to the damage roll of the next metal impulse you use before the end of your next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Consume Power]</p>"
         },
         "level": {
             "value": 6
@@ -25,7 +25,41 @@
             "remaster": true,
             "title": "Pathfinder Rage of Elements"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Kineticist.ConsumePower.ResistanceToggle",
+                "option": "consume-power",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "consume-power"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.consumePower}",
+                "value": "@actor.level"
+            }
+        ],
+        "selfEffect": null,
         "traits": {
             "rarity": "common",
             "value": [

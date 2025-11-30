@@ -44,7 +44,7 @@ class ItemAttacher extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV
     };
 
     static override PARTS: Record<string, fa.api.HandlebarsTemplatePart> = {
-        base: { template: "systems/pf2e/templates/items/item-attacher.hbs", root: true },
+        base: { template: `${SYSTEM_ROOT}/templates/items/item-attacher.hbs`, root: true },
     };
 
     item: PhysicalItemPF2e;
@@ -99,7 +99,7 @@ class ItemAttacher extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV
         const dc = { value: 10, visible: true };
         const args: StatisticRollParameters = {
             dc,
-            label: await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+            label: await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/action/header.hbs`, {
                 glyph: null,
                 subtitle: game.i18n.format("PF2E.ActionsCheck.x", { type: statistic.label }),
                 title: this.title,

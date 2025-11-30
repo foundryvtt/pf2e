@@ -38,9 +38,6 @@
                     "value": [
                         "unarmed"
                     ]
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -83,9 +80,6 @@
                     "value": [
                         "unarmed"
                     ]
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -127,9 +121,6 @@
                         "agile",
                         "unarmed"
                     ]
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "type": "melee"
@@ -199,14 +190,46 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>\n<p>Fleeing creatures take an additional @Damage[1d6[bleed]] damage. On a critical hit, the target is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>\n<p>@UUID[Compendium.pf2e.conditionitems.Item.Fleeing] creatures take an additional 1d6 persistent bleed damage. On a critical hit, the target is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "reactive-strike-horn",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "reactive-strike-horn",
+                            "target:condition:fleeing"
+                        ],
+                        "selector": "horn-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "reactive-strike-horn"
+                        ],
+                        "selector": [
+                            "horn-attack"
+                        ],
+                        "text": "PF2E.AttackEffects.KnockProneCriticalHit",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "reactive-strike",
                 "traits": {
                     "rarity": "common",

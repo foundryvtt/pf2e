@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Trigger</strong> You take damage from an area effect that allows a Reflex save.</p>\n<hr />\n<p>You dodge a blow at the last possible moment.</p>\n<p>You @UUID[Compendium.pf2e.actionspf2e.Item.Step] and gain resistance to all damage equal to your level against the triggering effect. If your Step moves you out of the triggering effect's area, this resistance is instead equal to your level plus your Dexterity modifier.</p>"
+            "value": "<p><strong>Trigger</strong> You take damage from an area effect that allows a Reflex save.</p>\n<hr />\n<p>You dodge a blow at the last possible moment.</p>\n<p>You Step and gain resistance to all damage equal to your level against the triggering effect. If your Step moves you out of the triggering effect's area, this resistance is instead equal to your level plus your Dexterity modifier.</p>"
         },
         "level": {
             "value": 12
@@ -29,7 +29,39 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "dodging-roll",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Monk.DodgingRoll.StepIn",
+                        "value": "in"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Monk.DodgingRoll.StepOut",
+                        "value": "out"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "dodging-roll:in"
+                ],
+                "type": "all-damage",
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "dodging-roll:out"
+                ],
+                "type": "all-damage",
+                "value": "@actor.level + @actor.abilities.dex.mod"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

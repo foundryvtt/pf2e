@@ -7,7 +7,7 @@ import dice = foundry.dice;
 
 /** A foundry `Roll` subclass representing a Pathfinder 2e check */
 class CheckRoll extends Roll {
-    static override CHAT_TEMPLATE = "systems/pf2e/templates/chat/check/roll.hbs";
+    static override CHAT_TEMPLATE = `${SYSTEM_ROOT}/templates/chat/check/roll.hbs`;
 
     constructor(formula: string, data?: Record<string, unknown>, options?: CheckRollDataPF2e) {
         super(formula, data, options);

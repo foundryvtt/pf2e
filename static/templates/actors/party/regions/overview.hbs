@@ -80,7 +80,7 @@
                         <a class="resource{{#unless member.owner}} readonly{{/unless}}" data-action="adjust-member-resource" data-resource="{{resource.slug}}">
                             {{#times resource.max as |idx|~}}
                                 {{#if (gt resource.value idx)}}
-                                    <img src="systems/pf2e/dice/basic/heads.webp" />
+                                    <img src="{{resolvePath "dice/basic/heads.webp"}}" />
                                 {{else}}
                                     <span class="empty"></span>
                                 {{/if}}

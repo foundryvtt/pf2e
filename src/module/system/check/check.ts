@@ -837,10 +837,13 @@ class Check {
         })();
 
         // Render the template and replace quasi-XML nodes with visibility-data-containing HTML elements
-        const rendered = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/check/target-dc-result.hbs", {
-            dc: dcData,
-            result: resultData,
-        });
+        const rendered = await fa.handlebars.renderTemplate(
+            `${SYSTEM_ROOT}/templates/chat/check/target-dc-result.hbs`,
+            {
+                dc: dcData,
+                result: resultData,
+            },
+        );
 
         const html = parseHTML(rendered);
         const convertXMLNode = TextEditorPF2e.convertXMLNode;

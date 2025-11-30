@@ -298,7 +298,6 @@
                     {
                         "key": "RollOption",
                         "option": "inhabit-vessel",
-                        "priority": 50,
                         "toggleable": true
                     },
                     {
@@ -402,6 +401,20 @@
                 },
                 "rules": [
                     {
+                        "add": [
+                            "incorporeal"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            {
+                                "not": "inhabit-vessel"
+                            }
+                        ]
+                    },
+                    {
+                        "doubleVs": [
+                            "non-magical"
+                        ],
                         "exceptions": [
                             "force",
                             "ghost-touch"

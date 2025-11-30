@@ -177,7 +177,7 @@ class ActionMacroHelpers {
                     target: targetData.actor,
                 })!;
 
-                const header = await fa.handlebars.renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+                const header = await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/action/header.hbs`, {
                     glyph: options.actionGlyph,
                     subtitle,
                     title: options.title,

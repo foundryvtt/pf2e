@@ -1,7 +1,7 @@
 <section class="tab main" data-group="primary" data-tab="main">
     {{!-- TOGGLES --}}
     <div class="toggles section-container headerless">
-        {{#if toggles.actions}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.actions}}{{/if}}
+        {{#if toggles.actions}}{{> (resolvePath "templates/actors/partials/toggles.hbs") toggles=toggles.actions}}{{/if}}
     </div>
     <div class="recall-knowledge section-container">
         <div class="section-header">
@@ -164,7 +164,7 @@
         <div class="section-body">
             <ol class="actions-list strikes-list item-list">
                 {{#each attacks as |attack index|}}
-                    {{> "systems/pf2e/templates/actors/npc/partials/attack.hbs" action=attack index=index}}
+                    {{> (resolvePath "templates/actors/npc/partials/attack.hbs") action=attack index=index}}
                 {{/each}}
             </ol>
         </div>
@@ -188,7 +188,7 @@
         <div class="section-body">
             <ol class="actions-list item-list">
                 {{#each actions.active.actions as |action actionId|}}
-                    {{> "systems/pf2e/templates/actors/npc/partials/action.hbs" action=action}}
+                    {{> (resolvePath "templates/actors/npc/partials/action.hbs") action=action}}
                 {{/each}}
             </ol>
         </div>
@@ -212,7 +212,7 @@
         <div class="section-body">
             <ol class="actions-list item-list">
                 {{#each actions.passive.actions as |action actionId|}}
-                    {{> "systems/pf2e/templates/actors/npc/partials/action.hbs" action=action isEditable=@root.options.editable}}
+                    {{> (resolvePath "templates/actors/npc/partials/action.hbs") action=action isEditable=@root.options.editable}}
                 {{/each}}
             </ol>
         </div>
