@@ -338,7 +338,7 @@
         },
         {
             "_id": "PmwxtRI969adfqM7",
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
+            "img": "icons/sundries/misc/key-steel.webp",
             "name": "Key Ring",
             "sort": 500000,
             "system": {
@@ -348,7 +348,8 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Contains keys to all locks in Drelev Keep</p>"
+                    "gm": "<p>Contains keys to all locks in Drelev Keep</p>",
+                    "value": ""
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -553,7 +554,6 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "disarm",
                         "magical",
                         "versatile-p"
                     ]
@@ -692,7 +692,7 @@
         },
         {
             "_id": "ECXG4lnlaSBXuqcP",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Defensive Slice",
             "sort": 1200000,
             "system": {
@@ -700,11 +700,11 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": 1
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirement</strong> Baron Drelev hasn't attempted a Strike during this turn.</p>\n<hr />\n<p><strong>Effect</strong> Baron Drelev assumes a defensive position with his weapons out, then attempts a melee Strike. He takes a -2 status penalty on all Strikes (including this one) and gains a +2 status bonus to his AC until the start of his next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Defensive Slice]</p>"
+                    "value": "<p><strong>Requirement</strong> Baron Drelev hasn't attempted a Strike during this turn.</p><hr /><p><strong>Effect</strong> Baron Drelev assumes a defensive position with his weapons out, then attempts a melee Strike. He takes a -2 status penalty on all Strikes (including this one) and gains a +2 status bonus to his AC until the start of his next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -712,6 +712,10 @@
                     "title": ""
                 },
                 "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Defensive Slice",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Defensive Slice"
+                },
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -734,14 +738,28 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If Baron Drelev scores a critical success on an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] an opponent, he can choose to have the disarmed item fly [[/r (1d4*5) #feet]]{1d4 × 5 feet} in a random direction rather than have it fall to the ground in the opponent's space. If this causes the item to land in a space occupied by a creature with at least one free hand, that creature can attempt a @Check[reflex|dc:20] save to catch the item (otherwise it falls to the ground in that space).</p>"
+                    "value": "<p>If Baron Drelev scores a critical success on an Athletics check to [[/act disarm]] an opponent, he can choose to have the disarmed item fly [[/gmr (1d4*5) #feet]]{1d4 × 5 feet} in a random direction rather than have it fall to the ground in the opponent's space. If this causes the item to land in a space occupied by a creature with at least one free hand, that creature can attempt a @Check[reflex|dc:20] save to catch the item (otherwise it falls to the ground in that space).</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "action:disarm"
+                        ],
+                        "selector": "athletics",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -777,12 +795,7 @@
                         "key": "ItemAlteration",
                         "mode": "add",
                         "predicate": [
-                            {
-                                "or": [
-                                    "item:slug:longsword",
-                                    "item:slug:shortsword"
-                                ]
-                            }
+                            "item:group:sword"
                         ],
                         "property": "traits",
                         "value": "disarm"
