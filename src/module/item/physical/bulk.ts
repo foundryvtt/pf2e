@@ -52,6 +52,10 @@ const STACK_DEFINITIONS: StackDefinitions = {
         size: 2000,
         lightBulk: 10,
     },
+    upb: {
+        size: 1000,
+        lightBulk: 10,
+    },
 };
 
 class Bulk {
