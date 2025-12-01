@@ -106,9 +106,9 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
             } else {
                 const source =
                     denomination === "upb"
-                        ? (upbJSON as PreCreate<TreasureSource>)
+                        ? (fu.deepClone(upbJSON) as PreCreate<TreasureSource>)
                         : denomination === "credits"
-                          ? (credstickJSON as PreCreate<TreasureSource>)
+                          ? (fu.deepClone(credstickJSON) as PreCreate<TreasureSource>)
                           : ((await fromUuid<ItemPF2e>(coinCompendiumUuids[denomination]))?.toObject(true) ?? null);
                 if (source?.type !== "treasure") throw ErrorPF2e("Unexpected error retrieving currency item");
                 delete source._id;
