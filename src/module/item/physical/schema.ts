@@ -2,7 +2,7 @@ import { PrunedSchemaField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
 import { Coins } from "./coins.ts";
 import type { Price } from "./index.ts";
-import { DENOMINATIONS } from "./values.ts";
+import { COIN_DENOMINATIONS } from "./values.ts";
 import fields = foundry.data.fields;
 
 class PriceField extends fields.SchemaField<PriceSchema, fields.SourceFromSchema<PriceSchema>, Price> {
@@ -11,7 +11,7 @@ class PriceField extends fields.SchemaField<PriceSchema, fields.SourceFromSchema
             new fields.NumberField({ required: false, nullable: false, integer: true, min: 0 });
         super({
             value: new PrunedSchemaField(
-                R.mapToObj(DENOMINATIONS.toReversed(), (d) => [d, denominationField()]),
+                R.mapToObj(COIN_DENOMINATIONS.toReversed(), (d) => [d, denominationField()]),
                 { required: true, nullable: false },
             ),
             per: new fields.NumberField({

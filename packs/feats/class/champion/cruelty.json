@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>The harm you deal with your corrupting touch saps the strength from your enemy's body. You can cast touch of the void targeting a living creature using 2 actions instead of 1. If you do, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 minute if it fails its save (@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} if it critically fails).</p>"
+            "value": "<p>The harm you deal with your corrupting touch saps the strength from your enemy's body. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Touch of the Void] targeting a living creature using 2 actions instead of 1. If you do, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 minute if it fails its save (@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} if it critically fails).</p>"
         },
         "level": {
             "value": 4
@@ -29,7 +29,29 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "cruelty",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:touch-of-the-void",
+                    "cruelty"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

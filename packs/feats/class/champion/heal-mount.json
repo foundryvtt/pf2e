@@ -32,7 +32,25 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "heal-mount",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "heal-mount",
+                    "item:slug:lay-on-hands"
+                ],
+                "selector": "spell-healing",
+                "slug": "base",
+                "value": "10*ceil(@actor.level/2)"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

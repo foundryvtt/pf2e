@@ -1,19 +1,19 @@
 {
-    "_id": "alyNtkHLNnt98Ewz",
-    "img": "systems/pf2e/icons/spells/lay-on-hands.webp",
-    "name": "Spell Effect: Accelerating Touch",
+    "_id": "94Vuzui165y0rgP5",
+    "img": "icons/magic/light/beam-red-orange.webp",
+    "name": "Effect: Amplifying Touch",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands] if you have @UUID[Compendium.pf2e.feats-srd.Item.Accelerating Touch].</p>\n<p>If the target is one of your allies, they also gain a +2 status bonus to AC and a +10-foot status bonus to Speed for 1 round.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Amplifying Touch]</p>\n<p>You gain a +1 status bonus to your attack rolls and deal 1 additional spirit damage on all your strikes. In addition, all your Strikes are holy.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": "turn-end",
             "sustained": false,
             "unit": "rounds",
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 12
         },
         "publication": {
             "license": "OGL",
@@ -23,15 +23,21 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "ac",
+                "selector": "attack",
                 "type": "status",
-                "value": 2
+                "value": 1
             },
             {
+                "damageType": "spirit",
                 "key": "FlatModifier",
-                "selector": "land-speed",
-                "type": "status",
-                "value": 10
+                "selector": "strike-damage",
+                "value": 1
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "holy"
             }
         ],
         "start": {
@@ -42,7 +48,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },

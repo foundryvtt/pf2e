@@ -1,7 +1,8 @@
 import { ActorPF2e } from "@actor/base.ts";
-import { DENOMINATIONS } from "@item/physical/values.ts";
+import { Currency } from "@item/physical/types.ts";
+import { COIN_DENOMINATIONS } from "@item/physical/values.ts";
 
-/** Simple dialog to add coins of various denominations to an actor */
+/** Simple dialog to add currency of various denominations to an actor */
 class UpdateCurrencyDialog extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV2) {
     constructor(
         options: Partial<UpdateCurrencyConfiguration> & Required<Pick<UpdateCurrencyConfiguration, "actor" | "mode">>,
@@ -15,7 +16,7 @@ class UpdateCurrencyDialog extends fa.api.HandlebarsApplicationMixin(fa.api.Appl
         id: "update-currency",
         tag: "form",
         window: {
-            icon: "fa-solid fa-coins",
+            icon: "fa-solid fa-currency",
             contentClasses: ["standard-form"],
         },
         position: {
@@ -39,17 +40,24 @@ class UpdateCurrencyDialog extends fa.api.HandlebarsApplicationMixin(fa.api.Appl
     }
 
     protected override async _prepareContext(options: fa.ApplicationRenderOptions): Promise<UpdateCurrencyContext> {
-        const denominations = DENOMINATIONS.map((d) => ({
-            key: d,
-            label: game.i18n.localize(CONFIG.PF2E.currencies[d]),
-        }));
+        const actor = this.actor;
+        const currency = this.actor.inventory.currency;
+        const showPF2e = SYSTEM_ID === "pf2e" || COIN_DENOMINATIONS.some((d) => currency[d] > 0);
+        const showSF2e = SYSTEM_ID === "sf2e" || currency.credits || currency.upb;
+        const denominations = [
+            ...(showPF2e ? COIN_DENOMINATIONS : []),
+            ...(showSF2e ? (["credits", "upb"] as const) : []),
+        ].flat();
 
         return {
             ...(await super._prepareContext(options)),
             id: this.id,
-            actor: this.actor,
+            actor,
             mode: this.mode,
-            denominations,
+            denominations: denominations.map((d) => ({
+                key: d,
+                label: game.i18n.localize(CONFIG.PF2E.currencies[d]),
+            })),
             actionLabel: game.i18n.localize(this.mode === "add" ? "PF2E.AddCoinsTitle" : "PF2E.RemoveCoinsTitle"),
         };
     }
@@ -61,18 +69,20 @@ class UpdateCurrencyDialog extends fa.api.HandlebarsApplicationMixin(fa.api.Appl
         formData: fa.ux.FormDataExtended,
     ) {
         const data = formData.object;
-        const coins = {
+        const currency: Record<Currency, number> = {
             pp: Number(data.pp) || 0,
             gp: Number(data.gp) || 0,
             sp: Number(data.sp) || 0,
             cp: Number(data.cp) || 0,
+            credits: Number(data.credits) || 0,
+            upb: Number(data.upb) || 0,
         };
 
         if (this.mode === "add") {
             const combineStacks = !!data.combineStacks;
-            await this.actor.inventory.addCoins(coins, { combineStacks });
+            await this.actor.inventory.addCurrency(currency, { combineStacks });
         } else {
-            const isSuccess = await this.actor.inventory.removeCoins(coins, { byValue: !!data.removeByValue });
+            const isSuccess = await this.actor.inventory.removeCurrency(currency, { byValue: !!data.removeByValue });
             if (!isSuccess) {
                 ui.notifications.warn("PF2E.ErrorMessage.NotEnoughCoins", { localize: true });
                 return;

@@ -134,7 +134,9 @@ class TreasureSystemData extends ItemSystemModel<TreasurePF2e, TreasureSystemSch
         return migrated;
     }
 
-    get stackGroup(): "coins" | "gems" | null {
+    get stackGroup(): "coins" | "gems" | "upb" | null {
+        if (this.slug === "upb") return "upb";
+
         switch (this.category) {
             case "coin":
                 return "coins";

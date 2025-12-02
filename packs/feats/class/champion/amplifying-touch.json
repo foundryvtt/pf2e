@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your healing energies empower attacks.</p>\n<p>An ally that recovers Hit Points from your @UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands] gains a +1 status bonus to their attack rolls and deals 1 additional spirit damage on all their Strikes until the end of their next turn. In addition, all their Strikes are holy until the end of their next turn.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Amplifying Touch]</p>"
+            "value": "<p>Your healing energies empower attacks.</p>\n<p>An ally that recovers Hit Points from your @UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands] gains a +1 status bonus to their attack rolls and deals 1 additional spirit damage on all their Strikes until the end of their next turn. In addition, all their Strikes are holy until the end of their next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Amplifying Touch]</p>"
         },
         "level": {
             "value": 12
@@ -29,7 +29,22 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:lay-on-hands"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
