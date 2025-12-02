@@ -1,0 +1,52 @@
+{
+    "_id": "NKa2EMtpcatohaKJ",
+    "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
+    "name": "Effect: Competitive Taunt",
+    "system": {
+        "description": {
+            "value": "<p>You get a +2 circumstance bonus to your damage against the creature made off-guard by your taunt.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "competitive-taunt"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:condition:off-guard",
+                    "target:mark:competitive-taunt"
+                ],
+                "selector": "damage",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

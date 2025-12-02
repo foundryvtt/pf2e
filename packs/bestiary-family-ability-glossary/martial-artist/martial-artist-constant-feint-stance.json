@@ -12,14 +12,48 @@
         },
         "category": "offensive",
         "description": {
-            "value": "<p>This stance option replaces a different Stance Shift option (usually Secure Grapple Stance). +2 to attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Feint]. If the mixed martial artist rolls a critical failure to Feint, they get a failure instead. If they successfully Feint, they can use Stance Shift as a free action. Unlike other stances, in this stance the mixed martial artist can't make Strikes.</p>"
+            "value": "<p>This stance option replaces a different Stance Shift option (usually Secure Grapple Stance). +2 to attempts to [[/act feint]]. If the mixed martial artist rolls a critical failure to Feint, they get a failure instead. If they successfully Feint, they can use Stance Shift as a free action. Unlike other stances, in this stance the mixed martial artist can't make Strikes.</p>"
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder NPC Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "mergeable": true,
+                "option": "stance-shift",
+                "suboptions": [
+                    {
+                        "label": "PF2E.NPCAbility.MixedMartialArtist.StanceShift.ConstantFeintStance",
+                        "value": "constant-feint-stance"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.NPCAbility.MixedMartialArtist.StanceShift.ConstantFeintStance",
+                "predicate": [
+                    "action:feint",
+                    "stance-shift:constant-feint-stance"
+                ],
+                "selector": "skill-check",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:feint",
+                    "stance-shift:constant-feint-stance"
+                ],
+                "selector": "skill-check"
+            }
+        ],
         "traits": {
             "value": []
         }

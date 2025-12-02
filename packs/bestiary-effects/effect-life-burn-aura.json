@@ -1,0 +1,50 @@
+{
+    "_id": "ya5dwx5pxUKeWn3z",
+    "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
+    "name": "Effect: Life Burn Aura",
+    "system": {
+        "description": {
+            "value": "<p>You are surrounded by a 30-foot emanation. While Life Burn Aura is active, your fist Strikes deal 2 additional die of weapon damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder NPC Core"
+        },
+        "rules": [
+            {
+                "key": "Aura",
+                "radius": 30,
+                "traits": [
+                    "force"
+                ]
+            },
+            {
+                "diceNumber": 2,
+                "key": "DamageDice",
+                "selector": "fist-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
