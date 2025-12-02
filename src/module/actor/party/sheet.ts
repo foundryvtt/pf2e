@@ -97,8 +97,8 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }));
 
         const totalCurrency =
-            R.sumBy(members, (actor) => actor.inventory.coins.copperValue ?? 0) +
-            this.actor.inventory.coins.copperValue;
+            R.sumBy(members, (actor) => actor.inventory.currency.copperValue ?? 0) +
+            this.actor.inventory.currency.copperValue;
         const totalWealth =
             R.sumBy(members, (actor) => actor.inventory.totalWealth.copperValue ?? 0) +
             this.actor.inventory.totalWealth.copperValue;

@@ -616,6 +616,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** Require that a loot actor or dead creature is in reach for a player to view its sheet. */
     protected override _onClickLeft2(event: PIXI.FederatedPointerEvent): void {
+        if (this.document.isSecret) return;
         const actor = this.actor;
         const requiresReach = game.pf2e.settings.automation.reachEnforcement.has(
             actor?.isOfType("loot") ? (actor.isLoot ? "loot" : "merchants") : "corpses",

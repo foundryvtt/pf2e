@@ -1,11 +1,12 @@
 import { ActorPF2e, ActorProxyPF2e } from "@actor";
 import { ActorSizePF2e } from "@actor/data/size.ts";
+import { ItemTransfer } from "@actor/item-transfer.ts";
 import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { ContainerBulkData } from "@item/container/data.ts";
 import { REINFORCING_RUNE_LOC_PATHS } from "@item/shield/values.ts";
 import { Rarity } from "@module/data.ts";
-import { objectHasKey, tupleHasValue } from "@util";
+import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { Bulk, STACK_DEFINITIONS } from "./bulk.ts";
 import { Coins } from "./coins.ts";
@@ -342,6 +343,51 @@ function getDefaultEquipStatus(item: PhysicalItemPF2e): EquippedData {
     return equipStatus;
 }
 
+/**
+ * Transfers credits between actors. This is separated to avoid making it callable API during the first few versions.
+ * This does not transfer the entire credstick, that's handled by other calling functions.
+ * @todo if we're keeping a separate transferCredits() function longterm, find a home
+ */
+async function transferCredits({
+    item,
+    targetActor,
+    quantity,
+}: {
+    item: PhysicalItemPF2e;
+    targetActor: ActorPF2e;
+    quantity: number;
+}): Promise<void> {
+    const actor = item.actor;
+    if (!actor) throw ErrorPF2e("Source credstick must have an actor");
+    if (!item.isOfType("treasure") || item.system.category !== "credstick") {
+        throw ErrorPF2e("Must transfer from credstick");
+    }
+
+    // Loot transfers can be performed by non-owners when a GM is online */
+    const gmMustTransfer = (source: ActorPF2e, target: ActorPF2e): boolean => {
+        const bothAreOwned = source.isOwner && target.isOwner;
+        const sourceIsOwnedOrLoot = source.isLootableBy(game.user);
+        const targetIsOwnedOrLoot = target.isLootableBy(game.user);
+        return !bothAreOwned && sourceIsOwnedOrLoot && targetIsOwnedOrLoot;
+    };
+    if (gmMustTransfer(actor, targetActor)) {
+        const source = { tokenId: actor.token?.id, actorId: actor.id, itemId: item.id };
+        const target = { tokenId: targetActor.token?.id, actorId: targetActor.id };
+        return await new ItemTransfer({
+            source,
+            target,
+            quantity,
+            mode: "credits",
+        }).request();
+    }
+
+    quantity = Math.min(quantity, item.system.price.value.credits);
+    await targetActor.inventory.addCurrency({ credits: quantity });
+    await item.update({
+        "system.price.value": new Coins({ credits: item.system.price.value.credits - quantity }).toObject(),
+    });
+}
+
 export {
     Coins,
     checkPhysicalItemSystemChange,
@@ -351,4 +397,5 @@ export {
     handleHPChange,
     prepareBulkData,
     sizeItemForActor,
+    transferCredits,
 };

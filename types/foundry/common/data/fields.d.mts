@@ -503,7 +503,7 @@ export class SchemaField<
     ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
     override initialize(
-        value: unknown,
+        value: MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>,
         model?: abstract.DataModel,
         options?: Record<string, unknown>,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
@@ -648,7 +648,7 @@ export class ObjectField<
     protected override _cast(value: unknown): unknown;
 
     override initialize(
-        value: unknown,
+        value: MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>,
         model?: abstract.DataModel,
         options?: ObjectFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
@@ -711,7 +711,7 @@ export class TypedObjectField<
     ): void;
 
     override initialize(
-        value: unknown,
+        value: MaybeSchemaProp<Record<string, SourceFromDataField<TField>>, TRequired, TNullable, THasInitial>,
         model?: abstract.DataModel,
         options?: ObjectFieldOptions<Record<string, SourceFromDataField<TField>>, TRequired, TNullable, THasInitial>,
     ): MaybeSchemaProp<Record<string, ModelPropFromDataField<TField>>, TRequired, TNullable, THasInitial>;
@@ -804,7 +804,7 @@ export class ArrayField<
     ): DataModelValidationFailure | void;
 
     override initialize(
-        value: JSONValue,
+        value: MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>,
         model: abstract.DataModel,
         options: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
@@ -847,7 +847,7 @@ export class SetField<
     ): DataModelValidationFailure | void;
 
     override initialize(
-        value: TSourceProp,
+        value: MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>,
         model: abstract.DataModel,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
@@ -987,7 +987,7 @@ export class EmbeddedCollectionField<
     ): DataModelValidationFailure | void;
 
     override initialize(
-        _value: unknown,
+        _value: MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>,
         model?: abstract.DataModel,
     ): MaybeSchemaProp<abstract.EmbeddedCollection<TDocument>, TRequired, TNullable, THasInitial>;
 
@@ -1096,7 +1096,7 @@ export class ForeignDocumentField<
     _cast(value: unknown): string;
 
     override initialize(
-        value: string,
+        value: MaybeSchemaProp<string, TRequired, TNullable, THasInitial>,
         model?: abstract.DataModel,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
@@ -1212,7 +1212,9 @@ export class JSONField<
 
     protected override _validateType(value: unknown): boolean;
 
-    override initialize(value: string): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
+    override initialize(
+        value: MaybeSchemaProp<JSONValue, TRequired, TNullable, THasInitial>,
+    ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     toObject(value: TModelProp): MaybeSchemaProp<string, TRequired, TNullable, THasInitial>;
 }
@@ -1373,7 +1375,7 @@ export class TypeDataField<
     protected override _cleanType(value: unknown, options?: CleanFieldOptions): TSourceProp;
 
     override initialize(
-        value: TSourceProp,
+        value: MaybeSchemaProp<TSourceProp, true, false, true>,
         model?: TDocument,
         options?: Record<string, unknown>,
     ): MaybeSchemaProp<TModelProp, true, false, true>;
@@ -1442,7 +1444,7 @@ export class TypedSchemaField<
     ): boolean | DataModelValidationFailure | void;
 
     override initialize(
-        value: JSONValue | undefined,
+        value: MaybeSchemaProp<SourceFromTypedSchemaTypes<TTypes>, TRequired, TNullable, THasInitial>,
         model?: abstract.DataModel,
         options?: object,
     ): MaybeSchemaProp<ModelFromTypedSchemaTypes<TTypes>, TRequired, TNullable, THasInitial>;

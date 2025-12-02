@@ -3,6 +3,7 @@
     "img": "icons/weapons/staves/staff-orb-feather.webp",
     "name": "Fiendbreaker",
     "system": {
+        "ammo": null,
         "baseItem": "staff",
         "bonus": {
             "value": 0
@@ -57,13 +58,13 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
+                    "action:recall-knowledge",
                     "target:trait:fiend"
                 ],
                 "selector": [
-                    "religion",
-                    "lore-skill-check"
+                    "skill-check"
                 ],
-                "type": "item",
+                "type": "circumstance",
                 "value": 2
             }
         ],

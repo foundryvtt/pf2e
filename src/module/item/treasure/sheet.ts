@@ -10,7 +10,14 @@ import { TREASURE_CATEGORIES } from "./values.ts";
 export class TreasureSheetPF2e extends PhysicalItemSheetPF2e<TreasurePF2e> {
     override async getData(options?: Partial<ItemSheetOptions>): Promise<TreasureSheetData> {
         const localize = localizer("PF2E.Item.Treasure.FIELDS.category.choices");
-        return Object.assign(await super.getData(options), {
+        const data = await super.getData(options);
+
+        // Always render the price of credsticks as if it were sf2e, even in pf2e
+        if (this.item.system.category === "credstick") {
+            data.price.label = this.item.system.price.value.toString({ short: true, unit: "credits" });
+        }
+
+        return Object.assign(data, {
             categories: R.mapToObj(TREASURE_CATEGORIES, (c) => [c, localize(c)]),
             currencies: CONFIG.PF2E.currencies,
             systemFields: this.item.system.schema.fields,

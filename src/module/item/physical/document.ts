@@ -33,7 +33,7 @@ import type {
 } from "./data.ts";
 import { Coins, computeLevelRarityPrice, getDefaultEquipStatus, handleHPChange, prepareBulkData } from "./helpers.ts";
 import { getUsageDetails, isEquipped } from "./usage.ts";
-import { DENOMINATIONS } from "./values.ts";
+import { COIN_DENOMINATIONS } from "./values.ts";
 
 abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     /** The item in which this item is embedded */
@@ -923,7 +923,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             const price: Record<string, unknown> = changed.system.price;
             if (R.isPlainObject(price.value)) {
                 const coins = price.value;
-                for (const denomination of DENOMINATIONS) {
+                for (const denomination of COIN_DENOMINATIONS) {
                     if (coins[denomination] === 0) coins[`-=${denomination}`] = null;
                 }
             }

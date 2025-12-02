@@ -26,6 +26,13 @@
         </div>
         {{#if (or @root.inventory.showValueAlways (and (eq item.type "treasure") (not item.container)))}}
             <span class="price">
+                {{#if (and @root.editable (eq item.system.category "credstick"))}}
+                    <a
+                        class="decrease"
+                        data-action="decrease-credits"
+                        title="{{localize "PF2E.Actor.Inventory.ItemQuantity.Decrease.Click"}}&#013;{{localize "PF2E.Actor.Inventory.ItemQuantity.Decrease.ShiftClick"}}&#013;{{localize "PF2E.Actor.Inventory.ItemQuantity.Decrease.ControlClick"}}"
+                    >&ndash;</a>
+                {{/if}}
                 {{#if (or item.isIdentified @root.user.isGM)}}
                     <span data-visibility="{{#if item.isIdentified}}all{{else}}gm{{/if}}">
                         {{#if @root.inventory.showUnitBulkPrice}}
@@ -37,6 +44,13 @@
                             {{assetValue}}
                         {{/if}}
                     </span>
+                {{/if}}
+                {{#if (and @root.editable (eq item.system.category "credstick"))}}
+                <a
+                    class="increase"
+                    data-action="increase-credits"
+                    title="{{localize "PF2E.Actor.Inventory.ItemQuantity.Increase.Click"}}&#013;{{localize "PF2E.Actor.Inventory.ItemQuantity.Increase.ShiftClick"}}&#013;{{localize "PF2E.Actor.Inventory.ItemQuantity.Increase.ControlClick"}}"
+                >+</a>
                 {{/if}}
             </span>
         {{/if}}

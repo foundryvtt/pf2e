@@ -1,5 +1,6 @@
 import type { Localization } from "@client/helpers/_module.d.mts";
 import type { PhysicalItemPF2e } from "@item";
+import { transferCredits } from "@item/physical/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { SocketMessage } from "@scripts/socket.ts";
@@ -22,7 +23,7 @@ export interface ItemTransferData {
     containerId?: string;
 
     /** Whether this is a merchant transaction. If null, presume yes if merchant */
-    isPurchase?: boolean | null;
+    mode?: "move" | "purchase" | "credits" | null;
 }
 
 export class ItemTransfer implements ItemTransferData {
@@ -35,14 +36,14 @@ export class ItemTransfer implements ItemTransferData {
     target: ItemTransferData["target"];
     quantity: number;
     containerId?: string;
-    isPurchase: boolean | null;
+    mode: "move" | "purchase" | "credits" | null;
 
     constructor(data: ItemTransferData) {
         this.source = data.source;
         this.target = data.target;
         this.quantity = data.quantity;
         this.containerId = data.containerId;
-        this.isPurchase = data.isPurchase ?? null;
+        this.mode = data.mode ?? null;
     }
 
     async request(): Promise<void> {
@@ -79,24 +80,28 @@ export class ItemTransfer implements ItemTransferData {
             throw ErrorPF2e("Failed sanity check during item transfer");
         }
 
-        this.isPurchase ??= sourceActor.isOfType("loot") && sourceActor.isMerchant;
-        const targetItem = await sourceActor.transferItemToActor(
-            targetActor,
-            sourceItem,
-            this.quantity,
-            this.containerId,
-            false,
-            this.isPurchase,
-        );
+        this.mode ??= sourceActor.isOfType("loot") && sourceActor.isMerchant ? "purchase" : "move";
+        if (this.mode === "credits") {
+            await transferCredits({ item: sourceItem, targetActor, quantity: this.quantity });
+        } else {
+            const targetItem = await sourceActor.transferItemToActor(
+                targetActor,
+                sourceItem,
+                this.quantity,
+                this.containerId,
+                false,
+                this.mode === "purchase",
+            );
 
-        const sourceIsLoot = sourceActor.isOfType("loot") && sourceActor.system.lootSheetType === "Loot";
+            const sourceIsLoot = sourceActor.isOfType("loot") && sourceActor.system.lootSheetType === "Loot";
 
-        // A merchant transaction can fail if funds are insufficient, but a loot transfer failing is an error.
-        if (!sourceItem && sourceIsLoot) {
-            return;
+            // A merchant transaction can fail if funds are insufficient, but a loot transfer failing is an error.
+            if (!sourceItem && sourceIsLoot) {
+                return;
+            }
+
+            this.#sendMessage(requester, sourceActor, targetActor, targetItem);
         }
-
-        this.#sendMessage(requester, sourceActor, targetActor, targetItem);
     }
 
     /** Retrieve the full actor from the source or target ID */
@@ -162,28 +167,26 @@ export class ItemTransfer implements ItemTransferData {
         const localize = localizer("PF2E.loot");
 
         if (!item) {
-            if (this.isPurchase) {
-                const message = localize("InsufficientFundsMessage");
-                // The buyer didn't have enough funds! No transaction.
+            if (this.mode !== "purchase") throw ErrorPF2e("Unexpected item-transfer failure");
 
-                const content = await fa.handlebars.renderTemplate(this.#templatePaths.content, {
-                    imgPath: targetActor.img,
-                    message: game.i18n.format(message, { buyer: targetActor.name }),
-                });
+            const message = localize("InsufficientFundsMessage");
+            // The buyer didn't have enough funds! No transaction.
 
-                const flavor = await this.#messageFlavor(sourceActor, targetActor, localize("BuySubtitle"));
+            const content = await fa.handlebars.renderTemplate(this.#templatePaths.content, {
+                imgPath: targetActor.img,
+                message: game.i18n.format(message, { buyer: targetActor.name }),
+            });
 
-                await ChatMessagePF2e.create({
-                    author: requester.id,
-                    speaker: { alias: ItemTransfer.#tokenName(targetActor) },
-                    style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
-                    flavor,
-                    content,
-                });
-                return;
-            } else {
-                throw ErrorPF2e("Unexpected item-transfer failure");
-            }
+            const flavor = await this.#messageFlavor(sourceActor, targetActor, localize("BuySubtitle"));
+
+            await ChatMessagePF2e.create({
+                author: requester.id,
+                speaker: { alias: ItemTransfer.#tokenName(targetActor) },
+                style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
+                flavor,
+                content,
+            });
+            return;
         }
 
         // Exhaustive pattern match to determine speaker and item-transfer parties
