@@ -67,19 +67,18 @@ class Predicate extends Array<PredicateStatement> {
                 ? statement.eq[0] === statement.eq[1]
                 : domain.has(`${statement.eq[0]}:${statement.eq[1]}`);
         } else {
-            const operator = Object.keys(statement)[0];
-
             // Allow for tests of partial statements against numeric values
             // E.g., `{ "gt": ["actor:level", 5] }` would match against "actor:level:6" and "actor:level:7"
-            const [left, right] = Object.values(statement)[0];
-            const domainArray = Array.from(domain);
+            const [operator, [left, right]] = Object.entries(statement)[0];
             const getValues = (operand: string | number): number[] => {
                 const maybeNumber = Number(operand);
                 if (!Number.isNaN(maybeNumber)) return [maybeNumber];
                 const pattern = new RegExp(String.raw`^${operand}:([^:]+)$`);
-                const values = domainArray
+                const values = domain
+                    .values()
                     .map((s) => Number(pattern.exec(s)?.[1] || NaN))
-                    .filter((v) => !Number.isNaN(v));
+                    .filter((v) => !Number.isNaN(v))
+                    .toArray();
                 return values.length > 0 ? values : [NaN];
             };
             const leftValues = getValues(left);

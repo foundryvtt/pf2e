@@ -11,7 +11,8 @@
     .label {
         color: var(--color-light-1);
         font-weight: 500;
-        margin: 0 0.5rem 0 0.25rem;
+        margin: 0 0.75rem 0 0.25rem;
+        flex: 1;
     }
 
     .denomination {
@@ -22,10 +23,10 @@
         color: var(--color-light-1);
         display: flex;
         flex-wrap: nowrap;
-        flex: 0 1 auto;
+        flex: 2;
         justify-content: start;
         text-shadow: 0 0 3px rgba(black, 0.75);
-        width: 100%;
+        max-width: 7rem;
 
         &:first-child {
             border-left: none;
@@ -49,25 +50,23 @@
             padding-right: 12px;
         }
 
-        &.pp {
-            .currency-image {
-                background: url("/icons/equipment/treasure/currency/platinum-pieces.webp") no-repeat;
-            }
+        &.pp .currency-image {
+            background: url("/icons/equipment/treasure/currency/platinum-pieces.webp") no-repeat;
         }
-        &.gp {
-            .currency-image {
-                background: url("/icons/equipment/treasure/currency/gold-pieces.webp") no-repeat;
-            }
+        &.gp .currency-image {
+            background: url("/icons/equipment/treasure/currency/gold-pieces.webp") no-repeat;
         }
-        &.sp {
-            .currency-image {
-                background: url("/icons/equipment/treasure/currency/silver-pieces.webp") no-repeat;
-            }
+        &.sp .currency-image {
+            background: url("/icons/equipment/treasure/currency/silver-pieces.webp") no-repeat;
         }
-        &.cp {
-            .currency-image {
-                background: url("/icons/equipment/treasure/currency/copper-pieces.webp") no-repeat;
-            }
+        &.cp .currency-image {
+            background: url("/icons/equipment/treasure/currency/copper-pieces.webp") no-repeat;
+        }
+        &.credits .currency-image {
+            background: url("/icons/sundries/gaming/playing-cards-grey.webp") no-repeat;
+        }
+        &.upb .currency-image {
+            background: url("/icons/equipment/treasure/currency/upb.webp") no-repeat;
         }
 
         .currency-image {
@@ -113,14 +112,16 @@
 }
 
 .wealth {
-    @include micro;
     @include button;
     align-items: center;
     background-color: var(--color-pf-inventory-header-bg);
     display: flex;
+    font-family: var(--sans-serif);
+    font-size: var(--font-size-10);
+    justify-content: flex-end;
+    letter-spacing: 0.04em;
     margin-bottom: 0.5rem;
     min-height: 1.5rem;
-    justify-content: flex-end;
     padding: 0 0.25rem;
 
     .item-name {
@@ -131,12 +132,10 @@
         font-weight: bold;
         margin: 2px 2px 0 0.25rem;
         text-shadow: 0 0 2px rgba(black, 0.75);
-        text-transform: capitalize;
 
         span {
             margin-left: 0.25rem;
             font-weight: normal;
-            text-transform: uppercase;
         }
     }
 

@@ -20,6 +20,7 @@ class ItemTransferDialog extends fa.api.DialogV2<ItemTransferConfiguration> {
         purchase: "fa-solid fa-coins",
         move: "fa-solid fa-hand-holding-box",
         gift: "fa-solid fa-gift",
+        credits: "fa-solid fa-credit-card",
     };
 
     /** The Dialog submission callback */
@@ -47,21 +48,28 @@ class ItemTransferDialog extends fa.api.DialogV2<ItemTransferConfiguration> {
 
     static override async wait(options: WaitParams): Promise<ResolutionData | null>;
     static override async wait(options: WaitParams): Promise<unknown> {
-        const { item, mode = "move", newStack = false, lockStack = false } = options;
+        const { item, newStack = false, lockStack = false } = options;
+        const isCredits = item.isOfType("treasure") && item.system.category === "credstick";
+        const mode = (options.mode = isCredits ? "credits" : (options.mode ?? "move"));
 
         // Early resolution: single item and quaranteed to not be a purchase
-        if (item.quantity < 2 && (mode !== "purchase" || !item.isOwner)) {
-            return { quantity: item.quantity, newStack, mode };
+        // If this is a cred stick, we are transferring credits, and the quantity of credits is the silver value
+        const checkedValue = mode === "credits" ? item.price.value.credits : item.quantity;
+        if (checkedValue < 2 && (mode !== "purchase" || !item.isOwner)) {
+            return { quantity: checkedValue, newStack, mode };
         }
 
         // Main content
         const actorName = options.recipient.name;
         const isAmmo = item.isOfType("ammo");
-        const quantity = mode === "purchase" ? (isAmmo ? Math.min(10, item.quantity) : 1) : item.quantity;
+        const quantity = mode === "purchase" ? (isAmmo ? Math.min(10, item.quantity) : 1) : checkedValue;
         const context = {
-            prompt: game.i18n.format(`PF2E.ItemTransferDialog.Prompt.${mode}`, { actor: actorName }),
+            prompt: game.i18n.format(`PF2E.ItemTransferDialog.Prompt.${mode}`, {
+                actor: actorName,
+            }),
             item,
             quantity,
+            maxQuantity: checkedValue,
             mode,
             newStack,
             lockStack,
@@ -143,8 +151,9 @@ class ItemTransferDialog extends fa.api.DialogV2<ItemTransferConfiguration> {
  * - move: a simple transfer between one actor to another, only prompting to set the quantity to be moved
  * - purchase: an exchange of coins for a quantity of an item
  * - gift: a transfer between creatures; declinable by the recipient
+ * - credits: a credits transfer; transfers a number of credits
  */
-type ItemTransferMode = "move" | "purchase" | "gift";
+type ItemTransferMode = "move" | "purchase" | "gift" | "credits";
 
 interface ItemTransferConfiguration extends fa.api.DialogV2Configuration {
     item: PhysicalItemPF2e;
@@ -159,9 +168,10 @@ interface WaitParams
         Pick<ItemTransferConfiguration, "recipient" | "item"> {}
 
 interface ResolutionData {
+    /** The quantity being transferred. If this is a cred stick, this is the quantity of credits instead */
     quantity: number;
     newStack: boolean;
-    mode: "move" | "purchase" | "gift";
+    mode: ItemTransferMode;
 }
 
 interface ItemTransferRenderContext extends fa.ApplicationRenderContext {

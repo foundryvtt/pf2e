@@ -3381,8 +3381,8 @@
                     "Note": "You can target a second willing creature to heal the same amount from the spell. This creature can be outside of the spell's range, provided it's adjacent to the enemy you hit."
                 },
                 "SacredGround": {
-                    "Harmful": "A creature that remains in the area for the entire 10 minutes regains @Damage[(@actor.level)[void,healing]]{Hit Points} equal to your level. This activity has the healing and void traits and heals undead creatures (or other creatures with void healing).",
-                    "Healing": "A creature that remains in the area for the entire 10 minutes regains @Damage[(@actor.level)[vitality,healing]]{Hit Points} equal to your level. This activity has the healing and vitality traits and heals living creatures."
+                    "Harmful": "A creature that remains in the area for the entire 10 minutes regains @Damage[(@actor.level)[void,healing]|traits:healing,void]{Hit Points} equal to your level. This activity has the healing and void traits and heals undead creatures (or other creatures with void healing).",
+                    "Healing": "A creature that remains in the area for the entire 10 minutes regains @Damage[(@actor.level)[vitality,healing]|traits:healing,vitality]{Hit Points} equal to your level. This activity has the healing and vitality traits and heals living creatures."
                 },
                 "SapLife": {
                     "Note": "When you cast a <em>harm</em> spell and damage at least one living creature, you regain @Damage[(@item.rank)[healing]] Hit Points."
@@ -4658,6 +4658,9 @@
                 "FinalShot": {
                     "Note": "Regardless of your roll, after the attack you're @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} until the start of your next turn and @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.",
                     "NoteFailure": "The weapon misfires."
+                },
+                "FleshWound": {
+                    "ToggleLabel": "Flesh Wound — Reduce Strike damage"
                 },
                 "SwordAndPistol": {
                     "MeleeNote": "When you make a successful melee Strike against an enemy with your one-handed melee weapon, the next ranged Strike you make against that enemy with a one-handed firearm or one-handed crossbow doesn't trigger reactions that would trigger on a ranged attack but not a melee attack, such as Reactive Strike. This benefit is lost if not used by the end of your next turn.",

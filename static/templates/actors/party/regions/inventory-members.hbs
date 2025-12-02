@@ -5,12 +5,12 @@
                 <header>{{localize "PF2E.Actor.Party.Total"}}</header>
                 <div class="summary-data">
                     <div>
-                        <label><i class="fa-solid fa-coins fa-fw"></i> {{localize "PF2E.Actor.Party.Coin"}}</label>
-                        <span class="value">{{numberFormat inventorySummary.totalCoins decimals=2}} {{localize "PF2E.CurrencyAbbreviations.gp"}}</span>
+                        <label><i class="fa-solid fa-coins fa-fw"></i> {{localize "PF2E.CurrencyLabel"}}</label>
+                        <span class="value">{{inventorySummary.totalCurrency}}</span>
                     </div>
                     <div>
                         <label><i class="fa-solid fa-scale-unbalanced fa-fw"></i> {{localize "PF2E.Actor.Party.Wealth"}}</label>
-                        <span class="value">{{numberFormat inventorySummary.totalWealth decimals=2}} {{localize "PF2E.CurrencyAbbreviations.gp"}}</span>
+                        <span class="value">{{inventorySummary.totalWealth}}</span>
                     </div>
                 </div>
                 <footer>
@@ -27,11 +27,11 @@
                         {{#unless member.restricted}}
                             <div class="value">
                                 <i class="fa-solid fa-coins fa-fw"></i>
-                                {{numberFormat member.coins decimals=2}} {{localize "PF2E.CurrencyAbbreviations.gp"}}
+                                {{member.currency}}
                             </div>
                             <div class="value">
                                 <i class="fa-solid fa-scale-unbalanced fa-fw"></i>
-                                {{numberFormat member.wealth decimals=2}} {{localize "PF2E.CurrencyAbbreviations.gp"}}
+                                {{member.wealth}}
                             </div>
                         {{/unless}}
                     </div>

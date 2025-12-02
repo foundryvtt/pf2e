@@ -1,8 +1,8 @@
 <div class="coinage">
     <div class="currency">
-        <li class="label">{{localize "PF2E.StackGroupCoins"}}</li>
-        {{#each totalCoinage as |value denomination|}}
-            <li class="denomination {{denomination}}">
+        <li class="label">{{localize "PF2E.CurrencyLabel"}}</li>
+        {{#each currency.units as |value unit|}}
+            <li class="denomination {{unit}}">
                 <div class="currency-image" data-tooltip="{{localize value.label}}"></div>
                 <span>{{value.value}}</span>
             </li>
@@ -37,13 +37,13 @@
     <div class="wealth">
         <div class="item-name">
             <i class="fa-solid fa-coins fa-fw"></i>
-            {{localize "PF2E.TotalCoinage"}}
-            <span>{{totalCoinageGold}} {{localize "PF2E.CurrencyAbbreviations.gp"}}</span>
+            {{localize "PF2E.TotalCurrency"}}
+            <span>{{currency.totalCurrency}}</span>
         </div>
         <div class="item-name">
             <i class="fa-solid fa-scale-unbalanced fa-fw"></i>
             {{localize "PF2E.TotalWealth"}}
-            <span>{{totalWealthGold}} {{localize "PF2E.CurrencyAbbreviations.gp"}}</span>
+            <span>{{currency.totalWealth}}</span>
         </div>
     </div>
 </div>

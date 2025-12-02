@@ -25,7 +25,53 @@
             "remaster": true,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Gunslinger.FleshWound.ToggleLabel",
+                "option": "flesh-wound",
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    {
+                        "not": "dice:slug:base"
+                    },
+                    "flesh-wound"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "ranged-strike-damage"
+                ],
+                "value": 0
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    "flesh-wound"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "ranged-strike-damage"
+                ],
+                "slug": "base",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    {
+                        "not": "modifier:slug:weapon-specialization"
+                    },
+                    "flesh-wound"
+                ],
+                "selector": "ranged-strike-damage",
+                "suppress": true
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

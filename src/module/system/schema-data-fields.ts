@@ -25,16 +25,28 @@ import validation = foundry.data.validation;
 /* -------------------------------------------- */
 
 /** A SchemaField that prunes undefined values */
-class PrunedSchemaField<TDataSchema extends DataSchema> extends fields.SchemaField<TDataSchema> {
-    protected override _cleanType(
-        data: Record<string, unknown>,
-        options: CleanFieldOptions = {},
-    ): SourceFromSchema<TDataSchema> {
-        const cleaned = super._cleanType(data, options);
-        for (const key in data) {
-            if (cleaned[key] === undefined) delete cleaned[key];
+class PrunedSchemaField<
+    TDataSchema extends DataSchema = DataSchema,
+    TSourceProp extends fields.SourceFromSchema<TDataSchema> = fields.SourceFromSchema<TDataSchema>,
+    TModelProp extends NonNullable<JSONValue> = fields.ModelPropsFromSchema<TDataSchema>,
+    TRequired extends boolean = true,
+    TNullable extends boolean = false,
+    THasInitial extends boolean = true,
+> extends fields.SchemaField<TDataSchema, TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+    override initialize(
+        value: fields.MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>,
+        model?: foundry.abstract.DataModel,
+        options?: Record<string, unknown>,
+    ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial> {
+        if (!value) return super.initialize(value, model, options);
+        for (const key in value) {
+            if (value[key] === undefined) delete value[key];
         }
-        return cleaned;
+        const initialized = super.initialize(value, model, options);
+        for (const key in initialized) {
+            if (value[key] === undefined) delete value[key];
+        }
+        return initialized;
     }
 }
 
@@ -154,12 +166,12 @@ class StrictArrayField<
     }
 
     override initialize(
-        value: JSONValue,
+        value: MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>,
         model: DataModel,
         options: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
     override initialize(
-        value: JSONValue,
+        value: MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>,
         model: DataModel,
         options: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
     ): Maybe<TModelProp> {
@@ -170,7 +182,7 @@ class StrictArrayField<
 /** An array field that will prune invalid elements without complaint */
 class LaxArrayField<
     TElementField extends fields.DataField,
-    TSourceProp extends Partial<SourceFromDataField<TElementField>>[] = SourceFromDataField<TElementField>[],
+    TSourceProp extends SourceFromDataField<TElementField>[] = SourceFromDataField<TElementField>[],
     TModelProp extends object = ModelPropFromDataField<TElementField>[],
     TRequired extends boolean = true,
     TNullable extends boolean = false,

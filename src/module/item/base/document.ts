@@ -363,9 +363,12 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 "system.size": currentSource.system.size,
             });
 
-            // Preserve runes
+            // Preserve runes and grade
             if (itemIsOfType(currentSource, "armor", "shield", "weapon")) {
-                fu.mergeObject(updates, { "system.runes": currentSource.system.runes });
+                fu.mergeObject(updates, {
+                    "system.runes": currentSource.system.runes,
+                    "system.grade": currentSource.system.grade,
+                });
             }
 
             // Refresh subitems

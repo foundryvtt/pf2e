@@ -7,12 +7,14 @@
         </label>
     {{/each}}
 </fieldset>
-<div class="form-group slim">
-    <label for="{{rootId}}-breakCoins">{{localize "PF2E.loot.AllowConversion"}}</label>
-    <div class="form-fields">
-        <input type="checkbox" name="breakCoins" id="{{rootId}}-breakCoins"/>
+{{#if canBreakCoins}}
+    <div class="form-group slim">
+        <label for="{{rootId}}-breakCoins">{{localize "PF2E.loot.AllowConversion"}}</label>
+        <div class="form-fields">
+            <input type="checkbox" name="breakCoins" id="{{rootId}}-breakCoins"/>
+        </div>
     </div>
-</div>
+{{/if}}
 <div class="form-footer">
     <button type="submit">
         <i class="fa-regular fa-floppy-disk"></i>

@@ -37,6 +37,23 @@ const PRECIOUS_MATERIAL_TYPES = new Set([
 
 const PRECIOUS_MATERIAL_GRADES = new Set(["low", "standard", "high"] as const);
 
-const DENOMINATIONS = ["pp", "gp", "sp", "cp"] as const;
+const COIN_DENOMINATIONS = ["pp", "gp", "sp", "cp"] as const;
+const CURRENCY_TYPES = [...COIN_DENOMINATIONS, "credits", "upb"] as const;
 
-export { DENOMINATIONS, PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_GRADES, PRECIOUS_MATERIAL_TYPES };
+const DENOMINATION_RATES = {
+    cp: 1,
+    sp: 10,
+    gp: 100,
+    pp: 1000,
+    credits: 10,
+    upb: 10,
+};
+
+export {
+    COIN_DENOMINATIONS,
+    CURRENCY_TYPES,
+    DENOMINATION_RATES,
+    PHYSICAL_ITEM_TYPES,
+    PRECIOUS_MATERIAL_GRADES,
+    PRECIOUS_MATERIAL_TYPES,
+};

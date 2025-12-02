@@ -14,9 +14,8 @@ import type { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellcastingItemCreator } from "@item/consumable/apps/spellcasting-item-creator/app.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import type { RawCoins } from "@item/physical/data.ts";
-import { sizeItemForActor } from "@item/physical/helpers.ts";
-import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import { Coins, sizeItemForActor, transferCredits } from "@item/physical/helpers.ts";
+import { COIN_DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
 import {
@@ -63,7 +62,7 @@ import { ActorSizePF2e } from "../data/size.ts";
 import type {
     ActorSheetDataPF2e,
     ActorSheetRenderOptionsPF2e,
-    CoinageSummary,
+    CurrencySummary,
     InventoryItem,
     SheetInventory,
 } from "./data-types.ts";
@@ -136,14 +135,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             attributes[key] = [...attributes[key]].sort((a, b) => a.label.localeCompare(b.label));
         }
 
-        // Calculate financial and total wealth
-        const coins = actor.inventory.coins;
-        const totalCoinage = ActorSheetPF2e.coinsToSheetData(coins);
-        const totalCoinageGold = (coins.copperValue / 100).toFixed(2);
-
-        const totalWealth = actor.inventory.totalWealth;
-        const totalWealthGold = (totalWealth.copperValue / 100).toFixed(2);
-
         const traitsMap = ((): Record<string, string> => {
             switch (actor.type) {
                 case "hazard":
@@ -178,10 +169,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             owner: this.actor.isOwner,
             title: this.title,
             toggles,
-            totalCoinage,
-            totalCoinageGold,
-            totalWealth,
-            totalWealthGold,
+            currency: this.#prepareCurrency(),
             traits: createSheetTags(traitsMap, { value: this.actor.system.traits?.value ?? [] }),
             user: { isGM: game.user.isGM },
             publicationLicenses: [
@@ -246,7 +234,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         const actorSize = new ActorSizePF2e({ value: actor.size });
         const itemSize = new ActorSizePF2e({ value: item.size });
         const sizeDifference = itemSize.difference(actorSize, { smallIsMedium: true });
-        const isCurrency = item.isOfType("treasure") && item.isCoinage;
+        const isCurrency = item.isOfType("treasure") && item.isCurrency;
+        const priceUnit = (isCurrency ? item.unit : null) ?? "primary";
 
         return {
             item,
@@ -259,18 +248,20 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 return isAmmo ? 3 : i.isOfType("weapon") ? 0 : isEquipment ? 1 : 2;
             }),
             canBeEquipped: !item.isStowed,
-            canEditQuantity: !(item.isOfType("backpack") && item.contents.size > 0),
+            canEditQuantity:
+                !(item.isOfType("backpack") && item.contents.size > 0) &&
+                !(item.isOfType("treasure") && item.system.category === "credstick"),
             hasCharges:
                 (item.isOfType("consumable") && item.system.uses.max > 0) ||
                 (item.isOfType("ammo") && item.system.uses.max > 1),
             heldItems,
             isContainer: item.isOfType("backpack"),
             isInvestable: false,
-            isSellable: editable && item.isOfType("treasure") && !item.isCoinage,
+            isSellable: editable && item.isOfType("treasure") && !item.isCurrency,
             itemSize: sizeDifference !== 0 ? itemSize : null,
             unitBulk: actor.isOfType("loot") ? createBulkPerLabel(item) : null,
-            unitPrice: item.price.value.toString({ short: true }),
-            assetValue: item.assetValue.toString({ short: true, denomination: isCurrency ? item.denomination : null }),
+            unitPrice: item.price.value.toString({ short: true, unit: priceUnit }),
+            assetValue: item.assetValue.toString({ short: true, unit: priceUnit }),
             hidden: false,
         };
     }
@@ -319,14 +310,37 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         }
     }
 
-    protected static coinsToSheetData(coins: RawCoins): CoinageSummary {
-        return DENOMINATIONS.reduce(
-            (accumulated, d) => ({
-                ...accumulated,
-                [d]: { value: coins[d], label: CONFIG.PF2E.currencies[d] },
-            }),
-            {} as CoinageSummary,
-        );
+    #prepareCurrency(): CurrencySummary {
+        const actor = this.actor;
+        const totalWealth = actor.inventory.totalWealth;
+        const currency = actor.inventory.currency;
+        const coins = new Coins(R.pick(currency, COIN_DENOMINATIONS)); // just the pf2e values
+
+        // Figure out what coins to show for what systems. If both, simplify pf2e values to gold
+        const showPF2e = SYSTEM_ID === "pf2e" || COIN_DENOMINATIONS.some((d) => currency[d] > 0);
+        const showSF2e = SYSTEM_ID === "sf2e" || currency.credits || currency.upb;
+        const denominations =
+            showPF2e && showSF2e
+                ? (["gp", "credits", "upb"] as const)
+                : showPF2e
+                  ? COIN_DENOMINATIONS
+                  : (["credits", "upb"] as const);
+        if (showPF2e && showSF2e) {
+            currency.gp = coins.goldValue;
+            coins.sp = coins.pp = coins.cp = 0;
+        }
+
+        return {
+            units: denominations.reduce(
+                (accumulated, d) => ({
+                    ...accumulated,
+                    [d]: { value: currency[d], label: CONFIG.PF2E.currencies[d] },
+                }),
+                {} as CurrencySummary["units"],
+            ),
+            totalCurrency: coins.plus({ sp: currency.credits + currency.upb }).toString({ decimal: true }),
+            totalWealth: totalWealth.toString({ decimal: true }),
+        };
     }
 
     protected getAttackActionFromDOM(button: HTMLElement, readyOnly = false): AttackAction | null {
@@ -709,6 +723,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             "add-coins": () => {
                 return new UpdateCurrencyDialog({ actor: this.actor, mode: "add" }).render({ force: true });
             },
+            "decrease-credits": async (event) => {
+                const item = await inventoryItemFromDOM(event);
+                const subtrahend = event.ctrlKey ? 10 : event.shiftKey ? 5 : 1;
+                const newCredits = Math.max(0, item.system.price.value.credits - subtrahend);
+                if (newCredits !== item.system.price.value.credits) {
+                    return item.update({ "system.price.==value": { sp: newCredits } });
+                }
+                return;
+            },
             "decrease-quantity": async (event) => {
                 const item = await inventoryItemFromDOM(event);
                 if (item.quantity > 0) {
@@ -720,6 +743,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             "detach-subitem": async (event) => {
                 const subitem = await inventoryItemFromDOM(event);
                 return subitem.detach({ skipConfirm: isControlDown(event) });
+            },
+            "increase-credits": async (event) => {
+                const item = await inventoryItemFromDOM(event);
+                const addend = event.ctrlKey ? 10 : event.shiftKey ? 5 : 1;
+                const newCredits = Math.max(0, item.system.price.value.credits + addend);
+                return item.update({ "system.price.==value": { sp: newCredits } });
             },
             "increase-quantity": async (event) => {
                 const item = await inventoryItemFromDOM(event);
@@ -1295,11 +1324,20 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
         // If more than one item can be moved, show a popup to ask how many to move
         const result = await ItemTransferDialog.wait({ item, recipient, lockStack: !stackable, mode });
-        if (result) {
+        if (!result) return;
+
+        // If we're transferring all the credits, transfer the one credstick instead
+        const [resultMode, quantity] =
+            result.mode === "credits" && result.quantity >= item.system.price.value.credits
+                ? ["move", 1]
+                : [result.mode, result.quantity];
+        if (resultMode === "credits") {
+            transferCredits({ targetActor: recipient, item, quantity });
+        } else if (result) {
             sourceActor.transferItemToActor(
                 recipient,
                 item as PhysicalItemPF2e<ActorPF2e>,
-                result.quantity,
+                quantity,
                 containerId,
                 result.newStack,
                 result.mode === "purchase",
