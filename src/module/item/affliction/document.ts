@@ -85,7 +85,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         const stageDuration: DurationData = {
             ...(stageData?.duration ?? { unit: "unlimited", value: -1 }),
             expiry: "turn-end",
-            target: true,
+            useTarget: true,
         };
         return calculateRemainingDuration(this, stageDuration);
     }

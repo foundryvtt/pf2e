@@ -33,7 +33,7 @@ export function calculateRemainingDuration(
         const fightyActor = effect.actor?.isOfType("familiar") ? (effect.actor.master ?? effect.actor) : effect.actor;
         const atTurnStart = () =>
             startInitiative === currentInitiative &&
-            (combatant.actor === (effect.origin ?? fightyActor) || durationData.target);
+            (combatant.actor === (effect.origin ?? fightyActor) || durationData.useTarget);
 
         result.expired =
             expiry === "turn-start"

@@ -123,13 +123,13 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         user: fd.BaseUser,
     ): Promise<boolean | void> {
         if (this.isOwned) {
-            const use_target = data.system?.duration?.target ?? false;
+            const useTarget = data.system?.duration?.useTarget ?? false;
             const originInitiative = this.origin?.combatant?.initiative ?? game.combat?.combatant?.initiative ?? null;
             const targetInitiative = this.actor?.combatant?.initiative ?? null;
-            const initiative = use_target ? targetInitiative : originInitiative;
+            const initiative = useTarget ? targetInitiative : originInitiative;
             const isTargetBefore = (targetInitiative ?? 0) > (originInitiative ?? 0);
             const expiry = this._source.system.duration.expiry;
-            if (use_target && expiry) {
+            if (useTarget && expiry) {
                 if (!(expiry === "turn-end" && isTargetBefore) && this._source.system.duration.value > 0) {
                     this._source.system.duration.value -= 1;
                 }

@@ -123,7 +123,7 @@ async function extractEphemeralEffects({
                     value: -1,
                     unit: "unlimited",
                     expiry: null,
-                    target: false,
+                    useTarget: false,
                     sustained: false,
                 };
             }

@@ -85,7 +85,7 @@ class ConditionSystemData extends ItemSystemModel<ConditionPF2e, ConditionSystem
             value: -1,
             unit: "unlimited",
             expiry: null,
-            target: false,
+            useTarget: false,
         };
     }
 }

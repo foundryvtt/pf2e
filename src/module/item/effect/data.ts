@@ -62,7 +62,7 @@ class EffectSystemData extends ItemSystemModel<EffectPF2e, EffectSystemSchema> {
                     nullable: true,
                     initial: null,
                 }),
-                target: new fields.BooleanField({
+                useTarget: new fields.BooleanField({
                     required: false,
                     nullable: false,
                     initial: false,

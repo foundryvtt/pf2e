@@ -144,7 +144,7 @@ class AfflictionSystemData extends ItemSystemModel<AfflictionPF2e, AfflictionSys
                     nullable: true,
                     initial: null,
                 }),
-                target: new fields.BooleanField({ required: false, nullable: false }),
+                useTarget: new fields.BooleanField({ required: false, nullable: false }),
             }),
             start: new fields.SchemaField({
                 value: new fields.NumberField({ required: true, nullable: false, initial: 0 }),

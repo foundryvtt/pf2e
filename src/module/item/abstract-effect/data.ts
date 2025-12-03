@@ -67,7 +67,7 @@ interface DurationData {
     value: number;
     unit: TimeUnit | "unlimited" | "encounter";
     expiry: EffectExpiryType | null;
-    target: boolean;
+    useTarget: boolean;
 }
 
 class EffectContextField extends fields.SchemaField<
@@ -187,7 +187,7 @@ type DurationDataSchema = {
     value: fields.NumberField<number, number, true, false, true>;
     unit: fields.StringField<TimeUnit | "unlimited" | "encounter", TimeUnit | "unlimited" | "encounter", true, false>;
     expiry: fields.StringField<EffectExpiryType, EffectExpiryType, true, true>;
-    target: fields.BooleanField<boolean, boolean, false, false>;
+    useTarget: fields.BooleanField<boolean, boolean, false, false>;
 };
 
 type EffectBadgeCounterSchema = {
