@@ -173,12 +173,13 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
             changed.system.hands = Math.floor(Math.clamp(changed.system.hands || 0, 0, 12) / 2) * 2;
         }
 
-        for (const fieldName of ["hp", "speed", "reach"] as const) {
-            if (changed.system[fieldName] !== undefined) {
-                const minimum = fieldName === "speed" ? 5 : 1;
-                const value = Math.floor(Math.clamp(Number(changed.system[fieldName]) || 0, minimum, 99));
-                changed.system[fieldName] = fieldName === "hp" ? value : Math.ceil(value / 5) * 5;
-            }
+        if (changed.system.hp !== undefined) {
+            changed.system.hp = Math.clamp(Math.floor(changed.system.hp / 2) * 2, 4, 12);
+        }
+
+        for (const fieldName of ["speed", "reach"] as const) {
+            if (changed.system[fieldName] === undefined) continue;
+            changed.system[fieldName] = Math.clamp(Math.ceil(changed.system[fieldName] / 5) * 5, 0, 100);
         }
 
         return super._preUpdate(changed, options, user);
