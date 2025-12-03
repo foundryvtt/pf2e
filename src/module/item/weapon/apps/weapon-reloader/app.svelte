@@ -40,7 +40,7 @@
                 <span>
                     {ammo.name}
                     {#if ammo.isTemporary}
-                        <i class="fa-solid fa-clock" inert></i>
+                        <i class="fa-solid fa-stopwatch" inert></i>
                     {/if}
                     {#if ammo.uses}
                         <span class="uses">

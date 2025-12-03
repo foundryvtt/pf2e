@@ -18,7 +18,7 @@
                 <a data-action="toggle-summary">{{item.name}}</a>
                 {{#if (and @root.user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{item.system.identification.identified.name}})</span>{{/if}}
                 {{#if itemSize}}<span class="size">({{itemSize}})</span>{{/if}}
-                {{#if item.isTemporary}}<i class="fa-solid fa-clock" data-tooltip="PF2E.TemporaryItemToolTip"></i>{{/if}}
+                {{#if item.isTemporary}}<i class="fa-solid fa-stopwatch" data-tooltip="PF2E.TemporaryItemToolTip"></i>{{/if}}
             </h4>
             {{#if (and item.uses.max (or (gt item.uses.max 1) (eq item.category "wand")))}}
                 <span class="uses">({{item.uses.value}}/{{item.uses.max}})</span>
