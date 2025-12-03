@@ -692,18 +692,25 @@
         "Dragon": {
             "Adamantine": "Adamantine Dragon",
             "Arcane": "Arcane Dragon",
+            "Barrage": "Barrage Dragon",
             "Black": "Black Dragon",
             "Blue": "Blue Dragon",
+            "Bog": "Bog Dragon",
             "Brass": "Brass Dragon",
             "Brine": "Brine Dragon",
             "Bronze": "Bronze Dragon",
+            "Cinder": "Cinder Dragon",
             "Cloud": "Cloud Dragon",
             "Conspirator": "Conspirator Dragon",
             "Copper": "Copper Dragon",
+            "Coral": "Coral Dragon",
             "Crystal": "Crystal Dragon",
+            "Delight": "Delight Dragon",
+            "Despair": "Despair Dragon",
             "Diabolic": "Diabolic Dragon",
             "Divine": "Divine Dragon",
             "Empyreal": "Empyreal Dragon",
+            "Executor": "Executor Dragon",
             "Forest": "Forest Dragon",
             "Fortune": "Fortune Dragon",
             "Gold": "Gold Dragon",
@@ -711,17 +718,32 @@
             "Horned": "Horned Dragon",
             "Magma": "Magma Dragon",
             "Mirage": "Mirage Dragon",
+            "Mocking": "Mocking Dragon",
+            "Oath": "Oath Dragon",
             "Occult": "Occult Dragon",
             "Omen": "Omen Dragon",
+            "Phase": "Phase Dragon",
             "Primal": "Primal Dragon",
             "Red": "Red Dragon",
+            "Requiem": "Requiem Dragon",
+            "Resurrection": "Resurrection Dragon",
+            "Rime": "Rime Dragon",
+            "Rune": "Rune Dragon",
+            "Sage": "Sage Dragon",
             "Sea": "Sea Dragon",
             "Silver": "Silver Dragon",
             "Sky": "Sky Dragon",
             "Sovereign": "Sovereign Dragon",
+            "Stormcrown": "Stormcrown Dragon",
+            "Time": "Time Dragon",
             "Umbral": "Umbral Dragon",
             "Underworld": "Underworld Dragon",
-            "White": "White Dragon"
+            "Vizier": "Vizier Dragon",
+            "Vorpal": "Vorpal Dragon",
+            "Wailing": "Wailing Dragon",
+            "Whisper": "Whisper Dragon",
+            "White": "White Dragon",
+            "Wish": "Wish Dragon"
         },
         "FeatDescription": {
             "Frequency": {
@@ -3596,6 +3618,11 @@
                     }
                 }
             },
+            "DraconicAcolyte": {
+                "ChannelDraconicEssence": {
+                    "InSpace": "Spectral Dragon is in your space"
+                }
+            },
             "DragonDisciple": {
                 "DragonChoice": {
                     "Black": "Black Dragon",
@@ -3651,6 +3678,9 @@
                         "Will": "Tapping into the physiology of your draconic ancestor, you can exhale a torrent of energy in a @Template[line|distance:60], dealing @Damage[ceil(@actor.level/2)d6[@actor.flags.pf2e.dragonblood.damageType]|options:area-damage] damage. Each creature in the area must attempt a @Check[will|against:class-spell|basic]. You can't use this ability again for [[/r 1d4 #Recharge this ability]]{1d4 rounds}."
                     }
                 },
+                "HeartOfEarth": {
+                    "RollOptionLabel": "Heart of Earth — Use precise tremorsense"
+                },
                 "LingeringBreath": {
                     "Description": "When you use Breath of the Dragon, the area of your breath becomes difficult terrain for 1 minute. In addition, a creature who fails or critically fails its saving throw takes @Damage[2d6[persistent,@actor.flags.pf2e.dragonblood.damageType]] damage of the same type"
                 },
@@ -3658,6 +3688,21 @@
                     "BracersOfArmor": "Scaly Hide w/ Bracers of Armor",
                     "ExplorersClothing": "Scaly Hide w/ Explorer's Clothing",
                     "MageArmor": "Scaly Hide w/ Mage Armor"
+                }
+            },
+            "Dragonet": {
+                "DragonetBreath": {
+                    "Description": {
+                        "Base": "You have developed your magical breath. You expel the dragonet breath associated with your heritage. Dragonet Breath gains the traits listed in parentheses, and the DC is your class DC or spell DC, whichever is higher. After you use Dragonet Breath, you can't use it again for [[/r 1d4 #Recharge Dragonet Breath]]{1d4 rounds}.",
+                        "Fey": "<strong>Fey Dragonet</strong> (arcane, poison) You breathe a @Template[type:cone|distance:15] of euphoric gas. Each creature in the area must succeed at a @Check[fortitude|against:class-spell|options:area-effect,inflicts:stupefied|traits:arcane,poison] save or become @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} for 1 round.",
+                        "HomingDrake": "<strong>Homing Drake</strong> (acid) You expel a @Template[type:line|distance:30] of caustic spittle that deals @Damage[(ceil(@actor.level/2))d4[acid]|options:area-damage] damage with a @Check[reflex|against:class-spell|basic|options:area-effect,damage:material:silver|traits:acid] save. At 3rd level and every 2 levels thereafter, the damage increases by 1d4.",
+                        "HouseDrake": "<strong>House Drake</strong> (arcane, mental) You breathe out a cloud of silver mist in a @Template[type:cone|distance:15] that deals @Damage[(ceil(@actor.level/2))d4[mental]|options:area-damage] damage with a @Check[will|against:class-spell|options:area-effect|traits:arcane,mental] save. It counts as silver for the purpose of weaknesses. At 3rd level and every 2 levels thereafter, the damage increases by 1d4.",
+                        "PearlDragonet": "<strong>Pearl Dragonet</strong> (arcane, curse) You breathe a @Template[type:cone|distance:15] of golden mist that alters the luck of creatures caught in it. Each time you use Dragonet Breath, decide if it gives good luck or bad luck. Any creature affected by your Dragonet Breath becomes temporarily immune to it for 1 hour. If your breath gives good luck, each creature in the area gains a +1 status bonus to its next attack roll or skill check before the start of your next turn. If your breath gives bad luck, each creature in the area must attempt a @Check[will|against:class-spell|options:area-effect|traits:arcane,curse] save. A creature that fails its save takes a –1 status penalty to its next attack roll or skill check before the start of your next turn. On a critical failure, the creature must instead roll twice and take the worse result on the check; this is a misfortune effect.",
+                        "TidepoolDragonet": "<strong>Tidepool Dragonet</strong> (fire) You breathe a @Template[type:line|distance:15] of superheated gas that deals @Damage[(ceil(@actor.level/2))d4[fire]|options:area-damage] damage with a @Check[reflex|against:class-spell|basic|options:area-effect|traits:fire] save. At 3rd level and every 2 levels thereafter, the damage increases by 1d4. You can use your breath underwater even though it has the fire trait. If you do, it gains the water trait and emerges as a @Template[type:cone|distance:20] of boiling water."
+                    }
+                },
+                "FeyDragonet": {
+                    "WingColor": "Fey Dragonet — Wings match environment"
                 }
             },
             "DragonForm": {
@@ -3893,6 +3938,9 @@
                 "DeckOfDestiny": {
                     "MatchingSuitPrompt": "Is the drawn card's suit related the check?",
                     "WealOrWoePrompt": "Select Weal or Woe."
+                },
+                "DragonEye": {
+                    "Addendum": "When you cast _breathe fire_ at 3rd-rank or higher, creatures in the spell's area must attempt a @Check[will|basic] save instead of a basic Reflex save, and in addition to taking the spell's normal damage on a failure, they're @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 1}. This adds the emotion, fear, and mental traits to the spell."
                 },
                 "DrakeRifle": {
                     "CriticalSpecialization": "A drake rifle does not add critical specialization effects.",
@@ -5031,6 +5079,11 @@
                 }
             },
             "Kobold": {
+                "DraconicParagon": {
+                    "KoboldBreath": {
+                        "Addendum": "Creatures that critically fail their save against your Kobold Breath take @Damage[3d4[persistent,damage]]."
+                    }
+                },
                 "DragonbloodParagon": {
                     "Dracomancer": "Dracomancer",
                     "KoboldBreath": {
