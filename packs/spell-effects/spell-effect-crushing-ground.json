@@ -1,0 +1,76 @@
+{
+    "_id": "7YcVBf3OTyozFOVV",
+    "img": "icons/magic/earth/explosion-lava-stone-yellow.webp",
+    "name": "Spell Effect: Crushing Ground",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Crushing Ground]</p>\n<p>You are off-guard. On a failed save, you also take a –10-foot circumstance penalty to Speed. On a critical failure, you are immobilized instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "crushing-ground"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "crushing-ground:failure"
+                ],
+                "selector": [
+                    "land-speed"
+                ],
+                "type": "circumstance",
+                "value": -10
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "crushing-ground:critical-failure"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
