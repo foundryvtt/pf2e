@@ -70,14 +70,16 @@ let intlNumberFormat: Intl.NumberFormat;
  * @param options.zeroIsNegative Treat zero as a negative value
  */
 function signedInteger(value: number, { emptyStringZero = false, zeroIsNegative = false } = {}): string {
-    if (value === 0 && emptyStringZero) return "";
-    const nf = (intlNumberFormat ??= new Intl.NumberFormat(game.i18n.lang, {
+    if (value === 0) {
+        if (emptyStringZero) return "";
+        value = zeroIsNegative ? -0 : 0;
+    }
+    const formatter = (intlNumberFormat ??= new Intl.NumberFormat("en-US", {
         maximumFractionDigits: 0,
         signDisplay: "always",
+        useGrouping: false,
     }));
-    const maybeNegativeZero = zeroIsNegative && value === 0 ? -0 : value;
-
-    return nf.format(maybeNegativeZero);
+    return formatter.format(value);
 }
 
 const wordCharacter = String.raw`[\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
