@@ -99,6 +99,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                     : null;
 
             results.push({
+                label: attack.label,
                 description,
                 damageFormula: String(await attack.damage?.({ getFormula: true })),
                 breakdown: attack.type === "strike" ? attack.breakdown : attack.statistic.dc.breakdown,
