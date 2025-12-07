@@ -1,0 +1,52 @@
+{
+    "_id": "nP3k4N52NzrR3KKf",
+    "img": "icons/magic/lightning/bolt-strike-wide-white.webp",
+    "name": "Effect: Whose Cry is Thunder",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Whose Cry is Thunder]</p>\n<p>Any creature that touches you or damages you with an unarmed attack or non-reach melee weapon while you're charged takes 1d6 electricity damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "item:melee",
+                    {
+                        "not": "item:trait:reach"
+                    }
+                ],
+                "selector": [
+                    "damage-received"
+                ],
+                "text": "PF2E.SpecificRule.Exemplar.Epithet.WhoseCryIsThunder.DamageNote",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
