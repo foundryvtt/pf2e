@@ -27,6 +27,7 @@ import {
     treatWounds,
     xpFromEncounter,
 } from "@scripts/macros/index.ts";
+import { checkPromptV2 } from "./macros/check-prompt/prompt-v2.ts";
 import { remigrate } from "@scripts/system/remigrate.ts";
 import { ActionMacros, SystemActions } from "@system/action-macros/index.ts";
 import { Check } from "@system/check/check.ts";
@@ -95,6 +96,7 @@ export const SetGamePF2e = {
                 perceptionForSelected,
                 stealthForSelected,
                 xpFromEncounter,
+                checkPromptV2,
             },
             rollActionMacro,
             rollItemMacro,
