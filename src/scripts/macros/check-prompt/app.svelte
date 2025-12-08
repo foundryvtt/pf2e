@@ -35,18 +35,19 @@
 </script>
 
 <div class="content standard-form">
-    <section class="title">
+    <section class="form-group title">
         <label for="check-prompt-title">{localize("PF2E.Actor.Party.CheckPrompt.PromptTitle")}</label>
         <input id="check-prompt-title" name="title" type="text"/>
     </section>
-    <nav class="dc-tabs">
+    <hr>
+    <nav class="dc tabs">
         {#each dcTabs as tab}
             <button
                 class:active={state.dc===tab.name}
                 onclick={() => state.dc = tab.name}
                 data-tab-name={tab.name}
             >
-                {tab.name}
+                {tab.label}
             </button>
         {/each}
     </nav>
@@ -82,7 +83,8 @@
             {{/each}} -->
         </select>
     </div>
-    <nav class="skill-save-tabs">
+    <hr>
+    <nav class="skill-save tabs">
         {#each skillSaveTabs as tab}
             <button
                 class:active={state.skillSave===tab.name}
@@ -96,13 +98,13 @@
     <section class="check-prompt-content">
         {#if state.skillSave=='skill'}
             <div class="form-group">
-                <input id="check-prompt-skills" placeholder="{localize("PF2E.Actor.Party.CheckPrompt.ChooseSkills")}" />
+                <input id="check-prompt-skills" type="text" placeholder="{localize("PF2E.Actor.Party.CheckPrompt.ChooseSkills")}" />
             </div>
             <div class="form-group lores">
-                <input id="check-prompt-lores" placeholder="{localize("PF2E.Actor.Party.CheckPrompt.ChooseLores")}" />
+                <input id="check-prompt-lores" type="text" placeholder="{localize("PF2E.Actor.Party.CheckPrompt.ChooseLores")}" />
             </div>
             <div class="form-group">
-                <div class="form-group add-roll-options-group">
+                <div class="add-roll-options-group">
                     <button
                         id="add-roll-options"
                         class="add-roll-options"
@@ -122,16 +124,16 @@
             {#if state.rollOptions==true}
                 <div class="roll-options">
                     <div class="form-group">
-                        <input id="check-prompt-actions" placeholder="{localize("PF2E.ActionActionsLabel")}" />
+                        <input id="check-prompt-actions" type="text" placeholder="{localize("PF2E.ActionActionsLabel")}" />
                     </div>
                     <div class="form-group">
-                        <input id="check-prompt-traits" placeholder="{localize("PF2E.ChatRollDetails.RollOptions")}" />
+                        <input id="check-prompt-traits" type="text" placeholder="{localize("PF2E.ChatRollDetails.RollOptions")}" />
                     </div>
                 </div>
             {/if}
         {:else if state.skillSave=="save"}
             <div class="form-group">
-                <input id="check-prompt-saves" placeholder="{localize("PF2E.Actor.Party.CheckPrompt.ChooseSaves")}" />
+                <input id="check-prompt-saves" type="text" placeholder="{localize("PF2E.Actor.Party.CheckPrompt.ChooseSaves")}" />
             </div>
             <div class="form-group">
                 <label for="check-prompt-basic-save">{localize("PF2E.Item.Spell.Defense.BasicSave")}</label>
@@ -139,49 +141,55 @@
             </div>
         {/if}
     </section>
+    <hr>
 </div>
 
 <style>
+    .form-group {
+        clear: both;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 3px 0;
+        align-items: center;
 
-		nav {
-        flex: 0;
-        width: 100%;
-        border-style: solid;
-        border-width: 9px;
-        border-image: url("/assets/sheet/corner-box.webp") 9 repeat;
-        background:
-            url("/assets/sheet/border-pattern.webp") repeat-x top,
-            url("/assets/sheet/border-pattern.webp") repeat-x bottom,
-            var(--secondary);
+        .secret {
+            text-align: right;
+        }
 
+        .add-roll-options-group {
 
-        button {
-            border: none;
-            color: var(--sidebar-label);
-            background: var(--secondary);
-            line-height: unset;
-            font-family: var(--sans-serif);
-            font-size: var(--font-size-12);
-            position: relative;
-            cursor: pointer;
-            max-width: fit-content;
-            padding: 0.2em 1.5em 0.2em 1.5em;
+            text-align: left;
+        }
+    }
 
-            &.active {
-                outline: unset;
-                box-shadow: unset;
+    button {
+        display: flex;
+        justify-content: center;
+        height: var(--button-size);
+        min-height: var(--button-size);
+        gap: 0.25rem;
+        padding: 0 0.5rem;
+        background: var(--button-background-color);
+        border: 1px solid var(--button-border-color);
+        border-radius: 4px;
+        color: var(--button-text-color);
+        font-family: var(--font-sans);
+        font-size: var(--font-size-14);
+        line-height: normal;
+        text-decoration: none;
+        cursor: var(--cursor-pointer);
+        transition: 0.5s;
+    }
 
-                &::after {
-                    bottom: -0.25em;
-                    position: absolute;
-                    content: "";
-                    width: 0;
-                    height: 0;
-                    border-left: 0.25em solid transparent;
-                    border-right: 0.25em solid transparent;
-                    border-top: 0.25em solid var(--sidebar-label);
-                }
-            }
-				}
-		}
+    .tabs {
+        align-items: center;
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 0;
+        line-height: unset;
+        justify-content: space-around;
+        border-top: unset;
+        border-bottom: unset;
+    }
 </style>

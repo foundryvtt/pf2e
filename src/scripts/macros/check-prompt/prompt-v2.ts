@@ -5,13 +5,13 @@ import Root from "./app.svelte";
 class CheckPromptV2 extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     static override DEFAULT_OPTIONS = {
         position: {
-            width: 650,
-            height: 500,
+            width: 400,
+            height: "auto" as "auto"
         },
         window: {
             icon: "fa-solid fa-dice-d20",
             title: "PF2E.Actor.Party.CheckPrompt.Title",
-            resizable: true,
+            resizable: false,
         },
     };
 
