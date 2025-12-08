@@ -718,7 +718,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A living creature the resurrection dragon can see dies</p><hr /><p><strong>Effect</strong> The resurrection dragon uses divine and vital energy to retether the soul to its dead body. The willing creature is returned to life with the dying 1 condition at the start of its next turn. A creature can be resurrected by this ability only once.</p>"
+                    "value": "<p><strong>Trigger</strong> A living creature the resurrection dragon can see dies</p><hr /><p><strong>Effect</strong> The resurrection dragon uses divine and vital energy to retether the soul to its dead body. The willing creature is returned to life with the @UUID[Compendium.pf2e.conditionitems.Item.Dying]{Dying 1} condition at the start of its next turn. A creature can be resurrected by this ability only once.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -751,7 +751,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A resurrection dragon has a strong connection with its minions and can Sustain summon undead or invoke spirits as a free action once per turn.</p>"
+                    "value": "<p>A resurrection dragon has a strong connection with its minions and can Sustain @UUID[Compendium.pf2e.spells-srd.Item.Summon Undead] or @UUID[Compendium.pf2e.spells-srd.Item.Invoke Spirits] as a free action once per turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -782,14 +782,25 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 60 feet uses a healing effect that restores Hit Points</p><hr /><p><strong>Effect</strong> The resurrection dragon redirects vital energies away from the effect, minimizing its impact. The triggering effect results in the minimum amount on any dice rolls to restore Hit Points, and any flat values for restoring Hit Points (such as the additional Hit Points for a two-action heal spell) are cut in half. The dragon then gains 1d8 temporary Hit Points that last for 1 round.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within 60 feet uses a healing effect that restores Hit Points</p><hr /><p><strong>Effect</strong> The resurrection dragon redirects vital energies away from the effect, minimizing its impact. The triggering effect results in the minimum amount on any dice rolls to restore Hit Points, and any flat values for restoring Hit Points (such as the additional Hit Points for a two-action @UUID[Compendium.pf2e.spells-srd.Item.Heal] spell) are cut in half. The dragon then gains 1d8 temporary Hit Points that last for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.siphonLife",
+                        "value": 1
+                    }
+                ],
+                "selfEffect": {
+                    "name": "Effect: Siphon Life",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Siphon Life"
+                },
                 "slug": null,
                 "traits": {
                     "value": [
@@ -890,7 +901,21 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "soul-siphoning-breath",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FastHealing",
+                        "predicate": [
+                            "soul-siphoning-breath"
+                        ],
+                        "type": "fast-healing",
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
