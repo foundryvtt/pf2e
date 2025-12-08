@@ -1,10 +1,10 @@
 {
-    "_id": "rqIoolVefbULhCBs",
+    "_id": "bzwFaDNBYsGpC4ed",
     "img": "icons/magic/unholy/silhouette-robe-evil-power.webp",
     "name": "Effect: Whisper Earworm (Critical Failure)",
     "system": {
         "description": {
-            "value": "<p>You take a –4 status penalty to Will saves against effects from unholy creatures.</p>"
+            "value": "<p>You become Stupefied 2 and take a –4 status penalty to Will saves against effects from unholy creatures.</p>"
         },
         "duration": {
             "expiry": null,
@@ -32,6 +32,20 @@
                 ],
                 "type": "status",
                 "value": -4
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied"
             }
         ],
         "start": {
