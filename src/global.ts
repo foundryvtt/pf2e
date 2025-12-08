@@ -78,6 +78,7 @@ import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
 import type EnJSON from "../static/lang/en.json";
 import Game = foundry.Game;
+import { checkPromptV2 } from "@scripts/macros/check-prompt/prompt-v2.ts";
 
 interface ClientSettingsPF2e extends fh.ClientSettings {
     get(module: "core", key: "compendiumConfiguration"): Record<string, { private: boolean; locked: boolean }>;
@@ -183,6 +184,7 @@ interface GamePF2e
             perceptionForSelected: typeof perceptionForSelected;
             stealthForSelected: typeof stealthForSelected;
             xpFromEncounter: typeof xpFromEncounter;
+            checkPromptV2: typeof checkPromptV2;
         };
         system: {
             moduleArt: ModuleArt;
