@@ -6,8 +6,8 @@ import { SIZES, Size } from "@module/data.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
-import { RuleElement, RuleElementOptions } from "./base.ts";
-import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import { RuleElement } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 import fields = foundry.data.fields;
 
 /**
@@ -17,18 +17,14 @@ import fields = foundry.data.fields;
 class CreatureSizeRuleElement extends RuleElement<CreatureSizeRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
-    constructor(data: RuleElementSource, options: RuleElementOptions) {
-        super(data, options);
-
-        if (typeof this.value !== "string" && typeof this.value !== "number") {
-            this.failValidation("value must be a number or string");
-        }
-    }
-
     static override defineSchema(): CreatureSizeRuleSchema {
         return {
             ...super.defineSchema(),
-            value: new ResolvableValueField({ required: true, nullable: false }),
+            value: new ResolvableValueField({
+                required: true,
+                nullable: false,
+                validate: (v) => ["number", "string"].includes(typeof v),
+            }),
             reach: new RecordField(
                 new fields.StringField({ required: true, nullable: false, choices: ["add", "upgrade", "override"] }),
                 new ResolvableValueField({ required: true, nullable: false }),
