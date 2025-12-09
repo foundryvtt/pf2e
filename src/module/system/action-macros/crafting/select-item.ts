@@ -1,28 +1,38 @@
-import { PhysicalItemPF2e } from "@item";
-import { htmlQuery, sluggify } from "@util";
-import appv1 = foundry.appv1;
+import type { PhysicalItemPF2e } from "@item";
+import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
+import { sluggify } from "@util";
+import Root from "./select-item.svelte";
 
-class SelectItemDialog extends appv1.api.Application {
-    #item: PhysicalItemPF2e | null = null;
+type ItemAction = "craft" | "repair";
 
-    #resolve: (value: PhysicalItemPF2e | null) => void;
+interface SelectItemConfiguration extends fa.ApplicationConfiguration {
+    action: ItemAction;
+}
 
+class SelectItemDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
+    #resolve?: (value: PhysicalItemPF2e | null) => void;
     #action: ItemAction;
 
-    private constructor(action: ItemAction, resolve: (value: PhysicalItemPF2e | null) => void) {
-        super();
-        this.#action = action;
-        this.#resolve = resolve;
+    selection: PhysicalItemPF2e | null = null;
+
+    constructor(options: Partial<SelectItemConfiguration> & Required<Pick<SelectItemConfiguration, "action">>) {
+        super(options);
+        this.#action = options.action;
     }
 
-    static override get defaultOptions(): appv1.api.ApplicationV1Options {
-        return { ...super.defaultOptions, width: 270 };
-    }
+    static override DEFAULT_OPTIONS: DeepPartial<SelectItemConfiguration> = {
+        position: { width: 270 },
+        window: {
+            icon: "fa-solid fa-hammer",
+        },
+    };
 
-    override get template(): string {
-        return this.#action === "craft"
-            ? `${SYSTEM_ROOT}/templates/system/actions/craft-target-item.hbs`
-            : `${SYSTEM_ROOT}/templates/system/actions/repair/select-item-dialog.hbs`;
+    override root = Root;
+
+    declare protected $state: SelectItemState;
+
+    override get id(): string {
+        return `select-item-dialog-${this.#action}`;
     }
 
     override get title(): string {
@@ -30,68 +40,47 @@ class SelectItemDialog extends appv1.api.Application {
         return game.i18n.localize(`PF2E.Actions.${key}.SelectItemDialog.Title`);
     }
 
-    override async getData(
-        options: Partial<appv1.api.ApplicationV1Options> = {},
-    ): Promise<{ item: PhysicalItemPF2e | null }> {
-        options.classes = [`select-${this.#action}-item-dialog`];
-
+    protected override async _prepareContext(options: fa.ApplicationRenderOptions): Promise<SelectItemRenderContext> {
         return {
-            ...(await super.getData(options)),
-            item: this.#item,
+            ...(await super._prepareContext(options)),
+            foundryApp: this,
+            state: {
+                action: this.#action,
+            },
+            resolve: (item: PhysicalItemPF2e | null) => {
+                this.selection = item;
+                this.close();
+            },
         };
     }
 
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-        const html = $html[0];
-
-        html.addEventListener("drop", async (event) => {
-            const json = event.dataTransfer?.getData("text/plain");
-            if (!json?.startsWith("{") || !json.endsWith("}")) return;
-
-            const data: Partial<ItemDropData> = JSON.parse(json);
-            const uuid = data.uuid ?? data.pf2e?.itemUuid;
-            const item = uuid ? await fromUuid(uuid) : null;
-
-            if (this.#action === "repair" && item && !(item?.isEmbedded && item.isOwner)) {
-                ui.notifications.error("DOCUMENT.UsePermissionWarn", { localize: true });
-            } else if (item instanceof PhysicalItemPF2e) {
-                this.#item = item;
-                this.render();
-            } else {
-                const key = sluggify(this.#action, { camel: "bactrian" });
-                ui.notifications.error(game.i18n.localize(`PF2E.Actions.${key}.Error.ItemReferenceMismatch`));
-            }
-        });
-
-        htmlQuery(html, `[data-event-handler=${this.#action}]`)?.addEventListener("click", () => {
-            this.close();
-        });
-
-        htmlQuery(html, "[data-event-handler=cancel]")?.addEventListener("click", () => {
-            this.#item = null;
-            this.close();
+    async resolveSelection(): Promise<PhysicalItemPF2e | null> {
+        this.render(true);
+        return new Promise((resolve) => {
+            this.#resolve = resolve;
         });
     }
 
-    override close(options?: { force?: boolean }): Promise<void> {
-        this.#resolve(this.#item);
-        return super.close(options);
+    protected override _onClose(options: fa.ApplicationClosingOptions): void {
+        this.#resolve?.(this.selection);
+        super._onClose(options);
     }
 
     static async getItem(action: ItemAction): Promise<PhysicalItemPF2e | null> {
-        return new Promise((resolve) => {
-            new this(action, resolve).render(true);
-        });
+        const dialog = new this({ action });
+        return dialog.resolveSelection();
     }
 }
 
-type ItemAction = "craft" | "repair";
+interface SelectItemState {
+    action: ItemAction;
+}
 
-interface ItemDropData {
-    type: "Item";
-    uuid?: string;
-    pf2e?: { itemUuid?: string };
+interface SelectItemRenderContext extends SvelteApplicationRenderContext {
+    foundryApp: SelectItemDialog;
+    state: SelectItemState;
+    resolve: (item: PhysicalItemPF2e | null) => void;
 }
 
 export { SelectItemDialog };
+export type { ItemAction, SelectItemRenderContext };
