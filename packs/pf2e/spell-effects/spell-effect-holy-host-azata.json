@@ -1,0 +1,55 @@
+{
+    "_id": "WiGopdQekyLAa8mj",
+    "img": "icons/magic/holy/angel-wings-gray.webp",
+    "name": "Spell Effect: Holy Host (Azata)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Holy Host]</p>\n<p>You gain a +2 status bonus to attack rolls and saving throws, as well as a +4 status bonus to damage rolls.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack-roll",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "damage"
+                ],
+                "type": "status",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
