@@ -1,13 +1,9 @@
 <script lang="ts">
+    import type { CheckPromptV2Context } from "./prompt-v2.ts";
 
     const localize = game.i18n.localize.bind(game.i18n);
-    let state = $state({
-		dc: "set-dc",
-		skillSave: "skill",
-        rollOptions: false,
-	});
-    const dcTabs = [
-        {
+    
+    const dcTabs = [{
             name: "set-dc",
             label: localize("PF2E.Actor.Party.CheckPrompt.SetDC"),
         },
@@ -18,33 +14,51 @@
         {
             name: "level-dc",
             label: localize("PF2E.Actor.Party.CheckPrompt.LevelDC"),
-        },
-    ]
-	const skillSaveTabs =
-	[
-        {
+        }];
+    const skillSaveTabs = [{
             name: "skill",
             label: localize("PF2E.Actor.Party.CheckPrompt.SkillsPerception"),
         },
         {
             name: "save",
             label: localize("PF2E.SavesHeader"),
-        },
-    ]
-    const partyLevel = 1;
+        }];
+
+    const {state: data }: CheckPromptV2Context = $props();
+    let activeState = $state({
+		dc: "set-dc",
+		skillSave: "skill",
+        rollOptions: false,
+        secret: false,
+	});
+    let checkTitle = $state("");
+
+    // const actions = $derived(data.actions);
+    // const lores = $derived(data.lores);
+    const proficiencyRanks = $derived(data.proficiencyRanks);
+    const dcAdjustments = $derived(data.dcAdjustments);
+    const partyLevel = $derived(data.partyLevel);
+
 </script>
 
 <div class="content standard-form">
     <section class="form-group title">
-        <label for="check-prompt-title">{localize("PF2E.Actor.Party.CheckPrompt.PromptTitle")}</label>
-        <input id="check-prompt-title" name="title" type="text"/>
+        <label for="check-prompt-title">
+            {localize("PF2E.Actor.Party.CheckPrompt.PromptTitle")}
+        </label>
+        <input
+            id="check-prompt-title"
+            name="title"
+            type="text"
+            bind:value={checkTitle}
+        />
     </section>
     <hr>
     <nav class="dc tabs">
         {#each dcTabs as tab}
             <button
-                class:active={state.dc===tab.name}
-                onclick={() => state.dc = tab.name}
+                class:active={activeState.dc===tab.name}
+                onclick={() => activeState.dc = tab.name}
                 data-tab-name={tab.name}
             >
                 {tab.label}
@@ -52,19 +66,19 @@
         {/each}
     </nav>
     <section class="dc-content">
-        {#if state.dc=="set-dc"}
+        {#if activeState.dc=="set-dc"}
             <div class="form-group dc">
                 <label for="check-prompt-dc">{localize("PF2E.Actor.Party.CheckPrompt.SetDC")}</label>
                 <input type="number" id="check-prompt-dc" name="dc" />
             </div>
-        {:else if state.dc=="simple-dc"}
+        {:else if activeState.dc=="simple-dc"}
             <div class="form-group">
                 <label for="check-prompt-simple-dc">{localize("PF2E.Actor.Party.CheckPrompt.SimpleDC")}</label>
                 <select id="check-prompt-simple-dc" name="simple-dc">
                     <option></option>
-                    <!-- {{#each @root.proficiencyRanks}}
-                        <option value="{{this.value}}">{{this.label}}</option>
-                    {{/each}} -->
+                    {#each proficiencyRanks as proficiencyRank}
+                        <option value="{proficiencyRank.value}">{proficiencyRank.label}</option>
+                    {/each}
                 </select>
             </div>
         {:else}
@@ -78,17 +92,17 @@
         <label for="check-prompt-adjust-difficulty">{localize("PF2E.Actor.Party.CheckPrompt.AdjustDifficulty")}</label>
         <select id="check-prompt-adjust-difficulty" name="adjust-difficulty">
             <option></option>
-            <!-- {{#each @root.dcAdjustments}}
-                <option value="{{this.value}}">{{this.label}}</option>
-            {{/each}} -->
+            {#each dcAdjustments as dcAdjustment}
+                <option value="{dcAdjustment.value}">{dcAdjustment.label}</option>
+            {/each}
         </select>
     </div>
     <hr>
     <nav class="skill-save tabs">
         {#each skillSaveTabs as tab}
             <button
-                class:active={state.skillSave===tab.name}
-                onclick={() => state.skillSave = tab.name}
+                class:active={activeState.skillSave===tab.name}
+                onclick={() => activeState.skillSave = tab.name}
                 data-tab-name={tab.name}
             >
                 {tab.label}
@@ -96,7 +110,7 @@
         {/each}
     </nav>
     <section class="check-prompt-content">
-        {#if state.skillSave=='skill'}
+        {#if activeState.skillSave=='skill'}
             <div class="form-group">
                 <input id="check-prompt-skills" type="text" placeholder="{localize("PF2E.Actor.Party.CheckPrompt.ChooseSkills")}" />
             </div>
@@ -109,19 +123,19 @@
                         id="add-roll-options"
                         class="add-roll-options"
                         onclick={() => {
-                            state.rollOptions = !state.rollOptions
+                            activeState.rollOptions = !activeState.rollOptions
                         }}
                     >
-                        <i hidden={state.rollOptions} class="fa-solid fa-plus"></i><i hidden={!state.rollOptions} class="fa-solid fa-minus"></i>
+                        <i hidden={activeState.rollOptions} class="fa-solid fa-plus"></i><i hidden={!activeState.rollOptions} class="fa-solid fa-minus"></i>
                         {localize("PF2E.ChatRollDetails.RollOptions")}
                     </button>
                 </div>
                 <div class="form-group secret">
                     <label for="check-prompt-secret">{localize("PF2E.Actor.Party.CheckPrompt.SecretCheck")}</label>
-                    <input id="check-prompt-secret" name="secret" type="checkbox" />
+                    <input id="check-prompt-secret" name="secret" type="checkbox" bind:checked={activeState.secret}/>
                 </div>
             </div>
-            {#if state.rollOptions==true}
+            {#if activeState.rollOptions==true}
                 <div class="roll-options">
                     <div class="form-group">
                         <input id="check-prompt-actions" type="text" placeholder="{localize("PF2E.ActionActionsLabel")}" />
@@ -131,7 +145,7 @@
                     </div>
                 </div>
             {/if}
-        {:else if state.skillSave=="save"}
+        {:else if activeState.skillSave=="save"}
             <div class="form-group">
                 <input id="check-prompt-saves" type="text" placeholder="{localize("PF2E.Actor.Party.CheckPrompt.ChooseSaves")}" />
             </div>
