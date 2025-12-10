@@ -637,7 +637,7 @@
                 "range": null,
                 "rules": [
                     {
-                        "domain": "damage",
+                        "domain": "all",
                         "key": "RollOption",
                         "label": "PF2E.SpecificRule.TwoHanded.Staff",
                         "option": "two-handed",
@@ -805,7 +805,52 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "two-handed",
+                            "item:slug:staff"
+                        ],
+                        "property": "traits",
+                        "value": "parry"
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "two-handed",
+                            "item:slug:staff"
+                        ],
+                        "property": "traits",
+                        "value": "reach"
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "two-handed",
+                            "item:slug:staff"
+                        ],
+                        "property": "traits",
+                        "value": "trip"
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "remove",
+                        "predicate": [
+                            "two-handed",
+                            "item:slug:staff"
+                        ],
+                        "property": "traits",
+                        "value": "agile"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
