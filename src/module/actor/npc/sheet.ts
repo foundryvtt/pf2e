@@ -386,7 +386,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
         };
 
         handlers["open-recall-breakdown"] = () => {
-            return new RecallKnowledgePopup({}, this.actor.identificationDCs).render(true);
+            return new RecallKnowledgePopup({ identificationData: this.actor.identificationDCs }).render(true);
         };
 
         handlers["roll-attribute"] = (event, anchor) => {
