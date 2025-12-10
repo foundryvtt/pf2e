@@ -7,6 +7,7 @@ import { SvelteApplicationMixin, SvelteApplicationRenderContext } from "@module/
 import { signedInteger } from "@util";
 
 import { getActions, loreSkillsFromActors } from "./helpers.ts";
+import * as R from "remeda";
 import Root from "./app.svelte";
 
 class CheckPromptV2 extends SvelteApplicationMixin(fa.api.ApplicationV2) {
@@ -33,6 +34,11 @@ class CheckPromptV2 extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
     protected override async _prepareContext(): Promise<CheckPromptV2Context> {
 
+        const skills = {
+                    ...R.mapValues(CONFIG.PF2E.skills, (s) => s.label),
+                    perception: "PF2E.PerceptionLabel",
+                };
+
         return {
             foundryApp: this,
             state: {
@@ -41,7 +47,7 @@ class CheckPromptV2 extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 proficiencyRanks: this.#prepareProficiencyRanks(),
                 dcAdjustments: this.#prepareDCAdjustments(),
                 partyLevel: game.actors.party?.level ?? null,
-
+                skills,
             }
         }
     }
@@ -76,6 +82,7 @@ interface CheckPromptV2State {
     partyLevel: number | null;
     actions: Record<string, string>;
     lores: Record<string, string>;
+    skills: Record<string, string>;
 }
 
 interface SelectData {
