@@ -11,7 +11,3 @@ if (fs.existsSync(outDir)) {
 } else {
     fs.mkdirSync(outDir);
 }
-
-// Delete static/packs dir to prevent overwrite during rebuilds (temporary backwards compatibility)
-const oldPacksDir = path.resolve(process.cwd(), "static/packs");
-fs.rmSync(oldPacksDir, { recursive: true, force: true });
