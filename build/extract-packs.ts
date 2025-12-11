@@ -1,7 +1,7 @@
 import fs from "fs";
 import process from "process";
 import yargs, { Argv } from "yargs";
-import { PackExtractor, ExtractArgs } from "./lib/extractor.ts";
+import { ExtractArgs, PackExtractor } from "./lib/extractor.ts";
 
 const argv = yargs(process.argv.slice(2)) as Argv<ExtractArgs>;
 const args = argv
@@ -12,13 +12,19 @@ const args = argv
                 return arg.toLowerCase();
             },
         })
+            .option("system", {
+                describe: "The FVTT for which to extract packs",
+                type: "string",
+                choices: ["pf2e", "sf2e"],
+                default: "pf2e",
+            })
             .option("disablePresort", {
-                describe: "Turns off data item presorting.",
+                describe: "Turn off data item presorting",
                 type: "boolean",
                 default: false,
             })
             .option("logWarnings", {
-                describe: "Turns on logging out warnings about extracted data.",
+                describe: "Turn on logging out warnings about extracted data",
                 type: "boolean",
                 default: true,
             })
@@ -31,6 +37,10 @@ const args = argv
     .version(false)
     .parseSync();
 
+declare namespace globalThis {
+    let SYSTEM_ID: SystemId;
+}
+globalThis.SYSTEM_ID = args.system;
 const extractor = new PackExtractor(args);
 
 try {

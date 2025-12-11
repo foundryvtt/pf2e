@@ -1,12 +1,13 @@
 import { CompendiumPack } from "./lib/compendium-pack.ts";
 
-CompendiumPack.loadJSON("packs/actions");
-CompendiumPack.loadJSON("packs/adventure-specific-actions");
-CompendiumPack.loadJSON("packs/bestiary-ability-glossary-srd");
-CompendiumPack.loadJSON("packs/spells");
+const options = { systemId: "pf2e" } as const;
+CompendiumPack.loadJSON("actions", options);
+CompendiumPack.loadJSON("adventure-specific-actions", options);
+CompendiumPack.loadJSON("bestiary-ability-glossary-srd", options);
+CompendiumPack.loadJSON("spells", options);
 const conditions = [
-    CompendiumPack.loadJSON("packs/conditions").finalizeAll(),
-    CompendiumPack.loadJSON("packs/campaign-effects")
+    CompendiumPack.loadJSON("conditions", options).finalizeAll(),
+    CompendiumPack.loadJSON("campaign-effects", options)
         .finalizeAll()
         .filter((e) => "type" in e && e.type === "condition"),
 ].flat();

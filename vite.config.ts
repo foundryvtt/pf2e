@@ -15,8 +15,6 @@ import packageJSON from "./package.json" with { type: "json" };
 import { sluggify } from "./src/util/misc.ts";
 import systemJSON from "./static/system.json" with { type: "json" };
 
-const SYSTEM_ID = "pf2e" as "pf2e" | "sf2e";
-const SYSTEM_ROOT = `systems/pf2e`;
 const CONDITION_SOURCES = ((): ConditionSource[] => {
     const output = execSync("npm run build:conditions", { encoding: "utf-8" });
     return JSON.parse(output.slice(output.indexOf("[")));
@@ -24,11 +22,15 @@ const CONDITION_SOURCES = ((): ConditionSource[] => {
 const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: "utf-8" }));
 
 /** Get UUID redirects from JSON file, converting names to IDs. */
-function getUuidRedirects(): Record<CompendiumUUID, CompendiumUUID> {
-    const redirectJSON = JSON.parse(fs.readFileSync(path.resolve(__dirname, "build/uuid-redirects.json"), "utf-8"));
+function getUuidRedirects({ systemId }: { systemId: SystemId }): Record<CompendiumUUID, CompendiumUUID> {
+    const redirectJSON = JSON.parse(
+        fs.readFileSync(path.resolve(__dirname, "build", "uuid-redirects", `${systemId}.json`), "utf-8"),
+    );
     for (const [from, to] of Object.entries<string>(redirectJSON)) {
         const [, , pack, documentType, name] = to.split(".", 5);
-        const packDir = systemJSON.packs.find((p) => p.type === documentType && p.name === pack)?.path;
+        const packDir = systemJSON.packs
+            .find((p) => p.type === documentType && p.name === pack)
+            ?.path.replace(/^packs/, `packs/${systemId}`);
         const dirPath = path.resolve(__dirname, packDir ?? "");
         const filename = `${sluggify(name)}.json`;
         const jsonPath = fs.existsSync(path.resolve(dirPath, filename))
@@ -48,6 +50,8 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     const buildMode = mode === "production" ? "production" : "development";
     const outDir = "dist";
 
+    const SYSTEM_ID = "pf2e" as SystemId;
+    const SYSTEM_ROOT = `systems/${SYSTEM_ID}` as const;
     const rollGrammar = fs.readFileSync("roll-grammar.peggy", { encoding: "utf-8" });
     const ROLL_PARSER = Peggy.generate(rollGrammar, { output: "source" }).replace(
         'return {\n    StartRules: ["Expression"],\n    SyntaxError: peg$SyntaxError,\n    parse: peg$parse,\n  };',
@@ -192,7 +196,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             CONDITION_SOURCES: JSON.stringify(CONDITION_SOURCES),
             EN_JSON: JSON.stringify(EN_JSON),
             ROLL_PARSER: JSON.stringify(ROLL_PARSER),
-            UUID_REDIRECTS: JSON.stringify(getUuidRedirects()),
+            UUID_REDIRECTS: JSON.stringify(getUuidRedirects({ systemId: SYSTEM_ID })),
             fa: "foundry.applications",
             fav1: "foundry.appv1",
             fc: "foundry.canvas",
@@ -216,9 +220,8 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 external: new RegExp(
                     [
                         "(?:",
-                        reEscape("../icons/weapons/"),
-                        "[-a-z/]+",
-                        reEscape(".webp"),
+                        reEscape("../icons/"),
+                        "[a-z]+\/[-a-z/]+\.webp",
                         "|",
                         reEscape("ui/parchment.jpg"),
                         ")$",

@@ -114,7 +114,7 @@
         }
         const button = event.currentTarget;
         const ctrlKey = fh.interaction.KeyboardManager.CONTROL_KEY_STRING === "Control" ? "ctrlKey" : "metaKey";
-        const multiplier = event[ctrlKey] && event.shiftKey ? 50 : event.shiftKey ? 10 : event[ctrlKey] ? 5 : 1;
+        const multiplier = event[ctrlKey] && event.shiftKey ? 50 : event[ctrlKey] ? 10 : event.shiftKey ? 5 : 1;
         item.marked = Math.clamp(item.marked + Number(button.value) * multiplier, 0, item.quantity);
         const newMarks = Object.fromEntries(
             self.items
