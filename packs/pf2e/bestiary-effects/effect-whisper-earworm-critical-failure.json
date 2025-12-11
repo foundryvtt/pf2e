@@ -1,0 +1,61 @@
+{
+    "_id": "bzwFaDNBYsGpC4ed",
+    "img": "icons/magic/unholy/silhouette-robe-evil-power.webp",
+    "name": "Effect: Whisper Earworm (Critical Failure)",
+    "system": {
+        "description": {
+            "value": "<p>You become stupefied 2 and take a –4 status penalty to Will saves against effects from unholy creatures.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:trait:unholy"
+                ],
+                "selector": [
+                    "will"
+                ],
+                "type": "status",
+                "value": -4
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "key": "GrantItem",
+                "inMemoryOnly": true,
+                "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

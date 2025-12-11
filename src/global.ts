@@ -304,6 +304,13 @@ type ConfiguredConfig = Config<
 >;
 
 declare global {
+    type SystemId = "pf2e" | "sf2e";
+    const BUILD_MODE: "development" | "production";
+    const CONDITION_SOURCES: ConditionSource[];
+    const EN_JSON: typeof EnJSON;
+    const ROLL_PARSER: string;
+    const UUID_REDIRECTS: Record<CompendiumUUID, CompendiumUUID>;
+
     interface ConfigPF2e extends ConfiguredConfig {
         debug: ConfiguredConfig["debug"] & {
             ruleElement: boolean;
@@ -320,6 +327,8 @@ declare global {
 
     namespace globalThis {
         const game: GamePF2e;
+        const SYSTEM_ID: SystemId;
+        const SYSTEM_ROOT: `systems/${SystemId}`;
         export import fa = foundry.applications;
         export import fav1 = foundry.appv1;
         export import fc = foundry.canvas;
@@ -359,12 +368,4 @@ declare global {
             get(key: "pf2e.worldClock"): SettingConfig & { default: WorldClockSettingData };
         }
     }
-
-    const SYSTEM_ID: "pf2e" | "sf2e";
-    const SYSTEM_ROOT: `systems/${typeof SYSTEM_ID}`;
-    const BUILD_MODE: "development" | "production";
-    const CONDITION_SOURCES: ConditionSource[];
-    const EN_JSON: typeof EnJSON;
-    const ROLL_PARSER: string;
-    const UUID_REDIRECTS: Record<CompendiumUUID, CompendiumUUID>;
 }

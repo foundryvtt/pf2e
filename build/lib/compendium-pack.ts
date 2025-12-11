@@ -91,9 +91,7 @@ class CompendiumPack {
     };
 
     constructor(packDir: string, parsedData: unknown[], parsedFolders: unknown[]) {
-        const metadata = CompendiumPack.#packsMetadata.find(
-            (pack) => path.basename(pack.path) === path.basename(packDir),
-        );
+        const metadata = CompendiumPack.#packsMetadata.find((d) => path.basename(d.path) === path.basename(packDir));
         if (metadata === undefined) {
             throw PackError(`Compendium at ${packDir} has no metadata in the local system.json file.`);
         }
@@ -193,8 +191,8 @@ class CompendiumPack {
         }
     }
 
-    static loadJSON(dirPath: string): CompendiumPack {
-        const filePaths = getFilesRecursively(dirPath);
+    static loadJSON(dirPath: string, { systemId = SYSTEM_ID } = {}): CompendiumPack {
+        const filePaths = getFilesRecursively(path.resolve("packs", systemId, dirPath));
         const parsedData = filePaths.map((filePath) => {
             const jsonString = fs.readFileSync(filePath, "utf-8");
             const packSource: PackEntry = (() => {
@@ -221,7 +219,7 @@ class CompendiumPack {
         });
 
         const folders = ((): DBFolder[] => {
-            const foldersFile = path.resolve(dirPath, "_folders.json");
+            const foldersFile = path.resolve("packs", systemId, dirPath, "_folders.json");
             if (fs.existsSync(foldersFile)) {
                 const jsonString = fs.readFileSync(foldersFile, "utf-8");
                 const foldersSource: DBFolder[] = (() => {
@@ -400,12 +398,10 @@ class CompendiumPack {
         return to === "id" ? toIDRef(uuid) : toNameRef(uuid);
     }
 
-    async save(asJson?: boolean): Promise<number> {
-        if (asJson) {
-            return this.saveAsJSON();
-        }
+    async save({ jsonArtifacts = false } = {}): Promise<number> {
+        if (jsonArtifacts) return this.saveAsJSON();
         if (!fs.lstatSync(CompendiumPack.outDir, { throwIfNoEntry: false })?.isDirectory()) {
-            fs.mkdirSync(CompendiumPack.outDir);
+            fs.mkdirSync(CompendiumPack.outDir, { recursive: true });
         }
         const packDir = path.join(CompendiumPack.outDir, this.packDir);
 
