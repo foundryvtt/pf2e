@@ -1,4 +1,5 @@
 <script lang="ts">
+    import Item from "./item.svelte";
     import type { CheckPromptV2Context } from "./prompt-v2.ts";
 
     const localize = game.i18n.localize.bind(game.i18n);
@@ -26,29 +27,46 @@
 
     const {state: data }: CheckPromptV2Context = $props();
 
-    const { proficiencyRanks, dcAdjustments, partyLevel } = $derived(data);
+    const { dcAdjustments, partyLevel, proficiencyRanks, skills } = $derived(data);
 
     let activeState = $state({
 		dc: "set-dc",
 		skillSave: "skill",
         rollOptions: false,
         secret: false,
+        basic: false,
 	});
 
     let inputState = $state({
         checkTitle: "",
         setDC: null,
         simpleDC: null,
-        // this is intened as an initial value, intenden
+        // supress the warning: this is intended as an initial value
         // svelte-ignore state_referenced_locally
         partyLevel: partyLevel,
         adjustment: null,
-        actions: null,
-        skills: null,
-        lores: null,
+        actions: "",
+        skills: "",
+        lores: "",
     })
 
+    let filteredTags = $state([""]);
 
+
+	function searchTags(input: string, record: Record<string, string>){
+		let storageArr = []
+        const values = Object.values(record).map(v => localize(v))
+		if (input) {
+			storageArr = values.filter(
+				word => word.toLowerCase().includes(input.toLowerCase())
+			)
+		} else {
+			storageArr = values;
+		};
+		filteredTags = storageArr;
+	}
+
+    let searchInput = $state();
 
 </script>
 
@@ -79,28 +97,56 @@
     <section class="dc-content">
         <div class="form-group dc">
             {#if activeState.dc=="set-dc"}
-                <label for="check-prompt-dc">{localize("PF2E.Actor.Party.CheckPrompt.SetDC")}</label>
-                <input type="number" id="check-prompt-dc" name="dc" bind:value={inputState.setDC}/>
+                <label for="check-prompt-dc">
+                    {localize("PF2E.Actor.Party.CheckPrompt.SetDC")}
+                </label>
+                <input
+                    type="number"
+                    id="check-prompt-dc"
+                    name="dc" bind:value={inputState.setDC}
+                />
             {:else if activeState.dc=="simple-dc"}
-                <label for="check-prompt-simple-dc">{localize("PF2E.Actor.Party.CheckPrompt.SimpleDC")}</label>
-                    <select id="check-prompt-simple-dc" name="simple-dc" bind:value={inputState.simpleDC}>
+                <label for="check-prompt-simple-dc">
+                    {localize("PF2E.Actor.Party.CheckPrompt.SimpleDC")}
+                </label>
+                    <select
+                        id="check-prompt-simple-dc"
+                        name="simple-dc"
+                        bind:value={inputState.simpleDC}
+                    >
                         <option></option>
                         {#each proficiencyRanks as proficiencyRank}
-                            <option value="{proficiencyRank.value}">{proficiencyRank.label}</option>
+                            <option value="{proficiencyRank.value}">
+                                {proficiencyRank.label}
+                            </option>
                         {/each}
                     </select>
             {:else}
-                <label for="check-prompt-level-dc">{localize("PF2E.LevelLabel")}</label>
-                <input type="number" id="check-prompt-level-dc" name="level-dc" bind:value={inputState.partyLevel} />
+                <label for="check-prompt-level-dc">
+                    {localize("PF2E.LevelLabel")}
+                </label>
+                <input
+                    type="number"
+                    id="check-prompt-level-dc"
+                    name="level-dc" bind:value={inputState.partyLevel}
+                />
             {/if}
         </div>
     </section>
     <div class="form-group">
-        <label for="check-prompt-adjust-difficulty">{localize("PF2E.Actor.Party.CheckPrompt.AdjustDifficulty")}</label>
-        <select id="check-prompt-adjust-difficulty" name="adjust-difficulty" bind:value={inputState.adjustment}>
+        <label for="check-prompt-adjust-difficulty">{
+            localize("PF2E.Actor.Party.CheckPrompt.AdjustDifficulty")}
+            </label>
+        <select
+            id="check-prompt-adjust-difficulty"
+            name="adjust-difficulty"
+            bind:value={inputState.adjustment}
+        >
             <option></option>
             {#each dcAdjustments as dcAdjustment}
-                <option value="{dcAdjustment.value}">{dcAdjustment.label}</option>
+                <option value="{dcAdjustment.value}">
+                    {dcAdjustment.label}
+                </option>
             {/each}
         </select>
     </div>
@@ -123,8 +169,17 @@
                     id="check-prompt-skills"
                     type="text"
                     placeholder="{localize("PF2E.Actor.Party.CheckPrompt.ChooseSkills")}"
+                    bind:this={searchInput}
                     bind:value={inputState.skills}
+                    oninput={() => searchTags(inputState.skills, skills)}
                 />
+                {#if filteredTags.length > 0}
+                    <ul id="autocomplete-items-list">
+                        {#each filteredTags as tag}
+                            <Item itemLabel={tag} on:click={() => console.log("clicked on ", tag)} />
+                        {/each}			
+                    </ul>
+                {/if}
             </div>
             <div class="form-group lores">
                 <input
@@ -143,13 +198,21 @@
                             activeState.rollOptions = !activeState.rollOptions
                         }}
                     >
-                        <i hidden={activeState.rollOptions} class="fa-solid fa-plus"></i><i hidden={!activeState.rollOptions} class="fa-solid fa-minus"></i>
+                        <i hidden={activeState.rollOptions} class="fa-solid fa-plus"></i>
+                        <i hidden={!activeState.rollOptions} class="fa-solid fa-minus"></i>
                         {localize("PF2E.ChatRollDetails.RollOptions")}
                     </button>
                 </div>
                 <div class="form-group secret">
-                    <label for="check-prompt-secret">{localize("PF2E.Actor.Party.CheckPrompt.SecretCheck")}</label>
-                    <input id="check-prompt-secret" name="secret" type="checkbox" bind:checked={activeState.secret}/>
+                    <label for="check-prompt-secret">
+                        {localize("PF2E.Actor.Party.CheckPrompt.SecretCheck")}
+                    </label>
+                    <input
+                        id="check-prompt-secret"
+                        name="secret"
+                        type="checkbox"
+                        bind:checked={activeState.secret}
+                    />
                 </div>
             </div>
         {#if activeState.rollOptions==true}
@@ -169,11 +232,22 @@
         {/if}
         {:else if activeState.skillSave=="save"}
             <div class="form-group">
-                <input id="check-prompt-saves" type="text" placeholder="{localize("PF2E.Actor.Party.CheckPrompt.ChooseSaves")}" />
+                <input
+                    id="check-prompt-saves"
+                    type="text"
+                    placeholder="{localize("PF2E.Actor.Party.CheckPrompt.ChooseSaves")}"
+                />
             </div>
             <div class="form-group">
-                <label for="check-prompt-basic-save">{localize("PF2E.Item.Spell.Defense.BasicSave")}</label>
-                <input id="check-prompt-basic-save" name="basic-save" type="checkbox" />
+                <label  for="check-prompt-basic-save">
+                    {localize("PF2E.Item.Spell.Defense.BasicSave")}
+                </label>
+                <input
+                    id="check-prompt-basic-save"
+                    name="basic-save"
+                    type="checkbox"
+                    bind:checked={activeState.basic}
+                />
             </div>
         {/if}
     </section>
