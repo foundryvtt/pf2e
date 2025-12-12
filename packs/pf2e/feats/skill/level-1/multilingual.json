@@ -1,0 +1,69 @@
+{
+    "_id": "P9HCz0uR6xPHuw72",
+    "folder": "QhHpEbq98ZJAyDiH",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Multilingual",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You easily pick up new languages. You learn two new languages, chosen from common languages, uncommon languages, and any others you have access to. You learn an additional language if you are or become a master in Society and again if you are or become legendary.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times. Each time, you learn additional languages.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "maxTakable": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Society"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.build.languages.max",
+                "value": "ternary(eq(@actor.system.skills.society.rank, 4), 2, ternary(eq(@actor.system.skills.society.rank, 3), 1, 0))"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.multilingualTaken",
+                "priority": 19,
+                "value": 0
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.multilingualTaken",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "languages": {
+                "granted": [],
+                "slots": 2
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,54 @@
+{
+    "_id": "koER7gKf6CnW5O0s",
+    "folder": "pC8dQPctCUzx96WH",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Raise Symbol",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are wielding a religious symbol.</p>\n<hr />\n<p>You present your religious symbol emphatically. You gain a +2 circumstance bonus to saving throws until the start of your next turn. While it's raised, if you roll a success at a saving throw against a vitality or void effect, you get a critical success instead. If the religious symbol you're raising is a shield, such as with @UUID[Compendium.pf2e.feats-srd.Item.Emblazon Armament]{Emblazon Armaments}, you gain the effects of Raise a Shield when you use this action and the effects of this action when you Raise a Shield.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Cleric.RaiseSymbol.RollOptionLabel",
+                "option": "shield-religious-symbol",
+                "predicate": [
+                    "self:shield:equipped",
+                    {
+                        "not": "emblazon-armament:item:shield"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Raise Symbol",
+            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Raise Symbol"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cleric"
+            ]
+        }
+    },
+    "type": "feat"
+}

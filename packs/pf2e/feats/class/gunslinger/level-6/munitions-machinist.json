@@ -1,0 +1,70 @@
+{
+    "_id": "lh3STEvbGnP7jVMr",
+    "folder": "L530Sm40Wd1WZ334",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Munitions Machinist",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're adept at crafting ammunition. You gain the Quick Alchemy benefits and 4 versatile vials, but can only use Quick Vial to create bombs or alchemical ammunition.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Munitions Crafter"
+                },
+                {
+                    "value": "expert in Crafting"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Quick Alchemy"
+            },
+            {
+                "itemUUID": "Compendium.pf2e.equipment-srd.Item.Versatile Vial",
+                "key": "SpecialResource",
+                "label": "PF2E.SpecificRule.Alchemist.VersatileVials",
+                "level": "ternary(gte(@actor.level, 18), 18, ternary(gte(@actor.level, 12), 12, ternary(gte(@actor.level, 4), 4, 1)))",
+                "max": 4,
+                "slug": "versatile-vials"
+            },
+            {
+                "craftableItems": [
+                    "item:trait:alchemical",
+                    {
+                        "or": [
+                            "item:group:bomb",
+                            "item:type:ammo"
+                        ]
+                    }
+                ],
+                "key": "CraftingAbility",
+                "slug": "quick-alchemy"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

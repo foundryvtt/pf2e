@@ -82,6 +82,8 @@ export class Migration950AmmoConsumableToAmmoAmmo extends MigrationBase {
         } else if (traits.includes("repeating")) {
             // Likely a homebrew repeating weapon
             system.ammo = { capacity: 1, baseType: "magazine", builtIn: false };
+        } else if (slug === "crescent-cross") {
+            system.ammo = { capacity, baseType: "bolts", builtIn: false };
         } else if (source.system.group === "bow") {
             system.ammo = { capacity, baseType: "arrows", builtIn: false };
         } else if (source.system.group === "crossbow") {

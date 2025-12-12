@@ -1,0 +1,60 @@
+{
+    "_id": "3cE56QOhylFdM8UD",
+    "folder": "PPpHbWGF7drhff20",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Punishing Shove",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>When you push a foe away, you put the entire force of your armored form into it. When you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Shove] a creature, that creature takes an amount of @Damage[(@actor.abilities.str.mod + @actor.skills.athletics.rank*(@actor.skills.athletics.rank - 1))[bludgeoning]]{bludgeoning damage equal to your Strength modifier} (or @Damage[(2*(@actor.abilities.str.mod + @actor.skills.athletics.rank*(@actor.skills.athletics.rank - 1)))[bludgeoning]]{double that amount} on a critical success). This damage increases by 2 when you become an expert in Athletics, 6 when you become a master, and 12 when you become legendary.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Athletics"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:shove"
+                ],
+                "selector": "athletics",
+                "text": "PF2E.SpecificRule.Guardian.PunishingShove.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "guardian"
+            ]
+        }
+    },
+    "type": "feat"
+}

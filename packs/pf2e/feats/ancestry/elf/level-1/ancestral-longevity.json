@@ -1,0 +1,63 @@
+{
+    "_id": "WoLh16gyDp8y9WOZ",
+    "folder": "8RK49w67qc7pkvn1",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Ancestral Longevity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have accumulated a vast array of lived knowledge over the years. During your daily preparations, you can reflect upon your life experiences to gain the trained proficiency rank in one skill of your choice. This proficiency lasts until you prepare again. Since this proficiency is temporary, you can't use it as a prerequisite for a skill increase or a permanent character option like a feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "at least 100 years old"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "ancestral-longevity",
+                "phase": "beforeDerived",
+                "suboptions": {
+                    "config": "skills",
+                    "predicate": [
+                        "skill:{choice|value}:rank:0"
+                    ]
+                },
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.ancestralLongevity}.rank",
+                "phase": "beforeDerived",
+                "priority": 60,
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "elf"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,70 @@
+{
+    "_id": "qAdlJvAHkWBisDJ0",
+    "folder": "1Zs7O4AiAYi1lULP",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Ceremony of Aeon's Shield",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your patron aeon graced you with powers of protection. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Resist Energy] and @UUID[Compendium.pf2e.spells-srd.Item.Share Life] each once per day as 2nd-rank divine innate spells.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens The Mwangi Expanse"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:resist-energy",
+                            "item:slug:share-life"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:resist-energy",
+                            "item:slug:share-life"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:conrasu"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "conrasu"
+            ]
+        }
+    },
+    "type": "feat"
+}

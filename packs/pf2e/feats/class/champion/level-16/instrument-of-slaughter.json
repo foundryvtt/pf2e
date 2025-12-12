@@ -1,0 +1,52 @@
+{
+    "_id": "i98NcWSAbWmNmBik",
+    "folder": "PfxxHB4wFgzKLyCz",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Instrument of Slaughter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your blessed armament thirsts for the blood of your foes. Whenever you critically hit an enemy with a Strike that has the extra damage from your champion's reaction, the target also takes persistent bleed damage equal to two of the weapon's damage dice.</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "champion's reaction that grants extra damage with your Strikes (including the desecration, iniquity, and obedience causes)"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "critical": true,
+                "damageType": "bleed",
+                "diceNumber": 2,
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mark:champions-extra-damage"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

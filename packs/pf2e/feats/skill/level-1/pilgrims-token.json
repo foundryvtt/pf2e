@@ -1,0 +1,68 @@
+{
+    "_id": "BqceQIKE0lwIS98s",
+    "folder": "QhHpEbq98ZJAyDiH",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Pilgrim's Token",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You carry a small token of protection from a site holy to your faith. You gain a wooden religious symbol for your deity for free. As long as this religious symbol is in your possession, when you tie an adversary's initiative roll, you go first.</p>\n<p>If you lose this religious symbol, you must purchase or Craft a replacement and attune it. Such a token usually costs at least 1 sp, and the attunement takes 10 minutes of prayer. You can also attune a different religious symbol with the same amount of time, but you lose the benefit of the previous religious symbol.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Religion"
+                },
+                {
+                    "value": "follower of a specific religion"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "self:level:1"
+                ],
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Pilgrim's Token"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.initiative.tiebreakPriority",
+                "predicate": [
+                    {
+                        "or": [
+                            "has-pilgrims-token",
+                            "has-religious-symbol"
+                        ]
+                    }
+                ],
+                "priority": 51,
+                "value": 0
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

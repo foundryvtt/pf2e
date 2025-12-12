@@ -1,0 +1,74 @@
+{
+    "_id": "ByqxxJkJiNFtjghh",
+    "folder": "HPLJ5FClPR0Ve7iN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Mask of Pain",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You succeed at a Demoralize check.</p><hr /><p><strong>Requirements</strong> You're wearing your <em>warmask</em>.</p><hr /><p>Your mask has grown into a manifestation of your pain, which you can release. The creature you successfully Demoralized takes @Damage[2d6[mental]] damage, or @Damage[4d6[mental]] damage if you're legendary in Intimidation. The target is then temporarily immune to additional damage from Mask of Pain for 24 hours.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Intimidation"
+                },
+                {
+                    "value": "Orc Warmask"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "action:demoralize",
+                    {
+                        "not": "proficiency:legendary"
+                    }
+                ],
+                "selector": "intimidation",
+                "text": "The creature you successfully Demoralized takes @Damage[2d6[mental]] damage, and is then temporarily immune to additional damage from Mask of Pain for 24 hours.",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "proficiency:legendary"
+                ],
+                "selector": "intimidation",
+                "text": "The creature you successfully Demoralized takes @Damage[4d6[mental]] damage, and is then temporarily immune to additional damage from Mask of Pain for 24 hours.",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "orc"
+            ]
+        }
+    },
+    "type": "feat"
+}

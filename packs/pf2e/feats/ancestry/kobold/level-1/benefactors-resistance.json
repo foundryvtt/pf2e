@@ -1,0 +1,121 @@
+{
+    "_id": "DFSeNLLmFyUzprIx",
+    "folder": "DHDisl3wodueFQqb",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Benefactor's Resistance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your scales have taken on the characteristics of your draconic benefactor and insulate you from certain damage types. You gain resistance equal to half your level to the damage type dealt by the breath of your draconic benefactor.</p>\n<p>If your draconic benefactor's breath deals bludgeoning, piercing, or slashing damage, instead of gaining resistance to that type, you must choose acid, cold, fire, electricity, or sonic.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "dragonscaled kobold heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:draconic-benefactor"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Draconic Benefactor"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "nor": [
+                            "draconic-benefactor:breath-damage:bludgeoning",
+                            "draconic-benefactor:breath-damage:piercing",
+                            "draconic-benefactor:breath-damage:slashing"
+                        ]
+                    }
+                ],
+                "type": "{actor|flags.pf2e.draconicBenefactor.breathDamage}",
+                "value": "floor(@actor.level / 2)"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "nonPhysicalResistance",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            "draconic-benefactor:breath-damage:bludgeoning",
+                            "draconic-benefactor:breath-damage:piercing",
+                            "draconic-benefactor:breath-damage:slashing"
+                        ]
+                    }
+                ]
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "draconic-benefactor:breath-damage:bludgeoning",
+                            "draconic-benefactor:breath-damage:piercing",
+                            "draconic-benefactor:breath-damage:slashing"
+                        ]
+                    }
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.nonPhysicalResistance}",
+                "value": "floor(@actor.level / 2)"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kobold"
+            ]
+        }
+    },
+    "type": "feat"
+}

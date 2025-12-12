@@ -1,0 +1,69 @@
+{
+    "_id": "BTQj2N5erpJDWNFA",
+    "folder": "pPEzRhbDLuuqWXZn",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Astral Blink",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've attuned your core to allow you to phase in and out of the Astral Plane, allowing you to teleport periodically. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Translocate] once per hour as a 4th-rank innate arcane spell.</p>\n<p><strong>Enhancement</strong> Your attunement allows you to teleport in a series of quick jumps rather than in one big leap. You can expend your hourly use of translocate as a free action when you begin your turn. If you do, your Strides are augmented until the end of your turn, allowing you to instantly teleport to any point you could reach with your Speed instead of traversing normally to the location. While augmented, your Strides gain the teleportation trait. Your augmented Strides don't trigger reactions that can be triggered by move actions or upon leaving or entering a square, unless those reactions trigger on teleportation.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.AstralBlink",
+                    "value": "astral-blink"
+                }
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:translocate",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:translocate",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:automaton"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "automaton"
+            ]
+        }
+    },
+    "type": "feat"
+}

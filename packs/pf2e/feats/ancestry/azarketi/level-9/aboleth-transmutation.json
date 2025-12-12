@@ -1,0 +1,70 @@
+{
+    "_id": "Thhcli0PR7HBBcPX",
+    "folder": "YhWb6WsKvJPsV2Mz",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Aboleth Transmutation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have tapped into the ancient magic used by alghollthu masters (also known as aboleths) to mold the flesh of your ancestors. You can use this magic to transfigure other beings. You gain 3rd-rank @UUID[Compendium.pf2e.spells-srd.Item.Feet to Fins] and 2nd-rank @UUID[Compendium.pf2e.spells-srd.Item.Water Breathing] as arcane innate spells. You can cast each of these arcane innate spells once per day.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Absalom, City of Lost Omens"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:feet-to-fins",
+                            "item:slug:water-breathing"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:feet-to-fins",
+                            "item:slug:water-breathing"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:azarketi"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "azarketi"
+            ]
+        }
+    },
+    "type": "feat"
+}

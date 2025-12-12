@@ -39,6 +39,42 @@
         "quantity": 1,
         "rules": [
             {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.Banner.CommandersBanner",
+                "mergeable": true,
+                "option": "magical-commanders-banner",
+                "predicate": [
+                    "feature:commanders-banner"
+                ],
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "dawnfire-beacon"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Aura",
+                "level": 3,
+                "predicate": [
+                    {
+                        "not": "magical-commanders-banner:dawnfire-beacon"
+                    }
+                ],
+                "radius": 30
+            },
+            {
+                "key": "Aura",
+                "level": 3,
+                "predicate": [
+                    "magical-commanders-banner:dawnfire-beacon",
+                    "commanders-banner"
+                ],
+                "radius": 30,
+                "slug": "commanders-banner"
+            },
+            {
                 "key": "TokenLight",
                 "value": {
                     "alpha": 0.1,
@@ -46,6 +82,20 @@
                     "bright": 30,
                     "dim": 60
                 }
+            },
+            {
+                "key": "TokenLight",
+                "value": {
+                    "alpha": 0.1,
+                    "animation": {},
+                    "bright": 60,
+                    "dim": 120
+                },
+                "predicate": [
+                    "magical-commanders-banner:dawnfire-beacon",
+                    "commanders-banner",
+                    "feat:glorious-banner"
+                ]
             }
         ],
         "size": "med",

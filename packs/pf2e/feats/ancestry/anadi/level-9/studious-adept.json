@@ -1,0 +1,74 @@
+{
+    "_id": "C2PmqTxQgWGTHluf",
+    "folder": "I2rt5BqfSmmF7Dwb",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Studious Adept",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You achieve a breakthrough in your exploration of magic. You gain @UUID[Compendium.pf2e.spells-srd.Item.Humanoid Form] and @UUID[Compendium.pf2e.spells-srd.Item.Mirror Image] as 2nd-rank arcane innate spells. You can cast each of these arcane innate spells once per day.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Studious Magic"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens The Mwangi Expanse"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:humanoid-form",
+                            "item:slug:mirror-image"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:humanoid-form",
+                            "item:slug:mirror-image"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:anadi"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "anadi"
+            ]
+        }
+    },
+    "type": "feat"
+}

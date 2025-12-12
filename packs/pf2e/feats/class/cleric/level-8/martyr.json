@@ -1,0 +1,77 @@
+{
+    "_id": "fFfRsvDavUsTBDF2",
+    "folder": "JSwKYsa0lyMEIyUG",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Martyr",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You go to extreme lengths to support your allies, even when it means bringing harm to yourself. If your next action is to cast @UUID[Compendium.pf2e.spells-srd.Item.Harm] or @UUID[Compendium.pf2e.spells-srd.Item.Heal] to restore Hit Points to a single ally, you can channel your own vitality along with the spell. You lose 1d8 Hit Points per rank of the spell, which can't be reduced or mitigated in any way, and your ally regains an equal number of Hit Points.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "divine font"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:martyr",
+                    {
+                        "or": [
+                            "item:slug:harm",
+                            "item:slug:heal"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.Martyr"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "martyr"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cleric",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,60 @@
+{
+    "_id": "TtSLIMiNw1hqMui5",
+    "folder": "4N5EuVMn3pjkP5zb",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Skeletal Transformation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You rearrange your bones into a bestial shape. Once per day, you can cast @UUID[Compendium.pf2e.spells-srd.Item.Animal Form] as a divine innate spell. When you cast it, you choose the spell's rank: 3rd, 4th, or 5th. Your battle form looks like a skeletal version of the animal. In this form, you retain the benefits of any skeleton feats that do not require the use of hands or the ability to communicate.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Book of the Dead"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:animal-form",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:animal-form",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:skeleton"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "skeleton"
+            ]
+        }
+    },
+    "type": "feat"
+}

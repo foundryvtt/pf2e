@@ -1,0 +1,75 @@
+{
+    "_id": "5TPKikTyN7lrCvzY",
+    "folder": "eiQMbX5ynd8B0yZW",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Mighty Bulwark",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Thanks to your incredible connection to your armor, you can use it to shrug off an incredible array of dangers. Your bonus from the bulwark armor trait increases from +3 to +4, and it applies on all Reflex saves, not just damaging Reflex saves.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Guardian or Sentinel Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.TraitBulwark",
+                "predicate": [
+                    "armor:trait:bulwark"
+                ],
+                "selector": "reflex",
+                "slug": "bulwark",
+                "tags": [
+                    "mighty-bulwark"
+                ],
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "armor:trait:bulwark"
+                ],
+                "selector": "reflex",
+                "slug": "dex",
+                "suppress": true
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    {
+                        "not": "modifier:tag:mighty-bulwark"
+                    }
+                ],
+                "selector": "reflex",
+                "slug": "bulwark",
+                "suppress": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "guardian"
+            ]
+        }
+    },
+    "type": "feat"
+}

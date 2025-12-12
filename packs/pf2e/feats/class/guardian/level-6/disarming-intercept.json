@@ -1,0 +1,57 @@
+{
+    "_id": "HoDs90589eYQwcre",
+    "folder": "yFisFtLM9vV2UJ2L",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Disarming Intercept",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You @UUID[Compendium.pf2e.actionspf2e.Item.Intercept Attack]{Intercept an Attack} that was made with a melee weapon by a creature you're adjacent to.</p><hr /><p>When you catch a weapon in your armor, you can move your body to wrench it from your foe's grasp. After Intercepting the Attack, attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] the weapon used for that attack. You don't need to have a hand free, and you gain an item bonus to the Athletics check equal to the value of your armor's potency rune.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Intercept Attack"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:disarm",
+                    "disarming-intercept"
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": "@actor.wornArmor.system.runes.potency"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "guardian"
+            ]
+        }
+    },
+    "type": "feat"
+}

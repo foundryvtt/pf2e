@@ -1,0 +1,81 @@
+{
+    "_id": "kh4bTBgi3C9CjwHK",
+    "folder": "8NP5rgqAkIYrv0kp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Melodious Spell",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You subtly weave your spellcasting into a performance. If the next action you use is to Cast a Spell, the spell gains the subtle trait, hiding the shining runes, sparks of magic, and other manifestations that would usually give away your spellcasting. The trait hides only the spell's spellcasting actions and manifestations, not its effects, so an observer might still see a ray streak out from you or see you vanish into thin air.</p>\n<p>As part of using Melodious Spell, you can choose to @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion], @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize], @UUID[Compendium.pf2e.actionspf2e.Item.Perform], or @UUID[Compendium.pf2e.actionspf2e.Item.Request]. If you do so, the spell you cast must have the auditory, emotion, sonic, or visual trait to gain the subtle trait.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:melodious-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.MelodiousSpell"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "melodious-spell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:melodious-spell"
+                ],
+                "property": "traits",
+                "value": [
+                    "subtle"
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "bard",
+                "concentrate",
+                "manipulate",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

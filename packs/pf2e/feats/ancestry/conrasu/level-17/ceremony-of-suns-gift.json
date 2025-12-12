@@ -1,0 +1,72 @@
+{
+    "_id": "hZUFP1NPwdGMzs1y",
+    "folder": "6Tv1NdyTRES3hGKu",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Ceremony of Sun's Gift",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your connection to the sun has become an unbreakable bond. You don't become temporarily immune to the effects of your @UUID[Compendium.pf2e.ancestryfeatures.Item.Sunlight Healing], and instead of rolling to recover Hit Points, you gain the maximum number of HP possible (for example, 64 HP instead of 8d8).</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens The Mwangi Expanse"
+        },
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:sunlight-healing"
+                ],
+                "priority": 150,
+                "property": "dice-number",
+                "selectors": [
+                    "inline-healing"
+                ],
+                "value": 0
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:slug:sunlight-healing",
+                    {
+                        "not": "feat:ceremony-of-sunlight"
+                    }
+                ],
+                "selector": "inline-healing",
+                "value": "ceil(@actor.level/2)*8"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:slug:sunlight-healing",
+                    "feat:ceremony-of-sunlight"
+                ],
+                "selector": "inline-healing",
+                "slug": "ceremony-of-suns-gift-ceremony-of-sunlight",
+                "value": "@actor.level*8"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "conrasu"
+            ]
+        }
+    },
+    "type": "feat"
+}

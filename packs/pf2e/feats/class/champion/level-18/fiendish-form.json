@@ -1,0 +1,53 @@
+{
+    "_id": "CYSH4aFmzH9PM3sm",
+    "folder": "b6DZbemkVXVz34Ym",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Fiendish Form",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your features reshape into those of a type of fiend who serves your deity; for example, as a demon you might have putrid scales, twisted horns, and red eyes. You gain a fly Speed equal to your Speed. You gain darkvision if you don't already have it, and you gain the fiend trait and the trait appropriate to the type of servitor you've become (such as daemon, demon, or devil).</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "unholy"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "add": [
+                    "fiend"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "@actor.system.movement.speeds.land.value"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

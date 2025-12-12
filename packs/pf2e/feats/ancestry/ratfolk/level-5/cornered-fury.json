@@ -1,0 +1,56 @@
+{
+    "_id": "ulrGnvF0KAgEaifX",
+    "folder": "GIgYFdpFEabcVZwR",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Cornered Fury",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>If a foe of a larger size than you critically hits and damages you, that foe is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to you for 1 round.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "origin:enemy",
+                    {
+                        "gt": [
+                            "origin:size",
+                            "self:size"
+                        ]
+                    }
+                ],
+                "selector": "damage-received",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ratfolk"
+            ]
+        }
+    },
+    "type": "feat"
+}

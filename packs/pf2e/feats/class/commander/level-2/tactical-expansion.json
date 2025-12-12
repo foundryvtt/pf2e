@@ -1,0 +1,124 @@
+{
+    "_id": "7CbjQCIEiGRp9Q2n",
+    "folder": "ys8Ysyi6TV9IKdiC",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Tactical Expansion",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your folio is filled with tactics and techniques you've devised based on study and experience. Add two additional tactics you qualify for to your folio.</p><hr /><p><strong>Special</strong> You can take this feat multiple times, adding two new tactics to your folio each time.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "maxTakable": null,
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:trait:tactic",
+                        {
+                            "or": [
+                                "item:tag:commander-mobility-tactic",
+                                "item:tag:commander-offensive-tactic",
+                                {
+                                    "and": [
+                                        "item:tag:commander-expert-tactic",
+                                        "feature:expert-tactician"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:tag:commander-master-tactic",
+                                        "feature:master-tactician"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:tag:commander-legendary-tactic",
+                                        "feature:legendary-tactician"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "itemType": "action"
+                },
+                "flag": "firstTactic",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Commander.Tactics.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.firstTactic}"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:trait:tactic",
+                        {
+                            "or": [
+                                "item:tag:commander-mobility-tactic",
+                                "item:tag:commander-offensive-tactic",
+                                {
+                                    "and": [
+                                        "item:tag:commander-expert-tactic",
+                                        "feature:expert-tactician"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:tag:commander-master-tactic",
+                                        "feature:master-tactician"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:tag:commander-legendary-tactic",
+                                        "feature:legendary-tactician"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "itemType": "action"
+                },
+                "flag": "secondTactic",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Commander.Tactics.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.secondTactic}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "commander"
+            ]
+        }
+    },
+    "type": "feat"
+}

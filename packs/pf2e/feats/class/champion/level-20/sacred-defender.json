@@ -1,0 +1,91 @@
+{
+    "_id": "JaBDNtNYYDfTGYad",
+    "folder": "wLGBICZBgt9sMckl",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Sacred Defender",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You are a great warrior that can stand strong against the fiercest opponents to your cause. You gain resistance 5 to bludgeoning, piercing, and slashing damage.</p>\n<p>If you're holy, this resistance increases to 10 against unholy creatures, and if you're unholy it increases to 10 against holy creatures.</p>\n<p>In addition, creatures and effects that roll a natural 20 on an attack roll against you don't improve their result by one degree of success.</p>"
+        },
+        "level": {
+            "value": 20
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "damage:type:bludgeoning",
+                            "damage:type:piercing",
+                            "damage:type:slashing"
+                        ]
+                    }
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.BludgeoningPiercingSlashing",
+                "type": "custom",
+                "value": 5
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "damage:type:bludgeoning",
+                            "damage:type:piercing",
+                            "damage:type:slashing"
+                        ]
+                    },
+                    "origin:trait:unholy"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.UnholyBludgeoningPiercingSlashing",
+                "predicate": [
+                    "self:trait:holy"
+                ],
+                "type": "custom",
+                "value": 10
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "damage:type:bludgeoning",
+                            "damage:type:piercing",
+                            "damage:type:slashing"
+                        ]
+                    },
+                    "origin:trait:holy"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.HolyBludgeoningPiercingSlashing",
+                "predicate": [
+                    "self:trait:unholy"
+                ],
+                "type": "custom",
+                "value": 10
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,57 @@
+{
+    "_id": "MfvkZ9efD013H34Z",
+    "folder": "sPv9S85k3axCpYXg",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Come at Me!",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're a legendary duelist, welcoming all challengers, enabling you to challenge many foes even while other challenges are active. There is no longer a limit to the number of @UUID[Compendium.pf2e.feats-srd.Item.Pistolero's Challenge]{Pistolero's Challenges} you can have in effect at one time.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Pistolero's Challenge"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:pistoleros-challenge"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

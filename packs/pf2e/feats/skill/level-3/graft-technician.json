@@ -1,0 +1,52 @@
+{
+    "_id": "9OaF7Lkrtvusg5AA",
+    "folder": "cwovNv7sZfbA6yns",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Graft Technician",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You can create and implant grafts. When you select this feat, you gain the formulas for four common grafts of 3rd level or lower. You gain a +1 circumstance bonus to Medicine checks to implant grafts. If you're a master in Medicine, this bonus increases to +2.</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Medicine"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:implant-graft"
+                ],
+                "selector": "medicine",
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.system.skills.medicine.rank,3),2,1)"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

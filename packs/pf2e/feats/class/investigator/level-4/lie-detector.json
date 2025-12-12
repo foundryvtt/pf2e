@@ -1,0 +1,66 @@
+{
+    "_id": "I10dkdvL6kAnqZWA",
+    "folder": "haKvrUgHnaDVby96",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Lie Detector",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're adept at noticing the tells of a liar—sweat, flushing, a quavering voice, a quickening pulse. You gain a +1 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive] and to Perception DCs against attempts to Lie to you. When you determine someone is lying to you, you can use their deceit to your advantage to gain a +1 circumstance bonus to the next Deception, Diplomacy, Intimidation, or Performance check you attempt against that creature within the next minute.</p>\n<p>If you would gain your Pursue a Lead investigation bonus to any of the above checks, that bonus increases by 1 instead of you gaining the +1 bonus listed.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "empiricism or interrogation methodology"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:sense-motive"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Lie Detector (against a known liar)",
+                "predicate": [
+                    "known-liar"
+                ],
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation",
+                    "performance"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}
