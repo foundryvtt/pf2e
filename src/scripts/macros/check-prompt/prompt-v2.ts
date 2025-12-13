@@ -6,8 +6,6 @@ import { ActionDefaultOptions } from "@system/action-macros/types.ts";
 import { SvelteApplicationMixin, SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
 import { signedInteger } from "@util";
 
-import { getActions, loreSkillsFromActors } from "./helpers.ts";
-import * as R from "remeda";
 import Root from "./app.svelte";
 
 class CheckPromptV2 extends SvelteApplicationMixin(fa.api.ApplicationV2) {
@@ -33,21 +31,36 @@ class CheckPromptV2 extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         }
 
     protected override async _prepareContext(): Promise<CheckPromptV2Context> {
+        
+        const actions = (await game.packs.get("pf2e.actionspf2e")?.getIndex({fields: ["system.slug"]}))?.map((a) => {
+            return {value: a.system.slug, label: a.name}
+        })
 
-        const skills = {
-                    ...R.mapValues(CONFIG.PF2E.skills, (s) => s.label),
-                    perception: "PF2E.PerceptionLabel",
-                };
+        const skills: SelectData[] = Object.entries(CONFIG.PF2E.skills).map(([k, v]) => {
+            return {value: k, label: game.i18n.localize(v.label)}
+        });
+
+        const lores: SelectData[] = (this.actors ?? game.actors.party?.members ?? null)
+            .filter((a): a is CharacterPF2e => a?.type === "character")
+            .flatMap((m) => Object.values(m.skills))
+            .filter((s) => s.lore).map((s) => {
+                return  {value: s.slug, label: s.label}
+        })
+
+        const saves: SelectData[] = Object.entries(CONFIG.PF2E.saves).map(([k, v]) => {
+            return {value: k, label: game.i18n.localize(v)}
+        })
 
         return {
             foundryApp: this,
             state: {
-                actions: await getActions(),
-                lores: loreSkillsFromActors(this.actors ?? game.actors.party?.members ?? []),
+                actions: actions ?? [],
+                lores,
                 proficiencyRanks: this.#prepareProficiencyRanks(),
                 dcAdjustments: this.#prepareDCAdjustments(),
                 partyLevel: game.actors.party?.level ?? null,
                 skills,
+                saves,
             }
         }
     }
@@ -70,6 +83,7 @@ class CheckPromptV2 extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 };
             });
     }
+
 }
 
 interface CheckPromptV2Context extends SvelteApplicationRenderContext {
@@ -80,9 +94,10 @@ interface CheckPromptV2State {
     proficiencyRanks: SelectData[];
     dcAdjustments: SelectData[];
     partyLevel: number | null;
-    actions: Record<string, string>;
-    lores: Record<string, string>;
-    skills: Record<string, string>;
+    actions: SelectData[];
+    lores: SelectData[];
+    skills: SelectData[];
+    saves: SelectData[];
 }
 
 interface SelectData {
