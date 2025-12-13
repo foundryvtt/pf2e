@@ -1,4 +1,10 @@
 <script lang="ts">
+    import { adjustDC, calculateDC, calculateSimpleDC } from "@module/dc.ts";
+    import { tupleHasValue } from "@util";
+    import { PROFICIENCY_RANKS } from "@module/data.ts";
+    import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+
+
     import type { CheckPromptV2Context } from "./prompt-v2.ts";
     import SvelectePf2e from "@module/sheet/components/svelecte-pf2e.svelte";
 
@@ -27,15 +33,7 @@
 
     const {state: data }: CheckPromptV2Context = $props();
 
-    const { actions, dcAdjustments, lores, partyLevel, proficiencyRanks, saves, skills } = $derived(data);
-
-    let activeState = $state({
-		dc: "set-dc",
-		skillSave: "skill",
-        rollOptions: false,
-        secret: false,
-        basic: false,
-	});
+    const { actions, dcAdjustments, lores, partyLevel, proficiencyRanks, saves, skills, traits } = $derived(data);
 
     let inputState = $state({
         checkTitle: "",
@@ -48,7 +46,85 @@
         actions: "",
         skills: "",
         lores: "",
+        saves: "",
+        traits: "",
+        dc: "set-dc",
+		skillSave: "skill",
+        rollOptions: false,
+        secret: false,
+        basic: false,
     })
+
+    function generatePrompt() {
+        
+            const checkTypes: string[] = [];
+            const checkTraits: string[] = [];
+            const checkExtras: string[] = [];
+
+        if (inputState.skillSave === "skill") {
+
+            //skills and lores
+            checkTypes.push(...inputState.skills, ...inputState.lores);
+
+            //traits and action traits
+            checkTraits.push(...inputState.traits, ...inputState.actions);
+
+
+            if ((inputState.secret) && !checkTraits.includes("secret")) {
+                checkTraits.push("secret");
+            }
+        } else if (inputState.skillSave === "save") {
+            checkTypes.push(...inputState.saves);
+            if (inputState.secret) checkExtras.push("basic:true");
+        }
+
+        if (checkTypes.length > 0) {
+            const checkFlavor = inputState.checkTitle ? `<h4 class="action"><strong>${inputState.checkTitle}</strong></h4><hr>` : "";
+
+            const dc = getDC();
+            const content = checkTypes.map((type) => constructCheck(type, dc, checkTraits, checkExtras)).join("");
+
+            ChatMessagePF2e.create({ author: game.user.id, flavor: checkFlavor, content });
+            console.log(checkFlavor, checkTypes, checkTraits)
+        }
+        console.log(checkTypes, checkTraits)
+    }
+
+    function getDC(): number | null {
+        const dc = ((): number => {
+            const pwol = game.pf2e.settings.variants.pwol.enabled;
+            if (inputState.dc === "set-dc") {
+                return inputState.setDC ?? NaN;
+            } else if (inputState.dc  === "simple-dc") {
+                const profRank = inputState.simpleDC;
+                if (tupleHasValue(PROFICIENCY_RANKS, profRank)) {
+                    return calculateSimpleDC(profRank, { pwol });
+                }
+            } else if (inputState.dc === "level-dc") {
+                const level = inputState.partyLevel ?? NaN;
+                if (Number.isInteger(level)) return calculateDC(+level, { pwol });
+            }
+            return NaN;
+        })();
+
+        if (Number.isInteger(dc)) {
+            const dcAdjustment = inputState.adjustment;
+            return dcAdjustment ? adjustDC(dc, dcAdjustment) : dc;
+        }
+
+        return null;
+    }
+
+    function constructCheck(type: string, dc: number | null, traits: string[], extras: string[]): string {
+        const parts = [
+            type,
+            Number.isInteger(dc) ? `dc:${dc}` : null,
+            traits.length ? `traits:${traits.join(",")}` : null,
+        ]
+            .concat(...extras)
+            .filter((p) => p);
+        return `<p>@Check[${parts.join("|")}]</p>`;
+    }
 
 </script>
 
@@ -68,8 +144,8 @@
     <nav class="dc tabs">
         {#each dcTabs as tab}
             <button
-                class:active={activeState.dc===tab.name}
-                onclick={() => activeState.dc = tab.name}
+                class:active={inputState.dc===tab.name}
+                onclick={() => inputState.dc = tab.name}
                 data-tab-name={tab.name}
             >
                 {localize(tab.label)}
@@ -78,7 +154,7 @@
     </nav>
     <section class="dc-content">
         <div class="form-group dc">
-            {#if activeState.dc=="set-dc"}
+            {#if inputState.dc=="set-dc"}
                 <label for="check-prompt-dc">
                     {localize("PF2E.Actor.Party.CheckPrompt.SetDC")}
                 </label>
@@ -87,7 +163,7 @@
                     id="check-prompt-dc"
                     name="dc" bind:value={inputState.setDC}
                 />
-            {:else if activeState.dc=="simple-dc"}
+            {:else if inputState.dc=="simple-dc"}
                 <label for="check-prompt-simple-dc">
                     {localize("PF2E.Actor.Party.CheckPrompt.SimpleDC")}
                 </label>
@@ -136,8 +212,8 @@
     <nav class="skill-save tabs">
         {#each skillSaveTabs as tab}
             <button
-                class:active={activeState.skillSave===tab.name}
-                onclick={() => activeState.skillSave = tab.name}
+                class:active={inputState.skillSave===tab.name}
+                onclick={() => inputState.skillSave = tab.name}
                 data-tab-name={tab.name}
             >
                 {localize(tab.label)}
@@ -145,15 +221,15 @@
         {/each}
     </nav>
     <section class="check-prompt-content">
-        {#if activeState.skillSave=='skill'}
+        {#if inputState.skillSave=='skill'}
             <div class="form-group">
                 <SvelectePf2e
-                    options={skills} multiple={true}
+                    options={skills} multiple={true} bind:value={inputState.skills}
                 />
             </div>
             <div class="form-group lores">
                 <SvelectePf2e
-                    options={lores} multiple={true}
+                    options={lores} multiple={true} bind:value={inputState.lores}
                 />
             </div>
             <div class="form-group">
@@ -162,11 +238,11 @@
                         id="add-roll-options"
                         class="add-roll-options"
                         onclick={() => {
-                            activeState.rollOptions = !activeState.rollOptions
+                            inputState.rollOptions = !inputState.rollOptions
                         }}
                     >
-                        <i hidden={activeState.rollOptions} class="fa-solid fa-plus"></i>
-                        <i hidden={!activeState.rollOptions} class="fa-solid fa-minus"></i>
+                        <i hidden={inputState.rollOptions} class="fa-solid fa-plus"></i>
+                        <i hidden={!inputState.rollOptions} class="fa-solid fa-minus"></i>
                         {localize("PF2E.ChatRollDetails.RollOptions")}
                     </button>
                 </div>
@@ -178,26 +254,28 @@
                         id="check-prompt-secret"
                         name="secret"
                         type="checkbox"
-                        bind:checked={activeState.secret}
+                        bind:checked={inputState.secret}
                     />
                 </div>
             </div>
-        {#if activeState.rollOptions==true}
+        {#if inputState.rollOptions==true}
             <div class="roll-options">
                 <div class="form-group">
                     <SvelectePf2e
-                        options={actions} multiple={true}
+                        options={actions} multiple={true} bind:value={inputState.actions}
                     />
                 </div>
                 <div class="form-group">
-                    <input id="check-prompt-traits" type="text" placeholder="{localize("PF2E.ChatRollDetails.RollOptions")}" />
+                    <SvelectePf2e
+                        options={traits} multiple={true} bind:value={inputState.traits}
+                    />
                 </div>
             </div>
         {/if}
-        {:else if activeState.skillSave=="save"}
+        {:else if inputState.skillSave=="save"}
             <div class="form-group">
                 <SvelectePf2e
-                    options={saves} multiple={true}
+                    options={saves} multiple={true} bind:value={inputState.saves}
                 />
             </div>
             <div class="form-group">
@@ -208,13 +286,28 @@
                     id="check-prompt-basic-save"
                     name="basic-save"
                     type="checkbox"
-                    bind:checked={activeState.basic}
+                    bind:checked={inputState.basic}
                 />
             </div>
         {/if}
     </section>
-    <hr>
+    <hr />
+
+    <div class="form-group dialog-buttons">
+        <button
+            class="dialog-button post default bright"
+            onclick={() => generatePrompt()}
+        >
+            {localize("PF2E.Actor.Party.CheckPrompt.Post")}
+        </button>
+        <button
+            class="dialog-button cancel"
+        >
+            {localize("Cancel")}
+        </button>
+    </div>
 </div>
+
 
 <style>
     .form-group {

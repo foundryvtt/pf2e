@@ -33,8 +33,11 @@ class CheckPromptV2 extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     protected override async _prepareContext(): Promise<CheckPromptV2Context> {
         
         const actions = (await game.packs.get("pf2e.actionspf2e")?.getIndex({fields: ["system.slug"]}))?.map((a) => {
-            return {value: a.system.slug, label: a.name}
-        })
+            return {
+                value: this.#formatActionType(a.system.slug),
+                label: a.name
+            }
+        });
 
         const skills: SelectData[] = Object.entries(CONFIG.PF2E.skills).map(([k, v]) => {
             return {value: k, label: game.i18n.localize(v.label)}
@@ -44,12 +47,19 @@ class CheckPromptV2 extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             .filter((a): a is CharacterPF2e => a?.type === "character")
             .flatMap((m) => Object.values(m.skills))
             .filter((s) => s.lore).map((s) => {
-                return  {value: s.slug, label: s.label}
-        })
+                return  {
+                    value: this.#formatLoreType(s.slug),
+                    label: s.label
+                }
+        });
 
         const saves: SelectData[] = Object.entries(CONFIG.PF2E.saves).map(([k, v]) => {
             return {value: k, label: game.i18n.localize(v)}
-        })
+        });
+
+        const traits: SelectData[] = Object.entries(CONFIG.PF2E.actionTraits).map(([k, v]) => {
+            return {value: k, label: game.i18n.localize(v)}
+        });
 
         return {
             foundryApp: this,
@@ -61,6 +71,7 @@ class CheckPromptV2 extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 partyLevel: game.actors.party?.level ?? null,
                 skills,
                 saves,
+                traits,
             }
         }
     }
@@ -84,6 +95,16 @@ class CheckPromptV2 extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             });
     }
 
+    #formatLoreType(type: string): string {
+        let loreType = type.toLowerCase().replaceAll(" ", "-").trim();
+        if (!loreType.includes("lore")) loreType = loreType.concat("-lore");
+        return loreType;
+    }
+
+    #formatActionType(type: string): string {
+        return `action:${type.toLowerCase().replace("action:", "").trim()}`;
+    }
+
 }
 
 interface CheckPromptV2Context extends SvelteApplicationRenderContext {
@@ -98,6 +119,7 @@ interface CheckPromptV2State {
     lores: SelectData[];
     skills: SelectData[];
     saves: SelectData[];
+    traits: SelectData[];
 }
 
 interface SelectData {
