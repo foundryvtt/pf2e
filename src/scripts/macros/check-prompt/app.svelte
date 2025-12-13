@@ -1,33 +1,33 @@
 <script lang="ts">
-    import Item from "./item.svelte";
     import type { CheckPromptV2Context } from "./prompt-v2.ts";
+    import SvelectePf2e from "@module/sheet/components/svelecte-pf2e.svelte";
 
     const localize = game.i18n.localize.bind(game.i18n);
     
     const dcTabs = [{
             name: "set-dc",
-            label: localize("PF2E.Actor.Party.CheckPrompt.SetDC"),
+            label: "PF2E.Actor.Party.CheckPrompt.SetDC",
         },
         {
             name: "simple-dc",
-            label: localize("PF2E.Actor.Party.CheckPrompt.SimpleDC"),
+            label: "PF2E.Actor.Party.CheckPrompt.SimpleDC",
         },
         {
             name: "level-dc",
-            label: localize("PF2E.Actor.Party.CheckPrompt.LevelDC"),
+            label: "PF2E.Actor.Party.CheckPrompt.LevelDC",
         }];
     const skillSaveTabs = [{
             name: "skill",
-            label: localize("PF2E.Actor.Party.CheckPrompt.SkillsPerception"),
+            label: "PF2E.Actor.Party.CheckPrompt.SkillsPerception",
         },
         {
             name: "save",
-            label: localize("PF2E.SavesHeader"),
+            label: "PF2E.SavesHeader",
         }];
 
     const {state: data }: CheckPromptV2Context = $props();
 
-    const { dcAdjustments, partyLevel, proficiencyRanks, skills } = $derived(data);
+    const { actions, dcAdjustments, lores, partyLevel, proficiencyRanks, saves, skills } = $derived(data);
 
     let activeState = $state({
 		dc: "set-dc",
@@ -49,24 +49,6 @@
         skills: "",
         lores: "",
     })
-
-    let filteredTags = $state([""]);
-
-
-	function searchTags(input: string, record: Record<string, string>){
-		let storageArr = []
-        const values = Object.values(record).map(v => localize(v))
-		if (input) {
-			storageArr = values.filter(
-				word => word.toLowerCase().includes(input.toLowerCase())
-			)
-		} else {
-			storageArr = values;
-		};
-		filteredTags = storageArr;
-	}
-
-    let searchInput = $state();
 
 </script>
 
@@ -90,7 +72,7 @@
                 onclick={() => activeState.dc = tab.name}
                 data-tab-name={tab.name}
             >
-                {tab.label}
+                {localize(tab.label)}
             </button>
         {/each}
     </nav>
@@ -158,35 +140,20 @@
                 onclick={() => activeState.skillSave = tab.name}
                 data-tab-name={tab.name}
             >
-                {tab.label}
+                {localize(tab.label)}
             </button>
         {/each}
     </nav>
     <section class="check-prompt-content">
         {#if activeState.skillSave=='skill'}
             <div class="form-group">
-                <input
-                    id="check-prompt-skills"
-                    type="text"
-                    placeholder="{localize("PF2E.Actor.Party.CheckPrompt.ChooseSkills")}"
-                    bind:this={searchInput}
-                    bind:value={inputState.skills}
-                    oninput={() => searchTags(inputState.skills, skills)}
+                <SvelectePf2e
+                    options={skills} multiple={true}
                 />
-                {#if filteredTags.length > 0}
-                    <ul id="autocomplete-items-list">
-                        {#each filteredTags as tag}
-                            <Item itemLabel={tag} on:click={() => console.log("clicked on ", tag)} />
-                        {/each}			
-                    </ul>
-                {/if}
             </div>
             <div class="form-group lores">
-                <input
-                    id="check-prompt-lores"
-                    type="text"
-                    placeholder="{localize("PF2E.Actor.Party.CheckPrompt.ChooseLores")}"
-                    bind:value={inputState.lores}
+                <SvelectePf2e
+                    options={lores} multiple={true}
                 />
             </div>
             <div class="form-group">
@@ -218,11 +185,8 @@
         {#if activeState.rollOptions==true}
             <div class="roll-options">
                 <div class="form-group">
-                    <input
-                        id="check-prompt-actions"
-                        type="text"
-                        placeholder="{localize("PF2E.ActionActionsLabel")}"
-                        bind:value={inputState.actions}
+                    <SvelectePf2e
+                        options={actions} multiple={true}
                     />
                 </div>
                 <div class="form-group">
@@ -232,10 +196,8 @@
         {/if}
         {:else if activeState.skillSave=="save"}
             <div class="form-group">
-                <input
-                    id="check-prompt-saves"
-                    type="text"
-                    placeholder="{localize("PF2E.Actor.Party.CheckPrompt.ChooseSaves")}"
+                <SvelectePf2e
+                    options={saves} multiple={true}
                 />
             </div>
             <div class="form-group">
