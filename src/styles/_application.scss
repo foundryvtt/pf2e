@@ -45,3 +45,8 @@ body > .pf2e.absolute {
     position: absolute;
     z-index: var(--z-index-tooltip);
 }
+
+//Remove in V14: https://github.com/foundryvtt/foundryvtt/issues/13550
+body.theme-light .application:not(.theme-dark) hr {
+    background: linear-gradient(90deg, transparent 0%, var(--color-header-background) 50%, transparent 100%);
+}

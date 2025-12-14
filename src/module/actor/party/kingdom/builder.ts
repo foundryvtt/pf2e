@@ -1,4 +1,4 @@
-import type { BoostFlawState } from "@actor/character/apps/attribute-builder.ts";
+import type { BuilderButton } from "@actor/character/apps/attribute-builder/app.ts";
 import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { SocketMessage } from "@scripts/socket.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
@@ -389,6 +389,12 @@ interface CategorySheetData {
     /** The feat item the selected build entry will grant */
     featLink: string | null;
     stale: boolean;
+}
+
+interface BoostFlawState {
+    ability: string;
+    flaw?: BuilderButton;
+    boost?: BuilderButton;
 }
 
 interface KingdomAbilityBuilderData {

@@ -55,7 +55,7 @@ import * as R from "remeda";
 import { CreatureSheetPF2e } from "../creature/sheet.ts";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies.ts";
 import { ABCPicker } from "./apps/abc-picker/app.ts";
-import { AttributeBuilder } from "./apps/attribute-builder.ts";
+import { AttributeBuilder } from "./apps/attribute-builder/app.ts";
 import { FormulaPicker } from "./apps/formula-picker/app.ts";
 import { AutomaticBonusProgression } from "./automatic-bonus-progression.ts";
 import { CharacterConfig } from "./config.ts";
@@ -838,8 +838,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         handlers["edit-attribute-boosts"] = () => {
             const builder =
                 Object.values(this.actor.apps).find((a) => a instanceof AttributeBuilder) ??
-                new AttributeBuilder(this.actor);
-            return builder.render(true);
+                new AttributeBuilder({ actor: this.actor });
+            return builder.render({ force: true });
         };
 
         handlers["select-apex-attribute"] = (event) => {
