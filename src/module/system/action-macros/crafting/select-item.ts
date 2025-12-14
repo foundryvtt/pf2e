@@ -21,6 +21,7 @@ class SelectItemDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     }
 
     static override DEFAULT_OPTIONS: DeepPartial<SelectItemConfiguration> = {
+        id: "select-item-dialog",
         position: { width: 270 },
         window: {
             icon: "fa-solid fa-hammer",
@@ -30,10 +31,6 @@ class SelectItemDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     override root = Root;
 
     declare protected $state: SelectItemState;
-
-    override get id(): string {
-        return `select-item-dialog-${this.#action}`;
-    }
 
     override get title(): string {
         const key = sluggify(this.#action, { camel: "bactrian" });
