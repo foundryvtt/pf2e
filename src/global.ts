@@ -52,7 +52,6 @@ import type { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config/index.ts
 import type { DicePF2e } from "@scripts/dice.ts";
 import type {
     calculateXP,
-    checkPrompt,
     checkPromptV2,
     editPersistent,
     launchTravelSheet,
@@ -178,7 +177,6 @@ interface GamePF2e
         rollItemMacro: typeof rollItemMacro;
         gm: {
             calculateXP: typeof calculateXP;
-            checkPrompt: typeof checkPrompt;
             editPersistent: typeof editPersistent;
             launchTravelSheet: typeof launchTravelSheet;
             perceptionForSelected: typeof perceptionForSelected;

@@ -1,4 +1,4 @@
-export { checkPrompt, checkPromptV2 } from "./check-prompt/index.ts";
+export { checkPromptV2 } from "./check-prompt/index.ts";
 export { showEarnIncomePopup } from "./earn-income/index.ts";
 export { editPersistent } from "./edit-persistent.ts";
 export { encouragingWords } from "./encouraging-words.ts";

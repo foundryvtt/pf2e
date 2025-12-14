@@ -12,7 +12,7 @@ class CheckPromptV2 extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     static override DEFAULT_OPTIONS = {
         position: {
             width: 400,
-            height: "auto" as "auto"
+            height: "auto" as const,
         },
         window: {
             icon: "fa-solid fa-dice-d20",
@@ -26,39 +26,39 @@ class CheckPromptV2 extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     actors: CharacterPF2e[];
 
     constructor(options: DeepPartial<ApplicationConfiguration> & { actors: CharacterPF2e[] }) {
-            super(options);
-            this.actors = options.actors;
-        }
+        super(options);
+        this.actors = options.actors;
+    }
 
     protected override async _prepareContext(): Promise<CheckPromptV2Context> {
-        
-        const actions = (await game.packs.get("pf2e.actionspf2e")?.getIndex({fields: ["system.slug"]}))?.map((a) => {
+        const actions = (await game.packs.get("pf2e.actionspf2e")?.getIndex({ fields: ["system.slug"] }))?.map((a) => {
             return {
                 value: this.#formatActionType(a.system.slug),
-                label: a.name
-            }
+                label: a.name,
+            };
         });
 
         const skills: SelectData[] = Object.entries(CONFIG.PF2E.skills).map(([k, v]) => {
-            return {value: k, label: game.i18n.localize(v.label)}
+            return { value: k, label: game.i18n.localize(v.label) };
         });
 
         const lores: SelectData[] = (this.actors ?? game.actors.party?.members ?? null)
             .filter((a): a is CharacterPF2e => a?.type === "character")
             .flatMap((m) => Object.values(m.skills))
-            .filter((s) => s.lore).map((s) => {
-                return  {
+            .filter((s) => s.lore)
+            .map((s) => {
+                return {
                     value: this.#formatLoreType(s.slug),
-                    label: s.label
-                }
-        });
+                    label: s.label,
+                };
+            });
 
         const saves: SelectData[] = Object.entries(CONFIG.PF2E.saves).map(([k, v]) => {
-            return {value: k, label: game.i18n.localize(v)}
+            return { value: k, label: game.i18n.localize(v) };
         });
 
         const traits: SelectData[] = Object.entries(CONFIG.PF2E.actionTraits).map(([k, v]) => {
-            return {value: k, label: game.i18n.localize(v)}
+            return { value: k, label: game.i18n.localize(v) };
         });
 
         return {
@@ -72,8 +72,8 @@ class CheckPromptV2 extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 skills,
                 saves,
                 traits,
-            }
-        }
+            },
+        };
     }
 
     #prepareProficiencyRanks(): SelectData[] {
@@ -104,7 +104,6 @@ class CheckPromptV2 extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     #formatActionType(type: string): string {
         return `action:${type.toLowerCase().replace("action:", "").trim()}`;
     }
-
 }
 
 interface CheckPromptV2Context extends SvelteApplicationRenderContext {
@@ -128,6 +127,6 @@ interface SelectData {
 }
 
 export async function checkPromptV2(options: ActionDefaultOptions = {}): Promise<void> {
-    new CheckPromptV2( { actors: options.actors as CharacterPF2e[] } ).render({force: true});
-};
+    new CheckPromptV2({ actors: options.actors as CharacterPF2e[] }).render({ force: true });
+}
 export type { CheckPromptV2Context };
