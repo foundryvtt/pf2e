@@ -53,6 +53,7 @@
         rollOptions: false,
         secret: false,
         basic: false,
+        clipboard: false,
     })
 
     function generatePrompt() {
@@ -76,23 +77,29 @@
         } else if (inputState.skillSave === "save") {
             checkTypes.push(...inputState.saves);
             if (inputState.secret) checkExtras.push("basic:true");
+            
+            checkTraits.push(...inputState.traits);
         }
+
+        //traits and action traits
 
         if (checkTypes.length > 0) {
             const checkFlavor = inputState.checkTitle ? `<h4 class="action"><strong>${inputState.checkTitle}</strong></h4><hr>` : "";
 
             const dc = getDC();
             const content = checkTypes.map((type) => constructCheck(type, dc, checkTraits, checkExtras)).join("");
-
-            ChatMessagePF2e.create({ author: game.user.id, flavor: checkFlavor, content });
-            console.log(checkFlavor, checkTypes, checkTraits)
+            if (inputState.clipboard) {
+                copy(content)
+            } else {
+                ChatMessagePF2e.create({ author: game.user.id, flavor: checkFlavor, content });
+            }
         }
-        console.log(checkTypes, checkTraits)
     }
 
     function getDC(): number | null {
         const dc = ((): number => {
             const pwol = game.pf2e.settings.variants.pwol.enabled;
+            
             if (inputState.dc === "set-dc") {
                 return inputState.setDC ?? NaN;
             } else if (inputState.dc  === "simple-dc") {
@@ -125,6 +132,15 @@
             .filter((p) => p);
         return `<p>@Check[${parts.join("|")}]</p>`;
     }
+
+    async function copy(string: string) {
+        try {
+            await navigator.clipboard.writeText(string);
+            ui.notifications.success("Copied check to clipboard!");
+        } catch (error: any) {
+            console.log(error.message)
+        }
+        }
 
 </script>
 
@@ -167,18 +183,18 @@
                 <label for="check-prompt-simple-dc">
                     {localize("PF2E.Actor.Party.CheckPrompt.SimpleDC")}
                 </label>
-                    <select
-                        id="check-prompt-simple-dc"
-                        name="simple-dc"
-                        bind:value={inputState.simpleDC}
-                    >
-                        <option></option>
-                        {#each proficiencyRanks as proficiencyRank}
-                            <option value="{proficiencyRank.value}">
-                                {proficiencyRank.label}
-                            </option>
-                        {/each}
-                    </select>
+                <select
+                    id="check-prompt-simple-dc"
+                    name="simple-dc"
+                    bind:value={inputState.simpleDC}
+                >
+                    <option></option>
+                    {#each proficiencyRanks as proficiencyRank}
+                        <option value="{proficiencyRank.value}">
+                            {proficiencyRank.label}
+                        </option>
+                    {/each}
+                </select>
             {:else}
                 <label for="check-prompt-level-dc">
                     {localize("PF2E.LevelLabel")}
@@ -194,7 +210,7 @@
     <div class="form-group">
         <label for="check-prompt-adjust-difficulty">{
             localize("PF2E.Actor.Party.CheckPrompt.AdjustDifficulty")}
-            </label>
+        </label>
         <select
             id="check-prompt-adjust-difficulty"
             name="adjust-difficulty"
@@ -222,16 +238,32 @@
     </nav>
     <section class="check-prompt-content">
         {#if inputState.skillSave=='skill'}
-            <div class="form-group">
+            <div class="form-group skills">
                 <SvelectePf2e
-                    options={skills} multiple={true} bind:value={inputState.skills}
+                    options={skills}
+                    multiple={true}
+                    bind:value={inputState.skills}
+                    placeholder={localize("PF2E.Actor.Party.CheckPrompt.ChooseSkills")}
                 />
             </div>
             <div class="form-group lores">
                 <SvelectePf2e
-                    options={lores} multiple={true} bind:value={inputState.lores}
+                    options={lores}
+                    multiple={true}
+                    bind:value={inputState.lores}
+                    placeholder={localize("PF2E.Actor.Party.CheckPrompt.ChooseLores")}
                 />
             </div>
+        {:else if inputState.skillSave=="save"}
+            <div class="form-group saves">
+                <SvelectePf2e
+                    options={saves}
+                    multiple={true}
+                    bind:value={inputState.saves}
+                    placeholder={localize("PF2E.Actor.Party.CheckPrompt.ChooseSaves")}
+                />
+            </div>
+        {/if}
             <div class="form-group">
                 <div class="add-roll-options-group">
                     <button
@@ -246,64 +278,72 @@
                         {localize("PF2E.ChatRollDetails.RollOptions")}
                     </button>
                 </div>
-                <div class="form-group secret">
-                    <label for="check-prompt-secret">
-                        {localize("PF2E.Actor.Party.CheckPrompt.SecretCheck")}
-                    </label>
-                    <input
-                        id="check-prompt-secret"
-                        name="secret"
-                        type="checkbox"
-                        bind:checked={inputState.secret}
-                    />
+                <div class="basic-secret-group">
+                    {#if inputState.skillSave=="skill"}
+                        <label for="check-prompt-secret">
+                            {localize("PF2E.Actor.Party.CheckPrompt.SecretCheck")}
+                        </label>
+                        <input
+                            id="check-prompt-secret"
+                            name="secret"
+                            type="checkbox"
+                            bind:checked={inputState.secret}
+                        />
+                    {:else if inputState.skillSave=="save"}
+                        <label  for="check-prompt-basic-save">
+                            {localize("PF2E.Item.Spell.Defense.BasicSave")}
+                        </label>
+                        <input
+                            id="check-prompt-basic-save"
+                            name="basic-save"
+                            type="checkbox"
+                            bind:checked={inputState.basic}
+                        />
+                    {/if}
                 </div>
             </div>
         {#if inputState.rollOptions==true}
             <div class="roll-options">
+                {#if inputState.skillSave=="skill"}
+                    <div class="form-group">
+                        <SvelectePf2e
+                            options={actions}
+                            multiple={true}
+                            bind:value={inputState.actions}
+                            placeholder={localize("PF2E.ActionActionsLabel")}
+                        />
+                    </div>
+                {/if}
                 <div class="form-group">
                     <SvelectePf2e
-                        options={actions} multiple={true} bind:value={inputState.actions}
+                        options={traits}
+                        multiple={true}
+                        bind:value={inputState.traits}
+                        placeholder={localize("PF2E.ChatRollDetails.RollOptions")}
                     />
                 </div>
-                <div class="form-group">
-                    <SvelectePf2e
-                        options={traits} multiple={true} bind:value={inputState.traits}
-                    />
-                </div>
-            </div>
-        {/if}
-        {:else if inputState.skillSave=="save"}
-            <div class="form-group">
-                <SvelectePf2e
-                    options={saves} multiple={true} bind:value={inputState.saves}
-                />
-            </div>
-            <div class="form-group">
-                <label  for="check-prompt-basic-save">
-                    {localize("PF2E.Item.Spell.Defense.BasicSave")}
-                </label>
-                <input
-                    id="check-prompt-basic-save"
-                    name="basic-save"
-                    type="checkbox"
-                    bind:checked={inputState.basic}
-                />
             </div>
         {/if}
     </section>
     <hr />
 
-    <div class="form-group dialog-buttons">
+    <div class="form-group">
+        <div class="clipboard">
+            <input
+                id="copy-to-clipboard"
+                name="clipboard"
+                type="checkbox"
+                bind:checked={inputState.clipboard}
+            />
+            <label for="copy-to-clipboard">
+                <i class="fa-solid fa-copy"></i>
+            </label>
+        </div>
         <button
             class="dialog-button post default bright"
             onclick={() => generatePrompt()}
         >
             {localize("PF2E.Actor.Party.CheckPrompt.Post")}
-        </button>
-        <button
-            class="dialog-button cancel"
-        >
-            {localize("Cancel")}
         </button>
     </div>
 </div>
@@ -318,7 +358,7 @@
         margin: 3px 0;
         align-items: center;
 
-        .secret {
+        .basic-secret-group {
             text-align: right;
         }
 
@@ -328,23 +368,8 @@
         }
     }
 
-    button {
-        display: flex;
-        justify-content: center;
-        height: var(--button-size);
-        min-height: var(--button-size);
-        gap: 0.25rem;
-        padding: 0 0.5rem;
-        background: var(--button-background-color);
-        border: 1px solid var(--button-border-color);
-        border-radius: 4px;
-        color: var(--button-text-color);
-        font-family: var(--font-sans);
-        font-size: var(--font-size-14);
-        line-height: normal;
-        text-decoration: none;
-        cursor: var(--cursor-pointer);
-        transition: 0.5s;
+    hr {
+        margin: inherit;
     }
 
     .tabs {
