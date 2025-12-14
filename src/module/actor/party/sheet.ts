@@ -425,7 +425,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         });
 
         htmlQuery(html, "[data-action=prompt]")?.addEventListener("click", () => {
-            game.pf2e.gm.checkPrompt({ actors: this.actor.members });
+            game.pf2e.gm.checkPromptV2({ actors: this.actor.members });
         });
     }
 

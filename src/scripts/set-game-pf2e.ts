@@ -11,7 +11,6 @@ import { RuleElement, RuleElements } from "@module/rules/index.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import {
     calculateXP,
-    checkPrompt,
     checkPromptV2,
     editPersistent,
     encouragingWords,
@@ -90,7 +89,6 @@ export const SetGamePF2e = {
             effectTracker: new EffectTracker(),
             gm: {
                 calculateXP,
-                checkPrompt,
                 checkPromptV2,
                 editPersistent,
                 launchTravelSheet,
