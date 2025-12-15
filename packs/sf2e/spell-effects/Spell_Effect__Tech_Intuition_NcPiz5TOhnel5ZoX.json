@@ -1,0 +1,83 @@
+{
+  "folder": null,
+  "name": "Spell Effect: Tech Intuition",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.spells.Item.A09nTb61ceLF27vX]{Tech Intuition}</p><p>You roll triggering check twice and use the better result.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "RollTwice",
+        "keep": "higher",
+        "selector": "will",
+        "predicate": [
+          "item:trait:technology"
+        ]
+      },
+      {
+        "key": "RollTwice",
+        "predicate": [
+          "action:recall-knowledge"
+        ],
+        "removeAfterRoll": true,
+        "keep": "higher",
+        "selector": "skill-check"
+      }
+    ],
+    "slug": "spell-effect-tech-intuition",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "rounds",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/blue-broadcast-signal.webp",
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "NcPiz5TOhnel5ZoX",
+  "sort": 2400000,
+  "_key": "!items!NcPiz5TOhnel5ZoX"
+}

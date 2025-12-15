@@ -1,0 +1,92 @@
+{
+  "folder": null,
+  "name": "Effect: Tangible Object (Anchoring Effect)",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.class-features.Item.Z1sThY5XgXiXQBIy]{Tangible Object}</p><p>You gain a +1 circumstance bonus to Will saves against fear effects and a +2 circumstance bonus to your Will DC against attempts to Demoralize you.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "FlatModifier",
+        "selector": "will",
+        "value": 1,
+        "predicate": [
+          {
+            "not": "self:condition:frightened"
+          },
+          "item:trait:fear"
+        ],
+        "type": "circumstance",
+        "slug": "tangible-object-will"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "will-dc",
+        "value": 2,
+        "predicate": [
+          {
+            "not": "self:condition:frightened"
+          },
+          "action:demoralize"
+        ],
+        "type": "circumstance",
+        "slug": "tangible-object-will-dc"
+      }
+    ],
+    "slug": "effect-tangible-object-anchoring-effect",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "rounds",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/blue-lock.webp",
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "nvB1852vEPVqjxhR",
+  "sort": 3800000,
+  "_key": "!items!nvB1852vEPVqjxhR"
+}

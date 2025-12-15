@@ -1,0 +1,82 @@
+{
+  "folder": null,
+  "name": "Effect: Explorer's Canteen",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.equipment.Item.WGdcokSMynEyF332]{Explorer's Canteen}</p><p>You gain a +1 item bonus to saves against any poisons or diseases present in food or water.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "FlatModifier",
+        "removeAfterRoll": "if-enabled",
+        "selector": "saving-throw",
+        "value": 1,
+        "type": "item",
+        "predicate": [
+          {
+            "or": [
+              "item:trait:disease",
+              "item:trait:poison"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "effect-explorers-canteen",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 0
+    },
+    "duration": {
+      "value": 1,
+      "unit": "rounds",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/equipment/other/water-jug.webp",
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "52tyG1y50LmTqCA9",
+  "sort": 700000,
+  "_key": "!items!52tyG1y50LmTqCA9"
+}

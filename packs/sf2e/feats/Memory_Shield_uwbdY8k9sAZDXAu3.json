@@ -1,0 +1,92 @@
+{
+  "type": "feat",
+  "name": "Memory Shield",
+  "folder": "YbAX7ofsCpx0a6de",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 13
+    },
+    "category": "ancestry",
+    "traits": {
+      "value": [
+        "corpsefolk",
+        "divine"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Guilt of the Grave World",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p><strong>Frequency</strong> once per day</p><p><strong>Trigger</strong> You take damage from an effect that deals vitality damage.</p><hr /><p>You draw upon precious memories from your life to shield you against the energies that would nominally purge undead creatures from the universe. You gain resistance to the triggering damage equal to your level.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "memory-shield",
+        "toggleable": true
+      },
+      {
+        "key": "Resistance",
+        "type": "vitality",
+        "value": "@actor.level",
+        "predicate": [
+          "memory-shield"
+        ]
+      }
+    ],
+    "slug": "memory-shield",
+    "_migration": {
+      "version": 0.943,
+      "previous": {
+        "schema": null,
+        "foundry": "13.348",
+        "system": "7.5.1"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "reaction"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null,
+    "frequency": {
+      "max": 1,
+      "per": "day"
+    }
+  },
+  "_id": "uwbdY8k9sAZDXAu3",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "qA45GVv5hySaf9b5": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "pf2e",
+    "systemVersion": "7.7.3"
+  },
+  "_key": "!items!uwbdY8k9sAZDXAu3"
+}

@@ -1,0 +1,102 @@
+{
+  "folder": "Y0BgrTsSOzk2WrXk",
+  "name": "Psychic Constellation",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You effortlessly juggle an assortment of gear with your telepathy, giving you the appearance of a solar cerebellum orbited by planetoid items. You gain a second set of telekinetic hands, per Mind Over Matter, granting a typical contemplative six hands total. While at least one of your telekinetic hands is empty, you can deflect incoming attacks, granting your fist attack the parry trait. You gain the @UUID[Compendium.sf2e-anachronism.actions.Item.fQJ8xyZH3Dch5xtN]{Eccentric Orbit} free action.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "domain": "all",
+        "key": "RollOption",
+        "option": "empty-telekinetic-hand",
+        "toggleable": true,
+        "label": "You have an empty Telekinetic Hand"
+      },
+      {
+        "itemType": "weapon",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "predicate": [
+          "item:slug:fist",
+          "empty-telekinetic-hand"
+        ],
+        "property": "traits",
+        "value": "parry"
+      },
+      {
+        "fist": true,
+        "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+        "key": "Strike"
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.sf2e-anachronism.actions.Item.fQJ8xyZH3Dch5xtN"
+      }
+    ],
+    "slug": "psychic-constellation",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "contemplative"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 13
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Mind Over Matter"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 300000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "Er8wuOwAZN6cEOCU",
+  "_key": "!items!Er8wuOwAZN6cEOCU"
+}

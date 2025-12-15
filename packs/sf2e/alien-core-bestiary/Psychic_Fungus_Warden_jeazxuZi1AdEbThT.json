@@ -1,0 +1,646 @@
+{
+  "type": "npc",
+  "name": "Psychic Fungus Warden",
+  "folder": null,
+  "system": {
+    "attributes": {
+      "hp": {
+        "value": 36,
+        "temp": 0,
+        "max": 36,
+        "details": ""
+      },
+      "ac": {
+        "value": 16,
+        "details": ""
+      },
+      "allSaves": {
+        "value": ""
+      },
+      "speed": {
+        "value": 20,
+        "otherSpeeds": [],
+        "details": ""
+      },
+      "immunities": [
+        {
+          "type": "bleed"
+        },
+        {
+          "type": "fatigued"
+        },
+        {
+          "type": "mental"
+        },
+        {
+          "type": "poison"
+        },
+        {
+          "type": "sleep"
+        },
+        {
+          "type": "unconscious"
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "cold",
+          "value": 3
+        },
+        {
+          "type": "fire",
+          "value": 3
+        }
+      ]
+    },
+    "initiative": {
+      "statistic": "perception"
+    },
+    "details": {
+      "languages": {
+        "value": [],
+        "details": ""
+      },
+      "level": {
+        "value": 2
+      },
+      "blurb": "",
+      "publicNotes": "",
+      "privateNotes": "",
+      "publication": {
+        "title": "Starfinder Alien Core",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "resources": {},
+    "_migration": {
+      "version": 0.946,
+      "previous": {
+        "schema": null,
+        "foundry": "13.350",
+        "system": "7.5.2"
+      }
+    },
+    "abilities": {
+      "str": {
+        "mod": 3
+      },
+      "dex": {
+        "mod": 0
+      },
+      "con": {
+        "mod": 4
+      },
+      "int": {
+        "mod": -5
+      },
+      "wis": {
+        "mod": 3
+      },
+      "cha": {
+        "mod": -2
+      }
+    },
+    "perception": {
+      "details": "mycelium network",
+      "mod": 9,
+      "senses": [
+        {
+          "type": "darkvision"
+        }
+      ],
+      "vision": true
+    },
+    "saves": {
+      "fortitude": {
+        "value": 9,
+        "saveDetail": ""
+      },
+      "reflex": {
+        "value": 5,
+        "saveDetail": ""
+      },
+      "will": {
+        "value": 8,
+        "saveDetail": ""
+      }
+    },
+    "skills": {
+      "athletics": {
+        "base": 7,
+        "special": []
+      },
+      "stealth": {
+        "base": 4,
+        "special": [
+          {
+            "label": "amid decaying plant matter or fungi",
+            "predicate": [
+              "in-decay-plant-matter-or-fungi"
+            ],
+            "base": 8
+          }
+        ]
+      },
+      "survival": {
+        "base": 7,
+        "special": []
+      }
+    },
+    "traits": {
+      "value": [
+        "fungus",
+        "mindless"
+      ],
+      "rarity": "common",
+      "size": {
+        "value": "med"
+      }
+    }
+  },
+  "_id": "jeazxuZi1AdEbThT",
+  "img": "systems/pf2e/icons/default-icons/npc.svg",
+  "prototypeToken": {
+    "name": "Psychic Fungus Warden",
+    "displayName": 20,
+    "actorLink": false,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "systems/pf2e/icons/default-icons/npc.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": true,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": true,
+        "autoscale": true
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [
+    {
+      "type": "action",
+      "name": "Mycelium Network",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>Psychic fungi are connected to a network of psychic filaments bonding all psychic fungi from the same colony. This network grants the harvester the ability to detect creatures capable of thought within 30 feet of a bonded psychic fungus up to 1,000 feet away as an imprecise sense.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "interaction",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "Asd1gICMvRZwuFWr",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!jeazxuZi1AdEbThT.Asd1gICMvRZwuFWr"
+    },
+    {
+      "type": "action",
+      "name": "Release Spores",
+      "system": {
+        "actionType": {
+          "value": "reaction"
+        },
+        "description": {
+          "value": "<p><strong>Trigger</strong> The harvester is reduced to 0 Hit Points</p><hr /><p><strong>Effect</strong> The harvester releases a cloud of spores in a @Template[type:burst|distance:10] centered on a corner of its own space that lasts for 1 round. Each creature that's in the cloud or enters it is exposed to befuddling spores. If this reaction was triggered by damage from a melee attack, the triggering creature uses the outcome one degree of success worse than the result of its roll for its Fortitude save (two degrees worse if it was a jaws Strike or other Strike with the creature's mouth).</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "defensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "fHQH6N4FmOlxuOSB",
+      "img": "systems/pf2e/icons/actions/Reaction.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!jeazxuZi1AdEbThT.fHQH6N4FmOlxuOSB"
+    },
+    {
+      "type": "action",
+      "name": "Befuddling Spores",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>Plants and fungi are immune</p><p><strong>Saving Throw</strong> @Check[fortitude|dc:19]</p><p><strong>Maximum Duration</strong> 6 rounds</p><p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} (1 round)</p><p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 2} (1 round)</p><p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} and @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 3} (1 round)</p><p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.6uEgoh53GbXuHpTF]{Paralyzed} and @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 4} (1 round)</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "poison"
+          ]
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "69kIKLbVml1nEzsa",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!jeazxuZi1AdEbThT.69kIKLbVml1nEzsa"
+    },
+    {
+      "type": "melee",
+      "name": "Lash",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "reach-10"
+          ]
+        },
+        "damageRolls": {
+          "oEGPXYYqFYaEZfnz": {
+            "damage": "1d10+3",
+            "damageType": "bludgeoning",
+            "category": null
+          }
+        },
+        "bonus": {
+          "value": 9
+        },
+        "attackEffects": {
+          "value": [
+            "grab"
+          ]
+        },
+        "action": "strike",
+        "area": null
+      },
+      "_id": "HN3XNLmlFJN3WabC",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!jeazxuZi1AdEbThT.HN3XNLmlFJN3WabC"
+    },
+    {
+      "type": "melee",
+      "name": "Spores",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "brutal",
+            "range-increment-30"
+          ]
+        },
+        "damageRolls": {
+          "Ao9xgkd8QseISodp": {
+            "damage": "1d6+3",
+            "damageType": "poison",
+            "category": null
+          }
+        },
+        "bonus": {
+          "value": 9
+        },
+        "attackEffects": {
+          "value": [
+            "befuddling-spores"
+          ]
+        },
+        "action": "strike",
+        "area": null
+      },
+      "_id": "6qqNyfwZ0fQyJgO5",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!jeazxuZi1AdEbThT.6qqNyfwZ0fQyJgO5"
+    },
+    {
+      "type": "action",
+      "name": "Nourish the Colony",
+      "system": {
+        "actionType": {
+          "value": "action"
+        },
+        "description": {
+          "value": "<p>The warden loses up to @Damage[12[healing]] Hit Points, and up to four other psychic fungi in the network regain that many Hit Points, divided equally among them. If the warden has a creature @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed}, each healed creature gains a +1 status bonus to attack rolls and Will saving throws for 1 minute, and the grabbed creature takes a –1 status penalty to such checks for 1 minute.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "healing",
+            "mental"
+          ]
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": 1
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "DHiAMaj8qEc3enwr",
+      "img": "systems/pf2e/icons/actions/OneAction.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!jeazxuZi1AdEbThT.DHiAMaj8qEc3enwr"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "pf2e",
+    "systemVersion": "7.6.2"
+  },
+  "ownership": {
+    "default": 0,
+    "yECpvB6rPSLHk9Lh": 3
+  },
+  "sort": 0,
+  "_key": "!actors!jeazxuZi1AdEbThT"
+}

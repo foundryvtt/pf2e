@@ -1,0 +1,122 @@
+{
+  "folder": null,
+  "name": "Effect: Sharpshooter Serum",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.equipment.Item.xBlfbu0fUmV6ucqR]{Sharpshooter Serum (Commercial)}, @UUID[Compendium.sf2e-anachronism.equipment.Item.vcCeNRokXv5HSlRf]{Sharpshooter Serum (Tactical)}</p><p>The circumstance bonus to AC your targets gain from cover against your ranged Strikes is reduced.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "key": "ChoiceSet",
+        "rollOption": "sharpshooter-serum",
+        "choices": [
+          {
+            "value": "Compendium.sf2e-anachronism.equipment.Item.xBlfbu0fUmV6ucqR",
+            "predicate": [
+              {
+                "or": [
+                  {
+                    "not": "parent:origin:item"
+                  },
+                  "parent:origin:item:slug:sharpshooter-serum-commercial"
+                ]
+              }
+            ]
+          },
+          {
+            "value": "Compendium.sf2e-anachronism.equipment.Item.vcCeNRokXv5HSlRf",
+            "predicate": [
+              {
+                "or": [
+                  {
+                    "not": "parent:origin:item"
+                  },
+                  "parent:origin:item:slug:sharpshooter-serum-tactical"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "override",
+        "path": "flags.sf2e.sharpshooterSerum.coverReduction",
+        "value": 1,
+        "predicate": [
+          "sharpshooter-serum:sharpshooter-serum-commercial"
+        ]
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "override",
+        "path": "flags.sf2e.sharpshooterSerum.coverReduction",
+        "value": 2,
+        "predicate": [
+          "sharpshooter-serum:sharpshooter-serum-tactical"
+        ]
+      },
+      {
+        "key": "EphemeralEffect",
+        "uuid": "Compendium.sf2e-anachronism.equipment-effects.Item.DL7GOlVLthV6HJpb",
+        "selectors": "ranged-strike-attack-roll"
+      }
+    ],
+    "slug": "effect-sharpshooter-serum",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 4
+    },
+    "duration": {
+      "value": 5,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/equipment/other/syringe.webp",
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "UB0yKVxoS0EBXyCO",
+  "sort": 600000,
+  "_key": "!items!UB0yKVxoS0EBXyCO"
+}

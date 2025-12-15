@@ -1,0 +1,204 @@
+{
+  "folder": null,
+  "name": "Spell Effect: Wild Bond",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.spells.Item.ssOpTABjuHAqNTPu]{Wild Bond}</p><p>You gain one of the following abilities:</p><ul><li>A burrow Speed of 15 feet</li><li>A climb Speed of 20 feet</li><li>A fly Speed of 20 feet</li><li>A swim Speed of 25 feet</li><li>A Speed of 40 feet</li><li>A jaw unarmed attack that deals 1d8 piercing damage</li><li>A claw unarmed attack that deals 1d6 slashing damage and has the agile and finesse traits</li><li>Darkvision</li></ul>"
+    },
+    "rules": [
+      {
+        "choices": [
+          {
+            "label": "SF2E.SpecificRule.Mystic.WildBond.Burrow",
+            "value": "burrow-speed"
+          },
+          {
+            "label": "SF2E.SpecificRule.Mystic.WildBond.Climb",
+            "value": "climb-speed"
+          },
+          {
+            "label": "SF2E.SpecificRule.Mystic.WildBond.Fly",
+            "value": "fly-speed"
+          },
+          {
+            "label": "SF2E.SpecificRule.Mystic.WildBond.Swim",
+            "value": "swim-speed"
+          },
+          {
+            "label": "SF2E.SpecificRule.Mystic.WildBond.Land",
+            "value": "land-speed"
+          },
+          {
+            "label": "PF2E.Weapon.Base.jaws",
+            "value": "jaws-strike"
+          },
+          {
+            "label": "PF2E.Weapon.Base.claw",
+            "value": "claw-strike"
+          },
+          {
+            "label": "PF2E.Actor.Creature.Sense.Type.Darkvision",
+            "value": "darkvision"
+          }
+        ],
+        "key": "ChoiceSet",
+        "rollOption": "wild-bond"
+      },
+      {
+        "key": "Sense",
+        "selector": "darkvision",
+        "predicate": [
+          "wild-bond:darkvision"
+        ],
+        "priority": 53
+      },
+      {
+        "key": "BaseSpeed",
+        "selector": "burrow",
+        "value": 15,
+        "predicate": [
+          "wild-bond:burrow-speed"
+        ]
+      },
+      {
+        "key": "BaseSpeed",
+        "selector": "climb",
+        "value": 20,
+        "predicate": [
+          "wild-bond:climb-speed"
+        ]
+      },
+      {
+        "key": "BaseSpeed",
+        "selector": "fly",
+        "value": 20,
+        "predicate": [
+          "wild-bond:fly-speed"
+        ]
+      },
+      {
+        "key": "BaseSpeed",
+        "selector": "swim",
+        "value": 25,
+        "predicate": [
+          "wild-bond:swim-speed"
+        ]
+      },
+      {
+        "key": "BaseSpeed",
+        "selector": "land",
+        "value": 40,
+        "predicate": [
+          "wild-bond:land-speed"
+        ]
+      },
+      {
+        "damage": {
+          "base": {
+            "damageType": "piercing",
+            "dice": "ternary(gte(@item.level,9),4,ternary(gte(@item.level,6),3,ternary(gte(@item.level,3),2,1)))",
+            "die": "d8"
+          }
+        },
+        "key": "Strike",
+        "label": "PF2E.Weapon.Base.jaws",
+        "traits": [
+          "unarmed"
+        ],
+        "predicate": [
+          "wild-bond:jaws-strike"
+        ],
+        "img": "icons/creatures/abilities/mouth-teeth-long-red.webp"
+      },
+      {
+        "damage": {
+          "base": {
+            "damageType": "slashing",
+            "dice": "ternary(gte(@item.level,9),4,ternary(gte(@item.level,6),3,ternary(gte(@item.level,3),2,1)))",
+            "die": "d6"
+          }
+        },
+        "group": "brawling",
+        "key": "Strike",
+        "label": "PF2E.Weapon.Base.claw",
+        "traits": [
+          "agile",
+          "finesse",
+          "unarmed"
+        ],
+        "predicate": [
+          "wild-bond:claw-strike"
+        ],
+        "img": "icons/creatures/claws/claw-bear-paw-swipe-red.webp"
+      },
+      {
+        "key": "Sense",
+        "selector": "darkvision",
+        "predicate": [
+          "wild-bond:darkvision"
+        ]
+      }
+    ],
+    "slug": "spell-effect-wild-bond",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": 0.932,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false,
+    "fromSpell": false
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/green-organization-insignia.webp",
+  "flags": {
+    "core": {}
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "_id": "LXi2h0q58zg9EFCN",
+  "sort": 2700000,
+  "_key": "!items!LXi2h0q58zg9EFCN"
+}

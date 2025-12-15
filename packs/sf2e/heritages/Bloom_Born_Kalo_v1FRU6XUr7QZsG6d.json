@@ -1,0 +1,81 @@
+{
+  "folder": "yKY3ocbQ87Nw77p4",
+  "name": "Bloom-Born Kalo",
+  "type": "heritage",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You grew up near a bloom, one of the naturally occurring portals to the First World that randomly open and close across Kalo-Mahoi, and have developed a natural sense for the presence of primal magic around you. You gain the trained proficiency rank in Nature. If you would automatically become trained in Nature (from your background or class, for example), you become trained in another skill of your choice. Additionally, you can cast the @UUID[Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl] cantrip as a primal innate spell at will. A cantrip is heightened to a spell rank equal to half your level rounded up.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.nature.rank",
+        "value": 1
+      },
+      {
+        "itemType": "spell",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "predicate": [
+          "item:slug:detect-magic",
+          "spellcasting:innate"
+        ],
+        "property": "other-tags",
+        "value": "ancestral-spell"
+      },
+      {
+        "itemType": "spell",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "predicate": [
+          "item:slug:detect-magic",
+          "spellcasting:innate"
+        ],
+        "property": "other-tags",
+        "value": "ancestral-spell:kalo"
+      }
+    ],
+    "slug": "bloom-born-kalo",
+    "traits": {
+      "otherTags": [],
+      "value": [],
+      "rarity": "common"
+    },
+    "ancestry": {
+      "name": "Kalo",
+      "slug": "kalo",
+      "uuid": "Compendium.sf2e-anachronism.ancestries.Item.23MA5Ee7ExUfzrqk"
+    }
+  },
+  "img": "systems/pf2e/icons/default-icons/heritage.svg",
+  "sort": 100000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "v1FRU6XUr7QZsG6d",
+  "_key": "!items!v1FRU6XUr7QZsG6d"
+}

@@ -1,0 +1,798 @@
+{
+  "type": "npc",
+  "folder": null,
+  "name": "Protection-Class Security Robot",
+  "prototypeToken": {
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": true,
+        "autoscale": true
+      }
+    },
+    "height": 1,
+    "width": 1,
+    "name": "Protection-Class Security Robot",
+    "displayName": 20,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/pf2e/icons/default-icons/npc.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": true,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "effects": [],
+  "system": {
+    "attributes": {
+      "hp": {
+        "value": 60,
+        "temp": 0,
+        "max": 60,
+        "details": ""
+      },
+      "ac": {
+        "value": 20,
+        "details": ""
+      },
+      "allSaves": {
+        "value": ""
+      },
+      "speed": {
+        "value": 25,
+        "otherSpeeds": [],
+        "details": ""
+      },
+      "immunities": [
+        {
+          "type": "bleed"
+        },
+        {
+          "type": "death-effects"
+        },
+        {
+          "type": "disease"
+        },
+        {
+          "type": "doomed"
+        },
+        {
+          "type": "drained"
+        },
+        {
+          "type": "fatigued"
+        },
+        {
+          "type": "healing"
+        },
+        {
+          "type": "mental"
+        },
+        {
+          "type": "nonlethal-attacks"
+        },
+        {
+          "type": "paralyzed"
+        },
+        {
+          "type": "poison"
+        },
+        {
+          "type": "sickened"
+        },
+        {
+          "type": "spirit"
+        },
+        {
+          "type": "unconscious"
+        },
+        {
+          "type": "vitality"
+        },
+        {
+          "type": "void"
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "electricity",
+          "value": 5
+        }
+      ]
+    },
+    "initiative": {
+      "statistic": "perception"
+    },
+    "details": {
+      "languages": {
+        "value": [],
+        "details": ""
+      },
+      "level": {
+        "value": 4
+      },
+      "blurb": "",
+      "publicNotes": "<p>These security robots are often constructed out of more durable materials than other robots, granting them the ability to protect their charges. Their bulky frames can be seen guarding important individuals or valuable items</p><hr /><p>Security robots are ubiquitous throughout industrialized space and have major presences in both the Pact Worlds and Veskarium, employed and customized by corporations and private citizens alike.</p><p>While most soldier robot models are built to be as destructive as possible, and elimination robots are designed to kill, security robots usually have fail-safes programmed into their behavior to prevent them from causing any more violence than is necessary to perform their designated security function. This makes them especially useful in cities, where unintended destruction might harm bystanders or cause legal issues, and even on starships, where a stray laser blast might cause serious damage to vital starship systems.</p>",
+      "privateNotes": "",
+      "publication": {
+        "title": "Starfinder Alien Core",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "resources": {},
+    "_migration": {
+      "version": 0.946,
+      "previous": {
+        "schema": 0.943,
+        "foundry": "13.350",
+        "system": "7.5.2"
+      }
+    },
+    "abilities": {
+      "str": {
+        "mod": 2
+      },
+      "dex": {
+        "mod": 5
+      },
+      "con": {
+        "mod": 3
+      },
+      "int": {
+        "mod": 1
+      },
+      "wis": {
+        "mod": 0
+      },
+      "cha": {
+        "mod": 0
+      }
+    },
+    "perception": {
+      "details": "",
+      "mod": 11,
+      "senses": [
+        {
+          "type": "darkvision"
+        }
+      ],
+      "vision": true
+    },
+    "saves": {
+      "fortitude": {
+        "value": 11,
+        "saveDetail": ""
+      },
+      "reflex": {
+        "value": 13,
+        "saveDetail": ""
+      },
+      "will": {
+        "value": 8,
+        "saveDetail": ""
+      }
+    },
+    "skills": {
+      "acrobatics": {
+        "base": 10
+      },
+      "athletics": {
+        "base": 8
+      },
+      "computers": {
+        "base": 8
+      },
+      "intimidation": {
+        "base": 12
+      }
+    },
+    "traits": {
+      "value": [
+        "construct",
+        "robot",
+        "tech"
+      ],
+      "rarity": "common",
+      "size": {
+        "value": "med"
+      }
+    }
+  },
+  "_id": "gQIOCzsMtAP201XD",
+  "img": "systems/pf2e/icons/default-icons/npc.svg",
+  "items": [
+    {
+      "folder": "V89RPpe7fyCFC6NS",
+      "name": "Integrated Tactical Laser Rifle",
+      "type": "weapon",
+      "effects": [],
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>These dependable, mass-produced rifles shoot concentrated beams of energy out of square-shaped barrels. The universal standard Pact Worlds model is highly modifiable and designed to function with a variety of accessories and upgrades, with wielders adapting the laser rifle to their preferences and even kit-bashing it into a nearly unrecognizable weapon.</p>"
+        },
+        "rules": [],
+        "slug": "laser-rifle",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "tech"
+          ],
+          "rarity": "common"
+        },
+        "publication": {
+          "title": "Starfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 0
+        },
+        "quantity": 1,
+        "baseItem": "laser-rifle",
+        "bulk": {
+          "value": 2
+        },
+        "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "hardness": 0,
+        "price": {
+          "value": {
+            "sp": 45
+          }
+        },
+        "equipped": {
+          "carryType": "worn",
+          "invested": null,
+          "handsHeld": 0
+        },
+        "containerId": null,
+        "size": "med",
+        "material": {
+          "type": null,
+          "grade": null
+        },
+        "identification": {
+          "status": "identified",
+          "unidentified": {
+            "name": "Unusual Weapon",
+            "img": "systems/pf2e/icons/unidentified_item_icons/weapon.webp",
+            "data": {
+              "description": {
+                "value": ""
+              }
+            }
+          },
+          "misidentified": {}
+        },
+        "usage": {
+          "value": "held-in-two-hands"
+        },
+        "category": "simple",
+        "group": "laser",
+        "bonus": {
+          "value": 0
+        },
+        "damage": {
+          "dice": 1,
+          "die": "d8",
+          "damageType": "fire",
+          "persistent": null
+        },
+        "splashDamage": {
+          "value": 0
+        },
+        "range": 100,
+        "expend": 2,
+        "reload": {
+          "value": "1"
+        },
+        "grade": "tactical",
+        "runes": {
+          "potency": 0,
+          "striking": 0,
+          "property": []
+        },
+        "specific": null,
+        "subitems": [],
+        "bonusDamage": {
+          "value": 0
+        },
+        "property1": {
+          "value": "",
+          "dice": 0,
+          "die": "",
+          "damageType": "",
+          "critDice": 0,
+          "critDie": "",
+          "critDamage": "",
+          "critDamageType": "",
+          "strikeConditionType": "",
+          "strikeConditionValue": null,
+          "criticalConditionType": "",
+          "criticalConditionValue": null
+        }
+      },
+      "img": "modules/sf2e-anachronism/art/icons/equipment/weapons/teal-sci-fi-gun.webp",
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "sort": 3700000,
+      "_id": "G9r0Ld4jTAcCGZUD",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!gQIOCzsMtAP201XD.G9r0Ld4jTAcCGZUD"
+    },
+    {
+      "name": "Battery (Tactical)",
+      "type": "consumable",
+      "effects": [],
+      "system": {
+        "description": {
+          "gm": "",
+          "value": ""
+        },
+        "rules": [],
+        "slug": "battery-tactical",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "consumable"
+          ],
+          "rarity": "common"
+        },
+        "publication": {
+          "title": "Starfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 2
+        },
+        "quantity": 1,
+        "baseItem": null,
+        "bulk": {
+          "value": 0
+        },
+        "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "hardness": 0,
+        "price": {
+          "value": {
+            "sp": 20
+          }
+        },
+        "equipped": {
+          "carryType": "worn"
+        },
+        "containerId": null,
+        "size": "med",
+        "material": {
+          "type": null,
+          "grade": null
+        },
+        "identification": {
+          "status": "identified",
+          "unidentified": {
+            "name": "Unusual Object",
+            "img": "systems/pf2e/icons/unidentified_item_icons/other-consumables.webp",
+            "data": {
+              "description": {
+                "value": ""
+              }
+            }
+          },
+          "misidentified": {}
+        },
+        "category": "ammo",
+        "uses": {
+          "value": 20,
+          "max": 20,
+          "autoDestroy": true
+        },
+        "damage": null,
+        "usage": {
+          "value": "other"
+        },
+        "stackGroup": null,
+        "spell": null
+      },
+      "img": "modules/sf2e-anachronism/art/icons/equipment/other/blue-battery.webp",
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": "F6h7fO0Z7cgQBVRD",
+      "sort": 500000,
+      "_id": "geFOxxfxea8KMafY",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!gQIOCzsMtAP201XD.geFOxxfxea8KMafY"
+    },
+    {
+      "_id": "2PEkl3r6iXzK5am9",
+      "name": "Laser Rifle",
+      "type": "melee",
+      "system": {
+        "slug": "laser-rifle",
+        "bonus": {
+          "value": 13
+        },
+        "damageRolls": {
+          "GrhuYVAmJq05g8zm": {
+            "damage": "1d8+3",
+            "damageType": "fire",
+            "category": null
+          }
+        },
+        "traits": {
+          "value": [
+            "expend-2",
+            "mag-20",
+            "range-increment-100",
+            "reload-1",
+            "tech",
+            "tracking-1"
+          ],
+          "otherTags": []
+        },
+        "rules": [],
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "attackEffects": {
+          "value": []
+        },
+        "action": "strike",
+        "area": null
+      },
+      "flags": {
+        "pf2e": {
+          "linkedWeapon": "G9r0Ld4jTAcCGZUD"
+        }
+      },
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!gQIOCzsMtAP201XD.2PEkl3r6iXzK5am9"
+    },
+    {
+      "type": "melee",
+      "name": "Fist",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "damageRolls": {
+          "n5VNdaP4AyjBeSte": {
+            "damage": "2d6+5",
+            "damageType": "bludgeoning",
+            "category": null
+          }
+        },
+        "bonus": {
+          "value": 10
+        },
+        "attackEffects": {
+          "value": []
+        },
+        "action": "strike",
+        "area": null
+      },
+      "_id": "FoJhbkMh1zAjT7QK",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!gQIOCzsMtAP201XD.FoJhbkMh1zAjT7QK"
+    },
+    {
+      "type": "action",
+      "name": "Covering Posture",
+      "system": {
+        "actionType": {
+          "value": "action"
+        },
+        "description": {
+          "value": "<p>The protection-class security robot enters a position that grants adjacent allies the benefits of lesser cover until the start of its next turn. A Medium or smaller creature can [[/act take-cover]] while adjacent to the robot and gains the benefits of standard cover.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": 2
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "I0O4PwIN7FfVo7ot",
+      "img": "systems/pf2e/icons/actions/TwoActions.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!gQIOCzsMtAP201XD.I0O4PwIN7FfVo7ot"
+    },
+    {
+      "type": "action",
+      "name": "Nanite Surge",
+      "system": {
+        "actionType": {
+          "value": "action"
+        },
+        "description": {
+          "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The security robot restores @Damage[24[healing]] Hit Points per the robot's level to one technological creature or item.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": 2
+        },
+        "category": "offensive",
+        "deathNote": false,
+        "frequency": {
+          "max": 1,
+          "per": "day"
+        }
+      },
+      "effects": [],
+      "_id": "O13dDwZikWQHDpCg",
+      "img": "systems/pf2e/icons/actions/TwoActions.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!gQIOCzsMtAP201XD.O13dDwZikWQHDpCg"
+    }
+  ],
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "pf2e",
+    "systemVersion": "7.6.2"
+  },
+  "ownership": {
+    "default": 0
+  },
+  "sort": 0,
+  "_key": "!actors!gQIOCzsMtAP201XD"
+}

@@ -1,0 +1,257 @@
+{
+  "folder": null,
+  "name": "Spell Effect: Carcinization",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.spells.Item.n5a3t5Qnx5AU8auy]{Carcinization}</p><p>You transform into a crab, as it had @UUID[Compendium.pf2e.spells-srd.Item.wp09USMB3GIW1qbp]{Animal Form} heightened to the same rank as this spell and using the following statistics.</p><ul><li>Speed 25 feet, swim 15 feet</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> big claw, <strong>Damage</strong> 2d8 piercing</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> claw (agile), <strong>Damage</strong> 2d4 piercing.</li></ul>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "BattleForm",
+        "overrides": {
+          "senses": {
+            "lowLightVision": {},
+            "scent": {
+              "acuity": "imprecise",
+              "range": 30
+            }
+          },
+          "size": "med",
+          "speeds": {
+            "land": 25,
+            "swim": 15
+          },
+          "strikes": {
+            "big-claw": {
+              "ability": "str",
+              "baseType": "claw",
+              "category": "unarmed",
+              "damage": {
+                "damageType": "piercing",
+                "dice": 2,
+                "die": "d8"
+              },
+              "img": "systems/pf2e/icons/unarmed-attacks/pincer.webp",
+              "traits": [
+                "unarmed"
+              ]
+            },
+            "little-claw": {
+              "ability": "str",
+              "baseType": "claw",
+              "category": "unarmed",
+              "damage": {
+                "damageType": "piercing",
+                "dice": 2,
+                "die": "d4"
+              },
+              "img": "systems/pf2e/icons/unarmed-attacks/pincer.webp",
+              "traits": [
+                "unarmed",
+                "agile"
+              ]
+            }
+          },
+          "traits": [
+            "animal"
+          ]
+        },
+        "value": {
+          "brackets": [
+            {
+              "end": 2,
+              "start": 2,
+              "value": {
+                "armorClass": {
+                  "modifier": "16 + @actor.level"
+                },
+                "skills": {
+                  "athletics": {
+                    "modifier": 9
+                  }
+                },
+                "strikes": {
+                  "big-claw": {
+                    "damage": {
+                      "modifier": 1
+                    },
+                    "modifier": 9
+                  },
+                  "little-claw": {
+                    "damage": {
+                      "modifier": 1
+                    },
+                    "modifier": 9
+                  }
+                },
+                "tempHP": 5
+              }
+            },
+            {
+              "end": 3,
+              "start": 3,
+              "value": {
+                "armorClass": {
+                  "modifier": "17 + @actor.level"
+                },
+                "skills": {
+                  "athletics": {
+                    "modifier": 14
+                  }
+                },
+                "strikes": {
+                  "big-claw": {
+                    "damage": {
+                      "modifier": 5
+                    },
+                    "modifier": 14
+                  },
+                  "little-claw": {
+                    "damage": {
+                      "modifier": 5
+                    },
+                    "modifier": 14
+                  }
+                },
+                "tempHP": 10
+              }
+            },
+            {
+              "end": 4,
+              "start": 4,
+              "value": {
+                "armorClass": {
+                  "modifier": "18 + @actor.level"
+                },
+                "size": "lg",
+                "skills": {
+                  "athletics": {
+                    "modifier": 16
+                  }
+                },
+                "strikes": {
+                  "big-claw": {
+                    "damage": {
+                      "modifier": 9
+                    },
+                    "modifier": 16,
+                    "traits": [
+                      "unarmed",
+                      "reach"
+                    ]
+                  },
+                  "little-claw": {
+                    "damage": {
+                      "modifier": 9
+                    },
+                    "modifier": 16,
+                    "traits": [
+                      "unarmed",
+                      "reach"
+                    ]
+                  }
+                },
+                "tempHP": 15
+              }
+            },
+            {
+              "start": 5,
+              "value": {
+                "armorClass": {
+                  "modifier": "18 + @actor.level"
+                },
+                "size": "huge",
+                "skills": {
+                  "athletics": {
+                    "modifier": 20
+                  }
+                },
+                "strikes": {
+                  "big-claw": {
+                    "damage": {
+                      "dice": 4,
+                      "modifier": 7
+                    },
+                    "modifier": 18,
+                    "traits": [
+                      "unarmed",
+                      "reach-15"
+                    ]
+                  },
+                  "little-claw": {
+                    "damage": {
+                      "dice": 4,
+                      "modifier": 7
+                    },
+                    "modifier": 18,
+                    "traits": [
+                      "unarmed",
+                      "reach-15"
+                    ]
+                  }
+                },
+                "tempHP": 20
+              }
+            }
+          ],
+          "field": "item|system.level.value"
+        }
+      }
+    ],
+    "slug": "spell-effect-carcinization",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 5
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "icons/creatures/fish/crab-blue-purple.webp",
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "16Li37zRYKClxqsv",
+  "sort": 800000,
+  "_key": "!items!16Li37zRYKClxqsv"
+}

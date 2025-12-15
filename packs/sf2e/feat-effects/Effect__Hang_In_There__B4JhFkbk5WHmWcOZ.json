@@ -1,0 +1,172 @@
+{
+  "name": "Effect: Hang In There!",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.YRy857LORIhKOgbY]{Hang in There}</p><p>You gain temporary Hit Points.</p>"
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "PF2E.Check.Result.Degree.Check.success",
+            "predicate": [
+              {
+                "or": [
+                  "parent:context:check:outcome:2",
+                  {
+                    "not": {
+                      "gte": [
+                        "parent:context:check:outcome",
+                        0
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
+            "value": 1
+          },
+          {
+            "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+            "predicate": [
+              {
+                "or": [
+                  "parent:context:check:outcome:3",
+                  {
+                    "not": {
+                      "gte": [
+                        "parent:context:check:outcome",
+                        0
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
+            "value": 2
+          }
+        ],
+        "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+        "key": "ChoiceSet",
+        "flag": "degreeOfSuccess"
+      },
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "PF2E.ProficiencyLevel2",
+            "value": 0
+          },
+          {
+            "label": "PF2E.ProficiencyLevel3",
+            "value": 5,
+            "predicate": [
+              {
+                "or": [
+                  {
+                    "gte": [
+                      "{item|origin.skills.diplomacy.rank}",
+                      3
+                    ]
+                  },
+                  {
+                    "not": "parent:origin:item"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "PF2E.ProficiencyLevel4",
+            "value": 10,
+            "predicate": [
+              {
+                "or": [
+                  {
+                    "gte": [
+                      "{item|origin.skills.diplomacy.rank}",
+                      4
+                    ]
+                  },
+                  {
+                    "not": "parent:origin:item"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "prompt": "SF2E.SpecificRule.Envoy.HangInThere.Prompt",
+        "key": "ChoiceSet",
+        "flag": "proficiencyRank"
+      },
+      {
+        "key": "TempHP",
+        "value": "(@item.flags.pf2e.rulesSelections.degreeOfSuccess * @actor.level) + @item.origin.abilities.cha.mod + @item.flags.pf2e.rulesSelections.proficiencyRank"
+      }
+    ],
+    "slug": "effect-hang-in-there",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": 0.932,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 6
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false,
+    "fromSpell": false
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/green-invigoration.webp",
+  "folder": null,
+  "flags": {
+    "core": {}
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "_id": "B4JhFkbk5WHmWcOZ",
+  "sort": 3300000,
+  "_key": "!items!B4JhFkbk5WHmWcOZ"
+}

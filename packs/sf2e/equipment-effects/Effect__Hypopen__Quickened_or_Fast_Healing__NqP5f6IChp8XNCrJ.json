@@ -1,0 +1,117 @@
+{
+  "folder": null,
+  "name": "Effect: Hypopen (Quickened or Fast Healing)",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.equipment.Item.gRZxPwfmz3O0bgOt]{Hypopen (Elite)} or @UUID[Compendium.sf2e-anachronism.equipment.Item.6JzH3VDHqv2rZJer]{Hypopen (Ultimate)}</p><p>Choose one of the following benefits.</p><ul><li>You become quickened. You can use the extra action to Step, Stride, or Strike.</li><li>You gain fast healing 10.</li></ul>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "key": "ChoiceSet",
+        "choices": [
+          {
+            "label": "PF2E.ConditionTypeQuickened",
+            "value": "quickened",
+            "predicate": [
+              {
+                "or": [
+                  {
+                    "not": "parent:origin:item"
+                  },
+                  "parent:origin:item:slug:hypopen-elite",
+                  "parent:origin:item:slug:hypopen-ultimate"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "PF2E.Encounter.Broadcast.FastHealing.fast-healing.Name",
+            "value": "fast-healing",
+            "predicate": [
+              {
+                "or": [
+                  {
+                    "not": "parent:origin:item"
+                  },
+                  "parent:origin:item:slug:hypopen-ultimate"
+                ]
+              }
+            ]
+          }
+        ],
+        "rollOption": "hypopen"
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.pf2e.conditionitems.Item.nlCjDvLMf2EkV2dl",
+        "predicate": [
+          "hypopen:quickened"
+        ],
+        "inMemoryOnly": true
+      },
+      {
+        "key": "FastHealing",
+        "value": 10,
+        "predicate": [
+          "hypopen:fast-healing"
+        ]
+      }
+    ],
+    "slug": "effect-hypopen-quickened-or-fast-healing",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 12
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/equipment/other/blue-containment-vessel.webp",
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "NqP5f6IChp8XNCrJ",
+  "sort": 900000,
+  "_key": "!items!NqP5f6IChp8XNCrJ"
+}

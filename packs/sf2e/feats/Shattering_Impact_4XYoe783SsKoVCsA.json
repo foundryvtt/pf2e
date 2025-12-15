@@ -1,0 +1,131 @@
+{
+  "type": "feat",
+  "name": "Shattering Impact",
+  "folder": "RvZHNmqnYFSVQuYt",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 2
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "attuned",
+        "disharmony",
+        "flourish",
+        "solarian"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You pour all your effort into making a single attack with your solar weapon that's so powerful it shatters the weapon. Strike with your solar weapon. The Strike deals one additional weapon damage die. Your solar weapon shatters and must be manifested to continue using it.</p><p><strong>Graviton-Attuned</strong> On a hit, the target takes a –10-foot status penalty to Speed until the start of your next turn.</p><p>@UUID[Compendium.sf2e-anachronism.feat-effects.Item.Ll3uZdiSqaszP3fn]{Effect: Shattering Impact}</p><p><strong>Photon-Attuned</strong> On a hit, you additionally deal persistent fire damage equal to half your level, rounded up.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "shattering-impact",
+        "disabledIf": [
+          {
+            "or": [
+              "stellar-attunement:unattuned",
+              {
+                "not": "self:effect:solar-weapon"
+              }
+            ]
+          }
+        ],
+        "disabledValue": false,
+        "toggleable": true
+      },
+      {
+        "key": "DamageDice",
+        "selector": "strike-damage",
+        "diceNumber": 1,
+        "predicate": [
+          "shattering-impact",
+          "item:tag:solar-weapon"
+        ],
+        "hideIfDisabled": true
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "strike-damage",
+        "value": "ceil(@actor.level / 2)",
+        "predicate": [
+          "stellar-attunement:photon",
+          "item:tag:solar-weapon",
+          "shattering-impact"
+        ],
+        "damageCategory": "persistent",
+        "damageType": "fire",
+        "hideIfDisabled": true
+      },
+      {
+        "key": "Note",
+        "selector": "strike-attack-roll",
+        "text": "SF2E.SpecificRule.Solarian.ShatteringImpact.GravitonNote",
+        "predicate": [
+          "stellar-attunement:graviton",
+          "item:tag:solar-weapon",
+          "shattering-impact"
+        ],
+        "outcome": [
+          "success",
+          "criticalSuccess"
+        ],
+        "title": "{item|name}"
+      }
+    ],
+    "slug": "shattering-impact",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "action"
+    },
+    "actions": {
+      "value": 2
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "4XYoe783SsKoVCsA",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!4XYoe783SsKoVCsA"
+}

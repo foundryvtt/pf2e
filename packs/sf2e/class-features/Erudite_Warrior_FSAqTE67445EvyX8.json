@@ -1,0 +1,124 @@
+{
+  "folder": "GyMklUN6ZJ9xixWD",
+  "name": "Erudite Warrior",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You realize that not every situation should be solved with a gun. You're an intellectual as well as a warrior, solving problems logically and learning about the galaxy. You keep your mind sharp with formal education or self-guided study. When logic breaks down, you're always ready to fall back on your combat training.</p><p>Choose either Diplomacy or Society. You become trained in the chosen skill and one Lore skill of your choice. When you gain @UUID[Compendium.sf2e-anachronism.class-features.Item.vt4e3FdwvI3hNkEf]{Armor Expertise}, you gain expert proficiency in Diplomacy or Society (whichever you selected) and the Lore skill you selected. This increases to master proficiency when you gain @UUID[Compendium.sf2e-anachronism.class-features.Item.Gs1MRPZ3s3TXwEsX]{Armor Mastery}, and to legendary proficiency when you gain @UUID[Compendium.sf2e-anachronism.class-features.Item.5uMdhwOXbamPbNHA]{Legendary Armor}. You also gain the @UUID[Compendium.sf2e-anachronism.actions.Item.TBLHu4RhvhPrKid6]{Oppressive Presence} action.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.sf2e-anachronism.actions.Item.TBLHu4RhvhPrKid6"
+      },
+      {
+        "adjustName": false,
+        "key": "ChoiceSet",
+        "choices": [
+          {
+            "label": "PF2E.Skill.Diplomacy",
+            "value": "diplomacy"
+          },
+          {
+            "label": "PF2E.Skill.Society",
+            "value": "society"
+          }
+        ],
+        "flag": "skill"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+        "value": 1
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+        "value": 2,
+        "predicate": [
+          "feature:armor-expertise"
+        ]
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+        "value": 3,
+        "predicate": [
+          "feature:armor-mastery"
+        ]
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+        "value": 4,
+        "predicate": [
+          "feature:legendary-armor"
+        ]
+      }
+    ],
+    "slug": "erudite-warrior",
+    "traits": {
+      "otherTags": [
+        "soldier-fighting-style"
+      ],
+      "value": [
+        "soldier"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "classfeature",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "FSAqTE67445EvyX8",
+  "img": "modules/sf2e-anachronism/art/icons/abilities/meditation.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!FSAqTE67445EvyX8"
+}

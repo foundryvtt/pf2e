@@ -1,0 +1,140 @@
+{
+  "folder": null,
+  "name": "Effect: Nimbus Ward",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.hAOjYvcgTbWQffbT]{Nimbus Ward}</p><p>Choose a damage type depending on your current attunement. You gain resistance to the chosen damage type equal to half your level (rounded up).</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "ChoiceSet",
+        "choices": [
+          {
+            "label": "PF2E.TraitBludgeoning",
+            "value": "bludgeoning",
+            "predicate": [
+              "stellar-attunement:graviton"
+            ]
+          },
+          {
+            "label": "PF2E.TraitForce",
+            "value": "force",
+            "predicate": [
+              "stellar-attunement:graviton"
+            ]
+          },
+          {
+            "label": "PF2E.TraitPiercing",
+            "value": "piercing",
+            "predicate": [
+              "stellar-attunement:graviton"
+            ]
+          },
+          {
+            "label": "PF2E.TraitSlashing",
+            "value": "slashing",
+            "predicate": [
+              "stellar-attunement:graviton"
+            ]
+          },
+          {
+            "label": "PF2E.TraitAcid",
+            "value": "acid",
+            "predicate": [
+              "stellar-attunement:photon"
+            ]
+          },
+          {
+            "label": "PF2E.TraitCold",
+            "value": "cold",
+            "predicate": [
+              "stellar-attunement:photon"
+            ]
+          },
+          {
+            "label": "PF2E.TraitElectricity",
+            "value": "electricity",
+            "predicate": [
+              "stellar-attunement:photon"
+            ]
+          },
+          {
+            "label": "PF2E.TraitFire",
+            "value": "fire",
+            "predicate": [
+              "stellar-attunement:photon"
+            ]
+          },
+          {
+            "label": "PF2E.TraitSonic",
+            "value": "sonic",
+            "predicate": [
+              "stellar-attunement:photon"
+            ]
+          }
+        ],
+        "flag": "resistance"
+      },
+      {
+        "key": "Resistance",
+        "value": "ceil(@actor.level / 2)",
+        "type": "{item|flags.pf2e.rulesSelections.resistance}"
+      }
+    ],
+    "slug": "effect-nimbus-ward",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 4
+    },
+    "duration": {
+      "value": 1,
+      "unit": "rounds",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "icons/magic/air/air-burst-spiral-yellow.webp",
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "bynA4hR6QPQbiyJY",
+  "sort": 2600000,
+  "_key": "!items!bynA4hR6QPQbiyJY"
+}

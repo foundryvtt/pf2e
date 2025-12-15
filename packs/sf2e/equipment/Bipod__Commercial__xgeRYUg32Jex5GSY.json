@@ -1,0 +1,115 @@
+{
+  "folder": "7JvVdcPLRxEK9sec",
+  "name": "Bipod (Commercial)",
+  "type": "equipment",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>A bipod can be attached to powerful weapons—those with the kickback trait—to allow wielders with lower Strength to use them at the cost of mobility. You can set up the bipod with a single Interact action using one appendage, setting the bipod in your square. When using a bipod, you don't take the –2 penalty for firing a kickback weapon, even if your Strength isn't high enough to avoid the penalty.</p><p>However, you must spend a single Interact action to retrieve the bipod before you can move the weapon to a different position. Deploying or retrieving a bipod with an Interact action doesn't automatically make you observed like an Interact action normally would, so long as you don't set up or remove the bipod when it's in a spot where creatures can see it.</p>"
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "{item|parentItem.id}-bipod",
+        "toggleable": true,
+        "value": true
+      },
+      {
+        "key": "AdjustModifier",
+        "selector": "{item|parentItem.id}-attack",
+        "slug": "kickback",
+        "suppress": true,
+        "predicate": [
+          "{item|parentItem.id}-bipod"
+        ]
+      }
+    ],
+    "slug": "bipod-commercial",
+    "_migration": {
+      "version": 0.94,
+      "lastMigration": null,
+      "previous": {
+        "schema": 0.932,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "tech"
+      ],
+      "rarity": "common"
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 0
+    },
+    "quantity": 1,
+    "baseItem": null,
+    "bulk": {
+      "value": 0
+    },
+    "hp": {
+      "value": 0,
+      "max": 0
+    },
+    "hardness": 0,
+    "price": {
+      "value": {
+        "sp": 2
+      }
+    },
+    "equipped": {
+      "carryType": "worn",
+      "invested": null
+    },
+    "containerId": null,
+    "size": "med",
+    "material": {
+      "type": null,
+      "grade": null
+    },
+    "identification": {
+      "status": "identified",
+      "unidentified": {
+        "name": "Unusual Object",
+        "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+        "data": {
+          "description": {
+            "value": ""
+          }
+        }
+      },
+      "misidentified": {}
+    },
+    "usage": {
+      "value": "installed-in-a-weapon-with-the-kickback-trait"
+    },
+    "subitems": []
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/yellow-emblem.webp",
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.347",
+    "systemId": "pf2e",
+    "systemVersion": "7.3.1"
+  },
+  "ownership": {
+    "default": 0,
+    "CmdglLq38DpgHzdd": 3,
+    "O8OxKK20UjX7W372": 3
+  },
+  "_id": "xgeRYUg32Jex5GSY",
+  "sort": 2500000,
+  "_key": "!items!xgeRYUg32Jex5GSY"
+}

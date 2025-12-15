@@ -1,0 +1,654 @@
+{
+  "img": "systems/pf2e/icons/default-icons/npc.svg",
+  "items": [
+    {
+      "_id": "gu96K11Wqu5OcYew",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "name": "Jaws",
+      "sort": 100000,
+      "system": {
+        "attackEffects": {
+          "value": [
+            "void-death"
+          ]
+        },
+        "bonus": {
+          "value": 9
+        },
+        "damageRolls": {
+          "7iflybnxd781gj6cypzr": {
+            "damage": "1d6+4",
+            "damageType": "piercing",
+            "category": null
+          }
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "license": "OGL",
+          "remaster": false,
+          "title": "",
+          "authors": ""
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "value": [
+            "agile",
+            "unarmed"
+          ],
+          "otherTags": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "action": "strike",
+        "area": null
+      },
+      "type": "melee",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "folder": null,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!yhCFz4PyGPpFRr1O.gu96K11Wqu5OcYew"
+    },
+    {
+      "_id": "sYzEwjtXD4GsP03b",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "name": "Hibernation",
+      "sort": 200000,
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "interaction",
+        "description": {
+          "value": "<p>An akata can secrete resin that encases it safely in a noqual cocoon. The cocoon has Hardness 9, 40 HP, and a BT of 18. It has resistance 5 to damage from magical sources. While ensconced within this cocoon, the akata can't be harmed, doesn't need to eat or drink, and gains @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg]{Lifesense} 30 feet. During its hibernation, the akata remains dormant until exposed to extreme heat or it senses a living creature. It can then break free of its cocoon within [[/gmr 1d4 #minutes]]{1d4 minutes}.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "license": "OGL",
+          "remaster": false,
+          "title": "",
+          "authors": ""
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "value": [],
+          "otherTags": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "deathNote": false
+      },
+      "type": "action",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "folder": null,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!yhCFz4PyGPpFRr1O.sYzEwjtXD4GsP03b"
+    },
+    {
+      "_id": "rsf1q6ooMNJFjdfh",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "name": "No Hearing",
+      "sort": 300000,
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "interaction",
+        "description": {
+          "value": "<p>Akatas are immune to auditory effects, automatically critically fail Perception checks that require it to hear, and take a –2 status penalty to Perception checks (but not initiative rolls) that involve sound but also rely on its other senses.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "license": "OGL",
+          "remaster": false,
+          "title": "",
+          "authors": ""
+        },
+        "rules": [
+          {
+            "key": "AdjustDegreeOfSuccess",
+            "selector": "perception",
+            "adjustment": "to-critical-failure",
+            "predicate": [
+              "item:trait:auditory"
+            ]
+          },
+          {
+            "key": "FlatModifier",
+            "value": -2,
+            "type": "status",
+            "selector": [
+              "perception"
+            ],
+            "predicate": [
+              "no-hearing"
+            ]
+          }
+        ],
+        "slug": null,
+        "traits": {
+          "value": [
+            "auditory"
+          ],
+          "otherTags": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "deathNote": false
+      },
+      "type": "action",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "folder": null,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!yhCFz4PyGPpFRr1O.rsf1q6ooMNJFjdfh"
+    },
+    {
+      "_id": "AMnTAvqDDSvhK4rN",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "name": "Salt Water Vulnerability",
+      "sort": 500000,
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "defensive",
+        "description": {
+          "value": "<p>Salt water attacks an akata's cells and acts as a potent acid. If the akata is fully immersed in salt water, it takes @Damage[4d6[acid]] damage from the water immediately and at the end of each of its turns as long as it remains immersed. Its weakness to salt water applies to this damage.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "license": "OGL",
+          "remaster": false,
+          "title": "",
+          "authors": ""
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "value": [],
+          "otherTags": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "deathNote": false
+      },
+      "type": "action",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "folder": null,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!yhCFz4PyGPpFRr1O.AMnTAvqDDSvhK4rN"
+    },
+    {
+      "_id": "L17R2FDChGWE5pgD",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "name": "Void Death",
+      "sort": 600000,
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "offensive",
+        "description": {
+          "value": "<p>An akata implants microscopic larvae into any creature it bites, but only Small or Medium humanoids make suitable hosts; all other creatures are @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1} at Stage 2 and further instead.</p><hr /><p><strong>Saving Throw</strong> @Check[fortitude|dc:17]</p><p><strong>Stage 1</strong> carrier with no ill effect 1 (1 day)</p><p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{Drained 1} (1 day)</p><p><strong>Stage 3</strong> as stage 2 (1 day)</p><p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.HL2l2VRSaQHu9lUw]{Fatigued} (1 day)</p><p><strong>Stage 5</strong> as stage 4 (1 day)</p><p><strong>Stage 6</strong> dead and corpse rises as a void zombie in [[/gmr 2d4 #hours]]{2d4 hours}</p>",
+          "gm": ""
+        },
+        "publication": {
+          "license": "OGL",
+          "remaster": false,
+          "title": "",
+          "authors": ""
+        },
+        "rules": [],
+        "slug": "void-death",
+        "traits": {
+          "value": [
+            "disease"
+          ],
+          "otherTags": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "deathNote": false
+      },
+      "type": "action",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "folder": null,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!yhCFz4PyGPpFRr1O.L17R2FDChGWE5pgD"
+    },
+    {
+      "folder": null,
+      "name": "No Breath",
+      "type": "action",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.95,
+          "previous": {
+            "schema": 0.946,
+            "foundry": "13.350",
+            "system": "7.6.4"
+          }
+        },
+        "description": {
+          "value": "<p>@Localize[SF2E.NPC.Abilities.Glossary.NoBreath]</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "Starfinder Alien Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "actionType": {
+          "value": "passive"
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "defensive",
+        "deathNote": false
+      },
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "ownership": {
+        "default": 0,
+        "uALuXwktnyPWpcY7": 3,
+        "lBn9t2oEMiiJjyzv": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": "Compendium.sf2e-anachronism.creature-ability-glossary.Item.rePdFswJLQfoeDSp",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.4"
+      },
+      "sort": 300000,
+      "_id": "JDDeYa6aBixOFNm9",
+      "_key": "!actors.items!yhCFz4PyGPpFRr1O.JDDeYa6aBixOFNm9"
+    }
+  ],
+  "name": "Akata",
+  "system": {
+    "attributes": {
+      "hp": {
+        "value": 15,
+        "temp": 0,
+        "max": 15,
+        "details": ""
+      },
+      "ac": {
+        "value": 16,
+        "details": ""
+      },
+      "allSaves": {
+        "value": ""
+      },
+      "speed": {
+        "value": 30,
+        "otherSpeeds": [
+          {
+            "type": "climb",
+            "value": 15
+          }
+        ],
+        "details": ""
+      },
+      "immunities": [
+        {
+          "exceptions": [],
+          "type": "disease"
+        },
+        {
+          "exceptions": [],
+          "type": "auditory"
+        },
+        {
+          "exceptions": [],
+          "type": "inhaled"
+        }
+      ],
+      "resistances": [
+        {
+          "type": "fire",
+          "value": 5
+        },
+        {
+          "type": "poison",
+          "value": 5
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "salt-water",
+          "value": 5
+        }
+      ]
+    },
+    "initiative": {
+      "statistic": "perception"
+    },
+    "details": {
+      "languages": {
+        "value": [],
+        "details": ""
+      },
+      "level": {
+        "value": 1
+      },
+      "blurb": "",
+      "publicNotes": "<p>Few creatures inspire more dread in isolated explorers and lonely space stations than the breathless, leonine akatas, which infest creatures with parasites to transform them into ravenous void zombies.</p><hr /><p>An akata's toothy maw, glowing yellow eyes, and lashing twin tails mark it as a silent predator. Their slinking, hairless blue flesh spreads out into a mane of rubbery tentacles. Despite lacking ears, these quadrupeds stalk prey with an enhanced sight and sense of smell. Akatas typically stand at about 3-1/2 feet tall and weigh 400 pounds.</p><p>In times of scarcity, akatas ooze noqual from their pores and spin pale green crystalline cocoons capable of holding them in stasis for centuries. They can even use their cocoons to traverse space and find new hosts for their larvae. When a host dies from this infestation, known as void death, the strongest offspring animates the cadaver as a void zombie. Fiercely territorial, they hunt in colonies that are capable of bringing a settlement to its knees within weeks.</p>",
+      "privateNotes": "",
+      "publication": {
+        "title": "Starfinder Alien Core",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "resources": {},
+    "_migration": {
+      "version": 0.946,
+      "previous": {
+        "schema": 0.943,
+        "foundry": "13.350",
+        "system": "7.5.2"
+      }
+    },
+    "abilities": {
+      "str": {
+        "mod": 4
+      },
+      "dex": {
+        "mod": 2
+      },
+      "con": {
+        "mod": 4
+      },
+      "int": {
+        "mod": -4
+      },
+      "wis": {
+        "mod": 3
+      },
+      "cha": {
+        "mod": 0
+      }
+    },
+    "perception": {
+      "details": "no hearing",
+      "mod": 6,
+      "senses": [
+        {
+          "type": "darkvision"
+        },
+        {
+          "acuity": "imprecise",
+          "range": 30,
+          "type": "scent"
+        }
+      ],
+      "vision": true
+    },
+    "saves": {
+      "fortitude": {
+        "value": 9,
+        "saveDetail": ""
+      },
+      "reflex": {
+        "value": 5,
+        "saveDetail": ""
+      },
+      "will": {
+        "value": 6,
+        "saveDetail": ""
+      }
+    },
+    "skills": {
+      "acrobatics": {
+        "base": 7
+      },
+      "athletics": {
+        "base": 7
+      },
+      "stealth": {
+        "base": 7
+      }
+    },
+    "traits": {
+      "value": [
+        "aberration"
+      ],
+      "rarity": "common",
+      "size": {
+        "value": "med"
+      }
+    }
+  },
+  "type": "npc",
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "pf2e",
+    "systemVersion": "7.6.2"
+  },
+  "effects": [],
+  "prototypeToken": {
+    "name": "Akata",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "systems/pf2e/icons/default-icons/npc.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": true,
+        "autoscale": true
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "folder": null,
+  "flags": {},
+  "_id": "yhCFz4PyGPpFRr1O",
+  "ownership": {
+    "default": 0,
+    "yECpvB6rPSLHk9Lh": 3
+  },
+  "sort": 0,
+  "_key": "!actors!yhCFz4PyGPpFRr1O"
+}

@@ -1,0 +1,375 @@
+{
+  "folder": "D8Q2XWm5N91mGuw7",
+  "name": "Disintegration Chamber",
+  "type": "hazard",
+  "ownership": {
+    "default": 0,
+    "kFKtt3r5Xd5l6LFK": 3
+  },
+  "prototypeToken": {
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": false,
+        "autoscale": false
+      }
+    },
+    "height": 1,
+    "width": 1,
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "name": "Disintegration Chamber",
+    "displayName": 20,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/pf2e/icons/default-icons/hazard.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": true,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.942,
+      "previous": null
+    },
+    "traits": {
+      "value": [
+        "tech",
+        "trap",
+        "mechanical"
+      ],
+      "rarity": "common",
+      "size": {
+        "value": "lg"
+      }
+    },
+    "attributes": {
+      "hp": {
+        "value": 60,
+        "max": 60,
+        "temp": 0,
+        "details": "(BT 30)"
+      },
+      "ac": {
+        "value": 27
+      },
+      "hardness": 15,
+      "stealth": {
+        "value": 16,
+        "details": "<p>(expert) or DC 31 (expert) to notice the control panel</p>"
+      },
+      "immunities": [
+        {
+          "type": "critical-hits",
+          "exceptions": []
+        },
+        {
+          "type": "precision",
+          "exceptions": []
+        }
+      ],
+      "weaknesses": [],
+      "resistances": [],
+      "emitsSound": "encounter"
+    },
+    "details": {
+      "description": "<p>When sensors detect movement in the trapped room, the doors seal shut, and four wall apertures open, releasing disintegrating nanites into the room.</p>",
+      "level": {
+        "value": 8
+      },
+      "isComplex": true,
+      "disable": "<p>@Check[crafting|dc:22] (trained) or Thievery (trained) on the control panel to deactivate the trap, or @Check[computers|dc:24] (trained) to reprogram the control panel</p>",
+      "routine": "<p>(1 action) The trap launches nanites against every creature in the room as 1 action. Because it launches nanites continuously, the trap can also use the Nanite Swarm free action (see below) to launch nanites at each creature during that creature's turn.</p>",
+      "reset": "<p>The trap deactivates and resets after 1 minute.</p>",
+      "publication": {
+        "title": "Starfinder GM Core",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "saves": {
+      "fortitude": {
+        "value": 19
+      },
+      "reflex": {
+        "value": 13
+      },
+      "will": {
+        "value": 0
+      }
+    }
+  },
+  "img": "systems/pf2e/icons/default-icons/hazard.svg",
+  "items": [
+    {
+      "type": "action",
+      "name": "Nanite Release",
+      "system": {
+        "actionType": {
+          "value": "reaction"
+        },
+        "description": {
+          "value": "<p><strong>Trigger</strong> A creature enters the room or ends its turn in the room</p><hr /><p><strong>Effect</strong> The trap makes a nanite Strike against the triggering creature, then rolls initiative.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.942,
+          "previous": {
+            "schema": null,
+            "foundry": "13.347",
+            "system": "7.4.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "HUevG60qrY45gPjx",
+      "img": "systems/pf2e/icons/default-icons/action.svg",
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "kFKtt3r5Xd5l6LFK": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.347",
+        "systemId": "pf2e",
+        "systemVersion": "7.4.2"
+      },
+      "_key": "!actors.items!LW90AgREpCERQyNo.HUevG60qrY45gPjx"
+    },
+    {
+      "type": "melee",
+      "name": "Nanite",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.942,
+          "previous": null
+        },
+        "description": {
+          "value": "<p>No multiple attack penalty</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "damageRolls": {
+          "y3N5ZhtFrGc8inJx": {
+            "damage": "1d10+5",
+            "damageType": "acid",
+            "category": null
+          }
+        },
+        "bonus": {
+          "value": 20
+        },
+        "attackEffects": {
+          "value": []
+        }
+      },
+      "_id": "ww58D0gKt2sPAK5X",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "kFKtt3r5Xd5l6LFK": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.347",
+        "systemId": "pf2e",
+        "systemVersion": "7.4.2"
+      },
+      "_key": "!actors.items!LW90AgREpCERQyNo.ww58D0gKt2sPAK5X"
+    },
+    {
+      "type": "action",
+      "name": "Nanite Swarm",
+      "system": {
+        "actionType": {
+          "value": "free"
+        },
+        "description": {
+          "value": "<p><strong>Trigger</strong> A creature within the room ends its turn</p><hr /><p><strong>Effect</strong> The trap makes a nanite Strike against the triggering creature.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.942,
+          "previous": {
+            "schema": null,
+            "foundry": "13.347",
+            "system": "7.4.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "V4oWmVKWqtC70akd",
+      "img": "systems/pf2e/icons/default-icons/action.svg",
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "kFKtt3r5Xd5l6LFK": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.347",
+        "systemId": "pf2e",
+        "systemVersion": "7.4.2"
+      },
+      "_key": "!actors.items!LW90AgREpCERQyNo.V4oWmVKWqtC70akd"
+    }
+  ],
+  "flags": {
+    "pf2e": {
+      "editHazard": {
+        "value": false
+      }
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "pf2e",
+    "systemVersion": "7.4.2"
+  },
+  "_id": "LW90AgREpCERQyNo",
+  "sort": 400000,
+  "_key": "!actors!LW90AgREpCERQyNo"
+}

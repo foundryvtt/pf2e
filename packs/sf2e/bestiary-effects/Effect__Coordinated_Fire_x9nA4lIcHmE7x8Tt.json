@@ -1,0 +1,98 @@
+{
+  "name": "Effect: Coordinated Fire",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.943,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You gain a +2 circumstance bonus to your next attack roll.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Alien Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "TokenMark",
+        "slug": "coordinateed-fire",
+        "uuid": ""
+      },
+      {
+        "key": "FlatModifier",
+        "selector": [
+          "attack"
+        ],
+        "value": 2,
+        "type": "circumstance",
+        "removeAfterRoll": "if-enabled",
+        "predicate": [
+          "target:mark:coordinated-fire"
+        ]
+      },
+      {
+        "key": "Note",
+        "predicate": [
+          "target:mark:coordinated-fire"
+        ],
+        "outcome": [
+          "success",
+          "criticalSuccess"
+        ],
+        "selector": [
+          "attack"
+        ],
+        "title": "{item|name}",
+        "text": "SF2E.NPCAbility.AeonGuard.Trooper.CoordinatedFire.Note"
+      }
+    ],
+    "slug": "effect-coordinated-fire",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 3
+    },
+    "duration": {
+      "value": 1,
+      "unit": "rounds",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "icons/skills/targeting/target-strike-triple-blue.webp",
+  "folder": null,
+  "ownership": {
+    "default": 0,
+    "qA45GVv5hySaf9b5": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "pf2e",
+    "systemVersion": "7.7.3"
+  },
+  "_id": "x9nA4lIcHmE7x8Tt",
+  "sort": 2200000,
+  "_key": "!items!x9nA4lIcHmE7x8Tt"
+}

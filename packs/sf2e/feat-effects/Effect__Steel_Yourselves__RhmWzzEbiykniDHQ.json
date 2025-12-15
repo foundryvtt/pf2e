@@ -1,0 +1,108 @@
+{
+  "folder": null,
+  "name": "Effect: Steel Yourselves!",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.actions.Item.gZr207z8Q7AuH2RT]{Steel Yourselves!}</p><p>You gain temporary Hit Points equal to the origin's Charisma modifier + half their level</p><p><strong>Lead by Example</strong> You gain a +1 status bonus to saving throws against effects that deal damage.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+            "value": "lead-by-example"
+          },
+          {
+            "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+            "value": "not-lead-by-example"
+          }
+        ],
+        "rollOption": "brace-for-impact",
+        "key": "ChoiceSet",
+        "prompt": "SF2E.SpecificRule.Envoy.Directive.LeadByExample.Prompt"
+      },
+      {
+        "key": "TempHP",
+        "value": "@item.origin.abilities.cha.mod + floor(@item.origin.level / 2)",
+        "predicate": [
+          {
+            "not": "parent:origin:item:tag:unstoppable-directives"
+          }
+        ]
+      },
+      {
+        "key": "TempHP",
+        "value": "@item.origin.abilities.cha.mod + floor(@item.origin.level / 2) + @item.origin.level",
+        "predicate": [
+          "parent:origin:item:tag:unstoppable-directives"
+        ]
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "saving-throw",
+        "value": 1,
+        "type": "status",
+        "predicate": [
+          "damaging-effect",
+          "brace-for-impact:lead-by-example"
+        ]
+      }
+    ],
+    "slug": "effect-steel-yourselves",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 3
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/blue-comet-insignia.webp",
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "RhmWzzEbiykniDHQ",
+  "sort": 5800000,
+  "_key": "!items!RhmWzzEbiykniDHQ"
+}

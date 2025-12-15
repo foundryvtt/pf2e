@@ -1,0 +1,106 @@
+{
+  "folder": "BNBCp5rVNuHAoOFS",
+  "name": "Rhythm",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You feel the song that moves the stars, channeling this cosmic beat through the power of audible rhythm and universal vibrations known by many as the Song of the Spheres. You might simply have a melody or tune in your mind that you feel compelled to share, beginning with the allies tied to your bond.</p><p><strong>Tradition</strong> primal</p><p><strong>Connection Skill</strong> Performance</p><p><strong>Connection Spells</strong> cantrip: @UUID[Compendium.pf2e.spells-srd.Item.yvs1zN5Pai5U4CJX]{Summon Instrument}; 1st: @UUID[Compendium.sf2e-anachronism.spells.Item.5ZZca1GGJs44OxC8]{Motivating Ringtone}; 2nd: @UUID[Compendium.pf2e.spells-srd.Item.wzLkNU3AAqOSKFPR]{Noise Blast}; 3rd: @UUID[Compendium.pf2e.spells-srd.Item.K2WpC3FFoHrqX9Q5]{Hypnotize}; 4th: @UUID[Compendium.sf2e-anachronism.spells.Item.Fa1f7VtZitQYrArX]{Battle Sonata}; 5th: @UUID[Compendium.pf2e.spells-srd.Item.BilnTGuXrof9Dt9D]{Synaptic Pulse}; 6th: @UUID[Compendium.pf2e.spells-srd.Item.RQjSQVZRG497cJhX]{Vibrant Pattern}; 7th: @UUID[Compendium.sf2e-anachronism.spells.g9QLswd5uqDdcCjv]{Howl}; 8th: @UUID[Compendium.pf2e.spells-srd.Item.Jvyy6oVIQsD34MHB]{Uncontrollable Dance}; 9th: @UUID[Compendium.pf2e.spells-srd.Item.FmNDwqMEjeTEGPrY]{Unfathomable Song}</p><p><strong>Epiphany Spells</strong> initial: @UUID[Compendium.sf2e-anachronism.spells.Item.smCC1LNhMb7Z1lrU]{Anthem}; advanced: @UUID[Compendium.sf2e-anachronism.spells.Item.AlYzxLKWZujnzsjJ]{Shuffle}; greater: @UUID[Compendium.sf2e-anachronism.spells.Item.Ii8adgcCejAovsNv]{Remix}</p><p><strong>Harmony</strong> When you Transfer Vitality, you can extend the duration of any active epiphany from the rhythm connection by 1 round.</p><p><strong>Perfect Harmony</strong> The first time each round you Transfer Vitality, the target who regained Hit Points can Stride as a free action. This has the traversal trait.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.performance.rank",
+        "value": 1
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "override",
+        "path": "flags.sf2e.mystic.tradition",
+        "value": "primal"
+      },
+      {
+        "itemType": "action",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "predicate": [
+          "item:slug:transfer-vitality"
+        ],
+        "property": "description",
+        "value": [
+          {
+            "title": "SF2E.SpecificRule.Mystic.Harmony.Label",
+            "text": "SF2E.SpecificRule.Mystic.Connection.Rhythm.Harmony.Addendum"
+          },
+          {
+            "title": "SF2E.SpecificRule.Mystic.Harmony.PerfectLabel",
+            "text": "SF2E.SpecificRule.Mystic.Connection.Rhythm.PerfectHarmony.Addendum",
+            "predicate": [
+              "feature:perfect-harmony"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "rhythm",
+    "traits": {
+      "otherTags": [
+        "mystic-connection"
+      ],
+      "value": [
+        "mystic"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "classfeature",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "jV9LIUswOPkVRC49",
+  "img": "icons/magic/sonic/bell-alarm-red-purple.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!jV9LIUswOPkVRC49"
+}

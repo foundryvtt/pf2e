@@ -1,0 +1,95 @@
+{
+  "folder": "ZSigIPW9fBZCtlrS",
+  "name": "Sense Emotions",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You can detect the emotions of others, though you lack the ability to sort out the complexities of these emotions. You gain emotion sense as an imprecise sense with a range of 30 feet. This means you can detect and determine the location of creatures that possess emotions. You gain a +2 circumstance bonus to Perception checks when using the @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{Seek} action to find @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{Hidden} or undetected creatures within the range of your emotion sense who's under an emotion effect, such as rage, the frightened condition, or any spell with the emotion trait.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "domain": "all",
+        "key": "RollOption",
+        "option": "sense-emotions",
+        "toggleable": true
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "perception",
+        "value": 2,
+        "type": "circumstance",
+        "predicate": [
+          {
+            "or": [
+              "sense-emotions",
+              "action:seek"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "sense-emotions",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "vlaka"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 9
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "empathic vlaka"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": -75000,
+  "ownership": {
+    "default": 0,
+    "mcr1uhoMfGHRQJHX": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": "Item.FwNss6LroM7KZSUB",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "FlMtCbhm4ARYYhpt",
+  "_key": "!items!FlMtCbhm4ARYYhpt"
+}

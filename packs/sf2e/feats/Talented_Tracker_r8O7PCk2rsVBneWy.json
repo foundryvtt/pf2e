@@ -1,0 +1,105 @@
+{
+  "folder": "8pW9aXcHLw893WYN",
+  "name": "Talented Tracker",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Your keen nose makes you an excellent tracker. You gain the trained proficiency rank in Survival. If you would automatically become trained in Survival (from your background of class, for example), you instead become trained in a skill of your choice. You gain a +1 circumstance bonus to Survival checks to <a class=\"content-link\" draggable=\"true\" data-link data-uuid=\"Compendium.pf2e.actionspf2e.Item.EA5vuSgJfiHH7plD\" data-id=\"EA5vuSgJfiHH7plD\" data-type=\"Item\" data-pack=\"pf2e.actionspf2e\" data-tooltip=\"Ability Item\"><i class=\"fa-solid fa-person-running-fast\"></i>Track</a>. This bonus increases to +2 when tracking by scent. You also gain the <a class=\"content-link\" draggable=\"true\" data-link data-uuid=\"Compendium.pf2e.feats-srd.Item.urQZwmzg2kS53vd5\" data-id=\"urQZwmzg2kS53vd5\" data-type=\"Item\" data-pack=\"pf2e.feats-srd\" data-tooltip=\"Feat/Feature Item\"><i class=\"fa-solid fa-medal\"></i>Experienced Tracker</a> skill feat.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "domain": "all",
+        "key": "RollOption",
+        "label": "Track by scent",
+        "option": "talented-tracker-scent",
+        "toggleable": true
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "survival",
+        "value": 1,
+        "type": "circumstance",
+        "predicate": [
+          "action:track",
+          {
+            "not": "talented-tracker-scent"
+          }
+        ]
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "survival",
+        "value": 2,
+        "predicate": [
+          "action:track",
+          "talented-tracker-scent"
+        ],
+        "type": "circumstance",
+        "label": "Track by scent"
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.pf2e.feats-srd.Item.urQZwmzg2kS53vd5"
+      }
+    ],
+    "slug": "talented-tracker",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "vlaka"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": -450000,
+  "ownership": {
+    "default": 0,
+    "mcr1uhoMfGHRQJHX": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": "Item.FwNss6LroM7KZSUB",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "r8O7PCk2rsVBneWy",
+  "_key": "!items!r8O7PCk2rsVBneWy"
+}

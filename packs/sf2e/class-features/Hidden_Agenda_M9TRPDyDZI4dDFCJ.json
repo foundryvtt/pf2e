@@ -1,0 +1,99 @@
+{
+  "folder": "mOIMElPxY4JeuDAW",
+  "name": "Hidden Agenda",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You've become an expert at veiling your schemes. When a creature rolls a critical success to @UUID[Compendium.pf2e.actionspf2e.Item.1xRFPTFtWtGJ9ELw]{Sense Motive} against you, or a skill check to @UUID[Compendium.pf2e.actionspf2e.Item.plBGdZhqq5JBl1D8]{Gather Information} or @UUID[Compendium.pf2e.actionspf2e.Item.1OagaWtBpVXExToo]{Recall Knowledge} about your secrets, they get a success instead. When you roll a critical failure on a saving throw against an effect or ability that would read or reveal your thoughts, emotions, or intentions, magically or otherwise, you get a failure instead.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "hidden-agenda-or-inscrutable",
+        "toggleable": true,
+        "label": "SF2E.SpecificRule.Envoy.HiddenAgenda.ToggleLabel",
+        "domain": "saving-throw"
+      },
+      {
+        "key": "AdjustDegreeOfSuccess",
+        "selector": "saving-throw",
+        "adjustment": {
+          "criticalFailure": "to-failure"
+        },
+        "predicate": [
+          "hidden-agenda-or-inscrutable"
+        ]
+      },
+      {
+        "key": "EphemeralEffect",
+        "uuid": "Compendium.sf2e-anachronism.feat-effects.Item.9Zp0f8bUTq4iZNBT",
+        "selectors": "perception",
+        "affects": "origin",
+        "predicate": [
+          {
+            "not": "feature:inscrutable"
+          },
+          "action:sense-motive"
+        ]
+      }
+    ],
+    "slug": "hidden-agenda",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "envoy"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 9
+    },
+    "category": "classfeature",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "M9TRPDyDZI4dDFCJ",
+  "img": "modules/sf2e-anachronism/art/icons/abilities/purple-eye.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!M9TRPDyDZI4dDFCJ"
+}

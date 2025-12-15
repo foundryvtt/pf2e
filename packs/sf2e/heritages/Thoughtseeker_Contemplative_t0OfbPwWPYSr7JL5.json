@@ -1,0 +1,81 @@
+{
+  "folder": "avu9UA8wS5gOexiL",
+  "name": "Thoughtseeker Contemplative",
+  "type": "heritage",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Not content with their own thoughts, some contemplatives opened themselves to other minds seeking knowledge throughout the galaxy, developing far-reaching awareness as a result. You are descended from these psychic explorers or trained extensively with their successors. You gain @UUID[Compendium.sf2e-anachronism.spells.Item.qOLMHvkAGsVYLhtn]{Detect Thoughts} as an occult innate cantrip, which you can cast at will. A cantrip is heightened to a spell rank equal to half your level, rounded up. In addition, increase the range of your thoughtsense by 10 feet.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "add",
+        "path": "flags.pf2e.contemplative.vagueThoughtsenseRange",
+        "value": 10
+      },
+      {
+        "itemType": "spell",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "predicate": [
+          "item:slug:detect-thoughts",
+          "spellcasting:innate"
+        ],
+        "property": "other-tags",
+        "value": "ancestral-spell"
+      },
+      {
+        "itemType": "spell",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "predicate": [
+          "item:slug:detect-thoughts",
+          "spellcasting:innate"
+        ],
+        "property": "other-tags",
+        "value": "ancestral-spell:contemplative"
+      }
+    ],
+    "slug": "thoughtseeker-contemplative",
+    "traits": {
+      "otherTags": [],
+      "value": [],
+      "rarity": "common"
+    },
+    "ancestry": {
+      "name": "Contemplative",
+      "slug": "contemplative",
+      "uuid": "Compendium.sf2e-anachronism.ancestries.Item.KFNOUfQWPUBW5zSC"
+    }
+  },
+  "img": "systems/pf2e/icons/default-icons/heritage.svg",
+  "sort": 400000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "t0OfbPwWPYSr7JL5",
+  "_key": "!items!t0OfbPwWPYSr7JL5"
+}

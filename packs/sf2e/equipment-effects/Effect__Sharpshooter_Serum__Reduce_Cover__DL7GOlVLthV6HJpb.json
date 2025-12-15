@@ -1,0 +1,80 @@
+{
+  "folder": null,
+  "name": "Effect: Sharpshooter Serum (Reduce Cover)",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.equipment.Item.xBlfbu0fUmV6ucqR]{Sharpshooter Serum}, @UUID[Compendium.sf2e-anachronism.equipment.Item.vcCeNRokXv5HSlRf]{Sharpshooter Serum (Tactical)} via Ephemeral Effect</p><p>Your circumstance bonus to AC from cover is reduced.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "AdjustModifier",
+        "mode": "subtract",
+        "value": "@item.origin.flags.sf2e.sharpshooterSerum.coverReduction",
+        "selector": "ac",
+        "slug": "cover"
+      },
+      {
+        "key": "AdjustModifier",
+        "mode": "upgrade",
+        "value": 0,
+        "selector": "ac",
+        "slug": "cover"
+      }
+    ],
+    "slug": "effect-sharpshooter-serum-reduce-cover",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 4
+    },
+    "duration": {
+      "value": -1,
+      "unit": "unlimited",
+      "expiry": null,
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/equipment/other/syringe.webp",
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "DL7GOlVLthV6HJpb",
+  "sort": 500000,
+  "_key": "!items!DL7GOlVLthV6HJpb"
+}

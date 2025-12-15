@@ -1,0 +1,118 @@
+{
+  "folder": "7JvVdcPLRxEK9sec",
+  "name": "Frost Module (Commercial)",
+  "type": "equipment",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>This module siphons the heat from the weapon's striking edge and ammunition, powering itself with the excess energy as it chills the air around it. It deals an additional 1d6 cold damage on a successful Strike. On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn unless it succeeds at a @Check[type:fortitude|dc:24] save.</p>"
+    },
+    "rules": [
+      {
+        "key": "DamageDice",
+        "damageType": "cold",
+        "diceNumber": 1,
+        "dieSize": "d6",
+        "selector": "{item|parentItem.id}-damage"
+      },
+      {
+        "key": "Note",
+        "title": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.FrostModule.LabelCommercial",
+        "text": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.FrostModule.CriticalNoteCommercial",
+        "selector": "{item|parentItem.id}-damage",
+        "outcome": [
+          "criticalSuccess"
+        ]
+      }
+    ],
+    "slug": "frost-module-commercial",
+    "_migration": {
+      "version": 0.94,
+      "lastMigration": null,
+      "previous": {
+        "schema": 0.932,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "cold",
+        "magical",
+        "tech"
+      ],
+      "rarity": "common"
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 8
+    },
+    "quantity": 1,
+    "baseItem": null,
+    "bulk": {
+      "value": 0
+    },
+    "hp": {
+      "value": 0,
+      "max": 0
+    },
+    "hardness": 0,
+    "price": {
+      "value": {
+        "sp": 5000
+      }
+    },
+    "equipped": {
+      "carryType": "worn",
+      "invested": null
+    },
+    "containerId": null,
+    "size": "med",
+    "material": {
+      "type": null,
+      "grade": null
+    },
+    "identification": {
+      "status": "identified",
+      "unidentified": {
+        "name": "Unusual Object",
+        "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+        "data": {
+          "description": {
+            "value": ""
+          }
+        }
+      },
+      "misidentified": {}
+    },
+    "usage": {
+      "value": "installed-in-a-weapon"
+    },
+    "subitems": []
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/blue-snowflake-insignia.webp",
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.347",
+    "systemId": "pf2e",
+    "systemVersion": "7.3.1"
+  },
+  "ownership": {
+    "default": 0,
+    "CmdglLq38DpgHzdd": 3,
+    "O8OxKK20UjX7W372": 3
+  },
+  "_id": "CcN2GgKeeau0IUJk",
+  "sort": 1900000,
+  "_key": "!items!CcN2GgKeeau0IUJk"
+}

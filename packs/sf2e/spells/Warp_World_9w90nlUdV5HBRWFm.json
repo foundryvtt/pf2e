@@ -1,0 +1,290 @@
+{
+  "type": "spell",
+  "name": "Warp World",
+  "folder": "AF5tLnq9AryanMqw",
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>You recreate a powerful event from another world in your current reality. All creatures in the area must attempt a Fortitude save. The damage and effects caused by warp world are determined by rolling [[/r 1d6#Warp World Effect]], as detailed on the following table.</p><hr /><p><strong>Heightened (+1)</strong> Damage increases by 1d12, persistent damage increases by 1d6.</p><table class=\"pf2-table\"><thead><tr><th>d6</th><th>Effect</th></tr></thead><tbody><tr><td>1</td><td><strong>Supernova:</strong> An exploding sun deals 4d12 fire damage and 1d6 persistent electrical damage. On a critical failure, creatures take double damage and are @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round.</td></tr><tr><td>2</td><td><strong>Earthquake:</strong> The ground shakes, dealing 4d12 bludgeoning damage. On a critical failure, creatures take double damage and are knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.</td></tr><tr><td>3</td><td><strong>Inferno:</strong> A volcanic eruption or firestorm deals 4d12 fire damage. Everything within the aura is @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed} by smoke for 1 round. On a critical failure, creatures take double damage and are @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1}.</td></tr><tr><td>4</td><td><strong>Eldritch Storm:</strong> A howling tempest of psychic energy deals 4d12 sonic damage and 1d6 persistent mental damage. On a critical failure, creatures take double damage and are @UUID[Compendium.pf2e.conditionitems.Item.yblD8fOR1J8rDwEQ]{Confused} for 1 round.</td></tr><tr><td>5</td><td><strong>Flash Freeze:</strong> A storm from an arctic planet deals 4d12 cold damage. On a critical failure, creatures take double damage and are @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} for 1 round.</td></tr><tr><td>6</td><td><strong>Radioactive Blast:</strong> The echo of a nuclear reaction deals 4d12 bludgeoning damage and 1d6 persistent fire damage. On a critical failure, creatures take double damage, they take @Damage[(@item.rank - 3)d6[persistent,poison]] damage and are @UUID[Compendium.pf2e.conditionitems.Item.HL2l2VRSaQHu9lUw]{Fatigued} as long as the persistent poison damage lasts.</td></tr></tbody></table>"
+    },
+    "rules": [],
+    "slug": "warp-world",
+    "_migration": {
+      "version": 0.94,
+      "lastMigration": null,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "anchoring",
+        "concentrate",
+        "focus",
+        "manipulate",
+        "witchwarper"
+      ],
+      "rarity": "uncommon",
+      "traditions": []
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 4
+    },
+    "requirements": "",
+    "target": {
+      "value": ""
+    },
+    "range": {
+      "value": "within your quantum field"
+    },
+    "area": {
+      "value": 10,
+      "type": "burst"
+    },
+    "time": {
+      "value": "2"
+    },
+    "duration": {
+      "value": "1 round",
+      "sustained": false
+    },
+    "damage": {},
+    "defense": {
+      "save": {
+        "statistic": "fortitude",
+        "basic": false
+      }
+    },
+    "cost": {
+      "value": ""
+    },
+    "location": {
+      "value": null
+    },
+    "counteraction": false,
+    "overlays": {
+      "TkPwsj2NLiMQXa3i": {
+        "name": "Warp World (Supernova)",
+        "system": {
+          "damage": {
+            "siEFh630MP8bDavB": {
+              "formula": "4d12",
+              "kinds": [
+                "damage"
+              ],
+              "type": "fire",
+              "category": null,
+              "materials": [],
+              "applyMod": false
+            },
+            "ZQLQPYzNjcgGMGtn": {
+              "formula": "1d6",
+              "kinds": [
+                "damage"
+              ],
+              "type": "electricity",
+              "category": "persistent",
+              "materials": [],
+              "applyMod": false
+            }
+          },
+          "heightening": {
+            "type": "interval",
+            "interval": 1,
+            "damage": {
+              "siEFh630MP8bDavB": "1d12",
+              "ZQLQPYzNjcgGMGtn": "1d6"
+            },
+            "area": 0
+          }
+        },
+        "sort": 1,
+        "overlayType": "override"
+      },
+      "byq3ktHImaIwHCu3": {
+        "name": "Warp World (Earthquake)",
+        "system": {
+          "damage": {
+            "pnwhsMvsgEXzbgaU": {
+              "formula": "4d12",
+              "kinds": [
+                "damage"
+              ],
+              "type": "bludgeoning",
+              "category": null,
+              "materials": [],
+              "applyMod": false
+            }
+          },
+          "heightening": {
+            "type": "interval",
+            "interval": 1,
+            "damage": {
+              "pnwhsMvsgEXzbgaU": "1d12"
+            },
+            "area": 0
+          }
+        },
+        "sort": 2,
+        "overlayType": "override"
+      },
+      "6LgeJ8dsipzXxqx6": {
+        "name": "Warp World (Inferno)",
+        "system": {
+          "damage": {
+            "EIZwPr89HbVEWuAi": {
+              "formula": "4d12",
+              "kinds": [
+                "damage"
+              ],
+              "type": "fire",
+              "category": null,
+              "materials": [],
+              "applyMod": false
+            }
+          },
+          "heightening": {
+            "type": "interval",
+            "interval": 1,
+            "damage": {
+              "EIZwPr89HbVEWuAi": "1d12"
+            },
+            "area": 0
+          }
+        },
+        "sort": 3,
+        "overlayType": "override"
+      },
+      "R7QFvj2sycSG9SGD": {
+        "name": "Warp World (Eldritch Storm)",
+        "system": {
+          "damage": {
+            "SkFBLSyHcjCU8khv": {
+              "formula": "4d12",
+              "kinds": [
+                "damage"
+              ],
+              "type": "sonic",
+              "category": null,
+              "materials": [],
+              "applyMod": false
+            },
+            "AU0E7Hq6PI9pkNVb": {
+              "formula": "1d6",
+              "kinds": [
+                "damage"
+              ],
+              "type": "mental",
+              "category": "persistent",
+              "materials": [],
+              "applyMod": false
+            }
+          },
+          "heightening": {
+            "type": "interval",
+            "interval": 1,
+            "damage": {
+              "SkFBLSyHcjCU8khv": "1d12",
+              "AU0E7Hq6PI9pkNVb": "1d6"
+            },
+            "area": 0
+          }
+        },
+        "sort": 4,
+        "overlayType": "override"
+      },
+      "SKIsdz2nKD5HIli3": {
+        "name": "Warp World (Flash Freeze)",
+        "system": {
+          "damage": {
+            "JHRfiCVR6lcPi15U": {
+              "formula": "4d12",
+              "kinds": [
+                "damage"
+              ],
+              "type": "cold",
+              "category": null,
+              "materials": [],
+              "applyMod": false
+            }
+          },
+          "heightening": {
+            "type": "interval",
+            "interval": 1,
+            "damage": {
+              "JHRfiCVR6lcPi15U": "1d12"
+            },
+            "area": 0
+          }
+        },
+        "sort": 5,
+        "overlayType": "override"
+      },
+      "sohQ3NdNnmXMV9mr": {
+        "name": "Warp World (Radioactive Blast)",
+        "system": {
+          "damage": {
+            "vOUZHVbNSwNKwRmt": {
+              "formula": "4d12",
+              "kinds": [
+                "damage"
+              ],
+              "type": "bludgeoning",
+              "category": null,
+              "materials": [],
+              "applyMod": false
+            },
+            "My6xZvG2LQfrlTBH": {
+              "formula": "1d6",
+              "kinds": [
+                "damage"
+              ],
+              "type": "fire",
+              "category": "persistent",
+              "materials": [],
+              "applyMod": false
+            }
+          },
+          "heightening": {
+            "type": "interval",
+            "interval": 1,
+            "damage": {
+              "vOUZHVbNSwNKwRmt": "1d12",
+              "My6xZvG2LQfrlTBH": "1d6"
+            },
+            "area": 0
+          }
+        },
+        "sort": 6,
+        "overlayType": "override"
+      }
+    }
+  },
+  "_id": "9w90nlUdV5HBRWFm",
+  "img": "modules/sf2e-anachronism/art/icons/abilities/purple-planet-ringed.webp",
+  "effects": [],
+  "sort": 250000,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": "Item.9w90nlUdV5HBRWFm",
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!9w90nlUdV5HBRWFm"
+}

@@ -1,0 +1,95 @@
+{
+  "folder": null,
+  "name": "Effect: According to My Calculations",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.IJvX7FJ40i84XPuR]{According to My Calculations}</p><p>You gain a circumstance bonus or penalty to your next skill check or attack roll depending on the result.</p>"
+    },
+    "rules": [
+      {
+        "choices": [
+          {
+            "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+            "value": -1
+          },
+          {
+            "label": "PF2E.Check.Result.Degree.Check.success",
+            "value": 1
+          },
+          {
+            "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+            "value": 2
+          }
+        ],
+        "flag": "modifier",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": [
+          "attack-roll",
+          "skill check"
+        ],
+        "value": "@item.flags.pf2e.rulesSelections.modifier",
+        "type": "circumstance",
+        "removeAfterRoll": true
+      }
+    ],
+    "slug": "effect-according-to-my-calculations",
+    "_migration": {
+      "version": 0.935,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 4
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false
+  },
+  "_id": "bbdg6JeElvGWb20A",
+  "img": "icons/commodities/currency/coins-shield-sword-stack-silver.webp",
+  "sort": 7100000,
+  "ownership": {
+    "default": 0,
+    "mcr1uhoMfGHRQJHX": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.0",
+    "exportSource": null
+  },
+  "_key": "!items!bbdg6JeElvGWb20A"
+}

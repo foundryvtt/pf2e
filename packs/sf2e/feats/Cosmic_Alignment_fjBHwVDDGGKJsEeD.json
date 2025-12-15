@@ -1,0 +1,93 @@
+{
+  "type": "feat",
+  "name": "Cosmic Alignment",
+  "folder": "EaA6ao2ULsyK8hXR",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 20
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "solarian"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You reach true alignment with the cosmic cycle. You're permanently @UUID[Compendium.pf2e.conditionitems.Item.nlCjDvLMf2EkV2dl]{Quickened}. You can use your extra action only to Attune or make a Strike with your solar flare or solar weapon.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.pf2e.conditionitems.Item.nlCjDvLMf2EkV2dl",
+        "inMemoryOnly": true
+      },
+      {
+        "itemType": "condition",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "predicate": [
+          "item:granter:id:{item|id}"
+        ],
+        "property": "description",
+        "value": [
+          {
+            "text": "{item|description}"
+          }
+        ]
+      }
+    ],
+    "slug": "cosmic-alignment",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "fjBHwVDDGGKJsEeD",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!fjBHwVDDGGKJsEeD"
+}

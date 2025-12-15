@@ -1,0 +1,103 @@
+{
+  "type": "feat",
+  "name": "Overkill",
+  "folder": "4vRWv0rMwUa9qMmr",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 16
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "soldier",
+        "suppressed"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>Sometimes there's no better way to assure success than to pin a hapless enemy with concentrated firepower. When you @UUID[Compendium.sf2e-anachronism.conditions.Item.enA7BxAjBb7ns1iF]{Suppress} a creature with Area Fire or Auto-Fire and only one creature was in the area of your attack, or when you use @UUID[Compendium.sf2e-anachronism.feats.Item.6AMH5DfG2cSz1tY0]{Concentrated Shot}, the target takes @Damage[1d10[persistent,bleed]] damage. If you critically hit it with your primary target Strike, this increases to @Damage[2d10[persistent,bleed]] damage.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "Note",
+        "selector": "ranged-strike-damage",
+        "text": "{item|description}",
+        "title": "{item|name}",
+        "predicate": [
+          "concentrated-shot"
+        ]
+      },
+      {
+        "key": "ItemAlteration",
+        "itemType": "action",
+        "property": "description",
+        "mode": "add",
+        "value": [
+          {
+            "text": "{item|description}"
+          }
+        ],
+        "predicate": [
+          {
+            "or": [
+              "item:slug:area-fire",
+              "item:slug:auto-fire"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "overkill",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "fa0mijOTL37Nj3bk",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!fa0mijOTL37Nj3bk"
+}

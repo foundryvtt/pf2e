@@ -1,0 +1,95 @@
+{
+  "folder": "ENOnm6LQAJtHzxYA",
+  "name": "Smug Affirmation",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Having overcome countless challenges in your rise to power, your self-confidence isn't just bluster and brains; it's supported by empirical evidence! Your Shielding Arrogance reaction can now also trigger whenever a foe within range of your thoughtsense critically fails an attack against you or critically fails a skill check attempted against you (such as an Intimidation check to @UUID[Compendium.pf2e.actionspf2e.Item.2u915NdUyQan6uKF]{Demoralize} you or an Acrobatics check to @UUID[Compendium.pf2e.actionspf2e.Item.21WIfSu7Xd7uKqV8]{Tumble} around you). Increase the number of temporary Hit Points you gain from @UUID[Compendium.sf2e-anachronism.actions.Item.wI0g2nRfu2d0YFAd]{Shielding Arrogance} to [[/r 2d8]] plus your character level. Increase this by [[/r 1d8]] at 13th level and by an additional [[/r 1d8]] at 17th level.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "description",
+        "itemType": "action",
+        "predicate": [
+          "item:slug:shielding-arrogance"
+        ],
+        "value": [
+          {
+            "text": "{item|description}"
+          }
+        ]
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "add",
+        "value": "floor((@actor.level -1)/4)",
+        "path": "flags.pf2e.contemplative.shieldingArroganceDiceCount"
+      }
+    ],
+    "slug": "smug-affirmation",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "contemplative"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 9
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "imperious contemplative heritage"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 300000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "CEG0OyTuYerUFg97",
+  "_key": "!items!CEG0OyTuYerUFg97"
+}

@@ -1,0 +1,95 @@
+{
+  "type": "feat",
+  "name": "Favored Disguise",
+  "folder": "admZiPs6ML6NgwMt",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 1
+    },
+    "category": "skill",
+    "traits": {
+      "value": [
+        "general",
+        "skill"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You create a favored disguise that you can call upon at a moment's notice. When you Impersonate, you can decide that the disguise becomes your favored disguise. If you have a holoskin or can Change Shape, you can always adopt your favored disguise when Impersonating. You still roll Deception for the Impersonate check but count any critical failure results as failures instead. You can have one favored disguise and gain an additional favored disguise you can employ at expert, master, and legendary proficiency in Deception.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "favored-diguise",
+        "toggleable": true
+      },
+      {
+        "adjustment": {
+          "criticalFailure": "to-failure"
+        },
+        "key": "AdjustDegreeOfSuccess",
+        "predicate": [
+          "action:impersonate",
+          "favored-diguise"
+        ],
+        "selector": "deception"
+      }
+    ],
+    "slug": "favored-disguise",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "trained in Deception"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "XeL6uygxW4u2vMkF",
+  "effects": [],
+  "sort": 900000,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!XeL6uygxW4u2vMkF"
+}

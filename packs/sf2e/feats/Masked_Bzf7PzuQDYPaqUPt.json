@@ -1,0 +1,98 @@
+{
+  "type": "feat",
+  "name": "Masked",
+  "folder": "T2ffDGjgKB5GO1oN",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 5
+    },
+    "category": "ancestry",
+    "traits": {
+      "value": [
+        "kasatha"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>Your masked face prevents others from scrutinizing your appearance, and you've learned to leverage this uncertainty to your advantage in social situations. While your mouth is covered, increase the DC of any Perception check to @UUID[Compendium.pf2e.actionspf2e.Item.1xRFPTFtWtGJ9ELw]{Sense Motive} against you by 2. You gain a +1 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.ewwCglB7XOPLUz72]{Lie}, make a @UUID[Compendium.pf2e.actionspf2e.Item.DCb62iCBrJXy0Ik6]{Request}, or @UUID[Compendium.pf2e.actionspf2e.Item.OX4fy22hQgUHDr0q]{Make an Impression}.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "FlatModifier",
+        "selector": "deception-dc",
+        "value": 2
+      },
+      {
+        "key": "FlatModifier",
+        "selector": [
+          "deception",
+          "diplomacy"
+        ],
+        "slug": "masked-circumstance",
+        "value": 1,
+        "type": "circumstance",
+        "predicate": [
+          {
+            "or": [
+              "action:lie",
+              "action:request",
+              "action:make-an-impression"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "masked",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.1"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "Bzf7PzuQDYPaqUPt",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!Bzf7PzuQDYPaqUPt"
+}

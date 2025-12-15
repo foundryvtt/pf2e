@@ -1,0 +1,101 @@
+{
+  "type": "feat",
+  "name": "Basic Leadership",
+  "folder": "Y5uEMtrXRqNJqJLx",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 4
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "archetype"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You gain a 1st- or 2nd-level envoy feat of your choice.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "choices": {
+          "filter": [
+            "item:category:class",
+            "item:trait:envoy",
+            {
+              "lte": [
+                "item:level",
+                2
+              ]
+            }
+          ],
+          "itemType": "feat"
+        },
+        "flag": "basicLeadership",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "{item|flags.pf2e.rulesSelections.basicLeadership}"
+      }
+    ],
+    "slug": "basic-leadership",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Envoy Dedication"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "7oChczYtNoWFII3r",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!7oChczYtNoWFII3r"
+}

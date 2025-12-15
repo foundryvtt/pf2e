@@ -1,0 +1,88 @@
+{
+  "type": "feat",
+  "name": "Stubborn Corpse",
+  "folder": "m2aHkvLPI7YoGL0E",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 13
+    },
+    "category": "ancestry",
+    "traits": {
+      "value": [
+        "borai"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You're willful and stubborn, and you refuse to accept your own failure—traits that have served you well in life and after death. When you critically fail a saving throw against a mental effect, you get a failure instead. Additionally, you gain the @UUID[Compendium.sf2e-anachronism.actions.Item.SdPRiTobzR8adtXq]{Deny Failure} reaction.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.sf2e-anachronism.actions.Item.SdPRiTobzR8adtXq"
+      },
+      {
+        "key": "AdjustDegreeOfSuccess",
+        "predicate": [
+          "item:trait:mental"
+        ],
+        "selector": "saving-throw",
+        "adjustment": {
+          "criticalFailure": "to-failure"
+        }
+      }
+    ],
+    "slug": "stubborn-corpse",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.1"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "Mt9aWD58GblCbuDL",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!Mt9aWD58GblCbuDL"
+}

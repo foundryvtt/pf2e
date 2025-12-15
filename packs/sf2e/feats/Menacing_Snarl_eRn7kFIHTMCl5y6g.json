@@ -1,0 +1,102 @@
+{
+  "folder": "ZSigIPW9fBZCtlrS",
+  "name": "Menacing Snarl",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p><strong>Requirements</strong> A creature within 30 feet has the frightened condition.</p><hr /><p>You snarl ferociously at a creature within 30 feet, menacing them with bared teeth. Increase the value of the target's frightened condition by 1. The target then becomes temporarily immune to your Menacing Snarl for 24 hours.</p><p>As long as the target is frightened, you gain a +1 circumstance bonus to melee Strikes against that creature, and damage dealt to the creature by your melee Strikes deals an additional @Damage[1[mental]] damage per damage die.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "target-of-menacing-snarl",
+        "label": "SF2E.SpecificRule.Vlaka.MenacingSnarl.Label",
+        "toggleable": true
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "melee-attack-roll",
+        "value": 1,
+        "type": "circumstance",
+        "predicate": [
+          "target-of-menacing-snarl"
+        ]
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "melee-damage",
+        "value": "@weapon.system.damage.dice",
+        "predicate": [
+          "target-of-menacing-snarl"
+        ],
+        "type": "circumstance",
+        "damageType": "mental"
+      }
+    ],
+    "slug": "menacing-snarl",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 9
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "free"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "expert in Intimidation"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": -100000,
+  "ownership": {
+    "default": 0,
+    "mcr1uhoMfGHRQJHX": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": "Item.FwNss6LroM7KZSUB",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "eRn7kFIHTMCl5y6g",
+  "_key": "!items!eRn7kFIHTMCl5y6g"
+}

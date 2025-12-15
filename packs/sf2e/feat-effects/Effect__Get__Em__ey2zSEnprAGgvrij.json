@@ -1,0 +1,150 @@
+{
+  "folder": null,
+  "name": "Effect: Get 'Em!",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.actions.Item.cmCtfURzpbzkxWsy]{Get 'Em!}</p><p>You gain a +1 status bonus to attacks against the marked target.</p><p><strong>Lead by Example</strong> The origin gains a status bonus to their initial Strike against the marked target equal to their Charisma modifier. You gain a status bonus to damage on subsequent Strikes made against the enemy until the start of your next turn.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "TokenMark",
+        "slug": "get-em"
+      },
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+            "value": "lead-by-example",
+            "predicate": [
+              {
+                "or": [
+                  {
+                    "not": "parent:origin:item"
+                  },
+                  "parent:origin:item:tag:envoy-class",
+                  "parent:origin:item:tag:really-get-em"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+            "value": "not-lead-by-example"
+          }
+        ],
+        "rollOption": "get-em",
+        "key": "ChoiceSet",
+        "prompt": "SF2E.SpecificRule.Envoy.Directive.LeadByExample.Prompt"
+      },
+      {
+        "key": "RollOption",
+        "option": "get-em:lead-by-example-strike",
+        "toggleable": true,
+        "value": true,
+        "predicate": [
+          "self:signature:{item|origin.signature}",
+          "get-em:lead-by-example"
+        ],
+        "label": "SF2E.SpecificRule.Envoy.GetEm.LeadByExample.ToggleLabel"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "attack-roll",
+        "value": 1,
+        "type": "status",
+        "predicate": [
+          "target:mark:get-em"
+        ],
+        "slug": "get-em"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "damage",
+        "value": "1+floor(@item.origin.level / 5)",
+        "predicate": [
+          "target:mark:get-em",
+          "get-em:lead-by-example"
+        ],
+        "type": "status",
+        "slug": "get-em-lead-by-example",
+        "hideIfDisabled": true
+      },
+      {
+        "key": "AdjustModifier",
+        "mode": "override",
+        "value": "@actor.abilities.cha.mod",
+        "slug": "get-em-lead-by-example",
+        "selector": "strike-damage",
+        "predicate": [
+          "get-em:lead-by-example-strike"
+        ]
+      },
+      {
+        "key": "AdjustModifier",
+        "slug": "get-em",
+        "selector": "strike-damage",
+        "value": 2,
+        "mode": "override",
+        "predicate": [
+          "parent:origin:item:tag:really-get-em"
+        ]
+      }
+    ],
+    "slug": "effect-get-em",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "rounds",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/orange-finger-beam.webp",
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "ey2zSEnprAGgvrij",
+  "sort": 5900000,
+  "_key": "!items!ey2zSEnprAGgvrij"
+}

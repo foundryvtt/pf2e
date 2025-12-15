@@ -1,0 +1,124 @@
+{
+  "folder": "7JvVdcPLRxEK9sec",
+  "name": "Entropic Destabilizer (Commercial)",
+  "type": "equipment",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Tendrils of dark energy soar from the unit affixed to this weapon, coating it and its ammunition in a disturbing purple hue. When you hit with the weapon, add 1d4 void damage to the damage dealt. In addition, on a critical hit, the target takes 2d4 persistent void damage; if the target has a shield raised, the shield takes the same amount of persistent damage (its wielder rolls the flat check to see if the persistent damage ends, or the GM rolls if the shield is no longer in someone's possession). Unlike normal void damage, the void damage from an entropic destabilizer damages objects, constructs, and the like by eroding them away.</p>"
+    },
+    "rules": [
+      {
+        "key": "DamageDice",
+        "damageType": "void",
+        "diceNumber": 1,
+        "dieSize": "d4",
+        "selector": "{item|parentItem.id}-damage"
+      },
+      {
+        "key": "DamageDice",
+        "damageType": "void",
+        "diceNumber": 2,
+        "dieSize": "d4",
+        "selector": "{item|parentItem.id}-damage",
+        "category": "persistent",
+        "critical": true
+      },
+      {
+        "key": "Note",
+        "title": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.EntropicDestabilizer.LabelCommercial",
+        "text": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.EntropicDestabilizer.Note",
+        "selector": "{item|parentItem.id}-damage"
+      }
+    ],
+    "slug": "entropic-destabilizer-commercial",
+    "_migration": {
+      "version": 0.94,
+      "lastMigration": null,
+      "previous": {
+        "schema": 0.932,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "magical",
+        "tech",
+        "void"
+      ],
+      "rarity": "common"
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 8
+    },
+    "quantity": 1,
+    "baseItem": null,
+    "bulk": {
+      "value": 0
+    },
+    "hp": {
+      "value": 0,
+      "max": 0
+    },
+    "hardness": 0,
+    "price": {
+      "value": {
+        "sp": 5000
+      }
+    },
+    "equipped": {
+      "carryType": "worn",
+      "invested": null
+    },
+    "containerId": null,
+    "size": "med",
+    "material": {
+      "type": null,
+      "grade": null
+    },
+    "identification": {
+      "status": "identified",
+      "unidentified": {
+        "name": "Unusual Object",
+        "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+        "data": {
+          "description": {
+            "value": ""
+          }
+        }
+      },
+      "misidentified": {}
+    },
+    "usage": {
+      "value": "installed-in-a-weapon"
+    },
+    "subitems": []
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/purple-energy-thrusters.webp",
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.347",
+    "systemId": "pf2e",
+    "systemVersion": "7.3.1"
+  },
+  "ownership": {
+    "default": 0,
+    "CmdglLq38DpgHzdd": 3,
+    "O8OxKK20UjX7W372": 3
+  },
+  "_id": "JGbmqiZS3kurgKFu",
+  "sort": 2700000,
+  "_key": "!items!JGbmqiZS3kurgKFu"
+}

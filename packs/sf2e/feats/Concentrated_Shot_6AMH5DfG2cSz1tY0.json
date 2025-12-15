@@ -1,0 +1,90 @@
+{
+  "type": "feat",
+  "name": "Concentrated Shot",
+  "folder": "SWuejic6AO5b0qCu",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 8
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "flourish",
+        "soldier"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p><strong>Requirements</strong> You're wielding an automatic weapon.</p><hr /><p>Focusing your fire enables you to target an enemy for immediate destruction. Make a ranged Strike with an automatic weapon, expending three times the ammo and gaining a +4 circumstance bonus to damage. This bonus increases to +6 at 11th level and +8 at 15th level.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "concentrated-shot",
+        "toggleable": true
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "ranged-strike-damage",
+        "value": "ternary(gte(@actor.level,15),8,ternary(gte(@actor.level,11),6,4))",
+        "type": "circumstance",
+        "predicate": [
+          "concentrated-shot",
+          "item:trait:automatic"
+        ]
+      }
+    ],
+    "slug": "concentrated-shot",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "action"
+    },
+    "actions": {
+      "value": 2
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "6AMH5DfG2cSz1tY0",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!6AMH5DfG2cSz1tY0"
+}

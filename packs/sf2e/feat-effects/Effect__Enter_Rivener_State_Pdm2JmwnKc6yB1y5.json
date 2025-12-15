@@ -1,0 +1,90 @@
+{
+  "folder": null,
+  "name": "Effect: Enter Rivener State",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.kxXC7sNk5GCDqKeZ]{Enter Rivener State}</p><p>You become Large. Your reach increases by 5 feet, and you gain a +2 status bonus to melee damage. You become @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1}.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Invasion's Edge Player's Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "CreatureSize",
+        "reach": {
+          "override": 5
+        },
+        "resizeEquipment": true,
+        "value": "large"
+      },
+      {
+        "inMemoryOnly": true,
+        "key": "GrantItem",
+        "uuid": "Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg",
+        "predicate": [
+          {
+            "not": "feat:enlightened-rivener"
+          }
+        ]
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "melee-damage",
+        "value": 2,
+        "type": "status"
+      }
+    ],
+    "slug": "effect-enter-rivener-state",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 10,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "icons/creatures/reptiles/lizard-mouth-glowing-red.webp",
+  "ownership": {
+    "default": 0,
+    "yECpvB6rPSLHk9Lh": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "pf2e",
+    "systemVersion": "7.7.3"
+  },
+  "_id": "Pdm2JmwnKc6yB1y5",
+  "sort": 200000,
+  "_key": "!items!Pdm2JmwnKc6yB1y5"
+}

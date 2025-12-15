@@ -1,0 +1,556 @@
+{
+  "folder": null,
+  "name": "Effect: Solar Weapon",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.class-features.Item.uUzVTZ7XohXlavB6]{Solar Manifestations}</p><p>You gain a solar weapon Strike.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "actorFlag": true,
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "PF2E.TraitBludgeoning",
+            "value": "bludgeoning"
+          },
+          {
+            "label": "PF2E.TraitPiercing",
+            "value": "piercing"
+          },
+          {
+            "label": "PF2E.TraitSlashing",
+            "value": "slashing"
+          }
+        ],
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.DamageType",
+        "flag": "solarWeaponDamageType",
+        "rollOption": "solar-weapon-damage"
+      },
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "PF2E.TraitAgile",
+            "value": "agile",
+            "predicate": [
+              "feat:twin-weapons"
+            ]
+          },
+          {
+            "label": "PF2E.TraitDisarm",
+            "value": "disarm"
+          },
+          {
+            "label": "PF2E.TraitFreeHand",
+            "value": "free-hand"
+          },
+          {
+            "label": "PF2E.TraitGrapple",
+            "value": "grapple"
+          },
+          {
+            "label": "PF2E.TraitNonlethal",
+            "value": "nonlethal"
+          },
+          {
+            "label": "PF2E.TraitParry",
+            "value": "parry"
+          },
+          {
+            "label": "PF2E.TraitReach",
+            "value": "reach",
+            "predicate": [
+              {
+                "or": [
+                  "class:solarian",
+                  {
+                    "and": [
+                      "feat:solar-weapon-customization",
+                      {
+                        "gte": [
+                          "self:level",
+                          6
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitShove",
+            "value": "shove"
+          },
+          {
+            "label": "PF2E.TraitSweep",
+            "value": "sweep"
+          },
+          {
+            "label": "PF2E.TraitTrip",
+            "value": "trip"
+          },
+          {
+            "label": "PF2E.TraitTwin",
+            "value": "twin",
+            "predicate": [
+              "feat:twin-weapons"
+            ]
+          },
+          {
+            "label": "PF2E.TraitTwoHandD10",
+            "value": "two-hand-d10",
+            "predicate": [
+              {
+                "or": [
+                  "class:solarian",
+                  {
+                    "and": [
+                      "feat:solar-weapon-customization",
+                      {
+                        "gte": [
+                          "self:level",
+                          6
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitVersatileB",
+            "value": "versatile-b",
+            "predicate": [
+              {
+                "not": "solar-weapon-damage:bludgeoning"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitVersatileP",
+            "value": "versatile-p",
+            "predicate": [
+              {
+                "not": "solar-weapon-damage:piercing"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitVersatileS",
+            "value": "versatile-s",
+            "predicate": [
+              {
+                "not": "solar-weapon-damage:slashing"
+              }
+            ]
+          }
+        ],
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.Trait",
+        "flag": "traitOne",
+        "rollOption": "solar-weapon-trait-one",
+        "predicate": [
+          {
+            "or": [
+              "class:solarian",
+              "feat:solar-weapon-customization"
+            ]
+          }
+        ]
+      },
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "PF2E.TraitAgile",
+            "value": "agile",
+            "predicate": [
+              "feat:twin-weapons",
+              {
+                "not": "solar-weapon-trait-one:agile"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitDisarm",
+            "value": "disarm",
+            "predicate": [
+              {
+                "not": "solar-weapon-trait-one:disarm"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitFreeHand",
+            "value": "free-hand",
+            "predicate": [
+              {
+                "not": "solar-weapon-trait-one:free-hand"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitGrapple",
+            "value": "grapple",
+            "predicate": [
+              {
+                "not": "solar-weapon-trait-one:grapple"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitNonlethal",
+            "value": "nonlethal",
+            "predicate": [
+              {
+                "not": "solar-weapon-trait-one:nonlethal"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitParry",
+            "value": "parry",
+            "predicate": [
+              {
+                "not": "solar-weapon-trait-one:parry"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitShove",
+            "value": "shove",
+            "predicate": [
+              {
+                "not": "solar-weapon-trait-one:shove"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitSweep",
+            "value": "sweep",
+            "predicate": [
+              {
+                "not": "solar-weapon-trait-one:sweep"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitTrip",
+            "value": "trip",
+            "predicate": [
+              {
+                "not": "solar-weapon-trait-one:trip"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitTwin",
+            "value": "twin",
+            "predicate": [
+              "feat:twin-weapons",
+              {
+                "not": "solar-weapon-trait-one:twin"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitVersatileB",
+            "value": "versatile-b",
+            "predicate": [
+              {
+                "nor": [
+                  "solar-weapon-damage:bludgeoning",
+                  "solar-weapon-trait-one:versatile-b"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitVersatileP",
+            "value": "versatile-p",
+            "predicate": [
+              {
+                "nor": [
+                  "solar-weapon-damage:piercing",
+                  "solar-weapon-trait-one:versatile-p"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitVersatileS",
+            "value": "versatile-s",
+            "predicate": [
+              {
+                "nor": [
+                  "solar-weapon-damage:slashing",
+                  "solar-weapon-trait-one:versatile-s"
+                ]
+              }
+            ]
+          }
+        ],
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.Trait",
+        "flag": "traitTwo",
+        "rollOption": "solar-weapon-trait-two",
+        "predicate": [
+          {
+            "nor": [
+              "solar-weapon-trait-one:reach",
+              "solar-weapon-trait-one:two-hand-d10"
+            ]
+          },
+          {
+            "or": [
+              "class:solarian",
+              {
+                "and": [
+                  "feat:solar-weapon-customization",
+                  {
+                    "gte": [
+                      "self:level",
+                      6
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "PF2E.WeaponGroupAxe",
+            "value": "axe"
+          },
+          {
+            "label": "PF2E.WeaponGroupBrawling",
+            "value": "brawling"
+          },
+          {
+            "label": "PF2E.WeaponGroupClub",
+            "value": "club"
+          },
+          {
+            "label": "PF2E.WeaponGroupFlail",
+            "value": "flail"
+          },
+          {
+            "label": "PF2E.WeaponGroupHammer",
+            "value": "hammer"
+          },
+          {
+            "label": "PF2E.WeaponGroupKnife",
+            "value": "knife"
+          },
+          {
+            "label": "PF2E.WeaponGroupPick",
+            "value": "pick"
+          },
+          {
+            "label": "PF2E.WeaponGroupPolearm",
+            "value": "polearm"
+          },
+          {
+            "label": "PF2E.WeaponGroupSpear",
+            "value": "spear"
+          },
+          {
+            "label": "PF2E.WeaponGroupSword",
+            "value": "sword"
+          }
+        ],
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.WeaponGroup",
+        "flag": "weaponGroup"
+      },
+      {
+        "category": "martial",
+        "damage": {
+          "base": {
+            "damageType": "{item|flags.pf2e.rulesSelections.solarWeaponDamageType}",
+            "dice": 1,
+            "die": "d8"
+          }
+        },
+        "group": "{item|flags.pf2e.rulesSelections.weaponGroup}",
+        "key": "Strike",
+        "range": null,
+        "slug": "solar-weapon",
+        "traits": [
+          "attuned",
+          "solarian"
+        ],
+        "label": "SF2E.SpecificRule.Solarian.SolarWeapon.Label",
+        "predicate": [
+          {
+            "not": "stellar-attunement:unattuned"
+          }
+        ]
+      },
+      {
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "traits",
+        "value": "{item|flags.pf2e.rulesSelections.traitOne}",
+        "itemType": "weapon",
+        "predicate": [
+          "item:id:{item|id}",
+          {
+            "or": [
+              "class:solarian",
+              "feat:solar-weapon-customization"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "traits",
+        "value": "{item|flags.pf2e.rulesSelections.traitTwo}",
+        "itemType": "weapon",
+        "predicate": [
+          {
+            "or": [
+              "class:solarian",
+              {
+                "and": [
+                  "feat:solar-weapon-customization",
+                  {
+                    "gte": [
+                      "self:level",
+                      6
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "nor": [
+              "solar-weapon-trait-one:reach",
+              "solar-weapon-trait-one:two-hand-d10"
+            ]
+          },
+          "item:id:{item|id}"
+        ]
+      },
+      {
+        "key": "Note",
+        "outcome": [
+          "criticalSuccess",
+          "success"
+        ],
+        "predicate": [
+          "stellar-attunement:graviton"
+        ],
+        "selector": "{item|id}-strike",
+        "text": "SF2E.SpecificRule.Solarian.SolarWeapon.Graviton.Note",
+        "title": "SF2E.SpecificRule.Solarian.StellarAttunement.Graviton"
+      },
+      {
+        "key": "FlatModifier",
+        "label": "SF2E.SpecificRule.Solarian.StellarAttunement.Photon",
+        "selector": "{item|id}-damage",
+        "value": "ceil(@actor.level / 2)",
+        "damageType": "fire",
+        "predicate": [
+          "stellar-attunement:photon"
+        ],
+        "hideIfDisabled": true,
+        "tags": [
+          "photon-attuned"
+        ]
+      },
+      {
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "other-tags",
+        "itemType": "weapon",
+        "predicate": [
+          "item:id:{item|id}"
+        ],
+        "value": "solar-weapon",
+        "priority": 110
+      },
+      {
+        "key": "TokenLight",
+        "value": {
+          "dim": 10,
+          "bright": 5,
+          "animation": {
+            "type": "starlight"
+          },
+          "alpha": 0.2,
+          "color": "#ffd35c"
+        },
+        "predicate": [
+          "stellar-attunement:photon"
+        ]
+      }
+    ],
+    "slug": "effect-solar-weapon",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": -1,
+      "unit": "unlimited",
+      "expiry": null,
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": false
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/solar-fist.webp",
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "UlFxEP3YrbseKA62",
+  "sort": 2200000,
+  "_key": "!items!UlFxEP3YrbseKA62"
+}

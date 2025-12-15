@@ -1,0 +1,93 @@
+{
+  "folder": "3SFWKhzBesp37sy9",
+  "name": "Starship Dweller",
+  "type": "background",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>You grew up on the Idari or another starship and are accustomed to the artificial cycles, tight spaces, and maintenance shifts that have defined your lifestyle.</p><p>Choose two attribute boosts. One must be to <strong>Dexterity</strong> or <strong>Constitution</strong>, and one is a free attribute boost.</p><p>You're trained in the Crafting or Piloting skill and the Idari Lore skill. If you aren't from the Idari, choose another Lore skill relevant to the ship you lived on or Drift Lore. You are never clumsy or @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} while @UUID[Compendium.sf2e-anachronism.conditions.Item.z1ucw4CLwLqHoAp3].</p>"
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "PF2E.Skill.Crafting",
+            "value": "crafting"
+          },
+          {
+            "label": "SF2E.Skill.Piloting",
+            "value": "piloting"
+          }
+        ],
+        "flag": "skill",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.Skill"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+        "value": 1
+      }
+    ],
+    "slug": "starship-dweller",
+    "_migration": {
+      "version": 0.935,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [],
+      "rarity": "uncommon"
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "boosts": {
+      "0": {
+        "value": [
+          "con",
+          "dex"
+        ]
+      },
+      "1": {
+        "value": [
+          "cha",
+          "con",
+          "dex",
+          "int",
+          "str",
+          "wis"
+        ]
+      }
+    },
+    "items": {},
+    "trainedSkills": {
+      "value": [],
+      "lore": []
+    }
+  },
+  "_id": "oishnwqNSfJX2gJz",
+  "img": "systems/pf2e/icons/default-icons/background.svg",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "mcr1uhoMfGHRQJHX": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3",
+    "exportSource": null
+  },
+  "_key": "!items!oishnwqNSfJX2gJz"
+}

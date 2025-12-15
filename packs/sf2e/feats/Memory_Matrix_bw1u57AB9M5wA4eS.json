@@ -1,0 +1,88 @@
+{
+  "type": "feat",
+  "name": "Memory Matrix",
+  "folder": "nbk1Vb4LIX3bblQM",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 17
+    },
+    "category": "ancestry",
+    "traits": {
+      "value": [
+        "android"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You refuse to surrender your autonomy and have erected mental bulwarks and technological protocols to safeguard your mind and memories. Whenever you attempt a Will save against a spell or effect that would give you the @UUID[Compendium.pf2e.conditionitems.Item.yblD8fOR1J8rDwEQ]{Confused} or @UUID[Compendium.pf2e.conditionitems.Item.9qGBRpbX9NEwtAAr] condition, roll that save twice and use the higher result (this is a fortune effect). If you would start your turn confused or controlled, you can immediately attempt a @Check[flat|dc:5]. On a success, you fight that mental control, becoming @UUID[Compendium.pf2e.conditionitems.Item.6uEgoh53GbXuHpTF]{Paralyzed} until the end of your turn rather than acting against your will. If you roll a 20 on this flat check, you immediately end the confused or controlled condition.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "keep": "higher",
+        "key": "RollTwice",
+        "selector": "will",
+        "predicate": [
+          {
+            "or": [
+              "inflicts:confused",
+              "inflicts:controlled"
+            ]
+          }
+        ],
+        "removeAfterRoll": false
+      }
+    ],
+    "slug": "memory-matrix",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.1"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "bw1u57AB9M5wA4eS",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!bw1u57AB9M5wA4eS"
+}

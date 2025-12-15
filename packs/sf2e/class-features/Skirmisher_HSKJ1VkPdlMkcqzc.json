@@ -1,0 +1,95 @@
+{
+  "folder": "9feZwdAlvdlYJ3gO",
+  "name": "Skirmisher",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You specialize in close-quarters missions that require you to operate in crowded or tight spaces, such as inside buildings or vehicles, down narrow alleys, or in busy downtown streets. Whether you're a mugger, bodyguard, assassin, or urban mercenary, you favor pistols and can use them efficiently in tight spaces. You're trained in Acrobatics. You gain a skill feat for Acrobatics.</p><p><strong>Exploit:</strong> You're trained to fight in close combat using pistols. Your ranged Strikes with one-handed ranged weapons don't trigger reactions that are triggered by a ranged attack.</p><p><strong>Enhanced Exploit:</strong> Your point-blank shots are particularly deadly. When you make a successful Strike against an adjacent enemy with a one-handed ranged weapon, you calculate the damage as if the lowest-rolled weapon damage die for the attack had the maximum result instead. At 17th level, the two lowest-rolled damage dice increase to the maximum result.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.acrobatics.rank",
+        "value": 1
+      },
+      {
+        "adjustName": false,
+        "key": "ChoiceSet",
+        "choices": {
+          "filter": [
+            "item:category:skill",
+            "item:level:1"
+          ],
+          "itemType": "feat"
+        },
+        "flag": "feat",
+        "prompt": "PF2E.SpecificRule.Prompt.SkillFeat"
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+      }
+    ],
+    "slug": "skirmisher",
+    "traits": {
+      "otherTags": [
+        "operative-specialization"
+      ],
+      "value": [
+        "operative"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "classfeature",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "HSKJ1VkPdlMkcqzc",
+  "img": "modules/sf2e-anachronism/art/icons/abilities/green-mech-blade.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!HSKJ1VkPdlMkcqzc"
+}

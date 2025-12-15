@@ -1,0 +1,109 @@
+{
+  "folder": "ngd29MpMnU1zmXeW",
+  "name": "Harness Cosmic Forces",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You're among the most powerful of sarcesians and can harness the cosmic forces of the universe to create incredible stellar phenomena. Select one of the following spells, which you can cast once per day as a 7th-rank arcane innate spell: @UUID[Compendium.pf2e.spells-srd.Item.0jadeyQIItIuRgeH]{Eclipse Burst} or @UUID[Compendium.pf2e.spells-srd.Item.a3aQxCpoj1q1NQxC]{Sunburst}.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "choices": {
+          "filter": [
+            {
+              "or": [
+                "item:slug:eclipse-burst",
+                "item:slug:sunburst"
+              ]
+            }
+          ],
+          "itemType": "spell",
+          "slugsAsValues": true
+        },
+        "flag": "spell",
+        "key": "ChoiceSet"
+      },
+      {
+        "itemType": "spell",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "predicate": [
+          "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+          "spellcasting:innate"
+        ],
+        "property": "other-tags",
+        "value": "ancestral-spell"
+      },
+      {
+        "itemType": "spell",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "predicate": [
+          "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+          "spellcasting:innate"
+        ],
+        "property": "other-tags",
+        "value": "ancestral-spell:sarkesian"
+      }
+    ],
+    "slug": "harness-cosmic-forces",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "sarcesian"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 17
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 100000,
+  "ownership": {
+    "default": 0,
+    "mcr1uhoMfGHRQJHX": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": "Item.FwNss6LroM7KZSUB",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "U720v15o8nhNwibY",
+  "_key": "!items!U720v15o8nhNwibY"
+}

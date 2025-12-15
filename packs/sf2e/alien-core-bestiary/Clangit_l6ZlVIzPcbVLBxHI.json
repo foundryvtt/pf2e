@@ -1,0 +1,1305 @@
+{
+  "folder": null,
+  "name": "Clangit",
+  "type": "npc",
+  "prototypeToken": {
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": true,
+        "autoscale": true
+      }
+    },
+    "height": 0.5,
+    "width": 0.5,
+    "name": "Clangit",
+    "displayName": 20,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/pf2e/icons/default-icons/npc.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": true,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "effects": [],
+  "system": {
+    "attributes": {
+      "hp": {
+        "value": 8,
+        "temp": 0,
+        "max": 8,
+        "details": ""
+      },
+      "ac": {
+        "value": 14,
+        "details": ""
+      },
+      "allSaves": {
+        "value": ""
+      },
+      "speed": {
+        "value": 20,
+        "otherSpeeds": [
+          {
+            "type": "fly",
+            "value": 20
+          }
+        ],
+        "details": ""
+      },
+      "resistances": [
+        {
+          "type": "cold",
+          "value": 1
+        },
+        {
+          "type": "electricity",
+          "value": 1
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "cold-iron",
+          "value": 1
+        },
+        {
+          "type": "fire",
+          "value": 1
+        }
+      ]
+    },
+    "initiative": {
+      "statistic": "perception"
+    },
+    "details": {
+      "languages": {
+        "value": [
+          "aklo",
+          "common"
+        ],
+        "details": ""
+      },
+      "level": {
+        "value": -1
+      },
+      "blurb": "",
+      "publicNotes": "<p>Clangits, or space station gremlins, know everything about the inner workings of their home stations and enjoy punishing or pranking the station's larger inhabitants who know less than they do. \"Haunted\" space stations and ships with mysterious power flickers, doors that randomly open and shut, equipment that malfunctions at just the wrong time, and frequent unexplainable accidents are probably the home of one or more clangits.</p><p>When they aren't playing pranks, some clangits monitor and repair the sensitive machinery keeping many older space stations afloat—a fact that has probably saved them from eradication on larger settlements like Absalom Station. Most clangits stand about 2 feet tall and weigh around 7 pounds—the perfect size for slipping through vents and squeezing down maintenance tunnels.</p><hr /><p>Gremlins have plagued the Universe with cruel tricks since long before the Gap, and they've fully adapted to a galaxy filled with technology. Whether meddling with a comm unit, a starship, or an entire space station, gremlins delight in ruination and chaos.</p>",
+      "privateNotes": "",
+      "publication": {
+        "title": "Starfinder Alien Core",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "resources": {},
+    "_migration": {
+      "version": 0.946,
+      "previous": {
+        "schema": 0.943,
+        "foundry": "13.350",
+        "system": "7.5.2"
+      }
+    },
+    "abilities": {
+      "str": {
+        "mod": 0
+      },
+      "dex": {
+        "mod": 2
+      },
+      "con": {
+        "mod": 1
+      },
+      "int": {
+        "mod": 3
+      },
+      "wis": {
+        "mod": 1
+      },
+      "cha": {
+        "mod": 0
+      }
+    },
+    "perception": {
+      "details": "",
+      "mod": 5,
+      "senses": [
+        {
+          "type": "low-light-vision"
+        }
+      ],
+      "vision": true
+    },
+    "saves": {
+      "fortitude": {
+        "value": 5,
+        "saveDetail": ""
+      },
+      "reflex": {
+        "value": 8,
+        "saveDetail": ""
+      },
+      "will": {
+        "value": 6,
+        "saveDetail": ""
+      }
+    },
+    "skills": {
+      "computers": {
+        "base": 8
+      },
+      "crafting": {
+        "base": 5
+      },
+      "stealth": {
+        "base": 4
+      }
+    },
+    "traits": {
+      "value": [
+        "fey",
+        "gremlin",
+        "tech"
+      ],
+      "rarity": "common",
+      "size": {
+        "value": "tiny"
+      }
+    }
+  },
+  "_id": "l6ZlVIzPcbVLBxHI",
+  "img": "systems/pf2e/icons/default-icons/npc.svg",
+  "items": [
+    {
+      "name": "Primal Innate Spells",
+      "type": "spellcastingEntry",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": ""
+        },
+        "rules": [],
+        "slug": null,
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": []
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "ability": {
+          "value": "cha"
+        },
+        "spelldc": {
+          "value": 8,
+          "dc": 16
+        },
+        "tradition": {
+          "value": "primal"
+        },
+        "prepared": {
+          "value": "innate"
+        },
+        "showSlotlessLevels": {
+          "value": true
+        },
+        "proficiency": {
+          "value": 1
+        },
+        "slots": {
+          "slot0": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot1": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot2": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot3": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot4": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot5": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot6": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot7": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot8": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot9": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot10": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot11": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          }
+        },
+        "autoHeightenLevel": {
+          "value": null
+        }
+      },
+      "_id": "BizxVqDlI41wEJ2V",
+      "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!l6ZlVIzPcbVLBxHI.BizxVqDlI41wEJ2V"
+    },
+    {
+      "folder": "lPzcDrjGDFbzuF2r",
+      "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
+      "name": "Invisibility",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>Illusions bend light around the target, rendering it @UUID[Compendium.pf2e.conditionitems.Item.zJxUflt9np0q4yML]{Invisible}. This makes it @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+        },
+        "rules": [],
+        "slug": "invisibility",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "illusion",
+            "manipulate",
+            "subtle"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "arcane",
+            "occult"
+          ]
+        },
+        "publication": {
+          "title": "Pathfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 2
+        },
+        "requirements": "",
+        "target": {
+          "value": "1 creature"
+        },
+        "range": {
+          "value": "touch"
+        },
+        "area": null,
+        "time": {
+          "value": "2"
+        },
+        "duration": {
+          "value": "10 minutes",
+          "sustained": false
+        },
+        "damage": {},
+        "defense": null,
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "BizxVqDlI41wEJ2V",
+          "heightenedLevel": 2
+        },
+        "counteraction": false
+      },
+      "type": "spell",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_id": "H9nQRaG6Qpk6oDvS",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!l6ZlVIzPcbVLBxHI.H9nQRaG6Qpk6oDvS"
+    },
+    {
+      "folder": "T8AzYUgNIAgTJ9Iz",
+      "img": "systems/pf2e/icons/spells/illusory-object.webp",
+      "name": "Illusory Object",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>You create an illusory visual image of a stationary object. The entire image must fit within the spell's area. The object appears to animate naturally, but it doesn't make sounds or generate smells. For example, water would appear to pour down an illusory waterfall, but it would be silent.</p>\n<p>Any creature that touches the image or uses the @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{Seek} action to examine it can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Your image makes appropriate sounds, generates normal smells, and feels right to the touch. The spell gains the auditory and olfactory traits. The duration increases to 1 hour.</p>\n<p><strong>Heightened (5th)</strong> As the 2nd-rank version, but the duration is unlimited.</p>"
+        },
+        "rules": [],
+        "slug": "illusory-object",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "concentrate",
+            "illusion",
+            "manipulate",
+            "visual"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "arcane",
+            "occult"
+          ]
+        },
+        "publication": {
+          "title": "Pathfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 1
+        },
+        "requirements": "",
+        "target": {
+          "value": ""
+        },
+        "range": {
+          "value": "500 feet"
+        },
+        "area": {
+          "type": "burst",
+          "value": 20
+        },
+        "time": {
+          "value": "2"
+        },
+        "duration": {
+          "value": "10 minutes",
+          "sustained": false
+        },
+        "damage": {},
+        "defense": null,
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "BizxVqDlI41wEJ2V",
+          "heightenedLevel": 1
+        },
+        "counteraction": false
+      },
+      "type": "spell",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_id": "F9yWJv2cUjyXfy4O",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!l6ZlVIzPcbVLBxHI.F9yWJv2cUjyXfy4O"
+    },
+    {
+      "type": "spell",
+      "name": "Overheat",
+      "folder": "PUfxgisPd7TTDluV",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>You vent heat toward a nearby target. You deal 2d6 fire damage to the target. On a failed save, the target's held equipment becomes hot to the touch for the next round. Unless the target drops its currently held equipment at the start of its turn, it takes @Damage[(3*@item.rank)[fire]] damage.</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 2d6. Increase the damage of touching affected objects by 3.</p>"
+        },
+        "rules": [],
+        "slug": "overheat",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "concentrate",
+            "fire",
+            "manipulate"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "arcane",
+            "primal"
+          ]
+        },
+        "publication": {
+          "title": "Starfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 1
+        },
+        "requirements": "",
+        "target": {
+          "value": "1 creature"
+        },
+        "range": {
+          "value": "60 feet"
+        },
+        "area": null,
+        "time": {
+          "value": "2"
+        },
+        "duration": {
+          "value": "",
+          "sustained": false
+        },
+        "damage": {
+          "3O8BQ5UDY9uuF2j8": {
+            "formula": "2d6",
+            "kinds": [
+              "damage"
+            ],
+            "type": "fire",
+            "category": null,
+            "materials": [],
+            "applyMod": false
+          }
+        },
+        "defense": {
+          "save": {
+            "statistic": "reflex",
+            "basic": true
+          }
+        },
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "BizxVqDlI41wEJ2V",
+          "heightenedLevel": 1
+        },
+        "counteraction": false,
+        "heightening": {
+          "type": "interval",
+          "interval": 1,
+          "damage": {
+            "3O8BQ5UDY9uuF2j8": "2d6"
+          },
+          "area": 0
+        }
+      },
+      "img": "modules/sf2e-anachronism/art/icons/abilities/orange-timer-fire.webp",
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "_id": "x9I5xlxgPxoFrMbi",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!l6ZlVIzPcbVLBxHI.x9I5xlxgPxoFrMbi"
+    },
+    {
+      "type": "spell",
+      "name": "Adhere",
+      "folder": "9xujKNVgcczpuL4g",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>You create a molecular bond between an unattended object you touch (or an object you're holding) and another object or surface that object is touching. Pulling the object free of that surface requires a successful [[/act force-open]]{Athletics} check against your spell DC to @UUID[Compendium.pf2e.actionspf2e.Item.SjmKHgI7a5Z9JzBx]{Force Open}.</p><p>If you instead touch one unoccupied 5-foot square, that surface becomes charged with adhering magic. That space becomes greater difficult terrain.</p>"
+        },
+        "rules": [],
+        "slug": "adhere",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "cantrip",
+            "concentrate",
+            "manipulate"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "arcane",
+            "occult",
+            "primal"
+          ]
+        },
+        "publication": {
+          "title": "Starfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 1
+        },
+        "requirements": "",
+        "target": {
+          "value": "1 held or unattended object or a 5-foot- square surface"
+        },
+        "range": {
+          "value": "touch"
+        },
+        "area": null,
+        "time": {
+          "value": "1"
+        },
+        "duration": {
+          "value": "1 minute",
+          "sustained": false
+        },
+        "damage": {},
+        "defense": null,
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "BizxVqDlI41wEJ2V"
+        },
+        "counteraction": false
+      },
+      "img": "modules/sf2e-anachronism/art/icons/abilities/tentacle-drone.webp",
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "_id": "1Q3GZuPtxqzH3s4c",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!l6ZlVIzPcbVLBxHI.1Q3GZuPtxqzH3s4c"
+    },
+    {
+      "folder": "D7UVaOiB40wTR6kv",
+      "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
+      "name": "Electric Arc",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>An arc of lightning leaps from one target to another. Each target takes 2d4 electricity damage with a basic Reflex save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
+        },
+        "rules": [],
+        "slug": "electric-arc",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "cantrip",
+            "concentrate",
+            "electricity",
+            "manipulate"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "arcane",
+            "primal"
+          ]
+        },
+        "publication": {
+          "title": "Pathfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 1
+        },
+        "requirements": "",
+        "target": {
+          "value": "1 or 2 creatures"
+        },
+        "range": {
+          "value": "30 feet"
+        },
+        "area": null,
+        "time": {
+          "value": "2"
+        },
+        "duration": {
+          "value": "",
+          "sustained": false
+        },
+        "damage": {
+          "0": {
+            "applyMod": false,
+            "category": null,
+            "formula": "2d4",
+            "kinds": [
+              "damage"
+            ],
+            "materials": [],
+            "type": "electricity"
+          }
+        },
+        "defense": {
+          "save": {
+            "basic": true,
+            "statistic": "reflex"
+          }
+        },
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "BizxVqDlI41wEJ2V"
+        },
+        "counteraction": false,
+        "heightening": {
+          "damage": {
+            "0": "1d4"
+          },
+          "interval": 1,
+          "type": "interval"
+        }
+      },
+      "type": "spell",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_id": "yDqDQFdaigEBYfYJ",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!l6ZlVIzPcbVLBxHI.yDqDQFdaigEBYfYJ"
+    },
+    {
+      "folder": "D7UVaOiB40wTR6kv",
+      "img": "systems/pf2e/icons/spells/ghost-sound.webp",
+      "name": "Figment",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>You create a simple illusory sound or vision. A sound adds the auditory trait to the spell and the sound can't include intelligible words or elaborate music. A vision adds the visual trait, can be no larger than a 5-foot cube, and is clearly crude and undetailed if viewed from within 15 feet. When you Cast or Sustain the Spell, you can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.GkmbTGfg8KcgynOA]{Create a Diversion} with the illusion, gaining a +2 circumstance bonus to your Deception check. If the attempt fails against a creature, that creature disbelieves the <em>figment</em>.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.2Hg3a06gZCSnUgSA]{Spell Effect: Figment}</p>"
+        },
+        "rules": [],
+        "slug": "figment",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "cantrip",
+            "concentrate",
+            "illusion",
+            "manipulate",
+            "subtle"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "arcane",
+            "occult"
+          ]
+        },
+        "publication": {
+          "title": "Pathfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 1
+        },
+        "requirements": "",
+        "target": {
+          "value": ""
+        },
+        "range": {
+          "value": "30 feet"
+        },
+        "area": null,
+        "time": {
+          "value": "2"
+        },
+        "duration": {
+          "value": "",
+          "sustained": true
+        },
+        "damage": {},
+        "defense": null,
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "BizxVqDlI41wEJ2V"
+        },
+        "counteraction": false
+      },
+      "type": "spell",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_id": "eQja5hjzLUhjXt1V",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!l6ZlVIzPcbVLBxHI.eQja5hjzLUhjXt1V"
+    },
+    {
+      "type": "spell",
+      "name": "Recharge Weapon",
+      "folder": "PUfxgisPd7TTDluV",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>You touch a weapon with no remaining ammunition and recharge it with magical energy. The target gains ammunition or charges equal to its expend until the end of your next turn, allowing anyone holding the target to make one Strike with the weapon. This spell only recharges weapons that use ammunition with a cost of 10 credits or less.</p><hr /><p><strong>Heightened (3rd)</strong> The target gains ammunition or charges equal to double its expend.</p><p><strong>Heightened (6th)</strong> The target gains ammunition or charges equal to triple its expend.</p><p><strong>Heightened (9th)</strong> The target gains ammunition or charges equal to quadruple its expend.</p>"
+        },
+        "rules": [],
+        "slug": "recharge-weapon",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "cantrip",
+            "concentrate",
+            "manipulate"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "arcane",
+            "occult"
+          ]
+        },
+        "publication": {
+          "title": "Starfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 1
+        },
+        "requirements": "",
+        "target": {
+          "value": "1 weapon with capacity"
+        },
+        "range": {
+          "value": "touch"
+        },
+        "area": null,
+        "time": {
+          "value": "1"
+        },
+        "duration": {
+          "value": "",
+          "sustained": false
+        },
+        "damage": {},
+        "defense": null,
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "BizxVqDlI41wEJ2V"
+        },
+        "counteraction": false
+      },
+      "img": "modules/sf2e-anachronism/art/icons/abilities/blue-battery-gauge.webp",
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "_id": "OxayOVXMFclYr03B",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!l6ZlVIzPcbVLBxHI.OxayOVXMFclYr03B"
+    },
+    {
+      "type": "melee",
+      "name": "Bite",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "agile",
+            "finesse",
+            "magical"
+          ]
+        },
+        "damageRolls": {
+          "lmtwEIW9fgZC30As": {
+            "damage": "1d4+2",
+            "damageType": "piercing",
+            "category": null
+          }
+        },
+        "bonus": {
+          "value": 7
+        },
+        "attackEffects": {
+          "value": []
+        },
+        "action": "strike",
+        "area": null
+      },
+      "_id": "XnxMT3NqYMMO51Kw",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!l6ZlVIzPcbVLBxHI.XnxMT3NqYMMO51Kw"
+    },
+    {
+      "type": "melee",
+      "name": "Unstable Spark",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "agile",
+            "electricity",
+            "magical",
+            "range-20"
+          ]
+        },
+        "damageRolls": {
+          "xnNmliJC7Vv7HDju": {
+            "damage": "1d4+1",
+            "damageType": "electricity",
+            "category": null
+          }
+        },
+        "bonus": {
+          "value": 7
+        },
+        "attackEffects": {
+          "value": []
+        },
+        "action": "strike",
+        "area": null
+      },
+      "_id": "NXT91DqvKLVFC1wH",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!l6ZlVIzPcbVLBxHI.NXT91DqvKLVFC1wH"
+    },
+    {
+      "type": "action",
+      "name": "Mechanical Trickery",
+      "system": {
+        "actionType": {
+          "value": "action"
+        },
+        "description": {
+          "value": "<p>When a clangit has spent at least 1 hour exploring a ship or space station, the gremlin gains an innate sense of its inner workings and can remotely control mechanical infrastructure within 60 feet, performing simple actions such as opening and shutting airlocks and doors, opening heat vents, activating alarms, turning lights on and off, or tampering with gravity controls.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": 1
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "26e94RXZIquzqk4r",
+      "img": "systems/pf2e/icons/actions/OneAction.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!l6ZlVIzPcbVLBxHI.26e94RXZIquzqk4r"
+    },
+    {
+      "type": "action",
+      "name": "Tech Travel",
+      "system": {
+        "actionType": {
+          "value": "action"
+        },
+        "description": {
+          "value": "<p>The clangit enters adjacent mechanical infrastructure, such as a control panel or pipe network, and instantly emerges from another within 100 feet.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "primal",
+            "teleportation"
+          ]
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": 2
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "OiQhuNpUxinMeyTs",
+      "img": "systems/pf2e/icons/actions/TwoActions.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!l6ZlVIzPcbVLBxHI.OiQhuNpUxinMeyTs"
+    }
+  ],
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "pf2e",
+    "systemVersion": "7.6.2"
+  },
+  "ownership": {
+    "default": 0,
+    "yECpvB6rPSLHk9Lh": 3
+  },
+  "sort": 0,
+  "_key": "!actors!l6ZlVIzPcbVLBxHI"
+}

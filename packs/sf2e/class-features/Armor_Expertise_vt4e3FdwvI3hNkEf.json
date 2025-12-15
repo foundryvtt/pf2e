@@ -1,0 +1,234 @@
+{
+  "folder": "fCUjDoIslLyWWTPv",
+  "name": "Armor Expertise",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p><strong>Mystic</strong> The bonds you've forged protect you like supernatural armor. Your proficiency rank in light armor and unarmored defense increases to expert.</p><hr /><p><strong>Solarian</strong> You've spent so much time in armor that you know how to make the most of its protection. Your proficiency ranks for light armor, medium armor, and unarmored defense increase to expert.</p><hr /><p><strong>Soldier</strong> You have grown accustomed to wearing armor and can make the most of its protection. Your proficiency ranks for light armor, medium armor, heavy armor, and unarmored defense increase to expert. You gain the armor specialization effects of medium and heavy armor.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.proficiencies.defenses.medium.rank",
+        "value": 2,
+        "predicate": [
+          {
+            "or": [
+              "class:solarian",
+              "class:soldier"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.proficiencies.defenses.heavy.rank",
+        "value": 2,
+        "predicate": [
+          "class:soldier"
+        ]
+      },
+      {
+        "key": "Resistance",
+        "predicate": [
+          "armor:category:medium",
+          "armor:group:composite",
+          "class:soldier"
+        ],
+        "type": "piercing",
+        "value": "1 + @armor.system.traits.config.resilient"
+      },
+      {
+        "key": "Resistance",
+        "predicate": [
+          "armor:category:medium",
+          "armor:group:leather",
+          "class:soldier"
+        ],
+        "type": "bludgeoning",
+        "value": "1 + @armor.system.traits.config.resilient"
+      },
+      {
+        "key": "Resistance",
+        "predicate": [
+          "armor:category:medium",
+          "armor:group:plate",
+          "class:soldier"
+        ],
+        "type": "slashing",
+        "value": "1 + @armor.system.traits.config.resilient"
+      },
+      {
+        "key": "Resistance",
+        "predicate": [
+          "armor:category:heavy",
+          "armor:group:composite",
+          "class:soldier"
+        ],
+        "type": "piercing",
+        "value": "2 + @armor.system.traits.config.resilient"
+      },
+      {
+        "key": "Resistance",
+        "predicate": [
+          "armor:category:heavy",
+          "armor:group:leather",
+          "class:soldier"
+        ],
+        "type": "bludgeoning",
+        "value": "2 + @armor.system.traits.config.resilient"
+      },
+      {
+        "key": "Resistance",
+        "predicate": [
+          "armor:category:heavy",
+          "armor:group:plate",
+          "class:soldier"
+        ],
+        "type": "slashing",
+        "value": "2 + @armor.system.traits.config.resilient"
+      },
+      {
+        "key": "Resistance",
+        "predicate": [
+          "armor:category:medium",
+          "armor:group:skeletal",
+          "class:soldier"
+        ],
+        "type": "precision",
+        "value": "3 + @armor.system.traits.config.resilient"
+      },
+      {
+        "key": "Resistance",
+        "predicate": [
+          "armor:category:heavy",
+          "armor:group:skeletal",
+          "class:soldier"
+        ],
+        "type": "precision",
+        "value": "5 + @armor.system.traits.config.resilient"
+      },
+      {
+        "key": "Resistance",
+        "value": "1 + @armor.system.traits.config.resilient",
+        "type": [
+          "acid",
+          "cold",
+          "electricity",
+          "fire"
+        ],
+        "predicate": [
+          "armor:category:medium",
+          "armor:group:ceramic",
+          "class:soldier"
+        ]
+      },
+      {
+        "key": "Resistance",
+        "value": "2 + @armor.system.traits.config.resilient",
+        "type": [
+          "acid",
+          "cold",
+          "electricity",
+          "fire"
+        ],
+        "predicate": [
+          "armor:category:heavy",
+          "armor:group:ceramic",
+          "class:soldier"
+        ]
+      },
+      {
+        "key": "Resistance",
+        "value": "1 + @armor.system.traits.config.resilient",
+        "type": "area-damage",
+        "predicate": [
+          "armor:category:medium",
+          "armor:group:polymer",
+          "class:soldier"
+        ]
+      },
+      {
+        "key": "Resistance",
+        "value": "2 + @armor.system.traits.config.resilient",
+        "type": "area-damage",
+        "predicate": [
+          "armor:category:heavy",
+          "armor:group:polymer",
+          "class:soldier"
+        ]
+      }
+    ],
+    "slug": "armor-expertise",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "mystic",
+        "solarian",
+        "soldier"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 7
+    },
+    "category": "classfeature",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {
+        "light": {
+          "rank": 2,
+          "attribute": null
+        },
+        "unarmored": {
+          "rank": 2,
+          "attribute": null
+        }
+      },
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "vt4e3FdwvI3hNkEf",
+  "img": "modules/sf2e-anachronism/art/icons/equipment/armor/vest-blue-heavy.webp",
+  "sort": 1700000,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "pf2e",
+    "systemVersion": "7.7.4"
+  },
+  "_key": "!items!vt4e3FdwvI3hNkEf"
+}

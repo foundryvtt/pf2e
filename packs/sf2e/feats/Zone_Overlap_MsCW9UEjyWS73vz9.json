@@ -1,0 +1,119 @@
+{
+  "type": "feat",
+  "name": "Zone Overlap",
+  "folder": "PFWVUw85i2vakc4g",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 16
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "anchoring",
+        "witchwarper",
+        "zone"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p><strong>Requirements</strong> Your quantum field is active with one zone affecting it.</p><hr /><p>You cause a second zone to overlap your quantum field. You can choose to apply another zone you're able to create, or apply the existing zone again, improving its effects as follows: @UUID[Compendium.sf2e-anachronism.feats.Item.ryCmTz9Z62qbtmQM]{Danger Zone} deals 1 extra damage, @UUID[Compendium.sf2e-anachronism.feats.Item.sW7AbeYfKc8OH7nG]{Debris Zone} becomes greater difficult terrain, and @UUID[Compendium.sf2e-anachronism.feats.Item.rTebGqlQpa420YQy]{Twisted Dark Zone} ignores the temporary immunity of creatures that previously critically succeeded at the save for 1 round.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "zone-overlap",
+        "toggleable": true
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "danger-zone-inline-damage",
+        "value": 1,
+        "predicate": [
+          "zone-overlap"
+        ]
+      },
+      {
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "description",
+        "itemType": "feat",
+        "predicate": [
+          "item:slug:debris-zone",
+          "zone-overlap"
+        ],
+        "value": [
+          {
+            "text": "SF2E.SpecificRule.Witchwarper.ZoneOverlap.DebrisZone"
+          }
+        ]
+      },
+      {
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "description",
+        "itemType": "feat",
+        "predicate": [
+          "item:slug:twisted-dark-zone",
+          "zone-overlap"
+        ],
+        "value": [
+          {
+            "text": "SF2E.SpecificRule.Witchwarper.ZoneOverlap.TwistedDarkZone"
+          }
+        ]
+      }
+    ],
+    "slug": "zone-overlap",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "action"
+    },
+    "actions": {
+      "value": 1
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "MsCW9UEjyWS73vz9",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!MsCW9UEjyWS73vz9"
+}

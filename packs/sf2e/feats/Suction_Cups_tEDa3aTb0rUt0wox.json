@@ -1,0 +1,91 @@
+{
+  "folder": "iGJXNlZ39jFHOAPU",
+  "name": "Suction Cups",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You @UUID[Compendium.pf2e.actionspf2e.Item.34E7k2YRcsOU5uyl]{Change Shape} to sprout hundreds of suction cups across your limbs. You gain a 15-foot climb Speed as long as you're wearing light armor or no armor.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "suction-cups",
+        "toggleable": true
+      },
+      {
+        "key": "BaseSpeed",
+        "selector": "climb",
+        "value": 15,
+        "predicate": [
+          {
+            "nor": [
+              "armor:category:heavy",
+              "armor:category:medium"
+            ]
+          },
+          "suction-cups"
+        ]
+      }
+    ],
+    "slug": "suction-cups",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "astrazoan"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "action"
+    },
+    "actions": {
+      "value": 1
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 450000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "V4DL7FqWwg5mhC94": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": "Item.SguzfGVqJ5vOySHA",
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "tEDa3aTb0rUt0wox",
+  "_key": "!items!tEDa3aTb0rUt0wox"
+}

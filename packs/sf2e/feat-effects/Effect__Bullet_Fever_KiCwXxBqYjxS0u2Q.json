@@ -1,0 +1,84 @@
+{
+  "folder": null,
+  "name": "Effect: Bullet Fever",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.9RqJNPSx5T6b2WoB]{Bullet Fever}</p><p>You gain temporary Hit Points equal to half your level, you apply precision damage to all targets as though you were Aiming, and you take a –1 circumstance penalty to AC and Will saves.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "TempHP",
+        "value": "floor(@actor.level / 2)"
+      },
+      {
+        "key": "RollOption",
+        "option": "target:mark:aim",
+        "domain": "strike-damage"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": [
+          "ac",
+          "will"
+        ],
+        "value": -1,
+        "type": "circumstance"
+      }
+    ],
+    "slug": "effect-bullet-fever",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 14
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "icons/skills/ranged/bullet-sparks-yellow.webp",
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "KiCwXxBqYjxS0u2Q",
+  "sort": 4100000,
+  "_key": "!items!KiCwXxBqYjxS0u2Q"
+}

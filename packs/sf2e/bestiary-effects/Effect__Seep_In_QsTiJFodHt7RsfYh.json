@@ -1,0 +1,153 @@
+{
+  "name": "Effect: Seep In",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.946,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You gain an effect depending on the nature of the damage.</p><ul><li><p><strong>Energy Damage</strong> Your attacks deal an additional 2d6 damage of the same type as the energy damage dealt to you.</p></li><li><p><strong>Physical Damage</strong> You gain resistance 6 to physical damage. If the damage was dealt by a weapon made of a special material, such as silver, your battering sludge Strike counts as that same material for the duration of the effect.</p></li></ul>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Alien Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "ChoiceSet",
+        "choices": [
+          {
+            "label": "PF2E.TraitEnergy",
+            "value": "energy"
+          },
+          {
+            "label": "PF2E.TraitPhysical",
+            "value": "physical"
+          }
+        ],
+        "rollOption": "seep-in",
+        "adjustName": false
+      },
+      {
+        "key": "ChoiceSet",
+        "choices": {
+          "config": "energyDamageTypes"
+        },
+        "flag": "energyDamageType",
+        "predicate": [
+          "seep-in:energy"
+        ],
+        "adjustName": false
+      },
+      {
+        "key": "ChoiceSet",
+        "choices": [
+          {
+            "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+            "value": "precious-material"
+          },
+          {
+            "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+            "value": "non-precious-material"
+          }
+        ],
+        "rollOption": "seep-in:physical",
+        "predicate": [
+          "seep-in:physical"
+        ],
+        "prompt": "SF2E.NPCAbility.Coposirix.SeepIn.MaterialPrompt",
+        "adjustName": false
+      },
+      {
+        "key": "ChoiceSet",
+        "choices": {
+          "config": "preciousMaterials"
+        },
+        "flag": "preciousMaterial",
+        "prompt": "PF2E.SpecificRule.Prompt.Material",
+        "predicate": [
+          "seep-in:physical:precious-material"
+        ],
+        "adjustName": false
+      },
+      {
+        "key": "DamageDice",
+        "damageType": "{item|flags.pf2e.rulesSelections.energyDamageType}",
+        "dieSize": "d6",
+        "diceNumber": 2,
+        "selector": "attack-damage",
+        "predicate": [
+          "seep-in:energy"
+        ]
+      },
+      {
+        "key": "Resistance",
+        "predicate": [
+          "seep-in:physical"
+        ],
+        "type": "physical",
+        "value": 6
+      },
+      {
+        "key": "AdjustStrike",
+        "property": "materials",
+        "mode": "add",
+        "value": "{item|flags.pf2e.rulesSelections.preciousMaterial}",
+        "definition": [
+          "item:slug:battering-sludge"
+        ],
+        "predicate": [
+          "seep-in:physical:precious-material"
+        ]
+      }
+    ],
+    "slug": "effect-seep-in",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 8
+    },
+    "duration": {
+      "value": 1,
+      "unit": "rounds",
+      "expiry": "turn-end",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "_id": "QsTiJFodHt7RsfYh",
+  "img": "icons/creatures/tentacles/tentacles-thing-green.webp",
+  "folder": null,
+  "sort": 200000,
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "pf2e",
+    "systemVersion": "7.7.3"
+  },
+  "_key": "!items!QsTiJFodHt7RsfYh"
+}

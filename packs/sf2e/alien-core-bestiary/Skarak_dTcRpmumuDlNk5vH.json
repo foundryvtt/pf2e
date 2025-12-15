@@ -1,0 +1,823 @@
+{
+  "type": "npc",
+  "name": "Skarak",
+  "folder": null,
+  "system": {
+    "attributes": {
+      "hp": {
+        "value": 300,
+        "temp": 0,
+        "max": 300,
+        "details": ""
+      },
+      "ac": {
+        "value": 32,
+        "details": ""
+      },
+      "allSaves": {
+        "value": ""
+      },
+      "speed": {
+        "value": 25,
+        "otherSpeeds": [
+          {
+            "type": "burrow",
+            "value": 15
+          },
+          {
+            "type": "climb",
+            "value": 25
+          }
+        ],
+        "details": ""
+      },
+      "immunities": [
+        {
+          "type": "acid"
+        }
+      ],
+      "resistances": [
+        {
+          "type": "cold",
+          "value": 10
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "fire",
+          "value": 10
+        }
+      ]
+    },
+    "initiative": {
+      "statistic": "perception"
+    },
+    "details": {
+      "languages": {
+        "value": [],
+        "details": ""
+      },
+      "level": {
+        "value": 13
+      },
+      "blurb": "",
+      "publicNotes": "<p>The skarak is a ravenous mass of spiked chitin and teeth propelled with frightening speed by a collection of spindly, arachnid legs. It rampages across its territories, consuming everything smaller than itself and taking delight in the destruction it leaves in its wake. It's difficult to hide from a skarak, as it'll rip down fortifications and smash through concrete walls to get at prey cowering inside buildings. It's even more difficult to run from a skarak since it can spit a corrosive webbing that magically binds its prey to itself, allowing it to pull its prey across any distance to within reach of its waiting maw.</p><p>A skarak possesses a terrible cunning to complement its destructive might. It often watches a targeted settlement for days, analyzing defenses before launching a devastating offensive. It's typically a solitary creature except when training a newly hatched brood to hunt. During this period, it ranges ahead of its young, rampaging through densely populated areas and leaving wounded, weakened targets behind it. Survivors of the initial rampage soon discover they aren't the lucky ones as the skarak young come after, devouring all in their path.</p>",
+      "privateNotes": "",
+      "publication": {
+        "title": "Starfinder Alien Core",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "resources": {},
+    "_migration": {
+      "version": 0.946,
+      "previous": {
+        "schema": null,
+        "foundry": "13.350",
+        "system": "7.5.2"
+      }
+    },
+    "abilities": {
+      "str": {
+        "mod": 8
+      },
+      "dex": {
+        "mod": 4
+      },
+      "con": {
+        "mod": 5
+      },
+      "int": {
+        "mod": -2
+      },
+      "wis": {
+        "mod": 4
+      },
+      "cha": {
+        "mod": -2
+      }
+    },
+    "perception": {
+      "details": "",
+      "mod": 23,
+      "senses": [
+        {
+          "type": "darkvision"
+        },
+        {
+          "type": "tremorsense",
+          "acuity": "imprecise",
+          "range": 60
+        }
+      ],
+      "vision": true
+    },
+    "saves": {
+      "fortitude": {
+        "value": 26,
+        "saveDetail": ""
+      },
+      "reflex": {
+        "value": 24,
+        "saveDetail": ""
+      },
+      "will": {
+        "value": 23,
+        "saveDetail": ""
+      }
+    },
+    "skills": {
+      "acrobatics": {
+        "base": 24
+      },
+      "athletics": {
+        "base": 27
+      },
+      "survival": {
+        "base": 24
+      }
+    },
+    "traits": {
+      "value": [
+        "beast"
+      ],
+      "rarity": "common",
+      "size": {
+        "value": "huge"
+      }
+    }
+  },
+  "_id": "dTcRpmumuDlNk5vH",
+  "img": "systems/pf2e/icons/default-icons/npc.svg",
+  "prototypeToken": {
+    "name": "Skarak",
+    "displayName": 20,
+    "actorLink": false,
+    "width": 3,
+    "height": 3,
+    "texture": {
+      "src": "systems/pf2e/icons/default-icons/npc.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": true,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": true,
+        "autoscale": true
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [
+    {
+      "type": "melee",
+      "name": "Bite",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "reach-10"
+          ]
+        },
+        "damageRolls": {
+          "2ZSUZUXhxHAYL7aL": {
+            "damage": "3d8+12",
+            "damageType": "piercing",
+            "category": null
+          }
+        },
+        "bonus": {
+          "value": 27
+        },
+        "attackEffects": {
+          "value": [
+            "grab"
+          ]
+        },
+        "action": "strike",
+        "area": null
+      },
+      "_id": "mf6nzBoP2L88CufH",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!dTcRpmumuDlNk5vH.mf6nzBoP2L88CufH"
+    },
+    {
+      "type": "melee",
+      "name": "Horn",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "reach-10"
+          ]
+        },
+        "damageRolls": {
+          "hwzonnwXo7ITxrZi": {
+            "damage": "3d10+12",
+            "damageType": "bludgeoning",
+            "category": null
+          }
+        },
+        "bonus": {
+          "value": 27
+        },
+        "attackEffects": {
+          "value": [
+            "knockdown"
+          ]
+        },
+        "action": "strike",
+        "area": null
+      },
+      "_id": "ThsGNcJ7ONtjBTqG",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!dTcRpmumuDlNk5vH.ThsGNcJ7ONtjBTqG"
+    },
+    {
+      "type": "melee",
+      "name": "Caustic Web",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "range-increment-60"
+          ]
+        },
+        "damageRolls": {
+          "PahbQoNXRNUkBVUj": {
+            "damage": "3d8+4",
+            "damageType": "acid",
+            "category": null
+          },
+          "FFZGh6ZKv9h7yxn0": {
+            "damage": "1d8",
+            "damageType": "acid",
+            "category": "persistent"
+          }
+        },
+        "bonus": {
+          "value": 25
+        },
+        "attackEffects": {
+          "value": []
+        },
+        "action": "strike",
+        "area": null
+      },
+      "_id": "ClA7Nm4gC9kuiB4u",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!dTcRpmumuDlNk5vH.ClA7Nm4gC9kuiB4u"
+    },
+    {
+      "type": "melee",
+      "name": "Etheric Web",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "range-increment-20"
+          ]
+        },
+        "damageRolls": {},
+        "bonus": {
+          "value": 25
+        },
+        "attackEffects": {
+          "value": [
+            "etheric-tether"
+          ]
+        },
+        "action": "strike",
+        "area": null
+      },
+      "_id": "5hlCeUKMDRHtvcxB",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!dTcRpmumuDlNk5vH.5hlCeUKMDRHtvcxB"
+    },
+    {
+      "type": "action",
+      "name": "Destructive",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>A skarak's horn Strike bypasses the Hardness of structures made primarily of wood, stone, and metal.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "lYnyIKeFyKUoTm6w",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!dTcRpmumuDlNk5vH.lYnyIKeFyKUoTm6w"
+    },
+    {
+      "type": "action",
+      "name": "Etheric Tether",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>A creature hit by a skarak's etheric web is @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} by the skarak. The creature isn't @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized}, but it can't move beyond the maximum range of the skarak's etheric web. A creature can sever the etheric web with a Strike against AC 30 that deals at least 18 fire or force damage. This deals no damage to the skarak.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "occult"
+          ]
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "5xu7Jb7MjWSvPFf8",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!dTcRpmumuDlNk5vH.5xu7Jb7MjWSvPFf8"
+    },
+    {
+      "type": "action",
+      "name": "Rampage",
+      "system": {
+        "actionType": {
+          "value": "action"
+        },
+        "description": {
+          "value": "<p>The skarak makes a horn Strike against each creature within reach. These attacks count toward the skarak's multiple attack penalty, but the multiple attack penalty doesn't increase until after the skarak makes all these attacks.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": 2
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "6YBw1cwBcvTXqK4w",
+      "img": "systems/pf2e/icons/actions/TwoActions.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!dTcRpmumuDlNk5vH.6YBw1cwBcvTXqK4w"
+    },
+    {
+      "img": "systems/pf2e/icons/actions/OneAction.webp",
+      "name": "Swallow Whole",
+      "system": {
+        "actionType": {
+          "value": "action"
+        },
+        "actions": {
+          "value": 1
+        },
+        "category": "offensive",
+        "description": {
+          "value": "<p>Large, @Damage[(3d8+6)[bludgeoning]], Rupture 24</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>",
+          "gm": ""
+        },
+        "publication": {
+          "license": "ORC",
+          "remaster": true,
+          "title": "Pathfinder Monster Core",
+          "authors": ""
+        },
+        "rules": [],
+        "traits": {
+          "value": [
+            "attack"
+          ],
+          "otherTags": []
+        },
+        "slug": "swallow-whole",
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "deathNote": false
+      },
+      "type": "action",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "7BSjLfM2n7LfCkMr",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!dTcRpmumuDlNk5vH.7BSjLfM2n7LfCkMr"
+    },
+    {
+      "type": "action",
+      "name": "Tether Pull",
+      "system": {
+        "actionType": {
+          "value": "action"
+        },
+        "description": {
+          "value": "<p><strong>Requirements</strong> A creature is @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} by the skarak's etheric tether</p><hr /><p><strong>Effect</strong> The creature must succeed at a @Check[will|dc:33] save or be teleported to a space adjacent to the skarak of the skarak's choosing. This ends the grabbed condition from etheric tether unless the creature critically fails the save.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "occult",
+            "teleportation"
+          ]
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": 1
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "EMUQhPt9T9ipHaPA",
+      "img": "systems/pf2e/icons/actions/OneAction.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!dTcRpmumuDlNk5vH.EMUQhPt9T9ipHaPA"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "pf2e",
+    "systemVersion": "7.6.2"
+  },
+  "ownership": {
+    "default": 0,
+    "yECpvB6rPSLHk9Lh": 3
+  },
+  "sort": 0,
+  "_key": "!actors!dTcRpmumuDlNk5vH"
+}

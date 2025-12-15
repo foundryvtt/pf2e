@@ -1,0 +1,75 @@
+{
+  "folder": "HmJRXX24wVy0TjAO",
+  "name": "Experimental Ikeshti",
+  "type": "heritage",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Scientists have experimented on you, and whether you were paid for your services or were captured as a hatchling and raised in a lab, this experimentation has left a lasting mark. Increase your augmentation implant limit by 1; this additional augmentation can only be implanted with biotech augmentations. Choose one common biotech augmentation with an item level of 1 or less. You begin with this biotech augmentation already implanted in your body. You don't need to pay the credits to purchase this starting augmentation. You can remove and replace this augmentation following the usual rules.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Invasion's Edge Player's Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "choices": {
+          "filter": [
+            {
+              "lte": [
+                "item:level",
+                1
+              ]
+            },
+            "item:trait:biotech"
+          ],
+          "itemType": "equipment"
+        },
+        "flag": "augmentation",
+        "key": "ChoiceSet",
+        "prompt": "SF2E.SpecificRule.Prompt.BiotechAugmentation"
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "{item|flags.pf2e.rulesSelections.augmentation}"
+      }
+    ],
+    "slug": "experimental-ikeshti",
+    "traits": {
+      "otherTags": [],
+      "value": [],
+      "rarity": "common"
+    },
+    "ancestry": {
+      "name": "Ikeshti",
+      "slug": "ikeshti",
+      "uuid": "Compendium.sf2e-anachronism.ancestries.Item.HFVQhUxBt6UTtuny"
+    }
+  },
+  "_id": "ezPp5n1TQKjhkZsy",
+  "img": "systems/pf2e/icons/default-icons/heritage.svg",
+  "sort": 200000,
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3,
+    "yECpvB6rPSLHk9Lh": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!ezPp5n1TQKjhkZsy"
+}

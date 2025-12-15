@@ -1,0 +1,76 @@
+{
+  "folder": null,
+  "name": "Effect: Relentless Endurance",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.o2Tknvim2UP2W6Yk]{Relentless Endurance}</p><p>You gain 1d8+4 temporary Hit Points. These temporary Hit Points increase by 1d8+4 at 6th level and every 4 levels thereafter.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "TempHP",
+        "value": "@item.badge.value"
+      }
+    ],
+    "slug": "effect-relentless-endurance",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 2
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": {
+      "type": "formula",
+      "value": "(floor((@item.origin.level + 2) / 4))d8 + 4*floor((@item.origin.level + 2) / 4)",
+      "evaluate": true,
+      "labels": null,
+      "reevaluate": null
+    },
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "icons/magic/defensive/armor-shield-barrier-steel.webp",
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "k2Sal2fpeoUsGZAv",
+  "sort": 2500000,
+  "_key": "!items!k2Sal2fpeoUsGZAv"
+}

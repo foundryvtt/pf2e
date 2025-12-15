@@ -1,0 +1,121 @@
+{
+  "folder": "OQyZNx7C5LCx3ZQE",
+  "name": "Dragonkin Weapon Familiarity",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You wield weapons favored by the Skyfire Legion. You are trained with the skyfire sword, flamethrower, and machine gun. In addition, you gain access to all uncommon weapons with the dragonkin trait. For the purposes of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons. </p><p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "definition": [
+          {
+            "or": [
+              "item:trait:dragonkin",
+              "item:base:flamethrower",
+              "item:base:machine-gun"
+            ]
+          },
+          "item:category:martial"
+        ],
+        "key": "MartialProficiency",
+        "label": "SF2E.SpecificRule.Dragonkin.WeaponFamiliarity.MartialWeapons",
+        "sameAs": "simple",
+        "slug": "martial-dragonkin-weapons"
+      },
+      {
+        "definition": [
+          {
+            "or": [
+              "item:trait:dragonkin",
+              "item:base:skyfire-sword"
+            ]
+          },
+          "item:category:advanced"
+        ],
+        "key": "MartialProficiency",
+        "label": "SF2E.SpecificRule.Dragonkin.WeaponFamiliarity.AdvancedWeapons",
+        "sameAs": "simple",
+        "slug": "advanced-dragonkin-weapons"
+      },
+      {
+        "key": "CriticalSpecialization",
+        "predicate": [
+          {
+            "gte": [
+              "self:level",
+              5
+            ]
+          },
+          {
+            "or": [
+              "item:trait:dragonkin",
+              "item:base:skyfire-sword",
+              "item:base:flamethrower",
+              "item:base:machine-gun"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "dragonkin-weapon-familiarity",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "dragonkin"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 400000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "SX1BCOMptzYyaHqQ",
+  "_key": "!items!SX1BCOMptzYyaHqQ"
+}

@@ -1,0 +1,116 @@
+{
+  "name": "Effect: Jetpack",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.942,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.equipment.Item.CIZ3Walj6DmiaJGq]{Jetpack (Commercial)}, @UUID[Compendium.sf2e-anachronism.equipment.Item.DnuTMCJFBDj9nNRx]{Jetpack (Tactical)}</p><p>You gain a fly Speed. </p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "",
+      "authors": "Starfinder Player Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "predicate": [
+              {
+                "or": [
+                  "parent:origin:item:slug:jetpack-commercial",
+                  {
+                    "not": "parent:origin:item"
+                  }
+                ]
+              }
+            ],
+            "value": "Compendium.sf2e-anachronism.equipment.Item.CIZ3Walj6DmiaJGq"
+          },
+          {
+            "predicate": [
+              {
+                "or": [
+                  "parent:origin:item:slug:jetpack-tactical",
+                  {
+                    "not": "parent:origin:item"
+                  }
+                ]
+              }
+            ],
+            "value": "Compendium.sf2e-anachronism.equipment.Item.DnuTMCJFBDj9nNRx"
+          }
+        ],
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+        "rollOption": "jetpack"
+      },
+      {
+        "key": "BaseSpeed",
+        "predicate": [
+          "jetpack:jetpack-commercial"
+        ],
+        "selector": "fly",
+        "value": 20
+      },
+      {
+        "key": "BaseSpeed",
+        "predicate": [
+          "jetpack:jetpack-tactical"
+        ],
+        "selector": "fly",
+        "value": 40
+      }
+    ],
+    "slug": "effect-jetpack",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 5
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/yellow-thrusters.webp",
+  "folder": null,
+  "ownership": {
+    "default": 0,
+    "DELswE6aueREB767": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "pf2e",
+    "systemVersion": "7.7.3"
+  },
+  "_id": "0kP4P73w0PykYkPY",
+  "sort": 0,
+  "_key": "!items!0kP4P73w0PykYkPY"
+}

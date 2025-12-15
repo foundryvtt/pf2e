@@ -1,0 +1,86 @@
+{
+  "folder": null,
+  "name": "Effect: Adaptive Locomotion",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.actions.Item.iIESt0oV0vobl41N]{Adaptive Locomotion}</p><p>If you select flippers, you gain a swim Speed of 20 feet. If you select hooked pseudopods, you gain a climb Speed of 20 feet. This transformation lasts for 10 minutes.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "choices": [
+          {
+            "label": "SF2E.SpecificRule.Barathu.AdaptativeLocomotion.Flippers",
+            "value": "swim"
+          },
+          {
+            "label": "SF2E.SpecificRule.Barathu.AdaptativeLocomotion.HookedPseudopods",
+            "value": "climb"
+          }
+        ],
+        "key": "ChoiceSet",
+        "prompt": "SF2E.SpecificRule.Barathu.AdaptativeLocomotion.Prompt",
+        "flag": "adaptation"
+      },
+      {
+        "key": "BaseSpeed",
+        "selector": "{item|flags.pf2e.rulesSelections.adaptation}",
+        "value": 20
+      }
+    ],
+    "slug": "effect-adaptive-locomotion",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 10,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/blue-dna-helix.webp",
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "1KLuThhsYQMPO5Qj",
+  "sort": 5500000,
+  "_key": "!items!1KLuThhsYQMPO5Qj"
+}

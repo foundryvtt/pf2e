@@ -1,0 +1,96 @@
+{
+  "folder": "mOIMElPxY4JeuDAW",
+  "name": "Wise to the Game",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Using your words to influence others is what you do, and you easily recognize when others attempt to use the same tactics against you. You gain a +1 status bonus to your Perception DC against attempts to @UUID[Compendium.pf2e.actionspf2e.Item.QNAVeNKtHA0EUw4X]{Feint} or @UUID[Compendium.pf2e.actionspf2e.Item.ewwCglB7XOPLUz72]{Lie} to you and attempts to divert your attention with @UUID[Compendium.pf2e.actionspf2e.Item.GkmbTGfg8KcgynOA]{Create a Diversion}, and a +1 status bonus to your Will DC against emotion effects.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "FlatModifier",
+        "selector": "perception-dc",
+        "value": 1,
+        "type": "status",
+        "predicate": [
+          {
+            "or": [
+              "action:lie",
+              "action:feint",
+              "action:create-a-diversion"
+            ]
+          }
+        ],
+        "slug": "wise-to-the-game-perception"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "will-dc",
+        "value": 1,
+        "type": "status",
+        "predicate": [
+          "item:trait:emotion"
+        ],
+        "slug": "wise-to-the-game-will"
+      }
+    ],
+    "slug": "wise-to-the-game",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "envoy"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 3
+    },
+    "category": "classfeature",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "R478sqSSEwGEzfML",
+  "img": "modules/sf2e-anachronism/art/icons/abilities/blue-military-organization-emblem.webp",
+  "sort": 500000,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!R478sqSSEwGEzfML"
+}

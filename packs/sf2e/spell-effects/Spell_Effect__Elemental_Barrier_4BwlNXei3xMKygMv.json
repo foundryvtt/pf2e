@@ -1,0 +1,255 @@
+{
+  "name": "Spell Effect: Elemental Barrier",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.spells.Item.5apI8Yamauo02VYR]{Elemental Barrier}</p><p>You gain +1 circumstance bonus to AC. While the spell is in effect, the target can use the Shield Block reaction as if the elemental barrier was a raised shield. Unlike a normal Shield Block, you can use the spell's reaction against spells with the chosen elemental trait cast against the creature.</p>"
+    },
+    "rules": [
+      {
+        "key": "ChoiceSet",
+        "choices": [
+          {
+            "label": "PF2E.TraitAir",
+            "value": {
+              "label": "PF2E.TraitAir",
+              "option": "air"
+            }
+          },
+          {
+            "label": "PF2E.TraitEarth",
+            "value": {
+              "label": "PF2E.TraitEarth",
+              "option": "earth"
+            }
+          },
+          {
+            "label": "PF2E.TraitFire",
+            "value": {
+              "label": "PF2E.TraitFire",
+              "option": "fire"
+            }
+          },
+          {
+            "label": "PF2E.TraitMetal",
+            "value": {
+              "label": "PF2E.TraitMetal",
+              "option": "metal"
+            }
+          },
+          {
+            "label": "PF2E.TraitWater",
+            "value": {
+              "label": "PF2E.TraitWater",
+              "option": "water"
+            }
+          },
+          {
+            "label": "PF2E.TraitWood",
+            "value": {
+              "label": "PF2E.TraitWood",
+              "option": "wood"
+            }
+          }
+        ],
+        "flag": "elementalBarrier"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "override",
+        "path": "system.attributes.shield",
+        "predicate": [
+          {
+            "or": [
+              "self:type:character",
+              "self:type:npc"
+            ]
+          }
+        ],
+        "value": {
+          "brackets": [
+            {
+              "end": 4,
+              "value": {
+                "ac": 1,
+                "broken": false,
+                "brokenThreshold": 0,
+                "destroyed": false,
+                "hardness": 6,
+                "hp": {
+                  "max": 40,
+                  "value": 40
+                }
+              }
+            },
+            {
+              "end": 5,
+              "start": 5,
+              "value": {
+                "ac": 1,
+                "broken": false,
+                "brokenThreshold": 0,
+                "destroyed": false,
+                "hardness": 6,
+                "hp": {
+                  "max": 48,
+                  "value": 48
+                }
+              }
+            },
+            {
+              "end": 6,
+              "start": 6,
+              "value": {
+                "ac": 1,
+                "broken": false,
+                "brokenThreshold": 0,
+                "destroyed": false,
+                "hardness": 8,
+                "hp": {
+                  "max": 52,
+                  "value": 52
+                }
+              }
+            },
+            {
+              "end": 7,
+              "start": 7,
+              "value": {
+                "ac": 1,
+                "broken": false,
+                "brokenThreshold": 0,
+                "destroyed": false,
+                "hardness": 8,
+                "hp": {
+                  "max": 60,
+                  "value": 60
+                }
+              }
+            },
+            {
+              "end": 8,
+              "start": 8,
+              "value": {
+                "ac": 1,
+                "broken": false,
+                "brokenThreshold": 0,
+                "destroyed": false,
+                "hardness": 10,
+                "hp": {
+                  "max": 68,
+                  "value": 68
+                }
+              }
+            },
+            {
+              "end": 10,
+              "start": 9,
+              "value": {
+                "ac": 1,
+                "broken": false,
+                "brokenThreshold": 0,
+                "destroyed": false,
+                "hardness": 10,
+                "hp": {
+                  "max": 80,
+                  "value": 80
+                }
+              }
+            }
+          ],
+          "field": "item|system.level.value"
+        }
+      },
+      {
+        "domain": "all",
+        "key": "RollOption",
+        "label": "SF2E.SpecificRule.Mystic.ElementalBarrier.{item|flags.pf2e.rulesSelections.elementalBarrier.label}",
+        "option": "elemental-barrier-defend-against-damage",
+        "toggleable": true
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "add",
+        "predicate": [
+          "elemental-barrier-defend-against-damage"
+        ],
+        "path": "system.attributes.shield.hardness",
+        "value": 2,
+        "priority": 60
+      },
+      {
+        "domain": "all",
+        "key": "RollOption",
+        "option": "self:shield:equipped",
+        "predicate": [
+          {
+            "or": [
+              "self:type:character",
+              "self:type:npc"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "spell-effect-elemental-barrier",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": 0.932,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 4
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false,
+    "fromSpell": false
+  },
+  "img": "icons/magic/defensive/shield-barrier-flaming-pentagon-purple-orange.webp",
+  "folder": null,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "_id": "4BwlNXei3xMKygMv",
+  "sort": 2800000,
+  "_key": "!items!4BwlNXei3xMKygMv"
+}

@@ -1,0 +1,161 @@
+{
+  "folder": "ENOnm6LQAJtHzxYA",
+  "name": "Intensified Psychic Shock",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You focus your telepathic attacks further, broadcasting your psychic power with greater range and area. Your psychic shock unarmed attack gains the boost (1d4) trait. By spending 10 minutes in intense concentration, you can reconfigure your mind to apply one of the following benefits to your psychic shock. This benefit lasts until you reconfigure to another benefit.</p><ul><li><strong>Extended Shock:</strong> Increase the range increment of your psychic shock by 15 feet.</li><li><strong>Mind Crusher:</strong> Your psychic shock gains the fatal d8 trait.</li><li><strong>Peer Pressure:</strong> Your psychic shock gains the arc trait, but it deals mental damage rather than electricity damage.</li><li><strong>Psychic Wave:</strong> Your psychic shock gains the splash trait.</li></ul>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "suboptions": [
+          {
+            "label": "SF2E.SpecificRule.Contemplative.IntensifiedPsychicShock.ExtendedShock",
+            "value": "extended-shock"
+          },
+          {
+            "label": "SF2E.SpecificRule.Contemplative.IntensifiedPsychicShock.MindCrusher",
+            "value": "mind-crusher"
+          },
+          {
+            "label": "SF2E.SpecificRule.Contemplative.IntensifiedPsychicShock.PeerPressure.Label",
+            "value": "peer-pressure"
+          },
+          {
+            "label": "SF2E.SpecificRule.Contemplative.IntensifiedPsychicShock.PsychicWave",
+            "value": "psychic-wave"
+          }
+        ],
+        "option": "intensified-psychic-shock",
+        "alwaysActive": true,
+        "toggleable": true,
+        "value": true
+      },
+      {
+        "definition": [
+          "item:tag:contemplative-psychic-shock"
+        ],
+        "key": "AdjustStrike",
+        "mode": "add",
+        "predicate": [
+          "intensified-psychic-shock:extended-shock"
+        ],
+        "property": "range-increment",
+        "value": 15
+      },
+      {
+        "definition": [
+          "item:tag:contemplative-psychic-shock"
+        ],
+        "key": "AdjustStrike",
+        "mode": "add",
+        "predicate": [
+          "intensified-psychic-shock:mind-crusher"
+        ],
+        "property": "weapon-traits",
+        "value": "fatal-d8"
+      },
+      {
+        "definition": [
+          "item:tag:contemplative-psychic-shock"
+        ],
+        "key": "AdjustStrike",
+        "mode": "add",
+        "predicate": [
+          "intensified-psychic-shock:peer-pressure"
+        ],
+        "property": "weapon-traits",
+        "value": "arc"
+      },
+      {
+        "key": "Note",
+        "selector": "attack-damage",
+        "text": "SF2E.SpecificRule.Contemplative.IntensifiedPsychicShock.PeerPressure.Note",
+        "predicate": [
+          "item:tag:contemplative-psychic-shock",
+          "intensified-psychic-shock:peer-pressure"
+        ],
+        "title": "SF2E.SpecificRule.Contemplative.IntensifiedPsychicShock.PeerPressure.Label",
+        "outcome": [
+          "success"
+        ]
+      },
+      {
+        "definition": [
+          "item:tag:contemplative-psychic-shock"
+        ],
+        "key": "AdjustStrike",
+        "mode": "add",
+        "predicate": [
+          "intensified-psychic-shock:psychic-wave"
+        ],
+        "property": "weapon-traits",
+        "value": "splash"
+      }
+    ],
+    "slug": "intensified-psychic-shock",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "contemplative"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 9
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Mindrender"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 200000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "C9i9QgKcytScNld7",
+  "_key": "!items!C9i9QgKcytScNld7"
+}

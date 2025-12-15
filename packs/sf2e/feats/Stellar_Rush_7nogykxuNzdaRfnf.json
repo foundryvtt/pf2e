@@ -1,0 +1,96 @@
+{
+  "type": "feat",
+  "name": "Stellar Rush",
+  "folder": "aTIFCeOaAtdBwJwj",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 1
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "attuned",
+        "cycle",
+        "move",
+        "solarian",
+        "traversal"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You rush forward with a blast of stellar energy, getting into the thick of combat with ease. Stride twice. You gain a +10-foot circumstance bonus to your Speed during these moves.</p><p><strong>Graviton-Attuned</strong> When you finish your Strides, enemies within 15 feet of you must attempt a @Check[fortitude|against:solarian|options:area-effect,forced-movement] save against your class DC. On a failure, they're pulled directly toward you, ending in an adjacent square if possible. You select the order these enemies are moved.</p><p><strong>Photon-Attuned</strong> When you finish your Strides, you create a photon field in a @Template[type:burst|distance:15] centered on you. Until the start of your next turn, creatures outside the photon field are @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed} to creatures inside the field.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "stellar-rush",
+        "disabledIf": [
+          "stellar-attunement:unattuned"
+        ],
+        "toggleable": true,
+        "disabledValue": false
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "land-speed",
+        "value": 10,
+        "type": "circumstance",
+        "predicate": [
+          "stellar-rush"
+        ]
+      }
+    ],
+    "slug": "stellar-rush",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "action"
+    },
+    "actions": {
+      "value": 2
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "7nogykxuNzdaRfnf",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!7nogykxuNzdaRfnf"
+}

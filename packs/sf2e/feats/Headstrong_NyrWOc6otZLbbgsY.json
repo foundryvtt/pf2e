@@ -1,0 +1,90 @@
+{
+  "type": "feat",
+  "name": "Headstrong",
+  "folder": "MDJlyGxPlywpeq0S",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 1
+    },
+    "category": "ancestry",
+    "traits": {
+      "value": [
+        "borai",
+        "lineage"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You became a borai through your own stubborn willfulness. When you died, you refused to accept your death and clung to your corpse, forcing your soul back into your body and regaining life along with it. You gain a +1 circumstance bonus to Will saving throws against fear and effects that would make you @UUID[Compendium.pf2e.conditionitems.Item.yblD8fOR1J8rDwEQ]{Confused} or @UUID[Compendium.pf2e.conditionitems.Item.9qGBRpbX9NEwtAAr]{Controlled} and to your Will DC against attempts to @UUID[Compendium.pf2e.actionspf2e.Item.2u915NdUyQan6uKF]{Demoralize} you.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "FlatModifier",
+        "selector": "will",
+        "value": 1,
+        "type": "circumstance",
+        "predicate": [
+          {
+            "or": [
+              "item:trait:fear",
+              "inflicts:controlled",
+              "inflicts:confused"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "headstrong",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.1"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "NyrWOc6otZLbbgsY",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!NyrWOc6otZLbbgsY"
+}

@@ -1,0 +1,88 @@
+{
+  "folder": "DWQpqrnGOzizVcJ6",
+  "name": "Exiled Elebrian",
+  "type": "heritage",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.943,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You're a rarity: an elebrian who wasn't born on Eox. Perhaps your parents left the Halls of the Living before you were born to give you a better life. Maybe you come from a tiny enclave of elebrians making their home away from Eox, a tight-knit community on Absalom Station, or an asteroid in the Diaspora. You learn any regional language of your choice and gain the @UUID[Compendium.pf2e.feats-srd.Item.BocFD2KV0qgUC76x]{Additional Lore} general feat for that region. You learn another regional language and gain the Additional Lore general feat for that region at 5th level, and again at 13th level.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Guilt of the Grave World",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.pf2e.feats-srd.Item.BocFD2KV0qgUC76x"
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.pf2e.feats-srd.Item.BocFD2KV0qgUC76x",
+        "reevaluateOnUpdate": true,
+        "predicate": [
+          {
+            "gte": [
+              "self:level",
+              5
+            ]
+          }
+        ]
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.pf2e.feats-srd.Item.BocFD2KV0qgUC76x",
+        "reevaluateOnUpdate": true,
+        "predicate": [
+          {
+            "gte": [
+              "self:level",
+              13
+            ]
+          }
+        ]
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "add",
+        "path": "system.build.languages.max",
+        "value": "ternary(eq(@actor.level, 13), 3, ternary(gte(@actor.level, 5), 2, 1))"
+      }
+    ],
+    "slug": "exiled-elebrian",
+    "traits": {
+      "otherTags": [],
+      "value": [],
+      "rarity": "common"
+    },
+    "ancestry": {
+      "name": "Elebrian",
+      "slug": "elebrian",
+      "uuid": "Compendium.sf2e-anachronism.ancestries.Item.XKW1SziWusHoaCRd"
+    }
+  },
+  "img": "icons/sundries/documents/document-torn-diagram-tan.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "qA45GVv5hySaf9b5": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "pf2e",
+    "systemVersion": "7.7.3"
+  },
+  "_id": "UjSJHYe9RRXbGHl2",
+  "_key": "!items!UjSJHYe9RRXbGHl2"
+}

@@ -1,0 +1,96 @@
+{
+  "folder": null,
+  "name": "Effect: Scrapper's Ingenuity",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.U9Cv3DBWBjTPg1eR]{Scrapper's Ingenuity}</p><p>You gain a circumstance bonus to your next Crafting check to Craft or Repair.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Invasion's Edge Player's Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+            "value": 2
+          },
+          {
+            "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+            "value": 1
+          }
+        ],
+        "key": "ChoiceSet",
+        "prompt": "SF2E.SpecificRule.Ikeshti.ScrappersIngenuity.Prompt"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "crafting",
+        "value": "@item.flags.pf2e.rulesSelections.modifier",
+        "type": "circumstance",
+        "removeAfterRoll": "if-enabled",
+        "predicate": [
+          {
+            "or": [
+              "action:craft",
+              "action:repair"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "effect-scrappers-ingenuity",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": -1,
+      "unit": "unlimited",
+      "expiry": null,
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "icons/commodities/tech/coil-steel.webp",
+  "ownership": {
+    "default": 0,
+    "yECpvB6rPSLHk9Lh": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "pf2e",
+    "systemVersion": "7.7.3"
+  },
+  "_id": "hcH7IdEjC2wUVfaK",
+  "sort": 1100000,
+  "_key": "!items!hcH7IdEjC2wUVfaK"
+}

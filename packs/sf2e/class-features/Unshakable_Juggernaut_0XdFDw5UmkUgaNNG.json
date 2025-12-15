@@ -1,0 +1,94 @@
+{
+  "folder": "IGK9KhXfktRKGmLz",
+  "name": "Unshakable Juggernaut",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Your proficiency rank for Fortitude saves increases to legendary. When you roll a critical failure on a Fortitude save, you get a failure instead. When you fail a Fortitude save against an effect that deals damage, you halve the damage you take.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "adjustment": {
+          "criticalFailure": "to-failure"
+        },
+        "key": "AdjustDegreeOfSuccess",
+        "selector": "fortitude"
+      },
+      {
+        "key": "Note",
+        "outcome": [
+          "failure"
+        ],
+        "predicate": [
+          "damaging-effect"
+        ],
+        "selector": "fortitude",
+        "text": "PF2E.SpecificRule.SaveCriticalFailureToFailure.FailureHalfDamage.Fortitude",
+        "title": "{item|name}"
+      }
+    ],
+    "slug": "unshakable-juggernaut",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "soldier"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 15
+    },
+    "category": "classfeature",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {
+        "fortitude": {
+          "rank": 4,
+          "attribute": null
+        }
+      },
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "0XdFDw5UmkUgaNNG",
+  "img": "modules/sf2e-anachronism/art/icons/abilities/alien-mask.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!0XdFDw5UmkUgaNNG"
+}

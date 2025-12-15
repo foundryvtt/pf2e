@@ -1,0 +1,88 @@
+{
+  "folder": null,
+  "name": "Spell Effect: Analyze Target",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.spells.Item.NkvRoN33RbDg3fl9]{Analyze Target}</p><p>You gain a status bonus to Impersonate, Treat Wounds, and Recall Knowledge about a target.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "analyze-target",
+        "toggleable": true,
+        "domain": "skill-check"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "skill-check",
+        "value": "ternary(gte(@item.level,6),3,ternary(gte(@item.level,3),2,1))",
+        "type": "status",
+        "predicate": [
+          "analyze-target",
+          {
+            "or": [
+              "action:recall-knowledge",
+              "action:treat-wounds",
+              "action:impersonate"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "spell-effect-analyze-target",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "hours",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/pink-target-sign.webp",
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "7r6mw8H87SUaj9Tq",
+  "sort": 1100000,
+  "_key": "!items!7r6mw8H87SUaj9Tq"
+}

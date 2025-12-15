@@ -1,0 +1,95 @@
+{
+  "folder": "vj5BZiJuhQdL2QIU",
+  "name": "Toxic Transference",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You use your body's built-up toxins to enhance your natural attacks, making them poisonous. Whenever you deal damage with an unarmed Strike you gained from @UUID[Compendium.sf2e-anachronism.feats.Item.iac0qVH4SDzCXOyc]{Compact Predator}, you deal an additional 1 poison damage per weapon damage die of the attack. Whenever you @UUID[Compendium.sf2e-anachronism.actions.Item.6fsMvO0jXtK8gYkH]{Puff Up} or @UUID[Compendium.sf2e-anachronism.feats.Item.32W1Pnex4xbhx5Bj]{Squirt Blood}, you additionally deal poison damage equal to half your level.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Invasion's Edge Player's Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "FlatModifier",
+        "selector": "strike-damage",
+        "value": "@weapon.system.damage.dice",
+        "damageType": "poison",
+        "predicate": [
+          "item:tag:ikeshti-unarmed-strike"
+        ],
+        "hideIfDisabled": true
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "inline-damage",
+        "value": "floor(@actor.level/2)",
+        "damageType": "poison",
+        "predicate": [
+          "item:slug:puff-up"
+        ]
+      }
+    ],
+    "slug": "toxic-transference",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "ikeshti",
+        "poison"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 5
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Compact Predator, Puff Up, or Squirt Blood"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": -200000,
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3,
+    "yECpvB6rPSLHk9Lh": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": "Item.FgA7uXPGGYavF9RH",
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "deGy1JMa2uLfKnIb",
+  "_key": "!items!deGy1JMa2uLfKnIb"
+}

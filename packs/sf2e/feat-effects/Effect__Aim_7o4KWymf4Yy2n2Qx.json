@@ -1,0 +1,114 @@
+{
+  "folder": null,
+  "name": "Effect: Aim",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.actions.Item.sLikawnrJJzHMYeC]{Aim}</p><p>You mark a creature. Your ranged Strikes against your mark using the required ranged weapon deal additional precision damage and reduce the circumstance bonus to AC your mark gains from cover. These benefits only apply if your mark is within your weapon's first range increment.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "TokenMark",
+        "slug": "aim"
+      },
+      {
+        "key": "RollOption",
+        "option": "aim-cover-reduction",
+        "toggleable": true,
+        "label": "SF2E.SpecificRule.Operative.Aim.CoverToggle"
+      },
+      {
+        "key": "DamageDice",
+        "dieSize": "d{actor|flags.sf2e.operative.aim.dieSize}",
+        "diceNumber": "@actor.flags.sf2e.operative.aim.diceNumber",
+        "predicate": [
+          "item:tag:aim",
+          "target:mark:aim",
+          {
+            "or": [
+              {
+                "lte": [
+                  "target:range-increment",
+                  "{actor|flags.sf2e.operative.aim.rangeIncrement}"
+                ]
+              },
+              "item:melee"
+            ]
+          },
+          {
+            "or": [
+              "class:operative",
+              "feat:sharpshooter"
+            ]
+          }
+        ],
+        "selector": "strike-damage",
+        "category": "precision",
+        "slug": "aim"
+      },
+      {
+        "key": "EphemeralEffect",
+        "uuid": "Compendium.sf2e-anachronism.feat-effects.Item.F2VaEGedUJJ5aPqF",
+        "selectors": "strike-attack-roll",
+        "predicate": [
+          "target:mark:aim",
+          "aim-cover-reduction"
+        ]
+      }
+    ],
+    "slug": "effect-aim",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 0,
+      "unit": "rounds",
+      "expiry": "turn-end",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/orange-target-sign.webp",
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "7o4KWymf4Yy2n2Qx",
+  "sort": 3600000,
+  "_key": "!items!7o4KWymf4Yy2n2Qx"
+}

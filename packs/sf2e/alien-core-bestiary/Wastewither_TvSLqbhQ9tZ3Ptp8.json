@@ -1,0 +1,593 @@
+{
+  "type": "npc",
+  "name": "Wastewither",
+  "folder": null,
+  "system": {
+    "attributes": {
+      "hp": {
+        "value": 170,
+        "temp": 0,
+        "max": 170,
+        "details": ""
+      },
+      "ac": {
+        "value": 24,
+        "details": ""
+      },
+      "allSaves": {
+        "value": ""
+      },
+      "speed": {
+        "value": 20,
+        "otherSpeeds": [
+          {
+            "type": "fly",
+            "value": 25
+          }
+        ],
+        "details": ""
+      },
+      "immunities": [
+        {
+          "type": "acid",
+          "exceptions": []
+        },
+        {
+          "type": "bleed",
+          "exceptions": []
+        },
+        {
+          "type": "drained",
+          "exceptions": []
+        },
+        {
+          "type": "paralyzed",
+          "exceptions": []
+        },
+        {
+          "type": "poison",
+          "exceptions": []
+        },
+        {
+          "type": "sleep",
+          "exceptions": []
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "electricity",
+          "value": 8,
+          "exceptions": []
+        },
+        {
+          "type": "fire",
+          "value": 8,
+          "exceptions": []
+        }
+      ]
+    },
+    "initiative": {
+      "statistic": "perception"
+    },
+    "details": {
+      "languages": {
+        "value": [
+          "thalassic"
+        ],
+        "details": ""
+      },
+      "level": {
+        "value": 8
+      },
+      "blurb": "",
+      "publicNotes": "<p>When left untreated for too long, standing industrial wastewater attracts wastewithers from the elemental Plane of Water as it evaporates. Wastewithers contaminate everything they touch, turning solid ground and clean water into sludge. Many corporate dumping sites and toxic spills attract or spawn wastewithers, whose mere presence further contaminates the ecosystem.</p><hr /><p>Elementals are energetic intrusions from the primal planes of existence. They take many forms, from mindless eddies in the wind or water to complex entities capable of wielding primal magic. The advent of space travel and the progress of technology have allowed even more living embodiments of the elements to manifest in the Universe.</p><p>Natural events like wildfires, solar storms, and floods can unleash hordes of unruly elementals on a planet or into a region of space. Sometimes, a gathering of powerful elementals causes a natural disaster on an epic scale, like an off-the-charts solar flare that fries a planet's power grid or a ceaseless storm swirling in a gas giant's atmosphere.</p>",
+      "privateNotes": "",
+      "publication": {
+        "title": "Starfinder Alien Core",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "resources": {},
+    "_migration": {
+      "version": 0.946,
+      "previous": {
+        "schema": null,
+        "foundry": "13.350",
+        "system": "7.5.2"
+      }
+    },
+    "abilities": {
+      "str": {
+        "mod": 4
+      },
+      "dex": {
+        "mod": 3
+      },
+      "con": {
+        "mod": 6
+      },
+      "int": {
+        "mod": 1
+      },
+      "wis": {
+        "mod": 4
+      },
+      "cha": {
+        "mod": 0
+      }
+    },
+    "perception": {
+      "details": "darkvision",
+      "mod": 13,
+      "senses": [],
+      "vision": true
+    },
+    "saves": {
+      "fortitude": {
+        "value": 19,
+        "saveDetail": ""
+      },
+      "reflex": {
+        "value": 16,
+        "saveDetail": ""
+      },
+      "will": {
+        "value": 13,
+        "saveDetail": ""
+      }
+    },
+    "skills": {
+      "athletics": {
+        "base": 18,
+        "special": []
+      },
+      "stealth": {
+        "base": 16,
+        "special": [
+          {
+            "label": "in water",
+            "base": 18
+          }
+        ]
+      }
+    },
+    "traits": {
+      "value": [
+        "elemental",
+        "water"
+      ],
+      "rarity": "common",
+      "size": {
+        "value": "lg"
+      }
+    }
+  },
+  "_id": "TvSLqbhQ9tZ3Ptp8",
+  "img": "systems/pf2e/icons/default-icons/npc.svg",
+  "prototypeToken": {
+    "name": "Wastewither",
+    "displayName": 20,
+    "actorLink": false,
+    "width": 2,
+    "height": 2,
+    "texture": {
+      "src": "systems/pf2e/icons/default-icons/npc.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": true,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": true,
+        "autoscale": true
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [
+    {
+      "type": "action",
+      "name": "Toxic Exhaust",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>15 feet. A poisonous mist lingers around the wastewither. When a creature enters or starts its turn in the aura, it must attempt a @Check[fortitude|dc:23] save. If the creature fails, it's @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1} and @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} until it leaves the aura. Environmental protections or an appropriate spell provides a +2 circumstance bonus to saves against the aura.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "aura",
+            "water"
+          ]
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "defensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "KwMFHcF7DGFDFBm1",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!TvSLqbhQ9tZ3Ptp8.KwMFHcF7DGFDFBm1"
+    },
+    {
+      "type": "melee",
+      "name": "Wave",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "agile",
+            "reach-10"
+          ]
+        },
+        "damageRolls": {
+          "sHqtSe85gKVOEGkn": {
+            "damage": "2d8+7",
+            "damageType": "bludgeoning",
+            "category": null
+          },
+          "G3768mjCszIN9TKB": {
+            "damage": "1d6",
+            "damageType": "acid",
+            "category": "persistent"
+          }
+        },
+        "bonus": {
+          "value": 20
+        },
+        "attackEffects": {
+          "value": []
+        },
+        "action": "strike",
+        "area": null
+      },
+      "_id": "dgSFvAIlkvX20VZy",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!TvSLqbhQ9tZ3Ptp8.dgSFvAIlkvX20VZy"
+    },
+    {
+      "type": "action",
+      "name": "Acid Rain",
+      "system": {
+        "actionType": {
+          "value": "action"
+        },
+        "description": {
+          "value": "<p>The wastewither vaporizes into a cloud and rains down acid drops. The wastewither Flies up to twice their Speed. Any creature the wastewither passes over takes @Damage[9d8[acid]] damage with a @Check[fortitude|dc:23|basic] save. A wastewither can't use Acid Rain again for [[/gmr 1d4 #Recharge Acid Rain]]{1d4 rounds}.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "acid",
+            "primal"
+          ]
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": 2
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "aUxWLJAlEDTFfqpV",
+      "img": "systems/pf2e/icons/actions/TwoActions.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!TvSLqbhQ9tZ3Ptp8.aUxWLJAlEDTFfqpV"
+    },
+    {
+      "type": "action",
+      "name": "Contaminated Sludge",
+      "system": {
+        "actionType": {
+          "value": "action"
+        },
+        "description": {
+          "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> All terrain in a @Template[type:emanation|distance:30] becomes difficult terrain for 1 minute. All creatures that enter or begin their turn in the affected area must attempt a @Check[fortitude|dc:23] save or become @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{Drained 1}. This drained value is cumulative, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{Drained 4}.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": 2
+        },
+        "category": "offensive",
+        "deathNote": false,
+        "frequency": {
+          "max": 1,
+          "per": "day"
+        }
+      },
+      "effects": [],
+      "_id": "jRcxGv3KFNIMg0dn",
+      "img": "systems/pf2e/icons/actions/TwoActions.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!TvSLqbhQ9tZ3Ptp8.jRcxGv3KFNIMg0dn"
+    },
+    {
+      "img": "systems/pf2e/icons/actions/OneAction.webp",
+      "name": "Swallow Whole",
+      "system": {
+        "actionType": {
+          "value": "action"
+        },
+        "actions": {
+          "value": 1
+        },
+        "category": "offensive",
+        "description": {
+          "value": "<p>Medium, @Damage[(2d8+12)[bludgeoning]] plus @Damage[(2d6)[acid]], Rupture 21</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>",
+          "gm": ""
+        },
+        "publication": {
+          "license": "ORC",
+          "remaster": true,
+          "title": "Pathfinder Monster Core",
+          "authors": ""
+        },
+        "rules": [],
+        "traits": {
+          "value": [
+            "attack"
+          ],
+          "otherTags": []
+        },
+        "slug": "swallow-whole",
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "deathNote": false
+      },
+      "type": "action",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "KCXpQeI1bEv0ikwX",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!TvSLqbhQ9tZ3Ptp8.KCXpQeI1bEv0ikwX"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "pf2e",
+    "systemVersion": "7.6.2"
+  },
+  "ownership": {
+    "default": 0,
+    "yECpvB6rPSLHk9Lh": 3
+  },
+  "sort": 0,
+  "_key": "!actors!TvSLqbhQ9tZ3Ptp8"
+}

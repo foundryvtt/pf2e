@@ -1,0 +1,87 @@
+{
+  "type": "feat",
+  "name": "Twin Guard",
+  "folder": "PZhj7SGQ0fj8Jt9Y",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 10
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "solarian"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p><strong>Trigger</strong> A creature within your reach critically hits you with a melee Strike, and you're wielding two solar weapons.</p><hr /><p>You raise one of your weapons to intercept a particularly deadly attack. You gain resistance equal to your level against the triggering attack. One of your solar weapons shatters and is no longer manifested.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "twin-guard",
+        "toggleable": true
+      },
+      {
+        "key": "Resistance",
+        "type": "all-damage",
+        "predicate": [
+          "twin-guard"
+        ],
+        "value": "@actor.level"
+      }
+    ],
+    "slug": "twin-guard",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "reaction"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "V0OlaVWSTWUh1qvm",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!V0OlaVWSTWUh1qvm"
+}

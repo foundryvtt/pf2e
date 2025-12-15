@@ -1,0 +1,90 @@
+{
+  "type": "feat",
+  "name": "Cosmic Traveler",
+  "folder": "Msfdq8bJd1ILdWd7",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 9
+    },
+    "category": "ancestry",
+    "traits": {
+      "value": [
+        "prismeni"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>The Drift is your true home, and you can survive within it indefinitely. While you're in the Drift, you gain the cosmic trait, and you don't need to eat or drink. While you're in the Drift or a vacuum, you gain a fly Speed equal to your land Speed.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "BaseSpeed",
+        "selector": "fly",
+        "value": "@actor.attributes.speed.value",
+        "predicate": [
+          "terrain:drift",
+          "terrain:vacuum"
+        ]
+      },
+      {
+        "key": "ActorTraits",
+        "add": [
+          "cosmic"
+        ],
+        "remove": []
+      }
+    ],
+    "slug": "cosmic-traveler",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.1"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "Xyf3tjm3nEliqaaf",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!Xyf3tjm3nEliqaaf"
+}

@@ -1,0 +1,215 @@
+{
+  "folder": "BNBCp5rVNuHAoOFS",
+  "name": "Elemental",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You channel the raw power of the primordial elements that converge to create the Universe and everything in it. You might have a strong affinity with one or more elements, or maybe you visited one of the elemental planes and were touched by the journey. You gain the @UUID[Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8]{Shield Block} general feat.</p><p><strong>Tradition</strong> primal</p><p><strong>Connection Skill</strong> Nature</p><p><strong>Connection Spells</strong> cantrip: @UUID[Compendium.sf2e-anachronism.spells.Item.5y70IWhVV6bVjC9N]{Recharge Weapon}; 1st: @UUID[Compendium.sf2e-anachronism.spells.Item.7P4eBdqWcgQJAFCa]{Shifting Surge}; 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Fr58LDSrbndgld9n]{Resist Energy}; 3rd: @UUID[Compendium.pf2e.spells-srd.Item.fI20AVwOzJMHXRdo]{Levitate}; 4th: @UUID[Compendium.pf2e.spells-srd.Item.IarZrgCeaiUqOuRu]{Wall of Fire}*; 5th: @UUID[Compendium.pf2e.spells-srd.Item.1K6AYGisvo9gqdhs]{Elemental Form}; 6th: @UUID[Compendium.sf2e-anachronism.spells.Item.xS4bqHnbodCwjpqI]{Promession}; 7th: @UUID[Compendium.sf2e-anachronism.spells.Item.kGas0LdEAR1WjLGZ]{Absolute Zero}; 8th: @UUID[Compendium.pf2e.spells-srd.Item.x7SPrsRxGb2Vy2nu]{Earthquake}; 9th: @UUID[Compendium.pf2e.spells-srd.Item.jrBa9deU2ULFWvSl]{Falling Stars}</p><p>*Replace the elemental trait and damage type with the trait and damage type of your active <em>elemental weapon</em> or <em>elemental barrier</em> epiphany spells.</p><p><strong>Epiphany Spells</strong> initial: @UUID[Compendium.sf2e-anachronism.spells.Item.d5dmu4HZ3YyrwcaF]{Elemental Weapon}; advanced: @UUID[Compendium.sf2e-anachronism.spells.Item.5apI8Yamauo02VYR]{Elemental Barrier}; greater: @UUID[Compendium.sf2e-anachronism.spells.Item.DZOjyZBZUrzkw5q2]{Elemental Nova}</p><p><strong>Harmony</strong> When you @UUID[Compendium.sf2e-anachronism.actions.Item.UeMHbnnaXDa3sGfG]{Transfer Vitality}, choose an elemental trait: air, earth, fire, metal, water, or wood. If one or more of your elemental epiphanies are active, you must select the elemental trait you chose as part of casting those spells. Until the end of their next turn, the target's next Strike deals damage based on the chosen trait (your choice), rather than its typical damage type: electricity or sonic for air, bludgeoning or piercing for earth, acid or slashing for metal, fire for fire, bludgeoning or cold for water, or piercing or poison for wood.</p><p><strong>Perfect Harmony</strong> During your daily preparations, choose an elemental trait (as listed in harmony). You gain resistance equal to half your level to both damage types associated with the element you selected. If you chose fire, you additionally gain resistance to cold. Whenever you heal a bonded ally with Transfer Vitality, the target gains these resistances until the beginning of your next turn.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.nature.rank",
+        "value": 1
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "override",
+        "path": "flags.sf2e.mystic.tradition",
+        "value": "primal"
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8"
+      },
+      {
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "other-tags",
+        "itemType": "action",
+        "predicate": [
+          "item:slug:transfer-vitality",
+          "feature:perfect-harmony"
+        ],
+        "value": "elemental-perfect-harmony:{item|flags.pf2e.rulesSelections.elementalPerfectHarmony}"
+      },
+      {
+        "itemType": "action",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "predicate": [
+          "item:slug:transfer-vitality"
+        ],
+        "property": "description",
+        "value": [
+          {
+            "title": "SF2E.SpecificRule.Mystic.Harmony.Label",
+            "text": "SF2E.SpecificRule.Mystic.Connection.Elemental.Harmony.Addendum"
+          },
+          {
+            "text": "@UUID[Compendium.sf2e-anachronism.feat-effects.Item.xoUfhVC7gCK716ut]"
+          },
+          {
+            "title": "SF2E.SpecificRule.Mystic.Harmony.PerfectLabel",
+            "text": "SF2E.SpecificRule.Mystic.Connection.Elemental.PerfectHarmony.Addendum",
+            "predicate": [
+              "feature:perfect-harmony"
+            ]
+          },
+          {
+            "text": "@UUID[Compendium.sf2e-anachronism.feat-effects.Item.f92GBWr5lfx4tKot]{Effect: Elemental Perfect Harmony}",
+            "predicate": [
+              "feature:perfect-harmony"
+            ]
+          }
+        ]
+      },
+      {
+        "suboptions": {
+          "config": "elementalTraits"
+        },
+        "key": "RollOption",
+        "toggleable": true,
+        "alwaysActive": true,
+        "label": "SF2E.SpecificRule.Mystic.Harmony.PerfectLabel",
+        "predicate": [
+          "feature:perfect-harmony"
+        ],
+        "option": "elemental-perfect-harmony"
+      },
+      {
+        "key": "Resistance",
+        "type": [
+          "electricity",
+          "sonic"
+        ],
+        "value": "floor(@actor.level/2)",
+        "predicate": [
+          "feature:perfect-harmony",
+          "elemental-perfect-harmony:air"
+        ]
+      },
+      {
+        "key": "Resistance",
+        "type": [
+          "bludgeoning",
+          "piercing"
+        ],
+        "value": "floor(@actor.level/2)",
+        "predicate": [
+          "feature:perfect-harmony",
+          "elemental-perfect-harmony:earth"
+        ]
+      },
+      {
+        "key": "Resistance",
+        "type": [
+          "cold",
+          "fire"
+        ],
+        "value": "floor(@actor.level/2)",
+        "predicate": [
+          "feature:perfect-harmony",
+          "elemental-perfect-harmony:fire"
+        ]
+      },
+      {
+        "key": "Resistance",
+        "type": [
+          "acid",
+          "slashing"
+        ],
+        "value": "floor(@actor.level/2)",
+        "predicate": [
+          "feature:perfect-harmony",
+          "elemental-perfect-harmony:metal"
+        ]
+      },
+      {
+        "key": "Resistance",
+        "type": [
+          "bludgeoning",
+          "cold"
+        ],
+        "value": "floor(@actor.level/2)",
+        "predicate": [
+          "feature:perfect-harmony",
+          "elemental-perfect-harmony:water"
+        ]
+      },
+      {
+        "key": "Resistance",
+        "type": [
+          "piercing",
+          "poison"
+        ],
+        "value": "floor(@actor.level/2)",
+        "predicate": [
+          "feature:perfect-harmony",
+          "elemental-perfect-harmony:wood"
+        ]
+      }
+    ],
+    "slug": "elemental",
+    "traits": {
+      "otherTags": [
+        "mystic-connection"
+      ],
+      "value": [
+        "mystic"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "classfeature",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "AurhNoZmNNhHktx6",
+  "img": "icons/magic/symbols/elements-air-earth-fire-water.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!AurhNoZmNNhHktx6"
+}

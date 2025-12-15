@@ -1,0 +1,103 @@
+{
+  "type": "feat",
+  "name": "Smooth Diversions",
+  "folder": "RqQbVt67RwogrHDS",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 10
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "envoy"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You're practiced in the art of diverting attention quickly and subtly. When you succeed at an attempt to @UUID[Compendium.pf2e.actionspf2e.Item.GkmbTGfg8KcgynOA]{Create a Diversion}, you can immediately @UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{Sneak} or Step as a free action.</p><p>Additionally, creatures only become aware you were trying to trick them if you critically fail to Create a Diversion. Otherwise the creature assumes that your diversion was part of your regular bravado.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "Note",
+        "selector": "skill-check",
+        "text": "SF2E.SpecificRule.Envoy.SmoothDiversions.Success",
+        "outcome": [
+          "success",
+          "criticalSuccess"
+        ],
+        "title": "{item|name}",
+        "predicate": [
+          "action:create-a-diversion"
+        ]
+      },
+      {
+        "key": "Note",
+        "selector": "skill-check",
+        "text": "SF2E.SpecificRule.Envoy.SmoothDiversions.Failure",
+        "outcome": [
+          "failure"
+        ],
+        "title": "{item|name}",
+        "predicate": [
+          "action:create-a-diversion"
+        ]
+      }
+    ],
+    "slug": "smooth-diversions",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "master in Deception"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "enYJDAwYFLhrqDrP",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!enYJDAwYFLhrqDrP"
+}

@@ -1,0 +1,94 @@
+{
+  "folder": "lGMMENPdaHCd7GYV",
+  "name": "Skyguard",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You earned your space legs in the Skyguard, Kalo-Mahoi's space navy. You become trained in Piloting, and you gain a +1 circumstance bonus to Piloting checks to Navigate and Stunt. If you're already trained in Piloting, you become trained in another skill of your choice. You gain the @UUID[Compendium.sf2e-anachronism.feats.Item.VPFiluVQoj8F2Ho0]{Stunt Maneuver} skill feat, even if you don't meet the prerequisites of the feat.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.sf2e-anachronism.feats.Item.VPFiluVQoj8F2Ho0"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.piloting.rank",
+        "value": 1
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "piloting",
+        "value": 1,
+        "predicate": [
+          {
+            "or": [
+              "action:navigate",
+              "action:stunt"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "skyguard",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "kalo"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 5
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 125000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "xYvSZDBbPdMkLuIf",
+  "_key": "!items!xYvSZDBbPdMkLuIf"
+}

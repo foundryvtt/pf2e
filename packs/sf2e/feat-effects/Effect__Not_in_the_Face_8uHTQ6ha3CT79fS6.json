@@ -1,0 +1,130 @@
+{
+  "folder": null,
+  "name": "Effect: Not in the Face",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.OlIuxKxrKAeDklfN]{Not in the Face}</p><p>You take a status penalty to attack and damage rolls against the origin. On a failure, you instead take a –1 circumstance penalty to the triggering attack roll.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "ChoiceSet",
+        "choices": [
+          {
+            "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+            "value": "critical-success"
+          },
+          {
+            "label": "PF2E.Check.Result.Degree.Check.success",
+            "value": "success"
+          },
+          {
+            "label": "PF2E.Check.Result.Degree.Check.failure",
+            "value": "failure"
+          }
+        ],
+        "rollOption": "not-in-the-face",
+        "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "attack-roll",
+        "value": -1,
+        "predicate": [
+          "target:signature:{item|origin.signature}",
+          "not-in-the-face:failure"
+        ],
+        "type": "circumstance",
+        "removeAfterRoll": [
+          "not-in-the-face:failure"
+        ],
+        "slug": "not-in-the-face-circumstance",
+        "hideIfDisabled": true
+      },
+      {
+        "key": "FlatModifier",
+        "selector": [
+          "attack-roll",
+          "damage"
+        ],
+        "value": -1,
+        "predicate": [
+          "target:signature:{item|origin.signature}",
+          {
+            "not": "not-in-the-face:failure"
+          }
+        ],
+        "type": "status",
+        "slug": "not-in-the-face-status",
+        "hideIfDisabled": true
+      },
+      {
+        "key": "AdjustModifier",
+        "mode": "downgrade",
+        "selectors": [
+          "attack-roll",
+          "damage"
+        ],
+        "value": -2,
+        "predicate": [
+          "not-in-the-face:critical-success"
+        ],
+        "slug": "not-in-the-face-status"
+      }
+    ],
+    "slug": "effect-not-in-the-face",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 4
+    },
+    "duration": {
+      "value": 1,
+      "unit": "rounds",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/white-flag-of-surrender.webp",
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "8uHTQ6ha3CT79fS6",
+  "sort": 1700000,
+  "_key": "!items!8uHTQ6ha3CT79fS6"
+}

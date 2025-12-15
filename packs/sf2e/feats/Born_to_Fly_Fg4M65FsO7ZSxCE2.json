@@ -1,0 +1,99 @@
+{
+  "folder": "hLnXw8lo8s9W6jcZ",
+  "name": "Born to Fly",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You find flying exhilarating and live to perform impressive aerial maneuvers. You gain a +1 circumstance bonus to Acrobatics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Qf1ylAbdVi1rkc8M]{Maneuver in Flight} and on Piloting checks to @UUID[Compendium.pf2e.actionspf2e.Item.uS3qDAgOkZ7b8ERL]{Drive} a vehicle or starship. When you roll a critical failure on an Acrobatics check to Maneuver in Flight, you get a failure instead.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "FlatModifier",
+        "selector": "acrobatics",
+        "value": 1,
+        "type": "circumstance",
+        "predicate": [
+          "action:maneuver-in-flight"
+        ]
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "piloting",
+        "value": 1,
+        "type": "circumstance",
+        "predicate": [
+          "action:drive"
+        ]
+      },
+      {
+        "key": "AdjustDegreeOfSuccess",
+        "selector": "acrobatics",
+        "adjustment": {
+          "criticalFailure": "to-failure"
+        },
+        "predicate": [
+          "action:maneuver-in-flight"
+        ]
+      }
+    ],
+    "slug": "born-to-fly",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "sarcesian"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "mcr1uhoMfGHRQJHX": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": "Item.FwNss6LroM7KZSUB",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "Fg4M65FsO7ZSxCE2",
+  "_key": "!items!Fg4M65FsO7ZSxCE2"
+}

@@ -1,0 +1,73 @@
+{
+  "folder": "0IjhzVXsysCNDj0i",
+  "name": "Nomadic Vlaka",
+  "type": "heritage",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You live your life on the move, traveling the galaxy in an endless journey. You gain two additional languages of your choice, chosen from among the common and uncommon languages available to you. When you select the @UUID[Compendium.pf2e.feats-srd.Item.P9HCz0uR6xPHuw72]{Multilingual} skill feat, you gain three new languages instead of two.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "add",
+        "path": "system.build.languages.max",
+        "value": 2
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "override",
+        "path": "flags.pf2e.multilingualTaken",
+        "priority": 19,
+        "value": 0
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "add",
+        "path": "system.build.languages.max",
+        "priority": 21,
+        "value": "@actor.flags.pf2e.multilingualTaken"
+      }
+    ],
+    "slug": "nomadic-vlaka",
+    "traits": {
+      "otherTags": [],
+      "value": [],
+      "rarity": "common"
+    },
+    "ancestry": {
+      "name": "Vlaka",
+      "slug": "vlaka",
+      "uuid": "Compendium.sf2e-anachronism.ancestries.Item.mBsOLC7cRc7nkzV2"
+    }
+  },
+  "img": "systems/pf2e/icons/default-icons/heritage.svg",
+  "sort": 150000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "ySfpV3VZIYdmI2fT",
+  "_key": "!items!ySfpV3VZIYdmI2fT"
+}

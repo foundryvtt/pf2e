@@ -1,0 +1,147 @@
+{
+  "folder": "9feZwdAlvdlYJ3gO",
+  "name": "Sniper",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You specialize in targeting foes from far away and attacking while unseen. Whether you're peeking around a corner, perching on a distant rooftop, or aiming from the back line of a squad formation, you favor sniper rifles and prefer to line up the perfect shot rather than rush into combat. You're trained in Stealth. You gain a skill feat for Stealth.</p><p><strong>Exploit:</strong> You ignore the unwieldy and volley trait of guns you wield belonging to the sniper group. You gain one of the following operative feats as a bonus feat: @UUID[Compendium.sf2e-anachronism.feats.Item.4bMox7VXPrLzKsV8]{Keep Them in Your Sights} or @UUID[Compendium.sf2e-anachronism.feats.Item.rhEfisGERMwwn0qz]{Scope Sight}.</p><p><strong>Enhanced Exploit:</strong> If you fail your first ranged Strike against your mark using a weapon in the sniper weapon group, you Reload your sniper weapon as a free action. The Strike doesn't count toward your multiple attack penalty.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.stealth.rank",
+        "value": 1
+      },
+      {
+        "adjustName": false,
+        "key": "ChoiceSet",
+        "choices": {
+          "filter": [
+            "item:category:skill",
+            "item:level:1"
+          ],
+          "itemType": "feat"
+        },
+        "flag": "feat",
+        "prompt": "PF2E.SpecificRule.Prompt.SkillFeat"
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+      },
+      {
+        "adjustName": false,
+        "key": "ChoiceSet",
+        "choices": [
+          {
+            "value": "Compendium.sf2e-anachronism.feats.Item.4bMox7VXPrLzKsV8"
+          },
+          {
+            "value": "Compendium.sf2e-anachronism.feats.Item.rhEfisGERMwwn0qz"
+          }
+        ],
+        "predicate": [
+          "class:operative"
+        ],
+        "flag": "bonusFeat"
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "{item|flags.pf2e.rulesSelections.bonusFeat}",
+        "predicate": [
+          "class:operative"
+        ]
+      },
+      {
+        "key": "RollOption",
+        "option": "sniper-first-mark-strike",
+        "label": "SF2E.SpecificRule.Operative.Specialization.Sniper.EnhancedExploit.ToggleLabel",
+        "disabledIf": [
+          {
+            "not": "self:effect:aim"
+          }
+        ],
+        "predicate": [
+          "class:operative"
+        ],
+        "toggleable": true
+      },
+      {
+        "key": "Note",
+        "selector": "ranged-strike-attack-roll",
+        "text": "SF2E.SpecificRule.Operative.Specialization.Sniper.EnhancedExploit.Note",
+        "title": "SF2E.SpecificRule.Operative.EnhancedExploit.Label",
+        "outcome": [
+          "criticalFailure",
+          "failure"
+        ],
+        "predicate": [
+          "target:mark:aim",
+          "sniper-first-mark-strike",
+          "class:operative"
+        ]
+      }
+    ],
+    "slug": "sniper",
+    "traits": {
+      "otherTags": [
+        "operative-specialization"
+      ],
+      "value": [
+        "operative"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "classfeature",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "OCWsQQ95P7ecp7Rn",
+  "img": "modules/sf2e-anachronism/art/icons/abilities/blue-jet.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!OCWsQQ95P7ecp7Rn"
+}

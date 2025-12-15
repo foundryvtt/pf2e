@@ -1,0 +1,122 @@
+{
+  "folder": "GyMklUN6ZJ9xixWD",
+  "name": "Armor Storm",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Your armor feels like a part of you and stands up to heavy fire in the thick of battle. Your armor absorbs greater damage from attacks made by enemies you've suppressed. In a fight, you likely body block or stand in front and try to keep the enemy's ire, trusting your armor to keep you alive.</p><p>You never count as being in the area of a ranged weapon you've made an attack with. You gain resistance equal to half your level (minimum 1) to all damage against attacks made by @UUID[Compendium.sf2e-anachronism.conditions.Item.enA7BxAjBb7ns1iF]{Suppressed} targets.</p><p>You don't need a free hand to @UUID[Compendium.pf2e.actionspf2e.Item.Dt6B1slsBy8ipJu9]{Disarm}, @UUID[Compendium.pf2e.actionspf2e.Item.PMbdMWc2QroouFGD]{Grapple}, @UUID[Compendium.pf2e.actionspf2e.Item.lOE4yjUnETTdaf2T]{Reposition}, @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{Shove}, or @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{Trip}. You gain a +1 status bonus on Athletics checks to Disarm, Grapple, Reposition, Shove, and Trip suppressed foes. When you successfully Disarm, Grapple, Reposition, Shove, or Trip a creature, it becomes suppressed until the start of your next turn.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "Resistance",
+        "value": "max(1,floor(@actor.level / 2))",
+        "type": "custom",
+        "definition": [
+          "origin:condition:suppressed",
+          "origin:action:trait:attack"
+        ],
+        "label": "SF2E.IWR.Custom.AttacksFromSuppressed"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "athletics",
+        "value": 1,
+        "type": "status",
+        "predicate": [
+          "target:condition:suppressed",
+          {
+            "or": [
+              "action:disarm",
+              "action:grapple",
+              "action:reposition",
+              "action:shove",
+              "action:trip"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "Note",
+        "selector": "skill-check",
+        "text": "SF2E.SpecificRule.Soldier.FightingStyle.ArmorStorm.Note",
+        "predicate": [
+          "target:condition:suppressed",
+          {
+            "or": [
+              "action:disarm",
+              "action:grapple",
+              "action:reposition",
+              "action:shove",
+              "action:trip"
+            ]
+          }
+        ],
+        "title": "{item|name}",
+        "outcome": [
+          "success",
+          "criticalSuccess"
+        ]
+      }
+    ],
+    "slug": "armor-storm",
+    "traits": {
+      "otherTags": [
+        "soldier-fighting-style"
+      ],
+      "value": [
+        "soldier"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "classfeature",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "T78VQC8oaD1Odz1k",
+  "img": "modules/sf2e-anachronism/art/icons/abilities/composite-alien.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!T78VQC8oaD1Odz1k"
+}

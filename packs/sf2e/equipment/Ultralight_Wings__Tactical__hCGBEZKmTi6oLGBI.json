@@ -1,0 +1,128 @@
+{
+  "type": "equipment",
+  "name": "Ultralight Wings (Tactical)",
+  "folder": "VGsfnIyGP1k7iP2r",
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Foldable wings are attached to your shoulder blades or a similar location on your body that allows them to lift your weight and assist your flying movements. You can deploy the wings with an Interact action, but you can't deploy or use them while you're wearing more than light armor. While the wings are deployed and you're not encumbered, you gain a fly Speed of 30 feet and a +1 item bonus to Acrobatics checks to Maneuver in Flight.</p>"
+    },
+    "rules": [
+      {
+        "key": "BaseSpeed",
+        "selector": "fly",
+        "value": 30,
+        "predicate": [
+          "wings-deployed",
+          {
+            "nor": [
+              "armor:category:heavy",
+              "armor:category:medium"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "FlatModifier",
+        "selector": [
+          "acrobatics"
+        ],
+        "value": 1,
+        "type": "item",
+        "predicate": [
+          "action:maneuver-in-flight",
+          "wings-deployed"
+        ]
+      }
+    ],
+    "slug": "ultralight-wings-tactical",
+    "_migration": {
+      "version": 0.94,
+      "lastMigration": null,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "biotech"
+      ],
+      "rarity": "common"
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 6
+    },
+    "quantity": 1,
+    "baseItem": null,
+    "bulk": {
+      "value": 0.1
+    },
+    "hp": {
+      "value": 0,
+      "max": 0
+    },
+    "hardness": 0,
+    "price": {
+      "value": {
+        "sp": 2500,
+        "pp": 0,
+        "gp": 0,
+        "cp": 0
+      }
+    },
+    "equipped": {
+      "carryType": "worn",
+      "invested": null
+    },
+    "containerId": null,
+    "size": "med",
+    "material": {
+      "type": null,
+      "grade": null
+    },
+    "identification": {
+      "status": "identified",
+      "unidentified": {
+        "name": "Unusual Object",
+        "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+        "data": {
+          "description": {
+            "value": ""
+          }
+        }
+      },
+      "misidentified": {}
+    },
+    "usage": {
+      "value": "implanted"
+    },
+    "subitems": []
+  },
+  "_id": "hCGBEZKmTi6oLGBI",
+  "img": "icons/commodities/biological/wing-insect-green.webp",
+  "effects": [],
+  "sort": 106250,
+  "ownership": {
+    "default": 0,
+    "yECpvB6rPSLHk9Lh": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "pf2e",
+    "systemVersion": "7.7.4"
+  },
+  "_key": "!items!hCGBEZKmTi6oLGBI"
+}

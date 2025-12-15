@@ -1,0 +1,112 @@
+{
+  "folder": "BzhyIRBW6UKtg6oG",
+  "name": "Robot Adversary",
+  "type": "background",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>You recognize the dreaded illumantula from databases the Starfinder Society discovered in Eternity and know without a doubt the danger it—and the First Ones—pose to the Pact Worlds. While you know you can't defeat such a formidable creation yourself (and you hope you'll never have to try!), you've trained to combat robots and other technological creatures the First Ones are known to have created.</p><p>Choose two attribute boosts. One must be to <strong>Strength</strong> or <strong>Dexterity</strong>, and one is a free attribute boost.</p><p>You're trained in your choice of either the Computers or Crafting skill, as well as the Robot Lore skill. You gain a skill feat: @UUID[Compendium.sf2e-anachronism.feats.Item.ifQiKhl0Gt2CM7i9]{Phreaker} if you chose Computers or @UUID[Compendium.pf2e.feats-srd.Item.ASy9AKEIRxPYUi5o]{Quick Repair} if you chose Crafting.</p>"
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "SF2E.Skill.Computers",
+            "predicate": [
+              "skill:computers:rank:0"
+            ],
+            "value": {
+              "rank": 1,
+              "feat": "Compendium.sf2e-anachronism.feats.Item.ifQiKhl0Gt2CM7i9",
+              "slug": "computers"
+            }
+          },
+          {
+            "label": "PF2E.Skill.Crafting",
+            "predicate": [
+              "skill:crafting:rank:0"
+            ],
+            "value": {
+              "rank": 1,
+              "feat": "Compendium.pf2e.feats-srd.Item.ASy9AKEIRxPYUi5o",
+              "slug": "crafting"
+            }
+          }
+        ],
+        "flag": "skill",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.Skill"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.{item|flags.pf2e.rulesSelections.skill.slug}.rank",
+        "value": "@item.flags.pf2e.rulesSelections.skill.rank"
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "{item|flags.pf2e.rulesSelections.skill.feat}"
+      }
+    ],
+    "slug": "robot-adversary",
+    "_migration": {
+      "version": 0.94,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [],
+      "rarity": "common"
+    },
+    "publication": {
+      "title": "Invasion's Edge Player's Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "boosts": {
+      "0": {
+        "value": [
+          "dex",
+          "str"
+        ]
+      },
+      "1": {
+        "value": [
+          "cha",
+          "con",
+          "dex",
+          "int",
+          "str",
+          "wis"
+        ]
+      }
+    },
+    "items": {},
+    "trainedSkills": {
+      "value": [],
+      "lore": [
+        "Robot Lore skill"
+      ]
+    }
+  },
+  "img": "systems/pf2e/icons/default-icons/background.svg",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": "Item.xqAkHXzSTBSXvUmK",
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "xqAkHXzSTBSXvUmK",
+  "_key": "!items!xqAkHXzSTBSXvUmK"
+}

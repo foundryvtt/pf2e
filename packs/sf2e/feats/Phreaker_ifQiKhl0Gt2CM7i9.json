@@ -1,0 +1,100 @@
+{
+  "type": "feat",
+  "name": "Phreaker",
+  "folder": "admZiPs6ML6NgwMt",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 1
+    },
+    "category": "skill",
+    "traits": {
+      "value": [
+        "general",
+        "skill"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You've learned how to hack using alternative methods. You can use Computers to Disable a Device or Hack a system using any computer, comm unit, or terminal instead of a hacking toolkit. If you're an expert in Computers and the equipment you use is at least 3rd level, you gain a +1 item bonus to Disable a Device or Hack.</p><hr /><p><strong>Special</strong> If you have the @UUID[Compendium.sf2e-anachronism.feats.Item.abcKcLvAGE5AKig4]{Combat Hack} or @UUID[Compendium.sf2e-anachronism.feats.Item.0ZNErs9RICfOw1Nf]{Digital Diversion} skill feat, you can use this feat to Combat Hack or @UUID[Compendium.pf2e.actionspf2e.Item.GkmbTGfg8KcgynOA]{Create a Diversion} without a hacking toolkit.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "FlatModifier",
+        "predicate": [
+          "phreaker",
+          {
+            "gte": [
+              "skill:computers:rank",
+              2
+            ]
+          },
+          {
+            "or": [
+              "action:disable-a-device",
+              "action:hack"
+            ]
+          }
+        ],
+        "selector": "computers",
+        "value": 1,
+        "type": "item"
+      }
+    ],
+    "slug": "phreaker",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "trained in Computers"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "ifQiKhl0Gt2CM7i9",
+  "effects": [],
+  "sort": 1400000,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!ifQiKhl0Gt2CM7i9"
+}

@@ -1,0 +1,112 @@
+{
+  "folder": "SQug2jaSWWnTs33r",
+  "name": "Infernal Bulwark",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Armor you wear gains the bulwark trait. You become trained in heavy armor, or become an expert in heavy armor if you were already trained. Your Hellknight regalia grants you resistance equal to half your level when you wear it, determined by your chosen Hellknight order.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "key": "ChoiceSet",
+        "choices": [
+          {
+            "label": "PF2E.ProficiencyLevel1",
+            "value": 1,
+            "predicate": [
+              "defense:heavy:rank:0"
+            ]
+          },
+          {
+            "label": "PF2E.ProficiencyLevel2",
+            "value": 2,
+            "predicate": [
+              {
+                "gte": [
+                  "defense:heavy:rank",
+                  1
+                ]
+              }
+            ]
+          }
+        ],
+        "flag": "rank"
+      },
+      {
+        "key": "Resistance",
+        "type": "{actor|flags.pf2e.hellknightOrderDamage}",
+        "value": "max(1,floor(@actor.level/2))"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.proficiencies.defenses.heavy.rank",
+        "value": "@item.flags.pf2e.rulesSelections.rank"
+      }
+    ],
+    "slug": "infernal-bulwark",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "archetype"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 10
+    },
+    "category": "class",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Hellknight Dedication"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "mcr1uhoMfGHRQJHX": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": "Item.DcAzGdxkDV4nYgpQ",
+    "duplicateSource": "Item.DcAzGdxkDV4nYgpQ",
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3",
+    "exportSource": null
+  },
+  "_id": "3SJtpZK58WKpC2SO",
+  "_key": "!items!3SJtpZK58WKpC2SO"
+}

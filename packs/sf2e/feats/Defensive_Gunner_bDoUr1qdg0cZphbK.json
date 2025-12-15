@@ -1,0 +1,107 @@
+{
+  "type": "feat",
+  "name": "Defensive Gunner",
+  "folder": "dUge9P1UVgqBOrXl",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 2
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "operative"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You've learned to defend yourself with only a gun, shielding your body and deflecting blows with stock and barrel. Guns you wield gain the parry trait. If an appropriate weapon already has the parry trait, increase the circumstance bonus to AC it grants when used to parry from +1 to +2.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "traits",
+        "itemType": "weapon",
+        "value": "parry",
+        "predicate": [
+          "item:ranged",
+          {
+            "or": [
+              "item:trait:tech",
+              "item:trait:analog"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "RollOption",
+        "option": "defensive-gunner",
+        "toggleable": true,
+        "domain": "ac",
+        "label": "SF2E.SpecificRule.Operative.DefensiveGunner.ToggleLabel"
+      },
+      {
+        "key": "AdjustModifier",
+        "mode": "upgrade",
+        "value": 2,
+        "selector": "ac",
+        "predicate": [
+          "defensive-gunner"
+        ],
+        "slug": "parry"
+      }
+    ],
+    "slug": "defensive-gunner",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "bDoUr1qdg0cZphbK",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!bDoUr1qdg0cZphbK"
+}

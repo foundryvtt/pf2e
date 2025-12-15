@@ -1,0 +1,126 @@
+{
+  "name": "Effect: Elemental Harmony",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.class-features.Item.AurhNoZmNNhHktx6]{Elemental}</p><p>Your next Strike deals the chosen type of damage rather than its typical damage.</p>"
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "PF2E.TraitAcid",
+            "value": "acid"
+          },
+          {
+            "label": "PF2E.TraitBludgeoning",
+            "value": "bludgeoning"
+          },
+          {
+            "label": "PF2E.TraitCold",
+            "value": "cold"
+          },
+          {
+            "label": "PF2E.TraitElectricity",
+            "value": "electricity"
+          },
+          {
+            "label": "PF2E.TraitFire",
+            "value": "fire"
+          },
+          {
+            "label": "PF2E.TraitPiercing",
+            "value": "piercing"
+          },
+          {
+            "label": "PF2E.TraitPoison",
+            "value": "poison"
+          },
+          {
+            "label": "PF2E.TraitSlashing",
+            "value": "slashing"
+          },
+          {
+            "label": "PF2E.TraitSonic",
+            "value": "sonic"
+          }
+        ],
+        "flag": "damageType",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+      },
+      {
+        "key": "DamageAlteration",
+        "selectors": [
+          "strike-damage"
+        ],
+        "mode": "override",
+        "property": "damage-type",
+        "value": "{item|flags.pf2e.rulesSelections.damageType}"
+      }
+    ],
+    "slug": "effect-elemental-harmony",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": 0.932,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "rounds",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false,
+    "fromSpell": false
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/green-tree-emblem.webp",
+  "folder": null,
+  "ownership": {
+    "default": 0,
+    "CmdglLq38DpgHzdd": 3,
+    "O8OxKK20UjX7W372": 3
+  },
+  "flags": {
+    "core": {}
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "pf2e",
+    "systemVersion": "7.4.3"
+  },
+  "_id": "xoUfhVC7gCK716ut",
+  "sort": 5400000,
+  "_key": "!items!xoUfhVC7gCK716ut"
+}

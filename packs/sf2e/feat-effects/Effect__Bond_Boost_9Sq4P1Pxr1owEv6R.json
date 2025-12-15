@@ -1,0 +1,88 @@
+{
+  "folder": null,
+  "name": "Effect: Bond Boost",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.LGrCVzOvUayHW1Pu]{Bond Boost}</p><p>You gain a +1 status bonus to your next saving throw. If you roll a success on the saving throw against a vitality or void effect, you get a critical success instead.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "FlatModifier",
+        "selector": "saving-throw",
+        "value": 1,
+        "type": "status",
+        "removeAfterRoll": "if-enabled"
+      },
+      {
+        "key": "AdjustDegreeOfSuccess",
+        "adjustment": {
+          "success": "to-critical-success"
+        },
+        "selector": "saving-throw",
+        "predicate": [
+          {
+            "or": [
+              "item:trait:vitality",
+              "item:trait:void"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "effect-bond-boost",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 2
+    },
+    "duration": {
+      "value": -1,
+      "unit": "unlimited",
+      "expiry": null,
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/blue-heart-in-a-circle.webp",
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "9Sq4P1Pxr1owEv6R",
+  "sort": 300000,
+  "_key": "!items!9Sq4P1Pxr1owEv6R"
+}

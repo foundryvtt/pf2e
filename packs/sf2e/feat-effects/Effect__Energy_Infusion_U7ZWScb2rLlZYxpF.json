@@ -1,0 +1,108 @@
+{
+  "folder": null,
+  "name": "Effect: Energy Infusion",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.943,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Your Strikes become magical and either deal 1 additional spirit damage and gain the unholy trait against living creatures, or deal 1 additional spirit damage and gain the holy trait against undead.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Guilt of the Grave World",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "traits",
+        "value": "magical",
+        "itemType": "weapon",
+        "predicate": [
+          "item:equipped"
+        ]
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "strike-damage",
+        "value": 1,
+        "damageType": "spirit",
+        "predicate": [
+          {
+            "or": [
+              "target:mode:living",
+              "target:mode:undead"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "AdjustStrike",
+        "mode": "add",
+        "property": "traits",
+        "value": "holy",
+        "predicate": [
+          "target:mode:undead"
+        ]
+      },
+      {
+        "key": "AdjustStrike",
+        "mode": "add",
+        "property": "traits",
+        "value": "unholy",
+        "predicate": [
+          "target:mode:living"
+        ]
+      }
+    ],
+    "slug": "effect-energy-infusion",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 9
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "icons/magic/death/skeleton-skull-soul-blue.webp",
+  "ownership": {
+    "default": 0,
+    "qA45GVv5hySaf9b5": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "pf2e",
+    "systemVersion": "7.7.3"
+  },
+  "_id": "U7ZWScb2rLlZYxpF",
+  "sort": 500000,
+  "_key": "!items!U7ZWScb2rLlZYxpF"
+}

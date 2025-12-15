@@ -1,0 +1,141 @@
+{
+  "folder": "7JvVdcPLRxEK9sec",
+  "name": "Sniper's Scope (Commercial)",
+  "type": "equipment",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>A telescopic sighting attachment helps view distant targets.</p><hr /><p><strong>Activate—Adjust Sight</strong> <span class=\"pf2-icon\">1</span> (manipulate)</p><p><strong>Effect</strong> Increase the range increment of the weapon the scope is attached to by 10 feet. If the weapon has a base range increment of 50 feet or more, increase the range of the weapon by 20 feet instead. This lasts until the beginning of your next turn or until you're no longer wielding the weapon this scope is attached to, whichever comes first. This does not increase the size of area attacks.</p>"
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "{item|parentItem.id}-snipers-scope",
+        "toggleable": true,
+        "value": true
+      },
+      {
+        "itemType": "weapon",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "range-increment",
+        "value": 10,
+        "predicate": [
+          "item:id:{item|parentItem.id}",
+          "{item|parentItem.id}-snipers-scope",
+          {
+            "lt": [
+              "item:range-increment",
+              50
+            ]
+          }
+        ]
+      },
+      {
+        "itemType": "weapon",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "range-increment",
+        "value": 20,
+        "predicate": [
+          "item:id:{item|parentItem.id}",
+          "{item|parentItem.id}-snipers-scope",
+          {
+            "gte": [
+              "item:range-increment",
+              50
+            ]
+          }
+        ],
+        "priority": 115
+      }
+    ],
+    "slug": "snipers-scope-commercial",
+    "_migration": {
+      "version": 0.94,
+      "lastMigration": null,
+      "previous": {
+        "schema": 0.932,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "tech"
+      ],
+      "rarity": "common"
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 1
+    },
+    "quantity": 1,
+    "baseItem": null,
+    "bulk": {
+      "value": 0
+    },
+    "hp": {
+      "value": 0,
+      "max": 0
+    },
+    "hardness": 0,
+    "price": {
+      "value": {
+        "sp": 150
+      }
+    },
+    "equipped": {
+      "carryType": "worn",
+      "invested": null
+    },
+    "containerId": null,
+    "size": "med",
+    "material": {
+      "type": null,
+      "grade": null
+    },
+    "identification": {
+      "status": "identified",
+      "unidentified": {
+        "name": "Unusual Object",
+        "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+        "data": {
+          "description": {
+            "value": ""
+          }
+        }
+      },
+      "misidentified": {}
+    },
+    "usage": {
+      "value": "installed-in-a-weapon-sight"
+    },
+    "subitems": []
+  },
+  "img": "systems/pf2e/icons/equipment/other/attached-items/scope.webp",
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.347",
+    "systemId": "pf2e",
+    "systemVersion": "7.3.1"
+  },
+  "ownership": {
+    "default": 0,
+    "CmdglLq38DpgHzdd": 3,
+    "O8OxKK20UjX7W372": 3
+  },
+  "_id": "10lYyQDoJXUojKm2",
+  "sort": 600000,
+  "_key": "!items!10lYyQDoJXUojKm2"
+}

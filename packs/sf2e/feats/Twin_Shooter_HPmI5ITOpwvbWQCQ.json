@@ -1,0 +1,101 @@
+{
+  "type": "feat",
+  "name": "Twin Shooter",
+  "folder": "uSgzGb4nJNol8O9D",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 8
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "operative"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You're especially dangerous while brandishing twin guns. As long as you're wielding two simple guns, both guns gain the agile trait.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "twin-shooter",
+        "toggleable": true
+      },
+      {
+        "itemType": "weapon",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "traits",
+        "predicate": [
+          "item:ranged",
+          "item:category:simple",
+          {
+            "or": [
+              "item:trait:analog",
+              "item:trait:tech"
+            ]
+          },
+          "twin-shooter"
+        ],
+        "value": "agile"
+      }
+    ],
+    "slug": "twin-shooter",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Twin Draw"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "HPmI5ITOpwvbWQCQ",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!HPmI5ITOpwvbWQCQ"
+}

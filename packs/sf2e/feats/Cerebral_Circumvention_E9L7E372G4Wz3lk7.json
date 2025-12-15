@@ -1,0 +1,92 @@
+{
+  "folder": "Y0BgrTsSOzk2WrXk",
+  "name": "Cerebral Circumvention",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p><strong>Trigger</strong> A Telepredicted creature uses an effect that requires a Reflex save or attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Dt6B1slsBy8ipJu9]{Disarm} or @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{Trip} you.</p><p><strong>Requirements</strong> You have a bonus against the target using Telepredict. </p><hr /><p>By reading cues and analyzing probability outcomes, you smoothly predicting your opponent's next move. You gain a +1 circumstance bonus to your Reflex save or Reflex DC against the triggering action. Increase this bonus to +2 if you've dealt mental damage to the target since the last time you used Telepredict.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "domain": "all",
+        "key": "RollOption",
+        "option": "cerebral-circumvention",
+        "toggleable": true,
+        "value": true
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "reflex",
+        "value": "@actor.flags.pf2e.contemplative.telepredict",
+        "predicate": [
+          "target:mark:telepredict"
+        ],
+        "type": "circumstance"
+      }
+    ],
+    "slug": "cerebral-circumvention",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "contemplative",
+        "mental"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 13
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "reaction"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Telepredict"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 200000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "E9L7E372G4Wz3lk7",
+  "_key": "!items!E9L7E372G4Wz3lk7"
+}

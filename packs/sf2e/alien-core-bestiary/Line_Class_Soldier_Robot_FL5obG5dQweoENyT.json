@@ -1,0 +1,945 @@
+{
+  "type": "npc",
+  "name": "Line-Class Soldier Robot",
+  "folder": null,
+  "system": {
+    "attributes": {
+      "hp": {
+        "value": 56,
+        "temp": 0,
+        "max": 56,
+        "details": ""
+      },
+      "ac": {
+        "value": 17,
+        "details": ""
+      },
+      "allSaves": {
+        "value": ""
+      },
+      "speed": {
+        "value": 30,
+        "otherSpeeds": [],
+        "details": ""
+      },
+      "immunities": [
+        {
+          "type": "bleed"
+        },
+        {
+          "type": "death-effects"
+        },
+        {
+          "type": "disease"
+        },
+        {
+          "type": "doomed"
+        },
+        {
+          "type": "drained"
+        },
+        {
+          "type": "fatigued"
+        },
+        {
+          "type": "healing"
+        },
+        {
+          "type": "mental"
+        },
+        {
+          "type": "nonlethal-attacks"
+        },
+        {
+          "type": "paralyzed"
+        },
+        {
+          "type": "poison"
+        },
+        {
+          "type": "sickened"
+        },
+        {
+          "type": "spirit"
+        },
+        {
+          "type": "unconscious"
+        },
+        {
+          "type": "vitality"
+        },
+        {
+          "type": "void"
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "electricity",
+          "value": 5
+        }
+      ]
+    },
+    "initiative": {
+      "statistic": "perception"
+    },
+    "details": {
+      "languages": {
+        "value": [],
+        "details": ""
+      },
+      "level": {
+        "value": 3
+      },
+      "blurb": "",
+      "publicNotes": "<p>Most line-class soldier robots are lanky, headless humanoid machines. They have four-fingered hands and armored torsos painted in their owner's livery, with a single red sensor in the upper torso. By default, they're armed with bargain-brand laser rifles and breaching hammers. Each is 5 feet tall and weighs 300 pounds.</p><p>Line soldiers are the final refinement of the soldier robot concept, made dangerous through their simplicity. Line-class robots can be adapted to any battlefield, download skill packages via infosphere, cannibalize damaged allies for repairs, and are simple to make, maintain, and modify. As such, they are relatively cheap to purchase in large numbers and can be deployed with little regard for casualties.</p><hr /><p>Living soldiers are a liability. They have families who don't want them to die, need salaries, have morale, require discipline, commit atrocities, and have opinions on the war. They're a necessary, but unfortunate, part of warfare for any society without an abiding love for necromancy.</p><p>Cutting-edge soldier robots promise to solve this problem. Soldier robots have no loved ones, opinions, self-preservation instinct, or tendency toward random atrocities. Many companies market their soldier robots as a humane solution to modern combat.</p><p>In practice, they're anything but.</p><p>Without lives on the line, soldier robots encourage their owners to engage more often and more violently. Standoffs turn into skirmishes, skirmishes into battles, and inevitably the innocent are caught up in the mix. They're particularly popular with corporations and non-governmental organizations that appreciate being able to throw a dozen soldier robots at any naysayer, public critic, or explorer they dislike while being able to deny true responsibility for what happens.</p><p>Though there's constant public fear of soldier robots going rogue, it has yet to prove a serious concern. If a soldier robot wants you dead, it's because someone doesn't mind if it kills you.</p>",
+      "privateNotes": "",
+      "publication": {
+        "title": "Starfinder Alien Core",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "resources": {},
+    "_migration": {
+      "version": 0.946,
+      "previous": {
+        "schema": null,
+        "foundry": "13.350",
+        "system": "7.5.2"
+      }
+    },
+    "abilities": {
+      "str": {
+        "mod": 3
+      },
+      "dex": {
+        "mod": 4
+      },
+      "con": {
+        "mod": 2
+      },
+      "int": {
+        "mod": -1
+      },
+      "wis": {
+        "mod": 1
+      },
+      "cha": {
+        "mod": 0
+      }
+    },
+    "perception": {
+      "details": "",
+      "mod": 6,
+      "senses": [
+        {
+          "type": "darkvision"
+        }
+      ],
+      "vision": true
+    },
+    "saves": {
+      "fortitude": {
+        "value": 12,
+        "saveDetail": ""
+      },
+      "reflex": {
+        "value": 9,
+        "saveDetail": ""
+      },
+      "will": {
+        "value": 5,
+        "saveDetail": ""
+      }
+    },
+    "skills": {
+      "acrobatics": {
+        "base": 10
+      },
+      "athletics": {
+        "base": 9
+      }
+    },
+    "traits": {
+      "value": [
+        "construct",
+        "robot",
+        "tech"
+      ],
+      "rarity": "common",
+      "size": {
+        "value": "med"
+      }
+    }
+  },
+  "_id": "FL5obG5dQweoENyT",
+  "img": "systems/pf2e/icons/default-icons/npc.svg",
+  "prototypeToken": {
+    "name": "Line-Class Soldier Robot",
+    "displayName": 20,
+    "actorLink": false,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "systems/pf2e/icons/default-icons/npc.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": true,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": true,
+        "autoscale": true
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [
+    {
+      "name": "Battery (Commercial)",
+      "type": "consumable",
+      "effects": [],
+      "system": {
+        "description": {
+          "gm": "",
+          "value": ""
+        },
+        "rules": [],
+        "slug": "battery-commercial",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "consumable"
+          ],
+          "rarity": "common"
+        },
+        "publication": {
+          "title": "Starfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 0
+        },
+        "quantity": 4,
+        "baseItem": null,
+        "bulk": {
+          "value": 0
+        },
+        "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "hardness": 0,
+        "price": {
+          "value": {
+            "sp": 10
+          },
+          "per": 1
+        },
+        "equipped": {
+          "carryType": "worn"
+        },
+        "containerId": null,
+        "size": "med",
+        "material": {
+          "type": null,
+          "grade": null
+        },
+        "identification": {
+          "status": "identified",
+          "unidentified": {
+            "name": "Unusual Object",
+            "img": "systems/pf2e/icons/unidentified_item_icons/other-consumables.webp",
+            "data": {
+              "description": {
+                "value": ""
+              }
+            }
+          },
+          "misidentified": {}
+        },
+        "category": "ammo",
+        "uses": {
+          "value": 10,
+          "max": 10,
+          "autoDestroy": true
+        },
+        "damage": null,
+        "usage": {
+          "value": "other"
+        },
+        "stackGroup": null,
+        "spell": null
+      },
+      "img": "modules/sf2e-anachronism/art/icons/equipment/other/green-battery.webp",
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "folder": "F6h7fO0Z7cgQBVRD",
+      "sort": 200000,
+      "_id": "kAPdloqq4dnLFZOY",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!FL5obG5dQweoENyT.kAPdloqq4dnLFZOY"
+    },
+    {
+      "folder": "V89RPpe7fyCFC6NS",
+      "name": "Integrated Commercial Hammer",
+      "type": "weapon",
+      "effects": [],
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>Valued as both a crafting tool and an effective weapon, this hammer uses specially weighted heads and handles to deliver maximum force with each strike.</p>"
+        },
+        "rules": [],
+        "slug": "hammer",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "analog",
+            "professional-crafting",
+            "shove"
+          ],
+          "rarity": "common"
+        },
+        "publication": {
+          "title": "Starfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 0
+        },
+        "quantity": 1,
+        "baseItem": "hammer",
+        "bulk": {
+          "value": 1
+        },
+        "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "hardness": 0,
+        "price": {
+          "value": {
+            "sp": 15
+          }
+        },
+        "equipped": {
+          "carryType": "worn",
+          "invested": null,
+          "handsHeld": 0
+        },
+        "containerId": null,
+        "size": "med",
+        "material": {
+          "type": null,
+          "grade": null
+        },
+        "identification": {
+          "status": "identified",
+          "unidentified": {
+            "name": "Unusual Weapon",
+            "img": "systems/pf2e/icons/unidentified_item_icons/weapon.webp",
+            "data": {
+              "description": {
+                "value": ""
+              }
+            }
+          },
+          "misidentified": {}
+        },
+        "usage": {
+          "value": "held-in-two-hands"
+        },
+        "category": "martial",
+        "group": "hammer",
+        "bonus": {
+          "value": 0
+        },
+        "damage": {
+          "dice": 1,
+          "die": "d8",
+          "damageType": "bludgeoning",
+          "persistent": null
+        },
+        "splashDamage": {
+          "value": 0
+        },
+        "range": null,
+        "expend": null,
+        "reload": {
+          "value": null
+        },
+        "grade": "commercial",
+        "runes": {
+          "potency": 0,
+          "striking": 0,
+          "property": []
+        },
+        "specific": null,
+        "subitems": [],
+        "bonusDamage": {
+          "value": 0
+        },
+        "property1": {
+          "value": "",
+          "dice": 0,
+          "die": "",
+          "damageType": "",
+          "critDice": 0,
+          "critDie": "",
+          "critDamage": "",
+          "critDamageType": "",
+          "strikeConditionType": "",
+          "strikeConditionValue": null,
+          "criticalConditionType": "",
+          "criticalConditionValue": null
+        }
+      },
+      "img": "icons/weapons/hammers/shorthammer-double-steel-embossed.webp",
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "sort": 5700000,
+      "_id": "fd9W7WX4DquhT8AA",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!FL5obG5dQweoENyT.fd9W7WX4DquhT8AA"
+    },
+    {
+      "_id": "SUll5eyduhtC86rF",
+      "name": "Hammer",
+      "type": "melee",
+      "system": {
+        "slug": "hammer",
+        "bonus": {
+          "value": 11
+        },
+        "damageRolls": {
+          "oPdKTBE6JntqrKoX": {
+            "damage": "1d8+6",
+            "damageType": "bludgeoning",
+            "category": null
+          }
+        },
+        "traits": {
+          "value": [
+            "analog",
+            "shove"
+          ],
+          "otherTags": []
+        },
+        "rules": [],
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "attackEffects": {
+          "value": []
+        },
+        "action": "strike",
+        "area": null
+      },
+      "flags": {
+        "pf2e": {
+          "linkedWeapon": "fd9W7WX4DquhT8AA"
+        }
+      },
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!FL5obG5dQweoENyT.SUll5eyduhtC86rF"
+    },
+    {
+      "folder": "V89RPpe7fyCFC6NS",
+      "name": "Laser Rifle",
+      "type": "weapon",
+      "effects": [],
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>These dependable, mass-produced rifles shoot concentrated beams of energy out of square-shaped barrels. The universal standard Pact Worlds model is highly modifiable and designed to function with a variety of accessories and upgrades, with wielders adapting the laser rifle to their preferences and even kit-bashing it into a nearly unrecognizable weapon.</p>"
+        },
+        "rules": [],
+        "slug": "laser-rifle",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "tech"
+          ],
+          "rarity": "common"
+        },
+        "publication": {
+          "title": "Starfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 0
+        },
+        "quantity": 1,
+        "baseItem": "laser-rifle",
+        "bulk": {
+          "value": 2
+        },
+        "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "hardness": 0,
+        "price": {
+          "value": {
+            "sp": 45
+          }
+        },
+        "equipped": {
+          "carryType": "worn",
+          "invested": null,
+          "handsHeld": 0
+        },
+        "containerId": null,
+        "size": "med",
+        "material": {
+          "type": null,
+          "grade": null
+        },
+        "identification": {
+          "status": "identified",
+          "unidentified": {
+            "name": "Unusual Weapon",
+            "img": "systems/pf2e/icons/unidentified_item_icons/weapon.webp",
+            "data": {
+              "description": {
+                "value": ""
+              }
+            }
+          },
+          "misidentified": {}
+        },
+        "usage": {
+          "value": "held-in-two-hands"
+        },
+        "category": "simple",
+        "group": "laser",
+        "bonus": {
+          "value": 0
+        },
+        "damage": {
+          "dice": 1,
+          "die": "d8",
+          "damageType": "fire",
+          "persistent": null
+        },
+        "splashDamage": {
+          "value": 0
+        },
+        "range": 100,
+        "expend": 2,
+        "reload": {
+          "value": "1"
+        },
+        "grade": "commercial",
+        "runes": {
+          "potency": 0,
+          "striking": 0,
+          "property": []
+        },
+        "specific": null,
+        "subitems": [],
+        "bonusDamage": {
+          "value": 0
+        },
+        "property1": {
+          "value": "",
+          "dice": 0,
+          "die": "",
+          "damageType": "",
+          "critDice": 0,
+          "critDie": "",
+          "critDamage": "",
+          "critDamageType": "",
+          "strikeConditionType": "",
+          "strikeConditionValue": null,
+          "criticalConditionType": "",
+          "criticalConditionValue": null
+        }
+      },
+      "img": "modules/sf2e-anachronism/art/icons/equipment/weapons/teal-sci-fi-gun.webp",
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "sort": 3700000,
+      "_id": "xSR6bU08NRW2dmxj",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!FL5obG5dQweoENyT.xSR6bU08NRW2dmxj"
+    },
+    {
+      "_id": "tSjvSenI8ngw5bME",
+      "name": "Laser Rifle",
+      "type": "melee",
+      "system": {
+        "slug": "laser-rifle",
+        "bonus": {
+          "value": 12
+        },
+        "damageRolls": {
+          "uVPaM0qfm9T1yfoD": {
+            "damage": "1d8+3",
+            "damageType": "fire",
+            "category": null
+          }
+        },
+        "traits": {
+          "value": [
+            "expend-2",
+            "mag-10",
+            "range-increment-100",
+            "reload-1",
+            "tech"
+          ],
+          "otherTags": []
+        },
+        "rules": [],
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "attackEffects": {
+          "value": []
+        },
+        "action": "strike",
+        "area": null
+      },
+      "flags": {
+        "pf2e": {
+          "linkedWeapon": "xSR6bU08NRW2dmxj"
+        }
+      },
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!FL5obG5dQweoENyT.tSjvSenI8ngw5bME"
+    },
+    {
+      "type": "action",
+      "name": "Field Repairs",
+      "system": {
+        "actionType": {
+          "value": "action"
+        },
+        "description": {
+          "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> The line-class soldier robot salvages an adjacent corpse of a tech creature that was destroyed no more than 1 month ago to regain @Damage[18[healing]] Hit Points.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "manipulate"
+          ]
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": 2
+        },
+        "category": "offensive",
+        "deathNote": false,
+        "frequency": {
+          "max": 1,
+          "per": "PT10M"
+        }
+      },
+      "effects": [],
+      "_id": "w9avFDTxJOX2WyFB",
+      "img": "systems/pf2e/icons/actions/TwoActions.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!FL5obG5dQweoENyT.w9avFDTxJOX2WyFB"
+    },
+    {
+      "type": "action",
+      "name": "Formation",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>When a line-class soldier robot is adjacent to at least two other allies, the robot gains a +1 circumstance bonus to AC and saving throws. This bonus increases to +2 for Reflex saves against area effects.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "enKoRvw7y55ng77U",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!FL5obG5dQweoENyT.enKoRvw7y55ng77U"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "pf2e",
+    "systemVersion": "7.6.2"
+  },
+  "ownership": {
+    "default": 0,
+    "yECpvB6rPSLHk9Lh": 3
+  },
+  "sort": 0,
+  "_key": "!actors!FL5obG5dQweoENyT"
+}

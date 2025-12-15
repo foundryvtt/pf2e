@@ -1,0 +1,115 @@
+{
+  "folder": "ezfMfUW7ECW3ePWk",
+  "name": "Heightened Thoughtsense",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Your psychic awareness expands, granting you sharper perception at close range and a wider sensory field overall. Increase the range of your vague thoughtsense by 10 feet. In addition, you gain thoughtsense as an imprecise sense with a range of 5 feet.</p><p>At 9th level, your vague thoughtsense becomes an imprecise sense.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "add",
+        "path": "flags.pf2e.contemplative.vagueThoughtsenseRange",
+        "value": 10
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "add",
+        "path": "flags.pf2e.contemplative.impreciseThoughtsenseRange",
+        "value": 5,
+        "predicate": [
+          {
+            "lt": [
+              "self:level",
+              9
+            ]
+          }
+        ]
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "add",
+        "path": "flags.pf2e.contemplative.impreciseThoughtsenseRange",
+        "value": "@actor.flags.pf2e.contemplative.vagueThoughtsenseRange",
+        "predicate": [
+          {
+            "gte": [
+              "self:level",
+              9
+            ]
+          }
+        ]
+      },
+      {
+        "acuity": "imprecise",
+        "key": "Sense",
+        "range": "@actor.flags.pf2e.contemplative.impreciseThoughtsenseRange",
+        "selector": "thoughtsense"
+      }
+    ],
+    "slug": "heightened-thoughtsense",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "contemplative"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 5
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "thoughtsense"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 200000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "13cofwVwk4XvwNSO",
+  "_key": "!items!13cofwVwk4XvwNSO"
+}

@@ -1,0 +1,644 @@
+{
+  "type": "npc",
+  "name": "Cloud Ray",
+  "folder": null,
+  "system": {
+    "attributes": {
+      "hp": {
+        "value": 180,
+        "temp": 0,
+        "max": 180,
+        "details": ""
+      },
+      "ac": {
+        "value": 34,
+        "details": ""
+      },
+      "allSaves": {
+        "value": ""
+      },
+      "speed": {
+        "value": 5,
+        "otherSpeeds": [
+          {
+            "type": "fly",
+            "value": 80
+          }
+        ],
+        "details": ""
+      },
+      "resistances": [
+        {
+          "type": "electricity",
+          "value": 12
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "fire",
+          "value": 12
+        }
+      ]
+    },
+    "initiative": {
+      "statistic": "perception"
+    },
+    "details": {
+      "languages": {
+        "value": [],
+        "details": ""
+      },
+      "level": {
+        "value": 13
+      },
+      "blurb": "",
+      "publicNotes": "<p>Enormous cloud rays are apex predators on gas giants such as Bretheda and Liavara. Cloud rays are incredibly maneuverable and can fly through the atmosphere at speeds few can match, rendering them nearly inescapable when on the hunt.</p>",
+      "privateNotes": "",
+      "publication": {
+        "title": "Starfinder Alien Core",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "resources": {},
+    "_migration": {
+      "version": 0.946,
+      "previous": {
+        "schema": null,
+        "foundry": "13.350",
+        "system": "7.5.2"
+      }
+    },
+    "abilities": {
+      "str": {
+        "mod": 8
+      },
+      "dex": {
+        "mod": 6
+      },
+      "con": {
+        "mod": 3
+      },
+      "int": {
+        "mod": -4
+      },
+      "wis": {
+        "mod": 4
+      },
+      "cha": {
+        "mod": -1
+      }
+    },
+    "perception": {
+      "details": "",
+      "mod": 21,
+      "senses": [
+        {
+          "type": "low-light-vision"
+        }
+      ],
+      "vision": true
+    },
+    "saves": {
+      "fortitude": {
+        "value": 22,
+        "saveDetail": ""
+      },
+      "reflex": {
+        "value": 26,
+        "saveDetail": ""
+      },
+      "will": {
+        "value": 19,
+        "saveDetail": ""
+      }
+    },
+    "skills": {
+      "acrobatics": {
+        "base": 25
+      },
+      "athletics": {
+        "base": 27
+      },
+      "stealth": {
+        "base": 23
+      }
+    },
+    "traits": {
+      "value": [
+        "animal"
+      ],
+      "rarity": "common",
+      "size": {
+        "value": "grg"
+      }
+    }
+  },
+  "_id": "CdNumfS6YHCQXnrg",
+  "img": "systems/pf2e/icons/default-icons/npc.svg",
+  "prototypeToken": {
+    "name": "Cloud Ray",
+    "displayName": 20,
+    "actorLink": false,
+    "width": 4,
+    "height": 4,
+    "texture": {
+      "src": "systems/pf2e/icons/default-icons/npc.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": true,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": true,
+        "autoscale": true
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [
+    {
+      "type": "action",
+      "name": "Explosive Death",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>If a cloud skate dies due to fire or electricity damage, its internal reservoirs of explosive gases and combustible fluids detonate in a @Template[type:emanation|distance:20] that deals @Damage[11d8[fire]|options:area-damage] damage (@Check[reflex|dc:30|basic|options:area-effect] save).</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "defensive",
+        "deathNote": true
+      },
+      "effects": [],
+      "_id": "eGmvSl1SL37Xx9G2",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!CdNumfS6YHCQXnrg.eGmvSl1SL37Xx9G2"
+    },
+    {
+      "type": "melee",
+      "name": "Tail",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "reach-20"
+          ]
+        },
+        "damageRolls": {
+          "w0nzRQI5fdAYvsCa": {
+            "damage": "3d10+8",
+            "damageType": "slashing",
+            "category": null
+          },
+          "PJI0WrMjw02a32r8": {
+            "damage": "3d6",
+            "damageType": "electricity",
+            "category": null
+          }
+        },
+        "bonus": {
+          "value": 26
+        },
+        "attackEffects": {
+          "value": [
+            "stunning-lash"
+          ]
+        },
+        "action": "strike",
+        "area": null
+      },
+      "_id": "2PBaerJPxjtWiXI7",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!CdNumfS6YHCQXnrg.2PBaerJPxjtWiXI7"
+    },
+    {
+      "img": "systems/pf2e/icons/actions/TwoActions.webp",
+      "name": "Engulf",
+      "system": {
+        "actionType": {
+          "value": "action"
+        },
+        "actions": {
+          "value": 2
+        },
+        "category": "offensive",
+        "description": {
+          "value": "<p>@Check[reflex|dc:30], @Damage[(3d8+8)[bludgeoning]] damage, [[/act escape dc=30]], Rupture 25</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>",
+          "gm": ""
+        },
+        "publication": {
+          "license": "ORC",
+          "remaster": true,
+          "title": "Pathfinder Monster Core",
+          "authors": ""
+        },
+        "rules": [],
+        "traits": {
+          "value": [],
+          "otherTags": []
+        },
+        "slug": "engulf",
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "deathNote": false
+      },
+      "type": "action",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "qDSRPJhLu5y7lBEG",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!CdNumfS6YHCQXnrg.qDSRPJhLu5y7lBEG"
+    },
+    {
+      "type": "action",
+      "name": "Lash Out",
+      "system": {
+        "actionType": {
+          "value": "action"
+        },
+        "description": {
+          "value": "<p>The cloud ray makes two consecutive tail lash Strikes at a –2 penalty against any targets within reach. These attacks count toward the cloud ray's multiple attack penalty, but the multiple attack penalty doesn't increase until after it makes all its attacks.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [
+          {
+            "key": "RollOption",
+            "option": "lash-out",
+            "toggleable": true,
+            "domain": "tail-attack-roll"
+          },
+          {
+            "key": "FlatModifier",
+            "selector": [
+              "tail-attack-roll"
+            ],
+            "value": -2,
+            "predicate": [
+              "lash-out"
+            ]
+          }
+        ],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": 2
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "98fygCslZZaeLMZI",
+      "img": "systems/pf2e/icons/actions/TwoActions.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!CdNumfS6YHCQXnrg.98fygCslZZaeLMZI"
+    },
+    {
+      "type": "action",
+      "name": "Natural Thruster",
+      "system": {
+        "actionType": {
+          "value": "free"
+        },
+        "description": {
+          "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> Until the beginning of its next turn, the cloud skate gains a +80-foot status bonus to its fly Speed and deals an additional 1d10 slashing damage with its tail Strikes.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [
+          {
+            "key": "AdjustModifier",
+            "mode": "upgrade",
+            "selector": "fly-speed",
+            "value": 80,
+            "slug": "natural-thruster"
+          }
+        ],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "offensive",
+        "deathNote": false,
+        "frequency": {
+          "max": 1,
+          "per": "PT1H"
+        },
+        "selfEffect": {
+          "uuid": "Compendium.sf2e-anachronism.bestiary-effects.Item.g5T2YGRn0nSGKYyy",
+          "name": "Effect: Natural Thruster"
+        }
+      },
+      "effects": [],
+      "_id": "HFWt0uRFQyXWxanb",
+      "img": "systems/pf2e/icons/actions/FreeAction.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!CdNumfS6YHCQXnrg.HFWt0uRFQyXWxanb"
+    },
+    {
+      "type": "action",
+      "name": "Stunning Lash",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>A creature that takes electricity damage from a cloud ray's tail Strike is @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1} (@UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 2} on a critical hit), then becomes temporarily immune to stunning lash for 1 minute. Creatures with a weakness to electricity don't become temporarily immune.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "electricity"
+          ]
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "c7ZeUIk7gcAPNqhu",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!CdNumfS6YHCQXnrg.c7ZeUIk7gcAPNqhu"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "pf2e",
+    "systemVersion": "7.6.2"
+  },
+  "ownership": {
+    "default": 0,
+    "yECpvB6rPSLHk9Lh": 3
+  },
+  "sort": 0,
+  "_key": "!actors!CdNumfS6YHCQXnrg"
+}

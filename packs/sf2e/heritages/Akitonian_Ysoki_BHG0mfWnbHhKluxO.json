@@ -1,0 +1,71 @@
+{
+  "folder": "P1wu8p0R9xU2jqgy",
+  "name": "Akitonian Ysoki",
+  "type": "heritage",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You or your ancestors grew up on Akiton, scrapping crashed starships or combing junk heaps for treasures. You gain the trained proficiency rank in Crafting and can use Crafting instead of Thievery to Disable a Device. If you're already trained in Crafting, you instead gain the Quick Repair general feat.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.crafting.rank",
+        "value": 1
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.pf2e.feats-srd.Item.ASy9AKEIRxPYUi5o",
+        "predicate": [
+          {
+            "gte": [
+              "skill:crafting:rank",
+              1
+            ]
+          }
+        ],
+        "priority": 1
+      }
+    ],
+    "slug": "akitonian-ysoki",
+    "traits": {
+      "otherTags": [],
+      "value": [],
+      "rarity": "common"
+    },
+    "ancestry": {
+      "name": "Ratfolk",
+      "slug": "ratfolk",
+      "uuid": "Compendium.pf2e.ancestries.Item.P6PcVnCkh4XMdefw"
+    }
+  },
+  "_id": "BHG0mfWnbHhKluxO",
+  "img": "systems/pf2e/icons/default-icons/heritage.svg",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!BHG0mfWnbHhKluxO"
+}

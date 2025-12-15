@@ -1,0 +1,110 @@
+{
+  "folder": "3SFWKhzBesp37sy9",
+  "name": "Magic Scholar",
+  "type": "background",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>You study magic at the Arcanamirium on Absalom Station, one of Dykon's or Pabaq's universities, or somewhere else. You might be a novice still learning the basics of magic while enjoying university life or an opinionated professor researching a niche subject.</p><p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p><p>You're trained in your choice of the Arcana, Nature, Occultism, or Religion skill, based on your primary field of study, and the Academia Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.IlOQuCQIhjJpig3S]{Quick Identification} skill feat.</p>"
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "PF2E.Skill.Arcana",
+            "value": "arcana"
+          },
+          {
+            "label": "PF2E.Skill.Nature",
+            "value": "nature"
+          },
+          {
+            "label": "PF2E.Skill.Occultism",
+            "value": "occultism"
+          },
+          {
+            "label": "PF2E.Skill.Religion",
+            "value": "religion"
+          }
+        ],
+        "flag": "skill",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.Skill"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+        "value": 1
+      }
+    ],
+    "slug": "magic-scholar",
+    "_migration": {
+      "version": 0.935,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [],
+      "rarity": "common"
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "boosts": {
+      "0": {
+        "value": [
+          "int",
+          "wis"
+        ]
+      },
+      "1": {
+        "value": [
+          "cha",
+          "con",
+          "dex",
+          "int",
+          "str",
+          "wis"
+        ]
+      }
+    },
+    "items": {
+      "ZxMnH": {
+        "uuid": "Compendium.pf2e.feats-srd.Item.IlOQuCQIhjJpig3S",
+        "img": "icons/sundries/books/book-red-exclamation.webp",
+        "name": "Quick Identification",
+        "level": 1
+      }
+    },
+    "trainedSkills": {
+      "value": [],
+      "lore": [
+        "Academia Lore"
+      ]
+    }
+  },
+  "img": "systems/pf2e/icons/default-icons/background.svg",
+  "sort": 2100000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3",
+    "exportSource": null
+  },
+  "_id": "ZUg6TYBwLnJmPw2e",
+  "_key": "!items!ZUg6TYBwLnJmPw2e"
+}

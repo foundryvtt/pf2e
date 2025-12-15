@@ -1,0 +1,94 @@
+{
+  "name": "Effect: Rally the Troops",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>You gain 5 temporary Hit Points, or double that number of temporary Hit Points if they end their movement adjacent to the commander.</p>"
+    },
+    "rules": [
+      {
+        "choices": [
+          {
+            "label": "Next to Ally",
+            "value": "ally"
+          },
+          {
+            "label": "Next to Commander",
+            "value": "commander"
+          }
+        ],
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+        "rollOption": "rally-the-troops"
+      },
+      {
+        "key": "TempHP",
+        "predicate": [
+          "rally-the-troops:ally"
+        ],
+        "value": 5
+      },
+      {
+        "key": "TempHP",
+        "predicate": [
+          "rally-the-troops:commander"
+        ],
+        "value": 10
+      }
+    ],
+    "slug": "effect-rally-the-troops",
+    "_migration": {
+      "version": 0.935,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "Paizo Blog: Tech Class Playtest Encounter 2",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false
+  },
+  "img": "icons/magic/life/cross-flared-green.webp",
+  "folder": null,
+  "ownership": {
+    "default": 0,
+    "eUnac0oMbpEwem24": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.0",
+    "exportSource": null
+  },
+  "_id": "6lT9d0YrRkdWOJ7u",
+  "sort": 7000000,
+  "_key": "!items!6lT9d0YrRkdWOJ7u"
+}

@@ -1,0 +1,106 @@
+{
+  "folder": "fCUjDoIslLyWWTPv",
+  "name": "Weapon Expertise",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p><strong>Envoy</strong> You've learned a few tricks with your weapons. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to expert. Whenever you attack the target of your Get 'Em!, you gain access to the critical specialization effects of all weapons for which you have expert proficiency.</p><hr /><p><strong>Mystic</strong> You win battles with basic weapons. Your proficiency rank for simple weapons and unarmed attacks increases to expert.</p><hr /><p><strong>Witchwarper</strong> You've gained a broader understanding of conventional weaponry to augment your unconventional spellcasting. Your proficiency rank for simple weapons and unarmed attacks increases to expert.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "CriticalSpecialization",
+        "predicate": [
+          "target:effect:get-em",
+          "target:mark:asset",
+          "class:envoy",
+          {
+            "gte": [
+              "item:proficiency:rank",
+              2
+            ]
+          }
+        ]
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.proficiencies.attacks.martial.rank",
+        "predicate": [
+          {
+            "or": [
+              "class:envoy"
+            ]
+          }
+        ],
+        "value": 2
+      }
+    ],
+    "slug": "weapon-expertise",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "envoy",
+        "mystic",
+        "witchwarper"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 5
+    },
+    "category": "classfeature",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {
+        "simple": {
+          "rank": 2
+        },
+        "unarmed": {
+          "rank": 2
+        }
+      },
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "Ba1DqrvVyzbcvGJd",
+  "img": "modules/sf2e-anachronism/art/icons/abilities/blue-cannister.webp",
+  "sort": 1100000,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!Ba1DqrvVyzbcvGJd"
+}

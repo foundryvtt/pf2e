@@ -1,0 +1,157 @@
+{
+  "name": "Effect: Solar Shield",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.hKkUTNTjRztyRSJr]{Solar Shield}</p><p>You can Raise a Shield, giving you a +1 circumstance bonus to AC. While the shield is raised, you can use the Shield Block reaction with your shield.</p>"
+    },
+    "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "override",
+        "path": "flags.pf2e.solarian.solarShield.hp",
+        "value": "5 + 2*(@actor.level)"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "override",
+        "path": "system.attributes.shield",
+        "predicate": [
+          {
+            "or": [
+              "self:type:character",
+              "self:type:npc"
+            ]
+          },
+          {
+            "not": "stellar-attunement:unattuned"
+          }
+        ],
+        "value": {
+          "ac": 1,
+          "broken": false,
+          "brokenThreshold": 0,
+          "destroyed": false,
+          "hp": {
+            "max": "5 + 2*(@actor.level)",
+            "value": "5 + 2*(@actor.level"
+          },
+          "icon": "modules/sf2e-anachronism/art/icons/abilities/yellow-organization-insignia.webp",
+          "itemId": "{item|id}",
+          "name": "SF2E.SpecificRule.Solarian.SolarShield.Label"
+        }
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "override",
+        "path": "system.attributes.shield.hardness",
+        "predicate": [
+          {
+            "or": [
+              "self:type:character",
+              "self:type:npc"
+            ]
+          },
+          {
+            "not": "stellar-attunement:unattuned"
+          }
+        ],
+        "value": "ceil(@actor.level / 2)"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "override",
+        "path": "system.attributes.shield.hp",
+        "predicate": [
+          {
+            "or": [
+              "self:type:character",
+              "self:type:npc"
+            ]
+          },
+          {
+            "not": "stellar-attunement:unattuned"
+          }
+        ],
+        "value": {
+          "max": "{actor|flags.pf2e.solarian.solarShield.hp}",
+          "value": "{actor|flags.pf2e.solarian.solarShield.hp}"
+        }
+      },
+      {
+        "key": "RollOption",
+        "option": "self:shield:equipped",
+        "predicate": [
+          {
+            "or": [
+              "self:type:character",
+              "self:type:npc"
+            ]
+          },
+          {
+            "not": "stellar-attunement:unattuned"
+          }
+        ]
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.pf2e.actionspf2e.Item.xjGwis0uaC2305pm",
+        "allowDuplicate": false
+      }
+    ],
+    "slug": "effect-solar-shield",
+    "_migration": {
+      "version": 0.935,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": -1,
+      "unit": "unlimited",
+      "expiry": null,
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/yellow-organization-insignia.webp",
+  "folder": null,
+  "ownership": {
+    "default": 0,
+    "HfiqVTKP7yuQgALu": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3",
+    "exportSource": null
+  },
+  "_id": "q5W7fV1wXvqBFxt8",
+  "sort": 6800000,
+  "_key": "!items!q5W7fV1wXvqBFxt8"
+}

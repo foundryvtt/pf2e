@@ -1,0 +1,93 @@
+{
+  "name": "Spell Effect: Anthem",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.spells.Item.smCC1LNhMb7Z1lrU]{Anthem}</p><p>You gain a +1 status bonus to attack rolls, damage rolls, and saves against effects that cause fascinated or confusion.</p>"
+    },
+    "rules": [
+      {
+        "key": "FlatModifier",
+        "selector": [
+          "attack-roll",
+          "damage"
+        ],
+        "value": 1,
+        "type": "status"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "saving-throw",
+        "value": 1,
+        "type": "status",
+        "predicate": [
+          {
+            "or": [
+              "inflicts:confusion",
+              "inflicts:fascinated"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "spell-effect-anthem",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": 0.932,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "rounds",
+      "expiry": "turn-start",
+      "sustained": true
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false,
+    "fromSpell": false
+  },
+  "img": "icons/magic/sonic/bell-alarm-red-purple.webp",
+  "folder": null,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "_id": "VacLbml5QIO0jqlO",
+  "sort": 2600000,
+  "_key": "!items!VacLbml5QIO0jqlO"
+}

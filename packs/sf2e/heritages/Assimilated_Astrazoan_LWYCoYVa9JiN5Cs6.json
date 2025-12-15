@@ -1,0 +1,79 @@
+{
+  "folder": "BkUfoAGqvZkbhXgh",
+  "name": "Assimilated Astrazoan",
+  "type": "heritage",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Whether you were raised as a member of another species or became fully immersed in their cultures and traditions later, you have completely assimilated to another ancestry and feel as comfortable in that skin as in your natural form. Choose a common ancestry. You can select ancestry feats from the ancestry you chose, in addition to your character's own ancestry. You can select feats that require a physiological feature that you lack but can only benefit from those feats while you are in that ancestry's form; for example, an assimilated astrazoan who selects the shirren @UUID[Compendium.sf2e-anachronism.feats.Item.YSi48yghu0wmkSrr]{Basic Insectile Flight} feat can only fly while in their shirren form.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "choices": {
+          "filter": [
+            {
+              "not": "item:slug:{actor|system.details.ancestry.trait}"
+            }
+          ],
+          "itemType": "ancestry",
+          "slugsAsValues": true
+        },
+        "flag": "ancestry",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.AdoptedAncestry.Prompt"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "override",
+        "path": "system.details.ancestry.adopted",
+        "value": "{item|flags.pf2e.rulesSelections.ancestry}"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "add",
+        "path": "system.details.ancestry.countsAs",
+        "value": "{item|flags.pf2e.rulesSelections.ancestry}"
+      }
+    ],
+    "slug": "assimilated-astrazoan",
+    "traits": {
+      "otherTags": [],
+      "value": [],
+      "rarity": "common"
+    },
+    "ancestry": {
+      "name": "Astrazoan",
+      "slug": "astrazoan",
+      "uuid": "Compendium.sf2e-anachronism.ancestries.Item.3Wox3ai1kgji07FE"
+    }
+  },
+  "img": "systems/pf2e/icons/default-icons/heritage.svg",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "LWYCoYVa9JiN5Cs6",
+  "_key": "!items!LWYCoYVa9JiN5Cs6"
+}

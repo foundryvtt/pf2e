@@ -1,0 +1,94 @@
+{
+  "folder": "i8Ib0dZgQ36AzbTF",
+  "name": "Septocular",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You've learned to grow additional eyes all over your body, enhancing your visual processing and the range of your eyesight. When you use Change Shape, you can choose to gain all-around vision until you change forms again. During this time, you take a –3 circumstance penalty to Deception checks and Deception DCs to Impersonate a different ancestry, unless the ancestry you are Impersonating normally has seven or more eyes.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "septocular-vision",
+        "toggleable": true
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "override",
+        "path": "system.attributes.flanking.flankable",
+        "value": false,
+        "predicate": [
+          "septocular-vision"
+        ]
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "deception",
+        "value": -3,
+        "type": "circumstance",
+        "predicate": [
+          "septocular-vision"
+        ]
+      }
+    ],
+    "slug": "septocular",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "astrazoan"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 13
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 175000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "Logc2RRMGScxCMex",
+  "_key": "!items!Logc2RRMGScxCMex"
+}

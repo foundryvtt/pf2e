@@ -1,0 +1,99 @@
+{
+  "folder": null,
+  "name": "Spell Effect: Skyfire Wings (5th-Rank)",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.spells.Item.VmtQlZqeraTv0Eer]{Skyfire Wings}</p><p>You gain a fly Speed equal to your Speed or 20 feet. Your wings are unarmed attacks that deal 2d8 fire damage and has the backswing, reach, and unarmed traits; On a critical hit, a target of your wing attack takes 4 persistent electricity damage.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "BaseSpeed",
+        "selector": "fly",
+        "value": "max(20,@actor.attributes.speed.total)"
+      },
+      {
+        "category": "unarmed",
+        "damage": {
+          "base": {
+            "damageType": "fire",
+            "dice": 2,
+            "die": "d8"
+          }
+        },
+        "group": "brawling",
+        "key": "Strike",
+        "label": "PF2E.BattleForm.Attack.Wing",
+        "range": null,
+        "slug": "wing",
+        "traits": [
+          "backswing",
+          "reach",
+          "unarmed"
+        ]
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "{item|id}-damage",
+        "value": 4,
+        "damageType": "electricity",
+        "damageCategory": "persistent",
+        "critical": true
+      }
+    ],
+    "slug": "spell-effect-skyfire-wings-5th-rank",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 5
+    },
+    "duration": {
+      "value": 5,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "icons/magic/fire/projectile-feathers-embers-gold.webp",
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "IHIQ7PcirTwjJQev",
+  "sort": 200000,
+  "_key": "!items!IHIQ7PcirTwjJQev"
+}

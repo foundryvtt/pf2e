@@ -1,0 +1,83 @@
+{
+  "name": "Spell Effect: Supercharge Weapon",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.spells.Item.SbBqa1HStMrV47fb]{Supercharge Weapon}</p><p>The next Strike made using that weapon is supercharged. That Strike deals an additional 1d6 damage of the same type as the weapon's normal damage.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "choices": {
+          "ownedItems": true,
+          "types": [
+            "weapon"
+          ]
+        },
+        "flag": "weapon",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+      },
+      {
+        "key": "DamageDice",
+        "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
+        "diceNumber": "1 + floor((@item.level)/2)",
+        "dieSize": "d6"
+      }
+    ],
+    "slug": "spell-effect-supercharge-weapon",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 0,
+      "unit": "rounds",
+      "expiry": "turn-end",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "_id": "zzOekbiIKePQDQKy",
+  "img": "modules/sf2e-anachronism/art/icons/abilities/blue-battery.webp",
+  "folder": null,
+  "sort": 1600000,
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!zzOekbiIKePQDQKy"
+}

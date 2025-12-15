@@ -1,0 +1,102 @@
+{
+  "folder": "Dtkpo6zbg3q4Tbmo",
+  "name": "Bioluminescence",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Your eyes glow like bioluminescent lamps, and you have learned how to focus them into a directional beam. Your eyes shed light in a 30 foot line in any direction you're looking.</p><p>You can suppress or restore this light as a free action. In addition, while this light is active you can take the Point Out action to indicate a creature within the area of your bioluminescence without making any noise, in which case it loses the auditory and manipulate traits. Finally, after you use an action to Hide or @UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{Sneak}, you can send predetermined signals with your lights to alert all allies you can see to your location as a free action.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "domain": "all",
+        "key": "RollOption",
+        "option": "bioluminsescent-eyes-active",
+        "toggleable": true
+      },
+      {
+        "key": "TokenLight",
+        "value": {
+          "angle": 6,
+          "animation": {
+            "intensity": 4,
+            "speed": 1,
+            "type": "torch"
+          },
+          "bright": "@actor.flags.pf2e.kalo.bioluminescence.range",
+          "color": "#2ba269",
+          "dim": "@actor.flags.pf2e.kalo.bioluminescence.range",
+          "shadows": 0.2,
+          "alpha": 0.4
+        },
+        "predicate": [
+          "bioluminsescent-eyes-active"
+        ]
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "add",
+        "path": "flags.pf2e.kalo.bioluminescence.range",
+        "value": 30
+      }
+    ],
+    "slug": "bioluminescence",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "kalo"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 100000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "y4ezCine7hGv24wv",
+  "_key": "!items!y4ezCine7hGv24wv"
+}

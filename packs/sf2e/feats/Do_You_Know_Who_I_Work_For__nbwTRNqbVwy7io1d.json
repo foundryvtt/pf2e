@@ -1,0 +1,96 @@
+{
+  "folder": "8JqgfayONankEDCo",
+  "name": "Do You Know Who I Work For?",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Throwing your corporation's name around adds weight to your threats. When you use Intimidation to @UUID[Compendium.pf2e.actionspf2e.Item.tHCqgwjtQtzNqVvd]{Coerce} or @UUID[Compendium.pf2e.actionspf2e.Item.2u915NdUyQan6uKF]{Demoralize} a target who knows about your corporation, a success becomes a critical success.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "do-you-know-who-i-work-for",
+        "toggleable": true,
+        "domain": "intimidation"
+      },
+      {
+        "key": "AdjustDegreeOfSuccess",
+        "selector": "intimidation",
+        "predicate": [
+          "action:demoralize",
+          "do-you-know-who-i-work-for"
+        ],
+        "adjustments": {
+          "success": "to-critical-success"
+        }
+      }
+    ],
+    "slug": "do-you-know-who-i-work-for",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "archetype",
+        "skill"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 7
+    },
+    "category": "skill",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "AbadarCorp Rep Dedication"
+        },
+        {
+          "value": "expert in Intimidation"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "nbwTRNqbVwy7io1d",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 125000,
+  "ownership": {
+    "default": 0,
+    "mcr1uhoMfGHRQJHX": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_key": "!items!nbwTRNqbVwy7io1d"
+}

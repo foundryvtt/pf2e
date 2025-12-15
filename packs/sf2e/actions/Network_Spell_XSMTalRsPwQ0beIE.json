@@ -1,0 +1,86 @@
+{
+  "folder": "rOZXNBZXm8qPmmH4",
+  "name": "Network Spell",
+  "type": "action",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You channel your spell to manifest from one of your allies instead of yourself. If the next action you use is to Cast a Spell with an area, range, or target, the spell manifests from one of your bonded allies instead of yourself. Use the ally's space to determine the spell's source, range, and area of effect, but line of sight and line of effect must be met from both you and your ally when the spell is cast. While this might fool someone who only sees your ally, unless you're @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{Hidden} or the spell has the subtle trait, any creature able to see both you and your ally can easily determine you're the source of the spell. If the spell has the subtle trait, you and your ally can Cast the Spell in a way that makes the ally appear to have cast it without that trait.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "label": "PF2E.TraitSpellshape",
+        "mergeable": true,
+        "option": "spellshape",
+        "placement": "spellcasting",
+        "suboptions": [
+          {
+            "label": "{item|name}",
+            "value": "network-spell"
+          }
+        ],
+        "toggleable": true
+      },
+      {
+        "itemType": "spell",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "predicate": [
+          "spellshape:network-spell"
+        ],
+        "property": "description",
+        "value": [
+          {
+            "text": "{item|description}"
+          }
+        ]
+      }
+    ],
+    "slug": "network-spell",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "concentrate",
+        "mystic",
+        "spellshape"
+      ]
+    },
+    "actionType": {
+      "value": "action"
+    },
+    "actions": {
+      "value": 1
+    },
+    "category": "offensive",
+    "deathNote": false
+  },
+  "_id": "XSMTalRsPwQ0beIE",
+  "img": "systems/pf2e/icons/actions/OneAction.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!XSMTalRsPwQ0beIE"
+}

@@ -1,0 +1,92 @@
+{
+  "type": "feat",
+  "name": "Hammer the Nail",
+  "folder": "n03qs6xoFTJTLluF",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 12
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "soldier"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You adjust the angle of your barrage to maximize the ammunition's impact on creatures' bodies. Increase the distance creatures are pushed by your @UUID[Compendium.sf2e-anachronism.feats.Item.fSqUeSAFhvBfq4sE]{Shoving Shot} to 5 feet on a success, 10 feet on a failure, and 20 feet on a critical failure. In addition, on a critical failure, the target is also knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "description",
+        "itemType": "feat",
+        "predicate": [
+          "item:slug:shoving-shot"
+        ],
+        "value": [
+          {
+            "text": "{item|description}"
+          }
+        ]
+      }
+    ],
+    "slug": "hammer-the-nail",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Shoving Shot"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "7v5tuehEjmQStncQ",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!7v5tuehEjmQStncQ"
+}

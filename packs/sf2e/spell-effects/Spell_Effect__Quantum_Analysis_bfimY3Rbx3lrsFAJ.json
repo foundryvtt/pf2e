@@ -1,0 +1,99 @@
+{
+  "folder": null,
+  "name": "Spell Effect: Quantum Analysis",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.spells.Item.v8JA4sG2tsVP2gOM]{Quantum Analysis}</p><p>Creatures you target can't benefit from circumstance bonuses to AC due to cover against your attacks. You also ignore circumstance penalties to the attack roll and any flat checks required due to the creature being concealed, hidden, or behind cover.</p><p>The first time after casting this spell when you make an attack roll against a creature within your quantum field, you roll twice and use the better result.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "AdjustModifier",
+        "predicate": [
+          "penalty:type:circumstance"
+        ],
+        "selector": "attack-roll",
+        "suppress": true
+      },
+      {
+        "key": "Note",
+        "selector": "attack-roll",
+        "text": "SF2E.SpecificRule.Witchwarper.QuantumAnalysis.Note",
+        "title": "SF2E.SpecificRule.Witchwarper.QuantumAnalysis.Label",
+        "predicate": [
+          {
+            "or": [
+              "target:condition:concealed",
+              "target:condition:hidden",
+              "target:effect:cover"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "EphemeralEffect",
+        "selectors": "attack-roll",
+        "uuid": "Compendium.sf2e-anachronism.spell-effects.Item.Yl3Wb0cN6Mvx2EWf"
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.sf2e-anachronism.spell-effects.Item.J5f9SpgmiFOPKU8Q"
+      }
+    ],
+    "slug": "spell-effect-quantum-analysis",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 6
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": true
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/green-energy-wave.webp",
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "bfimY3Rbx3lrsFAJ",
+  "sort": 2100000,
+  "_key": "!items!bfimY3Rbx3lrsFAJ"
+}

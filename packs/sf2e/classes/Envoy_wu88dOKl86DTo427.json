@@ -1,0 +1,345 @@
+{
+  "folder": null,
+  "name": "Envoy",
+  "type": "class",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p><em>You're a master influencer. You make your way in the universe with a charming smile, quick wit, and keen sense of self-preservation. You're a leader who motivates your teammates, pushes them past their limits, and helps them through tough spots. You excel at getting others to do what you want, but you're always ready to face trouble head-on when things take a turn for the worse. You might be a con artist, diplomat, performer, or military officer—or you might take on whatever role the situation demands.</em></p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "PF2E.Skill.Deception",
+            "value": "deception"
+          },
+          {
+            "label": "PF2E.Skill.Diplomacy",
+            "value": "diplomacy"
+          },
+          {
+            "label": "PF2E.Skill.Intimidation",
+            "value": "intimidation"
+          }
+        ],
+        "flag": "skill",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.Skill"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+        "value": 1
+      },
+      {
+        "itemType": "action",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "other-tags",
+        "predicate": [
+          "class:envoy",
+          "item:slug:get-em"
+        ],
+        "value": "envoy-class"
+      }
+    ],
+    "slug": "envoy",
+    "traits": {
+      "otherTags": [],
+      "rarity": "common"
+    },
+    "items": {
+      "vIPgB": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.9nO9EkhE1TiS0Yh6",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/blue-circuit-board.webp",
+        "name": "Adaptive Talent",
+        "level": 3
+      },
+      "PfyQf": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.f9dNcZi9kzbaGl8M",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/orange-finger-beam.webp",
+        "name": "Envoy Directives",
+        "level": 1
+      },
+      "84rTo": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.ZXDU1AYQakFVEovf",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/blue-star-emblem-2.webp",
+        "name": "Envoy Expertise",
+        "level": 9
+      },
+      "AwEgQ": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.M9TRPDyDZI4dDFCJ",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/purple-eye.webp",
+        "name": "Hidden Agenda",
+        "level": 9
+      },
+      "LegLf": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.sqSpxpY0831nV1wc",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/space-credits.webp",
+        "name": "Improvised Mastery",
+        "level": 5
+      },
+      "q3rFM": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.8bE9icPZbaqFDGlC",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/cerulean-circular-sign.webp",
+        "name": "Inscrutable",
+        "level": 17
+      },
+      "nZUtm": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.Fni0F4rfaG08nO1Y",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/blue-alien-face.webp",
+        "name": "Leadership Style",
+        "level": 1
+      },
+      "WWSG9": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.Ng1FaH8JnQWwuA6g",
+        "img": "modules/sf2e-anachronism/art/icons/equipment/other/dice.webp",
+        "name": "Legendary Improvisation",
+        "level": 15
+      },
+      "gfWp2": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.r8lFIZb9U84x2PbQ",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/screwdriver.webp",
+        "name": "Savvy Improviser",
+        "level": 11
+      },
+      "Irwfn": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.aNjblp6lHFILQY3e",
+        "img": "icons/skills/social/diplomacy-writing-letter.webp",
+        "name": "Silver Tongue",
+        "level": 19
+      },
+      "dWlSO": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.92UyrMU8lS21iZSO",
+        "img": "icons/magic/movement/abstract-ribbons-red-orange.webp",
+        "name": "Tactician",
+        "level": 13
+      },
+      "zhvQx": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.R478sqSSEwGEzfML",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/blue-military-organization-emblem.webp",
+        "name": "Wise to the Game",
+        "level": 3
+      },
+      "IiXMT": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.TcyFiYq4Pd6dJsIl",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/alien-mask.webp",
+        "name": "Perception Expertise",
+        "level": 5
+      },
+      "VdmEV": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.Ba1DqrvVyzbcvGJd",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/blue-cannister.webp",
+        "name": "Weapon Expertise",
+        "level": 5
+      },
+      "YhYuN": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.vgxb9zCsmHPGeIer",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/green-stock-market-chart.webp",
+        "name": "Fortitude Expertise",
+        "level": 7
+      },
+      "UgSip": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.CuWlilUgT1MCZcIT",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/blue-alien-energy-breath.webp",
+        "name": "Weapon Specialization",
+        "level": 7
+      },
+      "HEh26": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.NeHbCZ99ss1XEESM",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/blue-alien-weapon.webp",
+        "name": "Greater Weapon Specialization",
+        "level": 15
+      },
+      "jQHLm": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.9g0pgy75Gd1hcrM8",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/blue-comet-insignia.webp",
+        "name": "Leader's Confidence",
+        "level": 7
+      },
+      "hokCD": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.ii2Q0KF0dLTrDEYo",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/blue-target-2.webp",
+        "name": "Perception Mastery",
+        "level": 11
+      },
+      "45P9L": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.Q9psrvRDIjobxOqO",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/purple-energy-star.webp",
+        "name": "Resolve",
+        "level": 11
+      },
+      "ag2nL": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.71oZZ6lEyXnjaxpA",
+        "img": "modules/sf2e-anachronism/art/icons/equipment/armor/armor-medium-brown.webp",
+        "name": "Light Armor Expertise",
+        "level": 13
+      },
+      "k0kFy": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.VAwEU7gAry6nAJQt",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/blue-laser-beam-rifle.webp",
+        "name": "Weapon Mastery",
+        "level": 13
+      },
+      "XkG98": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.ckV4AMjqPv3a8i1J",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/blue-wing-insignia.webp",
+        "name": "Reflex Mastery",
+        "level": 15
+      },
+      "WE7Kk": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.DZJ6ufkpyIqanf82",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/pink-energy-surrounding-orb.webp",
+        "name": "Greater Resolve",
+        "level": 17
+      },
+      "fNLcX": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.bzZxqUzt5sjcbyZa",
+        "img": "modules/sf2e-anachronism/art/icons/abilities/alien-eye.webp",
+        "name": "Incredible Senses",
+        "level": 17
+      },
+      "GUszk": {
+        "uuid": "Compendium.sf2e-anachronism.class-features.Item.PmRhyxeb5t4PZOiw",
+        "img": "modules/sf2e-anachronism/art/icons/equipment/armor/armor-light-metal.webp",
+        "name": "Light Armor Mastery",
+        "level": 19
+      }
+    },
+    "keyAbility": {
+      "value": [
+        "cha"
+      ],
+      "selected": null
+    },
+    "hp": 8,
+    "perception": 1,
+    "savingThrows": {
+      "fortitude": 1,
+      "reflex": 2,
+      "will": 2
+    },
+    "attacks": {
+      "simple": 1,
+      "martial": 1,
+      "advanced": 0,
+      "unarmed": 1,
+      "other": {
+        "rank": 0,
+        "name": ""
+      }
+    },
+    "defenses": {
+      "unarmored": 1,
+      "light": 1,
+      "medium": 0,
+      "heavy": 0
+    },
+    "spellcasting": 0,
+    "trainedSkills": {
+      "value": [],
+      "additional": 6
+    },
+    "ancestryFeatLevels": {
+      "value": [
+        1,
+        5,
+        9,
+        13,
+        17
+      ]
+    },
+    "classFeatLevels": {
+      "value": [
+        1,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        18,
+        20
+      ]
+    },
+    "generalFeatLevels": {
+      "value": [
+        3,
+        7,
+        11,
+        15,
+        19
+      ]
+    },
+    "skillFeatLevels": {
+      "value": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        18,
+        20
+      ]
+    },
+    "skillIncreaseLevels": {
+      "value": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ]
+    }
+  },
+  "img": "modules/sf2e-anachronism/art/class-icons/envoy.webp",
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "pf2e",
+    "systemVersion": "7.7.4"
+  },
+  "_id": "wu88dOKl86DTo427",
+  "sort": 600000,
+  "_key": "!items!wu88dOKl86DTo427"
+}

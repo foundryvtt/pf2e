@@ -1,0 +1,82 @@
+{
+  "name": "Effect: Deadlift",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.Wc26O3XFKxWfxY5N]{Deadlift}</p><p>You can carry 4 more Bulk than normal before becoming encumbered. The amount you can carry increases to 6 at expert, 8 at master, and 10 at legendary.</p>"
+    },
+    "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "add",
+        "path": "inventory.bulk.encumberedAfterAddend",
+        "value": "@actor.system.skills.athletics.rank*2 + 2"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "add",
+        "path": "inventory.bulk.maxAddend",
+        "value": "@actor.system.skills.athletics.rank*2 + 2"
+      }
+    ],
+    "slug": "effect-deadlift",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": 0.932,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false,
+    "fromSpell": false
+  },
+  "img": "systems/pf2e/icons/spells/athletic-rush.webp",
+  "folder": null,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "_id": "sEPdCQ7J3hF6mjHi",
+  "sort": 5200000,
+  "_key": "!items!sEPdCQ7J3hF6mjHi"
+}

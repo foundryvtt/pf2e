@@ -1,0 +1,319 @@
+{
+  "folder": "D8Q2XWm5N91mGuw7",
+  "name": "Repulsing Force Field",
+  "type": "hazard",
+  "ownership": {
+    "default": 0,
+    "kFKtt3r5Xd5l6LFK": 3
+  },
+  "prototypeToken": {
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": false,
+        "autoscale": false
+      }
+    },
+    "height": 1,
+    "width": 1,
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "name": "Repulsing Force Field",
+    "displayName": 20,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/pf2e/icons/default-icons/hazard.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": true,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.942,
+      "previous": null
+    },
+    "traits": {
+      "value": [
+        "magical",
+        "trap"
+      ],
+      "rarity": "common",
+      "size": {
+        "value": "lg"
+      }
+    },
+    "attributes": {
+      "hp": {
+        "value": 80,
+        "max": 80,
+        "temp": 0,
+        "details": "(BT 40)"
+      },
+      "ac": {
+        "value": 31
+      },
+      "hardness": 20,
+      "stealth": {
+        "value": 23,
+        "details": "<p>(expert)</p>"
+      },
+      "immunities": [
+        {
+          "type": "critical-hits",
+          "exceptions": []
+        },
+        {
+          "type": "precision",
+          "exceptions": []
+        }
+      ],
+      "weaknesses": [],
+      "resistances": [],
+      "emitsSound": "encounter"
+    },
+    "details": {
+      "description": "<p>A translucent force field appears to block a creature's path, shunting it and any other creature that attempts to pass it away.</p>",
+      "level": {
+        "value": 11
+      },
+      "isComplex": false,
+      "disable": "<p>@Check[thievery|dc:33] (expert) to disable the force field, or @UUID[Compendium.pf2e.spells-srd.Item.9HpwDN4MYQJnW0LG] (6th rank; counteract DC 29) to counteract the force field</p>",
+      "routine": "",
+      "reset": "<p>The force field deactivates and the trap resets after 1 minute.</p>",
+      "publication": {
+        "title": "Starfinder GM Core",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "saves": {
+      "fortitude": {
+        "value": 24
+      },
+      "reflex": {
+        "value": 18
+      },
+      "will": {
+        "value": 0
+      }
+    }
+  },
+  "img": "systems/pf2e/icons/default-icons/hazard.svg",
+  "items": [
+    {
+      "type": "action",
+      "name": "Forbid Entry",
+      "system": {
+        "actionType": {
+          "value": "reaction"
+        },
+        "description": {
+          "value": "<p><strong>Trigger</strong> A creature attempts to pass the designated area</p><hr /><p><strong>Effect</strong> The force field appears and shunts the creature away, making a Strike against the triggering creature.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "arcane"
+          ]
+        },
+        "_migration": {
+          "version": 0.942,
+          "previous": {
+            "schema": null,
+            "foundry": "13.347",
+            "system": "7.4.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "HUevG60qrY45gPjx",
+      "img": "systems/pf2e/icons/default-icons/action.svg",
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "kFKtt3r5Xd5l6LFK": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.347",
+        "systemId": "pf2e",
+        "systemVersion": "7.4.2"
+      },
+      "_key": "!actors.items!F7myjrl77OB5K0lD.HUevG60qrY45gPjx"
+    },
+    {
+      "type": "melee",
+      "name": "Force Field",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.942,
+          "previous": null
+        },
+        "description": {
+          "value": "<p>plus the target is knocked back 10 feet (20 feet on a critical hit). The force field takes a –2 circumstance penalty to hit if the triggering creature Stepped or was moved by a forced movement effect.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "damageRolls": {
+          "B5YSa382rAXra3XL": {
+            "damage": "6d8+20",
+            "damageType": "force",
+            "category": null
+          }
+        },
+        "bonus": {
+          "value": 28
+        },
+        "attackEffects": {
+          "value": []
+        }
+      },
+      "_id": "D6xzbiBuHzLKy1aI",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "kFKtt3r5Xd5l6LFK": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.347",
+        "systemId": "pf2e",
+        "systemVersion": "7.4.2"
+      },
+      "_key": "!actors.items!F7myjrl77OB5K0lD.D6xzbiBuHzLKy1aI"
+    }
+  ],
+  "flags": {
+    "pf2e": {
+      "editHazard": {
+        "value": false
+      }
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "pf2e",
+    "systemVersion": "7.4.2"
+  },
+  "_id": "F7myjrl77OB5K0lD",
+  "sort": 321290,
+  "_key": "!actors!F7myjrl77OB5K0lD"
+}

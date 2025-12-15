@@ -1,0 +1,106 @@
+{
+  "type": "feat",
+  "name": "Pardon Me",
+  "folder": "my6PDmYHQ4rBMvj1",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 1
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "envoy",
+        "mental"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You distract your foes with a clever comment as you maneuver around them. You can use @Check[deception|against:will|options:action:tumble-through] instead of Acrobatics to @UUID[Compendium.pf2e.actionspf2e.Item.21WIfSu7Xd7uKqV8]{Tumble Through} using the target's Will DC instead of Reflex DC. When you successfully Tumble Through using Deception, the foe whose space you passed through is @UUID[Compendium.sf2e-anachronism.conditions.Item.enA7BxAjBb7ns1iF]{Suppressed} until the end of its next turn.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "Note",
+        "selector": "deception",
+        "text": "SF2E.SpecificRule.Envoy.PardonMe.Note",
+        "predicate": [
+          "action:tumble-through"
+        ],
+        "outcome": [
+          "success",
+          "criticalSuccess"
+        ],
+        "title": "{item|name}"
+      },
+      {
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "description",
+        "itemType": "action",
+        "predicate": [
+          "item:slug:tumble-through"
+        ],
+        "value": [
+          {
+            "text": "{item|description}"
+          }
+        ]
+      }
+    ],
+    "slug": "pardon-me",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "trained in Deception"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "L9sq9ROk0QFil5wl",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!L9sq9ROk0QFil5wl"
+}

@@ -1,0 +1,81 @@
+{
+  "folder": null,
+  "name": "Spell Effect: Quantum Analysis (Fortune)",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.spells.Item.v8JA4sG2tsVP2gOM]{Quantum Analysis}</p><p>When you make an attack roll against a creature within your quantum field, you roll twice and use the better result.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "quantum-analysis-fortune",
+        "toggleable": true,
+        "label": "SF2E.SpecificRule.Witchwarper.QuantumAnalysis.FortuneToggleLabel"
+      },
+      {
+        "key": "RollTwice",
+        "predicate": [
+          "quantum-analysis-fortune"
+        ],
+        "keep": "higher",
+        "selector": "attack-roll"
+      }
+    ],
+    "slug": "spell-effect-quantum-analysis-fortune",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 6
+    },
+    "duration": {
+      "value": -1,
+      "unit": "unlimited",
+      "expiry": null,
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/green-energy-wave.webp",
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "J5f9SpgmiFOPKU8Q",
+  "sort": 2300000,
+  "_key": "!items!J5f9SpgmiFOPKU8Q"
+}

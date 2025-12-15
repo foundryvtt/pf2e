@@ -1,0 +1,276 @@
+{
+  "folder": "D8Q2XWm5N91mGuw7",
+  "name": "Monument to the Devourer",
+  "type": "hazard",
+  "ownership": {
+    "default": 0,
+    "kFKtt3r5Xd5l6LFK": 3
+  },
+  "prototypeToken": {
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": false,
+        "autoscale": false
+      }
+    },
+    "height": 1,
+    "width": 1,
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "name": "Monument to the Devourer",
+    "displayName": 20,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/pf2e/icons/default-icons/hazard.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": true,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.942,
+      "previous": null
+    },
+    "traits": {
+      "value": [
+        "haunt"
+      ],
+      "rarity": "common",
+      "size": {
+        "value": "lg"
+      }
+    },
+    "attributes": {
+      "hp": {
+        "value": 80,
+        "max": 80,
+        "temp": 0,
+        "details": "(BT 40)"
+      },
+      "ac": {
+        "value": 28
+      },
+      "hardness": 18,
+      "stealth": {
+        "value": 0,
+        "details": ""
+      },
+      "immunities": [
+        {
+          "type": "critical-hits",
+          "exceptions": []
+        },
+        {
+          "type": "precision",
+          "exceptions": []
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "holy",
+          "value": 10,
+          "exceptions": []
+        },
+        {
+          "type": "spirit",
+          "value": 10,
+          "exceptions": []
+        },
+        {
+          "type": "vitality",
+          "value": 10,
+          "exceptions": []
+        }
+      ],
+      "resistances": [],
+      "emitsSound": "encounter"
+    },
+    "details": {
+      "description": "<p>This shrine has long served as an altar for sacrificial rites and foul magic. When non-believers approach the monument, the souls of all those killed here surge out to reap their lives.</p>",
+      "level": {
+        "value": 9
+      },
+      "isComplex": false,
+      "disable": "<p>@Check[deception|dc:33] (master) to pose as a believer and command the monument to still, or @Check[religion|dc:30] (expert) to pray to the gods for protection, or @Check[occultism|dc:30] (expert) to soothe the trapped spirits; two successes are required to disable it</p>",
+      "routine": "",
+      "reset": "<p>1 hour</p>",
+      "publication": {
+        "title": "Starfinder GM Core",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "saves": {
+      "fortitude": {
+        "value": 21
+      },
+      "reflex": {
+        "value": 15
+      },
+      "will": {
+        "value": 0
+      }
+    }
+  },
+  "img": "systems/pf2e/icons/default-icons/hazard.svg",
+  "items": [
+    {
+      "type": "action",
+      "name": "Surge of Trapped Souls",
+      "system": {
+        "actionType": {
+          "value": "reaction"
+        },
+        "description": {
+          "value": "<p><strong>Trigger</strong> A living creature moves within 15 feet of the monument</p><hr /><p><strong>Effect</strong> The souls of all those killed by this monument surge outward, dealing @Damage[(4d10+22)[void]] damage to all living creatures within 60 feet of the monument (@Check[fortitude|dc:28|basic] save). Creatures killed by this haunt have their soul trapped in the monument until the monument is destroyed.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "void"
+          ]
+        },
+        "_migration": {
+          "version": 0.942,
+          "previous": {
+            "schema": null,
+            "foundry": "13.347",
+            "system": "7.4.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "HUevG60qrY45gPjx",
+      "img": "systems/pf2e/icons/default-icons/action.svg",
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "kFKtt3r5Xd5l6LFK": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.347",
+        "systemId": "pf2e",
+        "systemVersion": "7.4.2"
+      },
+      "_key": "!actors.items!2yrGP4fNXEC5ARHU.HUevG60qrY45gPjx"
+    }
+  ],
+  "flags": {
+    "pf2e": {
+      "editHazard": {
+        "value": false
+      }
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "pf2e",
+    "systemVersion": "7.4.2"
+  },
+  "_id": "2yrGP4fNXEC5ARHU",
+  "sort": 320313,
+  "_key": "!actors!2yrGP4fNXEC5ARHU"
+}

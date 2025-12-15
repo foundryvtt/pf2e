@@ -1,0 +1,263 @@
+{
+  "type": "hazard",
+  "folder": "K358ICaWLoO7Jfkl",
+  "name": "Sterilization Protocol",
+  "ownership": {
+    "default": 0,
+    "qA45GVv5hySaf9b5": 3
+  },
+  "prototypeToken": {
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": false,
+        "autoscale": false
+      }
+    },
+    "height": 1,
+    "width": 1,
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "name": "Sterilization Protocol",
+    "displayName": 20,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/pf2e/icons/default-icons/hazard.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": true,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.948,
+      "previous": null
+    },
+    "traits": {
+      "value": [
+        "fire",
+        "mechanical",
+        "water"
+      ],
+      "rarity": "common",
+      "size": {
+        "value": "lg"
+      }
+    },
+    "attributes": {
+      "hp": {
+        "value": 20,
+        "max": 20,
+        "temp": 0,
+        "details": ""
+      },
+      "ac": {
+        "value": 13
+      },
+      "hardness": 4,
+      "stealth": {
+        "value": 4,
+        "details": "<p>(trained)</p>"
+      },
+      "immunities": [
+        {
+          "type": "critical-hits",
+          "exceptions": []
+        },
+        {
+          "type": "precision",
+          "exceptions": []
+        }
+      ],
+      "weaknesses": [],
+      "resistances": [],
+      "emitsSound": "encounter"
+    },
+    "details": {
+      "description": "<p>Nozzles on the walls spray hot water, chemical sanitizers, and superheated air at all creatures entering the U-shaped hall.</p>",
+      "level": {
+        "value": 1
+      },
+      "isComplex": true,
+      "disable": "<p>@Check[computers|dc:14] (trained) to reprogram the system to safe levels, @Check[crafting|dc:14] (trained) to shut off the waterline, or @Check[thievery|dc:13] (trained) to cut power to the hall</p>",
+      "routine": "<p>(2 actions) The trap sprays a powerful stream of superheated water and sanitizer at all creatures in the U-shaped hall, dealing @Damage[1d4[bludgeoning],1d4[fire]]{1d4 bludgeoning damage and 1d4 fire damage} (@Check[reflex|dc:17|basic] save).</p>",
+      "reset": "<p>The trap automatically deactivates and resets if there are no creatures in the area.</p>",
+      "publication": {
+        "title": "Starfinder Society Scenario #1-07: Seize and Destroy",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "saves": {
+      "fortitude": {
+        "value": 10
+      },
+      "reflex": {
+        "value": 4
+      },
+      "will": {
+        "value": 0
+      }
+    }
+  },
+  "_id": "wRKjBpNeXzVvsjU8",
+  "img": "systems/pf2e/icons/default-icons/hazard.svg",
+  "items": [
+    {
+      "type": "action",
+      "name": "Steam Clean",
+      "system": {
+        "actionType": {
+          "value": "reaction"
+        },
+        "description": {
+          "value": "<p><strong>Trigger</strong> A creature ends its movement in the U-shaped hall</p><hr /><p><strong>Effect</strong> The trap sprays a dense cloud of steam in the hall, obscuring vision. Creatures in the area are @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed} and creatures outside the hall are concealed to those within it. The trap then rolls initiative.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "fire",
+            "water"
+          ]
+        },
+        "_migration": {
+          "version": 0.948,
+          "previous": {
+            "schema": null,
+            "foundry": "13.350",
+            "system": "7.6.4"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "defensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "iQUjroslYtqOPieA",
+      "img": "systems/pf2e/icons/default-icons/action.svg",
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "qA45GVv5hySaf9b5": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.4"
+      },
+      "_key": "!actors.items!wRKjBpNeXzVvsjU8.iQUjroslYtqOPieA"
+    }
+  ],
+  "sort": 0,
+  "flags": {
+    "pf2e": {
+      "editHazard": {
+        "value": false
+      }
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "pf2e",
+    "systemVersion": "7.7.4"
+  },
+  "_key": "!actors!wRKjBpNeXzVvsjU8"
+}

@@ -1,0 +1,249 @@
+{
+  "folder": "D8Q2XWm5N91mGuw7",
+  "name": "Trash Compactor",
+  "type": "hazard",
+  "prototypeToken": {
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": false,
+        "autoscale": false
+      }
+    },
+    "height": 1,
+    "width": 1,
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "name": "Trash Compactor",
+    "displayName": 20,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/pf2e/icons/default-icons/hazard.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": true,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.942,
+      "previous": null
+    },
+    "traits": {
+      "value": [
+        "mechanical",
+        "trap"
+      ],
+      "rarity": "common",
+      "size": {
+        "value": "lg"
+      }
+    },
+    "attributes": {
+      "hp": {
+        "value": 54,
+        "max": 54,
+        "temp": 0,
+        "details": "(BT 27)"
+      },
+      "ac": {
+        "value": 21
+      },
+      "hardness": 12,
+      "stealth": {
+        "value": 21,
+        "details": "<p>(trained)</p>"
+      },
+      "immunities": [],
+      "weaknesses": [],
+      "resistances": [],
+      "emitsSound": "encounter"
+    },
+    "details": {
+      "description": "<p>When activated, the automated trash compactor slowly crushes everything inside it.</p>",
+      "level": {
+        "value": 6
+      },
+      "isComplex": true,
+      "disable": "<p>@Check[crafting|dc:26] (expert) to jam the crushing mechanism, or @Check[thievery|dc:24] (expert) to deactivate the trap; @Check[athletics|dc:28] (trained) to @UUID[Compendium.pf2e.actionspf2e.Item.SjmKHgI7a5Z9JzBx]{Force Open} the door (this doesn't disable the trap)</p>",
+      "routine": "<p>(1 action) Two of the room's walls move 5 feet toward the center of the room, automatically pushing any creatures in those spaces 5 feet closer to the room's center and dealing @Damage[(2d8+9)[bludgeoning]] damage to all creatures in the room (@Check[fortitude|dc:24|basic] save). Creatures that die from this damage are crushed to a fine paste.</p>",
+      "reset": "<p>The trap deactivates and resets after 1 minute.</p>",
+      "publication": {
+        "title": "Starfinder GM Core",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "saves": {
+      "fortitude": {
+        "value": 17
+      },
+      "reflex": {
+        "value": 11
+      },
+      "will": {
+        "value": 0
+      }
+    }
+  },
+  "img": "systems/pf2e/icons/default-icons/hazard.svg",
+  "items": [
+    {
+      "type": "action",
+      "name": "Commence Crushing",
+      "system": {
+        "actionType": {
+          "value": "reaction"
+        },
+        "description": {
+          "value": "<p><strong>Trigger</strong> Two or more creatures end their turn in the room</p><hr /><p><strong>Effect</strong> The doors slam shut, sealing the room. The trap then rolls initiative.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.942,
+          "previous": {
+            "schema": null,
+            "foundry": "13.347",
+            "system": "7.4.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "HUevG60qrY45gPjx",
+      "img": "systems/pf2e/icons/default-icons/action.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.347",
+        "systemId": "pf2e",
+        "systemVersion": "7.4.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!7iucNcWaHzpTaHeK.HUevG60qrY45gPjx"
+    }
+  ],
+  "flags": {
+    "pf2e": {
+      "editHazard": {
+        "value": true
+      }
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "pf2e",
+    "systemVersion": "7.4.2"
+  },
+  "_id": "7iucNcWaHzpTaHeK",
+  "ownership": {
+    "default": 0,
+    "kFKtt3r5Xd5l6LFK": 3
+  },
+  "sort": 321461,
+  "_key": "!actors!7iucNcWaHzpTaHeK"
+}

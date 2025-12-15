@@ -1,0 +1,134 @@
+{
+  "folder": "2tgvWIgAXk3UGUnO",
+  "name": "Persistent Tactics",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You've learned which survival tactics work best for you and rely on them frequently. Select one of the following feats or abilities you possess: @UUID[Compendium.sf2e-anachronism.actions.Item.6fsMvO0jXtK8gYkH]{Puff Up}, @UUID[Compendium.sf2e-anachronism.feats.Item.Wb4vtGqg2Cl2FF1k]{Shed Skin}, @UUID[Compendium.sf2e-anachronism.feats.Item.32W1Pnex4xbhx5Bj]{Squirt Blood}. You can use the selected ability once per 10 minutes, rather than once per hour.</p><hr /><p><strong>Special</strong> You can take this feat more than once, selecting a different ability each time.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Invasion's Edge Player's Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "SF2E.SpecificRule.Ikeshti.PersistentTactics.PuffUp",
+            "value": "puff-up",
+            "predicate": [
+              "hertiage:thorny-ikeshti",
+              {
+                "not": "persistent-tactics:puff-up"
+              }
+            ]
+          },
+          {
+            "label": "SF2E.SpecificRule.Ikeshti.PersistentTactics.ShedSkin",
+            "value": "shed-skin",
+            "predicate": [
+              "feat:shed-skin",
+              {
+                "not": "persistent-tactics:shed-skin"
+              }
+            ]
+          },
+          {
+            "label": "SF2E.SpecificRule.Ikeshti.PersistentTactics.SquirtBlood",
+            "value": "squirt-blood",
+            "predicate": [
+              "feat:squirt-blood",
+              {
+                "not": "persistent-tactics:squirt-blood"
+              }
+            ]
+          }
+        ],
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.Ability",
+        "flag": "ability",
+        "rollOption": "persistent-tactics"
+      },
+      {
+        "itemType": "feat",
+        "key": "ItemAlteration",
+        "mode": "override",
+        "predicate": [
+          "item:slug:{item|flags.pf2e.rulesSelections.ability}"
+        ],
+        "property": "frequency-per",
+        "value": "PT10M"
+      },
+      {
+        "itemType": "action",
+        "key": "ItemAlteration",
+        "mode": "override",
+        "predicate": [
+          "item:slug:{item|flags.pf2e.rulesSelections.ability}"
+        ],
+        "property": "frequency-per",
+        "value": "PT10M"
+      }
+    ],
+    "slug": "persistent-tactics",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "ikeshti"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 13
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 3,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Puff Up, Shed Skin, or Squirt Blood"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 50000,
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3,
+    "yECpvB6rPSLHk9Lh": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": "Item.FgA7uXPGGYavF9RH",
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "MKLp4V5jCZBJbCEX",
+  "_key": "!items!MKLp4V5jCZBJbCEX"
+}

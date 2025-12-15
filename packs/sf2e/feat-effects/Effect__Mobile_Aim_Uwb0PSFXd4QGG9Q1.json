@@ -1,0 +1,93 @@
+{
+  "name": "Effect: Mobile Aim",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Commander Eiran's attacks made with the chosen weapon deal an additional 2d6 precision damage and reduce the target's cover bonus to AC by 1.</p>"
+    },
+    "rules": [
+      {
+        "key": "ChoiceSet",
+        "choices": [
+          {
+            "label": "SF2E.BaseWeapon.DuelingSword",
+            "value": "advanced-dueling-sword"
+          },
+          {
+            "label": "SF2E.BaseWeapon.AeonRifle",
+            "value": "advanced-aeon-rifle"
+          }
+        ],
+        "flag": "mobileAim"
+      },
+      {
+        "key": "DamageDice",
+        "selector": "{item|flags.pf2e.rulesSelections.mobileAim}-damage",
+        "diceNumber": 2,
+        "dieSize": "d6",
+        "category": "precision"
+      },
+      {
+        "key": "EphemeralEffect",
+        "uuid": "Compendium.sf2e-anachronism.feat-effects.Item.B8kDmWVlRX1uJb1o",
+        "selectors": [
+          "{item|flags.pf2e.rulesSelections.mobileAim}-attack-roll"
+        ]
+      }
+    ],
+    "slug": "effect-mobile-aim",
+    "_migration": {
+      "version": 0.932,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "Starfinder Second Edition Playtest Adventure: Empires Devoured",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "rounds",
+      "expiry": "turn-end",
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false
+  },
+  "img": "icons/magic/perception/eye-ringed-green.webp",
+  "folder": null,
+  "ownership": {
+    "default": 0,
+    "qA45GVv5hySaf9b5": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "6.11.1",
+    "exportSource": null
+  },
+  "_id": "Uwb0PSFXd4QGG9Q1",
+  "sort": 6500000,
+  "_key": "!items!Uwb0PSFXd4QGG9Q1"
+}

@@ -1,0 +1,82 @@
+{
+  "folder": null,
+  "name": "Effect: Infernal Armaments",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.WpJCB3dCycbIzG3w]{Infernal Armaments}</p><p>Your gain a status bonus equal to twice the number of weapon damage dice on your first weapon Strike each round. The damage type of this additional damage is determined by your Hellknight's Order.</p>"
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "infernal-armaments",
+        "toggleable": true,
+        "label": "PF2E.GenericLabel.StrikeCount.First"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "weapon-damage",
+        "value": "2 * @weapon.system.damage.dice",
+        "type": "status",
+        "damageType": "{actor|flags.pf2e.hellknightOrderDamage}",
+        "predicate": [
+          "infernal-armaments"
+        ]
+      }
+    ],
+    "slug": "effect-infernal-armaments",
+    "_migration": {
+      "version": 0.935,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 12
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false
+  },
+  "_id": "DqJVydBDD48StDVh",
+  "img": "icons/weapons/swords/greatsword-evil-green.webp",
+  "sort": 7900000,
+  "ownership": {
+    "default": 0,
+    "mcr1uhoMfGHRQJHX": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.0",
+    "exportSource": null
+  },
+  "_key": "!items!DqJVydBDD48StDVh"
+}

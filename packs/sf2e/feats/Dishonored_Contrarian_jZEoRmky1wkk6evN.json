@@ -1,0 +1,118 @@
+{
+  "folder": "8pW9aXcHLw893WYN",
+  "name": "Dishonored Contrarian",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>When the going gets tough, the tough fight tooth and nail to build a better life—literally. Your fellow vlakas might carry hope, dreams, and unending optimism in their hearts, but you've always found it harder to look on the bright side, and you've done some dubious things to get by. Whether you've lied, cheated, stolen, or taken some lives, you know that you did what it took to survive and thrive in a cold and callous galaxy. You become trained in one of the following skills of your choice: Deception, Intimidation, or Thievery. If you select Deception, you gain the @UUID[Compendium.pf2e.feats-srd.Item.HEBXaS656MZTiWFu]{Lengthy Diversion} skill feat. If you select Intimidation, you gain the @UUID[Compendium.pf2e.feats-srd.Item.gUqvezs2zzoTXFAI]{Group Coercion} skill feat. If you select Thievery, you gain the @UUID[Compendium.pf2e.feats-srd.Item.hVZbnsDuXihggylt]{Subtle Theft} skill feat.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "choices": [
+          {
+            "label": "PF2E.Skill.Deception",
+            "value": "deception"
+          },
+          {
+            "label": "PF2E.Skill.Intimidation",
+            "value": "intimidation"
+          },
+          {
+            "label": "PF2E.Skill.Thievery",
+            "value": "thievery"
+          }
+        ],
+        "flag": "dishonoredContrarian",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+        "rollOption": "dishonored-contrarian"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.{item|flags.pf2e.rulesSelections.dishonoredContrarian}.rank",
+        "value": 1
+      },
+      {
+        "key": "GrantItem",
+        "predicate": [
+          "dishonored-contrarian:deception"
+        ],
+        "uuid": "Compendium.pf2e.feats-srd.Item.HEBXaS656MZTiWFu"
+      },
+      {
+        "key": "GrantItem",
+        "predicate": [
+          "dishonored-contrarian:intimidation"
+        ],
+        "uuid": "Compendium.pf2e.feats-srd.Item.gUqvezs2zzoTXFAI"
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.pf2e.feats-srd.Item.hVZbnsDuXihggylt",
+        "predicate": [
+          "dishonored-contrarian:thievery"
+        ]
+      }
+    ],
+    "slug": "dishonored-contrarian",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "vlaka"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": -200000,
+  "ownership": {
+    "default": 0,
+    "mcr1uhoMfGHRQJHX": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": "Item.FwNss6LroM7KZSUB",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "jZEoRmky1wkk6evN",
+  "_key": "!items!jZEoRmky1wkk6evN"
+}

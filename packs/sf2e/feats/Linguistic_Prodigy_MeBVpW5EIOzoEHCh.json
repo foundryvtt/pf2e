@@ -1,0 +1,87 @@
+{
+  "type": "feat",
+  "name": "Linguistic Prodigy",
+  "folder": "BPHsR3KIQSMUTGTS",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 1
+    },
+    "category": "ancestry",
+    "traits": {
+      "value": [
+        "shirren"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>Learning new languages comes naturally to you. You gain two additional languages of your choice, chosen from among the common and uncommon languages available to you. Every time you take the @UUID[Compendium.pf2e.feats-srd.Item.P9HCz0uR6xPHuw72]{Multilingual} feat, you gain another new language in addition to the two you gain from that feat.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "add",
+        "path": "system.build.languages.max",
+        "value": "2"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "add",
+        "path": "system.build.languages.max",
+        "priority": 21,
+        "value": "@actor.flags.pf2e.multilingualTaken"
+      }
+    ],
+    "slug": "linguistic-prodigy",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.1"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "MeBVpW5EIOzoEHCh",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!MeBVpW5EIOzoEHCh"
+}

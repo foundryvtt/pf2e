@@ -1,0 +1,92 @@
+{
+  "folder": "MdJ6TK854gjq4yZ1",
+  "name": "Proleptic Parry",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p><strong>Trigger</strong> A Telepredicted creature targets you with a mental effect.</p><p><strong>Requirements</strong> You have a bonus against the target using Telepredict. </p><hr /><p>You gain a +1 circumstance bonus to Will saving throws against the triggering effect. Increase this bonus to +2 if you've dealt mental damage to the target since the last time you used Telepredict. If you roll a critical success on the saving throw, the target takes @Damage[5d4[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} until the end of your next turn.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "domain": "all",
+        "key": "RollOption",
+        "option": "proleptic",
+        "toggleable": true,
+        "value": true
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "will",
+        "value": "@actor.flags.pf2e.contemplative.telepredict",
+        "type": "circumstance",
+        "predicate": [
+          "target:mark:telepredict"
+        ]
+      }
+    ],
+    "slug": "proleptic-parry",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "contemplative",
+        "mental"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 17
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "reaction"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Telepredict"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 150000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "PbPCMls5szAKHXtr",
+  "_key": "!items!PbPCMls5szAKHXtr"
+}

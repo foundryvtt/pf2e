@@ -1,0 +1,87 @@
+{
+  "folder": null,
+  "name": "Effect: Rebellious Defiance",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.actions.Item.nAJeT29ZJvqeg98h]{Rebellious Defiance}</p><p>You gain a +1 circumstance bonus on your attack rolls against the marked creature. You also get this bonus to saving throws against the attacks, spells, and effects of this creature.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "TokenMark",
+        "slug": "rebellious-defiance"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": [
+          "attack",
+          "saving-throw"
+        ],
+        "value": 1,
+        "type": "circumstance",
+        "predicate": [
+          {
+            "or": [
+              "target:mark:rebellious-defiance",
+              "origin:mark:rebellious-defiance"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "effect-rebellious-defiance",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/blue-fist-in-the-air.webp",
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "NNBc9roYRnFmB3dF",
+  "sort": 5600000,
+  "_key": "!items!NNBc9roYRnFmB3dF"
+}

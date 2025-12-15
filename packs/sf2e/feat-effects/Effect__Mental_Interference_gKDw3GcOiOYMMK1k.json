@@ -1,0 +1,100 @@
+{
+  "name": "Effect: Mental Interference",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.pOQv4G8pLP6SWbmr]{Mental Interference}</p><p>You take a –1 status penalty to attack rolls and Will saves (–2 on a critical success).  </p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "choices": [
+          {
+            "label": "PF2E.Check.Result.Degree.Check.success",
+            "value": "success"
+          },
+          {
+            "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+            "value": "critical-success"
+          }
+        ],
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+        "rollOption": "mental-interference"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": [
+          "attack-roll",
+          "will"
+        ],
+        "value": -1,
+        "type": "status"
+      },
+      {
+        "key": "AdjustModifier",
+        "mode": "downgrade",
+        "value": -2,
+        "slug": "mental-interference",
+        "predicate": [
+          "mental-interference:critical-success"
+        ],
+        "selector": "will"
+      }
+    ],
+    "slug": "effect-mental-interference",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 4
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "_id": "gKDw3GcOiOYMMK1k",
+  "img": "modules/sf2e-anachronism/art/icons/abilities/purple-neurons.webp",
+  "folder": null,
+  "sort": 800000,
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!gKDw3GcOiOYMMK1k"
+}

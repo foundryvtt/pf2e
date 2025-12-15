@@ -1,0 +1,91 @@
+{
+  "name": "Effect: Phase Shift",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>The swarm becomes incorporeal until the start of its next turn. It also gains resistance 10 to all damage (except force, ghost touch, or spirit; double resistance vs non-magical). While incorporeal, the swarm deals an additional 1d10 precision damage to creatures that fail its save against Swarming Bites.</p>"
+    },
+    "rules": [
+      {
+        "key": "ActorTraits",
+        "add": [
+          "incorporeal"
+        ]
+      },
+      {
+        "key": "Resistance",
+        "type": "all-damage",
+        "value": 10,
+        "exceptions": [
+          "force",
+          "ghost-touch",
+          "spirit"
+        ],
+        "doubleVs": [
+          "non-magical"
+        ]
+      },
+      {
+        "category": "precision",
+        "diceNumber": 2,
+        "dieSize": "d10",
+        "key": "DamageDice",
+        "selector": "swarming-bites-inline-damage"
+      }
+    ],
+    "slug": "effect-phase-shift",
+    "_migration": {
+      "version": 0.932,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "Starfinder Second Edition Playtest Adventure: Empires Devoured",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "rounds",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false
+  },
+  "img": "icons/magic/unholy/projectile-smoke-trail-pink.webp",
+  "folder": null,
+  "ownership": {
+    "default": 0,
+    "qA45GVv5hySaf9b5": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "6.11.1",
+    "exportSource": null
+  },
+  "_id": "y6VGOjPa8TtVVvYR",
+  "sort": 6900000,
+  "_key": "!items!y6VGOjPa8TtVVvYR"
+}

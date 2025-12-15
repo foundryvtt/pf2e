@@ -1,0 +1,96 @@
+{
+  "folder": "mBMTGi25dLiIjlX5",
+  "name": "Hero's Edge",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You fight hardest when the odds are at their most dire, and the specter of death looms over you. As long as you have temporary Hit Points from @UUID[Compendium.sf2e-anachronism.feats.Item.a9ER2amvCuQEJODm]{Heroic Last Stand}, your Strikes and spells deal additional damage. You gain a status bonus to damage with your Strikes equal to the number of weapon damage dice. Spells you cast from spell slots gain a status bonus to damage equal to the level of the spell; this bonus applies only to spells that deal damage and don't have a duration.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "FlatModifier",
+        "selector": "strike-damage",
+        "value": "@weapon.system.damage.dice",
+        "predicate": [
+          "self:effect:heroic-last-stand"
+        ],
+        "type": "status"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "spell-damage",
+        "value": "@spell.rank",
+        "type": "status",
+        "predicate": [
+          "self:effect:heroic-last-stand",
+          "item:spell-slot",
+          "item:duration:0",
+          "damaging-effect"
+        ]
+      }
+    ],
+    "slug": "heros-edge",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "dragonkin"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 9
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Heroic Last Stand"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 300000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "CBuBWa9a7FgDp3x0",
+  "_key": "!items!CBuBWa9a7FgDp3x0"
+}

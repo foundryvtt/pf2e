@@ -1,0 +1,112 @@
+{
+  "folder": "BNBCp5rVNuHAoOFS",
+  "name": "Akashic",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You maintain a permanent psychic link to the Akashic Record, the supernatural repository of all knowledge in the multiverse. This connection allows you to access knowledge that otherwise would remain beyond the grasp of regular mortal minds.</p><p><strong>Tradition</strong> occult</p><p><strong>Connection Skill</strong> Occultism</p><p><strong>Connection Spells</strong> cantrip: @UUID[Compendium.sf2e-anachronism.spells.Item.nf8q0zvJDnnkzANe]{Scan Environment}; 1st: @UUID[Compendium.sf2e-anachronism.spells.Item.VynaowCerc7B4yvI]{Akashic Download}; 2nd: @UUID[Compendium.sf2e-anachronism.spells.Item.mnoTqz0gjRmuc4oR]{Instant Virus}; 3rd: @UUID[Compendium.pf2e.spells-srd.Item.ZYoC630tNGutgbE0]{Hypercognition}; 4th: @UUID[Compendium.pf2e.spells-srd.Item.zvKWclOZ7A53DObE]{Clairvoyance}; 5th: @UUID[Compendium.sf2e-anachronism.spells.Item.kTzbLqmqPcZwOa5F]{Wave of Warning}; 6th: @UUID[Compendium.pf2e.spells-srd.Item.uqlxMQQeSGWEVjki]{Truesight}; 7th: @UUID[Compendium.sf2e-anachronism.spells.Item.zdzeVZlKHkMAt2Rf]{Death Sentence}; 8th: @UUID[Compendium.sf2e-anachronism.spells.Item.f98vwzcdxafum8ln]{Akashic Revival}; 9th: @UUID[Compendium.pf2e.spells-srd.Item.qsNeG9KZpODSACMq]{Foresight}</p><p><strong>Epiphany Spells</strong> initial: @UUID[Compendium.sf2e-anachronism.spells.Item.mAu69GVbFKYzQM5a]{Akashic Fount}; advanced: @UUID[Compendium.sf2e-anachronism.spells.Item.z0Spgrf92nmaqjCW]{Akashic Assistant}; greater: @UUID[Compendium.sf2e-anachronism.spells.Item.CjVOXjuvvTJqC7AD]{Data Drain}</p><p><strong>Harmony</strong> When you @UUID[Compendium.sf2e-anachronism.actions.Item.UeMHbnnaXDa3sGfG]{Transfer Vitality}, the target receives a psychic download from the Akashic Record and can immediately attempt to @UUID[Compendium.pf2e.actionspf2e.Item.1OagaWtBpVXExToo]{Recall Knowledge} as a reaction. This doesn't trigger any special abilities, reactions, or free actions that trigger when a creature uses Recall Knowledge.</p><p><strong>Perfect Harmony</strong> You create an extradimensional memory palace that functions as @UUID[Compendium.pf2e.spells-srd.Item.vPWMEyVTreMOoFnm]{Planar Palace}. Creating a door to the demiplane takes 1 minute. The memory palace keeps the same layout each time you access it, adjustable during daily preparations. Each phantasmal minion in your memory palace functions as an akashic assistant (like those created by the <em>akashic assistant</em> epiphany spell).</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.occultism.rank",
+        "value": 1
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "override",
+        "path": "flags.sf2e.mystic.tradition",
+        "value": "occult"
+      },
+      {
+        "itemType": "action",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "predicate": [
+          "item:slug:transfer-vitality"
+        ],
+        "property": "description",
+        "value": [
+          {
+            "text": "SF2E.SpecificRule.Mystic.Connection.Akashic.Harmony"
+          }
+        ]
+      },
+      {
+        "itemType": "feat",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "predicate": [
+          "item:slug:perfect-harmony"
+        ],
+        "property": "description",
+        "value": [
+          {
+            "text": "SF2E.SpecificRule.Mystic.Connection.Akashic.PerfectHarmony"
+          }
+        ]
+      }
+    ],
+    "slug": "akashic",
+    "traits": {
+      "otherTags": [
+        "mystic-connection"
+      ],
+      "value": [
+        "mystic"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "classfeature",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "fM1vlupLq9Zlyt7C",
+  "img": "icons/sundries/documents/document-writing-pink.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!fM1vlupLq9Zlyt7C"
+}

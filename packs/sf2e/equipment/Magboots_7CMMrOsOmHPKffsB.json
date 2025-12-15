@@ -1,0 +1,131 @@
+{
+  "folder": "cJoNKs2FMCJkyEDK",
+  "name": "Magboots",
+  "type": "equipment",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Magboots can be activated or deactivated with an Interact action. While active, they grant you a +1 item bonus to Athletics checks to Climb metal surfaces as well as a +1 item bonus to your Fortitude or Reflex DC against attempts to @UUID[Compendium.pf2e.actionspf2e.Item.lOE4yjUnETTdaf2T]{Reposition}, @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{Shove}, or @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{Trip} you when you're standing on a metal surface. In areas of zero gravity, while wearing a pair of magboots, you can move your Speed across metal surfaces and don't gain the untethered condition.</p>"
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "magboots",
+        "toggleable": true
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "athletics",
+        "slug": "magboots-climb-athletics",
+        "value": 1,
+        "predicate": [
+          "action:climb",
+          "magboots"
+        ],
+        "type": "item",
+        "label": "Magboots - climb metal surfaces"
+      },
+      {
+        "key": "FlatModifier",
+        "predicate": [
+          "magboots",
+          {
+            "or": [
+              "action:shove",
+              "action:trip",
+              "action:reposition"
+            ]
+          }
+        ],
+        "selector": [
+          "fortitude-dc",
+          "reflex-dc"
+        ],
+        "value": 1,
+        "type": "item",
+        "slug": "magboots-dc"
+      }
+    ],
+    "slug": "magboots",
+    "_migration": {
+      "version": 0.94,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "tech"
+      ],
+      "rarity": "common"
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 2
+    },
+    "quantity": 1,
+    "baseItem": null,
+    "bulk": {
+      "value": 0.1
+    },
+    "hp": {
+      "value": 0,
+      "max": 0
+    },
+    "hardness": 0,
+    "price": {
+      "value": {
+        "sp": 350
+      }
+    },
+    "equipped": {
+      "carryType": "worn",
+      "invested": null
+    },
+    "containerId": null,
+    "size": "med",
+    "material": {
+      "type": null,
+      "grade": null
+    },
+    "identification": {
+      "status": "identified",
+      "unidentified": {
+        "name": "Unusual Object",
+        "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+        "data": {
+          "description": {
+            "value": ""
+          }
+        }
+      },
+      "misidentified": {}
+    },
+    "usage": {
+      "value": "wornshoes"
+    },
+    "subitems": []
+  },
+  "img": "icons/equipment/feet/boots-plate-pointed.webp",
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "7CMMrOsOmHPKffsB",
+  "sort": 700000,
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "_key": "!items!7CMMrOsOmHPKffsB"
+}

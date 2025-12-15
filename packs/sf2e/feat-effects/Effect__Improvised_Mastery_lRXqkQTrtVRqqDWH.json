@@ -1,0 +1,123 @@
+{
+  "folder": null,
+  "name": "Effect: Improvised Mastery",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.actions.Item.WFFYDg0sgjaXCeq6]{Improvised Mastery}</p><p>You gain master proficiency in the selected skill, or legendary proficiency if you have legendary improvisation.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "choices": {
+          "config": "skills",
+          "predicate": [
+            {
+              "or": [
+                {
+                  "and": [
+                    {
+                      "lte": [
+                        "skill:{choice|value}:rank",
+                        2
+                      ]
+                    },
+                    {
+                      "lte": [
+                        "self:level",
+                        14
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "lte": [
+                        "skill:{choice|value}:rank",
+                        3
+                      ]
+                    },
+                    {
+                      "gte": [
+                        "self:level",
+                        15
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "flag": "skill",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.Skill"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "override",
+        "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+        "value": "ternary(gte(@actor.level,15),4,3)"
+      },
+      {
+        "key": "RollOption",
+        "option": "improvised-mastery",
+        "removeAfterRoll": true
+      }
+    ],
+    "slug": "effect-improvised-mastery",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 5
+    },
+    "duration": {
+      "value": -1,
+      "unit": "unlimited",
+      "expiry": null,
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/blue-emblem.webp",
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "lRXqkQTrtVRqqDWH",
+  "sort": 6000000,
+  "_key": "!items!lRXqkQTrtVRqqDWH"
+}

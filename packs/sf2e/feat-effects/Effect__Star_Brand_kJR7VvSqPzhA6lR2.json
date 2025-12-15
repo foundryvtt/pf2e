@@ -1,0 +1,82 @@
+{
+  "folder": null,
+  "name": "Effect: Star Brand",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.3HmrwfbkjMHn6jw0]{Star Brand}</p><p>You mark a creature. When targeting the marked creature, your solar flare's range increment increases by 60 feet.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "TokenMark",
+        "slug": "star-brand"
+      },
+      {
+        "key": "AdjustStrike",
+        "definition": [
+          "item:tag:solar-flare"
+        ],
+        "predicate": [
+          "target:mark:star-brand"
+        ],
+        "property": "range-increment",
+        "mode": "add",
+        "value": 60
+      }
+    ],
+    "slug": "effect-star-brand",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 6
+    },
+    "duration": {
+      "value": 10,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "icons/magic/light/explosion-star-glow-blue.webp",
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "kJR7VvSqPzhA6lR2",
+  "sort": 2100000,
+  "_key": "!items!kJR7VvSqPzhA6lR2"
+}

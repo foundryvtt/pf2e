@@ -1,0 +1,91 @@
+{
+  "type": "feat",
+  "name": "Dermal Spikes",
+  "folder": "1txRS4LKdpKWoZpz",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 1
+    },
+    "category": "ancestry",
+    "traits": {
+      "value": [
+        "barathu"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>Spiky protrusions jut from your body, which you can use to wound your attackers. Your Fortitude DC against Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.PMbdMWc2QroouFGD]{Grapple} or @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{Shove} you increases by 1. Additionally, you gain the @UUID[Compendium.sf2e-anachronism.actions.Item.ZVzoIaWpXs62QVcu]{Piercing Spikes} reaction.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.sf2e-anachronism.actions.Item.ZVzoIaWpXs62QVcu"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "fortitude-dc",
+        "value": 1,
+        "predicate": [
+          {
+            "or": [
+              "action:shove",
+              "action:grapple"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "dermal-spikes",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.1"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "ndiCrnBVL7qD115a",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!ndiCrnBVL7qD115a"
+}

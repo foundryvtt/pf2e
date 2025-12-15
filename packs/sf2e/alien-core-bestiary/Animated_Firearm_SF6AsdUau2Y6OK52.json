@@ -1,0 +1,635 @@
+{
+  "type": "npc",
+  "name": "Animated Firearm",
+  "folder": null,
+  "system": {
+    "attributes": {
+      "hp": {
+        "value": 15,
+        "temp": 0,
+        "max": 15,
+        "details": ""
+      },
+      "ac": {
+        "value": 16,
+        "details": ""
+      },
+      "allSaves": {
+        "value": ""
+      },
+      "speed": {
+        "value": 5,
+        "otherSpeeds": [
+          {
+            "type": "fly",
+            "value": 20
+          }
+        ],
+        "details": "hover"
+      },
+      "hardness": {
+        "value": 2
+      }
+    },
+    "initiative": {
+      "statistic": "perception"
+    },
+    "details": {
+      "languages": {
+        "value": [],
+        "details": ""
+      },
+      "level": {
+        "value": 1
+      },
+      "blurb": "",
+      "publicNotes": "<p>Animated firearms make for great training aids but can just as easily defend goods and possessions from intruders or serve as hidden sentries.</p><hr /><p>Objects can be animated in multiple ways for a variety of functions. Since ancient times, weapons and armor have been given life as guardians and sentries through magic or ritual.</p>",
+      "privateNotes": "",
+      "publication": {
+        "title": "Starfinder Alien Core",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "resources": {},
+    "_migration": {
+      "version": 0.946,
+      "previous": {
+        "schema": null,
+        "foundry": "13.350",
+        "system": "7.5.2"
+      }
+    },
+    "abilities": {
+      "str": {
+        "mod": 0
+      },
+      "dex": {
+        "mod": 4
+      },
+      "con": {
+        "mod": 0
+      },
+      "int": {
+        "mod": -5
+      },
+      "wis": {
+        "mod": 3
+      },
+      "cha": {
+        "mod": 0
+      }
+    },
+    "perception": {
+      "details": "",
+      "mod": 7,
+      "senses": [
+        {
+          "type": "darkvision"
+        }
+      ],
+      "vision": true
+    },
+    "saves": {
+      "fortitude": {
+        "value": 5,
+        "saveDetail": ""
+      },
+      "reflex": {
+        "value": 7,
+        "saveDetail": ""
+      },
+      "will": {
+        "value": 6,
+        "saveDetail": ""
+      }
+    },
+    "skills": {
+      "acrobatics": {
+        "base": 6
+      },
+      "stealth": {
+        "base": 8
+      }
+    },
+    "traits": {
+      "value": [
+        "construct",
+        "mindless",
+        "tech"
+      ],
+      "rarity": "common",
+      "size": {
+        "value": "tiny"
+      }
+    }
+  },
+  "_id": "SF6AsdUau2Y6OK52",
+  "img": "systems/pf2e/icons/default-icons/npc.svg",
+  "prototypeToken": {
+    "name": "Animated Firearm",
+    "displayName": 20,
+    "actorLink": false,
+    "width": 0.5,
+    "height": 0.5,
+    "texture": {
+      "src": "systems/pf2e/icons/default-icons/npc.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": true,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": true,
+        "autoscale": true
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [
+    {
+      "type": "action",
+      "name": "Unreliable Tech",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>Once an animated firearm is reduced to less than half its Hit Points, or immediately upon being damaged by a critical hit, it becomes permanently @UUID[Compendium.sf2e-anachronism.conditions.Item.6A2QDy8wRGCVQsSd]{Glitching 1} until its Hit Points are fully restored (such as by being Repaired).</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": "unreliable-tech",
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "defensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "2ukgn8AhO0AxjhoH",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "folder": null,
+      "sort": 150000,
+      "flags": {
+        "pf2e": {
+          "itemGrants": {
+            "glitching": {
+              "id": "OYTO69xQVrusxsGM",
+              "onDelete": "detach"
+            },
+            "effectUnreliableTech": {
+              "id": "atUBObSywuSov3Ir",
+              "onDelete": "detach"
+            },
+            "effectUnreliableTech2": {
+              "id": "hTmUPh6srqfL7MVn",
+              "onDelete": "detach"
+            },
+            "glitching2": {
+              "id": "Crn4Ubz7YtSM7tR5",
+              "onDelete": "detach"
+            }
+          }
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!SF6AsdUau2Y6OK52.2ukgn8AhO0AxjhoH"
+    },
+    {
+      "type": "action",
+      "name": "Weapon Mode",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>In the hands of its creator, an animated firearm is a commercial laser pistol. The creator can Interact to release the firearm into an adjacent space to act on its own, or to retrieve it from an adjacent space and use it as a weapon.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "defensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "TLKAuyPNGi56sFFz",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "folder": null,
+      "sort": 200000,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!SF6AsdUau2Y6OK52.TLKAuyPNGi56sFFz"
+    },
+    {
+      "type": "melee",
+      "name": "Laser Pistol",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "magical",
+            "range-increment-40"
+          ]
+        },
+        "damageRolls": {
+          "5L9uPPYcSoVnMoQi": {
+            "damage": "1d6",
+            "damageType": "fire",
+            "category": null
+          },
+          "zxLXl2CIX324IycU": {
+            "damage": "1",
+            "damageType": "fire",
+            "category": "persistent"
+          }
+        },
+        "bonus": {
+          "value": 9
+        },
+        "attackEffects": {
+          "value": []
+        },
+        "action": "strike",
+        "area": null
+      },
+      "_id": "hRMJCnmugh5z8xAC",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!SF6AsdUau2Y6OK52.hRMJCnmugh5z8xAC"
+    },
+    {
+      "type": "melee",
+      "name": "Stun Gun",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "magical",
+            "nonlethal",
+            "range-increment-30"
+          ]
+        },
+        "damageRolls": {
+          "KgCUmZqaFcdOrAev": {
+            "damage": "1d6",
+            "damageType": "electricity",
+            "category": null
+          }
+        },
+        "bonus": {
+          "value": 9
+        },
+        "attackEffects": {
+          "value": [
+            "stun"
+          ]
+        },
+        "action": "strike",
+        "area": null
+      },
+      "_id": "l2w1KQLSA3mxv8Ds",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!SF6AsdUau2Y6OK52.l2w1KQLSA3mxv8Ds"
+    },
+    {
+      "type": "action",
+      "name": "Stun",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>A creature that takes damage from the animated firearm's stun gun must succeed at a @Check[fortitude|dc:15] save or become @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1} (@UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 2} on a critical failure).</p><p>On a critical hit, the target creature uses the outcome one degree of success worse than the result of its roll. On a success, the target is immune to stun for 1 minute.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "kxHT2BI6bT2AgS3m",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!SF6AsdUau2Y6OK52.kxHT2BI6bT2AgS3m"
+    },
+    {
+      "folder": null,
+      "name": "Hover",
+      "type": "action",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.95,
+          "previous": {
+            "schema": 0.946,
+            "foundry": "13.350",
+            "system": "7.6.4"
+          }
+        },
+        "description": {
+          "value": "<p>@Localize[SF2E.NPC.Abilities.Glossary.Hover]</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "Starfinder Alien Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "actionType": {
+          "value": "passive"
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "ownership": {
+        "default": 0,
+        "O8OxKK20UjX7W372": 3,
+        "uALuXwktnyPWpcY7": 3,
+        "lBn9t2oEMiiJjyzv": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": "Compendium.sf2e-anachronism.creature-ability-glossary.Item.eqmLD72i3cG8ybAn",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.4"
+      },
+      "sort": -100000,
+      "_id": "nH3Ua6w866Zlyg4X",
+      "_key": "!actors.items!SF6AsdUau2Y6OK52.nH3Ua6w866Zlyg4X"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "pf2e",
+    "systemVersion": "7.6.2"
+  },
+  "ownership": {
+    "default": 0,
+    "yECpvB6rPSLHk9Lh": 3
+  },
+  "sort": 0,
+  "_key": "!actors!SF6AsdUau2Y6OK52"
+}

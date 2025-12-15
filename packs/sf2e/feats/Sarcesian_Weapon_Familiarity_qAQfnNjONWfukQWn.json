@@ -1,0 +1,126 @@
+{
+  "folder": "hLnXw8lo8s9W6jcZ",
+  "name": "Sarcesian Weapon Familiarity",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You're accustomed to fighting from afar—really far! You gain access to weapons in the sniper group and all uncommon weapons with the sarcesian trait. You have familiarity with weapons in the sniper group and all weapons with the sarcesian trait—for the purposes of proficiency, you treat any of these that are martial weapons as simple weapons, and any that are advanced weapons as martial weapons.</p><p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "definition": [
+          {
+            "or": [
+              {
+                "and": [
+                  "item:trait:sarcesian",
+                  "item:category:martial"
+                ]
+              },
+              "item:group:sniper"
+            ]
+          }
+        ],
+        "key": "MartialProficiency",
+        "label": "SF2E.SpecificRule.Sarcesian.WeaponFamiliarity.MartialWeapons",
+        "sameAs": "simple",
+        "slug": "martial-sarcesian-weapons"
+      },
+      {
+        "definition": [
+          {
+            "or": [
+              {
+                "and": [
+                  "item:trait:sarcesian",
+                  "item:category:advanced"
+                ]
+              },
+              "item:group:sniper"
+            ]
+          }
+        ],
+        "key": "MartialProficiency",
+        "label": "SF2E.SpecificRule.Sarcesian.WeaponFamiliarity.AdvancedWeapons",
+        "sameAs": "martial",
+        "slug": "advanced-sarcesian-weapons"
+      },
+      {
+        "key": "CriticalSpecialization",
+        "predicate": [
+          {
+            "gte": [
+              "self:level",
+              5
+            ]
+          },
+          {
+            "or": [
+              "item:trait:sarcesian",
+              "item:group:sniper"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "sarcesian-weapon-familiarity",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "sarcesian"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": -93750,
+  "ownership": {
+    "default": 0,
+    "mcr1uhoMfGHRQJHX": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": "Item.FwNss6LroM7KZSUB",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "qAQfnNjONWfukQWn",
+  "_key": "!items!qAQfnNjONWfukQWn"
+}

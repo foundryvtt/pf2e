@@ -1,0 +1,151 @@
+{
+  "folder": "NJWNipWsF1UNHIqy",
+  "name": "Striking Crystal (Commercial)",
+  "type": "equipment",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>This gem contains the condensed matter of a star and increases the weapon damage dice of a solar weapon or flare to two instead of one.</p>"
+    },
+    "rules": [
+      {
+        "choices": [
+          {
+            "label": "SF2E.SpecificRule.Solarian.SolarFlare.Label",
+            "value": "solar-flare"
+          },
+          {
+            "label": "SF2E.SpecificRule.Solarian.SolarWeapon.Label",
+            "value": "solar-weapon"
+          },
+          {
+            "label": "SF2E.SpecificRule.Solarian.SolarWeapon.TwinLabel",
+            "value": "twin-solar-weapon",
+            "predicate": [
+              "feat:twin-weapons"
+            ]
+          }
+        ],
+        "key": "ChoiceSet",
+        "prompt": "SF2E.SpecificRule.Prompt.SolarianWeapon",
+        "rollOption": "striking-crystal-commercial"
+      },
+      {
+        "key": "Striking",
+        "selector": "weapon-damage",
+        "value": 1,
+        "predicate": [
+          {
+            "or": [
+              {
+                "and": [
+                  "item:slug:solar-weapon",
+                  "striking-crystal-commercial:solar-weapon"
+                ]
+              },
+              {
+                "and": [
+                  "item:slug:solar-flare",
+                  "striking-crystal-commercial:solar-flare"
+                ]
+              },
+              {
+                "and": [
+                  "item:slug:twin-solar-weapon",
+                  "striking-crystal-commercial:twin-solar-weapon"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "striking-crystal-commercial",
+    "_migration": {
+      "version": 0.94,
+      "lastMigration": null,
+      "previous": {
+        "schema": 0.932,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "magical"
+      ],
+      "rarity": "common"
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 4
+    },
+    "quantity": 1,
+    "baseItem": null,
+    "bulk": {
+      "value": 0
+    },
+    "hp": {
+      "value": 0,
+      "max": 0
+    },
+    "hardness": 0,
+    "price": {
+      "value": {
+        "sp": 650
+      }
+    },
+    "equipped": {
+      "carryType": "worn",
+      "invested": null
+    },
+    "containerId": null,
+    "size": "med",
+    "material": {
+      "type": null,
+      "grade": null
+    },
+    "identification": {
+      "status": "identified",
+      "unidentified": {
+        "name": "Unusual Object",
+        "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+        "data": {
+          "description": {
+            "value": ""
+          }
+        }
+      },
+      "misidentified": {}
+    },
+    "usage": {
+      "value": "other"
+    },
+    "subitems": []
+  },
+  "img": "icons/commodities/gems/gem-faceted-round-black.webp",
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "ownership": {
+    "default": 0,
+    "CmdglLq38DpgHzdd": 3,
+    "O8OxKK20UjX7W372": 3
+  },
+  "_id": "AmF4ApGgYVhwU04Z",
+  "sort": 1200000,
+  "_key": "!items!AmF4ApGgYVhwU04Z"
+}

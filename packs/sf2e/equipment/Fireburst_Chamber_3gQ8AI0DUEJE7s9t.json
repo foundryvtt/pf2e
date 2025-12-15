@@ -1,0 +1,128 @@
+{
+  "folder": "7JvVdcPLRxEK9sec",
+  "name": "Fireburst Chamber",
+  "type": "equipment",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>A fireburst chamber allows you to direct the detonation of a grenade inside of a grenade launcher or an undermounted grenade launcher.</p><hr /><p><strong>Activate—Fireburst Mode</strong> <span class=\"pf2-icon\">1</span> (manipulate)</p><p><strong>Effect</strong> The grenade launcher or the undermounted grenade launcher gains the area (cone) trait with a range of 15 feet and uses the properties of the grenade it fires instead of using its normal range. You can end this effect with an Interact action.</p>"
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "{item|parentItem.id}-fireburst-chamber",
+        "toggleable": true,
+        "value": true
+      },
+      {
+        "itemType": "weapon",
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "traits",
+        "value": "area-cone",
+        "predicate": [
+          "item:id:{item|parentItem.id}",
+          "{item|parentItem.id}-fireburst-chamber"
+        ]
+      },
+      {
+        "itemType": "weapon",
+        "key": "ItemAlteration",
+        "mode": "override",
+        "property": "range-max",
+        "value": 15,
+        "predicate": [
+          "item:id:{item|parentItem.id}",
+          "{item|parentItem.id}-fireburst-chamber"
+        ]
+      }
+    ],
+    "slug": "fireburst-chamber",
+    "_migration": {
+      "version": 0.94,
+      "lastMigration": null,
+      "previous": {
+        "schema": 0.932,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "tech"
+      ],
+      "rarity": "common"
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 4
+    },
+    "quantity": 1,
+    "baseItem": null,
+    "bulk": {
+      "value": 0
+    },
+    "hp": {
+      "value": 0,
+      "max": 0
+    },
+    "hardness": 0,
+    "price": {
+      "value": {
+        "sp": 750
+      }
+    },
+    "equipped": {
+      "carryType": "worn",
+      "invested": null
+    },
+    "containerId": null,
+    "size": "med",
+    "material": {
+      "type": null,
+      "grade": null
+    },
+    "identification": {
+      "status": "identified",
+      "unidentified": {
+        "name": "Unusual Object",
+        "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+        "data": {
+          "description": {
+            "value": ""
+          }
+        }
+      },
+      "misidentified": {}
+    },
+    "usage": {
+      "value": "installed-in-a-grenade-launcher-or-two-handed-weapon-with-an-undermounted-grenade-launcher"
+    },
+    "subitems": []
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/yellow-explosion.webp",
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.347",
+    "systemId": "pf2e",
+    "systemVersion": "7.3.1"
+  },
+  "ownership": {
+    "default": 0,
+    "CmdglLq38DpgHzdd": 3,
+    "O8OxKK20UjX7W372": 3
+  },
+  "_id": "3gQ8AI0DUEJE7s9t",
+  "sort": 1500000,
+  "_key": "!items!3gQ8AI0DUEJE7s9t"
+}

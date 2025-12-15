@@ -1,0 +1,128 @@
+{
+  "name": "Spell Effect: Shifting Surge",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.spells.Item.7P4eBdqWcgQJAFCa]{Shifting Surge}</p><p>The next Strike the weapon makes deals your choice of acid, cold, electricity, fire, or sonic damage, and deals an additional 1d6 extra damage of the same type as the weapon's normal damage.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "choices": {
+          "ownedItems": true,
+          "types": [
+            "weapon"
+          ]
+        },
+        "flag": "weapon",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+      },
+      {
+        "adjustName": false,
+        "key": "ChoiceSet",
+        "choices": [
+          {
+            "label": "PF2E.TraitAcid",
+            "value": "acid"
+          },
+          {
+            "label": "PF2E.TraitCold",
+            "value": "cold"
+          },
+          {
+            "label": "PF2E.TraitElectricity",
+            "value": "electricity"
+          },
+          {
+            "label": "PF2E.TraitFire",
+            "value": "fire"
+          },
+          {
+            "label": "PF2E.TraitSonic",
+            "value": "sonic"
+          }
+        ],
+        "flag": "damageType"
+      },
+      {
+        "key": "DamageDice",
+        "slug": "shifting-surge",
+        "diceNumber": "ceil(@item.level / 2)",
+        "dieSize": "d6",
+        "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
+        "damageType": "{weapon|system.damage.damageType}"
+      },
+      {
+        "key": "DamageAlteration",
+        "property": "damage-type",
+        "selectors": [
+          "{item|flags.pf2e.rulesSelections.weapon}-damage"
+        ],
+        "predicate": [
+          {
+            "not": "dice:slug:shifting-surge"
+          }
+        ],
+        "mode": "override",
+        "value": "{item|flags.pf2e.rulesSelections.damageType}"
+      }
+    ],
+    "slug": "spell-effect-shifting-surge",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/blue-laser-beam-rifle.webp",
+  "folder": null,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "_id": "pWm0NCsxjxTUCJ7y",
+  "sort": 1500000,
+  "_key": "!items!pWm0NCsxjxTUCJ7y"
+}

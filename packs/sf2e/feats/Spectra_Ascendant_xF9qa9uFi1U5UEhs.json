@@ -1,0 +1,100 @@
+{
+  "type": "feat",
+  "name": "Spectra Ascendant",
+  "folder": "cNoNcJEgh4ETIVVG",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 17
+    },
+    "category": "ancestry",
+    "traits": {
+      "value": [
+        "prismeni"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>Whether through a quirk of your bloodline, the interference of powerful spectra, or Triune's blessing, your body has been flooded by the essence of the Drift, transforming you into a spectra. You cease aging. You gain darkvision, the cosmic trait, and a fly Speed equal to your land Speed. While you're in the Drift, your fly Speed is equal to double your land Speed. Additionally, you gain the @UUID[Compendium.sf2e-anachronism.actions.Item.VQH9rEQuNb06NQ4b]{Cosmic Blast} action.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.sf2e-anachronism.actions.Item.VQH9rEQuNb06NQ4b"
+      },
+      {
+        "key": "BaseSpeed",
+        "selector": "fly",
+        "value": "@actor.attributes.speed.value"
+      },
+      {
+        "key": "BaseSpeed",
+        "selector": "fly",
+        "value": "@actor.attributes.speed.value*2",
+        "predicate": [
+          "terrain:drift",
+          "terrain:vacuum"
+        ]
+      }
+    ],
+    "slug": "spectra-ascendant",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.1"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Cosmic Traveler"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {
+        "darkvision": {
+          "range": null
+        }
+      },
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "xF9qa9uFi1U5UEhs",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!xF9qa9uFi1U5UEhs"
+}

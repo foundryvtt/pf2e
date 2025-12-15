@@ -1,0 +1,115 @@
+{
+  "type": "feat",
+  "name": "Danger Awareness",
+  "folder": "dUge9P1UVgqBOrXl",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 2
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "operative"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You have an intuitive sense that alerts you to danger and allows you to discern the presence of hidden threats. You gain a +1 circumstance bonus to Perception checks to find traps and @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{Hidden}, @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{Undetected}, and @UUID[Compendium.pf2e.conditionitems.Item.9evPzg9E6muFcoSk]{Unnoticed} creatures; to AC against attacks made by traps and hidden, undetected, and unnoticed creatures; and to saves against traps. Even if you aren't @UUID[Compendium.pf2e.actionspf2e.Item.TiNDYUGlMmxzxBYU]{Searching}, you get a check to find traps that normally require you to be Searching. You still need to meet any other requirements to find the trap. If your initiative result is tied with an opponent, you always go first.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "danger-awareness-perception",
+        "toggleable": true,
+        "domain": "perception",
+        "label": "SF2E.SpecificRule.Operative.DangerAwareness.ToggleLabel"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "ac",
+        "value": 1,
+        "type": "circumstance",
+        "predicate": [
+          {
+            "or": [
+              "origin:condition:hidden",
+              "origin:condition:undetected",
+              "origin:condition:unnoticed",
+              "origin:trait:trap"
+            ]
+          }
+        ],
+        "slug": "danger-awareness-ac"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "perception",
+        "value": 1,
+        "type": "circumstance",
+        "slug": "danger-awareness-perception",
+        "predicate": [
+          "danger-awareness-perception"
+        ]
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "override",
+        "path": "system.initiative.tiebreakPriority",
+        "priority": 51,
+        "value": 0
+      }
+    ],
+    "slug": "danger-awareness",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "action"
+    },
+    "actions": {
+      "value": 2
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "FnAzJ4DIRPJJaGv7",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!FnAzJ4DIRPJJaGv7"
+}

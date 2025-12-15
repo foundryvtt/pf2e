@@ -1,0 +1,114 @@
+{
+  "type": "feat",
+  "name": "Veteran Trap Finder",
+  "folder": "ZumS1dH0ZySEQwtG",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 8
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "archetype"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You can use [[/act disable-device skill=mission-lore]]{Mission Lore} instead of Computers or Thievery to disable traps in locations you researched using Mission Briefing. You can disable traps that require a proficiency rank of master in Computers or Thievery. If you have master proficiency in Computers or Thievery, you can disable traps that require a proficiency rank of legendary in that skill instead, and increase the circumstance bonus you gain from Danger Awareness to +2.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "AdjustModifier",
+        "mode": "upgrade",
+        "predicate": [
+          {
+            "or": [
+              "bonus:slug:danger-awareness-ac",
+              "bonus:slug:danger-awareness-perception"
+            ]
+          },
+          {
+            "or": [
+              {
+                "gte": [
+                  "skill:computers:rank",
+                  3
+                ]
+              },
+              {
+                "gte": [
+                  "skill:thievery:rank",
+                  3
+                ]
+              }
+            ]
+          }
+        ],
+        "value": 2,
+        "selectors": [
+          "ac",
+          "perception"
+        ]
+      }
+    ],
+    "slug": "veteran-trap-finder",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Danger Awareness"
+        },
+        {
+          "value": "Mission Briefing"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "BuTSr1Lo8vRxZ2cb",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!BuTSr1Lo8vRxZ2cb"
+}

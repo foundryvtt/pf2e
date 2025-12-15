@@ -1,0 +1,92 @@
+{
+  "type": "feat",
+  "name": "Gorge",
+  "folder": "YbAX7ofsCpx0a6de",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 13
+    },
+    "category": "ancestry",
+    "traits": {
+      "value": [
+        "corpsefolk"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Guilt of the Grave World",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You force yourself to metabolize more flesh, gristle, and bone than you can normally stomach, gorging on as much of your grisly meal as possible to bolster your body's necromantic healing processes. When you @UUID[Compendium.sf2e-anachronism.feats.Item.8ftl9i9rmorxoBow]{Consume Flesh}, you gain a number of temporary Hit Points equal to 10 plus half your level, rounded down. These temporary Hit Points last for 10 minutes.</p><p>@UUID[Compendium.sf2e-anachronism.feat-effects.Item.b3bGLDuzs0lKS1Oq]{Effect: Gorge}</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "description",
+        "itemType": "feat",
+        "predicate": [
+          "item:slug:consume-flesh"
+        ],
+        "value": [
+          {
+            "text": "{item|description}"
+          }
+        ]
+      }
+    ],
+    "slug": "gorge",
+    "_migration": {
+      "version": 0.943,
+      "previous": {
+        "schema": null,
+        "foundry": "13.348",
+        "system": "7.5.1"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Consume Flesh"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "IYhooDxEG5NqFSom",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "qA45GVv5hySaf9b5": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "pf2e",
+    "systemVersion": "7.7.3"
+  },
+  "_key": "!items!IYhooDxEG5NqFSom"
+}

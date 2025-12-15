@@ -1,0 +1,77 @@
+{
+  "name": "Effect: Get in There!",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.ndYnIz8DvI8RpAup]{Get in There!}</p><p>You gain a +5-foot status bonus to Speed. Increase the distance by an additional 5 feet at 7th level, 12th level, and 17th level.</p>"
+    },
+    "rules": [
+      {
+        "key": "FlatModifier",
+        "selector": "land-speed",
+        "slug": "incredible-movement",
+        "type": "status",
+        "value": "ternary(gte(@item.origin.level,17),20,ternary(gte(@item.origin.level,12),15,ternary(gte(@item.origin.level,7),10,5)))"
+      }
+    ],
+    "slug": "effect-get-in-there",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": 0.932,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 2
+    },
+    "duration": {
+      "value": 1,
+      "unit": "rounds",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": null,
+    "context": null,
+    "unidentified": false,
+    "fromSpell": false
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/blue-person-running.webp",
+  "folder": null,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "_id": "dAcHJiPDtqxxrR4Z",
+  "sort": 3100000,
+  "_key": "!items!dAcHJiPDtqxxrR4Z"
+}

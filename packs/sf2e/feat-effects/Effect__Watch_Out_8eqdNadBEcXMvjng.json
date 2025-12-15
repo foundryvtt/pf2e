@@ -1,0 +1,83 @@
+{
+  "folder": null,
+  "name": "Effect: Watch Out",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.60BRmtuNHT6mpJOH]{Watch Out}</p><p>You gain a +2 circumstance bonus to AC. If the origin has Look Alive, this bonus applies to your Reflex save as well.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "FlatModifier",
+        "selector": "ac",
+        "value": 2,
+        "type": "circumstance",
+        "slug": "watch-out-ac"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "reflex",
+        "value": 2,
+        "type": "circumstance",
+        "slug": "watch-out-reflex",
+        "predicate": [
+          "parent:origin:item:tag:look-alive"
+        ]
+      }
+    ],
+    "slug": "effect-watch-out",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "rounds",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/yellow-warning-sign.webp",
+  "ownership": {
+    "default": 0,
+    "HfqCvkteYnTykQsA": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "8eqdNadBEcXMvjng",
+  "sort": 100000,
+  "_key": "!items!8eqdNadBEcXMvjng"
+}

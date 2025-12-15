@@ -1,0 +1,157 @@
+{
+  "folder": "NJWNipWsF1UNHIqy",
+  "name": "Quasar Crystal",
+  "type": "equipment",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Quasar crystals condense your solar energy into a single point ready to release on impact. Attacks with this weapon are a critical hit on a 19 on the die as long as that result is a success. This property has no effect on a 19 if the result would be a failure.</p>"
+    },
+    "rules": [
+      {
+        "choices": [
+          {
+            "label": "SF2E.SpecificRule.Solarian.SolarFlare.Label",
+            "value": "solar-flare"
+          },
+          {
+            "label": "SF2E.SpecificRule.Solarian.SolarWeapon.Label",
+            "value": "solar-weapon"
+          },
+          {
+            "label": "SF2E.SpecificRule.Solarian.SolarWeapon.TwinLabel",
+            "value": "twin-solar-weapon",
+            "predicate": [
+              "feat:twin-weapons"
+            ]
+          }
+        ],
+        "key": "ChoiceSet",
+        "prompt": "SF2E.SpecificRule.Prompt.SolarianWeapon",
+        "rollOption": "quasar-crystal"
+      },
+      {
+        "adjustment": {
+          "success": "to-critical-success"
+        },
+        "key": "AdjustDegreeOfSuccess",
+        "predicate": [
+          "check:roll:total:natural:19",
+          {
+            "or": [
+              {
+                "and": [
+                  "item:slug:solar-weapon",
+                  "quasar-crystal:solar-weapon"
+                ]
+              },
+              {
+                "and": [
+                  "item:slug:solar-flare",
+                  "quasar-crystal:solar-flare"
+                ]
+              },
+              {
+                "and": [
+                  "item:slug:twin-solar-weapon",
+                  "quasar-crystal:twin-solar-weapon"
+                ]
+              }
+            ]
+          }
+        ],
+        "selector": "strike-attack-roll"
+      }
+    ],
+    "slug": "quasar-crystal",
+    "_migration": {
+      "version": 0.94,
+      "lastMigration": null,
+      "previous": {
+        "schema": 0.932,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "magical"
+      ],
+      "rarity": "uncommon"
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 13
+    },
+    "quantity": 1,
+    "baseItem": null,
+    "bulk": {
+      "value": 0
+    },
+    "hp": {
+      "value": 0,
+      "max": 0
+    },
+    "hardness": 0,
+    "price": {
+      "value": {
+        "sp": 30000,
+        "pp": 0,
+        "gp": 0,
+        "cp": 0
+      }
+    },
+    "equipped": {
+      "carryType": "worn",
+      "invested": null
+    },
+    "containerId": null,
+    "size": "med",
+    "material": {
+      "type": null,
+      "grade": null
+    },
+    "identification": {
+      "status": "identified",
+      "unidentified": {
+        "name": "Unusual Object",
+        "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+        "data": {
+          "description": {
+            "value": ""
+          }
+        }
+      },
+      "misidentified": {}
+    },
+    "usage": {
+      "value": "other"
+    },
+    "subitems": []
+  },
+  "img": "icons/commodities/gems/gem-faceted-trillion-orange.webp",
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "ownership": {
+    "default": 0,
+    "CmdglLq38DpgHzdd": 3,
+    "O8OxKK20UjX7W372": 3
+  },
+  "_id": "ZzdJKzOrz6i5WuAp",
+  "sort": 700000,
+  "_key": "!items!ZzdJKzOrz6i5WuAp"
+}

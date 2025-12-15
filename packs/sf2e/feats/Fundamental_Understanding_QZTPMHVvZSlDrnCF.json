@@ -1,0 +1,105 @@
+{
+  "type": "feat",
+  "name": "Fundamental Understanding",
+  "folder": "3SMThUY8Oh8abD8t",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 2
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "witchwarper"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p><strong>Trigger</strong> A creature, trap, or similar object within your quantum field casts a spell that you don't have in your spell repertoire, and you're aware of the casting.</p><hr /><p>If the triggering spell is common and you're trained in the associated skill for the spell's tradition, you automatically identify the spell being cast (you still roll to attempt to get a critical success but can't get a worse result than a success). You or a visible ally within 60 feet targeted by this spell gain a +1 circumstance bonus to your saving throw or your AC against it (or a +2 circumstance bonus if you rolled a critical success).</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "fundamental-understanding",
+        "toggleable": true,
+        "suboptions": [
+          {
+            "label": "PF2E.Check.Result.Degree.Check.success",
+            "value": "1"
+          },
+          {
+            "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+            "value": "2"
+          }
+        ]
+      },
+      {
+        "key": "FlatModifier",
+        "selector": [
+          "saving-throw",
+          "ac"
+        ],
+        "value": "@item.flags.pf2e.rulesSelections.fundamentalUnderstanding",
+        "type": "circumstance",
+        "predicate": [
+          "fundamental-understanding"
+        ]
+      }
+    ],
+    "slug": "fundamental-understanding",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "reaction"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "analyst paradox"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "QZTPMHVvZSlDrnCF",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!QZTPMHVvZSlDrnCF"
+}

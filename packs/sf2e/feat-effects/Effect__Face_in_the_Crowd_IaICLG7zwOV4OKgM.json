@@ -1,0 +1,107 @@
+{
+  "folder": null,
+  "name": "Effect: Face in the Crowd",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.N68CjcvYmLF35KrD]{Face in the Crowd}</p><p>You gain a +2 circumstance bonus on your Stealth check when in a crowd of at least 10 creatures or a +4 circumstance bonus when in a crowd of at least 100 creatures. If you're a master in Deception you only need 5 creatures to get these bonuses.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "choices": [
+          {
+            "label": "At least 10 creatures",
+            "predicate": [
+              {
+                "lte": [
+                  "skill:stealth:rank",
+                  2
+                ]
+              }
+            ],
+            "value": 2
+          },
+          {
+            "label": "At least 5 creatures",
+            "predicate": [
+              {
+                "gte": [
+                  "skill:stealth:rank",
+                  3
+                ]
+              }
+            ],
+            "value": 2
+          },
+          {
+            "label": "At least 100 creatures",
+            "value": 4
+          }
+        ],
+        "flag": "crowdSizeBonus",
+        "key": "ChoiceSet",
+        "prompt": "Select a crowd size"
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "stealth",
+        "type": "circumstance",
+        "value": "@item.flags.pf2e.rulesSelections.crowdSizeBonus"
+      }
+    ],
+    "slug": "effect-face-in-the-crowd",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": -1,
+      "unit": "unlimited",
+      "expiry": null,
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/blue-alien-face.webp",
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "IaICLG7zwOV4OKgM",
+  "sort": 4500000,
+  "_key": "!items!IaICLG7zwOV4OKgM"
+}

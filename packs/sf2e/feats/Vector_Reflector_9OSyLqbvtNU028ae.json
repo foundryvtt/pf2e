@@ -1,0 +1,95 @@
+{
+  "type": "feat",
+  "name": "Vector Reflector",
+  "folder": "pUPqjTE8HAvTUmL3",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 14
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "soldier"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p><strong>Trigger</strong> A @UUID[Compendium.sf2e-anachronism.conditions.Item.enA7BxAjBb7ns1iF]{Suppressed} creature damages you with a Strike.</p><hr /><p>Your armor absorbs some of the kinetic energy of your opponent's attack. You gain resistance equal to half your level against the triggering damage (or equal to your level if you have the @UUID[Compendium.sf2e-anachronism.class-features.Item.T78VQC8oaD1Odz1k]{Armor Storm} fighting style). If the triggering creature is within reach, attempt an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{Shove} it.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "vector-reflector"
+      },
+      {
+        "key": "Resistance",
+        "value": "floor(@actor.level / 2)",
+        "type": "all-damage",
+        "predicate": [
+          "vector-reflector"
+        ]
+      },
+      {
+        "key": "Resistance",
+        "value": "@actor.level",
+        "type": "all-damage",
+        "predicate": [
+          "feature:armor-storm",
+          "vector-reflector"
+        ]
+      }
+    ],
+    "slug": "vector-reflector",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "reaction"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "9OSyLqbvtNU028ae",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!9OSyLqbvtNU028ae"
+}

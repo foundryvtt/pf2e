@@ -1,0 +1,103 @@
+{
+  "folder": "lno6hGN7OXMCCi6Q",
+  "name": "Soul-Soother",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You have a deep understanding of emotions and mental health. You become trained in one of the following skills of your choice: Diplomacy or Medicine. If you would automatically become trained in both of those skills (from your background or class, for example), you instead become trained in a skill of your choice. In addition, if you roll a critical failure on a Will save against an emotion effect, you get a failure instead.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Invasion's Edge Player's Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "PF2E.Skill.Diplomacy",
+            "value": "diplomacy"
+          },
+          {
+            "label": "PF2E.Skill.Medicine",
+            "value": "medicine"
+          }
+        ],
+        "flag": "skill",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.Skill"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+        "value": 1
+      },
+      {
+        "adjustment": {
+          "success": "one-degree-better"
+        },
+        "key": "AdjustDegreeOfSuccess",
+        "predicate": [
+          "item:trait:emotion"
+        ],
+        "selector": "will"
+      }
+    ],
+    "slug": "soul-soother",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "ikeshti"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 281250,
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3,
+    "yECpvB6rPSLHk9Lh": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": "Item.FgA7uXPGGYavF9RH",
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "y8cOnQWb0ZjAb794",
+  "_key": "!items!y8cOnQWb0ZjAb794"
+}

@@ -1,0 +1,105 @@
+{
+  "type": "feat",
+  "name": "Widen Spell (Starfinder)",
+  "folder": "Rg0B9WunJDjE6Edi",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 1
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "concentrate",
+        "mystic",
+        "spellshape",
+        "witchwarper"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You manipulate the energy of your spell, causing it to affect a wider area. If the next action you use is to Cast a Spell that has an area of a burst, cone, or line and doesn't have a duration, increase the area of that spell. Add 5 feet to the radius of a burst that normally has a radius of at least 10 feet (a burst with a smaller radius isn't affected). Add 5 feet to the length of a cone or line that's normally 15 feet long or smaller, and add 10 feet to the length of a larger cone or line.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "spellshape",
+        "suboptions": [
+          {
+            "label": "{item|name}",
+            "value": "widen-spell"
+          }
+        ],
+        "label": "PF2E.TraitSpellshape",
+        "toggleable": true,
+        "placement": "spellcasting",
+        "mergeable": true
+      },
+      {
+        "key": "ItemAlteration",
+        "mode": "add",
+        "property": "description",
+        "value": [
+          {
+            "text": "{item|description}"
+          }
+        ],
+        "itemType": "spell",
+        "predicate": [
+          "spellshape:widen-spell"
+        ]
+      }
+    ],
+    "slug": "widen-spell",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "action"
+    },
+    "actions": {
+      "value": 1
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "P7naikcqL9P6JTCU",
+  "effects": [],
+  "sort": 200000,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!P7naikcqL9P6JTCU"
+}

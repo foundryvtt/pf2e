@@ -1,0 +1,2123 @@
+{
+  "type": "npc",
+  "name": "Wayward Warp",
+  "folder": null,
+  "system": {
+    "attributes": {
+      "hp": {
+        "value": 72,
+        "temp": 0,
+        "max": 72,
+        "details": ""
+      },
+      "ac": {
+        "value": 18,
+        "details": ""
+      },
+      "allSaves": {
+        "value": ""
+      },
+      "speed": {
+        "value": 25,
+        "otherSpeeds": [],
+        "details": ""
+      },
+      "immunities": [
+        {
+          "type": "disease"
+        },
+        {
+          "type": "emotion"
+        },
+        {
+          "type": "paralyzed"
+        },
+        {
+          "type": "poison"
+        },
+        {
+          "type": "precision"
+        }
+      ],
+      "resistances": []
+    },
+    "initiative": {
+      "statistic": "perception"
+    },
+    "details": {
+      "languages": {
+        "value": [
+          "aklo"
+        ],
+        "details": "Telepathy 15 feet"
+      },
+      "level": {
+        "value": 5
+      },
+      "blurb": "",
+      "publicNotes": "<p>A wayward warp is a living dimensional rift that causes unexpected havoc as they twist the world around them. No two wayward warps look the same, and no wayward warp keeps the same appearance for very long; every time a wayward warp moves, a different potential reality reveals itself. The warp themself is a rift at the center of the aura that appears like a tear in reality, often taking a shape vaguely resembling a feather star whose tentacles are lined with shard-like cracks in space itself.</p>",
+      "privateNotes": "",
+      "publication": {
+        "title": "Starfinder Alien Core",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "resources": {},
+    "_migration": {
+      "version": 0.946,
+      "previous": {
+        "schema": null,
+        "foundry": "13.350",
+        "system": "7.5.2"
+      }
+    },
+    "abilities": {
+      "str": {
+        "mod": -5
+      },
+      "dex": {
+        "mod": 3
+      },
+      "con": {
+        "mod": 4
+      },
+      "int": {
+        "mod": 3
+      },
+      "wis": {
+        "mod": 2
+      },
+      "cha": {
+        "mod": 5
+      }
+    },
+    "perception": {
+      "details": "warp sense 15 feet",
+      "mod": 12,
+      "senses": [
+        {
+          "type": "darkvision"
+        }
+      ],
+      "vision": true
+    },
+    "saves": {
+      "fortitude": {
+        "value": 11,
+        "saveDetail": ""
+      },
+      "reflex": {
+        "value": 10,
+        "saveDetail": ""
+      },
+      "will": {
+        "value": 13,
+        "saveDetail": ""
+      }
+    },
+    "skills": {
+      "occultism": {
+        "base": 14
+      }
+    },
+    "traits": {
+      "value": [
+        "aberration",
+        "cosmic",
+        "incorporeal"
+      ],
+      "rarity": "common",
+      "size": {
+        "value": "lg"
+      }
+    }
+  },
+  "_id": "g4FWl8FkL5bbROgk",
+  "img": "systems/pf2e/icons/default-icons/npc.svg",
+  "prototypeToken": {
+    "name": "Wayward Warp",
+    "displayName": 20,
+    "actorLink": false,
+    "width": 2,
+    "height": 2,
+    "texture": {
+      "src": "systems/pf2e/icons/default-icons/npc.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": true,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": true,
+        "autoscale": true
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [
+    {
+      "type": "action",
+      "name": "Warp Sense",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>A wayward warp can sense creatures within their warp field as a precise sense at the listed range.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "interaction",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "Ha5DSESLVn6fGxfm",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.Ha5DSESLVn6fGxfm"
+    },
+    {
+      "type": "action",
+      "name": "Warp Field",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>15 feet. Reality within the area becomes a different type of terrain. Structures and creatures in the area aren't transformed, and the change immediately ends when the aura moves or the wayward warp dies. The nature of the aura is chosen randomly using the table below each time the wayward warp moves. A wayward warp is immune to their own warp field's effects and to the aligned damage type, but they gain weakness 5 to the opposing damage type.</p><table border=\"1\" class=\"pf2e remaster\"><thead><tr style=\"text-align:right\"><th>[[/r 1d6]]{D6}</th><th>FIELD</th><th>ALIGNED DAMAGE</th><th>OPPOSING DAMAGE</th><th>FIELD EFFECT</th></tr></thead><tbody><tr><td>1</td><td>Cosmic</td><td>Void</td><td>Vitality</td><td>Zero gravity</td></tr><tr><td>2</td><td>Earth</td><td>Piercing</td><td>Acid</td><td>Difficult terrain (sand)</td></tr><tr><td>3</td><td>Inferno</td><td>Fire</td><td>Cold</td><td>Hazardous terrain (@Damage[1d6[fire]])</td></tr><tr><td>4</td><td>Storm</td><td>Electricity</td><td>Bludgeoning</td><td>Hazardous terrain (@Damage[1d6[electricity]])</td></tr><tr><td>5</td><td>Frozen</td><td>Cold</td><td>Fire</td><td>Uneven ground (ice)</td></tr><tr><td>6</td><td>Water</td><td>Bludgeoning</td><td>Electricity</td><td>Underwater (flooded)</td></tr></tbody></table>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [
+          {
+            "alwaysActive": true,
+            "key": "RollOption",
+            "option": "warp-field",
+            "suboptions": [
+              {
+                "label": "SF2E.NPCAbility.WaywardWarp.WarpField.Cosmic",
+                "value": "cosmic"
+              },
+              {
+                "label": "SF2E.NPCAbility.WaywardWarp.WarpField.Earth",
+                "value": "earth"
+              },
+              {
+                "label": "SF2E.NPCAbility.WaywardWarp.WarpField.Frozen",
+                "value": "frozen"
+              },
+              {
+                "label": "SF2E.NPCAbility.WaywardWarp.WarpField.Inferno",
+                "value": "inferno"
+              },
+              {
+                "label": "SF2E.NPCAbility.WaywardWarp.WarpField.Storm",
+                "value": "storm"
+              },
+              {
+                "label": "SF2E.NPCAbility.WaywardWarp.WarpField.Water",
+                "value": "water"
+              }
+            ],
+            "toggleable": true
+          },
+          {
+            "key": "Resistance",
+            "predicate": [
+              "warp-field:cosmic"
+            ],
+            "type": "all-damage",
+            "value": 5,
+            "exceptions": [
+              "force",
+              "ghost-touch",
+              "vitality"
+            ]
+          },
+          {
+            "key": "Resistance",
+            "predicate": [
+              "warp-field:earth"
+            ],
+            "type": "all-damage",
+            "value": 5,
+            "exceptions": [
+              "force",
+              "ghost-touch",
+              "acid"
+            ]
+          },
+          {
+            "key": "Resistance",
+            "predicate": [
+              "warp-field:inferno"
+            ],
+            "type": "all-damage",
+            "value": 5,
+            "exceptions": [
+              "force",
+              "ghost-touch",
+              "cold"
+            ]
+          },
+          {
+            "key": "Resistance",
+            "predicate": [
+              "warp-field:storm"
+            ],
+            "type": "all-damage",
+            "value": 5,
+            "exceptions": [
+              "force",
+              "ghost-touch",
+              "bludgeoning"
+            ]
+          },
+          {
+            "key": "Resistance",
+            "predicate": [
+              "warp-field:frozen"
+            ],
+            "type": "all-damage",
+            "value": 5,
+            "exceptions": [
+              "force",
+              "ghost-touch",
+              "fire"
+            ]
+          },
+          {
+            "key": "Resistance",
+            "predicate": [
+              "warp-field:water"
+            ],
+            "type": "all-damage",
+            "value": 5,
+            "exceptions": [
+              "force",
+              "ghost-touch",
+              "electricity"
+            ]
+          },
+          {
+            "key": "Immunity",
+            "predicate": [
+              "warp-field:cosmic"
+            ],
+            "type": "void"
+          },
+          {
+            "key": "Immunity",
+            "predicate": [
+              "warp-field:earth"
+            ],
+            "type": "piercing"
+          },
+          {
+            "key": "Immunity",
+            "predicate": [
+              "warp-field:inferno"
+            ],
+            "type": "fire"
+          },
+          {
+            "key": "Immunity",
+            "predicate": [
+              "warp-field:storm"
+            ],
+            "type": "electricity"
+          },
+          {
+            "key": "Immunity",
+            "predicate": [
+              "warp-field:frozen"
+            ],
+            "type": "cold"
+          },
+          {
+            "key": "Immunity",
+            "predicate": [
+              "warp-field:water"
+            ],
+            "type": "bludgeoning"
+          },
+          {
+            "key": "DamageAlteration",
+            "mode": "override",
+            "predicate": [
+              "warp-field:cosmic"
+            ],
+            "property": "damage-type",
+            "selectors": [
+              "strike-damage"
+            ],
+            "value": "void"
+          },
+          {
+            "key": "DamageAlteration",
+            "mode": "override",
+            "predicate": [
+              "warp-field:earth"
+            ],
+            "property": "damage-type",
+            "selectors": [
+              "strike-damage"
+            ],
+            "value": "piercing"
+          },
+          {
+            "key": "DamageAlteration",
+            "mode": "override",
+            "predicate": [
+              "warp-field:inferno"
+            ],
+            "property": "damage-type",
+            "selectors": [
+              "strike-damage"
+            ],
+            "value": "fire"
+          },
+          {
+            "key": "DamageAlteration",
+            "mode": "override",
+            "predicate": [
+              "warp-field:storm"
+            ],
+            "property": "damage-type",
+            "selectors": [
+              "strike-damage"
+            ],
+            "value": "electricity"
+          },
+          {
+            "key": "DamageAlteration",
+            "mode": "override",
+            "predicate": [
+              "warp-field:frozen"
+            ],
+            "property": "damage-type",
+            "selectors": [
+              "strike-damage"
+            ],
+            "value": "cold"
+          },
+          {
+            "key": "DamageAlteration",
+            "mode": "override",
+            "predicate": [
+              "warp-field:water"
+            ],
+            "property": "damage-type",
+            "selectors": [
+              "strike-damage"
+            ],
+            "value": "bludgeoning"
+          }
+        ],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "aura"
+          ]
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "defensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "ew6BNPUtkkHrgJiX",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.4"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.ew6BNPUtkkHrgJiX"
+    },
+    {
+      "type": "action",
+      "name": "Reality Shimmer",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>The wayward warp has concealment against attacks originating outside of their warp field.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [
+          {
+            "key": "RollOption",
+            "option": "reality-shimmer",
+            "toggleable": true
+          },
+          {
+            "inMemoryOnly": true,
+            "key": "GrantItem",
+            "uuid": "Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W",
+            "predicate": [
+              "reality-shimmer"
+            ]
+          }
+        ],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "defensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "1Kf4bK1TnanUd9g7",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.1Kf4bK1TnanUd9g7"
+    },
+    {
+      "type": "melee",
+      "name": "Spatial Tendril",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "finesse",
+            "reach-15"
+          ]
+        },
+        "damageRolls": {
+          "OY7WcJ9roOlGWpky": {
+            "damage": "2d4+5",
+            "damageType": "untyped",
+            "category": null
+          }
+        },
+        "bonus": {
+          "value": 12
+        },
+        "attackEffects": {
+          "value": [
+            "spatial-rending"
+          ]
+        },
+        "action": "strike",
+        "area": null
+      },
+      "_id": "VPM6w2q0ER5HoOYl",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.VPM6w2q0ER5HoOYl"
+    },
+    {
+      "type": "melee",
+      "name": "Warp Blast",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "range-increment-30"
+          ]
+        },
+        "damageRolls": {
+          "JjwrulOMHFK9y0zV": {
+            "damage": "2d6+5",
+            "damageType": "untyped",
+            "category": null
+          }
+        },
+        "bonus": {
+          "value": 14
+        },
+        "attackEffects": {
+          "value": []
+        },
+        "action": "strike",
+        "area": null
+      },
+      "_id": "iB9ephA0nl5CUrH2",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.iB9ephA0nl5CUrH2"
+    },
+    {
+      "name": "Occult Spontaneous Spells",
+      "type": "spellcastingEntry",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": ""
+        },
+        "rules": [],
+        "slug": null,
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": []
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "ability": {
+          "value": "cha"
+        },
+        "spelldc": {
+          "value": 14,
+          "dc": 26
+        },
+        "tradition": {
+          "value": "occult"
+        },
+        "prepared": {
+          "value": "spontaneous"
+        },
+        "showSlotlessLevels": {
+          "value": true
+        },
+        "proficiency": {
+          "value": 1
+        },
+        "slots": {
+          "slot0": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot1": {
+            "prepared": [],
+            "value": 5,
+            "max": 5
+          },
+          "slot2": {
+            "prepared": [],
+            "value": 4,
+            "max": 4
+          },
+          "slot3": {
+            "prepared": [],
+            "value": 3,
+            "max": 3
+          },
+          "slot4": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot5": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot6": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot7": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot8": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot9": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot10": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          },
+          "slot11": {
+            "prepared": [],
+            "value": 0,
+            "max": 0
+          }
+        },
+        "autoHeightenLevel": {
+          "value": 3
+        }
+      },
+      "_id": "gMXI38zMPngi4eHN",
+      "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.gMXI38zMPngi4eHN"
+    },
+    {
+      "folder": "lPzcDrjGDFbzuF2r",
+      "img": "icons/creatures/magical/spirit-undead-winged-ghost.webp",
+      "name": "Illusory Creature",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>You create an illusory image of a Large or smaller creature. It generates the appropriate sounds, smells, and feels believable to the touch. If you and the image are ever farther than 500 feet apart, the spell ends.</p>\n<p>The image can't speak, but you can use your actions to speak through the creature, with the spell disguising your voice as appropriate. You might need to attempt a Deception or Performance check to mimic the creature, as determined by the GM. This is especially likely if you're trying to imitate a specific person and engage with someone that person knows.</p>\n<p>In combat, the illusion can use 2 actions per turn, which it uses when you Sustain the spell. It uses your spell attack modifier for attack rolls and your spell DC for its AC. Its saving throw modifiers are equal to your spell DC – 10. It is substantial enough that it can flank other creatures. If the image is hit by an attack or fails a save, the spell ends.</p>\n<p>The illusion can cause damage by making the target believe the illusion's attacks are real, but it cannot otherwise directly affect the physical world. If the illusory creature hits with a Strike, the target takes @Damage[3d4[mental]] damage. The illusion's Strikes are nonlethal. If the damage doesn't correspond to the image of the monster—for example, if an illusory Large dragon deals only 5 damage—the GM might allow the target to attempt an immediate Perception check to disbelieve the spell. Any relevant resistances and weaknesses apply if the target thinks they do, as judged by the GM. For example, if the illusion wields a warhammer and attacks a creature resistant to bludgeoning damage, the creature would take less mental damage. However, illusory damage does not deactivate regeneration or trigger other effects that require a certain damage type. The GM should track illusory damage dealt by the illusion.</p>\n<p>Any creature that touches the image or uses the @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{Seek} action to examine it can attempt to disbelieve your illusion. When a creature disbelieves the illusion, it recovers from half the damage it had taken from it (if any) and doesn't take any further damage from it.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage of the image's Strikes increases by 1d4, and the maximum size of creature you can create increases by one (to a maximum of Gargantuan).</p>"
+        },
+        "rules": [],
+        "slug": "illusory-creature",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "auditory",
+            "concentrate",
+            "illusion",
+            "manipulate",
+            "olfactory",
+            "visual"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "arcane",
+            "occult"
+          ]
+        },
+        "publication": {
+          "title": "Pathfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 2
+        },
+        "requirements": "",
+        "target": {
+          "value": ""
+        },
+        "range": {
+          "value": "500 feet"
+        },
+        "area": null,
+        "time": {
+          "value": "2"
+        },
+        "duration": {
+          "value": "",
+          "sustained": true
+        },
+        "damage": {},
+        "defense": null,
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "gMXI38zMPngi4eHN",
+          "heightenedLevel": 3
+        },
+        "counteraction": false
+      },
+      "type": "spell",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_id": "tCmRsQSqvTqQ0Vg7",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.tCmRsQSqvTqQ0Vg7"
+    },
+    {
+      "type": "spell",
+      "name": "Void Whispers",
+      "folder": "o04idOr2cgTUSO5w",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>The target hears ominous sounds containing unspeakable mysteries from beyond the stars that disorient its mind. The target attempts a Will save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p><p><strong>Success</strong> The target hears the strange whispers, becoming @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} for 1 round.</p><p><strong>Failure</strong> The target begins to wander aimlessly, using each action to Step in a random direction. When it moves, the target takes the safest route and doesn't enter hazardous terrain. The spell has a duration of 1 minute or until a creature uses a hostile action against the target.</p><p><strong>Critical Failure</strong> As failure, except the target babbles incoherently. Any creature that begins its turn within 20 feet of the target must attempt a Will saving throw. On a failure, it must use its first action on its next turn to Step in a random direction and becomes immune to this spell for 24 hours. This is an incapacitation effect.</p>"
+        },
+        "rules": [],
+        "slug": "void-whispers",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "auditory",
+            "concentrate",
+            "incapacitation",
+            "linguistic",
+            "manipulate",
+            "mental"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "divine",
+            "occult"
+          ]
+        },
+        "publication": {
+          "title": "Starfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 3
+        },
+        "requirements": "",
+        "target": {
+          "value": "1 creature"
+        },
+        "range": {
+          "value": "30 feet"
+        },
+        "area": null,
+        "time": {
+          "value": "2"
+        },
+        "duration": {
+          "value": "varies",
+          "sustained": false
+        },
+        "damage": {},
+        "defense": {
+          "save": {
+            "statistic": "will",
+            "basic": false
+          }
+        },
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "gMXI38zMPngi4eHN",
+          "heightenedLevel": 3
+        },
+        "counteraction": false
+      },
+      "img": "modules/sf2e-anachronism/art/icons/abilities/alien-skull.webp",
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "_id": "pFIc85t91OrpuRJX",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.pFIc85t91OrpuRJX"
+    },
+    {
+      "folder": "lPzcDrjGDFbzuF2r",
+      "img": "icons/creatures/magical/spirit-undead-winged-ghost.webp",
+      "name": "Illusory Creature",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>You create an illusory image of a Large or smaller creature. It generates the appropriate sounds, smells, and feels believable to the touch. If you and the image are ever farther than 500 feet apart, the spell ends.</p>\n<p>The image can't speak, but you can use your actions to speak through the creature, with the spell disguising your voice as appropriate. You might need to attempt a Deception or Performance check to mimic the creature, as determined by the GM. This is especially likely if you're trying to imitate a specific person and engage with someone that person knows.</p>\n<p>In combat, the illusion can use 2 actions per turn, which it uses when you Sustain the spell. It uses your spell attack modifier for attack rolls and your spell DC for its AC. Its saving throw modifiers are equal to your spell DC – 10. It is substantial enough that it can flank other creatures. If the image is hit by an attack or fails a save, the spell ends.</p>\n<p>The illusion can cause damage by making the target believe the illusion's attacks are real, but it cannot otherwise directly affect the physical world. If the illusory creature hits with a Strike, the target takes @Damage[3d4[mental]] damage. The illusion's Strikes are nonlethal. If the damage doesn't correspond to the image of the monster—for example, if an illusory Large dragon deals only 5 damage—the GM might allow the target to attempt an immediate Perception check to disbelieve the spell. Any relevant resistances and weaknesses apply if the target thinks they do, as judged by the GM. For example, if the illusion wields a warhammer and attacks a creature resistant to bludgeoning damage, the creature would take less mental damage. However, illusory damage does not deactivate regeneration or trigger other effects that require a certain damage type. The GM should track illusory damage dealt by the illusion.</p>\n<p>Any creature that touches the image or uses the @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{Seek} action to examine it can attempt to disbelieve your illusion. When a creature disbelieves the illusion, it recovers from half the damage it had taken from it (if any) and doesn't take any further damage from it.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage of the image's Strikes increases by 1d4, and the maximum size of creature you can create increases by one (to a maximum of Gargantuan).</p>"
+        },
+        "rules": [],
+        "slug": "illusory-creature",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "auditory",
+            "concentrate",
+            "illusion",
+            "manipulate",
+            "olfactory",
+            "visual"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "arcane",
+            "occult"
+          ]
+        },
+        "publication": {
+          "title": "Pathfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 2
+        },
+        "requirements": "",
+        "target": {
+          "value": ""
+        },
+        "range": {
+          "value": "500 feet"
+        },
+        "area": null,
+        "time": {
+          "value": "2"
+        },
+        "duration": {
+          "value": "",
+          "sustained": true
+        },
+        "damage": {},
+        "defense": null,
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "gMXI38zMPngi4eHN",
+          "heightenedLevel": 2
+        },
+        "counteraction": false
+      },
+      "type": "spell",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_id": "vvGs7K4e39Ey7PeU",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.vvGs7K4e39Ey7PeU"
+    },
+    {
+      "folder": "lPzcDrjGDFbzuF2r",
+      "img": "systems/pf2e/icons/spells/feeblemind.webp",
+      "name": "Stupefy",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>You dull the target's mind, depending on its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} until the start of your next turn.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 2} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 3} for 1 minute.</p>"
+        },
+        "rules": [],
+        "slug": "stupefy",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "concentrate",
+            "manipulate",
+            "mental"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "arcane",
+            "occult"
+          ]
+        },
+        "publication": {
+          "title": "Pathfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 2
+        },
+        "requirements": "",
+        "target": {
+          "value": "1 creature"
+        },
+        "range": {
+          "value": "30 feet"
+        },
+        "area": null,
+        "time": {
+          "value": "2"
+        },
+        "duration": {
+          "value": "varies",
+          "sustained": false
+        },
+        "damage": {},
+        "defense": {
+          "save": {
+            "basic": false,
+            "statistic": "will"
+          }
+        },
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "gMXI38zMPngi4eHN",
+          "heightenedLevel": 2
+        },
+        "counteraction": false
+      },
+      "type": "spell",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_id": "1XEH4CkzLXg664ha",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.1XEH4CkzLXg664ha"
+    },
+    {
+      "folder": "T8AzYUgNIAgTJ9Iz",
+      "img": "icons/magic/control/buff-luck-fortune-rainbow.webp",
+      "name": "Dizzying Colors",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>You unleash a swirling multitude of colors that overwhelms creatures based on their Will saves.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}, @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round, and dazzled for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is stunned for 1 round and blinded for 1 minute.</p>"
+        },
+        "rules": [],
+        "slug": "dizzying-colors",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "concentrate",
+            "illusion",
+            "incapacitation",
+            "manipulate",
+            "visual"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "arcane",
+            "occult"
+          ]
+        },
+        "publication": {
+          "title": "Pathfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 1
+        },
+        "requirements": "",
+        "target": {
+          "value": ""
+        },
+        "range": {
+          "value": ""
+        },
+        "area": {
+          "type": "cone",
+          "value": 15
+        },
+        "time": {
+          "value": "2"
+        },
+        "duration": {
+          "value": "1 or more rounds (see below)",
+          "sustained": false
+        },
+        "damage": {},
+        "defense": {
+          "save": {
+            "basic": false,
+            "statistic": "will"
+          }
+        },
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "gMXI38zMPngi4eHN",
+          "heightenedLevel": 1
+        },
+        "counteraction": false
+      },
+      "type": "spell",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_id": "JU76MkM7piV8Hm6C",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.JU76MkM7piV8Hm6C"
+    },
+    {
+      "type": "spell",
+      "name": "Dream of Home",
+      "folder": "PUfxgisPd7TTDluV",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>You draw on a creature's thoughts of home and the comfort it finds in that concept, overwhelming the creature with wistful memories of whatever home means to it. The target must succeed at a Will save or become @UUID[Compendium.pf2e.conditionitems.Item.AdPVz7rbaVSRxHFg]{Fascinated} by the memories.</p>"
+        },
+        "rules": [],
+        "slug": "dream-of-home",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "concentrate",
+            "manipulate",
+            "mental"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "divine",
+            "occult"
+          ]
+        },
+        "publication": {
+          "title": "Starfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 1
+        },
+        "requirements": "",
+        "target": {
+          "value": "1 creature"
+        },
+        "range": {
+          "value": "30 feet"
+        },
+        "area": null,
+        "time": {
+          "value": "2"
+        },
+        "duration": {
+          "value": "1 minute",
+          "sustained": true
+        },
+        "damage": {},
+        "defense": {
+          "save": {
+            "statistic": "will",
+            "basic": false
+          }
+        },
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "gMXI38zMPngi4eHN",
+          "heightenedLevel": 1
+        },
+        "counteraction": false
+      },
+      "img": "icons/environment/settlement/palast.webp",
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "_id": "GKVr0HR3s4rHfhVY",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.GKVr0HR3s4rHfhVY"
+    },
+    {
+      "folder": "T8AzYUgNIAgTJ9Iz",
+      "img": "systems/pf2e/icons/spells/illusory-object.webp",
+      "name": "Illusory Object",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>You create an illusory visual image of a stationary object. The entire image must fit within the spell's area. The object appears to animate naturally, but it doesn't make sounds or generate smells. For example, water would appear to pour down an illusory waterfall, but it would be silent.</p>\n<p>Any creature that touches the image or uses the @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{Seek} action to examine it can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Your image makes appropriate sounds, generates normal smells, and feels right to the touch. The spell gains the auditory and olfactory traits. The duration increases to 1 hour.</p>\n<p><strong>Heightened (5th)</strong> As the 2nd-rank version, but the duration is unlimited.</p>"
+        },
+        "rules": [],
+        "slug": "illusory-object",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "concentrate",
+            "illusion",
+            "manipulate",
+            "visual"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "arcane",
+            "occult"
+          ]
+        },
+        "publication": {
+          "title": "Pathfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 1
+        },
+        "requirements": "",
+        "target": {
+          "value": ""
+        },
+        "range": {
+          "value": "500 feet"
+        },
+        "area": {
+          "type": "burst",
+          "value": 20
+        },
+        "time": {
+          "value": "2"
+        },
+        "duration": {
+          "value": "10 minutes",
+          "sustained": false
+        },
+        "damage": {},
+        "defense": null,
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "gMXI38zMPngi4eHN",
+          "heightenedLevel": 1
+        },
+        "counteraction": false
+      },
+      "type": "spell",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_id": "H2Zm0gX6rq2o36NI",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.H2Zm0gX6rq2o36NI"
+    },
+    {
+      "type": "spell",
+      "name": "Eldritch Lance",
+      "folder": "9xujKNVgcczpuL4g",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>You condense a beam of mind-assaulting eldritch energy from the dark spaces between the stars and fire it at a target. Make a ranged spell attack roll against the target's AC. If you hit, you deal 2d6 mental damage. On a critical success, you deal double damage.</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
+        },
+        "rules": [],
+        "slug": "eldritch-lance",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "attack",
+            "cantrip",
+            "concentrate",
+            "manipulate",
+            "mental"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "divine",
+            "occult"
+          ]
+        },
+        "publication": {
+          "title": "Starfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 1
+        },
+        "requirements": "",
+        "target": {
+          "value": "1 creature"
+        },
+        "range": {
+          "value": "30 feet"
+        },
+        "area": null,
+        "time": {
+          "value": "2"
+        },
+        "duration": {
+          "value": "",
+          "sustained": false
+        },
+        "damage": {
+          "HSVx7dCjnK53Ic2d": {
+            "formula": "2d6",
+            "kinds": [
+              "damage"
+            ],
+            "type": "mental",
+            "category": null,
+            "materials": [],
+            "applyMod": false
+          }
+        },
+        "defense": null,
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "gMXI38zMPngi4eHN"
+        },
+        "counteraction": false,
+        "heightening": {
+          "type": "interval",
+          "interval": 1,
+          "damage": {
+            "HSVx7dCjnK53Ic2d": "1d6"
+          },
+          "area": 0
+        }
+      },
+      "img": "icons/magic/unholy/projectile-bolts-salvo-pink.webp",
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "_id": "Fwb8tMoCd6HHcGht",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.Fwb8tMoCd6HHcGht"
+    },
+    {
+      "folder": "D7UVaOiB40wTR6kv",
+      "img": "systems/pf2e/icons/spells/ghost-sound.webp",
+      "name": "Figment",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>You create a simple illusory sound or vision. A sound adds the auditory trait to the spell and the sound can't include intelligible words or elaborate music. A vision adds the visual trait, can be no larger than a 5-foot cube, and is clearly crude and undetailed if viewed from within 15 feet. When you Cast or Sustain the Spell, you can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.GkmbTGfg8KcgynOA]{Create a Diversion} with the illusion, gaining a +2 circumstance bonus to your Deception check. If the attempt fails against a creature, that creature disbelieves the <em>figment</em>.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.2Hg3a06gZCSnUgSA]{Spell Effect: Figment}</p>"
+        },
+        "rules": [],
+        "slug": "figment",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "cantrip",
+            "concentrate",
+            "illusion",
+            "manipulate",
+            "subtle"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "arcane",
+            "occult"
+          ]
+        },
+        "publication": {
+          "title": "Pathfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 1
+        },
+        "requirements": "",
+        "target": {
+          "value": ""
+        },
+        "range": {
+          "value": "30 feet"
+        },
+        "area": null,
+        "time": {
+          "value": "2"
+        },
+        "duration": {
+          "value": "",
+          "sustained": true
+        },
+        "damage": {},
+        "defense": null,
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "gMXI38zMPngi4eHN"
+        },
+        "counteraction": false
+      },
+      "type": "spell",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_id": "SaxPfDgVK9EymSSv",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.SaxPfDgVK9EymSSv"
+    },
+    {
+      "type": "spell",
+      "name": "Seek the Stars",
+      "folder": "9xujKNVgcczpuL4g",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>In your mind's eye, you chart a path through the cosmos. If you're in Pact Worlds space, you immediately know which direction to travel in order to reach the Starstone on Absalom Station. If you're outside the Pact System, you know the direction to the nearest Drift beacon or the Starstone.</p><hr /><p><strong>Heightened (7th)</strong> You can instead know the direction to a familiar location, such as a world or way station you've visited.</p>"
+        },
+        "rules": [],
+        "slug": "seek-the-stars",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "cantrip",
+            "concentrate",
+            "manipulate"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "divine",
+            "occult",
+            "primal"
+          ]
+        },
+        "publication": {
+          "title": "Starfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 1
+        },
+        "requirements": "",
+        "target": {
+          "value": ""
+        },
+        "range": {
+          "value": ""
+        },
+        "area": null,
+        "time": {
+          "value": "2"
+        },
+        "duration": {
+          "value": "",
+          "sustained": false
+        },
+        "damage": {},
+        "defense": null,
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "gMXI38zMPngi4eHN"
+        },
+        "counteraction": false
+      },
+      "img": "modules/sf2e-anachronism/art/icons/abilities/yellow-star-with-purple-aura.webp",
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "_id": "l7VBLWKoBsGvzinG",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.l7VBLWKoBsGvzinG"
+    },
+    {
+      "folder": "D7UVaOiB40wTR6kv",
+      "img": "systems/pf2e/icons/spells/mage-hand.webp",
+      "name": "Telekinetic Hand",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>You create a floating, magical hand, either invisible or ghostlike, that grasps the target object and levitates it slowly up to 20 feet in any direction. When you Sustain the spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (7th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
+        },
+        "rules": [],
+        "slug": "telekinetic-hand",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "cantrip",
+            "concentrate",
+            "manipulate"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "arcane",
+            "occult"
+          ]
+        },
+        "publication": {
+          "title": "Pathfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 1
+        },
+        "requirements": "",
+        "target": {
+          "value": "1 unattended object of light Bulk or less"
+        },
+        "range": {
+          "value": "30 feet"
+        },
+        "area": null,
+        "time": {
+          "value": "2"
+        },
+        "duration": {
+          "value": "",
+          "sustained": true
+        },
+        "damage": {},
+        "defense": null,
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "gMXI38zMPngi4eHN"
+        },
+        "counteraction": false,
+        "heightening": {
+          "levels": {
+            "3": {
+              "target": {
+                "value": "1 unattended object with a Bulk of 1 or less"
+              }
+            },
+            "5": {
+              "range": {
+                "value": "60 feet"
+              }
+            },
+            "7": {
+              "target": {
+                "value": "1 unattended object with a Bulk of 2 or less"
+              }
+            }
+          },
+          "type": "fixed"
+        }
+      },
+      "type": "spell",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_id": "SQA9QLl1bOuhzK4H",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.SQA9QLl1bOuhzK4H"
+    },
+    {
+      "folder": "D7UVaOiB40wTR6kv",
+      "img": "systems/pf2e/icons/spells/chill-touch.webp",
+      "name": "Void Warp",
+      "system": {
+        "description": {
+          "gm": "",
+          "value": "<p>You call upon the Void to harm life force. The target takes 2d4 void damage with a basic Fortitude save. On a critical failure, the target is also @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} until the start of your next turn.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
+        },
+        "rules": [],
+        "slug": "void-warp",
+        "_migration": {
+          "version": 0.946,
+          "lastMigration": null,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "cantrip",
+            "concentrate",
+            "manipulate",
+            "void"
+          ],
+          "rarity": "common",
+          "traditions": [
+            "arcane",
+            "divine",
+            "occult"
+          ]
+        },
+        "publication": {
+          "title": "Pathfinder Player Core",
+          "authors": "",
+          "license": "ORC",
+          "remaster": true
+        },
+        "level": {
+          "value": 1
+        },
+        "requirements": "",
+        "target": {
+          "value": "1 living creature"
+        },
+        "range": {
+          "value": "30 feet"
+        },
+        "area": null,
+        "time": {
+          "value": "2"
+        },
+        "duration": {
+          "value": "",
+          "sustained": false
+        },
+        "damage": {
+          "0": {
+            "applyMod": false,
+            "category": null,
+            "formula": "2d4",
+            "kinds": [
+              "damage"
+            ],
+            "materials": [],
+            "type": "void"
+          }
+        },
+        "defense": {
+          "save": {
+            "basic": true,
+            "statistic": "fortitude"
+          }
+        },
+        "cost": {
+          "value": ""
+        },
+        "location": {
+          "value": "gMXI38zMPngi4eHN"
+        },
+        "counteraction": false,
+        "heightening": {
+          "damage": {
+            "0": "1d4"
+          },
+          "interval": 1,
+          "type": "interval"
+        }
+      },
+      "type": "spell",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "effects": [],
+      "sort": 0,
+      "flags": {},
+      "_id": "mBEsn5JIz9FzcfGL",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.mBEsn5JIz9FzcfGL"
+    },
+    {
+      "type": "action",
+      "name": "Spatial Rending",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>A creature hit by a wayward warp's spatial tendril must succeed at a @Check[will|dc:26] save or become misaligned to reality for 1 minute, gaining a condition based on the field effect while it remains in the warp field: @UUID[Compendium.sf2e-anachronism.conditions.Item.z1ucw4CLwLqHoAp3]{untethered} (cosmic), @UUID[Compendium.sf2e-anachronism.conditions.Item.enA7BxAjBb7ns1iF]{suppressed} (earth or water), @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} (inferno or frozen), or @UUID[Compendium.sf2e-anachronism.conditions.Item.6A2QDy8wRGCVQsSd]{glitching 1} (any tech creature or held tech item in storm).</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "curse",
+            "occult"
+          ]
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "xmIsbQixw88kdhjV",
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!g4FWl8FkL5bbROgk.xmIsbQixw88kdhjV"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "pf2e",
+    "systemVersion": "7.6.2"
+  },
+  "ownership": {
+    "default": 0,
+    "yECpvB6rPSLHk9Lh": 3
+  },
+  "sort": 0,
+  "_key": "!actors!g4FWl8FkL5bbROgk"
+}

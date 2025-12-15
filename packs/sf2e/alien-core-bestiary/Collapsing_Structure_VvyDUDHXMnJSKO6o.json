@@ -1,0 +1,253 @@
+{
+  "folder": null,
+  "name": "Collapsing Structure",
+  "type": "hazard",
+  "prototypeToken": {
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": false,
+        "autoscale": false
+      }
+    },
+    "height": 1,
+    "width": 1,
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "name": "Collapsing Structure",
+    "displayName": 20,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/pf2e/icons/default-icons/hazard.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": true,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.946,
+      "previous": {
+        "schema": 0.943,
+        "foundry": "13.350",
+        "system": "7.5.2"
+      }
+    },
+    "traits": {
+      "value": [
+        "kaiju",
+        "environmental"
+      ],
+      "rarity": "common",
+      "size": {
+        "value": "lg"
+      }
+    },
+    "attributes": {
+      "hp": {
+        "value": 0,
+        "max": 0,
+        "temp": 0,
+        "details": ""
+      },
+      "ac": {
+        "value": null
+      },
+      "hardness": 0,
+      "stealth": {
+        "value": 10,
+        "details": "<p>(master) to notice cracks forming in the walls of the structure as the kyokor (or another kaiju) approaches.</p>"
+      },
+      "immunities": [],
+      "weaknesses": [],
+      "resistances": [],
+      "emitsSound": "encounter"
+    },
+    "details": {
+      "description": "<p>The kyokor (or other kaiju) grazes a structure, severely compromising the building's stability and possibly causing it to collapse.</p><hr /><p>When a kyokor passes by or through a settlement—or even attacks!—it leaves a trail of destruction that can be represented by the following hazards.</p><hr /><p>Terrifying, skyscraper-sized beasts roam the wastelands of Daimalko. Called colossi by the population, these monsters erupted from deep within the earth to stomp cities into dust, decimating the population and destroying every surface civilization on the planet in a terrifying Awakening. Kyokors are among the most dreaded colossi. There's no hope of defeating one without a valko—a war machine created by Daimalko's stubborn survivors to fight the colossi.</p>",
+      "level": {
+        "value": 15
+      },
+      "isComplex": true,
+      "disable": "<p>@Check[athletics|dc:43] (master), @Check[civil-engineering-lore|dc:43] (master), or @Check[crafting|dc:43] (master) check to brace the structure to reduce the risk of collapse until the end of the creature's next turn. The DC of the flat check for this round (see Routine) is increased by 4 on a success, or by 8 on a critical success. Increasing the flat check DC to 21 or higher stabilizes the structure, ending this hazard.</p>",
+      "routine": "<p>(1 action) The GM rolls a @Check[flat|dc:9] to determine if the building collapses, increasing the DC as listed in Disable. On a success, dust and debris fall within the building and 30 feet around it, providing concealment and dealing @Damage[6d6[bludgeoning]] damage to 1d4 randomly chosen targets (@Check[reflex|dc:35|basic] save); on a critical failure, a creature is also knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}. On a critical success on the flat check, the effect is the same, but the debris deals @Damage[12d6[bludgeoning]] damage to 2d4 randomly chosen targets instead (@Check[reflex|dc:35|basic] save); on a critical failure, a creature is knocked prone and @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained} by rubble until freed (DC 38 to [[/act force-open dc=38]]; [[/act escape dc=35]]).</p>",
+      "reset": "<p>The building becomes susceptible to Demolish again [[/gmr 1d6 #rounds]]{1d6 rounds} after it's stabilized.</p>",
+      "publication": {
+        "title": "Starfinder Alien Core",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "saves": {
+      "fortitude": {
+        "value": 0
+      },
+      "reflex": {
+        "value": 0
+      },
+      "will": {
+        "value": 0
+      }
+    }
+  },
+  "_id": "VvyDUDHXMnJSKO6o",
+  "img": "systems/pf2e/icons/default-icons/hazard.svg",
+  "items": [
+    {
+      "type": "action",
+      "name": "Demolish",
+      "system": {
+        "actionType": {
+          "value": "reaction"
+        },
+        "description": {
+          "value": "<p><strong>Trigger</strong> The kyokor (or other kaiju) applies any amount of force to the structure</p><hr /><p><strong>Effect</strong> The building trembles. The floors of the building and the streets within 30 feet of the building become difficult terrain; creatures on this difficult terrain take a –2 circumstance penalty to attack rolls, AC, and skill checks. The hazard rolls initiative.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.946,
+          "previous": {
+            "schema": 0.943,
+            "foundry": "13.350",
+            "system": "7.5.2"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "offensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "l15HrTIvPylSC7Ls",
+      "img": "systems/pf2e/icons/actions/Reaction.webp",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "pf2e",
+        "systemVersion": "7.6.2"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!VvyDUDHXMnJSKO6o.l15HrTIvPylSC7Ls"
+    }
+  ],
+  "flags": {
+    "pf2e": {
+      "editHazard": {
+        "value": false
+      }
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "pf2e",
+    "systemVersion": "7.6.2"
+  },
+  "ownership": {
+    "default": 0,
+    "yECpvB6rPSLHk9Lh": 3
+  },
+  "sort": 0,
+  "_key": "!actors!VvyDUDHXMnJSKO6o"
+}

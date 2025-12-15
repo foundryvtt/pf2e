@@ -1,0 +1,98 @@
+{
+  "type": "feat",
+  "name": "Death's Indifference",
+  "folder": "r8hzHQqBgRQauYU4",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 9
+    },
+    "category": "ancestry",
+    "traits": {
+      "value": [
+        "corpsefolk"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Guilt of the Grave World",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>Your skin and bones have weathered down to the point where certain types of damage no longer have the same effect on them as when you were counted among the living. You gain resistance to a specific damage type equal to half your level. Biting corpsefolk gain resistance to slashing damage, partial corpsefolk gain resistance to piercing damage, and shambling corpsefolk gain resistance to bludgeoning damage.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "Resistance",
+        "type": "slashing",
+        "value": "floor(@actor.level/2)",
+        "predicate": [
+          "heritage:biting-corpsefolk"
+        ]
+      },
+      {
+        "key": "Resistance",
+        "type": "piercing",
+        "value": "floor(@actor.level/2)",
+        "predicate": [
+          "heritage:partial-corpsefolk"
+        ]
+      },
+      {
+        "key": "Resistance",
+        "type": "bludgeoning",
+        "value": "floor(@actor.level/2)",
+        "predicate": [
+          "heritage:shambling-corpsefolk"
+        ]
+      }
+    ],
+    "slug": "deaths-indifference",
+    "_migration": {
+      "version": 0.943,
+      "previous": {
+        "schema": null,
+        "foundry": "13.348",
+        "system": "7.5.1"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "TDphpBKl58Yj0iMV",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "qA45GVv5hySaf9b5": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "pf2e",
+    "systemVersion": "7.7.3"
+  },
+  "_key": "!items!TDphpBKl58Yj0iMV"
+}

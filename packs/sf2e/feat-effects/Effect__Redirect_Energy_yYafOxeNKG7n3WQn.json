@@ -1,0 +1,101 @@
+{
+  "folder": null,
+  "name": "Effect: Redirect Energy",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.actions.Item.9P2ZptR0PrYyiJFl]{Redirect Energy}</p><p>The selected weapon deals an additional 1d4 damage of the triggering damage type. During this time, you lose any resistance to the triggering damage type granted to you by Perfectly Balanced.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "PF2E.TraitCold",
+            "value": "cold"
+          },
+          {
+            "label": "PF2E.TraitFire",
+            "value": "fire"
+          }
+        ],
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.DamageType",
+        "flag": "damageType"
+      },
+      {
+        "adjustName": false,
+        "choices": {
+          "ownedItems": true,
+          "types": [
+            "weapon"
+          ]
+        },
+        "flag": "weapon",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+      },
+      {
+        "damageType": "{item|flags.pf2e.rulesSelections.damageType}",
+        "diceNumber": 1,
+        "dieSize": "d4",
+        "key": "DamageDice",
+        "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+      }
+    ],
+    "slug": "effect-redirect-energy",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "rounds",
+      "expiry": "turn-end",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/energy-reaction-2.webp",
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "yYafOxeNKG7n3WQn",
+  "sort": 6100000,
+  "_key": "!items!yYafOxeNKG7n3WQn"
+}

@@ -1,0 +1,89 @@
+{
+  "type": "feat",
+  "name": "Explosive Deflection",
+  "folder": "cdomvYJwL6kj797J",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 16
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "operative"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p><strong>Trigger</strong> You're in the area of a grenade explosion.</p><p><strong>Requirements</strong> You're aware of the attack, wielding a gun, and not @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard}.</p><hr /><p>You attempt to detonate the grenade with a well-timed shot from your gun. Expend an amount of ammunition from your gun equal to its usage, as if you'd fired the gun. You gain a +4 circumstance bonus to your Reflex save against the triggering grenade. Determine if you succeed on your save before rolling for anyone else in the area. If you succeed on your Reflex save, you cause the grenade to explode prematurely. Select a space of your choice directly between you and the attacker. The deflected grenade explodes in the selected space, and you don't need to save again if you're in the new explosion area.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "explosive-deflection",
+        "domain": "reflex",
+        "toggleable": true
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "reflex",
+        "value": 4,
+        "type": "circumstance",
+        "predicate": [
+          "explosive-deflection"
+        ]
+      }
+    ],
+    "slug": "explosive-deflection",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "nIwH5MjTHCkQe7C6",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!nIwH5MjTHCkQe7C6"
+}

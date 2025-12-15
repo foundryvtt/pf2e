@@ -1,0 +1,613 @@
+{
+  "type": "npc",
+  "folder": null,
+  "name": "Lifeleech Ooze",
+  "prototypeToken": {
+    "flags": {
+      "pf2e": {
+        "linkToActorSize": true,
+        "autoscale": true
+      }
+    },
+    "height": 2,
+    "width": 2,
+    "name": "Lifeleech Ooze",
+    "displayName": 20,
+    "actorLink": false,
+    "texture": {
+      "src": "systems/pf2e/icons/default-icons/npc.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": true,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "effects": [],
+  "system": {
+    "attributes": {
+      "hp": {
+        "value": 150,
+        "temp": 0,
+        "max": 150,
+        "details": "void healing"
+      },
+      "ac": {
+        "value": 16,
+        "details": ""
+      },
+      "allSaves": {
+        "value": ""
+      },
+      "speed": {
+        "value": 20,
+        "otherSpeeds": [
+          {
+            "type": "climb",
+            "value": 10
+          }
+        ],
+        "details": ""
+      },
+      "immunities": [
+        {
+          "type": "critical-hits",
+          "exceptions": []
+        },
+        {
+          "type": "death-effects",
+          "exceptions": []
+        },
+        {
+          "type": "disease",
+          "exceptions": []
+        },
+        {
+          "type": "poison",
+          "exceptions": []
+        },
+        {
+          "type": "precision",
+          "exceptions": []
+        },
+        {
+          "type": "unconscious",
+          "exceptions": []
+        },
+        {
+          "type": "visual",
+          "exceptions": []
+        }
+      ]
+    },
+    "initiative": {
+      "statistic": "perception"
+    },
+    "details": {
+      "languages": {
+        "value": [],
+        "details": ""
+      },
+      "level": {
+        "value": 5
+      },
+      "blurb": "",
+      "publicNotes": "",
+      "privateNotes": "",
+      "publication": {
+        "title": "Starfinder Guilt of the Grave World",
+        "authors": "",
+        "license": "ORC",
+        "remaster": true
+      }
+    },
+    "resources": {},
+    "_migration": {
+      "version": 0.943,
+      "previous": null
+    },
+    "abilities": {
+      "str": {
+        "mod": 5
+      },
+      "dex": {
+        "mod": 2
+      },
+      "con": {
+        "mod": 4
+      },
+      "int": {
+        "mod": -5
+      },
+      "wis": {
+        "mod": 0
+      },
+      "cha": {
+        "mod": -2
+      }
+    },
+    "perception": {
+      "details": "",
+      "mod": 12,
+      "senses": [
+        {
+          "type": "lifesense",
+          "acuity": "imprecise",
+          "range": 60
+        }
+      ],
+      "vision": false
+    },
+    "saves": {
+      "fortitude": {
+        "value": 15,
+        "saveDetail": ""
+      },
+      "reflex": {
+        "value": 7,
+        "saveDetail": ""
+      },
+      "will": {
+        "value": 7,
+        "saveDetail": ""
+      }
+    },
+    "skills": {
+      "athletics": {
+        "base": 13
+      }
+    },
+    "traits": {
+      "value": [
+        "mindless",
+        "ooze",
+        "undead",
+        "unholy"
+      ],
+      "rarity": "uncommon",
+      "size": {
+        "value": "lg"
+      }
+    }
+  },
+  "_id": "Bof81QpbW3jmHZYc",
+  "img": "systems/pf2e/icons/default-icons/npc.svg",
+  "items": [
+    {
+      "img": "systems/pf2e/icons/actions/Passive.webp",
+      "name": "Void Healing",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "defensive",
+        "description": {
+          "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>",
+          "gm": ""
+        },
+        "publication": {
+          "license": "ORC",
+          "remaster": true,
+          "title": "Pathfinder Monster Core",
+          "authors": ""
+        },
+        "rules": [
+          {
+            "key": "ActiveEffectLike",
+            "mode": "override",
+            "path": "system.attributes.hp.negativeHealing",
+            "value": true
+          }
+        ],
+        "traits": {
+          "value": [],
+          "otherTags": []
+        },
+        "slug": "void-healing",
+        "_migration": {
+          "version": 0.943,
+          "previous": null
+        },
+        "deathNote": false
+      },
+      "type": "action",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.348",
+        "systemId": "pf2e",
+        "systemVersion": "7.5.1"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "dqPWx3WyZda5j2Yt",
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!Bof81QpbW3jmHZYc.dqPWx3WyZda5j2Yt"
+    },
+    {
+      "type": "action",
+      "name": "Life Blindness",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>A lifeleech ooze can only detect living and undead creatures. It has no other sensory abilities. When injured by vitality damage, a lifeleech ooze's senses are overwhelmed, and it automatically becomes @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} until the end of its next turn.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.943,
+          "previous": {
+            "schema": null,
+            "foundry": "13.348",
+            "system": "7.5.1"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "defensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "OOQxWKQpslyYrG6H",
+      "img": "systems/pf2e/icons/default-icons/action.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.348",
+        "systemId": "pf2e",
+        "systemVersion": "7.5.1"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!Bof81QpbW3jmHZYc.OOQxWKQpslyYrG6H"
+    },
+    {
+      "type": "action",
+      "name": "Share Space",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>A lifeleech ooze can share the space of up to four medium or smaller creatures without squeezing, so long as it has room to retain its original shape.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.943,
+          "previous": {
+            "schema": null,
+            "foundry": "13.348",
+            "system": "7.5.1"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "defensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "a00uAVofJdwXJZXO",
+      "img": "systems/pf2e/icons/default-icons/action.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.348",
+        "systemId": "pf2e",
+        "systemVersion": "7.5.1"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!Bof81QpbW3jmHZYc.a00uAVofJdwXJZXO"
+    },
+    {
+      "type": "action",
+      "name": "Strip Flesh",
+      "system": {
+        "actionType": {
+          "value": "passive"
+        },
+        "description": {
+          "value": "<p>Any living creature that begins its turn sharing the same space as a lifeleech ooze takes @Damage[3d6[void]] damage, with a @Check[fortitude|dc:24|basic] save.</p>",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "_migration": {
+          "version": 0.943,
+          "previous": {
+            "schema": null,
+            "foundry": "13.348",
+            "system": "7.5.1"
+          }
+        },
+        "actions": {
+          "value": null
+        },
+        "category": "defensive",
+        "deathNote": false
+      },
+      "effects": [],
+      "_id": "IFhyCBWdoeNUIjUw",
+      "img": "systems/pf2e/icons/default-icons/action.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.348",
+        "systemId": "pf2e",
+        "systemVersion": "7.5.1"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!Bof81QpbW3jmHZYc.IFhyCBWdoeNUIjUw"
+    },
+    {
+      "type": "melee",
+      "name": "Slam",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.943,
+          "previous": null
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": []
+        },
+        "damageRolls": {
+          "lj5q4x9B0XRvZwA0": {
+            "damage": "2d12+5",
+            "damageType": "bludgeoning",
+            "category": null
+          }
+        },
+        "bonus": {
+          "value": 15
+        },
+        "attackEffects": {
+          "value": []
+        }
+      },
+      "_id": "t5SnmKTutFG5PimT",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.348",
+        "systemId": "pf2e",
+        "systemVersion": "7.5.1"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!Bof81QpbW3jmHZYc.t5SnmKTutFG5PimT"
+    },
+    {
+      "type": "melee",
+      "name": "Vomit",
+      "effects": [],
+      "system": {
+        "_migration": {
+          "version": 0.943,
+          "previous": null
+        },
+        "description": {
+          "value": "",
+          "gm": ""
+        },
+        "publication": {
+          "title": "",
+          "authors": "",
+          "license": "OGL",
+          "remaster": false
+        },
+        "rules": [],
+        "slug": null,
+        "traits": {
+          "otherTags": [],
+          "value": [
+            "range-increment-20"
+          ]
+        },
+        "damageRolls": {
+          "ZTGuB0m99f3xLzE4": {
+            "damage": "2d6+5",
+            "damageType": "poison",
+            "category": null
+          }
+        },
+        "bonus": {
+          "value": 11
+        },
+        "attackEffects": {
+          "value": []
+        }
+      },
+      "_id": "PQWCdbdzeyXto5vJ",
+      "img": "systems/pf2e/icons/default-icons/melee.svg",
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.348",
+        "systemId": "pf2e",
+        "systemVersion": "7.5.1"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_key": "!actors.items!Bof81QpbW3jmHZYc.PQWCdbdzeyXto5vJ"
+    }
+  ],
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "pf2e",
+    "systemVersion": "7.5.1"
+  },
+  "ownership": {
+    "default": 0,
+    "qA45GVv5hySaf9b5": 3
+  },
+  "sort": 0,
+  "_key": "!actors!Bof81QpbW3jmHZYc"
+}

@@ -1,0 +1,124 @@
+{
+  "folder": "E9vOhYgWG6OlL4df",
+  "name": "Space Pirate Dedication",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>As a plunder-seeking spacefarer, you become trained in Piloting, or become an expert in it if you were already trained. You have familiarity with all cutlasses, flails, rapiers, and weapons with the razing trait. For the purposes of proficiency, treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons. If you are at least expert, you gain that weapon's critical specialization effect.</p><p>Additionally, you gain the @UUID[Compendium.sf2e-anachronism.actions.Item.8zWFGKRXg1SxIwFH]{Holo-Roger} action.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "MartialProficiency",
+        "sameAs": "simple",
+        "definition": [
+          "item:category:martial",
+          {
+            "or": [
+              "item:base:phase-cutlass",
+              "item:base:rapier",
+              "item:group:flail",
+              "item:trait:razing"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "MartialProficiency",
+        "sameAs": "martial",
+        "definition": [
+          "item:category:advanced",
+          {
+            "or": [
+              "item:base:phase-cutlass",
+              "item:base:rapier",
+              "item:group:flail",
+              "item:trait:razing"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "CriticalSpecialization",
+        "predicate": [
+          {
+            "or": [
+              "item:base:phase-cutlass",
+              "item:base:rapier",
+              "item:group:flail",
+              "item:trait:razing"
+            ]
+          },
+          "proficiency:expert"
+        ]
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.sf2e-anachronism.actions.Item.8zWFGKRXg1SxIwFH"
+      }
+    ],
+    "slug": "space-pirate-dedication",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "archetype",
+        "dedication"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 2
+    },
+    "category": "class",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "trained in Intimidation"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "8aGoy6Jaw4pDFZyN",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "mcr1uhoMfGHRQJHX": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_key": "!items!8aGoy6Jaw4pDFZyN"
+}

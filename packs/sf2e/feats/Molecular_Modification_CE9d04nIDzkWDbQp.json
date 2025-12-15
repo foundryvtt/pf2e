@@ -1,0 +1,168 @@
+{
+  "type": "feat",
+  "name": "Molecular Modification",
+  "folder": "blOQT76RYGukFKjN",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 5
+    },
+    "category": "ancestry",
+    "traits": {
+      "value": [
+        "barathu"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You modify your body's genetics to resist certain damage types. You gain resistance to acid, bludgeoning, cold, electricity, fire, piercing, poison, slashing, or sonic damage equal to half your level.</p><hr /><p><strong>Special</strong> You can take this feat multiple times. Each time you do so, select a different damage type.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "choices": [
+          {
+            "label": "PF2E.TraitAcid",
+            "value": "acid",
+            "predicate": [
+              {
+                "not": "molecular-modification:acid"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitBludgeoning",
+            "value": "bludgeoning",
+            "predicate": [
+              {
+                "not": "molecular-modification:bludgeoning"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitCold",
+            "value": "cold",
+            "predicate": [
+              {
+                "not": "molecular-modification:cold"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitElectricity",
+            "value": "electricity",
+            "predicate": [
+              {
+                "not": "molecular-modification:electricity"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitFire",
+            "value": "fire",
+            "predicate": [
+              {
+                "not": "molecular-modification:fire"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitPiercing",
+            "value": "piercing",
+            "predicate": [
+              {
+                "not": "molecular-modification:piercing"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitPoison",
+            "value": "poison",
+            "predicate": [
+              {
+                "not": "molecular-modification:poison"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitSlashing",
+            "value": "slashing",
+            "predicate": [
+              {
+                "not": "molecular-modification:slashing"
+              }
+            ]
+          },
+          {
+            "label": "PF2E.TraitSonic",
+            "value": "sonic",
+            "predicate": [
+              {
+                "not": "molecular-modification:sonic"
+              }
+            ]
+          }
+        ],
+        "flag": "resistance",
+        "rollOption": "molecular-modification",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+      },
+      {
+        "key": "Resistance",
+        "type": "{item|flags.pf2e.rulesSelections.resistance}",
+        "value": "floor(@actor.level/2)"
+      }
+    ],
+    "slug": "molecular-modification",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.1"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": null,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "CE9d04nIDzkWDbQp",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!CE9d04nIDzkWDbQp"
+}

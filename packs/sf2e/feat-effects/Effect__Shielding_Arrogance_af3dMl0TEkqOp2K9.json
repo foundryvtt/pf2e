@@ -1,0 +1,75 @@
+{
+  "folder": null,
+  "name": "Effect: Shielding Arrogance",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.actions.Item.wI0g2nRfu2d0YFAd]{Shielding Arrogance}</p><p>You gain temporary Hit Points equal to your level.</p>"
+    },
+    "rules": [
+      {
+        "key": "TempHP",
+        "value": "@item.badge.value"
+      }
+    ],
+    "slug": "effect-shielding-arrogance",
+    "_migration": {
+      "version": 0.935,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 1
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "badge": {
+      "type": "formula",
+      "value": "@actor.level+(@actor.flags.pf2e.contemplative.shieldingArroganceDiceCount)d8",
+      "evaluate": true,
+      "reevaluate": null
+    },
+    "context": null,
+    "unidentified": false
+  },
+  "_id": "af3dMl0TEkqOp2K9",
+  "img": "icons/magic/life/heart-cross-blue.webp",
+  "sort": 8600000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_key": "!items!af3dMl0TEkqOp2K9"
+}

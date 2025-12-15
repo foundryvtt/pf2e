@@ -1,0 +1,135 @@
+{
+  "folder": "7JvVdcPLRxEK9sec",
+  "name": "Holy Module (Commercial)",
+  "type": "equipment",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>This upgrade is often adorned with a religious symbol and channels celestial power. It deals an additional 1d4 spirit damage, or 3d4 spirit against an unholy target. If you are unholy, you are @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} while carrying or wielding this weapon. On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} (or @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} if unholy) until the end of your next turn unless it succeeds at a @Check[fortitude|dc:28] save.</p>"
+    },
+    "rules": [
+      {
+        "key": "DamageDice",
+        "damageType": "spirit",
+        "diceNumber": 1,
+        "dieSize": "d4",
+        "selector": "{item|parentItem.id}-damage",
+        "slug": "holy-module"
+      },
+      {
+        "key": "DamageAlteration",
+        "selectors": [
+          "{item|parentItem.id}-damage"
+        ],
+        "slug": "holy-module",
+        "mode": "upgrade",
+        "property": "dice-number",
+        "value": 3,
+        "predicate": [
+          "target:trait:unholy"
+        ]
+      },
+      {
+        "key": "Note",
+        "title": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.HolyModule.LabelCommercial",
+        "text": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.HolyModule.CriticalNoteCommercial",
+        "selector": "{item|parentItem.id}-damage",
+        "outcome": [
+          "criticalSuccess"
+        ]
+      }
+    ],
+    "slug": "holy-module-commercial",
+    "_migration": {
+      "version": 0.94,
+      "lastMigration": null,
+      "previous": {
+        "schema": 0.932,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "holy",
+        "magical",
+        "tech"
+      ],
+      "rarity": "common"
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "level": {
+      "value": 11
+    },
+    "quantity": 1,
+    "baseItem": null,
+    "bulk": {
+      "value": 0
+    },
+    "hp": {
+      "value": 0,
+      "max": 0
+    },
+    "hardness": 0,
+    "price": {
+      "value": {
+        "sp": 14000,
+        "pp": 0,
+        "gp": 0,
+        "cp": 0
+      }
+    },
+    "equipped": {
+      "carryType": "worn",
+      "invested": null
+    },
+    "containerId": null,
+    "size": "med",
+    "material": {
+      "type": null,
+      "grade": null
+    },
+    "identification": {
+      "status": "identified",
+      "unidentified": {
+        "name": "Unusual Object",
+        "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+        "data": {
+          "description": {
+            "value": ""
+          }
+        }
+      },
+      "misidentified": {}
+    },
+    "usage": {
+      "value": "installed-in-a-weapon"
+    },
+    "subitems": []
+  },
+  "img": "modules/sf2e-anachronism/art/icons/abilities/yellow-energy-burst.webp",
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.347",
+    "systemId": "pf2e",
+    "systemVersion": "7.3.1"
+  },
+  "ownership": {
+    "default": 0,
+    "CmdglLq38DpgHzdd": 3,
+    "O8OxKK20UjX7W372": 3
+  },
+  "_id": "he1AD9ck10fLSvWn",
+  "sort": 2200000,
+  "_key": "!items!he1AD9ck10fLSvWn"
+}

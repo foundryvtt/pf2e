@@ -1,0 +1,110 @@
+{
+  "folder": "3SFWKhzBesp37sy9",
+  "name": "Scam Mage",
+  "type": "background",
+  "effects": [],
+  "system": {
+    "description": {
+      "gm": "",
+      "value": "<p>You can't cast spells but mimic spellwork well enough to convince others you have magical powers. You've pretended to be a magical adept for so long you've learned to fool magic items into working at your touch.</p><p>Choose two attribute boosts. One must be to <strong>Wisdom</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p><p>You're trained in the Deception skill and a magic tradition skill of your choice (Arcana, Nature, Occultism, or Religion). You gain the @UUID[Compendium.pf2e.feats-srd.Item.uR62fVC9FyQAMCO1]{Trick Magic Item} skill feat.</p>"
+    },
+    "rules": [
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "PF2E.Skill.Arcana",
+            "value": "arcana"
+          },
+          {
+            "label": "PF2E.Skill.Nature",
+            "value": "nature"
+          },
+          {
+            "label": "PF2E.Skill.Occultism",
+            "value": "occultism"
+          },
+          {
+            "label": "PF2E.Skill.Religion",
+            "value": "religion"
+          }
+        ],
+        "flag": "skill",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.Skill"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+        "value": 1
+      }
+    ],
+    "slug": "scam-mage",
+    "_migration": {
+      "version": 0.935,
+      "lastMigration": null
+    },
+    "traits": {
+      "otherTags": [],
+      "value": [],
+      "rarity": "uncommon"
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "boosts": {
+      "0": {
+        "value": [
+          "cha",
+          "wis"
+        ]
+      },
+      "1": {
+        "value": [
+          "cha",
+          "con",
+          "dex",
+          "int",
+          "str",
+          "wis"
+        ]
+      }
+    },
+    "items": {
+      "TMSI4": {
+        "uuid": "Compendium.pf2e.feats-srd.Item.uR62fVC9FyQAMCO1",
+        "img": "icons/sundries/books/book-red-exclamation.webp",
+        "name": "Trick Magic Item",
+        "level": 1
+      }
+    },
+    "trainedSkills": {
+      "value": [
+        "deception"
+      ],
+      "lore": []
+    }
+  },
+  "img": "systems/pf2e/icons/default-icons/background.svg",
+  "sort": 2400000,
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3",
+    "exportSource": null
+  },
+  "_id": "hYjjqAE9Yx7LGQeR",
+  "_key": "!items!hYjjqAE9Yx7LGQeR"
+}

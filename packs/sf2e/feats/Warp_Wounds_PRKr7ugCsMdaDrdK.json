@@ -1,0 +1,91 @@
+{
+  "type": "feat",
+  "name": "Warp Wounds",
+  "folder": "3SMThUY8Oh8abD8t",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 2
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "witchwarper"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p><strong>Trigger</strong> An enemy damages you.</p><p><strong>Requirements</strong> An enemy or willing ally is in your quantum field.</p><hr /><p>Your reality shifts to partly overlap with another in which someone else was injured in your stead. You gain resistance to all damage against the triggering attack equal to half your level, and one enemy or willing ally in your quantum field takes damage of the same type equal to the amount of damage prevented this way, with a @Check[fortitude|against:witchwarper|basic] save against your class DC.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "RollOption",
+        "option": "warp-wounds",
+        "toggleable": true
+      },
+      {
+        "key": "Resistance",
+        "type": "all-damage",
+        "value": "floor(@actor.level / 2)",
+        "predicate": [
+          "warp-wounds"
+        ]
+      }
+    ],
+    "slug": "warp-wounds",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "reaction"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "anomaly paradox"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "PRKr7ugCsMdaDrdK",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!PRKr7ugCsMdaDrdK"
+}

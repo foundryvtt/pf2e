@@ -1,0 +1,108 @@
+{
+  "type": "feat",
+  "name": "Deathless Study",
+  "folder": "KCwrOYpPTP2Udazm",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 1
+    },
+    "category": "ancestry",
+    "traits": {
+      "value": [
+        "corpsefolk"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Guilt of the Grave World",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>Your long existence has given you time to train and insights worth several mortal lifetimes. You become trained in two skills of your choice.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "choices": {
+          "config": "skills",
+          "predicate": [
+            "skill:{choice|value}:rank:0"
+          ]
+        },
+        "flag": "skillOne",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.Skill"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.{item|flags.pf2e.rulesSelections.skillOne}.rank",
+        "value": 1
+      },
+      {
+        "choices": {
+          "config": "skills",
+          "predicate": [
+            "skill:{choice|value}:rank:0"
+          ]
+        },
+        "flag": "skillTwo",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.Skill"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.{item|flags.pf2e.rulesSelections.skillTwo}.rank",
+        "value": 1
+      }
+    ],
+    "slug": "deathless-study",
+    "_migration": {
+      "version": 0.943,
+      "previous": {
+        "schema": null,
+        "foundry": "13.348",
+        "system": "7.5.1"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "zI2wWFyyxroZ3mzZ",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "qA45GVv5hySaf9b5": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "pf2e",
+    "systemVersion": "7.7.3"
+  },
+  "_key": "!items!zI2wWFyyxroZ3mzZ"
+}

@@ -1,0 +1,100 @@
+{
+  "folder": null,
+  "name": "Effect: Nanite Form",
+  "type": "effect",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>Granted by @UUID[Compendium.sf2e-anachronism.feats.Item.OlSfsaJSE4Lk7wkt]{Nanite Form}</p><p>You become Huge, gain the swarm trait, and gain a fly Speed of 40 feet. As a swarm, you have the following characteristics.</p><ul><li>You're immune to the @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed}, @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}, and @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained} conditions.</li><li>You have weakness 5 to area and splash damage.</li><li>You can occupy the same space as other creatures and must do so to use your damaging ability.</li><li>As a 2-action activity, you can deal @Damage[10d6[acid]] damage to all creatures sharing your space (basic Reflex save with a DC equal to your class DC or spell DC, whichever is higher).</li><li>You can't speak, Cast Spells, use manipulate actions requiring your hands, Activate magic items, or make any Strikes with your normal body.</li><li>You don't gain the swarm mind ability, so you're still affected normally by mental effects.</li></ul>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "BattleForm",
+        "overrides": {
+          "weaknesses": [
+            {
+              "type": "area-damage",
+              "value": 5
+            },
+            {
+              "type": "splash-damage",
+              "value": 5
+            }
+          ],
+          "immunities": [
+            {
+              "type": "grabbed"
+            },
+            {
+              "type": "prone"
+            },
+            {
+              "type": "restrained"
+            }
+          ],
+          "size": "huge",
+          "speeds": {
+            "fly": 40
+          }
+        }
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.sf2e-anachronism.actions.Item.mbRH3JIu44z8nxXj"
+      }
+    ],
+    "slug": "effect-nanite-form",
+    "traits": {
+      "otherTags": [],
+      "value": []
+    },
+    "level": {
+      "value": 17
+    },
+    "duration": {
+      "value": 1,
+      "unit": "minutes",
+      "expiry": "turn-start",
+      "sustained": false
+    },
+    "tokenIcon": {
+      "show": true
+    },
+    "unidentified": false,
+    "start": {
+      "value": 0,
+      "initiative": null
+    },
+    "badge": null,
+    "fromSpell": false,
+    "context": null
+  },
+  "img": "icons/magic/defensive/barrier-shield-dome-deflect-blue.webp",
+  "ownership": {
+    "default": 0,
+    "uALuXwktnyPWpcY7": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "aw4sF8U2odkls99H",
+  "sort": 5000000,
+  "_key": "!items!aw4sF8U2odkls99H"
+}

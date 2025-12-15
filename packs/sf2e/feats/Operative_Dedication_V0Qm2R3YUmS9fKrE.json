@@ -1,0 +1,123 @@
+{
+  "type": "feat",
+  "name": "Operative Dedication",
+  "folder": "wz7uxbY5ZEvecOCI",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 2
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "archetype",
+        "dedication",
+        "multiclass"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You become trained in simple and martial guns. You become trained in operative class DC.</p><p>You gain the @UUID[Compendium.sf2e-anachronism.actions.Item.sLikawnrJJzHMYeC]{Aim} action, it doesn't deal additional damage, but still reduces the bonus to AC your mark gains from cover (which does not increase as you gain levels).</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "definition": [
+          "item:ranged",
+          {
+            "or": [
+              "item:category:martial",
+              "item:category:simple"
+            ]
+          },
+          {
+            "or": [
+              "item:trait:analog",
+              "item:trait:tech"
+            ]
+          }
+        ],
+        "key": "MartialProficiency",
+        "label": "SF2E.SpecificRule.MartialProficiency.MartialAndSimpleGuns",
+        "slug": "martial-simple-guns",
+        "value": 1
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.sf2e-anachronism.actions.Item.sLikawnrJJzHMYeC"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "path": "flags.sf2e.operative.aim.coverReduction",
+        "value": 1,
+        "mode": "override",
+        "priority": 60
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "add",
+        "path": "flags.pf2e.operative.archetypeFeatCount",
+        "value": 1
+      }
+    ],
+    "slug": "operative-dedication",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Dexterity +2"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {
+        "operative": {
+          "rank": 1,
+          "attribute": null
+        }
+      },
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "V0Qm2R3YUmS9fKrE",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!V0Qm2R3YUmS9fKrE"
+}

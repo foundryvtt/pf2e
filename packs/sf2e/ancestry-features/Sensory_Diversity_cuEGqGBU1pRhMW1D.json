@@ -1,0 +1,159 @@
+{
+  "folder": "Lpi5YguBM1k99Tde",
+  "name": "Sensory Diversity",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": 0.935,
+        "foundry": "13.346",
+        "system": "7.2.3"
+      }
+    },
+    "description": {
+      "value": "<p>All vlakas have a keen sense of smell, gaining imprecise scent with a range of 60 feet. This means you can use your sense of smell to determine a creature's location. The GM might double the range if you're downwind from the creature or halve the range if you're upwind.</p><p>In addition, each vlaka is born with one of the following sensory arrays: blind, deaf, deafblind, or hearing/sighted. Select one of these sensory arrays, and gain the associated senses or feats.</p><p><strong>Blind:</strong> You're blind. You gain hearing as a precise sense with a range of 90 feet.</p><p><strong>Deaf:</strong> You're deaf. You gain the Read Lips skill feat (even if you don't meet the feat's prerequisites).</p><p><strong>Deafblind:</strong> You're blind and deaf. Your scent becomes a precise sense with a range of 90 feet, rather than an imprecise sense with a range of 60 feet. Hearing/Sighted: You don't gain any additional senses.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "Sense",
+        "selector": "scent",
+        "range": 60,
+        "acuity": "imprecise"
+      },
+      {
+        "key": "ChoiceSet",
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "Blind",
+            "value": "blind"
+          },
+          {
+            "label": "Deaf",
+            "value": "deaf"
+          },
+          {
+            "label": "Deafblind",
+            "value": "deafblind"
+          },
+          {
+            "label": "Hearing/Sighted",
+            "value": "hearing-sighted"
+          }
+        ],
+        "flag": "sensoryDiversity",
+        "prompt": "Select one sensory array"
+      },
+      {
+        "key": "RollOption",
+        "option": "sensory-diversity:{item|flags.pf2e.rulesSelections.sensoryDiversity}"
+      },
+      {
+        "key": "Sense",
+        "selector": "echolocation",
+        "range": 90,
+        "acuity": "precise",
+        "predicate": [
+          "sensory-diversity:blind"
+        ]
+      },
+      {
+        "key": "Immunity",
+        "type": "visual",
+        "predicate": [
+          {
+            "or": [
+              "sensory-diversity:blind",
+              "sensory-diversity:deafblind"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "GrantItem",
+        "predicate": [
+          "sensory-diversity:deaf"
+        ],
+        "uuid": "Compendium.pf2e.feats-srd.Item.yUuU9xyotrpwpTyC"
+      },
+      {
+        "key": "Immunity",
+        "type": "auditory",
+        "predicate": [
+          {
+            "or": [
+              "sensory-diversity:deaf",
+              "sensory-diversity:deafblind"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "Sense",
+        "selector": "scent",
+        "range": 90,
+        "acuity": "precise",
+        "predicate": [
+          "sensory-diversity:deafblind"
+        ]
+      }
+    ],
+    "slug": "sensory-diversity",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "vlaka"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "ancestryfeature",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "icons/magic/perception/hand-eye-fire-blue.webp",
+  "ownership": {
+    "default": 0,
+    "Pp2zLaNIShTxHiU5": 3,
+    "xrkQVtB9iGZvxqph": 3,
+    "O8OxKK20UjX7W372": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_id": "cuEGqGBU1pRhMW1D",
+  "sort": 0,
+  "_key": "!items!cuEGqGBU1pRhMW1D"
+}

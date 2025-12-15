@@ -1,0 +1,100 @@
+{
+  "folder": "8pW9aXcHLw893WYN",
+  "name": "Determined Optimist",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You refuse to give up or give in to despair, even when all seems hopeless. You gain a +1 circumstance bonus to saving throws against emotion and fear effects. If you roll a success on a saving throw against an emotion or fear effect, you get a critical success instead.</p><hr /><p><strong>Special</strong> You can't select this feat if you have the @UUID[Compendium.sf2e-anachronism.feats.Item.ZiyExMCbCKHwgbzh]{Heightened Paranoia} feat.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "FlatModifier",
+        "selector": "saving-throw",
+        "value": 1,
+        "type": "circumstance",
+        "predicate": [
+          {
+            "or": [
+              "item:trait:emotion",
+              "item:trait:fear"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "AdjustDegreeOfSuccess",
+        "predicate": [
+          {
+            "or": [
+              "item:trait:emotion",
+              "item:trait:fear"
+            ]
+          }
+        ],
+        "selector": "saving-throw",
+        "adjustment": {
+          "success": "one-degree-better"
+        }
+      }
+    ],
+    "slug": "determined-optimist",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "vlaka"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": -100000,
+  "ownership": {
+    "default": 0,
+    "mcr1uhoMfGHRQJHX": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": "Item.FwNss6LroM7KZSUB",
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "fXQxrEuO2ER8fUgW",
+  "_key": "!items!fXQxrEuO2ER8fUgW"
+}

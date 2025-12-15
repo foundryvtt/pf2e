@@ -1,0 +1,149 @@
+{
+  "folder": "9feZwdAlvdlYJ3gO",
+  "name": "Infiltrator",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.94,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You specialize in bypassing security systems, hazards, traps, and other defenses. From hacking a computer system or cutting power to a building, to bypassing a biometric lock and cracking a secure vault, you're skilled at accessing locations without alerting security or tripping safeguards. You're trained in Computers. You gain a skill feat for Computers.</p><p><strong>Exploit:</strong> Your tinkering causes technological items and creatures to experience glitches and malfunctions. You gain the @UUID[Compendium.sf2e-anachronism.actions.Item.qbyer2woEdGXZzoR]{Sabotage} action.</p><p><strong>Enhanced Exploit:</strong> You can Sabotage as a free action whenever you critically hit a tech creature with a melee or ranged attack, targeting the triggering creature. You can Sabotage as a reaction whenever a tech creature or a creature using a tech weapon critically fails a melee attack roll against you, targeting the triggering creature or weapon.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Player Core",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.computers.rank",
+        "value": 1
+      },
+      {
+        "adjustName": false,
+        "key": "ChoiceSet",
+        "choices": {
+          "filter": [
+            "item:category:skill",
+            "item:level:1"
+          ],
+          "itemType": "feat"
+        },
+        "flag": "feat",
+        "prompt": "PF2E.SpecificRule.Prompt.SkillFeat"
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+      },
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.sf2e-anachronism.actions.Item.qbyer2woEdGXZzoR",
+        "predicate": [
+          {
+            "or": [
+              "class:operative",
+              "feat:operative-exploit"
+            ]
+          }
+        ],
+        "reevaluateOnUpdate": true,
+        "allowDuplicate": false
+      },
+      {
+        "key": "Note",
+        "selector": "attack-roll",
+        "text": "SF2E.SpecificRule.Operative.Specialization.Infiltrator.EnhancedExploit.FreeActionNote",
+        "predicate": [
+          "target:trait:tech",
+          "class:operative",
+          {
+            "gte": [
+              "self:level",
+              9
+            ]
+          }
+        ],
+        "title": "SF2E.SpecificRule.Operative.EnhancedExploit.Label",
+        "outcome": [
+          "criticalSuccess"
+        ]
+      },
+      {
+        "key": "EphemeralEffect",
+        "uuid": "Compendium.sf2e-anachronism.feat-effects.Item.ZLGe31v4jLANtk91",
+        "affects": "origin",
+        "selectors": "melee-attack-roll",
+        "predicate": [
+          "class:operative",
+          {
+            "gte": [
+              "self:level",
+              9
+            ]
+          },
+          {
+            "or": [
+              "origin:trait:tech",
+              "item:trait:tech"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "infiltrator",
+    "traits": {
+      "otherTags": [
+        "operative-specialization"
+      ],
+      "value": [
+        "operative"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 1
+    },
+    "category": "classfeature",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": []
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "u4hB3FGFJwGtjrZB",
+  "img": "modules/sf2e-anachronism/art/icons/abilities/blue-soldier.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!u4hB3FGFJwGtjrZB"
+}

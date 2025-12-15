@@ -1,0 +1,99 @@
+{
+  "folder": "gBNx2ta8lLbU5MS3",
+  "name": "Arctic Bite",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>The freezing power of your bite becomes irresistible. The cold damage dealt by your jaws Strike increases to @Damage[2d6[untyped]] damage and ignores an amount of the target's cold resistance equal to your level. A creature's immunities are unaffected.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "damageType": "cold",
+        "mode": "add",
+        "diceNumber": 1,
+        "dieSize": "d6",
+        "key": "DamageDice",
+        "selector": "strike-damage",
+        "predicate": [
+          "item:slug:linnorm-bite-strike"
+        ]
+      },
+      {
+        "key": "Note",
+        "selector": "strike-attack-roll",
+        "text": "SF2E.SpecificRule.Kalo.ArcticBite.Note",
+        "outcome": [
+          "success",
+          "criticalSuccess"
+        ],
+        "predicate": [
+          "item:slug:linnorm-bite-strike"
+        ],
+        "title": "{item|name}"
+      }
+    ],
+    "slug": "arctic-bite",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "kalo"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 17
+    },
+    "category": "ancestry",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Gelid Bite"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 100000,
+  "ownership": {
+    "default": 0,
+    "mcr1uhoMfGHRQJHX": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_id": "FwNss6LroM7KZSUB",
+  "_key": "!items!FwNss6LroM7KZSUB"
+}

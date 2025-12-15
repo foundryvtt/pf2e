@@ -1,0 +1,134 @@
+{
+  "type": "feat",
+  "name": "Propulsive Shield",
+  "folder": "YU15HnTz8g2RRPwN",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "system": {
+    "level": {
+      "value": 8
+    },
+    "category": "class",
+    "traits": {
+      "value": [
+        "attuned",
+        "solarian"
+      ],
+      "rarity": "common",
+      "otherTags": []
+    },
+    "publication": {
+      "license": "ORC",
+      "remaster": true,
+      "title": "Starfinder Player Core",
+      "authors": ""
+    },
+    "description": {
+      "value": "<p>You fire blasts of solar energy through your raised shield, harnessing its gravitational force to propel your attacks. When you make a solar flare Strike while you have your solar shield raised, increase the range increment of your solar flare by 10 feet and increase the damage your solar flare deals by 1 per weapon damage die.</p><p><strong>Graviton-Attuned</strong> The additional damage is bludgeoning damage. You gain a +2 circumstance bonus to the @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{Trip} attempt on a critical success.</p><p><strong>Photon-Attuned</strong> The additional damage is fire damage. Increase the persistent fire damage on a critical success to 1d8.</p>",
+      "gm": ""
+    },
+    "rules": [
+      {
+        "key": "ItemAlteration",
+        "mode": "add",
+        "predicate": [
+          "self:effect:solar-shield",
+          "self:shield:raised",
+          "item:tag:solar-flare"
+        ],
+        "property": "range-increment",
+        "value": 10,
+        "itemType": "weapon"
+      },
+      {
+        "key": "DamageDice",
+        "damageType": "bludgeoning",
+        "diceNumber": 1,
+        "selector": "ranged-strike-damage",
+        "predicate": [
+          "self:effect:solar-shield",
+          "self:shield:raised",
+          "item:tag:solar-flare",
+          "stellar-attunement:graviton"
+        ],
+        "hideIfDisabled": true
+      },
+      {
+        "key": "DamageDice",
+        "damageType": "fire",
+        "diceNumber": 1,
+        "selector": "ranged-strike-damage",
+        "predicate": [
+          "self:effect:solar-shield",
+          "self:shield:raised",
+          "item:tag:solar-flare",
+          "stellar-attunement:photon"
+        ],
+        "hideIfDisabled": true,
+        "tags": [
+          "photon-attuned"
+        ]
+      },
+      {
+        "key": "DamageAlteration",
+        "slug": "solar-flare-photon-persistent-damage",
+        "mode": "upgrade",
+        "property": "dice-faces",
+        "value": 8,
+        "predicate": [
+          "self:effect:solar-shield",
+          "self:shield:raised"
+        ],
+        "selectors": [
+          "ranged-strike-damage"
+        ]
+      }
+    ],
+    "slug": "propulsive-shield",
+    "_migration": {
+      "version": 0.94,
+      "previous": {
+        "schema": null,
+        "foundry": "13.346",
+        "system": "7.2.2"
+      }
+    },
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Solar Shield"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "HIHxmK5e02Mf2rE7",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "cWwLchXkibIUDc9I": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.346",
+    "systemId": "pf2e",
+    "systemVersion": "7.2.3"
+  },
+  "_key": "!items!HIHxmK5e02Mf2rE7"
+}

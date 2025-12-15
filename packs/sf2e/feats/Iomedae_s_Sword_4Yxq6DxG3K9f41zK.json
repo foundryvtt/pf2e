@@ -1,0 +1,152 @@
+{
+  "folder": "N0R6xAuGx7y5GV9c",
+  "name": "Iomedae's Sword",
+  "type": "feat",
+  "effects": [],
+  "system": {
+    "_migration": {
+      "version": 0.935,
+      "previous": null
+    },
+    "description": {
+      "value": "<p>You've trained to fight the ancient enemies of lost Golarion. When you deal damage to a demon, devil, dragon, or undead with a weapon, you deal persistent spirit damage with the holy trait equal to the number of weapon damage dice. When you deal damage to one of these creatures with a spell cast from a spell slot that does not have a duration, you deal persistent spirit damage with the holy trait equal to the spell's rank.</p>",
+      "gm": ""
+    },
+    "publication": {
+      "title": "Starfinder Galaxy Guide",
+      "authors": "",
+      "license": "ORC",
+      "remaster": true
+    },
+    "rules": [
+      {
+        "key": "FlatModifier",
+        "selector": "weapon-damage",
+        "value": "@weapon.system.damage.dice",
+        "damageCategory": "persistent",
+        "damageType": "spirit",
+        "predicate": [
+          {
+            "or": [
+              "target:trait:demon",
+              "target:trait:devil",
+              "target:trait:dragon",
+              "target:trait:undead"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "AdjustStrike",
+        "mode": "add",
+        "property": "weapon-traits",
+        "value": "holy",
+        "predicate": [
+          {
+            "or": [
+              "target:trait:demon",
+              "target:trait:devil",
+              "target:trait:dragon",
+              "target:trait:undead"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "FlatModifier",
+        "selector": "spell-damage",
+        "value": "@spell.level",
+        "predicate": [
+          "item:duration:0",
+          "damaging-effect",
+          {
+            "nor": [
+              "item:trait:cantrip",
+              "item:trait:focus"
+            ]
+          },
+          {
+            "or": [
+              "target:trait:demon",
+              "target:trait:devil",
+              "target:trait:dragon",
+              "target:trait:undead"
+            ]
+          }
+        ],
+        "damageType": "spirit",
+        "damageCategory": "persistent"
+      },
+      {
+        "key": "ItemAlteration",
+        "itemType": "spell",
+        "mode": "add",
+        "property": "traits",
+        "value": "holy",
+        "predicate": [
+          "item:duration:0",
+          "damaging-effect",
+          {
+            "or": [
+              "target:trait:demon",
+              "target:trait:devil",
+              "target:trait:dragon",
+              "target:trait:undead"
+            ]
+          }
+        ]
+      }
+    ],
+    "slug": "iomedaes-sword",
+    "traits": {
+      "otherTags": [],
+      "value": [
+        "archetype"
+      ],
+      "rarity": "common"
+    },
+    "level": {
+      "value": 6
+    },
+    "category": "class",
+    "onlyLevel1": false,
+    "maxTakable": 1,
+    "actionType": {
+      "value": "passive"
+    },
+    "actions": {
+      "value": null
+    },
+    "prerequisites": {
+      "value": [
+        {
+          "value": "Knight of Golarion Dedication"
+        }
+      ]
+    },
+    "subfeatures": {
+      "proficiencies": {},
+      "senses": {},
+      "suppressedFeatures": []
+    },
+    "location": null
+  },
+  "_id": "4Yxq6DxG3K9f41zK",
+  "img": "modules/sf2e-anachronism/art/icons/feat.webp",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "mcr1uhoMfGHRQJHX": 3,
+    "xrkQVtB9iGZvxqph": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "13.345",
+    "systemId": "pf2e",
+    "systemVersion": "6.12.1",
+    "exportSource": null
+  },
+  "_key": "!items!4Yxq6DxG3K9f41zK"
+}
