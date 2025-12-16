@@ -159,7 +159,7 @@ class CompendiumPack {
                     const repoImgPath = path.resolve(
                         process.cwd(),
                         "static",
-                        decodeURIComponent(imgPath).replace("systems/pf2e/", ""),
+                        decodeURIComponent(imgPath).replace(/systems\/(?:pf2e|sf2e)\//, ""),
                     );
                     if (!isCoreIconPath && !fs.existsSync(repoImgPath)) {
                         throw PackError(`${documentName} (${this.packId}) has an unknown image path: ${imgPath}`);
