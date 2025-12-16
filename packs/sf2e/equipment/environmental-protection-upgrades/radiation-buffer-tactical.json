@@ -1,0 +1,70 @@
+{
+    "_id": "lLBKptoIh0mj2KV4",
+    "folder": "HcH9T5aXq7sqSoFr",
+    "img": "icons/magic/defensive/shield-barrier-flaming-diamond-acid.webp",
+    "name": "Radiation Buffer (Tactical)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>A layer of treated lead lines your armor with integrated radiation sensors networked into your comm unit. While you're wearing armor with this upgrade, you gain resistance 4 to poison damage from radiation effects and a +2 status bonus to Fortitude saves against radiation.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 6
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 0,
+                "sp": 2150
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "definition": [
+                    "item:trait:radiation",
+                    "item:damage:type:poison"
+                ],
+                "key": "Resistance",
+                "label": "SF2E.IWR.Custom.RadiationPoison",
+                "type": "custom",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:radiation"
+                ],
+                "selector": "fortitude",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "usage": {
+            "value": "installed-in-armor"
+        }
+    },
+    "type": "equipment"
+}

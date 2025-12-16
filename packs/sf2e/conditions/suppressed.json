@@ -1,0 +1,56 @@
+{
+    "_id": "enA7BxAjBb7ns1iF",
+    "img": "icons/skills/movement/figure-running-gray.webp",
+    "name": "Suppressed",
+    "system": {
+        "description": {
+            "value": "<p>You've been affected by a high volume of incoming fire or a particularly dangerous attack that forces you to act less efficiently for your own safety. You take a –1 circumstance penalty to attack rolls and a –10-foot status penalty to all your Speeds.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "attack",
+                "slug": "suppressed-attack",
+                "type": "circumstance",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "slug": "suppressed-speed",
+                "type": "status",
+                "value": -10
+            },
+            {
+                "key": "RollOption",
+                "option": "self:condition:suppressed"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

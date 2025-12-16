@@ -1,0 +1,52 @@
+{
+    "_id": "mmT4wCspLVjiGnND",
+    "img": "icons/magic/unholy/orb-stone-pink.webp",
+    "name": "Effect: Apocalypse Smite",
+    "system": {
+        "description": {
+            "value": "<p>The Fang deals an additional 2d8 void damage to the marked target.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Second Edition Playtest Adventure: Empires Devoured"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "apocalypse-smite"
+            },
+            {
+                "damageType": "void",
+                "diceNumber": 2,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mark:apocalypse-smite"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

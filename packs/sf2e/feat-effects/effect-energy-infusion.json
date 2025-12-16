@@ -1,0 +1,80 @@
+{
+    "_id": "U7ZWScb2rLlZYxpF",
+    "img": "icons/magic/death/skeleton-skull-soul-blue.webp",
+    "name": "Effect: Energy Infusion",
+    "system": {
+        "description": {
+            "value": "<p>Your Strikes become magical and either deal 1 additional spirit damage and gain the unholy trait against living creatures, or deal 1 additional spirit damage and gain the holy trait against undead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Guilt of the Grave World"
+        },
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:equipped"
+                ],
+                "property": "traits",
+                "value": "magical"
+            },
+            {
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:mode:living",
+                            "target:mode:undead"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "value": 1
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "target:mode:undead"
+                ],
+                "property": "traits",
+                "value": "holy"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "target:mode:living"
+                ],
+                "property": "traits",
+                "value": "unholy"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

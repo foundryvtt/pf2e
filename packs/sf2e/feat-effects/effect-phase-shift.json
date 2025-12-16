@@ -1,0 +1,64 @@
+{
+    "_id": "y6VGOjPa8TtVVvYR",
+    "img": "icons/magic/unholy/projectile-smoke-trail-pink.webp",
+    "name": "Effect: Phase Shift",
+    "system": {
+        "description": {
+            "value": "<p>The swarm becomes incorporeal until the start of its next turn. It also gains resistance 10 to all damage (except force, ghost touch, or spirit; double resistance vs non-magical). While incorporeal, the swarm deals an additional 1d10 precision damage to creatures that fail its save against Swarming Bites.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Second Edition Playtest Adventure: Empires Devoured"
+        },
+        "rules": [
+            {
+                "add": [
+                    "incorporeal"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "doubleVs": [
+                    "non-magical"
+                ],
+                "exceptions": [
+                    "force",
+                    "ghost-touch",
+                    "spirit"
+                ],
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": 10
+            },
+            {
+                "category": "precision",
+                "diceNumber": 2,
+                "dieSize": "d10",
+                "key": "DamageDice",
+                "selector": "swarming-bites-inline-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

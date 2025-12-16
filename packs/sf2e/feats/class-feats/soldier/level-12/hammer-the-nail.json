@@ -1,0 +1,59 @@
+{
+    "_id": "7v5tuehEjmQStncQ",
+    "folder": "n03qs6xoFTJTLluF",
+    "img": "systems/sf2e/art/icons/feat.webp",
+    "name": "Hammer the Nail",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You adjust the angle of your barrage to maximize the ammunition's impact on creatures' bodies. Increase the distance creatures are pushed by your @UUID[Compendium.sf2e.feats.Item.fSqUeSAFhvBfq4sE]{Shoving Shot} to 5 feet on a success, 10 feet on a failure, and 20 feet on a critical failure. In addition, on a critical failure, the target is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Shoving Shot"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:shoving-shot"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

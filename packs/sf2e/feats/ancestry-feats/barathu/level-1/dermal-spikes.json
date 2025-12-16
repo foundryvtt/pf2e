@@ -1,0 +1,58 @@
+{
+    "_id": "ndiCrnBVL7qD115a",
+    "folder": "1txRS4LKdpKWoZpz",
+    "img": "systems/sf2e/art/icons/feat.webp",
+    "name": "Dermal Spikes",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Spiky protrusions jut from your body, which you can use to wound your attackers. Your Fortitude DC against Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] or @UUID[Compendium.pf2e.actionspf2e.Item.Shove] you increases by 1. Additionally, you gain the @UUID[Compendium.sf2e.actions.Item.ZVzoIaWpXs62QVcu]{Piercing Spikes} reaction.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.ZVzoIaWpXs62QVcu"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:grapple"
+                        ]
+                    }
+                ],
+                "selector": "fortitude-dc",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

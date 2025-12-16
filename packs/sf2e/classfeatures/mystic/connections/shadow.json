@@ -1,0 +1,86 @@
+{
+    "_id": "kvmpnKMVw4wwGk8c",
+    "folder": "BNBCp5rVNuHAoOFS",
+    "img": "icons/magic/unholy/barrier-shield-glowing-pink.webp",
+    "name": "Shadow",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You know every shadow is a portal to the Netherworld, and like an artist molding clay, you sculpt that realm's shadowy substance into dreadful and wondrous shapes at your whim.</p>\n<p><strong>Tradition</strong> divine</p>\n<p><strong>Connection Skill</strong> Stealth</p>\n<p><strong>Connection Spells</strong> cantrip: @UUID[Compendium.pf2e.spells-srd.Item.Figment]; 1st: @UUID[Compendium.pf2e.spells-srd.Item.Grim Tendrils]; 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Invisibility]; 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Slow]; 4th: @UUID[Compendium.pf2e.spells-srd.Item.Flicker]; 5th: @UUID[Compendium.pf2e.spells-srd.Item.Shadow Blast]; 6th: @UUID[Compendium.pf2e.spells-srd.Item.Mislead]; 7th: @UUID[Compendium.pf2e.spells-srd.Item.Eclipse Burst]; 8th: @UUID[Compendium.pf2e.spells-srd.Item.Disappearance]; 9th: @UUID[Compendium.pf2e.spells-srd.Item.Phantasmagoria]</p>\n<p><strong>Epiphany Spells</strong> initial: @UUID[Compendium.sf2e.spells.Item.uh9Br4yrKvJA6zq0]{Shadow Snap}; advanced: @UUID[Compendium.sf2e.spells.Item.rluzzX2ml4yFWnYw]{Cloying Shadows}; greater: @UUID[Compendium.sf2e.spells.Item.pgjlPNfXCpEYyLVu]{Shadow Prison}</p>\n<p><strong>Harmony</strong> When you Transfer Vitality, the target's shadow darkens and swells, reducing bright light within a @Template[type:emanation|distance:10] of the target to dim light. This is a form of magical darkness and can overcome non-magical light sources or attempt to counteract magical light. The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Concealed] while in this dim light and can use the concealed condition to @UUID[Compendium.pf2e.actionspf2e.Item.Hide]. This lasts until the end of your next turn.</p>\n<p><strong>Perfect Harmony</strong> You gain the @UUID[Compendium.sf2e.actions.Item.u9NU2bULHg3S5FaP]{Umbral Stride} action. When you Transfer Vitality, the target can use this action once before the end of their next turn.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.stealth.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.sf2e.mystic.tradition",
+                "value": "divine"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:transfer-vitality"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "SF2E.SpecificRule.Mystic.Connection.Shadow.Harmony.Addendum",
+                        "title": "SF2E.SpecificRule.Mystic.Harmony.Label"
+                    },
+                    {
+                        "predicate": [
+                            "feature:perfect-harmony"
+                        ],
+                        "text": "SF2E.SpecificRule.Mystic.Connection.Shadow.PerfectHarmony.Addendum",
+                        "title": "SF2E.SpecificRule.Mystic.Harmony.PerfectLabel"
+                    }
+                ]
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "feature:perfect-harmony"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.sf2e.actions.Item.u9NU2bULHg3S5FaP"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "mystic-connection"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}
