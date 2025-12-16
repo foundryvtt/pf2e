@@ -370,7 +370,7 @@ class CompendiumPack {
         if (uuid.startsWith("Item.")) {
             throw PackError(`World-item UUID found: ${uuid}`);
         }
-        if (!/^Compendium\.(?:pf2e|sf2e)/.test(uuid)) return uuid;
+        if (!/^Compendium\.(?:pf2e|sf2e)\./.test(uuid)) return uuid;
 
         const toNameRef = (uuid: string): TUUID => {
             const parts = uuid.split(".");
