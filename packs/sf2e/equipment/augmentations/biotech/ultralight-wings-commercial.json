@@ -1,0 +1,78 @@
+{
+    "_id": "5Zgnk1EEYEaddjSY",
+    "folder": "VGsfnIyGP1k7iP2r",
+    "img": "icons/commodities/biological/wing-insect-green.webp",
+    "name": "Ultralight Wings (Commercial)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>Foldable wings are attached to your shoulder blades or a similar location on your body that allows them to lift your weight and assist your flying movements. You can deploy the wings with an Interact action, but you can't deploy or use them while you're wearing more than light armor. While the wings are deployed and you're not encumbered, you gain a fly Speed of 20 feet and a +1 item bonus to Acrobatics checks to Maneuver in Flight.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 600
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "wings-deployed",
+                    {
+                        "nor": [
+                            "armor:category:heavy",
+                            "armor:category:medium"
+                        ]
+                    }
+                ],
+                "selector": "fly",
+                "value": 20
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:maneuver-in-flight",
+                    "wings-deployed"
+                ],
+                "selector": [
+                    "acrobatics"
+                ],
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "biotech"
+            ]
+        },
+        "usage": {
+            "value": "implanted"
+        }
+    },
+    "type": "equipment"
+}

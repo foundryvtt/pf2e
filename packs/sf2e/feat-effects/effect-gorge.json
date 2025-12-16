@@ -1,0 +1,42 @@
+{
+    "_id": "b3bGLDuzs0lKS1Oq",
+    "img": "icons/skills/wounds/anatomy-organ-heart-red.webp",
+    "name": "Effect: Gorge",
+    "system": {
+        "description": {
+            "value": "<p>You gain a number of temporary Hit Points equal to 10 plus half your level, rounded down.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Guilt of the Grave World"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "10+floor(@actor.level/2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

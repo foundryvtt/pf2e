@@ -1,0 +1,92 @@
+{
+    "_id": "RMrZyCh0sdhEF8Mp",
+    "folder": "VGsfnIyGP1k7iP2r",
+    "img": "icons/commodities/biological/shell-green.webp",
+    "name": "Dragon Gland (Ultimate)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>With cutting edge surgery, you're implanted with an magical gland modified to function for a creature of your ancestry at the back of your throat. Choose your breath weapon's damage type when the organ is biocrafted from the following list: acid, cold, electricity, fire, or sonic. You gain the following activation.</p>\n<p><strong>Activate—Exhale</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> Each creature in a @Template[type:cone|distance:15] takes @Damage[(14d6)[untyped]] damage with a @Check[reflex|dc:43|basic] save. The damage depends on the augmentation's version.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 20
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "cp": 0,
+                "gp": 0,
+                "pp": 0,
+                "sp": 610000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "damageType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-inline-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.damageType}"
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "biotech"
+            ]
+        },
+        "usage": {
+            "value": "implanted"
+        }
+    },
+    "type": "equipment"
+}

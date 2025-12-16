@@ -1,0 +1,70 @@
+{
+    "_id": "SBRnZHvzGQCSdlWE",
+    "folder": "gt1Z7190ScHJwvun",
+    "img": "icons/consumables/plants/fern-sprig-stem-leaf-herb-green.webp",
+    "name": "Wildseed",
+    "system": {
+        "ancestry": {
+            "name": "Khizar",
+            "slug": "khizar",
+            "uuid": "Compendium.sf2e.ancestries.Item.AjSZKAwWEw0AfAJR"
+        },
+        "description": {
+            "value": "<p>You germinated far from the ancestral groves of other khizars. You might have grown up in a small transplant grove or maybe you were cultivated in a laboratory. Select an ancestry or versatile heritage to represent part of your unconventional upbringing. Once chosen it cannot be changed. At 1st level, you gain an additional ancestry feat from the chosen ancestry or heritage. Whenever you gain an ancestry feat, you may choose that feat from the ancestry or heritage.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Murder in Metal City Deluxe Adventure"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "not": "item:slug:khizar"
+                        }
+                    ],
+                    "itemType": "ancestry",
+                    "slugsAsValues": true
+                },
+                "flag": "ancestry",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.AdoptedAncestry.Prompt"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.details.ancestry.countsAs",
+                "value": "{item|flags.pf2e.rulesSelections.ancestry}"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:1",
+                        "item:category:ancestry",
+                        "item:trait:{item|flags.pf2e.rulesSelections.ancestry}",
+                        {
+                            "not": "item:trait:lineage"
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.AncestralParagon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

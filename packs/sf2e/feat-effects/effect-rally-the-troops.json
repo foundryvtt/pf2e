@@ -1,0 +1,67 @@
+{
+    "_id": "6lT9d0YrRkdWOJ7u",
+    "img": "icons/magic/life/cross-flared-green.webp",
+    "name": "Effect: Rally the Troops",
+    "system": {
+        "description": {
+            "value": "<p>You gain 5 temporary Hit Points, or double that number of temporary Hit Points if they end their movement adjacent to the commander.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Paizo Blog: Tech Class Playtest Encounter 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "Next to Ally",
+                        "value": "ally"
+                    },
+                    {
+                        "label": "Next to Commander",
+                        "value": "commander"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "rally-the-troops"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "rally-the-troops:ally"
+                ],
+                "value": 5
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "rally-the-troops:commander"
+                ],
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

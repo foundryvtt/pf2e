@@ -1,0 +1,71 @@
+{
+    "_id": "gZmmlNszibwt5y0f",
+    "folder": "HcH9T5aXq7sqSoFr",
+    "img": "icons/magic/defensive/shield-barrier-flaming-diamond-acid.webp",
+    "name": "Radiation Buffer (Advanced)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>A layer of treated lead lines your armor with integrated radiation sensors networked into your comm unit. While you're wearing armor with this upgrade, you gain resistance 8 to poison damage from radiation effects and a +3 status bonus to Fortitude saves against radiation.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 10
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "cp": 0,
+                "pp": 0,
+                "sp": 22100
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "definition": [
+                    "item:trait:radiation",
+                    "item:damage:type:poison"
+                ],
+                "key": "Resistance",
+                "label": "SF2E.IWR.Custom.RadiationPoison",
+                "type": "custom",
+                "value": 8
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:radiation"
+                ],
+                "selector": "fortitude",
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "usage": {
+            "value": "installed-in-armor"
+        }
+    },
+    "type": "equipment"
+}
