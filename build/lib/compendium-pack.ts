@@ -86,8 +86,8 @@ class CompendiumPack {
     static LINK_PATTERNS = {
         world: /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]{16}\]|@UUID\[(?:Item|JournalEntry|Actor)/g,
         compendium:
-            /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<docType>Actor|JournalEntry|Item|Macro|RollTable)\.(?<docName>[^\]]+)\]\{?/g,
-        uuid: /@UUID\[Compendium\.pf2e\.(?<packName>[^.]+)\.(?<docType>Actor|JournalEntry|Item|Macro|RollTable)\.(?<docName>[^\]]+)\]\{?/g,
+            /@Compendium\[(?:pf2e|sf2e)\.(?<packName>[^.]+)\.(?<docType>Actor|JournalEntry|Item|Macro|RollTable)\.(?<docName>[^\]]+)\]\{?/g,
+        uuid: /@UUID\[Compendium\.(?:pf2e|sf2e)\.(?<packName>[^.]+)\.(?<docType>Actor|JournalEntry|Item|Macro|RollTable)\.(?<docName>[^\]]+)\]\{?/g,
     };
 
     constructor(packDir: string, parsedData: unknown[], parsedFolders: unknown[]) {
@@ -370,7 +370,7 @@ class CompendiumPack {
         if (uuid.startsWith("Item.")) {
             throw PackError(`World-item UUID found: ${uuid}`);
         }
-        if (!uuid.startsWith("Compendium.pf2e.")) return uuid;
+        if (!/^Compendium\.(?:pf2e|sf2e)/.test(uuid)) return uuid;
 
         const toNameRef = (uuid: string): TUUID => {
             const parts = uuid.split(".");
@@ -385,7 +385,7 @@ class CompendiumPack {
         };
 
         const toIDRef = (uuid: string): TUUID => {
-            const match = /(?<=^Compendium\.pf2e\.)([^.]+)\.([^.]+)\.(.+)$/.exec(uuid);
+            const match = /(?<=^Compendium\.(?:pf2e|sf2e)\.)([^.]+)\.([^.]+)\.(.+)$/.exec(uuid);
             const [, packId, _docType, docName] = match ?? [null, null, null, null];
             const docId = map.get(packId ?? "")?.get(docName ?? "");
             if (docName && docId) {
