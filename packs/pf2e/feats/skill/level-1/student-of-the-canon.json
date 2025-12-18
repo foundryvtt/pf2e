@@ -1,0 +1,70 @@
+{
+    "_id": "x7EMZNMavris2aHY",
+    "folder": "QhHpEbq98ZJAyDiH",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Student of the Canon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You've researched many faiths enough to recognize notions about them that are unlikely to be true. If you roll a critical failure at a Religion check to Decipher Writing of a religious nature or to Recall Knowledge about the tenets of faiths, you get a failure instead. When attempting to Recall Knowledge about the tenets of your own faith, if you roll a failure, you get a success instead, and if you roll a success, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Religion"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "student-of-the-canon",
+                "toggleable": true
+            },
+            {
+                "adjustment": {
+                    "failure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:decipher-writing",
+                    "student-of-the-canon"
+                ],
+                "selector": "religion"
+            },
+            {
+                "adjustment": {
+                    "all": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "student-of-the-canon"
+                ],
+                "selector": "religion"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

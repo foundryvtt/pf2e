@@ -1,0 +1,128 @@
+{
+    "_id": "xqjPVZezw1a73JAO",
+    "folder": "xqnwvn05Dll5VMSD",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Worldsphere Gravity",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p>Though creating demiplanes usually requires lengthy rituals, you know how to establish minor planar effects in imitation of Syndara's masterpieces. If your next action is to Cast a Spell of at least 5th rank from your spell slots that affects an area, you can apply one of the following planar effects to a @Template[burst|distance:20] centered within the spell's area. The effect persists for 1 minute.</p>\n<p><strong>Gravitational Morass</strong> The pull of gravity is amplified here, creating greater difficult terrain. Flying creatures that pass through the area must succeed at a Reflex save against your spell DC or fall to the ground, taking bludgeoning damage equal to half the distance fallen.</p>\n<p><strong>Flowing Time</strong> Erratic timestreams aid you within this space. A creature that starts its turn in the burst is affected by @UUID[Compendium.pf2e.spells-srd.Item.Haste] on that turn.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT1H"
+        },
+        "level": {
+            "value": 20
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #168: King of the Mountain"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "worldsphere-gravity"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Spellshape.CodexofDestructionAndRenewal.Prompt",
+                "option": "worldsphere-type",
+                "placement": "spellcasting",
+                "predicate": [
+                    "spellshape:worldsphere-gravity"
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Spellshape.WorldsphereGravity.GravitationalMorass.RollOptionLabel",
+                        "value": "gravitational-morass"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spellshape.WorldsphereGravity.FlowingTime.RollOptionLabel",
+                        "value": "flowing-time"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "area-effect",
+                    "spellshape:worldsphere-gravity",
+                    "worldsphere-type:gravitational-morass",
+                    {
+                        "gte": [
+                            "item:rank",
+                            5
+                        ]
+                    },
+                    {
+                        "not": "item:trait:cantrip"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.WorldsphereGravity.GravitationalMorass.Note"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "area-effect",
+                    "spellshape:worldsphere-gravity",
+                    "worldsphere-type:flowing-time",
+                    {
+                        "gte": [
+                            "item:rank",
+                            5
+                        ]
+                    },
+                    {
+                        "not": "item:trait:cantrip"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.WorldsphereGravity.FlowingTime.Note"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "spellshape",
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

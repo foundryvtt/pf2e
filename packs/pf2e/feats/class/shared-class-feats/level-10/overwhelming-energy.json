@@ -1,0 +1,79 @@
+{
+    "_id": "tXNfWDa6P7bCKrCt",
+    "folder": "FsGb7HbVVo5GPYYC",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Overwhelming Energy",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Druid</strong> With a complex gesture, you call upon the primal power of your spell to overcome enemies' resistances.</p>\n<p><strong>Sorcerer</strong> You alter your spells to tear through an enemy's defenses.</p>\n<p><strong>Wizard</strong> Multiple circles of runes rotate around your hand as you overcharge your spell to tear through your enemy's defenses.</p><hr /><p>If the next action you use is to Cast a Spell, the spell ignores an amount of the target's resistance to acid, cold, electricity, fire, or sonic damage equal to your level. This applies to all damage the spell deals, including persistent damage and damage caused by an ongoing effect of the spell, such as the wall created by @UUID[Compendium.pf2e.spells-srd.Item.Wall of Fire]. A creature's immunities are unaffected.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:overwhelming-energy",
+                    {
+                        "or": [
+                            "item:trait:acid",
+                            "item:trait:cold",
+                            "item:trait:electricity",
+                            "item:trait:fire",
+                            "item:trait:sonic"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.OverwhelmingEnergy"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "overwhelming-energy"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid",
+                "manipulate",
+                "sorcerer",
+                "spellshape",
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

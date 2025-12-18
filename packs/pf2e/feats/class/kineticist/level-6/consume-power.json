@@ -1,0 +1,74 @@
+{
+    "_id": "2pJhI6FL9hvXhXUZ",
+    "folder": "d1t1vNsDroN6iTiy",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Consume Power",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You would take acid, electricity, fire, or sonic damage.</p><hr /><p>You absorb energy and hold it in your kinetic gate. You gain resistance equal to your level to the triggering damage—choose one eligible type of resistance. If this reaction prevents any damage, you gain a status bonus equal to half your level to the damage roll of the next metal impulse you use before the end of your next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Consume Power]</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Kineticist.ConsumePower.ResistanceToggle",
+                "option": "consume-power",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "consume-power"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.consumePower}",
+                "value": "@actor.level"
+            }
+        ],
+        "selfEffect": null,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "impulse",
+                "kineticist",
+                "metal",
+                "primal"
+            ]
+        }
+    },
+    "type": "feat"
+}

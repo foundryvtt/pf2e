@@ -1,0 +1,101 @@
+{
+    "_id": "Gvx8Mdg5mxUtTD5g",
+    "folder": "2YIwd1VEqBVaUEAf",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Weapon Infusion",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>With a signature flair, you shape blasts of elemental power into the form of a weapon, such as a sword made of whirling wind or a bow that shoots flames. If your next action is an Elemental Blast, choose a weapon shape for it to take. You can choose to change the blast's damage type to bludgeoning, piercing, or slashing-whichever suits the weapon shape-and you can choose other alterations depending on whether you make a melee or ranged blast.</p>\n<ul>\n<li><strong>Melee</strong> Add one of the following traits of your choice: agile, backswing, forceful, reach, sweep.</li>\n<li><strong>Ranged</strong> Choose one of three options: range increment 100 feet and the volley 30 feet trait, range increment 50 feet and the propulsive trait, or range increment 20 feet and the thrown trait.</li>\n</ul>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "domain": "elemental-blast",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.WeaponInfusion.Melee",
+                "option": "weapon-infusion:melee",
+                "predicate": [
+                    "self:effect:weapon-infusion"
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitAgile",
+                        "value": "agile"
+                    },
+                    {
+                        "label": "PF2E.TraitBackswing",
+                        "value": "backswing"
+                    },
+                    {
+                        "label": "PF2E.TraitForceful",
+                        "value": "forceful"
+                    },
+                    {
+                        "label": "PF2E.TraitReach",
+                        "value": "reach"
+                    },
+                    {
+                        "label": "PF2E.TraitSweep",
+                        "value": "sweep"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "alwaysActive": true,
+                "domain": "elemental-blast",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.WeaponInfusion.Ranged",
+                "option": "weapon-infusion:ranged",
+                "predicate": [
+                    "self:effect:weapon-infusion"
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.WeaponInfusion.RangedSuboptions.100Volley",
+                        "value": "volley-30"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.WeaponInfusion.RangedSuboptions.50Propulsive",
+                        "value": "propulsive"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.WeaponInfusion.RangedSuboptions.20Thrown",
+                        "value": "thrown"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Weapon Infusion",
+            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Weapon Infusion"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "infusion",
+                "kineticist"
+            ]
+        }
+    },
+    "type": "feat"
+}

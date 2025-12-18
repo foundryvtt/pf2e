@@ -1,0 +1,49 @@
+{
+    "_id": "0FNLI8APwj9NsBDa",
+    "folder": "haKvrUgHnaDVby96",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Alchemical Discoveries",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've devoted extra time in the lab to improve your knowledge of alchemy. You learn the formulas for two alchemical items each time you level up instead of one; these must still be elixirs or tools. The number of versatile vials you can create each day increases by one if you're an expert in Crafting, two if you're a master, or three if you're legendary.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "alchemical sciences methodology"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.versatileVials.max",
+                "priority": 60,
+                "value": "@actor.system.skills.crafting.rank - 1"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}

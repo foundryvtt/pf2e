@@ -1,0 +1,76 @@
+{
+    "_id": "CAk1NNG4aO0VuHnZ",
+    "folder": "adpEXF7HW2lmiwmO",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Ongoing Strategy",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're constantly studying small aspects of everyone's movements, even if you don't have a stratagem in place ahead of time.</p>\n<p>On any Strike for which you didn't @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem]{Devise a Strategem}, you still deal precision damage equal to your number of strategic strike damage dice so long as the weapon or unarmed attack you used is one that would have let you use your Intelligence modifier had you Devised a Stratagem.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "strategic strike"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "damageCategory": "precision",
+                "key": "FlatModifier",
+                "predicate": [
+                    "class:investigator",
+                    {
+                        "not": "check:substitution:devise-a-stratagem"
+                    },
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse",
+                            {
+                                "and": [
+                                    "item:ranged",
+                                    {
+                                        "not": "item:thrown-melee"
+                                    }
+                                ]
+                            },
+                            "item:base:sap",
+                            {
+                                "and": [
+                                    "feat:takedown-expert",
+                                    "item:group:club",
+                                    "item:hands-held:1"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "value": "floor((@actor.level + 3)/4)"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}

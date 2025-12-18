@@ -1,0 +1,116 @@
+{
+    "_id": "JQs2O2TTgKWXgJgZ",
+    "folder": "FsGb7HbVVo5GPYYC",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Consecrate Spell",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You infuse a spell with the power of your faith, consecrating it. If the next action you use is to Cast a Spell that targets a single undead, you can expend a Focus Point, channeling the power of your focus spells into the primary spell. If you do, the spell you cast deals additional spirit or vitality damage (your choice) equal to the rank of your focus spells. As normal for additional damage, this additional damage is doubled if the spell cast requires an attack roll and the result of the attack roll is a critical hit, or if the spell cast requires a saving throw and the result of the saving throw is a critical failure.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "ability to cast focus spells"
+                },
+                {
+                    "value": "divine spells"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Knights of Lastwall"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "consecrate-spell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "consecrate-spell-damage",
+                "placement": "spellcasting",
+                "predicate": [
+                    "spellshape:consecrate-spell"
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitSpirit",
+                        "value": "spirit"
+                    },
+                    {
+                        "label": "PF2E.TraitVitality",
+                        "value": "vitality"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:consecrate-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:consecrate-spell"
+                ],
+                "property": "focus-point-cost",
+                "value": 1
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.consecrateSpellDamage}",
+                "key": "FlatModifier",
+                "predicate": [
+                    "spellshape:consecrate-spell"
+                ],
+                "selector": "spell-damage",
+                "value": "ceil(@actor.level / 2)"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "cleric",
+                "concentrate",
+                "oracle",
+                "sorcerer",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

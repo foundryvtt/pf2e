@@ -1,0 +1,59 @@
+{
+    "_id": "4RjDxgvNXNl5GG9d",
+    "folder": "QhHpEbq98ZJAyDiH",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Hobnobber",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You are skilled at learning information through conversation. The @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information] exploration activity takes you half as long as normal (typically reducing the time to 1 hour). If you're a master in Diplomacy and roll a critical failure to Gather Information, you get a failure instead. There is still no guarantee that a rumor you learn with Gather Information is accurate.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Diplomacy"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:diplomacy:rank",
+                            3
+                        ]
+                    },
+                    "action:gather-information"
+                ],
+                "selector": "diplomacy"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

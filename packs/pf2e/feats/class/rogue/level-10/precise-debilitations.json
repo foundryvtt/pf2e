@@ -1,0 +1,65 @@
+{
+    "_id": "wvJBIzgS298ZRp6w",
+    "folder": "9GNILJ4XDKv6ozEK",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Precise Debilitations",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You attack with great precision. Add the following debilitations to the list you can choose from when you use @UUID[Compendium.pf2e.actionspf2e.Item.Debilitating Strike].</p>\n<ul>\n<li><strong>Debilitation</strong> The target takes an additional 2d6 precision damage from your attacks. @UUID[Compendium.pf2e.feat-effects.Item.Effect: Precise Debilitations]</li>\n<li><strong>Debilitation</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard].</li>\n</ul>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "thief racket"
+                },
+                {
+                    "value": "Debilitating Strike"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "category": "precision",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mark:precise-debilitations"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "itemType": "effect",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:effect-precise-debilitations"
+                ],
+                "property": "other-tags",
+                "value": "precise-debilitations-dice-added"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

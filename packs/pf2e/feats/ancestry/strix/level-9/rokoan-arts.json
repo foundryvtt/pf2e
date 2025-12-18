@@ -1,0 +1,70 @@
+{
+    "_id": "Xwk41o4fERfM07NR",
+    "folder": "sq5A4cYiGvmTDSCn",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Rokoan Arts",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Ancestral spirits have begun to bond themselves to you, granting you powers characteristic of a rokoa. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Speak with Animals] and @UUID[Compendium.pf2e.spells-srd.Item.Status] as primal innate spells once per day each.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:status",
+                            "item:slug:speak-with-animals"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:status",
+                            "item:slug:speak-with-animals"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:strix"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "strix"
+            ]
+        }
+    },
+    "type": "feat"
+}

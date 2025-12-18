@@ -1,0 +1,58 @@
+{
+    "_id": "0haS0qXR9xTYKoTG",
+    "folder": "9i2KJXGEyKhvnkI6",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Snare Specialist",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You specialize in creating quick traps to obstruct your enemies on the battlefield. If your proficiency rank in Crafting is expert, you gain the formulas for three common or uncommon snares. If your rank is master, you gain 6. If your rank is legendary, you gain 9.</p>\n<p>Each day during your daily preparations, you can prepare four snares from your formula book for quick deployment; if they normally take 1 minute to @UUID[Compendium.pf2e.actionspf2e.Item.Craft], you can Craft them with 3 Interact actions. The number of snares increases to six if you have master proficiency in Crafting and eight if you have legendary proficiency in Crafting. Snares prepared in this way don't cost you any resources to Craft.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Crafting"
+                },
+                {
+                    "value": "Snare Crafting"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Core Rulebook"
+        },
+        "rules": [
+            {
+                "craftableItems": [
+                    "item:trait:snare"
+                ],
+                "isPrepared": true,
+                "key": "CraftingAbility",
+                "maxSlots": "max(4,2*@actor.system.skills.crafting.rank)",
+                "priority": 60,
+                "slug": "snare-specialist"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "selected": {
+                "ranger": "Ranger"
+            },
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

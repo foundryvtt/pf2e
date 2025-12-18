@@ -1,0 +1,80 @@
+{
+    "_id": "corjPSTUKB02gkqN",
+    "folder": "wDsXImf4zGVLK6yU",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Defensive Armaments",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You use bulky firearms or crossbows to shield your body. Any two-handed firearms and two-handed crossbows you wield gain the parry trait. If an appropriate weapon already has the parry trait, increase the circumstance bonus to AC it grants when used to parry from +1 to +2. While parrying with your weapon, you are immune to splash damage.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:group:crossbow",
+                            "item:group:firearm"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:usage:hands:2",
+                            "item:hands-held:2"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "parry"
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "self:effect:parry"
+                ],
+                "type": "splash"
+            },
+            {
+                "key": "RollOption",
+                "option": "weapon-parry"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "parry-bonus-upgrade:yes"
+                ],
+                "selector": "ac",
+                "slug": "parry-bonus",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

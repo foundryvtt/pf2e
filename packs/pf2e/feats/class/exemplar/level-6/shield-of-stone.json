@@ -1,0 +1,65 @@
+{
+    "_id": "6piAFd27zoIXvM9Q",
+    "folder": "6N25cvp04M6rlN8A",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Shield of Stone",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued into the @UUID[Compendium.pf2e.classfeatures.Item.Mirrored Aegis]{Mirror Aegis}</p><hr /><p>You stole a gorgon's gaze and trapped it in your ikon. You've learned how to brandish it for your advantage, subduing the rage of the trapped gaze by turning it on your enemies.</p>\n<p><strong>Transcendence—@UUID[Compendium.pf2e.actionspf2e.Item.Brandish the Gorgon's Gaze]</strong> <span class=\"action-glyph\">1</span> (earth, transcendence, visual)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.5VbPhxZYfagIqE1z inline]</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #217: Death Sails a Wine-Dark Sea"
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Brandish the Gorgon's Gaze"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "weapon-ikon-feat",
+                "worn-ikon-feat"
+            ],
+            "rarity": "uncommon",
+            "value": [
+                "exemplar",
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

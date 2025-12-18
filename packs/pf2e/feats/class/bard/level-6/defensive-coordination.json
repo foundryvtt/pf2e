@@ -1,0 +1,77 @@
+{
+    "_id": "515N9nl9ChZwLWKR",
+    "folder": "nkYsYXNjL3pJRuxk",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Defensive Coordination",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Like the storied heroes who persist in the face of overwhelming odds, you and your allies will hold the line. If your next action is to cast the @UUID[Compendium.pf2e.spells-srd.Item.Rallying Anthem] composition cantrip, you can Raise a Shield, and one ally of your choice who gains a status bonus from the spell can immediately use their reaction to Raise a Shield.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "warrior muse"
+                },
+                {
+                    "value": "Rallying Anthem"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:rallying-anthem",
+                    "spellshape:courageous-advance"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.DefensiveCoordination"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "defensive-coordination"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "auditory",
+                "bard",
+                "concentrate",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

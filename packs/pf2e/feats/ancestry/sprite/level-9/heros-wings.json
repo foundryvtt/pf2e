@@ -1,0 +1,59 @@
+{
+    "_id": "ZOlwVqWa4hfv44xX",
+    "folder": "yedRPnvqy3HTs7Sp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Hero's Wings",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your wings have grown to their full, majestic form, granting you the unlimited power of flight. You have a fly Speed of 25 feet at all times. Furthermore, sprites recognize you as a powerful hero (or villain) by your unique wings and are appropriately impressed. You gain a +2 circumstance bonus on all Diplomacy and Intimidation checks against sprites and gain the benefits of the @UUID[Compendium.pf2e.feats-srd.Item.Glad-Hand] skill feat against other sprites, without taking a –5 penalty to your Diplomacy check.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Energize Wings"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:sprite"
+                ],
+                "selector": [
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": 25
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sprite"
+            ]
+        }
+    },
+    "type": "feat"
+}

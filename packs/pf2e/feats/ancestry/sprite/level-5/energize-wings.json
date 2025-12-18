@@ -1,0 +1,60 @@
+{
+    "_id": "cmhfYMEM4uzrNIiV",
+    "folder": "YBEZRbXCc4v7YV1b",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Energize Wings",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your magic energizes your wings, allowing you to fly farther. The fly Speed you gain from @UUID[Compendium.pf2e.feats-srd.Item.Evanescent Wings] increases to 25 feet.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Evanescent Wings"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "evanescent-wings",
+                    {
+                        "not": "feat:heros-wings"
+                    }
+                ],
+                "selector": "fly-speed",
+                "value": 10
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Energize Wings",
+            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Energize Wings"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "morph",
+                "primal",
+                "sprite"
+            ]
+        }
+    },
+    "type": "feat"
+}

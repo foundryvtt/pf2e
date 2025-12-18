@@ -1,0 +1,83 @@
+{
+    "_id": "XseJI9XhKNtZN8pv",
+    "folder": "FTKVfX0Vtqfac5CL",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Raging Intimidation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your fury fills your foes with fear. While you are raging, your @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] and @UUID[Compendium.pf2e.feats-srd.Item.Scare to Death] actions (from the Intimidation skill and an Intimidation skill feat, respectively) gain the rage trait, allowing you to use them while raging. As soon as you meet the prerequisites for the skill feats @UUID[Compendium.pf2e.feats-srd.Item.Intimidating Glare] and Scare to Death, you gain these feats.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "flag": "intimidatingGlare",
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:intimidation:rank",
+                            1
+                        ]
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Intimidating Glare"
+            },
+            {
+                "flag": "scareToDeath",
+                "key": "GrantItem",
+                "predicate": [
+                    "skill:intimidation:rank:4"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Scare to Death"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:demoralize",
+                    "self:effect:rage"
+                ],
+                "property": "traits",
+                "value": "rage"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:scare-to-death",
+                    "self:effect:rage"
+                ],
+                "property": "traits",
+                "value": "rage"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian"
+            ]
+        }
+    },
+    "type": "feat"
+}

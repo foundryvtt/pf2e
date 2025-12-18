@@ -1,0 +1,55 @@
+{
+    "_id": "nDjTJq7PEbvRktnb",
+    "folder": "i69cshtrOWvVMzxH",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Advanced Weapon Training",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've studied the art of wielding an advanced weapon. Choose a weapon group. You gain proficiency with all advanced weapons in that group as if they were martial weapons of their weapon group.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "weaponGroups"
+                },
+                "flag": "group",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.WeaponGroup"
+            },
+            {
+                "definition": [
+                    "item:group:{item|flags.pf2e.rulesSelections.group}",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "sameAs": "martial",
+                "slug": "advanced-weapon-training"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fighter"
+            ]
+        }
+    },
+    "type": "feat"
+}

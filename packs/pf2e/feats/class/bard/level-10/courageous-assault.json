@@ -1,0 +1,74 @@
+{
+    "_id": "Asb0UsQqeATsxqFJ",
+    "folder": "Fl3sl3NXPhVAqUqq",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Courageous Assault",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>With a mighty shout, you can stir an ally to attack. If your next action is to cast the @UUID[Compendium.pf2e.spells-srd.Item.Courageous Anthem] composition cantrip, one ally of your choice who gains a status bonus from the spell can immediately use their reaction to make a melee Strike.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "warrior muse"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:courageous-anthem",
+                    "spellshape:courageous-assault"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.CourageousAssault"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "courageous-assault"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "auditory",
+                "bard",
+                "concentrate",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

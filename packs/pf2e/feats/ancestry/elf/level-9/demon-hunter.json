@@ -1,0 +1,57 @@
+{
+    "_id": "7Jc5gVUNcEBriL9G",
+    "folder": "sONqfJxDDZkU5CX5",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Demon Hunter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The demons of Tanglebriar have long haunted your dreams, just as they have long threatened Kyonin. You have not only studied these fiendish foes well, but have trained extensively to battle the hordes of demons that serve Treerazer and are particularly adept at striking desperate melee blows against them.</p>\n<p>When you make your daily preparations, choose one kind of demon, such as succubus, omox, shemhazian, or Treerazer. For the remainder of the day, the first time you hit one of those specific demons in a round with a melee Strike, you also deal 1d6 additional spirit damage. At 13th level, the extra damage increases to 2d6 additional spirit damage, and at 17th level, the extra damage increases to 3d6 spirit damage.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Religion or Demon Lore"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #210: Whispers in the Dirt"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "demon-hunter",
+                "toggleable": true
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": "ternary(gte(@actor.level,17),3,ternary(gte(@actor.level,13),2,1))",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "demon-hunter"
+                ],
+                "selector": "melee-strike-damage"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "elf"
+            ]
+        }
+    },
+    "type": "feat"
+}

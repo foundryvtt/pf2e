@@ -1,0 +1,61 @@
+{
+    "_id": "zy7lx4SWkfDxqH6m",
+    "folder": "hphzGB7IL6ZLsFBT",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Supreme Spellstrike",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've made it almost effortless to combine spells and attacks. You're permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened]. You can use your extra action only to Strike or to recharge @UUID[Compendium.pf2e.actionspf2e.Item.Spellstrike].</p>"
+        },
+        "level": {
+            "value": 20
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Spellstrike"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:granter:id:{item|id}"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

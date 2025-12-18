@@ -1,0 +1,58 @@
+{
+    "_id": "nV9ykcwI4lSmD2PV",
+    "folder": "fIpiz1pbBNI7yUpz",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Clobber",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are wearing medium or heavy armor.</p><hr /><p>With a mighty blow, you send an enemy flying backward and onto the ground. Strike a foe. This Strike deals an extra die of weapon damage. If you hit and deal damage, you can automatically @UUID[Compendium.pf2e.actionspf2e.Item.Shove] the target, with the same benefits as the Shove action (including the critical success effect, if your Strike was a critical hit). The target then falls @UUID[Compendium.pf2e.conditionitems.Item.Prone]. This counts as two attacks when calculating your multiple attack penalty.</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "domain": "strike-damage",
+                "key": "RollOption",
+                "option": "clobber",
+                "toggleable": true
+            },
+            {
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "predicate": [
+                    "clobber"
+                ],
+                "selector": "strike-damage",
+                "toggleable": true
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "guardian"
+            ]
+        }
+    },
+    "type": "feat"
+}

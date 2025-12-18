@@ -1,0 +1,211 @@
+{
+    "_id": "N1ajKcWRo3O0oMQg",
+    "folder": "3HNfAsQyIte61hI9",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Bloodline Mutation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You permanently mutate to become more like the creatures of your bloodline. You gain the appropriate trait or traits for those types of creatures (aberration for aberrant, angel and celestial for angelic, demon and fiend for demonic, and so on). You gain low-light vision or darkvision, if one is appropriate for creatures with those traits. Choose one of the following.</p><ul><li>If the creatures associated with your bloodline have the ability to fly, you gain a fly Speed equal to your land Speed.</li><li>If the creatures associated with your bloodline are aquatic or amphibious, you become amphibious, able to breathe water and air equally well, and you gain a swim Speed equal to your land Speed.</li><li><p>If creatures associated with your bloodline have a resistance or immunity to acid, cold, electricity, fire, void, or sonic, choose an energy type your bloodline is immune or resistant to and gain resistance 20 against that energy type.</p></li></ul>"
+        },
+        "level": {
+            "value": 20
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "a bloodline based on a specific type of creature"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "creatureTraits"
+                },
+                "flag": "traitOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Sorcerer.BloodlineMutation.TraitPrompt"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": "second-trait"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "no-second-trait"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Sorcerer.BloodlineMutation.SecondTraitPrompt",
+                "rollOption": "bloodline-mutation-traits"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "creatureTraits"
+                },
+                "flag": "traitTwo",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "bloodline-mutation-traits:second-trait"
+                ],
+                "prompt": "PF2E.SpecificRule.Sorcerer.BloodlineMutation.TraitPrompt"
+            },
+            {
+                "adjustName": false,
+                "allowNoSelection": true,
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Darkvision",
+                        "value": "darkvision"
+                    },
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.LowLightVision",
+                        "value": "low-light-vision"
+                    }
+                ],
+                "flag": "sense",
+                "key": "ChoiceSet",
+                "rollOption": "bloodline-mutation-sense"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Fly",
+                        "value": "fly"
+                    },
+                    {
+                        "label": "PF2E.TraitAmphibious",
+                        "value": "amphibious"
+                    },
+                    {
+                        "label": "PF2E.RuleElement.Resistance",
+                        "value": "resistance"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "bloodline-mutation-benefit"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "value": "void"
+                    }
+                ],
+                "flag": "damageType",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "bloodline-mutation-benefit:resistance"
+                ]
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "bloodline-mutation-sense:low-light-vision"
+                ],
+                "selector": "low-light-vision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "bloodline-mutation-sense:darkvision"
+                ],
+                "selector": "darkvision"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "bloodline-mutation-benefit:fly"
+                ],
+                "selector": "fly",
+                "value": "@actor.system.movement.speeds.land.value"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "bloodline-mutation-benefit:amphibious"
+                ],
+                "selector": "swim",
+                "value": "@actor.system.movement.speeds.land.value"
+            },
+            {
+                "add": [
+                    "amphibious"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "bloodline-mutation-benefit:amphibious"
+                ]
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "bloodline-mutation-benefit:resistance"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.damageType}",
+                "value": 20
+            },
+            {
+                "add": [
+                    "{item|flags.pf2e.rulesSelections.traitOne}"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "add": [
+                    "{item|flags.pf2e.rulesSelections.traitTwo}"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "bloodline-mutation-traits:second-trait"
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

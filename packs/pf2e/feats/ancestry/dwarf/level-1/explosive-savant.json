@@ -1,0 +1,67 @@
+{
+    "_id": "6EgHimhCuS8L0xDE",
+    "folder": "kTu1AMjR6p5abNSc",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Explosive Savant",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Access</strong> You are from Dongun Hold or Alkenstar.</p><hr /><p>You've spent a lifetime wielding guns and explosive ordinance. You have familiarity with bombs and firearms; for the purposes of proficiency you treat bombs and martial firearms as simple weapons, and advanced firearms as martial weapons.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:group:bomb",
+                            {
+                                "and": [
+                                    "item:group:firearm",
+                                    "item:category:martial"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialBombsFirearms",
+                "sameAs": "simple",
+                "slug": "martial-bombs-firearms"
+            },
+            {
+                "definition": [
+                    "item:category:advanced",
+                    "item:group:firearm"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedGroup.firearm",
+                "sameAs": "martial",
+                "slug": "advanced-firearms"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

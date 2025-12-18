@@ -1,0 +1,64 @@
+{
+    "_id": "bYyou5TjkCmzoizu",
+    "folder": "QHbygiXRUCPWkCjh",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Observational Analysis",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You are able to rapidly discern relevant details about your opponents in the heat of combat. When you use @UUID[Compendium.pf2e.feats-srd.Item.Combat Assessment] against a target that you or an ally has targeted with a Strike or spell since the start of your last turn, you get a +2 circumstance bonus to the @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] check (+4 if the Strike from Combat Assessment is a critical hit.)</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Combat Assessment"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Commander.ObservationalAnalysis.RollOptionLabel",
+                "option": "observational-analysis-upgrade",
+                "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "observational-analysis-upgrade"
+                ],
+                "selector": "skill-check",
+                "slug": "combat-assessment",
+                "value": 4
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "commander"
+            ]
+        }
+    },
+    "type": "feat"
+}

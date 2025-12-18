@@ -1,0 +1,65 @@
+{
+    "_id": "ER19TNTiYbNvkhw8",
+    "folder": "Th1SHYMutVvBmHKU",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Take Wing",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per round</p><hr /><p>You have strengthened your wings and can now fly for short distances. You Fly. If you don't normally have a fly Speed, you gain a fly Speed of 15 feet for this movement. If you aren't on solid ground at the end of this movement, you fall.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "round"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "take-wing",
+                "predicate": [
+                    {
+                        "not": "feat:into-the-sky"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "take-wing"
+                ],
+                "selector": "fly",
+                "value": 15
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dragonet"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,78 @@
+{
+    "_id": "lFVqejlf52cdYrZy",
+    "folder": "KnXvyA7sSu2Rr2Hh",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Munitions Crafter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Bullets and bombs can be scarce in some parts, so you've learned to make your own. You become trained in Crafting and gain the advanced alchemy benefits. You can use the advanced alchemy benefits to create a number of daily consumables equal to 4 + half your level (rounded up); these consumables must be bombs or alchemical ammunition.</p>\n<p>You gain a formula book that includes the formula for black powder and four 1st-level types of common or uncommon alchemical ammunition or bombs of your choice.</p>\n<p>When crafting alchemical ammunition, including black powder in doses or rounds, using advanced alchemy, you create the ammunition in batches of 4 (meaning that if you were 4th level and used all of your advanced alchemy consumables to create alchemical ammunition, you could create a maximum of 24 rounds). You cannot use advanced alchemy to Craft horns or kegs of black powder.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Alchemical Crafting"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.crafting.rank",
+                "value": 1
+            },
+            {
+                "batchSizes": {
+                    "other": [
+                        {
+                            "definition": [
+                                {
+                                    "or": [
+                                        "item:slug:black-powder-dose",
+                                        {
+                                            "and": [
+                                                "item:trait:alchemical",
+                                                "item:type:ammo"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ],
+                            "quantity": 4
+                        }
+                    ]
+                },
+                "craftableItems": [
+                    "item:group:bomb"
+                ],
+                "isDailyPrep": true,
+                "key": "CraftingAbility",
+                "label": "PF2E.SpecificRule.Alchemist.AdvancedAlchemy",
+                "maxSlots": "4 + ceil(@actor.level / 2)",
+                "slug": "advanced-alchemy"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

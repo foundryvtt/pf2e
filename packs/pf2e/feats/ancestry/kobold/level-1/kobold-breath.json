@@ -1,0 +1,69 @@
+{
+    "_id": "PPUNMjRLQYnmwQvF",
+    "folder": "DHDisl3wodueFQqb",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Kobold Breath",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You channel the power of your draconic benefactor to expel a torrent of energy from your mouth that manifests as a @Template[type:line|distance:30] or a @Template[type:cone|distance:15], dealing @Damage[(ceil(@actor.level / 2))d4|options:area-damage] damage. Each creature in the area must attempt a basic saving throw against the higher of your class DC or spell DC. You can't use this ability again for [[/r 1d4 #Recharge this ability]]{1d4 rounds}.</p>\n<p>At 3rd level and every 2 levels after that, the damage increases by 1d4. The breath shape, damage type, and the saving throw match those of your draconic benefactor, such as those shown on the @UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.GduFISQ6kzEB6sec#draconic-benefactors]{Draconic Benefactors} table. This activity has the traits associated with the magical tradition of your draconic benefactor and the type of damage the breath deals.</p><hr /><p>@Check[fortitude|against:class-spell|options:area-damage] @Check[reflex|against:class-spell|options:area-damage] @Check[will|against:class-spell|options:area-damage]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "dragonscaled kobold heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:draconic-benefactor"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Draconic Benefactor"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-inline-damage"
+                ],
+                "value": "{actor|flags.pf2e.draconicBenefactor.breathDamage}"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|flags.pf2e.draconicBenefactor.tradition}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kobold",
+                "magical"
+            ]
+        }
+    },
+    "type": "feat"
+}

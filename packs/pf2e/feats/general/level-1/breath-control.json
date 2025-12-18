@@ -1,0 +1,63 @@
+{
+    "_id": "aJUXbe9HJVvv0Mxa",
+    "folder": "68m1OED3fDU3fIfR",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Breath Control",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "general",
+        "description": {
+            "value": "<p>You can breathe even in hazardous or sparse air. You can hold your breath for 25 times as long as usual before suffocating. You gain a +1 circumstance bonus to saving throws against inhaled threats, such as inhaled poisons, and if you roll a success on such a saving throw, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:inhaled"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:inhaled"
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.remainingAir.rounds",
+                "value": "25 * (5 + @actor.abilities.con.mod)"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general"
+            ]
+        }
+    },
+    "type": "feat"
+}

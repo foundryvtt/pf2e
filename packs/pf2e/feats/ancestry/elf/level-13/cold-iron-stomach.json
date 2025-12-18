@@ -1,0 +1,63 @@
+{
+    "_id": "o8DJyu5JJLppnDCS",
+    "folder": "aYiXPmCssiB1YRW4",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Cold Iron Stomach",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have steeled yourself against potent odors. Whenever you gain the @UUID[Compendium.pf2e.conditionitems.Item.Sickened] condition, you reduce the value of that condition by 1; if this reduces the value to 0, you avoid becoming sickened entirely. You gain a +2 circumstance bonus to all saving throws against olfactory and poison effects created by demons or environmental hazards associated with the Outer Rifts (including all environmental hazards found in Tanglebriar).</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #210: Whispers in the Dirt"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:olfactory",
+                            "item:trait:poison"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "origin:trait:demon",
+                            {
+                                "and": [
+                                    "origin:trait:environmental",
+                                    "origin:tag:outer-rifts"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "elf"
+            ]
+        }
+    },
+    "type": "feat"
+}

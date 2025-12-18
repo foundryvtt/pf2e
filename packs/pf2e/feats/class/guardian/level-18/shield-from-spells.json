@@ -1,0 +1,71 @@
+{
+    "_id": "ueQoFDPHUe3dqmS1",
+    "folder": "ZRYi6MAwifJQmFqX",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Shield from Spells",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your prowess with a shield allows you to block magic and more. You can use @UUID[Compendium.pf2e.feats-srd.Item.Shield from Arrows] against ranged spell attacks and other ranged attacks, not just physical ranged Strikes.</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Shield from Arrows"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:shield-from-arrows"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:shield-from-arrows"
+                ],
+                "property": "other-tags",
+                "value": "shield-from-spells"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "guardian"
+            ]
+        }
+    },
+    "type": "feat"
+}

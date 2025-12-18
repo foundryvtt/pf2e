@@ -1,0 +1,108 @@
+{
+    "_id": "dxujgA0NgiEvA0H8",
+    "folder": "c5TgbUK0sYtB0lXP",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Bleeding Finisher",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your blow inflicts profuse bleeding. Make a slashing or piercing Strike. If you hit, the target also takes persistent bleed damage equal to your precise strike finisher damage.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Label",
+                "mergeable": true,
+                "option": "finisher",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Bleeding",
+                        "value": "bleeding"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "category": "persistent",
+                "damageType": "bleed",
+                "diceNumber": "@actor.flags.pf2e.swashbuckler.preciseStrike",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "finisher:bleeding",
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "feat:flying-blade",
+                                    "item:thrown",
+                                    {
+                                        "or": [
+                                            "target:range-increment:1",
+                                            {
+                                                "and": [
+                                                    "finisher:twirling-throw",
+                                                    {
+                                                        "lte": [
+                                                            "target:range-increment",
+                                                            3
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:damage:type:piercing",
+                            "item:damage:type:slashing"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "finisher",
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,79 @@
+{
+    "_id": "glu6XiN7A3C5jMA9",
+    "folder": "jBDfjcN9Hiz5RW2l",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Ascended Dragonet Heritage",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've awoken the power of your draconic heritage. You gain all the mechanical benefits of the dragonet heritage you selected at first level, allowing you to take feats and gain any benefits that require a specific dragonet heritage.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "You have a versatile heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        "item:slug:{actor|flags.pf2e.dragonetHeritage}",
+                                        "dragonet-heritage-determined"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        {
+                                            "not": "dragonet-heritage-determined"
+                                        },
+                                        "item:ancestry:dragonet"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "itemType": "heritage"
+                },
+                "flag": "heritage",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.heritage}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dragonet"
+            ]
+        }
+    },
+    "type": "feat"
+}

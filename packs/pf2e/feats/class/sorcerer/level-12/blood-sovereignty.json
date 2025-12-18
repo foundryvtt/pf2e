@@ -1,0 +1,58 @@
+{
+    "_id": "WkHZbd79yfn15xod",
+    "folder": "EnD5yeoAsfP0ywPq",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Blood Sovereignty",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You wield blood magic masterfully. When you would benefit from a blood magic effect, you can choose to lose Hit Points equal to twice the spell's rank as the energy of your blood is drawn out. This takes no extra action, and you benefit from two different blood magic effects you know as a result. The two effects can have different targets.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "second-blood-magic",
+                    "item:tag:blood-magic-spell"
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Sorcerer.BloodSovereignty.Description"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Blood Sovereignty]"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

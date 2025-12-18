@@ -1,0 +1,52 @@
+{
+    "_id": "FGbrxFmNeOfPHFOG",
+    "folder": "8Iu2Cpiusi1B3EMI",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Bone Missile",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can remove your ribs to use them as arrows or bolts. When you draw a rib, you lose @Damage[(ternary(gte(@actor.level,19),4,ternary(gte(@actor.level,12),3,2)))[untyped]] HP, and the projectile deals 2 extra void damage if you Strike with it before the end of your next turn. The HP loss and extra damage both increase to 3 at 12th level and 4 at 19th level. Your rib cage magically replenishes, and any rib you draw crumbles to dust after being used for a Strike or at the end of your next turn, whichever comes first.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Book of the Dead"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "bone-missile",
+                "toggleable": true
+            },
+            {
+                "damageType": "void",
+                "key": "FlatModifier",
+                "predicate": [
+                    "bone-missile"
+                ],
+                "selector": "strike-damage",
+                "value": "match(when(lte(@actor.level, 11), 2), when(btwn(@actor.level, 12, 18), 3), when(gte(@actor.level, 19), 4))"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "skeleton"
+            ]
+        }
+    },
+    "type": "feat"
+}

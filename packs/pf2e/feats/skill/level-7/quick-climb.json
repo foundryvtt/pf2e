@@ -1,0 +1,64 @@
+{
+    "_id": "P04Hw8E6WAWARKHP",
+    "folder": "0EeSfNqcdzvZbL28",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Quick Climb",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>When Climbing, you move 5 more feet on a success and 10 more feet on a critical success, up to your Speed. If you're legendary in Athletics, you gain a climb Speed equal to your Speed.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "master in Athletics"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "skill:athletics:rank:4"
+                ],
+                "selector": "climb",
+                "value": "@actor.system.movement.speeds.land.value"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:climb"
+                ],
+                "selector": "athletics",
+                "text": "PF2E.SpecificRule.Feat.QuickClimb.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

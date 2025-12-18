@@ -1,0 +1,97 @@
+{
+    "_id": "VzQtyHSjq12E4Dzh",
+    "folder": "xDATwQrlaPHzQ3tv",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Purifying Spell",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You purify the water within a creature's body to cleanse them of illness. If the next action you use is to cast @UUID[Compendium.pf2e.spells-srd.Item.Heal] targeting a single living creature, you can attempt to counteract a disease or poison affecting the target, in addition to the other benefits of <em>heal</em>. If you do, <em>heal</em> gains the water trait.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "wave order"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:heal",
+                    "spellshape:purifying-spell",
+                    {
+                        "lte": [
+                            "item:cast:actions",
+                            2
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.PurifyingSpell"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "purifying-spell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:heal",
+                    "spellshape:purifying-spell",
+                    {
+                        "lte": [
+                            "item:cast:actions",
+                            2
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "water"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "druid",
+                "spellshape",
+                "water"
+            ]
+        }
+    },
+    "type": "feat"
+}
