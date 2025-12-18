@@ -39,6 +39,22 @@
         "quantity": 1,
         "rules": [
             {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.Banner.CommandersBanner",
+                "mergeable": true,
+                "option": "magical-commanders-banner",
+                "predicate": [
+                    "feature:commanders-banner"
+                ],
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "knaves-standard"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
                 "effects": [
                     {
                         "affects": "allies",
@@ -47,8 +63,28 @@
                 ],
                 "key": "Aura",
                 "level": 4,
+                "predicate": [
+                    {
+                        "not": "magical-commanders-banner:knaves-standard"
+                    }
+                ],
+                "radius": 30
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Knave's Standard"
+                    }
+                ],
+                "key": "Aura",
+                "level": 4,
+                "predicate": [
+                    "magical-commanders-banner:knaves-standard",
+                    "commanders-banner"
+                ],
                 "radius": 30,
-                "traits": []
+                "slug": "commanders-banner"
             }
         ],
         "size": "med",

@@ -1,10 +1,10 @@
 {
     "_id": "0aRm0b55015XPj7Y",
-    "img": "systems/pf2e/icons/spells/ant-haul.webp",
+    "img": "icons/creatures/invertebrates/ant-strength-green.webp",
     "name": "Effect: Swarming Bites",
     "system": {
         "description": {
-            "value": "<p>A creature that fails its save against Swarming Bites becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round. If the creature attempts a concentrate or manipulate action while affected, it must succeed at a @Check[flat|dc:5] or the action is lost; roll the check after spending the action, but before any effects are applied.</p>"
+            "value": "<p>You become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}. If you attempt a concentrate or manipulate action while affected, you must succeed at a @Check[flat|dc:5|showDC:all] or the action is lost; roll the check after spending the action, but before any effects are applied.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,25 +22,7 @@
         },
         "rules": [
             {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    {
-                        "or": [
-                            "item:trait:concentrate",
-                            "item:trait:manipulate"
-                        ]
-                    }
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "If the creature attempts a concentrate or manipulate action while affected, it must succeed at a @Check[flat|dc:5] or the action is lost; roll the check after spending the action, but before any effects are applied."
-                    }
-                ]
-            },
-            {
+                "inMemoryOnly": true,
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
             },
@@ -59,7 +41,45 @@
                 "property": "description",
                 "value": [
                     {
-                        "text": "If the creature attempts a concentrate or manipulate action while affected, it must succeed at a @Check[flat|dc:5] or the action is lost; roll the check after spending the action, but before any effects are applied."
+                        "text": "PF2E.NPCAbility.SwarmingBites.Note"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:concentrate",
+                            "item:trait:manipulate"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.NPCAbility.SwarmingBites.Note"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:concentrate",
+                            "item:trait:manipulate"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.NPCAbility.SwarmingBites.Note"
                     }
                 ]
             }

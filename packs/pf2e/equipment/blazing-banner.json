@@ -39,6 +39,22 @@
         "quantity": 1,
         "rules": [
             {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.Banner.CommandersBanner",
+                "mergeable": true,
+                "option": "magical-commanders-banner",
+                "predicate": [
+                    "feature:commanders-banner"
+                ],
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "blazing-banner"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
                 "effects": [
                     {
                         "affects": "allies",
@@ -47,8 +63,29 @@
                 ],
                 "key": "Aura",
                 "level": 4,
+                "predicate": [
+                    {
+                        "not": "magical-commanders-banner:blazing-banner"
+                    }
+                ],
                 "radius": 30,
                 "traits": []
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Blazing Banner"
+                    }
+                ],
+                "key": "Aura",
+                "level": 4,
+                "predicate": [
+                    "magical-commanders-banner:blazing-banner",
+                    "commanders-banner"
+                ],
+                "radius": 30,
+                "slug": "commanders-banner"
             }
         ],
         "size": "med",

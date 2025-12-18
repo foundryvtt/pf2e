@@ -36,15 +36,50 @@
         "quantity": 1,
         "rules": [
             {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.Banner.CommandersBanner",
+                "mergeable": true,
+                "option": "magical-commanders-banner",
+                "predicate": [
+                    "feature:commanders-banner"
+                ],
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "dawnfire-beacon-major"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
                 "effects": [
                     {
                         "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Dawnfire Beacon (Major)"
                     }
                 ],
                 "key": "Aura",
-                "level": 3,
+                "level": 13,
+                "predicate": [
+                    {
+                        "not": "magical-commanders-banner:dawnfire-beacon-major"
+                    }
+                ],
+                "radius": 30
+            },
+            {
+                "effects": [
+                    {
+                        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Dawnfire Beacon (Major)"
+                    }
+                ],
+                "key": "Aura",
+                "level": 13,
+                "predicate": [
+                    "magical-commanders-banner:dawnfire-beacon-major",
+                    "commanders-banner"
+                ],
                 "radius": 30,
-                "traits": []
+                "slug": "commanders-banner"
             },
             {
                 "key": "TokenLight",
@@ -54,6 +89,20 @@
                     "bright": 30,
                     "dim": 60
                 }
+            },
+            {
+                "key": "TokenLight",
+                "value": {
+                    "alpha": 0.1,
+                    "animation": {},
+                    "bright": 60,
+                    "dim": 120
+                },
+                "predicate": [
+                    "magical-commanders-banner:dawnfire-beacon-major",
+                    "commanders-banner",
+                    "feat:glorious-banner"
+                ]
             }
         ],
         "size": "med",
