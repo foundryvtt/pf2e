@@ -37,10 +37,6 @@ const args = argv
     .version(false)
     .parseSync();
 
-declare namespace globalThis {
-    let SYSTEM_ID: SystemId;
-}
-globalThis.SYSTEM_ID = args.system;
 const extractor = new PackExtractor(args);
 
 try {

@@ -5,10 +5,11 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "npm run clean && npm run build:packs && vite build",
+        "build": "pnpm run clean && pnpm run '/build:(?:packs|system)$/'",
+        "build:system": "tsx ./build/build-system.ts",
         "build:packs": "tsx ./build/build-packs.ts",
-        "build:packs:json": "tsx ./build/build-packs.ts --json --system pf2e",
-        "build:conditions": "tsx ./build/conditions.ts --system pf2e",
+        "build:packs:json": "tsx ./build/build-packs.ts --json",
+        "build:conditions": "tsx ./build/conditions.ts",
         "clean": "tsx ./build/clean.ts",
         "watch": "npm run clean && npm run build:packs && vite build --watch --mode development",
         "hot": "vite serve",
@@ -21,7 +22,7 @@
         "prettier:scss-svelte": "prettier --check src/styles src/**/*.svelte",
         "lint:fix": "eslint --fix && prettier --write src/styles src/**/*.svelte"
     },
-    "author": "The PF2e System Developers",
+    "author": "The (P|S)F2E System Developers",
     "license": "Apache-2.0",
     "engines": {
         "node": ">=20.15.0"
