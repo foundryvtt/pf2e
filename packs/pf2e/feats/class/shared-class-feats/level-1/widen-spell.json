@@ -1,0 +1,124 @@
+{
+    "_id": "FoWO4RnHRwfEIC7Q",
+    "folder": "F3ue3RXoxcXCoqfP",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Widen Spell",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You manipulate the energy of your spell, causing it to spread out and affect a wider area. If the next action you use is to Cast a Spell that has an area of a burst, cone, or line and does not have a duration, increase the area of that spell. Add 5 feet to the radius of a burst that normally has a radius of at least 10 feet (a burst with a smaller radius is not affected). Add 5 feet to the length of a cone or line that is normally 15 feet long or smaller, and add 10 feet to the length of a larger cone or line.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "widen-spell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:duration:0",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:area:type:burst",
+                                    {
+                                        "gte": [
+                                            "item:area:size",
+                                            10
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    {
+                                        "or": [
+                                            "item:area:type:cone",
+                                            "item:area:type:line"
+                                        ]
+                                    },
+                                    {
+                                        "lte": [
+                                            "item:area:size",
+                                            15
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "spellshape:widen-spell"
+                ],
+                "property": "area-size",
+                "value": 5
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:duration:0",
+                    {
+                        "or": [
+                            "item:area:type:line",
+                            "item:area:type:cone"
+                        ]
+                    },
+                    {
+                        "gt": [
+                            "item:area:size",
+                            15
+                        ]
+                    },
+                    "spellshape:widen-spell"
+                ],
+                "priority": 119,
+                "property": "area-size",
+                "value": 10
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid",
+                "manipulate",
+                "oracle",
+                "sorcerer",
+                "spellshape",
+                "witch",
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

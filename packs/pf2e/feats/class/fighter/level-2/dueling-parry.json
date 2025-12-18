@@ -1,0 +1,67 @@
+{
+    "_id": "n7nQQR940OvFbw7T",
+    "folder": "RMlWUQQ6uumylPgu",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Dueling Parry",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are wielding a single one-handed melee weapon and hold nothing else in your hands.</p><hr /><p>You can parry attacks against you with your one-handed weapon. You gain a +2 circumstance bonus to AC until the start of your next turn as long as you continue to meet the requirements.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "hands-free",
+                            1
+                        ]
+                    }
+                ],
+                "selector": "ac",
+                "slug": "parry-bonus",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "hands-free:0"
+                ],
+                "selector": "ac",
+                "slug": "parry-bonus",
+                "value": 0
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Parry",
+            "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Parry"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fighter"
+            ]
+        }
+    },
+    "type": "feat"
+}

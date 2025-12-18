@@ -1,0 +1,70 @@
+{
+    "_id": "4SKech3n0F38HrR5",
+    "folder": "ougYU47NxoWKmHFJ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Vigorous Anthem",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You instill magical vigor in your allies when you inspire them to attack. If your next action is to cast the @UUID[Compendium.pf2e.spells-srd.Item.Courageous Anthem] composition cantrip, you and all affected allies gain temporary HP equal to 3 + your Charisma modifier that last for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Vigorous Anthem]</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:courageous-anthem",
+                    "spellshape:vigorous-anthem"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.VigorousAnthem"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "vigorous-anthem"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "auditory",
+                "bard",
+                "concentrate",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

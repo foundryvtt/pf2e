@@ -1,0 +1,70 @@
+{
+    "_id": "PEszRpnrcB7VPS9G",
+    "folder": "KSdcmC531UnmFbGe",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Gruesome Strike",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> Your Strikes currently deal extra damage from your champion's reaction.</p><hr /><p>Make a Strike against the creature that triggered your champion's reaction. If you hit, double the extra damage the target takes from your reaction, and the target must succeed at a @Check[fortitude|against:class] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Regardless of the result, the creature is temporarily immune to your Gruesome Strike for 24 hours.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "champion's reaction that grants extra damage with your Strikes (including the desecration, iniquity, and obedience causes)"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "gruesome-strike",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "gruesome-strike"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Champion.GruesomeStrike.Note",
+                "title": "{item|name}"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "gruesome-strike"
+                ],
+                "selector": "strike-damage",
+                "slug": "champions-extra-damage",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

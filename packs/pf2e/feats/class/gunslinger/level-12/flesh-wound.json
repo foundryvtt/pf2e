@@ -1,0 +1,83 @@
+{
+    "_id": "Xdf00Kmv5C3qqrtK",
+    "folder": "Zz5V6KffgZyNka0A",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Flesh Wound",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You fire to ensure that even if your shot doesn't land cleanly, it still lands close enough to deal some damage. Make a ranged Strike. It gains the following effect on a failure (though not a critical failure).</p>\n<p><strong>Failure</strong> Though your attack misses, it still deals one die of damage plus any damage from your weapon specialization class feature. This uses your weapon's normal damage die and damage type. This attack doesn't add extra damage from any other sources or abilities.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Gunslinger.FleshWound.ToggleLabel",
+                "option": "flesh-wound",
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    {
+                        "not": "dice:slug:base"
+                    },
+                    "flesh-wound"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "ranged-strike-damage"
+                ],
+                "value": 0
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    "flesh-wound"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "ranged-strike-damage"
+                ],
+                "slug": "base",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    {
+                        "not": "modifier:slug:weapon-specialization"
+                    },
+                    "flesh-wound"
+                ],
+                "selector": "ranged-strike-damage",
+                "suppress": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

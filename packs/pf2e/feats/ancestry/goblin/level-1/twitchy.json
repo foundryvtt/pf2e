@@ -1,0 +1,80 @@
+{
+    "_id": "Bni2NcuQn6Z546RE",
+    "folder": "QNG8azRxjOSDbz8x",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Twitchy",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You are naturally suspicious and wary of danger, especially when you suspect someone might be leading you into an ambush. You gain a +1 circumstance bonus to AC and saves against hazards, and to all of your initiative rolls.</p>\n<p>If at least one of your opponents is using Deception or Diplomacy to determine their initiative, your bonus to initiative from this feat increases to +4.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Goblin.Twitchy.TOTMToggle",
+                "option": "origin:type:hazard",
+                "toggleable": "totm"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Goblin.Twitchy.InitiativeToggle",
+                "option": "twitchy-initiative",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "initiative",
+                "slug": "twitchy-initiative-bonus",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "twitchy-initiative"
+                ],
+                "selector": "initiative",
+                "slug": "twitchy-initiative-bonus",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:type:hazard"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "slug": "twitchy-defense-bonus",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "goblin"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,62 @@
+{
+    "_id": "wtTye8OrC9cuK7YP",
+    "folder": "QW4FChLa1LOdbE1j",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Beast Trainer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have an impressive innate ability to tame and command ferocious beasts. You become trained in the Nature skill and gain your choice of the @UUID[Compendium.pf2e.feats-srd.Item.Pet] general feat or the @UUID[Compendium.pf2e.feats-srd.Item.Train Animal] skill feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nature.rank",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Pet"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Train Animal"
+                    }
+                ],
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Feat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "orc"
+            ]
+        }
+    },
+    "type": "feat"
+}

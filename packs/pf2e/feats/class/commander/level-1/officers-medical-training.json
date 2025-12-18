@@ -1,0 +1,59 @@
+{
+    "_id": "YgVl3kHqhavaqcEw",
+    "folder": "4yJdk9BLOPWYbrvw",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Officer's Medical Training",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You can prepare at least three tactics.</p><hr /><p>You received formal training in battlefield triage and wound treatment. You are trained in Medicine and can use your Intelligence modifier in place of your Wisdom modifier for Medicine checks. If you are already trained in Medicine, you instead become trained in another skill of your choosing. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Battle Medicine] feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.medicine.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Battle Medicine"
+            },
+            {
+                "ability": "int",
+                "key": "FlatModifier",
+                "selector": "medicine",
+                "type": "ability"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "commander"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,94 @@
+{
+    "_id": "zSWTX520paO6Zv1i",
+    "folder": "liY9NMJhx9DwDYWs",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Knowledge of Shapes",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Inspiration lets you surpass your preconceptions of your spells' limits. You use @UUID[Compendium.pf2e.feats-srd.Item.Reach Spell] or @UUID[Compendium.pf2e.feats-srd.Item.Widen Spell] as a free action.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Reach Spell or Widen Spell"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:widen-spell",
+                            "feat:reach-spell"
+                        ]
+                    },
+                    "spellshape:knowledge-of-shapes"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.KnowledgeOfShapes"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "knowledge-of-shapes"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:widen-spell",
+                            "feat:reach-spell"
+                        ]
+                    },
+                    "spellshape:knowledge-of-shapes"
+                ],
+                "property": "traits",
+                "value": "cursebound"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cursebound",
+                "oracle",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

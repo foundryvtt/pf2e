@@ -1,0 +1,70 @@
+{
+    "_id": "MpydlJhlBYYXq50r",
+    "folder": "jD7qXzi8vqZyCyGl",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Raise Haft",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You know how to use the haft of larger weapons to block your enemies' attacks. Two-handed weapons you wield gain the parry trait. If the weapon already has the parry trait, you increase the circumstance bonus to AC it provides to +2.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:hands-held:2",
+                    "item:equipped"
+                ],
+                "property": "traits",
+                "value": "parry"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Guardian.RaiseHaft.ToggleLabel",
+                "option": "raise-haft",
+                "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "raise-haft"
+                ],
+                "selector": "ac",
+                "slug": "parry-bonus",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "guardian"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,94 @@
+{
+    "_id": "k8nWKHLYvAKMuwLd",
+    "folder": "2SZivh6XBv1zFLtk",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Ageless Patience",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You work at a pace born from longevity that enhances your thoroughness. You can voluntarily spend twice as much time as normal on a Perception check or skill check that takes 1 action or longer. If you do, you gain a +2 circumstance bonus to the check and don't automatically reduce your degree of success on a natural 1 (you get a critical failure only if your result is 10 lower than the DC). For example, you could get these benefits if you spent 2 actions to @UUID[Compendium.pf2e.actionspf2e.Item.Seek], which normally takes 1 action. You can get these benefits during exploration by taking twice as long exploring as normal, or in downtime by spending twice as much downtime.</p>\n<p>The GM might determine a situation doesn't grant you a benefit if a delay would be directly counterproductive to your success, such as a tense negotiation with an impatient creature.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "domain": "check",
+                "key": "RollOption",
+                "option": "ageless-patience",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "ageless-patience"
+                ],
+                "selector": [
+                    "perception",
+                    "skill-check"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "ageless-patience",
+                    "check:total:natural:1",
+                    {
+                        "gte": [
+                            "check:total:delta",
+                            -9
+                        ]
+                    }
+                ],
+                "selector": "skill-check"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "ageless-patience",
+                    "check:total:natural:1",
+                    {
+                        "not": {
+                            "gte": [
+                                "check:total",
+                                "check:total:delta"
+                            ]
+                        }
+                    }
+                ],
+                "selector": [
+                    "perception",
+                    "skill-check"
+                ],
+                "text": "PF2E.SpecificRule.Elf.AgelessPatience.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "elf"
+            ]
+        }
+    },
+    "type": "feat"
+}

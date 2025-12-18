@@ -1,0 +1,67 @@
+{
+    "_id": "InTchkd50pzQok3f",
+    "folder": "I2rt5BqfSmmF7Dwb",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Web Hunter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Through the careful cultivation of highly sensitive hairs, you've developed the ability to sense creatures without seeing them. You gain imprecise tremorsense at a range of 15 feet. When you and a creature are both touching the same anchored, threadlike object (such as a rope, webbing, or wire), your imprecise tremorsense can sense that creature at a range of 60 feet.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens The Mwangi Expanse"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Anadi.WebHunter.ToggleLabel",
+                "option": "web-hunter-same-object",
+                "toggleable": true
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": 15,
+                "selector": "tremorsense"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "web-hunter-same-object"
+                ],
+                "range": 60,
+                "selector": "tremorsense"
+            }
+        ],
+        "subfeatures": {
+            "senses": {
+                "tremorsense": {
+                    "acuity": "imprecise",
+                    "range": 15
+                }
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "anadi"
+            ]
+        }
+    },
+    "type": "feat"
+}

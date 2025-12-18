@@ -1,0 +1,56 @@
+{
+    "_id": "X4T7pO25YgW5lHWJ",
+    "folder": "dYkg05JEhiF1J6gL",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Vasodilation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>Using the power of your own blood, you encourage increased blood flow to nourish damaged tissue or stifle the flow to clot wounds or prevent the spread of poison and disease. You no longer require a healer's toolkit to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], though you take @Damage[1[untyped]] damage each time you take one of these actions without the proper tools from the expenditure of your blood. You can't reduce or prevent this damage.</p>\n<p>You gain a +1 item bonus when performing these actions using your blood, which increases to +2 if you're a master in Medicine and +3 if you're legendary.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Medicine"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #213: Thirst for Blood"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:administer-first-aid",
+                            "action:treat-disease",
+                            "action:treat-poison",
+                            "action:treat-wounds"
+                        ]
+                    }
+                ],
+                "selector": "medicine",
+                "type": "item",
+                "value": "ternary(gte(@actor.system.skills.medicine.rank,4),3,ternary(gte(@actor.system.skills.medicine.rank,3),2,1))"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

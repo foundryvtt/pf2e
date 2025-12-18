@@ -1,0 +1,67 @@
+{
+    "_id": "9tO7Kovo3Ugy0175",
+    "folder": "UUTk1SFVEqGhW5le",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Benefactor's Strike",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your benefactor's blood flows through your veins, and you channel their power into your body. When you critically hit with an unarmed Strike, the target takes an additional 1 persistent damage of the same type as the damage dealt by the breath of your draconic benefactor.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.GduFISQ6kzEB6sec#draconic-benefactors]{Draconic Benefactors}</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "dragonscaled kobold heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:draconic-benefactor"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Draconic Benefactor"
+            },
+            {
+                "critical": true,
+                "damageCategory": "persistent",
+                "damageType": "{actor|flags.pf2e.draconicBenefactor.breathDamage}",
+                "key": "FlatModifier",
+                "selector": [
+                    "unarmed-damage"
+                ],
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kobold"
+            ]
+        }
+    },
+    "type": "feat"
+}

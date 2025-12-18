@@ -1,0 +1,64 @@
+{
+    "_id": "ACeqRSWr4CEwLZgO",
+    "folder": "hLjqS3RxuQAReE1h",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Shadow Pact",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Thousands of years ago, your ancestors made a pact with @UUID[Compendium.pf2e.deities.Item.Zon-Kuthon]. He has not forgotten, even if you might wish he had. You can take @Damage[1]{1 damage} to mix blood and shadows to cast 5th-rank @UUID[Compendium.pf2e.spells-srd.Item.Creation] as an innate divine spell. You can use this ability as often as you wish, but you can have only one such object in existence at a time. If the object encounters bright light, the spell ends and the object dissolves into shadows.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Nidalese ethnicity"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:creation",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:creation",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:human"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "human"
+            ]
+        }
+    },
+    "type": "feat"
+}

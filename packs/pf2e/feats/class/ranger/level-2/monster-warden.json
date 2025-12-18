@@ -1,0 +1,56 @@
+{
+    "_id": "2yq3l8e2Vzz34yRV",
+    "folder": "Lxkp4ikwiFOUiNa6",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Monster Warden",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You understand how to defend against your prey. When you grant bonuses from @UUID[Compendium.pf2e.feats-srd.Item.Monster Hunter], each creature who benefits also gains a +2 circumstance bonus either to their AC the next time the creature attacks them or to their next saving throw against an effect from that particular creature (whichever comes first.)</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Monster Warden]</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Monster Hunter"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:monster-hunter"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

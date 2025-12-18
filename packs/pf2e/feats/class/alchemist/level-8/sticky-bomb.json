@@ -1,0 +1,82 @@
+{
+    "_id": "zXKfKKOxht0b0XNL",
+    "folder": "feOsShWg4TUR6E4C",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Sticky Bomb",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can mix in a sticky additive to an alchemical bomb to make its contents adhere and continue to deal damage. A creature hit by a sticky bomb also takes persistent damage equal to and of the same type as the bomb's splash damage. If the bomb already deals persistent damage, combine the two amounts.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "domain": "alchemical-bomb-base-type-damage",
+                "key": "RollOption",
+                "option": "sticky-bomb",
+                "toggleable": true
+            },
+            {
+                "damageCategory": "persistent",
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:splash",
+                    "sticky-bomb"
+                ],
+                "selector": "alchemical-bomb-base-type-damage",
+                "slug": "sticky-bomb",
+                "value": "@weapon.system.splashDamage.value"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:calculated-splash",
+                            "feature:field-discovery-bomber"
+                        ]
+                    }
+                ],
+                "selector": "alchemical-bomb-base-type-damage",
+                "slug": "sticky-bomb",
+                "value": "@actor.abilities.int.mod"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "expanded-splash"
+                ],
+                "priority": 41,
+                "selector": "alchemical-bomb-base-type-damage",
+                "slug": "sticky-bomb",
+                "value": "@actor.abilities.int.mod"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "additive",
+                "alchemist"
+            ]
+        }
+    },
+    "type": "feat"
+}

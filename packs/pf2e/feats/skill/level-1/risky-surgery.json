@@ -1,0 +1,80 @@
+{
+    "_id": "bkZgWFSFV4cAf5Ot",
+    "folder": "QhHpEbq98ZJAyDiH",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Risky Surgery",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>Your surgery can bring a patient back from the brink of death, but might push them over the edge. When you @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], you can deal @Damage[1d8[slashing]] damage to your patient just before applying the effects of Treat Wounds.</p>\n<p>If you do, you gain a +2 circumstance bonus to your Medicine check to Treat Wounds, and if you roll a success, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Medicine"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "domain": "medicine",
+                "key": "RollOption",
+                "option": "risky-surgery",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:treat-wounds",
+                    "risky-surgery"
+                ],
+                "selector": "medicine",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:treat-wounds",
+                    "risky-surgery"
+                ],
+                "selector": "medicine",
+                "text": "PF2E.SpecificRule.Feat.RiskySurgery.Note",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "risky-surgery",
+                    "action:treat-wounds"
+                ],
+                "selector": "medicine"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

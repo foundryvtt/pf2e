@@ -1,0 +1,73 @@
+{
+    "_id": "2KVllUXqgWq7jCmX",
+    "folder": "7E5ZCh3keLd9G4U8",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Sanguine Tenacity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "general",
+        "description": {
+            "value": "<p>Your blood carries permanent regenerative properties. The penalties from @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled] and the penalties and lost HP from @UUID[Compendium.pf2e.conditionitems.Item.Drained] both affect you as if the condition values were 1 lower than they actually are. You also gain resistance 5 to persistent bleed damage and reduce the DC of checks to recover from persistent bleed damage to 11, or 6 if you have particularly effective assistance.</p>"
+        },
+        "level": {
+            "value": 11
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Constitution +4"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #213: Thirst for Blood"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "bleed",
+                "value": 5
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    "item:damage:type:bleed"
+                ],
+                "property": "pd-recovery-dc",
+                "value": 11
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "penalty:slug:drained",
+                            "penalty:slug:enfeebled"
+                        ]
+                    }
+                ],
+                "selectors": [
+                    "con-based",
+                    "str-based",
+                    "str-damage"
+                ],
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,68 @@
+{
+    "_id": "SPyvwsiSghySIEw2",
+    "folder": "DHDisl3wodueFQqb",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Dragon's Presence",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>As kin to dragonkind, you project unflappable confidence (that collapses catastrophically against the deadliest foes). When you roll a success on a saving throw against a fear effect, you get a critical success instead. When you roll a failure against a fear effect, you get a critical failure instead.</p>\n<p>In addition, when you attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a foe of your level or lower, you gain a +1 circumstance bonus to the Intimidation check.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "dragonscaled kobold heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:demoralize",
+                    {
+                        "lte": [
+                            "target:level",
+                            "self:level"
+                        ]
+                    }
+                ],
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "failure": "one-degree-worse",
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kobold"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,61 @@
+{
+    "_id": "J2CPfHKPvu6RGfY6",
+    "folder": "sq5A4cYiGvmTDSCn",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Fully Flighted",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can take to the skies at any time. You have a fly Speed of 25 feet at all times.</p>\n<hr />\n<p><strong>Special</strong> You can take this feat a second time. If you do, your fly Speed increases to 35 feet.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "maxTakable": 2,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Juvenile Flight"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": 25
+            },
+            {
+                "count": true,
+                "key": "RollOption",
+                "option": "fully-flighted"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "fully-flighted:2"
+                ],
+                "selector": "fly",
+                "value": 35
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "strix"
+            ]
+        }
+    },
+    "type": "feat"
+}

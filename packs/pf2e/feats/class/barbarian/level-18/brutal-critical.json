@@ -1,0 +1,77 @@
+{
+    "_id": "oNHmfpe8ezZ3eKDD",
+    "folder": "YKhcT1u59YeMzBdB",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Brutal Critical",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your critical hits are particularly devastating. On a critical hit with a melee Strike, add one extra damage die. This is in addition to any extra dice you gain if the weapon is deadly or fatal. The target also takes persistent bleed damage equal to two damage dice.</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "critical": true,
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "item:trait:thrown",
+                                    "feat:raging-thrower"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "critical": true,
+                "damageType": "bleed",
+                "diceNumber": 2,
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "item:trait:thrown",
+                                    "feat:raging-thrower"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian"
+            ]
+        }
+    },
+    "type": "feat"
+}

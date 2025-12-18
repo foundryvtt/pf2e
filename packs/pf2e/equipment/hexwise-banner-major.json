@@ -39,6 +39,22 @@
         "quantity": 1,
         "rules": [
             {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.Banner.CommandersBanner",
+                "mergeable": true,
+                "option": "magical-commanders-banner",
+                "predicate": [
+                    "feature:commanders-banner"
+                ],
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "hexwise-banner-major"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
                 "effects": [
                     {
                         "affects": "allies",
@@ -53,9 +69,36 @@
                     }
                 ],
                 "key": "Aura",
-                "level": 10,
+                "level": 20,
+                "predicate": [
+                    {
+                        "not": "magical-commanders-banner:hexwise-banner-major"
+                    }
+                ],
+                "radius": 30
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "alterations": [
+                            {
+                                "mode": "add",
+                                "property": "other-tags",
+                                "value": "major-hexwise-banner"
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Hexwise Banner"
+                    }
+                ],
+                "key": "Aura",
+                "level": 20,
+                "predicate": [
+                    "magical-commanders-banner:hexwise-banner-major",
+                    "commanders-banner"
+                ],
                 "radius": 30,
-                "traits": []
+                "slug": "commanders-banner"
             }
         ],
         "size": "med",

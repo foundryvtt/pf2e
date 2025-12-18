@@ -1,0 +1,62 @@
+{
+    "_id": "5cYFHKQK6OZCwavI",
+    "folder": "haKvrUgHnaDVby96",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Detective's Readiness",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>When you're on a case, you stay watchful and resolute to avoid tricks your suspect might pull. You gain your investigation bonus from @UUID[Compendium.pf2e.actionspf2e.Item.Pursue a Lead] on saving throws (and their DCs, as normal) against creatures or effects that are related to the question at the heart of an open investigation, and you can use @UUID[Compendium.pf2e.actionspf2e.Item.Clue In] to assist an ally's saving throw against that creature or effect.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:clue-in"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Investigator.DetectivesReadiness.ClueInAddendum"
+                    }
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "pursue-a-lead"
+                ],
+                "selector": "saving-throw",
+                "slug": "pursue-a-lead",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,116 @@
+{
+    "_id": "ciI4pld6HFRUjFB6",
+    "folder": "Rb0LCHMIM1hidBPa",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Officer's Education",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You know that a broad knowledge base is critical for a competent commander. You become trained in two skills you are not already trained in, become an expert in one skill you are currently trained in, learn one common language you do not already know, and gain any one general feat that you meet the prerequisites for.</p><hr /><p><strong>Special</strong> You can take this feat twice, gaining its benefits each time.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "maxTakable": 2,
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        "skill:{choice|value}:rank:0"
+                    ]
+                },
+                "flag": "firstTrainedSkill",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.firstTrainedSkill}",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        "skill:{choice|value}:rank:0"
+                    ]
+                },
+                "flag": "secondTrainedSkill",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.secondTrainedSkill}.rank",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        "skill:{choice|value}:rank:1"
+                    ]
+                },
+                "flag": "expertSkill",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.expertSkill}.rank",
+                "value": 2
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "gte": [
+                                "self:level",
+                                "item:level"
+                            ]
+                        },
+                        "item:trait:general"
+                    ]
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Feat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            }
+        ],
+        "subfeatures": {
+            "languages": {
+                "slots": 1
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "commander"
+            ]
+        }
+    },
+    "type": "feat"
+}

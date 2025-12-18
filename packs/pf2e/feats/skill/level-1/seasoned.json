@@ -1,0 +1,70 @@
+{
+    "_id": "1Eceqc6zbMj2x0q9",
+    "folder": "QhHpEbq98ZJAyDiH",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Seasoned",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You've mastered the preparation of many types of food and drink. You gain a +1 circumstance bonus to checks to @UUID[Compendium.pf2e.actionspf2e.Item.Craft] food and drink, including elixirs if you have @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] and potions if you have @UUID[Compendium.pf2e.feats-srd.Item.Magical Crafting]. If you are a master in one of the prerequisite skills, this bonus increases to +2.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Alcohol Lore, Cooking Lore, or Crafting"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:craft",
+                    {
+                        "or": [
+                            "item:tag:food",
+                            "item:tag:drink",
+                            {
+                                "and": [
+                                    "feat:magical-crafting",
+                                    "item:trait:potion"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "feat:alchemical-crafting",
+                                    "item:trait:elixir"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "crafting",
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.system.skills.crafting.rank,3),2,1)"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,80 @@
+{
+    "_id": "1jZ7f4TJqiFH8Ied",
+    "folder": "w5BkycSvKeGqWXkU",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Thunder God's Fan",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your fan unleashes the fury of the storm. You can use the Wave Fan activation one additional time per day. Add a 5th-rank @UUID[Compendium.pf2e.spells-srd.Item.Lightning Bolt] spell to the spells contained within your fan.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Tengu Feather Fan"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:lightning-bolt",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "tengu-fan"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:lightning-bolt",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:tengu"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:rank:5",
+                    "item:tag:tengu-fan",
+                    "item:slug:lightning-bolt"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Tengu.TenguFan.LightningBolt"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tengu"
+            ]
+        }
+    },
+    "type": "feat"
+}

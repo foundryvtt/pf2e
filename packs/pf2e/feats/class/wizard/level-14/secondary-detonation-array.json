@@ -1,0 +1,119 @@
+{
+    "_id": "cFQKqLf6InMDzADv",
+    "folder": "b76ifiQyOqztudft",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Secondary Detonation Array",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You divert some of your spell's energy into an unstable runic array. If your next action is to Cast a Spell that deals damage, has no duration, and affects an area, a glowing magic circle appears in a @Template[burst|distance:5] within that area. At the beginning of your next turn, the circle detonates, dealing @Damage[1d6[force]] damage per rank of the spell to all creatures within the circle, with a basic Reflex save against your spell DC. If the spell dealt a different type of damage, the circle deals this type of damage instead (or one type of your choice if the spell could deal multiple types of damage).</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:secondary-detonation-array"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.SecondaryDetonationArray"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "secondary-detonation-array"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Prompt.DamageType",
+                "option": "array-damage",
+                "placement": "spellcasting",
+                "predicate": [
+                    "spellshape:secondary-detonation-array"
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitMental",
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.spellshape.arrayDamage",
+                "value": "{item|flags.pf2e.rulesSelections.arrayDamage}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "manipulate",
+                "spellshape",
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

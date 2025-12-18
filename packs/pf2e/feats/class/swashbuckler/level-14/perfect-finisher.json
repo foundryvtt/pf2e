@@ -1,0 +1,68 @@
+{
+    "_id": "BuaTJxALqxM5EZav",
+    "folder": "jXZkQyOllRg0YzFO",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Perfect Finisher",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You focus your panache into an impeccable assault. Make a Strike, rolling the attack roll twice and using the better result.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Label",
+                "mergeable": true,
+                "option": "finisher",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Perfect",
+                        "value": "perfect"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "finisher:perfect"
+                ],
+                "removeAfterRoll": false,
+                "selector": "strike-attack-roll"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "finisher",
+                "fortune",
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

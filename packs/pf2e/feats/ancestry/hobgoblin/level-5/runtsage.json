@@ -1,0 +1,62 @@
+{
+    "_id": "qUZnrueC2a0zf95N",
+    "folder": "UYX0lvZZlWDbaW7W",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Runtsage",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Unlike most of your kind, who dismiss goblins as embarrassments or expendable annoyances, you have studied the methodology behind their irresponsible and incomprehensible actions. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Adopted Ancestry] general feat and must select goblin as the feat's chosen ancestry. You also gain one 1st-level goblin ancestry feat.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "ancestry": "goblin"
+                },
+                "uuid": "Compendium.pf2e.feats-srd.Item.Adopted Ancestry"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:1",
+                        "item:category:ancestry",
+                        "item:trait:goblin"
+                    ],
+                    "itemType": "feat"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneAncestryFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.runtsage}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "hobgoblin"
+            ]
+        }
+    },
+    "type": "feat"
+}

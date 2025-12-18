@@ -1,0 +1,122 @@
+{
+    "_id": "vUBMjoOiZiMzdc18",
+    "folder": "42aYWmPxl2i0PBGT",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Oath of the Slayer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>During your daily preparations, you can swear an oath to defeat, topple, or destroy a certain kind of enemy during your deeds that day. Choose aberrations, celestials, dragons, fiends, or undead. You can't choose celestials if you're holy, nor can you choose fiends if you're unholy. You gain an edict to banish or slay creatures of that kind.</p>\n<p>Your Strikes and devotion spells that deal damage do an additional 1 spirit damage against a creature with the chosen trait. This damage increases to 2 at 7th level and 3 at 14th level. If a creature with the chosen trait triggers your champion's reaction, this additional damage doubles until the end of your next turn.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "oath-of-the-slayer",
+                "phase": "beforeDerived",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitAberration",
+                        "value": "aberration"
+                    },
+                    {
+                        "label": "PF2E.TraitCelestial",
+                        "predicate": [
+                            {
+                                "not": "self:trait:holy"
+                            }
+                        ],
+                        "value": "celestial"
+                    },
+                    {
+                        "label": "PF2E.TraitDragon",
+                        "value": "dragon"
+                    },
+                    {
+                        "label": "PF2E.TraitFiend",
+                        "predicate": [
+                            {
+                                "not": "self:trait:unholy"
+                            }
+                        ],
+                        "value": "fiend"
+                    },
+                    {
+                        "label": "PF2E.TraitUndead",
+                        "value": "undead"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Champion.OathOfTheSlayer.RollOptionLabel",
+                "option": "oath-of-the-slayer-double",
+                "toggleable": true
+            },
+            {
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:{item|flags.pf2e.rulesSelections.oathOfTheSlayer}",
+                    {
+                        "or": [
+                            "action:strike",
+                            {
+                                "and": [
+                                    "item:type:spell",
+                                    "item:trait:champion",
+                                    "item:trait:focus"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": [
+                    "strike-damage",
+                    "spell-damage"
+                ],
+                "slug": "oath-of-the-slayer",
+                "value": "ternary(gte(@actor.level,14),3,ternary(gte(@actor.level,7),2,1))"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "oath-of-the-slayer-double"
+                ],
+                "selectors": [
+                    "strike-damage",
+                    "spell-damage"
+                ],
+                "slug": "oath-of-the-slayer",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion",
+                "oath"
+            ]
+        }
+    },
+    "type": "feat"
+}

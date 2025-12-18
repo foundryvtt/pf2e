@@ -1,0 +1,53 @@
+{
+    "_id": "9QQnv7nFpsNCGE89",
+    "folder": "Ak9gc6BXJUsrBm7q",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Thorough Search",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "general",
+        "description": {
+            "value": "<p>You take your time searching to ensure you find everything. When Searching, you can take twice as long to search. Normally this means you @UUID[Compendium.pf2e.actionspf2e.Item.Search] at up to one quarter of your Speed, to a maximum of 150 feet per minute to check everything, or 75 feet per minute to check everything before you walk into an area. If you do and the GM rolls your secret check to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] to notice something, you gain a +2 circumstance bonus to that Perception check and if you succeed, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Perception"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Thorough Search (Seek thoroughly)",
+                "predicate": [
+                    "action:seek",
+                    "thorough-search"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general"
+            ]
+        }
+    },
+    "type": "feat"
+}

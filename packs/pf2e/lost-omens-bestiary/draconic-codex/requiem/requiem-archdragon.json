@@ -517,11 +517,11 @@
                     "value": 43
                 },
                 "damageRolls": {
-                    "7Pn38tjoqBGkzW28": {
+                    "0": {
                         "damage": "4d10+20",
                         "damageType": "piercing"
                     },
-                    "u6DGalB2r9nQA3bR": {
+                    "1": {
                         "damage": "2d8",
                         "damageType": "spirit"
                     }
@@ -563,13 +563,13 @@
                     "value": 43
                 },
                 "damageRolls": {
-                    "Fjg3hYGegjgQCNNl": {
+                    "0": {
+                        "damage": "4d6+20",
+                        "damageType": "slashing"
+                    },
+                    "1": {
                         "damage": "2d8",
                         "damageType": "spirit"
-                    },
-                    "ZCkMFmr8GQz5wzmx": {
-                        "damage": "4d6+20",
-                        "damageType": "bludgeoning"
                     }
                 },
                 "description": {
@@ -608,13 +608,13 @@
                     "value": 41
                 },
                 "damageRolls": {
-                    "Xf75oBiFF7upMAS8": {
-                        "damage": "2d8",
-                        "damageType": "spirit"
-                    },
-                    "jainTFZHfc1o99pG": {
+                    "0": {
                         "damage": "4d8+20",
                         "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "2d8",
+                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -699,10 +699,49 @@
             "type": "action"
         },
         {
+            "_id": "7EdIcHsa1I9Lv9dL",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs. Divine",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:divine"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "So4yBcmRWdbLG8JN",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Soul Anchor",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -712,7 +751,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A creature within 60 feet would drop to 0 Hit Points</p><hr /><p><strong>Effect</strong> The dragon anchors the triggering creature's soul to its body. The creature remains at 1 Hit Point, becomes @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2}, and gains fast healing equal to the dragon's level for 1 minute. The creature becomes temporarily immune to further Soul Anchor usages for 24 hours.</p>"
+                    "value": "<p>A creature within 60 feet would drop to 0 Hit Points</p><hr /><p><strong>Effect</strong> The dragon anchors the triggering creature's soul to its body. The creature remains at 1 Hit Point, becomes @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 2}, and gains fast healing equal to the dragon's level for 1 minute. The creature becomes temporarily immune to further Soul Anchor usages for 24 hours.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Soul Anchor]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -733,7 +772,7 @@
             "_id": "3kVLpqskZEeFu5Jc",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Withhold Death",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -750,7 +789,21 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "withhold-death",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "withhold-death"
+                        ],
+                        "type": "all-damage",
+                        "value": 25
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -764,7 +817,7 @@
             "_id": "O3ebBljtcItTfmVr",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Dooming Breath",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -796,7 +849,7 @@
             "_id": "OPtrKq8gnuusiAqH",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Draconic Frenzy",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -825,7 +878,7 @@
             "_id": "WS1ygMI5ueVbLBHQ",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Draconic Momentum",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -864,7 +917,7 @@
             "_id": "DEBBR8MAQkVMQvCH",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Redirect River",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -874,7 +927,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The requiem dragon redirects a small portion of the River of Souls, using their body as a spiritual connection. The river swells around them, filling the area in a @Template[type:emanation|distance:20] for 1 round, becoming difficult terrain to all other creatures. Additionally, creatures that begin their turn in the emanation or enter it for the first time each round must succeed a @Check[fortitude|dc:48|basic] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}. If the target is already drained or doomed, the value increases by 1 (to a maximum of 4). The dragon can Sustain the effect.</p>"
+                    "value": "<p>The requiem dragon redirects a small portion of the River of Souls, using their body as a spiritual connection. The river swells around them, filling the area in a @Template[type:emanation|distance:20] for 1 round, becoming difficult terrain to all other creatures. Additionally, creatures that begin their turn in the emanation or enter it for the first time each round must succeed a @Check[fortitude|dc:48|basic|options:inflicts:drained,inflicts:doomed] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}. If the target is already drained or doomed, the value increases by 1 (to a maximum of 4). The dragon can Sustain the effect.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -897,7 +950,7 @@
             "_id": "pVA84K2nKuClLYVw",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Soul Shield",
-            "sort": 1600000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -907,7 +960,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The requiem dragon uses their life essence to create a shield of spiritual energy around a creature within 60 feet. The shield creates a link between the dragon and the creature with the effects of share life except that the effect doesn't end regardless of distance and remains for 1 hour. In addition, the creature gains resistance 15 to physical and spirit damage that applies to the half of damage it receives. The dragon can Dismiss the effect.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The requiem dragon uses their life essence to create a shield of spiritual energy around a creature within 60 feet. The shield creates a link between the dragon and the creature with the effects of @UUID[Compendium.pf2e.spells-srd.Item.Share Life] except that the effect doesn't end regardless of distance and remains for 1 hour. In addition, the creature gains resistance 15 to physical and spirit damage that applies to the half of damage it receives. The dragon can Dismiss the effect.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -933,7 +986,7 @@
             "_id": "uX2JFdym04YYtdKR",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Spare the Dying, Free the Tormented",
-            "sort": 1700000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -968,7 +1021,7 @@
             "_id": "oXJgxIrIyKID2ZOf",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "River of Souls Lore",
-            "sort": 1800000,
+            "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""

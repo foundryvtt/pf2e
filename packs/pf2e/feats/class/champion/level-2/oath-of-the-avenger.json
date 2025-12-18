@@ -1,0 +1,84 @@
+{
+    "_id": "483yvMrNZFV3fiSo",
+    "folder": "42aYWmPxl2i0PBGT",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Oath of the Avenger",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've sworn an oath to punish wicked acts you witness. You gain the edict \"hunt down those who have harmed innocents or committed heinous atrocities.\" When you see a creature harm an ally, an innocent, or a noncombatant, you can invoke your oath against that creature. Like speaking, this doesn't require an action. Most champions choose to invoke these oaths out loud if they're able. The invocation lasts indefinitely, though you can choose to end if you are satisfied that the target has reformed, atoned, or been forgiven.</p>\n<p>You can use @UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands] to damage a creature you have invoked your oath against as if it were undead; in this case, <em>lay on hands</em> deals spirit damage instead of vitality damage, gains the spirit trait, and loses the vitality trait. This doesn't prevent you from healing such a creature with <em>lay on hands</em> if you so choose.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "lay on hands"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "oath-of-the-avenger",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:lay-on-hands",
+                    "oath-of-the-avenger"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": "spirit"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:lay-on-hands",
+                    "oath-of-the-avenger"
+                ],
+                "property": "traits",
+                "value": "vitality"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:lay-on-hands",
+                    "oath-of-the-avenger"
+                ],
+                "property": "traits",
+                "value": "spirit"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion",
+                "oath"
+            ]
+        }
+    },
+    "type": "feat"
+}

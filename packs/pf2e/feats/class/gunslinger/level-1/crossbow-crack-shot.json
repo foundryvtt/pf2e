@@ -1,0 +1,88 @@
+{
+    "_id": "s6h0xkdKf3gecLk6",
+    "folder": "KnXvyA7sSu2Rr2Hh",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Crossbow Crack Shot",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're exceptionally skilled with the crossbow. The first time each round that you Interact to reload a crossbow you are wielding, including Interact actions as part of your slinger's reload and similar effects, you increase the range increment for your next Strike with that weapon by 10 feet and deal 1 additional precision damage per weapon damage die with that Strike. If your crossbow has the backstabber trait and you are attacking an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] target, backstabber deals 2 additional precision damage per weapon damage die instead of its normal effects.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "domain": "damage",
+                "key": "RollOption",
+                "option": "crossbow-crack-shot",
+                "toggleable": true
+            },
+            {
+                "damageCategory": "precision",
+                "key": "FlatModifier",
+                "predicate": [
+                    "crossbow-crack-shot"
+                ],
+                "selector": "crossbow-weapon-group-damage",
+                "slug": "crossbow-crack-shot-bonus",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "crossbow-crack-shot"
+                ],
+                "selector": "crossbow-weapon-group-damage",
+                "slug": "backstabber",
+                "suppress": true
+            },
+            {
+                "definition": [
+                    "item:group:crossbow"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "crossbow-crack-shot"
+                ],
+                "property": "range-increment",
+                "value": 10
+            },
+            {
+                "damageCategory": "precision",
+                "key": "FlatModifier",
+                "label": "PF2E.TraitBackstabber",
+                "predicate": [
+                    "crossbow-crack-shot",
+                    "item:trait:backstabber",
+                    "target:condition:off-guard"
+                ],
+                "selector": "crossbow-weapon-group-damage",
+                "slug": "crossbow-crack-shot-backstabber",
+                "value": "2*@weapon.system.damage.dice"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

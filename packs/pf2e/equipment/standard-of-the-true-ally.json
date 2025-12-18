@@ -37,7 +37,44 @@
             "title": "Pathfinder Battlecry!"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.Banner.CommandersBanner",
+                "mergeable": true,
+                "option": "magical-commanders-banner",
+                "predicate": [
+                    "feature:commanders-banner"
+                ],
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "standard-of-the-true-ally"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Aura",
+                "level": 10,
+                "predicate": [
+                    {
+                        "not": "magical-commanders-banner:standard-of-the-true-ally"
+                    }
+                ],
+                "radius": 30
+            },
+            {
+                "key": "Aura",
+                "level": 10,
+                "predicate": [
+                    "magical-commanders-banner:standard-of-the-true-ally",
+                    "commanders-banner"
+                ],
+                "radius": 30,
+                "slug": "commanders-banner"
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "uncommon",

@@ -1,0 +1,61 @@
+{
+    "_id": "ZaEK0IGhxqd1yH6Q",
+    "folder": "xDATwQrlaPHzQ3tv",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Uplifting Winds",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The winds are eager to keep you aloft. When you are flying and Cast a Spell that has the air or electricity traits, you gain a +10 status bonus to your fly Speed, and you can immediately Fly up to half your Speed.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "storm order"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:air",
+                            "item:trait:electricity"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

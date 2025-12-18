@@ -1,0 +1,60 @@
+{
+    "_id": "8MMYFIudSDkdo8cx",
+    "folder": "GIgYFdpFEabcVZwR",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Rat Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>There always seems to be a little rat around to carry messages for you. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Animal Messenger] once per day as a primal innate spell. When you do, the animal that responds is always a rat. If there are no rats within range, the spell is lost.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:animal-messenger",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:animal-messenger",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:ratfolk"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ratfolk"
+            ]
+        }
+    },
+    "type": "feat"
+}

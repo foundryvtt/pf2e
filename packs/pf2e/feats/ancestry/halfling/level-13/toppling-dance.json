@@ -1,0 +1,58 @@
+{
+    "_id": "l78KwojlT0AWvS4l",
+    "folder": "8or9hUgGJnobQHnP",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Toppling Dance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>While sharing a creature's space using Dance Underfoot, your melee weapons and unarmed attacks gain the trip trait, but only against the creature whose space you share. You can be in the same space as a Large or larger @UUID[Compendium.pf2e.conditionitems.Item.Prone] creature, even if it's not your ally.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Dance Underfoot"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "toppling-dance",
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:melee",
+                    "toppling-dance"
+                ],
+                "property": "traits",
+                "value": "trip"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "halfling"
+            ]
+        }
+    },
+    "type": "feat"
+}
