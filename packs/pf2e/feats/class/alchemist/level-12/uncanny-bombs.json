@@ -1,0 +1,65 @@
+{
+    "_id": "9Ht1eyBHsB1swpeE",
+    "folder": "ssE4ppnIBXHHXNfh",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Uncanny Bombs",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You lob bombs unerringly, despite obstructions or distance. When you throw an alchemical item with the bomb trait, its range increment increases to 60 feet, you reduce any circumstance bonus to the target's AC from cover by 1, and you automatically succeed at the flat check when targeting a @UUID[Compendium.pf2e.conditionitems.Item.Concealed] creature.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Far Lobber"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:base:alchemical-bomb"
+                ],
+                "key": "AdjustStrike",
+                "mode": "upgrade",
+                "property": "range-increment",
+                "value": 60
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "target:condition:concealed"
+                ],
+                "selector": "alchemical-bomb-base-attack-roll",
+                "text": "PF2E.SpecificRule.Alchemist.UncannyBombs.Note",
+                "title": "{item|name}"
+            },
+            {
+                "key": "EphemeralEffect",
+                "selectors": "alchemical-bomb-base-attack-roll",
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Uncanny Bombs"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "alchemist"
+            ]
+        }
+    },
+    "type": "feat"
+}

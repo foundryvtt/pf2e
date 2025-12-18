@@ -1,0 +1,51 @@
+{
+    "_id": "2wLfchKVDSKBOIpV",
+    "folder": "qaFEReXeEWqOIgdB",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Soaring Armor",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Whether through a release of jets of flame, propeller blades, sonic bursts, streamlined aerodynamic structure, electromagnetic fields, or some combination of the above, you've managed to free your innovation from the bonds of gravity! While wearing your innovation, you gain a fly Speed equal to your land Speed.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "armor innovation"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}"
+                ],
+                "selector": "fly",
+                "value": "@actor.system.movement.speeds.land.value"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor",
+                "modification"
+            ]
+        }
+    },
+    "type": "feat"
+}

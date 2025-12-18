@@ -1,0 +1,58 @@
+{
+    "_id": "fOIUmDGa9gkeCHA0",
+    "folder": "DyRBgZFecoHorfy8",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Supertaster",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "general",
+        "description": {
+            "value": "<p>You have refined your palate and have a discerning sense of taste that can detect abnormalities in the flavor and texture of food and beverages. When eating food or drinking a beverage, you automatically attempt to identify the ingredients, which might alert you to the presence of alterations or additives, such as poisons. The GM rolls a secret Perception check against a DC determined by the poison's level; if the food or drink is poisoned, on a success, you learn that the food or drink was poisoned, but not the specific poison used. If you successfully detect that the food or drink was poisoned, you can spit out the food or drink in time to not be exposed to that instance of the poison (unless you resume eating or drinking the poisoned food or beverage).</p>\n<p>If you lick or taste something while Investigating or attempting to Recall Knowledge to identify something, and if the taste would provide relevant additional information (at the GM's discretion), you gain a +2 circumstance bonus to your check.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "master in Perception"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Supertaster (recall knowledge or investigate via taste)",
+                "predicate": [
+                    "taste",
+                    {
+                        "or": [
+                            "action:recall-knowledge",
+                            "action:investigate"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general"
+            ]
+        }
+    },
+    "type": "feat"
+}

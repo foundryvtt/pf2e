@@ -1,0 +1,64 @@
+{
+    "_id": "vw93yCHEmxutFO8h",
+    "folder": "eiQMbX5ynd8B0yZW",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Repositioning Block",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You used @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] to prevent damage from an adjacent creature's attack.</p><hr /><p>As you absorb a blow from an enemy, you can use their attack's momentum against them. Attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Reposition] the creature whose attack you used Shield Block against. You don't need to have a hand free to do so. You gain a +1 item bonus to the Athletics check if your shield is at least 4th level, a +2 item bonus if your shield is at least 10th level, and a +3 item bonus if your shield is at least 16th level.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Shield Block"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "repositioning-block",
+                    "action:reposition",
+                    "self:shield:equipped",
+                    {
+                        "gte": [
+                            "{actor|heldShield.system.level.value}",
+                            4
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": "max(1,((@actor.heldShield.system.level.value + 2)/ 6))"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "guardian"
+            ]
+        }
+    },
+    "type": "feat"
+}

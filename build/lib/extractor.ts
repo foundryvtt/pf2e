@@ -15,8 +15,9 @@ import { JSDOM } from "jsdom";
 import path from "path";
 import process from "process";
 import * as R from "remeda";
-import systemJSON from "../../static/system.json" with { type: "json" };
 import templateJSON from "../../static/template.json" with { type: "json" };
+import systemPF2eJSON from "../../system.pf2e.json" with { type: "json" };
+import systemSF2eJSON from "../../system.sf2e.json" with { type: "json" };
 import { CompendiumPack, isActorSource, isItemSource } from "./compendium-pack.ts";
 import { PackError, getFilesRecursively } from "./helpers.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
@@ -77,13 +78,17 @@ class PackExtractor {
 
     disablePresort: boolean;
 
+    systemId: SystemId;
+
     constructor(params: ExtractArgs) {
         this.emitWarnings = !!params.logWarnings;
         this.packDB = params.packDb;
         this.disablePresort = !!params.disablePresort;
+        this.systemId = params.system;
 
         this.tempDataPath = path.resolve(process.cwd(), "packs-temp");
         this.dataPath = path.resolve(process.cwd(), "packs", params.system);
+        const systemJSON = this.systemId === "pf2e" ? systemPF2eJSON : systemSF2eJSON;
         this.packsMetadata = systemJSON.packs as unknown as CompendiumMetadata[];
     }
 
@@ -93,9 +98,9 @@ class PackExtractor {
             await fs.promises.mkdir(this.dataPath);
         }
 
-        const packsPath = path.join(process.cwd(), "dist", "packs");
+        const packsPath = path.join(process.cwd(), "dist", this.systemId, "packs");
         if (!fs.existsSync(packsPath)) {
-            throw Error("`dist/` directory not found! Build first if you haven't.");
+            throw Error(`directory at ${packsPath} not found! Build first if you haven't.`);
         }
 
         console.log("Cleaning up old temp data...");
@@ -124,7 +129,7 @@ class PackExtractor {
 
                     const sourceCount = await this.extractPack(filePath, dbDirectory);
 
-                    // Move ./packs-temp/[packname]/ to ./packs/[packname]/
+                    // Move ./packs-temp/[packname]/ to ./packs/[system]/[packname]/
                     fs.rmSync(outDirPath, { recursive: true, force: true });
                     await fs.promises.rename(tempOutDirPath, outDirPath);
 
@@ -139,7 +144,7 @@ class PackExtractor {
         console.log(`Extracting pack: ${packDirectory} (Presorting: ${this.disablePresort ? "Disabled" : "Enabled"})`);
         const outPath = path.resolve(this.tempDataPath, packDirectory);
 
-        const db = await LevelDatabase.connect(filePath, { packName: packDirectory });
+        const db = await LevelDatabase.connect(filePath, { packName: packDirectory, systemId: this.systemId });
         const { packSources, folders } = await db.getEntries();
 
         // Prepare subfolder data
@@ -296,7 +301,7 @@ class PackExtractor {
     #sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { isEmbedded: false }): T {
         // Clear non-core/pf2e flags
         for (const flagScope in docSource.flags) {
-            if (!["core", "pf2e"].includes(flagScope) || !isEmbedded) {
+            if (!["core", this.systemId].includes(flagScope) || !isEmbedded) {
                 delete docSource.flags[flagScope];
             }
         }
@@ -415,7 +420,6 @@ class PackExtractor {
                 );
             }
         }
-
         return docSource;
     }
 
@@ -440,13 +444,14 @@ class PackExtractor {
 
                 if ("img" in docSource && typeof docSource.img === "string") {
                     docSource.img = docSource.img.replace(
-                        "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
-                        "systems/pf2e/",
+                        `https://assets.forge-vtt.com/bazaar/systems/${this.systemId}/assets/`,
+                        `systems/${this.systemId}/`,
                     ) as ImageFilePath;
                 }
 
-                if (R.isPlainObject(docSource.flags?.pf2e) && Object.keys(docSource.flags.pf2e).length === 0) {
-                    delete docSource.flags.pf2e;
+                const systemFlags = docSource.flags?.[this.systemId];
+                if (R.isPlainObject(systemFlags) && Object.keys(systemFlags).length === 0) {
+                    delete docSource.flags[this.systemId];
                 }
                 if (Object.keys(docSource.flags ?? {}).length === 0) {
                     delete (docSource as { flags?: object }).flags;

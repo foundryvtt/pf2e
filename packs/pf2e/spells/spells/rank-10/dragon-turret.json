@@ -1,0 +1,124 @@
+{
+    "_id": "eAOClJ1KRSPik8SX",
+    "folder": "x5tjEh1N0FHzbHkv",
+    "img": "icons/magic/fire/projectile-beams-salvo-red.webp",
+    "name": "Dragon Turret",
+    "system": {
+        "area": {
+            "type": "cylinder",
+            "value": 10
+        },
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {
+            "EOjlR2U7ZKBcz8lK": {
+                "applyMod": false,
+                "category": null,
+                "formula": "13d8",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "untyped"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "reflex"
+            }
+        },
+        "description": {
+            "value": "<p><strong>Area</strong> (continued) an empty 10-foot radius, 50-foot-tall cylinder</p><hr /><p>You conjure forth a massive tower with a large dragon that's bound to crawl its length. The dragon and the tower share the same space, and the dragon intercepts any attack targeting the tower. When the dragon dies, the tower crumbles. The dragon is immune to all conditions, has an AC of 40, a +30 modifier for all saving throws, and 250 Hit Points. When you Cast the Spell, and once per round when you Sustain it, the dragon unleashes its breath in a @Template[type:cone|distance:60], dealing 13d8 damage (basic Reflex save). The damage type depends on the tradition used to cast this spell: <strong>arcane</strong> force, <strong>divine</strong> spirit, <strong>occult</strong> mental, <strong>primal</strong> fire.</p>"
+        },
+        "duration": {
+            "sustained": true,
+            "value": "10 minutes"
+        },
+        "level": {
+            "value": 10
+        },
+        "overlays": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "range": {
+            "value": "500 feet"
+        },
+        "requirements": "",
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "spellcasting:tradition:arcane"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-damage"
+                ],
+                "value": "force"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "spellcasting:tradition:divine"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-damage"
+                ],
+                "value": "spirit"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "spellcasting:tradition:occult"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-damage"
+                ],
+                "value": "mental"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "spellcasting:tradition:primal"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-damage"
+                ],
+                "value": "fire"
+            }
+        ],
+        "target": {
+            "value": ""
+        },
+        "time": {
+            "value": "3"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "traditions": [
+                "arcane",
+                "divine",
+                "occult",
+                "primal"
+            ],
+            "value": [
+                "concentrate",
+                "manipulate"
+            ]
+        }
+    },
+    "type": "spell"
+}

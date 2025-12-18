@@ -1,0 +1,73 @@
+{
+    "_id": "AV6KZvUed7GdhHzc",
+    "folder": "xt9f1I4xC53PVsAK",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Bizarre Transformation",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The forms you take on defy belief-chimerical sights of twisted antlers or acidic drool. If your next action is to cast @UUID[Compendium.pf2e.spells-srd.Item.Untamed Form], you can change the damage type of a single unarmed attack granted by the <em>untamed form</em> form to one of the following: acid, bludgeoning, cold, electricity, fire, poison, piercing, or slashing. The chosen attack gains the appropriate trait.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Untamed Form"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:bizarre-transformation",
+                    "item:untamed-form"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.BizzareTransformation"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "bizarre-transformation"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid",
+                "manipulate",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

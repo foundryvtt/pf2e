@@ -34,7 +34,44 @@
             "title": "Pathfinder Battlecry!"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.Banner.CommandersBanner",
+                "mergeable": true,
+                "option": "magical-commanders-banner",
+                "predicate": [
+                    "feature:commanders-banner"
+                ],
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "arcane-standard-greater"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Aura",
+                "level": 20,
+                "predicate": [
+                    {
+                        "not": "magical-commanders-banner:arcane-standard-greater"
+                    }
+                ],
+                "radius": 30
+            },
+            {
+                "key": "Aura",
+                "level": 20,
+                "predicate": [
+                    "magical-commanders-banner:arcane-standard-greater",
+                    "commanders-banner"
+                ],
+                "radius": 30,
+                "slug": "commanders-banner"
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "uncommon",

@@ -1,0 +1,58 @@
+{
+    "_id": "yTqKHRz2Jv8KiXve",
+    "folder": "b6DZbemkVXVz34Ym",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Celestial Form",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You take on a celestial countenance, gaining the features of a type of celestial who serves your deity; for example, as an angel, you gain a halo and feathery wings. You gain a fly Speed equal to your Speed. You gain darkvision if you don't already have it, and you gain the celestial trait and the trait appropriate to the type of servitor you've become (archon, angel, or azata, for example).</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "holy"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "add": [
+                    "celestial"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "@actor.system.movement.speeds.land.value"
+            }
+        ],
+        "subfeatures": {
+            "senses": {
+                "darkvision": {}
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

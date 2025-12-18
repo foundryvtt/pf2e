@@ -1,0 +1,75 @@
+{
+    "_id": "VeejX9bGhI9di1eL",
+    "folder": "ZRYi6MAwifJQmFqX",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Quick Vengeance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Indignant at any who would strike you or your allies, you get your revenge. When you use @UUID[Compendium.pf2e.actionspf2e.Item.Intercept Attack] or @UUID[Compendium.pf2e.feats-srd.Item.Shield Block], you are @UUID[Compendium.pf2e.conditionitems.Item.Quickened] on your next turn. You can use the extra action only to Stride closer to the enemy whose attack triggered that reaction or to Strike that enemy.</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Intercept Attack or Shield Block"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:intercept-attack"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:shield-block"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "guardian"
+            ]
+        }
+    },
+    "type": "feat"
+}

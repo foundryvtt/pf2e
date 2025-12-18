@@ -1,0 +1,182 @@
+{
+    "_id": "RaqjaXp2miOq4Bis",
+    "folder": "Th1SHYMutVvBmHKU",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Dragonet Breath",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have developed your magical breath. You expel the dragonet breath associated with your heritage. Dragonet Breath gains the traits listed in parentheses, and the DC is your class DC or spell DC, whichever is higher. After you use Dragonet Breath, you can't use it again for [[/r 1d4 #Recharge Dragonet Breath]]{1d4 rounds}.</p><ul><li><strong>Fey Dragonet</strong> (arcane, poison) You breathe a @Template[type:cone|distance:15] of euphoric gas. Each creature in the area must succeed at a @Check[fortitude|against:class-spell|options:area-effect,inflicts:stupefied|traits:arcane,poison] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round.</li><li><strong>Homing Drake</strong> (acid) You expel a @Template[type:line|distance:30] of caustic spittle that deals @Damage[(ceil(@actor.level/2))d4[acid]|options:area-damage] damage with a @Check[reflex|against:class-spell|basic|options:area-effect,damage:material:silver|traits:acid] save. At 3rd level and every 2 levels thereafter, the damage increases by 1d4.</li><li><p><strong>House Drake</strong> (arcane, mental) You breathe out a cloud of silver mist in a @Template[type:cone|distance:15] that deals @Damage[(ceil(@actor.level/2))d4[mental]|options:area-damage] damage with a @Check[will|against:class-spell|options:area-effect|traits:arcane,mental] save. It counts as silver for the purpose of weaknesses. At 3rd level and every 2 levels thereafter, the damage increases by 1d4.</p></li><li><p><strong>Pearl Dragonet</strong> (arcane, curse) You breathe a @Template[type:cone|distance:15] of golden mist that alters the luck of creatures caught in it. Each time you use Dragonet Breath, decide if it gives good luck or bad luck. Any creature affected by your Dragonet Breath becomes temporarily immune to it for 1 hour. If your breath gives good luck, each creature in the area gains a +1 status bonus to its next attack roll or skill check before the start of your next turn. If your breath gives bad luck, each creature in the area must attempt a @Check[will|against:class-spell|options:area-effect|traits:arcane,curse] save. A creature that fails its save takes a –1 status penalty to its next attack roll or skill check before the start of your next turn. On a critical failure, the creature must instead roll twice and take the worse result on the check; this is a misfortune effect.</p></li><li><strong>Tidepool Dragonet</strong> (fire) You breathe a @Template[type:line|distance:15] of superheated gas that deals @Damage[(ceil(@actor.level/2))d4[fire]|options:area-damage] damage with a @Check[reflex|against:class-spell|basic|options:area-effect|traits:fire] save. At 3rd level and every 2 levels thereafter, the damage increases by 1d4. You can use your breath underwater even though it has the fire trait. If you do, it gains the water trait and emerges as a @Template[type:cone|distance:20] of boiling water.</li></ul>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "actorFlag": true,
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:ancestry:dragonet"
+                    ],
+                    "itemType": "heritage",
+                    "slugsAsValues": true
+                },
+                "flag": "dragonetHeritage",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "nor": [
+                            "dragonet-heritage",
+                            "dragonet-heritage-determined"
+                        ]
+                    }
+                ],
+                "rollOption": "dragonet-heritage"
+            },
+            {
+                "key": "RollOption",
+                "option": "dragonet-heritage-determined"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Dragonet.DragonetBreath.Description.Base"
+                    },
+                    {
+                        "predicate": [
+                            "dragonet-heritage:fey-dragonet"
+                        ],
+                        "text": "PF2E.SpecificRule.Dragonet.DragonetBreath.Description.FeyDragonet"
+                    },
+                    {
+                        "predicate": [
+                            "dragonet-heritage:homing-drake"
+                        ],
+                        "text": "PF2E.SpecificRule.Dragonet.DragonetBreath.Description.HomingDrake"
+                    },
+                    {
+                        "predicate": [
+                            "dragonet-heritage:house-drake"
+                        ],
+                        "text": "PF2E.SpecificRule.Dragonet.DragonetBreath.Description.HouseDrake"
+                    },
+                    {
+                        "predicate": [
+                            "dragonet-heritage:pearl-dragonet"
+                        ],
+                        "text": "PF2E.SpecificRule.Dragonet.DragonetBreath.Description.PearlDragonet"
+                    },
+                    {
+                        "predicate": [
+                            "dragonet-heritage:pearl-dragonet"
+                        ],
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Pearl Dragonet Breath]"
+                    },
+                    {
+                        "predicate": [
+                            "dragonet-heritage:tidepool-dragonet"
+                        ],
+                        "text": "PF2E.SpecificRule.Dragonet.DragonetBreath.Description.TidepoolDragonet"
+                    }
+                ]
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "dragonet-heritage:fey-dragonet",
+                            "dragonet-heritage:house-drake",
+                            "dragonet-heritage:pearl-dragonet"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "arcane"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "dragonet-heritage:fey-dragonet"
+                ],
+                "property": "traits",
+                "value": "poison"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "dragonet-heritage:homing-drake"
+                ],
+                "property": "traits",
+                "value": "acid"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "dragonet-heritage:house-drake"
+                ],
+                "property": "traits",
+                "value": "mental"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "dragonet-heritage:pearl-drake"
+                ],
+                "property": "traits",
+                "value": "curse"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "dragonet-heritage:tidepool-dragonet"
+                ],
+                "property": "traits",
+                "value": "fire"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dragonet"
+            ]
+        }
+    },
+    "type": "feat"
+}

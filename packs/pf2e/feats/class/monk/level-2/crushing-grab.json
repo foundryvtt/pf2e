@@ -1,0 +1,51 @@
+{
+    "_id": "hGjmbTNBUiJqYvsE",
+    "folder": "3LdtHxGgijmjX7gA",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Crushing Grab",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Like a powerful constrictor, you crush targets in your unyielding grasp. When you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] a creature, you can deal @Damage[@actor.abilities.str.mod[bludgeoning]]{bludgeoning damage} to that creature equal to your Strength modifier. You can make this attack nonlethal with no penalty.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:grapple"
+                ],
+                "selector": "athletics",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

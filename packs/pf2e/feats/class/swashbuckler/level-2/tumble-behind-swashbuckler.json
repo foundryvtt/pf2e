@@ -1,0 +1,67 @@
+{
+    "_id": "fU7d5P6WrfAirgip",
+    "folder": "inBGqfrvqBZdPhnn",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Tumble Behind (Swashbuckler)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your tumbling puts your foes on the back foot. When you @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through] successfully, the foe you Tumbled Through is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the next attack you make before the end of your turn.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:tumble-through"
+                ],
+                "selector": "acrobatics",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            },
+            {
+                "key": "RollOption",
+                "option": "tumble-behind",
+                "toggleable": true
+            },
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "tumble-behind"
+                ],
+                "selectors": [
+                    "strike-attack-roll",
+                    "strike-damage"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

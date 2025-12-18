@@ -1,0 +1,74 @@
+{
+    "_id": "BBj6jrdyff7QOgjH",
+    "folder": "FTKVfX0Vtqfac5CL",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Adrenaline Rush",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>In the heat of battle, you are capable of amazing feats of strength.</p>\n<p>While you are @UUID[Compendium.pf2e.actionspf2e.Item.Rage]{Raging}, increase your encumbered and maximum Bulk limits by 2; you also gain a +1 status bonus to Athletics checks to lift heavy objects, @UUID[Compendium.pf2e.actionspf2e.Item.Escape], and @UUID[Compendium.pf2e.actionspf2e.Item.Force Open].</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SkillVariant.EscapeForceOpenOrLift",
+                "predicate": [
+                    "self:effect:rage",
+                    {
+                        "or": [
+                            "action:escape",
+                            "action:force-open",
+                            "action:lift-heavy-object"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "inventory.bulk.encumberedAfterAddend",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "inventory.bulk.maxAddend",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian",
+                "rage"
+            ]
+        }
+    },
+    "type": "feat"
+}

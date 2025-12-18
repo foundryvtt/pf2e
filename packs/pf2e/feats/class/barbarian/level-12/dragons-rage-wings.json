@@ -1,0 +1,55 @@
+{
+    "_id": "bqZkAFS6eq9TKXMO",
+    "folder": "DiRLup44pJzzuHp7",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Dragon's Rage Wings",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You sprout dragon wings from your back of the same color as your chosen dragon. While you are raging, you gain a fly Speed equal to your land Speed. If you are flying when your rage ends, you start to fall, but your transformation doesn't revert until the last moment, so you take no damage from the fall and land standing up. This action gains the trait of your dragon instinct's tradition.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "dragon instinct"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|flags.pf2e.barbarian.instinct.dragon.tradition}"
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Dragon's Rage Wings",
+            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Dragon's Rage Wings"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian",
+                "morph",
+                "rage"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,80 @@
+{
+    "_id": "sIeuPW0j39fTZm08",
+    "folder": "yp4LkOsSj9T38zuy",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Conceal Spell",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Animist</strong> You speak with the unheard voice of the spirits.</p>\n<p><strong>Witch</strong> Through sheer mental effort, you can simplify the incantations and gestures needed to spellcast, leaving them barely noticeable.</p>\n<p><strong>Wizard</strong> By shaping the magical energies and parameters of your spells all in your head through sheer concentration, you can simplify the incantations and gestures needed to spellcast, leaving them barely noticeable.</p><hr /><p>If the next action you use is to Cast a Spell, the spell gains the subtle trait, hiding the shining runes, sparks of magic, and other manifestations that would usually give away your spellcasting. The trait hides only the spell's spellcasting actions and manifestations, not its effects, so an observer might still see a ray streak out from you or see you vanish into thin air.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "conceal-spell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:conceal-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.ConcealSpell"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:conceal-spell"
+                ],
+                "property": "traits",
+                "value": "subtle"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "animist",
+                "concentrate",
+                "spellshape",
+                "witch",
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

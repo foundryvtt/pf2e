@@ -1,0 +1,67 @@
+{
+    "_id": "eWQCoF7zeYSyLgB5",
+    "folder": "wnmRUU9den3HsfHw",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Strong of Wing",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can fly with a greater distance. The fly Speed you gain from Take Flight increases to 25 feet.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Take Flight"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:take-flight"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "take-flight",
+                    {
+                        "not": "feat:full-flight"
+                    }
+                ],
+                "selector": "fly-speed",
+                "value": 10
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "awakened-animal"
+            ]
+        }
+    },
+    "type": "feat"
+}

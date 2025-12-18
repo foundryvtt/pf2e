@@ -1,0 +1,60 @@
+{
+    "_id": "ewwhgHZbxHcpMdLn",
+    "folder": "465qYptcQQYFfGM0",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Glamour",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You unlock a new level of fey power and can manipulate the perceptions of others using a font of First World magic. You gain the @UUID[Compendium.pf2e.spells-srd.Item.Fey Glamour] focus spell as a primal spell that doesn't have the sorcerer trait. If you don't already have a focus pool, you gain a focus pool of 1 Focus Point.</p>\n<hr />\n<p><strong>Special</strong> This feat gains the trait appropriate for your ancestry (human for human, goblin for goblin, etc.).</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Fey Influence"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Impossible Lands"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:fey-glamour"
+                ],
+                "property": "traits",
+                "value": "sorcerer"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:fey-glamour"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            }
+        ],
+        "traits": {
+            "rarity": "rare",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,48 @@
+{
+    "_id": "SlMkuKMny7hWdNxL",
+    "folder": "LwQYVo8HbQp58xYp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Derring-Do",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>When you compound panache with even more derring-do, it somehow tends to work out. When you already have @UUID[Compendium.pf2e.classfeatures.Item.Panache], you can roll twice and use the higher result on checks to which the circumstance bonus from @UUID[Compendium.pf2e.classfeatures.Item.Stylish Combatant] applies (@UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through] and any skill actions with the bravado trait).</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "self:effect:panache",
+                    "item:trait:bravado"
+                ],
+                "selector": "skill-check"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fortune",
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

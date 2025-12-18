@@ -1,0 +1,74 @@
+{
+    "_id": "TrE7lZdKLrWzbyoZ",
+    "folder": "cVQdoapvGptfyywH",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Glorious Banner",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your banner is an awesome sight to behold. Your commander's banner now affects a @Template[type:emanation|distance:60] (or an @Template[type:burst|distance:80] if you are using Plant Banner); the status bonus to Will saves and DCs against fear effects granted to your allies increases to +2; and you and affected allies gain a +1 status bonus to AC, Fortitude saves, and Reflex saves. Enemies within the aura of your commander's banner take a –2 status penalty to Will saves as long as they can see your banner.</p>"
+        },
+        "level": {
+            "value": 20
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "alterations": [
+                            {
+                                "mode": "add",
+                                "property": "other-tags",
+                                "value": "glorious-banner"
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Commander's Banner"
+                    },
+                    {
+                        "affects": "enemies",
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Glorious Banner"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "commanders-banner"
+                ],
+                "radius": 60,
+                "slug": "commanders-banner",
+                "traits": [
+                    "emotion",
+                    "mental",
+                    "visual",
+                    "aura"
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "commander"
+            ]
+        }
+    },
+    "type": "feat"
+}

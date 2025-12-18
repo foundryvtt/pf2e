@@ -1,0 +1,51 @@
+{
+    "_id": "NgUB5toKxBd8RJmm",
+    "folder": "HML2Fc3Fs4NYFnW4",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Strategic Bypass",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your plans account for your foes' resistances, enabling you to strike a telling blow. When you hit with a Strike on which you substituted your attack roll due to @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem]{Devise a Strategem}, you ignore an amount of resistance equal to your Intelligence modifier for each resistance that applies against your attack.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:mark:devise-a-stratagem"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}

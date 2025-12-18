@@ -1,0 +1,52 @@
+{
+    "_id": "avCmIwmwJH7d7gri",
+    "folder": "KnivJMR5YQOgIzKM",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Ancestral Blood Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The magic of your bloodline mixes with that of your ancestry. You gain your blood magic effect when you cast a non-cantrip spell you gained from a heritage or an ancestry feat, in addition to the normal circumstances that trigger your blood magic.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:ancestral-spell",
+                    {
+                        "not": "item:trait:cantrip"
+                    }
+                ],
+                "priority": 121,
+                "property": "other-tags",
+                "value": "blood-magic-spell"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

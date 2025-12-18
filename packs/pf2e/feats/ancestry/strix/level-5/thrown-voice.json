@@ -1,0 +1,60 @@
+{
+    "_id": "oEvcWFvBnsZ03OGW",
+    "folder": "QaUJAei0L3HtxPbn",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Thrown Voice",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've learned how to throw your voice through the winds, tricking others as to your location. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Ventriloquism] as a primal innate spell once per day. If you're a songbird strix, you can cast it twice per day instead.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:ventriloquism",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:ventriloquism",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:strix"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "strix"
+            ]
+        }
+    },
+    "type": "feat"
+}

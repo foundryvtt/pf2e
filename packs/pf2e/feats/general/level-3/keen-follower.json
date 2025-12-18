@@ -1,0 +1,54 @@
+{
+    "_id": "fD9xjrnPfJ8aQxYA",
+    "folder": "Ak9gc6BXJUsrBm7q",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Keen Follower",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "general",
+        "description": {
+            "value": "<p>Your keen observation of your allies has made you better at following their lead. When using the Follow the Expert activity in exploration mode, you gain a +3 circumstance bonus if the ally you are following is an expert and a +4 circumstance bonus if your ally is a master.</p>\n<p>You can share your observations with others to help further coordinate the group. If the ally you are following has Quiet Allies or another skill feat that allows the group to roll a single skill check for an exploration activity and use the lowest modifier, they can instead use your modifier, even if it's not the lowest.</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:follow-the-expert",
+                    {
+                        "or": [
+                            "follow-the-expert:proficiency:rank:2",
+                            "follow-the-expert:proficiency:rank:3"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "slug": "follow-the-expert-circumstance",
+                "value": "@actor.flags.pf2e.followTheExpertProficiency+1"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general"
+            ]
+        }
+    },
+    "type": "feat"
+}

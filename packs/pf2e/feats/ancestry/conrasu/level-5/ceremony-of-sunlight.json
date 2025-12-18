@@ -1,0 +1,50 @@
+{
+    "_id": "ZwvSiuFFsyNGJiB3",
+    "folder": "zJQpwjEiYy2GeAiI",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Ceremony of Sunlight",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have learned how to master the power contained within sunlight, just like the trees that form your body. Your @UUID[Compendium.pf2e.ancestryfeatures.Item.Sunlight Healing] recovers 1d8 Hit Points per level.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens The Mwangi Expanse"
+        },
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:slug:sunlight-healing"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "inline-healing"
+                ],
+                "value": "@actor.level"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "conrasu"
+            ]
+        }
+    },
+    "type": "feat"
+}

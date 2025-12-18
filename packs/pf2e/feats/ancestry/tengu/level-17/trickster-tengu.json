@@ -1,0 +1,70 @@
+{
+    "_id": "oItG5dqlPEi8wNnR",
+    "folder": "HzpGirigOMUidsh2",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Trickster Tengu",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can transform yourself or the bodies of others to express your displeasure. Once per day, you can cast either @UUID[Compendium.pf2e.spells-srd.Item.Aerial Form] or @UUID[Compendium.pf2e.spells-srd.Item.Cursed Metamorphosis] as a 7th-rank primal innate spell. You must take the form of a bird when casting this aerial form.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:aerial-form",
+                            "item:slug:cursed-metamorphosis"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:aerial-form",
+                            "item:slug:cursed-metamorphosis"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:tengu"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tengu"
+            ]
+        }
+    },
+    "type": "feat"
+}

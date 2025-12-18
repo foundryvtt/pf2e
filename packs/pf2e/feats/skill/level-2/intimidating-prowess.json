@@ -1,0 +1,83 @@
+{
+    "_id": "XFJiGllNZp8Xebda",
+    "folder": "dYkg05JEhiF1J6gL",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Intimidating Prowess",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>In situations where you can physically menace the target when you @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] or @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize], you gain a +1 circumstance bonus to your Intimidation check and you ignore the penalty for not sharing a language. If your Strength modifier is +5 or higher and you are a master in Intimidation, this bonus increases to +2.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Strength +3"
+                },
+                {
+                    "value": "expert in Intimidation"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:physically-menaced",
+                    {
+                        "or": [
+                            "action:coerce",
+                            "action:demoralize"
+                        ]
+                    }
+                ],
+                "selector": "intimidation",
+                "slug": "intimidating-prowess",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "attribute:str:mod",
+                            5
+                        ]
+                    },
+                    {
+                        "gte": [
+                            "skill:intimidation:rank",
+                            3
+                        ]
+                    }
+                ],
+                "selector": "intimidation",
+                "slug": "intimidating-prowess",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,49 @@
+{
+    "_id": "hO4sKslTrSQMLbGx",
+    "folder": "vdIaK49PDrK8a8Lz",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Mountain Quake",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are in @UUID[Compendium.pf2e.feats-srd.Item.Mountain Stance]</p><hr /><p>You stomp, shaking the earth beneath you. Creatures on the ground within a @Template[emanation|distance:20] take damage equal to your Strength modifier (minimum 0), with a @Check[fortitude|against:class|basic] save against your class DC. On a failure, they also fall @UUID[Compendium.pf2e.conditionitems.Item.Prone]. After you use this action, you can't use it again for [[/r 1d4 #Recharge it]]{1d4 rounds}.</p><hr /><p><strong>Special</strong> If you have this feat, the Dexterity modifier cap to your AC while using Mountain Stance increases from +1 to +2.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Mountain Stronghold"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "DexterityModifierCap",
+                "predicate": [
+                    "self:effect:mountain-stance"
+                ],
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}
