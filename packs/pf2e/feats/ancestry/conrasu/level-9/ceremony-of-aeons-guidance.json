@@ -1,0 +1,70 @@
+{
+    "_id": "nYSSdczKdRj7pdW6",
+    "folder": "1Zs7O4AiAYi1lULP",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Ceremony of Aeon's Guidance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your patron aeon has allowed you to call upon their gifts to serve their ends. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Augury] and @UUID[Compendium.pf2e.spells-srd.Item.Calm] each once per day as 2nd-rank divine innate spells.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens The Mwangi Expanse"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:augury",
+                            "item:slug:calm"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:augury",
+                            "item:slug:calm"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:conrasu"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "conrasu"
+            ]
+        }
+    },
+    "type": "feat"
+}

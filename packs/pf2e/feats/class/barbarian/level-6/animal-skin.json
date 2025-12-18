@@ -1,0 +1,119 @@
+{
+    "_id": "ZPclfDmiHzEqblry",
+    "folder": "7UuBmWl93axyEHUh",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Animal Skin",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your proficiency in unarmored defense increases to expert. When you are raging and unarmored, your skin transforms into a thick hide. You gain a +2 item bonus to AC (+3 if you have the @UUID[Compendium.pf2e.classfeatures.Item.Greater Juggernaut] class feature). The thickness of your hide gives you a Dexterity modifier cap to your AC of +3. This item bonus to AC is cumulative with @UUID[Compendium.pf2e.equipment-srd.Item.Armor Potency (+1)]{Armor Potency} runes on your explorer's clothing, @UUID[Compendium.pf2e.spells-srd.Item.Mystic Armor], and @UUID[Compendium.pf2e.equipment-srd.Item.Bands of Force].</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Animal Instinct"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "DexterityModifierCap",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.animalSkinBonus",
+                "priority": 19,
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.animalSkinBonus",
+                "predicate": [
+                    "feature:greater-juggernaut"
+                ],
+                "priority": 19,
+                "value": 3
+            },
+            {
+                "fromEquipment": false,
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "ac",
+                "type": "item",
+                "value": "@actor.flags.pf2e.animalSkinBonus"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "relabel": "PF2E.SpecificRule.AnimalSkin.BracersOfArmor",
+                "selector": "ac",
+                "slug": "bands-of-force",
+                "value": "@actor.flags.pf2e.animalSkinBonus"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "relabel": "PF2E.SpecificRule.AnimalSkin.ExplorersClothing",
+                "selector": "ac",
+                "slug": "explorers-clothing",
+                "value": "@actor.flags.pf2e.animalSkinBonus"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "relabel": "PF2E.SpecificRule.AnimalSkin.MageArmor",
+                "selector": "ac",
+                "slug": "mage-armor",
+                "value": "@actor.flags.pf2e.animalSkinBonus"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "unarmored": {
+                    "rank": 2
+                }
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian",
+                "morph",
+                "primal"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,76 @@
+{
+    "_id": "3NZSRyoulnzsi3sn",
+    "folder": "2SZivh6XBv1zFLtk",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Wildborn Adept",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The whispers of the jungle grant you more diverse access to simple primal magic. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Light], @UUID[Compendium.pf2e.spells-srd.Item.Vitality Lash] and @UUID[Compendium.pf2e.spells-srd.Item.Tangle Vine] as innate primal spells at will. If you chose one of those spells with Wildborn Magic, you can select a new spell for Wildborn Magic.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Wildborn Magic"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:light",
+                            "item:slug:tangle-vine",
+                            "item:slug:vitality-lash"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:light",
+                            "item:slug:tangle-vine",
+                            "item:slug:vitality-lash"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:elf"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "elf"
+            ]
+        }
+    },
+    "type": "feat"
+}

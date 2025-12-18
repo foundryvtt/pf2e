@@ -1,0 +1,110 @@
+{
+    "_id": "J7j6sSIdkwMwoZTx",
+    "folder": "axT2LPwTC1XIrNDk",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Speaker's Defense",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>As a Speaker, you've forged a deep bond with powerful spirits who you can urge to rise up to defend you and your people. If you're a Faithspeaker, you can call on gods or powerful planar beings to cast @UUID[Compendium.pf2e.spells-srd.Item.Share Life] and @UUID[Compendium.pf2e.spells-srd.Item.Status], each once per day as innate divine spells; if you're a Greenspeaker, you can call on the forces of nature to cast @UUID[Compendium.pf2e.spells-srd.Item.Entangling Flora] and @UUID[Compendium.pf2e.spells-srd.Item.Environmental Endurance], each once per day as innate primal spells.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "budding speaker centaur heritage or Speaker in Training"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:share-life",
+                            "item:slug:status"
+                        ]
+                    },
+                    "spellcasting:innate",
+                    "centaur-speaker:faithspeaker"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:share-life",
+                            "item:slug:status"
+                        ]
+                    },
+                    "spellcasting:innate",
+                    "centaur-speaker:faithspeaker"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:centaur"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:entangling-flora",
+                            "item:slug:environmental-endurance"
+                        ]
+                    },
+                    "spellcasting:innate",
+                    "centaur-speaker:greenspeaker"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:entangling-flora",
+                            "item:slug:environmental-endurance"
+                        ]
+                    },
+                    "spellcasting:innate",
+                    "centaur-speaker:greenspeaker"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:centaur"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "centaur"
+            ]
+        }
+    },
+    "type": "feat"
+}

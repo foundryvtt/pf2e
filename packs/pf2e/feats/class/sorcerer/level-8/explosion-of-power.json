@@ -1,0 +1,187 @@
+{
+    "_id": "S9j95EYaDt6ugd7c",
+    "folder": "JOiuEPjLeU9J7rs1",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Explosion of Power",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your magic explodes. You know the following blood magic effect.</p>\n<p><strong>Blood Magic—Explosion of Power</strong> Raw power explodes outward from you. Each creature within a @Template[emanation|distance:5] takes 1d6 damage per rank of the spell you just cast (basic Reflex save). The type of damage depends on the tradition of your bloodline. If you cast arcane spells, you deal force damage. If you cast divine spells, you deal spirit damage. If you cast occult spells, you deal mental damage. If you cast primal spells, you deal fire damage.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mergeable": true,
+                "option": "blood-magic",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "explosion-of-power"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.SecondBloodMagic",
+                "mergeable": true,
+                "option": "second-blood-magic",
+                "placement": "spellcasting",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:blood-ascendancy",
+                            "feat:blood-sovereignty"
+                        ]
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "explosion-of-power"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:tag:blood-magic-spell",
+                    {
+                        "or": [
+                            "blood-magic:explosion-of-power",
+                            {
+                                "and": [
+                                    "second-blood-magic:explosion-of-power",
+                                    "feat:blood-sovereignty"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.ExplosionOfPower",
+                        "title": "{item|name}"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:slug:blood-rising",
+                    {
+                        "or": [
+                            "blood-magic:explosion-of-power",
+                            {
+                                "and": [
+                                    "second-blood-magic:explosion-of-power",
+                                    "feat:blood-ascendancy"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "priority": 121,
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.ExplosionOfPower",
+                        "title": "{item|name}"
+                    }
+                ]
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "explosion-of-power",
+                    "feature:bloodline:tradition:arcane"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "inline-damage"
+                ],
+                "value": "force"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "explosion-of-power",
+                    "feature:bloodline:tradition:divine"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "inline-damage"
+                ],
+                "value": "spirit"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "explosion-of-power",
+                    "feature:bloodline:tradition:occult"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "inline-damage"
+                ],
+                "value": "mental"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "explosion-of-power",
+                    "feature:bloodline:tradition:primal"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "inline-damage"
+                ],
+                "value": "fire"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

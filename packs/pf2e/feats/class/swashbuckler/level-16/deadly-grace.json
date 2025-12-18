@@ -1,0 +1,97 @@
+{
+    "_id": "e8ChYAaQ9Aa8aZES",
+    "folder": "3nvonM2iBQeTtyBL",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Deadly Grace",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your graceful attacks are especially powerful. When you score a critical hit with an agile or finesse melee weapon that has the deadly trait, you double the number of dice from that trait. When you wield an agile or finesse melee weapon that doesn't have the deadly trait, it gains the deadly d8 trait instead.</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:equipped",
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    },
+                    {
+                        "nor": [
+                            "item:trait:deadly-d4",
+                            "item:trait:deadly-d6",
+                            "item:trait:deadly-d8",
+                            "item:trait:deadly-d10",
+                            "item:trait:deadly-d12"
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "deadly-from-deadly-grace"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:deadly-from-deadly-grace"
+                ],
+                "priority": 121,
+                "property": "traits",
+                "value": "deadly-d8"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "multiply",
+                "predicate": [
+                    {
+                        "not": "item:tag:deadly-from-deadly-grace"
+                    },
+                    {
+                        "or": [
+                            "dice:slug:deadly-d4",
+                            "dice:slug:deadly-d6",
+                            "dice:slug:deadly-d8",
+                            "dice:slug:deadly-d10",
+                            "dice:slug:deadly-d12"
+                        ]
+                    }
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

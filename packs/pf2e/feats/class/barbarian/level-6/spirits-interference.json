@@ -1,0 +1,64 @@
+{
+    "_id": "hjApw8AvYVuqQk2W",
+    "folder": "7UuBmWl93axyEHUh",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Spirits' Interference",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You call forth protective spirits to ward off ranged attacks. Until your rage ends, anyone making a ranged attack against you must succeed at a @Check[flat|dc:5] or the attack misses with no effect.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "spirit instinct"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:rage"
+                    }
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "option": "spirits-interference",
+                "toggleable": true
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "spirits-interference"
+                ],
+                "selectors": "ranged-attack-roll",
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Spirits' Interference"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian",
+                "divine",
+                "rage"
+            ]
+        }
+    },
+    "type": "feat"
+}

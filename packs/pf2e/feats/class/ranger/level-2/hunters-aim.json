@@ -1,0 +1,79 @@
+{
+    "_id": "GFtNQvpzuqtsdOTG",
+    "folder": "Lxkp4ikwiFOUiNa6",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Hunter's Aim",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>When you focus on aiming, your attack becomes particularly accurate. Make a ranged weapon Strike against your hunted prey. On this Strike, you gain a +2 circumstance bonus to the attack roll and ignore your prey's @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition and any lesser cover.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "domain": "ranged-strike-attack-roll",
+                "key": "RollOption",
+                "option": "hunters-aim",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "hunters-aim",
+                    "target:mark:hunted-prey"
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "hunters-aim",
+                    "target:mark:hunted-prey",
+                    {
+                        "or": [
+                            "target:condition:concealed",
+                            "target:cover-level:lesser"
+                        ]
+                    }
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            },
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "target:cover-level:lesser"
+                ],
+                "selectors": "ranged-strike-attack-roll",
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Hunter's Aim"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "ranger"
+            ]
+        }
+    },
+    "type": "feat"
+}

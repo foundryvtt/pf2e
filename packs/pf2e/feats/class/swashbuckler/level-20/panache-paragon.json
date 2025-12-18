@@ -1,0 +1,57 @@
+{
+    "_id": "Oo3yRbmrgqi8dmVs",
+    "folder": "DngzayqRV8sC4KGO",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Panache Paragon",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You find opportunities to perform stylish feats in the moments between others' heartbeats and eye blinks. You are permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened]. You can use the extra action only to perform a bravado action.</p>"
+        },
+        "level": {
+            "value": 20
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:granter:id:{item|id}"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

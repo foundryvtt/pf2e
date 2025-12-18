@@ -1,0 +1,63 @@
+{
+    "_id": "vfuHVSuExvtyajkW",
+    "folder": "sONqfJxDDZkU5CX5",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Expert Longevity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've continued to refine the knowledge and skills you've gained through your life. When you choose a skill in which to become trained with @UUID[Compendium.pf2e.feats-srd.Item.Ancestral Longevity], you can also choose a skill in which you are already trained and become an expert in that skill. This lasts until your Ancestral Longevity expires.</p>\n<p>When the effects of Ancestral Longevity and Expert Longevity expire, you can retrain one of your skill increases. The skill increase you gain from this retraining must either make you trained in the skill you chose with Ancestral Longevity or make you an expert in the skill you chose with Expert Longevity.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Ancestral Longevity"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "expert-longevity",
+                "phase": "beforeDerived",
+                "suboptions": {
+                    "config": "skills",
+                    "predicate": [
+                        "skill:{choice|value}:rank:1"
+                    ]
+                },
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.expertLongevity}.rank",
+                "phase": "beforeDerived",
+                "priority": 60,
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "elf"
+            ]
+        }
+    },
+    "type": "feat"
+}

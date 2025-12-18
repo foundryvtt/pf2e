@@ -1,0 +1,58 @@
+{
+    "_id": "PP1gfRCc1YwnQGxp",
+    "folder": "c5TgbUK0sYtB0lXP",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Dual Finisher",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You wield two melee weapons, one in each hand.</p>\n<hr />\n<p>You split your attacks. Make two melee @UUID[Compendium.pf2e.actionspf2e.Item.Strike]{Strikes}, one with each required weapon, each against a different foe. If the second Strike is made with a non-agile weapon, it takes a -2 penalty.</p>\n<p>Increase your multiple attack penalty only after attempting both Strikes.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Label",
+                "mergeable": true,
+                "option": "finisher",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Dual",
+                        "value": "dual"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "finisher",
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

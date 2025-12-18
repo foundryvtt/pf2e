@@ -1,0 +1,79 @@
+{
+    "_id": "LbMPCAyUrLRHykGA",
+    "folder": "RvM3Cg1nYl02GhHj",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Persistent Boost",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your innovation sets foes on fire, covers them in acid, leaves barbed thorns behind, or otherwise deals persistent damage to your foes that sticks around long after you deliver your boosted attack. When you or your construct innovation damage a foe with offensive boost, that foe also takes 1d8 persistent damage of the same damage type as the offensive boost damage.</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "offensive boost"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:offensive-boost"
+                ],
+                "property": "other-tags",
+                "value": "persistent-boost"
+            },
+            {
+                "category": "persistent",
+                "damageType": "{actor|flags.pf2e.inventor.offensiveBoost}",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "feature:weapon-innovation",
+                                    "item:id:{actor|flags.pf2e.innovationId}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "feature:armor-innovation",
+                                    "unarmed"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}

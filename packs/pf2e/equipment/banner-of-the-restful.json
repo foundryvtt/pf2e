@@ -36,6 +36,22 @@
         "quantity": 1,
         "rules": [
             {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.Banner.CommandersBanner",
+                "mergeable": true,
+                "option": "magical-commanders-banner",
+                "predicate": [
+                    "feature:commanders-banner"
+                ],
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "banner-of-the-restful"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
                 "effects": [
                     {
                         "affects": "allies",
@@ -44,8 +60,28 @@
                 ],
                 "key": "Aura",
                 "level": 4,
+                "predicate": [
+                    {
+                        "not": "magical-commanders-banner:banner-of-the-restful"
+                    }
+                ],
+                "radius": 30
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Banner of the Restful"
+                    }
+                ],
+                "key": "Aura",
+                "level": 4,
+                "predicate": [
+                    "magical-commanders-banner:banner-of-the-restful",
+                    "commanders-banner"
+                ],
                 "radius": 30,
-                "traits": []
+                "slug": "commanders-banner"
             }
         ],
         "size": "med",

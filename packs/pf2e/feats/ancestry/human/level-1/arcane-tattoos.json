@@ -1,0 +1,81 @@
+{
+    "_id": "Dq4JSejEdCzGNeTc",
+    "folder": "hFVleadZ20Wc5Hkc",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Arcane Tattoos",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Access</strong> Varisian ethnicity or New Thassilon nationality</p>\n<hr />\n<p>You have tattoos on your body corresponding to one of the ancient Thassilonian schools of magic. Choose one of the following schools of magic: abjuration (@UUID[Compendium.pf2e.spells-srd.Item.Shield]), conjuration (@UUID[Compendium.pf2e.spells-srd.Item.Tangle Vine]), enchantment (@UUID[Compendium.pf2e.spells-srd.Item.Daze]), evocation (@UUID[Compendium.pf2e.spells-srd.Item.Electric Arc]), illusion (@UUID[Compendium.pf2e.spells-srd.Item.Ghost Sound]), necromancy (@UUID[Compendium.pf2e.spells-srd.Item.Void Warp]), or transmutation (@UUID[Compendium.pf2e.spells-srd.Item.Sigil]). You can cast the associated cantrip (listed in parentheses) as an innate arcane spell at will.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Character Guide"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "filter": [
+                        {
+                            "or": [
+                                "item:slug:shield",
+                                "item:slug:tanglevine",
+                                "item:slug:daze",
+                                "item:slug:electric-arc",
+                                "item:slug:ghost-sound",
+                                "item:slug:chill-touch",
+                                "item:slug:sigil"
+                            ]
+                        }
+                    ],
+                    "itemType": "spell",
+                    "slugsAsValues": true
+                },
+                "flag": "cantrip",
+                "key": "ChoiceSet"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.cantrip}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.cantrip}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:human"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "human"
+            ]
+        }
+    },
+    "type": "feat"
+}

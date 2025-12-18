@@ -1,0 +1,102 @@
+{
+    "_id": "Ekk2iEYMAXYT3EK2",
+    "folder": "l6LWvKXPFJVyyC1t",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Merge with the Source",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're among the most powerful of Speakers and can adopt the form of the spirits you entreat with. Select one of the following spells, which you can cast once per day as a 7th-rank innate spell. If you're a Faithspeaker, select from @UUID[Compendium.pf2e.spells-srd.Item.Angel Form], @UUID[Compendium.pf2e.spells-srd.Item.Daemon Form], @UUID[Compendium.pf2e.spells-srd.Item.Demon Form], or @UUID[Compendium.pf2e.spells-srd.Item.Devil Form], which you cast as a divine spell; if you're a Greenspeaker, select from @UUID[Compendium.pf2e.spells-srd.Item.Elemental Form] or @UUID[Compendium.pf2e.spells-srd.Item.Plant Form], which you cast as a primal spell.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "budding speaker centaur heritage or Speaker in Training"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "filter": [
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        "centaur-speaker:faithspeaker",
+                                        {
+                                            "or": [
+                                                "item:slug:angel-form",
+                                                "item:slug:daemon-form",
+                                                "item:slug:demon-form",
+                                                "item:slug:devil-form"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "centaur-speaker:greenspeaker",
+                                        {
+                                            "or": [
+                                                "item:slug:elemental-form",
+                                                "item:slug:plant-form"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "itemType": "spell",
+                    "slugsAsValues": true
+                },
+                "flag": "spell",
+                "key": "ChoiceSet"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:centaur"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "centaur"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,70 @@
+{
+    "_id": "2kAyZ3LB28BDhXKa",
+    "folder": "8TUJh2bMFkSRrUiQ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Bark and Tendril",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You wield primal magic. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Entangling Flora] and @UUID[Compendium.pf2e.spells-srd.Item.Oaken Resilience] as 2nd-rank primal innate spells once per day each.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:entangling-flora",
+                            "item:slug:oaken-resilience"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:entangling-flora",
+                            "item:slug:oaken-resilience"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:leshy"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "leshy"
+            ]
+        }
+    },
+    "type": "feat"
+}

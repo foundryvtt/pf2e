@@ -1,0 +1,58 @@
+{
+    "_id": "YHeKwgJq1zkdcV0p",
+    "folder": "yx1Br5S2XJCuXqjq",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Proud Nail",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> Your taunted enemy is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] because it didn't target you or include you in an area effect.</p><hr /><p>When a foe ignores your taunts, you make them pay. Make a melee Strike against your taunted enemy. If this Strike hits, you deal an extra die of weapon damage. If you're at least 10th level, increase this to two extra dice, and if you're at least 18th level, increase it to three extra dice.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "domain": "strike-damage",
+                "key": "RollOption",
+                "option": "proud-nail",
+                "toggleable": true
+            },
+            {
+                "diceNumber": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))",
+                "key": "DamageDice",
+                "predicate": [
+                    "proud-nail"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "flourish",
+                "guardian"
+            ]
+        }
+    },
+    "type": "feat"
+}

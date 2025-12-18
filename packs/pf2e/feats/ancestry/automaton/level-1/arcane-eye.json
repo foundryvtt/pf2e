@@ -1,0 +1,99 @@
+{
+    "_id": "YG6OCTbbqZwqRTr3",
+    "folder": "81X0l2pbUGp5GArP",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Arcane Eye",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your eye has been magically enhanced to pierce darkness. You gain darkvision.</p>\n<p><strong>Enhancement</strong> Your eye can see @UUID[Compendium.pf2e.conditionitems.Item.Invisible] creatures in brief spurts. You can cast @UUID[Compendium.pf2e.spells-srd.Item.See the Unseen] as an arcane innate spell once per hour.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "low-light vision"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneEye",
+                    "predicate": [
+                        {
+                            "not": "enhancement:arcane-eye"
+                        }
+                    ],
+                    "value": "arcane-eye"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneEye",
+                    "predicate": [
+                        {
+                            "not": "enhancement:arcane-eye"
+                        }
+                    ],
+                    "value": "arcane-eye"
+                }
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:see-the-unseen",
+                    "spellcasting:innate",
+                    "enhancement:arcane-eye"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:see-the-unseen",
+                    "spellcasting:innate",
+                    "enhancement:arcane-eye"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:automaton"
+            }
+        ],
+        "subfeatures": {
+            "senses": {
+                "darkvision": {}
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "automaton"
+            ]
+        }
+    },
+    "type": "feat"
+}

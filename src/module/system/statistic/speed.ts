@@ -15,7 +15,7 @@ class SpeedStatistic<TActor extends ActorPF2e, TType extends MovementType | "tra
         const label = (options.label ??= game.i18n.format("PF2E.Actor.Speed.Type.Label", { type: typeLabel }));
         super(actor, Object.assign(options, { label, slug }));
         this.type = type;
-        this.base = Math.max(5, (options.base ??= 25));
+        this.base = Math.max(0, (options.base ??= 25));
         this.source = options.source ??= null;
         if (!Number.isInteger(this.base) || this.base < 0) {
             throw ErrorPF2e("Non-integer or insufficient base speed provided");
@@ -42,7 +42,10 @@ class SpeedStatistic<TActor extends ActorPF2e, TType extends MovementType | "tra
 
     /** The "total modifier" of this speed, even though it isn't a check or DC statistic */
     get value(): number {
-        this.#value ??= this.base + new StatisticModifier("", this.modifiers, this.rollOptions).totalModifier;
+        this.#value ??= Math.max(
+            0,
+            this.base + new StatisticModifier("", this.modifiers, this.rollOptions).totalModifier,
+        );
         return this.#value;
     }
 

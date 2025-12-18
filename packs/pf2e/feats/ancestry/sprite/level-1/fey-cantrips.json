@@ -1,0 +1,94 @@
+{
+    "_id": "gozOYxLVx7PQvOSj",
+    "folder": "Ya6azPNbrSNTUHms",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Fey Cantrips",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've learned the cantrips sprites have used since time immemorial. You gain @UUID[Compendium.pf2e.spells-srd.Item.Light] and @UUID[Compendium.pf2e.spells-srd.Item.Ghost Sound] as primal innate cantrips. If you have the grig heritage, you also gain @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic], and if you have the draxie heritage, you gain @UUID[Compendium.pf2e.spells-srd.Item.Prestidigitation].</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:ghost-sound",
+                            "item:slug:light",
+                            {
+                                "and": [
+                                    "self:heritage:grig",
+                                    "item:slug:detect-magic"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:heritage:draxie",
+                                    "item:slug:prestidigitation"
+                                ]
+                            }
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:ghost-sound",
+                            "item:slug:light",
+                            {
+                                "and": [
+                                    "self:heritage:grig",
+                                    "item:slug:detect-magic"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:heritage:draxie",
+                                    "item:slug:prestidigitation"
+                                ]
+                            }
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:sprite"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sprite"
+            ]
+        }
+    },
+    "type": "feat"
+}

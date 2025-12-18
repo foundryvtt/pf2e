@@ -1,0 +1,95 @@
+{
+    "_id": "lFwfUvH2708rl6i3",
+    "folder": "QhHpEbq98ZJAyDiH",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Virtuosic Performer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You have exceptional talent with one type of performance. You gain a +1 circumstance bonus when making a certain type of performance. If you are a master in Performance, this bonus increases to +2. Select one of the following specialties and apply the bonus when attempting Performance checks of that type. If it's unclear whether the specialty applies, the GM decides.</p><table class=\"pf2e remaster\"><thead><tr><th>Specialty</th><th>Examples</th></tr></thead><tbody><tr><td>Acting</td><td>Drama, pantomime, puppetry</td></tr><tr><td>Comedy</td><td>Buffoonery, joke telling, limericks</td></tr><tr><td>Dance</td><td>Ballet, huara, jig, macru</td></tr><tr><td>Keyboards</td><td>Harpsichord, organ, piano</td></tr><tr><td>Oratory</td><td>Epic, ode, poetry, storytelling</td></tr><tr><td>Percussion</td><td>Chimes, drum, gong, xylophone</td></tr><tr><td>Singing</td><td>Ballad, chant, melody, rhyming</td></tr><tr><td>Strings</td><td>Fiddle, harp, lute, viol</td></tr><tr><td>Winds</td><td>Bagpipe, flute, recorder, trumpet</td></tr></tbody></table>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Performance"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Acting",
+                        "value": "acting"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Comedy",
+                        "value": "comedy"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Dance",
+                        "value": "dance"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Keyboards",
+                        "value": "keyboards"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Oratory",
+                        "value": "oratory"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Percussion",
+                        "value": "percussion"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Singing",
+                        "value": "singing"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Strings",
+                        "value": "strings"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.VirtuosicPerformer.Winds",
+                        "value": "winds"
+                    }
+                ],
+                "flag": "performanceType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.VirtuosicPerformer.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:perform:{item|flags.pf2e.rulesSelections.performanceType}"
+                ],
+                "selector": "performance",
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.system.skills.performance.rank,3),2,1)"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

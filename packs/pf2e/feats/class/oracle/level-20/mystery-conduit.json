@@ -1,0 +1,98 @@
+{
+    "_id": "eIW5p8qqvsx2MFkY",
+    "folder": "wpMcLDirC9ZCDjvb",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Mystery Conduit",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The power of your mystery enables you access to myriad magic. If your next action is to Cast a Spell of 5th rank or lower that has no duration, you do not expend a spell slot.</p>"
+        },
+        "level": {
+            "value": 20
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:mystery-conduit",
+                    "item:duration:0",
+                    {
+                        "lte": [
+                            "item:rank",
+                            5
+                        ]
+                    },
+                    {
+                        "not": "cantrip"
+                    }
+                ],
+                "property": "traits",
+                "value": "cursebound"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:mystery-conduit",
+                    "item:duration:0",
+                    {
+                        "lte": [
+                            "item:rank",
+                            5
+                        ]
+                    },
+                    {
+                        "not": "cantrip"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Oracle.MysteryConduit.Note"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "mystery-conduit"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cursebound",
+                "oracle",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

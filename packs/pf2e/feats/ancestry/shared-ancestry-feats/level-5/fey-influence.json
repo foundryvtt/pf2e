@@ -1,0 +1,128 @@
+{
+    "_id": "dIIqejy4JAVuF0I8",
+    "folder": "wLt7bt0bm08pRFKZ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Fey Influence",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have been exposed to powerful fey magic. You become trained in primal DCs and spell attack rolls. You gain the fey trait and one of the following features which grant an innate primal spell that can be used once per day.</p>\n<ul>\n<li><strong>Anteater</strong> You can launch your tongue forward as a deadly attack, gaining @UUID[Compendium.pf2e.spells-srd.Item.Grim Tendrils].</li>\n<li><strong>Cat Sith</strong> You have catlike features and can appear as a mundane cat with @UUID[Compendium.pf2e.spells-srd.Item.Pest Form] (cat only).</li>\n<li><strong>Cursed Bluebird</strong> You have blue feathers or wings. It's terrible luck to harm a bluebird, and you can manifest that power as @UUID[Compendium.pf2e.spells-srd.Item.Ill Omen].</li>\n<li><strong>Dryad</strong> Your body is covered in elegant vines, granting you @UUID[Compendium.pf2e.spells-srd.Item.Summon Plant or Fungus].</li>\n<li><strong>Faun</strong> Faun Your legs and feet are swift and possibly hooved, granting you @UUID[Compendium.pf2e.spells-srd.Item.Fleet Step].</li>\n<li><strong>Gremlin</strong> You have long, bat-like ears and gain @UUID[Compendium.pf2e.spells-srd.Item.Bane].</li>\n<li><strong>Monarch</strong> You have vestigial, insectile features and gain @UUID[Compendium.pf2e.spells-srd.Item.Spider Sting].</li>\n<li><strong>Unicorn</strong> You have a magical horn or a prominent symbol of one on your forehead, which you can use to cast @UUID[Compendium.pf2e.spells-srd.Item.Heal].</li>\n</ul>\n<p><strong>Special</strong> This feat gains the trait appropriate for your ancestry (human for human, goblin for goblin, etc.)</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Impossible Lands"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Feat.FeyInfluence.Anteater",
+                        "value": {
+                            "creature": "anteater",
+                            "spell": "grim-tendrils"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Feat.FeyInfluence.CatSith",
+                        "value": {
+                            "creature": "cat-sith",
+                            "spell": "pest-form"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Feat.FeyInfluence.CursedBluebird",
+                        "value": {
+                            "creature": "cursed-bluebird",
+                            "spell": "ill-omen"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Feat.FeyInfluence.Dryad",
+                        "value": {
+                            "creature": "dryad",
+                            "spell": "summon-plant-or-fungus"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Feat.FeyInfluence.Faun",
+                        "value": {
+                            "creature": "faun",
+                            "spell": "fleet-step"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Feat.FeyInfluence.Gremlin",
+                        "value": {
+                            "creature": "gremlin",
+                            "spell": "bane"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Feat.FeyInfluence.Monarch",
+                        "value": {
+                            "creature": "monarch",
+                            "spell": "spider-sting"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Feat.FeyInfluence.Unicorn",
+                        "value": {
+                            "creature": "unicorn",
+                            "spell": "heal"
+                        }
+                    }
+                ],
+                "flag": "feyInfluence",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Feature",
+                "rollOption": "fey-influence"
+            },
+            {
+                "key": "RollOption",
+                "option": "fey-influence:{item|flags.pf2e.rulesSelections.feyInfluence.creature}"
+            },
+            {
+                "add": [
+                    "fey"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.feyInfluence.spell}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "spellcasting": {
+                    "rank": 1
+                }
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

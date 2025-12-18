@@ -1,0 +1,74 @@
+{
+    "_id": "WUVNZoIZvr9XFv2x",
+    "folder": "AVQ4YLK6AJ4bUpKm",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "First World Adept",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Over time your fey magic has grown stronger. You gain @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] and @UUID[Compendium.pf2e.spells-srd.Item.Revealing Light] as 2nd-rank primal innate spells. You can cast each of these primal innate spells once per day.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "at least one primal innate spell"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:invisibility",
+                            "item:slug:revealing-light"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:invisibility",
+                            "item:slug:revealing-light"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:gnome"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gnome"
+            ]
+        }
+    },
+    "type": "feat"
+}

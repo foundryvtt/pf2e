@@ -1,0 +1,149 @@
+{
+    "_id": "5uny1fH9ybbO6ytR",
+    "folder": "fyeZAb6UU0hj94Ck",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Chaotic Spell",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>This is the secret of chaotic magic - your foe can hardly predict and counter your moves if you yourself have no idea what will happen. If the next action you use is to Cast a Spell that deals acid, cold, electricity, fire, or sonic damage, roll a [[/r 1d6]]{d6}. The spell's damage type changes to the type below associated with the result of the roll, and each creature who is damaged by the spell takes the listed additional effect.</p>\n<p><strong>1 (Acid):</strong> @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}</p>\n<p><strong>2 (Cold):</strong> –10 ft. penalty to all Speeds until the end of your next turn</p>\n<p><strong>3 (Electricity):</strong> @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of your next turn</p>\n<p><strong>4 (Fire):</strong> Persistent fire damage equal to the spell's rank</p>\n<p><strong>5 (Force):</strong> No added effect</p>\n<p><strong>6 (Sonic):</strong> @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 2 rounds</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Wake the Dead #3"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "chaotic-spell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "chaotic-spell",
+                "placement": "spellcasting",
+                "predicate": [
+                    "spellshape:chaotic-spell"
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:chaotic-spell",
+                    {
+                        "not": "chaotic-spell:force"
+                    },
+                    {
+                        "or": [
+                            "item:damage:type:acid",
+                            "item:damage:type:cold",
+                            "item:damage:type:electricity",
+                            "item:damage:type:fire",
+                            "item:damage:type:force",
+                            "item:damage:type:sonic"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.ChaoticSpell.{item|flags.pf2e.rulesSelections.chaoticSpell}"
+                    },
+                    {
+                        "predicate": [
+                            "chaotic-spell:cold"
+                        ],
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Chaotic Spell]"
+                    }
+                ]
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "spellshape:chaotic-spell",
+                    {
+                        "or": [
+                            "item:damage:type:acid",
+                            "item:damage:type:cold",
+                            "item:damage:type:electricity",
+                            "item:damage:type:fire",
+                            "item:damage:type:force",
+                            "item:damage:type:sonic"
+                        ]
+                    }
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.chaoticSpell}"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "bard",
+                "manipulate",
+                "oracle",
+                "sorcerer",
+                "spellshape",
+                "witch",
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,4 +1,5 @@
 import "./global.ts";
+import "./migration-global.ts";
 
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ACTOR_TYPES } from "@actor/values.ts";
@@ -48,8 +49,6 @@ const migrations: MigrationBase[] = [
     new Migration953NotStrikeDamage(),
 ];
 
-const packsDataPath = path.resolve(process.cwd(), "packs");
-
 type CompendiumSource = CompendiumDocument["_source"];
 
 const actorTypes: readonly string[] = ACTOR_TYPES;
@@ -95,13 +94,14 @@ function jsonStringifyOrder(obj: object): string {
     return `${newJson}\n`;
 }
 
-async function getAllFiles(directory: string = packsDataPath, allEntries: string[] = []): Promise<string[]> {
-    const packs = fs.readdirSync(directory);
-    for (const pack of packs) {
-        console.log(`Collecting data for "${pack}"`);
-        allEntries.push(...getFilesRecursively(path.join(directory, pack)));
+async function getAllFiles(allEntries: string[] = []): Promise<string[]> {
+    for (const dirPath of ["pf2e", "sf2e"].map((s) => path.resolve("packs", s))) {
+        const packs = fs.readdirSync(dirPath);
+        for (const pack of packs) {
+            console.log(`Collecting data for "${pack}"`);
+            allEntries.push(...getFilesRecursively(path.join(dirPath, pack)));
+        }
     }
-
     return allEntries;
 }
 

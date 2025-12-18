@@ -1,0 +1,66 @@
+{
+    "_id": "v7Bt6hjmzYnLFLeG",
+    "folder": "dYkg05JEhiF1J6gL",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Magical Shorthand",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>Learning spells comes easily to you. When you succeed at Learning a Spell, it takes 10 minutes regardless of the spell's rank. If you would succeed on the check, you critically succeed instead. If you fail, you can try again after a week or after you gain a level, whichever is first.</p>\n<p>You can use downtime to learn and inscribe new spells. This works as if you were using @UUID[Compendium.pf2e.actionspf2e.Item.Earn Income] with the tradition's associated skill, but instead of gaining money, you choose a spell available to you to learn and gain a discount on learning it, learning it for free if your earned income equals or exceeds its cost.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Arcana, Nature, Occultism, or Religion"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:learn-a-spell"
+                ],
+                "selector": "skill-check"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure",
+                    "failure"
+                ],
+                "predicate": [
+                    "action:learn-a-spell"
+                ],
+                "selector": "skill-check",
+                "text": "PF2E.SpecificRule.MagicalShorthand.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

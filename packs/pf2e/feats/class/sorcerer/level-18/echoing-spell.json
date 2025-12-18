@@ -1,0 +1,78 @@
+{
+    "_id": "NvEYf0jIETEu2LtP",
+    "folder": "xp851CC4YAvn3g7D",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Echoing Spell",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You time the components of your spell with exacting precision, setting up a resonance that duplicates the spell's effects. If your next action is to Cast a Spell of 4th rank or lower that has no duration, the spell's energy reverberates and echoes. You can Cast the Spell a second time before the end of your next turn without expending a spell slot.</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:echoing-spell",
+                    "item:duration:0",
+                    {
+                        "lte": [
+                            "item:rank",
+                            4
+                        ]
+                    },
+                    {
+                        "not": "cantrip"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.EchoingSpell"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "echoing-spell"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "sorcerer",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

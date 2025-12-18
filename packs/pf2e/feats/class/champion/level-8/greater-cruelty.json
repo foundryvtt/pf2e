@@ -1,0 +1,57 @@
+{
+    "_id": "u2rvvAqZBugZgcYg",
+    "folder": "fZYwwdcMjGEKuulh",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Greater Cruelty",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The extent of your corruption devastates your foes' minds and reflexes. When you use @UUID[Compendium.pf2e.feats-srd.Item.Cruelty], you can choose to make the target @UUID[Compendium.pf2e.conditionitems.Item.Clumsy] or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] instead, with the same condition value. Make the choice when you Cast the Spell (before you know the result of the target's save).</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Cruelty"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:touch-of-the-void",
+                    "cruelty"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

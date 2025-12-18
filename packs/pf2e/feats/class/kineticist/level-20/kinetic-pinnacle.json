@@ -1,0 +1,57 @@
+{
+    "_id": "C4J8yO9g1gAZ3JKs",
+    "folder": "NzrwjSgbQnFLNoA0",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Kinetic Pinnacle",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>No one can match the pace at which elements flow from you. You're permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened]. You can use your extra action only to @UUID[Compendium.pf2e.actionspf2e.Item.Channel Elements], use a 1-action @UUID[Compendium.pf2e.actionspf2e.Item.Elemental Blast], or use a 1-action stance impulse.</p>"
+        },
+        "level": {
+            "value": 20
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:granter:id:{item|id}"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kineticist"
+            ]
+        }
+    },
+    "type": "feat"
+}

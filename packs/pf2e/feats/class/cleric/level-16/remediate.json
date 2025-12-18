@@ -1,0 +1,73 @@
+{
+    "_id": "H5uZqYVClk3s62ce",
+    "folder": "u8BAxkACIVxS2YyA",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Remediate",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p>If your next action is to use your divine font to cast a 3-action @UUID[Compendium.pf2e.spells-srd.Item.Heal] or @UUID[Compendium.pf2e.spells-srd.Item.Harm] spell, you can harness the residual energy to counterbalance opposing forces. In addition to its normal effects, you use your <em>heal</em> or <em>harm</em> spell to attempt to counteract one divine effect in the spell's area.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT1H"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:courageous-anthem",
+                    "spellshape:remediate"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.Remediate"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "remediate"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cleric",
+                "concentrate",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

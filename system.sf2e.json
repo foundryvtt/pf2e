@@ -1,0 +1,126 @@
+{
+    "id": "sf2e",
+    "title": "Starfinder Second Edition",
+    "description": "A community contributed game system for Starfinder Second Edition",
+    "version": "0.0.1",
+    "license": "./LICENSE",
+    "manifest": "https://raw.githubusercontent.com/foundryvtt/pf2e/v13-dev/static/system-sf2e.json",
+    "download": "https://github.com/foundryvtt/pf2e/releases/download/7.8.0/pf2e.zip",
+    "changelog": "https://github.com/foundryvtt/pf2e/blob/v13-dev/CHANGELOG.md",
+    "url": "https://github.com/foundryvtt/pf2e",
+    "bugs": "https://github.com/foundryvtt/pf2e/issues",
+    "socket": true,
+    "primaryTokenAttribute": "attributes.hp",
+    "compatibility": {
+        "minimum": "13.348",
+        "verified": "13.351",
+        "maximum": "13"
+    },
+    "authors": [
+        {
+            "name": "The PF2e/SF2e System Developers",
+            "url": "https://github.com/foundryvtt/pf2e",
+            "flags": {}
+        }
+    ],
+    "esmodules": [
+        "vendor.mjs",
+        "sf2e.mjs"
+    ],
+    "scripts": [
+        "greensock/dist/gsap.min.js",
+        "lib/tooltipster.bundle.min.js"
+    ],
+    "styles": [
+        "styles/sf2e.css"
+    ],
+    "grid": {
+        "distance": 5,
+        "units": "ft",
+        "diagonals": 4
+    },
+    "documentTypes": {
+        "Actor": {
+            "army": {
+                "htmlFields": [
+                    "details.description"
+                ]
+            },
+            "familiar": {},
+            "hazard": {
+                "htmlFields": [
+                    "details.description"
+                ]
+            },
+            "loot": {
+                "htmlFields": [
+                    "details.description"
+                ]
+            },
+            "party": {
+                "htmlFields": [
+                    "details.description"
+                ]
+            },
+            "vehicle": {
+                "htmlFields": [
+                    "details.description"
+                ]
+            }
+        },
+        "Item": {
+            "treasure": {
+                "htmlFields": [
+                    "description.value",
+                    "description.gm",
+                    "identification.unidentified.data.description.value"
+                ]
+            }
+        },
+        "RegionBehavior": {
+            "environment": {},
+            "environmentFeature": {}
+        }
+    },
+    "languages": [
+        {
+            "lang": "en",
+            "name": "Main (English)",
+            "path": "lang/en.json",
+            "flags": {}
+        },
+        {
+            "lang": "en",
+            "name": "Actions (English)",
+            "path": "lang/action-en.json",
+            "flags": {}
+        },
+        {
+            "lang": "en",
+            "name": "Rules Elements (English)",
+            "path": "lang/re-en.json",
+            "flags": {}
+        },
+        {
+            "lang": "en",
+            "name": "Kingmaker (English)",
+            "path": "lang/kingmaker-en.json",
+            "flags": {}
+        }
+    ],
+    "packs": [
+        {
+            "name": "equipment",
+            "label": "Equipment",
+            "path": "packs/equipment",
+            "type": "Item",
+            "banner": "systems/sf2e/assets/compendium-banner/red.webp",
+            "system": "sf2e",
+            "ownership": {
+                "PLAYER": "LIMITED",
+                "ASSISTANT": "OWNER"
+            },
+            "flags": {}
+        }
+    ]
+}

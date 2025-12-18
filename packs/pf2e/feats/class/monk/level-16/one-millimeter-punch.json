@@ -1,0 +1,67 @@
+{
+    "_id": "4caP26xpkQajkaDp",
+    "folder": "2aPrT57mQYilTnN6",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "One-Millimeter Punch",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your punches have incredible force and control. When you damage a target using One-Inch Punch, you can focus your qi to send the foe flying. If you do, the target must attempt a @Check[fortitude|against:monk] save against your class DC.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is pushed back 5 feet.</p>\n<p><strong>Failure</strong> The target is pushed back 10 feet.</p>\n<p><strong>Critical Failure</strong> The target is pushed back 10 feet for each action you spent on One-Inch Punch.</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "One-Inch Punch"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "unarmed",
+                            {
+                                "and": [
+                                    "feat:monastic-weaponry",
+                                    "item:trait:monk"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "one-inch-punch-3",
+                            "one-inch-punch-2"
+                        ]
+                    }
+                ],
+                "selector": "melee-strike-damage",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

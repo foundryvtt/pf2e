@@ -1,0 +1,56 @@
+{
+    "_id": "8YLCu791osZNFKN2",
+    "folder": "BdzIVyvKLMpqdAAY",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Leap and Fire",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're quick enough to line up a shot even while diving to the ground. When you use your @UUID[Compendium.pf2e.feats-srd.Item.Hit the Dirt!] reaction, at any point during your Leap you can also make a ranged Strike with a loaded firearm or crossbow, targeting the creature whose attack triggered the reaction.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Hit the Dirt!"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:hit-the-dirt"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,58 @@
+{
+    "_id": "sEWYOllJ6rYoXK4K",
+    "folder": "BYCNizFJdYZq0Uf6",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Raging Athlete",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Physical obstacles can't hold back your fury. While you are raging, you gain a climb Speed and swim Speed equal to your land Speed, the DC of your @UUID[Compendium.pf2e.actionspf2e.Item.High Jump]{High Jumps} and @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump]{Long Jumps} decreases by 10, and you increase your distance on a successful Long Jump by 10 feet. Your distance for a vertical @UUID[Compendium.pf2e.actionspf2e.Item.Leap] increases to 5 feet vertically, and your distance for a horizontal Leap increases to 15 feet if your Speed is at least 15 feet, and to 20 feet if your Speed is at least 30 feet.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Athletics"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "climb",
+                "value": "@actor.system.movement.speeds.land.value"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "swim",
+                "value": "@actor.system.movement.speeds.land.value"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,52 @@
+{
+    "_id": "nx7UPAwAyno2rM9f",
+    "folder": "xZjxN80OpJY1RRmA",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Thaumaturge's Investiture",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Magical equipment and gear are the tools of your trade, and you know you need as many as possible to help you against the supernatural. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Incredible Investiture] skill feat, increasing your limit on invested items from 10 to 12. The limit increases to 14 if you have Charisma +4, 16 if you have Charisma +5, 18 if you have Charisma +6, and 20 if you have Charisma +7.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Charisma +3"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Incredible Investiture"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.investiture.max",
+                "value": "ternary(gte(@actor.system.abilities.cha.mod,7),20,ternary(gte(@actor.system.abilities.cha.mod,6),18,ternary(gte(@actor.system.abilities.cha.mod,5),16,ternary(gte(@actor.system.abilities.cha.mod,4),14,12))))"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "thaumaturge"
+            ]
+        }
+    },
+    "type": "feat"
+}

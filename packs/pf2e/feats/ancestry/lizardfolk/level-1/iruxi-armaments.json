@@ -1,0 +1,165 @@
+{
+    "_id": "VatkAzfBYjA6z6OP",
+    "folder": "pg4eevORF0pgEE9L",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Iruxi Armaments",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your weapons are those you were born with. Choose one of the following options:</p><ul><li><strong>Claws</strong> Your claw attack deals 1d6 slashing damage instead of 1d4 and gains the versatile P trait.</li><li><strong>Fangs</strong> You gain a fangs unarmed attack that deals 1d8 piercing damage and is in the brawling group.</li><li><strong>Tail</strong> You gain a tail unarmed attack that deals 1d6 bludgeoning damage, is in the brawling group, and has the sweep trait.</li></ul><p>At 5th level, whenever you get a critical hit with one of the unarmed attacks you have gained or improved with this feat, you get its critical specialization effect.</p><hr /><p><strong>Special</strong> You can take this feat multiple times, choosing a different unarmed attack option each time.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "maxTakable": 3,
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "predicate": [
+                            {
+                                "not": "iruxi-armaments:claw"
+                            }
+                        ],
+                        "value": "claw"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Fangs",
+                        "predicate": [
+                            {
+                                "not": "iruxi-armaments:fangs"
+                            }
+                        ],
+                        "value": "fangs"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Tail",
+                        "predicate": [
+                            {
+                                "not": "iruxi-armaments:tail"
+                            }
+                        ],
+                        "value": "tail"
+                    }
+                ],
+                "flag": "iruxiArmaments",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.UnarmedAttack",
+                "rollOption": "iruxi-armaments"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "iruxi-armaments:claw",
+                    "item:tag:lizardfolk-claws"
+                ],
+                "property": "damage-dice-faces"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:lizardfolk-claws",
+                    "iruxi-armaments:claw"
+                ],
+                "property": "traits",
+                "value": "versatile-p"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fangs.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Fangs",
+                "predicate": [
+                    "iruxi-armaments:fangs"
+                ],
+                "range": null,
+                "slug": "fangs",
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/tail.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tail",
+                "predicate": [
+                    {
+                        "not": "self:effect:shed-tail"
+                    },
+                    "iruxi-armaments:tail"
+                ],
+                "range": null,
+                "slug": "tail",
+                "traits": [
+                    "sweep",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:tag:lizardfolk-claws",
+                                    "iruxi-armaments:claw"
+                                ]
+                            },
+                            "item:id:{item|id}"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lizardfolk"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -22,16 +22,11 @@ const args = argv
     .version(false)
     .parseSync();
 
-declare namespace globalThis {
-    let SYSTEM_ID: SystemId;
-}
-globalThis.SYSTEM_ID = args.system;
-
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 const packsDataPath = path.resolve(__dirname, "..", "packs", args.system);
 
 // Loads all packs into memory for the sake of making all document name/id mappings available
-const packs = fs.readdirSync(packsDataPath).map((p) => CompendiumPack.loadJSON(p));
+const packs = fs.readdirSync(packsDataPath).map((p) => CompendiumPack.loadJSON(p, { systemId: args.system }));
 const documentCounts = await Promise.all(packs.map((p) => p.save({ jsonArtifacts: args.json })));
 const total = documentCounts.reduce((total, c) => total + c, 0);
 

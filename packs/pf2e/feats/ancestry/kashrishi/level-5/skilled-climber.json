@@ -1,0 +1,64 @@
+{
+    "_id": "exJmNR2XH1i6PGw3",
+    "folder": "OFdXLZ5kIxeTnILs",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Skilled Climber",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can navigate vertical surfaces with ease. You gain a climb Speed of 10 feet. If you also have the Scuttle Up ancestry feat, your climb Speed increases to your land Speed when climbing trees or cavern walls.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "athamasi or xyloshi"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Impossible Lands"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "value": 10
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "climbing-cavern-wall-or-tree"
+                ],
+                "selector": "climb",
+                "value": "@actor.system.movement.speeds.land.value"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SkilledClimber.Label",
+                "option": "climbing-cavern-wall-or-tree",
+                "predicate": [
+                    "feat:scuttle-up"
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kashrishi"
+            ]
+        }
+    },
+    "type": "feat"
+}

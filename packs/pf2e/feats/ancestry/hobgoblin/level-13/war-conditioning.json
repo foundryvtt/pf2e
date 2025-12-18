@@ -1,0 +1,58 @@
+{
+    "_id": "S1Z5dFAkMKkFSofk",
+    "folder": "lrOgLELSXrDXhqKL",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "War Conditioning",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have extensive training in remote environments, allowing you to move through these areas easily. When you gain this feat, you can choose to gain either a climb Speed of 20 feet or a swim Speed of 20 feet.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Climb",
+                        "value": "climb"
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Swim",
+                        "value": "swim"
+                    }
+                ],
+                "flag": "warConditioning",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Hobgoblin.WarConditioning.Prompt"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "{item|flags.pf2e.rulesSelections.warConditioning}",
+                "value": 20
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "hobgoblin"
+            ]
+        }
+    },
+    "type": "feat"
+}

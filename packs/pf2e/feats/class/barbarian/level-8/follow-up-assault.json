@@ -1,0 +1,66 @@
+{
+    "_id": "9Q0tPGtOawPTU2TU",
+    "folder": "zjQf9cfin3C7u5cE",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Follow-Up Assault",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You used your previous action to make a melee Strike that missed.</p><hr /><p>Even in the face of failure you press the attack, determined to succeed. Make a Strike with the same weapon, adding the backswing and forceful weapon traits to that Strike.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "follow-up-assault",
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:melee",
+                    "follow-up-assault"
+                ],
+                "property": "traits",
+                "value": "backswing"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:melee",
+                    "follow-up-assault"
+                ],
+                "property": "traits",
+                "value": "forceful"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian",
+                "rage"
+            ]
+        }
+    },
+    "type": "feat"
+}

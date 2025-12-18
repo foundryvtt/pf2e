@@ -1,0 +1,94 @@
+{
+    "_id": "djQPfxfGXJL7i04C",
+    "folder": "Th1SHYMutVvBmHKU",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "My Claws are Daggers",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your claws are as sharp as your teeth. You gain a claw unarmed attack that deals 1d6 slashing damage. Your claws are in the knife group and have the agile, finesse, and unarmed traits. At 5th level, whenever you get a critical hit with your claws or jaws, you get its critical specialization effect.</p><hr /><p><strong>Special</strong> If your dragonet heritage is house drake, your claws count as silver.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "baseType": "claw",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "knife",
+                "img": "icons/creatures/claws/claw-talons-glowing-orange.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.claw",
+                "range": null,
+                "slug": "claw",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "definition": [
+                    "item:base:claw"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "heritage:house-drake"
+                ],
+                "property": "materials",
+                "value": "silver"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:base:claw",
+                            "item:base:jaws"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dragonet"
+            ]
+        }
+    },
+    "type": "feat"
+}

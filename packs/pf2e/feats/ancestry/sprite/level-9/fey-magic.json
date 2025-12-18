@@ -1,0 +1,70 @@
+{
+    "_id": "Qe9IUDVo7gsowMHq",
+    "folder": "yedRPnvqy3HTs7Sp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Fey Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can use faerie magic to hide yourself and expose hidden foes. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Faerie Fire] and @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] each once per day as primal innate spells.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:faerie-fire",
+                            "item:slug:invisibility"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:faerie-fire",
+                            "item:slug:invisibility"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:sprite"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sprite"
+            ]
+        }
+    },
+    "type": "feat"
+}

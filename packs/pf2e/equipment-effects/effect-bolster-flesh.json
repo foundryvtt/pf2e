@@ -1,0 +1,133 @@
+{
+    "_id": "gKnoF5VKTCyl4JaN",
+    "img": "icons/equipment/neck/amulet-round-star-gold.webp",
+    "name": "Effect: Bolster Flesh",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Sihedron Medallion], @UUID[Compendium.pf2e.equipment-srd.Item.Sihedron Medallion (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Sihedron Medallion (Major)]</p>\n<p>You gain temporary hit points and an item bonus to saving throws for the <em>greater</em> and <em>major</em> versions.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 8
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #219: Lord of the Trinity Star"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:sihedron-medallion",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Sihedron Medallion"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:sihedron-medallion-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Sihedron Medallion (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:sihedron-medallion-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Sihedron Medallion (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "sihedron-medallion"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "sihedron-medallion:sihedron-medallion"
+                ],
+                "value": 10
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "sihedron-medallion:sihedron-medallion-greater"
+                ],
+                "value": 16
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "sihedron-medallion:sihedron-medallion-major"
+                ],
+                "value": 25
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "sihedron-medallion:sihedron-medallion-greater",
+                            "sihedron-medallion:sihedron-medallion-major"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "slug": "sihedron-medallion-bonus",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "sihedron-medallion:sihedron-medallion-major"
+                ],
+                "selector": "saving-throw",
+                "slug": "sihedron-medallion-bonus",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

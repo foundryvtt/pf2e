@@ -1,0 +1,69 @@
+{
+    "_id": "3fLfHrJbMy2ayLMQ",
+    "folder": "Fz6TXZp87MwO4SY6",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Blast Resistance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Access</strong> You are from Dongun Hold or Alkenstar.</p><hr /><p>You're used to the clamor of steel, the crack of a firearm, and the thunderous blast of explosions. You gain resistance 3 to fire and sonic. If you roll a success on a saving throw against an effect that causes the @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] or @UUID[Compendium.pf2e.conditionitems.Item.Deafened] conditions, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "domain": "saving-throw",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Dwarf.BlastResistance.RollOptionLabel",
+                "option": "blast-resistance-adjustment",
+                "toggleable": true
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "blast-resistance-adjustment",
+                            "inflicts:dazzled",
+                            "inflicts:deafened"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "key": "Resistance",
+                "type": [
+                    "fire",
+                    "sonic"
+                ],
+                "value": 3
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

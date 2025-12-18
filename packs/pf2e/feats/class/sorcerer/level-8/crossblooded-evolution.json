@@ -1,0 +1,53 @@
+{
+    "_id": "CN7tu5H6wTe9ENmO",
+    "folder": "JOiuEPjLeU9J7rs1",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Crossblooded Evolution",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Odd interactions in your bloodline provide you with unexpected effects. Choose another @UUID[Compendium.pf2e.classfeatures.Item.Bloodline]. You know the blood magic effect of that bloodline. If the blood magic effect has a variable effect based on a choice you would have made at 1st level (such as the elemental bloodline's elemental influence), you make that decision when you take this feat.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:sorcerer-bloodline"
+                    ]
+                },
+                "flag": "bloodline",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Sorcerer.Bloodline.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.bloodline}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

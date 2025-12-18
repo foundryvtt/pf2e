@@ -1,0 +1,64 @@
+{
+    "_id": "UuVz1QY7QXD5cnLu",
+    "folder": "FlTmTpt4O5nYRR90",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Fledgling Flight",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p>You can fly through the air in short bursts. You Fly. If you don't normally have a fly Speed, you gain a fly Speed of 15 feet for this movement. If you aren't on solid ground at the end of this movement, you fall.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "round",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "fledgling-flight",
+                "predicate": [
+                    {
+                        "nor": [
+                            "self:effect:juvenile-flight",
+                            "feat:fully-flighted"
+                        ]
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "fledgling-flight"
+                ],
+                "selector": "fly",
+                "value": 15
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "strix"
+            ]
+        }
+    },
+    "type": "feat"
+}

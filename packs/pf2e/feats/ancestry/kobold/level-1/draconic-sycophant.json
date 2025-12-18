@@ -1,0 +1,56 @@
+{
+    "_id": "HauCZuLvIthFe2we",
+    "folder": "DHDisl3wodueFQqb",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Draconic Sycophant",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You possess features that dragons find particularly cute or charming, making it easier to endear yourself to them, or at least cause them to momentarily forgive your insolence. You gain a +2 circumstance bonus to Perception checks and saving throws against dragons. In addition, whenever you meet a creature with the dragon trait in a social situation, you can attempt a Diplomacy check to [[/act make-an-impression]] on that creature immediately, rather than after conversing for 1 minute; you take a –5 circumstance penalty to this check. If you fail, you can choose to engage in 1 minute of conversation and then attempt a new check rather than accept the failure or critical failure result.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:dragon"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:trait:dragon"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kobold"
+            ]
+        }
+    },
+    "type": "feat"
+}
