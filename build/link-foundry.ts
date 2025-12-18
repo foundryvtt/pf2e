@@ -35,7 +35,7 @@ for (const systemId of ["pf2e", "sf2e"]) {
                 type: "confirm",
                 name: "value",
                 initial: false,
-                message: `A "pf2e" ${atPath} already exists in the "systems" subfolder. Replace with new symlink?`,
+                message: `A "${systemId}" ${atPath} already exists in the "systems" subfolder. Replace with new symlink?`,
             })
         ).value;
         if (!proceed) {
@@ -50,7 +50,7 @@ for (const systemId of ["pf2e", "sf2e"]) {
         } else if (symlinkStats) {
             fs.unlinkSync(symlinkPath);
         }
-        fs.symlinkSync(path.resolve(process.cwd(), "dist"), symlinkPath);
+        fs.symlinkSync(path.resolve(process.cwd(), `dist/${systemId}`), symlinkPath);
     } catch (error) {
         if (error instanceof Error) {
             console.error(`An error was encountered trying to create a symlink: ${error.message}`);
