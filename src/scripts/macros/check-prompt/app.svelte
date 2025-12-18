@@ -59,7 +59,7 @@
         clipboard: false,
     });
 
-    function generatePrompt() {
+    let checkContent: string[] = $derived.by(() => {
         const checkTypes: string[] = [];
         const checkTraits: string[] = [];
         const checkExtras: string[] = [];
@@ -84,17 +84,18 @@
         //traits and action traits
 
         if (checkTypes.length > 0) {
-            const checkFlavor = inputState.checkTitle
-                ? `<h4 class="action"><strong>${inputState.checkTitle}</strong></h4><hr>`
-                : "";
-
             const dc = getDC();
-            const content = checkTypes.map((type) => constructCheck(type, dc, checkTraits, checkExtras)).join("");
-            if (inputState.clipboard) {
-                copy(content);
-            } else {
-                ChatMessagePF2e.create({ author: game.user.id, flavor: checkFlavor, content });
-            }
+            return checkTypes.map((type) => constructCheck(type, dc, checkTraits, checkExtras));
+        }
+
+        return [];
+    });
+
+    function postToChat(content: string[], flavor: string) {
+        if (content.length > 0) {
+            const checkContent = content.map((c) => "<p>".concat(c, "</p>")).join("");
+            const checkFlavor = flavor ? `<h4 class="action"><strong>${flavor}</strong></h4><hr>` : "";
+            ChatMessagePF2e.create({ author: game.user.id, flavor: checkFlavor, content: checkContent });
         }
     }
 
@@ -132,13 +133,13 @@
         ]
             .concat(...extras)
             .filter((p) => p);
-        return `<p>@Check[${parts.join("|")}]</p>`;
+        return `@Check[${parts.join("|")}]`;
     }
 
-    async function copy(string: string) {
+    async function copyToClipboard(string: string) {
         try {
             await navigator.clipboard.writeText(string);
-            ui.notifications.success("Copied check to clipboard!");
+            ui.notifications.success(`Copied <strong>${string}</strong> to clipboard!`);
         } catch (error: any) {
             console.log(error.message);
         }
@@ -299,16 +300,28 @@
         {/if}
     </section>
     <hr />
-
-    <div class="form-group">
-        <div class="clipboard">
-            <input id="copy-to-clipboard" name="clipboard" type="checkbox" bind:checked={inputState.clipboard} />
-            <label for="copy-to-clipboard">
-                <i class="fa-solid fa-copy"></i>
-            </label>
+    {#each checkContent as check, i}
+        <div class="form-group resulting-check">
+            <input class="clipboard" readonly type="text" bind:value={checkContent[i]} />
+            <button
+                aria-labelledby="copy-to-clipboard"
+                type="button"
+                onclick={() => copyToClipboard(check)}
+                title={localize("PF2E.Item.Rules.CopyToClipboard")}
+            >
+                <i id="copy-to-clipboard" class="fa-solid fa-copy"></i>
+            </button>
         </div>
-        <button class="dialog-button post default bright" onclick={() => generatePrompt()}>
-            {localize("PF2E.Actor.Party.CheckPrompt.Post")}
+    {/each}
+    <div class="form-group post">
+        <button
+            aria-labelledby="send-to-chat"
+            class="bright"
+            onclick={() => postToChat(checkContent, inputState.checkTitle)}
+            title={localize("PF2E.Repost")}
+        >
+            <i id="send-to-chat" class="fa-solid fa-fw fa-message"></i>
+            {localize("PF2E.Repost")}
         </button>
     </div>
 </div>
@@ -328,6 +341,10 @@
 
         .add-roll-options-group {
             text-align: left;
+        }
+
+        .clipboard {
+            flex: 8;
         }
     }
 
