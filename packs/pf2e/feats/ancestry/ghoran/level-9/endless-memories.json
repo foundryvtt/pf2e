@@ -1,0 +1,63 @@
+{
+    "_id": "aSgLhr8mM53DWbFc",
+    "folder": "EVhcYpAyhP6sBQkd",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Endless Memories",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've lived a thousand lives and done a hundred-thousand things. When you choose a skill in which to become trained with @UUID[Compendium.pf2e.feats-srd.Item.Ancient Memories], you can also choose a skill in which you're already trained and become an expert in that skill. This lasts until your Ancient Memories expires. When the effects of Ancient Memories and Endless Memories expire, you can retrain one of your skill increases. The skill increase you gain from this retraining must either make you trained in the skill you chose with Ancient Memories or make you an expert in the skill you chose with Endless Memories.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Ancient Memories"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Impossible Lands"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "endless-memories",
+                "phase": "beforeDerived",
+                "suboptions": {
+                    "config": "skills",
+                    "predicate": [
+                        "skill:{choice|value}:rank:1"
+                    ]
+                },
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.endlessMemories}.rank",
+                "phase": "beforeDerived",
+                "priority": 60,
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ghoran"
+            ]
+        }
+    },
+    "type": "feat"
+}

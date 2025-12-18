@@ -1,0 +1,62 @@
+{
+    "_id": "LnSMRHjMArCkE4w1",
+    "folder": "fZYwwdcMjGEKuulh",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Heal Mount",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your devotion to your mount manifests as a surge of vital energy.</p>\n<p>When you cast @UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands] on your mount, instead of the normal amount, the spell restores 10 Hit Points, plus 10 for each heightened rank.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Faithful Steed"
+                },
+                {
+                    "value": "lay on hands"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "heal-mount",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "heal-mount",
+                    "item:slug:lay-on-hands"
+                ],
+                "selector": "spell-healing",
+                "slug": "base",
+                "value": "10*ceil(@actor.level/2)"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,106 @@
+{
+    "_id": "FrHsGqUvq6GrugC4",
+    "folder": "jBDfjcN9Hiz5RW2l",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Inhale, Exhale!",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You take an especially deep breath as a prelude to unleashing your dragonet breath on your foes. If your next action is to use your @UUID[Compendium.pf2e.feats-srd.Item.Dragonet Breath], add 5 feet to the length of the cone or line. If your breath deals damage, you also deal one additional die of damage.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Dragonet Breath"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "inhale-exhale",
+                "toggleable": true
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:dragonet-breath",
+                    "inhale-exhale"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "heritage:fey-dragonet",
+                                    "heritage:house-drake",
+                                    "heritage:pearl-dragonet"
+                                ]
+                            }
+                        ],
+                        "text": "@Template[cone|distance:20]"
+                    },
+                    {
+                        "predicate": [
+                            "heritage:homing-drake"
+                        ],
+                        "text": "@Template[line|distance:35]"
+                    },
+                    {
+                        "predicate": [
+                            "heritage:tidepool-dragonet"
+                        ],
+                        "text": "@Template[line|distance:20]"
+                    },
+                    {
+                        "predicate": [
+                            "heritage:tidepool-dragonet"
+                        ],
+                        "text": "@Template[cone|distance:25]"
+                    }
+                ]
+            },
+            {
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "predicate": [
+                    "inhale-exhale"
+                ],
+                "selector": "dragonet-breath-inline-damage"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "dragonet"
+            ]
+        }
+    },
+    "type": "feat"
+}

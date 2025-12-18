@@ -1,0 +1,71 @@
+{
+    "_id": "ZfycfbXlPXZlSqw5",
+    "folder": "jPt5ZSG7zi0A9MT0",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Just the Facts",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You fundamentally understand everything to the point where your research can't possibly be wrong. You are permanently @UUID[Compendium.pf2e.conditionitems.Item.Quickened] and can use the extra action to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge]. In addition, you gain the following benefits with Recall Knowledge.</p><ul><li>Your checks to Recall Knowledge are no longer secret.</li><li>When you Recall Knowledge, you use the outcome for one degree of success better than the result of your check.</li><li>If an effect (such as @UUID[Compendium.pf2e.feats-srd.Item.Dubious Knowledge]) would give you inaccurate information from your Recall Knowledge check, you know which information is inaccurate.</li><li><p>When one of your allies Recalls Knowledge and gains false information, you also know that information is inaccurate if they share it with you</p></li></ul>"
+        },
+        "level": {
+            "value": 20
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Thorough Research"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:granter:id:{item|id}"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Investigator.JustTheFacts.QuickenedAddendum"
+                    }
+                ]
+            },
+            {
+                "adjustment": {
+                    "all": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}

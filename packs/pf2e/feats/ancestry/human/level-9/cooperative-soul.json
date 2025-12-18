@@ -1,0 +1,56 @@
+{
+    "_id": "Z2EiYMtGoNnwW6Tk",
+    "folder": "9CAWI709PwWJexze",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Cooperative Soul",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have developed a soul-deep bond with your comrades and maintain an even greater degree of cooperation with them. If you are at least an expert in the skill you are @UUID[Compendium.pf2e.actionspf2e.Item.Aid]{Aiding}, when you roll a failure or critical failure to Aid a skill check, you get a success instead.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "to-success",
+                    "failure": "to-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:aid",
+                    {
+                        "or": [
+                            "proficiency:expert",
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
+                "selector": "skill-check"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "human"
+            ]
+        }
+    },
+    "type": "feat"
+}

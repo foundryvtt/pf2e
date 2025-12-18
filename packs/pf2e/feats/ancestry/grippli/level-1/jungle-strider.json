@@ -1,0 +1,54 @@
+{
+    "_id": "M41PGiFlLE2tByUL",
+    "folder": "Iw0dujzKEnLt32xt",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Jungle Strider",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You are adept at dodging roots, foliage, and other jungle obstacles. You ignore difficult terrain in forests and jungles. In addition, when you use the Acrobatics skill to @UUID[Compendium.pf2e.actionspf2e.Item.Balance] on narrow surfaces or uneven ground made of plant material, you aren't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard], and when you roll a success at one of these Acrobatics checks, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:balance",
+                    {
+                        "or": [
+                            "terrain:foliage",
+                            "terrain:forest"
+                        ]
+                    }
+                ],
+                "selector": "acrobatics"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "grippli"
+            ]
+        }
+    },
+    "type": "feat"
+}

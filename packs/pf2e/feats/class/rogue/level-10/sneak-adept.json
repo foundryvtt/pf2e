@@ -1,0 +1,52 @@
+{
+    "_id": "2Nu4ZdKQM8hx8x5D",
+    "folder": "9GNILJ4XDKv6ozEK",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Sneak Adept",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>It's almost impossible to spot you. When you roll a failure on a @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] action, you get a success instead. You can still critically fail.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "master in Stealth"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "failure": "to-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:sneak"
+                ],
+                "selector": "stealth"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

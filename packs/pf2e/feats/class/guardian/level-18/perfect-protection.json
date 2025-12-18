@@ -1,0 +1,96 @@
+{
+    "_id": "oYzkopbXguiwfNTx",
+    "folder": "ZRYi6MAwifJQmFqX",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Perfect Protection",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your armor protects you from the deadliest hits. Each time you're critically hit while wearing the medium or heavy armor, attempt a @Check[flat|dc:14|showDC:all]. On a success, it becomes a normal hit.</p><hr /><p><strong>Special</strong> If your armor has a @UUID[Compendium.pf2e.equipment-srd.Item.Fortification] rune, you roll only one flat check, but the DC is 12 (or 10 if it's a @UUID[Compendium.pf2e.equipment-srd.Item.Fortification (Greater)]{Greater Fortification} rune).</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "affects": "origin",
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "dc-14"
+                    }
+                ],
+                "key": "EphemeralEffect",
+                "predicate": [
+                    {
+                        "nor": [
+                            "armor:rune:property:fortification",
+                            "armor:rune:property:greater-fortification"
+                        ]
+                    }
+                ],
+                "selectors": "strike-attack-roll",
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Perfect Protection"
+            },
+            {
+                "affects": "origin",
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "dc-12"
+                    }
+                ],
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "armor:rune:property:fortification"
+                ],
+                "selectors": "strike-attack-roll",
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Perfect Protection"
+            },
+            {
+                "affects": "origin",
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "dc-10"
+                    }
+                ],
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "armor:rune:property:greater-fortification"
+                ],
+                "selectors": "strike-attack-roll",
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Perfect Protection"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "guardian"
+            ]
+        }
+    },
+    "type": "feat"
+}

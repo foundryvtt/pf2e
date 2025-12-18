@@ -1,0 +1,70 @@
+{
+    "_id": "oGPX29AOsyHj18mK",
+    "folder": "EVhcYpAyhP6sBQkd",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Flower Magic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Certain magics in the world flow easily through your sap. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Oaken Resilience] and @UUID[Compendium.pf2e.spells-srd.Item.One with Plants] as 2nd-rank arcane innate spells once per day each. A tree shape spell you cast this way transforms you into a Large flowering plant like a rosebush or lilac bush instead of a tree.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Impossible Lands"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:oaken-resilience",
+                            "item:slug:one-with-plants"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:oaken-resilience",
+                            "item:slug:one-with-plants"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:ghoran"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ghoran"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,69 @@
+{
+    "_id": "MgqRwyL8PWyYvoZs",
+    "folder": "AbPjOTvXkY04DL0v",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Energy Fusion",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You fuse two spells together, combining their energy types. If the next action you use is to Cast a Spell that deals energy damage, select a non-cantrip spell in your spell repertoire that deals a different type of energy damage, and expend an additional spell slot of the same rank as this secondary spell.</p>\n<p>The spell you cast deals additional damage equal to the rank of the secondary spell slot expended. The spell's total damage is divided evenly between the energy type of the spell you cast and the energy type of the secondary spell.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:type:spell",
+                    "spellshape:energy-fusion"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.EnergyFusion"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "energy-fusion"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "sorcerer",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

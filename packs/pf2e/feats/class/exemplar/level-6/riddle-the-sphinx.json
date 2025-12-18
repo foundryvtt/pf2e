@@ -1,0 +1,65 @@
+{
+    "_id": "iyZC5hdOpfQhQQhn",
+    "folder": "6N25cvp04M6rlN8A",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Riddle The Sphinx",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued into a body ikon</p><hr /><p>You've learned the secrets of the sphinx's riddles and empowered your ikon with them. You can voice these mysteries, forcing others to overcome them as you did.</p>\n<p><strong>Transcendence—@UUID[Compendium.pf2e.actionspf2e.Item.Tangle in Riddle]</strong> <span class=\"action-glyph\">1</span> (auditory, mental, transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.cGCQkCz14sF238gE inline]</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #217: Death Sails a Wine-Dark Sea"
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Tangle in Riddle"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "weapon-ikon-feat",
+                "worn-ikon-feat"
+            ],
+            "rarity": "uncommon",
+            "value": [
+                "exemplar",
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

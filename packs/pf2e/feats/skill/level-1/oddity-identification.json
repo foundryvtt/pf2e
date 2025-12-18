@@ -1,0 +1,69 @@
+{
+    "_id": "hDGosy2ZTwnyctEP",
+    "folder": "QhHpEbq98ZJAyDiH",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Oddity Identification",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>When you become aware of a magical effect or see a spell being cast, you can immediately determine if it twists minds (with the mental trait), fights against fortune (with the fortune or misfortune trait), or reveals secrets (with the detection, prediction, revelation, or scrying traits). At the GM's discretion, similar effects can also fall into these categories. When you [[/act identify-magic skill=occultism]] or [[/act recall-knowledge skill=occultism]] to learn more about these effects, you can always use Occultism without penalty and gain a +2 circumstance bonus.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Occultism"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:magical",
+                    {
+                        "or": [
+                            "action:identify-magic",
+                            "action:recall-knowledge"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:detection",
+                            "item:trait:fortune",
+                            "item:trait:mental",
+                            "item:trait:misfortune",
+                            "item:trait:prediction",
+                            "item:trait:revelation",
+                            "item:trait:scrying"
+                        ]
+                    }
+                ],
+                "selector": "occultism",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

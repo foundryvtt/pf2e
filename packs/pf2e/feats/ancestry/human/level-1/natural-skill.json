@@ -1,0 +1,72 @@
+{
+    "_id": "Rfyhlyql1GSoDkI2",
+    "folder": "hFVleadZ20Wc5Hkc",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Natural Skill",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your ingenuity allows you to learn a wide variety of skills. You gain the trained proficiency rank in two skills of your choice.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        "skill:{choice|value}:rank:0"
+                    ]
+                },
+                "flag": "skillOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skillOne}.rank",
+                "value": 1
+            },
+            {
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        "skill:{choice|value}:rank:0"
+                    ]
+                },
+                "flag": "skillTwo",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skillTwo}.rank",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "human"
+            ]
+        }
+    },
+    "type": "feat"
+}

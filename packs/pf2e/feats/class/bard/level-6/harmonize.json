@@ -1,0 +1,73 @@
+{
+    "_id": "21YWBdoXGmj60vdI",
+    "folder": "nkYsYXNjL3pJRuxk",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Harmonize",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can perform multiple compositions simultaneously, typically by performing in multiple ways at the same time, using special vocal techniques to double your voice, or creating occult magic that replicates your song or speech. If your next action is to cast a composition, it becomes a harmonized composition. Unlike a normal composition, a harmonized composition doesn't end if you cast another composition, and you can cast another composition on the same turn as a harmonized one. Casting another harmonized composition ends any harmonized composition you already have in effect.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "maestro muse"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:harmonize"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.Harmonize"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "harmonize"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "bard",
+                "concentrate",
+                "manipulate",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

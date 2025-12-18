@@ -1,0 +1,72 @@
+{
+    "_id": "arlZTqfppOAXBhdw",
+    "folder": "hLjqS3RxuQAReE1h",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Irriseni Ice-Witch",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can trace your direct descent from one of the Queens of Irrisen and thus from Baba Yaga herself. Your resistance to cold increases to 5 + half your level, and you can cast 5th-rank @UUID[Compendium.pf2e.spells-srd.Item.Wall of Ice] as an innate arcane spell once per day.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Jadwiga ethnicity"
+                },
+                {
+                    "value": "wintertouched human heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Character Guide"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "cold",
+                "value": "5+(max(1,floor(@actor.level/2)))"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:wall-of-ice",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:wall-of-ice",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:human"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "human"
+            ]
+        }
+    },
+    "type": "feat"
+}

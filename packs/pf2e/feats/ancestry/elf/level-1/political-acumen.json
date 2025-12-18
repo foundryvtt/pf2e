@@ -1,0 +1,66 @@
+{
+    "_id": "h3h6QWv1m3MOpx66",
+    "folder": "8RK49w67qc7pkvn1",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Political Acumen",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have spent years following the political maneuvering and secret alliances of elves in Iadara. You gain a +2 circumstance bonus to Perception checks made to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive] against other elves and to your Perception DC against Lies spoken by agents of Tanglebriar.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Perception"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #210: Whispers in the Dirt"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "target:trait:elf",
+                                    "action:sense-motive"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "origin:tag:agent-of-tanglebriar",
+                                    "action:lie"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "elf"
+            ]
+        }
+    },
+    "type": "feat"
+}

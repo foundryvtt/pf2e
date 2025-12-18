@@ -1,0 +1,75 @@
+{
+    "_id": "ogsVovr4LxFVi42V",
+    "folder": "ZRYi6MAwifJQmFqX",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Demolish Defenses",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>With a powerful blow, you crack a foe's armor or tough hide, opening it up for further attacks. Make a melee Strike. This Strike deals one additional weapon die of damage; if the target is your taunted enemy, this increases to two additional weapon die of damage. This counts as two attacks for the purposes of calculating your multiple attack penalty. If you hit and deal damage, the target must attempt a @Check[fortitude|against:guardian|options:inflicts:clumsy,inflicts:off-guard] saving throw against your class DC.</p><hr /><p><strong>Critical Success</strong> The target takes no additional effect.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of your next turn.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} until the end of your next turn. Once it loses this clumsy condition, it's off-guard for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3}.</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "domain": "strike-damage",
+                "key": "RollOption",
+                "option": "demolish-defenses",
+                "toggleable": true
+            },
+            {
+                "diceNumber": 1,
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "demolish-defenses",
+                    {
+                        "not": "target:effect:taunt:{actor|signature}"
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "demolish-defenses",
+                "toggleable": true
+            },
+            {
+                "diceNumber": 2,
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "demolish-defenses",
+                    "target:effect:taunt:{actor|signature}"
+                ],
+                "selector": "strike-damage",
+                "slug": "demolish-defenses-against-taunted",
+                "toggleable": true
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "guardian"
+            ]
+        }
+    },
+    "type": "feat"
+}

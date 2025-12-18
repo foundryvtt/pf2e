@@ -1,0 +1,74 @@
+{
+    "_id": "BWomK7EVY0WXxWgh",
+    "folder": "F3ue3RXoxcXCoqfP",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Reach Spell",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can extend your spells' range. If the next action you use is to Cast a Spell that has a range, increase that spell's range by 30 feet. As is standard for increasing spell ranges, if the spell normally has a range of touch, you extend its range to 30 feet.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:reach-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.ReachSpell"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "reach-spell"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "bard",
+                "cleric",
+                "concentrate",
+                "druid",
+                "oracle",
+                "sorcerer",
+                "spellshape",
+                "witch",
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

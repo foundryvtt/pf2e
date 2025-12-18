@@ -1,0 +1,122 @@
+{
+    "_id": "3SiZ4hrNi8aWjP8J",
+    "folder": "jD7qXzi8vqZyCyGl",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Shield Your Eyes",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You reflexively place your shield between your eyes and visual dangers. While your shield is raised, you gain a +2 circumstance bonus to all defenses against effects with the light or visual trait. If you critically fail your save against such an effect while your shield is raised, you fail instead. Likewise, if such an effect critically succeeds against your DC, it's a success instead.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:raise-a-shield",
+                    {
+                        "or": [
+                            "item:trait:light",
+                            "item:trait:visual"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "ac",
+                    "fortitude",
+                    "reflex",
+                    "will"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "self:effect:raise-a-shield",
+                    {
+                        "or": [
+                            "item:trait:light",
+                            "item:trait:visual"
+                        ]
+                    }
+                ],
+                "selector": "fortitude"
+            },
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "self:effect:raise-a-shield",
+                    {
+                        "or": [
+                            "item:trait:light",
+                            "item:trait:visual"
+                        ]
+                    }
+                ],
+                "selector": "reflex"
+            },
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "self:effect:raise-a-shield",
+                    {
+                        "or": [
+                            "item:trait:light",
+                            "item:trait:visual"
+                        ]
+                    }
+                ],
+                "selector": "will"
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "selectors": [
+                    "ac",
+                    "fortitude-dc",
+                    "reflex-dc",
+                    "will-dc"
+                ],
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Shield Your Eyes"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "guardian"
+            ]
+        }
+    },
+    "type": "feat"
+}

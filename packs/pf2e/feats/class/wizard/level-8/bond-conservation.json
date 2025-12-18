@@ -1,0 +1,73 @@
+{
+    "_id": "vhHKUooXX3PYqGaU",
+    "folder": "HsJM2bV6VU4w3yvS",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Bond Conservation",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> The last action you used was to Cast a Spell enabled by @UUID[Compendium.pf2e.actionspf2e.Item.Drain Bonded Item].</p>\n<hr />\n<p>By efficiently and carefully manipulating the arcane energies unleashed by your bonded item, you can conserve just enough power to cast another spell, though this second spell is slightly weaker. You gain an extra use of Drain Bonded Item. You can use it to cast a spell 2 or more ranks lower than the previous spell, and must use it before the end of your next turn or you lose it.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "arcane bond"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "feature:arcane-bond",
+                    "spellshape:bond-conservation"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.BondConservation"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "bond-conservation"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "manipulate",
+                "spellshape",
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,79 @@
+{
+    "_id": "GAh4CwCMS3Gsl8WH",
+    "folder": "PO7ihWTpl3W7ejLF",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Tengu Feather Fan",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've learned to bind some of your feathers together into a fan to focus your ancestral magic. You gain a <em>tengu feather fan</em>: a magic item of light Bulk with a level equal to your level and the primal trait. You (and only you) can cast tengu magic with the Wave Fan activation. If your fan is lost or destroyed, you can create a replacement during your daily preparations; if you do so, your previous fan falls apart into mundane feathers.</p>\n<p>Your <em>tengu feather fan</em> contains a 1st-rank @UUID[Compendium.pf2e.spells-srd.Item.Gust of Wind] spell. Further feats might add more spells and grant you additional activations of your tengu feather fan, but you can never have more than three activations per day, no matter how many such feats you have.</p>\n<p><strong>Activate—Wave Fan</strong> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You cast your choice of one spell contained in your <em>tengu feather fan</em>. You can instead cast a cantrip you've gained from a heritage or an ancestry feat; this doesn't use up one of the fan's daily activations. This activation takes the spell's normal number of actions. The spell's DC is your class DC or spell DC, whichever is higher.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Tengu Feather Fan"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:gust-of-wind",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "tengu-fan"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:gust-of-wind",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:tengu"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:tengu-fan",
+                    "item:slug:gust-of-wind"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Tengu.TenguFan.GustOfWind"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tengu"
+            ]
+        }
+    },
+    "type": "feat"
+}

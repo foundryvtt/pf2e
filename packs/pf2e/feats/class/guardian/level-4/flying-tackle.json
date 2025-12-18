@@ -1,0 +1,64 @@
+{
+    "_id": "zEvU1ZlqSsXNPghw",
+    "folder": "yx1Br5S2XJCuXqjq",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Flying Tackle",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You barrel forward, gathering enough momentum to take down a threatening foe. Stride and then @UUID[Compendium.pf2e.actionspf2e.Item.Leap], or attempt to @UUID[Compendium.pf2e.actionspf2e.Item.High Jump] or @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump]. If you end your movement adjacent to a foe, you can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] that foe. If you succeed at the Athletics check to Trip, you get a critical success instead. You can use Flying Tackle while Burrowing, Climbing, Flying, or Swimming instead of Striding if you have the corresponding movement type.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Athletics"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "flying-tackle",
+                "toggleable": true
+            },
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:trip",
+                    "flying-tackle"
+                ],
+                "selector": "athletics"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "flourish",
+                "guardian"
+            ]
+        }
+    },
+    "type": "feat"
+}

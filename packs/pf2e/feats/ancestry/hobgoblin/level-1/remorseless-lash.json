@@ -1,0 +1,52 @@
+{
+    "_id": "iRztLGEK5OfjZTPg",
+    "folder": "xZvgIBJA7m0AH99M",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Remorseless Lash",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're skilled at beating an enemy when their morale is already breaking. When you succeed at a melee weapon Strike against a @UUID[Compendium.pf2e.conditionitems.Item.Frightened] enemy, that enemy can't reduce their frightened condition below 1 until the beginning of your next turn.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:condition:frightened",
+                    "item:melee"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "hobgoblin"
+            ]
+        }
+    },
+    "type": "feat"
+}

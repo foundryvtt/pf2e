@@ -1,0 +1,54 @@
+{
+    "_id": "9bnkx6VgcO5mOk5b",
+    "folder": "kTu1AMjR6p5abNSc",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Dwarven Lore",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You eagerly absorbed the old stories and traditions of your ancestors, your gods, and your people, studying subjects and techniques passed down for generation upon generation. You gain the trained proficiency rank in Crafting and Religion. If you would automatically become trained in one of those skills (from your background or class, for example), you instead become trained in a skill of your choice.</p>\n<p>You also gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] general feat for Dwarf Lore.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.crafting.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.religion.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

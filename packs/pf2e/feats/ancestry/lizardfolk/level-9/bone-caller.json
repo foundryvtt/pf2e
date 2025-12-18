@@ -1,0 +1,70 @@
+{
+    "_id": "B53sWzd5irAoLn2U",
+    "folder": "vhR3q5qq1LHwTypP",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Bone Caller",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Using a mixture of dinosaur bones and the bones of your ancestors to focus your magic, you animate lizards and dinosaurs to carry messages or serve as mounts. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Animal Messenger] and @UUID[Compendium.pf2e.spells-srd.Item.Marvelous Mount] as primal innate spells once per day each. The animal messenger is always a Tiny dinosaur or lizard, and your innate spell transforms it from bones to flesh, even if there are no dinosaurs or lizards nearby. The phantom steed looks like a dinosaur rather than a horse but functions identically.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:animal-messenger",
+                            "item:slug:marvelous-mount"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:animal-messenger",
+                            "item:slug:marvelous-mount"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:lizardfolk"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lizardfolk"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,66 @@
+{
+    "_id": "KlqL2QCGvcf6vbta",
+    "folder": "mQJdT9ciubzEIHPD",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Follow the Threads of Fate",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Usage</strong> imbued into a worn ikon made of cloth or a weapon ikon with a tassel, wrapping, or similar feature.</p><hr /><p>A norn's thread—spun from fate itself—runs through or wraps around your ikon.</p>\n<p><strong>Transcendence—@UUID[Compendium.pf2e.actionspf2e.Item.Unravel the Future]</strong> <span class=\"action-glyph\">1</span> (fortune, transcendence)</p>\n<p>@Embed[Compendium.pf2e.actionspf2e.Item.TIIM35m8aDUEU4gF inline]</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #217: Death Sails a Wine-Dark Sea"
+        },
+        "rules": [
+            {
+                "choices": "flags.pf2e.exemplar.ikons",
+                "flag": "ikon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Exemplar.Ikon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Unravel the Future"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "chosen-ikon:{item|flags.pf2e.rulesSelections.ikon}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "weapon-ikon-feat",
+                "worn-ikon-feat"
+            ],
+            "rarity": "uncommon",
+            "value": [
+                "exemplar",
+                "fortune",
+                "ikon"
+            ]
+        }
+    },
+    "type": "feat"
+}

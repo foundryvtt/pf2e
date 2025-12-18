@@ -1,0 +1,79 @@
+{
+    "_id": "W6Gl9ePmItfDHji0",
+    "folder": "QhHpEbq98ZJAyDiH",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Assurance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>Even in the worst circumstances, you can perform basic tasks. Choose a skill you're trained in. You can forgo rolling a skill check for that skill to instead receive a result of 10 + your proficiency bonus (do not apply any other bonuses, penalties, or modifiers).</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times. Each time, choose a different skill and gain the benefits for that skill.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "maxTakable": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in at least one skill"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        {
+                            "gte": [
+                                "skill:{choice|value}:rank",
+                                1
+                            ]
+                        }
+                    ]
+                },
+                "flag": "assurance",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "SubstituteRoll",
+                "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                "slug": "assurance",
+                "value": 10
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "substitute:assurance",
+                    {
+                        "not": "bonus:type:proficiency"
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                "suppress": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fortune",
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

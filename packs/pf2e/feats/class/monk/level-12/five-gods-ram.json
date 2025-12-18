@@ -1,0 +1,114 @@
+{
+    "_id": "gq1gGsJDLQuQDrhW",
+    "folder": "Ju3sxyqzG7uKpMSC",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Five-Gods Ram",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 3
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You're in @UUID[Compendium.pf2e.feats-srd.Item.Rushing Goat Stance].</p><hr /><p>You attack in an unceasing flurry of charging headbutts. Stride or Climb and then make a ramming horn Strike. If the Strike is successful, you immediately push the target back 10 feet, then Stride or Climb and make a second ramming horn Strike against them. If the second Strike is successful, you immediately knock the target @UUID[Compendium.pf2e.conditionitems.Item.Prone], but if the second Strike is a failure or if you're unable to complete all the required actions, you become @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p>Both Strikes count toward your multiple attack penalty, but the penalty doesn't increase until you've made both of them.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Rushing Goat Stance"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:rushing-goat-stance"
+                    }
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Monk.FiveGodsRam.RollOptionLabel",
+                "option": "five-gods-ram",
+                "suboptions": [
+                    {
+                        "label": "PF2E.GenericLabel.StrikeCount.First",
+                        "value": "first-strike"
+                    },
+                    {
+                        "label": "PF2E.GenericLabel.StrikeCount.Second",
+                        "value": "second-strike"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "five-gods-ram:first-strike"
+                ],
+                "selector": [
+                    "ramming-horn-attack-roll"
+                ],
+                "text": "PF2E.SpecificRule.Monk.FiveGodsRam.FirstStrike.Note",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "five-gods-ram:second-strike"
+                ],
+                "selector": [
+                    "ramming-horn-attack-roll"
+                ],
+                "text": "PF2E.SpecificRule.Monk.FiveGodsRam.SecondStrike.Note",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure",
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "five-gods-ram:first-strike",
+                            "five-gods-ram:second-strike"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "ramming-horn-attack-roll"
+                ],
+                "text": "PF2E.SpecificRule.Monk.FiveGodsRam.FailureNote",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

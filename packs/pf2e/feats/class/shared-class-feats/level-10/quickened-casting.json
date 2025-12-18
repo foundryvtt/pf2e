@@ -1,0 +1,83 @@
+{
+    "_id": "z2ptq23nNBOeEI7H",
+    "folder": "FsGb7HbVVo5GPYYC",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Quickened Casting",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Bard</strong> If your next action is to cast a bard cantrip or a bard spell that is at least 2 ranks lower than the highest-rank bard spell slot you have, reduce the number of actions to cast it by 1 (minimum 1 action).</p>\n<p><strong>Witch</strong> You accelerate your spellcasting. If your next action is to cast a witch cantrip or a witch spell that is at least 2 ranks lower than the highest-rank witch spell slot you have, reduce the number of actions to cast it by 1 (minimum 1 action).</p>\n<p><strong>Wizard</strong> Straining your mind, you collapse as much of your spell's formulas as you can, resulting in a shorter but much more complex incantation. If your next action is to cast a wizard cantrip or a wizard spell that is at least 2 ranks lower than the highest-rank wizard spell slot you have, reduce the number of actions to cast it by 1 (minimum 1 action).</p>\n<p><strong>Others</strong> If your next action is to cast a class cantrip or a class spell that is at least 2 levels lower than the highest-level class spell slot you have, reduce the number of actions to cast it by 1 (minimum 1 action).</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:quickened-casting",
+                    {
+                        "or": [
+                            "item:cast:actions:1",
+                            "item:cast:actions:2",
+                            "item:cast:actions:3"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.QuickenedCasting"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "quickened-casting"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "bard",
+                "concentrate",
+                "oracle",
+                "sorcerer",
+                "spellshape",
+                "witch",
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

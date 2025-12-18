@@ -13,10 +13,13 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 import tsconfigPaths from "vite-tsconfig-paths";
 import packageJSON from "./package.json" with { type: "json" };
 import { sluggify } from "./src/util/misc.ts";
-import systemJSON from "./static/system.json" with { type: "json" };
+import systemPF2eJSON from "./system.pf2e.json" with { type: "json" };
+import systemSF2eJSON from "./system.sf2e.json" with { type: "json" };
 
+const [SYSTEM_ID, systemJSON] =
+    process.env.SYSTEM_ID === "pf2e" ? (["pf2e", systemPF2eJSON] as const) : (["sf2e", systemSF2eJSON] as const);
 const CONDITION_SOURCES = ((): ConditionSource[] => {
-    const output = execSync("npm run build:conditions", { encoding: "utf-8" });
+    const output = execSync(`pnpm run build:conditions --system=${SYSTEM_ID}`, { encoding: "utf-8" });
     return JSON.parse(output.slice(output.indexOf("[")));
 })();
 const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: "utf-8" }));
@@ -48,9 +51,7 @@ function getUuidRedirects({ systemId }: { systemId: SystemId }): Record<Compendi
 
 const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     const buildMode = mode === "production" ? "production" : "development";
-    const outDir = "dist";
-
-    const SYSTEM_ID = "pf2e" as SystemId;
+    const outDir = `dist/${SYSTEM_ID}`;
     const SYSTEM_ROOT = `systems/${SYSTEM_ID}` as const;
     const rollGrammar = fs.readFileSync("roll-grammar.peggy", { encoding: "utf-8" });
     const ROLL_PARSER = Peggy.generate(rollGrammar, { output: "source" }).replace(
@@ -108,6 +109,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             },
             ...viteStaticCopy({
                 targets: [
+                    { src: `system.${SYSTEM_ID}.json`, dest: ".", rename: "system.json" },
                     { src: "CHANGELOG.md", dest: "." },
                     { src: "README.md", dest: "." },
                     { src: "CONTRIBUTING.md", dest: "." },

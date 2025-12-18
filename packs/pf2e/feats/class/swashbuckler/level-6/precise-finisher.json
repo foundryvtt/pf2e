@@ -1,0 +1,92 @@
+{
+    "_id": "qeLpqH2cMSmIrILV",
+    "folder": "KX33xkC90e8I47IT",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Precise Finisher",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Even when your foe avoids your @UUID[Compendium.pf2e.actionspf2e.Item.Confident Finisher], you can still hit a vital spot. On a failure with Confident Finisher, you apply your full precise strike damage instead of half.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Confident Finisher"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "finisher:confident",
+                            "eternal-confidence"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "feat:flying-blade",
+                                    "item:thrown",
+                                    {
+                                        "or": [
+                                            "target:range-increment:1",
+                                            {
+                                                "and": [
+                                                    "finisher:twirling-throw",
+                                                    {
+                                                        "lte": [
+                                                            "target:range-increment",
+                                                            3
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Swashbuckler.Finisher.PreciseNote",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

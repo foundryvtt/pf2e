@@ -1,0 +1,110 @@
+{
+    "_id": "hzJl9iJzKvPcvZcI",
+    "folder": "yx1Br5S2XJCuXqjq",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Area Armor",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>The armor you wear protects you and shelters your allies against explosions and other large-scale assaults. While you're wearing medium or heavy armor, allies adjacent to you gain a +1 circumstance bonus to Reflex saves against area effects. If you're a master in the armor, the bonus is +2 instead.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "includesSelf": false,
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "lte": [
+                                            "defense:medium:rank",
+                                            2
+                                        ]
+                                    },
+                                    {
+                                        "lte": [
+                                            "defense:heavy:rank",
+                                            2
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Area Armor"
+                    },
+                    {
+                        "affects": "allies",
+                        "alterations": [
+                            {
+                                "mode": "add",
+                                "property": "other-tags",
+                                "value": "master-armor"
+                            }
+                        ],
+                        "includesSelf": false,
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "gte": [
+                                            "defense:medium:rank",
+                                            3
+                                        ]
+                                    },
+                                    {
+                                        "gte": [
+                                            "defense:heavy:rank",
+                                            3
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Area Armor"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    {
+                        "or": [
+                            "armor:category:medium",
+                            "armor:category:heavy"
+                        ]
+                    }
+                ],
+                "traits": []
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "guardian"
+            ]
+        }
+    },
+    "type": "feat"
+}

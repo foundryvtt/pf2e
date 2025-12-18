@@ -1,0 +1,54 @@
+{
+    "_id": "zL6zUrt44tZYyuh4",
+    "folder": "HuUvevadVxKumpH6",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Between the Scales",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've learned to take advantage of slips in your foes' defenses. When you Strike an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creature using a melee weapon or unarmed attack that has the agile and finesse traits, it gains the backstabber trait.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:trait:agile",
+                    "item:trait:finesse",
+                    {
+                        "not": "item:ranged"
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "target:condition:off-guard"
+                ],
+                "property": "weapon-traits",
+                "value": "backstabber"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kobold"
+            ]
+        }
+    },
+    "type": "feat"
+}

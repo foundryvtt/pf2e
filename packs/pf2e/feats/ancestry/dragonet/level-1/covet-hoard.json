@@ -1,0 +1,72 @@
+{
+    "_id": "zoZRiXMyAuULzChA",
+    "folder": "Th1SHYMutVvBmHKU",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Covet Hoard",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have a dragon's desire for treasure. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Hefty Hauler] skill feat, even if you don't meet the prerequisites. You also gain a +2 circumstance bonus to your Perception DC against attempts to [[/act steal]] from you and to any saving throw against an effect targeting an item you're holding or carrying.</p>\n<p>At 11th level, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Incredible Investiture] general feat, even if you don't meet the prerequisites.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Hefty Hauler"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            11
+                        ]
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Incredible Investiture"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:steal"
+                ],
+                "selector": [
+                    "perception-dc"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dragonet"
+            ]
+        }
+    },
+    "type": "feat"
+}

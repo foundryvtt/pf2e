@@ -1,0 +1,135 @@
+{
+    "_id": "aQNsD2t0Tb4vToA4",
+    "folder": "QW4FChLa1LOdbE1j",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Hold Mark",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You bear scars or tattoos enhanced by the mark of your community's prowess. When you select this feat, choose one of the options from the below table. You are trained in the listed skill and gain a +1 status bonus to saves against spells from the listed tradition. You gain a large brand or tattoo in the shape of the chosen emblem or a similar concept (for example, the Burning Sun could be a torch, sun, volcano, or other fiery symbol, while the Empty Hand could be a fist or claw).</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Hold Mark Emblem</th>\n<th>Skill</th>\n<th>Tradition</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Burning Sun</td>\n<td>Diplomacy</td>\n<td>Arcane</td>\n</tr>\n<tr>\n<td>Death's Head</td>\n<td>Survival</td>\n<td>Primal</td>\n</tr>\n<tr>\n<td>Defiled Corpse</td>\n<td>Religion</td>\n<td>Divine</td>\n</tr>\n<tr>\n<td>Empty Hand</td>\n<td>Intimidation</td>\n<td>Occult</td>\n</tr>\n</tbody>\n</table>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Orc.HoldMark.BurningSun",
+                        "value": "burning-sun"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Orc.HoldMark.DeathsHead",
+                        "value": "deaths-head"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Orc.HoldMark.DefiledCorpse",
+                        "value": "defiled-corpse"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Orc.HoldMark.EmptyHand",
+                        "value": "empty-hand"
+                    }
+                ],
+                "flag": "holdMark",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Orc.HoldMark.Prompt",
+                "rollOption": "hold-mark"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.diplomacy.rank",
+                "predicate": [
+                    "hold-mark:burning-sun"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.survival.rank",
+                "predicate": [
+                    "hold-mark:deaths-head"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.religion.rank",
+                "predicate": [
+                    "hold-mark:defiled-corpse"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.intimidation.rank",
+                "predicate": [
+                    "hold-mark:empty-hand"
+                ],
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:type:spell",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "arcane",
+                                    "hold-mark:burning-sun"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "hold-mark:deaths-head",
+                                    "primal"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "divine",
+                                    "hold-mark:defiled-corpse"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "hold-mark:empty-hand",
+                                    "occult"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "orc"
+            ]
+        }
+    },
+    "type": "feat"
+}

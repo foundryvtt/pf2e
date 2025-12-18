@@ -1,0 +1,60 @@
+{
+    "_id": "YW4FdWgzTwRFneFF",
+    "folder": "qH6W33xWhVuEMHdM",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Monastic Weaponry",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have trained with the weaponry of your monastery or school. You gain access to uncommon weapons with the monk trait and become trained in simple and martial monk weapons. When your proficiency for unarmed attacks increases to expert or master, your proficiency rank for these weapons increases to expert or master as well. If you have familiarity with an agile or finesse weapon (such as from the Catfolk Weapon Familiarity feat), that weapon also gains the monk trait for you. You can use melee monk weapons with any of your monk feats or monk abilities that normally require unarmed attacks, though not if the feat or ability requires you to use a single specific type of attack, such as Crane Stance. If you gain the critical specialization benefit for unarmed attacks—with the expert strikes class feature, for example—you also gain it with monk weapons.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:trait:monk",
+                    {
+                        "or": [
+                            "item:category:simple",
+                            "item:category:martial"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "maxRank": "master",
+                "sameAs": "unarmed",
+                "slug": "simple-martial-monk-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "feature:expert-strikes",
+                    "item:trait:monk"
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "monk"
+            ]
+        }
+    },
+    "type": "feat"
+}

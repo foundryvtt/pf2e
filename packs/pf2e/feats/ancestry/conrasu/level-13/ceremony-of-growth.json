@@ -1,0 +1,71 @@
+{
+    "_id": "JAl4t2KINE8nI8KY",
+    "folder": "Crgwz6xa0EAOefkQ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Ceremony of Growth",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can alter your exoskeleton's size. You constantly gain the effects of @UUID[Compendium.pf2e.spells-srd.Item.Enlarge]. You can dismiss or resume these effects as an action, which has the concentrate trait.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens The Mwangi Expanse"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "ceremony-of-growth",
+                "toggleable": true
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "ceremony-of-growth"
+                ],
+                "reach": {
+                    "override": "10"
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "ceremony-of-growth"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "ceremony-of-growth"
+                ],
+                "selector": "melee-strike-damage",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "conrasu"
+            ]
+        }
+    },
+    "type": "feat"
+}

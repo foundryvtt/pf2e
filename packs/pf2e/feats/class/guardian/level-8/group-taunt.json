@@ -1,0 +1,57 @@
+{
+    "_id": "i991vEx2T7y5L6Ke",
+    "folder": "eiQMbX5ynd8B0yZW",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Group Taunt",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your taunts draw the attention of multiple enemies at once. When you use @UUID[Compendium.pf2e.actionspf2e.Item.Taunt], you can choose up to three targets within range, and you can have up to three taunted enemies at a time. Each time you Taunt, you can choose which enemies remain taunted and which the effect ends for. You must remain at or below this limit.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:taunt"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "guardian"
+            ]
+        }
+    },
+    "type": "feat"
+}

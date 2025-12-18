@@ -1,0 +1,78 @@
+{
+    "_id": "zrSOBBQZoeewqkUk",
+    "folder": "KnivJMR5YQOgIzKM",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Blood Rising",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> A creature targets you with a spell of the same tradition as your bloodline.</p><hr /><p>The magic in your blood surges in response to your foe's spell. You generate a blood magic effect you know, even if you are already under the effects of blood magic. The target must be either you or the creature that triggered Blood Rising. If the blood magic effect grants you a bonus to AC or the appropriate saving throw, that bonus applies against the triggering spell. If the effect has a duration, it instead lasts until the beginning of your next turn.</p><hr /><p><strong>Special</strong> This feat has the trait corresponding to the tradition of your bloodline.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "feature:bloodline:tradition:arcane"
+                ],
+                "property": "traits",
+                "value": "arcane"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "feature:bloodline:tradition:divine"
+                ],
+                "property": "traits",
+                "value": "divine"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "feature:bloodline:tradition:occult"
+                ],
+                "property": "traits",
+                "value": "occult"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "feature:bloodline:tradition:primal"
+                ],
+                "property": "traits",
+                "value": "primal"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

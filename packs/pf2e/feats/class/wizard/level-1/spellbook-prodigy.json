@@ -1,0 +1,56 @@
+{
+    "_id": "FCzfh8QHMo7QJpAM",
+    "folder": "ZPN4FjFO8J0DV3mZ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Spellbook Prodigy",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You are particularly adept at learning spells to add to your spellbook. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Magical Shorthand] skill feat without needing to meet its prerequisites. Further, when you roll a critical failure on your check to Learn a Spell, you get a failure instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Arcana"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Magical Shorthand"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:learn-a-spell"
+                ],
+                "selector": "skill-check"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}
