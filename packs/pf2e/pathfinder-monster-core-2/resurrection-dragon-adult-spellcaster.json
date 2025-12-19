@@ -2763,7 +2763,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A resurrection dragon has a strong connection with its minions and can Sustain summon undead or invoke spirits as a free action once per turn.</p>"
+                    "value": "<p>A resurrection dragon has a strong connection with its minions and can Sustain @UUID[Compendium.pf2e.spells-srd.Item.Summon Undead] or @UUID[Compendium.pf2e.spells-srd.Item.Invoke Spirits] as a free action once per turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2794,14 +2794,25 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 60 feet uses a healing effect that restores Hit Points</p><hr /><p><strong>Effect</strong> The resurrection dragon redirects vital energies away from the effect, minimizing its impact. The triggering effect results in the minimum amount on any dice rolls to restore Hit Points, and any flat values for restoring Hit Points (such as the additional Hit Points for a two-action heal spell) are cut in half. The dragon then gains 2d8 temporary Hit Points that last for 1 round.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within 60 feet uses a healing effect that restores Hit Points</p><hr /><p><strong>Effect</strong> The resurrection dragon redirects vital energies away from the effect, minimizing its impact. The triggering effect results in the minimum amount on any dice rolls to restore Hit Points, and any flat values for restoring Hit Points (such as the additional Hit Points for a two-action @UUID[Compendium.pf2e.spells-srd.Item.Heal] spell) are cut in half. The dragon then gains 2d8 temporary Hit Points that last for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.siphonLife",
+                        "value": 2
+                    }
+                ],
+                "selfEffect": {
+                    "name": "Effect: Siphon Life",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Siphon Life"
+                },
                 "slug": null,
                 "traits": {
                     "value": [
@@ -2827,7 +2838,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The resurrection dragon uses their mastery over life energy to cast their own soul into the Boneyard and pull a willing creature's soul back to its body in a process that takes 1 hour. This has the effects of raise dead, except the maximum level of the target is 8th and the soul is tethered to the dragon's. Only one creature can be tethered to the dragon's soul at a time. If the creature and the dragon are no longer on the same plane or the dragon dies, the raised creature dies and can't be raised with Arise! again. The dragon can Dismiss the connection at any time. Doing so doesn't prevent the dragon from raising the creature with Arise! again.</p>\n<p>While raised in this way, the creature is still a valid target for raise dead, resurrection, and similar effects. Returning the creature to life in this way fully restores the creature, severing the connection to the dragon and allowing the dragon to establish a connection with a different creature.</p>"
+                    "value": "<p>The resurrection dragon uses their mastery over life energy to cast their own soul into the Boneyard and pull a willing creature's soul back to its body in a process that takes 1 hour. This has the effects of @UUID[Compendium.pf2e.spells-srd.Item.Raise Dead], except the maximum level of the target is 8th and the soul is tethered to the dragon's. Only one creature can be tethered to the dragon's soul at a time. If the creature and the dragon are no longer on the same plane or the dragon dies, the raised creature dies and can't be raised with Arise! again. The dragon can Dismiss the connection at any time. Doing so doesn't prevent the dragon from raising the creature with Arise! again.</p>\n<p>While raised in this way, the creature is still a valid target for <em>raise dead</em>, @UUID[Compendium.pf2e.spells-srd.Item.Resurrect], and similar effects. Returning the creature to life in this way fully restores the creature, severing the connection to the dragon and allowing the dragon to establish a connection with a different creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2867,7 +2878,21 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "soul-siphoning-breath",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FastHealing",
+                        "predicate": [
+                            "soul-siphoning-breath"
+                        ],
+                        "type": "fast-healing",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
