@@ -113,7 +113,7 @@ export class Migration824SneakAttackDamageSource extends MigrationBase {
                         path: "flags.pf2e.sneakAttackDamage.faces",
                         value: "ternary(lt(@actor.level, 6), 4, 6)",
                     },
-                    { key: "GrantItem", uuid: "Compendium.pf2e.classfeatures.Sneak Attack" },
+                    { key: "GrantItem", uuid: "Compendium.pf2e.class-features.Sneak Attack" },
                 ];
                 source.system.rules = rules;
                 return;
@@ -132,7 +132,7 @@ export class Migration824SneakAttackDamageSource extends MigrationBase {
                         path: "flags.pf2e.sneakAttackDamage.faces",
                         value: 6,
                     },
-                    { key: "GrantItem", uuid: "Compendium.pf2e.classfeatures.Sneak Attack" },
+                    { key: "GrantItem", uuid: "Compendium.pf2e.class-features.Sneak Attack" },
                     {
                         domain: "all",
                         key: "RollOption",

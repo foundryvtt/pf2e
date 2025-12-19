@@ -15,12 +15,12 @@ export class Migration831ClericDoctrines extends MigrationBase {
             mode: "override",
             path: "flags.pf2e.cleric",
             value: {
-                firstDoctrine: "Compendium.pf2e.classfeatures.aiwxBj5MjnafCMyn",
-                secondDoctrine: "Compendium.pf2e.classfeatures.sa7BWfnyCswAvBVa",
-                thirdDoctrine: "Compendium.pf2e.classfeatures.s8WEmc4GGZSHSC7q",
-                fourthDoctrine: "Compendium.pf2e.classfeatures.vxOf4LXZcqUG3P7a",
-                fifthDoctrine: "Compendium.pf2e.classfeatures.n9W8MjjRgPpUTvWf",
-                finalDoctrine: "Compendium.pf2e.classfeatures.DgGefatQ4v6xT6f9",
+                firstDoctrine: "Compendium.pf2e.class-features.aiwxBj5MjnafCMyn",
+                secondDoctrine: "Compendium.pf2e.class-features.sa7BWfnyCswAvBVa",
+                thirdDoctrine: "Compendium.pf2e.class-features.s8WEmc4GGZSHSC7q",
+                fourthDoctrine: "Compendium.pf2e.class-features.vxOf4LXZcqUG3P7a",
+                fifthDoctrine: "Compendium.pf2e.class-features.n9W8MjjRgPpUTvWf",
+                finalDoctrine: "Compendium.pf2e.class-features.DgGefatQ4v6xT6f9",
             },
         };
     }
@@ -31,12 +31,12 @@ export class Migration831ClericDoctrines extends MigrationBase {
             mode: "override",
             path: "flags.pf2e.cleric",
             value: {
-                firstDoctrine: "Compendium.pf2e.classfeatures.xxkszluN9icAiTO4",
-                secondDoctrine: "Compendium.pf2e.classfeatures.D34mPo29r1J3DPaX",
-                thirdDoctrine: "Compendium.pf2e.classfeatures.Zp81uTBItG1xlH4O",
-                fourthDoctrine: "Compendium.pf2e.classfeatures.px3gVYp7zlEQIpcl",
-                fifthDoctrine: "Compendium.pf2e.classfeatures.kmimy4VOaoEOgOiQ",
-                finalDoctrine: "Compendium.pf2e.classfeatures.N1ugDqZlslxbp3Uy",
+                firstDoctrine: "Compendium.pf2e.class-features.xxkszluN9icAiTO4",
+                secondDoctrine: "Compendium.pf2e.class-features.D34mPo29r1J3DPaX",
+                thirdDoctrine: "Compendium.pf2e.class-features.Zp81uTBItG1xlH4O",
+                fourthDoctrine: "Compendium.pf2e.class-features.px3gVYp7zlEQIpcl",
+                fifthDoctrine: "Compendium.pf2e.class-features.kmimy4VOaoEOgOiQ",
+                finalDoctrine: "Compendium.pf2e.class-features.N1ugDqZlslxbp3Uy",
             },
         };
     }

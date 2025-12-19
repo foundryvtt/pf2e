@@ -8,7 +8,7 @@ import { MigrationBase } from "../base.ts";
 export class Migration738UpdateLaughingShadow extends MigrationBase {
     static override version = 0.738;
 
-    #shadowPromise = fromUuid<ItemPF2e>("Compendium.pf2e.classfeatures.3gVDqDPSz4fB5T9G");
+    #shadowPromise = fromUuid<ItemPF2e>("Compendium.pf2e.class-features.3gVDqDPSz4fB5T9G");
 
     #cascadePromise = fromUuid<ItemPF2e>("Compendium.pf2e.feature-effects.fsjO5oTKttsbpaKl");
 

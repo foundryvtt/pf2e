@@ -190,12 +190,12 @@ export class Migration923KineticistRestructure extends MigrationBase {
     }
 
     #elementMap = new Map<string, ItemUUID>([
-        ["air", "Compendium.pf2e.classfeatures.Item.X11Y3T1IzmtNqGMV"],
-        ["earth", "Compendium.pf2e.classfeatures.Item.dEm00L1XFXFCH2wS"],
-        ["fire", "Compendium.pf2e.classfeatures.Item.PfeDtJBJdUun0THS"],
-        ["metal", "Compendium.pf2e.classfeatures.Item.21JjdNW0RQ2LfaH3"],
-        ["water", "Compendium.pf2e.classfeatures.Item.MvunDFH8Karxee0t"],
-        ["wood", "Compendium.pf2e.classfeatures.Item.8X8db58vKx21L0Dr"],
+        ["air", "Compendium.pf2e.class-features.Item.X11Y3T1IzmtNqGMV"],
+        ["earth", "Compendium.pf2e.class-features.Item.dEm00L1XFXFCH2wS"],
+        ["fire", "Compendium.pf2e.class-features.Item.PfeDtJBJdUun0THS"],
+        ["metal", "Compendium.pf2e.class-features.Item.21JjdNW0RQ2LfaH3"],
+        ["water", "Compendium.pf2e.class-features.Item.MvunDFH8Karxee0t"],
+        ["wood", "Compendium.pf2e.class-features.Item.8X8db58vKx21L0Dr"],
     ]);
 
     #elementSkillFeats: Record<string, string> = {
@@ -207,7 +207,7 @@ export class Migration923KineticistRestructure extends MigrationBase {
         wood: "terrain-expertise",
     };
 
-    #gateJunctionFeat: ItemUUID = "Compendium.pf2e.classfeatures.Item.jx70hPakuTgB3lM5";
+    #gateJunctionFeat: ItemUUID = "Compendium.pf2e.class-features.Item.jx70hPakuTgB3lM5";
 
     async #loadFeatSource(uuid: ItemUUID): Promise<FeatSource | null> {
         const item = await fromUuid<ItemPF2e>(uuid);
@@ -474,7 +474,7 @@ const GATES_THRESHOLD_RULES = (level: number) => [
     {
         key: "GrantItem",
         predicate: ["kinetic-gate:first-threshold:expand"],
-        uuid: "Compendium.pf2e.classfeatures.Item.jx70hPakuTgB3lM5",
+        uuid: "Compendium.pf2e.class-features.Item.jx70hPakuTgB3lM5",
     },
     {
         adjustName: "PF2E.SpecificRule.Kineticist.KineticGate.ForkThePath.Rename",

@@ -16,11 +16,11 @@ export class Migration816AlchemistResearchFields extends MigrationBase {
             mode: "override",
             path: "flags.pf2e.alchemist",
             value: {
-                fieldDiscovery: "Compendium.pf2e.classfeatures.8QAFgy9U8PxEa7Dw",
-                greaterFieldDiscovery: "Compendium.pf2e.classfeatures.RGs4uR3CAvgbtBAA",
-                perpetualInfusions: "Compendium.pf2e.classfeatures.DFQDtT1Van4fFEHi",
-                perpetualPerfection: "Compendium.pf2e.classfeatures.xO90iBD8XNGyaCkz",
-                perpetualPotency: "Compendium.pf2e.classfeatures.8rEVg03QJ71ic3PP",
+                fieldDiscovery: "Compendium.pf2e.class-features.8QAFgy9U8PxEa7Dw",
+                greaterFieldDiscovery: "Compendium.pf2e.class-features.RGs4uR3CAvgbtBAA",
+                perpetualInfusions: "Compendium.pf2e.class-features.DFQDtT1Van4fFEHi",
+                perpetualPerfection: "Compendium.pf2e.class-features.xO90iBD8XNGyaCkz",
+                perpetualPotency: "Compendium.pf2e.class-features.8rEVg03QJ71ic3PP",
             },
         };
     }
@@ -31,11 +31,11 @@ export class Migration816AlchemistResearchFields extends MigrationBase {
             mode: "override",
             path: "flags.pf2e.alchemist",
             value: {
-                fieldDiscovery: "Compendium.pf2e.classfeatures.qC0Iz6SlG2i9gv6g",
-                greaterFieldDiscovery: "Compendium.pf2e.classfeatures.JJcaVijwRt9dsnac",
-                perpetualInfusions: "Compendium.pf2e.classfeatures.fzvIe6FwwCuIdnjX",
-                perpetualPerfection: "Compendium.pf2e.classfeatures.YByJ9O7oe8wxfbqs",
-                perpetualPotency: "Compendium.pf2e.classfeatures.VS5vkqUQu4n7E28Y",
+                fieldDiscovery: "Compendium.pf2e.class-features.qC0Iz6SlG2i9gv6g",
+                greaterFieldDiscovery: "Compendium.pf2e.class-features.JJcaVijwRt9dsnac",
+                perpetualInfusions: "Compendium.pf2e.class-features.fzvIe6FwwCuIdnjX",
+                perpetualPerfection: "Compendium.pf2e.class-features.YByJ9O7oe8wxfbqs",
+                perpetualPotency: "Compendium.pf2e.class-features.VS5vkqUQu4n7E28Y",
             },
         };
     }
@@ -46,11 +46,11 @@ export class Migration816AlchemistResearchFields extends MigrationBase {
             mode: "override",
             path: "flags.pf2e.alchemist",
             value: {
-                fieldDiscovery: "Compendium.pf2e.classfeatures.V4Jt7eDnJBLv5bDj",
-                greaterFieldDiscovery: "Compendium.pf2e.classfeatures.1BKdOJ0HNL6Eg3xw",
-                perpetualInfusions: "Compendium.pf2e.classfeatures.Dug1oaVYejLmYEFt",
-                perpetualPerfection: "Compendium.pf2e.classfeatures.CGetAmSbv06fW7GT",
-                perpetualPotency: "Compendium.pf2e.classfeatures.mZFqRLYOQEqKA8ri",
+                fieldDiscovery: "Compendium.pf2e.class-features.V4Jt7eDnJBLv5bDj",
+                greaterFieldDiscovery: "Compendium.pf2e.class-features.1BKdOJ0HNL6Eg3xw",
+                perpetualInfusions: "Compendium.pf2e.class-features.Dug1oaVYejLmYEFt",
+                perpetualPerfection: "Compendium.pf2e.class-features.CGetAmSbv06fW7GT",
+                perpetualPotency: "Compendium.pf2e.class-features.mZFqRLYOQEqKA8ri",
             },
         };
     }
@@ -61,11 +61,11 @@ export class Migration816AlchemistResearchFields extends MigrationBase {
             mode: "override",
             path: "flags.pf2e.alchemist",
             value: {
-                fieldDiscovery: "Compendium.pf2e.classfeatures.6zo2PJGYoig7nFpR",
-                greaterFieldDiscovery: "Compendium.pf2e.classfeatures.tnqyQrhrZeDtDvcO",
-                perpetualInfusions: "Compendium.pf2e.classfeatures.LlZ5R50z9j8jysZL",
-                perpetualPerfection: "Compendium.pf2e.classfeatures.3R19zS7gERhEX87F",
-                perpetualPotency: "Compendium.pf2e.classfeatures.JOdbVu14phvdjhaY",
+                fieldDiscovery: "Compendium.pf2e.class-features.6zo2PJGYoig7nFpR",
+                greaterFieldDiscovery: "Compendium.pf2e.class-features.tnqyQrhrZeDtDvcO",
+                perpetualInfusions: "Compendium.pf2e.class-features.LlZ5R50z9j8jysZL",
+                perpetualPerfection: "Compendium.pf2e.class-features.3R19zS7gERhEX87F",
+                perpetualPotency: "Compendium.pf2e.class-features.JOdbVu14phvdjhaY",
             },
         };
     }
