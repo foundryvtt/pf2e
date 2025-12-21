@@ -273,13 +273,6 @@ interface AttributeBuilderState {
     gradualBoostsVariant: boolean;
 }
 
-interface BuilderButton {
-    selected?: boolean;
-    locked?: boolean;
-    disabled?: boolean;
-    partial?: boolean;
-}
-
 export {
     ALL_ATTRIBUTES_COUNT,
     AttributeBuilder,
@@ -290,5 +283,4 @@ export {
     PARTIAL_BOOST_THRESHOLD,
     type AttributeBuilderContext,
     type AttributeBuilderState,
-    type BuilderButton,
 };

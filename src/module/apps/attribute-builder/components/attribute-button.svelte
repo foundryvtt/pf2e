@@ -1,15 +1,7 @@
-<script lang="ts" generics="TAttribute extends AttributeString | KingdomAbility">
-    import type { AttributeString } from "@actor/types.ts";
-    import type { KingdomAbility } from "@actor/party/kingdom/types.ts";
+<script lang="ts" generics="TAttribute extends BuilderAttribute">
+    import type { BuilderAttribute, BuilderButton } from "../helpers.ts";
 
     type AttributeButtonType = "boost" | "flaw" | "apex" | "key";
-
-    interface BuilderButton {
-        selected?: boolean;
-        locked?: boolean;
-        disabled?: boolean;
-        partial?: boolean;
-    }
 
     interface SecondFlaw {
         button: BuilderButton;

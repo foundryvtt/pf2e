@@ -1,10 +1,11 @@
 <script lang="ts">
     import type { AttributeString } from "@actor/types.ts";
     import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
+    import { createButtonRecord, type BuilderButton } from "@module/apps/attribute-builder/helpers.ts";
+    import AttributeButton from "@module/apps/attribute-builder/components/attribute-button.svelte";
+    import RemainingIndicator from "@module/apps/attribute-builder/components/remaining-indicator.svelte";
     import { signedInteger, tupleHasValue } from "@util";
     import * as R from "remeda";
-    import AttributeButton from "@module/sheet/components/attribute-button.svelte";
-    import RemainingIndicator from "@module/sheet/components/remaining-indicator.svelte";
     import {
         ALL_ATTRIBUTES_COUNT,
         MAX_ALTERNATE_ANCESTRY_BOOSTS,
@@ -14,7 +15,6 @@
         PARTIAL_BOOST_THRESHOLD,
         type AttributeBuilder,
         type AttributeBuilderState,
-        type BuilderButton,
     } from "./app.ts";
 
     interface Props {
@@ -24,14 +24,7 @@
 
     const { foundryApp, state: data }: Props = $props();
 
-    const attributeList = Array.from(ATTRIBUTE_ABBREVIATIONS);
-
-    // Helper function to create button records
-    function createButtonRecord<T extends { boost?: BuilderButton; flaw?: BuilderButton; secondFlaw?: BuilderButton }>(
-        builder: (attr: AttributeString) => T,
-    ): Record<AttributeString, T> {
-        return Object.fromEntries(attributeList.map((attr) => [attr, builder(attr)])) as Record<AttributeString, T>;
-    }
+    const attributeList = [...ATTRIBUTE_ABBREVIATIONS] as const;
 
     // Helper function to generate boost/flaw labels from item data
     function getBoostFlawLabels(
@@ -135,7 +128,7 @@
         const lockedBoosts = ancestry.system.alternateAncestryBoosts ? null : ancestry.lockedBoosts;
         const lockedFlaws = ancestry.system.alternateAncestryBoosts ? null : ancestry.lockedFlaws;
 
-        const buttons = createButtonRecord((attribute) => {
+        const buttons = createButtonRecord(attributeList, (attribute) => {
             const selected = selectedBoosts.includes(attribute);
             return {
                 boost: {
@@ -171,7 +164,7 @@
         const lockedBoosts = ancestry.system.alternateAncestryBoosts ? null : ancestry.lockedBoosts;
         const netBoosted = R.difference(data.build.boosts.ancestry, data.build.flaws.ancestry);
 
-        const buttons = createButtonRecord((attribute) => {
+        const buttons = createButtonRecord(attributeList, (attribute) => {
             const numFlaws = voluntary.flaws.filter((f) => f === attribute).length;
             const flaw: BuilderButton = {
                 selected: numFlaws > 0,
@@ -218,7 +211,7 @@
             .flatMap((b) => b.value);
         const remaining = boosts.length - selectedBoosts.length;
 
-        const buttons = createButtonRecord((attribute) => {
+        const buttons = createButtonRecord(attributeList, (attribute) => {
             const selected = selectedBoosts.includes(attribute);
             const mightBeForced = unselectedRestricted.includes(attribute);
             return {
@@ -250,7 +243,7 @@
                     : build.allowedBoosts[level] - build.boosts[level].length
                 : 0;
 
-            const buttons = createButtonRecord((attribute) => {
+            const buttons = createButtonRecord(attributeList, (attribute) => {
                 const selected = isApex
                     ? build.apex === attribute && eligible
                     : build.boosts[level].includes(attribute);
