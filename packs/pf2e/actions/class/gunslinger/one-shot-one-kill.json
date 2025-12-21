@@ -1,0 +1,63 @@
+{
+    "_id": "Tlrde2xh7AhesXNB",
+    "folder": "GSR6IQngciNNAnZR",
+    "img": "systems/pf2e/icons/actions/FreeAction.webp",
+    "name": "One Shot, One Kill",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You roll Stealth for initiative.</p><hr /><p>Your first shot is the deadliest. Interact to draw a firearm or crossbow. Your first successful Strike with that weapon during this encounter deals an additional 1d6 precision damage. This precision damage increases to 2d6 at 9th level and 3d6 at 15th level.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "domain": "strike-damage",
+                "key": "RollOption",
+                "option": "one-shot-one-kill",
+                "toggleable": true
+            },
+            {
+                "category": "precision",
+                "diceNumber": "clamp(floor((@actor.level + 3)/6),1,3)",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "one-shot-one-kill",
+                    {
+                        "or": [
+                            "item:group:firearm",
+                            "item:group:crossbow"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "check:statistic:base:stealth"
+                ],
+                "selector": "initiative",
+                "text": "{item|description}",
+                "title": "<span class=\"action-glyph\">F</span> {item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gunslinger"
+            ]
+        }
+    },
+    "type": "action"
+}

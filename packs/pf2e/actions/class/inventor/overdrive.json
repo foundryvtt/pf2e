@@ -1,0 +1,85 @@
+{
+    "_id": "3D9kGfwg4LUZBR9A",
+    "folder": "QReXtSM0cSm6rQfo",
+    "img": "systems/pf2e/icons/actions/OneAction.webp",
+    "name": "Overdrive",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per round</p><hr /><p>Temporarily cranking the gizmos on your body into overdrive, you try to add greater power to your attacks. Attempt a @Check[crafting|dc:@self.level] check that has a standard DC for your level.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Overdrive]</p><hr /><p><strong>Critical Success</strong> Your gizmos go into a state of incredible efficiency called critical overdrive, adding great power to your attacks. Your Strikes deal additional damage equal to your Intelligence modifier for 1 minute. After the Overdrive ends, your gizmos become unusable as they cool down or reset, and you can't use Overdrive for 1 minute.</p>\n<p><strong>Success</strong> Your gizmos go into overdrive, adding power to your attacks. As critical success, except the additional damage is equal to half your Intelligence modifier.</p>\n<p><strong>Failure</strong> Your gizmos whine concerningly and begin to smoke. Your Strikes deal 1 additional fire damage.</p>\n<p><strong>Critical Failure</strong> Whoops! Something explodes. You take fire damage equal to half your level (rounded up), and you can't use Overdrive again for [[/r 1d4 #Recharge Overdrive]] rounds as your gizmos reset.</p><hr /><p><strong>Special</strong> When under the effects of Overdrive, you can still use the Overdrive action. You can't extend your Overdrive's duration this way, but you can turn an overdrive into a critical overdrive if you critically succeed. A failure has no effect on your current Overdrive, and you end your Overdrive on a critical failure.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "round"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "self:action:slug:overdrive"
+                ],
+                "selector": "crafting",
+                "text": "PF2E.SpecificRule.Inventor.Overdrive.CriticalSuccess",
+                "title": "PF2E.Check.Result.Degree.Check.criticalSuccess"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "self:action:slug:overdrive"
+                ],
+                "selector": "crafting",
+                "text": "PF2E.SpecificRule.Inventor.Overdrive.Success",
+                "title": "PF2E.Check.Result.Degree.Check.success"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "self:action:slug:overdrive"
+                ],
+                "selector": "crafting",
+                "text": "PF2E.SpecificRule.Inventor.Overdrive.Failure",
+                "title": "PF2E.Check.Result.Degree.Check.failure"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    "self:action:slug:overdrive"
+                ],
+                "selector": "crafting",
+                "text": "PF2E.SpecificRule.Inventor.Overdrive.CriticalFailure",
+                "title": "PF2E.Check.Result.Degree.Check.criticalFailure"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor",
+                "manipulate"
+            ]
+        }
+    },
+    "type": "action"
+}
