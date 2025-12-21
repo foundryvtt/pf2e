@@ -179,7 +179,7 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
                 }
             }
 
-            removeResult.pp = valueToRemove / 1000;
+            removeResult.pp += valueToRemove / 1000;
 
             // Phase 4 - Simplify and cancel out additions / removals
             for (const type of CURRENCY_TYPES) {

@@ -1,0 +1,104 @@
+{
+    "_id": "K878asDgf1EF0B9S",
+    "folder": "etjIWCWdHah6ssxB",
+    "img": "systems/pf2e/icons/actions/OneAction.webp",
+    "name": "Confident Finisher",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>You make an incredibly graceful attack, piercing your foe's defenses. Make a Strike with the following failure effect.</p><hr /><p><strong>Failure</strong> You deal half your @UUID[Compendium.pf2e.classfeatures.Item.Precise Strike] damage to the target. This damage type is that of the weapon or unarmed attack you used for the Strike.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Label",
+                "mergeable": true,
+                "option": "finisher",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Confident",
+                        "value": "confident"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "finisher:confident",
+                            "eternal-confidence"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "feat:flying-blade",
+                                    "item:thrown",
+                                    {
+                                        "or": [
+                                            "target:range-increment:1",
+                                            {
+                                                "and": [
+                                                    "finisher:twirling-throw",
+                                                    {
+                                                        "lte": [
+                                                            "target:range-increment",
+                                                            3
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    },
+                    {
+                        "not": "feat:precise-finisher"
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Swashbuckler.Finisher.ConfidentNote",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "finisher"
+            ]
+        }
+    },
+    "type": "action"
+}

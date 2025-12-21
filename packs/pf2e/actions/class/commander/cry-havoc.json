@@ -1,0 +1,170 @@
+{
+    "_id": "k50ynPhpPSPZ4Akg",
+    "folder": "DGDfBYAFadvavcnq",
+    "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+    "name": "Cry Havoc!",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 3
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p><hr /><p>Your squad rallies with a resounding clangor that drowns out all other sounds of war. Choose an enemy you are observing and signal all squadmates within the aura of your commander's banner. All squadmates can Stride up to twice their Speed directly toward the target as a reaction, yelling and trampling. When any squadmate enters a square adjacent to any enemy, that enemy must attempt a @Check[fortitude|against:commander|basic] save against your class DC or take @Damage[2d6[bludgeoning],2d6[sonic]|options:inflicts:deafened]{2d6 bludgeoning damage and 2d6 sonic damage} damage, plus an additional 2d6 bludgeoning and 2d6 sonic damage for every squadmate participating in Cry Havoc! (enemies who critically fail are @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round). Regardless of the outcome, the enemy is then temporarily immune to any further damage from Cry Havoc! for 24 hours.</p>\n<p>Squadmates can use Cry Havoc! while Burrowing, Climbing, Flying, or Swimming instead of Striding if they have the corresponding movement type.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Commander.Tactics.CryHavoc.ToggleLabel",
+                "option": "cry-havoc",
+                "phase": "beforeDerived",
+                "selection": "1",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.One",
+                        "value": "1"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Two",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "attribute:int:mod",
+                                    0
+                                ]
+                            }
+                        ],
+                        "value": "2"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Three",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "attribute:int:mod",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "3"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Four",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "attribute:int:mod",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "4"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Five",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "attribute:int:mod",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "5"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Six",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "attribute:int:mod",
+                                    4
+                                ]
+                            }
+                        ],
+                        "value": "6"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Seven",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "attribute:int:mod",
+                                    5
+                                ]
+                            }
+                        ],
+                        "value": "7"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Eight",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "attribute:int:mod",
+                                    6
+                                ]
+                            }
+                        ],
+                        "value": "8"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Nine",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "attribute:int:mod",
+                                    7
+                                ]
+                            }
+                        ],
+                        "value": "9"
+                    }
+                ],
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "add",
+                "predicate": [
+                    "cry-havoc",
+                    {
+                        "or": [
+                            "damage:type:bludgeoning",
+                            "damage:type:sonic"
+                        ]
+                    }
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "{item|id}-inline-damage"
+                ],
+                "value": "2*@item.flags.pf2e.rulesSelections.cryHavoc"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "commander-legendary-tactic"
+            ],
+            "value": [
+                "brandish",
+                "commander",
+                "tactic"
+            ]
+        }
+    },
+    "type": "action"
+}

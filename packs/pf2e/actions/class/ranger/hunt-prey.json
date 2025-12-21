@@ -1,0 +1,67 @@
+{
+    "_id": "JYi4MnsdFu618hPm",
+    "folder": "uHxlgOK7MByeLIda",
+    "img": "systems/pf2e/icons/actions/OneAction.webp",
+    "name": "Hunt Prey",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>You designate a single creature as your prey and focus your attacks against that creature. You must be able to see or hear the prey, or you must be tracking the prey during exploration.</p>\n<p>You gain a +2 circumstance bonus to Perception checks when you @UUID[Compendium.pf2e.actionspf2e.Item.Seek] your prey and a +2 circumstance bonus to Survival checks when you @UUID[Compendium.pf2e.actionspf2e.Item.Track] your prey. You also ignore the penalty for making ranged attacks within your second range increment against the prey you're hunting.</p>\n<p>You can have only one creature designated as your prey at a time. If you use Hunt Prey against a creature when you already have a creature designated, the prior creature loses the designation and the new prey gains the designation. Your designation lasts until your next daily preparations.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
+                "predicate": [
+                    "action:seek",
+                    "target:mark:hunted-prey"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
+                "predicate": [
+                    "action:track",
+                    "target:mark:hunted-prey"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "domain": "ranged-attack-roll",
+                "key": "RollOption",
+                "option": "ignore-range-penalty:2",
+                "predicate": [
+                    "target:mark:hunted-prey"
+                ]
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Hunt Prey",
+            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Hunt Prey"
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "ranger"
+            ]
+        }
+    },
+    "type": "action"
+}

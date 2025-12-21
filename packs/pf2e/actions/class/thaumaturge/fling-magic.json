@@ -1,0 +1,98 @@
+{
+    "_id": "04VQuQih77pxX06q",
+    "folder": "0wzDPkI2wF5fOax9",
+    "img": "systems/pf2e/icons/actions/TwoActions.webp",
+    "name": "Fling Magic",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are holding your wand implement.</p><hr /><p>You fling magical energy at a target within 60 feet, dealing damage equal to @Damage[ceil(@actor.level/2)d4 +@actor.abilities.cha.mod[untyped]]{1d4 + your Charisma modifier} to the target, with a @Check[reflex|against:class|basic] save against your class DC. The damage is of the type you selected when you gained your wand implement. At 3rd level and every 2 levels thereafter, the damage increases by 1d4.</p>\n<p>You can expend more energy than usual to boost the effect of Fling Magic, dealing @Damage[ceil(@actor.level/2)d6 +@actor.abilities.cha.mod[untyped]]{d6s of damage} instead of d4s. After you do so, the wand takes [[/r 1d4 #Recharge Wand]]{1d4 rounds} to recharge, during which you can't boost the wand's damage but can continue to Fling Magic normally. If you critically hit with a Strike, your wand recharges immediately as it draws in power from the clash.</p><hr /><p><strong>Special</strong> This activity has the trait corresponding to the damage type you selected.</p>"
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "wand-damage-type",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "wand-initiate-damage-type:cold",
+                                    "wand-adept-damage-type:cold",
+                                    "feature:paragon-benefit-wand"
+                                ]
+                            }
+                        ],
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "wand-initiate-damage-type:electricity",
+                                    "wand-adept-damage-type:electricity",
+                                    "feature:paragon-benefit-wand"
+                                ]
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "wand-initiate-damage-type:fire",
+                                    "wand-adept-damage-type:fire",
+                                    "feature:paragon-benefit-wand"
+                                ]
+                            }
+                        ],
+                        "value": "fire"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-inline-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.wandDamageType}"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.wandDamageType}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "magical",
+                "manipulate",
+                "thaumaturge"
+            ]
+        }
+    },
+    "type": "action"
+}

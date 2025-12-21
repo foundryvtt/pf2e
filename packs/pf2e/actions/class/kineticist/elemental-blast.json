@@ -1,0 +1,91 @@
+{
+    "_id": "6lbr0Jnv0zMB5uGb",
+    "folder": "D3PLCj2h9i9YErno",
+    "img": "systems/pf2e/icons/actions/OneAction.webp",
+    "name": "Elemental Blast",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><span class=\"action-glyph\">1</span> or <span class=\"action-glyph\">2</span></p>\n<hr />\n<p>With a wave of your hand, you collect elemental matter from your aura and swing or hurl it. Choose one of your kinetic elements and a damage type listed for that element, then make a melee or ranged impulse attack against the AC of one creature. Add your Strength modifier to the damage roll for a melee Elemental Blast. If you make a 2-action Elemental Blast, you gain a status bonus to the damage roll equal to your Constitution modifier. The element determines the damage die, damage type, and range (for a ranged blast). A damage type other than a physical damage type adds its trait to the blast.</p>\n<ul>\n<li><strong>Air</strong> 1d6 electricity or slashing, 60 feet</li>\n<li><strong>Earth</strong> 1d8 bludgeoning or piercing, 30 feet</li>\n<li><strong>Fire</strong> 1d6 fire, range 60 feet</li>\n<li><strong>Metal</strong> 1d8 piercing or slashing, 30 feet</li>\n<li><strong>Water</strong> 1d8 bludgeoning or cold, 30 feet</li>\n<li><strong>Wood</strong> 1d8 bludgeoning or vitality, 30 feet</li>\n</ul>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Level (+4)</strong> The damage increases by one die.</p>"
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "domain": "elemental-blast",
+                "key": "RollOption",
+                "option": "action-cost",
+                "predicate": [
+                    "self:effect:kinetic-aura"
+                ],
+                "priority": 49,
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.OneAction",
+                        "value": "1"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.TwoActions",
+                        "value": "2"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.TwoActionBonus",
+                "predicate": [
+                    "self:action:slug:elemental-blast",
+                    "self:action:cost:2"
+                ],
+                "selector": "elemental-blast-damage",
+                "slug": "two-action-elemental-blast",
+                "type": "status",
+                "value": "@actor.abilities.con.mod"
+            },
+            {
+                "ability": "str",
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:action:slug:elemental-blast",
+                    "item:melee"
+                ],
+                "selector": "elemental-blast-damage",
+                "slug": "melee-elemental-blast",
+                "type": "ability"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "class:kineticist"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "elemental-blast-damage"
+                ],
+                "slug": "base",
+                "value": "max(1 + floor((@actor.level - 1) / 4), 1)"
+            }
+        ],
+        "traits": {
+            "value": [
+                "attack",
+                "impulse",
+                "kineticist",
+                "primal"
+            ]
+        }
+    },
+    "type": "action"
+}

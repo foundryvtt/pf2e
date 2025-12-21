@@ -1,0 +1,46 @@
+{
+    "_id": "OpiIzr7h1EKY8wKh",
+    "folder": "uSulRHIEjrrvP2j6",
+    "img": "systems/pf2e/icons/actions/Reaction.webp",
+    "name": "Bounce Away",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "defensive",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Trigger</strong> A melee Strike hits you and deals bludgeoning damage</p><hr /><p><strong>Effect</strong> You gain resistance equal to your level to bludgeoning damage from the triggering Strike, then Stride up to half your Speed. You can Fly instead of Striding if you have a fly Speed.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT10M"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "bounce-away",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "bounce-away"
+                ],
+                "type": "bludgeoning",
+                "value": "@actor.level"
+            }
+        ],
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "action"
+}
