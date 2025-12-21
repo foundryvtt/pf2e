@@ -145,10 +145,6 @@ export const Init = {
                 enricher: (match, options) => TextEditorPF2e.enrichString(match, options),
             });
 
-            // Soft-set system-preferred core settings until they've been explicitly set by the GM
-            // const schema = foundry.data.PrototypeToken.schema;
-            // schema.displayName.default = schema.displayBars.default = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
-
             // Register stuff with the Foundry client
             registerFonts();
             registerHandlebarsHelpers();
