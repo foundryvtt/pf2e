@@ -33,10 +33,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** Returns if the token is in combat, though some actors have different conditions */
     override get inCombat(): boolean {
-        if (this.actor?.isOfType("party")) {
-            return this.actor.members.every((a) => game.combat?.getCombatantByActor(a.id));
-        }
-        return super.inCombat;
+        return this.actor?.isOfType("party")
+            ? this.actor.members.every((a) => game.combat?.getCombatantsByActor(a).length)
+            : super.inCombat;
     }
 
     /** This should be in Foundry core, but ... */

@@ -21,12 +21,12 @@ if (options.systemId === "pf2e") {
 }
 CompendiumPack.loadJSON("bestiary-ability-glossary-srd", options);
 CompendiumPack.loadJSON("spells", options);
-const conditions = [CompendiumPack.loadJSON("conditions", options).finalizeAll()];
+const conditions = [...CompendiumPack.loadJSON("conditions", options).finalizeAll()];
 if (options.systemId === "pf2e") {
     conditions.push(
-        CompendiumPack.loadJSON("campaign-effects", options)
+        ...CompendiumPack.loadJSON("campaign-effects", options)
             .finalizeAll()
             .filter((e) => "type" in e && e.type === "condition"),
     );
 }
-console.log(JSON.stringify(conditions.flat()));
+console.log(JSON.stringify(conditions));

@@ -202,9 +202,7 @@ class CompendiumPack {
         this.#sf2eCompendiumRemap = {};
         for (const { name, path } of pf2eManifest.packs) {
             const match = sf2eManifest.packs.find((p) => p.path === path);
-            if (match) {
-                this.#sf2eCompendiumRemap[name] = match.name;
-            }
+            if (match) this.#sf2eCompendiumRemap[name] = match.name;
         }
         return this.#sf2eCompendiumRemap;
     }
@@ -232,21 +230,16 @@ class CompendiumPack {
         }
 
         function loadFoldersFromFile(foldersFile: string) {
-            if (fs.existsSync(foldersFile)) {
-                const jsonString = fs.readFileSync(foldersFile, "utf-8");
-                const foldersSource: DBFolder[] = (() => {
-                    try {
-                        return JSON.parse(jsonString);
-                    } catch (error) {
-                        if (error instanceof Error) {
-                            throw PackError(`File ${foldersFile} could not be parsed: ${error.message}`);
-                        }
-                    }
-                })();
-
-                return foldersSource;
+            if (!fs.existsSync(foldersFile)) return [];
+            const jsonString = fs.readFileSync(foldersFile, "utf-8");
+            try {
+                return JSON.parse(jsonString) as DBFolder[];
+            } catch (error) {
+                if (error instanceof Error) {
+                    throw PackError(`File ${foldersFile} could not be parsed: ${error.message}`);
+                }
+                throw error;
             }
-            return [];
         }
 
         const filePaths = getFilesRecursively(path.resolve("packs", systemId, dirPath));
@@ -424,49 +417,37 @@ class CompendiumPack {
         source: ItemSourcePF2e,
         { to, map }: { to: "ids" | "names"; map: Map<string, Map<string, string>> },
     ): void {
-        try {
-            const convertOptions = { to: to === "ids" ? "id" : "name", map } as const;
+        const convertOptions = { to: to === "ids" ? "id" : "name", map } as const;
 
-            if (itemIsOfType(source, "feat") && source.system.subfeatures?.suppressedFeatures) {
-                source.system.subfeatures.suppressedFeatures = source.system.subfeatures.suppressedFeatures.map((r) =>
-                    CompendiumPack.convertUUID(r, convertOptions),
-                );
-            }
+        if (itemIsOfType(source, "feat") && source.system.subfeatures?.suppressedFeatures) {
+            source.system.subfeatures.suppressedFeatures = source.system.subfeatures.suppressedFeatures.map((r) =>
+                CompendiumPack.convertUUID(r, convertOptions),
+            );
+        }
 
-            if (itemIsOfType(source, "feat", "action") && source.system.selfEffect) {
-                source.system.selfEffect.uuid = CompendiumPack.convertUUID(
-                    source.system.selfEffect.uuid,
-                    convertOptions,
-                );
-            } else if (itemIsOfType(source, "ancestry", "background", "class", "kit")) {
-                const items: Record<string, { uuid: string; items?: Record<string, { uuid: string }> | null }> =
-                    source.system.items;
-                for (const entry of Object.values(items)) {
-                    entry.uuid = CompendiumPack.convertUUID(entry.uuid, convertOptions);
-                    if (R.isPlainObject(entry.items)) {
-                        for (const subentry of Object.values(entry.items)) {
-                            subentry.uuid = CompendiumPack.convertUUID(subentry.uuid, convertOptions);
-                        }
+        if (itemIsOfType(source, "feat", "action") && source.system.selfEffect) {
+            source.system.selfEffect.uuid = CompendiumPack.convertUUID(source.system.selfEffect.uuid, convertOptions);
+        } else if (itemIsOfType(source, "ancestry", "background", "class", "kit")) {
+            const items: Record<string, { uuid: string; items?: Record<string, { uuid: string }> | null }> =
+                source.system.items;
+            for (const entry of Object.values(items)) {
+                entry.uuid = CompendiumPack.convertUUID(entry.uuid, convertOptions);
+                if (R.isPlainObject(entry.items)) {
+                    for (const subentry of Object.values(entry.items)) {
+                        subentry.uuid = CompendiumPack.convertUUID(subentry.uuid, convertOptions);
                     }
                 }
-            } else if (itemIsOfType(source, "deity")) {
-                const spells = source.system.spells;
-                for (const [key, spell] of R.entries(spells)) {
-                    spells[key] = CompendiumPack.convertUUID(spell, convertOptions);
-                }
             }
-
-            source.system.rules = source.system.rules.map((r) =>
-                recursiveReplaceString(r, (s) =>
-                    s.startsWith("Compendium.") ? this.convertUUID(s, convertOptions) : s,
-                ),
-            );
-        } catch (error) {
-            if (error instanceof Error) {
-                throw PackError(`Failed to convert uuids in item ${source.name}: ${error.message}`);
+        } else if (itemIsOfType(source, "deity")) {
+            const spells = source.system.spells;
+            for (const [key, spell] of R.entries(spells)) {
+                spells[key] = CompendiumPack.convertUUID(spell, convertOptions);
             }
-            throw error;
         }
+
+        source.system.rules = source.system.rules.map((r) =>
+            recursiveReplaceString(r, (s) => (s.startsWith("Compendium.") ? this.convertUUID(s, convertOptions) : s)),
+        );
     }
 
     static convertUUID<TUUID extends string>(uuid: TUUID, { to, map }: ConvertUUIDOptions): TUUID {
