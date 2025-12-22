@@ -19,7 +19,7 @@ import templateJSON from "../../static/template.json" with { type: "json" };
 import systemPF2eJSON from "../../system.pf2e.json" with { type: "json" };
 import systemSF2eJSON from "../../system.sf2e.json" with { type: "json" };
 import { CompendiumPack, isActorSource, isItemSource } from "./compendium-pack.ts";
-import { PackError, getFilesRecursively } from "./helpers.ts";
+import { PackError, getFilesRecursively, getFolderPath } from "./helpers.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
 import type { PackEntry } from "./types.ts";
 
@@ -149,30 +149,13 @@ class PackExtractor {
 
         // Prepare subfolder data
         if (folders.length > 0) {
-            const getFolderPath = (folder: DBFolder, parts: string[] = []): string => {
-                if (parts.length > 3) {
-                    throw PackError(
-                        `Error: Maximum folder depth exceeded for "${folder.name}" in pack: ${packDirectory}`,
-                    );
-                }
-                parts.unshift(sluggify(folder.name));
-                if (folder.folder) {
-                    // This folder is inside another folder
-                    const parent = folders.find((f) => f._id === folder.folder);
-                    if (!parent) {
-                        throw PackError(`Error: Unknown parent folder id [${folder.folder}] in pack: ${packDirectory}`);
-                    }
-                    return getFolderPath(parent, parts);
-                }
-                parts.unshift(packDirectory);
-                return path.join(...parts);
-            };
             const sanitzeFolder = (folder: Partial<DBFolder>): void => {
                 delete folder._stats;
             };
 
             for (const folder of folders) {
-                this.#folderPathMap.set(folder._id, getFolderPath(folder));
+                const filepath = path.join(packDirectory, getFolderPath({ folders, dirName: packDirectory }, folder));
+                this.#folderPathMap.set(folder._id, filepath);
                 sanitzeFolder(folder);
             }
             const folderFilePath = path.resolve(outPath, "_folders.json");
