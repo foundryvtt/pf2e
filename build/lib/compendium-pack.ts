@@ -9,13 +9,16 @@ import { itemIsOfType } from "@item/helpers.ts";
 import { SIZES } from "@module/data.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import type { RuleElementSource } from "@module/rules/index.ts";
-import { recursiveReplaceString, setHasElement, sluggify, tupleHasValue } from "@util/misc.ts";
+import { objectHasKey, recursiveReplaceString, setHasElement, sluggify, tupleHasValue } from "@util/misc.ts";
 import fs from "fs";
 import path from "path";
 import * as R from "remeda";
+import pf2eManifest from "../../system.pf2e.json" with { type: "json" };
+import sf2eManifest from "../../system.sf2e.json" with { type: "json" };
 import coreIconsJSON from "../core-icons.json" with { type: "json" };
+import duplicates from "../duplicates.json" with { type: "json" };
 import "./foundry-utils.ts";
-import { PackError, getFilesRecursively } from "./helpers.ts";
+import { PackError, getFilesRecursively, getFolderPath } from "./helpers.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
 import { PackEntry } from "./types.ts";
 
@@ -193,27 +196,55 @@ class CompendiumPack {
 
     #packsMetadata: PackMetadata[] | null = null;
 
+    static get sf2eCompendiumRemap(): Record<string, string> {
+        if (this.#sf2eCompendiumRemap) return this.#sf2eCompendiumRemap;
+
+        this.#sf2eCompendiumRemap = {};
+        for (const { name, path } of pf2eManifest.packs) {
+            const match = sf2eManifest.packs.find((p) => p.path === path);
+            if (match) this.#sf2eCompendiumRemap[name] = match.name;
+        }
+        return this.#sf2eCompendiumRemap;
+    }
+
+    static #sf2eCompendiumRemap: Record<string, string> | null = null;
+
     static LINK_PATTERNS = {
         world: /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]{16}\]|@UUID\[(?:Item|JournalEntry|Actor)/g,
         compendium:
-            /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<docType>Actor|JournalEntry|Item|Macro|RollTable)\.(?<docName>[^\]]+)\]\{?/g,
-        uuid: /@UUID\[Compendium\.pf2e\.(?<packName>[^.]+)\.(?<docType>Actor|JournalEntry|Item|Macro|RollTable)\.(?<docName>[^\]]+)\]\{?/g,
+            /@Compendium\[(?:pf2e|sf2e)\.(?<packName>[^.]+)\.(?<docType>Actor|JournalEntry|Item|Macro|RollTable)\.(?<docName>[^\]]+)\]\{?/g,
+        uuid: /@UUID\[Compendium\.(?:pf2e|sf2e)\.(?<packName>[^.]+)\.(?<docType>Actor|JournalEntry|Item|Macro|RollTable)\.(?<docName>[^\]]+)\]\{?/g,
     };
 
     static loadJSON(dirPath: string, { systemId }: { systemId: SystemId }): CompendiumPack {
+        function parsePackEntrySource(filePath: string): PackEntry {
+            const jsonString = fs.readFileSync(filePath, "utf-8");
+            try {
+                return JSON.parse(jsonString);
+            } catch (error) {
+                if (error instanceof Error) {
+                    throw PackError(`File ${filePath} could not be parsed: ${error.message}`);
+                }
+                throw error;
+            }
+        }
+
+        function loadFoldersFromFile(foldersFile: string) {
+            if (!fs.existsSync(foldersFile)) return [];
+            const jsonString = fs.readFileSync(foldersFile, "utf-8");
+            try {
+                return JSON.parse(jsonString) as DBFolder[];
+            } catch (error) {
+                if (error instanceof Error) {
+                    throw PackError(`File ${foldersFile} could not be parsed: ${error.message}`);
+                }
+                throw error;
+            }
+        }
+
         const filePaths = getFilesRecursively(path.resolve("packs", systemId, dirPath));
         const parsedData = filePaths.map((filePath) => {
-            const jsonString = fs.readFileSync(filePath, "utf-8");
-            const packSource: PackEntry = (() => {
-                try {
-                    return JSON.parse(jsonString);
-                } catch (error) {
-                    if (error instanceof Error) {
-                        throw PackError(`File ${filePath} could not be parsed: ${error.message}`);
-                    }
-                }
-            })();
-
+            const packSource = parsePackEntrySource(filePath);
             const documentName = packSource?.name;
             if (documentName === undefined) {
                 throw PackError(`Document contained in ${filePath} has no name.`);
@@ -227,26 +258,70 @@ class CompendiumPack {
             return packSource;
         });
 
-        const folders = ((): DBFolder[] => {
-            const foldersFile = path.resolve("packs", systemId, dirPath, "_folders.json");
-            if (fs.existsSync(foldersFile)) {
-                const jsonString = fs.readFileSync(foldersFile, "utf-8");
-                const foldersSource: DBFolder[] = (() => {
-                    try {
-                        return JSON.parse(jsonString);
-                    } catch (error) {
-                        if (error instanceof Error) {
-                            throw PackError(`File ${foldersFile} could not be parsed: ${error.message}`);
+        const folders = loadFoldersFromFile(path.resolve("packs", systemId, dirPath, "_folders.json"));
+
+        // Determine if we need to resolve cross-system duplicates.
+        // Once we do, we need to lookup the new folder and make some changes to it.
+        if (systemId === "sf2e") {
+            const resolvedDuplicates = duplicates.flatMap((group) => {
+                const data = objectHasKey(group.entries, dirPath) ? group.entries[dirPath] : null;
+                return data?.map((d) => ({ publication: group.publication, name: d })) ?? [];
+            });
+            if (resolvedDuplicates.length) {
+                // A mapping from slug to file path, used to lookup the file to duplicate
+                const pf2eFilePaths = R.mapToObj(getFilesRecursively(path.resolve("packs/pf2e", dirPath)), (p) => [
+                    (p.split(path.sep)?.at(-1) ?? p).replace(".json", ""),
+                    p,
+                ]);
+                // Map the PF2e folder id to a folder path, to then retrieve the SF2e folder id
+                const pf2eFolders = loadFoldersFromFile(path.resolve("packs/pf2e", dirPath, "_folders.json"));
+                const pf2eFolderPaths = R.mapToObj(pf2eFolders, (f) => [
+                    f._id,
+                    getFolderPath({ folders: pf2eFolders, dirName: dirPath }, f),
+                ]);
+                // Maps the SF2e folder to the folder ID
+                const sf2eFolderLookup = R.mapToObj(folders, (f) => [
+                    getFolderPath({ folders, dirName: dirPath }, f),
+                    f._id,
+                ]);
+                for (const { publication, name } of resolvedDuplicates) {
+                    const pf2ePath = pf2eFilePaths[sluggify(name)];
+                    if (!pf2ePath) throw PackError(`Duplicate item ${name} could not be found in pf2e pack ${dirPath}`);
+                    const source = parsePackEntrySource(pf2ePath);
+                    if (source.folder) {
+                        const folderPath = pf2eFolderPaths[source.folder];
+                        source.folder = sf2eFolderLookup[folderPath] ?? null;
+                        if (!source.folder) {
+                            console.warn(`Failed to find folder ${folderPath} for item ${name} in pack ${dirPath}`);
                         }
                     }
-                })();
 
-                return foldersSource;
+                    parsedData.push(this.#adjustPF2eDocumentForSF2e(source, { publication }));
+                }
             }
-            return [];
-        })();
+        }
 
         return new CompendiumPack({ dirName: path.basename(dirPath), data: parsedData, folders, systemId });
+    }
+
+    static #adjustPF2eDocumentForSF2e(source: PackEntry, { publication }: { publication?: string | null }): PackEntry {
+        if ("img" in source && source.img === "icons/sundries/books/book-red-exclamation.webp") {
+            source.img = "systems/sf2e/icons/default-icons/feats-sf2e.webp";
+        }
+
+        if ("system" in source) {
+            if (publication && "publication" in source.system) {
+                source.system.publication.title = publication;
+            }
+        }
+
+        return recursiveReplaceString(source, (s) => {
+            s = s.replaceAll("systems/pf2e", "systems/sf2e");
+            for (const [pf2eName, sf2eName] of Object.entries(this.sf2eCompendiumRemap)) {
+                s = s.replaceAll(`Compendium.pf2e.${pf2eName}`, `Compendium.sf2e.${sf2eName}`);
+            }
+            return s;
+        });
     }
 
     finalizeAll(): PackEntry[] {
@@ -379,7 +454,7 @@ class CompendiumPack {
         if (uuid.startsWith("Item.")) {
             throw PackError(`World-item UUID found: ${uuid}`);
         }
-        if (!uuid.startsWith("Compendium.pf2e.")) return uuid;
+        if (!/^Compendium\.(?:pf2e|sf2e)\./.test(uuid)) return uuid;
 
         const toNameRef = (uuid: string): TUUID => {
             const parts = uuid.split(".");
@@ -394,7 +469,7 @@ class CompendiumPack {
         };
 
         const toIDRef = (uuid: string): TUUID => {
-            const match = /(?<=^Compendium\.pf2e\.)([^.]+)\.([^.]+)\.(.+)$/.exec(uuid);
+            const match = /(?<=^Compendium\.(?:pf2e|sf2e)\.)([^.]+)\.([^.]+)\.(.+)$/.exec(uuid);
             const [, packId, _docType, docName] = match ?? [null, null, null, null];
             const docId = map.get(packId ?? "")?.get(docName ?? "");
             if (docName && docId) {
