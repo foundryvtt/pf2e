@@ -219,34 +219,19 @@ class CompendiumPack {
     };
 
     static loadJSON(dirPath: string, { systemId }: { systemId: SystemId }): CompendiumPack {
-        const filePaths = getFilesRecursively(path.resolve("packs", systemId, dirPath));
-        const parsedData = filePaths.map((filePath) => {
+        function parsePackEntrySource(filePath: string): PackEntry {
             const jsonString = fs.readFileSync(filePath, "utf-8");
-            const packSource: PackEntry = (() => {
-                try {
-                    return JSON.parse(jsonString);
-                } catch (error) {
-                    if (error instanceof Error) {
-                        throw PackError(`File ${filePath} could not be parsed: ${error.message}`);
-                    }
+            try {
+                return JSON.parse(jsonString);
+            } catch (error) {
+                if (error instanceof Error) {
+                    throw PackError(`File ${filePath} could not be parsed: ${error.message}`);
                 }
-            })();
-
-            const documentName = packSource?.name;
-            if (documentName === undefined) {
-                throw PackError(`Document contained in ${filePath} has no name.`);
+                throw error;
             }
+        }
 
-            const filenameForm = sluggify(documentName).concat(".json");
-            if (path.basename(filePath) !== filenameForm) {
-                throw PackError(`Filename at ${filePath} does not reflect document name (should be ${filenameForm}).`);
-            }
-
-            return packSource;
-        });
-
-        const folders = ((): DBFolder[] => {
-            const foldersFile = path.resolve("packs", systemId, dirPath, "_folders.json");
+        function loadFoldersFromFile(foldersFile: string) {
             if (fs.existsSync(foldersFile)) {
                 const jsonString = fs.readFileSync(foldersFile, "utf-8");
                 const foldersSource: DBFolder[] = (() => {
@@ -262,7 +247,25 @@ class CompendiumPack {
                 return foldersSource;
             }
             return [];
-        })();
+        }
+
+        const filePaths = getFilesRecursively(path.resolve("packs", systemId, dirPath));
+        const parsedData = filePaths.map((filePath) => {
+            const packSource = parsePackEntrySource(filePath);
+            const documentName = packSource?.name;
+            if (documentName === undefined) {
+                throw PackError(`Document contained in ${filePath} has no name.`);
+            }
+
+            const filenameForm = sluggify(documentName).concat(".json");
+            if (path.basename(filePath) !== filenameForm) {
+                throw PackError(`Filename at ${filePath} does not reflect document name (should be ${filenameForm}).`);
+            }
+
+            return packSource;
+        });
+
+        const folders = loadFoldersFromFile(path.resolve("packs", systemId, dirPath, "_folders.json"));
 
         // Determine if we need to resolve cross-system duplicates.
         // Once we do, we need to lookup the new folder and make some changes to it.
@@ -272,16 +275,26 @@ class CompendiumPack {
                 return data?.map((d) => ({ publication: group.publication, name: d })) ?? [];
             });
             if (resolvedDuplicates.length) {
-                const pf2ePack = CompendiumPack.loadJSON(dirPath, { systemId: "pf2e" });
+                // A mapping from slug to file path, used to lookup the file to duplicate
+                const pf2eFilePaths = R.mapToObj(getFilesRecursively(path.resolve("packs/pf2e", dirPath)), (p) => [
+                    (p.split(path.sep)?.at(-1) ?? p).replace(".json", ""),
+                    p,
+                ]);
+                // Map the PF2e folder id to a folder path, to then retrieve the SF2e folder id
+                const pf2eFolders = loadFoldersFromFile(path.resolve("packs/pf2e", dirPath, "_folders.json"));
+                const pf2eFolderPaths = R.mapToObj(pf2eFolders, (f) => [
+                    f._id,
+                    getFolderPath({ folders: pf2eFolders, dirName: dirPath }, f),
+                ]);
+                // Maps the SF2e folder to the folder ID
                 const sf2eFolderLookup = R.mapToObj(folders, (f) => [
                     getFolderPath({ folders, dirName: dirPath }, f),
                     f._id,
                 ]);
-                const pf2eFolderPaths = R.mapToObj(pf2ePack.folders, (f) => [f._id, getFolderPath(pf2ePack, f)]);
                 for (const { publication, name } of resolvedDuplicates) {
-                    const source = pf2ePack.data.find((d) => d.name === name);
-                    if (!source) throw PackError(`Duplicate item ${name} could not be found in pf2e pack ${dirPath}`);
-
+                    const pf2ePath = pf2eFilePaths[sluggify(name)];
+                    if (!pf2ePath) throw PackError(`Duplicate item ${name} could not be found in pf2e pack ${dirPath}`);
+                    const source = parsePackEntrySource(pf2ePath);
                     if (source.folder) {
                         const folderPath = pf2eFolderPaths[source.folder];
                         source.folder = sf2eFolderLookup[folderPath] ?? null;
