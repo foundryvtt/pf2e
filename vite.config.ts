@@ -17,7 +17,7 @@ import systemPF2eJSON from "./system.pf2e.json" with { type: "json" };
 import systemSF2eJSON from "./system.sf2e.json" with { type: "json" };
 
 const [SYSTEM_ID, systemJSON] =
-    process.env.SYSTEM_ID === "pf2e" ? (["pf2e", systemPF2eJSON] as const) : (["sf2e", systemSF2eJSON] as const);
+    process.env.SYSTEM_ID === "sf2e" ? (["sf2e", systemSF2eJSON] as const) : (["pf2e", systemPF2eJSON] as const);
 const CONDITION_SOURCES = ((): ConditionSource[] => {
     const output = execSync(`pnpm run build:conditions --system=${SYSTEM_ID}`, { encoding: "utf-8" });
     return JSON.parse(output.slice(output.indexOf("[")));
@@ -161,7 +161,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         );
 
         // Add system CSS layer for HMR
-        const mainCss = path.resolve(__dirname, "src/pf2e.ts").split(path.sep).join("/");
+        const mainCss = path.resolve(__dirname, "src/main.ts").split(path.sep).join("/");
         plugins.push({
             name: "hmr-layers",
             apply: "serve",
@@ -181,8 +181,8 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         const message = "This file is for a running vite dev server and is not copied to a build";
         fs.writeFileSync("./index.html", `<h1>${message}</h1>\n`);
         if (!fs.existsSync("./styles")) fs.mkdirSync("./styles");
-        fs.writeFileSync("./styles/pf2e.css", `/** ${message} */\n`);
-        fs.writeFileSync("./pf2e.mjs", `/** ${message} */\n\nimport "./src/pf2e.ts";\n`);
+        fs.writeFileSync("./styles/main.css", `/** ${message} */\n`);
+        fs.writeFileSync("./main.mjs", `/** ${message} */\n\nimport "./src/main.ts";\n`);
         fs.writeFileSync("./vendor.mjs", `/** ${message} */\n`);
     }
 
@@ -213,10 +213,10 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             minify: false,
             sourcemap: buildMode === "development",
             lib: {
-                name: "pf2e",
-                entry: "src/pf2e.ts",
+                name: "main",
+                entry: "src/main.ts",
                 formats: ["es"],
-                fileName: "pf2e",
+                fileName: "main",
             },
             rollupOptions: {
                 external: new RegExp(
@@ -230,9 +230,9 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     ].join(""),
                 ),
                 output: {
-                    assetFileNames: "styles/pf2e.css",
+                    assetFileNames: "styles/main.css",
                     chunkFileNames: "[name].mjs",
-                    entryFileNames: "pf2e.mjs",
+                    entryFileNames: "main.mjs",
                     manualChunks: {
                         vendor: buildMode === "production" ? Object.keys(packageJSON.dependencies) : [],
                     },
@@ -245,7 +245,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             port: serverPort,
             open: "/game",
             proxy: {
-                "^(?!/systems/pf2e/)": `http://localhost:${foundryPort}/`,
+                [`^(?!/systems/${SYSTEM_ID}/)`]: `http://localhost:${foundryPort}/`,
                 "/socket.io": {
                     target: `ws://localhost:${foundryPort}`,
                     ws: true,
