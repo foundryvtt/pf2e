@@ -1,0 +1,323 @@
+{
+    "_id": "Du0RjEnYSKfNXW6f",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "i80uXmZRWHC5lfhY",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Pseudopod",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "sticky-disarm"
+                    ]
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "Mcx3k6Zldhs6BB3K": {
+                        "damage": "1d6",
+                        "damageType": "bludgeoning"
+                    },
+                    "xnyXDEYhcoPau0mM": {
+                        "damage": "1d4",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "n049RXks64f7pZ9b",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Techsense",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>An assembly ooze can detect creatures and objects with the tech trait as a precise sense within the listed range.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "irFF9j1SfAkN6reX",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Assemble",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Over the course of 1 minute, the assembly ooze crafts a random piece of gear (rolling a [[/r 1d6]]: 1–armor, 2–shield, 3–weapon, 4–armor upgrade, 5–weapon upgrade, or 6–tech item) using the UPBs stored inside of it. An assembly ooze can craft items with a cost up to the UPBs stored, but with an item level and Bulk of no greater than 4 each.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0okwUTmLml9OzTNq",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Disassemble",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The assembly ooze engulfs an adjacent, unattended piece of gear of no more than 4 Bulk, deconstructing it into its component parts. The ooze gains a number of UPBs equal to the item's price in credits. An assembly ooze can hold up to 1,000 UPBs at a time.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wmpTexPNzpyn7Cfm",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Sticky Disarm",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The assembly ooze's last action was a successful pseudopod Strike</p><hr /><p><strong>Effect</strong> The ooze attempts to [[/act disarm options=sticky-disarm]] the creature it hit. It gains a +4 status bonus to the Athletics check. This attempt neither applies nor counts toward the ooze's multiple attack penalty.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "sticky-disarm",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:disarm",
+                            "sticky-disarm"
+                        ],
+                        "selector": "athletics",
+                        "type": "status",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Assembly Ooze",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 0
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 11
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 54,
+                "temp": 0,
+                "value": 54
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "acid"
+                },
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "visual"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 15
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "electricity",
+                    "value": 3
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 1
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The assembly ooze is believed to have been created by accident when a manufacturing company attempted to automate an object printer as a cost cutting measure. The original creature has long since left containment in the Pact Worlds, replicating itself across the cosmos. While often considered a nuisance akin to pests of yore, an assembly ooze left unchecked on a starship or space station can eventually turn into an existential threat.</p>\n<p>An assembly ooze typically takes the form of an amorphous metallic cube. It has an outer shell composed of a liquid polycarbonate slurry that encases a core of replicating nanobots. The ooze's color can change based on the materials it breaks down, but it's most often a metallic amalgamation of brown or gray. To survive, the ooze attempts to constantly disassemble technological items in following its programmed subroutines then manufacture something new. The nanites within an assembly ooze do have a drive for reproduction, splitting in a process similar to cellular mitosis when the ooze absorbs enough material in a short period of time. Assembly oozes generally don't assault those not carrying the technological items they require as fuel but do lash out to protect themselves.</p><hr /><p>Oozes of many types lurk in dark and abandoned places across the galaxy, emerging only to satiate their appetites and threaten adventurers, explorers, and hapless workers alike.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "techsense (precise) 60 feet",
+            "mod": 7,
+            "senses": [
+                {
+                    "acuity": "imprecise",
+                    "range": 10,
+                    "type": "tremorsense"
+                }
+            ],
+            "vision": false
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 1
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 4
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 8
+            },
+            "stealth": {
+                "base": 6
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mindless",
+                "ooze",
+                "tech"
+            ]
+        }
+    },
+    "type": "npc"
+}

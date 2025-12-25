@@ -1,0 +1,261 @@
+{
+    "_id": "RV5xR89279gE64XF",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "UZfcajmrzYtFjGsl",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Bite",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "Ahnd1XDDHYoJBXdc": {
+                        "damage": "1d4+1",
+                        "damageType": "piercing"
+                    },
+                    "IUqhcaDtHtBa7708": {
+                        "damage": "1",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "4GSaAuzSCryFiBVo",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Detonate",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The diatha takes acid, electricity, fire, piercing, slashing, or sonic damage</p>\n<p><strong>Requirements</strong> The diatha has 5 or fewer Hit Points</p><hr /><p><strong>Effect</strong> The diatha dies, its body combusting in a flash of flame. All creatures in a 5-foot-radius emanation take @Damage[1d6[fire]] damage (@Check[reflex|dc:16|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lIjB3YSSzjoRkM5g",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Hydrocarbon Slick",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If a diatha dies before it can detonate, its body rapidly decomposes into a slick of highly volatile hydrocarbons. Any effect that deals acid, electricity, or fire damage in an area that includes the square where the diatha died, or targets a creature in that square, causes a small explosion and consumes the slick.</p>\n<p>All creatures in the square and in a @Template[type:emanation|distance:5] take @Damage[1d6[fire]|options:area-damage] damage (@Check[reflex|dc:16|basic] save). The slick evaporates after 10 minutes if it isn't ignited.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ezn9Zjb587sVCpXd",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Explosive Charge",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The diatha has 5 or fewer Hit Points</p><hr /><p><strong>Effect</strong> The diatha Strides twice and makes a melee Strike at the end of that movement. After the Strike, the diatha uses Detonate.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Diatha",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -3
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 1
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 14
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "burrow",
+                        "value": 10
+                    }
+                ],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": -1
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Often called \"boom bugs\" or \"exploding slugs,\" diathas are invertebrates that store nutrients as hydrocarbon chains rather than fat deposits. Threatened diathas secrete hormones that prime their energy stores to combust, detonating themselves to drive off or kill predators. Even if several diathas sacrifice themselves this way, their hive rarely suffers thanks to their rapid reproductive cycle.</p>\n<p>Diathas are hardy scavengers that can convert almost any carbon-based molecules into energy. Originally, diathas consumed biowaste in underground warrens, but their appetite for hydrocarbon-based fuels and industrial runoff drew them into contact with modernized civilizations, where they quickly adapted to urban environments. Though some entrepreneurs try to use these creatures as an organic means of converting plastic waste into petrol products, most see diathas as vermin that do far more harm than good when allowed to propagate.</p>\n<p>Diathas can easily stow away in the nooks and crannies of starships, and interstellar travelers often don't notice them until it's too late. Because they can digest almost any carbon-containing matter, diathas that colonize new worlds can adapt to a wide range of biomes and persist as a threat to native species for generations. Efforts to eradicate invasive diathas carry substantial risks to the exterminators and the environment they're trying to protect, as the explosive vermin use literal scorched earth tactics to protect their hives. To make matters worse, diathas are hermaphroditic and can grow new hives from a single organism if they have sufficient food sources to multiply. As a result, the Pact Worlds and Veskarium maintain strict quarantine measures for vessels suspected of carrying diatha infestations.</p>\n<p>As diathas age, their stored internal gases allow them to become buoyant. These \"elder\" diathas instinctively take prominent roles as scouts and guards for other diathas. To create an elder diatha, apply the aerial and elite adjustments to a diatha, or increase its level using the guidelines from GM Core.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 4,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 2
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 4
+            },
+            "athletics": {
+                "base": 3
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "tiny"
+            },
+            "value": [
+                "animal",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}

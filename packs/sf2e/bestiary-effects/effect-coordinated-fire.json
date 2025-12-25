@@ -1,0 +1,70 @@
+{
+    "_id": "x9nA4lIcHmE7x8Tt",
+    "img": "icons/skills/targeting/target-strike-triple-blue.webp",
+    "name": "Effect: Coordinated Fire",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +2 circumstance bonus to your next attack roll.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Alien Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "coordinateed-fire",
+                "uuid": ""
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:coordinated-fire"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": [
+                    "attack"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:mark:coordinated-fire"
+                ],
+                "selector": [
+                    "attack"
+                ],
+                "text": "SF2E.NPCAbility.AeonGuard.Trooper.CoordinatedFire.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,170 @@
+{
+    "_id": "KLpOVxibZkkZlFZL",
+    "folder": "D8Q2XWm5N91mGuw7",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "HUevG60qrY45gPjx",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Open Fire",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves within 30 feet of the turret or attacks the turret</p><hr /><p><strong>Effect</strong> The turret makes a ranged Strike against the triggering creature; the trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "siHUnmgRbDRqq4eF",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Oversized Machine Gun",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "myOFXRR8mcyu6gRV": {
+                        "damage": "2d8+7",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 90,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "analog",
+                        "automatic"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "50ZYgMqbf08JtukO",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Auto-Fire",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Oversized machine gun (@Check[reflex|dc:25|basic|traits:analog] save) (analog, @Template[type:cone|distance:45]), Damage @Damage[(2d8+7)[piercing]|options:area-damage]</p>\n<p>You attempt to hit each creature in a cone with a range equal to half the weapon's range increment without making an attack roll. Any creature in the area takes weapon damage (Basic DC 25 reflex save). This damage is area damage. Creatures that critically fail this save are subject to effects that occur on a critical hit with this weapon, including the weapon's critical specialization effect. Auto-Fire has an expend equal to the number of targets in the area × 2.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Sentry Turret",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 19
+            },
+            "emitsSound": "encounter",
+            "hardness": 12,
+            "hp": {
+                "details": "(BT 26)",
+                "max": 54,
+                "temp": 0,
+                "value": 54
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 13
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A mechanized turret attacks intruders.</p>",
+            "disable": "<p>@Check[computers|dc:20] (trained) to reprogram the turret, or @Check[crafting|dc:19] (trained) to cut power to the turret, or @Check[thievery|dc:18] (trained) to disable the turret</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder GM Core"
+            },
+            "reset": "<p>The trap resets after 1 minute.</p>",
+            "routine": "<p>(3 actions) The trap makes three oversized machine gun Strikes against a creature in range, or the trap makes an Auto-Fire attack followed by one Strike against a creature in range.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 15
+            },
+            "reflex": {
+                "value": 9
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

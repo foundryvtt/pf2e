@@ -1,0 +1,289 @@
+{
+    "_id": "Xt6ybUlOJ91cVeaJ",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Xa7xN2j9M5OOttC3",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Lashing Strand",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "9YUjP1n1se76KT1j": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "acid"
+                    },
+                    "xHmCqrD7aMl5RZ8N": {
+                        "damage": "1d10+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "EVDizAN7Mcf8iMvA",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Spore Spray",
+            "sort": 200000,
+            "system": {
+                "action": "area-fire",
+                "area": {
+                    "type": "cone",
+                    "value": 15
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "TNUcTBKHxvkvmzBc": {
+                        "damage": "2d8",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "9tqJECldoMS9wTdX",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Follicle Germination",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Hundreds of wirelike nerve endings erupt from the corzador's head in a @Template[type:emanation|distance:30]. Each non-corzadai in the area must succeed at a @Check[reflex|dc:18|options:area-effect] save or be instantly observed by all corzadais within 100 feet. Corzadais in the area gain a +1 circumstance bonus to attack and damage rolls against the detected creatures as long as the targets remain in the emanation. The corzador's emanation remains in effect until it takes a move action to leave its current space.</p>\n<p>@UUID[Compendium.sf2e.bestiary-effects.Item.Effect: Follicle Germination]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "target:effect:follicle-germination"
+                        ],
+                        "selector": [
+                            "attack",
+                            "damage"
+                        ],
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "obnMCe9iRpCgUY0E",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Shrieking Utricle",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A non-corzadai creature moves within the corzador's active Follicle Germination</p><hr /><p><strong>Effect</strong> The corzador emits a high-pitched shriek. All non-corzadai creatures within the corzador's Follicle Emanation take @Damage[2d8[sonic]|options:area-damage] damage with a @Check[fortitude|dc:18|basic|options:area-effect] save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Corzador",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 18
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 53,
+                "temp": 0,
+                "value": 53
+            },
+            "resistances": [
+                {
+                    "type": "acid",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 3
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "Can't speak any language",
+                "value": [
+                    "aklo",
+                    "common"
+                ]
+            },
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Vaguely humanoid corzadors herd corzad packs as they carry out their grim tasks.</p><hr /><p>Corzadais spawned from the broken remains of Aucturn. Explosively launched into space, these fungal colonies are held together by mysterious forces. Their strange fruiting bodies have taken on numerous shapes, of which two have been more commonly seen in the Pact Worlds than others: corzads and corzadors.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 9,
+            "senses": [
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 5
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 9
+            },
+            "stealth": {
+                "base": 9
+            },
+            "survival": {
+                "base": 9
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "fungus"
+            ]
+        }
+    },
+    "type": "npc"
+}

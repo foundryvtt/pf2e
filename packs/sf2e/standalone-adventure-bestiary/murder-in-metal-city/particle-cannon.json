@@ -1,0 +1,95 @@
+{
+    "_id": "WM9CURAPJK8YpWEu",
+    "folder": "oR8sKPLKRm404ky2",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Qe6HoTXkei6bKQwT",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Charge Up",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A lookout identifies a threat</p><hr /><p><strong>Effect</strong> Hura takes the gunner position. The particle cannon rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Particle Cannon",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 14
+            },
+            "emitsSound": "encounter",
+            "hardness": 5,
+            "hp": {
+                "details": "",
+                "max": 24,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 5
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A glowering purple eye opens in the ship's hull. The triple barrels of a massive turret spin inside the revealed port, then release a beam of concentrated particles with ruthless efficiency.</p>",
+            "disable": "<p>@Check[crafting|dc:14] (trained) or @Check[thievery|dc:14] (trained) to disable or jam the particle cannon, @Check[arcana|dc:17], @Check[occultism|dc:17], @Check[nature|dc:17], or @Check[religion|dc:17] (trained) to counteract the particle beam by exploiting a magical theory or praying for a miraculous malfunction.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Murder in Metal City Deluxe Adventure"
+            },
+            "reset": "<p>If disabled, the cannon is inactive for 1 round while Hura troubleshoots the issue, then it resumes firing. Hura stops firing if the lookouts are killed or the cannon is disabled three or more times.</p>",
+            "routine": "<p>(2 actions) Hura fires a charged shot from the particle cannon, dealing @Damage[(1d6+3)[fire]|options:area-damage] damage to each creature in a @Template[type:line|distance:90] (@Check[reflex|dc:14|basic] save).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 4
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

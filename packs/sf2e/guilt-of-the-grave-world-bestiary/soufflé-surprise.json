@@ -1,0 +1,138 @@
+{
+    "_id": "H8QkiU5XVdCj8zZs",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "D1vbOE5JMFrGclJs",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Sudden Rise",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Zo!'s sabotage begins</p><hr /><p><strong>Effect</strong> all creatures adjacent to a souffle take @Damage[2d6[fire]] damage with a @Check[reflex|dc:23|basic] save. On a critical failure, the creature is also @UUID[Compendium.sf2e.conditions.Item.Suppressed].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire",
+                        "nonlethal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ubAOfKSBTgmUx2cI",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Rise",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The souffle expands to fill a @Template[type:burst|distance:10] centered on the cooking station. Each additional round, the souffle grows to fill all adjacent squares that are touching it. Creatures in these squares are affected by Sudden Rise.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Soufflé Surprise",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 20,
+                "temp": 0,
+                "value": 20
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [
+                        "nonlethal-attacks"
+                    ],
+                    "type": "object-immunities"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 17
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A misshapen blob of pastry and magic wobbles as it keeps rising beyond normal baked good dimensions.</p>",
+            "disable": "<p>@Check[Cooking Lore|dc:18] (trained), @Check[survival|dc:18] (trained), or @Check[thievery|dc:18] (trained) to gently deflate the soufflé, or @Check[athletics|dc:23] to beat the soufflé into submission</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Guilt of the Grave World"
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) The souffle Rises.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 12
+            },
+            "reflex": {
+                "value": 6
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "fire",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

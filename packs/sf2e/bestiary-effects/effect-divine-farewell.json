@@ -1,0 +1,50 @@
+{
+    "_id": "liRaJmKk1vWWuJ8W",
+    "img": "icons/magic/holy/angel-winged-humanoid-blue.webp",
+    "name": "Effect: Divine Farewell",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 status bonus to your AC and saving throws against attacks and effects from creatures and hazards with the unholy trait.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:trait:unholy"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

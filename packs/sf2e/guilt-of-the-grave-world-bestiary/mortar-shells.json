@@ -1,0 +1,106 @@
+{
+    "_id": "IsuQst3MOBDEspty",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "8bDG9y94vjEaFh5Z",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Exploding Ordinance",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature fails its check to disable the mortar shells hazard</p><hr /><p><strong>Effect</strong> A mortar shell explodes, dealing @Damage[2d10[fire]|options:area-damage] damage in a @Template[type:burst|distance:10] centered on a corner of the triggering creature's square with a @Check[reflex|dc:18|basic] save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Mortar Shells",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 17
+            },
+            "emitsSound": "encounter",
+            "hardness": 10,
+            "hp": {
+                "details": "",
+                "max": 40,
+                "temp": 0,
+                "value": 40
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 7
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Four mortar tubes are constantly being auto-loaded by robotic arms before swiveling to launch projectiles onto the nearby battlefield.</p>",
+            "disable": "<p>@Check[Warfare Lore|dc:16] to engage the mortar safety switches, @Check[thievery|dc:18] to jam the auto-loading mechanisms so no more ammunition can be cycled, or @Check[athletics|dc:20] to push the tubes out of alignment such that the projectiles no longer threaten the battlefield</p>",
+            "isComplex": false,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Guilt of the Grave World"
+            },
+            "reset": "<p>The hazard resets automatically. Any time a PC leaves the trenches, they're targeted by Exploding Ordinance until the mortar shells hazard is disabled.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 12
+            },
+            "reflex": {
+                "value": 6
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

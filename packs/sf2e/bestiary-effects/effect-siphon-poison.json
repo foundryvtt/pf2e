@@ -1,0 +1,51 @@
+{
+    "_id": "bx5WXjFyU9nu4UyE",
+    "img": "icons/magic/acid/projectile-faceted-glob.webp",
+    "name": "Effect: Siphon Poison",
+    "system": {
+        "description": {
+            "value": "<p>The acid damage die size for your mandibles and acid spit Strikes and Sickening Death ability increase by one step.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Alien Core"
+        },
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "dice:damage:type:acid"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "strike-damage",
+                    "sickening-death-inline-damage"
+                ],
+                "value": 6
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,55 @@
+{
+    "_id": "UEnGE804ZFRJmQYN",
+    "img": "icons/skills/melee/strike-blade-hooked-blue-red.webp",
+    "name": "Effect: Lead the Charge",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 circumstance bonus to attacks against the marked target.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "lead-the-charge",
+                "uuid": ""
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:lead-the-charge"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": [
+                    "melee-strike-attack-roll"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

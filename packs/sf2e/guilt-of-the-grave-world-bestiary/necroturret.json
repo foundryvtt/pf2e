@@ -1,0 +1,160 @@
+{
+    "_id": "4XHrKB4GP5e6I9uH",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "t4KXUUsN45tCR47z",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Lock On",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature moves into a space within 120 feet of the necroturret</p><hr /><p><strong>Effect</strong> The necroturret locks on to the closest living creature, granting the necroturret a +1 circumstance bonus to its next attack roll. All living creatures within 10 feet of a necroturret take @Damage[(1d10+6)[cold]] damage with a @Check[fortitude|dc:20|basic] save as the turret charges its capacitors. The necroturrets then roll for initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "lock-on",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "lock-on"
+                        ],
+                        "selector": "strike-attack-roll",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1YSPtUnLoUees6w3",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Ice Beam",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "pleUQnhy8G72CN3e": {
+                        "damage": "1d10",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": "<p>Plus @UUID[Compendium.sf2e.conditions.Item.Suppressed] for 1 round (2 rounds on a critical hit)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Necroturret",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "emitsSound": "encounter",
+            "hardness": 10,
+            "hp": {
+                "details": "",
+                "max": 42,
+                "temp": 0,
+                "value": 42
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 13
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A gigantic spinal column, ripped whole from a great beast, is posed on the surface of Barrow, enhanced with necromantic technology that turns it into a unliving weapons system. Its skull has been replaced with sensor arrays and deadly ice beam emitters.</p>",
+            "disable": "<p>@Check[computers|dc:16] (trained) or @Check[Vidgame Lore|dc:16] (trained) to shut down the necroturret's tech targeting system, @Check[arcana|dc:18] (trained), @Check[nature|dc:18] (trained), @Check[occultism|dc:18] (trained), or @Check[religion|dc:18] (trained) to disrupt the necroturret's magical core, or @Check[athletics|dc:20] or @Check[thievery|dc:20] to destroy vital circuits. A necroturret loses one action from its routine for each successful check made to disable it, or two actions on a critical success.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Guilt of the Grave World"
+            },
+            "reset": "<p>A necroturret deactivates when it no longer detects living creatures within 120 feet of its location.</p>",
+            "routine": "<p>(2 actions) The necroturret uses its actions to attack living creatures with its ice beams. It uses the Lock On reaction once every round to enhance its targeting matrix against the closest living creature. Necroturrets focus on targets trying to disable them.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 14
+            },
+            "reflex": {
+                "value": 6
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

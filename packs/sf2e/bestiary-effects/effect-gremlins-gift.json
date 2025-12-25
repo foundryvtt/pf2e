@@ -1,0 +1,54 @@
+{
+    "_id": "1uk1rvqSP0S2HfVG",
+    "img": "icons/magic/unholy/orb-glowing-purple.webp",
+    "name": "Effect: Gremlin's \"Gift\"",
+    "system": {
+        "description": {
+            "value": "<p>You gain +2 status bonus to checks with the chosen skill.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Alien Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "skills"
+                },
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "{item|flags.sf2e.rulesSelections.skill}"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

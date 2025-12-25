@@ -1,0 +1,325 @@
+{
+    "_id": "J4ZwkpWk2eKQKJFg",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "mnjnMuF0FBPIx42g",
+            "img": "icons/magic/air/wind-tornado-wall-blue.webp",
+            "name": "Effect: Natural Thruster",
+            "sort": 100000,
+            "system": {
+                "description": {
+                    "value": "<p>You gain a +75-foot status bonus to your fly Speed and deal an additional 1d10 slashing damage with your tail Strikes.</p>"
+                },
+                "duration": {
+                    "expiry": "turn-start",
+                    "sustained": false,
+                    "unit": "rounds",
+                    "value": 1
+                },
+                "fromSpell": false,
+                "level": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Alien Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "fly-speed"
+                        ],
+                        "type": "status",
+                        "value": 75
+                    },
+                    {
+                        "damageType": "slashing",
+                        "diceNumber": 1,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "selector": "tail-damage"
+                    }
+                ],
+                "slug": null,
+                "start": {
+                    "initiative": null,
+                    "value": 24
+                },
+                "tokenIcon": {
+                    "show": true
+                },
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "effect"
+        },
+        {
+            "_id": "VoIjxErSCNWji6zw",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "HzkxQW2P5R3IfKZ2": {
+                        "damage": "2d6",
+                        "damageType": "electricity"
+                    },
+                    "u7fj2tflDEqxCeE0": {
+                        "damage": "2d10+5",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "hZTrWR3unDlaRpxj",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Explosive Death",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>If a cloud skate dies due to fire or electricity damage, its internal reservoirs of explosive gases and combustible fluids detonate in a @Template[type:emanation|distance:20] that deals @Damage[6d8[fire]|options:area-damage] damage (@Check[reflex|dc:21|basic|options:area-effect] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HfBbFjXyxNx7yHwF",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Engulf",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Check[reflex|dc:21|options:damaging-effect,inflicts:grabbed,inflicts:slowed], @Damage[(2d6+3)[bludgeoning]] damage, [[/act escape dc=21]], Rupture 12</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "engulf",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1GUs6pHk0o5TrpRL",
+            "img": "systems/sf2e/icons/actions/FreeAction.webp",
+            "name": "Natural Thruster",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> Until the beginning of its next turn, the cloud skate gains a +75-foot status bonus to its fly Speed and deals an additional 1d10 slashing damage with its tail Strikes.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Natural Thruster",
+                    "uuid": "Compendium.sf2e.bestiary-effects.Item.Effect: Natural Thruster"
+                },
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Cloud Skate",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -1
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 24
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 93,
+                "temp": 0,
+                "value": 93
+            },
+            "resistances": [
+                {
+                    "type": "electricity",
+                    "value": 6
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 75
+                    }
+                ],
+                "value": 5
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 6
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Cloud skates are skittish creatures that avoid settlements whenever possible. They travel in large packs when in their docile periods and remain in small groups even during their aggressive hunting cycles, making them dangerous to travelers. They navigate through the clouds using three powerful tails, trapping prey with huge, baleen-filled mouths that span the full width of their single-segmented bodies.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 12,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 10
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 13
+            },
+            "athletics": {
+                "base": 15
+            },
+            "stealth": {
+                "base": 13
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}

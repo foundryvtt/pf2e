@@ -1,0 +1,302 @@
+{
+    "_id": "cr8v2eWjcarLwjFY",
+    "folder": "oR8sKPLKRm404ky2",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "fGfptUh0kUWh3E80",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "2R4tvj06PHYqYtUb": {
+                        "damage": "1d6+3",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "vNLsXSKTrhYLZOlK",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Laser Eyebeam",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "6oQd2arga0sieAg1": {
+                        "damage": "1d6+3",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": null,
+                    "max": 60
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "FKvCGjSKc97te6Ff",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "All-Around Vision",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.flanking.flankable",
+                        "value": false
+                    }
+                ],
+                "slug": "all-around-vision",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kCAyWUa4IErALQLz",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Steel Wing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A cyberwing is the target of an attack against its AC</p><hr /><p><strong>Effect</strong> The cyberwing uses its reinforced wings as a shield, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Gq5CStyCY3pVCG9w",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Shred",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> The cyberwing revs its wing engines and Flies twice in a blur of metal. This movement doesn't trigger reactions, and the cyberwing can pass through spaces occupied by other creatures. Creatures it passes through take @Damage[1d6[slashing]] damage (@Check[fortitude|dc:15|basic] save), and on anything but a critical success, the creatures are pushed 5 feet away from the cyberwing.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT10M"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Cyberwing",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "all-around vision",
+                "value": 16
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 16,
+                "temp": 0,
+                "value": 16
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 40
+                    }
+                ],
+                "value": 10
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 1
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Xenowardens condemn the practice of fusing the body of an animal with the parts of a machine, claiming that these experimental prototypes are cruel mockeries of nature. Enthusiasts argue using technology to enhance wildlife is no different than awakening them through magic. The debate is heated, but Pact laws remain slow to accept the grisly practice. The cyberwing is a simple model designed as a recon drone that can shield itself and the sensitive information or cargo it carries.</p><hr /><p>Concentrated in Aballon's frigid Ice Wells, sharpwings roost together by the hundreds or even thousands, emerging at dawn and dusk to hunt for prey in the upper shelves.</p><h2>Rare Sightings</h2><p>Sharpwings don't frequently emerge from the Ice Wells, so they can cause a stir when seen near megaplexes such as Striving. They don't pose much of a threat individually, but horror stories of vicious attacks by large flocks of sharpwings and disturbing videos captured by reckless explorers scare many tourists into shooting the creatures on sight.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Murder in Metal City Deluxe Adventure"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 10,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 5
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 8
+            },
+            "athletics": {
+                "base": 7
+            },
+            "stealth": {
+                "base": 8
+            },
+            "survival": {
+                "base": 5
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "animal",
+                "tech"
+            ]
+        }
+    },
+    "type": "npc"
+}

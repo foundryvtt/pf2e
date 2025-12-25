@@ -1,0 +1,57 @@
+{
+    "_id": "p2GrXbOJbv0OT4Zr",
+    "img": "icons/skills/movement/arrows-up-trio-red.webp",
+    "name": "Effect: Rally the Troops",
+    "system": {
+        "description": {
+            "value": "<p>You gain temporary hit points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Alien Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": 10
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": 5
+                    }
+                ],
+                "flag": "hp",
+                "key": "ChoiceSet",
+                "prompt": "SF2E.NPCAbility.CorpseFleet.JuniorOfficer.RallyTheTroops.Prompt"
+            },
+            {
+                "key": "TempHP",
+                "value": "@item.flags.sf2e.rulesSelections.hp"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
