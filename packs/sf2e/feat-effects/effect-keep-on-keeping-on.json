@@ -1,0 +1,43 @@
+{
+    "_id": "piyxWlJUtjJIKdW4",
+    "img": "systems/sf2e/icons/abilities/green-dna-helix.webp",
+    "name": "Effect: Keep on Keeping On!",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.actions.Item.Keep on Keeping On!]{Keep on Keeping On!}</p>\n<p>You increase the next healing you receive by an amount equal to the origin's Charisma modifier plus half their level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "healing-received",
+                "value": "@item.origin.abilities.cha.mod + floor(@item.origin.level / 2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

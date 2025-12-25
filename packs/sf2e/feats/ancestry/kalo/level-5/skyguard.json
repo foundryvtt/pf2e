@@ -1,0 +1,64 @@
+{
+    "_id": "xYvSZDBbPdMkLuIf",
+    "folder": "lGMMENPdaHCd7GYV",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Skyguard",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You earned your space legs in the Skyguard, Kalo-Mahoi's space navy. You become trained in Piloting, and you gain a +1 circumstance bonus to Piloting checks to Navigate and Stunt. If you're already trained in Piloting, you become trained in another skill of your choice. You gain the @UUID[Compendium.sf2e.feats.Item.Stunt Maneuver]{Stunt Maneuver} skill feat, even if you don't meet the prerequisites of the feat.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Stunt Maneuver"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.piloting.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:navigate",
+                            "action:stunt"
+                        ]
+                    }
+                ],
+                "selector": "piloting",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,48 @@
+{
+    "_id": "9Zp0f8bUTq4iZNBT",
+    "img": "systems/sf2e/icons/abilities/purple-eye.webp",
+    "name": "Effect: Hidden Agenda",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.class-features.Item.Hidden Agenda]{Hidden Agenda} via Ephemeral Effect</p>\n<p>When you roll a critical success to Sense Motive against the origin, you get a success instead.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalSuccess": "to-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:sense-motive"
+                ],
+                "selector": "perception"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

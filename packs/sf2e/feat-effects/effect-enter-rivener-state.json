@@ -1,0 +1,62 @@
+{
+    "_id": "Pdm2JmwnKc6yB1y5",
+    "img": "icons/creatures/reptiles/lizard-mouth-glowing-red.webp",
+    "name": "Effect: Enter Rivener State",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Enter Rivener State]{Enter Rivener State}</p>\n<p>You become Large. Your reach increases by 5 feet, and you gain a +2 status bonus to melee damage. You become @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 1}.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Invasion's Edge Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "reach": {
+                    "override": 5
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feat:enlightened-rivener"
+                    }
+                ],
+                "uuid": "Compendium.sf2e.conditions.Item.Stupefied"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "melee-damage",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

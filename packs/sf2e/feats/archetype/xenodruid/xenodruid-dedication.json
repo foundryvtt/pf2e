@@ -1,0 +1,83 @@
+{
+    "_id": "UTA9Fk6V6tPFkMdj",
+    "folder": "FJznQK9W12jH1Qqx",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Xenodruid Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can form a bond with the collective spirit of a world's ecosystems. This is a 10-minute activity that involves communing with nature and meditation. The planet must have an active biosphere. You can only bond with one planet at a time. This counts toward your maximum number of bonds. Planets don't count as creatures nor allies for the purposes of spells, prerequisites, or other abilities, including your vitality network.</p>\n<p>You gain a +1 circumstance bonus to Recall Knowledge about your planet's life and natural occurrences. You also gain a +1 circumstance bonus to Survival checks to subsist in its wilds and a +1 circumstance bonus to saving throws against environmental hazards and effects naturally found on your bonded planet. When off-world, you always know the general direction your planet lies in relation to you (but not distance), which grants a +1 circumstance bonus to Piloting checks to navigate.</p>\n<p>In addition, you can assess the health of your planet once per day and attempt to locate any major disturbances to its ecosystems. Attempt a @Check[nature|dc:20] check while in contact with your planet.</p>\n<p><strong>Critical Success</strong> You diagnose the planet's health through its various ecospheres. In addition, you can detect specific ongoing disturbances to the natural world—such as industrial mining or a fire in a particular valley. You can sense the distance and direction of the disturbance and gain a +1 circumstance bonus to saving throws against hazards created by this disturbance.</p>\n<p><strong>Success</strong> As a critical success, but you can only sense disturbances happening on a massive scale (such as hurricanes, volcanic eruptions, or planetwide pollution) and the direction to it.</p>\n<p><strong>Failure</strong> You diagnose the planet's health but don't identify any disturbances.</p><hr /><p><strong>Special</strong> You can take this feat if you have the mystic multiclass archetype dedication feat even if you haven't taken two additional mystic feats. Mystic archetype feats count as xenodruid feats, and vice-versa, for purposes of completing the archetypes.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "mystic bond class feature"
+                },
+                {
+                    "value": "spellcaster class feature that chooses spells from the primal spell list"
+                },
+                {
+                    "value": "trained in Nature"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "bonded-planet"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:subsist",
+                    "bonded-planet"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:navigate"
+                ],
+                "selector": "piloting",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

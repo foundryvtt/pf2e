@@ -1,0 +1,54 @@
+{
+    "_id": "x4fR05693ijNBCii",
+    "img": "icons/magic/fire/flame-burning-fist-strike.webp",
+    "name": "Effect: Kindle Blaze",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Kindle Blaze]{Kindle Blaze}</p>\n<p>You shed bright light in a 30-foot radius and dim light to the next 30 feet. You also gain a +1 circumstance bonus to saves against attacks, spells, and other effects that have the cold trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "bright": 30,
+                    "dim": 60
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:cold"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

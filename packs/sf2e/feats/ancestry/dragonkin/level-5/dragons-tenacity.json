@@ -1,0 +1,67 @@
+{
+    "_id": "39buScKHd66Z1Rho",
+    "folder": "xboSqbeZQbIW9b49",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Dragon's Tenacity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your mind and body have the resilience of your dragon progenitors. You gain a +1 circumstance bonus to saving throws against fear effects, sleep effects, and effects that would cause you to become @UUID[Compendium.sf2e.conditions.Item.Paralyzed]. This bonus increases to +2 against spells and magic items that have these effects.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Against effects that would make you Paralyzed",
+                "predicate": [
+                    "effect:paralyzed"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Against magic effects that would make you Paralyzed",
+                "predicate": [
+                    "effect:paralyzed",
+                    {
+                        "or": [
+                            "item:magical",
+                            "item:type:spell"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

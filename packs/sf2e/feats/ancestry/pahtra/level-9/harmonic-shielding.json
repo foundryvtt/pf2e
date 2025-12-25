@@ -1,0 +1,60 @@
+{
+    "_id": "sH0N77Uby1LcJGkj",
+    "folder": "eGFeg46AJl35v2TB",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Harmonic Shielding",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've learned to compensate for your hypersensitivity to sound. You gain sonic resistance equal to half your level. If you roll a success on a saving throw against a sonic effect, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Harmonic Sensitivity"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "sonic",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:sonic"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -42,7 +42,8 @@ jobs:
 
       - name: Build
         run: |
-          npm run build
+          pnpm run build --system=pf2e
+          pnpm run build:packs --system=sf2e
 
       - name: Test
         run: |

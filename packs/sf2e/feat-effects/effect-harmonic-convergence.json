@@ -1,0 +1,42 @@
+{
+    "_id": "WUHSeAxZXX3Fin3S",
+    "img": "icons/magic/light/explosion-beam-impact-silhouette.webp",
+    "name": "Effect: Harmonic Convergence",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Harmonic Convergence]{Harmonic Convergence}</p>\n<p>You gain temporary Hit Points equal to half your level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "floor(@actor.level / 2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

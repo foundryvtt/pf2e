@@ -1,0 +1,65 @@
+{
+    "_id": "F02phoqX8X60SnyZ",
+    "folder": "V1NTvn6zIvJEOwC7",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Clustered Shots",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You're wielding a gun with at least 3 expend worth of ammunition.</p><hr /><p>You shoot a spray of bullets at a target. You @UUID[Compendium.sf2e.actions.Item.Aim]{Aim}, make a ranged Strike against your mark, and subtract three times your weapon's expend from its magazine. Roll the attack twice, and use the better result. The attack ignores circumstance penalties to the attack roll and any flat check required due to the target being @UUID[Compendium.sf2e.conditions.Item.Concealed] or @UUID[Compendium.sf2e.conditions.Item.Hidden].</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "clustered-shots",
+                "toggleable": true
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "clustered-shots"
+                ],
+                "selector": "strike-attack-roll"
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "penalty:type:circumstance",
+                    "clustered-shots"
+                ],
+                "selector": "strike-attack-roll",
+                "suppress": true
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fortune"
+            ]
+        }
+    },
+    "type": "feat"
+}

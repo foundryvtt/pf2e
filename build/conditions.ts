@@ -16,13 +16,17 @@ const args = argv
     .parseSync();
 const options = { systemId: args.system };
 CompendiumPack.loadJSON("actions", options);
-CompendiumPack.loadJSON("adventure-specific-actions", options);
+if (options.systemId === "pf2e") {
+    CompendiumPack.loadJSON("adventure-specific-actions", options);
+}
 CompendiumPack.loadJSON("bestiary-ability-glossary-srd", options);
 CompendiumPack.loadJSON("spells", options);
-const conditions = [
-    CompendiumPack.loadJSON("conditions", options).finalizeAll(),
-    CompendiumPack.loadJSON("campaign-effects", options)
-        .finalizeAll()
-        .filter((e) => "type" in e && e.type === "condition"),
-].flat();
+const conditions = [...CompendiumPack.loadJSON("conditions", options).finalizeAll()];
+if (options.systemId === "pf2e") {
+    conditions.push(
+        ...CompendiumPack.loadJSON("campaign-effects", options)
+            .finalizeAll()
+            .filter((e) => "type" in e && e.type === "condition"),
+    );
+}
 console.log(JSON.stringify(conditions));

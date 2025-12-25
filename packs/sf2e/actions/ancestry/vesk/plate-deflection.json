@@ -1,0 +1,45 @@
+{
+    "_id": "Z8GMkB50OfXBX67a",
+    "folder": "BI5SUATYxQZL3S0K",
+    "img": "systems/sf2e/icons/actions/Reaction.webp",
+    "name": "Plate Deflection",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "defensive",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You're struck by a critical hit</p><hr /><p><strong>Effect</strong> You deflect the attack to a heavily armored part of your body. You don't take double damage from the critical hit but still take other effects.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "plate-deflection",
+                "toggleable": true
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "plate-deflection"
+                ],
+                "type": "critical-hits"
+            }
+        ],
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "action"
+}

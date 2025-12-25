@@ -1,0 +1,85 @@
+{
+    "_id": "13cofwVwk4XvwNSO",
+    "folder": "ezfMfUW7ECW3ePWk",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Heightened Thoughtsense",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your psychic awareness expands, granting you sharper perception at close range and a wider sensory field overall. Increase the range of your vague thoughtsense by 10 feet. In addition, you gain thoughtsense as an imprecise sense with a range of 5 feet.</p>\n<p>At 9th level, your vague thoughtsense becomes an imprecise sense.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "thoughtsense"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.contemplative.vagueThoughtsenseRange",
+                "value": 10
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.contemplative.impreciseThoughtsenseRange",
+                "predicate": [
+                    {
+                        "lt": [
+                            "self:level",
+                            9
+                        ]
+                    }
+                ],
+                "value": 5
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.contemplative.impreciseThoughtsenseRange",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            9
+                        ]
+                    }
+                ],
+                "value": "@actor.flags.pf2e.contemplative.vagueThoughtsenseRange"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": "@actor.flags.pf2e.contemplative.impreciseThoughtsenseRange",
+                "selector": "thoughtsense"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

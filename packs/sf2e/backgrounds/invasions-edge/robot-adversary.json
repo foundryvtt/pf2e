@@ -1,0 +1,88 @@
+{
+    "_id": "xqAkHXzSTBSXvUmK",
+    "folder": "BzhyIRBW6UKtg6oG",
+    "img": "systems/sf2e/icons/default-icons/background.svg",
+    "name": "Robot Adversary",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "dex",
+                    "str"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You recognize the dreaded illumantula from databases the Starfinder Society discovered in Eternity and know without a doubt the danger it—and the First Ones—pose to the Pact Worlds. While you know you can't defeat such a formidable creation yourself (and you hope you'll never have to try!), you've trained to combat robots and other technological creatures the First Ones are known to have created.</p>\n<p>Choose two attribute boosts. One must be to <strong>Strength</strong> or <strong>Dexterity</strong>, and one is a free attribute boost.</p>\n<p>You're trained in your choice of either the Computers or Crafting skill, as well as the Robot Lore skill. You gain a skill feat: @UUID[Compendium.sf2e.feats.Item.Phreaker]{Phreaker} if you chose Computers or @UUID[Compendium.sf2e.feats.Item.Quick Repair] if you chose Crafting.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Invasion's Edge Player's Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "SF2E.Skill.Computers",
+                        "predicate": [
+                            "skill:computers:rank:0"
+                        ],
+                        "value": {
+                            "feat": "Compendium.sf2e.feats.Item.Phreaker",
+                            "rank": 1,
+                            "slug": "computers"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Crafting",
+                        "predicate": [
+                            "skill:crafting:rank:0"
+                        ],
+                        "value": {
+                            "feat": "Compendium.sf2e.feats.Item.Quick Repair",
+                            "rank": 1,
+                            "slug": "crafting"
+                        }
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill.slug}.rank",
+                "value": "@item.flags.pf2e.rulesSelections.skill.rank"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.skill.feat}"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Robot Lore skill"
+            ],
+            "value": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

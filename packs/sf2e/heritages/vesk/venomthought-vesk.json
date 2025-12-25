@@ -1,0 +1,43 @@
+{
+    "_id": "2PxNQLqeXGAZ3VBf",
+    "folder": "QZmNJ1IWcw3aM6Ow",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Venomthought Vesk",
+    "system": {
+        "ancestry": {
+            "name": "Vesk",
+            "slug": "vesk",
+            "uuid": "Compendium.sf2e.ancestries.Item.06FBb4UDg64S5AYI"
+        },
+        "description": {
+            "value": "<p>You're one of the notable vesk born with psychic talents. According to folklore, your lineage originated with an ancient cave-dwelling society on Vesk Prime who modified themselves with occult rituals, which granted them \"venomous thoughts\" that could manifest in any future progeny. You can cast daze as an occult innate cantrip at will. A cantrip is heightened to a spell rank equal to half your level rounded up. You gain a +1 circumstance bonus to Occultism checks to @UUID[Compendium.sf2e.actions.Recall Knowledge]{Recall Knowledge} about psychic traditions and philosophies.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    {
+                        "or": [
+                            "psychic-traditions",
+                            "philosophies"
+                        ]
+                    }
+                ],
+                "selector": "occultism",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

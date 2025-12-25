@@ -1,0 +1,87 @@
+{
+    "_id": "CuWlilUgT1MCZcIT",
+    "folder": "fCUjDoIslLyWWTPv",
+    "img": "systems/sf2e/icons/abilities/blue-alien-energy-breath.webp",
+    "name": "Weapon Specialization",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Envoy, Operative, Witchwarper</strong> You've learned how to inflict greater injuries with the weapons you know best. You deal 2 additional damage with weapons and unarmed attacks in which you're an expert. This damage increases to 3 damage if you're a master, and 4 damage if you're legendary.</p><hr /><p><strong>Mystic</strong> You've learned to protect yourself and your allies with your weapons. You deal 2 additional damage with weapons and unarmed attacks in which you're an expert. This damage increases to 3 if you're a master and 4 if you're legendary.</p><hr /><p><strong>Solarian</strong> You've learned how to inflict greater injuries with the weapons you've practiced with most. You deal 2 additional damage with weapons and unarmed attacks in which you're an expert. This damage increases to 3 if you're a master, and 4 if you're legendary.</p><hr /><p><strong>Soldier</strong> You inflict greater injuries with the weapons you know best. You deal 2 additional damage with weapons and unarmed attacks in which you're an expert. This damage increases to 3 if you're a master, and 4 if you're legendary.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    }
+                ],
+                "selector": [
+                    "unarmed-damage",
+                    "weapon-damage"
+                ],
+                "slug": "weapon-specialization",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:proficiency:rank:3"
+                ],
+                "priority": 0,
+                "selectors": [
+                    "unarmed-damage",
+                    "weapon-damage"
+                ],
+                "slug": "weapon-specialization",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:proficiency:rank:4"
+                ],
+                "priority": 0,
+                "selectors": [
+                    "unarmed-damage",
+                    "weapon-damage"
+                ],
+                "slug": "weapon-specialization",
+                "value": 4
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

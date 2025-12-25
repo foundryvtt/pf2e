@@ -1,0 +1,67 @@
+{
+    "_id": "GzRAw46at8ab7Man",
+    "folder": "3SFWKhzBesp37sy9",
+    "img": "systems/sf2e/icons/default-icons/background.svg",
+    "name": "Hustler",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "con"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You've learned how to thrive in the gig economy of a dystopian world like Akiton, Apostae, or Verces. You might be an office worker moonlighting as a dive bar entertainer, a cyber café owner running a side business as a bounty hunter, or a courier who isn't too scrupulous to take on a shady side job. You always follow the money.</p>\n<p>Choose two attribute boosts. One must be to <strong>Constitution</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in your choice of skill and a Lore skill relevant to your profession. You gain the @UUID[Compendium.sf2e.feats.Item.Experienced Professional] skill feat.</p>"
+        },
+        "items": {
+            "psojE": {
+                "img": "icons/sundries/books/book-red-exclamation.webp",
+                "level": 1,
+                "name": "Experienced Professional",
+                "uuid": "Compendium.sf2e.feats.Item.Experienced Professional"
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "skills"
+                },
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
+        "trainedSkills": {
+            "lore": [],
+            "value": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

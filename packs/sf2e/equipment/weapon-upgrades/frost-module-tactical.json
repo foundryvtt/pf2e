@@ -1,0 +1,70 @@
+{
+    "_id": "OpSc2QLvJECTWRov",
+    "folder": "7JvVdcPLRxEK9sec",
+    "img": "systems/sf2e/icons/abilities/blue-snowflake-insignia.webp",
+    "name": "Frost Module (Tactical)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This module siphons the heat from the weapon's striking edge and ammunition, powering itself with the excess energy as it chills the air around it. It deals an additional 1d6 cold damage on a successful Strike. On a critical hit, the target is also @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 1} until the end of your next turn unless it succeeds at a @Check[type:fortitude|dc:34] save.</p>\n<p>Cold damage dealt by this weapon ignores the target's cold resistance.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 15
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 65000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "damageType": "cold",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|parentItem.id}-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|parentItem.id}-damage",
+                "text": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.FrostModule.CriticalNoteTactical",
+                "title": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.FrostModule.LabelTactical"
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cold",
+                "magical",
+                "tech"
+            ]
+        },
+        "usage": {
+            "value": "installed-in-a-weapon"
+        }
+    },
+    "type": "equipment"
+}

@@ -1,0 +1,114 @@
+{
+    "_id": "kR5A0h2a9hY41wav",
+    "folder": "o04idOr2cgTUSO5w",
+    "img": "systems/sf2e/icons/abilities/purple-dimension-rift.webp",
+    "name": "Entropy Strike",
+    "system": {
+        "area": null,
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {},
+        "defense": null,
+        "description": {
+            "value": "<p>You unleash a ray of entropy that rapidly and indiscriminately decays matter. Make a ranged spell attack against the target's AC. On a hit, the target takes 5d8 void damage, or it takes 2d6 persistent acid damage and is glitching 1 if it has the tech trait. On a critical hit, double the damage, and if the creature has the tech trait, it's glitching 2 and @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 1}.</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 1 die.</p>"
+        },
+        "duration": {
+            "sustained": false,
+            "value": ""
+        },
+        "heightening": {
+            "area": 0,
+            "damage": {},
+            "interval": 1,
+            "type": "interval"
+        },
+        "level": {
+            "value": 3
+        },
+        "overlays": {
+            "cQzAnM68CvToXJhI": {
+                "name": "Entropy Strike (Non-Tech)",
+                "overlayType": "override",
+                "sort": 1,
+                "system": {
+                    "damage": {
+                        "3tefev8txDHc5c92": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "5d8",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "void"
+                        }
+                    },
+                    "defense": null,
+                    "heightening": {
+                        "damage": {
+                            "3tefev8txDHc5c92": "1d8"
+                        }
+                    }
+                }
+            },
+            "z3AdZivCvPIwQBMP": {
+                "name": "Entropy Strike (Tech)",
+                "overlayType": "override",
+                "sort": 2,
+                "system": {
+                    "damage": {
+                        "3tefev8txDHc5c92": {
+                            "applyMod": false,
+                            "category": "persistent",
+                            "formula": "2d6",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "type": "acid"
+                        }
+                    },
+                    "defense": null,
+                    "heightening": {
+                        "damage": {
+                            "3tefev8txDHc5c92": "1d6"
+                        }
+                    }
+                }
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "range": {
+            "value": "30 feet"
+        },
+        "requirements": "",
+        "rules": [],
+        "target": {
+            "value": "1 creature or unattended object"
+        },
+        "time": {
+            "value": "2"
+        },
+        "traits": {
+            "rarity": "common",
+            "traditions": [
+                "arcane",
+                "divine",
+                "occult"
+            ],
+            "value": [
+                "acid",
+                "attack",
+                "concentrate",
+                "manipulate",
+                "void"
+            ]
+        }
+    },
+    "type": "spell"
+}

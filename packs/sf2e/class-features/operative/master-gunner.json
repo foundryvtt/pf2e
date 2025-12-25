@@ -1,0 +1,71 @@
+{
+    "_id": "zqUdEySBPebaErKZ",
+    "folder": "WBjjjwVoDYQAYYe0",
+    "img": "systems/sf2e/icons/abilities/yellow-bullet-in-flight.webp",
+    "name": "Master Gunner",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You are a highly skilled sharpshooter and never go anywhere without your gun. Your proficiency rank increases to master with simple and martial guns, and increases to expert with advanced guns. You gain access to the critical specialization effects for all guns for which you have expert proficiency.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.attacks.martial-simple-guns.rank",
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.attacks.advanced-guns.rank",
+                "value": 2
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:ranged",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:analog",
+                            "item:trait:tech"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

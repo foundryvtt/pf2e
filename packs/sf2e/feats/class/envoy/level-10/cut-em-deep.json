@@ -1,0 +1,69 @@
+{
+    "_id": "BL34yKdTM1gPrBAK",
+    "folder": "RqQbVt67RwogrHDS",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Cut 'Em Deep",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your insults and threats almost always hit the mark. When you roll a failure on a @UUID[Compendium.sf2e.actions.Item.Demoralize] action, you get a success instead. You can still critically fail.</p>\n<p>When you successfully Demoralize the target of your @UUID[Compendium.sf2e.actions.Item.Get 'Em!]{Get 'Em!}, the target doesn't become immune to your further attempts to Demoralize them.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "master in Intimidation"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "failure": "to-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:demoralize"
+                ],
+                "selector": "skill-check"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:demoralize",
+                    "target:mark:get-em"
+                ],
+                "selector": "skill-check",
+                "text": "SF2E.SpecificRule.Envoy.CutEmDeep.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

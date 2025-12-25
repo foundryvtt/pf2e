@@ -1,0 +1,50 @@
+{
+    "_id": "80ciNFwm19EKBONT",
+    "img": "icons/magic/time/arrows-circling-pink.webp",
+    "name": "Spell Effect: Shuffle Repeat",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Shuffle Repeat]{Shuffle Repeat}</p>\n<p>You deal an additional die of sonic damage and gain a +1 status bonus to Will saves and Will DCs.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "damageType": "sonic",
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "will",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

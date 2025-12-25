@@ -1,0 +1,51 @@
+{
+    "_id": "4P2rPLVKjSpUbOWI",
+    "img": "systems/sf2e/icons/abilities/blue-hex-field-dispersed.webp",
+    "name": "Spell Effect: Subjective Reality",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Subjective Reality]{Subjective Reality}</p>\n<p>You gain resistance to all damage originating from the target equal to your level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "subjective-reality",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "subjective-reality"
+                ],
+                "type": "all-damage",
+                "value": "@actor.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

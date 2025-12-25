@@ -1,0 +1,70 @@
+{
+    "_id": "bfimY3Rbx3lrsFAJ",
+    "img": "systems/sf2e/icons/abilities/green-energy-wave.webp",
+    "name": "Spell Effect: Quantum Analysis",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Quantum Analysis]{Quantum Analysis}</p>\n<p>Creatures you target can't benefit from circumstance bonuses to AC due to cover against your attacks. You also ignore circumstance penalties to the attack roll and any flat checks required due to the creature being concealed, hidden, or behind cover.</p>\n<p>The first time after casting this spell when you make an attack roll against a creature within your quantum field, you roll twice and use the better result.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "penalty:type:circumstance"
+                ],
+                "selector": "attack-roll",
+                "suppress": true
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:condition:concealed",
+                            "target:condition:hidden",
+                            "target:effect:cover"
+                        ]
+                    }
+                ],
+                "selector": "attack-roll",
+                "text": "SF2E.SpecificRule.Witchwarper.QuantumAnalysis.Note",
+                "title": "SF2E.SpecificRule.Witchwarper.QuantumAnalysis.Label"
+            },
+            {
+                "key": "EphemeralEffect",
+                "selectors": "attack-roll",
+                "uuid": "Compendium.sf2e.spell-effects.Item.Spell Effect: Quantum Analysis (Cover Suppression)"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.spell-effects.Item.Spell Effect: Quantum Analysis (Fortune)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

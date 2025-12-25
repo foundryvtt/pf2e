@@ -1,0 +1,130 @@
+{
+    "_id": "4BwlNXei3xMKygMv",
+    "img": "icons/magic/defensive/shield-barrier-flaming-pentagon-purple-orange.webp",
+    "name": "Spell Effect: Elemental Barrier",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Elemental Barrier]{Elemental Barrier}</p>\n<p>You gain +1 circumstance bonus to AC. While the spell is in effect, the target can use the Shield Block reaction as if the elemental barrier was a raised shield. Unlike a normal Shield Block, you can use the spell's reaction against spells with the chosen elemental trait cast against the creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "value": {
+                            "label": "PF2E.TraitAir",
+                            "option": "air"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "value": {
+                            "label": "PF2E.TraitEarth",
+                            "option": "earth"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": {
+                            "label": "PF2E.TraitFire",
+                            "option": "fire"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "value": {
+                            "label": "PF2E.TraitMetal",
+                            "option": "metal"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": {
+                            "label": "PF2E.TraitWater",
+                            "option": "water"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "value": {
+                            "label": "PF2E.TraitWood",
+                            "option": "wood"
+                        }
+                    }
+                ],
+                "flag": "elementalBarrier",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ],
+                "value": "match(when(lte(@item.level, 4), \"ac\"), when(btwn(@item.level, 5, 5), \"ac\"), when(btwn(@item.level, 6, 6), \"ac\"), when(btwn(@item.level, 7, 7), \"ac\"), when(btwn(@item.level, 8, 8), \"ac\"), when(btwn(@item.level, 9, 10), \"ac\"))"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Mystic.ElementalBarrier.{item|flags.pf2e.rulesSelections.elementalBarrier.label}",
+                "option": "elemental-barrier-defend-against-damage",
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.shield.hardness",
+                "predicate": [
+                    "elemental-barrier-defend-against-damage"
+                ],
+                "priority": 60,
+                "value": 2
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "self:shield:equipped",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

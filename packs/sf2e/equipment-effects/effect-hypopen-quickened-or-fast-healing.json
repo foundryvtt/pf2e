@@ -1,0 +1,89 @@
+{
+    "_id": "NqP5f6IChp8XNCrJ",
+    "img": "systems/sf2e/icons/equipment/other/blue-containment-vessel.webp",
+    "name": "Effect: Hypopen (Quickened or Fast Healing)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.equipment.Item.Hypopen (Elite)]{Hypopen (Elite)} or @UUID[Compendium.sf2e.equipment.Item.Hypopen (Ultimate)]{Hypopen (Ultimate)}</p>\n<p>Choose one of the following benefits.</p><ul><li>You become quickened. You can use the extra action to Step, Stride, or Strike.</li><li>You gain fast healing 10.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.ConditionTypeQuickened",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:hypopen-elite",
+                                    "parent:origin:item:slug:hypopen-ultimate"
+                                ]
+                            }
+                        ],
+                        "value": "quickened"
+                    },
+                    {
+                        "label": "PF2E.Encounter.Broadcast.FastHealing.fast-healing.Name",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:hypopen-ultimate"
+                                ]
+                            }
+                        ],
+                        "value": "fast-healing"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "hypopen"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "hypopen:quickened"
+                ],
+                "uuid": "Compendium.sf2e.conditions.Item.Quickened"
+            },
+            {
+                "key": "FastHealing",
+                "predicate": [
+                    "hypopen:fast-healing"
+                ],
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

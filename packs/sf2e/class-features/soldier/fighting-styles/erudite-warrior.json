@@ -1,0 +1,96 @@
+{
+    "_id": "FSAqTE67445EvyX8",
+    "folder": "GyMklUN6ZJ9xixWD",
+    "img": "systems/sf2e/icons/abilities/meditation.webp",
+    "name": "Erudite Warrior",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You realize that not every situation should be solved with a gun. You're an intellectual as well as a warrior, solving problems logically and learning about the galaxy. You keep your mind sharp with formal education or self-guided study. When logic breaks down, you're always ready to fall back on your combat training.</p>\n<p>Choose either Diplomacy or Society. You become trained in the chosen skill and one Lore skill of your choice. When you gain @UUID[Compendium.sf2e.class-features.Item.Armor Expertise]{Armor Expertise}, you gain expert proficiency in Diplomacy or Society (whichever you selected) and the Lore skill you selected. This increases to master proficiency when you gain @UUID[Compendium.sf2e.class-features.Item.Armor Mastery]{Armor Mastery}, and to legendary proficiency when you gain @UUID[Compendium.sf2e.class-features.Item.Legendary Armor]{Legendary Armor}. You also gain the @UUID[Compendium.sf2e.actions.Item.Oppressive Presence]{Oppressive Presence} action.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Oppressive Presence"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "value": "diplomacy"
+                    },
+                    {
+                        "label": "PF2E.Skill.Society",
+                        "value": "society"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "predicate": [
+                    "feature:armor-expertise"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "predicate": [
+                    "feature:armor-mastery"
+                ],
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "predicate": [
+                    "feature:legendary-armor"
+                ],
+                "value": 4
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "soldier-fighting-style"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,69 @@
+{
+    "_id": "dgJ0Ms2ES0JO5BOk",
+    "folder": "UumZN7blyTNealvh",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Cosmic Infusion",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You infuse your attunements with additional energy. When you deal fire damage or persistent fire damage due to being photon-attuned, you can instead choose to deal vitality damage or persistent vitality damage, which damages creatures with void healing, such as undead.</p>\n<p>While graviton-attuned, Strikes with your solar weapon cause the target to count all squares within 10 feet as difficult terrain, rather than just adjacent squares.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "stellar-attunement:photon"
+                    }
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Solarian.CosmicInfusion.PhotonToggle",
+                "option": "cosmic-infusion:photon-attuned",
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "damage:type:fire",
+                    "damage:tag:photon-attuned",
+                    "cosmic-infusion:photon-attuned"
+                ],
+                "priority": 101,
+                "property": "damage-type",
+                "selectors": [
+                    "strike-damage",
+                    "inline-damage"
+                ],
+                "value": "vitality"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

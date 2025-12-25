@@ -1,0 +1,85 @@
+{
+    "_id": "hYjjqAE9Yx7LGQeR",
+    "folder": "3SFWKhzBesp37sy9",
+    "img": "systems/sf2e/icons/default-icons/background.svg",
+    "name": "Scam Mage",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You can't cast spells but mimic spellwork well enough to convince others you have magical powers. You've pretended to be a magical adept for so long you've learned to fool magic items into working at your touch.</p>\n<p>Choose two attribute boosts. One must be to <strong>Wisdom</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Deception skill and a magic tradition skill of your choice (Arcana, Nature, Occultism, or Religion). You gain the @UUID[Compendium.sf2e.feats.Item.Trick Magic Item] skill feat.</p>"
+        },
+        "items": {
+            "TMSI4": {
+                "img": "icons/sundries/books/book-red-exclamation.webp",
+                "level": 1,
+                "name": "Trick Magic Item",
+                "uuid": "Compendium.sf2e.feats.Item.Trick Magic Item"
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.Skill.Religion",
+                        "value": "religion"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
+        "trainedSkills": {
+            "lore": [],
+            "value": [
+                "deception"
+            ]
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

@@ -1,0 +1,64 @@
+{
+    "_id": "XeL6uygxW4u2vMkF",
+    "folder": "admZiPs6ML6NgwMt",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Favored Disguise",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You create a favored disguise that you can call upon at a moment's notice. When you Impersonate, you can decide that the disguise becomes your favored disguise. If you have a holoskin or can Change Shape, you can always adopt your favored disguise when Impersonating. You still roll Deception for the Impersonate check but count any critical failure results as failures instead. You can have one favored disguise and gain an additional favored disguise you can employ at expert, master, and legendary proficiency in Deception.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Deception"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "favored-diguise",
+                "toggleable": true
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:impersonate",
+                    "favored-diguise"
+                ],
+                "selector": "deception"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

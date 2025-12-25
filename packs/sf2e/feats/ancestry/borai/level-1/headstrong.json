@@ -1,0 +1,58 @@
+{
+    "_id": "NyrWOc6otZLbbgsY",
+    "folder": "MDJlyGxPlywpeq0S",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Headstrong",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You became a borai through your own stubborn willfulness. When you died, you refused to accept your death and clung to your corpse, forcing your soul back into your body and regaining life along with it. You gain a +1 circumstance bonus to Will saving throws against fear and effects that would make you @UUID[Compendium.sf2e.conditions.Item.Confused] or @UUID[Compendium.sf2e.conditions.Item.Controlled] and to your Will DC against attempts to @UUID[Compendium.sf2e.actions.Item.Demoralize] you.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:fear",
+                            "inflicts:controlled",
+                            "inflicts:confused"
+                        ]
+                    }
+                ],
+                "selector": "will",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lineage"
+            ]
+        }
+    },
+    "type": "feat"
+}

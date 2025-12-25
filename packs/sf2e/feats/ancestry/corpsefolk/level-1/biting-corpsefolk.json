@@ -1,0 +1,127 @@
+{
+    "_id": "CTZgRrfVvHnCSIcF",
+    "folder": "KCwrOYpPTP2Udazm",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Biting Corpsefolk",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>A transformation after death twisted your body, elongating your teeth into fangs or sharpening your appendages into claws. When you select this feat, you gain one of the following unarmed attacks of your choice: claw or jaws. Both of these attacks are in the brawling weapon group and have the listed damage die and traits.</p>\n<p><strong>Claw</strong> 1d6 slashing (agile, finesse, unarmed)</p>\n<p><strong>Jaws</strong> 1d6 piercing (grapple, unarmed)</p>\n<p>At 5th level, whenever you get a critical hit with one of these attacks, you get its critical specialization effect.</p><hr /><p><strong>Special</strong> You can select this feat two times. Each time you do, select a different attack from the options listed above.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Guilt of the Grave World"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "predicate": [
+                            {
+                                "not": "biting-corpsefolk:claw"
+                            }
+                        ],
+                        "value": "claw"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "predicate": [
+                            {
+                                "not": "biting-corpsefolk:jaws"
+                            }
+                        ],
+                        "value": "jaws"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.UnarmedAttack",
+                "rollOption": "biting-corpsefolk"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/sf2e/icons/unarmed-attacks/claw.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    "biting-corpsefolk:claw"
+                ],
+                "range": null,
+                "slug": "claw",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/sf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    "biting-corpsefolk:jaws"
+                ],
+                "range": null,
+                "slug": "jaws",
+                "traits": [
+                    "grapple",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    "item:id:{item|id}"
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lineage"
+            ]
+        }
+    },
+    "type": "feat"
+}

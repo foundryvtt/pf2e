@@ -1,0 +1,71 @@
+{
+    "_id": "v724q5Xi7KPPnLQ3",
+    "img": "icons/magic/earth/construct-stone-long-arms.webp",
+    "name": "Spell Effect: Cairn Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Cairn Form]{Cairn Form}</p>\n<p>You gain resistance to physical damage, except adamantine, and a fist unarmed attack that deals bludgeoning damage</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "exceptions": [
+                    "adamantine"
+                ],
+                "key": "Resistance",
+                "type": "physical",
+                "value": "ternary(gte(@item.level,10),20,ternary(gte(@item.level,6),10,5))"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": "ternary(gte(@item.level,10),4,ternary(gte(@item.level,6),3,2))",
+                        "die": "d6"
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.Strike.Fist.Label",
+                "slug": "fist",
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|id}-damage",
+                "text": "SF2E.SpecificRule.CairnForm.CriticalHit",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

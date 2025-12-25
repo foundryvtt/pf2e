@@ -1,0 +1,63 @@
+{
+    "_id": "RdCEfz6Mn8IP1RDM",
+    "folder": "kCWkY9eXKGRHJIb0",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Fool the Camera",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You know how to fool security cameras and tech items that confer special senses, such as scopes. Whenever you use the @UUID[Compendium.sf2e.actions.Item.Avoid Notice], @UUID[Compendium.sf2e.actions.Item.Hide], or @UUID[Compendium.sf2e.actions.Item.Sneak] actions, you're always considered to be taking precautions against special senses from tech items. In addition, you gain a +2 circumstance bonus to your Stealth DC to Avoid Notice by cameras and technological hazards.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "master in Computers"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "fool-the-camera",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:avoid-notice",
+                    "fool-the-camera"
+                ],
+                "selector": "stealth-dc",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

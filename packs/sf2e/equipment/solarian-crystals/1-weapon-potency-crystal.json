@@ -1,0 +1,109 @@
+{
+    "_id": "JdBYoPRqFhVWoJFi",
+    "folder": "NJWNipWsF1UNHIqy",
+    "img": "icons/commodities/gems/gem-faceted-octagon-yellow.webp",
+    "name": "+1 Weapon Potency Crystal",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This item crystallizes the focus needed to replicate the actions of a star. Attack rolls with the solar weapon or flare gain a +1 item bonus, and the weapon or flare can benefit from one orbital crystal.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 2
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "cp": 0,
+                "gp": 0,
+                "pp": 0,
+                "sp": 350
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "SF2E.SpecificRule.Solarian.SolarFlare.Label",
+                        "value": "solar-flare"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Solarian.SolarWeapon.Label",
+                        "value": "solar-weapon"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Solarian.SolarWeapon.TwinLabel",
+                        "predicate": [
+                            "feat:twin-weapons"
+                        ],
+                        "value": "twin-solar-weapon"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "SF2E.SpecificRule.Prompt.SolarianWeapon",
+                "rollOption": "1-potency-crystal"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.Item.Weapon.Rune.Potency",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:slug:solar-weapon",
+                                    "1-potency-crystal:solar-weapon"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:solar-flare",
+                                    "1-potency-crystal:solar-flare"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:twin-solar-weapon",
+                                    "1-potency-crystal:twin-solar-weapon"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "attack-roll",
+                "slug": "weapon-potency",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "other"
+        }
+    },
+    "type": "equipment"
+}

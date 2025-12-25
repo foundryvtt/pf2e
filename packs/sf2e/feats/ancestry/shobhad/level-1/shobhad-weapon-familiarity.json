@@ -1,0 +1,87 @@
+{
+    "_id": "Y7AL0vuOdMorOte3",
+    "folder": "7c9RQP6Nf9g0Jczy",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Shobhad Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You gain access to all uncommon weapons with the shobhad trait. You have familiarity with weapons with the shobhad trait, plus the cryopike, fangblade, and hammer. For the purposes of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Invasion's Edge Player's Guide"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:category:martial",
+                    {
+                        "or": [
+                            "item:trait:shobhad",
+                            "item:base:cryopike",
+                            "item:base:fangblade",
+                            "item:base:hammer"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Shobhad.WeaponFamiliarity.MartialWeapons",
+                "sameAs": "simple",
+                "slug": "martial-shobhad-weapons"
+            },
+            {
+                "definition": [
+                    "item:category:advanced",
+                    "item:trait:shobhad"
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Shobhad.WeaponFamiliarity.AdvancedWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-shobhad-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:shobhad",
+                            "item:base:cryopike",
+                            "item:base:fangblade",
+                            "item:base:hammer"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,55 @@
+{
+    "_id": "2Ye5H37ZP0AYpxHT",
+    "folder": "pqeEW3QQmvYvHr5r",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Unstable Flare",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You supercharge your solar flare and unleash multiple simultaneous blasts at all foes in an area. Make a solar flare Strike with a –2 circumstance penalty against each enemy in a @Template[type:burst|distance:15] centered on any point within your solar flare's first range increment. Each attack counts toward your multiple attack penalty, but you don't increase your penalty until you've made all your attacks.</p>\n<p><strong>Graviton-Attuned</strong> You can Stride up to half your speed once as a free action immediately before or after making your attacks.</p>\n<p><strong>Photon-Attuned</strong> You're @UUID[Compendium.sf2e.conditions.Item.Concealed] to each target of this attack until the start of your next turn.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Solar Barrage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "unstable-flare",
+                    "item:tag:solar-flare"
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

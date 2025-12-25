@@ -1,0 +1,82 @@
+{
+    "_id": "FnAzJ4DIRPJJaGv7",
+    "folder": "dUge9P1UVgqBOrXl",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Danger Awareness",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have an intuitive sense that alerts you to danger and allows you to discern the presence of hidden threats. You gain a +1 circumstance bonus to Perception checks to find traps and @UUID[Compendium.sf2e.conditions.Item.Hidden], @UUID[Compendium.sf2e.conditions.Item.Undetected], and @UUID[Compendium.sf2e.conditions.Item.Unnoticed] creatures; to AC against attacks made by traps and hidden, undetected, and unnoticed creatures; and to saves against traps. Even if you aren't @UUID[Compendium.sf2e.actions.Item.Search]{Searching}, you get a check to find traps that normally require you to be Searching. You still need to meet any other requirements to find the trap. If your initiative result is tied with an opponent, you always go first.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "domain": "perception",
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Operative.DangerAwareness.ToggleLabel",
+                "option": "danger-awareness-perception",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "origin:condition:hidden",
+                            "origin:condition:undetected",
+                            "origin:condition:unnoticed",
+                            "origin:trait:trap"
+                        ]
+                    }
+                ],
+                "selector": "ac",
+                "slug": "danger-awareness-ac",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "danger-awareness-perception"
+                ],
+                "selector": "perception",
+                "slug": "danger-awareness-perception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.initiative.tiebreakPriority",
+                "priority": 51,
+                "value": 0
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

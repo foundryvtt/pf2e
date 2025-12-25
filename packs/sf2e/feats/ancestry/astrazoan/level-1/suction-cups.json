@@ -1,0 +1,60 @@
+{
+    "_id": "tEDa3aTb0rUt0wox",
+    "folder": "iGJXNlZ39jFHOAPU",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Suction Cups",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You @UUID[Compendium.sf2e.actions.Item.Change Shape] to sprout hundreds of suction cups across your limbs. You gain a 15-foot climb Speed as long as you're wearing light armor or no armor.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "suction-cups",
+                "toggleable": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "nor": [
+                            "armor:category:heavy",
+                            "armor:category:medium"
+                        ]
+                    },
+                    "suction-cups"
+                ],
+                "selector": "climb",
+                "value": 15
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

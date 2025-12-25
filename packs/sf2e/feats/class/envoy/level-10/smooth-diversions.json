@@ -1,0 +1,70 @@
+{
+    "_id": "enYJDAwYFLhrqDrP",
+    "folder": "RqQbVt67RwogrHDS",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Smooth Diversions",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're practiced in the art of diverting attention quickly and subtly. When you succeed at an attempt to @UUID[Compendium.sf2e.actions.Item.Create a Diversion], you can immediately @UUID[Compendium.sf2e.actions.Item.Sneak] or Step as a free action.</p>\n<p>Additionally, creatures only become aware you were trying to trick them if you critically fail to Create a Diversion. Otherwise the creature assumes that your diversion was part of your regular bravado.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "master in Deception"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:create-a-diversion"
+                ],
+                "selector": "skill-check",
+                "text": "SF2E.SpecificRule.Envoy.SmoothDiversions.Success",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "action:create-a-diversion"
+                ],
+                "selector": "skill-check",
+                "text": "SF2E.SpecificRule.Envoy.SmoothDiversions.Failure",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

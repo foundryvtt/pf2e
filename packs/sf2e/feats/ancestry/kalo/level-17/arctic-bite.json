@@ -1,0 +1,69 @@
+{
+    "_id": "FwNss6LroM7KZSUB",
+    "folder": "gBNx2ta8lLbU5MS3",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Arctic Bite",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The freezing power of your bite becomes irresistible. The cold damage dealt by your jaws Strike increases to @Damage[2d6[untyped]] damage and ignores an amount of the target's cold resistance equal to your level. A creature's immunities are unaffected.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Gelid Bite"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "damageType": "cold",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:linnorm-bite-strike"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "item:slug:linnorm-bite-strike"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "SF2E.SpecificRule.Kalo.ArcticBite.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

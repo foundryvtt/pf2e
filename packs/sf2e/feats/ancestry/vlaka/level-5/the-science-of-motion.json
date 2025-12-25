@@ -1,0 +1,70 @@
+{
+    "_id": "akrQJ3KbYdSQGc0m",
+    "folder": "xLLN8X3CfQ2oM8nt",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "The Science of Motion",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your extensive scientific knowledge of astronomy, astrophysics, and stellar phenomenon have given you insight into the underpinnings of the universe—particularly motion. You can use this knowledge to more easily move your foes across the battlefield. You gain a +1 circumstance bonus to Athletics checks to @UUID[Compendium.sf2e.actions.Item.Reposition], @UUID[Compendium.sf2e.actions.Item.Shove] or @UUID[Compendium.sf2e.actions.Item.Trip]. If you critically fail an Athletics check to Reposition, Shove or Trip, you get a failure instead.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Athletics"
+                },
+                {
+                    "value": "one space-related Lore (such as Astronomy Lore, Physical Science Lore, or Sun Lore)"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:reposition",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "athletics"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

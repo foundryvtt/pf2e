@@ -1,0 +1,56 @@
+{
+    "_id": "Wavi0q21NJNXkA6F",
+    "folder": "uSgzGb4nJNol8O9D",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Opening Volley",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You're wielding a gun and a melee weapon.</p><hr /><p>You shoot your target, then you follow up with a melee attack to keep the pressure on your foe. Make a ranged Strike with your held gun. If the Strike is successful, your next melee attack this round against the same target gains a +2 circumstance bonus to the attack roll.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "domain": "melee-strike-attack-roll",
+                "key": "RollOption",
+                "option": "opening-volley",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "opening-volley"
+                ],
+                "selector": "melee-strike-attack-roll",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

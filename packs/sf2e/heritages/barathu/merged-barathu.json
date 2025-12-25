@@ -1,0 +1,47 @@
+{
+    "_id": "mq92ECPMTFZXDI6E",
+    "folder": "ldyNMsK0tU65ynPm",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Merged Barathu",
+    "system": {
+        "ancestry": {
+            "name": "Barathu",
+            "slug": "barathu",
+            "uuid": "Compendium.sf2e.ancestries.Item.3iuWdarohpDFhlxX"
+        },
+        "description": {
+            "value": "<p>You're a unique entity formed from the constant union of two or more barathus who enjoy the act of combination so much that they chose not to return to isolation as their former selves. You're Large instead of Medium. You gain 10 Hit Points from your ancestry instead of 8, and you gain a +1 circumstance bonus to saving throws against emotion effects.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "value": "large"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.ancestryhp",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:emotion"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

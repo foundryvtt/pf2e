@@ -1,0 +1,69 @@
+{
+    "_id": "GPrdVyoKBpIzE8pP",
+    "folder": "mBMTGi25dLiIjlX5",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Mighty Guardian",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The magical spark you use to protect others grows in power. You can cast @UUID[Compendium.sf2e.spells.Item.Share Life] and @UUID[Compendium.sf2e.spells.Item.Status] as 2nd-rank divine innate spells, once per day each.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Magical Guardian"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:share-life",
+                    "item:slug:status",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:share-life",
+                    "item:slug:status",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:dragonkin"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

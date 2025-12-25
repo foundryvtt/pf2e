@@ -1,0 +1,64 @@
+{
+    "_id": "Logc2RRMGScxCMex",
+    "folder": "i8Ib0dZgQ36AzbTF",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Septocular",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've learned to grow additional eyes all over your body, enhancing your visual processing and the range of your eyesight. When you use Change Shape, you can choose to gain all-around vision until you change forms again. During this time, you take a –3 circumstance penalty to Deception checks and Deception DCs to Impersonate a different ancestry, unless the ancestry you are Impersonating normally has seven or more eyes.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "septocular-vision",
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.flankable",
+                "predicate": [
+                    "septocular-vision"
+                ],
+                "value": false
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "septocular-vision"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": -3
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

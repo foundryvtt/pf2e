@@ -1,0 +1,87 @@
+{
+    "_id": "STjiyuU7xqYmomSP",
+    "folder": "dHDDKb78TfHZtlba",
+    "img": "icons/magic/movement/chevrons-down-yellow.webp",
+    "name": "Atrophied",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>Your limbs are atrophied. Decrease your maximum and encumbered Bulk limits by 1. While using your hands to wield any weapon or device whose Bulk is 2 or higher, you are @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1}.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "subtract",
+                "path": "inventory.bulk.encumberedAfterAddend",
+                "predicate": [
+                    {
+                        "nor": [
+                            "self:heritage:retrograde-contemplative",
+                            "self:effect-telekinetic-titan"
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "subtract",
+                "path": "inventory.bulk.encumberedAfterAddend",
+                "predicate": [
+                    {
+                        "nor": [
+                            "self:heritage:retrograde-contemplative",
+                            "self:effect:telekinetic-titan"
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "self:item:bulk:2",
+                    "self:item:hands-held",
+                    {
+                        "nor": [
+                            "self:heritage:retrograde-contemplative",
+                            "self:effect:telekinetic-titan"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.sf2e.conditions.Item.Clumsy"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

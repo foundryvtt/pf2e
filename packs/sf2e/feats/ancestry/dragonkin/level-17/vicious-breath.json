@@ -1,0 +1,59 @@
+{
+    "_id": "txi5BrSLw29aCdze",
+    "folder": "9cjBOSJzQ0h9LBDs",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Vicious Breath",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The intensity of your draconic breath lays waste to the environment and your foes. When you use Dragonkin Breath, the area of your breath becomes difficult terrain for 1 minute. Any creature that enters the area of your dragonkin breath or is occupying your breath's area at the end of its turn takes @Damage[4d6[@actor.flags.pf2e.dragonkinBreath.damageType]] damage of the same type (@Check[reflex|against:class-spell|basic] save against the same DC as your dragonkin breath).</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Dragonkin Breath"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:dragonkin-breath"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

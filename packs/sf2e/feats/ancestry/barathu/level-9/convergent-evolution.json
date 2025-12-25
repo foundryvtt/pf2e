@@ -1,0 +1,63 @@
+{
+    "_id": "YaS0LQv3YCfiBRgR",
+    "folder": "3X9QDbnoK8dXa9va",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Convergent Evolution",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You sample the genetics of creatures and people you've made contact with and mimic them. When you take this feat, select up to three different ancestries with which you've had significant contact. You can select ancestry feats from the ancestries you chose, in addition to barathu ancestry feats. Additionally, you gain one ancestry feat you qualify for of 5th level or lower from one of the selected ancestries. You can retrain the selected feat once per day during your daily preparations.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                5
+                            ]
+                        },
+                        "item:category:ancestry"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "SF2E.SpecificRule.Barathu.ConvergentEvolution.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

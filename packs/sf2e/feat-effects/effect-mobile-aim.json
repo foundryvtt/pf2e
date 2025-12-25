@@ -1,0 +1,66 @@
+{
+    "_id": "Uwb0PSFXd4QGG9Q1",
+    "img": "icons/magic/perception/eye-ringed-green.webp",
+    "name": "Effect: Mobile Aim",
+    "system": {
+        "description": {
+            "value": "<p>Commander Eiran's attacks made with the chosen weapon deal an additional 2d6 precision damage and reduce the target's cover bonus to AC by 1.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Second Edition Playtest Adventure: Empires Devoured"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "SF2E.BaseWeapon.DuelingSword",
+                        "value": "advanced-dueling-sword"
+                    },
+                    {
+                        "label": "SF2E.BaseWeapon.AeonRifle",
+                        "value": "advanced-aeon-rifle"
+                    }
+                ],
+                "flag": "mobileAim",
+                "key": "ChoiceSet"
+            },
+            {
+                "category": "precision",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.mobileAim}-damage"
+            },
+            {
+                "key": "EphemeralEffect",
+                "selectors": [
+                    "{item|flags.pf2e.rulesSelections.mobileAim}-attack-roll"
+                ],
+                "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Mobile Aim (Ephemeral)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

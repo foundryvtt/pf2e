@@ -1,0 +1,60 @@
+{
+    "_id": "Mett2INmoUZxE0CR",
+    "folder": "aTIFCeOaAtdBwJwj",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Twin Weapons",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have a second solar weapon. When you take this feat or Re-Forge Solar Weapon, choose its traits separately from your first weapon. You can select a different damage type, traits, and weapon group for this second solar weapon. Add the agile and twin traits to the list of weapon traits you can apply to your solar weapons.</p>\n<p>@UUID[Compendium.sf2e.feat-effects.Item.Effect: Solar Weapon (Twin Weapons)]{Effect: Solar Weapon (Twin Weapons)}</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:attune",
+                            "item:slug:re-forge-solar-weapon"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

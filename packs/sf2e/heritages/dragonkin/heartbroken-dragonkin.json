@@ -1,0 +1,48 @@
+{
+    "_id": "NXVULEwhf37gVKGf",
+    "folder": "ZmMDPMWSuUyFXx1e",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Heartbroken Dragonkin",
+    "system": {
+        "ancestry": {
+            "name": "Dragonkin",
+            "slug": "dragonkin",
+            "uuid": "Compendium.sf2e.ancestries.Item.jNE2Zq46a9kQj7bi"
+        },
+        "description": {
+            "value": "<p>In the past your bonded partner died, and you remain devastated by their loss. You gain a +1 circumstance bonus to saving throws against emotion effects. If you roll a success on a saving throw against an emotion effect, you get a critical success instead.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:emotion"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:emotion"
+                ],
+                "selector": "saving-throw",
+                "type": "save"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

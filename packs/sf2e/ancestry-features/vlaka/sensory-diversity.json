@@ -1,0 +1,124 @@
+{
+    "_id": "cuEGqGBU1pRhMW1D",
+    "folder": "Lpi5YguBM1k99Tde",
+    "img": "icons/magic/perception/hand-eye-fire-blue.webp",
+    "name": "Sensory Diversity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>All vlakas have a keen sense of smell, gaining imprecise scent with a range of 60 feet. This means you can use your sense of smell to determine a creature's location. The GM might double the range if you're downwind from the creature or halve the range if you're upwind.</p>\n<p>In addition, each vlaka is born with one of the following sensory arrays: blind, deaf, deafblind, or hearing/sighted. Select one of these sensory arrays, and gain the associated senses or feats.</p>\n<p><strong>Blind:</strong> You're blind. You gain hearing as a precise sense with a range of 90 feet.</p>\n<p><strong>Deaf:</strong> You're deaf. You gain the Read Lips skill feat (even if you don't meet the feat's prerequisites).</p>\n<p><strong>Deafblind:</strong> You're blind and deaf. Your scent becomes a precise sense with a range of 90 feet, rather than an imprecise sense with a range of 60 feet. Hearing/Sighted: You don't gain any additional senses.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": 60,
+                "selector": "scent"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "Blind",
+                        "value": "blind"
+                    },
+                    {
+                        "label": "Deaf",
+                        "value": "deaf"
+                    },
+                    {
+                        "label": "Deafblind",
+                        "value": "deafblind"
+                    },
+                    {
+                        "label": "Hearing/Sighted",
+                        "value": "hearing-sighted"
+                    }
+                ],
+                "flag": "sensoryDiversity",
+                "key": "ChoiceSet",
+                "prompt": "Select one sensory array"
+            },
+            {
+                "key": "RollOption",
+                "option": "sensory-diversity:{item|flags.pf2e.rulesSelections.sensoryDiversity}"
+            },
+            {
+                "acuity": "precise",
+                "key": "Sense",
+                "predicate": [
+                    "sensory-diversity:blind"
+                ],
+                "range": 90,
+                "selector": "echolocation"
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    {
+                        "or": [
+                            "sensory-diversity:blind",
+                            "sensory-diversity:deafblind"
+                        ]
+                    }
+                ],
+                "type": "visual"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "sensory-diversity:deaf"
+                ],
+                "uuid": "Compendium.sf2e.feats.Item.Read Lips"
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    {
+                        "or": [
+                            "sensory-diversity:deaf",
+                            "sensory-diversity:deafblind"
+                        ]
+                    }
+                ],
+                "type": "auditory"
+            },
+            {
+                "acuity": "precise",
+                "key": "Sense",
+                "predicate": [
+                    "sensory-diversity:deafblind"
+                ],
+                "range": 90,
+                "selector": "scent"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,63 @@
+{
+    "_id": "PbPCMls5szAKHXtr",
+    "folder": "MdJ6TK854gjq4yZ1",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Proleptic Parry",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Trigger</strong> A Telepredicted creature targets you with a mental effect.</p>\n<p><strong>Requirements</strong> You have a bonus against the target using Telepredict.</p><hr /><p>You gain a +1 circumstance bonus to Will saving throws against the triggering effect. Increase this bonus to +2 if you've dealt mental damage to the target since the last time you used Telepredict. If you roll a critical success on the saving throw, the target takes @Damage[5d4[mental]] damage and becomes @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 1} until the end of your next turn.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Telepredict"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "proleptic",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:telepredict"
+                ],
+                "selector": "will",
+                "type": "circumstance",
+                "value": "@actor.flags.pf2e.contemplative.telepredict"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "mental"
+            ]
+        }
+    },
+    "type": "feat"
+}

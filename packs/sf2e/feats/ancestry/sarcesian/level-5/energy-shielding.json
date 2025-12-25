@@ -1,0 +1,100 @@
+{
+    "_id": "lmowZWTzJaZfM3bb",
+    "folder": "d49gGzET22L9gyE2",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Energy Shielding",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>While traversing the Diaspora, you've witnessed countless magical anomalies and survived to tell the tale. This persistent exposure to magical energy has rubbed off on you, leaving traces of magic behind that shield your body from harmful energy. Select one of the following types of energy damage: acid, cold, electricity, fire, or sonic. You gain resistance 5 to that damage type.</p><hr /><p><strong>Special</strong> You can select this feat multiple times. Each time you do, select a different energy type.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "maxTakable": 5,
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "predicate": [
+                            {
+                                "not": "energy-shielding:acid"
+                            }
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": [
+                            {
+                                "not": "energy-shielding:cold"
+                            }
+                        ],
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            {
+                                "not": "energy-shielding:electricity"
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "not": "energy-shielding:fire"
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "predicate": [
+                            {
+                                "not": "energy-shielding:sonic"
+                            }
+                        ],
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "damageType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType",
+                "rollOption": "energy-shielding"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.damageType}",
+                "value": 5
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,59 @@
+{
+    "_id": "ESCBAfxDe7eHSsMI",
+    "folder": "lGMMENPdaHCd7GYV",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Homeguard",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your Homeguard training has prepared you for anything. You gain a +2 circumstance bonus to initiative rolls, and when you tie an adversary's initiative roll, you always go first.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "intiative",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "selector": "initiative",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.initiative.tiebreakPriority",
+                "value": 0
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

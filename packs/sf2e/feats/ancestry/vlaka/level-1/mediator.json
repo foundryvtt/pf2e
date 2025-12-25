@@ -1,0 +1,56 @@
+{
+    "_id": "P06SIkM0OQ9sINSx",
+    "folder": "8pW9aXcHLw893WYN",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Mediator",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're a talented diplomat or mediator who's skilled at making a good impression and accustomed to finding compromises, brokering deals, and forging strong social connections. You gain the trained proficiency rank in Diplomacy. If you would automatically become trained in Diplomacy (from your background or class, for example), you instead become trained in a skill of your choice. You also gain a +1 circumstance bonus to Diplomacy checks to @UUID[Compendium.sf2e.actions.Item.Make an Impression].</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.diplomacy.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:make-an-impression"
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

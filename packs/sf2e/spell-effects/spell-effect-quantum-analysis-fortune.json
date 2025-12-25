@@ -1,0 +1,52 @@
+{
+    "_id": "J5f9SpgmiFOPKU8Q",
+    "img": "systems/sf2e/icons/abilities/green-energy-wave.webp",
+    "name": "Spell Effect: Quantum Analysis (Fortune)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Quantum Analysis]{Quantum Analysis}</p>\n<p>When you make an attack roll against a creature within your quantum field, you roll twice and use the better result.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Witchwarper.QuantumAnalysis.FortuneToggleLabel",
+                "option": "quantum-analysis-fortune",
+                "toggleable": true
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "quantum-analysis-fortune"
+                ],
+                "selector": "attack-roll"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

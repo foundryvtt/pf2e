@@ -1,0 +1,45 @@
+{
+    "_id": "B8kDmWVlRX1uJb1o",
+    "img": "icons/magic/perception/eye-ringed-green.webp",
+    "name": "Effect: Mobile Aim (Ephemeral)",
+    "system": {
+        "description": {
+            "value": "<p>Your cover bonus to AC is reduced by 1.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Second Edition Playtest Adventure: Empires Devoured"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "subtract",
+                "selector": "ac",
+                "slug": "cover",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

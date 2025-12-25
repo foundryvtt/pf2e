@@ -1,0 +1,76 @@
+{
+    "_id": "y0dtKu1ZuwqMUFEf",
+    "folder": "6UnzTsvfwaXmSYXQ",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Adaptive Defense",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You prepare your vitality network to catch some of your excess magic, allowing it to flow back and bolster your bond's defenses. If the next action you use is to Cast a Spell that deals damage, whether or not it successfully deals damage, you and one bonded ally gain resistance to that spell's type of damage equal to the spell's rank (minimum 1) until the end of your next turn. If the spell deals more than one type of damage, choose one and gain resistance to that type.</p>\n<p>@UUID[Compendium.sf2e.feat-effects.Item.Effect: Adaptive Defense]{Effect: Adaptive Defense}</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "adaptive-defense"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:adaptive-defense",
+                    "damaging-effect"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "emotion",
+                "manipulate",
+                "mental",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

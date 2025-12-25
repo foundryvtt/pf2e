@@ -1,0 +1,68 @@
+{
+    "_id": "7aGluzZ4bjfXbygG",
+    "folder": "cJoNKs2FMCJkyEDK",
+    "img": "systems/sf2e/icons/equipment/other/microscope.webp",
+    "name": "Field Scientist's Toolkit (Tactical)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>A field scientist toolkit contains a @UUID[Compendium.sf2e.equipment.Item.Chemalyzer]{Chemalyzer}, microscope, recording tools, and specimen bags. A tactical field scientist toolkit grants a +1 item bonus on @UUID[Compendium.sf2e.actions.Item.Recall Knowledge] checks using Nature or an appropriate Lore skill.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "cp": 0,
+                "gp": 0,
+                "pp": 0,
+                "sp": 350
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "field-scientists-toolkit"
+                ],
+                "selector": [
+                    "nature",
+                    "lore-check"
+                ],
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tech"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-or-two-hands"
+        }
+    },
+    "type": "equipment"
+}

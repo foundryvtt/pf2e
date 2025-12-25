@@ -1,0 +1,79 @@
+{
+    "_id": "DrRxVVXQMTib4ni1",
+    "folder": "jAQB3gjRkg4nMQl0",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Enhanced Echolocation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've learned to quiet your other senses and focus your attention on your echolocation. The range of your echolocation imprecise sense doubles to 60 feet (or 120 feet underwater), and you gain the @UUID[Compendium.sf2e.actions.Item.Focus Senses]{Focus Senses} action.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "deep kalo heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": 60,
+                "selector": "echolocation"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "underwater"
+                ],
+                "range": 120,
+                "selector": "echolocation"
+            },
+            {
+                "key": "RollOption",
+                "label": "Focus Senses",
+                "option": "focus-senses",
+                "toggleable": true
+            },
+            {
+                "acuity": "precise",
+                "key": "Sense",
+                "predicate": [
+                    "focus-senses"
+                ],
+                "range": 30,
+                "selector": "echolocation"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Focus Senses"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

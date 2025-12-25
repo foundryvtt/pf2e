@@ -1,0 +1,70 @@
+{
+    "_id": "20MrfbsA9c1LN2Is",
+    "folder": "7JvVdcPLRxEK9sec",
+    "img": "systems/sf2e/icons/abilities/yellow-emblem.webp",
+    "name": "Bipod (Tactical)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>A bipod can be attached to powerful weapons—those with the kickback trait—to allow wielders with lower Strength to use them at the cost of mobility. You can set up the bipod with a single Interact action using one appendage, setting the bipod in your square. When using a bipod, you don't take the –2 penalty for firing a kickback weapon, even if your Strength isn't high enough to avoid the penalty.</p>\n<p>You can Interact as a free action to retrieve the bipod before you can move the weapon to a different position. Deploying or retrieving a bipod with an Interact action doesn't automatically make you observed like an Interact action normally would, so long as you don't set up or remove the bipod when it's in a spot where creatures can see it.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "cp": 0,
+                "gp": 0,
+                "pp": 0,
+                "sp": 100
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "{item|parentItem.id}-bipod",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "{item|parentItem.id}-bipod"
+                ],
+                "selector": "{item|parentItem.id}-attack",
+                "slug": "kickback",
+                "suppress": true
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tech"
+            ]
+        },
+        "usage": {
+            "value": "installed-in-a-weapon-with-the-kickback-trait"
+        }
+    },
+    "type": "equipment"
+}

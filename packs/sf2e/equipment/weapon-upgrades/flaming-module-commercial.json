@@ -1,0 +1,70 @@
+{
+    "_id": "h4oJih49e0kZcsWG",
+    "folder": "7JvVdcPLRxEK9sec",
+    "img": "systems/sf2e/icons/abilities/red-fire-furnace.webp",
+    "name": "Flaming Module (Commercial)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This module overheats the weapon's striking edge and ammunition. The weapon deals an additional 1d6 fire damage on a successful Strike, plus 1d10 persistent fire damage on a critical hit.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 8
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 5000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|parentItem.id}-damage"
+            },
+            {
+                "category": "persistent",
+                "critical": true,
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d10",
+                "key": "DamageDice",
+                "selector": "{item|parentItem.id}-damage"
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fire",
+                "magical",
+                "tech"
+            ]
+        },
+        "usage": {
+            "value": "installed-in-a-weapon"
+        }
+    },
+    "type": "equipment"
+}

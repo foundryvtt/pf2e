@@ -1,0 +1,78 @@
+{
+    "_id": "jV9LIUswOPkVRC49",
+    "folder": "BNBCp5rVNuHAoOFS",
+    "img": "icons/magic/sonic/bell-alarm-red-purple.webp",
+    "name": "Rhythm",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You feel the song that moves the stars, channeling this cosmic beat through the power of audible rhythm and universal vibrations known by many as the Song of the Spheres. You might simply have a melody or tune in your mind that you feel compelled to share, beginning with the allies tied to your bond.</p>\n<p><strong>Tradition</strong> primal</p>\n<p><strong>Connection Skill</strong> Performance</p>\n<p><strong>Connection Spells</strong> cantrip: @UUID[Compendium.sf2e.spells.Item.Summon Instrument]; 1st: @UUID[Compendium.sf2e.spells.Item.Motivating Ringtone]{Motivating Ringtone}; 2nd: @UUID[Compendium.sf2e.spells.Item.Noise Blast]; 3rd: @UUID[Compendium.sf2e.spells.Item.Hypnotize]; 4th: @UUID[Compendium.sf2e.spells.Item.Battle Sonata]{Battle Sonata}; 5th: @UUID[Compendium.sf2e.spells.Item.Synaptic Pulse]; 6th: @UUID[Compendium.sf2e.spells.Item.Vibrant Pattern]; 7th: @UUID[Compendium.sf2e.spells.g9QLswd5uqDdcCjv]{Howl}; 8th: @UUID[Compendium.sf2e.spells.Item.Uncontrollable Dance]; 9th: @UUID[Compendium.sf2e.spells.Item.Unfathomable Song]</p>\n<p><strong>Epiphany Spells</strong> initial: @UUID[Compendium.sf2e.spells.Item.Anthem]{Anthem}; advanced: @UUID[Compendium.sf2e.spells.Item.Shuffle Repeat]{Shuffle}; greater: @UUID[Compendium.sf2e.spells.Item.Remix]{Remix}</p>\n<p><strong>Harmony</strong> When you Transfer Vitality, you can extend the duration of any active epiphany from the rhythm connection by 1 round.</p>\n<p><strong>Perfect Harmony</strong> The first time each round you Transfer Vitality, the target who regained Hit Points can Stride as a free action. This has the traversal trait.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.performance.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.sf2e.mystic.tradition",
+                "value": "primal"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:transfer-vitality"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "SF2E.SpecificRule.Mystic.Connection.Rhythm.Harmony.Addendum",
+                        "title": "SF2E.SpecificRule.Mystic.Harmony.Label"
+                    },
+                    {
+                        "predicate": [
+                            "feature:perfect-harmony"
+                        ],
+                        "text": "SF2E.SpecificRule.Mystic.Connection.Rhythm.PerfectHarmony.Addendum",
+                        "title": "SF2E.SpecificRule.Mystic.Harmony.PerfectLabel"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "mystic-connection"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

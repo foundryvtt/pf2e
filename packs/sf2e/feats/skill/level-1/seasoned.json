@@ -1,0 +1,64 @@
+{
+    "_id": "1Eceqc6zbMj2x0q9",
+    "folder": "admZiPs6ML6NgwMt",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Seasoned",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You've mastered the preparation of many types of food and drink. You gain a +1 circumstance bonus to checks to @UUID[Compendium.sf2e.actions.Item.Craft] food and drink, including serums if you have @UUID[Compendium.sf2e.feats.Item.Serum Crafting]. If you are a master in one of the prerequisite skills, this bonus increases to +2.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Alcohol Lore, Cooking Lore, or Crafting"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:craft",
+                    {
+                        "or": [
+                            "item:tag:food",
+                            "item:tag:drink",
+                            {
+                                "and": [
+                                    "feat:serum-crafting",
+                                    "item:trait:serum"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "crafting",
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.system.skills.crafting.rank,3),2,1)"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

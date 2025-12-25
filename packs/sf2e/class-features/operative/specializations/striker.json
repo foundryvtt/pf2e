@@ -1,0 +1,184 @@
+{
+    "_id": "EpxKCi6G0KnWQhHP",
+    "folder": "9feZwdAlvdlYJ3gO",
+    "img": "systems/sf2e/icons/abilities/purple-cattle-prod.webp",
+    "name": "Striker",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You specialize in hand-to-hand combat and prefer to fight with your fists or lightweight melee weapons, rather than guns. Whether you're a daredevil who lives for the thrill, a martial artist who likes to show off, or an assassin who kills with a personal touch, you take the fight to your foes and use your body as a weapon. You're trained in Athletics. You gain a skill feat for Athletics.</p>\n<p><strong>Exploit:</strong> You have expert proficiency with one-handed melee weapons and unarmed attacks with the agile or finesse traits instead of with martial guns. Whenever you increase your proficiency with martial guns, you instead increase your proficiency with one-handed agile and finesse melee weapons, agile and finesse unarmed attacks, and simple guns.</p>\n<p>In addition, when you Aim, you can Aim with and apply the benefits to a one-handed melee weapon or unarmed attack with the agile or finesse trait rather than with a ranged weapon. Treat any one-handed melee weapon or unarmed attack with the agile or finesse trait as a gun for purposes of meeting the requirements of operative feats. Instead of making a ranged Strike with an operative feat, you can make a Strike with an one-handed melee weapon or unarmed attack with the agile or finesse trait.</p>\n<p>You gain the @UUID[Compendium.sf2e.actions.Item.Reactive Step]{Reactive Step} reaction.</p>\n<p><strong>Enhanced Exploit:</strong> You find yourself able to overwhelm foes that you study. You gain the Overwhelming Strike free action.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.athletics.rank",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:category:skill",
+                        "item:level:1"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SkillFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "downgrade",
+                "path": "system.proficiencies.attacks.martial-simple-guns.rank",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:operative",
+                            "feat:operative-exploit"
+                        ]
+                    }
+                ],
+                "priority": 41,
+                "value": 1
+            },
+            {
+                "definition": [
+                    "item:ranged",
+                    "item:category:simple",
+                    {
+                        "or": [
+                            "item:trait:analog",
+                            "item:trait:tech"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.MartialProficiency.SimpleGuns",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:operative",
+                            "feat:operative-exploit"
+                        ]
+                    }
+                ],
+                "slug": "simple-guns",
+                "value": "ternary(gte(@actor.level,13),4,ternary(gte(@actor.level,5),3,2))"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    },
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:usage:hands:1",
+                                    "item:melee"
+                                ]
+                            },
+                            "item:category:unarmed"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:operative",
+                            "feat:operative-exploit"
+                        ]
+                    }
+                ],
+                "slug": "striker-attacks",
+                "value": "ternary(gte(@actor.level,13),4,ternary(gte(@actor.level,5),3,2))",
+                "visible": false
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:operative",
+                            "feat:operative-exploit"
+                        ]
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.sf2e.actions.Item.Reactive Step"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    },
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:usage:hands:1",
+                                    "item:melee"
+                                ]
+                            },
+                            "item:category:unarmed"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "class:operative",
+                            "feat:operative-exploit"
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "aim"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "operative-specialization"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

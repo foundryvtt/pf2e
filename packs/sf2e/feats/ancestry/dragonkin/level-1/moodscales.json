@@ -1,0 +1,74 @@
+{
+    "_id": "fypfpE2OFpHZEXNH",
+    "folder": "OQyZNx7C5LCx3ZQE",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Moodscales",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your scales automatically change color to match your current temperament. This has the same effect as a @UUID[Compendium.sf2e.equipment.Item.Moodskin]{Moodskin} augmentation, though it doesn't count as an augmentation and doesn't count toward your implant limit. When you select this feat, you can decide which colors correspond to each mood. Your keen awareness of your mood grants you a +1 circumstance bonus to saving throws against emotion effects. If you roll a success on a saving throw against an emotion effect, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Against emotion effects",
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": "saving-throw",
+                "text": "If you roll a success on a saving throw against an emotion effect, you get a critical success instead.",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

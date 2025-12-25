@@ -1,0 +1,65 @@
+{
+    "_id": "JSIlPiYbFOY1NkxV",
+    "folder": "zn2ufYjXty5VoEpp",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Improvised Legend",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can use @UUID[Compendium.sf2e.actions.Item.Improvised Mastery]{Improvised Mastery} once per hour, rather than twice per day.</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Improvised Mastery"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:improvised-mastery"
+                ],
+                "property": "frequency-per",
+                "value": "PT1H"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:improvised-mastery"
+                ],
+                "property": "frequency-max",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

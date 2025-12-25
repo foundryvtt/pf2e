@@ -1,0 +1,59 @@
+{
+    "_id": "toXr9sOGmGM92Vu0",
+    "folder": "KCwrOYpPTP2Udazm",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Shambling Corpsefolk",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Most creatures mistake you for a mindless, shambling zombie or even a lifeless corpse, and you've learned how to use your sepulchral appearance to your advantage. You gain the @UUID[Compendium.sf2e.feats.Item.Feign Death]{Feign Death} feat, even if you don't meet the prerequisites. You gain a +2 circumstance bonus when using Deception to roll initiative if you are @UUID[Compendium.sf2e.actions.Item.Impersonate]{Impersonating} a corpse when combat begins.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Guilt of the Grave World"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Feign Death"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "check:type:initiative",
+                    "action:impersonate:corpse"
+                ],
+                "selector": [
+                    "deception"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lineage"
+            ]
+        }
+    },
+    "type": "feat"
+}

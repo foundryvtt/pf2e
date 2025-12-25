@@ -1,0 +1,55 @@
+{
+    "_id": "FgA7uXPGGYavF9RH",
+    "folder": "lno6hGN7OXMCCi6Q",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Brood-Minder",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've served as, or are training to become, a brood-minder responsible for rearing and educating dozens of hatchlings. It's a multi-year job requiring extreme endurance. You become trained in Society. If you would automatically become trained in this skill (from your background or class, for example), you instead become trained in a skill of your choice. In addition, you gain a +2 circumstance bonus on saves to resist becoming @UUID[Compendium.sf2e.conditions.Item.Fatigued].</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Invasion's Edge Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.society.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "inflicts:fatigued"
+                ],
+                "selector": "saving-throw",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

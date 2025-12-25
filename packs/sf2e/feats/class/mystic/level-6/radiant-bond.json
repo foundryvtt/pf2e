@@ -1,0 +1,55 @@
+{
+    "_id": "gdAHbyEjIQMf2ARy",
+    "folder": "dtLNkCrLlkTx8vnw",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Radiant Bond",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>When you @UUID[Compendium.sf2e.actions.Item.Transfer Vitality]{Transfer Vitality}, you can select any number of bonded allies to transfer to, though the total maximum number of Hit Points you can transfer doesn't increase.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:transfer-vitality"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

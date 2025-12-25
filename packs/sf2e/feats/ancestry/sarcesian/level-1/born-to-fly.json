@@ -1,0 +1,69 @@
+{
+    "_id": "Fg4M65FsO7ZSxCE2",
+    "folder": "hLnXw8lo8s9W6jcZ",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Born to Fly",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You find flying exhilarating and live to perform impressive aerial maneuvers. You gain a +1 circumstance bonus to Acrobatics checks to @UUID[Compendium.sf2e.actions.Item.Maneuver in Flight] and on Piloting checks to @UUID[Compendium.sf2e.actions.Item.Drive] a vehicle or starship. When you roll a critical failure on an Acrobatics check to Maneuver in Flight, you get a failure instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:maneuver-in-flight"
+                ],
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:drive"
+                ],
+                "selector": "piloting",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:maneuver-in-flight"
+                ],
+                "selector": "acrobatics"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

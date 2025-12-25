@@ -1,0 +1,55 @@
+{
+    "_id": "hQ6s9YekCTexSaId",
+    "folder": "oqyNrwuayyTeznBG",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Seedpod Lure",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You grow a floating secondary seedpod you can use to fool other creatures. You gain a +1 circumstance bonus to @UUID[Compendium.sf2e.actions.Item.Create a Diversion] or @UUID[Compendium.sf2e.actions.Item.Feint]. Once every 10 minutes, you can deploy this lure as a move action. It remains deployed for 1 minute or until you Dismiss it. Any creature targeting you with an attack must attempt a @Check[flat|dc:5]; on a failure, the creature hits the seedpod lure instead of you, destroying it. A new one grows after 10 minutes of rest.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Murder in Metal City Deluxe Adventure"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:create-a-diversion",
+                            "action:feint"
+                        ]
+                    }
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

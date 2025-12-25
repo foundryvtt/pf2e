@@ -1,0 +1,59 @@
+{
+    "_id": "YSi48yghu0wmkSrr",
+    "folder": "QUOerCgxRDu6riVa",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Basic Insectile Flight",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Some shirrens are born with wings, but others grow them later. You evolve a pair of insectile wings that grant you a fly Speed of 20 feet. In addition, when you fall, you take no falling damage.</p><hr /><p><strong>Special</strong> If you're a winged shirren, you either grow a second set of wings or your existing wings morph into a stronger set of wings, increasing your fly Speed to 25 feet.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "not": "self:heritage:winged-shirren"
+                    }
+                ],
+                "selector": "fly",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "self:heritage:winged-shirren"
+                ],
+                "selector": "fly",
+                "value": 25
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

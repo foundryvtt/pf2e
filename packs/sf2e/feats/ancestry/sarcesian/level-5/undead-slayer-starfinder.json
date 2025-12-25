@@ -1,0 +1,67 @@
+{
+    "_id": "kC42tjY689rma6Uc",
+    "folder": "d49gGzET22L9gyE2",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Undead Slayer (Starfinder)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You leverage your extensive knowledge of undead during combat. You gain a +1 circumstance bonus to damage with weapons and unarmed attacks against undead creatures. If your attack would deal more than one weapon die of damage, the bonus is equal to the number of weapon dice or unarmed attack dice.</p>\n<p>Furthermore, when you succeed or critically succeed at a check to Recall Knowledge against an undead creature that you can see, you identify a weak spot in their defenses—for 1 minute, you gain access to the critical specialization effects of all weapons and unarmed attacks for attacks you make against that specific creature.</p>\n<p>@UUID[Compendium.sf2e.feat-effects.Item.Effect: Undead Slayer]{Effect: Undead Slayer}</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Undead Scholar"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:undead"
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check",
+                "text": "When you succeed or critically succeed at a check to Recall Knowledge against an undead creature that you can see, you identify a weak spot in their defenses—for 1 minute, you gain access to the critical specialization effects of all weapons and unarmed attacks for attacks you make against that specific creature.",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

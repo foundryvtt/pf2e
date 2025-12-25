@@ -1,0 +1,66 @@
+{
+    "_id": "r94DIQtK6b7CPtmr",
+    "folder": "cJoNKs2FMCJkyEDK",
+    "img": "systems/sf2e/icons/equipment/other/med-pack.webp",
+    "name": "Medkit (Tactical)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>These contain analgesics, bandages, sterile gauze, and suturing tools necessary for Medicine checks to @UUID[Compendium.sf2e.actions.Item.Administer First Aid], @UUID[Compendium.sf2e.actions.Item.Treat Disease], @UUID[Compendium.sf2e.actions.Item.Treat Poison], or @UUID[Compendium.sf2e.actions.Item.Treat Wounds]. Tactical medical toolkits provide a +1 item bonus to such checks. A medkit is a toolkit.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 500
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:administer-first-aid",
+                            "action:treat-disease",
+                            "action:treat-poison",
+                            ":action:treat-wounds"
+                        ]
+                    }
+                ],
+                "selector": "medicine",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "usage": {
+            "value": "held-in-one-or-two-hands"
+        }
+    },
+    "type": "equipment"
+}

@@ -1,0 +1,80 @@
+{
+    "_id": "Z0lKny0VVq0zf3UY",
+    "folder": "N0R6xAuGx7y5GV9c",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Knight of Golarion Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You have familiarity with all weapons in the sword weapon group. For the purposes of proficiency, treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons. If you are at least expert, you gain that weapon's critical specialization effect. You've studied lost Golarion's ancient cultures. You become trained in two of the following that you were not already trained in: Golarion Lore, Iomedae Lore, or a Lore skill associated with an ancestry or culture from Lost Golarion, such as Goblin, Halfling, Human, or Orc.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Strength +2"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:category:martial",
+                    "item:group:sword"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialGroup.sword",
+                "sameAs": "simple",
+                "slug": "martial-swords"
+            },
+            {
+                "definition": [
+                    "item:category:advanced",
+                    "item:group:sword"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedGroup.sword",
+                "sameAs": "martial",
+                "slug": "advanced-swords"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:group:sword",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,67 @@
+{
+    "_id": "HiyKcS69XV98pQ2S",
+    "folder": "UVGAwek4NGJ0i8FQ",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Glimpse of the Bloom",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Through years of practice, you've honed your ability to see through tricks and illusions of the First World. Once per day, you can cast @UUID[Compendium.sf2e.spells.Item.Truesight] as a primal innate spell; use the higher of your class DC or spell DC, whichever is higher, minus 10 for any associated counteract checks.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "bloom-born kalo heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:truesight",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:truesight",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:kalo"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

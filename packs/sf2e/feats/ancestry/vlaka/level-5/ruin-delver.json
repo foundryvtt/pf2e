@@ -1,0 +1,62 @@
+{
+    "_id": "HWcbrUti93ukXoqo",
+    "folder": "xLLN8X3CfQ2oM8nt",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Ruin Delver",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're fascinated by the ancient ruins scattered across Lajok's surface and orbit. Whether you're a scrapper harvesting materials for reuse, an innovator looking for a unique technological wonder, or a scholar hoping to glean secrets of the past, you enter these ancient sites, heedless of the danger. You gain a +1 circumstance bonus to Perception checks to find hazards, to skill checks to disable hazards, to AC against attacks made by hazards, and to saves against hazards.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Against hazards",
+                "option": "ruin-delver",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "ruin-delver"
+                ],
+                "selector": [
+                    "perception",
+                    "skill-check",
+                    "saving-throw",
+                    "ac"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

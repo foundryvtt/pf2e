@@ -1,0 +1,56 @@
+{
+    "_id": "nIwH5MjTHCkQe7C6",
+    "folder": "cdomvYJwL6kj797J",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Explosive Deflection",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You're in the area of a grenade explosion.</p>\n<p><strong>Requirements</strong> You're aware of the attack, wielding a gun, and not @UUID[Compendium.sf2e.conditions.Item.Off-Guard].</p><hr /><p>You attempt to detonate the grenade with a well-timed shot from your gun. Expend an amount of ammunition from your gun equal to its usage, as if you'd fired the gun. You gain a +4 circumstance bonus to your Reflex save against the triggering grenade. Determine if you succeed on your save before rolling for anyone else in the area. If you succeed on your Reflex save, you cause the grenade to explode prematurely. Select a space of your choice directly between you and the attacker. The deflected grenade explodes in the selected space, and you don't need to save again if you're in the new explosion area.</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "domain": "reflex",
+                "key": "RollOption",
+                "option": "explosive-deflection",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "explosive-deflection"
+                ],
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,55 @@
+{
+    "_id": "8zWFGKRXg1SxIwFH",
+    "folder": "TL36spTDqKGYirmR",
+    "img": "systems/sf2e/icons/actions/FreeAction.webp",
+    "name": "Holo-Roger",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You roll initiative</p><hr /><p><strong>Effect</strong> Your ship's fearsome holo-flag projects above you, lasting 1 minute. Attempt an Intimidation check to @UUID[Compendium.sf2e.actions.Item.Demoralize] all enemies within 60 feet that can see the flag. While the flag is displayed, you gain a +1 circumstance bonus to Intimidation checks to @UUID[Compendium.sf2e.actions.Item.Coerce].</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "selector": "initiative",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "holo-roger",
+                    "action:coerce"
+                ],
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "holo-roger",
+                "toggleable": true
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Holo-Roger",
+            "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Holo-Roger"
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "action"
+}

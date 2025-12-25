@@ -1,0 +1,78 @@
+{
+    "_id": "nS1azun1ePntzbYJ",
+    "folder": "3SFWKhzBesp37sy9",
+    "img": "systems/sf2e/icons/default-icons/background.svg",
+    "name": "Ancient Elebrian",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "int"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You're an ancient resident of Eox. You might have survived in magitech stasis deep inside a ruined necropolis, or you might serve as the trusted, longtime attendant of an undying bone sage. You likely view modern life in the Pact Worlds with a mixture of amusement and contempt.</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Charisma</strong>, and one is a free attribute boost. Choose a magic tradition.</p>\n<p>You're trained in that tradition's associated skill and the Eox Lore skill. Choose one 2nd-rank or lower spell from that tradition. You can cast this spell once per day as an innate spell.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.Skill.Religion",
+                        "value": "religion"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Eox Lore"
+            ],
+            "value": []
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": []
+        }
+    },
+    "type": "background"
+}

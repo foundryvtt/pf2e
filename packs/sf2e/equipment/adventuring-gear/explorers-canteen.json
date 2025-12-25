@@ -1,0 +1,67 @@
+{
+    "_id": "WGdcokSMynEyF332",
+    "folder": "cJoNKs2FMCJkyEDK",
+    "img": "systems/sf2e/icons/equipment/other/water-jug.webp",
+    "name": "Explorer's Canteen",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This thermos has two compartments. The upper compartment contains nanomachines and filters that target common contaminants, making most food and water safe to consume and granting a +1 item bonus to saves against any poisons or diseases present in the food or water. The lower compartment converts inserted UPBs into edible nutri-paste at a rate of 2 UPBs per 1 day of nourishment.</p>\n<p>@UUID[Compendium.sf2e.equipment-effects.Item.Effect: Explorer's Canteen]{Effect: Explorer's Canteen}</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 0
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 30
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:poison",
+                            "item:trait:disease"
+                        ]
+                    },
+                    "explorers-canteen"
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tech"
+            ]
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        }
+    },
+    "type": "equipment"
+}

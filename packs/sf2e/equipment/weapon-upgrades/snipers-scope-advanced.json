@@ -1,0 +1,103 @@
+{
+    "_id": "ZTTC6SoRggi3HIoq",
+    "folder": "7JvVdcPLRxEK9sec",
+    "img": "systems/sf2e/icons/equipment/other/attached-items/scope.webp",
+    "name": "Sniper's Scope (Advanced)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>A telescopic sighting attachment helps view distant targets.</p>\n<p>The scope grants you a +2 item bonus to visual Perception checks to @UUID[Compendium.sf2e.actions.Item.Seek] creatures through the scope.</p><hr /><p><strong>Activate—Adjust Sight</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Effect</strong> Increase the range increment of the weapon the scope is attached to by 20 feet. If the weapon has a base range increment of 50 feet or more, increase the range of the weapon by 40 feet instead. This lasts until the beginning of your next turn or until you're no longer wielding the weapon this scope is attached to, whichever comes first. This does not increase the size of area attacks.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 9
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 8000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:visual",
+                    "action:seek"
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "RollOption",
+                "option": "{item|parentItem.id}-snipers-scope",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|parentItem.id}",
+                    "{item|parentItem.id}-snipers-scope",
+                    {
+                        "lt": [
+                            "item:range-increment",
+                            50
+                        ]
+                    }
+                ],
+                "property": "range-increment",
+                "value": 20
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|parentItem.id}",
+                    "{item|parentItem.id}-snipers-scope",
+                    {
+                        "gte": [
+                            "item:range-increment",
+                            50
+                        ]
+                    }
+                ],
+                "priority": 115,
+                "property": "range-increment",
+                "value": 40
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tech"
+            ]
+        },
+        "usage": {
+            "value": "installed-in-a-weapon-sight"
+        }
+    },
+    "type": "equipment"
+}

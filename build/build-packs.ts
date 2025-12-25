@@ -23,10 +23,13 @@ const args = argv
     .parseSync();
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
-const packsDataPath = path.resolve(__dirname, "..", "packs", args.system);
+const inDir = path.resolve(__dirname, "..", "packs", args.system);
+const outDir = path.resolve(__dirname, "..", "dist", args.system, "packs");
+await fs.promises.rm(outDir, { recursive: true, force: true });
+await fs.promises.mkdir(outDir, { recursive: true });
 
 // Loads all packs into memory for the sake of making all document name/id mappings available
-const packs = fs.readdirSync(packsDataPath).map((p) => CompendiumPack.loadJSON(p, { systemId: args.system }));
+const packs = fs.readdirSync(inDir).map((p) => CompendiumPack.loadJSON(p, { systemId: args.system }));
 const documentCounts = await Promise.all(packs.map((p) => p.save({ jsonArtifacts: args.json })));
 const total = documentCounts.reduce((total, c) => total + c, 0);
 

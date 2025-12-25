@@ -1,0 +1,47 @@
+{
+    "_id": "iCOQI4pXzO98wnE1",
+    "folder": "Qp1m86m0gIoj2ch5",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Corpsefolk",
+    "system": {
+        "ancestry": null,
+        "description": {
+            "value": "<p><em>Corpsefolk are people who died and reanimated as corporeal, intelligent undead, with the same general appearance and personality they had in life, though usually with sickly pale skin, rotting parts, exposed bone, or other signs of putrescence.</em></p>\n<p>You are a reanimated corpse. Your undead nature might physically manifest in gray or pale skin, eyes that turn solid black or white, or an unnatural elongation of the fingernails (or similar appendages). You gain the corpsefolk and undead traits, in addition to the traits from your ancestry. You gain low-light vision, or you gain darkvision if your ancestry already has low-light vision. You can choose from corpsefolk feats and feats from your ancestry whenever you gain an ancestry feat.</p>\n<p>Corpsefolk also gain the following.</p>\n<p><strong>Immunity to Death Effects:</strong> You are immune to death effects, such as being automatically killed or having your dying value increase, but not other parts of the spell or effect (such as damage or becoming frightened from vision of death).</p>\n<p><strong>Void Healing:</strong> You are damaged by vitality damage and aren't healed by vitality healing effects. You don't take void damage and are healed by void effects that heal undead.</p>\n<p><strong>Void Survival:</strong> Unlike normal undead, you aren't destroyed when reduced to 0 Hit Points. Instead, powerful energies attempt to keep you from being destroyed. You are knocked out and begin dying when reduced to 0 Hit Points. Because you're undead, many methods of bringing someone back from the dying condition, such as @UUID[Compendium.sf2e.spells.Item.Stabilize], don't benefit you. When you would die, you're destroyed rather than just dead, just like other undead.</p>\n<p><strong>Special</strong>: At the GM's discretion, you can select the corpsefolk versatile heritage after 1st level if your character dies and has an opportunity to be raised as an undead. This replaces your heritage.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Guilt of the Grave World"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.hp.negativeHealing",
+                "value": true
+            },
+            {
+                "key": "Immunity",
+                "type": "death-effects"
+            },
+            {
+                "key": "Sense",
+                "selector": "low-light-vision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:low-light-vision:from-ancestry"
+                ],
+                "selector": "darkvision"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "undead"
+            ]
+        }
+    },
+    "type": "heritage"
+}

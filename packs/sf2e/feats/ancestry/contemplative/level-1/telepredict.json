@@ -1,0 +1,102 @@
+{
+    "_id": "bqQ80aCjgigKSJMY",
+    "folder": "MkPjc9vTA7LBZv5o",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Telepredict",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You read the subtle cues of a target's brainwaves to anticipate the mental state of a single creature within range of your limited telepathy that you can detect with thoughtsense. You gain a +1 circumstance bonus to Deception checks and Intimidation checks targeting the creature, to saves against the target's effects that have the fear trait, and to your Will DC against the target's Intimidation skill actions, such as @UUID[Compendium.sf2e.actions.Item.Demoralize]. If you deal mental damage to the target, increase this bonus to +2.</p>\n<p>You can Telepredict the actions of only one creature at a time. Telepredict ends if you use it on a different creature or the creature leaves the range of your limited telepathy.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:telepredict"
+                ],
+                "selector": [
+                    "deception",
+                    "intimidation"
+                ],
+                "type": "circumstance",
+                "value": "@actor.flags.pf2e.contemplative.telepredict"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:fear",
+                    "target:mark:telepredict"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": "@actor.flags.pf2e.contemplative.telepredict"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:demoralize",
+                    "target:mark:telepredict"
+                ],
+                "selector": "will",
+                "type": "circumstance",
+                "value": "@actor.flags.pf2e.contemplative.telepredict"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Dealt Mental Damage to target of Telepredict",
+                "option": "mental-damage",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.contemplative.telepredict",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.contemplative.telepredict",
+                "predicate": [
+                    "mental-damage"
+                ],
+                "value": 2
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Telepredict",
+            "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Telepredict"
+        },
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "mental"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,130 @@
+{
+    "_id": "q5W7fV1wXvqBFxt8",
+    "img": "systems/sf2e/icons/abilities/yellow-organization-insignia.webp",
+    "name": "Effect: Solar Shield",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Solar Shield]{Solar Shield}</p>\n<p>You can Raise a Shield, giving you a +1 circumstance bonus to AC. While the shield is raised, you can use the Shield Block reaction with your shield.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.solarian.solarShield.hp",
+                "value": "5 + 2*(@actor.level)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    },
+                    {
+                        "not": "stellar-attunement:unattuned"
+                    }
+                ],
+                "value": {
+                    "ac": 1,
+                    "broken": false,
+                    "brokenThreshold": 0,
+                    "destroyed": false,
+                    "hp": {
+                        "max": "5 + 2*(@actor.level)",
+                        "value": "5 + 2*(@actor.level"
+                    },
+                    "icon": "systems/sf2e/icons/abilities/yellow-organization-insignia.webp",
+                    "itemId": "{item|id}",
+                    "name": "SF2E.SpecificRule.Solarian.SolarShield.Label"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield.hardness",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    },
+                    {
+                        "not": "stellar-attunement:unattuned"
+                    }
+                ],
+                "value": "ceil(@actor.level / 2)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield.hp",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    },
+                    {
+                        "not": "stellar-attunement:unattuned"
+                    }
+                ],
+                "value": {
+                    "max": "{actor|flags.pf2e.solarian.solarShield.hp}",
+                    "value": "{actor|flags.pf2e.solarian.solarShield.hp}"
+                }
+            },
+            {
+                "key": "RollOption",
+                "option": "self:shield:equipped",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    },
+                    {
+                        "not": "stellar-attunement:unattuned"
+                    }
+                ]
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Raise a Shield"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

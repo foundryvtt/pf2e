@@ -1,0 +1,42 @@
+{
+    "_id": "ItKEn1ikbsZROaBL",
+    "img": "icons/magic/life/heart-shadow-red.webp",
+    "name": "Effect: Restorative Shapeshifting",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Restorative Shapeshifting]{Restorative Shapeshifting}</p>\n<p>You gain a number of temporary Hit Points equal to half your level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "max(1,floor(@actor.level / 2))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

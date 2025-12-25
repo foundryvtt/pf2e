@@ -1,0 +1,57 @@
+{
+    "_id": "y07qgtt6osIDIjR1",
+    "folder": "Dtkpo6zbg3q4Tbmo",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Filtering Tentacles",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The sensory tentacles covering the lower part of your face are sensitive enough to detect toxins. You gain a +1 circumstance bonus to saving throws against ingested or inhaled poisons.</p><hr /><p><strong>Special</strong> You can take this feat only at 1st level, and you can't retrain out of or into this feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "onlyLevel1": true,
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:poison",
+                    {
+                        "or": [
+                            "item:trait:ingested",
+                            "item:trait:inhaled"
+                        ]
+                    }
+                ],
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

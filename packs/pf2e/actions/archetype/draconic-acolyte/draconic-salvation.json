@@ -1,0 +1,39 @@
+{
+    "_id": "hSTE1wvCsYYvCsHC",
+    "folder": "3Xr4i27d0hSRO1dK",
+    "img": "systems/pf2e/icons/actions/Reaction.webp",
+    "name": "Draconic Salvation",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "defensive",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You critically fail a saving throw against an effect with the same tradition trait as your draconic benefactor (for instance, a divine spell if your benefactor is a diabolic dragon)</p>\n<p><strong>Requirements</strong> Your spectral dragon is in your space</p><hr /><p><strong>Effect</strong> You improve your saving throw result by one degree of success, and Channel Draconic Essence ends.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|flags.pf2e.draconicBenefactor.tradition}"
+            }
+        ],
+        "traits": {
+            "value": [
+                "concentrate",
+                "fortune"
+            ]
+        }
+    },
+    "type": "action"
+}

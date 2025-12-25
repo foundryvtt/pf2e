@@ -1,0 +1,51 @@
+{
+    "_id": "Yg8YVRLLfV7kGjCM",
+    "folder": "utbL6uuTpymAdTr9",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Collateral Witness",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You reduce your primary target to 0 Hit Points using @UUID[Compendium.sf2e.actions.Item.Auto-Fire]{Auto-Fire}.</p><hr /><p>With a subtle gesture of your weapon and a stare, you remind a survivor of your onslaught that there's more where that came from. @UUID[Compendium.sf2e.actions.Item.Demoralize] a single creature that was in the area of your Auto-Fire; you gain a +2 circumstance bonus to this check. If you have legendary proficiency in Intimidation, or if you have the @UUID[Compendium.sf2e.class-features.Item.Action Hero]{Action Hero} fighting style and the target of Collateral Witness is the enemy closest to you, you can use this as a free action with the same trigger.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:demoralize",
+                    "collateral-witness"
+                ],
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

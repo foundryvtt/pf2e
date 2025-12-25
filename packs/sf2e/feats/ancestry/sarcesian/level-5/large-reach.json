@@ -1,0 +1,61 @@
+{
+    "_id": "5IUQ1vBOaIeSOgiB",
+    "folder": "d49gGzET22L9gyE2",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Large Reach",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Using your large size, you can extend your reach to attack targets that are farther away. When you wield a melee weapon that requires two hands and doesn't have reach, you can change between a typical two-handed grip and an extended two-handed stretch using an Interact action. Weapons wielded in your extended stretch gain a reach of 10 feet.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "size Large or larger"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "large-reach",
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:usage:hands:2",
+                    "large-reach"
+                ],
+                "property": "traits",
+                "value": "reach"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

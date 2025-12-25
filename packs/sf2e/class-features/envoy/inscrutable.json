@@ -1,0 +1,61 @@
+{
+    "_id": "8bE9icPZbaqFDGlC",
+    "folder": "mOIMElPxY4JeuDAW",
+    "img": "systems/sf2e/icons/abilities/cerulean-circular-sign.webp",
+    "name": "Inscrutable",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>It's nigh impossible for your enemies to unravel your schemes or your long-term plans. When a creature rolls a critical success or success on a Perception check to @UUID[Compendium.sf2e.actions.Item.Sense Motive] against you, or on a skill check to Gather Information or @UUID[Compendium.sf2e.actions.Item.Recall Knowledge] about your secrets, they get a failure instead. When you roll a critical failure or failure on a saving throw against an effect or ability that would read or reveal your thoughts, emotions, or intentions, you get a success instead.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "to-success",
+                    "failure": "to-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "hidden-agenda-or-inscrutable"
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "action:sense-motive"
+                ],
+                "selectors": "perception",
+                "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Inscrutable"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

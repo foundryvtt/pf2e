@@ -1,0 +1,80 @@
+{
+    "_id": "RhmWzzEbiykniDHQ",
+    "img": "systems/sf2e/icons/abilities/blue-comet-insignia.webp",
+    "name": "Effect: Steel Yourselves!",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.actions.Item.Steel Yourselves!]{Steel Yourselves!}</p>\n<p>You gain temporary Hit Points equal to the origin's Charisma modifier + half their level</p>\n<p><strong>Lead by Example</strong> You gain a +1 status bonus to saving throws against effects that deal damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": "lead-by-example"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "not-lead-by-example"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "SF2E.SpecificRule.Envoy.Directive.LeadByExample.Prompt",
+                "rollOption": "brace-for-impact"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    {
+                        "not": "parent:origin:item:tag:unstoppable-directives"
+                    }
+                ],
+                "value": "@item.origin.abilities.cha.mod + floor(@item.origin.level / 2)"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "parent:origin:item:tag:unstoppable-directives"
+                ],
+                "value": "@item.origin.abilities.cha.mod + floor(@item.origin.level / 2) + @item.origin.level"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "damaging-effect",
+                    "brace-for-impact:lead-by-example"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

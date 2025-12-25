@@ -1,0 +1,94 @@
+{
+    "_id": "T78VQC8oaD1Odz1k",
+    "folder": "GyMklUN6ZJ9xixWD",
+    "img": "systems/sf2e/icons/abilities/composite-alien.webp",
+    "name": "Armor Storm",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your armor feels like a part of you and stands up to heavy fire in the thick of battle. Your armor absorbs greater damage from attacks made by enemies you've suppressed. In a fight, you likely body block or stand in front and try to keep the enemy's ire, trusting your armor to keep you alive.</p>\n<p>You never count as being in the area of a ranged weapon you've made an attack with. You gain resistance equal to half your level (minimum 1) to all damage against attacks made by @UUID[Compendium.sf2e.conditions.Item.Suppressed]{Suppressed} targets.</p>\n<p>You don't need a free hand to @UUID[Compendium.sf2e.actions.Item.Disarm], @UUID[Compendium.sf2e.actions.Item.Grapple], @UUID[Compendium.sf2e.actions.Item.Reposition], @UUID[Compendium.sf2e.actions.Item.Shove], or @UUID[Compendium.sf2e.actions.Item.Trip]. You gain a +1 status bonus on Athletics checks to Disarm, Grapple, Reposition, Shove, and Trip suppressed foes. When you successfully Disarm, Grapple, Reposition, Shove, or Trip a creature, it becomes suppressed until the start of your next turn.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "origin:condition:suppressed",
+                    "origin:action:trait:attack"
+                ],
+                "key": "Resistance",
+                "label": "SF2E.IWR.Custom.AttacksFromSuppressed",
+                "type": "custom",
+                "value": "max(1,floor(@actor.level / 2))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:condition:suppressed",
+                    {
+                        "or": [
+                            "action:disarm",
+                            "action:grapple",
+                            "action:reposition",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:condition:suppressed",
+                    {
+                        "or": [
+                            "action:disarm",
+                            "action:grapple",
+                            "action:reposition",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "text": "SF2E.SpecificRule.Soldier.FightingStyle.ArmorStorm.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "soldier-fighting-style"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

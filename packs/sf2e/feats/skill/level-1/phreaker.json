@@ -1,0 +1,69 @@
+{
+    "_id": "ifQiKhl0Gt2CM7i9",
+    "folder": "admZiPs6ML6NgwMt",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Phreaker",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You've learned how to hack using alternative methods. You can use Computers to Disable a Device or Hack a system using any computer, comm unit, or terminal instead of a hacking toolkit. If you're an expert in Computers and the equipment you use is at least 3rd level, you gain a +1 item bonus to Disable a Device or Hack.</p><hr /><p><strong>Special</strong> If you have the @UUID[Compendium.sf2e.feats.Item.Combat Hack]{Combat Hack} or @UUID[Compendium.sf2e.feats.Item.Digital Diversion]{Digital Diversion} skill feat, you can use this feat to Combat Hack or @UUID[Compendium.sf2e.actions.Item.Create a Diversion] without a hacking toolkit.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Computers"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "phreaker",
+                    {
+                        "gte": [
+                            "skill:computers:rank",
+                            2
+                        ]
+                    },
+                    {
+                        "or": [
+                            "action:disable-a-device",
+                            "action:hack"
+                        ]
+                    }
+                ],
+                "selector": "computers",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,55 @@
+{
+    "_id": "4v1tOyYEGM1KOVRu",
+    "folder": "xboSqbeZQbIW9b49",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Tactical Bully",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Requirements</strong> Your last action was a successful @UUID[Compendium.sf2e.actions.Item.Shove].</p><hr /><p>You use your size and strength to push and position your enemies around the battlefield. You attempt to @UUID[Compendium.sf2e.actions.Item.Trip] the creature you successfully Shoved, even if the target is no longer in your reach. If you have a tail attack, you gain a +2 circumstance bonus to your Trip attempt.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Athletics"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:trip",
+                    "draconic-lethality:tail"
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

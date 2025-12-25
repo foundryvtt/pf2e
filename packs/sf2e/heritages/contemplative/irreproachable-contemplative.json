@@ -1,0 +1,43 @@
+{
+    "_id": "bNR7l0I5yLA8pWbd",
+    "folder": "avu9UA8wS5gOexiL",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Irreproachable Contemplative",
+    "system": {
+        "ancestry": {
+            "name": "Contemplative",
+            "slug": "contemplative",
+            "uuid": "Compendium.sf2e.ancestries.Item.KFNOUfQWPUBW5zSC"
+        },
+        "description": {
+            "value": "<p>Just as antibodies isolate and eliminate pathogens in the bloodstream, your brain has evolved its own psychic defenses that deflect unwanted thoughts. You gain mental resistance equal to half your level (minimum 1). If you roll a success on a saving throw against a mental effect that would apply the controlled condition, you critically succeed instead.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "mental",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "adjustment": {
+                    "all": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "controlled"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

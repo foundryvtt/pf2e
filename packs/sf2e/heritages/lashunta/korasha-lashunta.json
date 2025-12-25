@@ -1,0 +1,48 @@
+{
+    "_id": "a5znSq93Wz22iQHP",
+    "folder": "jjxl8UTLvOSUcary",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Korasha Lashunta",
+    "system": {
+        "ancestry": {
+            "name": "Lashunta",
+            "slug": "lashunta",
+            "uuid": "Compendium.sf2e.ancestries.Item.ZDExBZqdqYUtv5dg"
+        },
+        "description": {
+            "value": "<p>You've chosen the adaptive genetics to become a korasha. You might be stockier and more muscular than other lashuntas. In addition to what you gain from your ancestry, you gain an attribute boost to Strength and an attribute flaw to Wisdom, but the free ancestry boost can't also be Strength. You gain 8 Hit Points from your ancestry instead of 6, and you gain a +1 circumstance bonus to Athletics checks to @UUID[Compendium.sf2e.actions.Item.Shove] or @UUID[Compendium.sf2e.actions.Item.Trip].</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.ancestryhp",
+                "value": 8
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

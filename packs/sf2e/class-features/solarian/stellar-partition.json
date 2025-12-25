@@ -1,0 +1,61 @@
+{
+    "_id": "LZ5m0ykyzJbUr6bb",
+    "folder": "dZU6Qha5YEciS9PU",
+    "img": "icons/magic/light/orb-beams-green.webp",
+    "name": "Stellar Partition",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your solar nimbus protects you against mental intrusions. Your proficiency rank for Will saves increases to master. When you roll a success on a Will save against a mental or incapacitation effect, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:mental",
+                            "item:trait:incapacitation"
+                        ]
+                    }
+                ],
+                "selector": "will"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "will": {
+                    "attribute": null,
+                    "rank": 3
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

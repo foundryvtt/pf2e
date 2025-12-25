@@ -1,0 +1,54 @@
+{
+    "_id": "V0OlaVWSTWUh1qvm",
+    "folder": "PZhj7SGQ0fj8Jt9Y",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Twin Guard",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> A creature within your reach critically hits you with a melee Strike, and you're wielding two solar weapons.</p><hr /><p>You raise one of your weapons to intercept a particularly deadly attack. You gain resistance equal to your level against the triggering attack. One of your solar weapons shatters and is no longer manifested.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "twin-guard",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "twin-guard"
+                ],
+                "type": "all-damage",
+                "value": "@actor.level"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,51 @@
+{
+    "_id": "2Iuhg4udP9eQF3oM",
+    "img": "systems/sf2e/icons/abilities/blue-space-chart.webp",
+    "name": "Effect: Digital Assessment!",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.actions.Item.Digital Assessment!]{Digital Assessment!}</p>\n<p>You gain a +1 circumstance bonus to AC against attacks made by the marked creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "digital-assessment"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:mark:digital-assessment"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

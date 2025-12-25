@@ -1,0 +1,51 @@
+{
+    "_id": "Usolg3I0x7V5RT3R",
+    "folder": "Qp1m86m0gIoj2ch5",
+    "img": "systems/sf2e/icons/ancestries/prismeni.webp",
+    "name": "Prismeni",
+    "system": {
+        "ancestry": null,
+        "description": {
+            "value": "<p>You have an innate connection to the Drift. You gain the prismeni trait, in addition to the traits from your ancestry. While you're in the Drift, you can automatically pinpoint the location of Drift beacons, Drift lanes, Drift engines, and other Drift-related technology within a 100-mile radius. If you're Piloting a starship that doesn't have a Drift engine, you can serve as a connection between the Drift and that starship. This is a 1-minute activity that has the concentrate trait, and it allows the starship you're Piloting to enter or exit the Drift. Once within the Drift, the starship travels via conventional thrusters, as normal. When you get a critical failure on a Piloting check to @UUID[Compendium.sf2e.actions.Item.Navigate]{Navigate} or @UUID[Compendium.sf2e.actions.Item.Plot Course]{Plot Course} through the Drift, you get a failure instead. You gain low-light vision, or you gain darkvision if your ancestry already has low-light vision. You can choose from prismeni feats and feats from your ancestry whenever you gain an ancestry feat.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "Sense",
+                "selector": "low-light-vision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:low-light-vision:from-ancestry"
+                ],
+                "selector": "darkvision"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "terrain:drift",
+                    {
+                        "or": [
+                            "action:navigate",
+                            "action:plot-course"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

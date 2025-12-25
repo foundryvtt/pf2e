@@ -1,0 +1,65 @@
+{
+    "_id": "vzYKSXMmdCjNxSzQ",
+    "folder": "5d4BCbtRHenPMMLO",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Quickened Processor",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can quickly identify your surroundings, and you can use that information to your advantage while in the midst of danger or while in the process of piloting vehicles in hazardous situations. You gain a +1 circumstance bonus to Perception checks for initiative rolls and a +2 circumstance bonus to Piloting checks for initiative rolls.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "check:statistic:base:perception",
+                            "check:statistic:base:piloting"
+                        ]
+                    }
+                ],
+                "selector": "initiative",
+                "slug": "quickened-processor",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "selector": "piloting",
+                "slug": "quickened-processor",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "android"
+            ]
+        }
+    },
+    "type": "feat"
+}

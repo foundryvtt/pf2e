@@ -1,0 +1,72 @@
+{
+    "_id": "vjJuvP5nxrASzMzv",
+    "folder": "7bFT1TWmlVSVtWdD",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Harmonic Sensitivity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've developed keen organs that have a sensitivity to sound—and you know how to put them to use. You become trained in Performance or gain the Assurance skill feat with Performance if you're are already trained in that skill. In addition, you can accurately recall a melody or lyrics you've heard within the last week, granting you a +2 circumstance bonus to all Deception and Performance checks that involve mimicking speech or a specific sound.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.performance.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:performance:rank",
+                            1
+                        ]
+                    }
+                ],
+                "priority": 35,
+                "uuid": "Compendium.sf2e.feats.Item.Assurance"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "specific-sound"
+                ],
+                "selector": [
+                    "deception",
+                    "performance"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

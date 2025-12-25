@@ -1,0 +1,203 @@
+{
+    "_id": "vt4e3FdwvI3hNkEf",
+    "folder": "fCUjDoIslLyWWTPv",
+    "img": "systems/sf2e/icons/equipment/armor/vest-blue-heavy.webp",
+    "name": "Armor Expertise",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Mystic</strong> The bonds you've forged protect you like supernatural armor. Your proficiency rank in light armor and unarmored defense increases to expert.</p><hr /><p><strong>Solarian</strong> You've spent so much time in armor that you know how to make the most of its protection. Your proficiency ranks for light armor, medium armor, and unarmored defense increase to expert.</p><hr /><p><strong>Soldier</strong> You have grown accustomed to wearing armor and can make the most of its protection. Your proficiency ranks for light armor, medium armor, heavy armor, and unarmored defense increase to expert. You gain the armor specialization effects of medium and heavy armor.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.medium.rank",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:solarian",
+                            "class:soldier"
+                        ]
+                    }
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.heavy.rank",
+                "predicate": [
+                    "class:soldier"
+                ],
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "armor:group:composite",
+                    "class:soldier"
+                ],
+                "type": "piercing",
+                "value": "1 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "armor:group:leather",
+                    "class:soldier"
+                ],
+                "type": "bludgeoning",
+                "value": "1 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "armor:group:plate",
+                    "class:soldier"
+                ],
+                "type": "slashing",
+                "value": "1 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "armor:group:composite",
+                    "class:soldier"
+                ],
+                "type": "piercing",
+                "value": "2 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "armor:group:leather",
+                    "class:soldier"
+                ],
+                "type": "bludgeoning",
+                "value": "2 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "armor:group:plate",
+                    "class:soldier"
+                ],
+                "type": "slashing",
+                "value": "2 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "armor:group:skeletal",
+                    "class:soldier"
+                ],
+                "type": "precision",
+                "value": "3 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "armor:group:skeletal",
+                    "class:soldier"
+                ],
+                "type": "precision",
+                "value": "5 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "armor:group:ceramic",
+                    "class:soldier"
+                ],
+                "type": [
+                    "acid",
+                    "cold",
+                    "electricity",
+                    "fire"
+                ],
+                "value": "1 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "armor:group:ceramic",
+                    "class:soldier"
+                ],
+                "type": [
+                    "acid",
+                    "cold",
+                    "electricity",
+                    "fire"
+                ],
+                "value": "2 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "armor:group:polymer",
+                    "class:soldier"
+                ],
+                "type": "area-damage",
+                "value": "1 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "armor:group:polymer",
+                    "class:soldier"
+                ],
+                "type": "area-damage",
+                "value": "2 + @armor.system.traits.config.resilient"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "light": {
+                    "attribute": null,
+                    "rank": 2
+                },
+                "unarmored": {
+                    "attribute": null,
+                    "rank": 2
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

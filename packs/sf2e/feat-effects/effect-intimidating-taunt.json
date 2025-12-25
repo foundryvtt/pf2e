@@ -1,0 +1,102 @@
+{
+    "_id": "B0ZDwyk4qOr7hp4e",
+    "img": "systems/sf2e/icons/abilities/alien-eye.webp",
+    "name": "Effect: Intimidating Taunt",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Intimidating Taunt]{Intimidating Taunt}</p>\n<p>You take a –2 circumstance penalty to attack rolls and save DCs for hostile actions that don't include the origin as their target. On a success, only the first hostile action that you take is affected.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "intimidating-taunt"
+            },
+            {
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Soldier.IntimidatingTaunt.ToggleLabel",
+                "option": "intimidating-taunt-dcs",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "target:signature:{item|origin.signature}"
+                    }
+                ],
+                "removeAfterRoll": [
+                    "intimidating-taunt:success"
+                ],
+                "selector": "attack-roll",
+                "slug": "intimidating-taunt-attack-roll",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "intimidating-taunt-dcs"
+                ],
+                "selector": [
+                    "inline-dc",
+                    "spell-dc"
+                ],
+                "slug": "intimidating-taunt-dcs",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "label": "SF2E.SpecificRule.Soldier.IntimidatingTaunt.Label",
+                "mode": "add",
+                "predicate": [
+                    "intimidating-taunt-dcs",
+                    "intimidating-taunt:success"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "SF2E.SpecificRule.Soldier.IntimidatingTaunt.SuccessAddendum"
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

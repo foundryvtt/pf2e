@@ -1,0 +1,69 @@
+{
+    "_id": "tMVTprjg28EEYqz9",
+    "folder": "7JvVdcPLRxEK9sec",
+    "img": "systems/sf2e/icons/abilities/blue-energy-pulse.webp",
+    "name": "Loudener (Commercial)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This specialized cone is installed over the muzzle or hilt of a weapon to use pneumonic pulses and passive acoustics to increase the volume of its attacks. It deals an extra 1d6 sonic damage. On a critical hit, the target must succeed at a @Check[fortitude|dc:24] save or be @UUID[Compendium.sf2e.conditions.Item.Deafened] for 1 minute (or 1 hour on a critical failure).</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 8
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 5000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "damageType": "sonic",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|parentItem.id}-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|parentItem.id}-damage",
+                "text": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.Loudener.CriticalNoteCommercial",
+                "title": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.Loudener.LabelCommercial"
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sonic",
+                "tech"
+            ]
+        },
+        "usage": {
+            "value": "installed-on-a-weapon-without-a-silencer"
+        }
+    },
+    "type": "equipment"
+}

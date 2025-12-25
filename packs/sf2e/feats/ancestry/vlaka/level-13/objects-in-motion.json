@@ -1,0 +1,57 @@
+{
+    "_id": "dtyolFw2GkOB2vYY",
+    "folder": "BevAMpthKFEu72TQ",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Objects in Motion",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Requirements</strong> Your last action was a successful @UUID[Compendium.sf2e.actions.Item.Shove].</p><hr /><p>You leverage your knowledge of energy, mass, and motion against your opponents to manipulate their battlefield positioning. The Shoved creature continues moving. They're pushed back an additional 5 feet, or 10 feet if the required Shove was a critical success. If they would collide with a solid surface due to this movement, you immediately attempt to @UUID[Compendium.sf2e.actions.Item.Trip] them as a free action, even if they're no longer within your reach.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "The Science of Motion"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "action:shove"
+                ],
+                "selector": "athletics",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,86 @@
+{
+    "_id": "7o4KWymf4Yy2n2Qx",
+    "img": "systems/sf2e/icons/abilities/orange-target-sign.webp",
+    "name": "Effect: Aim",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.actions.Item.Aim]{Aim}</p>\n<p>You mark a creature. Your ranged Strikes against your mark using the required ranged weapon deal additional precision damage and reduce the circumstance bonus to AC your mark gains from cover. These benefits only apply if your mark is within your weapon's first range increment.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "aim"
+            },
+            {
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Operative.Aim.CoverToggle",
+                "option": "aim-cover-reduction",
+                "toggleable": true
+            },
+            {
+                "category": "precision",
+                "diceNumber": "@actor.flags.sf2e.operative.aim.diceNumber",
+                "dieSize": "d{actor|flags.sf2e.operative.aim.dieSize}",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:tag:aim",
+                    "target:mark:aim",
+                    {
+                        "or": [
+                            {
+                                "lte": [
+                                    "target:range-increment",
+                                    "{actor|flags.sf2e.operative.aim.rangeIncrement}"
+                                ]
+                            },
+                            "item:melee"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "class:operative",
+                            "feat:sharpshooter"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "aim"
+            },
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "target:mark:aim",
+                    "aim-cover-reduction"
+                ],
+                "selectors": "strike-attack-roll",
+                "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Aim (Reduce Cover)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

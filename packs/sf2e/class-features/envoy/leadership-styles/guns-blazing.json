@@ -1,0 +1,58 @@
+{
+    "_id": "jaGIV3t7G07F0qda",
+    "folder": "0MBmY0ZAzJKrKcYj",
+    "img": "systems/sf2e/icons/abilities/space-machine-gun.webp",
+    "name": "Guns Blazing",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You lead your team by making an impression with firepower. Your bombastic personality has a barrage of gunfire to back it up, and you always shoot first.</p>\n<p><strong>Leadership Skill</strong> Acrobatics</p>\n<p><strong>Leadership Perk</strong> You gain @UUID[Compendium.sf2e.feats.Item.Incredible Initiative] as a bonus feat.</p>\n<p><strong>Leadership Directive</strong> @UUID[Compendium.sf2e.actions.Item.Ready Arms!]{Ready Arms!}</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Ready Arms!"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.acrobatics.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Incredible Initiative"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "envoy-leadership-style"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

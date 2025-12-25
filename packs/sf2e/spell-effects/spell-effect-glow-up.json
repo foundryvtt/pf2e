@@ -1,0 +1,58 @@
+{
+    "_id": "hOp5ybOzyJlECU6B",
+    "img": "systems/sf2e/icons/abilities/blue-emblem.webp",
+    "name": "Spell Effect: Glow Up",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Glow Up]{Glow Up}</p>\n<p>You gain a status bonus to Diplomacy checks to Make an Impression and let's you add your level to Diplomacy check's if untrained.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:make-an-impression"
+                ],
+                "selector": "skill-check",
+                "slug": "glow-up-proficiency-bonus",
+                "type": "proficiency",
+                "value": "@actor.level"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:make-an-impression"
+                ],
+                "selector": "diplomacy",
+                "slug": "glow-up-status-bonus",
+                "type": "status",
+                "value": "min(4,1 + floor((@item.level - 1)/2))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,77 @@
+{
+    "_id": "dgrdnhtgFNn1IHgT",
+    "folder": "6MTWumQFoXrDW8Jx",
+    "img": "systems/sf2e/icons/default-icons/background.svg",
+    "name": "Hellforged Squire",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "con",
+                    "str"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You've forged yourself to join the ranks of the Hellknights, and completing this mission to the letter of the contract is your duty, thrice sworn and infernally sealed.</p>\n<p>Choose two attribute boosts. One must be to <strong>Strength</strong> or <strong>Constitution</strong>, and one is a free attribute boost.</p>\n<p>You're trained in either the Athletics or Religion skill and the Warfare Lore skill. You gain the @UUID[Compendium.sf2e.feats.Item.Assurance] general feat for a skill of your choice.</p>"
+        },
+        "items": {
+            "XA5Jl": {
+                "img": "icons/sundries/books/book-red-exclamation.webp",
+                "level": 1,
+                "name": "Assurance",
+                "uuid": "Compendium.sf2e.feats.Item.Assurance"
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Guilt of the Grave World"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Athletics",
+                        "value": "athletics"
+                    },
+                    {
+                        "label": "PF2E.Skill.Religion",
+                        "value": "religion"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Warfare Lore"
+            ],
+            "value": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

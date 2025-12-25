@@ -1,0 +1,108 @@
+{
+    "_id": "nZVTCMNdBmbNBQmb",
+    "folder": "NJWNipWsF1UNHIqy",
+    "img": "icons/commodities/gems/gem-faceted-round-black.webp",
+    "name": "Striking Crystal (Advanced)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This gem contains the condensed matter of a star and increases the weapon damage dice of a solar weapon or flare to four instead of one.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 19
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "cp": 0,
+                "gp": 0,
+                "pp": 0,
+                "sp": 310650
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "SF2E.SpecificRule.Solarian.SolarFlare.Label",
+                        "value": "solar-flare"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Solarian.SolarWeapon.Label",
+                        "value": "solar-weapon"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Solarian.SolarWeapon.TwinLabel",
+                        "predicate": [
+                            "feat:twin-weapons"
+                        ],
+                        "value": "twin-solar-weapon"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "SF2E.SpecificRule.Prompt.SolarianWeapon",
+                "rollOption": "striking-crystal-advanced"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:slug:solar-weapon",
+                                    "striking-crystal-advanced:solar-weapon"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:solar-flare",
+                                    "striking-crystal-advanced:solar-flare"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:twin-solar-weapon",
+                                    "striking-crystal-advanced:twin-solar-weapon"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "damage-dice-number",
+                "value": 4
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "other"
+        }
+    },
+    "type": "equipment"
+}

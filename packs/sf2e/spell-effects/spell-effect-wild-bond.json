@@ -1,0 +1,170 @@
+{
+    "_id": "LXi2h0q58zg9EFCN",
+    "img": "systems/sf2e/icons/abilities/green-organization-insignia.webp",
+    "name": "Spell Effect: Wild Bond",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Wild Bond]{Wild Bond}</p>\n<p>You gain one of the following abilities:</p><ul><li>A burrow Speed of 15 feet</li><li>A climb Speed of 20 feet</li><li>A fly Speed of 20 feet</li><li>A swim Speed of 25 feet</li><li>A Speed of 40 feet</li><li>A jaw unarmed attack that deals 1d8 piercing damage</li><li>A claw unarmed attack that deals 1d6 slashing damage and has the agile and finesse traits</li><li>Darkvision</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "SF2E.SpecificRule.Mystic.WildBond.Burrow",
+                        "value": "burrow-speed"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Mystic.WildBond.Climb",
+                        "value": "climb-speed"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Mystic.WildBond.Fly",
+                        "value": "fly-speed"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Mystic.WildBond.Swim",
+                        "value": "swim-speed"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Mystic.WildBond.Land",
+                        "value": "land-speed"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.jaws",
+                        "value": "jaws-strike"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.claw",
+                        "value": "claw-strike"
+                    },
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Darkvision",
+                        "value": "darkvision"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "wild-bond"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "wild-bond:darkvision"
+                ],
+                "priority": 53,
+                "selector": "darkvision"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "wild-bond:burrow-speed"
+                ],
+                "selector": "burrow",
+                "value": 15
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "wild-bond:climb-speed"
+                ],
+                "selector": "climb",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "wild-bond:fly-speed"
+                ],
+                "selector": "fly",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "wild-bond:swim-speed"
+                ],
+                "selector": "swim",
+                "value": 25
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "wild-bond:land-speed"
+                ],
+                "selector": "land",
+                "value": 40
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": "ternary(gte(@item.level,9),4,ternary(gte(@item.level,6),3,ternary(gte(@item.level,3),2,1)))",
+                        "die": "d8"
+                    }
+                },
+                "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.jaws",
+                "predicate": [
+                    "wild-bond:jaws-strike"
+                ],
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": "ternary(gte(@item.level,9),4,ternary(gte(@item.level,6),3,ternary(gte(@item.level,3),2,1)))",
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/creatures/claws/claw-bear-paw-swipe-red.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.claw",
+                "predicate": [
+                    "wild-bond:claw-strike"
+                ],
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "wild-bond:darkvision"
+                ],
+                "selector": "darkvision"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

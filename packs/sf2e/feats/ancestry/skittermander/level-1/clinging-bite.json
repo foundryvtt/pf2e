@@ -1,0 +1,66 @@
+{
+    "_id": "RjRIRJDAGMUazLvW",
+    "folder": "OudXPBNC7vz7ubf8",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Clinging Bite",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have excellent control over your stomach-mouth. Your jaws unarmed attack gains the grapple trait. When you critically hit with your jaws attack, you can use your next action to attempt to @UUID[Compendium.sf2e.actions.Item.Grapple] that creature with your jaws or automatically extend the @UUID[Compendium.sf2e.conditions.Item.Grabbed] condition on a creature you're restraining with your jaws. This attempt neither applies nor counts toward your multiple attack penalty.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "everwhelp skittermander heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:slug:jaws"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "grappple"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "item:slug:jaws"
+                ],
+                "selector": "attack-roll",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

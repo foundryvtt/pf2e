@@ -1,0 +1,168 @@
+{
+    "_id": "h1i8c47U0IOrMrHJ",
+    "img": "icons/sundries/books/book-embossed-jewel-silver-green.webp",
+    "name": "Spell Effect: Akashic Download",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Akashic Download]{Akashic Download}</p>\n<p>You gain a +1 status bonus on Recall Knowledge checks using your chosen skill. If you roll a critical failure on this check, you get a failure instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "akashic-download",
+                "toggleable": true
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:arcana:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.Skill.Crafting",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:crafting:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "crafting"
+                    },
+                    {
+                        "label": "PF2E.Skill.Medicine",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:medicine:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "medicine"
+                    },
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:nature:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:occultism:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.Skill.Religion",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:religion:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "religion"
+                    },
+                    {
+                        "label": "PF2E.Skill.Society",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:society:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "society"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "akashic-download",
+                    {
+                        "gte": [
+                            "hands-free",
+                            1
+                        ]
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.skill}",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "akasic-download",
+                    {
+                        "gte": [
+                            "hands-free",
+                            1
+                        ]
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.skill}",
+                "type": "skill"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

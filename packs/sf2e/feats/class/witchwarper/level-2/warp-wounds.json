@@ -1,0 +1,58 @@
+{
+    "_id": "PRKr7ugCsMdaDrdK",
+    "folder": "3SMThUY8Oh8abD8t",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Warp Wounds",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> An enemy damages you.</p>\n<p><strong>Requirements</strong> An enemy or willing ally is in your quantum field.</p><hr /><p>Your reality shifts to partly overlap with another in which someone else was injured in your stead. You gain resistance to all damage against the triggering attack equal to half your level, and one enemy or willing ally in your quantum field takes damage of the same type equal to the amount of damage prevented this way, with a @Check[fortitude|against:witchwarper|basic] save against your class DC.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "anomaly paradox"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "warp-wounds",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "warp-wounds"
+                ],
+                "type": "all-damage",
+                "value": "floor(@actor.level / 2)"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

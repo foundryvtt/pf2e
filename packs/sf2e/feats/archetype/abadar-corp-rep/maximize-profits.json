@@ -1,0 +1,58 @@
+{
+    "_id": "k25vcbGtu5bsPF4h",
+    "folder": "8JqgfayONankEDCo",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Maximize Profits",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You've learned to maximize your potential earnings. Whenever you would fail an @UUID[Compendium.sf2e.actions.Item.Earn Income] check, you get a success instead.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "AbadarCorp Rep Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "failure": "to-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:earn-income"
+                ],
+                "selector": "skill-check"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

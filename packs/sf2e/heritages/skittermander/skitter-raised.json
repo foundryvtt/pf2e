@@ -1,0 +1,44 @@
+{
+    "_id": "5SqvxQBmTllq2Lzu",
+    "folder": "Oaf4JXgHYgudsSrK",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Skitter Raised",
+    "system": {
+        "ancestry": {
+            "name": "Skittermander",
+            "slug": "skittermander",
+            "uuid": "Compendium.sf2e.ancestries.Item.0qcXAQo7iZkZXNO9"
+        },
+        "description": {
+            "value": "<p>You've spent your life as part of a tight-knit community, where teamwork makes the dream work and crowds are giant group hugs waiting to happen. You gain the@UUID[Compendium.sf2e.feats.Item.Group Impression]{ Group Impression} skill feat. In addition, you gain a +2 circumstance bonus to checks to Aid an ally at skill checks that don't have the attack trait.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Group Impression"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:aid",
+                    {
+                        "not": "item:trait:attack"
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

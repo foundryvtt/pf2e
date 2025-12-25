@@ -1,0 +1,258 @@
+{
+    "_id": "9w90nlUdV5HBRWFm",
+    "folder": "AF5tLnq9AryanMqw",
+    "img": "systems/sf2e/icons/abilities/purple-planet-ringed.webp",
+    "name": "Warp World",
+    "system": {
+        "area": {
+            "type": "burst",
+            "value": 10
+        },
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {},
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "fortitude"
+            }
+        },
+        "description": {
+            "value": "<p>You recreate a powerful event from another world in your current reality. All creatures in the area must attempt a Fortitude save. The damage and effects caused by warp world are determined by rolling [[/r 1d6#Warp World Effect]], as detailed on the following table.</p><hr /><p><strong>Heightened (+1)</strong> Damage increases by 1d12, persistent damage increases by 1d6.</p><table class=\"pf2-table\"><thead><tr><th>d6</th><th>Effect</th></tr></thead><tbody><tr><td>1</td><td><strong>Supernova:</strong> An exploding sun deals 4d12 fire damage and 1d6 persistent electrical damage. On a critical failure, creatures take double damage and are @UUID[Compendium.sf2e.conditions.Item.Dazzled] for 1 round.</td></tr><tr><td>2</td><td><strong>Earthquake:</strong> The ground shakes, dealing 4d12 bludgeoning damage. On a critical failure, creatures take double damage and are knocked @UUID[Compendium.sf2e.conditions.Item.Prone].</td></tr><tr><td>3</td><td><strong>Inferno:</strong> A volcanic eruption or firestorm deals 4d12 fire damage. Everything within the aura is @UUID[Compendium.sf2e.conditions.Item.Concealed] by smoke for 1 round. On a critical failure, creatures take double damage and are @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 1}.</td></tr><tr><td>4</td><td><strong>Eldritch Storm:</strong> A howling tempest of psychic energy deals 4d12 sonic damage and 1d6 persistent mental damage. On a critical failure, creatures take double damage and are @UUID[Compendium.sf2e.conditions.Item.Confused] for 1 round.</td></tr><tr><td>5</td><td><strong>Flash Freeze:</strong> A storm from an arctic planet deals 4d12 cold damage. On a critical failure, creatures take double damage and are @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 1} for 1 round.</td></tr><tr><td>6</td><td><strong>Radioactive Blast:</strong> The echo of a nuclear reaction deals 4d12 bludgeoning damage and 1d6 persistent fire damage. On a critical failure, creatures take double damage, they take @Damage[(@item.rank - 3)d6[persistent,poison]] damage and are @UUID[Compendium.sf2e.conditions.Item.Fatigued] as long as the persistent poison damage lasts.</td></tr></tbody></table>"
+        },
+        "duration": {
+            "sustained": false,
+            "value": "1 round"
+        },
+        "level": {
+            "value": 4
+        },
+        "overlays": {
+            "6LgeJ8dsipzXxqx6": {
+                "name": "Warp World (Inferno)",
+                "overlayType": "override",
+                "sort": 3,
+                "system": {
+                    "damage": {
+                        "EIZwPr89HbVEWuAi": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "4d12",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "fire"
+                        }
+                    },
+                    "heightening": {
+                        "area": 0,
+                        "damage": {
+                            "EIZwPr89HbVEWuAi": "1d12"
+                        },
+                        "interval": 1,
+                        "type": "interval"
+                    }
+                }
+            },
+            "R7QFvj2sycSG9SGD": {
+                "name": "Warp World (Eldritch Storm)",
+                "overlayType": "override",
+                "sort": 4,
+                "system": {
+                    "damage": {
+                        "AU0E7Hq6PI9pkNVb": {
+                            "applyMod": false,
+                            "category": "persistent",
+                            "formula": "1d6",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "mental"
+                        },
+                        "SkFBLSyHcjCU8khv": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "4d12",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "sonic"
+                        }
+                    },
+                    "heightening": {
+                        "area": 0,
+                        "damage": {
+                            "AU0E7Hq6PI9pkNVb": "1d6",
+                            "SkFBLSyHcjCU8khv": "1d12"
+                        },
+                        "interval": 1,
+                        "type": "interval"
+                    }
+                }
+            },
+            "SKIsdz2nKD5HIli3": {
+                "name": "Warp World (Flash Freeze)",
+                "overlayType": "override",
+                "sort": 5,
+                "system": {
+                    "damage": {
+                        "JHRfiCVR6lcPi15U": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "4d12",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "cold"
+                        }
+                    },
+                    "heightening": {
+                        "area": 0,
+                        "damage": {
+                            "JHRfiCVR6lcPi15U": "1d12"
+                        },
+                        "interval": 1,
+                        "type": "interval"
+                    }
+                }
+            },
+            "TkPwsj2NLiMQXa3i": {
+                "name": "Warp World (Supernova)",
+                "overlayType": "override",
+                "sort": 1,
+                "system": {
+                    "damage": {
+                        "ZQLQPYzNjcgGMGtn": {
+                            "applyMod": false,
+                            "category": "persistent",
+                            "formula": "1d6",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "electricity"
+                        },
+                        "siEFh630MP8bDavB": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "4d12",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "fire"
+                        }
+                    },
+                    "heightening": {
+                        "area": 0,
+                        "damage": {
+                            "ZQLQPYzNjcgGMGtn": "1d6",
+                            "siEFh630MP8bDavB": "1d12"
+                        },
+                        "interval": 1,
+                        "type": "interval"
+                    }
+                }
+            },
+            "byq3ktHImaIwHCu3": {
+                "name": "Warp World (Earthquake)",
+                "overlayType": "override",
+                "sort": 2,
+                "system": {
+                    "damage": {
+                        "pnwhsMvsgEXzbgaU": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "4d12",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "bludgeoning"
+                        }
+                    },
+                    "heightening": {
+                        "area": 0,
+                        "damage": {
+                            "pnwhsMvsgEXzbgaU": "1d12"
+                        },
+                        "interval": 1,
+                        "type": "interval"
+                    }
+                }
+            },
+            "sohQ3NdNnmXMV9mr": {
+                "name": "Warp World (Radioactive Blast)",
+                "overlayType": "override",
+                "sort": 6,
+                "system": {
+                    "damage": {
+                        "My6xZvG2LQfrlTBH": {
+                            "applyMod": false,
+                            "category": "persistent",
+                            "formula": "1d6",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "fire"
+                        },
+                        "vOUZHVbNSwNKwRmt": {
+                            "applyMod": false,
+                            "category": null,
+                            "formula": "4d12",
+                            "kinds": [
+                                "damage"
+                            ],
+                            "materials": [],
+                            "type": "bludgeoning"
+                        }
+                    },
+                    "heightening": {
+                        "area": 0,
+                        "damage": {
+                            "My6xZvG2LQfrlTBH": "1d6",
+                            "vOUZHVbNSwNKwRmt": "1d12"
+                        },
+                        "interval": 1,
+                        "type": "interval"
+                    }
+                }
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "range": {
+            "value": "within your quantum field"
+        },
+        "requirements": "",
+        "rules": [],
+        "target": {
+            "value": ""
+        },
+        "time": {
+            "value": "2"
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "traditions": [],
+            "value": [
+                "anchoring",
+                "concentrate",
+                "focus",
+                "manipulate",
+                "witchwarper"
+            ]
+        }
+    },
+    "type": "spell"
+}

@@ -1,0 +1,67 @@
+{
+    "_id": "ZAOKze0PTYPPbUua",
+    "folder": "yKY3ocbQ87Nw77p4",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Electric Kalo",
+    "system": {
+        "ancestry": {
+            "name": "Kalo",
+            "slug": "kalo",
+            "uuid": "Compendium.sf2e.ancestries.Item.23MA5Ee7ExUfzrqk"
+        },
+        "description": {
+            "value": "<p>You descend from a remote tribe in Kalo-Mahoi's photic zone that developed a bioelectric defense against predators, perhaps due to the influence of a bloom or because of an ancient diet of electric rays. You can cast the @UUID[Compendium.sf2e.spells.Item.Electric Arc] cantrip as a primal innate spell at will. A cantrip is heightened to a spell rank equal to half your level rounded up. If you cast this spell with only 1 target, you gain electricity resistance equal to half your level (minimum 1) until the end of your next turn.</p>\n<p>@UUID[Compendium.sf2e.feat-effects.Item.Effect: Electric Kalo]{Effect: Electric Kalo}</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:electric-arc",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:electric-arc",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:kalo"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:electric-arc"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "SF2E.SpecificRule.Kalo.ElectricKalo.Alteration"
+                    },
+                    {
+                        "text": "@UUID[Compendium.sf2e.feat-effects.Item.Effect: Electric Kalo]"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

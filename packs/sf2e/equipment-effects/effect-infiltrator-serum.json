@@ -1,0 +1,52 @@
+{
+    "_id": "zXZoUqxzXFisGqmw",
+    "img": "systems/sf2e/icons/equipment/other/syringe.webp",
+    "name": "Effect: Infiltrator Serum",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.equipment.Item.Infiltrator Serum]{Infiltrator Serum}</p>\n<p>You gain a +1 item bonus to checks to Sneak and Disable a Device.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:sneak",
+                            "action:disable-a-device"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

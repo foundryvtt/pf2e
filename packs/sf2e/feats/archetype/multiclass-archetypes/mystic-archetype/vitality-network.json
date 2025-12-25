@@ -1,0 +1,55 @@
+{
+    "_id": "kK5JtGm6PQh7DT7Q",
+    "folder": "KYRqHxvdKgJBkaNs",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Vitality Network",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain a @UUID[Compendium.sf2e.class-features.Item.Vitality Network]{Vitality Network} with 10 Hit Points and can use @UUID[Compendium.sf2e.actions.Item.Transfer Vitality]{Transfer Vitality} to transfer up to 10 HP. Increase the maximum capacity of your vitality network by 10 at 10th, 15th, and 20th-level. Increase the amount you can transfer by 5 at 5th, 10th, 15th, and 20th-level.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Mystic Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Transfer Vitality"
+            },
+            {
+                "key": "SpecialResource",
+                "max": "max(10 * floor(@actor.level / 5), 10)"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

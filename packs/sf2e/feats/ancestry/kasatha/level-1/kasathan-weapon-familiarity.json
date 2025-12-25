@@ -1,0 +1,89 @@
+{
+    "_id": "j6Qnu67ZNnmfadkG",
+    "folder": "30HYsSE058hZBlNE",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Kasathan Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have a respect for melee combat, and you've trained to wield a few more elegant examples in battle. You gain access to all uncommon weapons with the kasatha trait. You have familiarity with weapons with the kasatha trait plus the dueling sword, plasma sword, shock truncheon, and singing spear—for the purposes of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:category:martial",
+                    {
+                        "or": [
+                            "item:trait:kasatha",
+                            "item:base:dueling-sword",
+                            "item:base:plasma-sword",
+                            "item:base:shock-truncheon",
+                            "item:base:singing-spear"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Kasatha.WeaponFamiliarity.MartialWeapons",
+                "sameAs": "simple",
+                "slug": "martial-kasathan-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:kasatha",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Kasatha.WeaponFamiliarity.AdvancedWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-kasathan-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:kasatha",
+                            "item:base:dueling-sword",
+                            "item:base:plasma-sword",
+                            "item:base:shock-truncheon",
+                            "item:base:singing-spear"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

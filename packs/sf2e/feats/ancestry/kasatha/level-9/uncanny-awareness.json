@@ -1,0 +1,56 @@
+{
+    "_id": "MwnabY9uE20mQaWn",
+    "folder": "qfGGSsPstdtdXVL0",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Uncanny Awareness",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You are in tune with your surroundings and can instinctively sense when danger is near. You gain a +2 circumstance bonus to Perception checks for initiative rolls. If your initiative roll result is tied with that of an opponent, you go first, regardless of whether you rolled Perception or not. The first time each day that you roll Perception for initiative, you roll initiative twice and use the higher result.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.initiative.tiebreakPriority",
+                "priority": 51,
+                "value": 0
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fortune"
+            ]
+        }
+    },
+    "type": "feat"
+}

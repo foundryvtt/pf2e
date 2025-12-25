@@ -1,0 +1,54 @@
+{
+    "_id": "MeBVpW5EIOzoEHCh",
+    "folder": "BPHsR3KIQSMUTGTS",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Linguistic Prodigy",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Learning new languages comes naturally to you. You gain two additional languages of your choice, chosen from among the common and uncommon languages available to you. Every time you take the @UUID[Compendium.sf2e.feats.Item.Multilingual] feat, you gain another new language in addition to the two you gain from that feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.build.languages.max",
+                "value": "2"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.build.languages.max",
+                "priority": 21,
+                "value": "@actor.flags.pf2e.multilingualTaken"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

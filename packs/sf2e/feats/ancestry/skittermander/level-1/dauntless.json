@@ -1,0 +1,63 @@
+{
+    "_id": "dWDC5L6mSBqfUbgH",
+    "folder": "OudXPBNC7vz7ubf8",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Dauntless",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're rarely discouraged or afraid. You gain a +1 circumstance bonus to saves against fear and to your Will DC against attempts to @UUID[Compendium.sf2e.actions.Item.Demoralize] you. If you get a success on a save against a fear effect, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": [
+                    "saving-throw",
+                    "will-dc"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

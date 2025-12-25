@@ -1,0 +1,61 @@
+{
+    "_id": "ZiyExMCbCKHwgbzh",
+    "folder": "xLLN8X3CfQ2oM8nt",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Heightened Paranoia",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You witnessed the ritual that supposedly rekindled Sota's flame up close, and while it was certainly impressive, you don't believe it should've worked. You can't seem to shake the feeling that something else is at work behind the scenes—something dangerous and unknown. Whatever it is, you intend to face this threat head on. When you succeed on a Will saving throw against an effect that could impose the @UUID[Compendium.sf2e.conditions.Item.Confused], @UUID[Compendium.sf2e.conditions.Item.Controlled], or @UUID[Compendium.sf2e.conditions.Item.Frightened] condition, you get a critical success instead.</p><hr /><p><strong>Special</strong> You can't select this feat if you have the @UUID[Compendium.sf2e.feats.Item.Determined Optimist]{Determined Optimist} feat.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Arcana, Occultism, or Religion"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "heightened-paranoia",
+                "toggleable": true
+            },
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "heightened-paranoia"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

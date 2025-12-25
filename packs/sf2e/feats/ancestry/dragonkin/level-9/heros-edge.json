@@ -1,0 +1,66 @@
+{
+    "_id": "CBuBWa9a7FgDp3x0",
+    "folder": "mBMTGi25dLiIjlX5",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Hero's Edge",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You fight hardest when the odds are at their most dire, and the specter of death looms over you. As long as you have temporary Hit Points from @UUID[Compendium.sf2e.feats.Item.Heroic Last Stand]{Heroic Last Stand}, your Strikes and spells deal additional damage. You gain a status bonus to damage with your Strikes equal to the number of weapon damage dice. Spells you cast from spell slots gain a status bonus to damage equal to the level of the spell; this bonus applies only to spells that deal damage and don't have a duration.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Heroic Last Stand"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:heroic-last-stand"
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:heroic-last-stand",
+                    "item:spell-slot",
+                    "item:duration:0",
+                    "damaging-effect"
+                ],
+                "selector": "spell-damage",
+                "type": "status",
+                "value": "@spell.rank"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

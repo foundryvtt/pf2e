@@ -1,0 +1,49 @@
+{
+    "_id": "kxaRFiXRKMNpasnu",
+    "img": "icons/magic/perception/third-eye-blue-red.webp",
+    "name": "Effect: Meditative Analysis",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Meditative Analysis]{Meditative Analysis}</p>\n<p>You gain a +1 circumstance bonus to your next solar weapon Strike.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:tag:solar-weapon"
+                ],
+                "removeAfterRoll": true,
+                "selector": "strike-attack-roll",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

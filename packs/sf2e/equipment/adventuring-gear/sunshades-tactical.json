@@ -1,0 +1,64 @@
+{
+    "_id": "CJwfbmQO91Q9v3kg",
+    "folder": "cJoNKs2FMCJkyEDK",
+    "img": "systems/sf2e/icons/equipment/other/visor.webp",
+    "name": "Sunshades (Tactical)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>Sunshades make everyone look cooler. You gain a +1 item bonus to saves against effects that cause the @UUID[Compendium.sf2e.conditions.Item.Blinded] or @UUID[Compendium.sf2e.conditions.Item.Dazzled] condition while wearing tactical sunshades.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 450
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:blinded",
+                            "inflicts:dazzled"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "usage": {
+            "value": "worn"
+        }
+    },
+    "type": "equipment"
+}

@@ -1,0 +1,138 @@
+{
+    "_id": "B4JhFkbk5WHmWcOZ",
+    "img": "systems/sf2e/icons/abilities/green-invigoration.webp",
+    "name": "Effect: Hang In There!",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Hang in There]{Hang in There}</p>\n<p>You gain temporary Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:context:check:outcome:2",
+                                    {
+                                        "not": {
+                                            "gte": [
+                                                "parent:context:check:outcome",
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:context:check:outcome:3",
+                                    {
+                                        "not": {
+                                            "gte": [
+                                                "parent:context:check:outcome",
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    }
+                ],
+                "flag": "degreeOfSuccess",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.ProficiencyLevel2",
+                        "value": 0
+                    },
+                    {
+                        "label": "PF2E.ProficiencyLevel3",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "gte": [
+                                            "{item|origin.skills.diplomacy.rank}",
+                                            3
+                                        ]
+                                    },
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 5
+                    },
+                    {
+                        "label": "PF2E.ProficiencyLevel4",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "gte": [
+                                            "{item|origin.skills.diplomacy.rank}",
+                                            4
+                                        ]
+                                    },
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 10
+                    }
+                ],
+                "flag": "proficiencyRank",
+                "key": "ChoiceSet",
+                "prompt": "SF2E.SpecificRule.Envoy.HangInThere.Prompt"
+            },
+            {
+                "key": "TempHP",
+                "value": "(@item.flags.pf2e.rulesSelections.degreeOfSuccess * @actor.level) + @item.origin.abilities.cha.mod + @item.flags.pf2e.rulesSelections.proficiencyRank"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

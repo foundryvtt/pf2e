@@ -1,0 +1,59 @@
+{
+    "_id": "na4oi7S1tpD1loVj",
+    "folder": "3FpP6Ew0q9yc5606",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Unquenchable Breath",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>When you use Dragonkin Breath, a creature who fails or critically fails its saving throw takes @Damage[2d6[persistent,@actor.flags.pf2e.dragonkinBreath.damageType]] damage of the same type. On a critical failure, the flat check to remove persistent damage increases to DC 20 (or DC 15, if the flat check would be reduced because the creature has an appropriate type of help). If you apply a critical weapon specialization effect that also deals persistent damage of the same type, apply this persistent damage in addition to the base persistent damage.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Dragonkin Breath"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:dragonkin-breath"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

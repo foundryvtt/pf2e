@@ -1,0 +1,60 @@
+{
+    "_id": "5mOTKBsn8OsEvFaA",
+    "folder": "GyMklUN6ZJ9xixWD",
+    "img": "systems/sf2e/icons/abilities/green-tech-armor-glove.webp",
+    "name": "Close Quarters",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>While you have the necessary training to employ heavy weapons, you believe it's important to keep a backup for when foes get too close. You might be a veteran Veskarium trooper who knows their way around a doshko or a devotee of Zon-Shelyn dealing holy wrath with a painglaive. Blows with heavy close combat weapons hinder your foes just as effectively as when you fire a rotolaser or a missile launcher.</p>\n<p>As long as you're wielding a two-handed melee weapon, you meet the requirements for soldier feats that require an area weapon. When you're using a soldier feat, any two-handed melee weapon you're wielding gains area (burst 5 feet), and you're unaffected by your attacks with that weapon. You can make a melee Strike with a two-handed melee weapon instead of a ranged Strike with primary target or any soldier feat. In addition, you gain the @UUID[Compendium.sf2e.feats.Item.Whirling Swipe]{Whirling Swipe} feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Whirling Swipe"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:usage:hands:2",
+                    "item:melee",
+                    "item:equipped"
+                ],
+                "property": "traits",
+                "value": "area-burst-5"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "soldier-fighting-style"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

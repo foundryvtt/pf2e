@@ -1,0 +1,131 @@
+{
+    "_id": "C9i9QgKcytScNld7",
+    "folder": "ENOnm6LQAJtHzxYA",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Intensified Psychic Shock",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You focus your telepathic attacks further, broadcasting your psychic power with greater range and area. Your psychic shock unarmed attack gains the boost (1d4) trait. By spending 10 minutes in intense concentration, you can reconfigure your mind to apply one of the following benefits to your psychic shock. This benefit lasts until you reconfigure to another benefit.</p><ul><li><strong>Extended Shock:</strong> Increase the range increment of your psychic shock by 15 feet.</li><li><strong>Mind Crusher:</strong> Your psychic shock gains the fatal d8 trait.</li><li><strong>Peer Pressure:</strong> Your psychic shock gains the arc trait, but it deals mental damage rather than electricity damage.</li><li><strong>Psychic Wave:</strong> Your psychic shock gains the splash trait.</li></ul>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Mindrender"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "intensified-psychic-shock",
+                "suboptions": [
+                    {
+                        "label": "SF2E.SpecificRule.Contemplative.IntensifiedPsychicShock.ExtendedShock",
+                        "value": "extended-shock"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Contemplative.IntensifiedPsychicShock.MindCrusher",
+                        "value": "mind-crusher"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Contemplative.IntensifiedPsychicShock.PeerPressure.Label",
+                        "value": "peer-pressure"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Contemplative.IntensifiedPsychicShock.PsychicWave",
+                        "value": "psychic-wave"
+                    }
+                ],
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "definition": [
+                    "item:tag:contemplative-psychic-shock"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "intensified-psychic-shock:extended-shock"
+                ],
+                "property": "range-increment",
+                "value": 15
+            },
+            {
+                "definition": [
+                    "item:tag:contemplative-psychic-shock"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "intensified-psychic-shock:mind-crusher"
+                ],
+                "property": "weapon-traits",
+                "value": "fatal-d8"
+            },
+            {
+                "definition": [
+                    "item:tag:contemplative-psychic-shock"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "intensified-psychic-shock:peer-pressure"
+                ],
+                "property": "weapon-traits",
+                "value": "arc"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "item:tag:contemplative-psychic-shock",
+                    "intensified-psychic-shock:peer-pressure"
+                ],
+                "selector": "attack-damage",
+                "text": "SF2E.SpecificRule.Contemplative.IntensifiedPsychicShock.PeerPressure.Note",
+                "title": "SF2E.SpecificRule.Contemplative.IntensifiedPsychicShock.PeerPressure.Label"
+            },
+            {
+                "definition": [
+                    "item:tag:contemplative-psychic-shock"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "intensified-psychic-shock:psychic-wave"
+                ],
+                "property": "weapon-traits",
+                "value": "splash"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

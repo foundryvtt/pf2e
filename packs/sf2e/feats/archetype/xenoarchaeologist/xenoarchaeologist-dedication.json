@@ -1,0 +1,122 @@
+{
+    "_id": "i5OwninARF668ud8",
+    "folder": "AA1H3Dw3fEyUwlTA",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Xenoarchaeologist Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become an expert in Society and Thievery and gain a +1 circumstance bonus to Recall Knowledge checks and Delve Lore checks when using Investigate as your exploration activity.</p>\n<p>You gain the Additional Lore general feat in Delve Lore, which you can use to Recall Knowledge about sites of archaeological significance, and about ancient history, relics, languages, and peoples. Upon gaining this skill, choose either Intelligence or Wisdom as the key attribute for your Delve Lore checks. This choice is permanent and can't be changed later.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Society, Thievery, and your choice of Arcana, Nature, Occultism, or Religion"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.society.rank",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.thievery.rank",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "investigate"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Additional Lore"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.AbilityInt",
+                        "value": "int"
+                    },
+                    {
+                        "label": "PF2E.AbilityWis",
+                        "value": "wis"
+                    }
+                ],
+                "flag": "delveAttribute",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.Actor.Character.Attribute.Key"
+            },
+            {
+                "key": "RollOption",
+                "option": "delveAttribute:{item|flags.pf2e.rulesSelections.delveAttribute}"
+            },
+            {
+                "ability": "wis",
+                "force": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "delveAttribute:wis"
+                ],
+                "selector": [
+                    "delve",
+                    "delve-lore",
+                    "lore-delve"
+                ],
+                "type": "ability"
+            },
+            {
+                "ability": "int",
+                "force": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "delveAttribute:int"
+                ],
+                "selector": [
+                    "delve",
+                    "delve-lore",
+                    "lore-delve"
+                ],
+                "type": "ability"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

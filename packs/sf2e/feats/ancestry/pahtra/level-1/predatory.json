@@ -1,0 +1,129 @@
+{
+    "_id": "iX5qnxdVaxbIQcrQ",
+    "folder": "7bFT1TWmlVSVtWdD",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Predatory",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Battle is a dance, and you've honed your body into an instrument as exquisite as it is deadly. When you select this feat, you gain your choice of a claw unarmed attack or a jaws unarmed attack. Both of these attacks are in the brawling weapon group.</p>\n<p>A claw unarmed attack deals 1d6 slashing damage and has the agile, finesse, pahtra, and unarmed traits.</p>\n<p>A jaws unarmed attack deals 1d6 piercing damage and has the finesse, grapple, pahtra, and unarmed traits.</p>\n<p>At 5th level, whenever you get a critical hit with one of these attacks, you get its critical specialization effect.</p><hr /><p><strong>Special</strong> You can take this feat a second time. If you do, select the other attack from the options above.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "maxTakable": 2,
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "predicate": [
+                            {
+                                "not": "predatory:claw"
+                            }
+                        ],
+                        "value": "claw"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "predicate": [
+                            {
+                                "not": "predatory:jaws"
+                            }
+                        ],
+                        "value": "jaws"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.UnarmedAttack",
+                "rollOption": "predatory"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/sf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.jaws",
+                "predicate": [
+                    "predatory:jaws"
+                ],
+                "range": null,
+                "slug": "jaws",
+                "traits": [
+                    "unarmed",
+                    "grapple",
+                    "finesse",
+                    "pahtra"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/sf2e/icons/unarmed-attacks/claw.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.claw",
+                "predicate": [
+                    "predatory:claw"
+                ],
+                "range": null,
+                "slug": "claw",
+                "traits": [
+                    "unarmed",
+                    "agile",
+                    "finesse",
+                    "pahtra"
+                ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:id:{item|id}",
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

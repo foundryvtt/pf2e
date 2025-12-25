@@ -1,0 +1,67 @@
+{
+    "_id": "FPJ3B9vFsNR3UaI2",
+    "folder": "5tf029Uv2eFCqQUk",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Cosmic Caster",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have the ability to convert ambient solar radiation and other stellar energy into pure magical light. You gain @UUID[Compendium.sf2e.spells.Item.Wisp Ally]{wisp ally} as a 1st-rank arcane innate spell and gain @UUID[Compendium.sf2e.spells.Item.Floating Flame] and @UUID[Compendium.sf2e.spells.Item.Revealing Light] as 2nd-rank arcane innate spells. You can cast each of these spells as arcane innate spells once per day.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:wisp-ally",
+                    "item:slug:floating-flame",
+                    "item:slug:revealing-light",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:wisp-ally",
+                    "item:slug:floating-flame",
+                    "item:slug:revealing-light",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:sarcesian"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

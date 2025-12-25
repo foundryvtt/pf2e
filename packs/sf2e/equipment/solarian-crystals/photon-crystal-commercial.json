@@ -1,0 +1,143 @@
+{
+    "_id": "HRpZtAdpSg12N9n0",
+    "folder": "NJWNipWsF1UNHIqy",
+    "img": "icons/commodities/gems/gem-faceted-rough-yellow.webp",
+    "name": "Photon Crystal (Commercial)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>A photon crystal increases the flow of photon into your solar manifestations, burning and blinding your foes. While photon attuned, your solar weapon or solar flare deals an extra @Damage[1d6[fire]] damage. On a critical hit while you're photon attuned, the target must succeed at a @Check[fortitude|dc:23] save or be @UUID[Compendium.sf2e.conditions.Item.Blinded] for 1 round.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 7
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "cp": 0,
+                "gp": 0,
+                "pp": 0,
+                "sp": 3600
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "SF2E.SpecificRule.Solarian.SolarFlare.Label",
+                        "value": "solar-flare"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Solarian.SolarWeapon.Label",
+                        "value": "solar-weapon"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Solarian.SolarWeapon.TwinLabel",
+                        "predicate": [
+                            "feat:twin-weapons"
+                        ],
+                        "value": "twin-solar-weapon"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "SF2E.SpecificRule.Prompt.SolarianWeapon",
+                "rollOption": "photon-crystal-commercial"
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "stellar-attunement:photon",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:slug:solar-weapon",
+                                    "photon-crystal-commercial:solar-weapon"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:solar-flare",
+                                    "photon-crystal-commercial:solar-flare"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:twin-solar-weapon",
+                                    "photon-crystal-commercial:twin-solar-weapon"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "stellar-attunement:photon",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:slug:solar-weapon",
+                                    "photon-crystal-commercial:solar-weapon"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:solar-flare",
+                                    "photon-crystal-commercial:solar-flare"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:twin-solar-weapon",
+                                    "photon-crystal-commercial:twin-solar-weapon"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "text": "SF2E.SpecificRule.Equipment.SolarianCrystals.Photon.Note.Commercial",
+                "title": "SF2E.SpecificRule.Equipment.SolarianCrystals.Photon.Title"
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "other"
+        }
+    },
+    "type": "equipment"
+}

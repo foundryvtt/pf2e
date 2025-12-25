@@ -1,0 +1,72 @@
+{
+    "_id": "QZTPMHVvZSlDrnCF",
+    "folder": "3SMThUY8Oh8abD8t",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Fundamental Understanding",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> A creature, trap, or similar object within your quantum field casts a spell that you don't have in your spell repertoire, and you're aware of the casting.</p><hr /><p>If the triggering spell is common and you're trained in the associated skill for the spell's tradition, you automatically identify the spell being cast (you still roll to attempt to get a critical success but can't get a worse result than a success). You or a visible ally within 60 feet targeted by this spell gain a +1 circumstance bonus to your saving throw or your AC against it (or a +2 circumstance bonus if you rolled a critical success).</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "analyst paradox"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "fundamental-understanding",
+                "suboptions": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "1"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "2"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fundamental-understanding"
+                ],
+                "selector": [
+                    "saving-throw",
+                    "ac"
+                ],
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.fundamentalUnderstanding"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

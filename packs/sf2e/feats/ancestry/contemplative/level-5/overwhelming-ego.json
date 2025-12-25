@@ -1,0 +1,70 @@
+{
+    "_id": "44w1WEbY7QXSrHHo",
+    "folder": "ezfMfUW7ECW3ePWk",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Overwhelming Ego",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can focus your mental Strikes with truly devastating precision. Whenever you critically hit using your psychic shock unarmed Strike, you get its critical specialization effect. The first time each round you hit an enemy you can sense with your thoughtsense using a psychic shock Strike, you deal an additional @Damage[1d4[persistent,mental]] damage to your target.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Mindrender"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:tag:contemplative-psychic-shock"
+                ]
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "First Psychic Shock strike this round",
+                "option": "overwhelming-ego-strike",
+                "toggleable": true
+            },
+            {
+                "category": "persistent",
+                "damageType": "mental",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "overwhelming-ego-strike",
+                    "item:tag:contemplative-psychic-shock"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

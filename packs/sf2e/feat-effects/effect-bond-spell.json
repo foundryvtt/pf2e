@@ -1,0 +1,51 @@
+{
+    "_id": "WNCJ8ZgkqU7LhJNk",
+    "img": "systems/sf2e/icons/abilities/green-dotted-hex.webp",
+    "name": "Effect: Bond Spell",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Bond Spell]{Bond Spell}</p>\n<p>You gain a status bonus to your spell's damage or healing equal to its rank.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 14
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:duration:0"
+                ],
+                "removeAfterRoll": true,
+                "selector": [
+                    "spell-damage",
+                    "spell-healing"
+                ],
+                "type": "status",
+                "value": "@spell.rank"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,133 @@
+{
+    "_id": "pZabAZDrrIENU803",
+    "img": "icons/skills/ranged/projectile-strike-egg-blue.webp",
+    "name": "Effect: Spellsurge Ammo",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Spellsurge Ammo]{Spellsurge Ammo}</p>\n<p>Your weapon or grenade deals extra force damage equal to the rank of the spell, gains the magical trait. If the spell deals damage, the extra damage comes the same type as the triggering spell.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.First",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Second",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Third",
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Fourth",
+                        "value": 4
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Fifth",
+                        "value": 5
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Sixth",
+                        "value": 6
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Seventh",
+                        "value": 7
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Eighth",
+                        "value": 8
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Ninth",
+                        "value": 9
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Tenth",
+                        "value": 10
+                    }
+                ],
+                "flag": "rank",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SpellRank.Prompt"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "damageTypes"
+                },
+                "flag": "damageType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:equipped",
+                        {
+                            "or": [
+                                "item:type:weapon",
+                                "item:trait:grenade"
+                            ]
+                        }
+                    ],
+                    "types": [
+                        "weapon",
+                        "consumable"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "SF2E.SpecificRule.Prompt.WeaponOrGrenade"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.damageType}",
+                "key": "FlatModifier",
+                "selector": [
+                    "{item|flags.pf2e.rulesSelections.weapon}-damage",
+                    "{item|flags.pf2e.rulesSelections.weapon}-inline-damage"
+                ],
+                "value": "@item.flags.pf2e.rulesSelections.rank"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.weapon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "magical"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

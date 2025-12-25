@@ -1,0 +1,55 @@
+{
+    "_id": "0kdfFVZuHoHTG5c0",
+    "img": "systems/sf2e/icons/abilities/space-machine-gun.webp",
+    "name": "Effect: Covering Fire",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Covering Fire]{Covering Fire}</p>\n<p>You take a –2 circumstance penalty on attacks made against the marked target.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "covering-fire"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.conditions.Item.Suppressed"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:covering-fire"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

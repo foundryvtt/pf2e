@@ -1,0 +1,66 @@
+{
+    "_id": "deGy1JMa2uLfKnIb",
+    "folder": "vj5BZiJuhQdL2QIU",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Toxic Transference",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You use your body's built-up toxins to enhance your natural attacks, making them poisonous. Whenever you deal damage with an unarmed Strike you gained from @UUID[Compendium.sf2e.feats.Item.Compact Predator]{Compact Predator}, you deal an additional 1 poison damage per weapon damage die of the attack. Whenever you @UUID[Compendium.sf2e.actions.Item.Puff Up]{Puff Up} or @UUID[Compendium.sf2e.feats.Item.Squirt Blood]{Squirt Blood}, you additionally deal poison damage equal to half your level.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Compact Predator, Puff Up, or Squirt Blood"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Invasion's Edge Player's Guide"
+        },
+        "rules": [
+            {
+                "damageType": "poison",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:tag:ikeshti-unarmed-strike"
+                ],
+                "selector": "strike-damage",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "damageType": "poison",
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:slug:puff-up"
+                ],
+                "selector": "inline-damage",
+                "value": "floor(@actor.level/2)"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "poison"
+            ]
+        }
+    },
+    "type": "feat"
+}

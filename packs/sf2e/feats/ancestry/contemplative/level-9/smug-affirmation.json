@@ -1,0 +1,65 @@
+{
+    "_id": "CEG0OyTuYerUFg97",
+    "folder": "ENOnm6LQAJtHzxYA",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Smug Affirmation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Having overcome countless challenges in your rise to power, your self-confidence isn't just bluster and brains; it's supported by empirical evidence! Your Shielding Arrogance reaction can now also trigger whenever a foe within range of your thoughtsense critically fails an attack against you or critically fails a skill check attempted against you (such as an Intimidation check to @UUID[Compendium.sf2e.actions.Item.Demoralize] you or an Acrobatics check to @UUID[Compendium.sf2e.actions.Item.Tumble Through]{Tumble} around you). Increase the number of temporary Hit Points you gain from @UUID[Compendium.sf2e.actions.Item.Shielding Arrogance]{Shielding Arrogance} to [[/r 2d8]] plus your character level. Increase this by [[/r 1d8]] at 13th level and by an additional [[/r 1d8]] at 17th level.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "imperious contemplative heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:shielding-arrogance"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.contemplative.shieldingArroganceDiceCount",
+                "value": "floor((@actor.level -1)/4)"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

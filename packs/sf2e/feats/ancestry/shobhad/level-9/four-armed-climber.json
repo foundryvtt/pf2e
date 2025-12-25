@@ -1,0 +1,54 @@
+{
+    "_id": "AyyRBi2imbURHzxK",
+    "folder": "5DThjw4ZOLwmBxaJ",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Four-Armed Climber",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your additional limbs make you exceptionally adept at vertical movement. You gain a climb Speed of 10 feet. If you @UUID[Compendium.sf2e.actions.Item.Push Off]{Push Off} in zero gravity while your inactive hands are not holding anything, you float up to your Speed instead of half your Speed.</p><hr /><p><strong>Special</strong> If you have the glacierborn shobhad heritage, the climb Speed granted by this feat is instead equal to half your Speed. If you have the offworld shobhad heritage, you gain a +5-foot status bonus to your Speed when you Push Off in zero gravity.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Invasion's Edge Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "value": 10
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "heritage:glacierborn-shobhad"
+                ],
+                "selector": "climb",
+                "value": "@actor.system.movement.speeds.land.value/2"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

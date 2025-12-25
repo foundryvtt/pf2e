@@ -1,0 +1,59 @@
+{
+    "_id": "R9K6Wgm2jYQMyHGX",
+    "folder": "PIArVA9sH87udLH9",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Swarm Evolution",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Whether gradual or in an instant burst of glorious evolution, you've metamorphosed into a powerful Swarm-like creature. You gain a +2 status bonus to saves against fear, and you gain acid resistance equal to half your level. You can cast @UUID[Compendium.sf2e.spells.Item.Mask of Terror] as a 7th-rank primal innate spell once per day.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Swarm exile shirren heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "type": "acid",
+                "value": "floor(@actor.level / 2)"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

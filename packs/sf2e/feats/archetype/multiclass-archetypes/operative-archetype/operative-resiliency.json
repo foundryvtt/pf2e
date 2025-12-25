@@ -1,0 +1,61 @@
+{
+    "_id": "0qw5IWck23QimHc6",
+    "folder": "wz7uxbY5ZEvecOCI",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Operative Resiliency",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain 3 additional Hit Points for each operative archetype class feat you have. As you continue selecting operative archetype class feats, you continue to gain additional Hit Points in this way.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Operative Dedication"
+                },
+                {
+                    "value": "class granting no more Hit Points per level than 6 + your Constitution"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.operative.archetypeFeatCount",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "value": "3 * @actor.flags.pf2e.operative.archetypeFeatCount"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

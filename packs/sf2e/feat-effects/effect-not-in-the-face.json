@@ -1,0 +1,102 @@
+{
+    "_id": "8uHTQ6ha3CT79fS6",
+    "img": "systems/sf2e/icons/abilities/white-flag-of-surrender.webp",
+    "name": "Effect: Not in the Face",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Not in the Face]{Not in the Face}</p>\n<p>You take a status penalty to attack and damage rolls against the origin. On a failure, you instead take a –1 circumstance penalty to the triggering attack roll.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "not-in-the-face"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:signature:{item|origin.signature}",
+                    "not-in-the-face:failure"
+                ],
+                "removeAfterRoll": [
+                    "not-in-the-face:failure"
+                ],
+                "selector": "attack-roll",
+                "slug": "not-in-the-face-circumstance",
+                "type": "circumstance",
+                "value": -1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:signature:{item|origin.signature}",
+                    {
+                        "not": "not-in-the-face:failure"
+                    }
+                ],
+                "selector": [
+                    "attack-roll",
+                    "damage"
+                ],
+                "slug": "not-in-the-face-status",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "downgrade",
+                "predicate": [
+                    "not-in-the-face:critical-success"
+                ],
+                "selectors": [
+                    "attack-roll",
+                    "damage"
+                ],
+                "slug": "not-in-the-face-status",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

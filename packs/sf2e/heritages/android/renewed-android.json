@@ -1,0 +1,77 @@
+{
+    "_id": "oyxtHoW8wUWnYzTO",
+    "folder": "ZoXYSBHJYXbI4fNd",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Renewed Android",
+    "system": {
+        "ancestry": {
+            "name": "Android",
+            "slug": "android",
+            "uuid": "Compendium.sf2e.ancestries.Item.GfLwE884NoRC7cRi"
+        },
+        "description": {
+            "value": "<p>Many souls have inhabited your synthetic body before you, and you might incorporate a number into your name to honor them. You might know your body's history and work toward a goal bequeathed to you by a departed soul, or you might seek to learn the mystery of a forgotten legacy. Muscle memory hints at your body's past, and people you've never met sometimes recognize your face. The first time in a day that you lose the dying condition, you don't gain the wounded condition. You become trained in a skill of your choice that has the @UUID[Compendium.sf2e.actions.Recall Knowledge]{Recall Knowledge} action, and you gain the@UUID[Compendium.sf2e.feats.Item.Dubious Knowledge]{ Dubious Knowledge} skill feat.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Dubious Knowledge"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "SF2E.Skill.Computers",
+                        "value": "computers"
+                    },
+                    {
+                        "label": "PF2E.Skill.Crafting",
+                        "value": "crafting"
+                    },
+                    {
+                        "label": "PF2E.Skill.Medicine",
+                        "value": "medicine"
+                    },
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.Skill.Religion",
+                        "value": "religion"
+                    },
+                    {
+                        "label": "PF2E.Skill.Society",
+                        "value": "society"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

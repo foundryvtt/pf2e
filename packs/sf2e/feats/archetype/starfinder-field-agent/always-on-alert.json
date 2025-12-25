@@ -1,0 +1,57 @@
+{
+    "_id": "dvbF2j5DKQgliV4p",
+    "folder": "ZumS1dH0ZySEQwtG",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Always on Alert",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>After countless unexpected encounters you've developed a second sense for danger. You can perform the @UUID[Compendium.sf2e.actions.Item.Scout] exploration activity at the same time as the @UUID[Compendium.sf2e.actions.Item.Avoid Notice], @UUID[Compendium.sf2e.actions.Item.Investigate], or @UUID[Compendium.sf2e.actions.Item.Search] exploration activity. The bonus to initiative you grant when you Scout is +2 instead of +1.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Starfinder Field Agent Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:scout"
+                ],
+                "selector": "initiative",
+                "slug": "scouting-bonus",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

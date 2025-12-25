@@ -1,0 +1,63 @@
+{
+    "_id": "Cait1ugGIGFlZrPD",
+    "folder": "dZU6Qha5YEciS9PU",
+    "img": "icons/magic/light/explosion-star-glow-silhouette.webp",
+    "name": "Stellar Resilience",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Stellar energy flows throughout your entire being like an unstoppable tidal wave, strengthening both body and mind. Your proficiency rank in Fortitude saves increases to expert. When you roll a success on a Fortitude or Will save against a mental or incapacitation effect, you can @UUID[Compendium.sf2e.actions.Item.Attune]{Attune} as a free action.</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "item:trait:incapacitation",
+                    "item:trait:mental"
+                ],
+                "selector": [
+                    "fortitude",
+                    "will"
+                ],
+                "text": "SF2E.SpecificRule.Solarian.StellarResilience.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "fortitude": {
+                    "attribute": null,
+                    "rank": 2
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

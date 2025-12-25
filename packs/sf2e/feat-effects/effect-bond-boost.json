@@ -1,0 +1,60 @@
+{
+    "_id": "9Sq4P1Pxr1owEv6R",
+    "img": "systems/sf2e/icons/abilities/blue-heart-in-a-circle.webp",
+    "name": "Effect: Bond Boost",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Bond Boost]{Bond Boost}</p>\n<p>You gain a +1 status bonus to your next saving throw. If you roll a success on the saving throw against a vitality or void effect, you get a critical success instead.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": "if-enabled",
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:vitality",
+                            "item:trait:void"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

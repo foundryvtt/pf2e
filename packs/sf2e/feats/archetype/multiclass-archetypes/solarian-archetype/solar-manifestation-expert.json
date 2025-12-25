@@ -1,0 +1,74 @@
+{
+    "_id": "ZqDLcOYIGlAB5qzN",
+    "folder": "F4BdwalYQM9FxGqz",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Solar Manifestation Expert",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your proficiency ranks for solar flare and solar weapon increase to expert.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Solarian Dedication"
+                },
+                {
+                    "value": "expert in any kind of weapon or unarmed attack"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.solarian.archetypeFeatCount",
+                "value": 1
+            },
+            {
+                "definition": [
+                    "item:slug:solar-flare"
+                ],
+                "key": "MartialProficiency",
+                "label": "Solar Flare",
+                "slug": "solar-flare",
+                "value": 2
+            },
+            {
+                "definition": [
+                    "item:slug:solar-weapon"
+                ],
+                "key": "MartialProficiency",
+                "label": "Solar Weapon",
+                "slug": "solar-weapon",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

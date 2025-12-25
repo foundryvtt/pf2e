@@ -1,0 +1,49 @@
+{
+    "_id": "k2Sal2fpeoUsGZAv",
+    "img": "icons/magic/defensive/armor-shield-barrier-steel.webp",
+    "name": "Effect: Relentless Endurance",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "labels": null,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "(floor((@item.origin.level + 2) / 4))d8 + 4*floor((@item.origin.level + 2) / 4)"
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Relentless Endurance]{Relentless Endurance}</p>\n<p>You gain 1d8+4 temporary Hit Points. These temporary Hit Points increase by 1d8+4 at 6th level and every 4 levels thereafter.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

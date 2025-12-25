@@ -1,0 +1,67 @@
+{
+    "_id": "0DiJqneDdSKZh6z3",
+    "folder": "JVy52Ms2FhcFIAtg",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Legend Weaver",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're an incredibly talented storyteller, making legends come to life. You gain @UUID[Compendium.sf2e.spells.Item.Illusory Scene] as a 6th-rank occult innate spell. You can cast this spell once per day. When you cast <em>illusory scene</em> in this way, the spell automatically adapts to suit its audience. A deaf creature that witnesses the illusion additionally sees the characters in the scene visually signing their dialogue. A blind creature that witnesses the illusion additionally hears an audio description of the scene. A deafblind creature that witnesses the illusion additionally receives a psychic impression of the scene and its dialogue in their mind.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Tale Spinner"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:illusory-scene",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:illusory-scene",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:vlaka"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,54 @@
+{
+    "_id": "OHZnPdwQe1GKwhMi",
+    "folder": "UumZN7blyTNealvh",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Plasma Ejection",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You unleash an ejection of plasma, hitting every creature in your choice of a @Template[type:emanation|distance:10] or in a @Template[type:line|distance:30]. Each creature in the area takes @Damage[((1 + floor(@actor.level / 2))d6)[fire]|options:area-damage,plasma-ejection-base-damage] damage with a @Check[reflex|against:solarian|basic|options:area-effect] save against your class DC. A creature that critically fails its save additionally takes @Damage[1d8[persistent,electricity]] damage.</p>\n<p><strong>Graviton-Attuned</strong> A creature that fails its save is knocked @UUID[Compendium.sf2e.conditions.Item.Prone].</p>\n<p><strong>Photon-Attuned</strong> Increase the fire damage to d8s.</p><hr /><p><strong>Level (+2)</strong> The damage increases by 1d6 (or 1d8 if you're photon-attuned).</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "plasma-ejection-base-damage",
+                    "stellar-attunement:photon"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "{item|id}-inline-damage"
+                ],
+                "value": 8
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

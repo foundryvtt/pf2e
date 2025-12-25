@@ -1,0 +1,92 @@
+{
+    "_id": "V0Qm2R3YUmS9fKrE",
+    "folder": "wz7uxbY5ZEvecOCI",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Operative Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become trained in simple and martial guns. You become trained in operative class DC.</p>\n<p>You gain the @UUID[Compendium.sf2e.actions.Item.Aim]{Aim} action, it doesn't deal additional damage, but still reduces the bonus to AC your mark gains from cover (which does not increase as you gain levels).</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Dexterity +2"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:ranged",
+                    {
+                        "or": [
+                            "item:category:martial",
+                            "item:category:simple"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:analog",
+                            "item:trait:tech"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.MartialProficiency.MartialAndSimpleGuns",
+                "slug": "martial-simple-guns",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Aim"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.sf2e.operative.aim.coverReduction",
+                "priority": 60,
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.operative.archetypeFeatCount",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "operative": {
+                    "attribute": null,
+                    "rank": 1
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication",
+                "multiclass"
+            ]
+        }
+    },
+    "type": "feat"
+}

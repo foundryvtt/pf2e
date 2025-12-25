@@ -1,0 +1,49 @@
+{
+    "_id": "fzsAxccVTPTMlpih",
+    "img": "systems/sf2e/icons/abilities/cerulean-circular-sign.webp",
+    "name": "Effect: Inscrutable",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.class-features.Item.Inscrutable]{Inscrutable} via Ephemeral Effect</p>\n<p>When you roll a critical success or a success to Sense Motive against the origin, you get a failure instead.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalSuccess": "to-failure",
+                    "success": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:sense-motive"
+                ],
+                "selector": "perception"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

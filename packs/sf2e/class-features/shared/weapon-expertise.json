@@ -1,0 +1,77 @@
+{
+    "_id": "Ba1DqrvVyzbcvGJd",
+    "folder": "fCUjDoIslLyWWTPv",
+    "img": "systems/sf2e/icons/abilities/blue-cannister.webp",
+    "name": "Weapon Expertise",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Envoy</strong> You've learned a few tricks with your weapons. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to expert. Whenever you attack the target of your Get 'Em!, you gain access to the critical specialization effects of all weapons for which you have expert proficiency.</p><hr /><p><strong>Mystic</strong> You win battles with basic weapons. Your proficiency rank for simple weapons and unarmed attacks increases to expert.</p><hr /><p><strong>Witchwarper</strong> You've gained a broader understanding of conventional weaponry to augment your unconventional spellcasting. Your proficiency rank for simple weapons and unarmed attacks increases to expert.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "target:effect:get-em",
+                    "target:mark:asset",
+                    "class:envoy",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    }
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.attacks.martial.rank",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:envoy"
+                        ]
+                    }
+                ],
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "simple": {
+                    "attribute": null,
+                    "rank": 2
+                },
+                "unarmed": {
+                    "attribute": null,
+                    "rank": 2
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

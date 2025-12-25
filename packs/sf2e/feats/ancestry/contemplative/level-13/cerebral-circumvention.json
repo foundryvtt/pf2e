@@ -1,0 +1,63 @@
+{
+    "_id": "E9L7E372G4Wz3lk7",
+    "folder": "Y0BgrTsSOzk2WrXk",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Cerebral Circumvention",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Trigger</strong> A Telepredicted creature uses an effect that requires a Reflex save or attempts to @UUID[Compendium.sf2e.actions.Item.Disarm] or @UUID[Compendium.sf2e.actions.Item.Trip] you.</p>\n<p><strong>Requirements</strong> You have a bonus against the target using Telepredict.</p><hr /><p>By reading cues and analyzing probability outcomes, you smoothly predicting your opponent's next move. You gain a +1 circumstance bonus to your Reflex save or Reflex DC against the triggering action. Increase this bonus to +2 if you've dealt mental damage to the target since the last time you used Telepredict.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Telepredict"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "cerebral-circumvention",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:telepredict"
+                ],
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": "@actor.flags.pf2e.contemplative.telepredict"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "mental"
+            ]
+        }
+    },
+    "type": "feat"
+}

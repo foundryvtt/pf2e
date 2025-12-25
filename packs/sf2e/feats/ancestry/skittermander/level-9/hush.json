@@ -1,0 +1,73 @@
+{
+    "_id": "s1g2Ni6mgSQXM0H9",
+    "folder": "fvwB8zmRKXLuCLL8",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Hush",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p><hr /><p>You fall utterly silent and focus strenuously on a problem at hand. You attempt to @UUID[Compendium.sf2e.actions.Recall Knowledge]{Recall Knowledge} with a +2 circumstance bonus to the skill check. If you would get a critical failure, you get a failure instead, and if you would get a success, you get a critical success instead.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "hush",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "hush"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "the-hush"
+                ],
+                "selector": "skill-check"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate"
+            ]
+        }
+    },
+    "type": "feat"
+}

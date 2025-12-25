@@ -1,0 +1,89 @@
+{
+    "_id": "qeUf6JINKUrCMxgh",
+    "folder": "BzhyIRBW6UKtg6oG",
+    "img": "systems/sf2e/icons/default-icons/background.svg",
+    "name": "Magitech Specialist",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "int",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>First Ones sites are known to integrate magitech: a combination of advanced technology and magic, working in synergy to create something utterly unique. You've studied modern magitech as well as the strange magical anomalies and warped realities that surround First Ones sites. You're certain your studies will serve you well in the Wreck of the Returned.</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Wisdom</strong>, and one is a free attribute boost. You're trained your choice of either the Arcana or Occultism skill, as well as the Magitech Lore skill. You gain the @UUID[Compendium.sf2e.feats.Item.Quick Identification] skill feat.</p>"
+        },
+        "items": {
+            "dCrmA": {
+                "img": "icons/sundries/books/book-red-exclamation.webp",
+                "level": 1,
+                "name": "Quick Identification",
+                "uuid": "Compendium.sf2e.feats.Item.Quick Identification"
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Invasion's Edge Player's Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "predicate": [
+                            "skill:arcana:rank:0"
+                        ],
+                        "value": {
+                            "rank": 1,
+                            "slug": "arcana"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "predicate": [
+                            "skill:occultism:rank:0"
+                        ],
+                        "value": {
+                            "rank": 1,
+                            "slug": "occultism"
+                        }
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill.slug}.rank",
+                "value": "@item.flags.pf2e.rulesSelections.skill.rank"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Magitech Lore"
+            ],
+            "value": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

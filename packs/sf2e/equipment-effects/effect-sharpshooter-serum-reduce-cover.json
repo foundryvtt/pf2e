@@ -1,0 +1,52 @@
+{
+    "_id": "DL7GOlVLthV6HJpb",
+    "img": "systems/sf2e/icons/equipment/other/syringe.webp",
+    "name": "Effect: Sharpshooter Serum (Reduce Cover)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.equipment.Item.Sharpshooter Serum (Commercial)]{Sharpshooter Serum}, @UUID[Compendium.sf2e.equipment.Item.Sharpshooter Serum (Tactical)]{Sharpshooter Serum (Tactical)} via Ephemeral Effect</p>\n<p>Your circumstance bonus to AC from cover is reduced.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "subtract",
+                "selector": "ac",
+                "slug": "cover",
+                "value": "@item.origin.flags.sf2e.sharpshooterSerum.coverReduction"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "selector": "ac",
+                "slug": "cover",
+                "value": 0
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,74 @@
+{
+    "_id": "hQHCzRzRPEHdLgMq",
+    "folder": "e6s8QLzAKqjMzzPL",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Armor Ace",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've learned through trial and painful error how to make the most out of your armor, deflecting damage from explosions and similar effects. When donning armor, you can grant it the bulwark trait until you remove it. When you're wearing armor that already has the bulwark trait, increase the modifier to Reflex saves to avoid damaging effects granted by that armor to +4, rather than +3.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "item:trait:bulwark"
+                    }
+                ],
+                "priority": 50,
+                "property": "other-tags",
+                "value": "bulwark-added"
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "bulwark"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "armor:tag:bulwark-added"
+                    }
+                ],
+                "priority": 150,
+                "selector": "reflex",
+                "slug": "bulwark",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

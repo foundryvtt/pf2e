@@ -1,0 +1,55 @@
+{
+    "_id": "KYdtXJXPBbLMRUB6",
+    "folder": "YU15HnTz8g2RRPwN",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Mindward Shield",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your solar shield acts as an anchor for your mind as much as your body. When your Raise your solar Shield, you gain the shield's circumstance bonus to Will saves. In addition, while you have your solar shield raised, you can Shield Block when you take damage as a result of a failed Will save, in addition to its usual trigger. If you do, the triggering damage bypasses your solar shield's object immunities.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Solar Shield"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:shield:raised",
+                    "self:effect:solar-shield"
+                ],
+                "selector": "will",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

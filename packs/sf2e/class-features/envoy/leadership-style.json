@@ -1,0 +1,56 @@
+{
+    "_id": "Fni0F4rfaG08nO1Y",
+    "folder": "mOIMElPxY4JeuDAW",
+    "img": "systems/sf2e/icons/abilities/blue-alien-face.webp",
+    "name": "Leadership Style",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Whether it comes naturally, or you trained for it, you've developed a personal style of leading others. At 1st level, select a leadership style. You become trained in the indicated leadership skill, you gain the indicated leadership perk, and know the associated leadership directive.</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.From the Front]{From the Front}</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.From the Shadows]{From the Shadows}</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Guns Blazing]{Guns Blazing}</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.In the Spotlight]{In the Spotlight}</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Infosphere Director]{Infosphere Director}</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Through Desperate Times]{Through Desperate Times}</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:envoy-leadership-style"
+                    ]
+                },
+                "flag": "style",
+                "key": "ChoiceSet",
+                "prompt": "SF2E.SpecificRule.Envoy.LeadershipStyle.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.style}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

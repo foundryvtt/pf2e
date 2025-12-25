@@ -1,0 +1,68 @@
+{
+    "_id": "oishnwqNSfJX2gJz",
+    "folder": "3SFWKhzBesp37sy9",
+    "img": "systems/sf2e/icons/default-icons/background.svg",
+    "name": "Starship Dweller",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "con",
+                    "dex"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You grew up on the Idari or another starship and are accustomed to the artificial cycles, tight spaces, and maintenance shifts that have defined your lifestyle.</p>\n<p>Choose two attribute boosts. One must be to <strong>Dexterity</strong> or <strong>Constitution</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Crafting or Piloting skill and the Idari Lore skill. If you aren't from the Idari, choose another Lore skill relevant to the ship you lived on or Drift Lore. You are never clumsy or @UUID[Compendium.sf2e.conditions.Item.Off-Guard] while @UUID[Compendium.sf2e.conditions.Item.Untethered].</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Crafting",
+                        "value": "crafting"
+                    },
+                    {
+                        "label": "SF2E.Skill.Piloting",
+                        "value": "piloting"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
+        "trainedSkills": {
+            "lore": [],
+            "value": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

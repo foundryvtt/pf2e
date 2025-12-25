@@ -1,0 +1,74 @@
+{
+    "_id": "bDoUr1qdg0cZphbK",
+    "folder": "dUge9P1UVgqBOrXl",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Defensive Gunner",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've learned to defend yourself with only a gun, shielding your body and deflecting blows with stock and barrel. Guns you wield gain the parry trait. If an appropriate weapon already has the parry trait, increase the circumstance bonus to AC it grants when used to parry from +1 to +2.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:ranged",
+                    {
+                        "or": [
+                            "item:trait:tech",
+                            "item:trait:analog"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "parry"
+            },
+            {
+                "domain": "ac",
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Operative.DefensiveGunner.ToggleLabel",
+                "option": "defensive-gunner",
+                "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "defensive-gunner"
+                ],
+                "selector": "ac",
+                "slug": "parry",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

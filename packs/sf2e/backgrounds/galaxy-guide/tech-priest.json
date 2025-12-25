@@ -1,0 +1,60 @@
+{
+    "_id": "rBQfRoJoXp5VuwyR",
+    "folder": "3SFWKhzBesp37sy9",
+    "img": "systems/sf2e/icons/default-icons/background.svg",
+    "name": "Tech Priest",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "int",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You commune with the divine through technology. You might be an initiate of Triune's clergy who travels through distant space to perform Drift Beacon maintenance.</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Computers skill and the Religion skill. You can cast @UUID[Compendium.sf2e.spells.Item.Speak with Computers] as an innate divine spell once per day.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:speak-with-computers",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "background-spell"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [],
+            "value": [
+                "computers",
+                "religion"
+            ]
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

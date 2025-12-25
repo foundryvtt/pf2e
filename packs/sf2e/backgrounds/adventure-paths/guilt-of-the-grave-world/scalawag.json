@@ -1,0 +1,77 @@
+{
+    "_id": "YvhLzn1CU12Zzm4n",
+    "folder": "6MTWumQFoXrDW8Jx",
+    "img": "systems/sf2e/icons/default-icons/background.svg",
+    "name": "Scalawag",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "dex"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You're a deckhand on a pirate ship hoping to work your way up the ranks to captain someday. You might be a scoundrel with a heart of gold or a pirate who's learned to play nice for a paycheck—either way, your crew has set their sights on a new prize: the mysterious asteroid the sensors detected in the Diaspora.</p>\n<p>Choose two attribute boosts. One must be to <strong>Dexterity</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in either the Diplomacy or Intimidation skill and the Piracy Lore skill. You gain the @UUID[Compendium.sf2e.feats.Item.Intimidating Shot]{Intimidating Shot} skill feat.</p>"
+        },
+        "items": {
+            "TiQsw": {
+                "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+                "level": 1,
+                "name": "Intimidating Shot",
+                "uuid": "Compendium.sf2e.feats.Item.Intimidating Shot"
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Guilt of the Grave World"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "value": "diplomacy"
+                    },
+                    {
+                        "label": "PF2E.Skill.Intimidation",
+                        "value": "intimidation"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Piracy Lore"
+            ],
+            "value": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

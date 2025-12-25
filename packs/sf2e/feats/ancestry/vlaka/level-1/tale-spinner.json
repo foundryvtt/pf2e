@@ -1,0 +1,63 @@
+{
+    "_id": "IuIzLQr2xkwJmnVH",
+    "folder": "8pW9aXcHLw893WYN",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Tale Spinner",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You keep your people's stories alive with magic. You can cast @UUID[Compendium.sf2e.spells.Item.Figment] and @UUID[Compendium.sf2e.spells.Item.Prestidigitation] as occult innate spells at will. A cantrip is heightened to a spell rank equal to half your level rounded up.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:figment",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:figment",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:vlaka"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

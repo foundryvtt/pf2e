@@ -1,0 +1,48 @@
+{
+    "_id": "jtlZPjobJNXLol7S",
+    "img": "icons/sundries/books/book-symbol-skull-grey.webp",
+    "name": "Effect: Undead Slayer",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Undead Slayer (Starfinder)]{Undead Slayer}</p>\n<p>You gain access to the critical specialization effects of all weapons and unarmed attacks for attacks you make against the marked creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "undead-slayer"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "target:mark:undead-slayer"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

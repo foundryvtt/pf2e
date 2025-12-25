@@ -1,0 +1,72 @@
+{
+    "_id": "y4ezCine7hGv24wv",
+    "folder": "Dtkpo6zbg3q4Tbmo",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Bioluminescence",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your eyes glow like bioluminescent lamps, and you have learned how to focus them into a directional beam. Your eyes shed light in a 30 foot line in any direction you're looking.</p>\n<p>You can suppress or restore this light as a free action. In addition, while this light is active you can take the Point Out action to indicate a creature within the area of your bioluminescence without making any noise, in which case it loses the auditory and manipulate traits. Finally, after you use an action to Hide or @UUID[Compendium.sf2e.actions.Item.Sneak], you can send predetermined signals with your lights to alert all allies you can see to your location as a free action.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "bioluminsescent-eyes-active",
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "bioluminsescent-eyes-active"
+                ],
+                "value": {
+                    "alpha": 0.4,
+                    "angle": 6,
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "torch"
+                    },
+                    "bright": "@actor.flags.pf2e.kalo.bioluminescence.range",
+                    "color": "#2ba269",
+                    "dim": "@actor.flags.pf2e.kalo.bioluminescence.range",
+                    "shadows": 0.2
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.kalo.bioluminescence.range",
+                "value": 30
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

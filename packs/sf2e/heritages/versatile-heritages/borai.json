@@ -1,0 +1,41 @@
+{
+    "_id": "ENIlxRfjGN218iKJ",
+    "folder": "Qp1m86m0gIoj2ch5",
+    "img": "systems/sf2e/icons/ancestries/borai.webp",
+    "name": "Borai",
+    "system": {
+        "ancestry": null,
+        "description": {
+            "value": "<p>You've returned from the brink of death as a borai—at once both living and undead. You gain the borai and undead trait, in addition to the traits from your ancestry. Unlike other undead, you don't gain void healing. You're healed by vitality effects and damaged by void damage, as if you were a living creature. Likewise, you can be stabilized, healed, and brought back to life as if you were a living creature, save that you always return to life in your normal undead state (as a borai). You gain low-light vision, or you gain darkvision if your ancestry already has low-light vision. You can choose from borai feats and feats from your ancestry whenever you gain an ancestry feat.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "Sense",
+                "selector": "low-light-vision"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "self:low-light-vision:from-ancestry"
+                ],
+                "selector": "darkvision"
+            },
+            {
+                "add": [
+                    "undead"
+                ],
+                "key": "ActorTraits"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

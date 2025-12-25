@@ -1,0 +1,60 @@
+{
+    "_id": "yQysR8OZFrL4Arlf",
+    "folder": "cdomvYJwL6kj797J",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Extreme Accuracy",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>When you @UUID[Compendium.sf2e.actions.Item.Aim]{Aim}, the benefits apply if your mark is within range up to your weapon's fourth range increment. Additionally, you ignore the penalty for attacking your mark at up to four range increments away.</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Keep Them in Your Sights"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.sf2e.operative.aim.rangeIncrement",
+                "priority": 51,
+                "value": 1
+            },
+            {
+                "domain": "ranged-strike-attack-roll",
+                "key": "RollOption",
+                "option": "ignore-range-penalty:4",
+                "predicate": [
+                    "target:mark:aim"
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

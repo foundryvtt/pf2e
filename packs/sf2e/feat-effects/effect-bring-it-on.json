@@ -1,0 +1,62 @@
+{
+    "_id": "NEgZy4YHA1TGlF6T",
+    "img": "icons/creatures/abilities/mouth-teeth-human.webp",
+    "name": "Effect: Bring it On!",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Bring it On!]{Bring it On!}</p>\n<p>You take a –2 circumstance penalty to AC and gain resistance to all damage equal to half your level. If you have the armor storm fighting style, this resistance is doubled against attacks made by suppressed creatures.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "floor(@actor.level / 2)"
+            },
+            {
+                "definition": [
+                    "origin:condition:suppressed",
+                    "origin:action:trait:attack"
+                ],
+                "key": "Resistance",
+                "label": "SF2E.IWR.Custom.AttacksFromSuppressed",
+                "predicate": [
+                    "feature:armor-storm"
+                ],
+                "type": "custom",
+                "value": "@actor.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,82 @@
+{
+    "_id": "1bgDbGzALewzo7cy",
+    "folder": "9feZwdAlvdlYJ3gO",
+    "img": "systems/sf2e/icons/abilities/cerulean-alien-soldier.webp",
+    "name": "Ghost",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You specialize in slipping into a location, completing an objective, and extricating yourself without being discovered. You might use stealth tactics, cover identities, disguises, or spy tech. Whether you're an assassin getting close to your target, a spy gathering sensitive intelligence, a grifter out to dupe your mark, or a thief casing the joint for your next job, you're good at blending in and avoiding notice. You're trained in Deception. You gain a skill feat for Deception.</p>\n<p><strong>Exploit:</strong> You're adept at taking your foe by surprise. You can @UUID[Compendium.sf2e.actions.Item.Aim]{Aim} at targets you're @UUID[Compendium.sf2e.conditions.Item.Undetected] by as a free action.</p>\n<p><strong>Enhanced Exploit:</strong> You avoid detection even after engaging your enemy. You gain the @UUID[Compendium.sf2e.actions.Item.Ghost Tap]{Ghost Tap} action.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.deception.rank",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:category:skill",
+                        "item:level:1"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SkillFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            9
+                        ]
+                    },
+                    "class:operative"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.sf2e.actions.Item.Ghost Tap"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "operative-specialization"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

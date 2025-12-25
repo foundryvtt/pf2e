@@ -1,0 +1,76 @@
+{
+    "_id": "wUqOzEWcNX9ohLE2",
+    "folder": "Y5uEMtrXRqNJqJLx",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Envoy Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You gain the @UUID[Compendium.sf2e.class-features.Item.Envoy Directives]{Envoy Directives} class feature, but do not gain the Lead by Example benefits of the Get 'Em! envoy directive. You become trained in Deception, Diplomacy, or Intimidation plus another skill of your choice. If you were already trained in Deception, Diplomacy, and Intimidation, you instead become trained in an additional skill of your choice. You also become trained in envoy class DC.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Charisma +2"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.class-features.Item.Envoy Directives"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.deception.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.diplomacy.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.intimidation.rank",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "envoy": {
+                    "attribute": null,
+                    "rank": 1
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication",
+                "multiclass"
+            ]
+        }
+    },
+    "type": "feat"
+}

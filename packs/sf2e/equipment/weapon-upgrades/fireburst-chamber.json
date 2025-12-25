@@ -1,0 +1,80 @@
+{
+    "_id": "3gQ8AI0DUEJE7s9t",
+    "folder": "7JvVdcPLRxEK9sec",
+    "img": "systems/sf2e/icons/abilities/yellow-explosion.webp",
+    "name": "Fireburst Chamber",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>A fireburst chamber allows you to direct the detonation of a grenade inside of a grenade launcher or an undermounted grenade launcher.</p><hr /><p><strong>Activate—Fireburst Mode</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Effect</strong> The grenade launcher or the undermounted grenade launcher gains the area (cone) trait with a range of 15 feet and uses the properties of the grenade it fires instead of using its normal range. You can end this effect with an Interact action.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 4
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 750
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "{item|parentItem.id}-fireburst-chamber",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|parentItem.id}",
+                    "{item|parentItem.id}-fireburst-chamber"
+                ],
+                "property": "traits",
+                "value": "area-cone"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:id:{item|parentItem.id}",
+                    "{item|parentItem.id}-fireburst-chamber"
+                ],
+                "property": "range-max",
+                "value": 15
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tech"
+            ]
+        },
+        "usage": {
+            "value": "installed-in-a-grenade-launcher-or-two-handed-weapon-with-an-undermounted-grenade-launcher"
+        }
+    },
+    "type": "equipment"
+}

@@ -1,0 +1,88 @@
+{
+    "_id": "jZEoRmky1wkk6evN",
+    "folder": "8pW9aXcHLw893WYN",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Dishonored Contrarian",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>When the going gets tough, the tough fight tooth and nail to build a better life—literally. Your fellow vlakas might carry hope, dreams, and unending optimism in their hearts, but you've always found it harder to look on the bright side, and you've done some dubious things to get by. Whether you've lied, cheated, stolen, or taken some lives, you know that you did what it took to survive and thrive in a cold and callous galaxy. You become trained in one of the following skills of your choice: Deception, Intimidation, or Thievery. If you select Deception, you gain the @UUID[Compendium.sf2e.feats.Item.Lengthy Diversion] skill feat. If you select Intimidation, you gain the @UUID[Compendium.sf2e.feats.Item.Group Coercion] skill feat. If you select Thievery, you gain the @UUID[Compendium.sf2e.feats.Item.Subtle Theft] skill feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Deception",
+                        "value": "deception"
+                    },
+                    {
+                        "label": "PF2E.Skill.Intimidation",
+                        "value": "intimidation"
+                    },
+                    {
+                        "label": "PF2E.Skill.Thievery",
+                        "value": "thievery"
+                    }
+                ],
+                "flag": "dishonoredContrarian",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "dishonored-contrarian"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.dishonoredContrarian}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "dishonored-contrarian:deception"
+                ],
+                "uuid": "Compendium.sf2e.feats.Item.Lengthy Diversion"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "dishonored-contrarian:intimidation"
+                ],
+                "uuid": "Compendium.sf2e.feats.Item.Group Coercion"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "dishonored-contrarian:thievery"
+                ],
+                "uuid": "Compendium.sf2e.feats.Item.Subtle Theft"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

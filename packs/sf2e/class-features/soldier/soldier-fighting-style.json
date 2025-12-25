@@ -1,0 +1,56 @@
+{
+    "_id": "SDFjJXIoIdOSPMSc",
+    "folder": "IGK9KhXfktRKGmLz",
+    "img": "systems/sf2e/icons/abilities/cerulean-star.webp",
+    "name": "Soldier Fighting Style",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>As a soldier, you train using a specific style of fighting. Your style determines how you approach combat and often changes how you take advantage of your ability to suppress targets. Choose a soldier fighting style.</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Action Hero]{Action Hero}</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Armor Storm]{Armor Storm}</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Bombard]{Bombard}</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Close Quarters]{Close Quarters}</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Erudite Warrior]{Erudite Warrior}</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:soldier-fighting-style"
+                    ]
+                },
+                "flag": "fightingStyle",
+                "key": "ChoiceSet",
+                "prompt": "SF2E.SpecificRule.Soldier.FightingStyle.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.fightingStyle}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

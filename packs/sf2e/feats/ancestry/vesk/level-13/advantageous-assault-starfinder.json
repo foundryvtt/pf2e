@@ -1,0 +1,58 @@
+{
+    "_id": "e4YTFYqlosJCYpmu",
+    "folder": "YXHca9vS0JCv37Qy",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Advantageous Assault (Starfinder)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>When your foe is weak, you press on. When you successfully Strike a creature that has the frightened or persistent bleed condition with a melee or ranged weapon, you gain a circumstance bonus to the damage roll equal to the number of weapon damage dice of the weapon used for the Strike.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "item:category:unarmed"
+                    },
+                    {
+                        "or": [
+                            "target:condition:frightened",
+                            "target:condition:persistent-damage:bleed"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

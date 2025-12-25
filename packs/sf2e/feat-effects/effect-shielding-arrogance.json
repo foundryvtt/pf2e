@@ -1,0 +1,49 @@
+{
+    "_id": "af3dMl0TEkqOp2K9",
+    "img": "icons/magic/life/heart-cross-blue.webp",
+    "name": "Effect: Shielding Arrogance",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "labels": null,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "@actor.level+(@actor.flags.pf2e.contemplative.shieldingArroganceDiceCount)d8"
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.actions.Item.Shielding Arrogance]{Shielding Arrogance}</p>\n<p>You gain temporary Hit Points equal to your level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

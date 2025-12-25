@@ -1,0 +1,68 @@
+{
+    "_id": "EGuboukc6LrUd4vT",
+    "folder": "jAQB3gjRkg4nMQl0",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Gelid Bite",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your linnorm heritage has begun to manifest more as you've become more powerful. Your jaws Strike deals an additional @Damage[1d6[cold]] damage. On a critical hit, the target is also @UUID[Compendium.sf2e.conditions.Item.Suppressed]{Suppressed} until the end of your next turn, unless it succeeds at a @Check[fortitude|against:class-spell] save against your class DC or spell DC, whichever is higher.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Linnorm Bite"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "damageType": "cold",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:linnorm-bite-strike"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "item:slug:linnorm-bite-strike"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "SF2E.SpecificRule.Kalo.GelidBite.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

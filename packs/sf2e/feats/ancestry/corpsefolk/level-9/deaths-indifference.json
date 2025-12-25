@@ -1,0 +1,65 @@
+{
+    "_id": "TDphpBKl58Yj0iMV",
+    "folder": "r8hzHQqBgRQauYU4",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Death's Indifference",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your skin and bones have weathered down to the point where certain types of damage no longer have the same effect on them as when you were counted among the living. You gain resistance to a specific damage type equal to half your level. Biting corpsefolk gain resistance to slashing damage, partial corpsefolk gain resistance to piercing damage, and shambling corpsefolk gain resistance to bludgeoning damage.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Guilt of the Grave World"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "heritage:biting-corpsefolk"
+                ],
+                "type": "slashing",
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "heritage:partial-corpsefolk"
+                ],
+                "type": "piercing",
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "heritage:shambling-corpsefolk"
+                ],
+                "type": "bludgeoning",
+                "value": "floor(@actor.level/2)"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,73 @@
+{
+    "_id": "CUZl01GJ70rM004v",
+    "folder": "MkPjc9vTA7LBZv5o",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Mindrender",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've honed your thoughts into a deadly weapon that can shatter a foe's mind. You gain a psychic shock ranged unarmed attack with a range increment of 30 feet and the agile trait. The weapon deals 1d4 mental damage and is in the mental weapon group.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "mental",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "mental",
+                "img": "systems/sf2e/icons/abilities/brain%20in%20a%20jar.webp",
+                "key": "Strike",
+                "label": "SF2E.SpecificRule.Contemplative.Mindrender.Label",
+                "range": {
+                    "increment": 30
+                },
+                "slug": "psychic-shock",
+                "traits": [
+                    "unarmed",
+                    "agile"
+                ]
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|id}"
+                ],
+                "property": "other-tags",
+                "value": "contemplative-psychic-shock"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

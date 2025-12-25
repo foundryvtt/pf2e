@@ -1,0 +1,122 @@
+{
+    "_id": "ey2zSEnprAGgvrij",
+    "img": "systems/sf2e/icons/abilities/orange-finger-beam.webp",
+    "name": "Effect: Get 'Em!",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.actions.Item.Get 'Em!]{Get 'Em!}</p>\n<p>You gain a +1 status bonus to attacks against the marked target.</p>\n<p><strong>Lead by Example</strong> The origin gains a status bonus to their initial Strike against the marked target equal to their Charisma modifier. You gain a status bonus to damage on subsequent Strikes made against the enemy until the start of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "get-em"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:tag:envoy-class",
+                                    "parent:origin:item:tag:really-get-em"
+                                ]
+                            }
+                        ],
+                        "value": "lead-by-example"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "not-lead-by-example"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "SF2E.SpecificRule.Envoy.Directive.LeadByExample.Prompt",
+                "rollOption": "get-em"
+            },
+            {
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Envoy.GetEm.LeadByExample.ToggleLabel",
+                "option": "get-em:lead-by-example-strike",
+                "predicate": [
+                    "self:signature:{item|origin.signature}",
+                    "get-em:lead-by-example"
+                ],
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:get-em"
+                ],
+                "selector": "attack-roll",
+                "slug": "get-em",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:get-em",
+                    "get-em:lead-by-example"
+                ],
+                "selector": "damage",
+                "slug": "get-em-lead-by-example",
+                "type": "status",
+                "value": "1+floor(@item.origin.level / 5)"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "get-em:lead-by-example-strike"
+                ],
+                "selector": "strike-damage",
+                "slug": "get-em-lead-by-example",
+                "value": "@actor.abilities.cha.mod"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "parent:origin:item:tag:really-get-em"
+                ],
+                "selector": "strike-damage",
+                "slug": "get-em",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

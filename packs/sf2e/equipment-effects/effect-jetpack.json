@@ -1,0 +1,89 @@
+{
+    "_id": "0kP4P73w0PykYkPY",
+    "img": "systems/sf2e/icons/abilities/yellow-thrusters.webp",
+    "name": "Effect: Jetpack",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.equipment.Item.Jetpack (Commercial)]{Jetpack (Commercial)}, @UUID[Compendium.sf2e.equipment.Item.Jetpack (Tactical)]{Jetpack (Tactical)}</p>\n<p>You gain a fly Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "authors": "Starfinder Player Core",
+            "license": "ORC",
+            "remaster": true,
+            "title": ""
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:jetpack-commercial",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Jetpack (Commercial)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:jetpack-tactical",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Jetpack (Tactical)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "jetpack"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "jetpack:jetpack-commercial"
+                ],
+                "selector": "fly",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "jetpack:jetpack-tactical"
+                ],
+                "selector": "fly",
+                "value": 40
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,64 @@
+{
+    "_id": "nvB1852vEPVqjxhR",
+    "img": "systems/sf2e/icons/abilities/blue-lock.webp",
+    "name": "Effect: Tangible Object (Anchoring Effect)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.class-features.Item.Tangible Object]{Tangible Object}</p>\n<p>You gain a +1 circumstance bonus to Will saves against fear effects and a +2 circumstance bonus to your Will DC against attempts to Demoralize you.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:condition:frightened"
+                    },
+                    "item:trait:fear"
+                ],
+                "selector": "will",
+                "slug": "tangible-object-will",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:condition:frightened"
+                    },
+                    "action:demoralize"
+                ],
+                "selector": "will-dc",
+                "slug": "tangible-object-will-dc",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

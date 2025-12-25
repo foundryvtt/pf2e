@@ -1,0 +1,65 @@
+{
+    "_id": "5fcBv1Vu7C213hzw",
+    "folder": "xLLN8X3CfQ2oM8nt",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Supernatural Soothing",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>When words fail and tempers flare, you center your emotions and then release your peaceful thoughts in a soothing, psychic calm. Once per day, you can cast either @UUID[Compendium.sf2e.spells.Item.Calm] or @UUID[Compendium.sf2e.spells.Item.Clear Mind] as an occult innate spell, heightened to half your level rounded up.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:calm",
+                    "item:slug:clear-mind",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:calm",
+                    "item:slug:clear-mind",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:vlaka"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

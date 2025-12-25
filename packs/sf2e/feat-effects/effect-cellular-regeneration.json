@@ -1,0 +1,43 @@
+{
+    "_id": "22BLEySiAaQwoO6f",
+    "img": "icons/magic/life/cross-beam-green.webp",
+    "name": "Effect: Cellular Regeneration",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Cellular Regeneration]{Cellular Regeneration}</p>\n<p>You gain regeneration equal to half your level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 17
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "FastHealing",
+                "type": "regeneration",
+                "value": "floor(@actor.level / 2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

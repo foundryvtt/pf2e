@@ -1,0 +1,64 @@
+{
+    "_id": "ao5MC3I1b4Gx9LNC",
+    "folder": "cJoNKs2FMCJkyEDK",
+    "img": "icons/tools/hand/lockpicks-steel-grey.webp",
+    "name": "Infiltrator's Toolkit (Tactical)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>You need an infiltrator's toolkit to @UUID[Compendium.sf2e.actions.Item.Pick a Lock]{Pick Locks} or @UUID[Compendium.sf2e.actions.Item.Disable a Device]{Disable Devices} (of some types) using the Thievery skill. A tactical infiltrator's toolkit adds a +1 item bonus to checks to Pick Locks or Disable Devices.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 500
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:disable-a-device",
+                            "action:pick-a-lock"
+                        ]
+                    }
+                ],
+                "selector": "thievery",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": []
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        }
+    },
+    "type": "equipment"
+}

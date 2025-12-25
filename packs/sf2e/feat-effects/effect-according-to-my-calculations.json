@@ -1,0 +1,67 @@
+{
+    "_id": "bbdg6JeElvGWb20A",
+    "img": "icons/commodities/currency/coins-shield-sword-stack-silver.webp",
+    "name": "Effect: According to My Calculations",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.According to My Calculations]{According to My Calculations}</p>\n<p>You gain a circumstance bonus or penalty to your next skill check or attack roll depending on the result.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": -1
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": 2
+                    }
+                ],
+                "flag": "modifier",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": true,
+                "selector": [
+                    "attack-roll",
+                    "skill check"
+                ],
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.modifier"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

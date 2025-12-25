@@ -1,0 +1,59 @@
+{
+    "_id": "qITHNzTMrTnnwTaY",
+    "folder": "hLnXw8lo8s9W6jcZ",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Luminous Wings",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your energy wings shed bright light in a 20-foot radius (and dim light to the next 20 feet). You can extinguish or rekindle this light using a single action, which has the concentrate trait.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "luminous-wings-active",
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "luminous-wings-active"
+                ],
+                "value": {
+                    "bright": 20,
+                    "dim": 40
+                }
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "light"
+            ]
+        }
+    },
+    "type": "feat"
+}

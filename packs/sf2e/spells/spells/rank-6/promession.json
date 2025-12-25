@@ -1,0 +1,86 @@
+{
+    "_id": "xS4bqHnbodCwjpqI",
+    "folder": "AZKyKWxyWmrno8ol",
+    "img": "systems/sf2e/icons/abilities/blue-planet-pillar-of-light.webp",
+    "name": "Promession",
+    "system": {
+        "area": null,
+        "cost": {
+            "value": ""
+        },
+        "counteraction": false,
+        "damage": {
+            "ZyIm65Nimsk53g1N": {
+                "applyMod": false,
+                "category": null,
+                "formula": "6d8",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "cold"
+            }
+        },
+        "defense": {
+            "save": {
+                "basic": false,
+                "statistic": "fortitude"
+            }
+        },
+        "description": {
+            "value": "<p>You flash freeze a target then send subsonic waves through it, potentially reducing it into fine powder. Make a spell attack against the target. If you hit a target, the target takes 6d8 cold damage and must attempt a Fortitude save. If you critically hit, the target gets a result one degree of success worse than it rolled on its Fortitude save. A creature reduced to 0 Hit Points is blasted to fine powder; its gear remains.</p><hr /><p><strong>Critical Success</strong> The target is unaffected by further damage.</p>\n<p><strong>Success</strong> The target takes an additional @Damage[((@item.level -3)d8)[sonic]] damage.</p>\n<p><strong>Failure</strong> The target takes an additional @Damage[((@item.level)d8)[sonic]] damage.</p>\n<p><strong>Critical Failure</strong> The target takes an additional @Damage[((@item.level +6)d8)[sonic]] damage.</p><hr /><p><strong>Heightened (+1)</strong> The cold and sonic damage each increase by 1d8.</p>"
+        },
+        "duration": {
+            "sustained": false,
+            "value": ""
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "range": {
+            "value": "120 feet"
+        },
+        "requirements": "",
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "item:slug:promession"
+                ],
+                "selector": "spell-attack",
+                "text": "SF2E.SpecificRule.Promession.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "target": {
+            "value": "1 creature or unattended object"
+        },
+        "time": {
+            "value": "2"
+        },
+        "traits": {
+            "rarity": "common",
+            "traditions": [
+                "arcane",
+                "primal"
+            ],
+            "value": [
+                "attack",
+                "cold",
+                "concentrate",
+                "death",
+                "manipulate",
+                "sonic"
+            ]
+        }
+    },
+    "type": "spell"
+}

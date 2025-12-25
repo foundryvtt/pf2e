@@ -1,0 +1,77 @@
+{
+    "_id": "u2dy5FMDv30UH8HC",
+    "folder": "0MBmY0ZAzJKrKcYj",
+    "img": "systems/sf2e/icons/equipment/armor/armor-chestplate-bue.webp",
+    "name": "From the Front",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You're most comfortable leading your allies from the front lines of battle while you fight alongside them. You might raise a shield to help weather the storm of incoming gunfire or simply lead with a pointed finger and a shout of encouragement as you run into the center of the enemy formation.</p>\n<p><strong>Leadership Skill</strong> Athletics</p>\n<p><strong>Leadership Perk</strong> You're trained in medium armor. When you gain light armor expertise, you also gain expert proficiency in medium armor, and when you gain light armor mastery, you also gain master proficiency in medium armor.</p>\n<p><strong>Leadership Directive</strong> @UUID[Compendium.sf2e.actions.Item.Into Position!]{Into Position!}</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Into Position!"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.athletics.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.medium.rank",
+                "predicate": [
+                    "feature:light-armor-expertise"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.medium.rank",
+                "predicate": [
+                    "feature:light-armor-mastery"
+                ],
+                "value": 3
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "medium": {
+                    "attribute": null,
+                    "rank": 1
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "envoy-leadership-style"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

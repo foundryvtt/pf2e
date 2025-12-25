@@ -1,0 +1,47 @@
+{
+    "_id": "EvO3CAUHcPLENizp",
+    "folder": "5Lqa2p4EioXtQKmO",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Dramatic Blocking",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Thanks to years of practice, you know how to use every inch of the stage and give a fantastic performance even in tight quarters. While you can act, you aren't @UUID[Compendium.sf2e.conditions.Item.Off-Guard] to @UUID[Compendium.sf2e.conditions.Item.Hidden], @UUID[Compendium.sf2e.conditions.Item.Undetected], or flanking creatures of your level or lower.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Guilt of the Grave World"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.offGuardable",
+                "value": "@actor.level"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

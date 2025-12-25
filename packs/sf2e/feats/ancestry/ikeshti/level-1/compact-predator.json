@@ -1,0 +1,160 @@
+{
+    "_id": "iac0qVH4SDzCXOyc",
+    "folder": "lno6hGN7OXMCCi6Q",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Compact Predator",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You may be small, but your body is a dangerous weapon, sporting either long talons, razor-sharp teeth, or curving horns. When you select this feat, you gain your choice of a claw unarmed attack, a horn unarmed attack, or a jaws unarmed attack. These attacks are in the brawling weapon group.</p><ul><li>A claw unarmed attack deals 1d6 slashing damage and has the agile, finesse, ikeshti, and unarmed traits.</li><li>A horn unarmed attack deals 1d6 bludgeoning damage and has the disarm, ikeshti, shove, and unarmed traits.</li><li>A jaws unarmed attack deals 1d6 piercing damage and has the grapple, ikeshti, and unarmed traits.</li></ul><p>At 5th level, whenever you get a critical hit with one of these attacks, you get its critical specialization effect.</p><hr /><p><strong>Special</strong> You can take this feat up to three times. Each time you do, select a different attack from the options above.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "maxTakable": 3,
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Invasion's Edge Player's Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "predicate": [
+                            {
+                                "not": "compact-predator:claw"
+                            }
+                        ],
+                        "value": "claw"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Horn",
+                        "predicate": [
+                            {
+                                "not": "compact-predator:horn"
+                            }
+                        ],
+                        "value": "horn"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "predicate": [
+                            {
+                                "not": "compact-predator:jaws"
+                            }
+                        ],
+                        "value": "jaws"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.UnarmedAttack",
+                "rollOption": "compact-predator"
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "img": "icons/commodities/claws/claw-lizard-white-black.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    "compact-predator:claw"
+                ],
+                "slug": "claw",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "img": "icons/commodities/bones/horn-worn-curved-white.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Horn",
+                "predicate": [
+                    "compact-predator:horn"
+                ],
+                "slug": "horn",
+                "traits": [
+                    "disarm",
+                    "shove",
+                    "unarmed"
+                ]
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "img": "icons/commodities/bones/bone-jaw-teeth-white.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    "compact-predator:jaws"
+                ],
+                "slug": "jaws",
+                "traits": [
+                    "grapple",
+                    "unarmed"
+                ]
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|id}"
+                ],
+                "property": "other-tags",
+                "value": "ikeshti-unarmed-strike"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    "item:tag:ikeshti-unarmed-strike"
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

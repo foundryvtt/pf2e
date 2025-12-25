@@ -1,0 +1,162 @@
+{
+    "_id": "s7QK7Q63k9SxG106",
+    "folder": "e6s8QLzAKqjMzzPL",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Brutal Anatomy",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're a natural predator trained to use part of your body as a weapon. When you select this feat, you gain one of the following unarmed attacks of your choice: claw, jaws, or tail. Each of these attacks is in the brawling weapon group.</p>\n<p>A claw unarmed attack deals 1d6 slashing damage and has the agile, finesse, unarmed, and vesk traits.</p>\n<p>A jaws unarmed attack deals 1d6 piercing damage and has the grapple, unarmed, and vesk traits.</p>\n<p>A tail unarmed attack deals 1d6 bludgeoning damage and has the sweep, trip, unarmed, and vesk traits.</p>\n<p>At 5th level, whenever you get a critical hit with one of these attacks, you get its critical specialization effect.</p><hr /><p><strong>Special</strong> You can take this feat three times. Each time you do, select a different attack from the options listed above.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "maxTakable": 3,
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "predicate": [
+                            {
+                                "not": "brutal-anatomy:claw"
+                            }
+                        ],
+                        "value": "claw"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "predicate": [
+                            {
+                                "not": "brutal-anatomy:jaws"
+                            }
+                        ],
+                        "value": "jaws"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Tail",
+                        "predicate": [
+                            {
+                                "not": "brutal-anatomy:tail"
+                            }
+                        ],
+                        "value": "tail"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.UnarmedAttack",
+                "rollOption": "brutal-anatomy"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/sf2e/icons/unarmed-attacks/claw.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    "brutal-anatomy:claw"
+                ],
+                "range": null,
+                "slug": "claw",
+                "traits": [
+                    "unarmed",
+                    "agile",
+                    "finesse",
+                    "vesk"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/sf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.jaws",
+                "predicate": [
+                    "brutal-anatomy:jaws"
+                ],
+                "range": null,
+                "slug": "jaws",
+                "traits": [
+                    "unarmed",
+                    "grapple",
+                    "vesk"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/sf2e/icons/unarmed-attacks/tail.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tail",
+                "predicate": [
+                    "brutal-anatomy:tail"
+                ],
+                "range": null,
+                "slug": "tail",
+                "traits": [
+                    "unarmed",
+                    "sweep",
+                    "trip",
+                    "vesk"
+                ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:id:{item|id}",
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

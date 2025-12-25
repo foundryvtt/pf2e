@@ -9,7 +9,7 @@ import { itemIsOfType } from "@item/helpers.ts";
 import type { ItemInstances, ItemType } from "@item/types.ts";
 import type { PublicationData } from "@module/data.ts";
 import type { RuleElementSource } from "@module/rules/index.ts";
-import { sluggify } from "@util/index.ts";
+import { objectHasKey, sluggify } from "@util/index.ts";
 import fs from "fs";
 import { JSDOM } from "jsdom";
 import path from "path";
@@ -18,8 +18,9 @@ import * as R from "remeda";
 import templateJSON from "../../static/template.json" with { type: "json" };
 import systemPF2eJSON from "../../system.pf2e.json" with { type: "json" };
 import systemSF2eJSON from "../../system.sf2e.json" with { type: "json" };
+import duplicates from "../duplicates.json" with { type: "json" };
 import { CompendiumPack, isActorSource, isItemSource } from "./compendium-pack.ts";
-import { PackError, getFilesRecursively } from "./helpers.ts";
+import { PackError, getFilesRecursively, getFolderPath } from "./helpers.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
 import type { PackEntry } from "./types.ts";
 
@@ -149,37 +150,30 @@ class PackExtractor {
 
         // Prepare subfolder data
         if (folders.length > 0) {
-            const getFolderPath = (folder: DBFolder, parts: string[] = []): string => {
-                if (parts.length > 3) {
-                    throw PackError(
-                        `Error: Maximum folder depth exceeded for "${folder.name}" in pack: ${packDirectory}`,
-                    );
-                }
-                parts.unshift(sluggify(folder.name));
-                if (folder.folder) {
-                    // This folder is inside another folder
-                    const parent = folders.find((f) => f._id === folder.folder);
-                    if (!parent) {
-                        throw PackError(`Error: Unknown parent folder id [${folder.folder}] in pack: ${packDirectory}`);
-                    }
-                    return getFolderPath(parent, parts);
-                }
-                parts.unshift(packDirectory);
-                return path.join(...parts);
-            };
             const sanitzeFolder = (folder: Partial<DBFolder>): void => {
                 delete folder._stats;
             };
 
             for (const folder of folders) {
-                this.#folderPathMap.set(folder._id, getFolderPath(folder));
+                const filepath = path.join(packDirectory, getFolderPath({ folders, dirName: packDirectory }, folder));
+                this.#folderPathMap.set(folder._id, filepath);
                 sanitzeFolder(folder);
             }
             const folderFilePath = path.resolve(outPath, "_folders.json");
             await fs.promises.writeFile(folderFilePath, this.#prettyPrintJSON(folders), "utf-8");
         }
 
+        // In SF2e, some entries may be copies of pf2e entries. We need to skip those
+        const omittedEntries =
+            this.systemId === "sf2e"
+                ? duplicates.flatMap((group) =>
+                      objectHasKey(group.entries, packDirectory) ? group.entries[packDirectory] : [],
+                  )
+                : [];
+
         for (const source of packSources) {
+            if (omittedEntries.includes(source.name)) continue;
+
             // Remove or replace unwanted values from the document source
             const preparedSource = this.#convertUUIDs(source, packDirectory);
             if ("items" in preparedSource && preparedSource.type === "npc" && !this.disablePresort) {
@@ -826,6 +820,18 @@ class PackExtractor {
     }
 
     #populateIdNameMap(): void {
+        function parsePackEntrySource(filePath: string): PackEntry {
+            const jsonString = fs.readFileSync(filePath, "utf-8");
+            try {
+                return JSON.parse(jsonString);
+            } catch (error) {
+                if (error instanceof Error) {
+                    throw PackError(`File ${filePath} could not be parsed: ${error.message}`);
+                }
+                throw error;
+            }
+        }
+
         const packDirs = fs.readdirSync(this.dataPath);
 
         for (const packDir of packDirs) {
@@ -839,17 +845,26 @@ class PackExtractor {
 
             const filePaths = getFilesRecursively(path.resolve(this.dataPath, packDir));
             for (const filePath of filePaths) {
-                const jsonString = fs.readFileSync(filePath, "utf-8");
-                const source = (() => {
-                    try {
-                        return JSON.parse(jsonString);
-                    } catch (error) {
-                        if (error instanceof Error) {
-                            throw PackError(`File at ${filePath} could not be parsed: ${error.message}`);
-                        }
-                    }
-                })();
-                packMap.set(source._id, source.name);
+                const source = parsePackEntrySource(filePath);
+                if (source._id) packMap.set(source._id, source.name);
+            }
+
+            // If the system is sf2e, also add the entries in the duplicates record to the map
+            if (this.systemId === "sf2e") {
+                const duplicateNames = duplicates.flatMap((group) => {
+                    return objectHasKey(group.entries, packDir) ? (group.entries[packDir] ?? []) : [];
+                });
+                // A mapping from slug to file path, used to lookup the file to duplicate
+                const pf2eFilePaths = R.mapToObj(getFilesRecursively(path.resolve("packs/pf2e", packDir)), (p) => [
+                    (p.split(path.sep)?.at(-1) ?? p).replace(".json", ""),
+                    p,
+                ]);
+                for (const name of duplicateNames) {
+                    const pf2ePath = pf2eFilePaths[sluggify(name)];
+                    if (!pf2ePath) throw PackError(`Duplicate item ${name} could not be found in pf2e pack ${packDir}`);
+                    const source = parsePackEntrySource(pf2ePath);
+                    if (source._id) packMap.set(source._id, source.name);
+                }
             }
         }
     }

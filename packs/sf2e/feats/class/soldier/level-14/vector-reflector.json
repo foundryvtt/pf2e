@@ -1,0 +1,62 @@
+{
+    "_id": "9OSyLqbvtNU028ae",
+    "folder": "pUPqjTE8HAvTUmL3",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Vector Reflector",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> A @UUID[Compendium.sf2e.conditions.Item.Suppressed]{Suppressed} creature damages you with a Strike.</p><hr /><p>Your armor absorbs some of the kinetic energy of your opponent's attack. You gain resistance equal to half your level against the triggering damage (or equal to your level if you have the @UUID[Compendium.sf2e.class-features.Item.Armor Storm]{Armor Storm} fighting style). If the triggering creature is within reach, attempt an Athletics check to @UUID[Compendium.sf2e.actions.Item.Shove] it.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "vector-reflector"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "vector-reflector"
+                ],
+                "type": "all-damage",
+                "value": "floor(@actor.level / 2)"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "feature:armor-storm",
+                    "vector-reflector"
+                ],
+                "type": "all-damage",
+                "value": "@actor.level"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

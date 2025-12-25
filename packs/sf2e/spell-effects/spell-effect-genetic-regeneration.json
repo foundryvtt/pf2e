@@ -1,0 +1,47 @@
+{
+    "_id": "4cFhz9knnHUHj3wi",
+    "img": "systems/sf2e/icons/abilities/green-dna-helix.webp",
+    "name": "Spell Effect: Genetic Regeneration",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Genetic Regeneration]{Genetic Regeneration}</p>\n<p>You gain regeneration.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "deactivatedBy": [
+                    "fire",
+                    "acid"
+                ],
+                "key": "FastHealing",
+                "type": "regeneration",
+                "value": "(2*@item.level) - 1"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

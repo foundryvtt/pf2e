@@ -1,0 +1,119 @@
+{
+    "_id": "OCWsQQ95P7ecp7Rn",
+    "folder": "9feZwdAlvdlYJ3gO",
+    "img": "systems/sf2e/icons/abilities/blue-jet.webp",
+    "name": "Sniper",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You specialize in targeting foes from far away and attacking while unseen. Whether you're peeking around a corner, perching on a distant rooftop, or aiming from the back line of a squad formation, you favor sniper rifles and prefer to line up the perfect shot rather than rush into combat. You're trained in Stealth. You gain a skill feat for Stealth.</p>\n<p><strong>Exploit:</strong> You ignore the unwieldy and volley trait of guns you wield belonging to the sniper group. You gain one of the following operative feats as a bonus feat: @UUID[Compendium.sf2e.feats.Item.Keep Them in Your Sights]{Keep Them in Your Sights} or @UUID[Compendium.sf2e.feats.Item.Scope Sight]{Scope Sight}.</p>\n<p><strong>Enhanced Exploit:</strong> If you fail your first ranged Strike against your mark using a weapon in the sniper weapon group, you Reload your sniper weapon as a free action. The Strike doesn't count toward your multiple attack penalty.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.stealth.rank",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:category:skill",
+                        "item:level:1"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SkillFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.sf2e.feats.Item.Keep Them in Your Sights"
+                    },
+                    {
+                        "value": "Compendium.sf2e.feats.Item.Scope Sight"
+                    }
+                ],
+                "flag": "bonusFeat",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:operative"
+                ]
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:operative"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.bonusFeat}"
+            },
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:aim"
+                    }
+                ],
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Operative.Specialization.Sniper.EnhancedExploit.ToggleLabel",
+                "option": "sniper-first-mark-strike",
+                "predicate": [
+                    "class:operative"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure",
+                    "failure"
+                ],
+                "predicate": [
+                    "target:mark:aim",
+                    "sniper-first-mark-strike",
+                    "class:operative"
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "text": "SF2E.SpecificRule.Operative.Specialization.Sniper.EnhancedExploit.Note",
+                "title": "SF2E.SpecificRule.Operative.EnhancedExploit.Label"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "operative-specialization"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

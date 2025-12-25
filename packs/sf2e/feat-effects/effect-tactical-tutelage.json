@@ -1,0 +1,52 @@
+{
+    "_id": "n33jAVZDDWQ7ifvl",
+    "img": "icons/magic/perception/eye-ringed-glow-angry-small-teal.webp",
+    "name": "Effect: Tactical Tutelage",
+    "system": {
+        "description": {
+            "value": "<p>Your deal an additional 2d4 precision damage and reduce the target's cover bonus to AC by 1.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Second Edition Playtest Adventure: Empires Devoured"
+        },
+        "rules": [
+            {
+                "category": "precision",
+                "diceNumber": 2,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            },
+            {
+                "key": "EphemeralEffect",
+                "selectors": [
+                    "{item|flags.pf2e.rulesSelections.mobileAim}-attack-roll"
+                ],
+                "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Mobile Aim (Ephemeral)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

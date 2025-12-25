@@ -1,0 +1,67 @@
+{
+    "_id": "HSKJ1VkPdlMkcqzc",
+    "folder": "9feZwdAlvdlYJ3gO",
+    "img": "systems/sf2e/icons/abilities/green-mech-blade.webp",
+    "name": "Skirmisher",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You specialize in close-quarters missions that require you to operate in crowded or tight spaces, such as inside buildings or vehicles, down narrow alleys, or in busy downtown streets. Whether you're a mugger, bodyguard, assassin, or urban mercenary, you favor pistols and can use them efficiently in tight spaces. You're trained in Acrobatics. You gain a skill feat for Acrobatics.</p>\n<p><strong>Exploit:</strong> You're trained to fight in close combat using pistols. Your ranged Strikes with one-handed ranged weapons don't trigger reactions that are triggered by a ranged attack.</p>\n<p><strong>Enhanced Exploit:</strong> Your point-blank shots are particularly deadly. When you make a successful Strike against an adjacent enemy with a one-handed ranged weapon, you calculate the damage as if the lowest-rolled weapon damage die for the attack had the maximum result instead. At 17th level, the two lowest-rolled damage dice increase to the maximum result.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.acrobatics.rank",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:category:skill",
+                        "item:level:1"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SkillFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "operative-specialization"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

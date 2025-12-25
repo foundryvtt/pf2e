@@ -1,0 +1,75 @@
+{
+    "_id": "tWyb6ii74p8TpjLJ",
+    "folder": "6MTWumQFoXrDW8Jx",
+    "img": "systems/sf2e/icons/default-icons/background.svg",
+    "name": "Society Scout",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "int"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>As a Starfinder, your motto is explore, report, cooperate! Your goal is to discover and explore new places in distant space, uncover secrets of lost civilizations, and learn more about the galaxy around you by getting out there and adventuring.</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in either the Piloting or Society skill and a Lore skill of your choice. You gain the @UUID[Compendium.sf2e.feats.Item.Multilingual] skill feat.</p>"
+        },
+        "items": {
+            "s7EvW": {
+                "img": "icons/sundries/books/book-red-exclamation.webp",
+                "level": 1,
+                "name": "Multilingual",
+                "uuid": "Compendium.sf2e.feats.Item.Multilingual"
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Guilt of the Grave World"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "SF2E.Skill.Piloting",
+                        "value": "society"
+                    },
+                    {
+                        "label": "PF2E.Skill.Society",
+                        "value": "society"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
+        "trainedSkills": {
+            "lore": [],
+            "value": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

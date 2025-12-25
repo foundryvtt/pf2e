@@ -1,0 +1,174 @@
+{
+    "_id": "VKSOvJQMwUby4fba",
+    "img": "systems/sf2e/icons/equipment/other/med-kit.webp",
+    "name": "Effect: Medpatch",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.equipment.Item.Medpatch (Commercial)]{Medpatch (Commercial)}, @UUID[Compendium.sf2e.equipment.Item.Medpatch (Tactical)]{Medpatch (Tactical)}, @UUID[Compendium.sf2e.equipment.Item.Medpatch (Advanced)]{Medpatch (Advanced)}, @UUID[Compendium.sf2e.equipment.Item.Medpatch (Superior)]{Medpatch (Superior)}, @UUID[Compendium.sf2e.equipment.Item.Medpatch (Elite)]{Medpatch (Elite)}, @UUID[Compendium.sf2e.equipment.Item.Medpatch (Ultimate)]{Medpatch (Ultimate)}</p>\n<p>You gain an item bonus to saving throws against diseases and poisons.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:medpatch-commercial"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Medpatch (Commercial)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:medpatch-tactical"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Medpatch (Tactical)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:medpatch-advanced"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Medpatch (Advanced)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:medpatch-superior"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Medpatch (Superior)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:medpatch-elite"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Medpatch (Elite)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:medpatch-ultimate"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Medpatch (Ultimate)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "medpatch"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "medpatch:medpatch-commercial",
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "medpatch",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "medpatch:medpatch-advanced",
+                            "medpatch:medpatch-superior"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "medpatch",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "medpatch:medpatch-elite"
+                ],
+                "selector": "saving-throw",
+                "slug": "medpatch",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "medpatch:medpatch-ultimate"
+                ],
+                "selector": "saving-throw",
+                "slug": "medpatch",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

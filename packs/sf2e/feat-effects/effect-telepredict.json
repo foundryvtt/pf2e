@@ -1,0 +1,82 @@
+{
+    "_id": "V2RD3qNBmkrzXb4K",
+    "img": "icons/commodities/biological/organ-brain-red.webp",
+    "name": "Effect: Telepredict",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Telepredict]{Telepredict}</p>\n<p>You gain a +1 circumstance bonus to Deception checks and Intimidation checks targeting the creature, and to saves against the target's effects that have the fear trait. If you deal mental damage to the target, increase this bonus to +2.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "telepredict"
+            },
+            {
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Contemplative.Telepredict.Toggle",
+                "option": "telepredict-mental-damage",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:mark:telepredict",
+                            {
+                                "and": [
+                                    "origin:mark:telepredict",
+                                    "item:trait:fear"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": [
+                    "deception",
+                    "intimidation",
+                    "saving-throw"
+                ],
+                "slug": "telepredict",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "telepredict-mental-damage"
+                ],
+                "selector": "all",
+                "slug": "telepredict",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

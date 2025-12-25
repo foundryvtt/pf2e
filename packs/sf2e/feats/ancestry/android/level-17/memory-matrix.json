@@ -1,0 +1,57 @@
+{
+    "_id": "bw1u57AB9M5wA4eS",
+    "folder": "nbk1Vb4LIX3bblQM",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Memory Matrix",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You refuse to surrender your autonomy and have erected mental bulwarks and technological protocols to safeguard your mind and memories. Whenever you attempt a Will save against a spell or effect that would give you the @UUID[Compendium.sf2e.conditions.Item.Confused] or @UUID[Compendium.sf2e.conditions.Item.Controlled] condition, roll that save twice and use the higher result (this is a fortune effect). If you would start your turn confused or controlled, you can immediately attempt a @Check[flat|dc:5]. On a success, you fight that mental control, becoming @UUID[Compendium.sf2e.conditions.Item.Paralyzed] until the end of your turn rather than acting against your will. If you roll a 20 on this flat check, you immediately end the confused or controlled condition.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:confused",
+                            "inflicts:controlled"
+                        ]
+                    }
+                ],
+                "removeAfterRoll": false,
+                "selector": "will"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "android"
+            ]
+        }
+    },
+    "type": "feat"
+}

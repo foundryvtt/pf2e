@@ -1,0 +1,124 @@
+{
+    "_id": "4Yxq6DxG3K9f41zK",
+    "folder": "N0R6xAuGx7y5GV9c",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Iomedae's Sword",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've trained to fight the ancient enemies of lost Golarion. When you deal damage to a demon, devil, dragon, or undead with a weapon, you deal persistent spirit damage with the holy trait equal to the number of weapon damage dice. When you deal damage to one of these creatures with a spell cast from a spell slot that does not have a duration, you deal persistent spirit damage with the holy trait equal to the spell's rank.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Knight of Golarion Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "damageCategory": "persistent",
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:demon",
+                            "target:trait:devil",
+                            "target:trait:dragon",
+                            "target:trait:undead"
+                        ]
+                    }
+                ],
+                "selector": "weapon-damage",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:demon",
+                            "target:trait:devil",
+                            "target:trait:dragon",
+                            "target:trait:undead"
+                        ]
+                    }
+                ],
+                "property": "weapon-traits",
+                "value": "holy"
+            },
+            {
+                "damageCategory": "persistent",
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:duration:0",
+                    "damaging-effect",
+                    {
+                        "nor": [
+                            "item:trait:cantrip",
+                            "item:trait:focus"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "target:trait:demon",
+                            "target:trait:devil",
+                            "target:trait:dragon",
+                            "target:trait:undead"
+                        ]
+                    }
+                ],
+                "selector": "spell-damage",
+                "value": "@spell.level"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:duration:0",
+                    "damaging-effect",
+                    {
+                        "or": [
+                            "target:trait:demon",
+                            "target:trait:devil",
+                            "target:trait:dragon",
+                            "target:trait:undead"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "holy"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

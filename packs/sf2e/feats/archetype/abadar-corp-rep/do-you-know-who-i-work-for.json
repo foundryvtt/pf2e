@@ -1,0 +1,68 @@
+{
+    "_id": "nbwTRNqbVwy7io1d",
+    "folder": "8JqgfayONankEDCo",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Do You Know Who I Work For?",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>Throwing your corporation's name around adds weight to your threats. When you use Intimidation to @UUID[Compendium.sf2e.actions.Item.Coerce] or @UUID[Compendium.sf2e.actions.Item.Demoralize] a target who knows about your corporation, a success becomes a critical success.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "AbadarCorp Rep Dedication"
+                },
+                {
+                    "value": "expert in Intimidation"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "domain": "intimidation",
+                "key": "RollOption",
+                "option": "do-you-know-who-i-work-for",
+                "toggleable": true
+            },
+            {
+                "adjustments": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:demoralize",
+                    "do-you-know-who-i-work-for"
+                ],
+                "selector": "intimidation"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

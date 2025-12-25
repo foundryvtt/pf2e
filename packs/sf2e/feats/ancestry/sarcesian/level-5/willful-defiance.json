@@ -1,0 +1,76 @@
+{
+    "_id": "NUZClDNinM6oVgJN",
+    "folder": "d49gGzET22L9gyE2",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Willful Defiance",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You loudly proclaim your opposition to a single creature you're aware of within 60 feet. You gain a +1 circumstance bonus to Armor Class and saving throws against the selected creature's attacks, spells, and other effects for 1 minute. During that time, if you would fail or critically fail a saving throw against the selected creature, you can choose to reroll the failed save. If you do, after rerolling, Willful Defiance ends.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Sarcesian.WillfulDefiance.Label",
+                "option": "origin:mark:willful-defiance",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:mark:willful-defiance"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:mark:willful-defiance"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Willful Defiance",
+            "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Willful Defiance"
+        },
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fortune"
+            ]
+        }
+    },
+    "type": "feat"
+}

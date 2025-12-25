@@ -1,0 +1,55 @@
+{
+    "_id": "Ng1FaH8JnQWwuA6g",
+    "folder": "mOIMElPxY4JeuDAW",
+    "img": "systems/sf2e/icons/equipment/other/dice.webp",
+    "name": "Legendary Improvisation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your improvisation skills have dramatically improved. @UUID[Compendium.sf2e.class-features.Item.Improvised Mastery]{Improvised Mastery} triggers on skill checks using a skill that you don't have legendary proficiency in, rather than master proficiency, and it grants you legendary proficiency for the triggering check, rather than master proficiency.</p>"
+        },
+        "level": {
+            "value": 15
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:improvised-mastery"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

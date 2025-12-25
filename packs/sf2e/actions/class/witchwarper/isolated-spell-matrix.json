@@ -1,0 +1,59 @@
+{
+    "_id": "E7HvICcH9CRAVzGc",
+    "folder": "mdKxIDRDQ6lmPGBA",
+    "img": "systems/sf2e/icons/actions/OneAction.webp",
+    "name": "Isolated Spell Matrix",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>If the next action you use is to Cast a Spell that has a range, increase the spell's range to 100 feet. That spell only affects targets inside your quantum field, and the area of the spell doesn't extend beyond your quantum field.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "isolated-spell-matrix"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:isolated-spell-matrix"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "value": [
+                "spellshape"
+            ]
+        }
+    },
+    "type": "action"
+}

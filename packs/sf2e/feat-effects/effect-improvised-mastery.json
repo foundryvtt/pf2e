@@ -1,0 +1,95 @@
+{
+    "_id": "lRXqkQTrtVRqqDWH",
+    "img": "systems/sf2e/icons/abilities/blue-emblem.webp",
+    "name": "Effect: Improvised Mastery",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.actions.Item.Improvised Mastery]{Improvised Mastery}</p>\n<p>You gain master proficiency in the selected skill, or legendary proficiency if you have legendary improvisation.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        {
+                                            "lte": [
+                                                "skill:{choice|value}:rank",
+                                                2
+                                            ]
+                                        },
+                                        {
+                                            "lte": [
+                                                "self:level",
+                                                14
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        {
+                                            "lte": [
+                                                "skill:{choice|value}:rank",
+                                                3
+                                            ]
+                                        },
+                                        {
+                                            "gte": [
+                                                "self:level",
+                                                15
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": "ternary(gte(@actor.level,15),4,3)"
+            },
+            {
+                "key": "RollOption",
+                "option": "improvised-mastery",
+                "removeAfterRoll": true
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

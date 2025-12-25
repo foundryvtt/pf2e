@@ -1,0 +1,63 @@
+{
+    "_id": "aQoNgLD8WhthMFyP",
+    "folder": "aAH1LlIebYB8dpuy",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Use the Scenery",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Performing for an audience has made you aware of your surroundings. You're always looking for ways to use the scenery to your advantage, setting yourself up to show your best angle to the world—or hide it! You always gain an additional +1 status bonus when you @UUID[Compendium.sf2e.actions.Item.Take Cover].</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Guilt of the Grave World"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:cover"
+                    }
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "option": "use-the-scenery",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "use-the-scenery"
+                ],
+                "selector": [
+                    "ac"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

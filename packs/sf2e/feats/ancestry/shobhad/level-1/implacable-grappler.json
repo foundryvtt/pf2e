@@ -1,0 +1,58 @@
+{
+    "_id": "WuSl6BGTt02jRxe6",
+    "folder": "7c9RQP6Nf9g0Jczy",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Implacable Grappler",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You combine your impressive stature and additional limbs to become a fierce wrestler. You gain the @UUID[Compendium.sf2e.feats.Item.Titan Wrestler] skill feat and a +1 circumstance bonus to your Fortitude DC against @UUID[Compendium.sf2e.actions.Item.Grapple] or @UUID[Compendium.sf2e.bestiary-ability-glossary-srd.Item.Grab] attempts.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Athletics"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Invasion's Edge Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Titan Wrestler"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:grapple"
+                ],
+                "selector": "fortitude-dc",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

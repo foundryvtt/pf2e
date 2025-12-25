@@ -1,0 +1,74 @@
+{
+    "_id": "L9sq9ROk0QFil5wl",
+    "folder": "my6PDmYHQ4rBMvj1",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Pardon Me",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You distract your foes with a clever comment as you maneuver around them. You can use @Check[deception|against:will|options:action:tumble-through] instead of Acrobatics to @UUID[Compendium.sf2e.actions.Item.Tumble Through] using the target's Will DC instead of Reflex DC. When you successfully Tumble Through using Deception, the foe whose space you passed through is @UUID[Compendium.sf2e.conditions.Item.Suppressed]{Suppressed} until the end of its next turn.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Deception"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:tumble-through"
+                ],
+                "selector": "deception",
+                "text": "SF2E.SpecificRule.Envoy.PardonMe.Note",
+                "title": "{item|name}"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:tumble-through"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "mental"
+            ]
+        }
+    },
+    "type": "feat"
+}

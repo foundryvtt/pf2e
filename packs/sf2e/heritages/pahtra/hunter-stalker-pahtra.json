@@ -1,0 +1,47 @@
+{
+    "_id": "KgekeGih8FTo36Sc",
+    "folder": "nYMHl7Ooe3vUH1Jl",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Hunter-Stalker Pahtra",
+    "system": {
+        "ancestry": {
+            "name": "Pahtra",
+            "slug": "pahtra",
+            "uuid": "Compendium.sf2e.ancestries.Item.75TqHknsQuinDLjn"
+        },
+        "description": {
+            "value": "<p>You descend from a long line of hunters, and your fur is especially well suited to blending into multiple environments. As long as you're in a natural and undeveloped environment, you gain a +2 circumstance bonus to Stealth checks to @UUID[Compendium.sf2e.actions.Item.Hide] and @UUID[Compendium.sf2e.actions.Item.Sneak], to Survival checks to @UUID[Compendium.sf2e.actions.Item.Subsist], and to your Survival DC to @UUID[Compendium.sf2e.actions.Item.Cover Tracks].</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak",
+                            "action:subsist",
+                            "action:cover-tracks"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "stealth",
+                    "survival"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

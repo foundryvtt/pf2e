@@ -1,0 +1,52 @@
+{
+    "_id": "s0vrkx346PLPbP3R",
+    "folder": "NFifaGd7fLPIzFrc",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Bloody Wounds",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You know how to target your mark's vital spots, leaving bloody wounds. When you critically hit your mark, you deal persistent bleed damage to your mark equal to your number of @UUID[Compendium.sf2e.actions.Item.Aim]{Aim} damage dice.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "critical": true,
+                "damageType": "bleed",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:aim"
+                ],
+                "selector": "strike-damage",
+                "value": "@actor.flags.sf2e.operative.aim.diceNumber"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

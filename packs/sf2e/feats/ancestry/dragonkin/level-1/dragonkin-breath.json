@@ -1,0 +1,122 @@
+{
+    "_id": "PzfAk0BBtRviHW7E",
+    "folder": "OQyZNx7C5LCx3ZQE",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Dragonkin Breath",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your exhalations are infused with energy, like your dragon ancestors of old. You can exhale a @Template[type:cone|distance:15] that deals @Damage[ceil(@actor.level/2)d4[@actor.flags.pf2e.dragonkinBreath.damageType]|options:area-damage] damage (<code>@Check[reflex|against:class-spell|basic] </code>save against the higher of your class DC or spell DC). After using this attack, you can't use it again for [[/gmr 1d4 #Recharge it]]{1d4 rounds}. At 3rd level and every 2 levels thereafter, the damage increases by 1d4.</p><hr /><p><strong>Special</strong> When you select this feat, choose your breath's damage type and weapon group: acid (corrosive), bludgeoning (hammer), cold (cryo), electricity (shock), fire (flame), piercing (spear), slashing (knife), or sonic (sonic). This choice is permanent. This ability has the trait associated with the type of damage it deals.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|flags.pf2e.dragonkinBreath.damageType}"
+            },
+            {
+                "actorFlag": true,
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "Acid (Corrosive)",
+                        "value": {
+                            "damageType": "acid",
+                            "group": "corrosive"
+                        }
+                    },
+                    {
+                        "label": "Bludgeoning (Hammer)",
+                        "value": {
+                            "damageType": "bludgeoning",
+                            "group": "hammer"
+                        }
+                    },
+                    {
+                        "label": "Cold (Cryo)",
+                        "value": {
+                            "damageType": "cold",
+                            "group": "cryo"
+                        }
+                    },
+                    {
+                        "label": "Electricity (Shock)",
+                        "value": {
+                            "damageType": "electricity",
+                            "group": "shock"
+                        }
+                    },
+                    {
+                        "label": "Fire (Flame)",
+                        "value": {
+                            "damageType": "fire",
+                            "group": "flame"
+                        }
+                    },
+                    {
+                        "label": "Piercing (Spear)",
+                        "value": {
+                            "damageType": "piercing",
+                            "group": "spear"
+                        }
+                    },
+                    {
+                        "label": "Slashing (Knife)",
+                        "value": {
+                            "damageType": "slashing",
+                            "group": "knife"
+                        }
+                    },
+                    {
+                        "label": "Sonic (Sonic)",
+                        "value": {
+                            "damageType": "sonic",
+                            "group": "sonic"
+                        }
+                    }
+                ],
+                "flag": "dragonkinBreath",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DragonBreathWeapon",
+                "rollOption": "dragonkin-breath"
+            },
+            {
+                "key": "RollOption",
+                "option": "dragonkin-breath:{actor|flags.pf2e.dragonkinBreath.damageType}"
+            },
+            {
+                "key": "RollOption",
+                "option": "dragonkin-breath:{actor|flags.pf2e.dragonkinBreath.group}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,60 @@
+{
+    "_id": "llkEXzVjzZVl9lHW",
+    "folder": "DWQpqrnGOzizVcJ6",
+    "img": "icons/commodities/cloth/cloth-bolt-purple.webp",
+    "name": "Stagehand Elebrian",
+    "system": {
+        "ancestry": {
+            "name": "Elebrian",
+            "slug": "elebrian",
+            "uuid": "Compendium.sf2e.ancestries.Item.XKW1SziWusHoaCRd"
+        },
+        "description": {
+            "value": "<p>You love being on the other side of the camera. You've spent your formative years rigging scenes, hauling props, and making media magic as a stagehand in the Halls of the Living. You're either trained in Acrobatics and gain the @UUID[Compendium.sf2e.feats.Item.Steady Balance] skill feat, or you're trained in Athletics and gain the @UUID[Compendium.sf2e.feats.Item.Combat Climber] skill feat. If you would automatically become trained in your chosen skill (from your background or class, for example), you instead become trained in a skill of your choice.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Guilt of the Grave World"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Acrobatics",
+                        "value": {
+                            "feat": "Compendium.sf2e.feats.Item.Steady Balance",
+                            "skill": "acrobatics"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Athletics",
+                        "value": {
+                            "feat": "Compendium.sf2e.feats.Item.Combat Climber",
+                            "skill": "athletics"
+                        }
+                    }
+                ],
+                "flag": "stagehand",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.stagehand.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.stagehand.feat}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

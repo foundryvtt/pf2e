@@ -1,0 +1,75 @@
+{
+    "_id": "r8O7PCk2rsVBneWy",
+    "folder": "8pW9aXcHLw893WYN",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Talented Tracker",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your keen nose makes you an excellent tracker. You gain the trained proficiency rank in Survival. If you would automatically become trained in Survival (from your background of class, for example), you instead become trained in a skill of your choice. You gain a +1 circumstance bonus to Survival checks to <a class=\"content-link\" draggable=\"true\" data-link=\"\" data-uuid=\"Compendium.sf2e.actions.Item.EA5vuSgJfiHH7plD\" data-id=\"EA5vuSgJfiHH7plD\" data-type=\"Item\" data-pack=\"pf2e.actionspf2e\" data-tooltip=\"Ability Item\"><i class=\"fa-solid fa-person-running-fast\"></i>Track</a>. This bonus increases to +2 when tracking by scent. You also gain the <a class=\"content-link\" draggable=\"true\" data-link=\"\" data-uuid=\"Compendium.sf2e.feats.Item.urQZwmzg2kS53vd5\" data-id=\"urQZwmzg2kS53vd5\" data-type=\"Item\" data-pack=\"pf2e.feats-srd\" data-tooltip=\"Feat/Feature Item\"><i class=\"fa-solid fa-medal\"></i>Experienced Tracker</a> skill feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Track by scent",
+                "option": "talented-tracker-scent",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:track",
+                    {
+                        "not": "talented-tracker-scent"
+                    }
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Track by scent",
+                "predicate": [
+                    "action:track",
+                    "talented-tracker-scent"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Experienced Tracker"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,71 @@
+{
+    "_id": "kT8REROKKaXF2QK1",
+    "img": "icons/magic/fire/projectile-feathers-embers-gold.webp",
+    "name": "Spell Effect: Skyfire Wings (3rd-Rank)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Skyfire Wings]{Skyfire Wings}</p>\n<p>You gain a fly Speed equal to your Speed or 20 feet. Your wings are unarmed attacks that deal 1d8 fire damage and has the backswing, reach, and unarmed traits; On a critical hit, a target of your wing attack takes 2 persistent electricity damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "max(20,@actor.system.movement.speeds.land.value)"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "fire",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Wing",
+                "range": null,
+                "slug": "wing",
+                "traits": [
+                    "backswing",
+                    "reach",
+                    "unarmed"
+                ]
+            },
+            {
+                "critical": true,
+                "damageCategory": "persistent",
+                "damageType": "electricity",
+                "key": "FlatModifier",
+                "selector": "{item|id}-damage",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,65 @@
+{
+    "_id": "Bzf7PzuQDYPaqUPt",
+    "folder": "T2ffDGjgKB5GO1oN",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Masked",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your masked face prevents others from scrutinizing your appearance, and you've learned to leverage this uncertainty to your advantage in social situations. While your mouth is covered, increase the DC of any Perception check to @UUID[Compendium.sf2e.actions.Item.Sense Motive] against you by 2. You gain a +1 circumstance bonus to @UUID[Compendium.sf2e.actions.Item.Lie], make a @UUID[Compendium.sf2e.actions.Item.Request], or @UUID[Compendium.sf2e.actions.Item.Make an Impression].</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "deception-dc",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:lie",
+                            "action:request",
+                            "action:make-an-impression"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "deception",
+                    "diplomacy"
+                ],
+                "slug": "masked-circumstance",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

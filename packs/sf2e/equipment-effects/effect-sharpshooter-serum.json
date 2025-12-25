@@ -1,0 +1,94 @@
+{
+    "_id": "UB0yKVxoS0EBXyCO",
+    "img": "systems/sf2e/icons/equipment/other/syringe.webp",
+    "name": "Effect: Sharpshooter Serum",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.equipment.Item.Sharpshooter Serum (Commercial)]{Sharpshooter Serum (Commercial)}, @UUID[Compendium.sf2e.equipment.Item.Sharpshooter Serum (Tactical)]{Sharpshooter Serum (Tactical)}</p>\n<p>The circumstance bonus to AC your targets gain from cover against your ranged Strikes is reduced.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 5
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:sharpshooter-serum-commercial"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Sharpshooter Serum (Commercial)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "parent:origin:item"
+                                    },
+                                    "parent:origin:item:slug:sharpshooter-serum-tactical"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.sf2e.equipment.Item.Sharpshooter Serum (Tactical)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "sharpshooter-serum"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.sf2e.sharpshooterSerum.coverReduction",
+                "predicate": [
+                    "sharpshooter-serum:sharpshooter-serum-commercial"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.sf2e.sharpshooterSerum.coverReduction",
+                "predicate": [
+                    "sharpshooter-serum:sharpshooter-serum-tactical"
+                ],
+                "value": 2
+            },
+            {
+                "key": "EphemeralEffect",
+                "selectors": "ranged-strike-attack-roll",
+                "uuid": "Compendium.sf2e.equipment-effects.Item.Effect: Sharpshooter Serum (Reduce Cover)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

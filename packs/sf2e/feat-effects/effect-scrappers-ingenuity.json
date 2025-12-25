@@ -1,0 +1,68 @@
+{
+    "_id": "hcH7IdEjC2wUVfaK",
+    "img": "icons/commodities/tech/coil-steel.webp",
+    "name": "Effect: Scrapper's Ingenuity",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Scrapper's Ingenuity]{Scrapper's Ingenuity}</p>\n<p>You gain a circumstance bonus to your next Crafting check to Craft or Repair.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Invasion's Edge Player's Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": 1
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "SF2E.SpecificRule.Ikeshti.ScrappersIngenuity.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:craft",
+                            "action:repair"
+                        ]
+                    }
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "crafting",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.modifier"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

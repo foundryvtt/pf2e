@@ -1,0 +1,48 @@
+{
+    "_id": "lTUuHE9w3mP7Q9Y2",
+    "folder": "Zwoss9mM5RbGa6de",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Urban Shobhad",
+    "system": {
+        "ancestry": {
+            "name": "Shobhad",
+            "slug": "shobhad",
+            "uuid": "Compendium.sf2e.ancestries.Item.CURlEp5fEl0WJq9L"
+        },
+        "description": {
+            "value": "<p>You live in a city or other densely populated area and, after a lot of trial and error, have found your niche, becoming a productive citizen in equilibrium with your community. You gain the @UUID[Compendium.sf2e.feats.Item.Urban Survivalist]{Urban Survivalist} skill feat even if you aren't trained in Survival. You have a +2 circumstance bonus on any downtime checks you make to Craft or @UUID[Compendium.sf2e.actions.Item.Earn Income].</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Invasion's Edge Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Urban Survivalist"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:earn-income",
+                            "action:craft"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "skill-check"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,59 @@
+{
+    "_id": "JSuwtcZgbz3fkyVX",
+    "folder": "pUPqjTE8HAvTUmL3",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Scattering Fire",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your overwhelming onslaught scatters enemies like leaves in the wind. When you @UUID[Compendium.sf2e.feats.Item.Shoving Shot]{Shoving Shot}, all creatures in the area attempt the Fortitude save to avoid forced movement, rather than just your primary target.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Shoving Shot"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:shoving-shot"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

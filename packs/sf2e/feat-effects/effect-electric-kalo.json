@@ -1,0 +1,43 @@
+{
+    "_id": "xQvyfiOh05xK2A5A",
+    "img": "icons/magic/lightning/bolts-salvo-clouds-sky.webp",
+    "name": "Effect: Electric Kalo",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.heritages.Item.Electric Kalo]{Electric Kalo}</p>\n<p>You gain electricity resistance equal to half your level (minimum 1).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "electricity",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

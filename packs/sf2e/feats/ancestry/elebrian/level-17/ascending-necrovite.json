@@ -1,0 +1,63 @@
+{
+    "_id": "ZoiHVp984Kuanr5m",
+    "folder": "E0M0JGCbwvMeN93n",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Ascending Necrovite",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've reached the pinnacle of necrovite training available to living creatures. You've crafted an electroencephalon, a type of high-tech soul cage designed to preserve your existence, and you've begun your mystical preparations for your final transition into undeath. You gain void healing and immunity to death effects, disease, and poison. You gain resistance 5 to cold and physical damage. When you die, your soul immediately transfers to your electroencephalon.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Guilt of the Grave World"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.hp.negativeHealing",
+                "value": true
+            },
+            {
+                "key": "Immunity",
+                "type": [
+                    "death-effects",
+                    "disease",
+                    "poison"
+                ]
+            },
+            {
+                "key": "Resistance",
+                "type": [
+                    "cold",
+                    "physical"
+                ],
+                "value": 5
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

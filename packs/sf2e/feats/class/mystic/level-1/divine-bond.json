@@ -1,0 +1,117 @@
+{
+    "_id": "i98LKe4OVRfvo33P",
+    "folder": "AQLbxXWua4h6cVo1",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Divine Bond",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>As a disciple of a god, you wield some of their divine power. You become trained in the listed divine skill associated with the deity and add the listed cleric spells to your spell list and spell repertoire as signature spells. If you were already trained in the listed divine skill, you instead become trained in another skill of your choice. You become bound by that deity's anathema and can receive that deity's divine sanctification.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "connection with divine spellcasting, you worship a deity"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitHoly",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "deity:primary:sanctification:can:holy",
+                                    "deity:primary:sanctification:must:holy"
+                                ]
+                            }
+                        ],
+                        "value": "holy"
+                    },
+                    {
+                        "label": "PF2E.TraitUnholy",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "deity:primary:sanctification:can:unholy",
+                                    "deity:primary:sanctification:must:unholy"
+                                ]
+                            }
+                        ],
+                        "value": "unholy"
+                    },
+                    {
+                        "label": "PF2E.NoneOption",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "deity:primary:sanctification:must:holy",
+                                    "deity:primary:sanctification:must:unholy"
+                                ]
+                            }
+                        ],
+                        "value": "none"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "nor": [
+                            "sanctification:none",
+                            "sanctification:holy",
+                            "sanctification:unholy"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Sanctification",
+                "rollOption": "sanctification",
+                "slug": "sanctification"
+            },
+            {
+                "add": [
+                    "holy"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "sanctification:holy"
+                ]
+            },
+            {
+                "add": [
+                    "unholy"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "sanctification:unholy"
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

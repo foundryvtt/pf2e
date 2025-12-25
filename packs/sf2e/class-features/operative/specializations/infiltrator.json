@@ -1,0 +1,121 @@
+{
+    "_id": "u4hB3FGFJwGtjrZB",
+    "folder": "9feZwdAlvdlYJ3gO",
+    "img": "systems/sf2e/icons/abilities/blue-soldier.webp",
+    "name": "Infiltrator",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You specialize in bypassing security systems, hazards, traps, and other defenses. From hacking a computer system or cutting power to a building, to bypassing a biometric lock and cracking a secure vault, you're skilled at accessing locations without alerting security or tripping safeguards. You're trained in Computers. You gain a skill feat for Computers.</p>\n<p><strong>Exploit:</strong> Your tinkering causes technological items and creatures to experience glitches and malfunctions. You gain the @UUID[Compendium.sf2e.actions.Item.Sabotage]{Sabotage} action.</p>\n<p><strong>Enhanced Exploit:</strong> You can Sabotage as a free action whenever you critically hit a tech creature with a melee or ranged attack, targeting the triggering creature. You can Sabotage as a reaction whenever a tech creature or a creature using a tech weapon critically fails a melee attack roll against you, targeting the triggering creature or weapon.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.computers.rank",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:category:skill",
+                        "item:level:1"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SkillFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:operative",
+                            "feat:operative-exploit"
+                        ]
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.sf2e.actions.Item.Sabotage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:trait:tech",
+                    "class:operative",
+                    {
+                        "gte": [
+                            "self:level",
+                            9
+                        ]
+                    }
+                ],
+                "selector": "attack-roll",
+                "text": "SF2E.SpecificRule.Operative.Specialization.Infiltrator.EnhancedExploit.FreeActionNote",
+                "title": "SF2E.SpecificRule.Operative.EnhancedExploit.Label"
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "class:operative",
+                    {
+                        "gte": [
+                            "self:level",
+                            9
+                        ]
+                    },
+                    {
+                        "or": [
+                            "origin:trait:tech",
+                            "item:trait:tech"
+                        ]
+                    }
+                ],
+                "selectors": "melee-attack-roll",
+                "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Infiltrator Enhanced Exploit"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "operative-specialization"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -3,9 +3,9 @@ import yargs, { Argv } from "yargs";
 
 const argv = yargs(process.argv.slice(2)) as Argv<{ system: SystemId; json: boolean }>;
 const args = argv
-    .command("$0 [system]", "Build a system's (es)module", () => {
+    .command("$0 [system]", "Build a system's (es)modules", () => {
         argv.option("system", {
-            describe: "The FVTT system for which to build packs",
+            describe: "The FVTT system for which to build the modules",
             type: "string",
             choices: ["pf2e", "sf2e"],
             default: "pf2e",

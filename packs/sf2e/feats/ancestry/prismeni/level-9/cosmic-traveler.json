@@ -1,0 +1,57 @@
+{
+    "_id": "Xyf3tjm3nEliqaaf",
+    "folder": "Msfdq8bJd1ILdWd7",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Cosmic Traveler",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The Drift is your true home, and you can survive within it indefinitely. While you're in the Drift, you gain the cosmic trait, and you don't need to eat or drink. While you're in the Drift or a vacuum, you gain a fly Speed equal to your land Speed.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "terrain:drift",
+                    "terrain:vacuum"
+                ],
+                "selector": "fly",
+                "value": "@actor.system.movement.speeds.land.base"
+            },
+            {
+                "add": [
+                    "cosmic"
+                ],
+                "key": "ActorTraits",
+                "remove": []
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

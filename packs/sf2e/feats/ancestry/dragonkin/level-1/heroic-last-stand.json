@@ -1,0 +1,57 @@
+{
+    "_id": "a9ER2amvCuQEJODm",
+    "folder": "OQyZNx7C5LCx3ZQE",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Heroic Last Stand",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> You have less than one-quarter of your Hit Points remaining.</p><hr /><p>You fight fearlessly for your friends. You gain temporary Hit Points equal to your level for 1 minute. As long as you have these temporary Hit Points, you gain a +1 circumstance bonus to Will saves against fear effects and a +2 circumstance bonus to your Will DC against attempts to @UUID[Compendium.sf2e.actions.Item.Demoralize] you.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.dragonkin.heroicTempHp",
+                "value": "@actor.level"
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Heroic Last Stand",
+            "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Heroic Last Stand"
+        },
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "mental"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,80 @@
+{
+    "_id": "z0RLX3kWgdaILzmr",
+    "folder": "ZDlYqraCKLJqx4lx",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Quantum Aura",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You can become the nexus of the warped reality you create. Each time you use @UUID[Compendium.sf2e.actions.Item.Warp Reality]{Warp Reality} to activate your quantum field, you can choose for your quantum field to be an aura around you that moves with you. If you do, your Warp Reality action gains the aura trait, and the quantum field you create is a 10-foot-radius emanation.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "quantum-aura",
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:warp-reality"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:warp-reality"
+                ],
+                "property": "traits",
+                "value": "aura"
+            },
+            {
+                "effects": [],
+                "key": "Aura",
+                "predicate": [
+                    "quantum-aura"
+                ],
+                "radius": 10,
+                "slug": "warp-reality",
+                "traits": []
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

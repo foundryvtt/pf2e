@@ -1,0 +1,75 @@
+{
+    "_id": "uLZcelY6CTKJOOLU",
+    "folder": "iGJ5w709V0BUSGsQ",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Homing Mote",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've come to rely on ranged motes as much as you do your solar weapon. Triple the range increment of your solar flare. When you make a solar flare Strike against a target within your first range increment, you ignore the target's concealment and cover.</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "multiply",
+                "predicate": [
+                    "item:tag:solar-flare"
+                ],
+                "priority": 121,
+                "property": "range-increment",
+                "value": 2
+            },
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "item:tag:solar-flare",
+                    "target:range-increment:1"
+                ],
+                "selectors": "ranged-strike-attack-roll",
+                "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Homing Mote"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "target:condition:concealed",
+                    "item:tag:solar-flare",
+                    "target:range-increment:1"
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "text": "SF2E.SpecificRule.Solarian.HomingMote.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

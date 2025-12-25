@@ -1,0 +1,70 @@
+{
+    "_id": "M9TRPDyDZI4dDFCJ",
+    "folder": "mOIMElPxY4JeuDAW",
+    "img": "systems/sf2e/icons/abilities/purple-eye.webp",
+    "name": "Hidden Agenda",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You've become an expert at veiling your schemes. When a creature rolls a critical success to @UUID[Compendium.sf2e.actions.Item.Sense Motive] against you, or a skill check to @UUID[Compendium.sf2e.actions.Item.Gather Information] or @UUID[Compendium.sf2e.actions.Item.Recall Knowledge] about your secrets, they get a success instead. When you roll a critical failure on a saving throw against an effect or ability that would read or reveal your thoughts, emotions, or intentions, magically or otherwise, you get a failure instead.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "domain": "saving-throw",
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Envoy.HiddenAgenda.ToggleLabel",
+                "option": "hidden-agenda-or-inscrutable",
+                "toggleable": true
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "hidden-agenda-or-inscrutable"
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    {
+                        "not": "feature:inscrutable"
+                    },
+                    "action:sense-motive"
+                ],
+                "selectors": "perception",
+                "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Hidden Agenda"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

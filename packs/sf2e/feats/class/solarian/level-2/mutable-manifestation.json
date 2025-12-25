@@ -1,0 +1,77 @@
+{
+    "_id": "LTkzlr9KZrVpbg09",
+    "folder": "RvZHNmqnYFSVQuYt",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Mutable Manifestation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>With practice, you can make on-the-fly battlefield adjustments to your weapon, letting you choose the perfect attack for a situation. When you @UUID[Compendium.sf2e.actions.Item.Attune]{Attune}, you can change the damage type of your solar weapon (but not its traits or weapon group), as if you'd @UUID[Compendium.sf2e.actions.Item.Re-Forge Solar Weapon]{Re-Forge Solar Weapon}.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:solar-weapon"
+                    }
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "option": "mutable-manifestation",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "value": "slashing"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:tag:solar-weapon",
+                    "mutable-manifestation"
+                ],
+                "property": "damage-type",
+                "value": "{item|flags.pf2e.rulesSelections.mutableManifestation}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

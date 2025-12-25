@@ -1,0 +1,63 @@
+{
+    "_id": "ZAiCSJ8Vg4vgJODt",
+    "folder": "WBjjjwVoDYQAYYe0",
+    "img": "systems/sf2e/icons/abilities/alien-eye.webp",
+    "name": "Operative's Edge",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You've developed keen awareness and attention to detail. Your proficiency rank for Perception increases to master. In addition, you gain a +2 circumstance bonus to initiative rolls, making you faster to react during combat. If you take the Incredible Initiative feat, your circumstance bonus to initiative rolls becomes +3 instead.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "initiative",
+                "slug": "operatives-edge",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "feat:incredible-initiative"
+                ],
+                "selector": "initiative",
+                "slug": "operatives-edge",
+                "value": 3
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "perception": {
+                    "attribute": null,
+                    "rank": 3
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,65 @@
+{
+    "_id": "cq0l8iIeN7FrvGKa",
+    "folder": "OQyZNx7C5LCx3ZQE",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Magical Guardian",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your desire to protect the people you care about from harm has kindled the spark of magic in your soul, and you can share that spark with others. You can cast the @UUID[Compendium.sf2e.spells.Item.Guidance] and @UUID[Compendium.sf2e.spells.Item.Forbidding Ward] cantrips as divine innate spells at will. A cantrip is heightened to a spell rank equal to half your level rounded up. Whenever you cast one of these spells on your bonded partner, you increase the range of the spell to 60 feet, rather than 30 feet.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:guidance",
+                    "item:slug:forbidding-ward",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:guidance",
+                    "item:slug:forbidding-ward",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:dragonkin"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

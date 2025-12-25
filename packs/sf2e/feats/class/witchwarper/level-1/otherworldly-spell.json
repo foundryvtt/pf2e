@@ -1,0 +1,73 @@
+{
+    "_id": "U6ZzAyFSTI3WuanL",
+    "folder": "Fduf4IoSHMYGy67L",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Otherworldly Spell",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your spell has an odd appearance or cosmetic effect. If the next action you use is to Cast a Spell, creatures with the ability to Cast that Spell don't automatically know what the spell is. In addition, creatures that witness your spellcasting take a –2 circumstance penalty to checks to identify the spell with @UUID[Compendium.sf2e.actions.Item.Recall Knowledge] and checks to counteract the spell and its effects.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "otherworldly-spell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:otherworldly-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "concentrate",
+                "manipulate",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "feat"
+}

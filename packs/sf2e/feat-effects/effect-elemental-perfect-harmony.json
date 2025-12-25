@@ -1,0 +1,104 @@
+{
+    "_id": "f92GBWr5lfx4tKot",
+    "img": "systems/sf2e/icons/abilities/green-sign.webp",
+    "name": "Effect: Elemental Perfect Harmony",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.class-features.Item.Elemental]{Elemental}</p>\n<p>You gain resistance to two elements chosen during the mystic's daily preparations.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 19
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Second Edition Playtest Rulebook"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "parent:origin:item:tag:elemental-perfect-harmony:air"
+                ],
+                "type": [
+                    "electricity",
+                    "sonic"
+                ],
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "parent:origin:item:tag:elemental-perfect-harmony:earth"
+                ],
+                "type": [
+                    "bludgeoning",
+                    "piercing"
+                ],
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "parent:origin:item:tag:elemental-perfect-harmony:fire"
+                ],
+                "type": [
+                    "cold",
+                    "fire"
+                ],
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "parent:origin:item:tag:elemental-perfect-harmony:metal"
+                ],
+                "type": [
+                    "acid",
+                    "slashing"
+                ],
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "parent:origin:item:tag:elemental-perfect-harmony:water"
+                ],
+                "type": [
+                    "bludgeoning",
+                    "cold"
+                ],
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "parent:origin:item:tag:elemental-perfect-harmony:wood"
+                ],
+                "type": [
+                    "piercing",
+                    "poison"
+                ],
+                "value": "floor(@actor.level/2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

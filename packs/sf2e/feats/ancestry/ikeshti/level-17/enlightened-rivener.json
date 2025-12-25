@@ -1,0 +1,63 @@
+{
+    "_id": "5mpJwD7j8InP3yCQ",
+    "folder": "YJBF6eisSndrDoDv",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Enlightened Rivener",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've mastered your anger and can maintain the rivener transformation indefinitely. You permanently become Large, and your reach increases by 5 feet. You can use Enter Rivener State once per hour, rather than once per day. When you Enter Rivener State, your size and reach don't increase, you don't become stupefied, and you don't become @UUID[Compendium.sf2e.conditions.Item.Fatigued] when the transformation ends. You still gain the bonus to damage.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Enter Rivener State"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Invasion's Edge Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "reach": {
+                    "override": 5
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:enter-rivener-state"
+                ],
+                "property": "frequency-per",
+                "value": "PT1H"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

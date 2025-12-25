@@ -1,0 +1,64 @@
+{
+    "_id": "ApPYlfqJs6pIDF4D",
+    "folder": "P1wu8p0R9xU2jqgy",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Shipborn Ysoki",
+    "system": {
+        "ancestry": {
+            "name": "Ratfolk",
+            "slug": "ratfolk",
+            "uuid": "Compendium.sf2e.ancestries.Item.P6PcVnCkh4XMdefw"
+        },
+        "description": {
+            "value": "<p>You were born aboard a starship, inside a space station's access corridors, or another similar environment. You gain the trained proficiency rank in Piloting. If you would automatically become trained in Piloting (from your background or class, for example), you become trained in another skill of your choice. If you get a success on a Piloting check to @UUID[Compendium.sf2e.actions.Item.Navigate]{Navigate} or @UUID[Compendium.sf2e.actions.Item.Plot Course]{Plot Course}, you get a critical success instead.</p>\n<p>You've adapted to maneuvering in close quarters. You gain a +1 circumstance bonus to Acrobatics checks to @UUID[Compendium.sf2e.actions.Item.Tumble Through] the spaces of Medium or larger enemies, and the presence of an enemy doesn't make the squares difficult terrain.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:tumble-through",
+                    {
+                        "gte": [
+                            "target:size",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:navigate",
+                            "action:plot-course"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.piloting.rank",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

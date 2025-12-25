@@ -1,0 +1,49 @@
+{
+    "_id": "gqFni8l7l9fJZ43V",
+    "folder": "YU15HnTz8g2RRPwN",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Defy Gravity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You break the bonds of gravity. While graviton-attuned, you gain a fly Speed equal to your Speed.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "stellar-attunement:graviton"
+                ],
+                "selector": "fly",
+                "value": "@actor.system.movement.speeds.land.value"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

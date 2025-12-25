@@ -1,0 +1,69 @@
+{
+    "_id": "ELkCf9SO5URWXP0R",
+    "folder": "wbekLvqa0Kjx6hUf",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Harmonic Convergence",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Dissonance grants you some clarity and a brief second wind in stressful situations. When you use an action with the disharmony trait, you gain a number of temporary Hit Points equal to half your level until the start of your next turn.</p>\n<p>@UUID[Compendium.sf2e.feat-effects.Item.Effect: Harmonic Convergence]{Effect: Harmonic Convergence}</p>"
+        },
+        "level": {
+            "value": 16
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:disharmony"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:disharmony"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

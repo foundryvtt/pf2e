@@ -1,0 +1,139 @@
+{
+    "_id": "0KN1ZsFpc7ks9eB7",
+    "folder": "NJWNipWsF1UNHIqy",
+    "img": "icons/commodities/gems/pearl-swirl-teal.webp",
+    "name": "Graviton Crystal (Tactical)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>A graviton crystal increases the forces of gravity around your solar manifestations, accelerating its impact and possibly trapping foes within its gravity field. While graviton attuned, your solar weapon or solar flare deals an extra @Damage[1d6[untyped]] damage of your solar weapon's or flare's damage type. On a critical hit while you're graviton attuned, the target must succeed at a @Check[fortitude|dc:31] save or be @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 1} for 2 rounds.</p>\n<p>Additionally, when you hit an immobilized or suppressed creature with your solar weapon or solar flare, the target must succeed at a @Check[fortitude|dc:31] save or be knocked prone.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 14
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 45000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "SF2E.SpecificRule.Solarian.SolarFlare.Label",
+                        "value": "solar-flare"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Solarian.SolarWeapon.Label",
+                        "value": "solar-weapon"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Solarian.SolarWeapon.TwinLabel",
+                        "predicate": [
+                            "feat:twin-weapons"
+                        ],
+                        "value": "twin-solar-weapon"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "SF2E.SpecificRule.Prompt.SolarianWeapon",
+                "rollOption": "graviton-crystal-tactical"
+            },
+            {
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "stellar-attunement:graviton",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:slug:solar-weapon",
+                                    "graviton-crystal-tactical:solar-weapon"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:solar-flare",
+                                    "graviton-crystal-tactical:solar-flare"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:twin-solar-weapon",
+                                    "graviton-crystal-tactical:twin-solar-weapon"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "stellar-attunement:graviton",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:slug:solar-weapon",
+                                    "graviton-crystal-tactical:solar-weapon"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:solar-flare",
+                                    "graviton-crystal-tactical:solar-flare"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:twin-solar-weapon",
+                                    "graviton-crystal-tactical:twin-solar-weapon"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "text": "SF2E.SpecificRule.Equipment.SolarianCrystals.Graviton.Note.Tactical.CriticalHit",
+                "title": "SF2E.SpecificRule.Equipment.SolarianCrystals.Graviton.Title"
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "other"
+        }
+    },
+    "type": "equipment"
+}

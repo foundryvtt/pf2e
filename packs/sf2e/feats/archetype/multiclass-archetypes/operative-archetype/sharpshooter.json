@@ -1,0 +1,60 @@
+{
+    "_id": "KNAHp7MLPMso8K3d",
+    "folder": "wz7uxbY5ZEvecOCI",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Sharpshooter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your ranged Strikes against the target of your Aim using the required ranged weapon deal an additional 1d4 precision damage until the end of your turn. This damage increases to 2d4 at 6th level.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Operative Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.sf2e.operative.aim.diceNumber",
+                "priority": 60,
+                "value": "ternary(gte(@actor.level,5),2,1)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.operative.archetypeFeatCount",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

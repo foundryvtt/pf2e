@@ -1,0 +1,61 @@
+{
+    "_id": "KEoTccJlfKzMk19l",
+    "folder": "0MBmY0ZAzJKrKcYj",
+    "img": "systems/sf2e/icons/abilities/green-scythe-dipped-in-liquid.webp",
+    "name": "From the Shadows",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You prefer to direct your allies in subtle ways, without drawing much attention from foes. You might sneak in behind your bodyguards or support your team from a safe distance.</p>\n<p><strong>Leadership Skill</strong> Stealth</p>\n<p><strong>Leadership Perk</strong> You gain @UUID[Compendium.sf2e.feats.Item.Assurance]{Assurance (Stealth)} as a bonus feat.</p>\n<p><strong>Leadership Directive</strong> @UUID[Compendium.sf2e.actions.Item.Coordinated Ambush!]{Coordinated Ambush!}</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Coordinated Ambush!"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.stealth.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "assurance": "stealth"
+                },
+                "uuid": "Compendium.sf2e.feats.Item.Assurance"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "otherTags": [
+                "envoy-leadership-style"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

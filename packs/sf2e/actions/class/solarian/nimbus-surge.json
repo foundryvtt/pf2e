@@ -1,0 +1,76 @@
+{
+    "_id": "q7UDeO9Ko1EbPRWm",
+    "folder": "UwZefzAbVs0v3hbJ",
+    "img": "systems/sf2e/icons/actions/Reaction.webp",
+    "name": "Nimbus Surge",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Trigger</strong> A creature within your reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p><hr /><p>Your nimbus surges with energy, forcing an opening in your foe's defenses. Make a melee Strike against the triggering creature. This Strike doesn't count toward your multiple attack penalty, and your multiple attack penalty doesn't apply to this Strike.</p>\n<p><strong>Graviton-Attuned</strong> If the Strike is a critical success, the target must succeed at a @Check[fortitude|against:solarian] save against your class DC or become @UUID[Compendium.sf2e.conditions.Item.Enfeebled]{Enfeebled 1} until the end of its turn.</p>\n<p><strong>Photon-Attuned</strong> If the Strike is a critical success, the target must succeed at a @Check[fortitude|against:solarian] save against your class DC or become @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1} until the start of its turn.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    "stellar-attunement:unattuned"
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "option": "nimbus-surge",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "nimbus-surge",
+                    "stellar-attunement:graviton",
+                    {
+                        "or": [
+                            "class:solarian",
+                            "feat:solar-nimbus"
+                        ]
+                    }
+                ],
+                "selector": "melee-strike-attack-roll",
+                "text": "SF2E.SpecificRule.Solarian.NimbusSurge.GravitonNote",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "nimbus-surge",
+                    "stellar-attunement:photon",
+                    {
+                        "or": [
+                            "class:solarian",
+                            "feat:solar-nimbus"
+                        ]
+                    }
+                ],
+                "selector": "melee-strike-attack-roll",
+                "text": "SF2E.SpecificRule.Solarian.NimbusSurge.PhotonNote",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "action"
+}

@@ -1,0 +1,48 @@
+{
+    "_id": "4CW2vHPdjx9xDJVU",
+    "folder": "QZmNJ1IWcw3aM6Ow",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Plated Vesk",
+    "system": {
+        "ancestry": {
+            "name": "Vesk",
+            "slug": "vesk",
+            "uuid": "Compendium.sf2e.ancestries.Item.06FBb4UDg64S5AYI"
+        },
+        "description": {
+            "value": "<p>Your ancestors were the hardiest specimens of vesk, having traveled far and wide while enduring hostile environments. Your scales count as medium armor in the plate armor group. They grant a +3 item bonus to AC, have a Dex cap of +1, a check penalty of –2, and a Strength threshold of +3, and have the comfort and exposed traits. This item bonus increases to +4 at 5th level. You can wear a flight suit, but you can't wear other armor. You can etch armor runes onto your scales, but you can't install armor upgrades.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "flag": "platedVesk",
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.equipment.Item.Vesk Scales"
+            },
+            {
+                "itemId": "{item|flags.pf2e.itemGrants.platedVesk.id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    }
+                ],
+                "property": "ac-bonus",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

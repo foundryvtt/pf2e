@@ -1,0 +1,66 @@
+{
+    "_id": "kZ7qB7yZMRCdMad3",
+    "folder": "dZU6Qha5YEciS9PU",
+    "img": "icons/magic/light/explosion-star-large-orange-purple.webp",
+    "name": "Stellar Attunement",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>As a solarian, your existence cycles between the aspects of stars. You begin with two aspects: photon (the power of stars to emit heat, light, and plasma) and graviton (the power of stars to attract and imprison objects through gravity). At any time, you're considered graviton-attuned, photon-attuned, or unattuned. Many of your abilities have additional effects based on your current attunement, and some abilities swap your current state of attunement to another state.</p>\n<p>You gain the @UUID[Compendium.sf2e.actions.Item.Attune]{Attune} action.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "stellar-attunement",
+                "priority": 45,
+                "suboptions": [
+                    {
+                        "label": "SF2E.SpecificRule.Solarian.StellarAttunement.Graviton",
+                        "value": "graviton"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Solarian.StellarAttunement.Photon",
+                        "value": "photon"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Solarian.StellarAttunement.Unattuned",
+                        "value": "unattuned"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Attune"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

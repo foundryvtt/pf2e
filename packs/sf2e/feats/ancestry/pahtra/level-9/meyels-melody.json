@@ -1,0 +1,57 @@
+{
+    "_id": "6JNMOkqnVoRqkX80",
+    "folder": "eGFeg46AJl35v2TB",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Meyel's Melody",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Divine rhythm pulses through your blood, and your life is the music. You gain a +2 status bonus to Performance checks. In addition, you can use Performance to [[/act create-a-diversion skill=performance]]{Create a Diversion}, [[/act demoralize skill=performance]]{Demoralize}, or [[/act make-an-impression skill=performance]]{Make an Impression}. If you listen to music while resting, you regain a number of additional Hit Points equal to your level.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Meyel's chosen pahtra heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "performance",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.hp.recoveryAddend",
+                "value": "@actor.level"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

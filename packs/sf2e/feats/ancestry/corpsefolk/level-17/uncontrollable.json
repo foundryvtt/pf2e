@@ -1,0 +1,63 @@
+{
+    "_id": "5snnXHrqo5NSfQ4k",
+    "folder": "CVN8VwYBcc19Pu4d",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Uncontrollable",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You refuse to let anyone control you. Whenever you attempt a Will save against a spell or effect that would give you the @UUID[Compendium.sf2e.conditions.Item.Confused] or @UUID[Compendium.sf2e.conditions.Item.Controlled] condition, roll twice and use the higher result. If you would start your turn confused or controlled, you can immediately attempt a @Check[flat|dc:5]. On a success, you fight that mental control, becoming @UUID[Compendium.sf2e.conditions.Item.Paralyzed] until the end of your turn rather than acting against your will. If you roll a 20 on this check, you immediately end the confused or controlled condition.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Guilt of the Grave World"
+        },
+        "rules": [
+            {
+                "domain": "will",
+                "key": "RollOption",
+                "option": "uncontrollable",
+                "toggleable": true
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:confused",
+                            "inflicts:controlled",
+                            "uncontrollable"
+                        ]
+                    }
+                ],
+                "selector": "will"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fortune"
+            ]
+        }
+    },
+    "type": "feat"
+}

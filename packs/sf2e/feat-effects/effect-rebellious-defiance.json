@@ -1,0 +1,59 @@
+{
+    "_id": "NNBc9roYRnFmB3dF",
+    "img": "systems/sf2e/icons/abilities/blue-fist-in-the-air.webp",
+    "name": "Effect: Rebellious Defiance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.actions.Item.Rebellious Defiance]{Rebellious Defiance}</p>\n<p>You gain a +1 circumstance bonus on your attack rolls against the marked creature. You also get this bonus to saving throws against the attacks, spells, and effects of this creature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "rebellious-defiance"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:mark:rebellious-defiance",
+                            "origin:mark:rebellious-defiance"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "attack",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

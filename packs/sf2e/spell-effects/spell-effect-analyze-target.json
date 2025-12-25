@@ -1,0 +1,60 @@
+{
+    "_id": "7r6mw8H87SUaj9Tq",
+    "img": "systems/sf2e/icons/abilities/pink-target-sign.webp",
+    "name": "Spell Effect: Analyze Target",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Analyze Target]{Analyze Target}</p>\n<p>You gain a status bonus to Impersonate, Treat Wounds, and Recall Knowledge about a target.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "analyze-target",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "analyze-target",
+                    {
+                        "or": [
+                            "action:recall-knowledge",
+                            "action:treat-wounds",
+                            "action:impersonate"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": "ternary(gte(@item.level,6),3,ternary(gte(@item.level,3),2,1))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

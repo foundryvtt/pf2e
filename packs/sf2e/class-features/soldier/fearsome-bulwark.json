@@ -1,0 +1,60 @@
+{
+    "_id": "wz7AMXiqMxMdULHs",
+    "folder": "IGK9KhXfktRKGmLz",
+    "img": "systems/sf2e/icons/abilities/alien-eye.webp",
+    "name": "Fearsome Bulwark",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your sheer bulk terrifies foes, clearing a path for you on the battlefield. You can use your Constitution modifier instead of your Charisma modifier on Intimidation checks to @UUID[Compendium.sf2e.actions.Item.Coerce] or @UUID[Compendium.sf2e.actions.Item.Demoralize] and instead of your Strength modifier on Athletics checks to @UUID[Compendium.sf2e.actions.Item.Reposition] or @UUID[Compendium.sf2e.actions.Item.Shove].</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "ability": "con",
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:coerce",
+                            "action:demoralize",
+                            "action:reposition",
+                            "action:shove"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "athletics",
+                    "intimidation"
+                ],
+                "type": "ability"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,68 @@
+{
+    "_id": "nrBRVbQ8LvGO3HEm",
+    "folder": "iGJXNlZ39jFHOAPU",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Ancestral Physiology",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your time spent in another skin has allowed you to shape your own body into a weapon. You gain a feat associated with a chosen ancestry or heritage that grants an unarmed attack. You can select ancestry feats that include that feat as a prerequisite as if you were a member of that ancestry or heritage. You can use the unarmed attack only when you're transformed into a member of that ancestry.</p><hr /><p><strong>Special</strong> You can select this feat multiple times, choosing a different ancestry or feat each time.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "maxTakable": null,
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "filter": [
+                        {
+                            "not": "item:slug:{actor|system.details.ancestry.trait}"
+                        }
+                    ],
+                    "itemType": "ancestry",
+                    "slugsAsValues": true
+                },
+                "flag": "ancestry",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.AdoptedAncestry.Prompt"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.details.ancestry.adopted",
+                "value": "{item|flags.pf2e.rulesSelections.ancestry}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.details.ancestry.countsAs",
+                "value": "{item|flags.pf2e.rulesSelections.ancestry}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

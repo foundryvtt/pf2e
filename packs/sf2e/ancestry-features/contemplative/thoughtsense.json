@@ -1,0 +1,53 @@
+{
+    "_id": "HOYa3N9R5VLS1kvv",
+    "folder": "dHDDKb78TfHZtlba",
+    "img": "systems/sf2e/icons/features/classes/unleash-psyche.webp",
+    "name": "Thoughtsense",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>You gain thoughtsense as a vague sense with a range of 20 feet. This enables you to determine when a creature is within range, though this sense detects only thinking creatures; a creature that's unthinking or otherwise immune to mental effects can't be perceived using your thoughtsense. This doesn't give you the ability to read or understand their thoughts.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.contemplative.vagueThoughtsenseRange",
+                "value": 20
+            },
+            {
+                "acuity": "vague",
+                "key": "Sense",
+                "range": "@actor.flags.pf2e.contemplative.vagueThoughtsenseRange",
+                "selector": "thoughtsense"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

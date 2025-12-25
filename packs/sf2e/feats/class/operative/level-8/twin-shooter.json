@@ -1,0 +1,68 @@
+{
+    "_id": "HPmI5ITOpwvbWQCQ",
+    "folder": "uSgzGb4nJNol8O9D",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Twin Shooter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're especially dangerous while brandishing twin guns. As long as you're wielding two simple guns, both guns gain the agile trait.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Twin Draw"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "twin-shooter",
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:ranged",
+                    "item:category:simple",
+                    {
+                        "or": [
+                            "item:trait:analog",
+                            "item:trait:tech"
+                        ]
+                    },
+                    "twin-shooter"
+                ],
+                "property": "traits",
+                "value": "agile"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

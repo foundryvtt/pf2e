@@ -1,0 +1,55 @@
+{
+    "_id": "hE7UxbuJvB1PsB6x",
+    "folder": "UJ6KhiZtlD9mLRWT",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Dual Aim",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your sharpshooter skills improve. You can have two marks at a time instead of one. When you @UUID[Compendium.sf2e.actions.Item.Aim]{Aim}, you can select two marks, rather than one.</p>\n<p>@UUID[Compendium.sf2e.feat-effects.Item.Effect: Dual Aim]{Effect: Dual Aim}</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:aim"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,64 @@
+{
+    "_id": "bjgKWl3GbIywvJm6",
+    "folder": "FJ7D3VYLF8Vy3WmT",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Stellar Sarcesian",
+    "system": {
+        "ancestry": {
+            "name": "Sarcesian",
+            "slug": "sarcesian",
+            "uuid": "Compendium.sf2e.ancestries.Item.i1fnTVBTRYSqFY2c"
+        },
+        "description": {
+            "value": "<p>You have an intrinsic connection to the cosmos and can channel these stellar forces into magic. Choose one cantrip that has at least one of the following traits: darkness, light, vital, or void. You can cast this cantrip as an arcane innate spell at will. A cantrip is heightened to a spell rank equal to half your level rounded up.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:dark",
+                            "item:trait:light",
+                            "item:trait:vital",
+                            "item:trait:void"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:dark",
+                            "item:trait:light",
+                            "item:trait:vital",
+                            "item:trait:void"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:sarcesian"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,54 @@
+{
+    "_id": "LWYCoYVa9JiN5Cs6",
+    "folder": "BkUfoAGqvZkbhXgh",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Assimilated Astrazoan",
+    "system": {
+        "ancestry": {
+            "name": "Astrazoan",
+            "slug": "astrazoan",
+            "uuid": "Compendium.sf2e.ancestries.Item.3Wox3ai1kgji07FE"
+        },
+        "description": {
+            "value": "<p>Whether you were raised as a member of another species or became fully immersed in their cultures and traditions later, you have completely assimilated to another ancestry and feel as comfortable in that skin as in your natural form. Choose a common ancestry. You can select ancestry feats from the ancestry you chose, in addition to your character's own ancestry. You can select feats that require a physiological feature that you lack but can only benefit from those feats while you are in that ancestry's form; for example, an assimilated astrazoan who selects the shirren @UUID[Compendium.sf2e.feats.Item.Basic Insectile Flight]{Basic Insectile Flight} feat can only fly while in their shirren form.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "filter": [
+                        {
+                            "not": "item:slug:{actor|system.details.ancestry.trait}"
+                        }
+                    ],
+                    "itemType": "ancestry",
+                    "slugsAsValues": true
+                },
+                "flag": "ancestry",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.AdoptedAncestry.Prompt"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.details.ancestry.adopted",
+                "value": "{item|flags.pf2e.rulesSelections.ancestry}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.details.ancestry.countsAs",
+                "value": "{item|flags.pf2e.rulesSelections.ancestry}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,96 @@
+{
+    "_id": "8aGoy6Jaw4pDFZyN",
+    "folder": "E9vOhYgWG6OlL4df",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Space Pirate Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>As a plunder-seeking spacefarer, you become trained in Piloting, or become an expert in it if you were already trained. You have familiarity with all cutlasses, flails, rapiers, and weapons with the razing trait. For the purposes of proficiency, treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons. If you are at least expert, you gain that weapon's critical specialization effect.</p>\n<p>Additionally, you gain the @UUID[Compendium.sf2e.actions.Item.Holo-Roger]{Holo-Roger} action.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Intimidation"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:category:martial",
+                    {
+                        "or": [
+                            "item:base:phase-cutlass",
+                            "item:base:rapier",
+                            "item:group:flail",
+                            "item:trait:razing"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "sameAs": "simple"
+            },
+            {
+                "definition": [
+                    "item:category:advanced",
+                    {
+                        "or": [
+                            "item:base:phase-cutlass",
+                            "item:base:rapier",
+                            "item:group:flail",
+                            "item:trait:razing"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "sameAs": "martial"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:base:phase-cutlass",
+                            "item:base:rapier",
+                            "item:group:flail",
+                            "item:trait:razing"
+                        ]
+                    },
+                    "proficiency:expert"
+                ]
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Holo-Roger"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

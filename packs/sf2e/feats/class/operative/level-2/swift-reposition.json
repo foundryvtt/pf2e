@@ -1,0 +1,56 @@
+{
+    "_id": "D7txRQIC586uOZMd",
+    "folder": "dUge9P1UVgqBOrXl",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Swift Reposition",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You're about to roll a Reflex saving throw, but you haven't rolled yet.</p><hr /><p>Sensing danger, you can leap and twist your body away from the threat. You Step or @UUID[Compendium.sf2e.actions.Item.Leap] and gain a +2 circumstance bonus on your Reflex save. You must still roll the Reflex save even if this ability moves you out of range of the triggering effect.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "domain": "reflex",
+                "key": "RollOption",
+                "option": "swift-reposition",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "swift-reposition"
+                ],
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

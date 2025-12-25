@@ -1,0 +1,61 @@
+{
+    "_id": "RBWwGxsrxPBKi3X7",
+    "img": "systems/sf2e/icons/abilities/blue-arrow-up.webp",
+    "name": "Effect: Size Up",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Size Up]{Size Up}</p>\n<p>You mark a creature as your asset. You gain a +1 circumstance bonus to Deception, Diplomacy, Intimidation, and Perception checks against or in relation to your asset, and a +1 circumstance bonus to attempts to @UUID[Compendium.sf2e.actions.Item.Recall Knowledge] about your asset.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "asset"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:asset",
+                    {
+                        "or": [
+                            "action:recall-knowledge",
+                            "check:statistic:deception",
+                            "check:statistic:diplomacy",
+                            "check:statistic:intimidation",
+                            "check:statistic:perception"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "slug": "size-up",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

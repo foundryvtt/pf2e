@@ -1,0 +1,57 @@
+{
+    "_id": "p2buOu0jpzCHq7Yi",
+    "folder": "OudXPBNC7vz7ubf8",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Hug Master",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>A good, solid hug makes everything better, and you're bringing hugs to the battlefield. You gain the @UUID[Compendium.sf2e.feats.Item.Titan Wrestler] skill feat. Additionally, you gain a +1 circumstance bonus to Athletics checks to @UUID[Compendium.sf2e.actions.Item.Grapple] and to your Fortitude DC to avoid being Grappled.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:grapple"
+                ],
+                "selector": [
+                    "athletics",
+                    "fortitude"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Titan Wrestler"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

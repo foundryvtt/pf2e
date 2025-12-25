@@ -1,0 +1,72 @@
+{
+    "_id": "xF9qa9uFi1U5UEhs",
+    "folder": "cNoNcJEgh4ETIVVG",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Spectra Ascendant",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Whether through a quirk of your bloodline, the interference of powerful spectra, or Triune's blessing, your body has been flooded by the essence of the Drift, transforming you into a spectra. You cease aging. You gain darkvision, the cosmic trait, and a fly Speed equal to your land Speed. While you're in the Drift, your fly Speed is equal to double your land Speed. Additionally, you gain the @UUID[Compendium.sf2e.actions.Item.Cosmic Blast]{Cosmic Blast} action.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Cosmic Traveler"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Cosmic Blast"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "@actor.system.movement.speeds.land.base"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "terrain:drift",
+                    "terrain:vacuum"
+                ],
+                "selector": "fly",
+                "value": "@actor.system.movement.speeds.land.base*2"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {
+                "darkvision": {
+                    "range": null,
+                    "special": {
+                        "ancestry": false,
+                        "llv": false,
+                        "second": false
+                    }
+                }
+            },
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

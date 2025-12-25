@@ -1,0 +1,44 @@
+{
+    "_id": "DTDJDSro9YfgNuXi",
+    "folder": "0IjhzVXsysCNDj0i",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Star Marked Vlaka",
+    "system": {
+        "ancestry": {
+            "name": "Vlaka",
+            "slug": "vlaka",
+            "uuid": "Compendium.sf2e.ancestries.Item.mBsOLC7cRc7nkzV2"
+        },
+        "description": {
+            "value": "<p>You witnessed the miraculous rebirth of the dying star Sota. Your coat or eyes are marked with starbursts that shine with the light of the stars. With a moment's thought, you can cause these star markings to shed bright light in a 40-foot radius (and dim light to the next 40 feet). This light has the light and occult traits. You can spark or extinguish this light using a single action, which has the concentrate trait. You can't activate this ability when you're beyond the energy of a sun or stars, such as in the Drift or on another plane of existence where these celestial bodies don't exist.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "Shedding Light",
+                "option": "shed-light",
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "shed-light"
+                ],
+                "value": {
+                    "bright": 40,
+                    "dim": 80
+                }
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

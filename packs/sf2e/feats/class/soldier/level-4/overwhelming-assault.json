@@ -1,0 +1,73 @@
+{
+    "_id": "oxTOc7LL2FvpZaWy",
+    "folder": "utbL6uuTpymAdTr9",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Overwhelming Assault",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You overwhelm the defenses of suppressed foes. Your multiple attack penalty for attacks against suppressed targets is –4 (–3 with an agile weapon) on your second attack of the turn instead of –5, and –8 (–7 with an agile weapon) on your third and subsequent attacks of the turn instead of –10.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "MultipleAttackPenalty",
+                "predicate": [
+                    "target:condition:suppressed",
+                    {
+                        "not": "item:trait:agile"
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "value": -4
+            },
+            {
+                "key": "MultipleAttackPenalty",
+                "predicate": [
+                    "target:condition:suppressed",
+                    "item:trait:agile"
+                ],
+                "selector": "strike-attack-roll",
+                "value": -3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "downgrade",
+                "predicate": [
+                    "target:condition:suppressed",
+                    "item:trait:agile",
+                    "map:increases:2"
+                ],
+                "selector": "strike-attack-roll",
+                "slug": "multiple-attack-penalty",
+                "value": -7
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

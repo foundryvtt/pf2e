@@ -1,0 +1,84 @@
+{
+    "_id": "3SJtpZK58WKpC2SO",
+    "folder": "SQug2jaSWWnTs33r",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Infernal Bulwark",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Armor you wear gains the bulwark trait. You become trained in heavy armor, or become an expert in heavy armor if you were already trained. Your Hellknight regalia grants you resistance equal to half your level when you wear it, determined by your chosen Hellknight order.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Hellknight Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.ProficiencyLevel1",
+                        "predicate": [
+                            "defense:heavy:rank:0"
+                        ],
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.ProficiencyLevel2",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "defense:heavy:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    }
+                ],
+                "flag": "rank",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "Resistance",
+                "type": "{actor|flags.pf2e.hellknightOrderDamage}",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.heavy.rank",
+                "value": "@item.flags.pf2e.rulesSelections.rank"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,77 @@
+{
+    "_id": "OW2RzoTyDGm1tl0x",
+    "folder": "wz7uxbY5ZEvecOCI",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Gun Expert",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your proficiency ranks for simple and martial guns increase to expert.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Operative Dedication"
+                },
+                {
+                    "value": "expert in any kind of weapon or unarmed attack"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:ranged",
+                    {
+                        "or": [
+                            "item:category:martial",
+                            "item:category:simple"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:analog",
+                            "item:trait:tech"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.MartialProficiency.MartialAndSimpleGuns",
+                "slug": "martial-simple-guns",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.operative.archetypeFeatCount",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

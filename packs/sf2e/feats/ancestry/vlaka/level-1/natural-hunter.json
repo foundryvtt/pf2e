@@ -1,0 +1,116 @@
+{
+    "_id": "Wr07U9y4HdBXlS0M",
+    "folder": "8pW9aXcHLw893WYN",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Natural Hunter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have the keen instincts of a hunter and know to go for the throat. If you're a sharp-toothed vlaka, the damage you deal with your jaws increases to 1d8, and your jaws lose the finesse trait and gain the grapple trait. Otherwise, you gain a jaws unarmed attack that deals 1d4 piercing damage. Your jaws are in the brawling group and have the finesse and unarmed traits.</p>\n<p>In either case, whenever you score a critical hit with your jaws unarmed attack, your target takes 1 persistent bleed damage per weapon damage die, in addition to the other effects of a critical hit.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:slug:sharp-toothed-vlaka-jaws"
+                ],
+                "key": "AdjustStrike",
+                "mode": "remove",
+                "predicate": [
+                    "self:heritage:sharp-toothed-vlaka"
+                ],
+                "property": "weapon-traits",
+                "value": "finesse"
+            },
+            {
+                "definition": [
+                    "item:slug:sharp-toothed-vlaka-jaws"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "self:heritage:sharp-toothed-vlaka"
+                ],
+                "property": "weapon-traits",
+                "value": "grapple"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "self:heritage:sharp-toothed-vlaka"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "sharp-toothed-vlaka-jaws-damage"
+                ],
+                "value": 8
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.jaws",
+                "predicate": [
+                    {
+                        "not": "self:heritage:sharp-toothed-vlaka"
+                    }
+                ],
+                "range": null,
+                "slug": "natural-hunter-jaws",
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "critical": false,
+                "damageCategory": "precision",
+                "damageType": "bleed",
+                "key": "FlatModifier",
+                "predicate": [
+                    "check:outcome:critical-success"
+                ],
+                "selector": [
+                    "sharp-toothed-vlaka-jaws-damage",
+                    "natural-hunter-jaws-damage"
+                ],
+                "value": "@weapon.system.damage.dice"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

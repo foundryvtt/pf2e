@@ -1,0 +1,59 @@
+{
+    "_id": "7nogykxuNzdaRfnf",
+    "folder": "aTIFCeOaAtdBwJwj",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Stellar Rush",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You rush forward with a blast of stellar energy, getting into the thick of combat with ease. Stride twice. You gain a +10-foot circumstance bonus to your Speed during these moves.</p>\n<p><strong>Graviton-Attuned</strong> When you finish your Strides, enemies within 15 feet of you must attempt a @Check[fortitude|against:solarian|options:area-effect,forced-movement] save against your class DC. On a failure, they're pulled directly toward you, ending in an adjacent square if possible. You select the order these enemies are moved.</p>\n<p><strong>Photon-Attuned</strong> When you finish your Strides, you create a photon field in a @Template[type:burst|distance:15] centered on you. Until the start of your next turn, creatures outside the photon field are @UUID[Compendium.sf2e.conditions.Item.Concealed] to creatures inside the field.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    "stellar-attunement:unattuned"
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "option": "stellar-rush",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "stellar-rush"
+                ],
+                "selector": "land-speed",
+                "type": "circumstance",
+                "value": 10
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

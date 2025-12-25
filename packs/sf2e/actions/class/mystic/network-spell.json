@@ -1,0 +1,60 @@
+{
+    "_id": "XSMTalRsPwQ0beIE",
+    "folder": "rOZXNBZXm8qPmmH4",
+    "img": "systems/sf2e/icons/actions/OneAction.webp",
+    "name": "Network Spell",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>You channel your spell to manifest from one of your allies instead of yourself. If the next action you use is to Cast a Spell with an area, range, or target, the spell manifests from one of your bonded allies instead of yourself. Use the ally's space to determine the spell's source, range, and area of effect, but line of sight and line of effect must be met from both you and your ally when the spell is cast. While this might fool someone who only sees your ally, unless you're @UUID[Compendium.sf2e.conditions.Item.Hidden] or the spell has the subtle trait, any creature able to see both you and your ally can easily determine you're the source of the spell. If the spell has the subtle trait, you and your ally can Cast the Spell in a way that makes the ally appear to have cast it without that trait.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "network-spell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:network-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "value": [
+                "concentrate",
+                "spellshape"
+            ]
+        }
+    },
+    "type": "action"
+}

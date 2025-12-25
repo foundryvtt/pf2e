@@ -1,0 +1,42 @@
+{
+    "_id": "Ce9vzE3XWn0u5NcL",
+    "folder": "3Xr4i27d0hSRO1dK",
+    "img": "systems/pf2e/icons/actions/OneAction.webp",
+    "name": "Channel Draconic Essence",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You aren't channeling draconic essence and you're holding or wearing your draconic gift</p><hr /><p><strong>Effect</strong> You call down a portion of the magical essence of your draconic benefactor. A Medium spectral dragon that looks like your benefactor appears in any square within 30 feet. This spectral dragon can't be targeted by any attacks or spells and has no Hit Points, saving throws, or skills. It can occupy the same space as creatures and objects. While your spectral dragon is in your space, you gain a +1 status bonus to saves against sleep and paralysis.</p>\n<p>Channel Draconic Essence lasts until you Channel Draconic Essence again, you Dismiss the effect, the encounter ends, you fall @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or the spectral dragon is farther than 120 feet from you, whichever comes first.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|flags.pf2e.draconicBenefactor.tradition}"
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Channel Draconic Essence",
+            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Channel Draconic Essence"
+        },
+        "traits": {
+            "value": [
+                "concentrate"
+            ]
+        }
+    },
+    "type": "action"
+}

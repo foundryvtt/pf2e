@@ -1,0 +1,68 @@
+{
+    "_id": "kFLyIvFFZAa6A4xK",
+    "folder": "9DzgrrI9HDXpQ0Ws",
+    "img": "systems/sf2e/icons/default-icons/background.svg",
+    "name": "Brutaris Player",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "con",
+                    "str"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>The sound of a roaring crowd still sends your heart pumping as you recall your glory days as a brutaris player. Whether you retired successfully or were taken out of commission at the height of your career, you maintained your conditioning and are always ready for your next big game.</p>\n<p>Choose two attribute boosts. One must be to <strong>Strength</strong> or <strong>Constitution</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Athletics skill and the Sports Lore skill. You gain the @UUID[Compendium.sf2e.feats.Item.Quick Jump] or @UUID[Compendium.sf2e.feats.Item.Titan Wrestler] skill feat.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.sf2e.feats.Item.Quick Jump"
+                    },
+                    {
+                        "value": "Compendium.sf2e.feats.Item.Titan Wrestler"
+                    }
+                ],
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SkillFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Sports Lore"
+            ],
+            "value": [
+                "athletics"
+            ]
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "background"
+}

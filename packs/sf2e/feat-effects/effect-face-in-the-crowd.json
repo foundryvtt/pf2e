@@ -1,0 +1,79 @@
+{
+    "_id": "IaICLG7zwOV4OKgM",
+    "img": "systems/sf2e/icons/abilities/blue-alien-face.webp",
+    "name": "Effect: Face in the Crowd",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Face in the Crowd]{Face in the Crowd}</p>\n<p>You gain a +2 circumstance bonus on your Stealth check when in a crowd of at least 10 creatures or a +4 circumstance bonus when in a crowd of at least 100 creatures. If you're a master in Deception you only need 5 creatures to get these bonuses.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "At least 10 creatures",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:stealth:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "label": "At least 5 creatures",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:stealth:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "label": "At least 100 creatures",
+                        "value": 4
+                    }
+                ],
+                "flag": "crowdSizeBonus",
+                "key": "ChoiceSet",
+                "prompt": "Select a crowd size"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "stealth",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.crowdSizeBonus"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

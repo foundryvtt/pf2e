@@ -1,0 +1,63 @@
+{
+    "_id": "1HTIyZc7ZTqiGzMt",
+    "folder": "dZU6Qha5YEciS9PU",
+    "img": "icons/magic/light/orb-container-orange.webp",
+    "name": "Stellar Senses",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your careful training and honed senses give you increased awareness of your surroundings. Your proficiency rank for Perception increases to master. In addition, you gain a +2 circumstance bonus to initiative rolls, making you faster to react during combat. This bonus increases to +3 if you have the Incredible Initiative general feat.</p>"
+        },
+        "level": {
+            "value": 7
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "initiative",
+                "slug": "stellar-senses",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "feat:incredible-initiative"
+                ],
+                "selector": "initiative",
+                "slug": "stellar-senses",
+                "value": 3
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "perception": {
+                    "attribute": null,
+                    "rank": 3
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

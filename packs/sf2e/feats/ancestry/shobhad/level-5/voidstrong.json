@@ -1,0 +1,61 @@
+{
+    "_id": "4Q2shCcRIzCtDIdO",
+    "folder": "XGTEdzkQfvXbNPax",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Voidstrong",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your unbelievable resilience allows you to survive even in the vacuum of space—at least for a while. You can hold your breath for 10 minutes. You have cold resistance equal to half your level.</p><hr /><p><strong>Special</strong> If you have the glacierborn shobhad heritage, your cold resistance is instead equal to your level. If you have the offworld shobhad heritage, you additionally gain the @UUID[Compendium.sf2e.feats.Item.Breath Control] general feat.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Invasion's Edge Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "cold",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "heritage:glacierborn-shobhad"
+                ],
+                "type": "cold",
+                "value": "@actor.level"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "heritage:offworld-shobhad"
+                ],
+                "uuid": "Compendium.sf2e.feats.Item.Breath Control"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,72 @@
+{
+    "_id": "Er8wuOwAZN6cEOCU",
+    "folder": "Y0BgrTsSOzk2WrXk",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Psychic Constellation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You effortlessly juggle an assortment of gear with your telepathy, giving you the appearance of a solar cerebellum orbited by planetoid items. You gain a second set of telekinetic hands, per Mind Over Matter, granting a typical contemplative six hands total. While at least one of your telekinetic hands is empty, you can deflect incoming attacks, granting your fist attack the parry trait. You gain the @UUID[Compendium.sf2e.actions.Item.Eccentric Orbit]{Eccentric Orbit} free action.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Mind Over Matter"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "You have an empty Telekinetic Hand",
+                "option": "empty-telekinetic-hand",
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:fist",
+                    "empty-telekinetic-hand"
+                ],
+                "property": "traits",
+                "value": "parry"
+            },
+            {
+                "fist": true,
+                "img": "systems/sf2e/icons/features/classes/powerful-fist.webp",
+                "key": "Strike"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Eccentric Orbit"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

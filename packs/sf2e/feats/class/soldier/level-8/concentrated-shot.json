@@ -1,0 +1,58 @@
+{
+    "_id": "6AMH5DfG2cSz1tY0",
+    "folder": "SWuejic6AO5b0qCu",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Concentrated Shot",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You're wielding an automatic weapon.</p><hr /><p>Focusing your fire enables you to target an enemy for immediate destruction. Make a ranged Strike with an automatic weapon, expending three times the ammo and gaining a +4 circumstance bonus to damage. This bonus increases to +6 at 11th level and +8 at 15th level.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "concentrated-shot",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "concentrated-shot",
+                    "item:trait:automatic"
+                ],
+                "selector": "ranged-strike-damage",
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.level,15),8,ternary(gte(@actor.level,11),6,4))"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "flourish"
+            ]
+        }
+    },
+    "type": "feat"
+}

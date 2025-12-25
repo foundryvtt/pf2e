@@ -1,0 +1,82 @@
+{
+    "_id": "8E1y9iptQCmZDBHJ",
+    "folder": "IGK9KhXfktRKGmLz",
+    "img": "systems/sf2e/icons/abilities/yellow-tech-remnant.webp",
+    "name": "Walking Armory",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your endurance training empowers you to carry a load of heavy equipment. When determining your Strength for using armor, you can instead choose to use your Constitution modifier. If you already meet the Strength requirement for the armor you're wearing, reduce that armor's Bulk by 1 (to a minimum of 1).</p>\n<p>In addition, increase the amount of Bulk you can carry before becoming encumbered by half your Constitution modifier rounded up. Increase your maximum carried Bulk by your Constitution modifier.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "penalty:slug:armor-check-penalty",
+                    {
+                        "gte": [
+                            "attribute:con:mod",
+                            "armor:strength"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "suppress": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "penalty:slug:armor-speed-penalty",
+                    {
+                        "gte": [
+                            "attribute:con:mod",
+                            "armor:strength"
+                        ]
+                    }
+                ],
+                "selector": "speed",
+                "value": 5
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "inventory.bulk.encumberedAfterAddend",
+                "value": "ceil(@actor.system.abilities.con.mod/2)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "inventory.bulk.maxAddend",
+                "value": "@actor.system.abilities.con.mod"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

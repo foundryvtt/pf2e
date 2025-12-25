@@ -1,0 +1,79 @@
+{
+    "_id": "smtr0wluu4BChOoR",
+    "folder": "JlUS4L43QWp3cPhu",
+    "img": "icons/sundries/books/book-embossed-bound-brown.webp",
+    "name": "Pain Journal (Commercial)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>Your raw emotions empower the poems and phrases penned in this synthetic leather journal. After spending 1 day writing in your pain journal, select Diplomacy, Intimidation, or Performance. Once a skill is selected for a pain journal, it can't be changed. Reading directly from the journal harnesses your painful memories, projects your emotions, and gives you a +1 item bonus to checks using the selected skill.</p>\n<p><strong>Activate—Painful Memory</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You recite a poem of utter anguish to spread your misery to another creature, casting a 3rd-rank @UUID[Compendium.sf2e.spells.Item.Share Pain]{Share Pain} (DC 23).</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 7
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 3333
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "value": "diplomacy"
+                    },
+                    {
+                        "label": "PF2E.Skill.Crafting",
+                        "value": "intimidation"
+                    },
+                    {
+                        "label": "PF2E.Skill.Performance",
+                        "value": "performance"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.skill}",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "invested",
+                "magical",
+                "tech"
+            ]
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        }
+    },
+    "type": "equipment"
+}

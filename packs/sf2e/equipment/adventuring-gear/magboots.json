@@ -1,0 +1,89 @@
+{
+    "_id": "7CMMrOsOmHPKffsB",
+    "folder": "cJoNKs2FMCJkyEDK",
+    "img": "icons/equipment/feet/boots-plate-pointed.webp",
+    "name": "Magboots",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>Magboots can be activated or deactivated with an Interact action. While active, they grant you a +1 item bonus to Athletics checks to Climb metal surfaces as well as a +1 item bonus to your Fortitude or Reflex DC against attempts to @UUID[Compendium.sf2e.actions.Item.Reposition], @UUID[Compendium.sf2e.actions.Item.Shove], or @UUID[Compendium.sf2e.actions.Item.Trip] you when you're standing on a metal surface. In areas of zero gravity, while wearing a pair of magboots, you can move your Speed across metal surfaces and don't gain the untethered condition.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 2
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "sp": 350
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "magboots",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Magboots - climb metal surfaces",
+                "predicate": [
+                    "action:climb",
+                    "magboots"
+                ],
+                "selector": "athletics",
+                "slug": "magboots-climb-athletics",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "magboots",
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip",
+                            "action:reposition"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude-dc",
+                    "reflex-dc"
+                ],
+                "slug": "magboots-dc",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tech"
+            ]
+        },
+        "usage": {
+            "value": "wornshoes"
+        }
+    },
+    "type": "equipment"
+}

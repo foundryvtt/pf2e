@@ -1,0 +1,58 @@
+{
+    "_id": "1KLuThhsYQMPO5Qj",
+    "img": "systems/sf2e/icons/abilities/blue-dna-helix.webp",
+    "name": "Effect: Adaptive Locomotion",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.actions.Item.Adaptive Locomotion]{Adaptive Locomotion}</p>\n<p>If you select flippers, you gain a swim Speed of 20 feet. If you select hooked pseudopods, you gain a climb Speed of 20 feet. This transformation lasts for 10 minutes.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "SF2E.SpecificRule.Barathu.AdaptativeLocomotion.Flippers",
+                        "value": "swim"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Barathu.AdaptativeLocomotion.HookedPseudopods",
+                        "value": "climb"
+                    }
+                ],
+                "flag": "adaptation",
+                "key": "ChoiceSet",
+                "prompt": "SF2E.SpecificRule.Barathu.AdaptativeLocomotion.Prompt"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "{item|flags.pf2e.rulesSelections.adaptation}",
+                "value": 20
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

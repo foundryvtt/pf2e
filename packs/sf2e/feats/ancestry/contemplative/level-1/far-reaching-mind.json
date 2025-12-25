@@ -1,0 +1,68 @@
+{
+    "_id": "yAXSsQoGuFglxOtx",
+    "folder": "MkPjc9vTA7LBZv5o",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Far-Reaching Mind",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Through rigorous mental exercises or natural talent, your psychic senses extend farther than average. Increase the ranges of your limited telepathy and thoughtsense by 10 feet each.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "limited telepathy"
+                },
+                {
+                    "value": "thoughtsense"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.contemplative.vagueThoughtsenseRange",
+                "value": 10
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:limited-telepathy"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

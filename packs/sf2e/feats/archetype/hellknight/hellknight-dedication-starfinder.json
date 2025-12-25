@@ -1,0 +1,123 @@
+{
+    "_id": "filmD2J3y8UoVQIh",
+    "folder": "SQug2jaSWWnTs33r",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Hellknight Dedication (Starfinder)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your infernal countenance is a scourge. You gain expert proficiency in Intimidation (or in another skill in which you're trained of your choice, if you were already an expert in Intimidation). You treat medium armor as light armor when determining your proficiency, and you treat heavy armor as medium armor. You customize your armor using specialized Hellknight regalia, gaining the armor specialization effects of that armor and one additional armor upgrade. Your resistance (or reduction from critical hits) from that armor's specialization is 1 higher than normal. In addition, while wearing your Hellknight regalia, you gain an item bonus to Intimidation checks equal to 1 + your armor's resilience value.</p><h2>Hellknight Orders</h2><table class=\"pf2e remaster\"><thead><tr><th>Hellknight Order</th><th>Edicts</th><th>Infernal Damage and Resistance</th></tr></thead><tbody><tr><td><strong>Order of the Chain</strong></td><td>punish lawbreakers</td><td>electricity</td></tr><tr><td><strong>Order of the Crucible</strong></td><td>test civilizations</td><td>cold</td></tr><tr><td><strong>Order of the Eclipse</strong></td><td>control dangerous information</td><td>void</td></tr><tr><td><strong>Order of the Pyre</strong></td><td>purge subversive media with fire</td><td>fire</td></tr></tbody></table>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "member of a Hellknight Order"
+                },
+                {
+                    "value": "passed the Hellknight Test"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Intimidation",
+                        "predicate": [
+                            "skill:stealth:rank:0"
+                        ],
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.Skill.Intimidation",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:stealth:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    }
+                ],
+                "flag": "rank",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.intimidation.rank",
+                "value": "@item.flags.pf2e.rulesSelections.rank"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "intimidation",
+                "type": "item",
+                "value": "1 + @armor.system.runes.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:slug:hellknight-plate"
+                ],
+                "type": "slashing",
+                "value": "3 + @armor.system.runes.resilient"
+            },
+            {
+                "actorFlag": "",
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "SF2E.SpecificRule.Hellknight.Order.Chain",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Hellknight.Order.Crucible",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Hellknight.Order.Eclipse",
+                        "value": "void"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Hellknight.Order.Pyre",
+                        "value": "fire"
+                    }
+                ],
+                "flag": "hellknightOrderDamage",
+                "key": "ChoiceSet",
+                "prompt": "SF2E.SpecificRule.Hellknight.Prompt"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

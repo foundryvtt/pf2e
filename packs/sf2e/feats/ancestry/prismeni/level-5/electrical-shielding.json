@@ -1,0 +1,50 @@
+{
+    "_id": "6pbJgG8uJaNSdVj5",
+    "folder": "T3l4WZ3e6Om1Xaiq",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Electrical Shielding",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your body is insulated from electrical attacks. You gain electricity resistance equal to half your level. Additionally, you gain the @UUID[Compendium.sf2e.actions.Item.Redirect Current]{Redirect Current} reaction.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "electricity",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Redirect Current"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

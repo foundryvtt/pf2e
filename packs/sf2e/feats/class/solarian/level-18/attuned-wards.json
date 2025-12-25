@@ -1,0 +1,50 @@
+{
+    "_id": "eTefuy0BRvwAcqbQ",
+    "folder": "iGJ5w709V0BUSGsQ",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Attuned Wards",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You extend your control of stellar forces to punish your foes. Creatures that hit you with an attack suffer consequences based on your attunement.</p>\n<p><strong>Graviton-Attuned</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.sf2e.conditions.Item.Off-Guard] for 1 round. This increases to @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 2} if this is the second time it hit you this turn.</p>\n<p><strong>Photon-Attuned</strong> The creature takes persistent fire damage equal to half your level.</p>"
+        },
+        "level": {
+            "value": 18
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "stellar-attunement:graviton"
+                ],
+                "selectors": "attack-roll",
+                "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Attuned Wards"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

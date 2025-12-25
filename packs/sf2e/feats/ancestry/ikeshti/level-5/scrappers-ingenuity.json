@@ -1,0 +1,59 @@
+{
+    "_id": "U9Cv3DBWBjTPg1eR",
+    "folder": "vj5BZiJuhQdL2QIU",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Scrapper's Ingenuity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You take great delight in breaking down objects to their component parts so they can be rebuilt into something new. You gain a +1 circumstance bonus on Thievery checks to @UUID[Compendium.sf2e.actions.Item.Disable a Device]{Disable Device} and @UUID[Compendium.sf2e.actions.Item.Pick a Lock]{Pick Lock}. Whenever you successfully Disable Device, you harvest useful parts from the device for future use, gaining a +1 circumstance bonus on your next Crafting check to Craft or Repair. If the device you disabled was of a level higher than your own, this bonus increases to +2.</p>\n<p>@UUID[Compendium.sf2e.feat-effects.Item.Effect: Scrapper's Ingenuity]{Effect: Scrapper's Ingenuity}</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Crafting and Thievery"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Invasion's Edge Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:disable-a-device",
+                            "action:pick-a-lock"
+                        ]
+                    }
+                ],
+                "selector": "thievery",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

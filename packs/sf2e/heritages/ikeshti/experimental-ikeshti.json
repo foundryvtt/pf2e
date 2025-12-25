@@ -1,0 +1,50 @@
+{
+    "_id": "ezPp5n1TQKjhkZsy",
+    "folder": "HmJRXX24wVy0TjAO",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Experimental Ikeshti",
+    "system": {
+        "ancestry": {
+            "name": "Ikeshti",
+            "slug": "ikeshti",
+            "uuid": "Compendium.sf2e.ancestries.Item.HFVQhUxBt6UTtuny"
+        },
+        "description": {
+            "value": "<p>Scientists have experimented on you, and whether you were paid for your services or were captured as a hatchling and raised in a lab, this experimentation has left a lasting mark. Increase your augmentation implant limit by 1; this additional augmentation can only be implanted with biotech augmentations. Choose one common biotech augmentation with an item level of 1 or less. You begin with this biotech augmentation already implanted in your body. You don't need to pay the credits to purchase this starting augmentation. You can remove and replace this augmentation following the usual rules.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Invasion's Edge Player's Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                1
+                            ]
+                        },
+                        "item:trait:biotech"
+                    ],
+                    "itemType": "equipment"
+                },
+                "flag": "augmentation",
+                "key": "ChoiceSet",
+                "prompt": "SF2E.SpecificRule.Prompt.BiotechAugmentation"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.augmentation}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

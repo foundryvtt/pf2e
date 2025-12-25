@@ -1,0 +1,71 @@
+{
+    "_id": "YRy857LORIhKOgbY",
+    "folder": "graIeKAFjKeYdYf6",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Hang in There",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You encourage yourself or an ally, psyching them up for a coming challenge and granting them temporary Hit Points. Choose yourself or an ally within 30 feet, then attempt a @Check[diplomacy|dc:20|showDC:all] check. If you have master proficiency in Diplomacy, you can instead attempt a @Check[diplomacy|dc:30|showDC:all] check to increase the temporary Hit Points gained on a successful check by 5. If you have legendary proficiency, you can instead attempt a @Check[diplomacy|dc:40|showDC:all] check to increase the temporary Hit Points gained on a successful check by 10. These temporary Hit Points last for 1 minute. The target is then temporarily immune to your Hang in There for 1 day.</p><hr /><p><strong>Critical Success</strong> The target gains temporary Hit Points equal to double their level plus your Charisma modifier.</p>\n<p><strong>Success</strong> The target gains temporary Hit Points equal to their level plus your Charisma modifier.</p>\n<p><strong>Failure</strong> The target is unaffected, and you can't use Hang in There again for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is unaffected, and you can't use Hang in There again for 1 hour.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "expert in Diplomacy"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "self:action:slug:hang-in-there"
+                ],
+                "selector": "diplomacy",
+                "text": "SF2E.SpecificRule.Envoy.HangInThere.CriticalSuccess",
+                "title": "PF2E.Check.Result.Degree.Check.criticalSuccess"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "self:action:slug:hang-in-there"
+                ],
+                "selector": "diplomacy",
+                "text": "SF2E.SpecificRule.Envoy.HangInThere.Success",
+                "title": "PF2E.Check.Result.Degree.Check.success"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "healing"
+            ]
+        }
+    },
+    "type": "feat"
+}

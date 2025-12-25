@@ -1,0 +1,60 @@
+{
+    "_id": "cDxFPXDuZpDbJEgU",
+    "folder": "V1NTvn6zIvJEOwC7",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Fish in a Barrel",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>As the old saying goes: hitting easy targets is like shooting fish in a barrel. You @UUID[Compendium.sf2e.actions.Item.Aim]{Aim} and then make a ranged Strike against a @UUID[Compendium.sf2e.conditions.Item.Prone] or @UUID[Compendium.sf2e.conditions.Item.Immobilized] creature not benefiting from cover. Treat a success as a critical success. If you roll a critical success, the creature is @UUID[Compendium.sf2e.conditions.Item.Off-Guard] and @UUID[Compendium.sf2e.conditions.Item.Suppressed]{Suppressed} until the beginning of your next turn.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "fish-in-a-barrel",
+                "toggleable": true
+            },
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "fish-in-a-barrel",
+                    "target:mark:aim",
+                    {
+                        "not": "target:effect:cover"
+                    }
+                ],
+                "selector": "strike-attack-roll"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

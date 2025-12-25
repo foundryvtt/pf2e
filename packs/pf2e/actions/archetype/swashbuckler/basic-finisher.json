@@ -1,0 +1,51 @@
+{
+    "_id": "dCuvfq3r2K9wXY9g",
+    "folder": "vproVkJwPK9WWs3t",
+    "img": "systems/pf2e/icons/actions/OneAction.webp",
+    "name": "Basic Finisher",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>You make a graceful, deadly attack. Make a Strike; if you hit and your weapon qualifies for @UUID[Compendium.pf2e.classfeatures.Item.Precise Strike], you deal the full [[/r {1d6}]]{1d6 damage} from precise strike.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Label",
+                "mergeable": true,
+                "option": "finisher",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Basic",
+                        "value": "basic"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "finisher"
+            ]
+        }
+    },
+    "type": "action"
+}

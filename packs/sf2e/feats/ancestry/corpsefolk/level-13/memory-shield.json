@@ -1,0 +1,60 @@
+{
+    "_id": "uwbdY8k9sAZDXAu3",
+    "folder": "YbAX7ofsCpx0a6de",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Memory Shield",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You take damage from an effect that deals vitality damage.</p><hr /><p>You draw upon precious memories from your life to shield you against the energies that would nominally purge undead creatures from the universe. You gain resistance to the triggering damage equal to your level.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Guilt of the Grave World"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "memory-shield",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "memory-shield"
+                ],
+                "type": "vitality",
+                "value": "@actor.level"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "divine"
+            ]
+        }
+    },
+    "type": "feat"
+}

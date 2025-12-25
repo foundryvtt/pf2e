@@ -1,0 +1,76 @@
+{
+    "_id": "QImUeDyZg8KKzNdx",
+    "folder": "tkyQMl4US2Z9HK4j",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Stunt Double",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've trained hard to tackle physical challenges of all types as part of your entertainment career. You gain a climb Speed or a swim Speed equal to your land Speed.</p><hr /><p><strong>Special</strong> You can select this feat more than once.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "maxTakable": 2,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Stunt Work"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Guilt of the Grave World"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Climb",
+                        "predicate": [
+                            {
+                                "not": "stunt-double:climb"
+                            }
+                        ],
+                        "value": "climb"
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Swim",
+                        "predicate": [
+                            {
+                                "not": "stunt-double:swim"
+                            }
+                        ],
+                        "value": "swim"
+                    }
+                ],
+                "flag": "speed",
+                "key": "ChoiceSet",
+                "rollOption": "stunt-double"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "{item|flags.pf2e.rulesSelections.speed}",
+                "value": "@actor.system.movement.speeds.land.value"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

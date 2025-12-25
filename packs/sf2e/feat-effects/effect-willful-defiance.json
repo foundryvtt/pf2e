@@ -1,0 +1,54 @@
+{
+    "_id": "MVoUvf0bzUUSUkiR",
+    "img": "icons/magic/control/buff-flight-wings-blue.webp",
+    "name": "Effect: Willful Defiance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Willful Defiance]{Willful Defiance}</p>\n<p>You gain a +1 circumstance bonus to Armor Class and saving throws against the marked creature's attacks, spells, and other effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "willful-defiance"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:mark:willfull-defiance"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

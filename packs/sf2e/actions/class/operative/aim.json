@@ -1,0 +1,73 @@
+{
+    "_id": "sLikawnrJJzHMYeC",
+    "folder": "xyoakz4rPK2YBlZP",
+    "img": "systems/sf2e/icons/actions/OneAction.webp",
+    "name": "Aim",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You're wielding a ranged weapon that doesn't have the area trait.</p><hr /><p>You take careful aim at a single creature that you're aware of, designating it as your mark. Until the end of your turn, your ranged Strikes against your mark using the required ranged weapon deal an additional 1d4 precision damage and reduce the circumstance bonus to AC your mark gains from cover by 1. These benefits only apply if your mark is within your weapon's first range increment. You can only have one mark at a time.</p>\n<p>As your operative level increases, so does your ability to Aim. Increase the number of dice for the precision damage by one at 5th, 11th, and 17th levels. At 11th level, you reduce the circumstance bonus to AC your mark gains from cover by 2 rather than 1. At 17th level, you reduce the circumstance bonus to AC your mark gains from cover by 4 rather than 2.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:equipped",
+                    "item:ranged",
+                    {
+                        "not": "item:trait:area"
+                    }
+                ],
+                "property": "other-tags",
+                "value": "aim"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.sf2e.operative.aim.diceNumber",
+                "value": "ternary(gte(@actor.level,17),4,ternary(gte(@actor.level,11),3,ternary(gte(@actor.level,5),2,1)))"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.sf2e.operative.aim.dieSize",
+                "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.sf2e.operative.aim.coverReduction",
+                "value": "ternary(gte(@actor.level,17),4,ternary(gte(@actor.level,11),2,1))"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.sf2e.operative.aim.rangeIncrement",
+                "value": 1
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Aim",
+            "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Aim"
+        },
+        "traits": {
+            "value": [
+                "concentrate"
+            ]
+        }
+    },
+    "type": "action"
+}

@@ -1,0 +1,57 @@
+{
+    "_id": "SEqvBdZITnGXTIhS",
+    "folder": "FJznQK9W12jH1Qqx",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Planetary Bond",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your bond has grown into a kinship with all that lives on your planet. You're constantly under the effects of @UUID[Compendium.sf2e.spells.Item.Speak with Animals] and @UUID[Compendium.sf2e.spells.Item.Speak with Plants] while on your planet. You are considered a native of any planet in your bond. Creatures native to your planet feel an instinctual connection to you, granting a +2 circumstance bonus to Diplomacy checks when making a @UUID[Compendium.sf2e.actions.Item.Request] from them. Particularly helpful creatures may agree to minor tasks like delivering messages or spying on an area, but they won't do dangerous jobs or fight for you.</p>\n<p>You vow to protect your bonded world. Gain the following edicts and anathemas.</p>\n<p><strong>Edicts</strong> defend your world from extraterrestrial threats, protect its natural resources from exploitation, form bonds with lifeforms on your planet</p>\n<p><strong>Anathemas</strong> disturb or harm your planet's ecosystem, plunder your planet's natural resources, exploit your planet's lifeforms</p>\n<p>If your powers are lost due to anathema, you lose the effects of this feat and cannot bond with another planet only if you repent by conducting an @UUID[Compendium.sf2e.spells.Item.Atone] ritual.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Xenodruid Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:request",
+                    "bonded-planet"
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,96 @@
+{
+    "_id": "qAQfnNjONWfukQWn",
+    "folder": "hLnXw8lo8s9W6jcZ",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Sarcesian Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're accustomed to fighting from afar—really far! You gain access to weapons in the sniper group and all uncommon weapons with the sarcesian trait. You have familiarity with weapons in the sniper group and all weapons with the sarcesian trait—for the purposes of proficiency, you treat any of these that are martial weapons as simple weapons, and any that are advanced weapons as martial weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:trait:sarcesian",
+                                    "item:category:martial"
+                                ]
+                            },
+                            "item:group:sniper"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Sarcesian.WeaponFamiliarity.MartialWeapons",
+                "sameAs": "simple",
+                "slug": "martial-sarcesian-weapons"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:trait:sarcesian",
+                                    "item:category:advanced"
+                                ]
+                            },
+                            "item:group:sniper"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Sarcesian.WeaponFamiliarity.AdvancedWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-sarcesian-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:sarcesian",
+                            "item:group:sniper"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

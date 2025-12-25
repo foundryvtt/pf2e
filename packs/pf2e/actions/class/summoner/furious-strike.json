@@ -1,0 +1,55 @@
+{
+    "_id": "06frwOOuo4HJtivl",
+    "folder": "LkjMKhSIthBOzEc0",
+    "img": "systems/pf2e/icons/actions/TwoActions.webp",
+    "name": "Furious Strike",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>Your eidolon channels its anger into a furious attack. It makes a melee Strike. This counts as two attacks when calculating your multiple attack penalty. If this Strike hits, your eidolon deals an extra die of weapon damage and gains a +1 circumstance bonus to the damage roll.</p>\n<p>If you're at least 10th level, increase this to two extra dice with a +2 circumstance bonus, and if you're at least 18th level, increase it to three extra dice with a +3 circumstance bonus.</p>"
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "domain": "melee-strike-damage",
+                "key": "RollOption",
+                "option": "furious-strike",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "furious-strike"
+                ],
+                "selector": "melee-strike-damage",
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))"
+            },
+            {
+                "diceNumber": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))",
+                "key": "DamageDice",
+                "predicate": [
+                    "furious-strike"
+                ],
+                "selector": "melee-strike-damage"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "eidolon"
+            ]
+        }
+    },
+    "type": "action"
+}

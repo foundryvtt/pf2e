@@ -1,0 +1,51 @@
+{
+    "_id": "kF6CV5Jo4gfz4gVs",
+    "folder": "v5qh3AHEIv66cxUZ",
+    "img": "systems/sf2e/icons/actions/Reaction.webp",
+    "name": "Soul Shield",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "defensive",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You would take void damage</p><hr /><p><strong>Effect</strong> You push your soul out of your body and use it as a shield to protect your living form from the ravages of the void. You gain void healing until the beginning of your next turn, meaning you're damaged by vitality damage and healed by void effects that heal undead.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "soul-shield",
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.hp.negativeHealing",
+                "predicate": [
+                    "soul-shield"
+                ],
+                "priority": 51,
+                "value": true
+            }
+        ],
+        "traits": {
+            "value": [
+                "void"
+            ]
+        }
+    },
+    "type": "action"
+}

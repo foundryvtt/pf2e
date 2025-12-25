@@ -1,0 +1,48 @@
+{
+    "_id": "ySfpV3VZIYdmI2fT",
+    "folder": "0IjhzVXsysCNDj0i",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Nomadic Vlaka",
+    "system": {
+        "ancestry": {
+            "name": "Vlaka",
+            "slug": "vlaka",
+            "uuid": "Compendium.sf2e.ancestries.Item.mBsOLC7cRc7nkzV2"
+        },
+        "description": {
+            "value": "<p>You live your life on the move, traveling the galaxy in an endless journey. You gain two additional languages of your choice, chosen from among the common and uncommon languages available to you. When you select the @UUID[Compendium.sf2e.feats.Item.Multilingual] skill feat, you gain three new languages instead of two.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.build.languages.max",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.multilingualTaken",
+                "priority": 19,
+                "value": 0
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.build.languages.max",
+                "priority": 21,
+                "value": "@actor.flags.pf2e.multilingualTaken"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

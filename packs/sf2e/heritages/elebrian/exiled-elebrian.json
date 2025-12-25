@@ -1,0 +1,64 @@
+{
+    "_id": "UjSJHYe9RRXbGHl2",
+    "folder": "DWQpqrnGOzizVcJ6",
+    "img": "icons/sundries/documents/document-torn-diagram-tan.webp",
+    "name": "Exiled Elebrian",
+    "system": {
+        "ancestry": {
+            "name": "Elebrian",
+            "slug": "elebrian",
+            "uuid": "Compendium.sf2e.ancestries.Item.XKW1SziWusHoaCRd"
+        },
+        "description": {
+            "value": "<p>You're a rarity: an elebrian who wasn't born on Eox. Perhaps your parents left the Halls of the Living before you were born to give you a better life. Maybe you come from a tiny enclave of elebrians making their home away from Eox, a tight-knit community on Absalom Station, or an asteroid in the Diaspora. You learn any regional language of your choice and gain the @UUID[Compendium.sf2e.feats.Item.Additional Lore] general feat for that region. You learn another regional language and gain the Additional Lore general feat for that region at 5th level, and again at 13th level.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Guilt of the Grave World"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Additional Lore"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.sf2e.feats.Item.Additional Lore"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            13
+                        ]
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.sf2e.feats.Item.Additional Lore"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.build.languages.max",
+                "value": "ternary(eq(@actor.level, 13), 3, ternary(gte(@actor.level, 5), 2, 1))"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,55 @@
+{
+    "_id": "uf3Fb7Fm7dSzc7Os",
+    "img": "systems/sf2e/icons/equipment/other/syringe.webp",
+    "name": "Effect: Commando Serum",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "labels": null,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "1d10+5"
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.equipment.Item.Commando Serum]{Commando Serum}</p>\n<p>You gain 1d10+5 temporary Hit Points, as well as a +5-foot item bonus to any Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@item.badge.value"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "type": "item",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

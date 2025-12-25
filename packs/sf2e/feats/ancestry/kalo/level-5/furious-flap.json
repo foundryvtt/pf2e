@@ -1,0 +1,65 @@
+{
+    "_id": "Sg3W3VCNbnpPgpvx",
+    "folder": "lGMMENPdaHCd7GYV",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Furious Flap",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The muscles that control your membranous wings are particularly well developed, and you know how to use them to catch enemies off guard with their power. Once per day while in an area of atmosphere, you can flap your wings to cast @UUID[Compendium.sf2e.spells.Item.Gust of Wind] as a primal innate spell. If you're submerged in liquid, you can instead cast @UUID[Compendium.sf2e.spells.Item.Hydraulic Push]. After you've cast the spell, you can move up to half your Speed (or half your swim Speed if submerged) as a free action.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:gust-of-wind",
+                    "item:slug:hydraulic-push",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:gust-of-wind",
+                    "item:slug:hydraulic-push",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:kalo"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

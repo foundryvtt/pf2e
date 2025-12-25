@@ -1,0 +1,87 @@
+{
+    "_id": "he1AD9ck10fLSvWn",
+    "folder": "7JvVdcPLRxEK9sec",
+    "img": "systems/sf2e/icons/abilities/yellow-energy-burst.webp",
+    "name": "Holy Module (Commercial)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This upgrade is often adorned with a religious symbol and channels celestial power. It deals an additional 1d4 spirit damage, or 3d4 spirit against an unholy target. If you are unholy, you are @UUID[Compendium.sf2e.conditions.Item.Enfeebled]{Enfeebled 2} while carrying or wielding this weapon. On a critical hit, the target is also @UUID[Compendium.sf2e.conditions.Item.Dazzled] (or @UUID[Compendium.sf2e.conditions.Item.Blinded] if unholy) until the end of your next turn unless it succeeds at a @Check[fortitude|dc:28] save.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 11
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "cp": 0,
+                "gp": 0,
+                "pp": 0,
+                "sp": 14000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "{item|parentItem.id}-damage",
+                "slug": "holy-module"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "target:trait:unholy"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "{item|parentItem.id}-damage"
+                ],
+                "slug": "holy-module",
+                "value": 3
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|parentItem.id}-damage",
+                "text": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.HolyModule.CriticalNoteCommercial",
+                "title": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.HolyModule.LabelCommercial"
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "holy",
+                "magical",
+                "tech"
+            ]
+        },
+        "usage": {
+            "value": "installed-in-a-weapon"
+        }
+    },
+    "type": "equipment"
+}

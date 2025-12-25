@@ -1,0 +1,103 @@
+{
+    "_id": "fa4T1oR8S0lF5888",
+    "img": "icons/skills/melee/unarmed-punch-fist-blue.webp",
+    "name": "Effect: Take 'Em Alive",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Take 'Em Alive!]{Take 'Em Alive!}</p>\n<p>You add the nonlethal trait to attacks with weapons, and to your spells that deal damage and don't have the death or void trait.</p>\n<p><strong>Lead by Example</strong> If the origin's initial Strike is successful, they gain a status bonus to damage equal to your Charisma modifier.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": "lead-by-example"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "not-lead-by-example"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "prompt": "SF2E.SpecificRule.Envoy.Directive.LeadByExample.Prompt",
+                "rollOption": "take-em-alive"
+            },
+            {
+                "definition": [
+                    {
+                        "not": "item:category:unarmed"
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "nonlethal"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "nor": [
+                            "item:trait:death",
+                            "item:trait:void"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "nonlethal"
+            },
+            {
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Envoy.TakeEmAlive.ToggleLabel",
+                "option": "take-em-alive-damage",
+                "predicate": [
+                    "self:signature:{item|origin.signature}",
+                    "take-em-alive:lead-by-example"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:signature:{item|origin.signature}",
+                    "take-em-alive-damage"
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": "@actor.abilities.cha.mod"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

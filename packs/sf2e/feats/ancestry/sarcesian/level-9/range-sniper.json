@@ -1,0 +1,62 @@
+{
+    "_id": "eo9bLAmEqXV6jOOu",
+    "folder": "5tf029Uv2eFCqQUk",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Range Sniper",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've trained to engage your foes from afar and leverage your keen vision to improve your accuracy. You reduce the penalty for attacking beyond your first range increment by 1, to a minimum of 0. If you're in a vacuum, you instead reduce the penalty for attacking beyond your first range increment by 2, to a minimum of 0.</p>\n<p>In addition, you gain the @UUID[Compendium.sf2e.actions.Item.Line Up the Shot]{Line Up the Shot} action.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galaxy Guide"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "selector": "strike-attack-roll",
+                "slug": "range-penalty",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "terrain:vacuum"
+                ],
+                "selector": "strike-attack-roll",
+                "slug": "range-penalty",
+                "value": 2
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Line Up the Shot"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}
