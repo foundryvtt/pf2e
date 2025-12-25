@@ -3,9 +3,9 @@ import yargs, { Argv } from "yargs";
 
 const argv = yargs(process.argv.slice(2)) as Argv<{ system: SystemId; json: boolean }>;
 const args = argv
-    .command("$0 [system]", "Build a system's (es)modules", () => {
+    .command("$0 [system]", "Run the vite server", () => {
         argv.option("system", {
-            describe: "The FVTT system for which to build the modules",
+            describe: "The FVTT system for to run",
             type: "string",
             choices: ["pf2e", "sf2e"],
             default: "pf2e",
@@ -14,6 +14,5 @@ const args = argv
     .help(false)
     .version(false)
     .parseSync();
-console.log(`Building system: ${args.system}`);
 process.env.SYSTEM_ID = args.system;
-execSync("npx vite build", { encoding: "utf-8", stdio: "inherit" });
+execSync("npx vite serve", { encoding: "utf-8", stdio: "inherit" });

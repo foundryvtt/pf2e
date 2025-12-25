@@ -43,7 +43,7 @@ function getUuidRedirects({ systemId }: { systemId: SystemId }): Record<Compendi
         const docJSON = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
         const id = docJSON._id;
         if (!id) throw new Error(`No UUID redirect match found for ${documentType} ${name} in ${pack}`);
-        redirectJSON[from] = `Compendium.pf2e.${pack}.${documentType}.${id}`;
+        redirectJSON[from] = `Compendium.${systemId}.${pack}.${documentType}.${id}`;
     }
 
     return redirectJSON;
@@ -181,8 +181,8 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         const message = "This file is for a running vite dev server and is not copied to a build";
         fs.writeFileSync("./index.html", `<h1>${message}</h1>\n`);
         if (!fs.existsSync("./styles")) fs.mkdirSync("./styles");
-        fs.writeFileSync("./styles/pf2e.css", `/** ${message} */\n`);
-        fs.writeFileSync("./pf2e.mjs", `/** ${message} */\n\nimport "./src/pf2e.ts";\n`);
+        fs.writeFileSync(`./styles/${SYSTEM_ID}.css`, `/** ${message} */\n`);
+        fs.writeFileSync(`./${SYSTEM_ID}.mjs`, `/** ${message} */\n\nimport "./src/pf2e.ts";\n`);
         fs.writeFileSync("./vendor.mjs", `/** ${message} */\n`);
     }
 
@@ -213,10 +213,10 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             minify: false,
             sourcemap: buildMode === "development",
             lib: {
-                name: "pf2e",
+                name: SYSTEM_ID,
                 entry: "src/pf2e.ts",
                 formats: ["es"],
-                fileName: "pf2e",
+                fileName: SYSTEM_ID,
             },
             rollupOptions: {
                 external: new RegExp(
@@ -230,9 +230,9 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     ].join(""),
                 ),
                 output: {
-                    assetFileNames: "styles/pf2e.css",
+                    assetFileNames: `styles/${SYSTEM_ID}.css`,
                     chunkFileNames: "[name].mjs",
-                    entryFileNames: "pf2e.mjs",
+                    entryFileNames: `${SYSTEM_ID}.mjs`,
                     manualChunks: {
                         vendor: buildMode === "production" ? Object.keys(packageJSON.dependencies) : [],
                     },
@@ -245,7 +245,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             port: serverPort,
             open: "/game",
             proxy: {
-                "^(?!/systems/pf2e/)": `http://localhost:${foundryPort}/`,
+                [`^(?!/systems/${SYSTEM_ID}/)`]: `http://localhost:${foundryPort}/`,
                 "/socket.io": {
                     target: `ws://localhost:${foundryPort}`,
                     ws: true,
