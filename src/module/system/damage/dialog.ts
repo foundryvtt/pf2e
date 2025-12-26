@@ -333,7 +333,7 @@ class DamageModifierDialog extends fav1.api.Application {
         // Toggle show dialog default
         const toggle = htmlQuery<HTMLInputElement>(html, "input[data-action=change-show-default]");
         toggle?.addEventListener("click", async () => {
-            await game.user.update({ "flags.pf2e.settings.showDamageDialogs": toggle.checked });
+            await game.user.update({ [`flags.${SYSTEM_ID}.settings.showDamageDialogs`]: toggle.checked });
         });
     }
 

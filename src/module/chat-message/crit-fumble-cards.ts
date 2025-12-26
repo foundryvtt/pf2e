@@ -8,7 +8,7 @@ export class CriticalHitAndFumbleCards {
 
     static handleDraw(message: ChatMessagePF2e): void {
         if (message.isAuthor && message.isContentVisible) {
-            const type = message.flags.pf2e.context?.type ?? "";
+            const type = message.flags[SYSTEM_ID].context?.type ?? "";
             const firstDie = message.rolls.at(0)?.dice[0];
             if (firstDie && firstDie.faces === 20 && this.#rollTypes.includes(type)) {
                 if (firstDie.total === 20) {
@@ -54,7 +54,7 @@ export class CriticalHitAndFumbleCards {
     static appendButtons(message: ChatMessagePF2e, html: HTMLElement): void {
         this.#setting ??= game.pf2e.settings.critFumble.buttons;
         if (!this.#setting || !(message.isAuthor || game.user.isGM) || !message.isContentVisible) return;
-        const type = message.flags.pf2e.context?.type ?? "";
+        const type = message.flags[SYSTEM_ID].context?.type ?? "";
         if (!this.#rollTypes.includes(type)) return;
 
         const $critButton = $(

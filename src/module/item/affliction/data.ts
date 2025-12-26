@@ -23,7 +23,7 @@ import fields = foundry.data.fields;
 
 type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource> & {
     flags: ItemSourceFlagsPF2e & {
-        pf2e?: {
+        [SYSTEM_ID]?: {
             aura?: EffectAuraData;
         };
     };
@@ -255,9 +255,7 @@ type AfflictionSystemSource = SourceFromSchema<AfflictionSystemSchema> & {
 };
 
 type AfflictionFlags = ItemFlagsPF2e & {
-    pf2e: {
-        aura?: EffectAuraData;
-    };
+    [SYSTEM_ID]: { aura?: EffectAuraData };
 };
 
 type AfflictionDamage = ModelPropsFromSchema<AfflictionDamageSchema>;

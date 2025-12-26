@@ -233,7 +233,9 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         const combatant = await CombatantPF2e.fromActor(actor);
         if (!combatant) return;
         const value = message.rolls.at(0)?.total ?? 0;
-        const statistic = message.flags.pf2e.modifierName ? String(message.flags.pf2e.modifierName) : undefined;
+        const statistic = message.flags[SYSTEM_ID].modifierName
+            ? String(message.flags[SYSTEM_ID].modifierName)
+            : undefined;
         await combatant.encounter.setInitiative(combatant.id, value, statistic);
         ui.notifications.info("PF2E.Encounter.InitiativeSet", { format: { actor: token.name, initiative: value } });
     }
@@ -266,7 +268,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         button: HTMLElement,
     ): Promise<void> {
         const { message, element } = ChatLogPF2e.#messageFromEvent(event);
-        const appliedDamage = message?.flags.pf2e.appliedDamage;
+        const appliedDamage = message?.flags[SYSTEM_ID].appliedDamage;
         if (!appliedDamage) return;
         const actor = fromUuidSync(appliedDamage.uuid);
         if (!(actor instanceof ActorPF2e)) return;
@@ -280,7 +282,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         htmlQuery(element, "span.statements")?.classList.add("reverted");
         button.remove();
         await message.update({
-            "flags.pf2e.appliedDamage.isReverted": true,
+            [`flags.${SYSTEM_ID}.appliedDamage.isReverted`]: true,
             content: htmlQuery(element, ".message-content")?.innerHTML ?? message.content,
         });
     }
@@ -290,7 +292,6 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         const actor = message?.speakerActor;
         const roll = message?.rolls.find((r): r is Rolled<DamageRoll> => r instanceof DamageRoll);
         if (!actor || !roll) return;
-
         const damageType = roll.instances.find((i) => i.persistent)?.type;
         if (!damageType) return;
 
@@ -461,7 +462,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
 
         const canShowRollDetails: ContextMenuCondition = (li) => {
             const message = game.messages.get(li.dataset.messageId, { strict: true });
-            return game.user.isGM && !!message.flags.pf2e.context;
+            return game.user.isGM && !!message.flags[SYSTEM_ID].context;
         };
 
         const options = super._getEntryContextOptions();

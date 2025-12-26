@@ -5,12 +5,12 @@ import { TokenConfigMixinPF2e } from "./mixin.ts";
 class PrototypeTokenConfigPF2e extends TokenConfigMixinPF2e(fa.sheets.PrototypeTokenConfig) {
     override get linkToActorSize(): boolean {
         const actor = this.actor as unknown as ActorPF2e;
-        return actor.prototypeToken.flags.pf2e.linkToActorSize;
+        return actor.prototypeToken.flags[SYSTEM_ID].linkToActorSize;
     }
 
     override get autoscale(): boolean {
         const actor = this.actor as unknown as ActorPF2e;
-        return actor.prototypeToken.flags.pf2e.autoscale;
+        return actor.prototypeToken.flags[SYSTEM_ID].autoscale;
     }
 
     protected override _processFormData(

@@ -137,10 +137,10 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
         formData: FormDataExtended,
     ): Promise<void> {
         const update = {
-            ...fu.expandObject<{ pf2e: { worldClock: WorldClockSettingData } }>(formData.object).pf2e.worldClock,
+            ...fu.expandObject<{ [SYSTEM_ID]: { worldClock: WorldClockSettingData } }>(formData.object).pf2e.worldClock,
             worldCreatedOn: game.pf2e.settings.worldClock.worldCreatedOn,
         };
-        await game.settings.set("pf2e", "worldClock", update);
+        await game.settings.set(SYSTEM_ID, "worldClock", update);
         game.pf2e.worldClock.render();
     }
 }

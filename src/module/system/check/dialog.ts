@@ -187,7 +187,7 @@ export class CheckModifiersDialog extends fav1.api.Application {
         // Toggle show dialog default
         const toggle = htmlQuery<HTMLInputElement>(html, "input[data-action=change-show-default]");
         toggle?.addEventListener("click", async () => {
-            await game.user.update({ "flags.pf2e.settings.showCheckDialogs": toggle.checked });
+            await game.user.update({ [`flags.${SYSTEM_ID}.settings.showCheckDialogs`]: toggle.checked });
         });
     }
 

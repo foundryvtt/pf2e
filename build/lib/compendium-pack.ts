@@ -307,6 +307,10 @@ class CompendiumPack {
     static #adjustPF2eDocumentForSF2e(source: PackEntry, { publication }: { publication?: string | null }): PackEntry {
         if ("img" in source && source.img === "icons/sundries/books/book-red-exclamation.webp") {
             source.img = "systems/sf2e/icons/default-icons/feats-sf2e.webp";
+            if (source.flags?.pf2e) {
+                source.flags.sf2e = source.flags.pf2e;
+                delete source.flags.pf2e;
+            }
         }
 
         if ("system" in source) {

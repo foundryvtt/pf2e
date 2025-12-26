@@ -307,14 +307,14 @@ const ITEM_ALTERATION_HANDLERS = {
             const item = data.item;
             const mode = data.alteration.mode;
             if (!item.system.damage.die) return;
-            if (mode === "upgrade" && !item.flags.pf2e.damageFacesUpgraded) {
+            if (mode === "upgrade" && !item.flags[SYSTEM_ID].damageFacesUpgraded) {
                 item.system.damage.die = nextDamageDieSize({ upgrade: item.system.damage.die });
-                item.flags.pf2e.damageFacesUpgraded = true;
+                item.flags[SYSTEM_ID].damageFacesUpgraded = true;
             } else if (mode === "downgrade") {
                 item.system.damage.die = nextDamageDieSize({ downgrade: item.system.damage.die });
             } else if (mode === "override" && typeof data.alteration.value === "number") {
                 if (data.alteration.value > Number(item.system.damage.die.replace("d", ""))) {
-                    item.flags.pf2e.damageFacesUpgraded = true;
+                    item.flags[SYSTEM_ID].damageFacesUpgraded = true;
                 }
                 item.system.damage.die = `d${data.alteration.value}`;
             }

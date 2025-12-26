@@ -20,7 +20,7 @@ class UserPF2e extends User {
         super.prepareBaseData();
         this.flags = fu.mergeObject(
             {
-                pf2e: {
+                [SYSTEM_ID]: {
                     settings: {
                         showEffectPanel: true,
                         showCheckDialogs: true,
@@ -35,7 +35,7 @@ class UserPF2e extends User {
     }
 
     get settings(): Readonly<UserSettingsPF2e> {
-        return this.flags.pf2e.settings;
+        return this.flags[SYSTEM_ID].settings;
     }
 
     /** Get tokens controlled by this user or, failing that, a token of the assigned character. */
@@ -60,10 +60,10 @@ class UserPF2e extends User {
         if (game.user.id !== userId) return;
 
         const keys = Object.keys(fu.flattenObject(changed));
-        if (keys.includes("flags.pf2e.settings.showEffectPanel")) {
+        if (keys.includes(`flags.${SYSTEM_ID}.settings.showEffectPanel`)) {
             game.pf2e.effectPanel.refresh();
         }
-        if (keys.includes("flags.pf2e.settings.monochromeDarkvision") && canvas.ready) {
+        if (keys.includes(`flags.${SYSTEM_ID}.settings.monochromeDarkvision`) && canvas.ready) {
             canvas.scene?.reset();
             canvas.perception.update({ initializeVision: true, refreshLighting: true });
         }
@@ -76,7 +76,7 @@ interface UserPF2e extends User {
     flags: UserFlagsPF2e;
     readonly _source: UserSourcePF2e;
 
-    query(name: "pf2e.trade", data: TradeQueryData, options?: { timeout?: number }): Promise<TradeQueryResponse>;
+    query(name: `${SystemId}.trade`, data: TradeQueryData, options?: { timeout?: number }): Promise<TradeQueryResponse>;
     query(name: string, data: object, options?: { timeout?: number }): Promise<unknown>;
 }
 

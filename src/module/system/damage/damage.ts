@@ -253,7 +253,7 @@ export class DamagePF2e {
                     speaker: ChatMessagePF2e.getSpeaker({ actor: self?.actor, token: self?.token }),
                     flavor,
                     flags: {
-                        pf2e: {
+                        [SYSTEM_ID]: {
                             context: contextFlag,
                             target: targetFlag,
                             modifiers: data.modifiers?.flatMap((m) => ("kind" in m ? m.toObject() : [])) ?? [],

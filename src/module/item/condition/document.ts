@@ -33,7 +33,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
     /** Retrieve this condition's origin from its granting effect, if any */
     override get origin(): ActorPF2e | null {
-        const grantingItem = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "");
+        const grantingItem = this.actor?.items.get(this.flags[SYSTEM_ID].grantedBy?.id ?? "");
         return grantingItem?.isOfType("affliction", "effect") ? grantingItem.origin : super.origin;
     }
 
@@ -43,7 +43,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     }
 
     get appliedBy(): ItemPF2e<ActorPF2e> | null {
-        const appliedById = this.system.references.parent?.id ?? this.flags.pf2e.grantedBy?.id ?? "";
+        const appliedById = this.system.references.parent?.id ?? this.flags[SYSTEM_ID].grantedBy?.id ?? "";
         return this.actor?.items.get(appliedById) ?? this.actor?.conditions.get(appliedById) ?? null;
     }
 
@@ -58,9 +58,9 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             return true;
         }
 
-        const granterId = this.flags.pf2e.grantedBy?.id ?? "";
+        const granterId = this.flags[SYSTEM_ID].grantedBy?.id ?? "";
         const granter = this.actor?.items.get(granterId) ?? this.actor?.conditions.get(granterId);
-        const grants = Object.values(granter?.flags.pf2e.itemGrants ?? {});
+        const grants = Object.values(granter?.flags[SYSTEM_ID].itemGrants ?? {});
         return grants.find((g) => g.id === this.id)?.onDelete === "restrict";
     }
 
@@ -146,7 +146,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             })();
             await roll.toMessage(
                 {
-                    flags: { pf2e: { origin: { uuid: this.uuid } } },
+                    flags: { [SYSTEM_ID]: { origin: { uuid: this.uuid } } },
                     flavor,
                     speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
                 },

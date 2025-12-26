@@ -349,7 +349,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             ),
         ) as Record<SkillSlug, CharacterSkillData>;
 
-        sheetData.tabVisibility = fu.deepClone(actor.flags.pf2e.sheetTabs);
+        sheetData.tabVisibility = fu.deepClone(actor.flags[SYSTEM_ID].sheetTabs);
 
         // Enrich content
         const rollData = actor.getRollData();
@@ -429,9 +429,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
             // KINETICIST HARD CODE: Show elemental blasts alongside strikes instead of among other actions
             // If the user added additional blasts manually, show the duplicates normally
-            if (actor.flags.pf2e.kineticist && item === elementalBlasts[0]) {
-                continue;
-            }
+            if (actor.flags[SYSTEM_ID].kineticist && item === elementalBlasts[0]) continue;
 
             const baseData = createAbilityViewData(item);
             const action: CharacterAbilityViewData = {
@@ -475,7 +473,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     async #prepareCrafting(): Promise<CraftingSheetData> {
         const actor = this.actor;
-        const flags = actor.flags.pf2e;
+        const flags = actor.flags[SYSTEM_ID];
 
         // Set up the cache of known formulas on the actor for use on sheet events
         // These formulas include any modified batch size.
@@ -505,7 +503,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 abilities.some((a) => a.isAlchemical) &&
                 !!(actor.rollOptions.all["feature:quick-alchemy"] || actor.rollOptions.all["feat:quick-alchemy"]),
             hasDailyCrafting: this.actor.crafting.abilities.some((a) => a.isDailyPrep || a.isAlchemical),
-            dailyCraftingComplete: !!this.actor.flags.pf2e.dailyCraftingComplete,
+            dailyCraftingComplete: !!this.actor.flags[SYSTEM_ID].dailyCraftingComplete,
             abilities: {
                 spontaneous: sheetData.filter((s) => !s.isPrepared),
                 prepared: sheetData.filter((s) => !s.isAlchemical && s.isPrepared),
@@ -866,7 +864,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // ACTIONS
 
         handlers["toggle-hide-stowed"] = () => {
-            this.actor.update({ "flags.pf2e.hideStowed": !this.actor.flags.pf2e.hideStowed });
+            this.actor.update({ [`flags.${SYSTEM_ID}.hideStowed`]: !this.actor.flags[SYSTEM_ID].hideStowed });
         };
 
         // Toggle certain weapon traits: currently Double Barrel or Versatile
@@ -997,9 +995,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 {
                     name: game.i18n.localize(CONFIG.PF2E.featCategories.bonus),
                     type: "feat",
-                    system: {
-                        category: "bonus",
-                    },
+                    system: { category: "bonus" },
                 },
             ]);
         };
@@ -1022,8 +1018,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         };
 
         handlers["toggle-free-crafting"] = async () => {
-            const freeCrafting = !this.actor.flags.pf2e.freeCrafting;
-            this.actor.update({ "flags.pf2e.freeCrafting": freeCrafting });
+            const freeCrafting = !this.actor.flags[SYSTEM_ID].freeCrafting;
+            this.actor.update({ [`flags.${SYSTEM_ID}.freeCrafting`]: freeCrafting });
         };
 
         handlers["prepare-formula"] = (_, anchor) => {
@@ -1066,7 +1062,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const formula = this.#knownFormulas[uuid];
             if (!formula) return;
 
-            if (this.actor.flags.pf2e.quickAlchemy) {
+            if (this.actor.flags[SYSTEM_ID].quickAlchemy) {
                 const reagentValue = this.actor.system.resources.crafting.infusedReagents.value - 1;
                 if (reagentValue < 0) {
                     ui.notifications.warn("PF2E.Actor.Character.Crafting.MissingResource", { localize: true });
@@ -1080,11 +1076,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 return craftItem(formula.item, 1, this.actor, true);
             }
 
-            if (this.actor.flags.pf2e.freeCrafting) {
+            if (this.actor.flags[SYSTEM_ID].freeCrafting) {
                 if (isSpellConsumableUUID(uuid) && formula.item.isOfType("consumable")) {
                     return craftSpellConsumable(formula.item, quantity, this.actor);
                 }
-
                 return craftItem(formula.item, quantity, this.actor);
             }
 

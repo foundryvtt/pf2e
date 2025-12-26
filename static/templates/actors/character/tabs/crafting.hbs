@@ -3,7 +3,8 @@
         <div class="crafting-options item-list">
             <div class="crafting-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
                 <label>
-                    <input type="checkbox" name="flags.pf2e.quickAlchemy" {{checked actor.flags.pf2e.quickAlchemy}} />
+                    <input type="checkbox" name="{{concat "flags." systemId ".quickAlchemy"}}"
+                            {{checked systemFlags.quickAlchemy}} />
                     <span>{{localize "PF2E.CraftingTab.ToggleQuickAlchemy"}}</span>
                 </label>
             </div>
@@ -102,7 +103,7 @@
             {{localize "PF2E.FormulaKnownTitle"}}
             <div class="controls">
                 <button type="button" data-action="toggle-free-crafting" data-tooltip="PF2E.Actor.Character.Crafting.FreeCraftingTooltip">
-                    <input type="checkbox" {{checked actor.flags.pf2e.freeCrafting}} />
+                    <input type="checkbox" {{checked systemFlags.freeCrafting}} />
                     {{localize "PF2E.Actor.Character.Crafting.FreeCrafting"}}
                 </button>
                 <button type="button" data-action="browse-equipment" data-action-type="{{sid}}">
@@ -124,7 +125,7 @@
 
                     {{!-- Exists only due to localization reasons regarding a resizing button. We hide this button--}}
                     <button type="button" class="craft blue invisible">
-                        {{#if @root.actor.flags.pf2e.freeCrafting}}
+                        {{#if @root.systemFlags.freeCrafting}}
                             <i class="fa-solid fa-plus"></i>
                             {{localize "PF2E.CreateLabelUniversal"}}
                         {{else}}
@@ -159,7 +160,7 @@
                         </div>
 
                         <button type="button" class="craft blue" data-action="craft-item">
-                            {{#if @root.actor.flags.pf2e.freeCrafting}}
+                            {{#if @root.systemFlags.freeCrafting}}
                                 <i class="fa-solid fa-plus"></i>
                                 {{localize "PF2E.Actor.Character.Crafting.Create"}}
                             {{else}}

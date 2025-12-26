@@ -20,7 +20,7 @@ function featCanHaveKeyOptions(feat: FeatPF2e): boolean {
 function suppressFeats(feats: (FeatPF2e | AbilityItemPF2e)[]): void {
     for (const featOrAbility of feats) {
         featOrAbility.suppressed = true;
-        const allGrants = Object.values(featOrAbility.flags.pf2e.itemGrants)
+        const allGrants = Object.values(featOrAbility.flags[SYSTEM_ID].itemGrants)
             .map((g) => featOrAbility.actor?.items.get(g.id))
             .filter((i): i is FeatPF2e<ActorPF2e> | AbilityItemPF2e<ActorPF2e> => !!i?.isOfType("action", "feat"));
         suppressFeats(allGrants);

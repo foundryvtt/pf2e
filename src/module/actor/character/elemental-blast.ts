@@ -144,7 +144,7 @@ class ElementalBlast {
     })();
 
     get actionCost(): 1 | 2 {
-        const cost = this.item?.flags.pf2e.rulesSelections.actionCost ?? 1;
+        const cost = this.item?.flags[SYSTEM_ID].rulesSelections.actionCost ?? 1;
         if (cost !== 1 && cost !== 2) throw ErrorPF2e("Action cost must be 1 or 2");
         return cost;
     }
@@ -153,13 +153,13 @@ class ElementalBlast {
     #prepareBlastConfigs(): ElementalBlastConfig[] {
         const { item, statistic, actionCost, infusion } = this;
         if (!item || !statistic) return [];
-        const kineticist = this.actor.flags.pf2e.kineticist;
+        const kineticist = this.actor.flags[SYSTEM_ID].kineticist;
         if (!R.isPlainObject(kineticist) || !R.isPlainObject(kineticist.elementalBlast)) {
             return [this.#getDisabledBlast(statistic, item.name)];
         }
         const schema = ElementalBlast.#blastConfigSchema;
         const damageTypeSelections = ((): Record<string, unknown> => {
-            const flag = item.flags.pf2e.damageSelections;
+            const flag = item.flags[SYSTEM_ID].damageSelections;
             return R.isPlainObject(flag) ? flag : {};
         })();
         const blasts = Object.values(kineticist.elementalBlast)
@@ -172,14 +172,13 @@ class ElementalBlast {
         }
 
         // Set in the same fashion as weapons
-        item.flags.pf2e.attackItemBonus =
+        item.flags[SYSTEM_ID].attackItemBonus =
             statistic.check.modifiers.find((m) => m.enabled && ["item", "potency"].includes(m.type))?.value ?? 0;
 
         // In case of infusions, get separate MAPs for melee and ranged attacks
         const maps = (() => {
             const domains = [...statistic.check.domains, "elemental-blast-attack-roll"];
             const options = this.actor.getRollOptions(domains);
-
             const mapsFor = (melee: boolean): { map0: string; map1: string; map2: string } => {
                 const modifiedItem = this.#createModifiedItem({ melee }) ?? item;
                 const blastStatistic = this.#createAttackStatistic(statistic, modifiedItem);
@@ -197,7 +196,6 @@ class ElementalBlast {
                     }),
                 };
             };
-
             return { melee: mapsFor(true), ranged: mapsFor(false) };
         })();
 
@@ -245,10 +243,9 @@ class ElementalBlast {
 
     #prepareBlastInfusion(): BlastInfusionData | null {
         const schema = ElementalBlast.#blastInfusionSchema;
-        const flag = this.actor.flags.pf2e.kineticist;
+        const flag = this.actor.flags[SYSTEM_ID].kineticist;
         const infusionData =
             R.isPlainObject(flag) && R.isPlainObject(flag.elementalBlast) ? flag.elementalBlast.infusion : null;
-
         return R.isPlainObject(infusionData) ? schema.clean(infusionData) : null;
     }
 
@@ -407,7 +404,7 @@ class ElementalBlast {
 
         const targetToken = game.user.targets.first()?.document ?? null;
         const damageCategory = DamageCategorization.fromDamageType(params.damageType);
-        item.flags.pf2e.attackItemBonus =
+        item.flags[SYSTEM_ID].attackItemBonus =
             blastConfig.statistic.check.modifiers.find((m) => m.enabled && ["item", "potency"].includes(m.type))
                 ?.value ?? 0;
 
@@ -569,7 +566,7 @@ class ElementalBlast {
         if (!this.configs.some((c) => c.element === element && c.damageTypes.some((dt) => dt.value === damageType))) {
             throw ErrorPF2e(`Damage type "${damageType}" not available for ${element}`);
         }
-        await this.item?.update({ [`flags.pf2e.damageSelections.${element}`]: damageType });
+        await this.item?.update({ [`flags.${SYSTEM_ID}.damageSelections.${element}`]: damageType });
     }
 }
 

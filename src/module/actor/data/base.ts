@@ -28,8 +28,8 @@ type BaseActorSourcePF2e<
     prototypeToken: PrototypeTokenSourcePF2e;
 };
 
-type ActorSourceFlagsPF2e = DocumentFlagsSource & { pf2e?: Partial<ActorFlagsPF2eSystemProps> };
-type ActorFlagsPF2e = DocumentFlags & { pf2e: ActorFlagsPF2eSystemProps };
+type ActorSourceFlagsPF2e = DocumentFlagsSource & { [SYSTEM_ID]?: Partial<ActorFlagsPF2eSystemProps> };
+type ActorFlagsPF2e = DocumentFlags & { [SYSTEM_ID]: ActorFlagsPF2eSystemProps };
 
 interface ActorFlagsPF2eSystemProps {
     rollOptions: RollOptionFlags;
@@ -300,7 +300,7 @@ interface Rollable {
 
 type PrototypeTokenSourcePF2e = foundry.data.PrototypeTokenSource & {
     flags: {
-        pf2e?: {
+        [SYSTEM_ID]: {
             linkToActorSize?: boolean;
             autoscale?: boolean;
         };
@@ -309,7 +309,7 @@ type PrototypeTokenSourcePF2e = foundry.data.PrototypeTokenSource & {
 
 interface PrototypeTokenPF2e<TParent extends ActorPF2e | null> extends foundry.data.PrototypeToken<TParent> {
     flags: DocumentFlags & {
-        pf2e: {
+        [SYSTEM_ID]: {
             linkToActorSize: boolean;
             autoscale: boolean;
         };

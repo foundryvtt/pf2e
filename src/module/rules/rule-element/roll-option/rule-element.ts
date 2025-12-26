@@ -337,9 +337,9 @@ class RollOptionRuleElement extends RuleElement<RollOptionSchema> {
             const flagKey = sluggify(this.#resolveOption(), { camel: "dromedary" });
             if (value) {
                 const flagValue = /^\d+$/.test(this.selection) ? Number(this.selection) : this.selection;
-                this.item.flags.pf2e.rulesSelections[flagKey] = flagValue;
+                this.item.flags[SYSTEM_ID].rulesSelections[flagKey] = flagValue;
             } else {
-                this.item.flags.pf2e.rulesSelections[flagKey] ??= null;
+                this.item.flags[SYSTEM_ID].rulesSelections[flagKey] ??= null;
             }
         }
     }

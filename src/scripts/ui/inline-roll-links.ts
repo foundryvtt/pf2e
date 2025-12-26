@@ -356,31 +356,23 @@ export class InlineRollLinks {
             }
         }
 
-        const flags: { pf2e: Record<string, JSONValue> } = { pf2e: {} };
+        const flags: { [SYSTEM_ID]: Record<string, JSONValue> } = { [SYSTEM_ID]: {} };
 
         const normalSize = (Math.ceil(data.distance) / 5) * 5 || 5;
         if (tupleHasValue(EFFECT_AREA_SHAPES, pf2EffectArea) && data.distance === normalSize) {
-            flags.pf2e.areaShape = pf2EffectArea;
+            flags[SYSTEM_ID].areaShape = pf2EffectArea;
         }
-
-        if (message) {
-            flags.pf2e.messageId = message.id;
-        }
-
+        if (message) flags[SYSTEM_ID].messageId = message.id;
         if (item) {
             const origin = item.getOriginData();
-            flags.pf2e.origin = origin;
+            flags[SYSTEM_ID].origin = origin;
         } else if (actor || pf2Traits) {
-            flags.pf2e.origin = {
+            flags[SYSTEM_ID].origin = {
                 actor: actor?.uuid ?? null,
                 traits: splitListString(pf2Traits ?? ""),
             };
         }
-
-        if (!R.isEmpty(flags.pf2e)) {
-            data.flags = flags;
-        }
-
+        if (!R.isEmpty(flags[SYSTEM_ID])) data.flags = flags;
         canvas.templates.createPreview(data);
     }
 
@@ -412,11 +404,10 @@ export class InlineRollLinks {
         const message = game.messages.get(htmlClosest(target, "[data-message-id]")?.dataset.messageId ?? "");
         const flags: DeepPartial<ChatMessageFlagsPF2e> =
             appDocument instanceof JournalEntry
-                ? { pf2e: { journalEntry: appDocument.uuid } }
-                : message?.flags.pf2e.origin
-                  ? { pf2e: { origin: fu.deepClone(message.flags.pf2e.origin) } }
+                ? { [SYSTEM_ID]: { journalEntry: appDocument.uuid } }
+                : message?.flags[SYSTEM_ID].origin
+                  ? { [SYSTEM_ID]: { origin: fu.deepClone(message.flags[SYSTEM_ID].origin) } }
                   : {};
-
         return ChatMessagePF2e.create({ speaker, content, flags });
     }
 

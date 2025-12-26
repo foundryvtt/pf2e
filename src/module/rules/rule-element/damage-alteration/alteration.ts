@@ -127,8 +127,8 @@ class DamageAlteration {
                 damage.dieSize !== stringValue &&
                 options.item.isOfType("weapon")
             ) {
-                if (options.item.flags.pf2e.damageFacesUpgraded) return damage;
-                options.item.flags.pf2e.damageFacesUpgraded = true;
+                if (options.item.flags[SYSTEM_ID].damageFacesUpgraded) return damage;
+                options.item.flags[SYSTEM_ID].damageFacesUpgraded = true;
             }
             damage.dieSize = stringValue;
         } else if (this.property === "dice-number" && "diceNumber" in damage && typeof value === "number") {

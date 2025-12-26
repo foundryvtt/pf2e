@@ -48,8 +48,8 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
         this.customLimit = data.customLimit ?? null;
         if (this.customLimit && actor.isOfType("character")) {
             const { min, max } = this.customLimit;
-            this.limit = Math.clamp(options.limit ?? actor.flags.pf2e.featLimits[this.id] ?? 0, min, max);
-            actor.flags.pf2e.featLimits[this.id] = this.limit;
+            this.limit = Math.clamp(options.limit ?? actor.flags[SYSTEM_ID].featLimits[this.id] ?? 0, min, max);
+            actor.flags[SYSTEM_ID].featLimits[this.id] = this.limit;
         } else {
             this.limit = options.limit ?? actor.level;
         }
@@ -123,7 +123,7 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
 
     #getChildSlots(feat: Maybe<ItemPF2e>): FeatSlot<FeatPF2e<ActorPF2e> | HeritagePF2e<ActorPF2e>>[] {
         if (!feat?.isOfType("feat")) return [];
-        const grantsById = R.mapKeys(feat.flags.pf2e.itemGrants, (_, g) => g.id);
+        const grantsById = R.mapKeys(feat.flags[SYSTEM_ID].itemGrants, (_, g) => g.id);
 
         return feat.grants
             .filter((g) => grantsById[g.id]?.nested !== false)

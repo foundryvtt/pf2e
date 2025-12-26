@@ -316,7 +316,7 @@ class Check {
         const message = await ((): MessagePromise => {
             const flags = {
                 core: context.type === "initiative" ? { initiativeRoll: true } : {},
-                pf2e: {
+                [SYSTEM_ID]: {
                     context: contextFlag,
                     modifierName: check.slug,
                     modifiers: check.modifiers.map((m) => m.toObject()),
@@ -484,7 +484,7 @@ class Check {
             }
         }
 
-        const systemFlags = fu.deepClone(message.flags.pf2e);
+        const systemFlags = fu.deepClone(message.flags[SYSTEM_ID]);
         const context = systemFlags.context;
         if (!isCheckContextFlag(context)) return;
 
@@ -630,7 +630,7 @@ class Check {
             : oldFlavor;
 
         // If this was an initiative roll, apply the result to the current encounter
-        const initiativeRoll = message.flags.core.initiativeRoll;
+        const initiativeRoll = !!message.flags.core?.initiativeRoll;
         if (initiativeRoll) {
             const combatant = message.token?.combatant;
             await combatant?.parent.setInitiative(combatant.id, newRoll.total);
@@ -642,10 +642,7 @@ class Check {
                 content: `<div class="${oldRollClass}">${renders.old}</div><div class="reroll-second ${newRollClass}">${renders.new}</div>`,
                 flavor: `${rerollIcon.outerHTML}${newFlavor}`,
                 speaker: message.speaker,
-                flags: {
-                    core: { initiativeRoll },
-                    pf2e: systemFlags,
-                },
+                flags: { core: { initiativeRoll }, [SYSTEM_ID]: systemFlags },
             },
             { rollMode: context.rollMode },
         )) as ChatMessagePF2e;

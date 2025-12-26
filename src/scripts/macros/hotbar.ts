@@ -95,7 +95,7 @@ export async function createActionMacro({
                 name: data.name,
                 type: "script",
                 img: data.img,
-                flags: { pf2e: { actionMacro: true } },
+                flags: { [SYSTEM_ID]: { actionMacro: true } },
             },
             { renderSheet: false },
         ));

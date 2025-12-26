@@ -97,7 +97,6 @@ import {
     getWeaponAuxiliaryActions,
     imposeOversizedWeaponCondition,
 } from "./helpers.ts";
-import { CharacterSheetTabVisibility } from "./sheet.ts";
 import {
     CharacterHitPointsSummary,
     CharacterSkill,
@@ -239,22 +238,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         };
 
         // Flags
-        const flags = this.flags;
-        flags.pf2e.favoredWeaponRank = 0;
-        flags.pf2e.freeCrafting ??= false;
-        flags.pf2e.quickAlchemy ??= false;
-        flags.pf2e.sheetTabs = fu.mergeObject(
-            CHARACTER_SHEET_TABS.reduce(
-                (tabs, tab) => ({
-                    ...tabs,
-                    [tab]: true,
-                }),
-                {} as CharacterSheetTabVisibility,
-            ),
-            flags.pf2e.sheetTabs ?? {},
+        const systemFlags = this.flags[SYSTEM_ID];
+        systemFlags.favoredWeaponRank = 0;
+        systemFlags.freeCrafting ??= false;
+        systemFlags.quickAlchemy ??= false;
+        systemFlags.sheetTabs = Object.assign(
+            R.mapToObj(CHARACTER_SHEET_TABS, (tab) => [tab, true]),
+            systemFlags.sheetTabs ?? {},
         );
-        flags.pf2e.showBasicUnarmed ??= true;
-        flags.pf2e.featLimits ??= {};
+        systemFlags.showBasicUnarmed ??= true;
+        systemFlags.featLimits ??= {};
 
         // Build selections: boosts and skill trainings
         const isGradual = game.pf2e.settings.variants.gab;
@@ -393,10 +386,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         for (const category of Object.keys(CONFIG.PF2E.weaponCategories)) {
-            attacks[category] = {
-                rank: attacks[category]?.rank ?? 0,
-                visible: true,
-            };
+            attacks[category] = { visible: true, rank: attacks[category]?.rank ?? 0 };
         }
 
         const defenses: PartialMartialProficiency = (system.proficiencies.defenses ??= {});
@@ -630,7 +620,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Strike actions
         system.actions = this.prepareAttacks();
-        this.flags.pf2e.highestWeaponDamageDice = Math.max(
+        this.flags[SYSTEM_ID].highestWeaponDamageDice = Math.max(
             ...system.actions.filter((s) => s.ready).map((s) => s.item.system.damage.dice),
             0,
         );
@@ -1213,8 +1203,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         ];
 
         const identifier = `${weapon.id}.${weaponSlug}.${action}`;
-        const hiddenCauseStowed = weapon.isStowed && this.flags.pf2e.hideStowed;
-        const hiddenCauseUnarmed = weapon.slug === "basic-unarmed" && !this.flags.pf2e.showBasicUnarmed;
+        const hiddenCauseStowed = weapon.isStowed && this.flags[SYSTEM_ID].hideStowed;
+        const hiddenCauseUnarmed = weapon.slug === "basic-unarmed" && !this.flags[SYSTEM_ID].showBasicUnarmed;
         const handsAvailable = !weapon.system.graspingAppendage || handsReallyFree > 0;
 
         return {
@@ -1382,7 +1372,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     weapon.system.traits.value.push("magical");
                 }
 
-                weapon.flags.pf2e.attackItemBonus = best.modifier;
+                weapon.flags[SYSTEM_ID].attackItemBonus = best.modifier;
             }
         }
 
@@ -1448,8 +1438,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                       glyph: DAMAGE_TYPE_ICONS[o],
                   }));
 
-        const hiddenCauseStowed = weapon.isStowed && this.flags.pf2e.hideStowed;
-        const hiddenCauseUnarmed = weapon.slug === "basic-unarmed" && !this.flags.pf2e.showBasicUnarmed;
+        const hiddenCauseStowed = weapon.isStowed && this.flags[SYSTEM_ID].hideStowed;
+        const hiddenCauseUnarmed = weapon.slug === "basic-unarmed" && !this.flags[SYSTEM_ID].showBasicUnarmed;
         const action: CharacterStrike = fu.mergeObject(strikeStat, {
             label: weapon.name,
             quantity: weapon.quantity,
@@ -1646,7 +1636,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         action.attack = action.roll = action.variants[0].roll;
 
         // Note this since a damage alteration may set it to true, which we want to revert after rolling
-        const originalDiceUpgraded = weapon.flags.pf2e.damageFacesUpgraded;
+        const originalDiceUpgraded = weapon.flags[SYSTEM_ID].damageFacesUpgraded;
 
         for (const method of ["damage", "critical"] as const) {
             action[method] = async (params: DamageRollParams = {}): Promise<string | Rolled<DamageRoll> | null> => {
@@ -1704,11 +1694,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 const damage = await WeaponDamagePF2e.calculate({
                     weapon: weaponClone,
                     actor: context.origin.actor,
-                    weaponPotency: weapon.flags.pf2e.attackItemBonus,
+                    weaponPotency: weapon.flags[SYSTEM_ID].attackItemBonus,
                     context: damageContext,
                 });
                 if (!damage) return null;
-                weapon.flags.pf2e.damageFacesUpgraded = originalDiceUpgraded;
+                weapon.flags[SYSTEM_ID].damageFacesUpgraded = originalDiceUpgraded;
 
                 if (params.getFormula) {
                     const formula = damage.damage.formula[outcome];
@@ -1863,10 +1853,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (isFullReplace) return super._preUpdate(changed, options, user);
 
         // Allow only one free crafting and quick alchemy to be enabled
-        if (changed.flags?.pf2e?.freeCrafting) {
-            changed.flags.pf2e.quickAlchemy = false;
-        } else if (changed.flags?.pf2e?.quickAlchemy) {
-            changed.flags.pf2e.freeCrafting = false;
+        if (changed.flags?.[SYSTEM_ID]?.freeCrafting) {
+            changed.flags[SYSTEM_ID].quickAlchemy = false;
+        } else if (changed.flags?.[SYSTEM_ID]?.quickAlchemy) {
+            changed.flags[SYSTEM_ID].freeCrafting = false;
         }
 
         if (!changed.system) return super._preUpdate(changed, options, user);

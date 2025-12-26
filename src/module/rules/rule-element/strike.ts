@@ -240,7 +240,7 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
             type: "weapon",
             img: this.img,
             flags: {
-                pf2e: {
+                [SYSTEM_ID]: {
                     battleForm: this.battleForm,
                     fixedAttack: actorIsNPC ? (this.attackModifier ?? null) : null,
                 },

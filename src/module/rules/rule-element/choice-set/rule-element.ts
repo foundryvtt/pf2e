@@ -86,9 +86,9 @@ class ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema> {
 
             // Assign the selection to a flag on the parent item so that it may be referenced by other rules elements on
             // the same item. If a roll option is specified, assign that as well.
-            this.item.flags.pf2e.rulesSelections[this.flag] = this.selection;
+            this.item.flags[SYSTEM_ID].rulesSelections[this.flag] = this.selection;
             if (this.actorFlag) {
-                this.actor.flags.pf2e[this.flag] = this.selection;
+                this.actor.flags[SYSTEM_ID][this.flag] = this.selection;
             }
         }
     }
@@ -231,9 +231,9 @@ class ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema> {
             itemSource.name = this.#adjustName(itemSource.name, selection);
 
             // Set the item flag in case other preCreate REs need it
-            this.item.flags.pf2e.rulesSelections[this.flag] = selection.value;
+            this.item.flags[SYSTEM_ID].rulesSelections[this.flag] = selection.value;
             if (this.actorFlag) {
-                this.actor.flags.pf2e[this.flag] = selection.value;
+                this.actor.flags[SYSTEM_ID][this.flag] = selection.value;
             }
 
             // If the selection is an item UUID, retrieve the item's slug and use that for the roll option instead

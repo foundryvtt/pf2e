@@ -83,7 +83,7 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
     }
 
     override prepareSiblingData(): void {
-        const itemGrants = this.flags.pf2e.itemGrants;
+        const itemGrants = this.flags[SYSTEM_ID].itemGrants;
         this.grants = Object.values(itemGrants).flatMap((grant) => {
             const item = this.actor?.items.get(grant.id);
             if (item?.isOfType("campaignFeature")) {

@@ -97,7 +97,7 @@ class CombatantPF2e<
 
     /** The round this combatant last had a turn */
     get roundOfLastTurn(): number | null {
-        return this.flags.pf2e.roundOfLastTurn;
+        return this.flags[SYSTEM_ID].roundOfLastTurn;
     }
 
     /** Can the user see this combatant's name? */
@@ -106,7 +106,7 @@ class CombatantPF2e<
     }
 
     overridePriority(initiative: number): number | null {
-        return this.flags.pf2e.overridePriority[initiative] ?? null;
+        return this.flags[SYSTEM_ID].overridePriority[initiative] ?? null;
     }
 
     hasHigherInitiative(
@@ -124,7 +124,7 @@ class CombatantPF2e<
         const { actor, encounter } = this;
         if (!encounter || !actor) return;
 
-        this.update({ "flags.pf2e.roundOfLastTurn": encounter.round }, { render: false });
+        this.update({ [`flags.${SYSTEM_ID}.roundOfLastTurn`]: encounter.round }, { render: false });
 
         // Run any turn start events before the effect tracker updates
         const eventType = "turn-start";
@@ -167,15 +167,15 @@ class CombatantPF2e<
             }
         }
 
-        await this.update({ "flags.pf2e.roundOfLastTurnEnd": round });
+        await this.update({ [`flags.${SYSTEM_ID}.roundOfLastTurnEnd`]: round });
         Hooks.callAll("pf2e.endTurn", this, encounter, game.user.id);
     }
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this.flags.pf2e = fu.mergeObject(this.flags.pf2e ?? {}, { overridePriority: {} });
-        this.flags.pf2e.roundOfLastTurn ??= null;
-        this.flags.pf2e.initiativeStatistic ??= null;
+        this.flags[SYSTEM_ID] = fu.mergeObject(this.flags[SYSTEM_ID] ?? {}, { overridePriority: {} });
+        this.flags[SYSTEM_ID].roundOfLastTurn ??= null;
+        this.flags[SYSTEM_ID].initiativeStatistic ??= null;
     }
 
     /** Toggle the defeated status of this combatant, applying or removing the overlay icon on its token */
@@ -299,7 +299,7 @@ interface CombatantPF2e<
 }
 
 type CombatantFlags = DocumentFlags & {
-    pf2e: {
+    [SYSTEM_ID]: {
         initiativeStatistic: SkillSlug | "perception" | null;
         roundOfLastTurn: number | null;
         roundOfLastTurnEnd: number | null;

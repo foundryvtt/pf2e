@@ -164,7 +164,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const handlers = super.activateClickListener(html);
 
         handlers["toggle-edit-mode"] = () => {
-            return this.actor.update({ "flags.pf2e.editHazard.value": !this.editing });
+            return this.actor.update({ [`flags.${SYSTEM_ID}.editHazard.value`]: !this.editing });
         };
 
         handlers["edit-section"] = (event) => {

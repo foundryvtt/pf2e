@@ -410,7 +410,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
 
                 // Get confirmation from the user before replacing existing generated attacks
                 const existing = actor.itemTypes.melee
-                    .filter((m) => m.flags.pf2e.linkedWeapon === itemId)
+                    .filter((m) => m.flags[SYSTEM_ID].linkedWeapon === itemId)
                     .map((m) => m.id);
                 if (existing.length > 0) {
                     const proceed = await foundry.applications.api.DialogV2.confirm({

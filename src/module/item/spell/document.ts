@@ -771,7 +771,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         if (!message) return undefined;
 
         const messageSource = message.toObject();
-        const flags = messageSource.flags.pf2e;
+        const flags = messageSource.flags[SYSTEM_ID];
         const spellcasting = this.spellcasting;
 
         if (spellcasting?.statistic) {

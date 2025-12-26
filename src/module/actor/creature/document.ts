@@ -324,7 +324,7 @@ abstract class CreaturePF2e<
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.flags.pf2e.rollOptions.all["self:creature"] = true;
+        this.flags[SYSTEM_ID].rollOptions.all["self:creature"] = true;
 
         this.system.perception = fu.mergeObject({ attribute: "wis", senses: [] }, this.system.perception);
         this.system.resources ??= {};
@@ -749,7 +749,7 @@ abstract class CreaturePF2e<
             this.system.movement.speeds.land.base,
             ...(synthetics.land?.flatMap((d) => d({ test: baseSpeedOptions })?.value ?? []) ?? []),
         ].reduce((highest, v) => Math.max(highest, v), 0);
-        if (baseSpeed > 0) this.flags.pf2e.rollOptions.all["speed:land"] = true;
+        if (baseSpeed > 0) this.flags[SYSTEM_ID].rollOptions.all["speed:land"] = true;
         const landSpeed = new SpeedStatistic(this, { type: "land", base: baseSpeed, modifiers });
         this.system.movement.speeds.land = landSpeed.getTraceData();
 
@@ -763,11 +763,11 @@ abstract class CreaturePF2e<
                 const syntheticSpeed = R.firstBy(fromSynthetics, [(s) => s.value ?? 0, "desc"]);
                 if (!syntheticSpeed && systemDataSpeed.value <= 0) return [type, null];
 
-                this.flags.pf2e.rollOptions.all[`speed:${type}`] = true;
+                this.flags[SYSTEM_ID].rollOptions.all[`speed:${type}`] = true;
                 const selected: { value: number; source?: string | null; derivedFromLand?: boolean } =
                     syntheticSpeed && syntheticSpeed.value > systemDataSpeed.value ? syntheticSpeed : systemDataSpeed;
                 if (selected === syntheticSpeed && syntheticSpeed.derivedFromLand) {
-                    const domain = (this.flags.pf2e.rollOptions[`${type}-speed`] ??= {});
+                    const domain = (this.flags[SYSTEM_ID].rollOptions[`${type}-speed`] ??= {});
                     domain["derived-from-land"] = true;
                 }
                 const statistic = selected.derivedFromLand

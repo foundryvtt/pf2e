@@ -32,7 +32,7 @@ export class PCSheetTabManager {
     /** Set each checkbox to be checked according to its corresponding tab visibility */
     #onReady(tooltip: HTMLElement | null = null): void {
         if (!tooltip) return;
-        const tabVisibility: Record<string, boolean> = this.actor.flags.pf2e.sheetTabs;
+        const tabVisibility: Record<string, boolean> = this.actor.flags[SYSTEM_ID].sheetTabs;
         const nav = this.link.closest("nav");
         const tabs = nav?.querySelectorAll<HTMLAnchorElement>("a.item[data-tab]") ?? [];
         // Show the hidden tab buttons as present but semi-transparent
@@ -66,10 +66,10 @@ export class PCSheetTabManager {
 
             if (checkbox.checked) {
                 tab?.classList.remove("to-hide");
-                await this.actor.update({ [`flags.pf2e.sheetTabs.-=${tabName}`]: null }, { render: false });
+                await this.actor.update({ [`flags.${SYSTEM_ID}.sheetTabs.-=${tabName}`]: null }, { render: false });
             } else {
                 tab?.classList.add("to-hide");
-                await this.actor.update({ [`flags.pf2e.sheetTabs.${tabName}`]: false }, { render: false });
+                await this.actor.update({ [`flags.${SYSTEM_ID}.sheetTabs.${tabName}`]: false }, { render: false });
             }
 
             for (const c of checkboxes) {

@@ -25,7 +25,7 @@ type MeleeSource = BaseItemSourcePF2e<"melee", MeleeSystemSource> & {
 };
 
 type MeleeFlags = ItemFlagsPF2e & {
-    pf2e: {
+    [SYSTEM_ID]: {
         linkedWeapon?: string;
     };
 };

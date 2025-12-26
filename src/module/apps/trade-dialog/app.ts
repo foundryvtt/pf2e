@@ -133,7 +133,7 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         const traderName = TradeDialog.#getObfuscatedActorName(trader.actor);
         ui.notifications.info(TradeDialog.localize("Request.Requesting", { trader: traderName }));
         try {
-            const response = await trader.user.query("pf2e.trade", queryData, { timeout: 30_000 });
+            const response = await trader.user.query(`${SYSTEM_ID}.trade`, queryData, { timeout: 30_000 });
             if (!response) throw ErrorPF2e("No response from other side.");
             if (response.ok) {
                 const dialog = new TradeDialog({ self: { ...self, gift: giftQuantity, initiator: true }, trader });
@@ -252,7 +252,7 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
     async abortTrade(message: string): Promise<this> {
         if (message) ui.notifications.error(message, { console: false });
-        this.#trader.user.query("pf2e.trade", { action: "abort" });
+        this.#trader.user.query(`${SYSTEM_ID}.trade`, { action: "abort" });
         return this.close({ aborted: true });
     }
 
@@ -396,7 +396,7 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         } else if (!options.aborted) {
             const trader = this.#trader;
             const message = TradeDialog.localize("Aborted", { user: trader.user.name });
-            trader.user.query("pf2e.trade", { action: "abort", message });
+            trader.user.query(`${SYSTEM_ID}.trade`, { action: "abort", message });
         }
         TradeDialog.#userTrading = false;
         delete this.#self.actor.apps[this.id];

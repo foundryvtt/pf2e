@@ -75,8 +75,8 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         // Set encounter roll options from the master's perspective
         const master = this.master;
         if (master) {
-            this.flags.pf2e.rollOptions.all = fu.mergeObject(
-                this.flags.pf2e.rollOptions.all,
+            this.flags[SYSTEM_ID].rollOptions.all = fu.mergeObject(
+                this.flags[SYSTEM_ID].rollOptions.all,
                 createEncounterRollOptions(master),
             );
         }

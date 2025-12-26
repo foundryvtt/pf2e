@@ -114,7 +114,7 @@ async function checkAreaEffects(this: ActorPF2e): Promise<void> {
     const toKeep: string[] = [];
 
     for (const effect of this.itemTypes.effect) {
-        const auraData = effect.flags.pf2e.aura;
+        const auraData = effect.flags[SYSTEM_ID].aura;
         if (!auraData?.removeOnExit) continue;
 
         const auraActor = (await fromUuid(auraData.origin)) as ActorPF2e | null;
@@ -161,9 +161,9 @@ function auraAffectsActor(data: AuraEffectData, origin: ActorPF2e, actor: ActorP
 function setHitPointsRollOptions(actor: ActorPF2e): void {
     const hp = actor.hitPoints;
     if (!hp) return;
-    actor.flags.pf2e.rollOptions.all[`hp-remaining:${hp.value}`] = true;
+    actor.flags[SYSTEM_ID].rollOptions.all[`hp-remaining:${hp.value}`] = true;
     const percentRemaining = Math.floor((hp.value / hp.max) * 100);
-    actor.flags.pf2e.rollOptions.all[`hp-percent:${percentRemaining}`] = true;
+    actor.flags[SYSTEM_ID].rollOptions.all[`hp-percent:${percentRemaining}`] = true;
 }
 
 /** Find the lowest multiple attack penalty for an attack with a given item */
@@ -217,8 +217,7 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
 
     const initiativeRoll = Math.trunc(participant.initiative);
     const initiativeRank = participants.indexOf(participant) + 1;
-    const { initiativeStatistic } = participant.flags.pf2e;
-
+    const initiativeStatistic = participant.flags[SYSTEM_ID].initiativeStatistic;
     const threat = encounter.metrics?.threat;
     const numericThreat = { trivial: 0, low: 1, moderate: 2, severe: 3, extreme: 4 }[threat ?? "trivial"];
 
@@ -243,7 +242,7 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
 function createEnvironmentRollOptions(actor: ActorPF2e): Record<string, boolean> {
     const toAdd = new Set<string>();
     // Always add the scene terrain types
-    for (const terrain of canvas.scene?.flags.pf2e.environmentTypes ?? []) {
+    for (const terrain of canvas.scene?.flags[SYSTEM_ID].environmentTypes ?? []) {
         toAdd.add(terrain);
     }
     const token = actor.getActiveTokens(false, true).at(0);
@@ -814,7 +813,7 @@ function createDamageRollFunctions(
                 : await WeaponDamagePF2e.calculate({
                       weapon: item,
                       actor: context.origin.actor,
-                      weaponPotency: item.flags.pf2e.attackItemBonus,
+                      weaponPotency: item.flags[SYSTEM_ID].attackItemBonus,
                       context: damageContext,
                   });
             if (!damage) return null;
@@ -880,26 +879,9 @@ async function createAreaAttackMessage({
         areaLabel: createEffectAreaLabel(area),
         saveBreakdown: dc.breakdown,
     });
-
-    const context: AreaAttackContextFlag = {
-        type: action,
-        area,
-        identifier,
-        domains: dc.domains,
-        options,
-    };
-
-    await ChatMessagePF2e.create({
-        flavor,
-        content,
-        speaker,
-        flags: {
-            pf2e: {
-                context,
-                origin: item.getOriginData(),
-            },
-        },
-    });
+    const context: AreaAttackContextFlag = { type: action, area, identifier, domains: dc.domains, options };
+    const flags = { [SYSTEM_ID]: { context, origin: item.getOriginData() } };
+    await ChatMessagePF2e.create({ flavor, content, speaker, flags });
 }
 
 /** Get the range increment of a target for a given weapon */

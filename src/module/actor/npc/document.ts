@@ -72,7 +72,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             super.canUserModify(user, action) ||
             (action === "update" &&
                 this.isDead &&
-                (this.flags.pf2e.lootable || game.settings.get("pf2e", "automation.lootableNPCs")))
+                (this.flags[SYSTEM_ID].lootable || game.settings.get("pf2e", "automation.lootableNPCs")))
         );
     }
 
@@ -80,7 +80,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.flags.pf2e.lootable ??= false;
+        this.flags[SYSTEM_ID].lootable ??= false;
         this.system.actions = [];
         for (const key of SAVE_TYPES) {
             this.system.saves[key].attribute = CONFIG.PF2E.savingThrowDefaultAttributes[key];
@@ -601,7 +601,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
     /** Update the prototype token dimensions along with this actor's size category. */
     async #updatePrototypeToken(changes: DeepPartial<this["_source"]>): Promise<void> {
-        if (this.isToken || !this.prototypeToken.flags.pf2e.linkToActorSize || !changes.system?.traits?.size?.value) {
+        const linkToActorSize = this.prototypeToken.flags[SYSTEM_ID].linkToActorSize;
+        if (this.isToken || !linkToActorSize || !changes.system?.traits?.size?.value) {
             return;
         }
         const newSize = new ActorSizePF2e({ value: changes.system.traits.size.value });

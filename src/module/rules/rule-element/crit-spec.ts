@@ -160,7 +160,7 @@ class CritSpecRuleElement extends RuleElement<CritSpecRuleSchema> {
                 });
                 const bonusValue = weapon.isOfType("melee")
                     ? (weapon.linkedWeapon?.system.runes.potency ?? 0)
-                    : weapon.flags.pf2e.attackItemBonus;
+                    : weapon.flags[SYSTEM_ID].attackItemBonus;
                 const bonus =
                     bonusValue > 0
                         ? new Modifier({

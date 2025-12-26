@@ -142,15 +142,7 @@ async function onRepairChatCardEvent(
             },
             item,
         });
-        await roll.toMessage({
-            flags: {
-                pf2e: {
-                    suppressDamageButtons: true,
-                },
-            },
-            flavor,
-            speaker,
-        });
+        await roll.toMessage({ flavor, speaker, flags: { [SYSTEM_ID]: { suppressDamageButtons: true } } });
     } else if (repair === "damage") {
         const hardness = Math.max(0, item.system.hardness);
         const damage = (message?.rolls.at(0)?.total ?? 0) - hardness;

@@ -132,7 +132,7 @@ export const Ready = {
             // Now that all game data is available, Determine what actors we need to reprepare.
             // Add actors currently in an encounter, then in a party, then all familiars, then parties, then in terrains
             const inEnvironments: ActorPF2e[] = [];
-            const hasSceneEnvironments = !!game.scenes.viewed?.flags.pf2e.environmentTypes?.length;
+            const hasSceneEnvironments = !!game.scenes.viewed?.flags[SYSTEM_ID].environmentTypes?.length;
             for (const token of game.scenes.active?.tokens ?? []) {
                 const inEnvironmentRegion = !!token.regions?.some((r) =>
                     r.behaviors.some((b) => !b.disabled && ["environment", "environmentFeature"].includes(b.type)),

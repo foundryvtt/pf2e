@@ -184,12 +184,12 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
         /** Disable the range input for token scale and style to indicate as much */
         static async #onClickToggleAutoscale(this: PrototypeTokenConfigPF2e): Promise<void> {
             await this.submit({ operation: { render: false } });
-            await this.token.update({ "flags.pf2e.autoscale": !this.autoscale });
+            await this.token.update({ [`flags.${SYSTEM_ID}.autoscale`]: !this.autoscale });
         }
 
         static async #onClickToggleSizeLink(this: PrototypeTokenConfigPF2e): Promise<void> {
             await this.submit({ operation: { render: false } });
-            await this.token.update({ "flags.pf2e.linkToActorSize": !this.linkToActorSize });
+            await this.token.update({ [`flags.${SYSTEM_ID}.linkToActorSize`]: !this.linkToActorSize });
         }
 
         /* -------------------------------------------- */
@@ -234,7 +234,7 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
 
 interface PrototypeTokenPF2e extends foundry.data.PrototypeToken<ActorPF2e> {
     flags: DocumentFlags & {
-        pf2e: {
+        [SYSTEM_ID]: {
             autoscale?: boolean;
             linkToActorSize?: boolean;
             rulesBasedVision?: boolean;

@@ -282,7 +282,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     get rollOptions(): RollOptionFlags {
-        return this.flags.pf2e.rollOptions;
+        return this.flags[SYSTEM_ID].rollOptions;
     }
 
     /** Get the actor's held shield. Meaningful implementation in `CreaturePF2e`'s override. */
@@ -443,11 +443,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             {},
         );
         const applicableEffects = ephemeralEffects.filter((e) => !this.isImmuneTo(e));
-
         return this.clone(
             {
                 items: [fu.deepClone(this._source.items), applicableEffects].flat(),
-                flags: { pf2e: { rollOptions: { all: rollOptionsAll } } },
+                flags: { [SYSTEM_ID]: { rollOptions: { all: rollOptionsAll } } },
             },
             { keepId: true },
         );
@@ -489,12 +488,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 }
 
                 const flags: DeepPartial<EffectFlags> = {
-                    pf2e: {
-                        aura: {
-                            slug: aura.slug,
-                            origin: origin.actor.uuid,
-                            removeOnExit: data.removeOnExit,
-                        },
+                    [SYSTEM_ID]: {
+                        aura: { slug: aura.slug, origin: origin.actor.uuid, removeOnExit: data.removeOnExit },
                     },
                 };
 
@@ -664,12 +659,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     (linkToActorSize && game.settings.get("pf2e", "tokens.autoscale")));
             const merged = fu.mergeObject(source, {
                 ownership: source.ownership ?? { default: CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE },
-                prototypeToken: {
-                    flags: {
-                        // Sync token dimensions with actor size?
-                        pf2e: { linkToActorSize, autoscale },
-                    },
-                },
+                prototypeToken: { flags: { [SYSTEM_ID]: { linkToActorSize, autoscale } } },
             });
 
             // Set default token dimensions for familiars and vehicles
@@ -856,7 +846,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         if (traits?.size) traits.size = new ActorSizePF2e(traits.size);
 
         // Setup the basic structure of pf2e flags with roll options
-        this.flags.pf2e = fu.mergeObject(this.flags.pf2e ?? {}, {
+        this.flags[SYSTEM_ID] = fu.mergeObject(this.flags[SYSTEM_ID] ?? {}, {
             rollOptions: {
                 all: {
                     [`self:type:${this.type}`]: true,
@@ -867,6 +857,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             },
             trackedItems: {},
         });
+        Object.defineProperty(this.flags, "system", { get: () => this.flags[SYSTEM_ID] });
     }
 
     /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
@@ -944,7 +935,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Set traits as roll options */
     override prepareDerivedData(): void {
-        const rollOptionsAll = this.flags.pf2e.rollOptions.all;
+        const rollOptionsAll = this.flags[SYSTEM_ID].rollOptions.all;
         for (const trait of this.system.traits?.value ?? []) {
             rollOptionsAll[`self:trait:${trait}`] = true;
         }
@@ -953,11 +944,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Set defaults for this actor's prototype token */
     private preparePrototypeToken(): void {
         const prototypeToken = this.prototypeToken;
-        const flags = fu.mergeObject(prototypeToken.flags, { pf2e: {} });
-        flags.pf2e.linkToActorSize ??= SIZE_LINKABLE_ACTOR_TYPES.has(this.type);
+        const flags = fu.mergeObject(prototypeToken.flags, { [SYSTEM_ID]: {} });
+        flags[SYSTEM_ID].linkToActorSize ??= SIZE_LINKABLE_ACTOR_TYPES.has(this.type);
         const settingEnabled = game.pf2e.settings.tokens.autoscale;
-        flags.pf2e.autoscale = settingEnabled && flags.pf2e.linkToActorSize ? (flags.pf2e.autoscale ?? true) : false;
-        if (flags.pf2e.linkToActorSize && this.system.traits?.size) {
+        flags[SYSTEM_ID].autoscale =
+            settingEnabled && flags[SYSTEM_ID].linkToActorSize ? (flags[SYSTEM_ID].autoscale ?? true) : false;
+        if (flags[SYSTEM_ID].linkToActorSize && this.system.traits?.size) {
             const tokenDimensions = this.system.traits.size.tokenDimensions;
             prototypeToken.width = tokenDimensions.width;
             prototypeToken.height = tokenDimensions.height;
@@ -1001,7 +993,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         data: DeepPartial<foundry.documents.TokenSource> = {},
         options?: DocumentConstructionContext<this>,
     ): Promise<NonNullable<TParent>> {
-        if (this.prototypeToken.flags.pf2e.linkToActorSize) {
+        if (this.prototypeToken.flags[SYSTEM_ID].linkToActorSize) {
             Object.assign(data, this.system.traits?.size?.tokenDimensions);
         }
         return super.getTokenDocument(data, options);
@@ -1116,11 +1108,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 resolvables,
                 test: rollOptions,
             }).filter((d) => (d.critical === null || d.critical === critical) && d.predicate.test(rollOptions));
-
             const modifiers = extractModifiers(this.synthetics, [domain], { resolvables }).filter(
                 (m) => (m.critical === null || m.critical === critical) && m.predicate.test(rollOptions),
             );
-
             return { modifiers, damageDice };
         })();
 
@@ -1132,7 +1122,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     const roll = await new Roll(formula).evaluate();
                     roll._formula = `${dice.diceNumber}${dice.dieSize}`; // remove the label from the main formula
                     await roll.toMessage({
-                        flags: { pf2e: { suppressDamageButtons: true } },
+                        flags: { [SYSTEM_ID]: { suppressDamageButtons: true } },
                         flavor: dice.label,
                         speaker: ChatMessage.getSpeaker({ token }),
                     });
@@ -1423,7 +1413,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         await ChatMessagePF2e.create({
             speaker: ChatMessagePF2e.getSpeaker({ token }),
             flags: {
-                pf2e: {
+                [SYSTEM_ID]: {
                     appliedDamage,
                     context: {
                         type: "damage-taken",

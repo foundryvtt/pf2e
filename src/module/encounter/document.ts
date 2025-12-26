@@ -192,11 +192,9 @@ class EncounterPF2e extends Combat {
                 _id: i.id,
                 initiative: i.value,
                 flags: {
-                    pf2e: {
+                    [SYSTEM_ID]: {
                         initiativeStatistic: i.statistic ?? null,
-                        overridePriority: {
-                            [i.value]: i.overridePriority,
-                        },
+                        overridePriority: { [i.value]: i.overridePriority },
                     },
                 },
             }),
@@ -284,7 +282,7 @@ class EncounterPF2e extends Combat {
                 // Only the primary updater of the previous participant's actor can end the turn
                 const previousCombatant = this.combatants.get(previous.combatantId ?? "");
                 if (game.user === previousCombatant?.actor?.primaryUpdater) {
-                    const alreadyWent = previousCombatant.flags.pf2e.roundOfLastTurnEnd === previous.round;
+                    const alreadyWent = previousCombatant.flags[SYSTEM_ID].roundOfLastTurnEnd === previous.round;
                     if (typeof previous.round === "number" && !alreadyWent) {
                         await previousCombatant.endTurn({ round: previous.round });
                     }
