@@ -307,20 +307,19 @@ class CompendiumPack {
     static #adjustPF2eDocumentForSF2e(source: PackEntry, { publication }: { publication?: string | null }): PackEntry {
         if ("img" in source && source.img === "icons/sundries/books/book-red-exclamation.webp") {
             source.img = "systems/sf2e/icons/default-icons/feats-sf2e.webp";
-            if (source.flags?.pf2e) {
-                source.flags.sf2e = source.flags.pf2e;
-                delete source.flags.pf2e;
-            }
         }
-
         if ("system" in source) {
             if (publication && "publication" in source.system) {
                 source.system.publication.title = publication;
             }
         }
+        if (source.flags?.pf2e) {
+            source.flags.sf2e = source.flags.pf2e;
+            delete source.flags.pf2e;
+        }
 
         return recursiveReplaceString(source, (s) => {
-            s = s.replaceAll("systems/pf2e", "systems/sf2e");
+            s = s.replaceAll("systems/pf2e", "systems/sf2e").replace(/\bflags\.pf2e\./g, "flags.sf2e.");
             for (const [pf2eName, sf2eName] of Object.entries(this.sf2eCompendiumRemap)) {
                 s = s.replaceAll(`Compendium.pf2e.${pf2eName}`, `Compendium.sf2e.${sf2eName}`);
             }
