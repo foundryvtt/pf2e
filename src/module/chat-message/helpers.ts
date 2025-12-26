@@ -60,11 +60,11 @@ async function createUseActionMessage(
         withoutResources: craftedItem && !consumeResources,
         activate: craftedItem?.type === "consumable" && craftedItem.system.usage.type === "held" ? craftedItem : null,
     });
-    const flags: { pf2e: ChatMessageFlagsPF2e["pf2e"] } = { pf2e: {} };
+    const flags: { [SYSTEM_ID]: ChatMessageFlagsPF2e[SystemId] } = { [SYSTEM_ID]: {} };
     if (item.system.selfEffect) {
-        flags.pf2e.context = { type: "self-effect", item: item.id };
+        flags[SYSTEM_ID].context = { type: "self-effect", item: item.id };
     } else {
-        flags.pf2e.origin = item.getOriginData();
+        flags[SYSTEM_ID].origin = item.getOriginData();
     }
 
     // Create the message
@@ -95,7 +95,7 @@ async function applyDamageFromMessage({
     const damage = multiplier < 0 ? multiplier * roll.total + addend : roll.alter(multiplier, addend);
 
     // Get origin roll options and apply damage to a contextual clone: this may influence condition IWR, for example
-    const messageRollOptions = [...(message.flags.pf2e.context?.options ?? [])];
+    const messageRollOptions = [...(message.flags[SYSTEM_ID].context?.options ?? [])];
     const originRollOptions = messageRollOptions
         .filter((o) => o.startsWith("self:"))
         .map((o) => o.replace(/^self\b/, "origin"));
@@ -143,7 +143,7 @@ async function applyDamageFromMessage({
             skipIWR: multiplier <= 0,
             rollOptions,
             shieldBlockRequest,
-            outcome: message.flags.pf2e.context?.outcome,
+            outcome: message.flags[SYSTEM_ID].context?.outcome,
         });
     }
     toggleOffShieldBlock(message.id);

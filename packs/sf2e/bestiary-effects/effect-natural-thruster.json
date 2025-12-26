@@ -1,0 +1,54 @@
+{
+    "_id": "g5T2YGRn0nSGKYyy",
+    "img": "icons/magic/air/wind-tornado-wall-blue.webp",
+    "name": "Effect: Natural Thruster",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +75-foot status bonus to your fly Speed and deal an additional 1d10 slashing damage with your tail Strikes.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Alien Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "fly-speed"
+                ],
+                "slug": "natural-thruster",
+                "type": "status",
+                "value": 75
+            },
+            {
+                "damageType": "slashing",
+                "diceNumber": 1,
+                "dieSize": "d10",
+                "key": "DamageDice",
+                "selector": "tail-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

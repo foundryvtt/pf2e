@@ -1,0 +1,353 @@
+{
+    "_id": "w5PKiJr1qb36mH2d",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "1iDqwDJmuSepkPb3",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Pseudopod",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "attach"
+                    ]
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "dmFRWWxZoAV9ZXFQ": {
+                        "damage": "1d8+4",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "versatile-p"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "fTNPtMto9oFQMt9W",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Magnetic Sense",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A ferrofluid ooze can feel magnetic fields, allowing it to detect large sources of magnetic metal (Bulk 1 or greater) and items with the tech trait within the listed range.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "metal",
+                            "primal"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4CrrcKvvprp6cMJs",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Magnetic Field",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. A ferrofluid ooze is surrounded by a constant field that interferes with nearby equipment. Items with the tech trait inside the aura take a –1 circumstance penalty to all checks using them. Unattended metal objects in the aura of 1 Bulk or less are pulled adjacent to the ooze.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "metal",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jGlbekQnUM3FQyhj",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Attach",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A ferrofluid ooze can attach itself to any creature its size or larger that has the tech trait or is wearing or wielding items with the tech trait. This is similar to Grab, but the ooze moves with that creature rather than holding it in place.</p>\n<p>As long as the ooze is attached, it's @UUID[Compendium.sf2e.conditions.Item.Off-Guard], and the creature it's attached to must succeed at a @Check[flat|dc:11] to Interact with items with the tech trait. On a failure, the item becomes attached to the ooze (treat as if being held by the ooze).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oYFsSKQObiuzY2wE",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Demagnetization",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A ferrofluid ooze that takes fire damage has its magnetic field deactivated until the end of the ooze's next turn. It releases itself from any creature it was attached to, drops any held items, and can't use Magnetic Leap or Attach until its magnetic field returns.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lRZz886ytCXBzyha",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Magnetic Leap",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ferrofluid ooze instantly Attaches to a creature within its magnetic field that meets the requirements of that ability. A ferrofluid ooze can't use this ability again for [[/gmr 1d4 #Recharge this ability]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Ferrofluid Ooze",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 13
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "visual"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "electricity",
+                    "value": 3
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 3
+                }
+            ],
+            "speed": {
+                "details": "climb on metal surfaces only",
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 20
+                    }
+                ],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 2
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Since the earliest days of space travel, engineers have used ferromagnetic fluids to help with the construction, operation and maintenance of starships. It was only a matter of time before overeager spellcasters tinkered with this substance and inadvertently imbued a modicum of life into it, creating yet another strain of ooze to plague the cosmos. These strange oozes exert magnetic powers and have an instinctive desire to seek out sources of electromagnetism. Ferrofluid oozes are considered galactic nuisances, and many shipyards across the Pact Worlds have begun retaining the services of expert \"ooze control\" agents to ensure these fluids don't impede their day-to-day operations.</p>\n<p>A common ferrofluid ooze appears as a spiked pool of dark metal liquid that shifts in erratic ways but always reacts to nearby magnetic sources. They're mostly found hiding in the darkest corners of starships and space stations.</p><hr /><p>Oozes of many types lurk in dark and abandoned places across the galaxy, emerging only to satiate their appetites and threaten adventurers, explorers, and hapless workers alike.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "magnetic sense (precise) 100 feet",
+            "mod": 8,
+            "senses": [],
+            "vision": false
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 2
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 4
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 9
+            },
+            "stealth": {
+                "base": 7
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "cosmic",
+                "metal",
+                "mindless",
+                "ooze"
+            ]
+        }
+    },
+    "type": "npc"
+}

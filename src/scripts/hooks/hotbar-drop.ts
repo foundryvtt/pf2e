@@ -94,7 +94,7 @@ export class HotbarDrop {
                     name: item.name,
                     type: "script",
                     img: item.img,
-                    flags: { pf2e: { itemMacro: true } },
+                    flags: { [SYSTEM_ID]: { itemMacro: true } },
                 },
                 { renderSheet: false },
             ));

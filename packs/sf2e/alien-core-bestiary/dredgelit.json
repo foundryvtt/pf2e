@@ -1,0 +1,459 @@
+{
+    "_id": "B2q9ekBWgi1k1okf",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Tv5WJt2VIeKbltwC",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Autograph Pen",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "Weqm2loTlK8j7vKk": {
+                        "damage": "2d6+5",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "1gNYAwP651XU7NNX",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Vocalization",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "i6dy9p6fhy8VLp1U": {
+                        "damage": "2d8+5",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "bVysYHdsIKKLs7Bf",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Fan Club",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A dredgelit maintains a bond with up to six other willing creatures. Creatures in the fan club always know the general distance and direction toward other bonded creatures, any conditions affecting them, and if they're @UUID[Compendium.sf2e.conditions.Item.Unconscious], @UUID[Compendium.sf2e.conditions.Item.Dying], or dead. Creatures in the fan club can always communicate telepathically while on the same plane of existence.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aNFD0eNndUfnZGTg",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Phantasmal Fans",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. A rowdy spectral crowd always surrounds the dredgelit. The dredgelit has concealment against all creatures, and the crowd counts as difficult terrain.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 20,
+                        "traits": [
+                            "visual"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dz8runi56wJIYxhk",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "psCMa9aY4X9pT8TN",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Alluring Debut",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once every 10 minutes</p><hr /><p><strong>Effect</strong> The dredgelit attempts a Performance check against the Will DC of a single creature within 30 feet, recreating an iconic show.</p><hr /><p><strong>Critical Success</strong> The creature becomes part of their fan club for 24 hours, even if it's unwilling.</p>\n<p><strong>Success</strong> As critical success, but only for 1 hour.</p>\n<p><strong>Failure</strong> The creature is unaffected.</p>\n<p><strong>Critical Failure</strong> The creature is unaffected, and the dredgelit is so embarrassed by their failure to perform that they take @Damage[2d8[mental]] damage.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT10M"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vTpl6y3UY52Cm6xd",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Parasocial Leech",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The dredgelit leeches vitality from a creature in their fan club. The dredgelit attempts a Performance check against the Will DC of the creature. The creature takes @Damage[6d6[void]] damage, and the dredgelit regains @Damage[10[healing]] Hit Points.</p><hr /><p><strong>Critical Success</strong> The target takes double damage and is @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 2} and @UUID[Compendium.sf2e.conditions.Item.Immobilized] for 1 round.</p>\n<p><strong>Success</strong> The target takes full damage and is @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 1} and immobilized for 1 round.</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<p><strong>Critical Failure</strong> The target is unaffected. The dredgelit's abysmal performance results in them taking @Damage[2d8[mental]] damage instead of regaining Hit Points.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation",
+                        "mental",
+                        "occult",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "q1WTtCZmv6fG9whV",
+            "img": "systems/sf2e/icons/default-icons/lore.svg",
+            "name": "Media Lore",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Dredgelit",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 5
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 19
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 57,
+                "temp": 0,
+                "value": 57
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "spirit",
+                        "vitality"
+                    ],
+                    "type": "all-damage",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 25
+                    }
+                ],
+                "value": 0
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "eoxian",
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 5
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Dredgelits linger as flickers on the silver screen or neon silhouettes glimpsed backstage. They seethe in shortwave static and stare out from fading gravure tableaux. Dredgelits are the undead specters of deceased media megastars who haunt the venues of their former glories and crave the attention of forgetful fans.</p>\n<p>Most dredgelits live in a fantasy version of their former lives, but once their delusions are shattered, a burning desire to recapture their lost fame drives them. At this point, they become unpredictable, and even the smallest perceived slight can lead to a murderous fit of rage.</p>\n<p>Dredgelits embody their former stage personas. These decaying debutantes ensnare admirers into their eternal fan clubs, blissfully unaware of the life-draining consequences they have upon new admirers. Dredgelit seek sacrificial fans, luring in the unwary and draining their vitality to stay famous and fabulous forever.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 12,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 9
+            }
+        },
+        "skills": {
+            "deception": {
+                "base": 13
+            },
+            "diplomacy": {
+                "base": 13
+            },
+            "performance": {
+                "base": 16
+            },
+            "stealth": {
+                "base": 12
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "incorporeal",
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

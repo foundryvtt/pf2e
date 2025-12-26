@@ -1,0 +1,103 @@
+{
+    "_id": "GH1knwqnj2K8C0mg",
+    "folder": "D8Q2XWm5N91mGuw7",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "HUevG60qrY45gPjx",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Release Spores",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creatures touches or damages the fungus</p><hr /><p><strong>Effect</strong> The fungus releases psychotropic spores in a @Template[type:emanation|distance:30]. All creatures in the area must succeed at a @Check[will|dc:21] save or be @UUID[Compendium.sf2e.conditions.Item.Confused] for 1 round and @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 1} for 10 minutes (@UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Psychotropic Spores",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "(BT 30)",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "mental"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 15
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A colorful fungus releases psychotropic spores when a creature comes near.</p>",
+            "disable": "<p>@Check[nature|dc:20] (trained) to force the fungus into a dormant state, or @Check[survival|dc:22] (trained) to safely remove the fungus</p>",
+            "isComplex": false,
+            "level": {
+                "value": 4
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder GM Core"
+            },
+            "reset": "<p>Dormant fungus reactivates in 1 hour; destroyed fungus regrows over the course of 2 weeks.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 12
+            },
+            "reflex": {
+                "value": 8
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -241,7 +241,7 @@ function placeItemTemplate(
         distance: (Number(area.value) / 5) * canvas.dimensions.distance,
         fillColor: game.user.color.toString(),
         flags: {
-            pf2e: {
+            [SYSTEM_ID]: {
                 messageId: message?.id,
                 origin: {
                     name: item.name,

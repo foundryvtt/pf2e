@@ -50,8 +50,8 @@ type ChoiceSetSchema = RuleElementSchema & {
      */
     flag: fields.StringField<string, string, false, false, false>;
     /**
-     * Whether to propagate the flag to the actor: instead of `flags.pf2e.rulesSelections.${flag}`, it will take the
-     * form of `flags.pf2e.${flag}`.
+     * Whether to propagate the flag to the actor: instead of `flags[SYSTEM_ID].rulesSelections.${flag}`, it will take
+     * the form of `flags[SYSTEM_ID].${flag}`.
      */
     actorFlag: fields.BooleanField<boolean, boolean, false, false, true>;
     /** An optional roll option to be set from the selection */

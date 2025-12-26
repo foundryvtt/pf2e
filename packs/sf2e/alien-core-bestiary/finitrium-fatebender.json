@@ -1,0 +1,459 @@
+{
+    "_id": "C6pSZ3ievLcTTOkj",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "LtaYkrcgKMGoYEJN",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "foretell-doom"
+                    ]
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "T0VXmo7qWxVJyUfp": {
+                        "damage": "2d8+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "YmMhZ4ZmmFSs7ano",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Ray Of Twisted Fate",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "foretell-doom"
+                    ]
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "vnx8d1PB0cAd5cGC": {
+                        "damage": "2d6+4",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 90,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "x37Qq2zNX0lGTruC",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Glimpse Fate",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A finitrium fatebender gains a +5 circumstance bonus when rolling Perception for initiative, as it acts on flashes of insight harvested from potential futures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "check:statistic:base:perception"
+                        ],
+                        "selector": "initiative-check",
+                        "type": "circumstance",
+                        "value": 5
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wyHrDIBNHnLKIeDW",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "A Million Fates",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. A finitrium fatebender is surrounded by an aura of countless shifting potential futures—fragmented milliseconds of possibility all overlapping in a tumultuous blur. A creature that ends its turn in the aura must attempt a @Check[will|dc:33] save. If it fails, it's @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 2} for 1 round (or [[/gmr 1d4 #rounds]]{1d4 rounds} on a critical failure). A creature that critically succeeds becomes temporarily immune to the aura for 1 day.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [],
+                        "key": "Aura",
+                        "radius": 20,
+                        "traits": [
+                            "mental",
+                            "occult",
+                            "visual"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "mental",
+                        "occult",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CQ1hxKV0MEM8LqbK",
+            "img": "systems/sf2e/icons/actions/FreeAction.webp",
+            "name": "Fated Outcome",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> The finitrium fatebender fails or critically fails an attack roll or saving throw</p><hr /><p><strong>Effect</strong> The finitrium fatebender rerolls the triggering check and takes the better result.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fortune"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HMUooRII309NV9fK",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Tactical Prescience",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> The finitrium fatebender would be hit by a Strike</p><hr /><p><strong>Effect</strong> Having foreseen the incoming attack, the finitrium fatebender shifts position, gaining a +4 circumstance bonus to AC against the triggering attack.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult",
+                        "prediction"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8bq2F3IQg0EVOsd9",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Fate Wave",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The finitrium fatebender releases a wave of twisted futures and shattered possibilities, dealing @Damage[16d6[mental]|options:area-damage] damage in a @Template[type:cone|distance:60] (@Check[will|dc:36|basic] save). The finitrium fatebender can't use Fate Wave again for [[/gmr 1d4 #Recharge Fate Wave]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yL5ID8QZ9R8gSkjI",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Foretell Doom",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Any creature hit by the finitrium fatebender's fist or ray of twisted fate Strikes receives a vision of their impending death at the hands of the finitrium fatebender. It must succeed at a @Check[will|dc:36] save or become @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 2}; on a critical failure, the creature is also @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 1}. If the creature is already affected by foretold doom, it increases the appropriate stunned and stupefied values by 1 on a failed save, to a maximum of @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 2} and @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 4}. When the finitrium fatebender is destroyed, the creature has avoided this tragic fate and immediately recovers from its stupefied condition.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "occult",
+                        "prediction"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ShTXxV2xdI86CAPV",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Inexorable March",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The finitrium fatebender Strides up to its Speed, pushing back each creature whose space it moves into and damaging creatures that try to stop its movement. A creature can attempt a @Check[fortitude|dc:40] save to bar the way, stopping the finitrium fatebender's movement on a success. On a critical success, the resisting creature takes no damage; otherwise, it's damaged as if hit by the finitrium fatebender's fist Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Finitrium Fatebender",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 8
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 36
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 240,
+                "temp": 0,
+                "value": 240
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 15
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "force",
+                        "sonic"
+                    ],
+                    "type": "spells",
+                    "value": 15
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 15
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Finitrium fatebenders are powerful magical constructs created from refined finitrium, a rare starmetal with divinatory properties. Thanks to their ability to see—and react to—the future, finitrium fatebenders make exceptional guardians and formidable foes.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 23,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 23
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 33
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "construct",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}

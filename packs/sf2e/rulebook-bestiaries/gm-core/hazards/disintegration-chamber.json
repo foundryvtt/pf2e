@@ -1,0 +1,171 @@
+{
+    "_id": "LW90AgREpCERQyNo",
+    "folder": "D8Q2XWm5N91mGuw7",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "HUevG60qrY45gPjx",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Nanite Release",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the room or ends its turn in the room</p><hr /><p><strong>Effect</strong> The trap makes a nanite Strike against the triggering creature, then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ww58D0gKt2sPAK5X",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Nanite",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "y3N5ZhtFrGc8inJx": {
+                        "damage": "1d10+5",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": "<p>No multiple attack penalty</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "V4oWmVKWqtC70akd",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Nanite Swarm",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within the room ends its turn</p><hr /><p><strong>Effect</strong> The trap makes a nanite Strike against the triggering creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Disintegration Chamber",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "emitsSound": "encounter",
+            "hardness": 15,
+            "hp": {
+                "details": "(BT 30)",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert) or DC 31 (expert) to notice the control panel</p>",
+                "value": 16
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>When sensors detect movement in the trapped room, the doors seal shut, and four wall apertures open, releasing disintegrating nanites into the room.</p>",
+            "disable": "<p>@Check[crafting|dc:22] (trained) or Thievery (trained) on the control panel to deactivate the trap, or @Check[computers|dc:24] (trained) to reprogram the control panel</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder GM Core"
+            },
+            "reset": "<p>The trap deactivates and resets after 1 minute.</p>",
+            "routine": "<p>(1 action) The trap launches nanites against every creature in the room as 1 action. Because it launches nanites continuously, the trap can also use the Nanite Swarm free action (see below) to launch nanites at each creature during that creature's turn.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 19
+            },
+            "reflex": {
+                "value": 13
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "trap",
+                "mechanical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

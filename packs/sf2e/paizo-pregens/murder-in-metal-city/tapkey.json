@@ -1,0 +1,1344 @@
+{
+    "_id": "uHrRQ4bUN22bmUxh",
+    "folder": "me2gOUoFNJ5Gy2eJ",
+    "img": "systems/sf2e/icons/default-icons/character.svg",
+    "items": [
+        {
+            "_id": "Gbnb2bw3eg6bGX9j",
+            "folder": "GDwAMtsePahRqYZn",
+            "img": "systems/sf2e/icons/ancestries/skittermander.webp",
+            "name": "Skittermander",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 0,
+                    "custom": "",
+                    "value": []
+                },
+                "boosts": {
+                    "0": {
+                        "value": [
+                            "cha"
+                        ]
+                    },
+                    "1": {
+                        "value": [
+                            "dex"
+                        ]
+                    },
+                    "2": {
+                        "selected": "int",
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "flaws": {
+                    "0": {
+                        "value": [
+                            "wis"
+                        ]
+                    }
+                },
+                "hands": 2,
+                "hp": 6,
+                "items": {
+                    "5c5Rl": {
+                        "img": "icons/skills/social/diplomacy-unity-alliance.webp",
+                        "level": 1,
+                        "name": "Six-Armed",
+                        "uuid": "Compendium.sf2e.ancestry-features.Item.Six-Armed"
+                    }
+                },
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common"
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "reach": 5,
+                "rules": [],
+                "size": "sm",
+                "slug": null,
+                "speed": 25,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "humanoid",
+                        "skittermander"
+                    ]
+                },
+                "vision": "low-light-vision"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "JhwSbhWsX37p7KoZ",
+            "folder": "ObNmGtwVtX5Ehb0n",
+            "img": "icons/skills/social/diplomacy-unity-alliance.webp",
+            "name": "Six-Armed",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestryfeature",
+                "description": {
+                    "value": "<p>You have six arms, which allows you to wield and hold up to six hands' worth of weapons and equipment. At any time, one pair of hands is designated as your active hands. You can change this designation from one pair of hands to another by taking the Switch Hands action, which is a single action. You can wield items only with your active hands.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "Gbnb2bw3eg6bGX9j",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": null,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "ujI1dwrIiqQiq44H",
+            "flags": {
+                "sf2e": {
+                    "itemGrants": {
+                        "groupImpression": {
+                            "id": "9M5XjHOaSSCHM0uB",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "Oaf4JXgHYgudsSrK",
+            "img": "systems/sf2e/icons/default-icons/heritage.svg",
+            "name": "Skitter Raised",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Skittermander",
+                    "slug": "skittermander",
+                    "uuid": "Compendium.sf2e.ancestries.Item.0qcXAQo7iZkZXNO9"
+                },
+                "description": {
+                    "value": "<p>You've spent your life as part of a tight-knit community, where teamwork makes the dream work and crowds are giant group hugs waiting to happen. You gain the@UUID[Compendium.sf2e.feats.Item.Group Impression] skill feat. In addition, you gain a +2 circumstance bonus to checks to Aid an ally at skill checks that don't have the attack trait.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "groupImpression",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.sf2e.feats.Item.Group Impression"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:aid",
+                            {
+                                "not": "item:trait:attack"
+                            }
+                        ],
+                        "selector": "skill-check",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "9M5XjHOaSSCHM0uB",
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "ujI1dwrIiqQiq44H",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "y1yqadf5jPHJk1jW",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Group Impression",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>When you @UUID[Compendium.sf2e.actions.Item.Make an Impression], you can compare your Diplomacy check result to the Will DCs of up to 10 targets you conversed with, with no penalty. The number of targets increases to 20 if you're an expert, 50 if you're a master, and 100 if you're legendary.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Diplomacy"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "group-impression",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "R94qWQLMnwhJTj1I",
+            "img": "systems/sf2e/icons/classes/envoy.webp",
+            "name": "Envoy",
+            "sort": 600000,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 1,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    },
+                    "simple": 1,
+                    "unarmed": 1
+                },
+                "classFeatLevels": {
+                    "value": [
+                        1,
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 1,
+                    "medium": 0,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": "<p><em>You're a master influencer. You make your way in the universe with a charming smile, quick wit, and keen sense of self-preservation. You're a leader who motivates your teammates, pushes them past their limits, and helps them through tough spots. You excel at getting others to do what you want, but you're always ready to face trouble head-on when things take a turn for the worse. You might be a con artist, diplomat, performer, or military officer—or you might take on whatever role the situation demands.</em></p>"
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "hp": 8,
+                "items": {
+                    "45P9L": {
+                        "img": "systems/sf2e/icons/abilities/purple-energy-star.webp",
+                        "level": 11,
+                        "name": "Resolve",
+                        "uuid": "Compendium.sf2e.class-features.Item.Resolve"
+                    },
+                    "84rTo": {
+                        "img": "systems/sf2e/icons/abilities/blue-star-emblem-2.webp",
+                        "level": 9,
+                        "name": "Envoy Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Envoy Expertise"
+                    },
+                    "AwEgQ": {
+                        "img": "systems/sf2e/icons/abilities/purple-eye.webp",
+                        "level": 9,
+                        "name": "Hidden Agenda",
+                        "uuid": "Compendium.sf2e.class-features.Item.Hidden Agenda"
+                    },
+                    "GUszk": {
+                        "img": "systems/sf2e/icons/equipment/armor/armor-light-metal.webp",
+                        "level": 19,
+                        "name": "Light Armor Mastery",
+                        "uuid": "Compendium.sf2e.class-features.Item.Light Armor Mastery"
+                    },
+                    "HEh26": {
+                        "img": "systems/sf2e/icons/abilities/blue-alien-weapon.webp",
+                        "level": 15,
+                        "name": "Greater Weapon Specialization",
+                        "uuid": "Compendium.sf2e.class-features.Item.Greater Weapon Specialization"
+                    },
+                    "IiXMT": {
+                        "img": "systems/sf2e/icons/abilities/alien-mask.webp",
+                        "level": 5,
+                        "name": "Perception Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Perception Expertise"
+                    },
+                    "Irwfn": {
+                        "img": "icons/skills/social/diplomacy-writing-letter.webp",
+                        "level": 19,
+                        "name": "Silver Tongue",
+                        "uuid": "Compendium.sf2e.class-features.Item.Silver Tongue"
+                    },
+                    "LegLf": {
+                        "img": "systems/sf2e/icons/abilities/space-credits.webp",
+                        "level": 5,
+                        "name": "Improvised Mastery",
+                        "uuid": "Compendium.sf2e.class-features.Item.Improvised Mastery"
+                    },
+                    "PfyQf": {
+                        "img": "systems/sf2e/icons/abilities/orange-finger-beam.webp",
+                        "level": 1,
+                        "name": "Envoy Directives",
+                        "uuid": "Compendium.sf2e.class-features.Item.Envoy Directives"
+                    },
+                    "UgSip": {
+                        "img": "systems/sf2e/icons/abilities/blue-alien-energy-breath.webp",
+                        "level": 7,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.sf2e.class-features.Item.Weapon Specialization"
+                    },
+                    "VdmEV": {
+                        "img": "systems/sf2e/icons/abilities/blue-cannister.webp",
+                        "level": 5,
+                        "name": "Weapon Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Weapon Expertise"
+                    },
+                    "WE7Kk": {
+                        "img": "systems/sf2e/icons/abilities/pink-energy-surrounding-orb.webp",
+                        "level": 17,
+                        "name": "Greater Resolve",
+                        "uuid": "Compendium.sf2e.class-features.Item.Greater Resolve"
+                    },
+                    "WWSG9": {
+                        "img": "systems/sf2e/icons/equipment/other/dice.webp",
+                        "level": 15,
+                        "name": "Legendary Improvisation",
+                        "uuid": "Compendium.sf2e.class-features.Item.Legendary Improvisation"
+                    },
+                    "XkG98": {
+                        "img": "systems/sf2e/icons/abilities/blue-wing-insignia.webp",
+                        "level": 15,
+                        "name": "Reflex Mastery",
+                        "uuid": "Compendium.sf2e.class-features.Item.Reflex Mastery"
+                    },
+                    "YhYuN": {
+                        "img": "systems/sf2e/icons/abilities/green-stock-market-chart.webp",
+                        "level": 7,
+                        "name": "Fortitude Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Fortitude Expertise"
+                    },
+                    "ag2nL": {
+                        "img": "systems/sf2e/icons/equipment/armor/armor-medium-brown.webp",
+                        "level": 13,
+                        "name": "Light Armor Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Light Armor Expertise"
+                    },
+                    "dWlSO": {
+                        "img": "icons/magic/movement/abstract-ribbons-red-orange.webp",
+                        "level": 13,
+                        "name": "Tactician",
+                        "uuid": "Compendium.sf2e.class-features.Item.Tactician"
+                    },
+                    "fNLcX": {
+                        "img": "systems/sf2e/icons/abilities/alien-eye.webp",
+                        "level": 17,
+                        "name": "Incredible Senses",
+                        "uuid": "Compendium.sf2e.class-features.Item.Incredible Senses"
+                    },
+                    "gfWp2": {
+                        "img": "systems/sf2e/icons/abilities/screwdriver.webp",
+                        "level": 11,
+                        "name": "Savvy Improviser",
+                        "uuid": "Compendium.sf2e.class-features.Item.Savvy Improviser"
+                    },
+                    "hokCD": {
+                        "img": "systems/sf2e/icons/abilities/blue-target-2.webp",
+                        "level": 11,
+                        "name": "Perception Mastery",
+                        "uuid": "Compendium.sf2e.class-features.Item.Perception Mastery"
+                    },
+                    "jQHLm": {
+                        "img": "systems/sf2e/icons/abilities/blue-comet-insignia.webp",
+                        "level": 7,
+                        "name": "Leader's Confidence",
+                        "uuid": "Compendium.sf2e.class-features.Item.Leader's Confidence"
+                    },
+                    "k0kFy": {
+                        "img": "systems/sf2e/icons/abilities/blue-laser-beam-rifle.webp",
+                        "level": 13,
+                        "name": "Weapon Mastery",
+                        "uuid": "Compendium.sf2e.class-features.Item.Weapon Mastery"
+                    },
+                    "nZUtm": {
+                        "img": "systems/sf2e/icons/abilities/blue-alien-face.webp",
+                        "level": 1,
+                        "name": "Leadership Style",
+                        "uuid": "Compendium.sf2e.class-features.Item.Leadership Style"
+                    },
+                    "q3rFM": {
+                        "img": "systems/sf2e/icons/abilities/cerulean-circular-sign.webp",
+                        "level": 17,
+                        "name": "Inscrutable",
+                        "uuid": "Compendium.sf2e.class-features.Item.Inscrutable"
+                    },
+                    "vIPgB": {
+                        "img": "systems/sf2e/icons/abilities/blue-circuit-board.webp",
+                        "level": 3,
+                        "name": "Adaptive Talent",
+                        "uuid": "Compendium.sf2e.class-features.Item.Adaptive Talent"
+                    },
+                    "zhvQx": {
+                        "img": "systems/sf2e/icons/abilities/blue-military-organization-emblem.webp",
+                        "level": 3,
+                        "name": "Wise to the Game",
+                        "uuid": "Compendium.sf2e.class-features.Item.Wise to the Game"
+                    }
+                },
+                "keyAbility": {
+                    "selected": null,
+                    "value": [
+                        "cha"
+                    ]
+                },
+                "perception": 1,
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": [
+                            {
+                                "label": "PF2E.Skill.Deception",
+                                "value": "deception"
+                            },
+                            {
+                                "label": "PF2E.Skill.Diplomacy",
+                                "value": "diplomacy"
+                            },
+                            {
+                                "label": "PF2E.Skill.Intimidation",
+                                "value": "intimidation"
+                            }
+                        ],
+                        "flag": "skill",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                        "selection": "deception"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.{item|flags.sf2e.rulesSelections.skill}.rank",
+                        "value": 1
+                    }
+                ],
+                "savingThrows": {
+                    "fortitude": 1,
+                    "reflex": 2,
+                    "will": 2
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                },
+                "slug": "envoy",
+                "spellcasting": 0,
+                "trainedSkills": {
+                    "additional": 6,
+                    "value": []
+                },
+                "traits": {
+                    "rarity": "common"
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "RamJ3dBD672pFo56",
+            "flags": {
+                "sf2e": {
+                    "itemGrants": {
+                        "getEm": {
+                            "id": "C4Bmtop9ydNsnbxB",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "mOIMElPxY4JeuDAW",
+            "img": "systems/sf2e/icons/abilities/orange-finger-beam.webp",
+            "name": "Envoy Directives",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Envoys encourage their allies with directives. A directive is an order that benefits allies who follow it. Envoy directives include a way for the envoy to lead by example by spending more actions for increased effects. Directives have the auditory or visual trait depending on how you inspire your allies.</p>\n<p>You begin with one envoy directive. You can learn more directives through the envoy class, envoy class feats, and your leadership style. You can issue one directive a round. Unless otherwise stated, an envoy's directive and the benefits it grants last until the beginning of your next turn.</p>\n<p>You gain the @UUID[Compendium.sf2e.actions.Item.Get 'Em!] envoy directive.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "R94qWQLMnwhJTj1I",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "getEm",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.sf2e.actions.Item.Get 'Em!"
+                    },
+                    {
+                        "itemType": "action",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "class:envoy",
+                            "item:slug:get-em"
+                        ],
+                        "property": "other-tags",
+                        "value": "envoy-class"
+                    }
+                ],
+                "slug": "envoy-directives",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "q4bMUg20pggdQn7D",
+            "flags": {
+                "sf2e": {
+                    "itemGrants": {
+                        "fromTheShadows": {
+                            "id": "4MVDKow4HeWNhktS",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "mOIMElPxY4JeuDAW",
+            "img": "systems/sf2e/icons/abilities/blue-alien-face.webp",
+            "name": "Leadership Style",
+            "sort": 100,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Whether it comes naturally, or you trained for it, you've developed a personal style of leading others. At 1st level, select a leadership style. You become trained in the indicated leadership skill, you gain the indicated leadership perk, and know the associated leadership directive.</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.From the Front]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.From the Shadows]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Guns Blazing]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.In the Spotlight]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Infosphere Director]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Through Desperate Times]</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "R94qWQLMnwhJTj1I",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:envoy-leadership-style"
+                            ]
+                        },
+                        "flag": "style",
+                        "key": "ChoiceSet",
+                        "prompt": "SF2E.SpecificRule.Envoy.LeadershipStyle.Prompt",
+                        "selection": "Compendium.sf2e.class-features.Item.From the Shadows"
+                    },
+                    {
+                        "flag": "fromTheShadows",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.sf2e.rulesSelections.style}"
+                    }
+                ],
+                "slug": "leadership-style",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "C4Bmtop9ydNsnbxB",
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "RamJ3dBD672pFo56",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "0U62F6g8AM76yfbe",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Get 'Em!",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>You single out an enemy for you and your allies to focus your attacks on. Select an enemy within 60 feet that you can see. You and your allies gain a +1 status bonus to attacks against that target until the beginning of your next turn.</p>\n<p><strong>Lead by Example</strong> If you used two actions, Strike the target. You gain a status bonus to the damage roll equal to your Charisma modifier. Regardless of whether the Strike hits, you and your allies gain a +1 status bonus to damage on subsequent Strikes made against the enemy until the start of your next turn. Increase the damage by 1 at 5th, 10th, 15th, and 20th levels.</p>\n<p>@UUID[Compendium.sf2e.feat-effects.Item.Effect: Get 'Em!]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "get-em",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4MVDKow4HeWNhktS",
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "q4bMUg20pggdQn7D",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "assurance": {
+                            "id": "WHCMYCYjwKWkWwZE",
+                            "onDelete": "detach"
+                        },
+                        "coordinatedAmbush": {
+                            "id": "4iWIbCn9ikKuk9F7",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "0MBmY0ZAzJKrKcYj",
+            "img": "systems/sf2e/icons/abilities/green-scythe-dipped-in-liquid.webp",
+            "name": "From the Shadows",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You prefer to direct your allies in subtle ways, without drawing much attention from foes. You might sneak in behind your bodyguards or support your team from a safe distance.</p>\n<p><strong>Leadership Skill</strong> Stealth</p>\n<p><strong>Leadership Perk</strong> You gain @UUID[Compendium.sf2e.feats.Item.Assurance] (Stealth) as a bonus feat.</p>\n<p><strong>Leadership Directive</strong> @UUID[Compendium.sf2e.actions.Item.Coordinated Ambush!]</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "coordinatedAmbush",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.sf2e.actions.Item.Coordinated Ambush!"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.stealth.rank",
+                        "value": 1
+                    },
+                    {
+                        "flag": "assurance",
+                        "key": "GrantItem",
+                        "preselectChoices": {
+                            "assurance": "stealth"
+                        },
+                        "uuid": "Compendium.sf2e.feats.Item.Assurance"
+                    }
+                ],
+                "slug": "from-the-shadows",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "otherTags": [
+                        "envoy-leadership-style"
+                    ],
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "4iWIbCn9ikKuk9F7",
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "4MVDKow4HeWNhktS",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "0U62F6g8AM76yfbe",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Coordinated Ambush!",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>With perfect timing, you call on hidden allies to take down an unsuspecting target. Designate an enemy creature within 60 feet and an ally within 60 feet. If the ally is @UUID[Compendium.sf2e.conditions.Item.Hidden], @UUID[Compendium.sf2e.conditions.Item.Undetected], or @UUID[Compendium.sf2e.conditions.Item.Unnoticed] to the target at the start of their turn, they treat the target as @UUID[Compendium.sf2e.conditions.Item.Off-Guard] until the end of their turn instead of when they become visible to the target.</p>\n<p><strong>Lead by Example</strong> If you used two actions, @UUID[Compendium.sf2e.actions.Item.Hide] or @UUID[Compendium.sf2e.actions.Item.Sneak]. Until the start of your next turn, you can Strike the enemy target as a reaction the first time the ally you targeted attacks your designated enemy.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "coordinated-ambush",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WHCMYCYjwKWkWwZE",
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "4MVDKow4HeWNhktS",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "y1yqadf5jPHJk1jW",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Assurance (Stealth)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Even in the worst circumstances, you can perform basic tasks. Choose a skill you're trained in. You can forgo rolling a skill check for that skill to instead receive a result of 10 + your proficiency bonus (do not apply any other bonuses, penalties, or modifiers).</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times. Each time, choose a different skill and gain the benefits for that skill.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "maxTakable": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in at least one skill"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": {
+                            "config": "skills",
+                            "predicate": [
+                                {
+                                    "gte": [
+                                        "skill:{choice|value}:rank",
+                                        1
+                                    ]
+                                }
+                            ]
+                        },
+                        "flag": "assurance",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                        "selection": "stealth"
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "{item|flags.sf2e.rulesSelections.assurance}",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": [
+                            "substitute:assurance",
+                            {
+                                "not": "bonus:type:proficiency"
+                            }
+                        ],
+                        "selector": "{item|flags.sf2e.rulesSelections.assurance}",
+                        "suppress": true
+                    }
+                ],
+                "slug": "assurance",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fortune",
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "TkoOYU91jh2dyKdx",
+            "img": "systems/sf2e/icons/default-icons/background.svg",
+            "name": "Grifter",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "cha",
+                        "value": [
+                            "cha",
+                            "int"
+                        ]
+                    },
+                    "1": {
+                        "selected": "dex",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>You're a con artist and trickster who swindles unsuspecting dupes and blackmails rubes, but it's nothing personal—you're just in it for the credits. You might run an operation on the side, or you might spend your career moving from settlement to settlement until you get caught in the act.</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Deception skill and a Lore skill related to a profession or subject you fake expertise in. You gain the @UUID[Compendium.sf2e.feats.Item.Charming Liar] skill feat.</p>"
+                },
+                "items": {
+                    "gGf6y": {
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
+                        "level": 1,
+                        "name": "Charming Liar",
+                        "uuid": "Compendium.sf2e.feats.Item.Charming Liar"
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "grifter",
+                "trainedSkills": {
+                    "lore": [],
+                    "value": [
+                        "deception"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "lA8r1aP2qhAK26KI",
+            "folder": "y1yqadf5jPHJk1jW",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Charming Liar",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Your charm allows you to win over those you lie to. When you get a critical success using the @UUID[Compendium.sf2e.actions.Item.Lie] action, the target's attitude toward you improves by one step, as though you'd succeeded at using Diplomacy to @UUID[Compendium.sf2e.actions.Item.Make an Impression]. This works only once per conversation, and if you critically succeed against multiple targets using the same result, you choose one creature's attitude to improve. You must be lying to impart seemingly important information, inflate your status, or ingratiate yourself, which trivial or irrelevant lies can't achieve.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "TkoOYU91jh2dyKdx",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Deception"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "action:lie"
+                        ],
+                        "selector": "skill-check",
+                        "text": "PF2E.SpecificRule.Feat.CharmingLiar.Note",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "charming-liar",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "dbheWj7J8hb4xCmD",
+            "folder": "OudXPBNC7vz7ubf8",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Hyper",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>You're full of energy, and you often bound into action faster than your friends can keep up. Your Speed increases by 5 feet.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "land-speed",
+                        "value": 5
+                    }
+                ],
+                "slug": null,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "QxtdqOeKEQyK5HF9",
+            "folder": "my6PDmYHQ4rBMvj1",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Go to Ground!",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You succinctly direct your allies to find cover by any means necessary. You and all allies within 60 feet count any form of lesser cover as standard cover until the start of your next turn.</p>\n<p><strong>Lead by Example</strong> If you used two actions, @UUID[Compendium.sf2e.actions.Item.Take Cover]. Any allies within 60 feet can Take Cover as a reaction.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": null,
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "2ZTfOqxONX4PxifE",
+            "img": "systems/sf2e/icons/default-icons/lore.svg",
+            "name": "Vidgame Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "x4JL8rXyG0hqvA1m",
+            "img": "systems/sf2e/icons/default-icons/lore.svg",
+            "name": "Gambling Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Tapkey",
+    "system": {
+        "abilities": null,
+        "attributes": {
+            "hp": {
+                "temp": 0,
+                "value": 14
+            }
+        },
+        "build": {
+            "attributes": {
+                "boosts": {
+                    "1": [
+                        "cha",
+                        "dex",
+                        "int",
+                        "wis"
+                    ]
+                }
+            }
+        },
+        "details": {
+            "age": {
+                "value": ""
+            },
+            "biography": {
+                "allies": "",
+                "anathema": [],
+                "appearance": "",
+                "attitude": "",
+                "backstory": "",
+                "beliefs": "",
+                "birthPlace": "",
+                "campaignNotes": "",
+                "catchphrases": "",
+                "dislikes": "",
+                "edicts": [],
+                "enemies": "",
+                "likes": "",
+                "organizations": ""
+            },
+            "ethnicity": {
+                "value": ""
+            },
+            "gender": {
+                "value": "they/them"
+            },
+            "height": {
+                "value": ""
+            },
+            "keyability": {
+                "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": [
+                    "brethedan",
+                    "trinary",
+                    "vercite",
+                    "vesk"
+                ]
+            },
+            "level": {
+                "value": 1
+            },
+            "nationality": {
+                "value": ""
+            },
+            "weight": {
+                "value": ""
+            },
+            "xp": {
+                "max": 1000,
+                "min": 0,
+                "pct": 0,
+                "value": 0
+            }
+        },
+        "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
+        "pfs": {
+            "characterNumber": null,
+            "currentFaction": "EA",
+            "levelBump": false,
+            "playerNumber": null,
+            "reputation": {
+                "EA": null,
+                "GA": null,
+                "HH": null,
+                "RO": null,
+                "VS": null,
+                "VW": null
+            },
+            "school": null
+        },
+        "resources": {
+            "heroPoints": {
+                "max": 3,
+                "value": 1
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "rank": 1
+            },
+            "athletics": {
+                "rank": 1
+            },
+            "computers": {
+                "rank": 1
+            },
+            "crafting": {
+                "rank": 1
+            },
+            "diplomacy": {
+                "rank": 1
+            },
+            "performance": {
+                "rank": 1
+            },
+            "society": {
+                "rank": 1
+            },
+            "thievery": {
+                "rank": 1
+            }
+        },
+        "slug": "tapkey"
+    },
+    "type": "character"
+}

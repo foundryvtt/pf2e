@@ -1,0 +1,105 @@
+{
+    "_id": "SBKIdzyEghJyQfgr",
+    "folder": "D8Q2XWm5N91mGuw7",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "HUevG60qrY45gPjx",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Ram",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature moves within 30 feet of the hovercar</p><hr /><p><strong>Effect</strong> The hovercar drives 30 feet in a straight line, dealing @Damage[(2d10+13)[bludgeoning]] damage to all creatures in the area it passes through (@Check[reflex|dc:32|basic] save). Creatures damaged by the car are additionally knocked @UUID[Compendium.sf2e.conditions.Item.Prone]. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Haywire Autopilot",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 28
+            },
+            "emitsSound": "encounter",
+            "hardness": 16,
+            "hp": {
+                "details": "(BT 35)",
+                "max": 70,
+                "temp": 0,
+                "value": 70
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 20
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A hovercar's autopilot goes haywire, causing it to run over nearby creatures.</p>",
+            "disable": "<p>@Check[computers|dc:26] (expert) to remotely reprogram the autopilot, or @Check[piloting|dc:24] or @Check[thievery|dc:24] (expert) to override the autopilot while aboard the car; three total successes are required to disable the trap; @Check[acrobatics|dc:23] or @Check[athletics|dc:23] to board the car (boarding doesn't disable the trap)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder GM Core"
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) The trap loses 1 action each turn for each successful disable. The hovercar uses 1 action to drive 30 feet in a straight line, three times, changing direction between actions as desired. Creatures in the area the hovercar passes through take @Damage[(2d10+13)[bludgeoning]] damage (@Check[reflex|dc:32|basic] save). Creatures damaged by the car are additionally knocked @UUID[Compendium.sf2e.conditions.Item.Prone].</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 15
+            },
+            "reflex": {
+                "value": 21
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": []
+        }
+    },
+    "type": "hazard"
+}

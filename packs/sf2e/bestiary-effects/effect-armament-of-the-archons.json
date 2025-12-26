@@ -1,0 +1,66 @@
+{
+    "_id": "c3Y1xZ6IIxbsnPk1",
+    "img": "icons/magic/light/beam-rays-blue-large.webp",
+    "name": "Effect: Armament of the Archons",
+    "system": {
+        "description": {
+            "value": "<p>You gain an Arqsheth Strike. It is a martial ranged weapon that deals 2d10 fire damage; is in the laser group; has a range increment of 40 feet; and has the analog, holy, and tracking +2 traits. Strikes made with this weapon deal an extra 1d10 spirit damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Alien Core"
+        },
+        "rules": [
+            {
+                "category": "martial",
+                "damage": {
+                    "base": {
+                        "damageType": "fire",
+                        "dice": 2,
+                        "die": "d10"
+                    }
+                },
+                "group": "laser",
+                "key": "Strike",
+                "label": "SF2E.NPCAbility.Arqsheth.ArmamentOfTheArchons.StrikeLabel",
+                "range": {
+                    "increment": 40
+                },
+                "traits": [
+                    "analog",
+                    "holy",
+                    "tracking-2"
+                ]
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d10",
+                "key": "DamageDice",
+                "selector": "{item|id}-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

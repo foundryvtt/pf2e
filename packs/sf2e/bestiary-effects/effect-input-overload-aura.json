@@ -1,0 +1,47 @@
+{
+    "_id": "5IVLUdHeIGnHADjZ",
+    "img": "systems/sf2e/icons/abilities/green-chart.webp",
+    "name": "Effect: Input Overload Aura",
+    "system": {
+        "description": {
+            "value": "<p>Take a –1 status penalty to AC and all saves against sonic effects or effects that alter written or stored data. When attempting to read a document you must succeed at a @Check[flat|dc:5] or you cannot read the document for the next 1d4+1 rounds.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:sonic"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

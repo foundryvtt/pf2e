@@ -1,0 +1,105 @@
+{
+    "_id": "lj06NopCjL5TVgi3",
+    "folder": "aNY4IX6SLEoDHIaH",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "xqeSfmqYXk3ZmAr6",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Form Cyclone",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature disturbs the debris in area <strong>A2</strong></p><hr /><p><strong>Effect</strong> A cyclone of magical energy forms around the triggering creature, dealing @Damage[2d8[acid]] damage (@Check[reflex|dc:20|basic]). This cyclone is 5-feet in diameter and 20-feet high. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Reality Cyclone",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 19
+            },
+            "emitsSound": "encounter",
+            "hardness": 5,
+            "hp": {
+                "details": "",
+                "max": 40,
+                "temp": 0,
+                "value": 40
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained) or @UUID[Compendium.sf2e.spells.Item.Detect Magic]</p>",
+                "value": 10
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A damaged device unleashes a blast of magical energy, which coalesces into a cyclone that degrades reality.</p>",
+            "disable": "<p>@Check[arcana|dc:17] or @Check[nature|dc:17] (trained) to diffuse magical energy, @Check[crafting|dc:18] or @Check[computers|dc:18] (trained) to shut down the device, @Check[occultism|dc:17] to stabilize reality, @Check[thievery|dc:18] (trained) to destabilize the cyclone, or @UUID[Compendium.sf2e.spells.Item.Dispel Magic] (2nd rank; counteract DC 16) to counteract the cyclone</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Society Scenario #1-00: Collision's Wake"
+            },
+            "reset": "",
+            "routine": "<p>(2 actions) The cyclone moves up to 30 feet toward the nearest living creature, then churns in place, degrading reality. All living creatures within 10 feet of the cyclone are dealt @Damage[1d8[acid]] damage, or @Damage[2d8[acid]] damage if the cyclone is in their space (@Check[reflex|dc:20|basic] save).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 12
+            },
+            "reflex": {
+                "value": 6
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

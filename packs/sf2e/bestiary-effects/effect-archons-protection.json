@@ -1,0 +1,43 @@
+{
+    "_id": "IsNnfuzanT5teGt4",
+    "img": "icons/magic/defensive/shield-barrier-blades-teal.webp",
+    "name": "Effect: Archon's Protection",
+    "system": {
+        "description": {
+            "value": "<p>You gain resistance to all damage against the triggering damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Alien Core"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "@item.origin.flags.sf2e.archonsProtection"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

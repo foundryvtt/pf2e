@@ -82,7 +82,7 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     setFavoredWeaponRank(this: DeityPF2e<ActorPF2e>): void {
         if (!this.actor.isOfType("character")) return;
 
-        const favoredWeaponRank = this.actor.flags.pf2e.favoredWeaponRank;
+        const favoredWeaponRank = this.actor.flags[SYSTEM_ID].favoredWeaponRank;
         if (favoredWeaponRank > 0) {
             type PartialAttackProficiencies = Record<string, Partial<MartialProficiency> | undefined>;
             const attacks: PartialAttackProficiencies = this.actor.system.proficiencies.attacks;

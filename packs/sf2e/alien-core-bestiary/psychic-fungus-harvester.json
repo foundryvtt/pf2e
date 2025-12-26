@@ -1,0 +1,361 @@
+{
+    "_id": "uVg2tbY8lbG2CJd8",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "HS3ACJtyQRRj7BkB",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Lash",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "sporocapture"
+                    ]
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "oaAs3fECvsbVaDBt": {
+                        "damage": "1d6+2",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "pSmVEUg5dmVJKZPf",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Spores",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "befuddling-spores"
+                    ]
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "FYOqJXXT3X9M7qZL": {
+                        "damage": "1d4+2",
+                        "damageType": "poison"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "brutal"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "DwvUk6RJmzSJKhCK",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Mycelium Network",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Psychic fungi are connected to a network of psychic filaments bonding all psychic fungi from the same colony. This network grants the harvester the ability to detect creatures capable of thought within 30 feet of a bonded psychic fungus up to 1,000 feet away as an imprecise sense.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "k0x4BAyXtV5tu3sa",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Release Spores",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The harvester is reduced to 0 Hit Points</p><hr /><p><strong>Effect</strong> The harvester releases a cloud of spores in a @Template[type:burst|distance:10] centered on a corner of its own space that lasts for 1 round. Each creature that's in the cloud or enters it is exposed to befuddling spores. If this reaction was triggered by damage from a melee attack, the triggering creature uses the outcome one degree of success worse than the result of its roll for its Fortitude save (two degrees worse if it was a jaws Strike or other Strike with the creature's mouth).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OVTHfDqKzLubL7zg",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Befuddling Spores",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Plants and fungi are immune</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 1} and @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 3} (1 round)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.sf2e.conditions.Item.Paralyzed] and @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 4} (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KC06ffVBXSa83X3U",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Sporocapture",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>An intelligent creature hit by a harvester's lash must attempt a @Check[will|dc:18] save. The effect lasts until the end of the harvester's next turn, but the harvester can Sustain it, keeping the lash unusable on the target's forehead. A creature that succeeds at its save is temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Fascinated] with the harvester.</p>\n<p><strong>Critical Failure</strong> The creature is fascinated with the harvester and must spend each of its actions on its turn to move closer to the harvester as expediently as possible while avoiding obvious dangers. If a fascinated creature is adjacent to the harvester, it stays still and doesn't act. If the creature is attacked, the fascination ends.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Psychic Fungus Harvester",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 0
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 2
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 14
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 24,
+                "temp": 0,
+                "value": 24
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 2
+                },
+                {
+                    "type": "fire",
+                    "value": 2
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 1
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>In order to grow and spread, a sufficiently stable cluster of psychic fungi dispatches harvesters to collect nutrients. While most harvesters return with decaying animal and plant matter, the fungi's preferred prey are thinking creatures that they lead back to the colony for the elders' consumption.</p><hr /><p>A menace to every sentient being, psychic fungi are an invasive species that propagate by using the minds of sapient creatures. Psychic fungi that have integrated a higher intelligence can become a regional or even planetary threat.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "mycelium network",
+            "mod": 8,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 8
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 5,
+                "special": []
+            },
+            "stealth": {
+                "base": 3,
+                "special": [
+                    {
+                        "base": 7,
+                        "label": "amid decaying plant matter or fungi",
+                        "predicate": [
+                            "in-decay-plant-matter-or-fungi"
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 6,
+                "special": []
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "fungus",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}

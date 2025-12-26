@@ -22,7 +22,7 @@ import fields = foundry.data.fields;
 
 type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource> & {
     flags: ItemSourceFlagsPF2e & {
-        pf2e?: {
+        [SYSTEM_ID]?: {
             aura?: EffectAuraData;
         };
     };
@@ -207,7 +207,7 @@ type EffectSystemSchema = AbstractEffectSchema & {
 };
 
 type EffectFlags = ItemFlagsPF2e & {
-    pf2e: {
+    [SYSTEM_ID]: {
         aura?: EffectAuraData;
     };
 };

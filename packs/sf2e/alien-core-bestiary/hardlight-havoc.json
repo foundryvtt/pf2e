@@ -1,0 +1,263 @@
+{
+    "_id": "yDAeGCMLkfSvSVpU",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "9ps9T45JNvYoPdjG",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Hardlight Punch",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "1qnNQy5YANXAr0Vb": {
+                        "damage": "2d8+5",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "cognXh33XPilRvjB",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Error State",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Before the hardlight havoc begins its turn in combat, it gains one of the following error states at random, losing any previous error state.</p>\n<p><strong>Change Character</strong> The hardlight havoc regains @Damage[2d8[healing]|options:area-damage] Hit Points.</p>\n<p><strong>Pixelation</strong> The hardlight havoc is @UUID[Compendium.sf2e.conditions.Item.Concealed] from all creatures.</p>\n<p><strong>Power Leak</strong> The hardlight havoc is @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 1}. At the end of its turn, it deals @Damage[4d6[electricity]|options:area-damage] damage to creatures in a @Template[type:emanation|distance:10] (@Check[reflex|dc:22|basic] save).</p>\n<p><strong>Surge</strong> The hardlight havoc is @UUID[Compendium.sf2e.conditions.Item.Quickened] until the end of its turn and can use the extra action to Stride or Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "D9MaLA1Qy0DZoVp5",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Tethered 120 feet",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A hardlight life-form can't travel more than the indicated number of feet from its projector. A hardlight life-form reduced to 0 HP vanishes, though its projector reconstructs it in [[/gmr 1d4 #hours]]{1d4 hours}. The only way to permanently destroy a hardlight life-form is to find its projector and either repair or destroy it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dXeXugw7BwsAa5Jl",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Flicker",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hardlight havoc teleports up to 40 feet. If the destination is within melee reach of an enemy, it can make a melee Strike against that enemy. If it teleports to a square without a surface to stand on, it falls after attempting a Strike and takes no damage from falling.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "teleportation"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Hardlight Havoc",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 21
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 76,
+                "temp": 0,
+                "value": 76
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "ghost-touch"
+                    ],
+                    "type": "physical",
+                    "value": 4
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "type": "electricity",
+                    "value": 4
+                },
+                {
+                    "type": "force",
+                    "value": 4
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
+            "level": {
+                "value": 5
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>This hardlight life-form is unstable, displaying stuck frames and erratic movements.</p><hr /><p>Unlike normal holograms, hardlight life-forms are tangible, living entities.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "darkvision",
+            "mod": 12,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 8
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 14,
+                "special": []
+            },
+            "intimidation": {
+                "base": 13,
+                "special": []
+            },
+            "society": {
+                "base": 11,
+                "special": []
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "construct",
+                "tech"
+            ]
+        }
+    },
+    "type": "npc"
+}

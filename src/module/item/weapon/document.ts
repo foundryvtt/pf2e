@@ -415,8 +415,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         // object
         this.system.usage.canBeAmmo = this._source.system.usage.canBeAmmo ?? false;
 
-        this.flags.pf2e.comboMeleeUsage ??= false;
-        this.flags.pf2e.damageFacesUpgraded = false;
+        this.flags[SYSTEM_ID].comboMeleeUsage ??= false;
+        this.flags[SYSTEM_ID].damageFacesUpgraded = false;
 
         // Prepare and limit runes
         ABP.cleanupRunes(this);
@@ -439,7 +439,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const strikingDice = ABP.isEnabled(actor) ? ABP.getStrikingDice(actor?.level ?? 0) : this.system.runes.striking;
         const gradeData = CONFIG.PF2E.weaponImprovements[this.system.grade ?? "commercial"];
         this.system.damage.dice =
-            inherentDiceNumber === 1 && !this.flags.pf2e.battleForm
+            inherentDiceNumber === 1 && !this.flags[SYSTEM_ID].battleForm
                 ? Math.max(gradeData.dice, inherentDiceNumber + strikingDice)
                 : this.system.damage.dice;
 
@@ -516,7 +516,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const highestTracking = traits.config.tracking || 0;
 
         traits.value = R.unique(traits.value).sort();
-        this.flags.pf2e.attackItemBonus = Math.max(runes.potency, highestTracking, this.system.bonus.value, 0);
+        this.flags[SYSTEM_ID].attackItemBonus = Math.max(runes.potency, highestTracking, this.system.bonus.value, 0);
     }
 
     /** Add the rule elements of this weapon's linked ammunition to its own list */
@@ -629,7 +629,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     /** Generate a clone of this combination weapon with its melee usage overlain, or `null` if not applicable */
     private toMeleeUsage(): this | null {
         const meleeUsage = this.system.meleeUsage;
-        if (!meleeUsage || this.flags.pf2e.comboMeleeUsage) return null;
+        if (!meleeUsage || this.flags[SYSTEM_ID].comboMeleeUsage) return null;
 
         const traitToggles = {
             module: { selected: meleeUsage.traitToggles.modular },
@@ -645,11 +645,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 traits: { value: [...meleeUsage.traits], toggles: traitToggles },
                 selectedAmmoId: null,
             },
-            flags: {
-                pf2e: {
-                    comboMeleeUsage: true,
-                },
-            },
+            flags: { [SYSTEM_ID]: { comboMeleeUsage: true } },
         };
         return this.clone(overlay, { keepId: true, altUsage: "melee" });
     }
@@ -664,7 +660,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const ability = this.range?.increment && !this.isThrown ? "dex" : "str";
             const actorLevel = actor.system.details.level.base;
             // Use the base dice if damage is fixed
-            const dice = this.flags.pf2e.fixedAttack
+            const dice = this.flags[SYSTEM_ID].fixedAttack
                 ? weaponDamage.dice
                 : [1, 2, 3, 4].reduce((closest, dice) =>
                       Math.abs(dice - Math.round((actorLevel + 2) / 4)) <
@@ -677,7 +673,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const constant = ((): string => {
                 const fromAbility = actor.abilities[ability].mod;
                 // Use the base modifier if damage is fixed
-                const totalModifier = this.flags.pf2e.fixedAttack
+                const totalModifier = this.flags[SYSTEM_ID].fixedAttack
                     ? weaponDamage.modifier
                     : fromAbility + (actor.level > 1 ? dice : 0);
                 const sign = totalModifier < 0 ? "-" : "+";
@@ -788,7 +784,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 slug: this.slug ?? sluggify(this._source.name),
                 bonus: {
                     // Unless there is a fixed attack modifier, give an attack bonus approximating a high-threat NPC
-                    value: this.flags.pf2e.fixedAttack || Math.round(1.5 * this.actor.level + 7),
+                    value: this.flags[SYSTEM_ID].fixedAttack || Math.round(1.5 * this.actor.level + 7),
                 },
                 damageRolls: [baseDamage, splashDamage, fromPropertyRunes, persistentDamage]
                     .flat()
@@ -803,7 +799,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 rules: fu.deepClone(this._source.system.rules),
                 range: !isThrown && (rangeData.increment || rangeData.max) ? rangeData : null,
             },
-            flags: { pf2e: { linkedWeapon: this.id } },
+            flags: { [SYSTEM_ID]: { linkedWeapon: this.id } },
         };
 
         const attack = new ItemProxyPF2e(source, { parent: this.actor }) as MeleePF2e<NonNullable<TParent>>;
@@ -908,8 +904,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (game.user.id === userId) {
             const updates =
                 this.actor?.itemTypes.melee
-                    .filter((a) => a.flags.pf2e.linkedWeapon === this.id)
-                    .map((a) => ({ _id: a.id, "flags.pf2e.-=linkedWeapon": null })) ?? [];
+                    .filter((a) => a.flags[SYSTEM_ID].linkedWeapon === this.id)
+                    .map((a) => ({ _id: a.id, [`flags.${SYSTEM_ID}.-=linkedWeapon`]: null })) ?? [];
             this.actor?.updateEmbeddedDocuments("Item", updates);
         }
     }

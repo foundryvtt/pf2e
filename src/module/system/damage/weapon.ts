@@ -457,7 +457,7 @@ class WeaponDamagePF2e {
         for (const modifier of testedModifiers) {
             modifier.applyDamageAlterations({ item: weapon, test: options });
         }
-        const maxIncreases = weapon.isOfType("weapon") && weapon.flags.pf2e.damageFacesUpgraded ? 0 : 1;
+        const maxIncreases = weapon.isOfType("weapon") && weapon.flags[SYSTEM_ID].damageFacesUpgraded ? 0 : 1;
 
         const formulaData: DamageFormulaData = {
             base,

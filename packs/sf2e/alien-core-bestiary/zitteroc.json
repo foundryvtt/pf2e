@@ -1,0 +1,405 @@
+{
+    "_id": "ayBt83OQhuO9gGX7",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "1UPgWdfjio76BLOB",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Mandibles",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "NJBvdDy0SOloj93c": {
+                        "damage": "1d4",
+                        "damageType": "acid"
+                    },
+                    "VHrhsh74Dnl9cQAe": {
+                        "damage": "1d6+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "CHSBOZCP3TjOklPZ",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Acid Spit",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "TC0q07UzBG8l9Qt0": {
+                        "damage": "2d4+2",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "acid"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "TPtBSnrQqDb8y96k",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Poison Sense",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A zitteroc can detect poison as an imprecise sense at the listed range, including poisonous substances, poisoned creatures, and creatures with attacks that inflict poison.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "J96XnGtv9O8S6HGG",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Sickening Death",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> The zitteroc takes damage</p><hr /><p><strong>Effect</strong> The zitteroc releases a spray of acid in a @Template[type:emanation|distance:15], dealing @Damage[4d4[acid]|options:area-damage] damage to each creature in the area (@Check[reflex|dc:18|basic] save), then uses Still as a Corpse.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dYQW3mZ5cOXRtkKz",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Shimmer Hide",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The zitteroc focuses on shifting its hide pattern to match its surroundings. The zitteroc becomes @UUID[Compendium.sf2e.conditions.Item.Concealed] to creatures more than 15 feet away from it until the start of its next turn.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cNKeMGB2p9Bayu6P",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Siphon Poison",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The zitteroc's last action was a successful mandibles Strike</p><hr /><p><strong>Effect</strong> The zitteroc siphons poison from the struck target's bloodstream. If the target is afflicted by a poison or possesses a natural poison, the zitteroc consumes that poison to empower its own abilities. The poison effect is suppressed on the target for 1 round, or the target can't use its natural poison until the end of its next turn. Until the end of the zitteroc's next turn, the zitteroc increases its acid damage die size for its mandibles and acid spit Strikes, and Sickening Death, by one step (typically to d6s).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Siphon Poison",
+                    "uuid": "Compendium.sf2e.bestiary-effects.Item.Effect: Siphon Poison"
+                },
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fgthqGZkM7woi5KR",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Still as a Corpse",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Until the next time it acts, the zitteroc appears to be dead. It has an automatic result of 21 on @Check[deception] checks and DCs to pass as a dead zitteroc.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "still-a-corpse",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "still-a-corpse"
+                        ],
+                        "selector": [
+                            "deception-dc",
+                            "deception"
+                        ],
+                        "slug": "still-a-corpse-bonus",
+                        "value": 13
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "predicate": [
+                            "still-a-corpse"
+                        ],
+                        "required": true,
+                        "selectors": [
+                            "deception-dc",
+                            "deception"
+                        ],
+                        "slug": "still-a-corpse-bonus",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Zitteroc",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 17
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 32,
+                "temp": 0,
+                "value": 32
+            },
+            "immunities": [
+                {
+                    "type": "poison"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 25
+                    },
+                    {
+                        "type": "swim",
+                        "value": 40
+                    }
+                ],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 2
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Zitterocs are vicious reptilians native to the Kazmurg's Absurdity world of Azhan Prime. Due to the native Azhans' propensity for trading, these creatures have made their way across the cosmos and found new homes in the galaxy's various wetlands. Zitterocs are renowned across the galaxy for their ability to innately detect and somehow ignore even the most virulent poisons. They can siphon such poisons from targets and convert them into a fuel source for their digestive acids. Even after this siphoning process, trace amounts of poison can be found within a zitteroc, and the fresh bodies of zitterocs are often a cornucopia of medicinal substances for biotechnicians and pharmaceutical experts.</p>\n<p>At maturity, a zitteroc stands only 2 to 3 feet tall, with a length roughly double that size. They possess a sickly blue hide that shimmers like an oil slick and can take on the rough properties of its surroundings with concentration. Additionally, they can feign a sickening death when threatened by hunters or more dangerous predators. These typically docile carnivores can become vicious when they run out of abundant food from less threatening animals, at which point they make their way into the fringes of civilization.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "poison sense (imprecise) 60 feet",
+            "mod": 7,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 6
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 8
+            },
+            "athletics": {
+                "base": 7
+            },
+            "stealth": {
+                "base": 8
+            },
+            "survival": {
+                "base": 4
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}

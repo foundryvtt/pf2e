@@ -12,7 +12,7 @@ class BackgroundPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     /** Set a skill feat granted by a GrantItem RE as one of this background's configured items */
     override prepareSiblingData(this: BackgroundPF2e<ActorPF2e>): void {
         if (Object.keys(this.system.items).length > 0) return;
-        const grantedSkillFeat = Object.values(this.flags.pf2e.itemGrants)
+        const grantedSkillFeat = Object.values(this.flags[SYSTEM_ID].itemGrants)
             .flatMap((g) => this.actor.items.get(g.id) ?? [])
             .find((i): i is FeatPF2e<ActorPF2e> => i.isOfType("feat") && i.category === "skill");
 

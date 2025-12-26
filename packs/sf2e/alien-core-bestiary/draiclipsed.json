@@ -1,0 +1,672 @@
+{
+    "_id": "XcJswM9jt3alx7eo",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "2GK3V8QYWSX0Hwl0",
+            "folder": "V89RPpe7fyCFC6NS",
+            "img": "icons/weapons/wands/wand-skull-horned.webp",
+            "name": "Bone Scepter",
+            "sort": 100000,
+            "system": {
+                "ammo": null,
+                "baseItem": "bone-scepter",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "cold",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>This engraved club of solid bone is tempered using material from the void that can drain life energy.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "expend": null,
+                "grade": "tactical",
+                "group": "club",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": null
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "bone-scepter",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "analog",
+                        "modular-c-or-void",
+                        "shove"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "RTgPIQsb2fC8YUox",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Bone Scepter",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "gathering-darkness"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "Olks0VmHmS26LZRO": {
+                        "damage": "11",
+                        "damageType": "cold"
+                    },
+                    "mS9m9C9CgANNsYa3": {
+                        "damage": "1d4",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "modular",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "cold",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:id:{item|id}",
+                            {
+                                "not": "modular"
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "damageType": "void",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:id:{item|id}",
+                            "modular"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "definition": [
+                            "item:id:{item|id}"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            {
+                                "not": "modular"
+                            }
+                        ],
+                        "property": "weapon-traits",
+                        "value": "shove"
+                    }
+                ],
+                "slug": "bone-scepter",
+                "traits": {
+                    "value": [
+                        "analog",
+                        "cold",
+                        "tracking-1"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "tAgRwSAvAG7WHWWT",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 300000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "gathering-darkness"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "GnIQg1bwQAWFvHgh": {
+                        "damage": "1d4+11",
+                        "damageType": "bludgeoning"
+                    },
+                    "xCtjWkIoY1mj3PSK": {
+                        "damage": "1d4",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "magical"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "UWR7FqMI1HWZwRih",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Eclipse Ray",
+            "sort": 400000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "gathering-darkness"
+                    ]
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "2jUenVtCmJLZ7k5X": {
+                        "damage": "2d4",
+                        "damageType": "cold"
+                    },
+                    "R6jr5kP1sBbpikz9": {
+                        "damage": "2d4",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 120,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "cold",
+                        "magical",
+                        "void"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "DSo7t1nxsBtz5WyO",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Infrared Vision",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A draiclipsed can detect infrared radiation (such as that given off by warm-blooded creatures) as an imprecise sense at the listed range.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nzB62fjSZClGt3UE",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Eclipse Shroud",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>15 feet. A draiclipsed absorbs light and is perpetually surrounded by shifting shadows and lengthening darkness. Light in the area decreases by one step (for example, bright light becomes dim light).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "darkness"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zeGcnEdR90zb1huY",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WV5MzVNg9kdFEam7",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Consume Light",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The draiclipsed opens their mouth and sucks in a magical light, consuming it to fuel their own powers. The draiclipsed attempts a counteract check against one magical light effect within 60 feet ([[/r 1d20+15 #Counteract]]{+15} counteract modifier). If successful, the draiclipsed becomes ringed in diffuse light, becoming photonic for the next 24 hours. While a draiclipsed is photonic, they're @UUID[Compendium.sf2e.conditions.Item.Concealed].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "darkness"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VIe57oFghrf78ULO",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Cull the Betrayers",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever a draiclipsed would deal void damage to an undead or other creature with void healing, that void damage becomes cold damage instead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "98h1UUPgHEBC6Nbd",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Darkness Falls",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The draiclipsed is photonic</p><hr /><p><strong>Effect</strong> The draiclipsed releases the light they've consumed in a blast of corrupted electromagnetic energy, dealing 3d8 electricity and @Damage[3d8[void]|options:area-damage] damage in a @Template[type:cone|distance:30] (@Check[reflex|dc:24|basic] save). The draiclipsed is no longer photonic.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "darkness",
+                        "electricity",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hJcr1POZPn7qVQyc",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Gathering Darkness",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If at least one other draiclipsed is within the draiclipsed's eclipse shroud, the draiclipsed's Strikes deal an additional @Damage[1d8[void]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Draiclipsed",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -1
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -1
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 22
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 99,
+                "temp": 0,
+                "value": 99
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "cold"
+                },
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 30
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "vitality",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "Can't speak any language",
+                "value": [
+                    "eoxian",
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Draiclipsed are the undead heralds of the Insatiable Eclipse, an ancient and terrifying tzitzimitl warlord buried when the Blackmoon fell on Eox and recently awakened by the Newborn. The Insatiable Eclipse amasses its forces, including legions of draiclipsed, to retake Eox, a world he feels has fallen to decadence and frivolity, whose disgraceful leaders have made the blasphemous decision to ally with the living.</p>\n<p>Draiclipsed are canny skeletal undead whose pitch-black bones absorb light, allowing them to cast deep shadows. They can also consume magical light, using the absorbed photons to obscure their form before unleashing it in a blast of electromagnetic energy. Utterly loyal to their creator and liege, draiclipsed are trained for open warfare and even more dangerous when fighting alongside one another.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "infrared vision (imprecise) 30 feet",
+            "mod": 10,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 30,
+                    "type": "infrared-vision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 10
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 14
+            },
+            "athletics": {
+                "base": 15
+            },
+            "stealth": {
+                "base": 14
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

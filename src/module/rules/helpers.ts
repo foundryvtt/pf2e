@@ -184,7 +184,7 @@ async function processPreUpdateActorHooks(
     const rules = actor.rules.filter((r): r is WithPreUpdateActor => !!r.preUpdateActor);
     if (rules.length === 0) return;
 
-    actor.flags.pf2e.rollOptions = actor.clone(changed, { keepId: true }).flags.pf2e.rollOptions;
+    actor.flags[SYSTEM_ID].rollOptions = actor.clone(changed, { keepId: true }).flags[SYSTEM_ID].rollOptions;
     const createDeletes = (
         await Promise.all(
             rules.map(

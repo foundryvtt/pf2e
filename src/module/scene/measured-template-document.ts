@@ -17,14 +17,14 @@ class MeasuredTemplateDocumentPF2e<
     TParent extends ScenePF2e | null = ScenePF2e | null,
 > extends MeasuredTemplateDocument<TParent> {
     get actor(): ActorPF2e | null {
-        const uuid = this.flags.pf2e?.origin?.actor;
+        const uuid = this.flags[SYSTEM_ID]?.origin?.actor;
         if (!uuid) return null;
         const document = fromUuidSync(uuid);
         return document instanceof ActorPF2e ? document : (this.item?.actor ?? null);
     }
 
     get item(): ItemPF2e<ActorPF2e> | null {
-        const origin = this.flags.pf2e?.origin;
+        const origin = this.flags[SYSTEM_ID]?.origin;
         const uuid = origin?.uuid;
         if (!uuid) return null;
         const item = fromUuidSync(uuid as string);
@@ -42,11 +42,11 @@ class MeasuredTemplateDocumentPF2e<
 
     /** The chat message from which this template was spawned */
     get message(): ChatMessagePF2e | null {
-        return game.messages.get(this.flags.pf2e?.messageId ?? "") ?? null;
+        return game.messages.get(this.flags[SYSTEM_ID]?.messageId ?? "") ?? null;
     }
 
     get areaShape(): EffectAreaShape | null {
-        return this.flags.pf2e.areaShape;
+        return this.flags[SYSTEM_ID].areaShape;
     }
 
     /** Ensure the source has a `pf2e` flag along with an `areaShape` if directly inferable. */
@@ -56,7 +56,7 @@ class MeasuredTemplateDocumentPF2e<
     ): this["_source"] {
         const initialized = super._initializeSource(data, options);
         const areaShape = initialized.t === "cone" ? "cone" : initialized.t === "ray" ? "line" : null;
-        initialized.flags.pf2e = fu.mergeObject({ areaShape }, initialized.flags.pf2e ?? {});
+        initialized.flags[SYSTEM_ID] = fu.mergeObject({ areaShape }, initialized.flags[SYSTEM_ID] ?? {});
         return initialized;
     }
 
@@ -78,7 +78,7 @@ interface MeasuredTemplateDocumentPF2e<TParent extends ScenePF2e | null = SceneP
     get object(): MeasuredTemplatePF2e<this> | null;
 
     flags: DocumentFlags & {
-        pf2e: {
+        [SYSTEM_ID]: {
             messageId?: string;
             origin?: ItemOriginFlag;
             areaShape: EffectAreaShape | null;

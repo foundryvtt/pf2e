@@ -1,0 +1,1475 @@
+{
+    "_id": "h9DEmhZO3rJbLDIk",
+    "folder": "OeKg2XRNnU3pmqfm",
+    "img": "systems/sf2e/icons/iconics/portraits/oobozaya.webp",
+    "items": [
+        {
+            "_id": "eU3tO1zwdWtxHsMO",
+            "folder": "GDwAMtsePahRqYZn",
+            "img": "systems/sf2e/icons/ancestries/vesk.webp",
+            "name": "Vesk",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 0,
+                    "custom": "",
+                    "value": []
+                },
+                "boosts": {
+                    "0": {
+                        "value": [
+                            "con"
+                        ]
+                    },
+                    "1": {
+                        "value": [
+                            "str"
+                        ]
+                    },
+                    "2": {
+                        "selected": "dex",
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "flaws": {
+                    "0": {
+                        "value": [
+                            "wis"
+                        ]
+                    }
+                },
+                "hands": 2,
+                "hp": 10,
+                "items": {},
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common",
+                        "vesk"
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "reach": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "vesk",
+                "speed": 20,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "humanoid",
+                        "vesk"
+                    ]
+                },
+                "vision": "low-light-vision"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "wgyFoXbJZt3Dxx25",
+            "folder": "QZmNJ1IWcw3aM6Ow",
+            "img": "systems/sf2e/icons/default-icons/heritage.svg",
+            "name": "Briskwander Vesk",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Vesk",
+                    "slug": "vesk",
+                    "uuid": "Compendium.sf2e.ancestries.Item.06FBb4UDg64S5AYI"
+                },
+                "description": {
+                    "value": "<p>You come from a line of vesk who were constantly on the move. Your Speed increases by 5 feet.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "land-speed",
+                        "value": 5
+                    }
+                ],
+                "slug": "briskwander-vesk",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "mkVpFZNMb5K1tkAW",
+            "flags": {
+                "sf2e": {
+                    "itemGrants": {
+                        "barricade": {
+                            "id": "m1jFXndZqJEbtfJN",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "9DzgrrI9HDXpQ0Ws",
+            "img": "systems/sf2e/icons/default-icons/background.svg",
+            "name": "Trooper",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "con",
+                        "value": [
+                            "con",
+                            "str"
+                        ]
+                    },
+                    "1": {
+                        "selected": "str",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>You enlisted in a military or were recruited by a paramilitary group as a career trooper. As long as you've got enough guns and the right squad to back you up, you can handle just about anything.</p>\n<p>Choose two attribute boosts. One must be to <strong>Strength</strong> or <strong>Constitution</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Athletics skill and the Warfare Lore skill. You gain the @UUID[Compendium.sf2e.feats.Item.Barricade] feat.</p>"
+                },
+                "items": {},
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "barricade",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.sf2e.feats.Item.Barricade"
+                    }
+                ],
+                "slug": "trooper",
+                "trainedSkills": {
+                    "lore": [
+                        "Warfare Lore"
+                    ],
+                    "value": [
+                        "athletics"
+                    ]
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "m1jFXndZqJEbtfJN",
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "mkVpFZNMb5K1tkAW",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "952e2Tn00KbJ2FY3",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Barricade",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>You hastily create a barricade using nearby items, junk, or debris. The barricade provides lesser cover for you and one other ally, though you can @UUID[Compendium.sf2e.actions.Item.Take Cover] to increase this benefit to standard cover. The barricade is flimsy and falls apart at the end of your next turn.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "barricade",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "NB7IRxd4IOWJsw2H",
+            "img": "systems/sf2e/icons/classes/soldier.webp",
+            "name": "Soldier",
+            "sort": 300000,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 1,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    },
+                    "simple": 1,
+                    "unarmed": 1
+                },
+                "classFeatLevels": {
+                    "value": [
+                        1,
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "defenses": {
+                    "heavy": 1,
+                    "light": 1,
+                    "medium": 1,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": "<p><em>You're a master of area weapons, heavy armor, and soaking damage. You fight in the thick of the battle and unleash devastating salvos against your foes as you take withering fire in return. By laying down a barrage of suppressing fire with powerful weapons, you set your allies up to fulfill their respective roles while encouraging enemies to focus on you.</em></p>"
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "hp": 10,
+                "items": {
+                    "0Xdrc": {
+                        "img": "systems/sf2e/icons/abilities/yellow-tech-remnant.webp",
+                        "level": 1,
+                        "name": "Walking Armory",
+                        "uuid": "Compendium.sf2e.class-features.Item.Walking Armory"
+                    },
+                    "81GyW": {
+                        "img": "systems/sf2e/icons/equipment/armor/vest-green-medium.webp",
+                        "level": 13,
+                        "name": "Armor Mastery",
+                        "uuid": "Compendium.sf2e.class-features.Item.Armor Mastery"
+                    },
+                    "91MfW": {
+                        "img": "systems/sf2e/icons/abilities/red-bullets-in-flight.webp",
+                        "level": 1,
+                        "name": "Suppressing Fire",
+                        "uuid": "Compendium.sf2e.class-features.Item.Suppressing Fire"
+                    },
+                    "DDfC0": {
+                        "img": "systems/sf2e/icons/abilities/cerulean-plasma-rifle.webp",
+                        "level": 5,
+                        "name": "Soldier Weapon Expert",
+                        "uuid": "Compendium.sf2e.class-features.Item.Soldier Weapon Expert"
+                    },
+                    "KaQSM": {
+                        "img": "systems/sf2e/icons/abilities/blue-three-star-emblem.webp",
+                        "level": 19,
+                        "name": "Legendary Soldier",
+                        "uuid": "Compendium.sf2e.class-features.Item.Legendary Soldier"
+                    },
+                    "LS48j": {
+                        "img": "systems/sf2e/icons/equipment/armor/armor-blue-heavy-powered.webp",
+                        "level": 17,
+                        "name": "Legendary Armor",
+                        "uuid": "Compendium.sf2e.class-features.Item.Legendary Armor"
+                    },
+                    "LzMX8": {
+                        "img": "systems/sf2e/icons/abilities/blue-triad-hexagons.webp",
+                        "level": 7,
+                        "name": "Tough as Nails",
+                        "uuid": "Compendium.sf2e.class-features.Item.Tough as Nails"
+                    },
+                    "OTm1g": {
+                        "img": "systems/sf2e/icons/abilities/blue-alien-energy-breath.webp",
+                        "level": 7,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.sf2e.class-features.Item.Weapon Specialization"
+                    },
+                    "VJphS": {
+                        "img": "systems/sf2e/icons/abilities/alien-eye.webp",
+                        "level": 3,
+                        "name": "Fearsome Bulwark",
+                        "uuid": "Compendium.sf2e.class-features.Item.Fearsome Bulwark"
+                    },
+                    "WukIv": {
+                        "img": "systems/sf2e/icons/abilities/alien-mask.webp",
+                        "level": 5,
+                        "name": "Perception Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Perception Expertise"
+                    },
+                    "XNxXZ": {
+                        "img": "systems/sf2e/icons/abilities/space-machine-gun.webp",
+                        "level": 15,
+                        "name": "Soldier Weapon Mastery",
+                        "uuid": "Compendium.sf2e.class-features.Item.Soldier Weapon Mastery"
+                    },
+                    "Yzj8X": {
+                        "img": "systems/sf2e/icons/abilities/blue-person-running.webp",
+                        "level": 3,
+                        "name": "Reflex Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Reflex Expertise"
+                    },
+                    "cypz9": {
+                        "img": "systems/sf2e/icons/abilities/orange-target-sign.webp",
+                        "level": 1,
+                        "name": "Primary Target",
+                        "uuid": "Compendium.sf2e.class-features.Item.Primary Target"
+                    },
+                    "khe3J": {
+                        "img": "systems/sf2e/icons/abilities/yellow-sonic-scream.webp",
+                        "level": 11,
+                        "name": "Soldier's Resolution",
+                        "uuid": "Compendium.sf2e.class-features.Item.Soldier's Resolution"
+                    },
+                    "n9WzD": {
+                        "img": "systems/sf2e/icons/equipment/armor/vest-blue-heavy.webp",
+                        "level": 7,
+                        "name": "Armor Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Armor Expertise"
+                    },
+                    "ntF0X": {
+                        "img": "systems/sf2e/icons/abilities/alien-mask.webp",
+                        "level": 15,
+                        "name": "Unshakable Juggernaut",
+                        "uuid": "Compendium.sf2e.class-features.Item.Unshakable Juggernaut"
+                    },
+                    "qbokw": {
+                        "img": "systems/sf2e/icons/abilities/cerulean-star.webp",
+                        "level": 1,
+                        "name": "Soldier Fighting Style",
+                        "uuid": "Compendium.sf2e.class-features.Item.Soldier Fighting Style"
+                    },
+                    "vcA9R": {
+                        "img": "systems/sf2e/icons/abilities/yellow-star-insignia.webp",
+                        "level": 7,
+                        "name": "Soldier Expertise",
+                        "uuid": "Compendium.sf2e.class-features.Item.Soldier Expertise"
+                    }
+                },
+                "keyAbility": {
+                    "selected": null,
+                    "value": [
+                        "con"
+                    ]
+                },
+                "perception": 1,
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "savingThrows": {
+                    "fortitude": 2,
+                    "reflex": 1,
+                    "will": 2
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                },
+                "slug": "soldier",
+                "spellcasting": 0,
+                "trainedSkills": {
+                    "additional": 3,
+                    "value": [
+                        "intimidation"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common"
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "9Ie95sn90b6UEGZL",
+            "folder": "e6s8QLzAKqjMzzPL",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Fearless",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>Whether it comes from a sense of duty or a desire to succeed, you rarely flinch when confronted by fearsome foes. If you roll a success on a saving throw against a fear effect, you get a critical success instead.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "item:trait:fear"
+                        ],
+                        "selector": "saving-throw"
+                    }
+                ],
+                "slug": "fearless",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "HpWjdhuYwRurieLv",
+            "folder": "81KtKO71Z3ZZ01KH",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Quick Swap",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> You're wielding a two-handed weapon, and an enemy creature moves adjacent to you.</p><hr /><p>You can switch weapons in stressful situations so that you quickly set yourself up to punish incoming foes. You stow your current weapon and draw another two-handed weapon. If you have multiple sets of arms, you can instead Switch Hands.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "quick-swap",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "2GaC8L7AmaTACoZQ",
+            "folder": "cJoNKs2FMCJkyEDK",
+            "img": "systems/sf2e/icons/equipment/other/walkie-talkie.webp",
+            "name": "Comm Unit",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A personal comm unit is a pocket-sized device that combines a minor portable computer and a cellular communications device, allowing instantaneous wireless communication with other comm units in both audio- and text-based formats at planetary range. A personal comm unit also includes a calculator, a flashlight (emits bright light in a 5-foot radius around you and dim light in the next 5 feet), a browser that accesses any local infospheres, and several entertainment options (including games).</p>\n<p>Personal comm units integrated into armor have some voice-activated capabilities; you can communicate with other comm units in audio-based formats and receive responses without needing a free hand, but typing a message, browsing the infosphere, or using an app requires the use of at least one hand.</p>\n<p>Comm units that function at longer ranges aren't as portable; they include built-in generators that provide the necessary amount of power and rely on active Drift beacons to communicate. Short-term use of these units can be purchased in most major settlements.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 7
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "flashlight"
+                        ],
+                        "value": {
+                            "alpha": 0.45,
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 2,
+                                "type": "flame"
+                            },
+                            "attenuation": 0.4,
+                            "bright": 5,
+                            "color": "#ffae3d",
+                            "dim": 10,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "key": "RollOption",
+                        "label": "Comm Unit - Flashlight",
+                        "option": "flashlight",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "value": "systems/sf2e/icons/equipment/other/flashlight-yellow.webp"
+                    }
+                ],
+                "size": "med",
+                "slug": "comm-unit",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "tech"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "B6oE3UT0sUtN2WP3",
+            "folder": "V89RPpe7fyCFC6NS",
+            "img": "icons/weapons/polearms/spear-simple-hooked-grey.webp",
+            "name": "Doshko",
+            "sort": 5200000,
+            "system": {
+                "ammo": null,
+                "baseItem": "doshko",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d12"
+                },
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>The traditional weapon of the Veskarium, this powered poleaxe features one to three triangular blades forged for both wide overhead swings and tactical parrying.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "expend": null,
+                "grade": "commercial",
+                "group": "axe",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 20
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": null
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "doshko",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "analog",
+                        "parry",
+                        "vesk"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "2bVjfZhg9cpPyWzz",
+            "folder": "V89RPpe7fyCFC6NS",
+            "img": "systems/sf2e/icons/equipment/weapons/heavy-gun-long.webp",
+            "name": "Machine Gun",
+            "sort": 1000000,
+            "system": {
+                "ammo": {
+                    "baseType": "projectile-ammo",
+                    "builtIn": false,
+                    "capacity": 20
+                },
+                "baseItem": "machine-gun",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 2
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8"
+                },
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>These proven and reliable automatic weapons are capable of firing in short bursts or completely emptying their magazines to clear a battlefield.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 2,
+                    "invested": null
+                },
+                "expend": 1,
+                "grade": "commercial",
+                "group": "projectile",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 80
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "range": 40,
+                "reload": {
+                    "value": "2"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "selectedAmmoId": "ojKpAbUiTTSMG3wk",
+                "size": "med",
+                "slug": "machine-gun",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "analog",
+                        "automatic"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "bjeNNVu3PeUR6yhP",
+            "folder": "jjcF0lfrc3ZIoKv1",
+            "img": "icons/equipment/chest/breastplate-sculpted-green.webp",
+            "name": "Shotalashu Armor",
+            "sort": 400000,
+            "system": {
+                "acBonus": 3,
+                "baseItem": "shotalashu-armor",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>Flexible but sturdy plates layered together form this traditional armor worn by lashunta cavalry on Castrovel. In times past, a shotalashu cavalry member forged their armor from their mount's shed skin, or more rarely, the skin of a fallen mount, to honor them in future battles. Synthetic imitations are fashionable on some parts of Castrovel.</p>"
+                },
+                "dexCap": 2,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "grade": "commercial",
+                "group": "composite",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 40
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "shotalashu-armor",
+                "speedPenalty": -5,
+                "strength": 2,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "tech"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "ZAtq8EINJ8gv1PVd",
+            "img": "systems/sf2e/icons/equipment/treasure/currency/silver-pieces.webp",
+            "name": "Silver Pieces",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "category": "coin",
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 1,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "silver-pieces",
+                "temporary": false,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "ojKpAbUiTTSMG3wk",
+            "folder": "F6h7fO0Z7cgQBVRD",
+            "img": "systems/sf2e/icons/equipment/weapons/red-rounds.webp",
+            "name": "Projectile Ammo",
+            "sort": 1100000,
+            "system": {
+                "baseItem": "projectile-ammo",
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "craftableAs": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "projectile-ammo",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable"
+                    ]
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "ammo"
+        },
+        {
+            "_id": "dzPOSzKrARqzOnoj",
+            "img": "systems/sf2e/icons/default-icons/lore.svg",
+            "name": "Warfare Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "IkV7JB1irHYi1aF8",
+            "flags": {
+                "sf2e": {
+                    "itemGrants": {
+                        "bombard": {
+                            "id": "PWCK3sgDoTkPJrEi",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "IGK9KhXfktRKGmLz",
+            "img": "systems/sf2e/icons/abilities/cerulean-star.webp",
+            "name": "Soldier Fighting Style",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>As a soldier, you train using a specific style of fighting. Your style determines how you approach combat and often changes how you take advantage of your ability to suppress targets. Choose a soldier fighting style.</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Action Hero]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Armor Storm]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Bombard]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Close Quarters]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Erudite Warrior]</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "NB7IRxd4IOWJsw2H",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:soldier-fighting-style"
+                            ]
+                        },
+                        "flag": "fightingStyle",
+                        "key": "ChoiceSet",
+                        "prompt": "SF2E.SpecificRule.Soldier.FightingStyle.Prompt",
+                        "selection": "Compendium.sf2e.class-features.Item.Bombard"
+                    },
+                    {
+                        "flag": "bombard",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.sf2e.rulesSelections.fightingStyle}"
+                    }
+                ],
+                "slug": "soldier-fighting-style",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "PWCK3sgDoTkPJrEi",
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "IkV7JB1irHYi1aF8",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "GyMklUN6ZJ9xixWD",
+            "img": "systems/sf2e/icons/abilities/energy-reaction.webp",
+            "name": "Bombard",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>There's nothing like a big gun (or maybe several) to get you through tough times. You've come to terms with the fact that a stray bullet from one of your barrages might sometimes hit an ally, but you try to minimize such instances of \"friendly fire.\" You've trained to avoid harming allies with your barrages and learned to expertly position your attacks around them.</p>\n<p>When you attack with an area weapon, you can select a number of allies within the area equal to half your Constitution modifier. The selected allies are unaffected by the attack. In addition, enemies who succeed (but not critically succeed) on their save against an area attack you make are still @UUID[Compendium.sf2e.conditions.Item.Suppressed] until the start of your next turn.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "bombard",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "otherTags": [
+                        "soldier-fighting-style"
+                    ],
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "fcnSVt4UwgOkH2kk",
+            "folder": "IGK9KhXfktRKGmLz",
+            "img": "systems/sf2e/icons/abilities/orange-target-sign.webp",
+            "name": "Primary Target",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You can focus fire on a single target when unleashing the full devastation of your powerful area weaponry. Before you make an area attack with a weapon (such as from the Area Fire or Auto-Fire actions), you can make a ranged Strike as a free action with the same weapon against a single creature in the area, who's selected as your primary target. If your attack is a burst, you must select the creature closest to the center of the attack. If your attack is a cone or line, you must select the creature closest to you. If two or more creatures are equidistant, you can choose which one is your primary target. On a hit, if your primary target rolls a success against your Area Fire or Auto-Fire action, they get a failure instead. This Strike doesn't count toward your multiple attack penalty.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "NB7IRxd4IOWJsw2H",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "primary-target",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "YDxe5kCD1YI4VBwX",
+            "folder": "IGK9KhXfktRKGmLz",
+            "img": "systems/sf2e/icons/abilities/red-bullets-in-flight.webp",
+            "name": "Suppressing Fire",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You have a knack for using powerful weapons to harry your foes and hinder their movement, preventing them from operating at their peak. If you make an attack with a weapon that has the area trait (such as from the Area Fire or Auto-Fire actions), you use it in a manner that suppresses your targets. Enemies in the affected area who fail their save against your attack become @UUID[Compendium.sf2e.conditions.Item.Suppressed] until the start of your next turn. A suppressed target takes a –1 circumstance penalty on attack rolls and takes a –10-foot status penalty to its Speeds. Some soldier abilities and class feats interact further with the suppressed condition.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "NB7IRxd4IOWJsw2H",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:trait:area"
+                        ],
+                        "selector": "ranged-strike-damage",
+                        "text": "SF2E.SpecificRule.Soldier.SuppressingFire.Note",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "suppressing-fire",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "d8IfyST4jxNUWA6e",
+            "folder": "IGK9KhXfktRKGmLz",
+            "img": "systems/sf2e/icons/abilities/yellow-tech-remnant.webp",
+            "name": "Walking Armory",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your endurance training empowers you to carry a load of heavy equipment. When determining your Strength for using armor, you can instead choose to use your Constitution modifier. If you already meet the Strength requirement for the armor you're wearing, reduce that armor's Bulk by 1 (to a minimum of 1).</p>\n<p>In addition, increase the amount of Bulk you can carry before becoming encumbered by half your Constitution modifier rounded up. Increase your maximum carried Bulk by your Constitution modifier.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "NB7IRxd4IOWJsw2H",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": [
+                            "penalty:slug:armor-check-penalty",
+                            {
+                                "gte": [
+                                    "attribute:con:mod",
+                                    "armor:strength"
+                                ]
+                            }
+                        ],
+                        "selector": "skill-check",
+                        "suppress": true
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "add",
+                        "predicate": [
+                            "penalty:slug:armor-speed-penalty",
+                            {
+                                "gte": [
+                                    "attribute:con:mod",
+                                    "armor:strength"
+                                ]
+                            }
+                        ],
+                        "selector": "speed",
+                        "value": 5
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "inventory.bulk.encumberedAfterAddend",
+                        "value": "ceil(@actor.system.abilities.con.mod/2)"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "inventory.bulk.maxAddend",
+                        "value": "@actor.system.abilities.con.mod"
+                    }
+                ],
+                "slug": "walking-armory",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        }
+    ],
+    "name": "Obozaya (Level 1)",
+    "system": {
+        "abilities": null,
+        "attributes": {
+            "hp": {
+                "temp": 0,
+                "value": 24
+            }
+        },
+        "build": {
+            "attributes": {
+                "boosts": {
+                    "1": [
+                        "int",
+                        "con",
+                        "dex",
+                        "wis"
+                    ]
+                }
+            }
+        },
+        "details": {
+            "age": {
+                "value": ""
+            },
+            "biography": {
+                "allies": "",
+                "anathema": [],
+                "appearance": "",
+                "attitude": "",
+                "backstory": "",
+                "beliefs": "",
+                "birthPlace": "",
+                "campaignNotes": "",
+                "catchphrases": "",
+                "dislikes": "",
+                "edicts": [],
+                "enemies": "",
+                "likes": "",
+                "organizations": ""
+            },
+            "ethnicity": {
+                "value": ""
+            },
+            "gender": {
+                "value": ""
+            },
+            "height": {
+                "value": ""
+            },
+            "keyability": {
+                "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": [
+                    "pahtra",
+                    "akitonian"
+                ]
+            },
+            "level": {
+                "value": 1
+            },
+            "nationality": {
+                "value": ""
+            },
+            "weight": {
+                "value": ""
+            },
+            "xp": {
+                "max": 1000,
+                "min": 0,
+                "pct": 0,
+                "value": 0
+            }
+        },
+        "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
+        "pfs": {
+            "characterNumber": null,
+            "currentFaction": "EA",
+            "levelBump": false,
+            "playerNumber": null,
+            "reputation": {
+                "EA": null,
+                "GA": null,
+                "HH": null,
+                "RO": null,
+                "VS": null,
+                "VW": null
+            },
+            "school": null
+        },
+        "resources": {
+            "heroPoints": {
+                "max": 3,
+                "value": 1
+            }
+        },
+        "skills": {
+            "athletics": {
+                "rank": 0
+            },
+            "intimidation": {
+                "rank": 0
+            },
+            "nature": {
+                "rank": 1
+            },
+            "society": {
+                "rank": 1
+            },
+            "stealth": {
+                "rank": 1
+            },
+            "survival": {
+                "rank": 1
+            }
+        }
+    },
+    "type": "character"
+}

@@ -1,0 +1,404 @@
+{
+    "_id": "WgVbdad5NIqf86qc",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "AA81fLswwRKqqg9c",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Discus Punch",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "QxgNzrOBsifBxmKs": {
+                        "damage": "2d12+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-15"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Gk12uhCFaRMwZYHl",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Meteor Fragment",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 23
+                },
+                "damageRolls": {
+                    "eUUgmtXchc3NF64M": {
+                        "damage": "2d8+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 120,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "brutal"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "TYOCi6sMVnFFu1wK",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AqLRFAXpR5yYY8Yq",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Meteoric Death Drop",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The tergaiator has a creature @UUID[Compendium.sf2e.conditions.Item.Grabbed]</p><hr /><p><strong>Effect</strong> The tergaiator launches themself and their victim high up in the air before crashing down. The creature takes @Damage[5d8[bludgeoning]] damage and @Damage[1d6[fire]] damage with a @Check[fortitude|dc:30|basic] save. On a failure, the creature also falls @UUID[Compendium.sf2e.conditions.Item.Prone] in an unoccupied adjacent square of the tergaiator's choice; on a critical failure, the creature is also @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 1}. After using Meteoric Death Drop, reduce the tergaiator's size by one category, their reach by 5 feet, and their Strike damage by 2 for 1 day.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "meteoric-death-drop",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "meteoric-death-drop"
+                        ],
+                        "value": "large"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "meteoric-death-drop"
+                        ],
+                        "selector": "strike-damage",
+                        "value": -2
+                    }
+                ],
+                "slug": "meteoric-death-drop",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "npiOJsjPLPw6yXY2",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Orbital Lariat",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per minute</p><hr /><p><strong>Effect</strong> The tergaiator hurtles toward their foes, using the momentum to launch a spinning flurry of attacks with outstretched arms. They Stride and make a melee Strike against any number of creatures within reach at the end of their movement. Each Strike applies to the tergaiator's multiple attack penalty, but the multiple attack penalty doesn't increase until after they make all of their attacks. After making these attacks, the tergaiator is also @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1} until the start of their next turn.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1M"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "X0V7CAUZAf8anxkW",
+            "img": "systems/sf2e/icons/default-icons/lore.svg",
+            "name": "Asteroid Lore",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 17
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "Wv1VgbIpAJgerxTn",
+            "img": "systems/sf2e/icons/default-icons/lore.svg",
+            "name": "Physical Science",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 17
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Tergaiator",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 7
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 30
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 226,
+                "temp": 0,
+                "value": 226
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "sleep"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 7
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "burrow",
+                        "value": 30
+                    },
+                    {
+                        "type": "climb",
+                        "value": 30
+                    }
+                ],
+                "value": 30
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "Telepathy 120 feet",
+                "value": [
+                    "petran"
+                ]
+            },
+            "level": {
+                "value": 10
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Amid space's asteroid belts and atop their rocky exteriors rest the homes of these massive, competition-loving elementals. Tergaiators augment their bodies with pieces of asteroid as they wrestle and jump around. They thrive off the nutrients within asteroids and fight to protect their homes from being excessively farmed by greedy mining ventures.</p><hr /><p>Elementals are energetic intrusions from the primal planes of existence. They take many forms, from mindless eddies in the wind or water to complex entities capable of wielding primal magic. The advent of space travel and the progress of technology have allowed even more living embodiments of the elements to manifest in the Universe.</p>\n<p>Natural events like wildfires, solar storms, and floods can unleash hordes of unruly elementals on a planet or into a region of space. Sometimes, a gathering of powerful elementals causes a natural disaster on an epic scale, like an off-the-charts solar flare that fries a planet's power grid or a ceaseless storm swirling in a gas giant's atmosphere.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 22,
+            "senses": [
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 23
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 18
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 19
+            },
+            "athletics": {
+                "base": 24
+            },
+            "physical science": {
+                "base": 17
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "earth",
+                "elemental"
+            ]
+        }
+    },
+    "type": "npc"
+}

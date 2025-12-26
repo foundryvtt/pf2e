@@ -150,15 +150,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 name: this.name,
                 current: uses.value - thisMany,
             });
-            const flags = {
-                pf2e: {
-                    origin: {
-                        sourceId: this.sourceId,
-                        uuid: this.uuid,
-                        type: this.type,
-                    },
-                },
-            };
+            const flags = { [SYSTEM_ID]: { origin: R.pick(this, ["sourceId", "uuid", "type"]) } };
             const speaker = ChatMessage.getSpeaker({ actor });
 
             if (this.system.damage) {

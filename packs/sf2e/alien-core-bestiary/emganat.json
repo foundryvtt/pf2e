@@ -1,0 +1,352 @@
+{
+    "_id": "B3HpMcv3prB4ttjT",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "eQNRsYfRu3oCWkPA",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Claws",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "eR7JDh1UiXUIgfT4": {
+                        "damage": "1d8+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "TiM0XlxA5H8f0igX",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Acidic Mouth Cannon",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "KG4dUAcQ4TBC6kqF": {
+                        "damage": "1d8",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 15,
+                    "max": null
+                },
+                "rules": [
+                    {
+                        "category": "persistent",
+                        "damageType": "acid",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "not": "target:condition:persistent-damage:acid"
+                            }
+                        ],
+                        "selector": "{item|id}-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "acid"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "7g3p4NskSqRN18pi",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Motion Sense",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>An emganat can sense nearby creatures through vibrations in air or water caused by movement as an imprecise sense at the listed range.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "19ZPmLm8To1xuw1L",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Colony Mind",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. All allies with colony mind within the listed range of each other are in constant telepathic communication and are aware of all threats any individual knows about. While within range of at least one ally with colony mind, when a creature rolls a success on a save against a mental effect, it gets a critical success instead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BCxeOJPLyWJkKdMd",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Burrowing Reveal",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Initiative hasn't yet been rolled, and the emganat is burrowed</p>\n<p><strong>Trigger</strong> A creature enters the range of the emganat‘s motion sense</p><hr /><p><strong>Effect</strong> The emganat notices the creature and Burrows before it rolls initiative. This movement must cause the emganat to emerge from the ground.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "D6y9oiK4oFWd51HY",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Coordinated Digestion",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If the emganat successfully Strikes a creature with its acidic mouth cannon and that creature was already taking persistent acid damage, increase the damage dice of the persistent damage by one step (to a maximum of d8s).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "target:condition:persistent-damage:acid"
+                        ],
+                        "selector": [
+                            "acidic-mouth-cannon-damage"
+                        ],
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Emganat",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 2
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 18
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 38,
+                "temp": 0,
+                "value": 38
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "burrow",
+                        "value": 30
+                    }
+                ],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "Telepathy 100 feet",
+                "value": [
+                    "shirren"
+                ]
+            },
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Emganats were first encountered during the Krethiskar subcolony's sudden emergence and the first attacks on Szandite Collective space. These wolf-sized components can burrow beneath the ground, and they move at great speeds to reach a location where they can set up an ambush. Then, once they detect a threat, the emganats spring forth from their burrowed positions and lay into their foes with an acidic cannon located in their mouths. The more emganats that unleash their bio-acid on foes, the faster the substance dissolves their targets in an agonizing display.</p><hr /><p>Developing far out in the Vast from an insectile species known as kucharns, the Swarm is considered the greatest threat in existence for several cultures. Composed of countless subcolonies, each consisting of myriad component subspecies, the Swarm is a vast host that acts in psychic union for the purpose of consuming all matter across the cosmos. Most frightening of all is the Swarm's ability to assimilate the knowledge and DNA of those they consume. Thanks to its pre-Gap development of star travel, the Swarm had already consumed innumerable systems before history short-circuited, and the Swarm's pace only accelerated once it received access to the Signal and the hyperspace dimension known as the Drift.</p>\n<p>Worlds touched by the Swarm are drained of their natural resources and rendered barren places known as huskworlds. What outsiders consider to be \"Swarm space\" is little more than a swathe of lifeless worlds that the Swarm have consumed in its reckless advance. The Swarm so thoroughly strips these worlds that surveyors struggle to find even trace amounts of inorganic resources, such as rare minerals and water. Few of these huskworlds have been thoroughly explored, as oftentimes exploration awakens inert drones, theorized to have been left behind in case the devoured system was ever colonized and repopulated. Pockets of Swarm activity exist well beyond this region of space, as the Swarm sent out countless subcolonies in the ages before the Gap, and even now, only some of them have reached their intended destinations.</p>\n<p>The Swarm is perhaps most known in the current era for two important facts. First, its assault on the Pact Worlds and the Veskarium led to the cessation of hostilities and tenuous alliance between the two powers. Second, the Swarm is the direct ancestor of the shirren species. Having broken away sometime during the Gap, shirrens found succor with the deity Hylax, who was believed to have evolved from a pre-Swarm kucharn and who turned her back on the ravenous entity the Swarm has evolved into.</p>\n<p>In recent years, the Swarm had been seen as little more than a distant boogeyman with no activities save for classified actions in the Suskillon system in the Vast. However, the recent discovery of the missing Szandite world of Krethiskar inadvertently awoke a dormant subcolony that had been responsible for the world's consumption. Since then, the newly dubbed Krethiskar subcolony has become a scourge of Near Space, engaged in an active invasion of Szandite Collective worlds and poised to spill over into other powers like the Veskarium and Pact Worlds. This rediscovered subcolony has begun rapid evolution of its components and remains cut off from the wider Swarm, but it still represents a clear danger to Near Space.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 9,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "motion-sense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 7
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 9
+            },
+            "stealth": {
+                "base": 11
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "kucharn"
+            ]
+        }
+    },
+    "type": "npc"
+}

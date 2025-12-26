@@ -46,7 +46,7 @@ class ModuleArt {
                         if (typeof paths.token.scale === "number") {
                             actorArtPartial.prototypeToken.texture.scaleX = paths.token.scale;
                             actorArtPartial.prototypeToken.texture.scaleY = paths.token.scale;
-                            actorArtPartial.prototypeToken.flags = { pf2e: { autoscale: false } };
+                            actorArtPartial.prototypeToken.flags = { [SYSTEM_ID]: { autoscale: false } };
                         }
                         if (typeof paths.token.randomImg === "boolean") {
                             actorArtPartial.prototypeToken.randomImg = paths.token.randomImg;
@@ -130,11 +130,7 @@ interface ModuleArtData {
 interface ActorArtPartial {
     img: ImageFilePath;
     prototypeToken: {
-        flags?: {
-            pf2e: {
-                autoscale: false;
-            };
-        };
+        flags?: { [SYSTEM_ID]: { autoscale: false } };
         randomImg?: boolean;
         texture: {
             src: ImageFilePath | VideoFilePath;

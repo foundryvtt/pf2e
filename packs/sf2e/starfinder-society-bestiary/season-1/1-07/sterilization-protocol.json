@@ -1,0 +1,109 @@
+{
+    "_id": "wRKjBpNeXzVvsjU8",
+    "folder": "K358ICaWLoO7Jfkl",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "iQUjroslYtqOPieA",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Steam Clean",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature ends its movement in the U-shaped hall</p><hr /><p><strong>Effect</strong> The trap sprays a dense cloud of steam in the hall, obscuring vision. Creatures in the area are @UUID[Compendium.sf2e.conditions.Item.Concealed] and creatures outside the hall are concealed to those within it. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Sterilization Protocol",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 13
+            },
+            "emitsSound": "encounter",
+            "hardness": 4,
+            "hp": {
+                "details": "",
+                "max": 20,
+                "temp": 0,
+                "value": 20
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 4
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Nozzles on the walls spray hot water, chemical sanitizers, and superheated air at all creatures entering the U-shaped hall.</p>",
+            "disable": "<p>@Check[computers|dc:14] (trained) to reprogram the system to safe levels, @Check[crafting|dc:14] (trained) to shut off the waterline, or @Check[thievery|dc:13] (trained) to cut power to the hall</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Society Scenario #1-07: Seize and Destroy"
+            },
+            "reset": "<p>The trap automatically deactivates and resets if there are no creatures in the area.</p>",
+            "routine": "<p>(2 actions) The trap sprays a powerful stream of superheated water and sanitizer at all creatures in the U-shaped hall, dealing @Damage[1d4[bludgeoning],1d4[fire]]{1d4 bludgeoning damage and 1d4 fire damage} (@Check[reflex|dc:17|basic] save).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 10
+            },
+            "reflex": {
+                "value": 4
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "fire",
+                "mechanical",
+                "water"
+            ]
+        }
+    },
+    "type": "hazard"
+}

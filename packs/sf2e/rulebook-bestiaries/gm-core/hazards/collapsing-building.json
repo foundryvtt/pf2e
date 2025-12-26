@@ -1,0 +1,95 @@
+{
+    "_id": "pntBaxg4SUg56TxP",
+    "folder": "D8Q2XWm5N91mGuw7",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "HUevG60qrY45gPjx",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Shudder",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An effect damages the building, or the ground around the building shifts</p><hr /><p><strong>Effect</strong> The building shudders and creaks, signaling an imminent collapse. The building's interior becomes difficult terrain. The trap rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Collapsing Building",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 28
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A building collapses, harming everyone inside.</p>",
+            "disable": "<p>@Check[arcana|dc:38] (expert) or Nature (expert) to magically prop up the building, @Check[crafting|dc:34] (master) or Survival (master) to stabilize the building, @Check[religion|dc:38] (expert) to pray for the collapse to cease; four total successes are required to stop the collapse</p>",
+            "isComplex": true,
+            "level": {
+                "value": 14
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder GM Core"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The building begins to collapse. All creatures in the building take @Damage[(3d10+18)[bludgeoning]] damage (@Check[reflex|dc:39|basic] save). A creature that critically fails its save is additionally knocked @UUID[Compendium.sf2e.conditions.Item.Prone] and takes @Damage[1d6[persistent,bleed]] damage.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

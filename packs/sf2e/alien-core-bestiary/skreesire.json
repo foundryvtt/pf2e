@@ -1,0 +1,337 @@
+{
+    "_id": "zmM9D97ulPMgdUd1",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "owVu6T5XPzaJ757C",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "jgAjYabom5L3lTN5": {
+                        "damage": "2d10+7",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "deadly-d10",
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "loIR5Lqrw9yszgTJ",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Tentacle",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "NVkAeyhBhkgt8iGH": {
+                        "damage": "2d10+7",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "WYAdhuIG9LQlklLy",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Camouflage",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The skreesire is in rocky terrain</p><hr /><p><strong>Effect</strong> Until the next time they act, the skreesire resembles rocky terrain. They have an automatic result of 29 on @Check[deception] checks and DCs to pass as rocky terrain.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "camouflage",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "camouflage"
+                        ],
+                        "selector": [
+                            "deception",
+                            "deception-dc"
+                        ],
+                        "slug": "camouflage-bonus",
+                        "value": 21
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "predicate": [
+                            "camouflage"
+                        ],
+                        "required": true,
+                        "selectors": [
+                            "deception-dc",
+                            "deception"
+                        ],
+                        "slug": "camouflage-bonus",
+                        "value": 10
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "camouflage"
+                        ],
+                        "selector": [
+                            "deception"
+                        ],
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lkwaX8ixjNdqvdrA",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Enthrall",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Effect</strong> A target within 30 feet hears a telepathic manifestation of the skreesire's will and must attempt a @Check[will|dc:22] save.</p>\n<p><strong>Failure</strong> The creature must use the first action of its next turn to Stride toward the skreesire.</p>\n<p><strong>Critical Failure</strong> The creature must use all its actions on its next turn to Stride toward the skreesire; when it's adjacent to the skreesire, it drops @UUID[Compendium.sf2e.conditions.Item.Prone] and ends its turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Skreesire",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 1
+            },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 6
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 24
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 110,
+                "temp": 0,
+                "value": 110
+            },
+            "immunities": [
+                {
+                    "type": "acid"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "cold-iron"
+                    ],
+                    "type": "physical",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 20
+                    }
+                ],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "Can't speak any language, Telepathy 100 feet",
+                "value": [
+                    "aklo",
+                    "common"
+                ]
+            },
+            "level": {
+                "value": 7
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Skreesires are reptilian monstrosities with a formidable will, razor-sharp teeth, and nonfunctional wings atop a mass of ambulatory tentacles.</p><hr /><p>Skreesires, and their offspring skreelings, are vicious predators who skulk and prowl in the crags and caverns of the cosmos.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "darkvision",
+            "mod": 18,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 18
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 13,
+                "special": []
+            },
+            "athletics": {
+                "base": 17,
+                "special": []
+            },
+            "intimidation": {
+                "base": 15,
+                "special": []
+            },
+            "stealth": {
+                "base": 15,
+                "special": [
+                    {
+                        "base": 19,
+                        "label": "in rocky terrain",
+                        "predicate": [
+                            "terrain:rocky"
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 17,
+                "special": []
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "aberration"
+            ]
+        }
+    },
+    "type": "npc"
+}

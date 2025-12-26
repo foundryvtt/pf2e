@@ -3,8 +3,7 @@ import type { ModelPropsFromSchema } from "@common/data/fields.d.mts";
 import type { TokenSchema } from "@common/documents/token.d.mts";
 
 type TokenFlagsPF2e = DocumentFlags & {
-    pf2e: {
-        [key: string]: unknown;
+    [SYSTEM_ID]: {
         linkToActorSize: boolean;
         autoscale: boolean;
     };

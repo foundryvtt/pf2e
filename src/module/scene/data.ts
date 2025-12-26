@@ -2,7 +2,7 @@ import type { DocumentFlags } from "@common/data/_types.d.mts";
 import { ZeroToTwo } from "@module/data.ts";
 
 type SceneFlagsPF2e = DocumentFlags & {
-    pf2e: {
+    [SYSTEM_ID]: {
         [key: string]: unknown;
         hearingRange: number | null;
         /** Rules-based vision override for the scene: `null` indicates the world setting is used. */

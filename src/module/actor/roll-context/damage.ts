@@ -54,7 +54,7 @@ class DamageContext<
                 );
             });
 
-        return (checkMessage?.flags.pf2e.context ?? null) as CheckContextChatFlag | null;
+        return (checkMessage?.flags[SYSTEM_ID].context ?? null) as CheckContextChatFlag | null;
     }
 }
 

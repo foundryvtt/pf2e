@@ -1,0 +1,367 @@
+{
+    "_id": "t293r8NAroe7Vcvn",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "POMZ8MgHpTlm0a2T",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "rcmtTe20Itode9NG": {
+                        "damage": "1d6",
+                        "damageType": "poison"
+                    },
+                    "z6XWRDmYDEh7NqqX": {
+                        "damage": "2d12+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ecgpwiMJvEK5Lrnk",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "wxVVam8SwxMZSEZg": {
+                        "damage": "2d10+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "jp35pMVZpGVn9W4X",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Wing Deflection",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The blight drake is targeted with an attack from a creature they can see</p><hr /><p><strong>Effect</strong> The blight drake raises their wing, gaining a +2 circumstance bonus to AC against the triggering attack. If the blight drake is flying, they descend 10 feet after the attack is complete.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "wing-deflection",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "wing-deflection"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "wing-deflection",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QTXum5QUmnnma5D8",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Draconic Frenzy",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The drake makes two jaws Strikes and one tail Strike in any order.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "draconic-frenzy",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2Zih3fIVn3fzj4uE",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Smokestack",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The blight drake blasts a thick, fetid smog from slits around their neck, creating a cloud of smoke in a @Template[type:burst|distance:20] within 120 feet and that remains for [[/gmr 1d4 #rounds]]{1d4 rounds}. All creatures within the cloud become @UUID[Compendium.sf2e.conditions.Item.Concealed], and all creatures outside the cloud become concealed to creatures in it.</p>\n<p>Each creature that begins its turn inside the cloud takes @Damage[5d6[poison]|options:area-damage] damage (@Check[fortitude|dc:28|basic|options:area-effect,inflicts:sickened] save). A creature that fails the save is also @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 1} (@UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6nCW9Q14DvQJ9hlt",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Toxic Breath",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The blight drake spews a fetid ball of polluted putrescence up to a range of 60 feet that explodes in a @Template[type:burst|distance:15]. Creatures within the burst take @Damage[4d8[acid]|options:area-damage] damage and @Damage[4d8[poison]|options:area-damage] damage (@Check[reflex|dc:28|basic] save). The blight drake can't use Toxic Breath again for [[/gmr 1d4 #Recharge Toxic Breath]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "acid",
+                        "poison",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Blight Drake",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 27
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 165,
+                "temp": 0,
+                "value": 165
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "fire"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "acid",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 50
+                    }
+                ],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "draconic"
+                ]
+            },
+            "level": {
+                "value": 9
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Blight drakes have a well-earned reputation among draconic creatures for stench and pollution. They corrupt the air around them with the sort of filth and decay commonly found in the worst kinds of industrialization. These solitary monstrosities resemble their swamp-dwelling draconic cousins but are often surrounded with a miasma of thick, choking smog. Blight drakes revel in befouling clean and verdant environments, leaving a permanent trail of filth in their wake.</p><hr /><p>Drakes resemble their larger draconic cousins in more than just scaled, monstrous acclaim. Ranging in size from the diminutive fey drake to the massive, ship-sized star drake, drakes share a dragons' winged reptilian form, long necks, and breath weapons. But where dragons often have forelimbs and wings, a drake typically only has one or the other. Their long, winding tails and sharp jaws more than make up for this lack, however.</p>\n<p>Despite being more animalistic than dragons, drakes still possess a formidable cunning, and most share a dragon's ability to generate some form of breath weapon. However, their lack of intelligence makes drakes substantially easier to domesticate than other draconic creatures, and their familial nature makes them excellent pack hunters.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 17,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "scent"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 15
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 19
+            },
+            "athletics": {
+                "base": 20
+            },
+            "intimidation": {
+                "base": 14
+            },
+            "stealth": {
+                "base": 16
+            },
+            "survival": {
+                "base": 16
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "dragon"
+            ]
+        }
+    },
+    "type": "npc"
+}

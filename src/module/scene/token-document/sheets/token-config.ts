@@ -4,11 +4,11 @@ import { TokenConfigMixinPF2e } from "./mixin.ts";
 
 class TokenConfigPF2e extends TokenConfigMixinPF2e(fa.sheets.TokenConfig) {
     get linkToActorSize(): boolean {
-        return !!this.token.flags.pf2e.linkToActorSize;
+        return !!this.token.flags[SYSTEM_ID].linkToActorSize;
     }
 
     get autoscale(): boolean {
-        return !!this.token.flags.pf2e.autoscale;
+        return !!this.token.flags[SYSTEM_ID].autoscale;
     }
 
     protected override _processFormData(

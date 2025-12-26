@@ -10,7 +10,7 @@
     </div>
     <div class="form-group">
         <label>{{localize "PF2E.Actor.NPC.Configure.Lootable.Label"}}</label>
-        <select name="flags.pf2e.lootable">
+        <select name="{{concat "flags." systemId ".lootable"}}">
             {{#each lootable as |option|}}
                 <option value="{{option.value}}"{{#if option.selected}} selected="selected"{{/if}}>{{localize option.label}}</option>
             {{/each}}

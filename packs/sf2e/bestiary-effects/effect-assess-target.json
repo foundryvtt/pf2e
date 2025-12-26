@@ -1,0 +1,63 @@
+{
+    "_id": "yAV9fgqOQUuxFEsX",
+    "img": "systems/sf2e/icons/abilities/pink-target-sign.webp",
+    "name": "Effect: Assess Target",
+    "system": {
+        "description": {
+            "value": "<p>You deal an additional 1d8 damage with your reality ripper against the marked target and increase the range increment of your reality ripper to 80 feet.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Society Scenario #1-00: Collision's Wake"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "assess-target"
+            },
+            {
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mark:assess-target"
+                ],
+                "selector": "reality-ripper-damage"
+            },
+            {
+                "definition": [
+                    "item:slug:reality-ripper"
+                ],
+                "key": "AdjustStrike",
+                "mode": "upgrade",
+                "predicate": [
+                    "target:mark:assess-target"
+                ],
+                "property": "range-increment",
+                "value": 80
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

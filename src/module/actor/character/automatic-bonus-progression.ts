@@ -9,9 +9,9 @@ import { Predicate } from "@system/predication.ts";
 class AutomaticBonusProgression {
     /** Whether the ABP variant is enabled and also not selectively disabled for a particular actor */
     static isEnabled(actor: ActorPF2e | null): boolean {
-        if (actor && !actor.flags?.pf2e) return false;
+        if (actor && !actor.flags?.[SYSTEM_ID]) return false;
         const settingEnabled = game.pf2e.settings.variants.abp !== "noABP";
-        const abpDisabledForActor = !!actor?.flags.pf2e.disableABP;
+        const abpDisabledForActor = !!actor?.flags[SYSTEM_ID].disableABP;
 
         return settingEnabled && !abpDisabledForActor;
     }

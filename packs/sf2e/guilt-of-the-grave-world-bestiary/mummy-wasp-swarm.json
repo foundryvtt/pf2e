@@ -1,0 +1,337 @@
+{
+    "_id": "T9uucuCG6UFWZLOB",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "rzmjaCKDmulmMfss",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Mummy Storm",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Millions of enchanted paper shreds orbit the swarm in a @Template[type:emanation|distance:10]. Creatures inside this aura gain greater cover from the attacks of creatures outside of it. Any living creature that enters the aura or begins its turn inside it must succeed at a @Check[will|dc:22] save or become @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [],
+                        "key": "Aura",
+                        "radius": 10,
+                        "traits": []
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "incapacitation",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IjpxnAgLYVXLKmDu",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Rejuvenation",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When a mummy wasp swarm is destroyed, the hive's necromantic energies reanimate a new swarm over [[/gmr 1d6 #days]]{1d6 days}. A reforming mummy wasp swarm is destroyed permanently if its hive is consecrated or destroyed (30 HP) with vitality, water, or fire damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Z1ZpQPwm1120YgcJ",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EoFbZoI2qigSRNk0",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Unliving Stings",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each creature in the swarm's space takes @Damage[2d10[void]] damage (@Check[reflex|dc:24|basic] save). A creature that fails its save additionally takes @Damage[2d6[persistent,void]] damage (double damage on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Mummy Wasp Swarm",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -3
+            },
+            "str": {
+                "mod": -2
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 21
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 70,
+                "temp": 0,
+                "value": 70
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "prone"
+                },
+                {
+                    "exceptions": [],
+                    "type": "restrained"
+                },
+                {
+                    "exceptions": [],
+                    "type": "swarm-mind"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 4
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 8
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 8
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 30
+                    }
+                ],
+                "value": null
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 6
+                },
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 6
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 6
+                },
+                {
+                    "exceptions": [],
+                    "type": "water",
+                    "value": 6
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The Corpse Fleet's most overt long-term goal is establishing the supremacy of undeath in the Pact Worlds solar system, with the system's new immortal overlords eradicating or enslaving the living as they see fit. Eventually, the glorious Corpse Fleet hopes to conquer all of Desna's Path, and perhaps expand to other galaxies.</p>\n<p>On the smaller scale of operations, Corpse Fleet researchers experiment with necromantic weapons of all kinds, including unliving biological weapons like mummy wasps.</p>\n<p>Mummy wasps are created by fumigating wasp swarms inside of their hives and then painstakingly and individually mummifying them in sacred paper wrappings before burying and reviving the whole nest in an unholy ritual.</p>\n<p>When deployed, mummy wasps viciously attack living creatures and ignore undead, making them an ideal weapon for zone control and enemy suppression.</p>\n<p>They're also incredibly aggressive and invasive. Mummy wasps have been spotted in locations far from the Corpse Fleet facilities in the Vast where they were created.</p>\n<p>Mummy wasp nests have been deployed at Barrow and other Corpse Fleet installations. They're also utilized as ammunition, shot out of breaching cannons or hurled from vehicles.</p><h2>Dangerous Research</h2><p>The successful engineering of mummy wasps and rigor mortics has emboldened devious Corpse Fleet scientists to push the boundaries even further and create more powerful unliving weapons. Intelligence from the few Steward spies inside the Corpse Fleet indicates that the admiralty is ready to launch Project Gravemind, an effort to convert Swarm components into undead troopers. Succeed or fail, the consequences of such an experiment could be disastrous for the Pact Worlds.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Guilt of the Grave World"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 17,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 40,
+                    "type": "lifesense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 11
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 13
+            },
+            "stealth": {
+                "base": 9
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "swarm",
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

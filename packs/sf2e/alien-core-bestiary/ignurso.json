@@ -1,0 +1,424 @@
+{
+    "_id": "AHr2vBO1I5JvFqJ9",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "eM6t0G1K2zBBmIXb",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "GlmxGLRzkdTI0fIs": {
+                        "damage": "2d4+5",
+                        "damageType": "slashing"
+                    },
+                    "dS41pPBaXYSmIOLA": {
+                        "damage": "2d4",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "1FTodvEiwg3AIx9w",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Smoke Vision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The ignurso ignores the @UUID[Compendium.sf2e.conditions.Item.Concealed] condition from smoke.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZaLMqfnQO3EZe7cS",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Lavaproof",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The ignurso is immune environmental fire damage and fatigue from to heat and lava</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            "lavaproof"
+                        ],
+                        "key": "Immunity",
+                        "label": "lavaproof",
+                        "type": "custom"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iWBJ8xwlRLC8eBix",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rOqVyQ4dVgG3MgCb",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Thermal Venting",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. The ignurso is shrouded in a cloud of smoke and ash. Creatures within the aura are @UUID[Compendium.sf2e.conditions.Item.Concealed], and creatures outside it are concealed to creatures within. The ignurso can deactivate or activate this aura as a single action, which has the concentrate trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [],
+                        "key": "Aura",
+                        "radius": 20,
+                        "traits": [
+                            "fire"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ILSFqrOHGohABQik",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Mauler",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ignurso gains a +3 circumstance bonus to damage rolls against creatures it has @UUID[Compendium.sf2e.conditions.Item.Grabbed] or @UUID[Compendium.sf2e.conditions.Item.Restrained].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:condition:grabbed",
+                                    "target:condition:restrained"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "claw-damage"
+                        ],
+                        "type": "circumstance",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "x2r0EHKx2rYVwWvL",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Rend",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Claw</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "rend",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "C9IhS5S4lZZ1R5cX",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Spew Lava",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ignurso expels lava in a @Template[type:cone|distance:30], dealing @Damage[6d6[fire]|options:area-damage] damage (@Check[reflex|dc:20|basic] save). A creature that fails its save also takes @Damage[1d6[persistent,fire]|options:area-damage] damage. The ignurso can't Spew Lava again for [[/gmr 1d4 #Recharge Spew Lava]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Ignurso",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -2
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 20
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 76,
+                "temp": 0,
+                "value": 76
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 6
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "burrow",
+                        "value": 20
+                    }
+                ],
+                "value": 30
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 6
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 5
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Adventurers exploring active geothermal areas might encounter one of the extreme habitat's most unique creatures: ignursos. These ursine burrowers are partially armored with scales and a fearsome horn. They're sedentary by nature, but when disturbed, their rage combines the ferocity of a bear mauling with the heat of a pyroclastic flow.</p>\n<p>Ignursos are specially adapted to survive in extremely hot climates but thrive anywhere warm. Those that inhabit less hospitable planets tend to stay underground and hibernate during the coldest parts of the year.</p>\n<p>Scavengers by nature, ignursos can't take their next meal for granted. However, these clever creatures can manipulate their environment to trap prey. Ignursos have been observed creating large networks of burrows right before volcanic eruptions, seemingly because they understand lava flows will follow this path of least resistance. These tunnels turn to rivers of red-hot lava perfectly positioned to strand fleeing wildlife. Ignursos then return for their spoils after the worst of the eruption has passed.</p>\n<p>Ignursos have a significant impact on volcanic ecosystems. Burrowing ignursos break up solid rock—often freshly deposited after an eruption—kick-starting the process of soil formation that's necessary for the return of plants. Some dig too close to underground magma chambers, turning their tunnels into volcanic vents that release lava and gases. In this way, they make explosive, damaging eruptions much less likely and provide a moderating force on a harsh environment.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "scent (imprecise) 30 feet",
+            "mod": 12,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 9
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 13
+            },
+            "stealth": {
+                "base": 10
+            },
+            "survival": {
+                "base": 12
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "beast"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -4,7 +4,7 @@
     "name": "Effect: Divine Aegis",
     "system": {
         "description": {
-            "value": "<p>The creature gains a +1 circumstance bonus to saving throws against non-divine magical effects and a -1 circumstance penalty to saves against divine effects.</p>"
+            "value": "<p>You gain a +1 circumstance bonus to saving throws against non-divine magical effects and a -1 circumstance penalty to saves against divine effects.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,9 +16,9 @@
             "value": 6
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Bestiary 3"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core 2"
         },
         "rules": [
             {
@@ -26,25 +26,29 @@
                 "predicate": [
                     {
                         "or": [
-                            "arcane",
-                            "primal",
-                            "occult"
+                            "magical",
+                            "item:trait:arcane",
+                            "item:trait:primal",
+                            "item:trait:occult",
+                            "item:trait:divine"
                         ]
                     }
                 ],
-                "selector": "saving-throw",
-                "slug": "divine-aegis-1",
+                "selector": [
+                    "saving-throw"
+                ],
+                "slug": "divine-aegis-bonus",
                 "type": "circumstance",
                 "value": 1
             },
             {
-                "key": "FlatModifier",
+                "key": "AdjustModifier",
+                "mode": "override",
                 "predicate": [
                     "item:trait:divine"
                 ],
                 "selector": "saving-throw",
-                "slug": "divine-aegis-2",
-                "type": "circumstance",
+                "slug": "divine-aegis-bonus",
                 "value": -1
             }
         ],

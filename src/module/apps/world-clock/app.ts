@@ -103,7 +103,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
 
     /** Setting: whether to keep the scene's darkness level synchronized with the world time */
     get syncDarkness(): boolean {
-        const sceneSetting = canvas.scene?.flags.pf2e.syncDarkness ?? "default";
+        const sceneSetting = canvas.scene?.flags[SYSTEM_ID].syncDarkness ?? "default";
         return {
             enabled: true,
             disabled: false,

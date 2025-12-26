@@ -1,0 +1,339 @@
+{
+    "_id": "jUumrFqx4POabrhn",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "sMDtscfMKBawM3uO",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Root",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "knockdown"
+                    ]
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "nnxcl1DIuCjCfi4v": {
+                        "damage": "1d8+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "qqu6zhlzCmWOyu84",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Laser Spine",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "QVEVTPfuhuTYgqKT": {
+                        "damage": "1d6+2",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "UFEGe5Ki51Wg7sqK",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Dye Splatter",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When a creature adjacent to the lumocantha deals piercing or slashing damage to the lumocantha, that creature takes @Damage[2d4[acid]] damage (@Check[reflex|dc:15|basic] save) as the lumocantha's dye splatters and stains it. On a failed save, the stain also provides a +1 status bonus to ranged Strikes for any lumocantha targeting that creature for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sGIMeOIiDoDSvhko",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Burning Spines",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature critically hit by a lumocantha's laser spine Strike takes an additional 1d4 persistent fire damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "laser-spine-damage",
+                        "text": "{item|description}",
+                        "title": "{item|name}"
+                    },
+                    {
+                        "category": "persistent",
+                        "critical": true,
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "selector": "laser-spine-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JTZl7JQoXOCKjvno",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Laser Bloom",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The lumocantha whips its blossom around in a defensive move that delivers a flurry of searing lasers, dealing @Damage[3d6[fire]|options:area-damage] damage to all creatures in a @Template[type:emanation|distance:15] (@Check[reflex|dc:15|basic] save). On a failure, targets that can see the lumocantha are also @UUID[Compendium.sf2e.conditions.Item.Dazzled] for 1 round (or 1 minute on a critical failure). The lumocantha can't use Laser Bloom again for [[/gmr 1d4 #Recharge Laser Bloom]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Lumocantha",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 17
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "type": "mental"
+                }
+            ],
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 10
+                    }
+                ],
+                "value": 10
+            },
+            "weaknesses": [
+                {
+                    "type": "slashing",
+                    "value": 3
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 2
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The vibrant appearance of lumocanthas is best observed from a safe distance, as these plants instinctively target creatures that move into their defensive zone who are not plants or tiny creatures. A mane of long, translucent yellow spines surrounds a stamen composed of numerous pulsing, ruby-red, dye-filled capsules. The beauty of their blossoms also contains their most dangerous attributes, forming an organic laser.</p>\n<p>Lumocanthas seek the light and warmth of the sun, drooping and becoming less active in prolonged darkness. Like many other plants, they employ photosynthesis and absorb water and nutrients through their roots. These unusually strong and flexible roots can also be readily withdrawn from the ground and used for mobility, allowing lumocanthas to migrate as needed as they seek better soil or light conditions.</p>\n<p>Lumocanthas are mindless, relying on pure instinct for survival. When affected by magical darkness, lumocanthas immediately move toward the nearest light source, though they still defend themselves as they do. If lumocanthas remain in darkness for 3 hours, they start to droop and become sluggish. Even when dormant, they can still use their lasers; however, if trapped in total darkness for 1 week, they temporarily lose their laser abilities. This vulnerability allows the plants to be safely transported, though if kept in total darkness for 2 weeks, lumocanthas eventually starve.</p>\n<p>Although first documented on Vesk-6, lumocanthas are found throughout the galaxy, wherever suitable conditions exist—even sometimes acting as decorative security measures. Young lumocanthas measure 2 to 3 feet across and approximately 5 feet high when unfurled in the light. When allowed to thrive, lumocanthas can live for several hundred years and grow up to 20 feet high.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 8,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 5
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 7,
+                "special": []
+            },
+            "athletics": {
+                "base": 7,
+                "special": [
+                    {
+                        "base": 9,
+                        "label": "to climb",
+                        "predicate": [
+                            "action:climb"
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 5,
+                "special": []
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mindless",
+                "plant"
+            ]
+        }
+    },
+    "type": "npc"
+}

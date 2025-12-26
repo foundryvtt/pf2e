@@ -1,0 +1,258 @@
+{
+    "_id": "QOUT6qs3YyhWfF4B",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "S5whsPA0aCn53IyZ",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "H3sHIwqunjVwiCSb": {
+                        "damage": "2d8+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "baAyn90Zsu9uAwcD",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Invasive Spores",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>10 feet. A vracinea constantly exudes sweet-smelling spores. Any creature that enters or starts its turn in the area must attempt a @Check[fortitude|dc:18] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and immune to the vracinea's aura for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.sf2e.conditions.Item.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> As success, plus the creature is @UUID[Compendium.sf2e.conditions.Item.Paralyzed] for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [],
+                        "key": "Aura",
+                        "radius": 10,
+                        "traits": [
+                            "disease",
+                            "inhaled"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "disease",
+                        "inhaled"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "71bGbQgWg031XYgv",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Blossom Lure",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The vracinea's violet blossoms emit a magical glow that compels all onlookers to approach. Each non-vracinea creature within a @Template[type:emanation|distance:120] must attempt a @Check[will|dc:21] save to avoid the lure. The effect lasts for 1 round, but the vracinea can Sustain this ability on subsequent rounds, extending the duration by 1 round for all affected creatures. Once a creature succeeds at any save against Blossom Lure, that creature is temporarily immune to Blossom Lure for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature must spend each of its actions to move closer to the vracinea as expediently as possible while avoiding obvious dangers. If a lured creature is adjacent to the vracinea, it stays still and doesn't act. If a lured creature takes damage from any source or is targeted by an enemy with an attack or hostile effect, the creature is freed from this effect at the end of the current turn.</p>\n<p><strong>Critical Failure</strong> As failure, but if damaged, attacked, or targeted, the creature attempts a new save at the start of its next turn, rather than being automatically freed at the end of the current turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation",
+                        "mental",
+                        "primal",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "L7Bn4A5Ub0g31WVM",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Feeding Frenzy",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The vracinea makes up to three jaws Strikes, each against a different target. These attacks count against the vracinea's multiple attack penalty, but the multiple attack penalty doesn't increase until after the vracinea makes all its attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Vracinea",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 20
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 65,
+                "temp": 0,
+                "value": 65
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 4
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The vracinea is a large, shambling, multi-mawed plant, originally native to Castrovel but now found on many more planets. Slow and clumsy, it prefers to lure animals and other protein-rich prey with its blossoms. It then seeks to make a quick kill while the prey is befuddled by its spores. Though the paralytic effect of a vracinea's spores isn't potent at great distances, when these spores catch the wind, they help the plant spread to new habitats. A vracinea is a particularly cunning and territorial hunter that knows how to use local hazards. It's skilled at hiding its body in the underbrush, extending just its blossoms to lure in prey.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 11,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 9
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 12
+            },
+            "stealth": {
+                "base": 12
+            },
+            "survival": {
+                "base": 12
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "plant"
+            ]
+        }
+    },
+    "type": "npc"
+}

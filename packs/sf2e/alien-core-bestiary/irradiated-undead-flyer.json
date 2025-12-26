@@ -1,0 +1,358 @@
+{
+    "_id": "dfQw3yXo0X1O5sMf",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "lNGLapQS7V7romjz",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Wing Slash",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "Q5VzGnKkX6570qVu": {
+                        "damage": "2d8+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "icN5D1ZMt4AN26mv",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Meltdown",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The irradiated undead plant is reduced to 0 Hit Points by energy damage of any kind</p><hr /><p><strong>Effect</strong> The energy acts as a catalyst for a nuclear reaction, causing the plant to explode and dealing @Damage[5d6[poison]|options:area-damage] damage to all creatures in a @Template[type:emanation|distance:20] with a @Check[reflex|dc:19|basic] save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison",
+                        "radiation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "31AxZ6tSCPadNmUq",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Radioactive Remains",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>20 feet. A creature entering or starting its turn inside the aura is exposed to severe radiation.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [],
+                        "key": "Aura",
+                        "radius": 20,
+                        "traits": [
+                            "radiation"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "radiation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gy3Vi2SXvEvbacoY",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tqfCvpmkBPx2e7UE",
+            "img": "systems/sf2e/icons/actions/ThreeActions.webp",
+            "name": "Strafing Snap",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The irradiated undead flyer Strides twice up to its Speed in a straight line, making a single wing slash Strike against all creatures whose spaces it flies adjacent to. All creatures damaged by the Strafing Snap are considered to be within the flyer's aura at the start of their next turn. The flyer can't use Strafing Snap again for [[/gmr 1d4 #Recharge Strafing Snap]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack",
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wqVqkJMZ8InToMCg",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Wing Spasm",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per minute</p><hr /><p><strong>Effect</strong> The irradiated undead flyer channels energy into its wings, forcing all creatures in a @Template[type:emanation|distance:10] to attempt a @Check[fortitude|dc:19] save.</p><hr /><p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> The creature takes @Damage[1d8[void]|options:area-damage] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[2d8[void]|options:area-damage] damage and is pushed back 5 feet.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[4d8[void]|options:area-damage] damage and is pushed back 10 feet.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1M"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Irradiated Undead Flyer",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 1
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 20
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 47,
+                "temp": 0,
+                "value": 47
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "radiation"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 30
+                    }
+                ],
+                "value": 5
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 4
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Flyer is a general term referring to winged creatures such as drakes, gigantic dragonflies, raptors, and other flying beasts that have been reanimated by severe radiation.</p><hr /><p>To survive in the unforgiving expanse of space, creatures must be naturally adapted or take protective measures. While the dead rarely need such precautions against these threats, sometimes radiation can animate a corpse (or several) to a state of undeath!</p>\n<p>Scientists and religious scholars alike debate whether a specific type of radiation is to blame for this phenomenon that spontaneously triggers unlife, but all agree on the dangers such irradiated creatures pose. Many types of radiation could be the cause: intense bursts of cosmic radiation emitted by the stars, magically enhanced radioactive isotopes found in a planet's or moon's crust, or even the advent of new energy sources in a society (or its radioactive waste) contaminating the land. Regardless of their specific origin, irradiated undead all pose the same threat—they emit ionizing radiation that ravages everything around them.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 14,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 9
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 15
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "cosmic",
+                "mindless",
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

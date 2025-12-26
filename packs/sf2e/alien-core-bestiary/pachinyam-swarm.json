@@ -1,0 +1,202 @@
+{
+    "_id": "aAWtjfkVMft4iChR",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Lxk4eawD7m2HMFxs",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Dust",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. The pachinyam swarm shakes it thick fur and releases a cloud of dust and dander in a 30-foot radius burst centered on a corner of one of its squares that functions as a mist spell. This dust cloud blocks electronic communication to and from anyone inside the cloud. Any item with the tech trait becomes @UUID[Compendium.sf2e.conditions.Item.Glitching]{glitching 1} if it's inside the dust cloud.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [],
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": []
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UkMVH1zSNaLheHow",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Swarming Bites",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each enemy in the swarm's space takes @Damage[2d8[piercing]] damage (@Check[reflex|dc:20|basic] save). Creatures that fail this save are @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 1} (@UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 2} on a critical failure). While within a pachinyam's dust cloud and sickened, the creature is also suppressed until it leaves the cloud or recovers from the sickened condition.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Pachinyam Swarm",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -3
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 1
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 18
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 42,
+                "temp": 0,
+                "value": 42
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 10
+                    }
+                ],
+                "value": 30
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 4
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Pachinyam swarms can release a cloud of billowing dust as individual rodents constantly reapply dust to their comrades.</p><hr /><p>These dusty, long-eared fluffy burrowing rodents are native to Daimalko and emerged alongside the colossi during the Awakening 200 years ago. They were initially heralded as potential pets and affectionately referred to as \"dust bunnies,\" but the survivors of the Awakening soon found the species were as dangerous as the colossi rampaging across the planet.</p>\n<p>While one or two pachinyams behave as calm herbivores, they reproduce rapidly. When the pachinyam population reaches a tipping point, they become vicious predators. Their dust's ability to disrupt both visual and telecommunications makes it challenging for settlements to warn or organize against them. Outside civilization, the pachinyam population is kept in check by their swarms' instinctually drive to be near colossi despite the obvious danger. Some also hypothesize that the scent of a pachinyam swarm's dust cloud attracts hungry colossi.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 11,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 7
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 12,
+                "special": []
+            },
+            "athletics": {
+                "base": 9,
+                "special": [
+                    {
+                        "base": 13,
+                        "label": "to Climb",
+                        "predicate": [
+                            "action:climb"
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 12,
+                "special": []
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "animal",
+                "swarm"
+            ]
+        }
+    },
+    "type": "npc"
+}

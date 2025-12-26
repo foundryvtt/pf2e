@@ -1,0 +1,96 @@
+{
+    "_id": "7iucNcWaHzpTaHeK",
+    "folder": "D8Q2XWm5N91mGuw7",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "HUevG60qrY45gPjx",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Commence Crushing",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Two or more creatures end their turn in the room</p><hr /><p><strong>Effect</strong> The doors slam shut, sealing the room. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Trash Compactor",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "emitsSound": "encounter",
+            "hardness": 12,
+            "hp": {
+                "details": "(BT 27)",
+                "max": 54,
+                "temp": 0,
+                "value": 54
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 21
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>When activated, the automated trash compactor slowly crushes everything inside it.</p>",
+            "disable": "<p>@Check[crafting|dc:26] (expert) to jam the crushing mechanism, or @Check[thievery|dc:24] (expert) to deactivate the trap; @Check[athletics|dc:28] (trained) to @UUID[Compendium.sf2e.actions.Item.Force Open] the door (this doesn't disable the trap)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder GM Core"
+            },
+            "reset": "<p>The trap deactivates and resets after 1 minute.</p>",
+            "routine": "<p>(1 action) Two of the room's walls move 5 feet toward the center of the room, automatically pushing any creatures in those spaces 5 feet closer to the room's center and dealing @Damage[(2d8+9)[bludgeoning]] damage to all creatures in the room (@Check[fortitude|dc:24|basic] save). Creatures that die from this damage are crushed to a fine paste.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 17
+            },
+            "reflex": {
+                "value": 11
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

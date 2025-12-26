@@ -1,0 +1,152 @@
+{
+    "_id": "6LRpqcEAkKdstSr8",
+    "folder": "D8Q2XWm5N91mGuw7",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "HUevG60qrY45gPjx",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Manufacture",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves within reach of the robotic arm</p><hr /><p><strong>Effect</strong> The trap makes an arm Strike against the triggering creature, then Grabs (+17 Athletics). A creature @UUID[Compendium.sf2e.conditions.Item.Grabbed] by the trap takes @Damage[1d6[persistent,bludgeoning]] damage until they @UUID[Compendium.sf2e.actions.Item.Escape] (DC 27) or the trap is deactivated or destroyed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tPOtLMS2BpxlQZh6",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Arm",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "EbjKhpXiAMPOtTZK": {
+                        "damage": "4d6+15",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Haywire Robotic Arm",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "emitsSound": "encounter",
+            "hardness": 12,
+            "hp": {
+                "details": "(BT 29)",
+                "max": 58,
+                "temp": 0,
+                "value": 58
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 8
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "electricity",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>A robotic manufacturing arm malfunctions, attacking nearby creatures.</p>",
+            "disable": "<p>@Check[computers|dc:20] (trained) to debug the malfunctioning arm, or @Check[crafting|dc:25] (trained) to cause the arm's joints to seize, or @Check[thievery|dc:23] (trained) to disable the arm</p>",
+            "isComplex": false,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder GM Core"
+            },
+            "reset": "",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 11
+            },
+            "reflex": {
+                "value": 17
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

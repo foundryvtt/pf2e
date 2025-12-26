@@ -3,7 +3,7 @@ import { htmlQuery } from "@util";
 export const RenderRegionLegend = {
     listen: (): void => {
         Hooks.on("renderRegionLegend", async (_app, html) => {
-            const environmentTypes = canvas.scene?.flags.pf2e.environmentTypes;
+            const environmentTypes = canvas.scene?.flags[SYSTEM_ID].environmentTypes;
             if (!environmentTypes || environmentTypes.length === 0) return;
 
             const template = await (async () => {

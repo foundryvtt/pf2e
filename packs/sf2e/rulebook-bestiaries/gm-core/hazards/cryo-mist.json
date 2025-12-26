@@ -1,0 +1,98 @@
+{
+    "_id": "8xsVlHYPJKuOjOU1",
+    "folder": "D8Q2XWm5N91mGuw7",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "HUevG60qrY45gPjx",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Freeze!",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves below the nozzles</p><hr /><p><strong>Effect</strong> The trap sprays cold air on the triggering creature, dealing @Damage[(4d10+26)[cold]] damage (@Check[fortitude|dc:33] save).</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and becomes @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage, becomes @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 2}, and becomes @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 1} or [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, becomes clumsy 2, and becomes @UUID[Compendium.sf2e.conditions.Item.Paralyzed] for 1 minute. Creatures within 10 feet of the triggering creature take @Damage[(2d12+13)[cold]] damage (@Check[fortitude|dc:29|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "cold",
+                        "incapacitation"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Cryo Mist",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 25
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Hidden nozzles in the ceiling release hyper-cold air, potentially freezing intruders in place.</p>",
+            "disable": "<p>@Check[computers|dc:27] (master) to increase the air's temperature to safe levels, or @Check[thievery|dc:27] (master) to deactivate the nozzles</p>",
+            "isComplex": false,
+            "level": {
+                "value": 10
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder GM Core"
+            },
+            "reset": "<p>The trap resets after 1 minute.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

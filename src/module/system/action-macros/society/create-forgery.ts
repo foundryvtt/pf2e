@@ -23,7 +23,7 @@ async function createForgeryCallback(
     // consider any modifiers enabled in the roll dialog
     const societyDC = (() => {
         if (result.actor instanceof CreaturePF2e) {
-            const systemFlags = result.message?.flags.pf2e as unknown as ChatMessageCheckFlags;
+            const systemFlags = result.message?.flags[SYSTEM_ID] as unknown as ChatMessageCheckFlags;
             const modifiers = (systemFlags.modifiers as RawModifier[])
                 .filter((modifier) => modifier.enabled)
                 .map((modifier) => {

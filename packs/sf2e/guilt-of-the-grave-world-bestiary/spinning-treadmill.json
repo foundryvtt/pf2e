@@ -1,0 +1,104 @@
+{
+    "_id": "6CBtaIhJZdAgAqVf",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ixhdPgVcake5rvPq",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Spin-Off",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature steps on the treadmill</p><hr /><p><strong>Effect</strong> The creature must attempt a @Check[reflex|dc:15] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is pushed back 5 feet.</p>\n<p><strong>Failure</strong> The creature is knocked @UUID[Compendium.sf2e.conditions.Item.Prone] and pushed back 5 feet.</p>\n<p><strong>Critical Failure</strong> The creature is knocked prone, takes @Damage[1d6[bludgeoning]] damage, and is pushed back 10 feet. If this forced movement would have the PC impact another creature, that subsequent creature must succeed at a @Check[reflex|dc:15] save or be knocked prone.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Spinning Treadmill",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 15
+            },
+            "emitsSound": "encounter",
+            "hardness": 5,
+            "hp": {
+                "details": "",
+                "max": 20,
+                "temp": 0,
+                "value": 20
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 7
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>These three treadmills' rotating belts are no longer locked in place and now spin freely when activated.</p>",
+            "disable": "<p>@Check[Sports Lore|dc:13] to remember that older models of treadmills have an emergency brake that can be activated with a pull string, @Check[thievery|dc:15] to jam the mechanism, or @Check[crafting|dc:17] to improvise a stop for the rotating belts</p>",
+            "isComplex": false,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Guilt of the Grave World"
+            },
+            "reset": "<p>The trap resets automatically until disabled.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 10
+            },
+            "reflex": {
+                "value": 2
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

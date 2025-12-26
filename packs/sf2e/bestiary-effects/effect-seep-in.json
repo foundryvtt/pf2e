@@ -1,0 +1,125 @@
+{
+    "_id": "QsTiJFodHt7RsfYh",
+    "img": "icons/creatures/tentacles/tentacles-thing-green.webp",
+    "name": "Effect: Seep In",
+    "system": {
+        "description": {
+            "value": "<p>You gain an effect depending on the nature of the damage.</p><ul><li><p><strong>Energy Damage</strong> Your attacks deal an additional 2d6 damage of the same type as the energy damage dealt to you.</p></li><li><p><strong>Physical Damage</strong> You gain resistance 6 to physical damage. If the damage was dealt by a weapon made of a special material, such as silver, your battering sludge Strike counts as that same material for the duration of the effect.</p></li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Alien Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitEnergy",
+                        "value": "energy"
+                    },
+                    {
+                        "label": "PF2E.TraitPhysical",
+                        "value": "physical"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "seep-in"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "energyDamageTypes"
+                },
+                "flag": "energyDamageType",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "seep-in:energy"
+                ]
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": "precious-material"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "non-precious-material"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    "seep-in:physical"
+                ],
+                "prompt": "SF2E.NPCAbility.Coposirix.SeepIn.MaterialPrompt",
+                "rollOption": "seep-in:physical"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "preciousMaterials"
+                },
+                "flag": "preciousMaterial",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "seep-in:physical:precious-material"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Material"
+            },
+            {
+                "damageType": "{item|flags.sf2e.rulesSelections.energyDamageType}",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "seep-in:energy"
+                ],
+                "selector": "attack-damage"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "seep-in:physical"
+                ],
+                "type": "physical",
+                "value": 6
+            },
+            {
+                "definition": [
+                    "item:slug:battering-sludge"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "seep-in:physical:precious-material"
+                ],
+                "property": "materials",
+                "value": "{item|flags.sf2e.rulesSelections.preciousMaterial}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -181,7 +181,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
             // This is a new condition, set some flags
             const condition = ConditionManager.getCondition(data.slug);
-            condition.updateSource({ "flags.pf2e.grantedBy.id": this.id });
+            condition.updateSource({ [`flags.${SYSTEM_ID}.grantedBy.id`]: this.id });
             if (data.linked) {
                 condition.updateSource({ "system.references.parent.id": this.id });
             }
@@ -201,7 +201,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             Object.entries(conditionsToUpdate).map(([_id, data]) => ({
                 _id,
                 "system.value.value": data.value,
-                "flags.pf2e.grantedBy.id": this.id,
+                [`flags.${SYSTEM_ID}.grantedBy.id`]: this.id,
                 ...(data.linked ? { "system.references.parent.id": this.id } : {}),
             })),
         );
@@ -218,15 +218,13 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             (i) =>
                 i.isOfType("condition") &&
                 !EXPIRING_CONDITIONS.has(i.slug) &&
-                i.flags.pf2e.grantedBy?.id === this.id &&
+                i.flags[SYSTEM_ID].grantedBy?.id === this.id &&
                 i.system.references.parent?.id === this.id,
         );
     }
 
     async createStageMessage(): Promise<void> {
-        const actor = this.actor;
-        if (!actor) return;
-
+        if (!this.actor) return;
         const damage = this.getStageDamage(this.stage);
         if (damage) {
             const { template, context } = damage;

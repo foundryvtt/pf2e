@@ -1,0 +1,459 @@
+{
+    "_id": "1jR4M0O907VzjNnv",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "vg0k0TOnzEcLW3gs",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Pseudopod",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "attach"
+                    ]
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "EoAWfGpp95n7mDNm": {
+                        "damage": "3d10+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "versatile-p"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "IuAO9OkPI7XvsVjc",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Spit Metal",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "0USUsc2KBI9o65XW": {
+                        "damage": "3d8+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "versatile-s"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Ig0gF87YLvDavWVI",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Magnetic Sense",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A ferrofluid magneto-cluster can feel magnetic fields, allowing it to detect large sources of magnetic metal (Bulk 1 or greater) and items with the tech trait within the listed range.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AWkRzGrUBdHaHGHL",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Magnetic Field",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. A ferrofluid magneto-cluster is surrounded by a constant field that interferes with nearby equipment. Items with the tech trait inside the aura take a –1 circumstance penalty to all checks using them. Unattended metal objects in the aura of 1 Bulk or less are pulled adjacent to the ooze.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "metal",
+                            "primal"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "metal",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DXn2Z8czJb1FO6KW",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Attach",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A ferrofluid magneto-cluster can attach itself to any creature its size or larger that has the tech trait or is wearing or wielding items with the tech trait. This is similar to Grab, but the ooze moves with that creature rather than holding it in place.</p>\n<p>As long as the ooze is attached, it's @UUID[Compendium.sf2e.conditions.Item.Off-Guard], and the creature it's attached to must succeed at a @Check[flat|dc:11] to Interact with items with the tech trait. On a failure, the item becomes attached to the ooze (treat as if being held by the ooze).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lFGhYQ0e3gyr2scc",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Demagnetization",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A ferrofluid magneto-cluster that takes fire damage has its magnetic field deactivated until the end of the ooze's next turn. It releases itself from any creature it was attached to, drops any held items, and can't use Magnetic Leap or Attach until its magnetic field returns.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8LYt0QTjLRu5rZeO",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Magnetic Leap",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ferrofluid magneto-cluster instantly Attaches to a creature within its magnetic field that meets the requirements of that ability. A ferrofluid ooze can't use this ability again for [[/gmr 1d4 #Recharge this ability]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wa4NJ2GeUbimOSNx",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Metal Storm",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ferrofluid magneto-cluster contracts, then spews metal shards in a @Template[type:cone|distance:30], dealing @Damage[5d8[piercing]|options:area-damage] damage (@Check[reflex|dc:30|basic] save). Any creature that fails its save is also @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1} for 1 round (@UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "metal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TZsF3N5NFXl3Z3qo",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Polarity Shift",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The ferrofluid magneto-cluster shifts the polarity of its magnetic field, causing it to briefly repulse magnetic objects. Each creature in a @Template[type:emanation|distance:30] must attempt a @Check[reflex|dc:30] save or else they're forced to drop any items with the tech trait they're wielding in an adjacent square.</p>\n<p>In addition, each creature with the tech trait or wearing armor with the tech trait must succeed at a @Check[fortitude|dc:30] save or be knocked @UUID[Compendium.sf2e.conditions.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Ferrofluid Magneto-Cluster",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 7
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 7
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 28
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 400,
+                "temp": 0,
+                "value": 400
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "visual"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "electricity",
+                    "value": 10
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "details": "climb on magnetic surfaces only",
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 20
+                    }
+                ],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 12
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Magneto-clusters are usually created when several smaller ferrofluid oozes combine. There have, however, been documented cases of these creatures spontaneously appearing after large industrial accidents. Like their smaller \"cousins,\" magneto-cluster oozes seek out sources of electromagnetism. They also search for and consume magnetic objects and metals capable of being magnetized. They completely disregard organic life and usually are only a danger when a life-form doesn't want to relinquish their magnetic material. Some clusters consume so much metal and objects they're mistaken for scavenger slimes. Any metal consumed by a magneto-cluster immediately becomes magnetic.</p>\n<p>As living magnetic accelerators, ferrofluid magneto-cluster oozes are capable of launching the metal they collect at high speeds as a defense mechanism. They do so at such high velocities as to make even a simple metal shard accelerate fast enough to puncture high-tech ballistic armor.</p><hr /><p>Oozes of many types lurk in dark and abandoned places across the galaxy, emerging only to satiate their appetites and threaten adventurers, explorers, and hapless workers alike.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "magnetic sense (precise) 100 feet",
+            "mod": 16,
+            "senses": [],
+            "vision": false
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 19
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 25,
+                "special": []
+            },
+            "stealth": {
+                "base": 22,
+                "special": [
+                    {
+                        "base": 25,
+                        "label": "in areas with no magnetic objects"
+                    }
+                ]
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "cosmic",
+                "metal",
+                "mindless",
+                "ooze"
+            ]
+        }
+    },
+    "type": "npc"
+}

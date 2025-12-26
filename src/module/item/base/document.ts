@@ -236,7 +236,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     token: this.actor.getActiveTokens(false, true).at(0),
                 }),
                 content: await fa.handlebars.renderTemplate(template, templateData),
-                flags: { pf2e: { origin: this.getOriginData() } },
+                flags: { [SYSTEM_ID]: { origin: this.getOriginData() } },
             },
             rollMode,
         );
@@ -283,18 +283,17 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         // Set item grant default values: pre-migration values will be strings, so temporarily check for objectness
         const flags = this.flags;
-        flags.pf2e = fu.mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
-        if (R.isPlainObject(flags.pf2e.grantedBy)) {
-            flags.pf2e.grantedBy.onDelete ??= this.isOfType("physical") ? "detach" : "cascade";
+        flags[SYSTEM_ID] = fu.mergeObject(flags[SYSTEM_ID] ?? {}, { rulesSelections: {} });
+        Object.defineProperty(this.flags, "system", { get: () => this.flags[SYSTEM_ID] });
+        if (R.isPlainObject(flags[SYSTEM_ID].grantedBy)) {
+            flags[SYSTEM_ID].grantedBy.onDelete ??= this.isOfType("physical") ? "detach" : "cascade";
         }
-        const grants = (flags.pf2e.itemGrants ??= {});
+        const grants = (flags[SYSTEM_ID].itemGrants ??= {});
         for (const grant of Object.values(grants)) {
-            if (R.isPlainObject(grant)) {
-                grant.onDelete ??= "detach";
-            }
+            if (R.isPlainObject(grant)) grant.onDelete ??= "detach";
         }
         const actor = this.actor;
-        const grantedById = this.flags.pf2e.grantedBy?.id;
+        const grantedById = this.flags[SYSTEM_ID].grantedBy?.id;
         this.grantedBy = grantedById
             ? (actor?.items.get(grantedById) ?? actor?.conditions.get(grantedById) ?? null)
             : null;

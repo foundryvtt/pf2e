@@ -1,0 +1,94 @@
+{
+    "_id": "ZK6J3OIVvJVMBEDu",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "dGRzxYfrcOIJSFfB",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Blow Out",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A ranged attack critically fails</p><hr /><p><strong>Effect</strong> All corporeal creatures inside area <strong>F</strong> are @UUID[Compendium.sf2e.conditions.Item.Suppressed] until the hazard is disabled or 1 minute has passed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Rapid Depressurization",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 6
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A stray shot shatters a window, sucking out the room's precious atmosphere.</p>",
+            "disable": "<p>@Check[crafting|dc:14] (trained) or @Check[Labor Lore|dc:14] (trained) while adjacent to the window to patch the hole, @Check[computers|dc:16] (trained) to activate an emergency metal shutter from any console in the room, or @Check[survival|dc:18] or @Check[thievery|dc:18] to cover the hole (if adjacent) with a random object as a temporary fix.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 2
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Guilt of the Grave World"
+            },
+            "reset": "<p>1 minute after a depressurization hazard begins, all air escapes from area F (requiring living creatures to activate their environmental protections or begin suffocating). If the hazard is disabled before 1 minute has passed, this timer resets.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

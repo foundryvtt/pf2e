@@ -1,0 +1,48 @@
+{
+    "_id": "ck4ogo5HX97e5UuM",
+    "img": "systems/sf2e/icons/abilities/purple-third-eye.webp",
+    "name": "Effect: Colony Mind",
+    "system": {
+        "description": {
+            "value": "<p>When you roll a success on a save against a mental effect, you get a critical success instead.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:mental"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

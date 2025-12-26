@@ -1,0 +1,586 @@
+{
+    "_id": "TIAKvaPlJiULdukC",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "MoJCAYdEWgxHLpW8",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "pjm43zHO6zFocfiP": {
+                        "damage": "2d8+12",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "bIKX6bYCCmlkYQxQ",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Gravity Blast",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "JaBPbL01qVrpXHs3": {
+                        "damage": "2d12+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "I2au6F6JKE8OLg1i",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Crushing Gravity",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>5 feet. A vorthuul is surrounded by the crushing gravitational forces of a black hole. A creature that enters or begins its turn in the aura takes @Damage[3d6[bludgeoning]] damage (@Check[fortitude|dc:26|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Upvc5xDp057dSrDr",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Event Horizon",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A vorthuul naturally draws in light. The DC of the flat check to target a vorthuul @UUID[Compendium.sf2e.conditions.Item.Concealed] or hidden due to dim light or darkness is reduced by 2. A vorthuul takes a –2 circumstance penalty to AC and saving throws against light effects and to AC against attacks from weapons in the laser group.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:group:laser",
+                                    "item:trait:light"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "ac"
+                        ],
+                        "type": "circumstance",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WLOescjVrqP6G776",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Quantum Duality",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Vorthuuls exist in two states: one in perfect tranquility, the other in perpetual agony. The vorthuul gains bonuses depending on the dominant state. They decide which is dominant as a free action when they roll initiative.</p><ul><li><strong>Absolute Tranquility</strong> The vorthuul gains a +1 status bonus to saves against emotion effects and resistance 10 to mental damage.</li><li><p><strong>Everburning Agony</strong> The vorthuul gains a +1 status bonus to saves against vitality effects and resistance 10 to fire damage.</p>\n</li></ul>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "quantum-duality",
+                        "suboptions": [
+                            {
+                                "label": "SF2E.NPCAbility.Vorthuul.QuantumDuality.AbsoluteTranquility",
+                                "value": "absolute-tranquility"
+                            },
+                            {
+                                "label": "SF2E.NPCAbility.Vorthuul.QuantumDuality.EverburningAgony",
+                                "value": "everburning-agony"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "quantum-duality:absolute-tranquility",
+                            "item:trait:emotion"
+                        ],
+                        "selector": [
+                            "saving-throw"
+                        ],
+                        "type": "status",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "quantum-duality:everburning-agony",
+                            "item:trait:vitality"
+                        ],
+                        "selector": [
+                            "saving-throw"
+                        ],
+                        "type": "status",
+                        "value": 1
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "quantum-duality:absolute-tranquility"
+                        ],
+                        "type": "mental",
+                        "value": 10
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "quantum-duality:everburning-agony"
+                        ],
+                        "type": "fire",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kgqq8uSz85okLSI2",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "U3uljkJkCMFN1iV9",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CzBdNMGusMlds4et",
+            "img": "systems/sf2e/icons/actions/ThreeActions.webp",
+            "name": "Gravity Maelstrom",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The vorthuul intensifies their gravitational pull for 1 minute, increasing the radius of their crushing gravity aura to 20 feet. Additionally, while this aura is expanded, creatures moving in any direction other than directly toward the vorthuul treat squares in the aura as difficult terrain.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eql5NjfxqgUuz7Wh",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Quantum Agony",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The vorthuul is in absolute tranquility state</p><hr /><p><strong>Effect</strong> The vorthuul enters everburning agony in torrents of anguish. Each creature in the vorthuul's crushing gravity aura must succeed at a @Check[will|dc:28] save or be @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 1} (or @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 2} on a critical failure).</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7tdHjD6AoDY3f2Ve",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Quantum Tranquility",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The vorthuul is in everburning agony state</p><hr /><p><strong>Effect</strong> The vorthuul enters absolute tranquility in a wave of oppressive stillness. Each creature in the vorthuul's crushing gravity aura must succeed at a @Check[fortitude|dc:28] save or be @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 1} for 1 round (or slowed 1 for 3 rounds on a critical failure).</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "n1lSGSLkWQZe48vH",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Singularity Pocket",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The vorthuul forces their physical and psychological torment upon a creature they touch. The target must succeed at a @Check[will|dc:28] save or become @UUID[Compendium.sf2e.conditions.Item.Immobilized] for 1 minute ([[/act escape dc=28]]). As long as it's immobilized in this way, it takes @Damage[1d6[bludgeoning]] damage and @Damage[1d6[mental]] damage at the end of each of its turns. Creatures that Escape become temporarily immune to this vorthuul's Singularity Pocket for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Vorthuul",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 29
+            },
+            "allSaves": {
+                "value": "quantum duality"
+            },
+            "hp": {
+                "details": "",
+                "max": 200,
+                "temp": 0,
+                "value": 200
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 50
+                    }
+                ],
+                "value": 0
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
+            "level": {
+                "value": 10
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Vorthuuls are undead beings with two overlapping yet incongruous forms: a distorted spirit shrieking in unending torment and a pitch-black skeleton overflowing with serenity. One form might seem more real than the other, only for the opposite to be true the next moment.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 19,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 17
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 21
+            },
+            "athletics": {
+                "base": 22
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "cosmic",
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -29,7 +29,7 @@ class RollInspector extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     }
 
     protected override async _prepareContext(): Promise<RollInspectorContext> {
-        const context = this.message.flags.pf2e.context;
+        const context = this.message.flags[SYSTEM_ID].context;
         if (!context) {
             throw new Error("RollInspector must receive a context");
         }
@@ -41,9 +41,9 @@ class RollInspector extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             foundryApp: this,
             state: {
                 context,
-                dice: this.message.flags.pf2e.dice ?? [],
+                dice: this.message.flags[SYSTEM_ID].dice ?? [],
                 domains: context?.domains?.sort() ?? [],
-                modifiers: this.message.flags.pf2e.modifiers ?? [],
+                modifiers: this.message.flags[SYSTEM_ID].modifiers ?? [],
                 rollOptions,
                 contextualOptions: Object.entries(contextualOptions ?? {})
                     .map(([key, value]) => ({

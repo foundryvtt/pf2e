@@ -1,0 +1,368 @@
+{
+    "_id": "CaLynyqIcbH15xZ1",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "bY7zUrkwrYx9JXpy",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "mKzoKSh4lMxfC8UQ": {
+                        "damage": "2d8+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-15"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "pAbg3MLy5yDq7pvg",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Tail Whip",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 14
+                },
+                "damageRolls": {
+                    "sD4pjkTskalUmXKP": {
+                        "damage": "2d6+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "reach-15"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "DVuH2SVNP0ZrlitJ",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Ambush",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature passes within 20 feet of the glass serpent and hasn't detected it</p><hr /><p><strong>Effect</strong> The glass serpent lunges out of hiding. It Strides directly toward the triggering creature and makes a jaws Strike against it. The target creature is @UUID[Compendium.sf2e.conditions.Item.Off-Guard] to this attack.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ADo0WO3FwECDw7oR",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Ravenous Invisibility",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The glass serpent is naturally invisible. When a glass serpent takes a hostile action of any kind, it is hidden instead of undetected until the start of its next turn, as parts of its body become momentarily tangible. A glass serpent that has swallowed a creature becomes visible for the next day as its meal is being digested. If the swallowed creature escapes or is otherwise removed, the glass serpent immediately returns to being invisible.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "ravenous-invisibility",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.condition.invisible.name",
+                                "value": "invisible"
+                            },
+                            {
+                                "label": "PF2E.condition.undetected.name",
+                                "value": "undetected"
+                            },
+                            {
+                                "label": "PF2E.condition.observed.name",
+                                "value": "observed"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "ravenous-invisibility:invisible"
+                        ],
+                        "uuid": "Compendium.sf2e.conditions.Item.Invisible"
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "ravenous-invisibility:undetected"
+                        ],
+                        "uuid": "Compendium.sf2e.conditions.Item.Undetected"
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "ravenous-invisibility:observed"
+                        ],
+                        "uuid": "Compendium.sf2e.conditions.Item.Observed"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1GNbrbSYPpOG1Dqf",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Concealing Coil",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The glass serpent's last action was a successful tail whip Strike</p><hr /><p><strong>Effect</strong> The creature the glass serpent hit is @UUID[Compendium.sf2e.conditions.Item.Concealed] from all creatures except the glass serpent until that creature moves out of the glass serpent's reach or until the start of the glass serpent's next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SjjJdAKvjyhdBN2C",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Swallow Whole",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Large, @Damage[(2d8+6)[bludgeoning]], Rupture 12</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "swallow-whole",
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Glass Serpent",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 21
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 72,
+                "temp": 0,
+                "value": 72
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 30
+                    },
+                    {
+                        "type": "swim",
+                        "value": 30
+                    }
+                ],
+                "value": 45
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 5
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The great glass serpents of the barren planet of Eox are one of the Pact Worlds' most notorious apex predators. With an average length of almost 60 feet and a weight of about 5,000 pounds, the size and grace of glass serpents are only part of what makes them such efficient killers. Thanks to an innate invisibility provided by their unique scales, glass serpents remain outside of the visual spectrum of most creatures, allowing them to silently approach unsuspecting prey. Having evolved through Eox's numerous cataclysms, these serpents find sustenance from the rare bands of living creatures who visit the world, and in an odd turn, while they're consuming the living is when glass serpents are at their most vulnerable. The combination of acids and digestive fluids used in consuming a living creature also deprives the serpents of their invisibility, and canny glass serpent hunters actively tempt their quarry with animals to consume before attacking in force.</p>\n<p>Glass serpents have made their way well beyond the confines of Eox, and some have even found an accepting ecosystem in the Diaspora's strange waterway, the River Between. The local sarcesians blame Eox for intentionally polluting their waterways with predators, though Eox denies all accusations of intentional meddling. Such debates have only intensified since the Diaspora was granted provisional Pact World status under the sarcesians' stewardship.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 14,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 8
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 11
+            },
+            "athletics": {
+                "base": 14
+            },
+            "stealth": {
+                "base": 13
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "beast",
+                "cosmic"
+            ]
+        }
+    },
+    "type": "npc"
+}

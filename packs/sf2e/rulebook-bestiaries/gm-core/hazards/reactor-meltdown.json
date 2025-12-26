@@ -1,0 +1,124 @@
+{
+    "_id": "npcUZRe2FhLXTwz2",
+    "folder": "D8Q2XWm5N91mGuw7",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "HUevG60qrY45gPjx",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Radiation Leak",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature views the reactor's sensors or console</p><hr /><p><strong>Effect</strong> Creatures within 60 feet of the reactor are exposed to incredible radiation (@Check[fortitude|dc:32]; page 91). The trap rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OYhL6lbsHtlJSMDW",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Nuclear Explosion",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The trap completed its routine with a radius of 100 feet</p><hr /><p><strong>Effect</strong> The reactor explodes, dealing @Damage[(4d10+20)[fire]] damage in a 500 foot radius, bypassing the hardness of any items in the blast zone (@Check[fortitude|dc:46|basic] save). Everything in the area is exposed to incredible radiation. The area of the nuclear explosion becomes irradiated, leaking severe radiation for 50 years.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Reactor Meltdown",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 27
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A nuclear reactor overloads, then explodes.</p>",
+            "disable": "<p>@Check[computers|dc:45] (master) or Crafting (master) to initiate shutdown procedures, or @Check[thievery|dc:47] (master) to vent the reactor; three total successes are required to disable the trap</p>",
+            "isComplex": true,
+            "level": {
+                "value": 19
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder GM Core"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) As the reactor overheats, the trap deals @Damage[(4d10+20)[fire]] damage to creatures within 60 feet (@Check[fortitude|dc:42|basic] save). All creatures in the area are exposed to incredible radiation. Each time the trap uses this routine, the area increases by 10 feet. When the routine's radius equals 100 feet, resolve the routine. Then, the reactor immediately explodes, using Nuclear Explosion.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

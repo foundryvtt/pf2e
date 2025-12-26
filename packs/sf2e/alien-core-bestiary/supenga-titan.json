@@ -1,0 +1,334 @@
+{
+    "_id": "WsWO0Bq3ZPIXSbm7",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "AkmkIhYfEoBMWLJH",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Bite",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "FZHKoOEUDKQtMbAY": {
+                        "damage": "3d12+12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "w6ywqbK2z5MTye56",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Spine",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "slowing-enzyme"
+                    ]
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "oVqIUoipqhUauDCG": {
+                        "damage": "3d8+6",
+                        "damageType": "bludgeoning"
+                    },
+                    "ydDZvX7LntVxRgl1": {
+                        "damage": "4d6",
+                        "damageType": "poison"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "cjrd6GjHPV1TKX7J",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Siphon Blood",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.sf2e.conditions.Item.Grabbed], @UUID[Compendium.sf2e.conditions.Item.Paralyzed], @UUID[Compendium.sf2e.conditions.Item.Restrained], or @UUID[Compendium.sf2e.conditions.Item.Unconscious] living creature is within the supenga titan's reach</p><hr /><p><strong>Effect</strong> The supenga titan absorbs the creature's blood with its spines. This requires an @Check[athletics|against:fortitude] check against the creature's Fortitude DC if the creature is grabbed but is otherwise automatic. The creature becomes @UUID[Compendium.sf2e.conditions.Item.Drained]{Drained 1}, and the supenga titan regains @Damage[21[healing]] Hit Points.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "x5HsDbDFYNDCT1qq",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Slowing Enzyme",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:36]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> –10-foot status penalty to all Speeds (1 round)</p>\n<p><strong>Stage 2</strong> –10-foot status penalty to all Speeds and @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 1} (2 rounds)</p>\n<p><strong>Stage 3</strong> –20-foot status penalty to all Speeds and @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 2} (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "swallow-whole-inline-damage",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "e6TWnmafNy10JaBj",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Spine Volley",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The supenga titan makes up to four spine Strikes, each against a different target. The supenga titan's multiple attack penalty doesn't increase until after it makes all the attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2ZEwR5309jEnMzxg",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Swallow Whole",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Large, @Damage[(3d6+9)[bludgeoning],4d8[acid]] plus slowing enzyme, Rupture 35</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "swallow-whole",
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Supenga Titan",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 8
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -3
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 37
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 210,
+                "temp": 0,
+                "value": 210
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 15
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>These toxic titans can drain a living creature's blood in moments.</p><hr /><p>When rains grow sparse in this succulent's native habitat, it turns to another source for liquid: blood. The supenga has adapted to a world of scarcity and takes advantage of any chance to hunt using its sharp leaves and paralyzing toxin.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 26,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 23
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 27
+            },
+            "athletics": {
+                "base": 29
+            },
+            "stealth": {
+                "base": 27
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "plant"
+            ]
+        }
+    },
+    "type": "npc"
+}

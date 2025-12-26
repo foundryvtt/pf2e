@@ -165,7 +165,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         if (!actor) throw ErrorPF2e("This method may only be called from embedded items");
         if (!this.isEquipped) return;
 
-        const rollOptionsAll = this.actor.flags.pf2e.rollOptions.all;
+        const rollOptionsAll = this.actor.flags[SYSTEM_ID].rollOptions.all;
         for (const option of Object.keys(rollOptionsAll)) {
             if (option.startsWith("armor:")) delete rollOptionsAll[option];
         }

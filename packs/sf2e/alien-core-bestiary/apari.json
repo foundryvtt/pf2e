@@ -1,0 +1,532 @@
+{
+    "_id": "fFAPnun1ZuUtzyDM",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "XRplnFl0gyJ6R6UN",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "M5KQKDydbYVZ8cZD": {
+                        "damage": "2d6+7",
+                        "damageType": "slashing"
+                    },
+                    "R2fY8w8jUNb73uc1": {
+                        "category": "persistent",
+                        "damage": "1d10",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": "claw",
+                "traits": {
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "PrMRZF0b1bTp0zNa",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Spike",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "VLMYYHUXnwEW95yD": {
+                        "damage": "2d10+5",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "propulsive"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "LWNf3yWvQ1NmEbQB",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Carapace",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The apari's carapace has Hardness 10, reducing any damage the apari takes by that amount. Once the apari is reduced to fewer than half its Hit Points, or immediately upon taking damage from a critical hit, the carapace breaks, removing the Hardness and reducing its AC to 20. An apari with a broken carapace gains resistance 5 to precision damage and weakness 5 to both area damage and splash damage. It also gains the Swarming Bites aura.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.CrumblingCarapace.CriticalHit",
+                        "option": "carapace",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "carapace",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "ac",
+                        "value": -4
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hardness.value",
+                        "value": 10
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hardness.value",
+                        "phase": "afterDerived",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "carapace",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 0
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "carapace",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "type": "precision",
+                        "value": 5
+                    },
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "carapace",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "type": "area-damage",
+                        "value": 5
+                    },
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "carapace",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "type": "splash-damage",
+                        "value": 5
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tvJ3jfQtykC7ARyt",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Swarming Bites",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>10 feet. The constituents of an apari with a broken carapace angrily swarm around its body. A creature that begins its turn in this aura takes @Damage[4d6[piercing]] damage with a @Check[fortitude|dc:21|basic] save. A creature that fails this save is also @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 1} (or @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 2} on a critical failure).</p>\n<p>Can alternatively switch to @Damage[4d6[bludgeoning]] or @Damage[4d6[slashing]] with the Fungible ability.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [],
+                        "key": "Aura",
+                        "radius": 10,
+                        "traits": []
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jilC2qnATcOEslbP",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Constituent Sortie",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The apari's carapace isn't broken</p><hr /><p><strong>Effect</strong> The apari releases a bevy of tiny, flying constituents in a @Template[type:cone|distance:15] that sting all within. Each creature in the area takes @Damage[4d6[piercing]|options:area-damage] damage with a @Check[reflex|dc:21|basic|options:area-effect] save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "constituent-sortie",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mHAUCnEpELliiWiU",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Foraging Constituents",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The apari Seeks by dispersing constituents to scan a wide area, attempting to find hidden or undetected creatures within 90 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "foraging-constituents",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9V2vbqUrDvZEdlcb",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Fungible",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The apari's constituents can change their physiology, taking advantage of an opponent's weakness. The apari alters the type of damage it deals with its claw attack (which also affects the type of persistent damage), its Constituent Sortie ability, or its swarming bites aura, choosing from the following: bludgeoning, piercing, or slashing.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "fungible",
+                        "selection": "slashing",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            },
+                            {
+                                "label": "PF2E.TraitSlashing",
+                                "value": "slashing"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "and": [
+                                            "item:type:melee",
+                                            "item:slug:claw"
+                                        ]
+                                    },
+                                    "item:slug:constituent-sortie",
+                                    "item:slug:swarming-bites"
+                                ]
+                            }
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "damage"
+                        ],
+                        "value": "{item|flags.sf2e.rulesSelections.fungible}"
+                    }
+                ],
+                "slug": "fungible",
+                "traits": {
+                    "value": [
+                        "morph"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Apari",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "(20 with broken carapace); carapace",
+                "value": 24
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 140,
+                "temp": 0,
+                "value": 140
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "swarm-mind"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "sickened"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "burrow",
+                        "value": 10
+                    }
+                ],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 7
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>An apari is a living hive beholden to its beetle-like queen, whose massive carapace houses generations of its insect brood. Millions of constituents across various developmental stages animate the exoskeleton of a single apari. At the direction of their queen's chemical signals, individual constituents, most no larger than a grain of rice, adapt to the hive's current needs, assuming diverse forms to fulfill specialized roles and supporting its gestalt biological functions.</p>\n<p>Once introduced within an ecosystem, an apari asserts itself rapidly. Winged constituents forage for food as the hive itself hunts living prey, tearing its victims open with sharp claws while grub-like constituents writhe into fresh wounds and consume the prey from within. When an apari is threatened, combat-ready drones selflessly rush to defend the hive or to cover its escape.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 15,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 11
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 15
+            },
+            "intimidation": {
+                "base": 11
+            },
+            "stealth": {
+                "base": 11
+            },
+            "survival": {
+                "base": 15
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}

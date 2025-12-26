@@ -1,3 +1,4 @@
+import type { UserSettingsPF2e } from "./data.ts";
 import type { UserPF2e } from "./document.ts";
 
 /** Player-specific settings, stored as flags on each User */
@@ -40,6 +41,8 @@ class UserConfigPF2e extends fa.sheets.UserConfig<UserPF2e> {
             tabs: context.tabs ?? this._prepareTabs("primary"),
             activeTab: this.tabGroups.primary,
             characterWidget: createAdjustedCharacterWidget,
+            systemId: SYSTEM_ID,
+            settings: this.document.flags[SYSTEM_ID].settings,
         });
     }
 }
@@ -47,6 +50,8 @@ class UserConfigPF2e extends fa.sheets.UserConfig<UserPF2e> {
 interface UserConfigRenderContextPF2e extends fa.sheets.UserConfigRenderContext<UserPF2e> {
     tabs: Record<string, fa.ApplicationTab>;
     activeTab: string;
+    systemId: SystemId;
+    settings: UserSettingsPF2e;
 }
 
 export { UserConfigPF2e };

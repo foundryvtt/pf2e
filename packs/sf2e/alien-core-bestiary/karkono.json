@@ -1,0 +1,329 @@
+{
+    "_id": "KxlTMnmOEN7NqwSv",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "CtegS61K8xTxYR6O",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "X0Ta47t8oKvdVHTl": {
+                        "damage": "3d8+6",
+                        "damageType": "slashing"
+                    },
+                    "f1VSgMXeCAyJkfYB": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "fpqVu4u1gJ1dXFQo",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "All-Around Vision (while in their ecosystem)",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.flanking.flankable",
+                        "value": false
+                    }
+                ],
+                "slug": "all-around-vision",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fJijlVhvVtI5xK5D",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Ferocity",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Ferocity]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "ferocity",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2htRqXbH8QbrJjew",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Nature's Protector",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A karkono is intrinsically tied to a specific ecosystem, such as a coastal marsh or boreal forest on a planet. A karkono ignores difficult terrain and gains a +1 status bonus to initiative rolls while in their ecosystem. When a karkono's ecosystem is polluted or significantly damaged (for example, due to a forest fire or chemical spill), the karkono is @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 2} and can't reduce their sickened condition below 1. They also gain a +4 status bonus to damage rolls.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nQ3v78BIK1MALeL4",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Back To Nature",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The karkono makes a claw Strike against a creature with the tech trait, causing plant matter to explode from it. On a hit, the creature must attempt a @Check[reflex|dc:24] save; on a critical hit, the creature uses the outcome one degree of success worse than the result of its roll.</p>\n<p><strong>Failure</strong> The creature becomes glitching 1.</p>\n<p><strong>Critical Failure</strong> The creature becomes glitching 2.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "45qT02WXBpTD2uRF",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Blood Renewal",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The karkono performs a ritual to anoint the land in fresh blood. Plant growth springs from the ground in a @Template[type:emanation|distance:20], counting as difficult terrain. The karkono and any allied creatures within the area gain regeneration 15 (cold iron) while in the area. These effects last for 10 minutes.</p>\n<p>@UUID[Compendium.sf2e.bestiary-effects.Item.Effect: Blood Renewal]</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Karkono",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -2
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 23
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 90,
+                "temp": 0,
+                "value": 90
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "Can't speak any language",
+                "value": [
+                    "aklo",
+                    "fey"
+                ]
+            },
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>These feral guardians protect the lands they roam, growing into a chimera of all the predators living in their native ecosystems. Karkonos thrive and perish with their bonded lands. They instinctively sense when synthetic forces like pollution or rapid industrialization imperil their homes. Any injury to the land is mirrored by the karkonos who dwell there. Aggressive deforestation appears as festering wounds on a karkono's hide, while pollution manifests as sickness.</p>\n<p>Rather than die quietly, when their ecosystem is endangered by outside causes, these fey go on destructive rampages. Visitors to the wilderness might never spot a content karkono, but a raging karkono assaults anything alien to their home—including machinery, other life-forms, and synthetic infrastructure. Enraged karkonos purge their home of threats or perish, but not before dealing tremendous damage to their enemies.</p>\n<p>If karkonos spill enough blood, they can gradually repair their ailing ecosystems. Those killed by karkonos become fertilizer for the animals and plants they would've crushed beneath the uncaring gears of industrial expansion.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 14,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 13
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 13
+            },
+            "athletics": {
+                "base": 16
+            },
+            "nature": {
+                "base": 13
+            },
+            "survival": {
+                "base": 15
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "fey"
+            ]
+        }
+    },
+    "type": "npc"
+}

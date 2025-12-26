@@ -85,10 +85,7 @@ class DicePF2e {
             if ((!data.statusBonus || data.statusBonus === 0) && rollParts.indexOf("@statusBonus") !== -1)
                 rollParts.splice(rollParts.indexOf("@statusBonus"), 1);
             if ($form) data.circumstanceBonus = $form.find("[name=circumstanceBonus]").val();
-            if (
-                (!data.circumstanceBonus || data.circumstanceBonus === 0) &&
-                rollParts.indexOf("@circumstanceBonus") !== -1
-            )
+            if (!data.circumstanceBonus && rollParts.indexOf("@circumstanceBonus") !== -1)
                 rollParts.splice(rollParts.indexOf("@circumstanceBonus"), 1);
             // Execute the roll and send it to chat
             const roll = await new Roll(rollParts.join("+"), data).roll();
@@ -97,18 +94,9 @@ class DicePF2e {
                 {
                     speaker,
                     flavor: flav,
-                    flags: {
-                        pf2e: {
-                            context: {
-                                type: rollType,
-                            },
-                            origin,
-                        },
-                    },
+                    flags: { [SYSTEM_ID]: { context: { type: rollType }, origin } },
                 },
-                {
-                    rollMode: $form ? ($form.find("[name=rollMode]").val() as RollMode) : rollMode,
-                },
+                { rollMode: $form ? ($form.find("[name=rollMode]").val() as RollMode) : rollMode },
             );
             return roll;
         };

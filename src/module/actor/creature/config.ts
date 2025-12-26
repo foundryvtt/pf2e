@@ -1,12 +1,12 @@
 import { ALLIANCES } from "@actor/creature/values.ts";
+import type { ActorFlagsPF2e } from "@actor/data/base.ts";
 import { createSheetOptions, SheetOptions } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, setHasElement } from "@util";
-import { BaseCreatureSource, CreatureActorType, CreatureSystemSource } from "./data.ts";
+import type { BaseCreatureSource, CreatureActorType, CreatureSystemSource } from "./data.ts";
 import type { CreaturePF2e } from "./document.ts";
-import appv1 = foundry.appv1;
 
 /** A DocumentSheet presenting additional, per-actor settings */
-abstract class CreatureConfig<TActor extends CreaturePF2e> extends appv1.api.DocumentSheet<TActor> {
+abstract class CreatureConfig<TActor extends CreaturePF2e> extends fav1.api.DocumentSheet<TActor> {
     override get title(): string {
         const namespace = this.actor.isOfType("character") ? "Character" : "NPC";
         return game.i18n.localize(`PF2E.Actor.${namespace}.Configure.Title`);
@@ -20,7 +20,7 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends appv1.api.Doc
         return this.object;
     }
 
-    static override get defaultOptions(): appv1.api.DocumentSheetV1Options {
+    static override get defaultOptions(): fav1.api.DocumentSheetV1Options {
         const options = super.defaultOptions;
         options.sheetConfig = false;
         options.width = 450;
@@ -28,15 +28,14 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends appv1.api.Doc
     }
 
     override async getData(
-        options: Partial<appv1.api.DocumentSheetV1Options> = {},
+        options: Partial<fav1.api.DocumentSheetV1Options> = {},
     ): Promise<CreatureConfigData<TActor>> {
-        const source: BaseCreatureSource<CreatureActorType, CreatureSystemSource> = this.actor._source;
+        const actor = this.actor;
+        const source: BaseCreatureSource<CreatureActorType, CreatureSystemSource> = actor._source;
         const alliance =
             source.system.details?.alliance === null ? "neutral" : (source.system.details?.alliance ?? "default");
         const defaultValue = game.i18n.localize(
-            this.actor.hasPlayerOwner
-                ? "PF2E.Actor.Creature.Alliance.Party"
-                : "PF2E.Actor.Creature.Alliance.Opposition",
+            actor.hasPlayerOwner ? "PF2E.Actor.Creature.Alliance.Party" : "PF2E.Actor.Creature.Alliance.Opposition",
         );
 
         const allianceOptions = {
@@ -49,6 +48,8 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends appv1.api.Doc
         return {
             ...(await super.getData(options)),
             alliances: createSheetOptions(allianceOptions, { value: [alliance] }),
+            systemId: SYSTEM_ID,
+            systemFlags: actor.flags[SYSTEM_ID],
         };
     }
 
@@ -70,8 +71,10 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends appv1.api.Doc
     }
 }
 
-interface CreatureConfigData<TActor extends CreaturePF2e> extends appv1.api.DocumentSheetData<TActor> {
+interface CreatureConfigData<TActor extends CreaturePF2e> extends fav1.api.DocumentSheetData<TActor> {
     alliances: SheetOptions;
+    systemId: SystemId;
+    systemFlags: ActorFlagsPF2e[SystemId];
 }
 
 export { CreatureConfig, type CreatureConfigData };

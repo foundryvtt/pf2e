@@ -1,0 +1,309 @@
+{
+    "_id": "EYqqVxGP2wU3VIcR",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "JW2GL1r3ueBbWD39",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Buffet",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "AuPMbdbXWd6xwG9O": {
+                        "damage": "1d10+4",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "wrsHzxVHQUlYx7As",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Organic Shrapnel",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "ZJBjm6HQBJFTFexv": {
+                        "damage": "1d8+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "64pY3DzsNhaVjVZY",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Explosive Burst",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The zalyop is reduced to 0 Hit Points by physical or fire damage</p><hr /><p><strong>Effect</strong> The zalyop explodes, dealing @Damage[4d6[sonic]|options:area-damage] damage to all creatures in a @Template[type:burst|distance:20] centered on itself (@Check[fortitude|dc:18|basic] save). This also triggers a Befuddling Cloud, even if it's been used in the last hour.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6GL8KcjwwCGKr7Xf",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Befuddling Cloud",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The zalyop expels a gaseous cloud in a @Template[type:emanation|distance:30]. Creatures within the cloud must succeed at a @Check[will|dc:18] save or become @UUID[Compendium.sf2e.conditions.Item.Confused] for 1 round (or 1 minute on a critical failure). Confused creatures that are also engulfed by the zalyop don't receive flat checks to end the confused condition.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "b508mqFZEAFWiPvM",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Engulf",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Check[reflex|dc:18], @Damage[2d6[acid]], [[/act escape dc=18]], Rupture 7</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "engulf",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Zalyop",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -3
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 17
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 54,
+                "temp": 0,
+                "value": 54
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "visual"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 25
+                    }
+                ],
+                "value": 0
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 3
+                },
+                {
+                    "type": "piercing",
+                    "value": 6
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The jet streams of the gas giant Bretheda are filled with large, bulbous silhouettes called zalyops, sometimes referred to as balloon plants. Gas-filled and hardy, they're buffeted around by the planet's eternal storms. It's common for a cascade of these plants to be found trailing in the wake of an oma or plastered against one of the many spacecrafts and aircrafts frequenting the gas giant.</p>\n<p>The sound of zalyops bouncing against a metal hull at high velocity can be a humorous one, but travelers should be careful not to assume these plants are harmless. Zalyops are known to expel high-speed organic shrapnel by reflex. Additionally, their confusion-inducing gaseous waste easily spreads across the atmosphere and can be caught in a ship's air-intake valve.</p>\n<p>Zalyops can also cause chaos at ground level. When they float into small settlements, flocks of them will descend on small creatures, which they engulf for nutrients. The widespread befuddling clouds caused by such incursions are a dangerous nuisance. Pedestrians and pets alike must take care during such events to stay inside and simply wait the invasive balloons out.</p>\n<p>Pact Worlds chemists have developed (and patented) Balyoon, an anesthetic drug from zalyop gases. In addition to being difficult to obtain in the first place, the drug is highly unstable until refined in the laboratory, and more than one starship has been lost when its crew failed to properly store the gases they just harvested from a zalyop.</p>\n<p>Balyoon also plays a role in Eoxian soap operas and other dramatic vidshows across the Pact Worlds. It's used as a plot device in a myriad of ways, such as a villain contriving to discredit a hero or for a family member to suddenly lose their mind or memory in a soap opera. How these characters obtained the processed gas of a predatory Brethedan plant is rarely as important as the exciting drama, however.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 9,
+            "senses": [
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "lifesense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 4
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 10
+            },
+            "athletics": {
+                "base": 11
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "air",
+                "mindless",
+                "plant"
+            ]
+        }
+    },
+    "type": "npc"
+}

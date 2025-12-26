@@ -1,0 +1,297 @@
+{
+    "_id": "ybCXQUgdkwGyQemk",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "IKiLo0J4hdKmhOg8",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "siphon"
+                    ]
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "YI4zMZlY4lGz2Hky": {
+                        "damage": "2d4+2",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "xm83V1DYrvow0Sib",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Zap",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "tRc7ydiMjozSJduR": {
+                        "damage": "1d12+1",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": null,
+                    "max": 30
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "gAkv1AF9ZQOF04Ks",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Electricsense",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>An electrovore can sense electricity, including the electrical impulses found in most living creatures' nervous systems, as an imprecise sense at the listed range.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JDDwARFo31xQnvbo",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Electrical Discharge",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Effect</strong> The electrovore unleashes a shock wave that deals @Damage[2d6[electricity]|options:area-damage] damage to creatures in a @Template[type:emanation|distance:10] (@Check[reflex|dc:15]). It can't use Electrical Discharge again for [[/gmr 1d4 #Recharge Electrical Discharge]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage. Items in its possession with the tech trait becomes glitching 1. If the target has the tech trait, it becomes @UUID[Compendium.sf2e.conditions.Item.Glitching]{Glitching 1}.</p>\n<p><strong>Failure</strong> As success, but full damage and @UUID[Compendium.sf2e.conditions.Item.Glitching]{Glitching 2}.</p>\n<p><strong>Critical Failure</strong> As success, but double damage and @UUID[Compendium.sf2e.conditions.Item.Glitching]{Glitching 3}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "electricity"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9yxF87SmovtifLvK",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Siphon",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When an electrovore scores a critical hit with a tail Strike against a living creature wielding or wearing tech gear or a creature with the tech trait, it siphons off a portion of the target's electrical energy. This restores @Damage[5[healing]] Hit Points to the electrovore immediately, plus 1 Hit Point per minute for the next 10 minutes; the additional healing doesn't increase if the electrovore siphons multiple times.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Electrovore",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -1
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -3
+            },
+            "str": {
+                "mod": 2
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 17
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "electricity"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 20
+                    }
+                ],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 2
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Electrovores consume electricity as their sole source of sustenance. On their native planet, they fed on a species of three-headed electric eels, but volcanic activity wiped out their food source, sending electrovores to the brink of extinction. Electrovores found their salvation when explorers landed on their planet. The explorer's equipment and vessels had ample amounts of the electricity that the electrovores require. They stowed away on the vessels and soon spread throughout the Pact Worlds, causing damage and mayhem wherever they appeared.</p>\n<p>Nothing terrifies a team of engineers more than finding an electrovore chewing on wires in a remote part of their starship. Where there's one electrovore, a dozen more likely await discovery. These 3-foot-tall reptilian creatures, sometimes called \"conduit rats,\" breed rapidly and create such a disturbance in power sources that, over the course of days or weeks, a starship or factory might completely shut down from lack of power. There are many lifeless star vessels adrift in space because an electrovore infestation wasn't stopped in time.</p>\n<p>Removing an infestation is no easy task, as electrovores are single-minded and cunning. The creatures are adept at finding places to hide, stalking their preferred energy sources and finding the correct moment to strike. Packs of electrovores even coordinate feedings in different areas at the same time to make it harder to stop them.</p>\n<p>When confronted, electrovores rarely fight to the death, preferring to eat some electricity and retreat, hide, and heal, then return for another feast.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": " electricsense (imprecise) 60 feet",
+            "mod": 7,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 5
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 8
+            },
+            "athletics": {
+                "base": 6
+            },
+            "stealth": {
+                "base": 8
+            },
+            "survival": {
+                "base": 5
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "beast"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -115,19 +115,19 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
     }
 
     override async getData(options: Partial<ActorSheetOptions> = this.options): Promise<ActorSheetDataPF2e<TActor>> {
+        const actor = this.actor;
         options.id ||= this.id;
         options.editable = this.isEditable;
         options.sheetConfig &&=
-            Object.values(CONFIG.Actor.sheetClasses[this.actor.type]).filter((c) => c.canConfigure).length > 1;
-        const actor = this.actor;
+            Object.values(CONFIG.Actor.sheetClasses[actor.type]).filter((c) => c.canConfigure).length > 1;
 
-        for (const item of [...actor.itemTypes.action, ...this.actor.itemTypes.feat]) {
+        for (const item of [...actor.itemTypes.action, ...actor.itemTypes.feat]) {
             if (item.system.selfEffect) {
                 item.system.selfEffect.img ??= fromUuidSync<ItemPF2e>(item.system.selfEffect.uuid)?.img ?? null;
             }
         }
 
-        const actorData = { ...actor, _id: this.actor.id, system: fu.deepClone({ ...actor.system }) };
+        const actorData = { ...actor, _id: actor.id, system: fu.deepClone({ ...actor.system }) };
         // Alphabetize displayed IWR
         const iwrKeys = ["immunities", "weaknesses", "resistances"] as const;
         const attributes: Record<(typeof iwrKeys)[number], { label: string }[]> = actorData.system.attributes;
@@ -154,23 +154,25 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
         const sheetData: ActorSheetDataPF2e<TActor> = {
             actor: actorData,
-            cssClass: this.actor.isOwner ? "editable" : "locked",
+            cssClass: actor.isOwner ? "editable" : "locked",
             data: actorData.system,
-            document: this.actor,
+            document: actor,
             editable: this.isEditable,
+            systemId: SYSTEM_ID,
+            systemFlags: actor.flags[SYSTEM_ID],
             effects: [],
             enrichedContent: {},
             inventory: this.prepareInventory(),
             isLootSheet: this.isLootSheet,
-            isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:off-guard"],
+            isTargetFlatFooted: !!actor.rollOptions.all["target:condition:off-guard"],
             items: [], // No longer used but part of type signature
-            limited: this.actor.limited,
+            limited: actor.limited,
             options,
-            owner: this.actor.isOwner,
+            owner: actor.isOwner,
             title: this.title,
             toggles,
             currency: this.#prepareCurrency(),
-            traits: createSheetTags(traitsMap, { value: this.actor.system.traits?.value ?? [] }),
+            traits: createSheetTags(traitsMap, { value: actor.system.traits?.value ?? [] }),
             user: { isGM: game.user.isGM },
             publicationLicenses: [
                 { label: "PF2E.Publication.License.OGL", value: "OGL" },
@@ -1089,12 +1091,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
             // ... a crafting formula?
             if ("isFormula" in baseDragData) {
-                return {
-                    pf2e: {
-                        type: "CraftingFormula",
-                        itemUuid: itemId,
-                    },
-                };
+                return { [SYSTEM_ID]: { type: "CraftingFormula", itemUuid: itemId } };
             }
 
             // ... a spell?

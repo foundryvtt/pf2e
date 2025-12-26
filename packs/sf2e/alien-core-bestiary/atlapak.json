@@ -1,0 +1,491 @@
+{
+    "_id": "SvYigKeubRXwnCTF",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "2Vh3aaC98f2OQcVs",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Claw Bash",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "jm3Gj6IPWMNyDZ8t": {
+                        "damage": "2d6+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "GbETgHEXGHMoa0B0",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Sonic Snap",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "vwIGG4mEY9KJD9d7": {
+                        "damage": "2d10+6",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 80,
+                    "max": null
+                },
+                "rules": [],
+                "slug": "sonic-snap",
+                "traits": {
+                    "value": [
+                        "deadly-d10",
+                        "volley-30"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "38FSW1r11mRRENhY",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Aerial Buoyancy",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The atlapak can \"swim\" through the air in a thick atmosphere by inflating its lightweight body. Its fly Speed is reduced by half in a normal atmosphere, and it loses its fly Speed entirely while in an environment with a thin atmosphere or no atmosphere.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "SF2E.NPCAbility.Atlapak.AerialBuoyancy.Atmosphere",
+                        "option": "atmosphere",
+                        "selection": "thick",
+                        "suboptions": [
+                            {
+                                "label": "SF2E.NPCAbility.Atlapak.AerialBuoyancy.Thick",
+                                "value": "thick"
+                            },
+                            {
+                                "label": "SF2E.NPCAbility.Atlapak.AerialBuoyancy.Normal",
+                                "value": "normal"
+                            },
+                            {
+                                "label": "SF2E.NPCAbility.Atlapak.AerialBuoyancy.Thin",
+                                "value": "thin"
+                            },
+                            {
+                                "label": "SF2E.NPCAbility.Atlapak.AerialBuoyancy.None",
+                                "value": "none"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "atmosphere:thick"
+                        ],
+                        "selector": "fly",
+                        "value": 20
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "atmosphere:normal"
+                        ],
+                        "selector": "fly",
+                        "value": 10
+                    }
+                ],
+                "slug": "aerial-buoyancy",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Odz4qmDLxFN3Gj0S",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Aquatic Ambush",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>35 feet</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.AquaticAmbush]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "aquatic-ambush",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "aquatic-ambush"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "strike-damage"
+                        ],
+                        "uuid": "Compendium.sf2e.conditions.Item.Off-Guard"
+                    }
+                ],
+                "slug": "aquatic-ambush",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7KVHhHuPffg36Gpl",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Cavitation Blast",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The atlapak makes a sonic snap Strike with a +1 circumstance bonus to its attack roll. The range increment for this Strike increases to 125 feet, and the Strike ignores up to 5 Hardness, or 250 feet and 10 Hardness in a thick atmosphere.</p><hr /><p>On a critical hit, the target must attempt a @Check[fortitude|dc:23] or @Check[fortitude|dc:25] save in a thick atmosphere.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "cavitation-blast",
+                        "toggleable": true
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "remove",
+                        "predicate": [
+                            "cavitation-blast",
+                            "item:slug:sonic-snap"
+                        ],
+                        "property": "traits",
+                        "value": "range-increment-80"
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "cavitation-blast",
+                            "item:slug:sonic-snap"
+                        ],
+                        "property": "traits",
+                        "value": "range-increment-125"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "l94x8qFRD2pJfaBj",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Dense Atmosphere Dependent",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>An atlapak's sonic snap is most effective in thick atmosphere or underwater. In normal or thin atmosphere, the range increments of its Cavitation Blast and sonic snap Strike are reduced by half, its Cavitation Blast ignores only up to 5 Hardness, and the DC for its Cavitation Blast decreases by 2. An atlapak's sonic snap Strike can't function in environments with no atmosphere.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "dense-atmosphere-dependent",
+                        "toggleable": true
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "remove",
+                        "predicate": [
+                            "item:slug:sonic-snap",
+                            "dense-atmosphere-dependent",
+                            {
+                                "not": "cavitation-blast"
+                            }
+                        ],
+                        "priority": 125,
+                        "property": "traits",
+                        "value": "range-increment-80"
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:slug:sonic-snap",
+                            "dense-atmosphere-dependent",
+                            {
+                                "not": "cavitation-blast"
+                            }
+                        ],
+                        "priority": 125,
+                        "property": "traits",
+                        "value": "range-increment-40"
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "remove",
+                        "predicate": [
+                            "item:slug:sonic-snap",
+                            "dense-atmosphere-dependent",
+                            "cavitation-blast"
+                        ],
+                        "priority": 125,
+                        "property": "traits",
+                        "value": "range-increment-125"
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:slug:sonic-snap",
+                            "dense-atmosphere-dependent",
+                            "cavitation-blast"
+                        ],
+                        "priority": 125,
+                        "property": "traits",
+                        "value": "range-increment-60"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Atlapak",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 26
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 160,
+                "temp": 0,
+                "value": 160
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "deafened"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "sonic",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "details": "see aerial buoyancy",
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 25
+                    }
+                ],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 9
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Atlapaks are aquatic ambush predators renowned for their ability to create a sonic pulse that can stun or kill targets from hundreds of feet away. These enormous arthropods have banded shells, three compound eyes on movable stalks, a dexterous right claw for grasping and tearing, and an oversized, highly specialized left claw that generates a cavitation bubble when it snaps shut, which then implodes with crushing force. The atlapak uses plates on its carapace to direct the resulting sonic burst toward prey with uncanny accuracy.</p>\n<p>Despite their animalistic intelligence, atlapaks have an instinctive understanding of ballistics and fluid dynamics. Their antennae detect subtle changes in currents and fluid density, allowing them to detect moving targets from a great distance and calibrate their cavitation blasts accordingly. Their compound eyes detect multiple wavelengths of light and provide incredible depth perception comparable to advanced sniper scopes.</p>\n<p>Atlapaks prefer sheltered burrows that provide commanding views, such as coral reefs or low hills where they can conceal themselves and pick off prey at a distance. Though they typically stay in the silt of their underwater lairs, atlapaks can range far to mate. Historically, a spawning atlapak sticks fertilized eggs onto migrating megafauna that carry their offspring to new environs with unclaimed territory and resources. In the modern era, this behavior has led to eggs being stuck to the hulls of ships, where they can survive even in humid terrestrial environments. Juvenile atlapaks sometimes haunt a jungle or coast before returning to the safety of the ocean.</p>\n<p>Atlapaks can grow up to 10 feet long, while juveniles are typically at least 5 feet long. Their predatory instincts kick in almost immediately after birth.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 21,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 120,
+                    "type": "wavesense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 15
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 18
+            },
+            "athletics": {
+                "base": 18
+            },
+            "stealth": {
+                "base": 20
+            },
+            "survival": {
+                "base": 16
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "amphibious",
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}

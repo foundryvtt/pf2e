@@ -1,0 +1,355 @@
+{
+    "_id": "P4cBLtXZErTqGVY8",
+    "folder": "oR8sKPLKRm404ky2",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "7FPjP3G33Th1aegq",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Leg Blade",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "IeMCXbu0NImikqx2": {
+                        "damage": "1d6+3",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "OyeXfcX1eZ0CHTai",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Acid Dart Rifle",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "1NmCOezcv4nwwwFA": {
+                        "damage": "1d8",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 80,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "analog"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "nKHxqF2F0FewRMvB",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "All-Around Vision",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.flanking.flankable",
+                        "value": false
+                    }
+                ],
+                "slug": "all-around-vision",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nMAqz56YYqRaCnef",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Aim",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Hura aims with their melee or ranged weapon (choose one) against a target within 60 feet. For the rest of their turn, successful attacks made with that weapon deal an additional 1d4 precision damage and reduce the target's cover bonus to AC by 1.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "aim-weapon",
+                        "predicate": [
+                            "self:effect:aim"
+                        ],
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAttackMelee",
+                                "value": "melee"
+                            },
+                            {
+                                "label": "PF2E.NPCAttackRanged",
+                                "value": "ranged"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "aim-weapon",
+                            "item:{item|flags.sf2e.rulesSelections.aimWeapon}"
+                        ],
+                        "property": "other-tags",
+                        "value": "aim"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.sf2e.operative.aim.diceNumber",
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.sf2e.operative.aim.dieSize",
+                        "value": 4
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.sf2e.operative.aim.coverReduction",
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.sf2e.operative.aim.rangeIncrement",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "58Zk9x8As1NHOcJK",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Strider Leap",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The jinsul Strides and then performs a @UUID[Compendium.sf2e.actions.Item.Long Jump]. It can Stride less than 10 feet and not automatically fail its Long Jump check.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Warlord Hura",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 4
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "all-around vision",
+                "value": 16
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 19,
+                "temp": 0,
+                "value": 19
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 30
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "jinsul"
+                ]
+            },
+            "level": {
+                "value": 1
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Warlord Hura is a minor jinsul commander who made a power grab in the chaos after the false hierarchy's fall. Still hungry to acquire whatever power they can, they're desperate to learn how Agent Z's stolen relic works; while they're uncharacteristically willing to negotiate with non-jinsuls who cross their path, given the circumstances, Hura will gladly torture and betray anyone who stands in the way of achieving their goals.</p><hr /><p>A few scattered groups of jinsuls have established isolated bases on Aballon. Most are small squads of troopers attached to an officer, usually a mystic or tactical leader who they all respect or fear and have agreed to serve.</p><h2>Teardrop Ice Well Jinsuls</h2><p>The jinsuls in this adventure follow a commander called Warlord Hura. On the verge of a hostile takeover of a neighboring system controlled by a weaker warlord, Hura was positioned to significantly expand their holdings in Near Space—until the Drift Crisis spat them and their loyal crew out in Pact Worlds space over Aballon. Crashing on an inhospitable world deep behind enemy lines, Hura and their followers fled underground from the brutal sun. The jinsuls gradually carved tunnels into the rock, some wearing their leg blades down until they were smooth, before they finally emerged into an underground cave—Teardrop Ice Well.</p><h2>Undercurrents of Mutiny</h2><p>Over time, under the oppressive conditions of the Ice Well, facing hazards both natural and supernatural, Hura and their followers grew weaker, more isolated, and more desperate than others of their kind. It's only a matter of time before Hura's sworn blades—conditioned from birth to protect them—abandon everything they believe in, kill their leader, and flee in search of salvation and spoils elsewhere.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Murder in Metal City Deluxe Adventure"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 9,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 8
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 6
+            },
+            "computers": {
+                "base": 5
+            },
+            "crafting": {
+                "base": 5
+            },
+            "diplomacy": {
+                "base": 7
+            },
+            "intimidation": {
+                "base": 7
+            },
+            "survival": {
+                "base": 3
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "jinsul"
+            ]
+        }
+    },
+    "type": "npc"
+}

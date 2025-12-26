@@ -1,0 +1,202 @@
+{
+    "_id": "2o6qunyUOOfnn6N6",
+    "folder": "oR8sKPLKRm404ky2",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Z8skA0xzBd2iRyww",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Detect Prey",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature comes within 60 feet of the dewblossom</p><hr /><p><strong>Effect</strong> The dewblossom's sensitive root network detects vibrations created by the PCs' movements. The dewblossom opens its luring flower; creatures within 100 feet must attempt a @Check[will|dc:15] save. On a failure, the creature must spend its next action to move as close to the dewblossom as possible (or its next two actions on a critical failure). Then, the dewblossom rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "olfactory"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KmseQlSky9scY9oJ",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Thorn Dart",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 60 feet damages the dewblossom with an attack</p><hr /><p><strong>Effect</strong> The dewblossom fires a thorn dart at the triggering creature. The target takes @Damage[1d4[piercing]] damage (@Check[reflex|dc:17|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5A3UhuIQgnnIDsfD",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Vine Snatch",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "rancid-grip"
+                    ]
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "LPlEcDuHmgGYfxNn": {
+                        "damage": "1d6+3",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-30"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "9Lzei30SCO4WmZXW",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Rancid Grip",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The target is trapped in the dewblossom's crushing flower, gaining the @UUID[Compendium.sf2e.conditions.Item.Grabbed] condition until it [[/act escape dc=17]]{Escapes}. At the end of each of the target's turns that it remains grabbed, the target takes @Damage[(1d6+3)[poison]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Dewblossom",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 13
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 24,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 8
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 3
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>A fragrant aroma beckons the senses toward a smooth bed of soft moss. In its center, a beautiful flower is opening to catch the light—its shimmering velvet petals have nearly unfurled. A stamen curls out in slow spiral motion, and the alluring scent sours to the stench of rancid meat and feces.</p>",
+            "disable": "<p>@Check[athletics|dc:14] (trained) to wrestle the dewblossom's vines, @Check[acrobatics|dc:14] (trained) to dodge around it, @Check[nature|dc:13] (trained) to entice the flower to cease its attacks; four total successes are required to disable the hazard, or dealing enough damage to the dewblossom to reduce it to half its HP (whichever comes first). A creature who succeeds at any of these checks gains a +2 circumstance bonus to saves and AC against its attacks.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Murder in Metal City Deluxe Adventure"
+            },
+            "reset": "<p>The dewblossom stops attacking when it's disabled, 1 minute after it detects prey, when it's reduced to half HP, or when its victim is @UUID[Compendium.sf2e.conditions.Item.Unconscious]. It spits out its victim (if conscious), uproots, tucks its leaves around its body, and rolls away with a land speed of 100 feet per round. It resets after 1 hour (or 1 day if it needs to digest its meal).</p>",
+            "routine": "<p>(1 action) The dewblossom makes a vine snatch attack against the nearest creature.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 8
+            },
+            "reflex": {
+                "value": 2
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

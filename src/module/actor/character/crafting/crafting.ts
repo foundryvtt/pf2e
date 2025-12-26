@@ -101,8 +101,8 @@ class CharacterCrafting {
         }
 
         // Update the actor's flags to not be set to complete
-        const wasDailyCraftingComplete = actor.flags.pf2e.dailyCraftingComplete;
-        await actor.update({ "flags.pf2e.dailyCraftingComplete": false }, { render: false });
+        const wasDailyCraftingComplete = actor.flags[SYSTEM_ID].dailyCraftingComplete;
+        await actor.update({ [`flags.${SYSTEM_ID}.dailyCraftingComplete`]: false }, { render: false });
 
         // Re-render any actor sheets if anything changed
         if (
@@ -163,7 +163,7 @@ class CharacterCrafting {
         }
 
         // Add the items. There will always be items to add if it go to here, and that will trigger the re-render
-        await actor.update({ "flags.pf2e.dailyCraftingComplete": true }, { render: false });
+        await actor.update({ [`flags.${SYSTEM_ID}.dailyCraftingComplete`]: true }, { render: false });
         await actor.inventory.add(itemsToAdd, { stack: true });
         ui.notifications.info("PF2E.Actor.Character.Crafting.Daily.Complete", { localize: true });
     }

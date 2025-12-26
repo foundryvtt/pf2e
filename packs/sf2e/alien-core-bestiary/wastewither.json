@@ -1,0 +1,332 @@
+{
+    "_id": "TvSLqbhQ9tZ3Ptp8",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "dgSFvAIlkvX20VZy",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Wave",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "G3768mjCszIN9TKB": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "acid"
+                    },
+                    "sHqtSe85gKVOEGkn": {
+                        "damage": "2d8+7",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "KwMFHcF7DGFDFBm1",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Toxic Exhaust",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>15 feet. A poisonous mist lingers around the wastewither. When a creature enters or starts its turn in the aura, it must attempt a @Check[fortitude|dc:23] save. If the creature fails, it's @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 1} and @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 1} until it leaves the aura. Environmental protections or an appropriate spell provides a +2 circumstance bonus to saves against the aura.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aUxWLJAlEDTFfqpV",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Acid Rain",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The wastewither vaporizes into a cloud and rains down acid drops. The wastewither Flies up to twice their Speed. Any creature the wastewither passes over takes @Damage[9d8[acid]] damage with a @Check[fortitude|dc:23|basic] save. A wastewither can't use Acid Rain again for [[/gmr 1d4 #Recharge Acid Rain]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "acid",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jRcxGv3KFNIMg0dn",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Contaminated Sludge",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> All terrain in a @Template[type:emanation|distance:30] becomes difficult terrain for 1 minute. All creatures that enter or begin their turn in the affected area must attempt a @Check[fortitude|dc:23] save or become @UUID[Compendium.sf2e.conditions.Item.Drained]{Drained 1}. This drained value is cumulative, to a maximum of @UUID[Compendium.sf2e.conditions.Item.Drained]{Drained 4}.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KCXpQeI1bEv0ikwX",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Swallow Whole",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Medium, @Damage[(2d8+12)[bludgeoning]] plus @Damage[(2d6)[acid]], Rupture 21</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "swallow-whole",
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Wastewither",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": 1
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 24
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 170,
+                "temp": 0,
+                "value": 170
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "acid"
+                },
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "drained"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "sleep"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 25
+                    }
+                ],
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "electricity",
+                    "value": 8
+                },
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 8
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "thalassic"
+                ]
+            },
+            "level": {
+                "value": 8
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>When left untreated for too long, standing industrial wastewater attracts wastewithers from the elemental Plane of Water as it evaporates. Wastewithers contaminate everything they touch, turning solid ground and clean water into sludge. Many corporate dumping sites and toxic spills attract or spawn wastewithers, whose mere presence further contaminates the ecosystem.</p><hr /><p>Elementals are energetic intrusions from the primal planes of existence. They take many forms, from mindless eddies in the wind or water to complex entities capable of wielding primal magic. The advent of space travel and the progress of technology have allowed even more living embodiments of the elements to manifest in the Universe.</p>\n<p>Natural events like wildfires, solar storms, and floods can unleash hordes of unruly elementals on a planet or into a region of space. Sometimes, a gathering of powerful elementals causes a natural disaster on an epic scale, like an off-the-charts solar flare that fries a planet's power grid or a ceaseless storm swirling in a gas giant's atmosphere.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "darkvision",
+            "mod": 13,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 13
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 18,
+                "special": []
+            },
+            "stealth": {
+                "base": 16,
+                "special": [
+                    {
+                        "base": 18,
+                        "label": "in water"
+                    }
+                ]
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "elemental",
+                "water"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -27,7 +27,7 @@ export interface ItemOriginFlag {
 }
 
 type ChatMessageFlagsPF2e = ChatMessageFlags & {
-    pf2e: {
+    [SYSTEM_ID]: {
         damageRoll?: DamageRollFlag;
         context?: ChatContextFlag;
         origin?: ItemOriginFlag | null;
@@ -37,9 +37,7 @@ type ChatMessageFlagsPF2e = ChatMessageFlags & {
         journalEntry?: DocumentUUID | null;
         appliedDamage?: AppliedDamageFlag | null;
         treatWoundsMacroFlag?: { bonus: number };
-        [key: string]: unknown;
     };
-    core: NonNullable<ChatMessageFlags["core"]>;
 };
 
 type ChatContextFlag =

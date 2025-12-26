@@ -1,0 +1,463 @@
+{
+    "_id": "2PVFsdaTR9mTfCid",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "C2S204F4g8ZE5Tvo",
+            "folder": "cJoNKs2FMCJkyEDK",
+            "img": "systems/sf2e/icons/equipment/other/walkie-talkie.webp",
+            "name": "Comm Unit",
+            "sort": 100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A personal comm unit is a pocket-sized device that combines a minor portable computer and a cellular communications device, allowing instantaneous wireless communication with other comm units in both audio- and text-based formats at planetary range. A personal comm unit also includes a calculator, a flashlight (emits bright light in a 5-foot radius around you and dim light in the next 5 feet), a browser that accesses any local infospheres, and several entertainment options (including games).</p>\n<p>Personal comm units integrated into armor have some voice-activated capabilities; you can communicate with other comm units in audio-based formats and receive responses without needing a free hand, but typing a message, browsing the infosphere, or using an app requires the use of at least one hand.</p>\n<p>Comm units that function at longer ranges aren't as portable; they include built-in generators that provide the necessary amount of power and rely on active Drift beacons to communicate. Short-term use of these units can be purchased in most major settlements.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 7
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "flashlight"
+                        ],
+                        "value": {
+                            "alpha": 0.45,
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 2,
+                                "type": "flame"
+                            },
+                            "attenuation": 0.4,
+                            "bright": 5,
+                            "color": "#ffae3d",
+                            "dim": 10,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "key": "RollOption",
+                        "label": "Comm Unit - Flashlight",
+                        "option": "flashlight",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "value": "systems/sf2e/icons/equipment/other/flashlight-yellow.webp"
+                    }
+                ],
+                "size": "med",
+                "slug": "comm-unit",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "tech"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "dMx5LA1Yse6PjPua",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Shriek",
+            "sort": 200000,
+            "system": {
+                "action": "area-fire",
+                "area": {
+                    "type": "cone",
+                    "value": 15
+                },
+                "attackEffects": {
+                    "value": [
+                        "necrotic-transmission"
+                    ]
+                },
+                "bonus": {
+                    "value": 5
+                },
+                "damageRolls": {
+                    "dZY6MS8qfKWmBGQm": {
+                        "damage": "1d6",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "XKKL2A88xYKFNzv9",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 300000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "nkfQTta3bxBaoEOx": {
+                        "damage": "1d6+2",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "lz8ukqIBxntQwpab",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Aligned Comm Unit",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The comm unit of a necrolinked wight can be disabled for 1 hour with a successful DC 15 check to Disable a Device or Disable a System. A necrolinked wight with a disabled comm unit is @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 1}, gains a +6 bonus to Perception, and can't Check its Feed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NgglmyKPocbcUUz9",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Social Media Addiction",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The necrolinked wight is driven by a desire to continue their cycles of spiteful hatred and media consumption on the infosphere. They spend their first action of each round to Check Feed. Eternally obsessed, a necrolinked wight will always try to stay within range of an active infosphere signal. A necrolinked wight with no infosphere access or perceived threats functions as if their aligned comm unit was disabled and does whatever it can to regain infosphere access.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "myGoF2dHhFhgcreJ",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Check Feed",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The necrolinked wight looks up information on their aligned comm unit about a specific creature using Computers instead of any other skill. On a success, the creature takes a –2 status penalty to its next Will save against necrotic transmission for 1 minute ( –3 status penalty on a critical success).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RgJr6uWau8iuxXvg",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Necrotic Transmission",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature that takes damage from a necrolinked wight's Shriek must succeed at a @Check[will|dc:15] save, or its subconscious is scanned and used to infect its non-augmentation tech items with a virus. Infected tech items display algorithmically generated content catering specifically to the creature's deepest desires, causing the creature to become @UUID[Compendium.sf2e.conditions.Item.Off-Guard] as long as they're holding or wearing the tech item. On a critical failure, the creature is also @UUID[Compendium.sf2e.conditions.Item.Fascinated], and all creatures and objects other than the tech item are @UUID[Compendium.sf2e.conditions.Item.Concealed] from the creature. The creature or its allies can end the effect on any specific tech item by Interacting to reboot the affected item and succeeding at a @Check[computers|dc:15] check; on a failure, the item becomes glitching 1 (glitching 2 on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "occult",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KnTaUJpnAyBNXfFG",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Spawn Registration",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A living creature that dies while @UUID[Compendium.sf2e.conditions.Item.Fascinated] by necrotic transmission rises as a necrolinked wight after [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Necrolinked Wight",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": -3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "special",
+                "value": 15
+            },
+            "adjustment": null,
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 20,
+                "temp": 0,
+                "value": 20
+            },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 1
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Hollow-eyed undead born from those who died obsessing over social media, necrolinked wights wander both the living and virtual worlds, desperate for engagement and relevance. They're incapable of seeing living creatures as anything more than potential followers, hunting those who engage with technology in the hopes of turning them into obsessed fans. They constantly wail in a condensed magitech code as though screeching at some long-forgotten online debate in an attempt to grab the attention of others by overriding devices with content supernaturally configured to vie for attention. Yet as soon as their victims become necrolinked, they lose interest, driven by the same dark necrotic algorithm.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": -3,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 4
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 6,
+                "special": []
+            },
+            "computers": {
+                "base": 7,
+                "special": []
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

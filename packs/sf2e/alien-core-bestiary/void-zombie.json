@@ -1,0 +1,305 @@
+{
+    "_id": "Yt8VLqsyeOufXTap",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "4eJg9N0UmfD2Yt6C",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "xs5fzqhj1sbpq5t2kw2a": {
+                        "damage": "1d6+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "newbZPBnDfEIJX5y",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Feeding Tendril",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "feed-on-blood"
+                    ]
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "qn7bahapr9ob5e7l0mal": {
+                        "damage": "1d4+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "mdEZdShzE63nlTQK",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Salt Water Vulnerability",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Salt water quickly attacks a larval akata's cells as a strong acid. If the void zombie is fully immersed in salt water, it takes @Damage[4d6[acid]] damage from the water immediately and at the end of each of its turns as long as it remains immersed. Its weakness to salt water applies to this damage. On any round in which the void zombie takes damage due to its salt water weakness, the larval akata withdraws to hide within the host's body and renders the void zombie @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "W7bXRQuNuOabEMJg",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "19Ayra6rX2M49iPG",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Feed on Blood",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The void zombie's previous action was a successful feeding tendril Strike against a living creature</p><hr /><p><strong>Effect</strong> The void zombie drains blood from the required creature using its feeding tendril. The void zombie regains @Damage[4[healing]] Hit Points, and the creature is @UUID[Compendium.sf2e.conditions.Item.Drained]{Drained 1} until it receives healing of any kind or amount.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "feed-on-blood",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Void Zombie",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": -2
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 13
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "(void healing)",
+                "max": 26,
+                "temp": 0,
+                "value": 26
+            },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "type": "salt-water",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 2
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 1
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>When an akata bites a humanoid, it infests them with microscopic, parasitic larvae. Those who perish from this parasitization, a condition known as void death, rise again as void zombies. While they resemble a typical rotting corpse, an elongated bluish-gray feeding tendril extends from their shattered lower jaw. When the immature akata within the body senses potential prey, this tendril often undulates and writhes with nauseating eagerness.</p>\n<p>Once the host body dies, the larvae feed on each other until the strongest makes its way to the victim's brain. After several hours of rapid gestation, it attaches to the brain and infuses it with a mote of necromantic energy. This process leaves the larva ravenous, driving it to consume the blood of living creatures. Void zombies tend to last several weeks as the larva grows, but eventually its host compels it to seek out a safe, secluded place where it can disgorge the larva for one last surge of growth before the host body goes inert. Several hours later, a fully formed akata emerges from the frothing puddle, typically consuming the corpse as its first meal.</p>\n<p>In general, akatas leave void zombies alone, and the larval parasites attempt to spread out to avoid competing for food. In a confined and undisturbed space, void zombies stand completely still to conserve energy. The juvenile akatas within become dormant and feed on the host body's tissue until they either reach maturity or sense a viable food source. Given the void zombie's relatively short existence, those who stumble upon a previous attack might find the void zombies already devoured or discarded and an eerie colony of silent, glassy cocoons full of ravenous hibernating akatas instead.</p>\n<p>Void zombies tend to ignore other undead, but they become inexplicably aggressive when confronted with other creatures that are infested by parasites or otherwise controlled or influenced by external forces. Many have tried experimenting with void zombie behavior by forcing them to confront, for example, a rendworm host or a creature under the thrall of a spellcaster. Most such experiments end inconclusively at best, and many have ended in disaster.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 3,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 3
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 5
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 6
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

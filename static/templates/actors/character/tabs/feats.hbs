@@ -5,7 +5,9 @@
                 {{localize section.label}}
                 {{#with section.customLimit}}
                     <span class="limit">
-                        ({{localize label}} <input type="number" name="{{concat "flags.pf2e.featLimits." section.id}}" value="{{section.limit}}" min="{{min}}" max="{{max}}" step="1"/>)
+                        ({{localize label}} <input type="number"
+                                                   name="{{concat "flags." @root.systemId ".featLimits." section.id}}"
+                                                   value="{{section.limit}}" min="{{min}}" max="{{max}}" step="1" />)
                     </span>
                 {{/with}}
                 <div class="controls">

@@ -56,7 +56,7 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
                 ...actor.itemTypes.feat.filter(
                     (f) =>
                         f.category === "classfeature" &&
-                        !(f.flags.pf2e.grantedBy && actor.items.has(f.flags.pf2e.grantedBy.id)),
+                        !(f.flags[SYSTEM_ID].grantedBy && actor.items.has(f.flags[SYSTEM_ID].grantedBy.id)),
                 ),
             ]),
         );

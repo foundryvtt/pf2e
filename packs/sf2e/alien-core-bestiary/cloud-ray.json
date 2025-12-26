@@ -1,0 +1,356 @@
+{
+    "_id": "CdNumfS6YHCQXnrg",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "2PBaerJPxjtWiXI7",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "stunning-lash"
+                    ]
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "PJI0WrMjw02a32r8": {
+                        "damage": "3d6",
+                        "damageType": "electricity"
+                    },
+                    "w0nzRQI5fdAYvsCa": {
+                        "damage": "3d10+8",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-20"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "eGmvSl1SL37Xx9G2",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Explosive Death",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>If a cloud skate dies due to fire or electricity damage, its internal reservoirs of explosive gases and combustible fluids detonate in a @Template[type:emanation|distance:20] that deals @Damage[11d8[fire]|options:area-damage] damage (@Check[reflex|dc:30|basic|options:area-effect] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qDSRPJhLu5y7lBEG",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Engulf",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Check[reflex|dc:30], @Damage[(3d8+8)[bludgeoning]] damage, [[/act escape dc=30]], Rupture 25</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "engulf",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "98fygCslZZaeLMZI",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Lash Out",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The cloud ray makes two consecutive tail lash Strikes at a –2 penalty against any targets within reach. These attacks count toward the cloud ray's multiple attack penalty, but the multiple attack penalty doesn't increase until after it makes all its attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "tail-attack-roll",
+                        "key": "RollOption",
+                        "option": "lash-out",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "lash-out"
+                        ],
+                        "selector": [
+                            "tail-attack-roll"
+                        ],
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HFWt0uRFQyXWxanb",
+            "img": "systems/sf2e/icons/actions/FreeAction.webp",
+            "name": "Natural Thruster",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> Until the beginning of its next turn, the cloud skate gains a +80-foot status bonus to its fly Speed and deals an additional 1d10 slashing damage with its tail Strikes.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "upgrade",
+                        "selector": "fly-speed",
+                        "slug": "natural-thruster",
+                        "value": 80
+                    }
+                ],
+                "selfEffect": {
+                    "name": "Effect: Natural Thruster",
+                    "uuid": "Compendium.sf2e.bestiary-effects.Item.Effect: Natural Thruster"
+                },
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "c7ZeUIk7gcAPNqhu",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Stunning Lash",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature that takes electricity damage from a cloud ray's tail Strike is @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 1} (@UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 2} on a critical hit), then becomes temporarily immune to stunning lash for 1 minute. Creatures with a weakness to electricity don't become temporarily immune.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "electricity"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Cloud Ray",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -1
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 8
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 34
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 180,
+                "temp": 0,
+                "value": 180
+            },
+            "resistances": [
+                {
+                    "type": "electricity",
+                    "value": 12
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 80
+                    }
+                ],
+                "value": 5
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 12
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 13
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Enormous cloud rays are apex predators on gas giants such as Bretheda and Liavara. Cloud rays are incredibly maneuverable and can fly through the atmosphere at speeds few can match, rendering them nearly inescapable when on the hunt.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 21,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 19
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 25
+            },
+            "athletics": {
+                "base": 27
+            },
+            "stealth": {
+                "base": 23
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}

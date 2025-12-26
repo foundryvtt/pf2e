@@ -1,0 +1,136 @@
+{
+    "_id": "QPmLfay4U6Rd9fWl",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "VvC1Pvjcq3ba3hEb",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Spiky Collapse",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature other than a scrap rat enters the area of the junk warren</p><hr /><p><strong>Effect</strong> The warren collapses in on the creature, making a melee strike with an attack modifier of +5. If the trap was undetected, the creature is @UUID[Compendium.sf2e.conditions.Item.Off-Guard] against this attack.</p><hr /><p><strong>Critical Success</strong> The creature takes double damage and gains the @UUID[Compendium.sf2e.conditions.Item.Restrained] condition until the end of its next turn ([[/act escape dc=15]]).</p>\n<p><strong>Success</strong> The creature takes @Damage[1d6[piercing]] damage and gains the @UUID[Compendium.sf2e.conditions.Item.Grabbed] condition until the end of its next turn ([[/act escape dc=15]]).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "drsafwhsvZCOWXLQ",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Collapse",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 5
+                },
+                "damageRolls": {},
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Scrap Warren",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "emitsSound": "encounter",
+            "hardness": 3,
+            "hp": {
+                "details": "",
+                "max": 12,
+                "temp": 0,
+                "value": 12
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 5
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A large 5-foot-high pile of junk towers above the ground with holes in it big enough for only rats to squeeze through.</p>",
+            "disable": "<p>@Check[thievery|dc:12] to stabilize the junk pile, @Check[survival|dc:14] to collapse it down on itself, or @Check[athletics|dc:16] to smash through it without setting it off</p>",
+            "isComplex": false,
+            "level": {
+                "value": 0
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Guilt of the Grave World"
+            },
+            "reset": "",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 3
+            },
+            "reflex": {
+                "value": 1
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

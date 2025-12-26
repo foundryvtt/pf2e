@@ -1,0 +1,95 @@
+{
+    "_id": "VvyDUDHXMnJSKO6o",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "l15HrTIvPylSC7Ls",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Demolish",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The kyokor (or other kaiju) applies any amount of force to the structure</p><hr /><p><strong>Effect</strong> The building trembles. The floors of the building and the streets within 30 feet of the building become difficult terrain; creatures on this difficult terrain take a –2 circumstance penalty to attack rolls, AC, and skill checks. The hazard rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Collapsing Structure",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master) to notice cracks forming in the walls of the structure as the kyokor (or another kaiju) approaches.</p>",
+                "value": 10
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The kyokor (or other kaiju) grazes a structure, severely compromising the building's stability and possibly causing it to collapse.</p><hr /><p>When a kyokor passes by or through a settlement—or even attacks!—it leaves a trail of destruction that can be represented by the following hazards.</p><hr /><p>Terrifying, skyscraper-sized beasts roam the wastelands of Daimalko. Called colossi by the population, these monsters erupted from deep within the earth to stomp cities into dust, decimating the population and destroying every surface civilization on the planet in a terrifying Awakening. Kyokors are among the most dreaded colossi. There's no hope of defeating one without a valko—a war machine created by Daimalko's stubborn survivors to fight the colossi.</p>",
+            "disable": "<p>@Check[athletics|dc:43] (master), @Check[civil-engineering-lore|dc:43] (master), or @Check[crafting|dc:43] (master) check to brace the structure to reduce the risk of collapse until the end of the creature's next turn. The DC of the flat check for this round (see Routine) is increased by 4 on a success, or by 8 on a critical success. Increasing the flat check DC to 21 or higher stabilizes the structure, ending this hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 15
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            },
+            "reset": "<p>The building becomes susceptible to Demolish again [[/gmr 1d6 #rounds]]{1d6 rounds} after it's stabilized.</p>",
+            "routine": "<p>(1 action) The GM rolls a @Check[flat|dc:9] to determine if the building collapses, increasing the DC as listed in Disable. On a success, dust and debris fall within the building and 30 feet around it, providing concealment and dealing @Damage[6d6[bludgeoning]] damage to 1d4 randomly chosen targets (@Check[reflex|dc:35|basic] save); on a critical failure, a creature is also knocked @UUID[Compendium.sf2e.conditions.Item.Prone]. On a critical success on the flat check, the effect is the same, but the debris deals @Damage[12d6[bludgeoning]] damage to 2d4 randomly chosen targets instead (@Check[reflex|dc:35|basic] save); on a critical failure, a creature is knocked prone and @UUID[Compendium.sf2e.conditions.Item.Restrained] by rubble until freed (DC 38 to [[/act force-open dc=38]]; [[/act escape dc=35]]).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "kaiju",
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

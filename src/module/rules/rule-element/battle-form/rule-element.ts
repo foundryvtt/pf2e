@@ -131,12 +131,12 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
         if (this.ignored) return;
         const actor = this.actor;
         const flags = actor.flags;
-        if (flags.pf2e.polymorphed) {
+        if (flags[SYSTEM_ID].polymorphed) {
             this.ignored = true;
             return;
         }
-        flags.pf2e.polymorphed = true;
-        flags.pf2e.battleForm = true;
+        flags[SYSTEM_ID].polymorphed = true;
+        flags[SYSTEM_ID].battleForm = true;
         this.#setRollOptions();
         this.#prepareSenses();
         if (this.ignored) return;
@@ -335,7 +335,7 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
 
         actor.system.actions = actor
             .prepareAttacks({ includeBasicUnarmed: this.ownUnarmed })
-            .filter((a) => a.item.flags.pf2e.battleForm || (this.ownUnarmed && a.item.category === "unarmed"));
+            .filter((a) => a.item.flags[SYSTEM_ID].battleForm || (this.ownUnarmed && a.item.category === "unarmed"));
         const strikeActions = actor.system.actions.flatMap((s): CharacterAttack[] => [s, ...s.altUsages]);
 
         for (const action of strikeActions) {

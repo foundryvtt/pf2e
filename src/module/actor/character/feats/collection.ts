@@ -239,10 +239,10 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<string, Fe
         // put the feats in their feat slots
         const feats = this.actor.itemTypes.feat.sort((f1, f2) => f1.sort - f2.sort);
         for (const feat of feats.filter((f) => !isBoonOrCurse(f))) {
-            const grantedBy = feat.flags.pf2e.grantedBy;
+            const grantedBy = feat.flags[SYSTEM_ID].grantedBy;
             if (grantedBy && !feat.system.location) {
                 const granter = this.actor.items.get(grantedBy.id);
-                const grantsById = granter ? R.mapKeys(granter.flags.pf2e.itemGrants, (_, g) => g.id) : null;
+                const grantsById = granter ? R.mapKeys(granter.flags[SYSTEM_ID].itemGrants, (_, g) => g.id) : null;
                 const isNested = grantsById?.[feat.id]?.nested !== false;
                 if (granter?.isOfType("feat") && granter.grants.includes(feat) && isNested) {
                     continue;

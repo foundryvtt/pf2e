@@ -26,9 +26,8 @@ class ChatMessagePF2e extends ChatMessage {
         const source = super._initializeSource(data, options);
         source.flags = fu.mergeObject(source.flags, {
             core: { canPopout: source.flags.core?.canPopout ?? true },
-            pf2e: {},
+            [SYSTEM_ID]: {},
         });
-
         return source;
     }
 
@@ -42,12 +41,12 @@ class ChatMessagePF2e extends ChatMessage {
             return false;
         }
 
-        if (this.flags.pf2e.context?.type === "damage-roll") {
+        if (this.flags[SYSTEM_ID].context?.type === "damage-roll") {
             return true;
         }
 
         const isCheck = firstRoll instanceof CheckRoll || firstRoll.dice[0]?.faces === 20;
-        const fromRollTable = !!this.flags.core.RollTable;
+        const fromRollTable = !!this.flags.core?.RollTable;
         return !(isCheck || fromRollTable);
     }
 
@@ -58,7 +57,7 @@ class ChatMessagePF2e extends ChatMessage {
 
     /** If this is a check or damage roll, it will have target information */
     get target(): { actor: ActorPF2e; token: TokenDocumentPF2e<ScenePF2e> } | null {
-        const context = this.flags.pf2e.context;
+        const context = this.flags[SYSTEM_ID].context;
         if (!context) return null;
         const targetUUID = "target" in context ? context.target?.token : null;
         if (!targetUUID) return null;
@@ -73,7 +72,7 @@ class ChatMessagePF2e extends ChatMessage {
 
     /** If the message came from dynamic inline content in a journal entry, the entry's ID may be used to retrieve it */
     get journalEntry(): fd.JournalEntry | null {
-        const uuid = this.flags.pf2e.journalEntry;
+        const uuid = this.flags[SYSTEM_ID].journalEntry;
         if (!uuid) return null;
 
         const entryId = /^JournalEntry.([A-Za-z0-9]{16})$/.exec(uuid)?.at(1);
@@ -87,7 +86,7 @@ class ChatMessagePF2e extends ChatMessage {
 
     /** Does the message include a rerolled check? */
     get isReroll(): boolean {
-        const context = this.flags.pf2e.context;
+        const context = this.flags[SYSTEM_ID].context;
         return !!context && "isReroll" in context && !!context.isReroll;
     }
 
@@ -105,8 +104,8 @@ class ChatMessagePF2e extends ChatMessage {
     /** Get the owned item associated with this chat message */
     get item(): ItemPF2e<ActorPF2e> | null {
         const actor = this.speakerActor;
-        if (this.flags.pf2e.context?.type === "self-effect") {
-            const item = actor?.items.get(this.flags.pf2e.context.item);
+        if (this.flags[SYSTEM_ID].context?.type === "self-effect") {
+            const item = actor?.items.get(this.flags[SYSTEM_ID].context.item);
             return item ?? null;
         }
 
@@ -114,8 +113,8 @@ class ChatMessagePF2e extends ChatMessage {
         const strike = this._strike;
         if (strike?.item) return strike.item;
 
-        const embeddedSpell = this.flags.pf2e.casting?.embeddedSpell;
-        const origin = this.flags.pf2e.origin;
+        const embeddedSpell = this.flags[SYSTEM_ID].casting?.embeddedSpell;
+        const origin = this.flags[SYSTEM_ID].origin;
         const item =
             actor && embeddedSpell
                 ? (new ItemProxyPF2e(embeddedSpell, { parent: actor }) as ItemPF2e<ActorPF2e>)
@@ -124,7 +123,7 @@ class ChatMessagePF2e extends ChatMessage {
                   : null;
         if (!(item instanceof ItemPF2e)) return null;
         if (item?.isOfType("spell")) {
-            const entryId = this.flags.pf2e?.casting?.id ?? null;
+            const entryId = this.flags[SYSTEM_ID]?.casting?.id ?? null;
             const overlayIds = origin?.variant?.overlays;
             const castRank = origin?.castRank ?? item.rank;
             const modifiedSpell = item.loadVariant({ overlayIds, castRank, entryId });
@@ -145,14 +144,14 @@ class ChatMessagePF2e extends ChatMessage {
         if (!actor) return null;
 
         // Handle in-memory unarmed attacks
-        const origin = this.flags.pf2e.origin;
+        const origin = this.flags[SYSTEM_ID].origin;
         const parsedUUID = fu.parseUuid(origin?.uuid ?? "") ?? { id: "" };
         if (actor?.isOfType("character") && ["xxxxxxFISTxxxxxx", "xxPF2ExUNARMEDxx"].includes(parsedUUID.id)) {
             return actor?.system.actions?.find((s) => s.item.id === parsedUUID.id) ?? null;
         }
 
         // Get strike data from the roll identifier
-        const context = this.flags.pf2e.context;
+        const context = this.flags[SYSTEM_ID].context;
         const roll = this.rolls.find((r): r is Rolled<CheckRoll> => r instanceof CheckRoll);
         const identifier =
             roll?.options.identifier ??
@@ -178,7 +177,7 @@ class ChatMessagePF2e extends ChatMessage {
     }
 
     async showDetails(): Promise<void> {
-        if (!this.flags.pf2e.context) return;
+        if (!this.flags[SYSTEM_ID].context) return;
         new RollInspector({ message: this }).render({ force: true });
     }
 
@@ -273,7 +272,7 @@ class ChatMessagePF2e extends ChatMessage {
             collapsableElement.after(createHTMLElement("div", { classes: ["shadow"] }));
         }
 
-        if (!this.flags.pf2e.suppressDamageButtons && this.isDamageRoll) {
+        if (!this.flags[SYSTEM_ID].suppressDamageButtons && this.isDamageRoll) {
             // Mark each button group with the index in the message's `rolls` array
             htmlQueryAll(html, ".damage-application").forEach((buttons, index) => {
                 buttons.dataset.rollIndex = index.toString();
@@ -300,7 +299,7 @@ class ChatMessagePF2e extends ChatMessage {
         }
 
         // Remove revert damage button based on user permissions
-        const appliedDamageFlag = this.flags.pf2e.appliedDamage;
+        const appliedDamageFlag = this.flags[SYSTEM_ID].appliedDamage;
         if (!appliedDamageFlag?.isReverted) {
             if (!this.speakerActor?.isOwner) {
                 htmlQuery(html, "button[data-action=revertDamage]")?.remove();

@@ -211,7 +211,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                               (f) =>
                                   f.category === "ancestryfeature" &&
                                   f.system.subfeatures.senses["low-light-vision"] &&
-                                  f.flags.pf2e.grantedBy?.id === ancestry.id,
+                                  f.flags[SYSTEM_ID].grantedBy?.id === ancestry.id,
                           )
                         : [];
                 };
@@ -266,7 +266,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     /** Assigns the grants of this item based on the given item. */
     establishHierarchy(): void {
-        this.grants = Object.values(this.flags.pf2e.itemGrants).flatMap((grant) => {
+        this.grants = Object.values(this.flags[SYSTEM_ID].itemGrants).flatMap((grant) => {
             const item = this.actor?.items.get(grant.id);
             return (item?.isOfType("feat") && !item.system.location) || item?.isOfType("heritage") ? [item] : [];
         });
@@ -434,7 +434,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         // Skip subsequent warnings if this feat is from a grant
-        if (this.flags.pf2e.grantedBy) return;
+        if (this.flags[SYSTEM_ID].grantedBy) return;
 
         const slug = this.slug ?? sluggify(this.name);
         const timesTaken = this.actor.itemTypes.feat.filter((f) => f.slug === slug).length;

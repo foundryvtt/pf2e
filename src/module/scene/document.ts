@@ -20,7 +20,7 @@ class ScenePF2e extends Scene {
     /** Is the rules-based vision setting enabled? */
     get rulesBasedVision(): boolean {
         if (!this.tokenVision) return false;
-        return this.flags.pf2e.rulesBasedVision ?? game.pf2e.settings.rbv;
+        return this.flags[SYSTEM_ID].rulesBasedVision ?? game.pf2e.settings.rbv;
     }
 
     /** Are auras supported on this scene? */
@@ -29,14 +29,14 @@ class ScenePF2e extends Scene {
     }
 
     get hearingRange(): number | null {
-        return this.flags.pf2e.hearingRange;
+        return this.flags[SYSTEM_ID].hearingRange;
     }
 
     /** Is this scene's darkness value synced to the world time? */
     get darknessSyncedToTime(): boolean {
         return (
-            this.flags.pf2e.syncDarkness === "enabled" ||
-            (this.flags.pf2e.syncDarkness === "default" && game.pf2e.settings.worldClock.syncDarkness)
+            this.flags[SYSTEM_ID].syncDarkness === "enabled" ||
+            (this.flags[SYSTEM_ID].syncDarkness === "default" && game.pf2e.settings.worldClock.syncDarkness)
         );
     }
 
@@ -76,13 +76,9 @@ class ScenePF2e extends Scene {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.flags.pf2e = fu.mergeObject(
-            {
-                hearingRange: null,
-                rulesBasedVision: null,
-                syncDarkness: "default",
-            },
-            this.flags.pf2e ?? {},
+        this.flags[SYSTEM_ID] = fu.mergeObject(
+            { hearingRange: null, rulesBasedVision: null, syncDarkness: "default" },
+            this.flags[SYSTEM_ID] ?? {},
         );
 
         if (this.rulesBasedVision) {

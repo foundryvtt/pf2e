@@ -1,0 +1,60 @@
+{
+    "_id": "mprZBMDC5a4U2STA",
+    "img": "icons/skills/targeting/crosshair-scope-sniper-green.webp",
+    "name": "Effect: Sharpshooter",
+    "system": {
+        "description": {
+            "value": "<p>Your AC bonus from lesser or standard cover is reduced by 1.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Alien Core"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "subtract",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:cover-level:lesser",
+                            "self:cover-level:standard"
+                        ]
+                    }
+                ],
+                "selector": "ac",
+                "slug": "cover",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "selector": "ac",
+                "slug": "cover",
+                "value": 0
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

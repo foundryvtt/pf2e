@@ -137,8 +137,11 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
 
         // Updated actor with the sweet fruits of rest
         const hasActorUpdates = Object.keys({ ...actorUpdates.attributes, ...actorUpdates.resources }).length > 0;
-        if (hasActorUpdates || actor.flags.pf2e.dailyCraftingComplete) {
-            await actor.update({ "flags.pf2e.dailyCraftingComplete": false, system: actorUpdates }, { render: false });
+        if (hasActorUpdates || actor.flags[SYSTEM_ID].dailyCraftingComplete) {
+            await actor.update(
+                { [`flags.${SYSTEM_ID}.dailyCraftingComplete`]: false, system: actorUpdates },
+                { render: false },
+            );
         }
 
         if (itemCreates.length > 0) {

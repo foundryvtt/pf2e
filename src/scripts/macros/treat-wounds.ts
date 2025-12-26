@@ -166,7 +166,7 @@ async function treat(
                 if (m.id !== message.id) return;
                 const flags = fu.mergeObject(
                     m._source.flags,
-                    { pf2e: { treatWoundsMacroFlag: { bonus } } },
+                    { [SYSTEM_ID]: { treatWoundsMacroFlag: { bonus } } },
                     { inplace: false },
                 );
                 m.update({ flags }, { render: false });
@@ -192,7 +192,7 @@ async function treatWoundsMacroCallback({
 }): Promise<void> {
     const successLabel = outcome ? game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`) : "";
     const magicHands = CheckFeat(actor, "magic-hands");
-    const riskySurgery = !!message.flags.pf2e.modifiers?.some((m) => m.slug === "risky-surgery" && m.enabled);
+    const riskySurgery = !!message.flags[SYSTEM_ID].modifiers?.some((m) => m.slug === "risky-surgery" && m.enabled);
     const bonusString = bonus > 0 ? `+ ${bonus}` : "";
 
     const healFormula = (() => {
@@ -212,7 +212,7 @@ async function treatWoundsMacroCallback({
     if (originalMessageId) {
         const messages = game.messages.contents
             .slice(game.messages.size - 25)
-            .filter((m) => m.flags.pf2e.origin?.messageId === originalMessageId);
+            .filter((m) => m.flags[SYSTEM_ID].origin?.messageId === originalMessageId);
         const toDelete: Promise<ChatMessagePF2e | undefined>[] = [];
         for (const m of messages) {
             toDelete.push(m.delete());
@@ -221,7 +221,7 @@ async function treatWoundsMacroCallback({
     }
 
     const speaker = ChatMessagePF2e.getSpeaker({ actor });
-    const flags = fu.mergeObject(message.toObject().flags, { pf2e: { origin: { messageId: message.id } } });
+    const flags = fu.mergeObject(message.toObject().flags, { [SYSTEM_ID]: { origin: { messageId: message.id } } });
 
     if (riskySurgery) {
         ChatMessagePF2e.create({

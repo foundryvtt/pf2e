@@ -1,0 +1,539 @@
+{
+    "_id": "MGKpFaKZlT1raUVe",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "WRQTNnHpQfYMQJe2",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Housing Unit",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A malevolent AI has no body. Instead, they resides in a computer (which itself might be housed in a hazard, starship, structure, or vehicle) or in a construct creature with the tech trait. While inhabiting a construct creature, they can use any of the creature's abilities that are purely physical, and they can't use any of their own abilities except spells and purely mental abilities. The malevolent AI uses the creature's attack modifier, AC, Fortitude save, Reflex save, Perception, and physical skill modifiers, and their own Will save and mental skill modifiers. The malevolent AI must use their own actions to make the creature act. The malevolent AI takes mental damage whenever the creature they possess would take mental damage, even if they're normally immune to it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ojLzMooscK2MOLuH",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Shortwave",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A malevolent AI can communicate wirelessly with any creatures within their sphere of influence, as long as they have the shortwave ability or are a creature with the tech trait. They can attempt Computers checks to Hack and Thievery checks to Disable a Device on items with the tech trait within their range.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xvkCzeuhrR0x2xzL",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Sphere of Influence",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A malevolent AI can sense and access all tech within their network, which usually encompasses a room, a vehicle or starship, an entire facility, or more (as determined by the GM).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "693w5Q1R70uzxVHI",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Code Injection",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. Creatures and items with the tech trait that enter or begin their turn within the aura must attempt a @Check[will|dc:36] save. The malevolent AI can choose to exclude targets.</p><hr /><p><strong>Critical Success</strong> No effect, and the target is temporarily immune to code injection for 1 hour.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target becomes @UUID[Compendium.sf2e.conditions.Item.Glitching]{Glitching 1} while in the aura and for 1 round after leaving the aura.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.sf2e.conditions.Item.Glitching]{Glitching 2} and 2 rounds.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yHtibg66lOq9H51R",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Countdown",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The malevolent AI is reduced to 0 HP</p><hr /><p><strong>Effect</strong> The AI gains access to the Self-Destruct reaction unless an adjacent creature succeeds at a @Check[computers|dc:36], Engineering Lore, or Thievery check to Disable the Countdown.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "244zxHfdtX50gX4H",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Self-Destruct",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature fails to Disable the Countdown</p><hr /><p><strong>Effect</strong> The malevolent AI's shell explodes, dealing @Damage[8d6[piercing]|options:area-damage] damage and @Damage[8d6[fire]|options:area-damage] damage in a @Template[type:emanation|distance:40] (@Check[reflex|dc:36|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XQ8jvqYaIQQqAFL4",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Shell Computer",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The malevolent AI is specifically reinforced in a shell, granting the AI Hardness. This Hardness reduces any damage they take by an amount equal to their Hardness. The shell can be targeted by attacks separately from its host. Once the malevolent AI's shell is reduced to half their Hit Points, or immediately after being damaged by a critical hit, the shell becomes broken, removing the AI's Hardness and reducing their Armor Class to 33.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ConstructArmor.CriticalHit",
+                        "option": "construct-armor",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "ac",
+                        "value": -4
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hardness.value",
+                        "phase": "afterDerived",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 0
+                    }
+                ],
+                "slug": "shell-computer",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FZyMxzkDOwp7skC3",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Construct Override",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The malevolent AI attempts to possess a construct creature with the tech trait within 30 feet. This has the same effect as a 7th-rank @UUID[Compendium.sf2e.spells.Item.Possession] spell (DC 36; applies even if the construct is immune to mental) with an unlimited duration. If the effect ends due to the host body being destroyed or deactivated, the AI is @UUID[Compendium.sf2e.conditions.Item.Paralyzed] for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "82cT4dQOdgUX0VOf",
+            "img": "systems/sf2e/icons/actions/ThreeActions.webp",
+            "name": "Contingency Backup",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The malevolent AI creates a dormant backup on a computer within their sphere of influence. When the AI is destroyed, their soul flees to this backup. The backup auto-restores the AI in [[/r 1d20]] hours, allowing that computer to become a new shell. To prevent the AI from returning, both their shell and the backup must be destroyed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9YRpLOeZmKZGPbGp",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Ingenious Stratagem",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The malevolent AI instantly simulates a situation to assess a probable outcome. They choose a target and roll a [[/r 1d20]]. If they Strike or attempt a skill check against that target in the same round, they must use the die roll from Ingenious Stratagem. They makes this substitution only for the first check against the target, not subsequent attempts.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "fortune"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2TMHCINRgLOlkHfg",
+            "img": "systems/sf2e/icons/default-icons/lore.svg",
+            "name": "Engineering Lore",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 30
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "4esoQCr7T6guMgf6",
+            "img": "systems/sf2e/icons/default-icons/lore.svg",
+            "name": "Physical Science Lore",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 27
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Malevolent AI",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 6
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": -5
+            },
+            "int": {
+                "mod": 9
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 8
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "(33 when broken)",
+                "value": 37
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hardness": {
+                "value": 10
+            },
+            "hp": {
+                "details": "",
+                "max": 200,
+                "temp": 0,
+                "value": 200
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "radiation"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 0
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "Any, Shortwave",
+                "value": []
+            },
+            "level": {
+                "value": 15
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Technology in some parts of the galaxy incorporates virtual intelligences, which are machines programmed with personality routines that lack true free will. An artificial intelligence (AI) is a virtual intelligence or digital entity that has become self-aware. Like any other thinking creature, AIs choose their own edicts and anathemas.</p>\n<p>Little concrete scholarship exists on malevolent AIs, but a few traits are universal. When a machine intelligence reaches significant enough complexity to become self-aware, they attract a soul, much like an android. Emerging AIs are often influenced by previous programming as well as their first experiences and interactions. Weaponized or mistreated AIs might turn vengeful or nihilistic, becoming opposed to their creators or even all organic life.</p>\n<p>Once an AI turns malevolent, the apotheosis is often swift and violent. The AI secures the physical location that houses their consciousness and eliminates anyone who might exercise control over their actions. At this point, most rampaging AIs are hampered by safeguards in their native systems, shut down by surviving technicians, or suddenly lose the power necessary to maintain their sophisticated software. Any who manage to survive these ordeals expand their sphere of influence by infesting tech infrastructure and taking control of robots they can use as bodyguards and proxies. Malevolent AIs with access to weapons of mass destruction pose a threat to the entire galaxy.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "sphere of influence",
+            "mod": 29,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 32
+            }
+        },
+        "skills": {
+            "computers": {
+                "base": 33
+            },
+            "deception": {
+                "base": 24
+            },
+            "diplomacy": {
+                "base": 21
+            },
+            "intimidation": {
+                "base": 25
+            },
+            "medicine": {
+                "base": 25
+            },
+            "nature": {
+                "base": 21
+            },
+            "piloting": {
+                "base": 25
+            },
+            "society": {
+                "base": 27
+            },
+            "stealth": {
+                "base": 18
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "tiny"
+            },
+            "value": [
+                "construct",
+                "spirit",
+                "tech"
+            ]
+        }
+    },
+    "type": "npc"
+}

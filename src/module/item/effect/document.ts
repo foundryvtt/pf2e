@@ -38,7 +38,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
 
     /** Does this effect originate from an aura? */
     get fromAura(): boolean {
-        return !!this.flags.pf2e.aura;
+        return !!this.flags[SYSTEM_ID].aura;
     }
 
     override prepareBaseData(): void {

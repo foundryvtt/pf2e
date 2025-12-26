@@ -136,7 +136,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
 
     override prepareActorData(this: SpellcastingEntryPF2e<ActorPF2e>): void {
         if ((this.spells?.size ?? 0) > 0) {
-            const rollOptions = this.actor.flags.pf2e.rollOptions;
+            const rollOptions = this.actor.flags[SYSTEM_ID].rollOptions;
             rollOptions.all["self:caster"] = true;
             rollOptions.all[`self:caster:tradition:${this.tradition}`] = true;
         }

@@ -80,7 +80,7 @@ class WeaponTraitToggles {
 
     applyChanges(): void {
         const weapon = this.parent;
-        if (this.doubleBarrel.selected && !weapon.flags.pf2e.damageFacesUpgraded) {
+        if (this.doubleBarrel.selected && !weapon.flags[SYSTEM_ID].damageFacesUpgraded) {
             weapon.system.damage.die &&= nextDamageDieSize({ upgrade: weapon.system.damage.die });
             const traits = weapon.system.traits;
             const fatalTrait = traits.value.find((t) => /^fatal-d\d{1,2}$/.test(t));

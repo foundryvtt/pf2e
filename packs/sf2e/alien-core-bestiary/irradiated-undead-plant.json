@@ -1,0 +1,388 @@
+{
+    "_id": "RYPgYWf77hMbqpe1",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "OqOv6Ty2VAqQwnSq",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Vine",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "seedpod"
+                    ]
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "OKqZhEU3kjqxP5Yb": {
+                        "damage": "1d8+4",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "PIwGgQhPNcYXfejx",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Seed",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "seedpod"
+                    ]
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "CRUms03aCrPwhmDX": {
+                        "damage": "1d4+4",
+                        "damageType": "poison"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 40,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "H747bisXtwrJwjIi",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Meltdown",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The irradiated undead plant is reduced to 0 Hit Points by energy damage of any kind</p><hr /><p><strong>Effect</strong> The energy acts as a catalyst for a nuclear reaction, causing the plant to explode and dealing @Damage[3d6[poison]|options:area-damage] damage to all creatures in a @Template[type:emanation|distance:20] with a @Check[reflex|dc:16|basic] save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison",
+                        "radiation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qy3J5YtdB1XK7Npk",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8ybxr7W3iWIi4E7q",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Radioactive Remains",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>20 feet. A creature entering or starting its turn inside the aura is exposed to mild radiation.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [],
+                        "key": "Aura",
+                        "radius": 20,
+                        "traits": [
+                            "radiation"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "radiation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3cvcaY3fjj6IksFa",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Seedpod",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When a irradiated undead plant Strikes a creature, some of its contaminated seeds stick to the target. The irradiated undead plant gains the Sprout action. An affected creature can remove this seedpod as an Interact action.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HImtTWRGnHStmZnL",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Sprout",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> One or more creatures within 60 feet of the irradiated undead plant are currently host to at least one seedpod</p><hr /><p><strong>Effect</strong> The irradiated undead plant pulses with energy, causing the seedpods to sprout vines. Creatures hosting a seedpod must attempt a @Check[fortitude|dc:16] save.</p><hr /><p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> The creature takes @Damage[1d6[piercing]|options:area-damage] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[2d6[piercing]|options:area-damage] damage and is @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 2} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[2d6[piercing]|options:area-damage] damage, is slowed 2 for 1 round, and is @UUID[Compendium.sf2e.conditions.Item.Immobilized] until it [[/act escape dc=16]]{Escapes}. Until it Escapes, the creature is a new source of the irradiated undead plant's radioactive remains aura with a @Template[type:emanation|distance:5].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Irradiated Undead Plant",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 17
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 32,
+                "temp": 0,
+                "value": 32
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "radiation"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 10
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 2
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Flora are often the first victims of industrialization, dying petal by petal and blade of grass at a time before anybody even notices a loss of habitat. When nuclear fallout corrupts the hardiest species of vegetation, sometimes their irradiated seeds inexplicably bloom into new, unliving specimens.</p><hr /><p>To survive in the unforgiving expanse of space, creatures must be naturally adapted or take protective measures. While the dead rarely need such precautions against these threats, sometimes radiation can animate a corpse (or several) to a state of undeath!</p>\n<p>Scientists and religious scholars alike debate whether a specific type of radiation is to blame for this phenomenon that spontaneously triggers unlife, but all agree on the dangers such irradiated creatures pose. Many types of radiation could be the cause: intense bursts of cosmic radiation emitted by the stars, magically enhanced radioactive isotopes found in a planet's or moon's crust, or even the advent of new energy sources in a society (or its radioactive waste) contaminating the land. Regardless of their specific origin, irradiated undead all pose the same threat—they emit ionizing radiation that ravages everything around them.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 8,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 3
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 8
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "cosmic",
+                "mindless",
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

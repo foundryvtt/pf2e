@@ -1,0 +1,108 @@
+{
+    "_id": "X88p0aK0YpFwOELb",
+    "folder": "D8Q2XWm5N91mGuw7",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "HUevG60qrY45gPjx",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Buy! Buy! Buy!",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature in the area finishes an action</p><hr /><p><strong>Effect</strong> The trap launches a targeted ad enticing viewers to spend credits on a product or service. All creatures within 30 feet who can see, hear, or sense the ad must attempt a @Check[will|dc:17] save. The trap rolls initiative.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.sf2e.conditions.Item.Dazzled].</p>\n<p><strong>Failure</strong> The target is dazzled and @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 1}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.sf2e.conditions.Item.Fascinated] for 1 round and can't take any actions except to access the nearest computer or comm unit and make purchases as directed by the ad.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Distracting Holo Ad",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "emitsSound": "encounter",
+            "hardness": 5,
+            "hp": {
+                "details": "(BT 12)",
+                "max": 24,
+                "temp": 0,
+                "value": 24
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained), or DC 20 (expert) to notice the holoprojector, or detect magic</p>",
+                "value": 7
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Colorful, lifelike figures flit in and out of a holographic advertisement in a barrage of pleasant sounds and sensations, enticing passersby to spend their credits. The hologram's source is a nearby projector.</p>",
+            "disable": "<p>@Check[computers|dc:17] (trained) to deactivate the ad, or @Check[crafting|dc:20] (trained) or Thievery (trained) to disable the projector</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder GM Core"
+            },
+            "reset": "<p>The trap deactivates and resets after 1 minute.</p>",
+            "routine": "<p>(1 action) The hazard plays a new ad each round, forcing all creatures that can sense it to attempt a new save.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 4
+            },
+            "reflex": {
+                "value": 11
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "trap",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

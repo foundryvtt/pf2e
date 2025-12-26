@@ -1,0 +1,357 @@
+{
+    "_id": "BeqWprlTnTffXV0R",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "xSI23tLbGW0CRFXg",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Water Sense",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A cyanoscum can sense the presence of water within 60 feet as an imprecise sense.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hlTsD9oBNwxvJHZt",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Regeneration (Deactivated by Fire)",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 5
+                    }
+                ],
+                "slug": "regeneration",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LbIGwtjd5L9PCv7L",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Toxic Exposure",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Creatures inside the cyanoscum bloom's space are exposed to cyanoscum toxin. A creature can't reduce the poison below stage 1 while it shares a space with the cyanoscum bloom.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "p7n4CgRRpGsAB5rM",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Cyanoscum Toxin",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> d4 poison damage and @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[1d8[poison]] damage and @UUID[Compendium.sf2e.conditions.Item.Paralyzed] (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tIoEB6uyKLoYBclF",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Frenzied Scratching",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each enemy in the cyanoscum bloom's space takes @Damage[3d6[piercing]] damage (@Check[reflex|dc:18|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BKl9kQcNoA94BZCT",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Squish",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A cyanoscum can Squeeze through spaces that aren't airtight at half its Speed per round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Cyanoscum Bloom",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 0
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 20
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "regeneration 5 (deactivated by fire)",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 4
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 4
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 4
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 40
+                    }
+                ],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 4
+                },
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 4
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 4
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 4
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>While these wood elementals bear the adorable appearance of a rodent, their main bodies are unfortunately composed of toxin-producing algae. Cyanoscums thrive in any warm, wet environment. Cyanoscum blooms are easy to spot; from a distance, they look like blue-green meadows floating atop still waters or clusters of fuzzy, teal moss clinging to plants and rocks. An explorer moved by this majestic sight might venture too close to the water's edge or reach out to touch the soft, resplendent moss—inviting contact with these beautiful but poisonous creatures.</p><hr /><p>Elementals are energetic intrusions from the primal planes of existence. They take many forms, from mindless eddies in the wind or water to complex entities capable of wielding primal magic. The advent of space travel and the progress of technology have allowed even more living embodiments of the elements to manifest in the Universe.</p>\n<p>Natural events like wildfires, solar storms, and floods can unleash hordes of unruly elementals on a planet or into a region of space. Sometimes, a gathering of powerful elementals causes a natural disaster on an epic scale, like an off-the-charts solar flare that fries a planet's power grid or a ceaseless storm swirling in a gas giant's atmosphere.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Alien Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "water sense",
+            "mod": 12,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 6
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 8
+            },
+            "survival": {
+                "base": 12
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "elemental",
+                "plant",
+                "swarm",
+                "wood"
+            ]
+        }
+    },
+    "type": "npc"
+}

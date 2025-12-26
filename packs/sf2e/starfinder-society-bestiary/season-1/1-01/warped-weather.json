@@ -1,0 +1,140 @@
+{
+    "_id": "MZuAysCxMqSQNZW9",
+    "folder": "XqnZawU5NqS0JAs1",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "oUZHBAWLYV3uAjgQ",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Electric Flash",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A PC enters the area</p><hr /><p><strong>Effect</strong> With a flash of light, the area crackles with electricity, and it begins to rain. The triggering creature is dealt @Damage[(1d6+2)[electricity]] damage (@Check[reflex|dc:16|basic] save). On a critical failure, that creature is additionally @UUID[Compendium.sf2e.conditions.Item.Dazzled] for 1 round. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "electricity"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kHdhwQAhvXz5uTMq",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Lightning Bolt",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 8
+                },
+                "damageRolls": {
+                    "jhdNyPngQWd4U6kj": {
+                        "damage": "1d6+2",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "electricity"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Warped Weather",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 6
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>An unnatural magical storm appears in the area with a crack of thunder and lightning.</p>",
+            "disable": "<p>@Check[arcana|dc:13], @Check[nature|dc:13], @Check[occultism|dc:13], or @Check[religion|dc:13] (all trained) to overcome the magical anomaly, or @Check[athletics|dc:16], @Check[survival|dc:16], or @Check[thievery|dc:16] to destabilize the hazard's center point; two total successes are required to disable the hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 0
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Society Scenario #1-01: Invasion's Edge"
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) The hazard makes three ranged Strikes against PCs, selecting different targets if possible, beginning with those closest to the hazard's center.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}
