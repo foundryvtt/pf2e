@@ -23,29 +23,32 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Divine Aegis (vs. non-divine magical effects)",
                 "predicate": [
                     {
                         "or": [
                             "magical",
-                            "arcane",
-                            "occult",
-                            "primal"
+                            "item:trait:arcane",
+                            "item:trait:primal",
+                            "item:trait:occult",
+                            "item:trait:divine"
                         ]
                     }
                 ],
-                "selector": "saving-throw",
+                "selector": [
+                    "saving-throw"
+                ],
+                "slug": "divine-aegis-bonus",
                 "type": "circumstance",
                 "value": 1
             },
             {
-                "key": "FlatModifier",
-                "label": "Divine Aegis (vs. divine effect)",
+                "key": "AdjustModifier",
+                "mode": "override",
                 "predicate": [
                     "item:trait:divine"
                 ],
                 "selector": "saving-throw",
-                "type": "circumstance",
+                "slug": "divine-aegis-bonus",
                 "value": -1
             }
         ],
