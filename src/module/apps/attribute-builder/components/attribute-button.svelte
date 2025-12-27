@@ -1,5 +1,7 @@
 <script lang="ts" generics="TAttribute extends BuilderAttribute">
     import type { BuilderAttribute, BuilderButton } from "../helpers.ts";
+    import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
+    import { setHasElement } from "@util";
 
     type AttributeButtonType = "boost" | "flaw" | "apex" | "key";
 
@@ -23,7 +25,7 @@
             return game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.Flaw");
         } else if (type === "key") {
             return game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.KeyIcon");
-        } else if (button?.partial) {
+        } else if (button.partial) {
             return game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.Partial");
         } else if (type === "apex") {
             return game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.Increase");
@@ -32,15 +34,17 @@
         }
     });
 
-    function buildAriaLabel(buttonState: BuilderButton | undefined, isSecond = false): string {
-        const attrName = game.i18n.localize(
-            `PF2E.Ability${String(attribute).charAt(0).toUpperCase()}${String(attribute).slice(1)}`,
-        );
-        const action = isSecond ? game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.DoubleFlaw") : label;
+    const attrName = $derived(
+        setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)
+            ? game.i18n.localize(CONFIG.PF2E.abilities[attribute])
+            : game.i18n.localize(`PF2E.Kingmaker.Abilities.${attribute}`),
+    );
 
+    function buildAriaLabel(buttonState: BuilderButton, isSecond = false): string {
+        const action = isSecond ? game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.DoubleFlaw") : label;
         const parts = [action, attrName];
 
-        if (buttonState?.locked) {
+        if (buttonState.locked) {
             parts.push(`(${game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.Locked")})`);
         }
 
@@ -55,24 +59,20 @@
     <div class="flaw-buttons" role="group" aria-label={ariaLabel}>
         <button
             type="button"
-            data-attribute={attribute}
-            data-action={type}
             class="attribute-button {type} first"
-            class:selected={button?.selected}
-            class:partial={button?.partial}
-            class:locked={button?.locked}
-            disabled={button?.disabled && !button?.selected}
+            class:selected={button.selected}
+            class:partial={button.partial}
+            class:locked={button.locked}
+            disabled={button.disabled && !button.selected}
             aria-label={ariaLabel}
-            aria-pressed={button?.selected}
+            aria-pressed={button.selected}
             onclick={() => onclick(attribute)}
         >
-            {#if button?.locked}<i class="fa-solid fa-lock" aria-hidden="true"></i>{/if}
+            {#if button.locked}<i class="fa-solid fa-lock" aria-hidden="true"></i>{/if}
             <span>{label}</span>
         </button>
         <button
             type="button"
-            data-attribute={attribute}
-            data-action={type}
             class="attribute-button {type} second"
             class:selected={secondFlaw.button.selected}
             disabled={secondFlaw.button.disabled && !secondFlaw.button.selected}
@@ -83,11 +83,9 @@
             <span aria-hidden="true">x2</span>
         </button>
     </div>
-{:else if button}
+{:else}
     <button
         type="button"
-        data-attribute={attribute}
-        data-action={type === "key" ? "class-key-attribute" : type}
         class="attribute-button {type}"
         class:selected={button.selected}
         class:partial={button.partial}
@@ -105,9 +103,10 @@
 
 <style lang="scss">
     button {
-        --color-boost: light-dark(#316549, #4a9e70);
-        --color-boost-dark: light-dark(#1b3c2a, #2d5c42);
-        --color-flaw: light-dark(var(--color-pf-primary), #d64545);
+        --color-boost: var(--color-level-success-border);
+        --color-boost-dark: color-mix(in srgb, var(--color-level-success-border) 70%, black);
+        --color-flaw: var(--color-level-error);
+        --color-flaw-dark: color-mix(in srgb, var(--color-level-error) 70%, black);
         --button-color: var(--color-boost);
         --button-locked-color: var(--color-boost-dark);
 
@@ -131,7 +130,7 @@
 
         &.flaw {
             --button-color: var(--color-flaw);
-            --button-locked-color: var(--color-flaw);
+            --button-locked-color: var(--color-flaw-dark);
         }
 
         &.selected {
@@ -140,6 +139,7 @@
 
             &.partial {
                 background: var(--color-boost-dark);
+                border-color: var(--color-boost-dark);
             }
         }
 

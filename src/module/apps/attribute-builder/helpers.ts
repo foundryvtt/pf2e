@@ -25,4 +25,5 @@ function createButtonRecord<TAttr extends BuilderAttribute, TState extends Boost
     return Object.fromEntries(attributes.map((attr) => [attr, builder(attr)])) as Record<TAttr, TState>;
 }
 
-export { createButtonRecord, type BoostFlawState, type BuilderAttribute, type BuilderButton };
+export { createButtonRecord };
+export type { BoostFlawState, BuilderAttribute, BuilderButton };

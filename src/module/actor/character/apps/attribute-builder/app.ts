@@ -7,19 +7,6 @@ import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@mo
 import * as R from "remeda";
 import Root from "./app.svelte";
 
-/** Number of ability scores in the game (str, dex, con, int, wis, cha) */
-const ALL_ATTRIBUTES_COUNT = 6;
-/** Maximum alternate ancestry boosts allowed */
-const MAX_ALTERNATE_ANCESTRY_BOOSTS = 2;
-/** Maximum voluntary flaws in legacy mode */
-const MAX_VOLUNTARY_FLAWS_LEGACY = 2;
-/** Threshold at which boosts become "partial" (require 2 boosts per +1) */
-const PARTIAL_BOOST_THRESHOLD = 5;
-/** Minimum allowed manual ability modifier */
-const MODIFIER_MIN = -5;
-/** Maximum allowed manual ability modifier */
-const MODIFIER_MAX = 10;
-
 interface AttributeBuilderConfiguration extends fa.ApplicationConfiguration {
     actor: CharacterPF2e;
 }
@@ -27,8 +14,25 @@ interface AttributeBuilderConfiguration extends fa.ApplicationConfiguration {
 class AttributeBuilder extends SvelteApplicationMixin<
     AbstractConstructorOf<fa.api.ApplicationV2> & { DEFAULT_OPTIONS: DeepPartial<AttributeBuilderConfiguration> }
 >(fa.api.ApplicationV2) {
+    /** Number of attributes in the game (str, dex, con, int, wis, cha) */
+    static ALL_ATTRIBUTES_COUNT = 6;
+    /** Maximum alternate ancestry boosts allowed */
+    static MAX_ALTERNATE_ANCESTRY_BOOSTS = 2;
+    /** Maximum voluntary flaws in legacy mode */
+    static MAX_VOLUNTARY_FLAWS_LEGACY = 2;
+    /** Threshold at which boosts become "partial" (require 2 boosts per +1) */
+    static PARTIAL_BOOST_THRESHOLD = 5;
+    /** Minimum allowed manual attribute modifier */
+    static MODIFIER_MIN = -5;
+    /** Maximum allowed manual attribute modifier */
+    static MODIFIER_MAX = 10;
+
     static override DEFAULT_OPTIONS: DeepPartial<AttributeBuilderConfiguration> = {
+        id: "attribute-builder",
         position: { width: "auto", height: "auto" },
+        window: {
+            title: "PF2E.Actor.Character.Attribute.Boosts",
+        },
     };
 
     declare options: AttributeBuilderConfiguration;
@@ -44,18 +48,6 @@ class AttributeBuilder extends SvelteApplicationMixin<
         return game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(this.#actor);
     }
 
-    protected override _initializeApplicationOptions(
-        options: Partial<AttributeBuilderConfiguration>,
-    ): AttributeBuilderConfiguration {
-        const initialized = super._initializeApplicationOptions(options) as AttributeBuilderConfiguration;
-        initialized.uniqueId = `attribute-builder-${initialized.actor.uuid}`;
-        return initialized;
-    }
-
-    override get title(): string {
-        return game.i18n.localize("PF2E.Actor.Character.Attribute.Boosts");
-    }
-
     protected override async _onFirstRender(
         context: AttributeBuilderContext,
         options: fa.ApplicationRenderOptions,
@@ -64,9 +56,9 @@ class AttributeBuilder extends SvelteApplicationMixin<
         this.options.actor.apps[this.id] = this;
     }
 
-    protected override _onClose(options: fa.ApplicationClosingOptions): void {
+    protected override _tearDown(options: fa.ApplicationClosingOptions): void {
         delete this.options.actor.apps[this.id];
-        super._onClose(options);
+        super._tearDown(options);
     }
 
     protected override async _prepareContext(options: fa.ApplicationRenderOptions): Promise<AttributeBuilderContext> {
@@ -77,7 +69,6 @@ class AttributeBuilder extends SvelteApplicationMixin<
             ...(await super._prepareContext(options)),
             foundryApp: this,
             state: {
-                attributes: CONFIG.PF2E.abilities,
                 ancestry: actor.ancestry,
                 background: actor.background,
                 class: actor.class,
@@ -166,7 +157,10 @@ class AttributeBuilder extends SvelteApplicationMixin<
             }
 
             // Add a flaw if allowed (legacy mode has max 2, modern has max 6)
-            const maxFlaws = boost !== undefined ? MAX_VOLUNTARY_FLAWS_LEGACY : ALL_ATTRIBUTES_COUNT;
+            const maxFlaws =
+                boost !== undefined
+                    ? AttributeBuilder.MAX_VOLUNTARY_FLAWS_LEGACY
+                    : AttributeBuilder.ALL_ATTRIBUTES_COUNT;
             if (flaws.length < maxFlaws && !alreadyHasFlaw) {
                 flaws.push(attribute);
                 await ancestry.update({ system: { voluntary: { flaws } } });
@@ -177,7 +171,7 @@ class AttributeBuilder extends SvelteApplicationMixin<
             if (numFlaws >= 2) {
                 // Remove one flaw
                 flaws.splice(flaws.indexOf(attribute), 1);
-            } else if (numFlaws === 1 && flaws.length < MAX_VOLUNTARY_FLAWS_LEGACY) {
+            } else if (numFlaws === 1 && flaws.length < AttributeBuilder.MAX_VOLUNTARY_FLAWS_LEGACY) {
                 // Add second flaw
                 flaws.push(attribute);
             }
@@ -235,7 +229,7 @@ class AttributeBuilder extends SvelteApplicationMixin<
     }
 
     async handleManualModChange(attribute: AttributeString, value: number): Promise<void> {
-        const clampedValue = Math.clamp(value, MODIFIER_MIN, MODIFIER_MAX);
+        const clampedValue = Math.clamp(value, AttributeBuilder.MODIFIER_MIN, AttributeBuilder.MODIFIER_MAX);
         await this.#actor.update({ [`system.abilities.${attribute}.mod`]: clampedValue });
     }
 
@@ -262,7 +256,6 @@ interface AttributeBuilderContext extends SvelteApplicationRenderContext {
 
 interface AttributeBuilderState {
     attributeModifiers: Record<AttributeString, { label: string; mod: string; rawMod: number }>;
-    attributes: Record<AttributeString, string>;
     ancestry: AncestryPF2e<CharacterPF2e> | null;
     background: BackgroundPF2e<CharacterPF2e> | null;
     class: ClassPF2e<CharacterPF2e> | null;
@@ -273,14 +266,5 @@ interface AttributeBuilderState {
     gradualBoostsVariant: boolean;
 }
 
-export {
-    ALL_ATTRIBUTES_COUNT,
-    AttributeBuilder,
-    MAX_ALTERNATE_ANCESTRY_BOOSTS,
-    MAX_VOLUNTARY_FLAWS_LEGACY,
-    MODIFIER_MAX,
-    MODIFIER_MIN,
-    PARTIAL_BOOST_THRESHOLD,
-    type AttributeBuilderContext,
-    type AttributeBuilderState,
-};
+export { AttributeBuilder };
+export type { AttributeBuilderContext, AttributeBuilderState };

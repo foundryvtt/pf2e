@@ -1,21 +1,12 @@
 <script lang="ts">
     import type { AttributeString } from "@actor/types.ts";
     import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
-    import { createButtonRecord, type BuilderButton } from "@module/apps/attribute-builder/helpers.ts";
+    import { createButtonRecord } from "@module/apps/attribute-builder/helpers.ts";
     import AttributeButton from "@module/apps/attribute-builder/components/attribute-button.svelte";
     import RemainingIndicator from "@module/apps/attribute-builder/components/remaining-indicator.svelte";
     import { signedInteger, tupleHasValue } from "@util";
     import * as R from "remeda";
-    import {
-        ALL_ATTRIBUTES_COUNT,
-        MAX_ALTERNATE_ANCESTRY_BOOSTS,
-        MAX_VOLUNTARY_FLAWS_LEGACY,
-        MODIFIER_MAX,
-        MODIFIER_MIN,
-        PARTIAL_BOOST_THRESHOLD,
-        type AttributeBuilder,
-        type AttributeBuilderState,
-    } from "./app.ts";
+    import { AttributeBuilder, type AttributeBuilderState } from "./app.ts";
 
     interface Props {
         foundryApp: AttributeBuilder;
@@ -25,6 +16,15 @@
     const { foundryApp, state: data }: Props = $props();
 
     const attributeList = [...ATTRIBUTE_ABBREVIATIONS] as const;
+
+    const {
+        ALL_ATTRIBUTES_COUNT,
+        MAX_ALTERNATE_ANCESTRY_BOOSTS,
+        MAX_VOLUNTARY_FLAWS_LEGACY,
+        PARTIAL_BOOST_THRESHOLD,
+        MODIFIER_MIN,
+        MODIFIER_MAX,
+    } = AttributeBuilder;
 
     // Helper function to generate boost/flaw labels from item data
     function getBoostFlawLabels(
@@ -109,9 +109,7 @@
 
     const ancestryBoosts = $derived.by(() => {
         const ancestry = data.ancestry;
-        if (!ancestry) {
-            return null;
-        }
+        if (!ancestry) return null;
 
         const [maxBoosts, selectedBoosts] = (() => {
             const alternateAncestryBoosts = ancestry.system.alternateAncestryBoosts;
@@ -153,9 +151,7 @@
 
     const voluntaryFlaws = $derived.by(() => {
         const ancestry = data.ancestry;
-        if (!ancestry) {
-            return null;
-        }
+        if (!ancestry) return null;
 
         const voluntary = ancestry.system.voluntary ?? { flaws: [] };
         const isLegacy = voluntary.boost !== undefined;
@@ -166,7 +162,7 @@
 
         const buttons = createButtonRecord(attributeList, (attribute) => {
             const numFlaws = voluntary.flaws.filter((f) => f === attribute).length;
-            const flaw: BuilderButton = {
+            const flaw = {
                 selected: numFlaws > 0,
                 disabled: !numFlaws && flawsComplete,
             };
@@ -200,9 +196,7 @@
 
     const backgroundBoosts = $derived.by(() => {
         const background = data.background;
-        if (!background) {
-            return null;
-        }
+        if (!background) return null;
 
         const selectedBoosts = data.build.boosts.background;
         const boosts = Object.values(background.system.boosts).filter((b) => b.value.length > 0);
@@ -895,6 +889,7 @@
             label {
                 display: flex;
                 align-items: center;
+                gap: var(--space-4);
                 margin-top: var(--space-10);
                 white-space: nowrap;
             }
