@@ -1,23 +1,22 @@
 {
-    "_id": "HFVQhUxBt6UTtuny",
-    "folder": "2UM7Q0R9lwjsAGwR",
+    "_id": "CURlEp5fEl0WJq9L",
     "img": "systems/sf2e/icons/default-icons/ancestry.svg",
-    "name": "Ikeshti",
+    "name": "Shobhad",
     "system": {
         "additionalLanguages": {
-            "count": 0,
+            "count": 1,
             "custom": "",
             "value": []
         },
         "boosts": {
             "0": {
                 "value": [
-                    "dex"
+                    "str"
                 ]
             },
             "1": {
                 "value": [
-                    "int"
+                    "wis"
                 ]
             },
             "2": {
@@ -32,23 +31,31 @@
             }
         },
         "description": {
-            "value": "<p><em>Ikeshtis are intelligent bipedal lizards with hard red scales and a compact build. Native to the harsh planet of Akiton, they're hardy, resolute, and passionate, working ceaselessly for the survival of themselves and their tight-knit communities. Many have a knack for invention and enjoy finding new purposes for old or damaged objects</em>.</p>"
+            "value": "<p><em>Shobhads, or shobhad-neh as they refer to themselves collectively, are nomadic people native to the planet Akiton. Though other species speculate shobhads might be descendants of planar travelers or even mutant offspring of another species, shobhads know they've been part of Akiton forever. These enormous four-armed humanoids see themselves as Akiton's original children and wander its surface in a millennia-long journey.</em></p>"
         },
         "flaws": {
             "0": {
                 "value": [
-                    "wis"
+                    "cha"
                 ]
             }
         },
-        "hands": 2,
-        "hp": 6,
-        "items": {},
+        "hands": 4,
+        "hp": 8,
+        "items": {
+            "mxO32": {
+                "img": "icons/skills/melee/unarmed-punch-fist-yellow-red.webp",
+                "level": 1,
+                "name": "Four-Armed",
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Four-Armed"
+            }
+        },
         "languages": {
             "custom": "",
             "value": [
+                "akitonian",
                 "common",
-                "akitonian"
+                "shobhad"
             ]
         },
         "publication": {
@@ -59,28 +66,23 @@
         "reach": 5,
         "rules": [
             {
-                "key": "BaseSpeed",
-                "selector": "climb",
-                "value": 15
-            },
-            {
                 "key": "GrantItem",
                 "predicate": [
                     {
-                        "not": "heritage:pampered-ikeshti"
+                        "not": "heritage:offworld-shobhad"
                     }
                 ],
                 "reevaluateOnUpdate": true,
-                "uuid": "Compendium.sf2e.ancestry-features.Item.Wasteland Survivor"
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Cold-Adapted"
             }
         ],
-        "size": "sm",
+        "size": "lg",
         "speed": 25,
         "traits": {
             "rarity": "common",
             "value": [
                 "humanoid",
-                "ikeshti"
+                "shobhad"
             ]
         },
         "vision": "normal"

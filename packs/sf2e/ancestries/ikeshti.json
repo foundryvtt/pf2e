@@ -1,8 +1,7 @@
 {
-    "_id": "XKW1SziWusHoaCRd",
-    "folder": "evSqmhQtwVc01x88",
+    "_id": "HFVQhUxBt6UTtuny",
     "img": "systems/sf2e/icons/default-icons/ancestry.svg",
-    "name": "Elebrian",
+    "name": "Ikeshti",
     "system": {
         "additionalLanguages": {
             "count": 0,
@@ -12,7 +11,7 @@
         "boosts": {
             "0": {
                 "value": [
-                    "con"
+                    "dex"
                 ]
             },
             "1": {
@@ -32,7 +31,7 @@
             }
         },
         "description": {
-            "value": "<p><em>Elebrians are humanoids with enlarged craniums and innate magical aptitude. While they were originally the dominant species on Eox before a cataclysm ravaged their planet, only a few elebrians survive in isolated bunker communities or as living entertainment in corporate facilities.</em></p>"
+            "value": "<p><em>Ikeshtis are intelligent bipedal lizards with hard red scales and a compact build. Native to the harsh planet of Akiton, they're hardy, resolute, and passionate, working ceaselessly for the survival of themselves and their tight-knit communities. Many have a knack for invention and enjoy finding new purposes for old or damaged objects</em>.</p>"
         },
         "flaws": {
             "0": {
@@ -43,35 +42,44 @@
         },
         "hands": 2,
         "hp": 6,
-        "items": {
-            "X2HoE": {
-                "img": "icons/commodities/biological/organ-brain-red.webp",
-                "level": 1,
-                "name": "Magical Sense",
-                "uuid": "Compendium.sf2e.ancestry-features.Item.Magical Sense"
-            }
-        },
+        "items": {},
         "languages": {
             "custom": "",
             "value": [
                 "common",
-                "eoxian"
+                "akitonian"
             ]
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
-            "title": "Starfinder Guilt of the Grave World"
+            "title": "Invasion's Edge Player's Guide"
         },
         "reach": 5,
-        "rules": [],
-        "size": "med",
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "value": 15
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "heritage:pampered-ikeshti"
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Wasteland Survivor"
+            }
+        ],
+        "size": "sm",
         "speed": 25,
         "traits": {
-            "rarity": "rare",
+            "rarity": "common",
             "value": [
-                "elebrian",
-                "humanoid"
+                "humanoid",
+                "ikeshti"
             ]
         },
         "vision": "normal"
