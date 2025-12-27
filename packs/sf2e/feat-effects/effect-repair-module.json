@@ -1,0 +1,44 @@
+{
+    "_id": "DjxZpQ4xJWWvYQqY",
+    "img": "systems/sf2e/icons/features/feats/effect-repair-module.webp",
+    "name": "Effect: Repair Module",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Repair Module]</p>\n<p>You gain fast healing equal to half your level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "details": "",
+                "key": "FastHealing",
+                "type": "fast-healing",
+                "value": "floor(@actor.level / 2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
