@@ -148,32 +148,23 @@ class PackExtractor {
         const db = await LevelDatabase.connect(filePath, { packName: packDirectory, systemId: this.systemId });
         const { packSources, folders } = await db.getEntries();
 
-        // Prepare subfolder data
-        if (folders.length > 0) {
-            const sanitzeFolder = (folder: Partial<DBFolder>): void => {
-                delete folder._stats;
-            };
-
-            for (const folder of folders) {
-                const filepath = path.join(packDirectory, getFolderPath({ folders, dirName: packDirectory }, folder));
-                this.#folderPathMap.set(folder._id, filepath);
-                sanitzeFolder(folder);
-            }
-            const folderFilePath = path.resolve(outPath, "_folders.json");
-            await fs.promises.writeFile(folderFilePath, this.#prettyPrintJSON(folders), "utf-8");
+        // Prepare subfolder data if it exists or if its needed to prevent git from deleting the folder
+        for (const folder of folders) {
+            const filepath = path.join(packDirectory, getFolderPath({ folders, dirName: packDirectory }, folder));
+            this.#folderPathMap.set(folder._id, filepath);
+            const pFolder: Partial<DBFolder> = folder;
+            delete pFolder._stats;
         }
 
-        // In SF2e, some entries may be copies of pf2e entries. We need to skip those
+        // Export sources. In SF2e, some entries may be copies of pf2e entries. We need to skip those
         const omittedEntries =
             this.systemId === "sf2e"
                 ? duplicates.flatMap((group) =>
                       objectHasKey(group.entries, packDirectory) ? group.entries[packDirectory] : [],
                   )
                 : [];
-
-        for (const source of packSources) {
-            if (omittedEntries.includes(source.name)) continue;
-
+        const exportedSources = packSources.filter((s) => !omittedEntries.includes(s.name));
+        for (const source of exportedSources) {
             // Remove or replace unwanted values from the document source
             const preparedSource = this.#convertUUIDs(source, packDirectory);
             if ("items" in preparedSource && preparedSource.type === "npc" && !this.disablePresort) {
@@ -203,6 +194,12 @@ class PackExtractor {
 
             // Write the JSON file
             await fs.promises.writeFile(outFilePath, outData, "utf-8");
+        }
+
+        // Persist subfolder data if it exists or if its needed for git to preserve the folder
+        if (folders.length > 0 || exportedSources.length === 0) {
+            const folderFilePath = path.resolve(outPath, "_folders.json");
+            await fs.promises.writeFile(folderFilePath, this.#prettyPrintJSON(folders), "utf-8");
         }
 
         return packSources.length;
