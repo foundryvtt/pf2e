@@ -25,7 +25,6 @@ import {
 } from "./data.ts";
 import { ReservedTermsRecord, prepareCleanup, prepareReservedTerms, readModuleHomebrewSettings } from "./helpers.ts";
 import { LanguagesManager } from "./languages.ts";
-import appv1 = foundry.appv1;
 
 class HomebrewElements extends SettingsMenuPF2e {
     static override readonly namespace = "homebrew";
@@ -51,7 +50,7 @@ class HomebrewElements extends SettingsMenuPF2e {
         return Object.keys(this.settings);
     }
 
-    static override get defaultOptions(): appv1.api.FormApplicationOptions {
+    static override get defaultOptions(): fav1.api.FormApplicationOptions {
         return {
             ...super.defaultOptions,
             template: `${SYSTEM_ROOT}/templates/system/settings/homebrew.hbs`,
@@ -225,7 +224,7 @@ class HomebrewElements extends SettingsMenuPF2e {
     /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
     protected override async _onSubmit(
         event: Event,
-        options?: appv1.api.OnSubmitFormOptions,
+        options?: fav1.api.OnSubmitFormOptions,
     ): Promise<Record<string, unknown> | false> {
         event.preventDefault(); // Prevent page refresh if it returns early
 
@@ -341,8 +340,8 @@ class HomebrewElements extends SettingsMenuPF2e {
             this.#initialRefresh = false;
         } else {
             const sheets = Object.values(ui.windows).filter(
-                (app): app is appv1.api.DocumentSheet =>
-                    app instanceof appv1.sheets.ActorSheet || app instanceof ItemSheetPF2e,
+                (app): app is fav1.api.DocumentSheet =>
+                    app instanceof fav1.sheets.ActorSheet || app instanceof ItemSheetPF2e,
             );
             for (const sheet of sheets) {
                 sheet.render();

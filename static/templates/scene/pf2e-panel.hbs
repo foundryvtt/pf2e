@@ -24,8 +24,8 @@
         <p class="hint caveat">{{localize "PF2E.Scene.HearingRange.Caveat"}}</p>
     </div>
 
-    {{formGroup environmentTypes name="{{concat "flags." systemId ".environmentTypes"}}"
-                value=systemFlags.environmentTypes rootId=rootId localize=true}}
+    {{formGroup environmentTypes name=(concat "flags." systemId ".environmentTypes") value=systemFlags.environmentTypes
+                rootId=rootId localize=true}}
 
     <div class="form-group slim">
         <label for="{{rootId}}-sync-darkness">{{localize "PF2E.Scene.SyncDarkness.Label"}}</label>

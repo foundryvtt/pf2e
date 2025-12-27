@@ -27,7 +27,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     }
 
     get editing(): boolean {
-        return this.isEditable && !!this.actor.getFlag("pf2e", "editHazard.value");
+        return this.isEditable && !!this.actor.flags[SYSTEM_ID]?.editMode;
     }
 
     override async getData(options?: ActorSheetOptions): Promise<HazardSheetData> {
@@ -164,7 +164,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const handlers = super.activateClickListener(html);
 
         handlers["toggle-edit-mode"] = () => {
-            return this.actor.update({ [`flags.${SYSTEM_ID}.editHazard.value`]: !this.editing });
+            return this.actor.update({ [`flags.${SYSTEM_ID}.editMode`]: !this.editing });
         };
 
         handlers["edit-section"] = (event) => {

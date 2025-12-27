@@ -13,11 +13,11 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 import tsconfigPaths from "vite-tsconfig-paths";
 import packageJSON from "./package.json" with { type: "json" };
 import { sluggify } from "./src/util/misc.ts";
-import systemPF2eJSON from "./system.pf2e.json" with { type: "json" };
-import systemSF2eJSON from "./system.sf2e.json" with { type: "json" };
+import pf2eManifest from "./system.pf2e.json" with { type: "json" };
+import sf2eManifest from "./system.sf2e.json" with { type: "json" };
 
 const [SYSTEM_ID, systemJSON] =
-    process.env.SYSTEM_ID === "pf2e" ? (["pf2e", systemPF2eJSON] as const) : (["sf2e", systemSF2eJSON] as const);
+    process.env.SYSTEM_ID === "pf2e" ? (["pf2e", pf2eManifest] as const) : (["sf2e", sf2eManifest] as const);
 const CONDITION_SOURCES = ((): ConditionSource[] => {
     const output = execSync(`pnpm run build:conditions --system=${SYSTEM_ID}`, { encoding: "utf-8" });
     return JSON.parse(output.slice(output.indexOf("[")));
@@ -52,7 +52,6 @@ function getUuidRedirects({ systemId }: { systemId: SystemId }): Record<Compendi
 const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     const buildMode = mode === "production" ? "production" : "development";
     const outDir = `dist/${SYSTEM_ID}`;
-    const SYSTEM_ROOT = `systems/${SYSTEM_ID}` as const;
     const rollGrammar = fs.readFileSync("roll-grammar.peggy", { encoding: "utf-8" });
     const ROLL_PARSER = Peggy.generate(rollGrammar, { output: "source" }).replace(
         'return {\n    StartRules: ["Expression"],\n    SyntaxError: peg$SyntaxError,\n    parse: peg$parse,\n  };',
@@ -134,7 +133,6 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 apply: "serve",
                 handleHotUpdate(context) {
                     if (context.file.startsWith(outDir)) return;
-
                     if (context.file.endsWith("en.json")) {
                         const basePath = context.file.slice(context.file.indexOf("lang/"));
                         console.debug(`Updating lang file at ${basePath}`);
@@ -142,7 +140,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                             context.server.ws.send({
                                 type: "custom",
                                 event: "lang-update",
-                                data: { path: `${SYSTEM_ROOT}/${basePath}` },
+                                data: { path: `systems/${SYSTEM_ID}/${basePath}` },
                             });
                         });
                     } else if (context.file.endsWith(".hbs")) {
@@ -152,7 +150,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                             context.server.ws.send({
                                 type: "custom",
                                 event: "template-update",
-                                data: { path: `${SYSTEM_ROOT}/${basePath}` },
+                                data: { path: `systems/${SYSTEM_ID}/${basePath}` },
                             });
                         });
                     }
@@ -178,7 +176,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 
     // Create dummy files for vite dev server
     if (command === "serve") {
-        const message = "This file is for a running vite dev server and is not copied to a build";
+        const message = "This file is for a running vite dev server and is not copied to a build.";
         fs.writeFileSync("./index.html", `<h1>${message}</h1>\n`);
         if (!fs.existsSync("./styles")) fs.mkdirSync("./styles");
         fs.writeFileSync(`./styles/${SYSTEM_ID}.css`, `/** ${message} */\n`);
@@ -189,11 +187,11 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     const reEscape = (s: string) => s.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
 
     return {
-        base: command === "build" ? "./" : `/${SYSTEM_ROOT}/`,
+        base: command === "build" ? "./" : `/systems/${SYSTEM_ID}/`,
         publicDir: "static",
         define: {
             SYSTEM_ID: JSON.stringify(SYSTEM_ID),
-            SYSTEM_ROOT: JSON.stringify(SYSTEM_ROOT),
+            SYSTEM_ROOT: JSON.stringify(`systems/${SYSTEM_ID}/`),
             BUILD_MODE: JSON.stringify(buildMode),
             CONDITION_SOURCES: JSON.stringify(CONDITION_SOURCES),
             EN_JSON: JSON.stringify(EN_JSON),

@@ -18,7 +18,8 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
 
     static override TABS = (() => {
         const tabsConfig = super.TABS;
-        tabsConfig["sheet"].tabs.push({ id: SYSTEM_ID, icon: "action-glyph", label: "PF2E.Pathfinder" });
+        const label = SYSTEM_ID === "pf2e" ? "PF2E.Pathfinder" : "SF2E.Starfinder";
+        tabsConfig["sheet"].tabs.push({ id: SYSTEM_ID, icon: "action-glyph", label });
         return tabsConfig;
     })();
 
@@ -33,14 +34,14 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
         return parts;
     }
 
-    /** Prepare context data for the pf2e tab */
+    /** Prepare context data for the system tab. */
     protected override async _preparePartContext(
         partId: string,
         context: fa.api.DocumentSheetRenderContext,
         options: fa.api.HandlebarsRenderOptions,
     ): Promise<fa.api.DocumentSheetRenderContext> {
         const partContext = await super._preparePartContext(partId, context, options);
-        if (partId !== "pf2e") return partContext;
+        if (partId !== SYSTEM_ID) return partContext;
         const scene = this.document;
         return Object.assign(partContext, {
             scene,
