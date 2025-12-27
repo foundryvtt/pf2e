@@ -1,0 +1,75 @@
+{
+    "_id": "dCp517IUFJk8JvQc",
+    "folder": "nkMmtVNKbsw3m9j1",
+    "img": "systems/pf2e/icons/unarmed-attacks/mandibles.webp",
+    "name": "Fangs",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>You were born with a natural means for hunting and self-defense. You gain a fangs unarmed attack that deals 1d6 piercing damage. Your fangs are in the brawling group and have the finesse and unarmed traits.</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens The Mwangi Expanse"
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Fangs",
+                "predicate": [
+                    {
+                        "or": [
+                            "change-shape:hybrid",
+                            "change-shape:spider"
+                        ]
+                    }
+                ],
+                "range": null,
+                "slug": "fangs",
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|id}"
+                ],
+                "property": "other-tags",
+                "value": "anadi-fangs"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "anadi"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,62 @@
+{
+    "_id": "uSAYmU7PO2QoOWhB",
+    "folder": "xZRlnGlv6ZXcVqYs",
+    "img": "icons/magic/control/fear-fright-white.webp",
+    "name": "Emotionally Unaware",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>You find it difficult to understand and express complex emotions. You take a -1 circumstance penalty to Diplomacy and Performance checks, and on Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive].</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Ancestry Guide"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "selector": [
+                    "diplomacy",
+                    "performance"
+                ],
+                "slug": "emotionally-unaware-diplomacy-performance-penalty",
+                "type": "circumstance",
+                "value": -1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:sense-motive"
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "slug": "emotionally-unaware-sense-motive-penalty",
+                "type": "circumstance",
+                "value": -1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "android"
+            ]
+        }
+    },
+    "type": "feat"
+}

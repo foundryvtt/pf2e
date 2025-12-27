@@ -1,0 +1,104 @@
+{
+    "_id": "DPPFBUk0l9KfRN8h",
+    "folder": "9NTiRgpVcPF2AdEl",
+    "img": "icons/commodities/cloth/thread-spindle-white-needle.webp",
+    "name": "Iivlar Weaving",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>Planar thread produced by creatures called iivlars is woven into your skin. This thread glows with dim light in a 10-foot emanation. You can Sustain to extinguish, reactivate, or adjust the coloration of this light.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "iivlar-weaving-lit",
+                "suboptions": [
+                    {
+                        "label": "PF2E.Color.Blue",
+                        "value": "#0000FF"
+                    },
+                    {
+                        "label": "PF2E.Color.Cyan",
+                        "value": "#43D6D6"
+                    },
+                    {
+                        "label": "PF2E.Color.Green",
+                        "value": "#00FF00"
+                    },
+                    {
+                        "label": "PF2E.Color.Indigo",
+                        "value": "#4B0082"
+                    },
+                    {
+                        "label": "PF2E.Color.Magenta",
+                        "value": "#FF00FF"
+                    },
+                    {
+                        "label": "PF2E.Color.Orange",
+                        "value": "#FFA400"
+                    },
+                    {
+                        "label": "PF2E.Color.Red",
+                        "value": "#FF0000"
+                    },
+                    {
+                        "label": "PF2E.Color.Violet",
+                        "value": "#9400D3"
+                    },
+                    {
+                        "label": "PF2E.Color.White",
+                        "value": "#AAAAAA"
+                    },
+                    {
+                        "label": "PF2E.Color.Yellow",
+                        "value": "#FAFA00"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "iivlar-weaving-lit"
+                ],
+                "value": {
+                    "alpha": 0.1,
+                    "animation": {},
+                    "bright": 0,
+                    "color": "{item|flags.pf2e.rulesSelections.iivlarWeavingLit}",
+                    "dim": 10,
+                    "luminosity": 0.15
+                }
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "jotunborn"
+            ]
+        }
+    },
+    "type": "feat"
+}

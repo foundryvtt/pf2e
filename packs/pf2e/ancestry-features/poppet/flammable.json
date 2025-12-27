@@ -1,0 +1,50 @@
+{
+    "_id": "qKh6MxgE0cwde6mC",
+    "folder": "0Uh7QGFJXe1sPzvu",
+    "img": "icons/magic/fire/flame-burning-skeleton-explosion.webp",
+    "name": "Flammable",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>You have weakness to fire damage equal to one-third your level (minimum 1).</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens The Grand Bazaar"
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "predicate": [
+                    {
+                        "nor": [
+                            "feat:sealed-poppet",
+                            "tsukumogami-poppet:electricity",
+                            "tsukumogami-poppet:cold"
+                        ]
+                    }
+                ],
+                "type": "fire",
+                "value": "max(1,floor(@actor.level/3))"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

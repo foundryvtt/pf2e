@@ -1,0 +1,132 @@
+{
+    "_id": "egpiSWBrNBb1Fmig",
+    "folder": "TnXuncFffnlLtPzA",
+    "img": "systems/pf2e/icons/features/ancestry/draconic-exemplar.webp",
+    "name": "Draconic Exemplar",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>You draw minor powers from your draconic exemplar. Choose a type of chromatic or metallic dragon to be your exemplar. This determines your scale color and appearance, and dragons sometimes look more favorably upon those kobolds who resemble them, at the GM's discretion. Your exemplar may also determine details of other abilities you have, using the Draconic Exemplars table.</p><h3><strong>Table 1-1 Draconic Exemplars</strong></h3><table class=\"pf2e remaster\"><thead><tr><th>Dragon</th><th>Breath Weapon Shape</th><th>Damage Type</th><th>Saving Throw</th></tr></thead><tbody><tr><td>Black</td><td>Line</td><td>Acid</td><td>Reflex</td></tr><tr><td>Blue</td><td>Line</td><td>Electricity</td><td>Reflex</td></tr><tr><td>Green</td><td>Cone</td><td>Poison</td><td>Fortitude</td></tr><tr><td>Red</td><td>Cone</td><td>Fire</td><td>Reflex</td></tr><tr><td>White</td><td>Cone</td><td>Cold</td><td>Reflex</td></tr><tr><td>Brass</td><td>Line</td><td>Fire</td><td>Reflex</td></tr><tr><td>Bronze</td><td>Line</td><td>Electricity</td><td>Reflex</td></tr><tr><td>Copper</td><td>Line</td><td>Acid</td><td>Reflex</td></tr><tr><td>Gold</td><td>Cone</td><td>Fire</td><td>Reflex</td></tr><tr><td>Silver</td><td>Cone</td><td>Cold</td><td>Reflex</td></tr></tbody></table>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Black",
+                        "value": {
+                            "damageType": "acid",
+                            "dragon": "black"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Blue",
+                        "value": {
+                            "damageType": "electricity",
+                            "dragon": "blue"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Green",
+                        "value": {
+                            "damageType": "poison",
+                            "dragon": "green"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Red",
+                        "value": {
+                            "damageType": "fire",
+                            "dragon": "red"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.White",
+                        "value": {
+                            "damageType": "cold",
+                            "dragon": "white"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Brass",
+                        "value": {
+                            "damageType": "fire",
+                            "dragon": "brass"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Bronze",
+                        "value": {
+                            "damageType": "electricity",
+                            "dragon": "bronze"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Copper",
+                        "value": {
+                            "damageType": "acid",
+                            "dragon": "copper"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Gold",
+                        "value": {
+                            "damageType": "fire",
+                            "dragon": "gold"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Silver",
+                        "value": {
+                            "damageType": "cold",
+                            "dragon": "silver"
+                        }
+                    }
+                ],
+                "flag": "draconicExemplar",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.DragonDisciple.Prompt",
+                "rollOption": "self:feature:draconic-exemplar"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.draconicExemplar.damageType",
+                "value": "{item|flags.pf2e.rulesSelections.draconicExemplar.damageType}"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:kobold-breath"
+                ],
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.draconicExemplar.damageType}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kobold"
+            ]
+        }
+    },
+    "type": "feat"
+}
