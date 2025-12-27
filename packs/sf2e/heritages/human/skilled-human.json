@@ -1,0 +1,42 @@
+{
+    "_id": "zVf0Hlp5xG0Q7kmc",
+    "folder": "lqCCxfN8RSoZo6YU",
+    "img": "systems/sf2e//icons/default-icons/heritage.svg",
+    "name": "Skilled Human",
+    "system": {
+        "ancestry": {
+            "name": "Human",
+            "slug": "human",
+            "uuid": "Compendium.sf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+        },
+        "description": {
+            "value": "<p>Your ingenuity allows you to train in a wide variety of skills. You become trained in one skill of your choice. At 5th level, you become an expert in the chosen skill.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "skills"
+                },
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": "ternary(gte(@actor.level,5),2,1)"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

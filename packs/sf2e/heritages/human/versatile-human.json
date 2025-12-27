@@ -1,0 +1,45 @@
+{
+    "_id": "hFBwsVcSnNCJoimo",
+    "folder": "lqCCxfN8RSoZo6YU",
+    "img": "systems/sf2e//icons/default-icons/heritage.svg",
+    "name": "Versatile Human",
+    "system": {
+        "ancestry": {
+            "name": "Human",
+            "slug": "human",
+            "uuid": "Compendium.sf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+        },
+        "description": {
+            "value": "<p>Humans were the most common ancestry on Golarion before that world disappeared, and they've since spread to the stars thanks to their versatility. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:1",
+                        "item:trait:general"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "versatileHeritage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.sf2e.rulesSelections.versatileHeritage}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}
