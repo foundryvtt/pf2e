@@ -20,7 +20,7 @@ import systemPF2eJSON from "../../system.pf2e.json" with { type: "json" };
 import systemSF2eJSON from "../../system.sf2e.json" with { type: "json" };
 import duplicates from "../duplicates.json" with { type: "json" };
 import { CompendiumPack, isActorSource, isItemSource } from "./compendium-pack.ts";
-import { PackError, getFilesRecursively, getFolderPath } from "./helpers.ts";
+import { PackError, getFolderPath, getPackJSONPaths } from "./helpers.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
 import type { PackEntry } from "./types.ts";
 
@@ -843,7 +843,7 @@ class PackExtractor {
             const packMap: Map<string, string> = new Map();
             this.#idsToNames[metadata.type]?.set(metadata.name, packMap);
 
-            const filePaths = getFilesRecursively(path.resolve(this.dataPath, packDir));
+            const filePaths = getPackJSONPaths(packDir, this.systemId);
             for (const filePath of filePaths) {
                 const source = parsePackEntrySource(filePath);
                 if (source._id) packMap.set(source._id, source.name);
@@ -851,11 +851,11 @@ class PackExtractor {
 
             // If the system is sf2e, also add the entries in the duplicates record to the map
             if (this.systemId === "sf2e") {
-                const duplicateNames = duplicates.flatMap((group) => {
-                    return objectHasKey(group.entries, packDir) ? (group.entries[packDir] ?? []) : [];
-                });
+                const duplicateNames = duplicates.flatMap((group) =>
+                    objectHasKey(group.entries, packDir) ? (group.entries[packDir] ?? []) : [],
+                );
                 // A mapping from slug to file path, used to lookup the file to duplicate
-                const pf2eFilePaths = R.mapToObj(getFilesRecursively(path.resolve("packs/pf2e", packDir)), (p) => [
+                const pf2eFilePaths = R.mapToObj(getPackJSONPaths(packDir, "pf2e"), (p) => [
                     (p.split(path.sep)?.at(-1) ?? p).replace(".json", ""),
                     p,
                 ]);

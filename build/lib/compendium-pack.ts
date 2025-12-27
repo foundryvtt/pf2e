@@ -18,7 +18,7 @@ import sf2eManifest from "../../system.sf2e.json" with { type: "json" };
 import coreIconsJSON from "../core-icons.json" with { type: "json" };
 import duplicates from "../duplicates.json" with { type: "json" };
 import "./foundry-utils.ts";
-import { PackError, getFilesRecursively, getFolderPath } from "./helpers.ts";
+import { PackError, getFolderPath, getPackJSONPaths } from "./helpers.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
 import { PackEntry } from "./types.ts";
 
@@ -216,7 +216,7 @@ class CompendiumPack {
         uuid: /@UUID\[Compendium\.(?:pf2e|sf2e)\.(?<packName>[^.]+)\.(?<docType>Actor|JournalEntry|Item|Macro|RollTable)\.(?<docName>[^\]]+)\]\{?/g,
     };
 
-    static loadJSON(dirPath: string, { systemId }: { systemId: SystemId }): CompendiumPack {
+    static loadJSON(packDirName: string, { systemId }: { systemId: SystemId }): CompendiumPack {
         function parsePackEntrySource(filePath: string): PackEntry {
             const jsonString = fs.readFileSync(filePath, "utf-8");
             try {
@@ -242,14 +242,11 @@ class CompendiumPack {
             }
         }
 
-        const filePaths = getFilesRecursively(path.resolve("packs", systemId, dirPath));
+        const filePaths = getPackJSONPaths(packDirName, systemId);
         const parsedData = filePaths.map((filePath) => {
             const packSource = parsePackEntrySource(filePath);
             const documentName = packSource?.name;
-            if (documentName === undefined) {
-                throw PackError(`Document contained in ${filePath} has no name.`);
-            }
-
+            if (!documentName) throw PackError(`Document contained in ${filePath} has no name.`);
             const filenameForm = sluggify(documentName).concat(".json");
             if (path.basename(filePath) !== filenameForm) {
                 throw PackError(`Filename at ${filePath} does not reflect document name (should be ${filenameForm}).`);
@@ -258,41 +255,43 @@ class CompendiumPack {
             return packSource;
         });
 
-        const folders = loadFoldersFromFile(path.resolve("packs", systemId, dirPath, "_folders.json"));
+        const folders = loadFoldersFromFile(path.resolve("packs", systemId, packDirName, "_folders.json"));
 
         // Determine if we need to resolve cross-system duplicates.
         // Once we do, we need to lookup the new folder and make some changes to it.
         if (systemId === "sf2e") {
             const resolvedDuplicates = duplicates.flatMap((group) => {
-                const data = objectHasKey(group.entries, dirPath) ? group.entries[dirPath] : null;
+                const data = objectHasKey(group.entries, packDirName) ? group.entries[packDirName] : null;
                 return data?.map((d) => ({ publication: group.publication, name: d })) ?? [];
             });
             if (resolvedDuplicates.length) {
                 // A mapping from slug to file path, used to lookup the file to duplicate
-                const pf2eFilePaths = R.mapToObj(getFilesRecursively(path.resolve("packs/pf2e", dirPath)), (p) => [
+                const pf2eFilePaths = R.mapToObj(getPackJSONPaths(packDirName, "pf2e"), (p) => [
                     (p.split(path.sep)?.at(-1) ?? p).replace(".json", ""),
                     p,
                 ]);
                 // Map the PF2e folder id to a folder path, to then retrieve the SF2e folder id
-                const pf2eFolders = loadFoldersFromFile(path.resolve("packs/pf2e", dirPath, "_folders.json"));
+                const pf2eFolders = loadFoldersFromFile(path.resolve("packs/pf2e", packDirName, "_folders.json"));
                 const pf2eFolderPaths = R.mapToObj(pf2eFolders, (f) => [
                     f._id,
-                    getFolderPath({ folders: pf2eFolders, dirName: dirPath }, f),
+                    getFolderPath({ folders: pf2eFolders, dirName: packDirName }, f),
                 ]);
                 // Maps the SF2e folder to the folder ID
                 const sf2eFolderLookup = R.mapToObj(folders, (f) => [
-                    getFolderPath({ folders, dirName: dirPath }, f),
+                    getFolderPath({ folders, dirName: packDirName }, f),
                     f._id,
                 ]);
                 for (const { publication, name } of resolvedDuplicates) {
                     const pf2ePath = pf2eFilePaths[sluggify(name)];
-                    if (!pf2ePath) throw PackError(`Duplicate item ${name} could not be found in pf2e pack ${dirPath}`);
+                    if (!pf2ePath) {
+                        throw PackError(`Duplicate item ${name} could not be found in pf2e pack ${packDirName}`);
+                    }
                     const source = parsePackEntrySource(pf2ePath);
                     if (source.folder) {
                         const folderPath = pf2eFolderPaths[source.folder];
                         source.folder = sf2eFolderLookup[folderPath] ?? null;
                         if (!source.folder) {
-                            console.warn(`Failed to find folder ${folderPath} for item ${name} in pack ${dirPath}`);
+                            console.warn(`Failed to find folder ${folderPath} for item ${name} in pack ${packDirName}`);
                         }
                     }
 
@@ -301,7 +300,7 @@ class CompendiumPack {
             }
         }
 
-        return new CompendiumPack({ dirName: path.basename(dirPath), data: parsedData, folders, systemId });
+        return new CompendiumPack({ dirName: path.basename(packDirName), data: parsedData, folders, systemId });
     }
 
     static #adjustPF2eDocumentForSF2e(source: PackEntry, { publication }: { publication?: string | null }): PackEntry {
@@ -317,7 +316,6 @@ class CompendiumPack {
             source.flags.sf2e = source.flags.pf2e;
             delete source.flags.pf2e;
         }
-
         return recursiveReplaceString(source, (s) => {
             s = s.replaceAll("systems/pf2e", "systems/sf2e").replace(/\bflags\.pf2e\./g, "flags.sf2e.");
             for (const [pf2eName, sf2eName] of Object.entries(this.sf2eCompendiumRemap)) {

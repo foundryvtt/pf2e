@@ -14,7 +14,7 @@ import fs from "fs-extra";
 import path from "path";
 import * as R from "remeda";
 import "./lib/foundry-utils.ts";
-import { getFilesRecursively } from "./lib/helpers.ts";
+import { getPackJSONPaths } from "./lib/helpers.ts";
 import type { PackEntry } from "./lib/types.ts";
 
 import { Migration937RemoveInvalidAuraTraits } from "@module/migration/migrations/937-remove-invalid-aura-traits.ts";
@@ -95,11 +95,11 @@ function jsonStringifyOrder(obj: object): string {
 }
 
 async function getAllFiles(allEntries: string[] = []): Promise<string[]> {
-    for (const dirPath of ["pf2e", "sf2e"].map((s) => path.resolve("packs", s))) {
-        const packs = fs.readdirSync(dirPath);
-        for (const pack of packs) {
-            console.log(`Collecting data for "${pack}"`);
-            allEntries.push(...getFilesRecursively(path.join(dirPath, pack)));
+    for (const systemId of ["pf2e", "sf2e"]) {
+        const packDirs = fs.readdirSync(path.resolve("packs", systemId));
+        for (const packDir of packDirs) {
+            console.log(`Collecting data for "${packDir}"`);
+            allEntries.push(...getPackJSONPaths(packDir, systemId));
         }
     }
     return allEntries;

@@ -8,19 +8,17 @@ const PackError = (message: string): void => {
     process.exit(1);
 };
 
-const getFilesRecursively = (directory: string, filePaths: string[] = []): string[] => {
-    const filesInDirectory = fs.readdirSync(directory);
-    for (const file of filesInDirectory) {
-        const absolute = path.join(directory, file);
-        if (fs.lstatSync(absolute).isDirectory()) {
-            getFilesRecursively(absolute, filePaths);
-        } else {
-            if (file === "_folders.json" || !file.endsWith(".json")) continue;
-            filePaths.push(absolute);
-        }
+function getPackJSONPaths(directory: string, systemId: string): string[] {
+    const dirPath = path.resolve("packs", systemId, directory);
+    try {
+        return fs
+            .readdirSync(dirPath, { recursive: true, encoding: "utf-8" })
+            .filter((p) => p.endsWith(".json") && path.basename(p) !== "_folders.json")
+            .map((p) => path.join(dirPath, p));
+    } catch {
+        return [];
     }
-    return filePaths;
-};
+}
 
 function getFolderPath(pack: { folders: DBFolder[]; dirName: string }, folder: DBFolder, parts: string[] = []): string {
     const { folders, dirName } = pack;
@@ -39,4 +37,4 @@ function getFolderPath(pack: { folders: DBFolder[]; dirName: string }, folder: D
     return path.join(...parts);
 }
 
-export { getFilesRecursively, getFolderPath, PackError };
+export { getFolderPath, getPackJSONPaths, PackError };
