@@ -18,7 +18,7 @@ const RESISTANCE_TYPES: Set<ResistanceType> = new Set(R.keys(resistanceTypes));
 
 const UNAFFECTED_TYPES = new Set(["bleed", "good", "evil", "lawful", "chaotic", "spirit", "vitality", "void"] as const);
 
-/** All skill slugs that are part of the core system. Used for validation. */
+/** All skill slugs that are part of the core system. Only used in migrations. */
 const CORE_SKILL_SLUGS = new Set([
     "acrobatics",
     "arcana",

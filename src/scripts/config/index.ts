@@ -513,6 +513,31 @@ const ammoTypes = {
     },
 } satisfies Record<string, BaseAmmoTypeData>;
 
+const skills: Record<SkillSlug, { label: string; attribute: AttributeString }> = {
+    acrobatics: { label: "PF2E.Skill.Acrobatics", attribute: "dex" },
+    arcana: { label: "PF2E.Skill.Arcana", attribute: "int" },
+    athletics: { label: "PF2E.Skill.Athletics", attribute: "str" },
+    crafting: { label: "PF2E.Skill.Crafting", attribute: "int" },
+    deception: { label: "PF2E.Skill.Deception", attribute: "cha" },
+    diplomacy: { label: "PF2E.Skill.Diplomacy", attribute: "cha" },
+    intimidation: { label: "PF2E.Skill.Intimidation", attribute: "cha" },
+    medicine: { label: "PF2E.Skill.Medicine", attribute: "wis" },
+    nature: { label: "PF2E.Skill.Nature", attribute: "wis" },
+    occultism: { label: "PF2E.Skill.Occultism", attribute: "int" },
+    performance: { label: "PF2E.Skill.Performance", attribute: "cha" },
+    religion: { label: "PF2E.Skill.Religion", attribute: "wis" },
+    society: { label: "PF2E.Skill.Society", attribute: "int" },
+    stealth: { label: "PF2E.Skill.Stealth", attribute: "dex" },
+    survival: { label: "PF2E.Skill.Survival", attribute: "wis" },
+    thievery: { label: "PF2E.Skill.Thievery", attribute: "dex" },
+    ...(SYSTEM_ID === "sf2e"
+        ? {
+              computers: { label: "PF2E.Skill.Computers", attribute: "int" },
+              piloting: { label: "PF2E.Skill.Piloting", attribute: "dex" },
+          }
+        : {}),
+};
+
 export const PF2ECONFIG = {
     defaultPartyId: "xxxPF2ExPARTYxxx",
     chatDamageButtonShieldToggle: false,
@@ -809,24 +834,7 @@ export const PF2ECONFIG = {
 
     ammoTypes,
 
-    skills: Object.freeze({
-        acrobatics: { label: "PF2E.Skill.Acrobatics", attribute: "dex" },
-        arcana: { label: "PF2E.Skill.Arcana", attribute: "int" },
-        athletics: { label: "PF2E.Skill.Athletics", attribute: "str" },
-        crafting: { label: "PF2E.Skill.Crafting", attribute: "int" },
-        deception: { label: "PF2E.Skill.Deception", attribute: "cha" },
-        diplomacy: { label: "PF2E.Skill.Diplomacy", attribute: "cha" },
-        intimidation: { label: "PF2E.Skill.Intimidation", attribute: "cha" },
-        medicine: { label: "PF2E.Skill.Medicine", attribute: "wis" },
-        nature: { label: "PF2E.Skill.Nature", attribute: "wis" },
-        occultism: { label: "PF2E.Skill.Occultism", attribute: "int" },
-        performance: { label: "PF2E.Skill.Performance", attribute: "cha" },
-        religion: { label: "PF2E.Skill.Religion", attribute: "wis" },
-        society: { label: "PF2E.Skill.Society", attribute: "int" },
-        stealth: { label: "PF2E.Skill.Stealth", attribute: "dex" },
-        survival: { label: "PF2E.Skill.Survival", attribute: "wis" },
-        thievery: { label: "PF2E.Skill.Thievery", attribute: "dex" },
-    }) satisfies Record<SkillSlug, { label: string; attribute: AttributeString }>,
+    skills: Object.freeze(skills),
 
     featCategories,
 

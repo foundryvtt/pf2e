@@ -1,3 +1,4 @@
+import type { Action } from "@actor/actions/index.ts";
 import * as balance from "./acrobatics/balance.ts";
 import * as maneuverInFlight from "./acrobatics/maneuver-in-flight.ts";
 import * as squeeze from "./acrobatics/squeeze.ts";
@@ -30,6 +31,9 @@ import { step } from "./basic/step.ts";
 import { stride } from "./basic/stride.ts";
 import { takeCover } from "./basic/take-cover.ts";
 import { tamper } from "./class/inventor/tamper.ts";
+import { accessInfosphere } from "./computers/access-infosphere.ts";
+import { hack } from "./computers/hack.ts";
+import { operateDevice } from "./computers/operate-device.ts";
 import { craft, identifyAlchemy, repair } from "./crafting/index.ts";
 import * as createADiversion from "./deception/create-a-diversion.ts";
 import * as feint from "./deception/feint.ts";
@@ -55,6 +59,8 @@ import * as treatDisease from "./medicine/treat-disease.ts";
 import * as treatPoison from "./medicine/treat-poison.ts";
 import * as commandAnAnimal from "./nature/command-an-animal.ts";
 import * as perform from "./performance/perform.ts";
+import { navigate } from "./piloting/navigate.ts";
+import { plotCourse } from "./piloting/plot-course.ts";
 import * as createForgery from "./society/create-forgery.ts";
 import { arrestAFall } from "./specialty-basic/arrest-a-fall.ts";
 import { avertGaze } from "./specialty-basic/avert-gaze.ts";
@@ -68,11 +74,10 @@ import { sustain } from "./specialty-basic/sustain.ts";
 import * as concealAnObject from "./stealth/conceal-an-object.ts";
 import * as hide from "./stealth/hide.ts";
 import * as sneak from "./stealth/sneak.ts";
-import * as palmAnObject from "./thievery/palm-an-object.ts";
 import * as disableDevice from "./thievery/disable-device.ts";
+import * as palmAnObject from "./thievery/palm-an-object.ts";
 import * as pickALock from "./thievery/pick-a-lock.ts";
 import * as steal from "./thievery/steal.ts";
-import { Action } from "@actor/actions/index.ts";
 export { ActionMacroHelpers } from "./helpers.ts";
 export type { ActionDefaultOptions, SkillActionOptions } from "./types.ts";
 
@@ -162,7 +167,7 @@ export const ActionMacros = {
     steal: steal.legacy,
 };
 
-export const SystemActions: Action[] = [
+const SystemActions: Action[] = [
     administerFirstAid.action,
     affixATalisman,
     aid,
@@ -234,3 +239,9 @@ export const SystemActions: Action[] = [
     trip.action,
     tumbleThrough.action,
 ];
+
+if (SYSTEM_ID === "sf2e") {
+    SystemActions.push(accessInfosphere, hack, operateDevice, navigate, plotCourse);
+}
+
+export { SystemActions };
