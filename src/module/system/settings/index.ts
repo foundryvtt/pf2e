@@ -22,8 +22,7 @@ export function registerSettings(): void {
         hint: "PF2E.SETTINGS.Tokens.Autoscale.Hint",
         scope: "world",
         config: true,
-        default: true,
-        type: Boolean,
+        type: new fields.BooleanField({ initial: true }),
         onChange: (value) => {
             game.pf2e.settings.tokens.autoscale = !!value;
         },
@@ -135,8 +134,7 @@ export function registerSettings(): void {
         hint: game.i18n.localize("PF2E.SETTINGS.critFumbleCardButtons.hint"),
         scope: "world",
         config: true,
-        default: false,
-        type: Boolean,
+        type: new fields.BooleanField(),
         requiresReload: true,
     });
 
@@ -145,8 +143,7 @@ export function registerSettings(): void {
         hint: game.i18n.localize("PF2E.SETTINGS.critFumbleCards.hint"),
         scope: "world",
         config: true,
-        default: false,
-        type: Boolean,
+        type: new fields.BooleanField(),
         onChange: (value) => {
             game.pf2e.settings.critFumble.cards = !!value;
         },
@@ -174,8 +171,7 @@ export function registerSettings(): void {
         hint: "PF2E.SETTINGS.TOTMToggles.Hint",
         scope: "world",
         config: true,
-        default: false,
-        type: Boolean,
+        type: new fields.BooleanField(),
         onChange: (value) => {
             game.pf2e.settings.totm = !!value;
             resetActors();
@@ -187,8 +183,12 @@ export function registerSettings(): void {
         hint: "PF2E.SETTINGS.DeathIcon.Hint",
         scope: "world",
         config: false,
-        default: "icons/svg/skull.svg",
-        type: String,
+        type: new fields.FilePathField({
+            required: true,
+            nullable: false,
+            categories: ["IMAGE", "VIDEO"],
+            initial: "icons/svg/skull.svg",
+        }),
         onChange: (choice) => {
             if (isImageOrVideoPath(choice)) {
                 StatusEffects.reset();
@@ -204,8 +204,7 @@ export function registerSettings(): void {
         hint: "PF2E.SETTINGS.NathMode.Hint",
         scope: "world",
         config: BUILD_MODE === "development",
-        default: false,
-        type: Boolean,
+        type: new fields.BooleanField(),
     });
 
     game.settings.register(SYSTEM_ID, "statusEffectShowCombatMessage", {
@@ -213,8 +212,7 @@ export function registerSettings(): void {
         hint: "PF2E.SETTINGS.statusEffectShowCombatMessage.hint",
         scope: "world",
         config: true,
-        default: true,
-        type: Boolean,
+        type: new fields.BooleanField({ initial: true }),
     });
 
     AutomationSettings.register();
@@ -256,8 +254,7 @@ export function registerSettings(): void {
         name: "PF2E.SETTINGS.GMVision",
         scope: "client",
         config: false,
-        default: false,
-        type: Boolean,
+        type: new fields.BooleanField(),
         onChange: (value) => {
             game.pf2e.settings.gmVision = !!value;
             const color = value ? CONFIG.PF2E.Canvas.darkness.gmVision : CONFIG.PF2E.Canvas.darkness.default;
@@ -276,14 +273,6 @@ export function registerSettings(): void {
         },
     });
 
-    game.settings.register(SYSTEM_ID, "seenLastStopMessage", {
-        name: "Seen Last Stop Before Remaster Message",
-        scope: "world",
-        config: false,
-        type: Boolean,
-        default: false,
-    });
-
     registerTrackingSettings();
 
     if (BUILD_MODE === "production") {
@@ -299,7 +288,7 @@ function registerTrackingSettings(): void {
         scope: "world",
         config: false,
         default: false,
-        type: Boolean,
+        type: new fields.BooleanField(),
     });
 
     game.settings.register(SYSTEM_ID, "activeParty", {
@@ -335,7 +324,7 @@ function registerTrackingSettings(): void {
         scope: "world",
         config: false,
         default: false,
-        type: Boolean,
+        type: new fields.BooleanField(),
     });
 }
 
