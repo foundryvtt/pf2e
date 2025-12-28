@@ -7,7 +7,7 @@ async function add(actor: CharacterPF2e): Promise<void> {
     const weaponGroups = CONFIG.PF2E.weaponGroups;
     const baseWeapons = CONFIG.PF2E.baseWeaponTypes;
     const template = await fa.handlebars.renderTemplate(
-        `${SYSTEM_ROOT}/templates/actors/add-combat-proficiency-dialog.hbs`,
+        `systems/${SYSTEM_ID}/templates/actors/add-combat-proficiency-dialog.hbs`,
         { message, weaponGroups, baseWeapons },
     );
 

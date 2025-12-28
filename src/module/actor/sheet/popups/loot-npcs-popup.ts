@@ -9,7 +9,7 @@ class LootNPCsPopup extends appv1.api.FormApplication<ActorPF2e> {
         options.id = "loot-NPCs";
         options.classes = [];
         options.title = "Loot NPCs";
-        options.template = `${SYSTEM_ROOT}/templates/actors/loot/loot-npcs-popup.hbs`;
+        options.template = `systems/${SYSTEM_ID}/templates/actors/loot/loot-npcs-popup.hbs`;
         options.width = "auto";
         return options;
     }

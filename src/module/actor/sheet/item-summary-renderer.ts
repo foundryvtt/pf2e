@@ -110,7 +110,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
 
         const price = item.isOfType("physical", "kit") ? item.system.price : null;
         const summary = await fa.handlebars.renderTemplate(
-            `${SYSTEM_ROOT}/templates/actors/partials/item-summary.hbs`,
+            `systems/${SYSTEM_ID}/templates/actors/partials/item-summary.hbs`,
             {
                 item,
                 description: chatData.description,

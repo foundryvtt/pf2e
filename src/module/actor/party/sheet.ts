@@ -40,7 +40,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             classes: [...options.classes, "party"],
             width: 720,
             height: 720,
-            template: `${SYSTEM_ROOT}/templates/actors/party/sheet.hbs`,
+            template: `systems/${SYSTEM_ID}/templates/actors/party/sheet.hbs`,
             scrollY: [...options.scrollY, ".tab.active", ".tab.active .content", ".sidebar"],
             tabs: [
                 {
@@ -478,7 +478,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const templateName = this.regionTemplates[regionId];
             if (!templateName) continue;
 
-            const template = `${SYSTEM_ROOT}/templates/actors/party/regions/${templateName}`;
+            const template = `systems/${SYSTEM_ID}/templates/actors/party/regions/${templateName}`;
             const result = await fa.handlebars.renderTemplate(template, data);
 
             region.innerHTML = result;

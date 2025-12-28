@@ -147,7 +147,7 @@ export function registerTemplates(): void {
 
         // misc partials
         "system/settings/basic-setting.hbs",
-    ].map((t) => `${SYSTEM_ROOT}/templates/${t}`);
+    ].map((t) => `systems/${SYSTEM_ID}/templates/${t}`);
 
     fa.handlebars.loadTemplates(templatePaths);
 }

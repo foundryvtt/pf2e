@@ -32,10 +32,11 @@
     /** Shows the roll options for a specific modifier */
     async function showOptionsTooltip(element: HTMLElement, object: Modifier | DamageDicePF2e) {
         const rollOptions = R.sortBy(object.getRollOptions().sort(), (o) => o.includes(":"));
-        const content = await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/system/roll-options-tooltip.hbs`, {
-            description: game.i18n.localize("PF2E.ChatRollDetails.DiceRollOptionsHint"),
-            rollOptions,
-        });
+        const description = game.i18n.localize("PF2E.ChatRollDetails.DiceRollOptionsHint");
+        const content = await fa.handlebars.renderTemplate(
+            `systems/${SYSTEM_ID}/templates/system/roll-options-tooltip.hbs`,
+            { description, rollOptions },
+        );
         game.tooltip.dismissLockedTooltips();
         game.tooltip.activate(element, {
             html: createHTMLElement("div", { innerHTML: content }),

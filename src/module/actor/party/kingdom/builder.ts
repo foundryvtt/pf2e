@@ -37,7 +37,7 @@ class KingdomBuilder extends appv1.api.FormApplication<Kingdom> {
             ...super.defaultOptions,
             classes: ["sheet", "kingdom-builder"],
             title: game.i18n.localize("PF2E.Kingmaker.KingdomBuilder.Title"),
-            template: `${SYSTEM_ROOT}/templates/actors/party/kingdom/builder.hbs`,
+            template: `systems/${SYSTEM_ID}/templates/actors/party/kingdom/builder.hbs`,
             width: 560,
             height: "auto",
             submitOnChange: true,

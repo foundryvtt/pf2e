@@ -19,7 +19,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             width: 670,
             height: 520,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "details" }],
-            template: `${SYSTEM_ROOT}/templates/actors/vehicle/sheet.hbs`,
+            template: `systems/${SYSTEM_ID}/templates/actors/vehicle/sheet.hbs`,
         };
     }
 

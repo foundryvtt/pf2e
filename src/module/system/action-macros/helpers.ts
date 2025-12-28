@@ -78,7 +78,7 @@ class ActionMacroHelpers {
         const statistic =
             options.actor.getStatistic(data.slug) ?? (fu.getProperty(options.actor, property) as StrikeData);
         if (!statistic) {
-            const { actor } = options;
+            const actor = options.actor;
             const message = `Actor ${actor.name} (${actor.id}) does not have a statistic for ${slug}.`;
             throw new CheckContextError(message, actor, slug);
         }
@@ -101,16 +101,7 @@ class ActionMacroHelpers {
                 modifier.adjustments = (modifier.adjustments ?? []).concat(adjustments);
                 return modifier;
             });
-
-        return {
-            item,
-            modifiers,
-            rollOptions: contextualRollOptions,
-            slug,
-            statistic,
-            subtitle,
-            type,
-        };
+        return { item, modifiers, rollOptions: contextualRollOptions, slug, statistic, subtitle, type };
     }
 
     static note(
@@ -131,11 +122,7 @@ class ActionMacroHelpers {
     static outcomesNote(selector: string, translationKey: string, outcomes: DegreeOfSuccessString[]): RollNotePF2e {
         const visible = game.pf2e.settings.metagame.results;
         const visibleOutcomes = visible ? outcomes : [];
-        return new RollNotePF2e({
-            selector: selector,
-            text: game.i18n.localize(translationKey),
-            outcome: visibleOutcomes,
-        });
+        return new RollNotePF2e({ selector, text: game.i18n.localize(translationKey), outcome: visibleOutcomes });
     }
 
     static async simpleRollActionCheck<TItem extends ItemPF2e<ActorPF2e>>(
@@ -150,11 +137,7 @@ class ActionMacroHelpers {
         } else {
             rollers.push(...getSelectedActors({ exclude: ["loot", "party"], assignedFallback: true }));
         }
-
-        if (rollers.length === 0) {
-            throw new Error(game.i18n.localize("PF2E.ActionsWarning.NoActor"));
-        }
-
+        if (rollers.length === 0) throw new Error(game.i18n.localize("PF2E.ActionsWarning.NoActor"));
         const targetData = options.target?.() ?? this.target();
 
         for (const actor of rollers) {
@@ -176,13 +159,10 @@ class ActionMacroHelpers {
                     },
                     target: targetData.actor,
                 })!;
-
-                const header = await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/action/header.hbs`, {
-                    glyph: options.actionGlyph,
-                    subtitle,
-                    title: options.title,
-                });
-
+                const header = await fa.handlebars.renderTemplate(
+                    `systems/${SYSTEM_ID}/templates/chat/action/header.hbs`,
+                    { glyph: options.actionGlyph, subtitle, title: options.title },
+                );
                 const actionTraits = (options.traits ?? []).filter(
                     (t): t is AbilityTrait => t in CONFIG.PF2E.actionTraits,
                 );
@@ -350,7 +330,6 @@ class ActionMacroHelpers {
     ): WeaponPF2e<ActorPF2e> | null {
         const items = traits.flatMap((t) => ActionMacroHelpers.#getApplicableEquippedWeapons(actor, t));
         if (items.length === 0) return null;
-
         const bestItem = items.reduce(
             (max, item) =>
                 (ActionMacroHelpers.getWeaponPotencyModifier(item, selector)?.value ?? 0) >
@@ -393,9 +372,7 @@ class ActionMacroHelpers {
         if (typeof unresolvedDC === "string") {
             return fully ? (target?.getStatistic(unresolvedDC)?.dc ?? null) : { slug: unresolvedDC };
         }
-        if (typeof unresolvedDC === "function") return unresolvedDC(target);
-
-        return unresolvedDC;
+        return typeof unresolvedDC === "function" ? unresolvedDC(target) : unresolvedDC;
     }
 }
 

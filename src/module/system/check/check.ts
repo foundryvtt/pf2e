@@ -835,7 +835,7 @@ class Check {
 
         // Render the template and replace quasi-XML nodes with visibility-data-containing HTML elements
         const rendered = await fa.handlebars.renderTemplate(
-            `${SYSTEM_ROOT}/templates/chat/check/target-dc-result.hbs`,
+            `systems/${SYSTEM_ID}/templates/chat/check/target-dc-result.hbs`,
             {
                 dc: dcData,
                 result: resultData,

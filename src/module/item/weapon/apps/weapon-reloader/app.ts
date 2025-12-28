@@ -137,8 +137,8 @@ class WeaponReloader extends SvelteApplicationMixin<
         if (!game.combat || !actor) return;
 
         const templates = {
-            flavor: `./${SYSTEM_ROOT}/templates/chat/action/flavor.hbs`,
-            content: `./${SYSTEM_ROOT}/templates/chat/action/content.hbs`,
+            flavor: `./systems/${SYSTEM_ID}/templates/chat/action/flavor.hbs`,
+            content: `./systems/${SYSTEM_ID}/templates/chat/action/content.hbs`,
         };
         const actionKey = "Interact";
         const annotationKey = "Reload";

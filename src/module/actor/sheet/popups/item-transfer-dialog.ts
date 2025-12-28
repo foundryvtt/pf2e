@@ -76,7 +76,7 @@ class ItemTransferDialog extends fa.api.DialogV2<ItemTransferConfiguration> {
             rootId: "item-transfer-dialog",
         };
         const content = document.createElement("div");
-        const templatePath = `${SYSTEM_ROOT}/templates/popups/item-transfer-dialog.hbs`;
+        const templatePath = `systems/${SYSTEM_ID}/templates/popups/item-transfer-dialog.hbs`;
         content.innerHTML = await fa.handlebars.renderTemplate(templatePath, context);
 
         // Buttons

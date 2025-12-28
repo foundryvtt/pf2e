@@ -144,7 +144,7 @@ export function registerHandlebarsHelpers(): void {
     Handlebars.registerHelper("resolvePath", function (path: unknown): string {
         const stringPath = String(path);
         const pathNormalized = stringPath[0] === "/" || stringPath[0] === "\\" ? stringPath.substring(1) : stringPath;
-        return `${SYSTEM_ROOT}/${pathNormalized}`;
+        return `systems/${SYSTEM_ID}/${pathNormalized}`;
     });
 }
 

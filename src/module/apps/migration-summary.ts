@@ -29,7 +29,7 @@ export class MigrationSummary extends appv1.api.Application<MigrationSummaryOpti
             id: "migration-summary",
             width: 400,
             height: "auto",
-            template: `${SYSTEM_ROOT}/templates/system/migration-summary.hbs`,
+            template: `systems/${SYSTEM_ID}/templates/system/migration-summary.hbs`,
         };
     }
 

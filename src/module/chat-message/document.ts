@@ -291,7 +291,7 @@ class ChatMessagePF2e extends ChatMessage {
             const damageType = roll.instances.find((i) => i.persistent)?.type;
             const condition = damageType ? this.speakerActor?.getCondition(`persistent-damage-${damageType}`) : null;
             if (condition) {
-                const template = `${SYSTEM_ROOT}/templates/chat/persistent-damage-recovery.hbs`;
+                const template = `systems/${SYSTEM_ID}/templates/chat/persistent-damage-recovery.hbs`;
                 const section = parseHTML(await fa.handlebars.renderTemplate(template));
                 html.querySelector(".message-content")?.append(section);
                 html.dataset.actorIsTarget = "true";

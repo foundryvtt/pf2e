@@ -31,7 +31,7 @@ const action = new SingleCheckAction({
     cost: 1,
     description: `${PREFIX}.Description`,
     difficultyClass: "perception",
-    img: `${SYSTEM_ROOT}/icons/conditions/hidden.webp`,
+    img: `systems/${SYSTEM_ID}/icons/conditions/hidden.webp`,
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },

@@ -8,7 +8,7 @@ export const RenderRegionLegend = {
 
             const template = await (async () => {
                 const markup = await fa.handlebars.renderTemplate(
-                    `${SYSTEM_ROOT}/templates/scene/region-legend-partial.hbs`,
+                    `systems/${SYSTEM_ID}/templates/scene/region-legend-partial.hbs`,
                     {
                         environmentTypes: environmentTypes.map((t) =>
                             game.i18n.localize(CONFIG.PF2E.environmentTypes[t]),

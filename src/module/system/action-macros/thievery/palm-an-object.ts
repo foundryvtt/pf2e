@@ -30,7 +30,7 @@ const action = new SingleCheckAction({
     cost: 1,
     description: `${PREFIX}.Description`,
     difficultyClass: "perception",
-    img: `${SYSTEM_ROOT}/icons/features/classes/thief.webp`,
+    img: `systems/${SYSTEM_ID}/icons/features/classes/thief.webp`,
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },

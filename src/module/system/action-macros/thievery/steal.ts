@@ -37,7 +37,7 @@ const action = new SingleCheckAction({
     cost: 1,
     description: `${PREFIX}.Description`,
     difficultyClass: "perception",
-    img: `${SYSTEM_ROOT}/icons/features/classes/thief.webp`,
+    img: `systems/${SYSTEM_ID}/icons/features/classes/thief.webp`,
     modifiers: [{ label: "PF2E.Actions.Steal.Pocketed", modifier: -5, predicate: ["action:steal:pocketed"] }],
     name: `${PREFIX}.Title`,
     notes: [

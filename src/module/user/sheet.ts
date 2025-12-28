@@ -7,7 +7,7 @@ class UserConfigPF2e extends fa.sheets.UserConfig<UserPF2e> {
 
     static override PARTS = {
         tabs: { template: "templates/generic/tab-navigation.hbs" },
-        main: { template: `${SYSTEM_ROOT}/templates/user/sheet.hbs` },
+        main: { template: `systems/${SYSTEM_ID}/templates/user/sheet.hbs` },
         // Add a new main part, which embeds the original form part
         ...super.PARTS,
     };

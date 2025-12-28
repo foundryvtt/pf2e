@@ -14,7 +14,7 @@ export class NPCSkillsEditor extends appv1.api.DocumentSheet<NPCPF2e> {
         return {
             ...super.defaultOptions,
             classes: ["pf2e", "npc-skills-editor"],
-            template: `${SYSTEM_ROOT}/templates/actors/npc/skills-editor.hbs`,
+            template: `systems/${SYSTEM_ID}/templates/actors/npc/skills-editor.hbs`,
             height: "auto",
             scrollY: [".scroll-container"],
             sheetConfig: false,

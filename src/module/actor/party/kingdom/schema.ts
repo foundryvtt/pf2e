@@ -205,7 +205,7 @@ function defineKingdomSchema(): KingdomSchema {
             categories: ["IMAGE"],
             required: true,
             nullable: false,
-            initial: `${SYSTEM_ROOT}/icons/default-icons/kingdom.svg`,
+            initial: `systems/${SYSTEM_ID}/icons/default-icons/kingdom.svg`,
         }),
         capital: new fields.StringField({ initial: "", required: true }),
         size: new fields.NumberField({ initial: 1, min: 1, required: true, nullable: false }),

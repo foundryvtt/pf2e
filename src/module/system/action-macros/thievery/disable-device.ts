@@ -28,7 +28,7 @@ function disableDevice(options: SkillActionOptions): void {
 const action = new SingleCheckAction({
     cost: 2,
     description: "PF2E.Actions.DisableDevice.Description",
-    img: `${SYSTEM_ROOT}/icons/features/classes/thief.webp`,
+    img: `systems/${SYSTEM_ID}/icons/features/classes/thief.webp`,
     name: "PF2E.Actions.DisableDevice.Title",
     notes: [
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.DisableDevice.Notes.criticalSuccess" },

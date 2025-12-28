@@ -26,7 +26,7 @@ export class RenderTokenHUD {
         if (!token?.actor?.isOfType("party")) return;
         const willRetrieve = token.actor.members.some((m) => m.getActiveTokens(true, true).length > 0);
         const img = document.createElement("img");
-        img.src = `${SYSTEM_ROOT}/icons/other/enter-exit.svg`;
+        img.src = `systems/${SYSTEM_ID}/icons/other/enter-exit.svg`;
         img.className = willRetrieve ? "retrieve" : "deposit";
         const button = createHTMLElement("button", {
             classes: ["control-icon", "clown-car"],

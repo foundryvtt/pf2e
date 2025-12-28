@@ -43,9 +43,10 @@ export const DamageTaken = {
             $(iwrInfo).tooltipster({
                 theme: "crb-hover",
                 maxWidth: 400,
-                content: await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/damage/iwr-breakdown.hbs`, {
-                    applications: iwrApplications,
-                }),
+                content: await fa.handlebars.renderTemplate(
+                    `systems/${SYSTEM_ID}/templates/chat/damage/iwr-breakdown.hbs`,
+                    { applications: iwrApplications },
+                ),
                 contentAsHTML: true,
             });
         }

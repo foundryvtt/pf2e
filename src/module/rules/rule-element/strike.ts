@@ -125,7 +125,9 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
                 categories: ["IMAGE"],
                 nullable: false,
                 initial: (data) =>
-                    data.fist ? StrikeRuleElement.#defaultFistIcon : `${SYSTEM_ROOT}/icons/default-icons/melee.svg`,
+                    data.fist
+                        ? StrikeRuleElement.#defaultFistIcon
+                        : `systems/${SYSTEM_ID}/icons/default-icons/melee.svg`,
             }),
             attackModifier: new fields.NumberField({ integer: true, positive: true, nullable: true, initial: null }),
             replaceAll: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
@@ -168,7 +170,7 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
             this.graspingAppendage = true;
             this.replaceAll = false;
             this.replaceBasicUnarmed = false;
-        } else if (this.img === `${SYSTEM_ROOT}/icons/default-icons/melee.svg`) {
+        } else if (this.img === `systems/${SYSTEM_ID}/icons/default-icons/melee.svg`) {
             this.img = this.parent.img;
         }
     }

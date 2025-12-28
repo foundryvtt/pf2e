@@ -52,7 +52,7 @@ function perform(options: { variant: PerformVariant } & SkillActionOptions): voi
 const action = new SingleCheckAction({
     cost: 1,
     description: `${PREFIX}.Description`,
-    img: `${SYSTEM_ROOT}/icons/conditions/dazzled.webp`,
+    img: `systems/${SYSTEM_ID}/icons/conditions/dazzled.webp`,
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["criticalSuccess"], text: `${PREFIX}.Notes.criticalSuccess` },

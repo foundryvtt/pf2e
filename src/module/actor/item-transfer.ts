@@ -28,8 +28,8 @@ export interface ItemTransferData {
 
 export class ItemTransfer implements ItemTransferData {
     #templatePaths = {
-        flavor: `./${SYSTEM_ROOT}/templates/chat/action/flavor.hbs`,
-        content: `./${SYSTEM_ROOT}/templates/chat/action/content.hbs`,
+        flavor: `./systems/${SYSTEM_ID}/templates/chat/action/flavor.hbs`,
+        content: `./systems/${SYSTEM_ID}/templates/chat/action/content.hbs`,
     };
 
     source: ItemTransferData["source"];

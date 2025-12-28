@@ -170,7 +170,10 @@ export async function rollActionMacro({
 
     const templateData = { actor, strike, identifier, description };
 
-    const content = await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/strike-card.hbs`, templateData);
+    const content = await fa.handlebars.renderTemplate(
+        `systems/${SYSTEM_ID}/templates/chat/strike-card.hbs`,
+        templateData,
+    );
     const token = actor.token ?? actor.getActiveTokens(true, true).shift() ?? null;
     const chatData: DeepPartial<foundry.documents.ChatMessageSource> = {
         speaker: ChatMessagePF2e.getSpeaker({ actor, token }),

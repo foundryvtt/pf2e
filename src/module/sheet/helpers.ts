@@ -259,16 +259,16 @@ function createNPCAttackTraitsAndTags(item: MeleePF2e): NPCAttackTraitOrTag[] {
 }
 
 const actionImgMap: Record<string, ImageFilePath> = {
-    0: `${SYSTEM_ROOT}/icons/actions/FreeAction.webp`,
-    free: `${SYSTEM_ROOT}/icons/actions/FreeAction.webp`,
-    1: `${SYSTEM_ROOT}/icons/actions/OneAction.webp`,
-    2: `${SYSTEM_ROOT}/icons/actions/TwoActions.webp`,
-    3: `${SYSTEM_ROOT}/icons/actions/ThreeActions.webp`,
-    "1 or 2": `${SYSTEM_ROOT}/icons/actions/OneTwoActions.webp`,
-    "1 to 3": `${SYSTEM_ROOT}/icons/actions/OneThreeActions.webp`,
-    "2 or 3": `${SYSTEM_ROOT}/icons/actions/TwoThreeActions.webp`,
-    reaction: `${SYSTEM_ROOT}/icons/actions/Reaction.webp`,
-    passive: `${SYSTEM_ROOT}/icons/actions/Passive.webp`,
+    0: `systems/${SYSTEM_ID}/icons/actions/FreeAction.webp`,
+    free: `systems/${SYSTEM_ID}/icons/actions/FreeAction.webp`,
+    1: `systems/${SYSTEM_ID}/icons/actions/OneAction.webp`,
+    2: `systems/${SYSTEM_ID}/icons/actions/TwoActions.webp`,
+    3: `systems/${SYSTEM_ID}/icons/actions/ThreeActions.webp`,
+    "1 or 2": `systems/${SYSTEM_ID}/icons/actions/OneTwoActions.webp`,
+    "1 to 3": `systems/${SYSTEM_ID}/icons/actions/OneThreeActions.webp`,
+    "2 or 3": `systems/${SYSTEM_ID}/icons/actions/TwoThreeActions.webp`,
+    reaction: `systems/${SYSTEM_ID}/icons/actions/Reaction.webp`,
+    passive: `systems/${SYSTEM_ID}/icons/actions/Passive.webp`,
 };
 
 function getActionIcon(actionType: string | ActionCost | null, fallback: ImageFilePath): ImageFilePath;
@@ -276,7 +276,7 @@ function getActionIcon(actionType: string | ActionCost | null, fallback: ImageFi
 function getActionIcon(actionType: string | ActionCost | null): ImageFilePath;
 function getActionIcon(
     action: string | ActionCost | null,
-    fallback: ImageFilePath | null = `${SYSTEM_ROOT}/icons/actions/Empty.webp`,
+    fallback: ImageFilePath | null = `systems/${SYSTEM_ID}/icons/actions/Empty.webp`,
 ): ImageFilePath | null {
     if (action === null) return actionImgMap.passive;
     const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;

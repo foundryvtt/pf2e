@@ -28,7 +28,7 @@ function treatPoison(options: SkillActionOptions): void {
 const action = new SingleCheckAction({
     cost: 1,
     description: "PF2E.Actions.TreatPoison.Description",
-    img: `${SYSTEM_ROOT}/icons/effects/treat-poison.webp`,
+    img: `systems/${SYSTEM_ID}/icons/effects/treat-poison.webp`,
     name: "PF2E.Actions.TreatPoison.Title",
     notes: [
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.TreatPoison.Notes.criticalSuccess" },

@@ -23,8 +23,8 @@ export class StatusEffects {
     static #lastCombatantToken: string | null = null;
 
     static readonly #ICON_THEME_DIRS: Record<StatusEffectIconTheme, string> = {
-        default: `${SYSTEM_ROOT}/icons/conditions/`,
-        blackWhite: `${SYSTEM_ROOT}/icons/conditions-2/`,
+        default: `systems/${SYSTEM_ID}/icons/conditions/`,
+        blackWhite: `systems/${SYSTEM_ID}/icons/conditions-2/`,
     };
 
     static #conditionSummaries: Record<ConditionSlug, { name: string; rules: string; summary: string }> | null = null;
@@ -100,7 +100,7 @@ export class StatusEffects {
         CONFIG.statusEffects = Object.entries(CONFIG.PF2E.statusEffects.conditions).map(([id, name]) => ({
             id,
             name,
-            img: `${SYSTEM_ROOT}/icons/${directory}/${id}.webp` as const,
+            img: `systems/${SYSTEM_ID}/icons/${directory}/${id}.webp` as const,
         }));
         CONFIG.statusEffects.push({
             id: "dead",
@@ -303,7 +303,7 @@ export class StatusEffects {
         );
         if (conditions.length === 0) return null;
 
-        const templatePath = `${SYSTEM_ROOT}/templates/chat/participant-conditions.hbs`;
+        const templatePath = `systems/${SYSTEM_ID}/templates/chat/participant-conditions.hbs`;
         const content = await fa.handlebars.renderTemplate(templatePath, { conditions });
         const messageSource: Partial<foundry.documents.ChatMessageSource> = {
             author: game.user.id,

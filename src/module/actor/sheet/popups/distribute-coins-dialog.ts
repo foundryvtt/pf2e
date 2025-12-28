@@ -30,7 +30,7 @@ export class DistributeCoinsDialog extends fa.api.HandlebarsApplicationMixin(fa.
     };
 
     static override PARTS = {
-        base: { template: `${SYSTEM_ROOT}/templates/actors/distribute-coins.hbs`, root: true },
+        base: { template: `systems/${SYSTEM_ID}/templates/actors/distribute-coins.hbs`, root: true },
     };
 
     actor: ActorPF2e;

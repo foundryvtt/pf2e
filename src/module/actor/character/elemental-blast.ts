@@ -71,39 +71,31 @@ class ElementalBlast {
             element: new fields.StringField<EffectTrait, EffectTrait, true, false, false>({
                 required: true,
                 choices: () => CONFIG.PF2E.effectTraits,
-                initial: undefined,
             }),
-            label: new fields.StringField({ required: true, blank: false, initial: undefined }),
+            label: new fields.StringField({ required: true, blank: false }),
             img: new fields.FilePathField({
                 required: true,
                 categories: ["IMAGE"],
                 nullable: false,
-                initial: `${SYSTEM_ROOT}/icons/default-icons/spell.svg` as ImageFilePath,
+                initial: `systems/${SYSTEM_ID}/icons/default-icons/spell.svg` as ImageFilePath,
             }),
             damageTypes: new fields.ArrayField(
-                new fields.StringField({ required: true, choices: () => CONFIG.PF2E.damageTypes, initial: undefined }),
+                new fields.StringField({ required: true, choices: () => CONFIG.PF2E.damageTypes }),
             ),
             dieFaces: new fields.NumberField({
                 required: true,
                 nullable: false,
                 integer: true,
                 choices: [6, 8],
-                initial: undefined,
             } as const),
-            range: new fields.NumberField({
-                required: true,
-                nullable: false,
-                integer: true,
-                positive: true,
-                initial: undefined,
-            }),
+            range: new fields.NumberField({ required: true, nullable: false, integer: true, positive: true }),
         });
     })();
 
     static #blastInfusionSchema = ((): fields.SchemaField<BlastInfusionSchema> => {
         return new fields.SchemaField({
             damageTypes: new fields.ArrayField(
-                new fields.StringField({ required: true, choices: () => CONFIG.PF2E.damageTypes, initial: undefined }),
+                new fields.StringField({ required: true, choices: () => CONFIG.PF2E.damageTypes }),
             ),
             range: new fields.SchemaField(
                 {
@@ -301,7 +293,6 @@ class ElementalBlast {
         const clone = item.clone({ system: { traits: { value: traits } } }, { keepId: true });
         clone.range = melee ? null : (config?.range ?? null);
         clone.isMelee = melee;
-
         return clone;
     }
 
@@ -347,7 +338,7 @@ class ElementalBlast {
         }
 
         const blastStatistic = this.#createAttackStatistic(statistic, item);
-        const label = await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/action/header.hbs`, {
+        const label = await fa.handlebars.renderTemplate(`systems/${SYSTEM_ID}/templates/chat/action/header.hbs`, {
             title: item.name,
             glyph: actionCost.toString(),
             subtitle: game.i18n.format("PF2E.ActionsCheck.x-attack-roll", { type: statistic.label }),
@@ -548,7 +539,6 @@ class ElementalBlast {
                   ? strengthModValue
                   : Math.floor(strengthModValue / 2)
               : null;
-
         return typeof modifierValue === "number"
             ? new Modifier({
                   slug: "str",

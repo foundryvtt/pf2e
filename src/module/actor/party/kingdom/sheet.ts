@@ -100,7 +100,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             classes: [...options.classes, "kingdom"],
             width: 750,
             height: 630,
-            template: `${SYSTEM_ROOT}/templates/actors/party/kingdom/sheet.hbs`,
+            template: `systems/${SYSTEM_ID}/templates/actors/party/kingdom/sheet.hbs`,
             scrollY: [...options.scrollY, ".tab.active", ".tab.active .content", ".sidebar"],
             tabs: [
                 {
@@ -367,7 +367,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     alias: this.kingdom.name,
                 },
                 content: await fa.handlebars.renderTemplate(
-                    `${SYSTEM_ROOT}/templates/actors/party/kingdom/collection.hbs`,
+                    `systems/${SYSTEM_ID}/templates/actors/party/kingdom/collection.hbs`,
                     calculateKingdomCollectionData(this.kingdom),
                 ),
             });
@@ -536,7 +536,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             if (!settlement) return;
 
             const newHTML = await fa.handlebars.renderTemplate(
-                `${SYSTEM_ROOT}/templates/actors/party/kingdom/partials/settlement.hbs`,
+                `systems/${SYSTEM_ID}/templates/actors/party/kingdom/partials/settlement.hbs`,
                 {
                     ...(await this.getData()),
                     settlement: await this.#prepareSettlement(id, settlement),

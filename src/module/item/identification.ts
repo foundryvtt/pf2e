@@ -129,7 +129,7 @@ function getUnidentifiedPlaceholderImage(item: PhysicalItemPF2e): ImageFilePath 
         return "adventuring_gear";
     })();
 
-    return `${SYSTEM_ROOT}/icons/unidentified_item_icons/${iconName}.webp`;
+    return `systems/${SYSTEM_ID}/icons/unidentified_item_icons/${iconName}.webp`;
 }
 
 export { getItemIdentificationDCs, getUnidentifiedPlaceholderImage };

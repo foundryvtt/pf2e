@@ -108,7 +108,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     override get template(): string {
         const template = this.actor.limited && !game.user.isGM ? "limited" : "sheet";
-        return `${SYSTEM_ROOT}/templates/actors/character/${template}.hbs`;
+        return `systems/${SYSTEM_ID}/templates/actors/character/${template}.hbs`;
     }
 
     override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData<TActor>> {

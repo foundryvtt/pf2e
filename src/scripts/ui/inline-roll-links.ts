@@ -302,11 +302,14 @@ export class InlineRollLinks {
                         : statistic.check.type === "attack-roll"
                           ? "PF2E.ActionsCheck.x-attack-roll"
                           : "PF2E.ActionsCheck.x";
-                args.label = await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/action/header.hbs`, {
-                    glyph: getActionGlyph(item.actionCost),
-                    subtitle: game.i18n.format(subtitleLocKey, { type: statistic.label }),
-                    title: item.name,
-                });
+                args.label = await fa.handlebars.renderTemplate(
+                    `systems/${SYSTEM_ID}/templates/chat/action/header.hbs`,
+                    {
+                        glyph: getActionGlyph(item.actionCost),
+                        subtitle: game.i18n.format(subtitleLocKey, { type: statistic.label }),
+                        title: item.name,
+                    },
+                );
                 extraRollOptions.push(...TextEditorPF2e.createActionOptions(item));
             }
 

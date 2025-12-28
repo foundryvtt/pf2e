@@ -29,7 +29,7 @@ class TreasureSystemData extends ItemSystemModel<TreasurePF2e, TreasureSystemSch
     static override LOCALIZATION_PREFIXES = [...super.LOCALIZATION_PREFIXES, "PF2E.Item.Treasure"];
 
     static override defineSchema(): TreasureSystemSchema {
-        const unidentifiedImg: ImageFilePath = `${SYSTEM_ROOT}/icons/unidentified_item_icons/adventuring_gear.webp`;
+        const unidentifiedImg: ImageFilePath = `systems/${SYSTEM_ID}/icons/unidentified_item_icons/adventuring_gear.webp`;
         return {
             ...super.defineSchema(),
             baseItem: new fields.StringField({ required: true, nullable: true, blank: false }),

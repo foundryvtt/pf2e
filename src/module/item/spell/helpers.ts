@@ -57,7 +57,7 @@ async function createDescriptionPrepend(
         return { label, baseLabel };
     })();
 
-    const templatePath = `${SYSTEM_ROOT}/templates/items/partials/spell-description-prepend.hbs`;
+    const templatePath = `systems/${SYSTEM_ID}/templates/items/partials/spell-description-prepend.hbs`;
     const formatArgs = {
         traditions,
         cast: spell.actionGlyph ? null : spell.system.time.value || null,

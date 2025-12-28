@@ -63,7 +63,7 @@ export const DiceSoNiceReady = {
                     "17",
                     "18",
                     "19",
-                    `${SYSTEM_ROOT}/dice/basic/nat20.webp`,
+                    `systems/${SYSTEM_ID}/dice/basic/nat20.webp`,
                 ],
                 system: "basic",
                 colorset: "basic",
@@ -71,14 +71,17 @@ export const DiceSoNiceReady = {
 
             dice3d.addDicePreset({
                 type: "dc",
-                labels: [`${SYSTEM_ROOT}/dice/basic/tail.webp`, `${SYSTEM_ROOT}/dice/basic/heads.webp`],
+                labels: [`systems/${SYSTEM_ID}/dice/basic/tail.webp`, `systems/${SYSTEM_ID}/dice/basic/heads.webp`],
                 system: "basic",
                 colorset: "basic",
             });
 
             dice3d.addDicePreset({
                 type: "d2",
-                labels: [`${SYSTEM_ROOT}/dice/basic/tail_bump.webp`, `${SYSTEM_ROOT}/dice/basic/heads_bump.webp`],
+                labels: [
+                    `systems/${SYSTEM_ID}/dice/basic/tail_bump.webp`,
+                    `systems/${SYSTEM_ID}/dice/basic/heads_bump.webp`,
+                ],
                 system: "basic",
                 colorset: "basic",
             });
@@ -96,7 +99,7 @@ export const DiceSoNiceReady = {
                 .addTexture("PFred", {
                     name: "Pathfinder Red",
                     composite: "source-over",
-                    source: `${SYSTEM_ROOT}/dice/texture/texture.webp`,
+                    source: `systems/${SYSTEM_ID}/dice/texture/texture.webp`,
                 })
                 .then(() => {
                     dice3d.addColorset({
@@ -118,14 +121,17 @@ export const DiceSoNiceReady = {
 
             dice3d.addDicePreset({
                 type: "dc",
-                labels: [`${SYSTEM_ROOT}/dice/basic/tail.webp`, `${SYSTEM_ROOT}/dice/basic/heads.webp`],
+                labels: [`systems/${SYSTEM_ID}/dice/basic/tail.webp`, `systems/${SYSTEM_ID}/dice/basic/heads.webp`],
                 system: "campaign",
                 colorset: "campaign",
             });
 
             dice3d.addDicePreset({
                 type: "d2",
-                labels: [`${SYSTEM_ROOT}/dice/basic/tail_bump.webp`, `${SYSTEM_ROOT}/dice/basic/heads_bump.webp`],
+                labels: [
+                    `systems/${SYSTEM_ID}/dice/basic/tail_bump.webp`,
+                    `systems/${SYSTEM_ID}/dice/basic/heads_bump.webp`,
+                ],
                 system: "campaign",
                 colorset: "campaign",
             });
@@ -133,10 +139,10 @@ export const DiceSoNiceReady = {
             dice3d.addDicePreset({
                 type: "d4",
                 labels: [
-                    `${SYSTEM_ROOT}/dice/campaign/d4/d4-1.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d4/d4-2.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d4/d4-3.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d4/d4-4.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d4/d4-1.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d4/d4-2.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d4/d4-3.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d4/d4-4.webp`,
                 ],
                 system: "campaign",
                 colorset: "campaign",
@@ -145,12 +151,12 @@ export const DiceSoNiceReady = {
             dice3d.addDicePreset({
                 type: "d6",
                 labels: [
-                    `${SYSTEM_ROOT}/dice/campaign/d6/d6-1.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d6/d6-2.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d6/d6-3.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d6/d6-4.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d6/d6-5.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d6/d6-6.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d6/d6-1.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d6/d6-2.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d6/d6-3.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d6/d6-4.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d6/d6-5.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d6/d6-6.webp`,
                 ],
                 system: "campaign",
                 colorset: "campaign",
@@ -159,9 +165,9 @@ export const DiceSoNiceReady = {
             dice3d.addDicePreset({
                 type: "df",
                 labels: [
-                    `${SYSTEM_ROOT}/dice/campaign/df/dfm.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/df/df.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/df/dfp.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/df/dfm.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/df/df.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/df/dfp.webp`,
                 ],
                 system: "campaign",
                 colorset: "campaign",
@@ -170,14 +176,14 @@ export const DiceSoNiceReady = {
             dice3d.addDicePreset({
                 type: "d8",
                 labels: [
-                    `${SYSTEM_ROOT}/dice/campaign/d8/d8-1.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d8/d8-2.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d8/d8-3.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d8/d8-4.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d8/d8-5.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d8/d8-6.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d8/d8-7.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d8/d8-P.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d8/d8-1.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d8/d8-2.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d8/d8-3.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d8/d8-4.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d8/d8-5.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d8/d8-6.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d8/d8-7.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d8/d8-P.webp`,
                 ],
                 system: "campaign",
                 colorset: "campaign",
@@ -186,16 +192,16 @@ export const DiceSoNiceReady = {
             dice3d.addDicePreset({
                 type: "d10",
                 labels: [
-                    `${SYSTEM_ROOT}/dice/campaign/d10/d10-1.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d10/d10-2.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d10/d10-3.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d10/d10-4.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d10/d10-5.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d10/d10-6.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d10/d10-7.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d10/d10-8.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d10/d10-9.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d10/d10-10.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d10/d10-1.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d10/d10-2.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d10/d10-3.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d10/d10-4.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d10/d10-5.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d10/d10-6.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d10/d10-7.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d10/d10-8.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d10/d10-9.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d10/d10-10.webp`,
                 ],
                 system: "campaign",
                 colorset: "campaign",
@@ -204,18 +210,18 @@ export const DiceSoNiceReady = {
             dice3d.addDicePreset({
                 type: "d12",
                 labels: [
-                    `${SYSTEM_ROOT}/dice/campaign/d12/d12-1.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d12/d12-2.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d12/d12-3.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d12/d12-4.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d12/d12-5.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d12/d12-6.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d12/d12-7.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d12/d12-8.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d12/d12-9.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d12/d12-10.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d12/d12-11.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d12/d12-12.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d12/d12-1.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d12/d12-2.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d12/d12-3.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d12/d12-4.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d12/d12-5.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d12/d12-6.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d12/d12-7.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d12/d12-8.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d12/d12-9.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d12/d12-10.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d12/d12-11.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d12/d12-12.webp`,
                 ],
                 system: "campaign",
                 colorset: "campaign",
@@ -224,16 +230,16 @@ export const DiceSoNiceReady = {
             dice3d.addDicePreset({
                 type: "d100",
                 labels: [
-                    `${SYSTEM_ROOT}/dice/campaign/d100/d100-10.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d100/d100-20.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d100/d100-30.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d100/d100-40.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d100/d100-50.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d100/d100-60.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d100/d100-70.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d100/d100-80.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d100/d100-90.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d100/d100-100.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d100/d100-10.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d100/d100-20.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d100/d100-30.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d100/d100-40.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d100/d100-50.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d100/d100-60.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d100/d100-70.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d100/d100-80.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d100/d100-90.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d100/d100-100.webp`,
                 ],
                 system: "campaign",
                 colorset: "campaign",
@@ -242,26 +248,26 @@ export const DiceSoNiceReady = {
             dice3d.addDicePreset({
                 type: "d20",
                 labels: [
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-1.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-2.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-3.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-4.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-5.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-6.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-7.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-8.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-9.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-10.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-11.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-12.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-13.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-14.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-15.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-16.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-17.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-18.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-19.webp`,
-                    `${SYSTEM_ROOT}/dice/campaign/d20/d20-20.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-1.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-2.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-3.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-4.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-5.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-6.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-7.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-8.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-9.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-10.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-11.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-12.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-13.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-14.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-15.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-16.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-17.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-18.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-19.webp`,
+                    `systems/${SYSTEM_ID}/dice/campaign/d20/d20-20.webp`,
                 ],
                 system: "campaign",
                 colorset: "campaign",
@@ -271,7 +277,7 @@ export const DiceSoNiceReady = {
                 .addTexture("stoneD4", {
                     name: "Pathfinder Stone (D4)",
                     composite: "source-over",
-                    source: `${SYSTEM_ROOT}/dice/texture/d4.webp`,
+                    source: `systems/${SYSTEM_ID}/dice/texture/d4.webp`,
                 })
                 .then(() => {
                     dice3d.addColorset({
@@ -331,21 +337,24 @@ export const DiceSoNiceReady = {
                     "17",
                     "18",
                     "19",
-                    `${SYSTEM_ROOT}/dice/basic/nat20.webp`,
+                    `systems/${SYSTEM_ID}/dice/basic/nat20.webp`,
                 ],
                 system: "darkmode",
                 colorset: "darkmode",
             });
             dice3d.addDicePreset({
                 type: "dc",
-                labels: [`${SYSTEM_ROOT}/dice/basic/tail.webp`, `${SYSTEM_ROOT}/dice/basic/heads.webp`],
+                labels: [`systems/${SYSTEM_ID}/dice/basic/tail.webp`, `systems/${SYSTEM_ID}/dice/basic/heads.webp`],
                 system: "darkmode",
                 colorset: "darkmode",
             });
 
             dice3d.addDicePreset({
                 type: "d2",
-                labels: [`${SYSTEM_ROOT}/dice/basic/tail_bump.webp`, `${SYSTEM_ROOT}/dice/basic/heads_bump.webp`],
+                labels: [
+                    `systems/${SYSTEM_ID}/dice/basic/tail_bump.webp`,
+                    `systems/${SYSTEM_ID}/dice/basic/heads_bump.webp`,
+                ],
                 system: "darkmode",
                 colorset: "darkmode",
             });
@@ -354,7 +363,7 @@ export const DiceSoNiceReady = {
                 .addTexture("darkModeBlack", {
                     name: "Dark Mode Black",
                     composite: "source-over",
-                    source: `${SYSTEM_ROOT}/dice/texture/transparent.webp`,
+                    source: `systems/${SYSTEM_ID}/dice/texture/transparent.webp`,
                 })
                 .then(() => {
                     dice3d.addColorset({

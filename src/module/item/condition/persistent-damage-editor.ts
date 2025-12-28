@@ -21,7 +21,7 @@ class PersistentDamageEditor extends fa.api.HandlebarsApplicationMixin(fa.api.Ap
 
     static override PARTS: Record<string, fa.api.HandlebarsTemplatePart> = {
         main: {
-            template: `${SYSTEM_ROOT}/templates/items/persistent-damage-editor.hbs`,
+            template: `systems/${SYSTEM_ID}/templates/items/persistent-damage-editor.hbs`,
             root: true,
         },
     };

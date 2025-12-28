@@ -25,7 +25,7 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
             width: 650,
             height: 680,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "attributes" }],
-            template: `${SYSTEM_ROOT}/templates/actors/familiar/sheet.hbs`,
+            template: `systems/${SYSTEM_ID}/templates/actors/familiar/sheet.hbs`,
         };
     }
 

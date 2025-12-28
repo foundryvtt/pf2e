@@ -148,7 +148,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         img: ImageFilePath;
         texture: { src: ImageFilePath | VideoFilePath };
     } {
-        const img: ImageFilePath = `${SYSTEM_ROOT}/icons/default-icons/${actorData.type}.svg`;
+        const img: ImageFilePath = `systems/${SYSTEM_ID}/icons/default-icons/${actorData.type}.svg`;
         return { img, texture: { src: img } };
     }
 
@@ -1364,22 +1364,25 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         ) as ConditionPF2e<this>[];
 
         const canUndoDamage = !!(damageResult.totalApplied || shieldDamage || persistentCreated.length);
-        const content = await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/damage/damage-taken.hbs`, {
-            breakdown,
-            statements,
-            persistent: persistentCreated.map((p) => p.system.persistent?.damage.formula).filter(R.isTruthy),
-            iwr: {
-                applications: result.applications,
-                visibility: this.hasPlayerOwner ? "all" : "gm",
+        const content = await fa.handlebars.renderTemplate(
+            `systems/${SYSTEM_ID}/templates/chat/damage/damage-taken.hbs`,
+            {
+                breakdown,
+                statements,
+                persistent: persistentCreated.map((p) => p.system.persistent?.damage.formula).filter(R.isTruthy),
+                iwr: {
+                    applications: result.applications,
+                    visibility: this.hasPlayerOwner ? "all" : "gm",
+                },
+                canUndoDamage,
             },
-            canUndoDamage,
-        });
+        );
         const flavor = await (async (): Promise<string | undefined> => {
             if (breakdown.length || notes.length) {
-                return fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/damage/damage-taken-flavor.hbs`, {
-                    breakdown,
-                    notes: RollNotePF2e.notesToHTML(notes)?.outerHTML,
-                });
+                return fa.handlebars.renderTemplate(
+                    `systems/${SYSTEM_ID}/templates/chat/damage/damage-taken-flavor.hbs`,
+                    { breakdown, notes: RollNotePF2e.notesToHTML(notes)?.outerHTML },
+                );
             }
             return;
         })();
@@ -1399,10 +1402,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                                   // Ignore the update if there is no difference
                                   return [];
                               }
-                              return {
-                                  path,
-                                  value: difference,
-                              };
+                              return { path, value: difference };
                           }
                           return [];
                       })
@@ -1450,12 +1450,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         if (shield) {
             const item = this.inventory.get<ArmorPF2e<this>>(shield.id);
             if (item) {
-                actorUpdates.items = [
-                    {
-                        _id: shield.id,
-                        "system.hp.value": item.hitPoints.value + shield.damage,
-                    },
-                ];
+                actorUpdates.items = [{ _id: shield.id, "system.hp.value": item.hitPoints.value + shield.damage }];
             }
         }
 
@@ -1464,7 +1459,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             await this.deleteEmbeddedDocuments("Item", persistent, { render: updateCount === 0 });
         }
         if (updateCount) {
-            const { hitPoints } = this;
+            const hitPoints = this.hitPoints;
             const damageTaken =
                 hitPoints && typeof actorUpdates["system.attributes.hp.value"] === "number"
                     ? hitPoints.value - actorUpdates["system.attributes.hp.value"]
@@ -1623,9 +1618,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // Otherwise create a new item
         const result = await ItemPF2e.create(itemSource, { parent: this });
-        if (!result) {
-            return null;
-        }
+        if (!result) return null;
         const movedItem = this.inventory.get(result.id);
         if (!movedItem) return null;
         await this.stowOrUnstow(movedItem, container);
@@ -1677,7 +1670,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const remaining = delta - appliedToTemp;
             const applied = Math.min(sp.value, remaining);
             updates["system.attributes.hp.sp.value"] = Math.max(sp.value - applied, 0);
-
             return applied;
         })();
 
@@ -1703,7 +1695,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 if (optionsRecord[option]) options.push(option);
             }
         }
-
         return options;
     }
 
@@ -1813,7 +1804,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
             return items.shift() ?? null;
         }
-
         return null;
     }
 

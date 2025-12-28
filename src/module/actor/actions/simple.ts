@@ -66,7 +66,7 @@ class SimpleActionVariant extends BaseActionVariant {
         const name = this.name
             ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
             : game.i18n.localize(this.#action.name);
-        const templatePath = `${SYSTEM_ROOT}/templates/actors/actions/simple/chat-message-flavor.hbs`;
+        const templatePath = `systems/${SYSTEM_ID}/templates/actors/actions/simple/chat-message-flavor.hbs`;
         const flavor = await fa.handlebars.renderTemplate(templatePath, { effect, glyph: this.glyph, name, traits });
         const results: SimpleActionResult[] = [];
         for (const actor of actors) {

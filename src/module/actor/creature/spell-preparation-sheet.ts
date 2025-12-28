@@ -38,7 +38,7 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends appv1.sheets.Ac
             classes: ["default", "sheet", "spellcasting-entry", "preparation"],
             width: 480,
             height: 600,
-            template: `${SYSTEM_ROOT}/templates/actors/spell-preparation-sheet.hbs`,
+            template: `systems/${SYSTEM_ID}/templates/actors/spell-preparation-sheet.hbs`,
             scrollY: [".sheet-content"],
             dragDrop: [{ dragSelector: "li[data-item-id]" }],
             filters: [{ inputSelector: "input[type=search]", contentSelector: "ol.spell-list" }],

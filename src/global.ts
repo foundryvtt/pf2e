@@ -328,7 +328,6 @@ declare global {
     namespace globalThis {
         const game: GamePF2e;
         const SYSTEM_ID: SystemId;
-        const SYSTEM_ROOT: `systems/${SystemId}`;
         export import fa = foundry.applications;
         export import fav1 = foundry.appv1;
         export import fc = foundry.canvas;

@@ -1401,7 +1401,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
     /** Render confirmation dialog to sell all treasure */
     async #onClickSellAllTreasure(): Promise<void> {
         const content = await fa.handlebars.renderTemplate(
-            `${SYSTEM_ROOT}/templates/actors/sell-all-treasure-dialog.hbs`,
+            `systems/${SYSTEM_ID}/templates/actors/sell-all-treasure-dialog.hbs`,
         );
 
         new foundry.appv1.api.Dialog({

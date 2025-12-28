@@ -26,7 +26,7 @@ function avoidNotice(options: SkillActionOptions): void {
 
 const action = new SingleCheckAction({
     description: "PF2E.Actions.AvoidNotice.Description",
-    img: `${SYSTEM_ROOT}/icons/conditions/unnoticed.webp`,
+    img: `systems/${SYSTEM_ID}/icons/conditions/unnoticed.webp`,
     name: "PF2E.Actions.AvoidNotice.Title",
     notes: [
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.AvoidNotice.Notes.criticalSuccess" },

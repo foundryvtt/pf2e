@@ -27,7 +27,7 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
         };
 
         static override PARTS = fu.mergeObject(super.PARTS, {
-            appearance: { template: `${SYSTEM_ROOT}/templates/scene/token/appearance.hbs` },
+            appearance: { template: `systems/${SYSTEM_ID}/templates/scene/token/appearance.hbs` },
         });
 
         abstract get linkToActorSize(): boolean;

@@ -93,19 +93,19 @@ const DAMAGE_TYPE_ICONS: Record<DamageType, string | null> = {
 /** Image map for conditions, currently placed here until we get a new set */
 const PERSISTENT_DAMAGE_IMAGES: Partial<Record<DamageType, ImageFilePath>> = {
     acid: "icons/magic/acid/dissolve-arm-flesh.webp",
-    bludgeoning: `${SYSTEM_ROOT}/icons/equipment/weapons/bola.webp`,
+    bludgeoning: `systems/${SYSTEM_ID}/icons/equipment/weapons/bola.webp`,
     cold: "icons/magic/water/ice-snowman.webp",
-    electricity: `${SYSTEM_ROOT}/icons/spells/chain-lightning.webp`,
+    electricity: `systems/${SYSTEM_ID}/icons/spells/chain-lightning.webp`,
     fire: "icons/magic/fire/flame-burning-creature-skeleton.webp",
-    force: `${SYSTEM_ROOT}/icons/spells/magic-missile.webp`,
-    mental: `${SYSTEM_ROOT}/icons/spells/modify-memory.webp`,
-    piercing: `${SYSTEM_ROOT}/icons/equipment/weapons/throwing-knife.webp`,
-    poison: `${SYSTEM_ROOT}/icons/spells/acidic-burst.webp`,
-    slashing: `${SYSTEM_ROOT}/icons/equipment/weapons/scimitar.webp`,
-    sonic: `${SYSTEM_ROOT}/icons/spells/cry-of-destruction.webp`,
+    force: `systems/${SYSTEM_ID}/icons/spells/magic-missile.webp`,
+    mental: `systems/${SYSTEM_ID}/icons/spells/modify-memory.webp`,
+    piercing: `systems/${SYSTEM_ID}/icons/equipment/weapons/throwing-knife.webp`,
+    poison: `systems/${SYSTEM_ID}/icons/spells/acidic-burst.webp`,
+    slashing: `systems/${SYSTEM_ID}/icons/equipment/weapons/scimitar.webp`,
+    sonic: `systems/${SYSTEM_ID}/icons/spells/cry-of-destruction.webp`,
     spirit: "icons/magic/unholy/hand-claw-fire-blue.webp",
-    vitality: `${SYSTEM_ROOT}/icons/spells/moment-of-renewal.webp`,
-    void: `${SYSTEM_ROOT}/icons/spells/grim-tendrils.webp`,
+    vitality: `systems/${SYSTEM_ID}/icons/spells/moment-of-renewal.webp`,
+    void: `systems/${SYSTEM_ID}/icons/spells/grim-tendrils.webp`,
 };
 
 /** Whether and how damage should be included on a critical hit */

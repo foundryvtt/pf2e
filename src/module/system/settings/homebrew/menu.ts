@@ -53,7 +53,7 @@ class HomebrewElements extends SettingsMenuPF2e {
     static override get defaultOptions(): fav1.api.FormApplicationOptions {
         return {
             ...super.defaultOptions,
-            template: `${SYSTEM_ROOT}/templates/system/settings/homebrew.hbs`,
+            template: `systems/${SYSTEM_ID}/templates/system/settings/homebrew.hbs`,
             width: 625,
         };
     }

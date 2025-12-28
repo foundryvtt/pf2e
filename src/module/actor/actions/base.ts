@@ -95,7 +95,7 @@ abstract class BaseActionVariant implements ActionVariant {
             label: traitLabels[trait] ?? trait,
             slug: trait,
         }));
-        const templatePath = `${SYSTEM_ROOT}/templates/actors/actions/base/chat-message-content.hbs`;
+        const templatePath = `systems/${SYSTEM_ID}/templates/actors/actions/base/chat-message-content.hbs`;
         const content = await fa.handlebars.renderTemplate(templatePath, {
             description,
             glyph: this.glyph,

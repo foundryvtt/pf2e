@@ -10,7 +10,7 @@ export class IdentifyItemPopup extends appv1.api.FormApplication<PhysicalItemPF2
             ...super.defaultOptions,
             id: "identify-item",
             title: game.i18n.localize("PF2E.identification.Identify"),
-            template: `${SYSTEM_ROOT}/templates/actors/identify-item.hbs`,
+            template: `systems/${SYSTEM_ID}/templates/actors/identify-item.hbs`,
             width: "auto",
             classes: ["identify-popup"],
         };
@@ -50,7 +50,7 @@ export class IdentifyItemPopup extends appv1.api.FormApplication<PhysicalItemPF2
                   ? "identify-alchemy"
                   : "recall-knowledge";
 
-            const path = `${SYSTEM_ROOT}/templates/actors/identify-item-chat-skill-checks.hbs`;
+            const path = `systems/${SYSTEM_ID}/templates/actors/identify-item-chat-skill-checks.hbs`;
             const content = await fa.handlebars.renderTemplate(path, {
                 identifiedName,
                 action,

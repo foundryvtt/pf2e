@@ -864,12 +864,12 @@ async function createAreaAttackMessage({
     const token = actor.getActiveTokens(false, true).shift();
     const speaker = ChatMessagePF2e.getSpeaker({ actor, token });
     const glyph = getActionGlyph(actionCost);
-    const flavor = await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/action/flavor.hbs`, {
+    const flavor = await fa.handlebars.renderTemplate(`systems/${SYSTEM_ID}/templates/chat/action/flavor.hbs`, {
         action: { title, glyph },
         item,
         traits: [traitSlugToObject("attack", CONFIG.PF2E.actionTraits)],
     });
-    const content = await fa.handlebars.renderTemplate(`${SYSTEM_ROOT}/templates/chat/action/area-fire.hbs`, {
+    const content = await fa.handlebars.renderTemplate(`systems/${SYSTEM_ID}/templates/chat/action/area-fire.hbs`, {
         actor,
         description,
         saveLabel: game.i18n.format("PF2E.SaveDCLabelBasic", {
