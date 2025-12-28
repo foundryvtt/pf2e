@@ -184,8 +184,6 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         fs.writeFileSync("./vendor.mjs", `/** ${message} */\n`);
     }
 
-    const reEscape = (s: string) => s.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
-
     return {
         base: command === "build" ? "./" : `/systems/${SYSTEM_ID}/`,
         publicDir: "static",
@@ -216,16 +214,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 fileName: SYSTEM_ID,
             },
             rollupOptions: {
-                external: new RegExp(
-                    [
-                        "(?:",
-                        reEscape("../icons/"),
-                        "[a-z]+\/[-a-z/]+\.webp",
-                        "|",
-                        reEscape("ui/parchment.jpg"),
-                        ")$",
-                    ].join(""),
-                ),
+                external: /(?:\.\.\/icons\/[a-z]+\/[-a-z/]+\.webp|ui\/parchment\.jpg)$/,
                 output: {
                     assetFileNames: `styles/${SYSTEM_ID}.css`,
                     chunkFileNames: "[name].mjs",
