@@ -1,0 +1,24 @@
+<p class="hint">{{localize "PF2E.Actions.EarnIncome.ShortDescription"}}</p>
+
+<div class="form-group slim">
+    <label>{{localize "PF2E.SkillLabel"}}</label>
+    <div class="form-fields">
+        <select name="skill">
+            {{selectOptions skillOptions selected=defaults.skill blank=""}}
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.LevelLabel"}}</label>
+    <div class="form-fields">
+        <range-picker name="level" value="{{defaults.level}}" min="0" max="20" step="1"></range-picker>
+    </div>
+</div>
+
+<div class="form-group slim">
+    <label>{{localize "TIME.Day.other"}}</label>
+    <div class="form-fields">
+        <input type="number" name="days" value="{{defaults.days}}" />
+    </div>
+</div>

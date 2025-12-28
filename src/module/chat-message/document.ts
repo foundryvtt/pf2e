@@ -347,7 +347,7 @@ class ChatMessagePF2e extends ChatMessage {
      */
     #appendSetAsInitiative(html: HTMLElement): void {
         if ((this.blind || !this.isAuthor) && !game.user.isGM) return;
-
+        if (this.flags[SYSTEM_ID].context?.options?.includes("self:action:trait:downtime")) return;
         const hasCheckRoll = this.rolls.some(
             (r) => r instanceof CheckRoll && ["skill-check", "perception-check"].includes(r.options.type ?? ""),
         );

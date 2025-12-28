@@ -10,6 +10,8 @@ declare const ClientBaseSetting: {
     new (...args: any): BaseSetting & ClientDocument<null>;
 } & ClientBaseSettingStatic;
 
+interface ClientBaseSetting extends InstanceType<typeof ClientBaseSetting> {}
+
 /**
  * The client-side Setting document which extends the common BaseSetting model.
  *

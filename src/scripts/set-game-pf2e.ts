@@ -20,7 +20,6 @@ import {
     restForTheNight,
     rollActionMacro,
     rollItemMacro,
-    showEarnIncomePopup,
     stealthForSelected,
     steelYourResolve,
     takeABreather,
@@ -36,6 +35,7 @@ import { ModuleArt } from "@system/module-art.ts";
 import { Predicate } from "@system/predication.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { sluggify } from "@util";
+import { EarnIncomeDialog } from "./macros/earn-income.ts";
 
 /** Expose public game.pf2e interface */
 export const SetGamePF2e = {
@@ -50,7 +50,7 @@ export const SetGamePF2e = {
             encouragingWords,
             raiseAShield,
             restForTheNight,
-            earnIncome: showEarnIncomePopup,
+            earnIncome: EarnIncomeDialog.create,
             steelYourResolve,
             takeABreather,
             treatWounds,

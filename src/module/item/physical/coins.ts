@@ -204,4 +204,4 @@ interface CoinStringParams {
     decimal?: boolean;
 }
 
-export { Coins };
+export { Coins, type RawCoins };

@@ -273,6 +273,30 @@ export function registerSettings(): void {
         },
     });
 
+    game.settings.register(SYSTEM_ID, "earnIncome", {
+        name: "",
+        scope: "user",
+        config: false,
+        type: new fields.SchemaField({
+            level: new fields.NumberField({
+                required: true,
+                nullable: false,
+                integer: true,
+                min: 0,
+                max: 20,
+                initial: 0,
+            }),
+            days: new fields.NumberField({
+                required: true,
+                nullable: false,
+                integer: true,
+                positive: true,
+                initial: 1,
+            }),
+            skill: new fields.StringField({ required: true, blank: false, initial: "society" }),
+        }),
+    });
+
     registerTrackingSettings();
 
     if (BUILD_MODE === "production") {

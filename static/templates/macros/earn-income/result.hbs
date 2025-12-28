@@ -1,0 +1,21 @@
+<div class="pf2e chat-card earn-income">
+    <header class="card-header flexrow">
+        <img src="{{concat "systems/" systemId "/icons/equipment/treasure/currency/gold-pieces.webp"}}" />
+        <h3>{{localize "PF2E.Actions.EarnIncome.Result.Title"}}</h3>
+    </header>
+    <div class="card-content">
+        <p>
+            <strong>{{localize "PF2E.Actions.EarnIncome.Result.TaskLevel"}}</strong>
+            {{level}}
+        </p>
+        <p>
+            <strong>{{localize "PF2E.Actions.EarnIncome.Result.DaysSpent.Label"}}</strong>
+            {{days}}
+        </p>
+        <p>
+            <strong>{{localize "PF2E.Actions.EarnIncome.Result.IncomeEarned"}}</strong>
+            {{reward.total}}
+            {{#if (gt days 1)}}({{localize "PF2E.Actions.EarnIncome.Result.PerDay" income=reward.perDay}}){{/if}}
+        </p>
+    </div>
+</div>

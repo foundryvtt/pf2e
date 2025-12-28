@@ -80,6 +80,7 @@ import type EnJSON from "../static/lang/en.json";
 import Game = foundry.Game;
 
 interface ClientSettingsPF2e extends fh.ClientSettings {
+    get(scope: string, setting: string, options: { document: true }): Setting;
     get(scope: "core", key: "compendiumConfiguration"): Record<string, { private: boolean; locked: boolean }>;
     get(scope: "core", key: "fontSize"): number;
     get(scope: "core", key: "noCanvas"): boolean;
@@ -151,8 +152,9 @@ interface ClientSettingsPF2e extends fh.ClientSettings {
     get(scope: SystemId, setting: "totmToggles"): boolean;
     get(scope: SystemId, setting: "worldSchemaVersion"): number;
     get(scope: SystemId, setting: "worldSystemVersion"): string;
+    get(scope: SystemId, setting: "earnIncome"): { level: number; days: number; skill: string };
 
-    get(scope: string, setting: string): unknown;
+    get(scope: string, key: string, options?: { document?: boolean }): unknown;
 }
 
 interface GamePF2e

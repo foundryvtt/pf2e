@@ -6,7 +6,7 @@ import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts
 import { Coins } from "@item/physical/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { OneToTen } from "@module/data.ts";
-import { getIncomeForLevel } from "@scripts/macros/earn-income/calculate.ts";
+import { EarnIncomeDialog } from "@scripts/macros/earn-income.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
@@ -55,14 +55,15 @@ function calculateCosts(
     const materialCosts = itemPrice.scale(0.5);
     const lostMaterials = new Coins();
     const reductionPerDay = new Coins();
-
     const proficiency = actor.skills[skill]?.rank;
     if (!proficiency) return null;
 
+    const REWARDS = EarnIncomeDialog.REWARDS_BY_LEVEL;
+    const level = Math.clamp(actor.level, 0, 20) as keyof typeof REWARDS;
     if (degreeOfSuccess === DegreeOfSuccess.CRITICAL_SUCCESS) {
-        Object.assign(reductionPerDay, getIncomeForLevel(actor.level + 1).rewards[proficiency]);
+        Object.assign(reductionPerDay, REWARDS[level].rewards[proficiency]);
     } else if (degreeOfSuccess === DegreeOfSuccess.SUCCESS) {
-        Object.assign(reductionPerDay, getIncomeForLevel(actor.level).rewards[proficiency]);
+        Object.assign(reductionPerDay, REWARDS[(level + 1) as keyof typeof REWARDS].rewards[proficiency]);
     } else if (degreeOfSuccess === DegreeOfSuccess.CRITICAL_FAILURE) {
         Object.assign(lostMaterials, materialCosts.scale(0.1));
     }

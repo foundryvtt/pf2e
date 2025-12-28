@@ -158,8 +158,9 @@ type DegreeAdjustmentsRecord = {
 };
 
 interface DegreeOfSuccessAdjustment {
-    adjustments: DegreeAdjustmentsRecord;
+    slug?: string;
     predicate?: Predicate;
+    adjustments: DegreeAdjustmentsRecord;
 }
 
 interface CheckDC {
