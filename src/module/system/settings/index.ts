@@ -17,7 +17,7 @@ export function registerSettings(): void {
         registerWorldSchemaVersion();
     }
 
-    game.settings.register("pf2e", "tokens.autoscale", {
+    game.settings.register(SYSTEM_ID, "tokens.autoscale", {
         name: "PF2E.SETTINGS.Tokens.Autoscale.Name",
         hint: "PF2E.SETTINGS.Tokens.Autoscale.Hint",
         scope: "world",
@@ -29,7 +29,7 @@ export function registerSettings(): void {
         },
     });
 
-    game.settings.register("pf2e", "identifyMagicNotMatchingTraditionModifier", {
+    game.settings.register(SYSTEM_ID, "identifyMagicNotMatchingTraditionModifier", {
         name: "PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Name",
         hint: "PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Hint",
         choices: {
@@ -44,7 +44,7 @@ export function registerSettings(): void {
         config: true,
     });
 
-    game.settings.register("pf2e", "critRule", {
+    game.settings.register(SYSTEM_ID, "critRule", {
         name: "PF2E.SETTINGS.CritRule.Name",
         hint: "PF2E.SETTINGS.CritRule.Hint",
         scope: "world",
@@ -62,7 +62,7 @@ export function registerSettings(): void {
         },
     });
 
-    game.settings.register("pf2e", "minimumRulesUI", {
+    game.settings.register(SYSTEM_ID, "minimumRulesUI", {
         name: "PF2E.SETTINGS.MinimumRulesUI.Name",
         hint: "PF2E.SETTINGS.MinimumRulesUI.Hint",
         scope: "world",
@@ -86,7 +86,7 @@ export function registerSettings(): void {
     });
 
     const distanceDisplays = ["always", "encounters", "never"] as const;
-    game.settings.register("pf2e", "distanceDisplay", {
+    game.settings.register(SYSTEM_ID, "distanceDisplay", {
         name: "PF2E.SETTINGS.DistanceDisplay.Name",
         hint: "PF2E.SETTINGS.DistanceDisplay.Hint",
         scope: "client",
@@ -102,7 +102,7 @@ export function registerSettings(): void {
         },
     });
 
-    game.settings.register("pf2e", "compendiumBrowserPacks", {
+    game.settings.register(SYSTEM_ID, "compendiumBrowserPacks", {
         name: "PF2E.SETTINGS.CompendiumBrowserPacks.Name",
         hint: "PF2E.SETTINGS.CompendiumBrowserPacks.Hint",
         default: {},
@@ -113,7 +113,7 @@ export function registerSettings(): void {
         },
     });
 
-    game.settings.register("pf2e", "compendiumBrowserSources", {
+    game.settings.register(SYSTEM_ID, "compendiumBrowserSources", {
         name: "PF2E.SETTINGS.compendiumBrowserSources.Name",
         hint: "PF2E.SETTINGS.compendiumBrowserSources.Hint",
         default: {
@@ -130,7 +130,7 @@ export function registerSettings(): void {
         },
     });
 
-    game.settings.register("pf2e", "critFumbleButtons", {
+    game.settings.register(SYSTEM_ID, "critFumbleButtons", {
         name: game.i18n.localize("PF2E.SETTINGS.critFumbleCardButtons.name"),
         hint: game.i18n.localize("PF2E.SETTINGS.critFumbleCardButtons.hint"),
         scope: "world",
@@ -140,7 +140,7 @@ export function registerSettings(): void {
         requiresReload: true,
     });
 
-    game.settings.register("pf2e", "drawCritFumble", {
+    game.settings.register(SYSTEM_ID, "drawCritFumble", {
         name: game.i18n.localize("PF2E.SETTINGS.critFumbleCards.name"),
         hint: game.i18n.localize("PF2E.SETTINGS.critFumbleCards.hint"),
         scope: "world",
@@ -156,7 +156,7 @@ export function registerSettings(): void {
         blackWhite: "PF2E.SETTINGS.statusEffectType.blackWhite",
         default: "PF2E.SETTINGS.statusEffectType.default",
     };
-    game.settings.register("pf2e", "statusEffectType", {
+    game.settings.register(SYSTEM_ID, "statusEffectType", {
         name: "PF2E.SETTINGS.statusEffectType.name",
         hint: "PF2E.SETTINGS.statusEffectType.hint",
         scope: "world",
@@ -169,7 +169,7 @@ export function registerSettings(): void {
         },
     });
 
-    game.settings.register("pf2e", "totmToggles", {
+    game.settings.register(SYSTEM_ID, "totmToggles", {
         name: "PF2E.SETTINGS.TOTMToggles.Name",
         hint: "PF2E.SETTINGS.TOTMToggles.Hint",
         scope: "world",
@@ -182,7 +182,7 @@ export function registerSettings(): void {
         },
     });
 
-    game.settings.register("pf2e", "deathIcon", {
+    game.settings.register(SYSTEM_ID, "deathIcon", {
         name: "PF2E.SETTINGS.DeathIcon.Name",
         hint: "PF2E.SETTINGS.DeathIcon.Hint",
         scope: "world",
@@ -193,13 +193,13 @@ export function registerSettings(): void {
             if (isImageOrVideoPath(choice)) {
                 StatusEffects.reset();
             } else if (!choice) {
-                game.settings.set("pf2e", "deathIcon", "icons/svg/skull.svg");
+                game.settings.set(SYSTEM_ID, "deathIcon", "icons/svg/skull.svg");
             }
         },
     });
 
     // Don't tell Nath
-    game.settings.register("pf2e", "nathMode", {
+    game.settings.register(SYSTEM_ID, "nathMode", {
         name: "PF2E.SETTINGS.NathMode.Name",
         hint: "PF2E.SETTINGS.NathMode.Hint",
         scope: "world",
@@ -208,7 +208,7 @@ export function registerSettings(): void {
         type: Boolean,
     });
 
-    game.settings.register("pf2e", "statusEffectShowCombatMessage", {
+    game.settings.register(SYSTEM_ID, "statusEffectShowCombatMessage", {
         name: "PF2E.SETTINGS.statusEffectShowCombatMessage.name",
         hint: "PF2E.SETTINGS.statusEffectShowCombatMessage.hint",
         scope: "world",
@@ -225,7 +225,7 @@ export function registerSettings(): void {
         type: AutomationSettings,
         restricted: true,
     });
-    game.settings.register("pf2e", "automation.actorsDeadAtZero", {
+    game.settings.register(SYSTEM_ID, "automation.actorsDeadAtZero", {
         name: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Name",
         hint: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Hint",
         scope: "world",
@@ -264,7 +264,7 @@ export function registerSettings(): void {
     WorldClockSettings.register();
 
     // Secret for now until the user side is complete and a UI is built
-    game.settings.register("pf2e", "campaignFeatSections", {
+    game.settings.register(SYSTEM_ID, "campaignFeatSections", {
         name: "Campaign Feat Sections",
         scope: "world",
         config: false,
@@ -279,7 +279,7 @@ export function registerSettings(): void {
     });
 
     // Increase brightness of darkness color for GMs
-    game.settings.register("pf2e", "gmVision", {
+    game.settings.register(SYSTEM_ID, "gmVision", {
         name: "PF2E.SETTINGS.GMVision",
         scope: "client",
         config: false,
@@ -303,7 +303,7 @@ export function registerSettings(): void {
         },
     });
 
-    game.settings.register("pf2e", "seenLastStopMessage", {
+    game.settings.register(SYSTEM_ID, "seenLastStopMessage", {
         name: "Seen Last Stop Before Remaster Message",
         scope: "world",
         config: false,
@@ -321,7 +321,7 @@ export function registerSettings(): void {
 /** Registers temporary settings for tracking things like first time launches or active party */
 function registerTrackingSettings(): void {
     // Whether the world's first party actor has been created
-    game.settings.register("pf2e", "createdFirstParty", {
+    game.settings.register(SYSTEM_ID, "createdFirstParty", {
         name: "Created First Party", // Doesn't appear in any UI
         scope: "world",
         config: false,
@@ -329,7 +329,7 @@ function registerTrackingSettings(): void {
         type: Boolean,
     });
 
-    game.settings.register("pf2e", "activeParty", {
+    game.settings.register(SYSTEM_ID, "activeParty", {
         name: "Active Party",
         scope: "world",
         config: false,
@@ -341,14 +341,14 @@ function registerTrackingSettings(): void {
     });
 
     // Tracks the last party folder state for next launch. Defaults to true so that "No Members" shows on initial creation.
-    game.settings.register("pf2e", "activePartyFolderState", {
+    game.settings.register(SYSTEM_ID, "activePartyFolderState", {
         name: "Active Party Opened or closed",
         scope: "client",
         config: false,
         type: new fields.BooleanField({ required: true, nullable: false, initial: true }),
     });
 
-    game.settings.register("pf2e", "worldSystemVersion", {
+    game.settings.register(SYSTEM_ID, "worldSystemVersion", {
         name: "World System Version",
         scope: "world",
         config: false,
@@ -357,7 +357,7 @@ function registerTrackingSettings(): void {
     });
 
     // Show the GM information about the remaster
-    game.settings.register("pf2e", "seenRemasterJournalEntry", {
+    game.settings.register(SYSTEM_ID, "seenRemasterJournalEntry", {
         name: "Seen Remaster journal entry?",
         scope: "world",
         config: false,
@@ -367,7 +367,7 @@ function registerTrackingSettings(): void {
 }
 
 function registerWorldSchemaVersion(): void {
-    game.settings.register("pf2e", "worldSchemaVersion", {
+    game.settings.register(SYSTEM_ID, "worldSchemaVersion", {
         name: "PF2E.SETTINGS.WorldSchemaVersion.Name",
         hint: "PF2E.SETTINGS.WorldSchemaVersion.Hint",
         scope: "world",

@@ -74,7 +74,7 @@ export const GetSceneControlButtons = {
                     active: game.pf2e.settings.gmVision,
                     onChange: (): void => {
                         const newStatus = !game.pf2e.settings.gmVision;
-                        game.settings.set("pf2e", "gmVision", newStatus);
+                        game.settings.set(SYSTEM_ID, "gmVision", newStatus);
                         const toggle = ui.controls.control?.tools.gmVision;
                         if (toggle) {
                             toggle.active = newStatus;

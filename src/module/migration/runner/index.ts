@@ -14,7 +14,7 @@ import * as R from "remeda";
 
 export class MigrationRunner extends MigrationRunnerBase {
     override needsMigration(): boolean {
-        return super.needsMigration(game.settings.get("pf2e", "worldSchemaVersion"));
+        return super.needsMigration(game.settings.get(SYSTEM_ID, "worldSchemaVersion"));
     }
 
     /** Ensure that an actor or item reflects the current data schema before it is created */
@@ -368,7 +368,7 @@ export class MigrationRunner extends MigrationRunnerBase {
     async runMigration(force = false): Promise<void> {
         const schemaVersion = {
             latest: MigrationRunner.LATEST_SCHEMA_VERSION,
-            current: game.settings.get("pf2e", "worldSchemaVersion"),
+            current: game.settings.get(SYSTEM_ID, "worldSchemaVersion"),
         };
         const systemVersion = game.system.version;
 
@@ -397,6 +397,6 @@ export class MigrationRunner extends MigrationRunnerBase {
             }
         }
 
-        await game.settings.set("pf2e", "worldSchemaVersion", schemaVersion.latest);
+        await game.settings.set(SYSTEM_ID, "worldSchemaVersion", schemaVersion.latest);
     }
 }

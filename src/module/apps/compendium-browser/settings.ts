@@ -117,7 +117,7 @@ class CompendiumBrowserSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.
             if (confirm) {
                 const browser = game.pf2e.compendiumBrowser;
                 await browser.packLoader.hardReset(browser.loadedPacksAll());
-                await game.settings.set("pf2e", "compendiumBrowserSources", browser.packLoader.sourcesSettings);
+                await game.settings.set(SYSTEM_ID, "compendiumBrowserSources", browser.packLoader.sourcesSettings);
                 await browser.resetInitializedTabs();
                 await this.render();
                 this.changeTab("source", "settings", { force: true });
@@ -127,7 +127,7 @@ class CompendiumBrowserSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.
     }
 
     protected override async _prepareContext(_options: fa.api.HandlebarsRenderOptions): Promise<object> {
-        if (game.settings.get("pf2e", "campaignType") === "none") {
+        if (game.settings.get(SYSTEM_ID, "campaignType") === "none") {
             this.#tabSettings.campaignFeature.hidden = true;
         }
         const browser = game.pf2e.compendiumBrowser;
@@ -176,7 +176,7 @@ class CompendiumBrowserSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.
                 pack.load = getCheckboxValue(`${t}-${key}`);
             }
         }
-        await game.settings.set("pf2e", "compendiumBrowserPacks", settings);
+        await game.settings.set(SYSTEM_ID, "compendiumBrowserPacks", settings);
 
         for (const [key, source] of Object.entries(browser.packLoader.sourcesSettings.sources)) {
             if (!source?.name) {
@@ -189,7 +189,7 @@ class CompendiumBrowserSettingsApp extends fa.api.HandlebarsApplicationMixin(fa.
         browser.packLoader.sourcesSettings.showEmptySources = getCheckboxValue("show-empty-sources");
         browser.packLoader.sourcesSettings.showUnknownSources = getCheckboxValue("show-unknown-sources");
         browser.packLoader.sourcesSettings.ignoreAsGM = getCheckboxValue("ignore-as-gm");
-        await game.settings.set("pf2e", "compendiumBrowserSources", browser.packLoader.sourcesSettings);
+        await game.settings.set(SYSTEM_ID, "compendiumBrowserSources", browser.packLoader.sourcesSettings);
 
         await browser.resetInitializedTabs();
         ui.notifications.info("PF2E.CompendiumBrowser.Settings.Saved", { localize: true });

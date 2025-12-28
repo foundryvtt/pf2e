@@ -32,7 +32,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         const sheetData = await super.getData(options);
         const actor = this.actor;
 
-        const unavailableLanguages: Set<string> = game.settings.get("pf2e", "homebrew.languageRarities").unavailable;
+        const unavailableLanguages: Set<string> = game.settings.get(SYSTEM_ID, "homebrew.languageRarities").unavailable;
         const languages = actor.isOfType("character")
             ? [] // Languages for PCs are handled in the PC sheet subclass
             : actor.system.details.languages.value

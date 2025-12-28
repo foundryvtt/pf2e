@@ -9,7 +9,7 @@ class PackLoader {
     sourcesSettings: CompendiumBrowserSources;
 
     constructor() {
-        this.sourcesSettings = game.settings.get("pf2e", "compendiumBrowserSources");
+        this.sourcesSettings = game.settings.get(SYSTEM_ID, "compendiumBrowserSources");
     }
 
     async *loadPacks(

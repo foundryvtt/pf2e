@@ -45,7 +45,7 @@ abstract class SettingsMenuPF2e extends fav1.api.FormApplication {
         const settings = this.settings;
         for (const key of this.SETTINGS) {
             const setting = settings[key];
-            game.settings.register("pf2e", `${setting.prefix ?? ""}${key}`, {
+            game.settings.register(SYSTEM_ID, `${setting.prefix ?? ""}${key}`, {
                 ...R.omit(setting, ["prefix"]),
                 scope: "world",
                 config: false,
@@ -64,7 +64,7 @@ abstract class SettingsMenuPF2e extends fav1.api.FormApplication {
         // Ensure cache values are initialized
         for (const [key, value] of Object.entries(settings)) {
             if (!(key in this.cache)) {
-                this.cache[key] = game.settings.get("pf2e", `${value.prefix ?? ""}${key}`);
+                this.cache[key] = game.settings.get(SYSTEM_ID, `${value.prefix ?? ""}${key}`);
             }
         }
 
@@ -105,9 +105,7 @@ abstract class SettingsMenuPF2e extends fav1.api.FormApplication {
             const settingKey = `${setting.prefix ?? ""}${key}`;
             const value = data[key] instanceof Set ? data[key].values().toArray() : data[key];
             this.cache[key] = value;
-            if (event.type === "submit") {
-                await game.settings.set("pf2e", settingKey, value);
-            }
+            if (event.type === "submit") await game.settings.set(SYSTEM_ID, settingKey, value);
         }
         if (event.type === "submit") {
             this.close();
@@ -124,7 +122,7 @@ abstract class SettingsMenuPF2e extends fav1.api.FormApplication {
         for (const key of this.constructor.SETTINGS) {
             const setting = this.constructor.settings[key];
             const settingKey = `${setting.prefix ?? ""}${key}`;
-            const value = game.settings.get("pf2e", settingKey);
+            const value = game.settings.get(SYSTEM_ID, settingKey);
             this.cache[key] = value instanceof foundry.abstract.DataModel ? value.clone() : value;
         }
     }
@@ -162,7 +160,7 @@ function settingsToSheetData(
 ): Record<string, SettingsTemplateData> {
     return R.mapValues(settings, (setting, key) => {
         const lookupKey = `${setting.prefix ?? ""}${key}`;
-        const value = key in cache ? cache[key] : game.settings.get("pf2e", lookupKey);
+        const value = key in cache ? cache[key] : game.settings.get(SYSTEM_ID, lookupKey);
         return {
             ...setting,
             key,

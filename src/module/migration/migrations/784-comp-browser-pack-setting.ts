@@ -5,10 +5,10 @@ export class Migration784CompBrowserPackSetting extends MigrationBase {
     static override version = 0.784;
 
     override async migrate(): Promise<void> {
-        const savedSettings = game.settings.get("pf2e", "compendiumBrowserPacks") as unknown;
+        const savedSettings = game.settings.get(SYSTEM_ID, "compendiumBrowserPacks") as unknown;
         if (savedSettings instanceof String) {
             const settings = JSON.parse(savedSettings.toString());
-            await game.settings.set("pf2e", "compendiumBrowserPacks", settings);
+            await game.settings.set(SYSTEM_ID, "compendiumBrowserPacks", settings);
             const browser = game?.pf2e?.compendiumBrowser;
             if (browser) {
                 browser.settings = settings;

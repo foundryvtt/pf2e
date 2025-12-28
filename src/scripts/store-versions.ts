@@ -6,7 +6,7 @@ export async function storeInitialWorldVersions(): Promise<void> {
 
     const storedSystemVersion = game.settings.storage.get("world").getItem("pf2e.worldSystemVersion");
     if (!storedSystemVersion) {
-        await game.settings.set("pf2e", "worldSystemVersion", game.system.version);
+        await game.settings.set(SYSTEM_ID, "worldSystemVersion", game.system.version);
     }
 
     const storedSchemaVersion = game.settings.storage.get("world").getItem("pf2e.worldSchemaVersion");
@@ -14,11 +14,11 @@ export async function storeInitialWorldVersions(): Promise<void> {
         const minimumVersion = MigrationRunner.RECOMMENDED_SAFE_VERSION;
         const currentVersion =
             game.actors.size === 0
-                ? game.settings.get("pf2e", "worldSchemaVersion")
+                ? game.settings.get(SYSTEM_ID, "worldSchemaVersion")
                 : Math.max(
                       Math.min(...new Set(game.actors.map((actor) => actor.schemaVersion ?? minimumVersion))),
                       minimumVersion,
                   );
-        await game.settings.set("pf2e", "worldSchemaVersion", currentVersion);
+        await game.settings.set(SYSTEM_ID, "worldSchemaVersion", currentVersion);
     }
 }

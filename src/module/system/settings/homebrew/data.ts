@@ -90,7 +90,7 @@ class LanguageSettings extends foundry.abstract.DataModel<null, LanguageSettings
                 (l): l is LanguageNotCommon => l !== "common" && !nonCommonLanguages.has(l),
             ),
         );
-        this.homebrew = new Set(game.settings.get("pf2e", "homebrew.languages").map((t) => t.id));
+        this.homebrew = new Set(game.settings.get(SYSTEM_ID, "homebrew.languages").map((t) => t.id));
     }
 
     static override defineSchema(): LanguageSettingsSchema {

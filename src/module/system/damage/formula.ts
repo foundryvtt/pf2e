@@ -180,7 +180,7 @@ function instancesFromTypeMap(
             const doubleDice =
                 degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS &&
                 criticalInclusion.includes(null) &&
-                game.settings.get("pf2e", "critRule") === "doubledice";
+                game.settings.get(SYSTEM_ID, "critRule") === "doubledice";
 
             // If dice doubling is enabled, any doubling of dice or constants is handled by `createPartialFormulas`
             const double = degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS && !doubleDice;

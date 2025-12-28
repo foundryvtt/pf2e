@@ -18,7 +18,7 @@ export class IdentifyItemPopup extends appv1.api.FormApplication<PhysicalItemPF2
 
     dcs = getItemIdentificationDCs(this.object, {
         pwol: game.pf2e.settings.variants.pwol.enabled,
-        notMatchingTraditionModifier: game.settings.get("pf2e", "identifyMagicNotMatchingTraditionModifier"),
+        notMatchingTraditionModifier: game.settings.get(SYSTEM_ID, "identifyMagicNotMatchingTraditionModifier"),
     });
 
     override async getData(): Promise<IdentifyPopupData> {

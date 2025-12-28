@@ -289,7 +289,7 @@ class HomebrewElements extends SettingsMenuPF2e {
 
     /** Prepare and run a migration for each set of tag deletions from a tag map */
     #processDeletions(listKey: HomebrewTraitKey, newTagList: HomebrewTag[]): MigrationBase | null {
-        const oldTagList = game.settings.get("pf2e", `homebrew.${listKey}`);
+        const oldTagList = game.settings.get(SYSTEM_ID, `homebrew.${listKey}`);
         const newIDList = newTagList.map((tag) => tag.id);
         const deletions: string[] = oldTagList.flatMap((oldTag) => (newIDList.includes(oldTag.id) ? [] : oldTag.id));
 
@@ -330,7 +330,7 @@ class HomebrewElements extends SettingsMenuPF2e {
         // Add custom traits from settings
         for (const listKey of HOMEBREW_ELEMENT_KEYS) {
             const settingsKey: HomebrewTraitSettingsKey = `homebrew.${listKey}` as const;
-            const elements = game.settings.get("pf2e", settingsKey);
+            const elements = game.settings.get(SYSTEM_ID, settingsKey);
             const validElements = elements.filter((e) => !reservedTerms[listKey].has(e.id));
             this.#updateConfigRecords(validElements, listKey);
         }

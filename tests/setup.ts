@@ -39,6 +39,8 @@ global.game = Object.freeze({
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+(globalThis as any).SYSTEM_ID = "pf2e";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (global as any).Actor = MockActor;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (global as any).Item = MockItem;

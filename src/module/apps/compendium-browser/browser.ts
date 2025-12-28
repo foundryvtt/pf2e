@@ -131,7 +131,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
     #setVisibleTabs(visible?: ContentTabName[]): void {
         const isGM = game.user.isGM;
-        const showCampaign = game.settings.get("pf2e", "campaignType") !== "none";
+        const showCampaign = !!game.pf2e.settings.campaign.type;
         for (const tab of this.tabsArray) {
             tab.visible = visible ? visible.includes(tab.tabName) : true;
             if (!showCampaign && tab.tabName === "campaignFeature") tab.visible = false;
@@ -285,7 +285,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             ...Array.from(PHYSICAL_ITEM_TYPES).map((t): [ItemType, "equipment"] => [t, "equipment"]),
         ]);
 
-        const userSettings = game.settings.get("pf2e", "compendiumBrowserPacks");
+        const userSettings = game.settings.get(SYSTEM_ID, "compendiumBrowserPacks");
         for (const pack of game.packs) {
             if (!pack.testUserPermission(game.user, "LIMITED")) continue;
             const tabNames = R.unique(

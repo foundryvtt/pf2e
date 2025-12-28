@@ -9,7 +9,7 @@ export class Migration842NumifyNumericSettings extends MigrationBase {
             const value = game.settings.storage.get("world").getItem(`pf2e.${setting}`);
             if (value === null) continue;
             if (typeof value !== "number") {
-                await game.settings.set("pf2e", setting, Number(value));
+                await game.settings.set(SYSTEM_ID, setting, Number(value));
             }
         }
     }

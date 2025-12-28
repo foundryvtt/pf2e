@@ -600,11 +600,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         // Exclude certain types from being creatable
         const excludedTypes: ItemType[] = ["condition", "spellcastingEntry", "lore"];
         if (BUILD_MODE === "production") excludedTypes.push("affliction", "book");
-        if (game.settings.get("pf2e", "campaignType") !== "kingmaker") excludedTypes.push("campaignFeature");
+        if (game.pf2e.settings.campaign.type !== "kingmaker") excludedTypes.push("campaignFeature");
         for (const type of excludedTypes) {
             options.types.findSplice((t) => t === type);
         }
-
         return super.createDialog(data, createOptions, options);
     }
 

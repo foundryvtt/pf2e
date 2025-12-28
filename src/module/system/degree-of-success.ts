@@ -1,6 +1,7 @@
 import type { Rolled } from "@client/dice/_module.d.mts";
 import type { Die, NumericTerm } from "@client/dice/terms/_module.d.mts";
 import type { ZeroToThree } from "@module/data.ts";
+import { sluggify } from "@util";
 import type { CheckRoll } from "./check/roll.ts";
 import type { Predicate } from "./predication.ts";
 import type { StatisticDifficultyClass } from "./statistic/index.ts";
@@ -49,12 +50,24 @@ class DegreeOfSuccess {
         this.value = this.adjustment
             ? this.#adjustDegreeOfSuccess(this.adjustment.amount, this.unadjusted)
             : this.unadjusted;
+        this.key = DEGREE_OF_SUCCESS_STRINGS[this.value];
+        this.slug = sluggify(this.key);
+        this.label = game.i18n.localize(`PF2E.Check.Result.Degree.Check.${this.key}`);
     }
 
     static readonly CRITICAL_FAILURE = 0;
     static readonly FAILURE = 1;
     static readonly SUCCESS = 2;
     static readonly CRITICAL_SUCCESS = 3;
+
+    /** The degree in (dromedary) camel case; e.g., "criticalSuccess" */
+    key: string;
+
+    /** The degree in slug form; e.g., "critical-success" */
+    slug: string;
+
+    /** The localized degree-of-success label */
+    label: string;
 
     #getDegreeAdjustment(
         degree: DegreeOfSuccessIndex,

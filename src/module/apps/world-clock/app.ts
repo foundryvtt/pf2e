@@ -191,7 +191,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
         const defaults = game.settings.settings.get("pf2e.worldClock")?.default;
         if (!R.isPlainObject(defaults)) throw ErrorPF2e("Unexpected failure to find setting");
         if (setting.worldCreatedOn === null) {
-            game.settings.set("pf2e", "worldClock", { ...setting, worldCreatedOn: DateTime.utc().toISO() });
+            game.settings.set(SYSTEM_ID, "worldClock", { ...setting, worldCreatedOn: DateTime.utc().toISO() });
         }
     }
 

@@ -7,6 +7,6 @@ export class Migration931ExpandREPermissions extends MigrationBase {
     override async migrate(): Promise<void> {
         // If player access is enabled, set minimumRulesUI to Player. Otherwise, set to the old default of Assistant GM.
         const playerAccess = game.settings.storage.get("world").getItem("pf2e.enabledRulesUI");
-        game.settings.set("pf2e", "minimumRulesUI", playerAccess ? 1 : 3);
+        game.settings.set(SYSTEM_ID, "minimumRulesUI", playerAccess ? 1 : 3);
     }
 }

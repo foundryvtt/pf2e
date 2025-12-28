@@ -149,7 +149,7 @@ class RollOptionRuleElement extends RuleElement<RollOptionSchema> {
 
     /** Force false totm toggleable roll options if the totmToggles setting is disabled */
     override resolveValue(): boolean {
-        if (this.toggleable === "totm" && !game.settings.get("pf2e", "totmToggles")) {
+        if (this.toggleable === "totm" && !game.settings.get(SYSTEM_ID, "totmToggles")) {
             return false;
         }
         return this.alwaysActive ? true : !!super.resolveValue(this.value);

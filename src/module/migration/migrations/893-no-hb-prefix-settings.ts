@@ -8,7 +8,7 @@ export class Migration893NoHBPrefixSettings extends MigrationBase {
 
     override async migrate(): Promise<void> {
         for (const key of HOMEBREW_ELEMENT_KEYS) {
-            const tags = game.settings.get("pf2e", `homebrew.${key}`);
+            const tags = game.settings.get(SYSTEM_ID, `homebrew.${key}`);
             if (tags.length === 0) continue;
 
             const updatedTags = tags.flatMap((tag: { id: string }) => {
@@ -20,7 +20,7 @@ export class Migration893NoHBPrefixSettings extends MigrationBase {
                 }
             });
 
-            await game.settings.set("pf2e", `homebrew.${key}`, updatedTags);
+            await game.settings.set(SYSTEM_ID, `homebrew.${key}`, updatedTags);
         }
     }
 }

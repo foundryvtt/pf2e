@@ -13,10 +13,10 @@ export class Migration936MoveWorldClockSettings extends MigrationBase {
         const showClockButton = worldSettings.find((s) => s.key === "pf2e.worldClock.showClockButton")?.value;
         const syncDarkness = worldSettings.find((s) => s.key === "pf2e.worldClock.syncDarkness")?.value;
         const timeConvention = worldSettings.find((s) => s.key === "pf2e.worldClock.timeConvention")?.value;
-        const setting = game.settings.get("pf2e", "worldClock");
+        const setting = game.settings.get(SYSTEM_ID, "worldClock");
 
         if (worldCreatedOn && R.isPlainObject(setting)) {
-            await game.settings.set("pf2e", "worldClock", {
+            await game.settings.set(SYSTEM_ID, "worldClock", {
                 ...setting,
                 worldCreatedOn: worldCreatedOn,
                 dateTheme: dateTheme ?? setting.dateTheme,

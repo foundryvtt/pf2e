@@ -172,7 +172,7 @@ export class DamagePF2e {
             const critRule =
                 degreeOfSuccess !== DEGREE_OF_SUCCESS.CRITICAL_SUCCESS
                     ? null
-                    : game.settings.get("pf2e", "critRule") === "doubledamage"
+                    : game.settings.get(SYSTEM_ID, "critRule") === "doubledamage"
                       ? "double-damage"
                       : "double-dice";
             const options: DamageRollData = {

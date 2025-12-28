@@ -15,7 +15,7 @@ export class Migration874MoveStaminaStuff extends MigrationBase {
         const variantEnabled =
             "game" in globalThis &&
             game.settings.storage.get("world").find((s) => s.key === "pf2e.staminaVariant")?.value !== '"0"' &&
-            game.settings.get("pf2e", "staminaVariant");
+            game.settings.get(SYSTEM_ID, "staminaVariant");
         const systemSource: PCSystemSourceWithOldStaminaData = source.system;
 
         if (R.isPlainObject(systemSource.attributes.sp)) {
@@ -47,17 +47,17 @@ export class Migration874MoveStaminaStuff extends MigrationBase {
         const staminaVariant = game.settings.storage.get("world").find((s) => s.key === "pf2e.staminaVariant");
         // Pre-V11, this setting was being stored as a string
         if (["1", '"1"'].includes(staminaVariant?._source.value ?? "")) {
-            await game.settings.set("pf2e", "staminaVariant", true);
+            await game.settings.set(SYSTEM_ID, "staminaVariant", true);
         } else if (staminaVariant) {
-            await game.settings.set("pf2e", "staminaVariant", false);
+            await game.settings.set(SYSTEM_ID, "staminaVariant", false);
         }
 
         // Aayyy, while we're at it:
         const pwolVariant = game.settings.storage.get("world").find((s) => s.key === "pf2e.proficiencyVariant");
         if (pwolVariant?._source.value === '"ProficiencyWithoutLevel"') {
-            await game.settings.set("pf2e", "proficiencyVariant", true);
+            await game.settings.set(SYSTEM_ID, "proficiencyVariant", true);
         } else if (staminaVariant) {
-            await game.settings.set("pf2e", "proficiencyVariant", false);
+            await game.settings.set(SYSTEM_ID, "proficiencyVariant", false);
         }
     }
 }

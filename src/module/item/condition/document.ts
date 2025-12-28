@@ -196,7 +196,8 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             const { formula, damageType } = systemData.persistent;
 
             const fullFormula = `(${formula})[persistent,${damageType}]`;
-            const critRule = game.settings.get("pf2e", "critRule") === "doubledamage" ? "double-damage" : "double-dice";
+            const critRule =
+                game.settings.get(SYSTEM_ID, "critRule") === "doubledamage" ? "double-damage" : "double-dice";
             // If this damage came from a critical hit, create the evaluatable persistent damage as also having been so
             const degreeOfSuccess = systemData.persistent.criticalHit ? 3 : null;
             const roll = new DamageRoll(fullFormula, {}, { evaluatePersistent: true, critRule, degreeOfSuccess });
@@ -302,7 +303,11 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     ): void {
         super._onUpdate(changed, operation, userId);
 
-        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame_secretCondition")) {
+        if (
+            !game.user.isGM &&
+            !this.actor?.hasPlayerOwner &&
+            game.settings.get(SYSTEM_ID, "metagame_secretCondition")
+        ) {
             return;
         }
 

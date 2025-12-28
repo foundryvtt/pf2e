@@ -23,7 +23,7 @@ export class Migration797MetagameSetting extends MigrationBase {
                 const newValue = this.visibilitySettings.includes(setting)
                     ? !["gm", "owner"].includes(oldValue)
                     : oldValue;
-                game.settings.set("pf2e", newKey, newValue);
+                game.settings.set(SYSTEM_ID, newKey, newValue);
             }
         }
     }

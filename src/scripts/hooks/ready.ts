@@ -50,7 +50,7 @@ export const Ready = {
             game.scenes.apps.push(SceneDarknessAdjuster.instance);
 
             // Determine whether a system migration is required and feasible
-            const currentVersion = game.settings.get("pf2e", "worldSchemaVersion");
+            const currentVersion = game.settings.get(SYSTEM_ID, "worldSchemaVersion");
 
             // Save the current world schema version if hasn't before.
             storeInitialWorldVersions().then(async () => {
@@ -74,10 +74,10 @@ export const Ready = {
                 }
 
                 // Update the world system version
-                const previous = game.settings.get("pf2e", "worldSystemVersion");
+                const previous = game.settings.get(SYSTEM_ID, "worldSystemVersion");
                 const current = game.system.version;
                 if (fu.isNewerVersion(current, previous)) {
-                    await game.settings.set("pf2e", "worldSystemVersion", current);
+                    await game.settings.set(SYSTEM_ID, "worldSystemVersion", current);
                 }
 
                 // These modules claim compatibility with V11 but are abandoned
@@ -101,7 +101,7 @@ export const Ready = {
                 }
             });
 
-            game.settings.get("pf2e", "homebrew.languageRarities").onReady();
+            game.settings.get(SYSTEM_ID, "homebrew.languageRarities").onReady();
 
             activateSocketListener();
 
@@ -149,11 +149,11 @@ export const Ready = {
             ui.actors.render({ parts: ["directory", "parties"] });
 
             // Show the GM the Remaster changes journal entry if they haven't seen it already.
-            if (game.user.isGM && !game.settings.get("pf2e", "seenRemasterJournalEntry")) {
+            if (game.user.isGM && !game.settings.get(SYSTEM_ID, "seenRemasterJournalEntry")) {
                 fromUuid("Compendium.pf2e.journals.JournalEntry.6L2eweJuM8W7OCf2").then((entry) => {
                     entry?.sheet.render(true);
                 });
-                game.settings.set("pf2e", "seenRemasterJournalEntry", true);
+                game.settings.set(SYSTEM_ID, "seenRemasterJournalEntry", true);
             }
 
             // Reset all encounter data and re-render the tracker if an encounter is running

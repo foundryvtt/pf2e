@@ -5,7 +5,7 @@ import { NPCPF2e } from "./document.ts";
 
 export class NPCConfig extends CreatureConfig<NPCPF2e> {
     override async getData(options: Partial<DocumentSheetV1Options> = {}): Promise<NPCConfigData> {
-        const lootableDefault = game.settings.get("pf2e", "automation.lootableNPCs");
+        const lootableDefault = game.settings.get(SYSTEM_ID, "automation.lootableNPCs");
         const lootableOptions = {
             default: `PF2E.Actor.NPC.Configure.Lootable.${lootableDefault ? "DefaultLootable" : "DefaultNotLootable"}`,
             lootable: "PF2E.Actor.NPC.Configure.Lootable.Lootable",

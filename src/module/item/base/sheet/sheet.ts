@@ -152,7 +152,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             traits,
             traitTagifyData,
             otherTagsTagifyData,
-            enabledRulesUI: game.user.hasRole(game.settings.get("pf2e", "minimumRulesUI")),
+            enabledRulesUI: game.user.hasRole(game.settings.get(SYSTEM_ID, "minimumRulesUI")),
             ruleEditing: !!this.editingRuleElement,
             rules: {
                 selection: {

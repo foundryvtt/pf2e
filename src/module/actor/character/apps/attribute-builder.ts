@@ -216,7 +216,7 @@ class AttributeBuilder extends appv1.api.Application {
 
     #calculateLeveledBoosts(): LevelBoostData[] {
         const build = this.actor.system.build.attributes;
-        const isGradual = game.settings.get("pf2e", "gradualBoostsVariant");
+        const isGradual = game.settings.get(SYSTEM_ID, "gradualBoostsVariant");
 
         const boostIsPartial = (attribute: AttributeString, level: number, isApex: boolean): boolean => {
             if (level < 5 || build.manual || isApex) {

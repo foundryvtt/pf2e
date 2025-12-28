@@ -72,7 +72,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             super.canUserModify(user, action) ||
             (action === "update" &&
                 this.isDead &&
-                (this.flags[SYSTEM_ID].lootable || game.settings.get("pf2e", "automation.lootableNPCs")))
+                (this.flags[SYSTEM_ID].lootable || game.settings.get(SYSTEM_ID, "automation.lootableNPCs")))
         );
     }
 

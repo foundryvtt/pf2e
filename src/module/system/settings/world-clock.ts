@@ -62,7 +62,7 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
 
     /** Register World Clock settings and this menu. */
     static register(): void {
-        game.settings.register("pf2e", "worldClock", {
+        game.settings.register(SYSTEM_ID, "worldClock", {
             name: "PF2E.SETTINGS.WorldClock.Name",
             scope: "world",
             config: false,
@@ -71,7 +71,7 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
                 game.pf2e.settings.worldClock = { ...(data as WorldClockSettingData) };
             },
         });
-        game.settings.registerMenu("pf2e", "worldClock", {
+        game.settings.registerMenu(SYSTEM_ID, "worldClock", {
             name: "PF2E.SETTINGS.WorldClock.Name",
             label: "PF2E.SETTINGS.WorldClock.Label",
             hint: "PF2E.SETTINGS.WorldClock.Hint",
@@ -83,7 +83,7 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
 
     static localizeSchema(): void {
         fh.Localization.localizeSchema(WorldClockSettings.#SCHEMA, ["PF2E.SETTINGS.WorldClock"], {
-            prefixPath: "pf2e.worldClock.",
+            prefixPath: `${SYSTEM_ID}.worldClock.`,
         });
     }
 
@@ -136,8 +136,10 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
         _form: HTMLFormElement,
         formData: FormDataExtended,
     ): Promise<void> {
+        type SubmitData = { [SYSTEM_ID]: { worldClock: WorldClockSettingData } };
+        const submitData = fu.expandObject<SubmitData>(formData.object)[SYSTEM_ID];
         const update = {
-            ...fu.expandObject<{ [SYSTEM_ID]: { worldClock: WorldClockSettingData } }>(formData.object).pf2e.worldClock,
+            ...submitData.worldClock,
             worldCreatedOn: game.pf2e.settings.worldClock.worldCreatedOn,
         };
         await game.settings.set(SYSTEM_ID, "worldClock", update);

@@ -167,7 +167,7 @@ export class VariantRulesSettings extends fa.api.HandlebarsApplicationMixin(fa.a
     };
 
     static register(): void {
-        game.settings.registerMenu("pf2e", "variantRules", {
+        game.settings.registerMenu(SYSTEM_ID, "variantRules", {
             name: "PF2E.SETTINGS.Variant.Name",
             label: "PF2E.SETTINGS.Variant.Label",
             hint: "PF2E.SETTINGS.Variant.Hint",
@@ -176,7 +176,7 @@ export class VariantRulesSettings extends fa.api.HandlebarsApplicationMixin(fa.a
             restricted: true,
         });
         for (const [key, data] of Object.entries(VariantRulesSettings.#SETTINGS)) {
-            game.settings.register("pf2e", key, { ...data, name: data.type.label, scope: "world", config: false });
+            game.settings.register(SYSTEM_ID, key, { ...data, name: data.type.label, scope: "world", config: false });
         }
     }
 
@@ -187,7 +187,7 @@ export class VariantRulesSettings extends fa.api.HandlebarsApplicationMixin(fa.a
         return Object.assign(context, {
             settings: R.mapValues(VariantRulesSettings.#SETTINGS, (v, k) => ({
                 ...v,
-                value: game.settings.get("pf2e", k),
+                value: game.settings.get(SYSTEM_ID, k),
                 pwolModifier: /proficiency[A-Z][a-z]+Modifier/i.test(k),
             })),
             buttons: [
@@ -199,7 +199,7 @@ export class VariantRulesSettings extends fa.api.HandlebarsApplicationMixin(fa.a
     }
 
     protected override _onChangeForm(_formConfig: fa.ApplicationFormConfiguration, event: Event): void {
-        const pwolCheckbox = this.form?.elements.namedItem("pf2e.proficiencyVariant");
+        const pwolCheckbox = this.form?.elements.namedItem(`${SYSTEM_ID}.proficiencyVariant`);
         if (event.target === pwolCheckbox && pwolCheckbox instanceof HTMLInputElement) {
             this.form?.querySelectorAll<HTMLInputElement>("fieldset input[type=number]").forEach((input) => {
                 input.disabled = !pwolCheckbox.checked;
@@ -217,7 +217,7 @@ export class VariantRulesSettings extends fa.api.HandlebarsApplicationMixin(fa.a
         const promises: Promise<unknown>[] = [];
         for (const key of Object.keys(VariantRulesSettings.#SETTINGS)) {
             const value = submitData[`pf2e.${key}`];
-            if (value !== undefined) promises.push(game.settings.set("pf2e", key, value));
+            if (value !== undefined) promises.push(game.settings.set(SYSTEM_ID, key, value));
         }
         await Promise.all(promises);
     }

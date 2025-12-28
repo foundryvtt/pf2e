@@ -2,14 +2,14 @@ import type { PartyPF2e } from "@actor";
 import { htmlQuery, objectHasKey } from "@util";
 
 export function registerKeybindings(): void {
-    game.keybindings.register("pf2e", "cycle-token-stack", {
+    game.keybindings.register(SYSTEM_ID, "cycle-token-stack", {
         name: "PF2E.Keybinding.CycleTokenStack.Label",
         hint: "PF2E.Keybinding.CycleTokenStack.Hint",
         editable: [{ key: "KeyZ", modifiers: [] }],
         onUp: (): boolean => canvas.tokens.cycleStack(),
     });
 
-    game.keybindings.register("pf2e", "toggle-party-sheet", {
+    game.keybindings.register(SYSTEM_ID, "toggle-party-sheet", {
         name: "PF2E.Keybinding.TogglePartySheet.Label",
         hint: "PF2E.Keybinding.TogglePartySheet.Hint",
         editable: [{ key: "KeyP", modifiers: [] }],
@@ -44,7 +44,7 @@ export function registerKeybindings(): void {
 
     // Record the last tab that was open
     let previousCompendiumBrowserTab = "";
-    game.keybindings.register("pf2e", "open-compendium-browser", {
+    game.keybindings.register(SYSTEM_ID, "open-compendium-browser", {
         name: "PF2E.Keybinding.OpenCompendiumBrowser.Label",
         hint: "PF2E.Keybinding.OpenCompendiumBrowser.Hint",
         editable: [],
@@ -68,7 +68,7 @@ export function registerKeybindings(): void {
 
     // Defer to the GM Vision module if enabled
     if (!game.modules.get("gm-vision")?.active) {
-        game.keybindings.register("pf2e", "gmVision", {
+        game.keybindings.register(SYSTEM_ID, "gmVision", {
             name: "PF2E.Keybinding.GMVision.Label",
             hint: "PF2E.Keybinding.GMVision.Hint",
             editable: [{ key: "KeyG", modifiers: ["Control"] }],
@@ -79,7 +79,7 @@ export function registerKeybindings(): void {
                     const toggle = ui.controls.control.tools.gmVision;
                     toggle?.onChange?.(new PointerEvent("click"), !game.pf2e.settings.gmVision); // Does the same as below
                 } else {
-                    game.settings.set("pf2e", "gmVision", !game.settings.get("pf2e", "gmVision"));
+                    game.settings.set(SYSTEM_ID, "gmVision", !game.settings.get(SYSTEM_ID, "gmVision"));
                 }
                 return true;
             },

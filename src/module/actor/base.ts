@@ -625,7 +625,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         options.types = R.unique([options.types ?? ACTOR_TYPES].flat());
 
         // Determine omitted types. Army is hidden in most games, and party is hidden in folders
-        const omittedTypes: ActorType[] = game.settings.get("pf2e", "campaignType") !== "kingmaker" ? ["army"] : [];
+        const omittedTypes: ActorType[] = game.pf2e.settings.campaign.type === "kingmaker" ? [] : ["army"];
         if (data?.folder) omittedTypes.push("party");
         for (const type of omittedTypes) {
             options.types.findSplice((t) => t === type);
@@ -656,7 +656,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 (typeof source.prototypeToken?.texture?.scaleX !== "number" ||
                     source.prototypeToken.texture.scaleX === 1) &&
                 (source.prototypeToken?.flags?.pf2e?.autoscale ??
-                    (linkToActorSize && game.settings.get("pf2e", "tokens.autoscale")));
+                    (linkToActorSize && game.settings.get(SYSTEM_ID, "tokens.autoscale")));
             const merged = fu.mergeObject(source, {
                 ownership: source.ownership ?? { default: CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE },
                 prototypeToken: { flags: { [SYSTEM_ID]: { linkToActorSize, autoscale } } },
@@ -1275,7 +1275,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 damageTaken: damageResult.totalApplied,
                 finePowder,
             });
-            const setting = game.settings.get("pf2e", "automation.actorsDeadAtZero");
+            const setting = game.settings.get(SYSTEM_ID, "automation.actorsDeadAtZero");
             const deadAtZero =
                 (this.isOfType("npc") && ["npcsOnly", "both"].includes(setting)) ||
                 (this.isOfType("character") && setting === "both" && !!instantDeath);
@@ -1427,7 +1427,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             content,
             style: CONST.CHAT_MESSAGE_STYLES.OTHER,
             whisper:
-                game.settings.get("pf2e", "metagame_secretDamage") && !token.actor?.hasPlayerOwner
+                game.settings.get(SYSTEM_ID, "metagame_secretDamage") && !token.actor?.hasPlayerOwner
                     ? ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id)
                     : [],
         });
@@ -1945,7 +1945,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     ): void {
         super._onUpdate(changed, options, userId);
         const hideFromUser =
-            !this.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame_secretDamage");
+            !this.hasPlayerOwner && !game.user.isGM && game.settings.get(SYSTEM_ID, "metagame_secretDamage");
         if (options.damageTaken && !hideFromUser) {
             const tokens = this.getActiveTokens();
             for (const token of tokens) {

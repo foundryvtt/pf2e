@@ -3,7 +3,7 @@ import type { ActorPF2e, FamiliarPF2e, PartyPF2e } from "@actor";
 export class ActorsPF2e<TActor extends ActorPF2e<null>> extends fd.collections.Actors<TActor> {
     /** The world's active party, if one exists */
     get party(): PartyPF2e<null> | null {
-        const activePartyId = game.settings.get("pf2e", "activeParty");
+        const activePartyId = game.settings.get(SYSTEM_ID, "activeParty");
         const actor = this.get(activePartyId);
         return actor?.isOfType("party")
             ? actor
