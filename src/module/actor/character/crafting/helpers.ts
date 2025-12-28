@@ -113,7 +113,7 @@ export async function craftSpellConsumable(
     actor: ActorPF2e,
 ): Promise<void> {
     const consumableType = item.category;
-    if (!(consumableType === "scroll" || consumableType === "wand")) return;
+    if (!["scroll", "wand", "spell-gem"].includes(consumableType)) return;
     const rank = (consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2)) as OneToTen;
     const validSpells = actor.itemTypes.spell
         .filter((s) => s.baseRank <= rank && !s.isCantrip && !s.isFocusSpell && !s.isRitual)

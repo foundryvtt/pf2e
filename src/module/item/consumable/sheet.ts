@@ -19,7 +19,7 @@ class ConsumableSheetPF2e extends PhysicalItemSheetPF2e<ConsumablePF2e> {
             !!item.system.damage &&
             ["vitality", "void", "untyped"].includes(item.system.damage.type);
         const embeddedSpell = item.actor ? item.embeddedSpell : null;
-        const shouldHaveSpell = !!embeddedSpell || ["scroll", "wand"].includes(item.system.category);
+        const shouldHaveSpell = !!embeddedSpell || ["scroll", "spell-gem", "wand"].includes(item.system.category);
 
         return {
             ...sheetData,

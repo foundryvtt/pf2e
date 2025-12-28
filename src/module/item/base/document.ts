@@ -383,7 +383,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             if (
                 currentSource.type === "consumable" &&
                 currentSource.system.spell?.system?.traits &&
-                tupleHasValue(["scroll", "wand"], currentSource.system.category) &&
+                tupleHasValue(["scroll", "spell-gem", "wand"], currentSource.system.category) &&
                 latestSource.type === "consumable" &&
                 !latestSource.system.spell
             ) {

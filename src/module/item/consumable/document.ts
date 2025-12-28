@@ -80,7 +80,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             ? [game.i18n.localize(CONFIG.PF2E.consumableCategories[this.category]), true]
             : [
                   this.generateUnidentifiedName({ typeOnly: true }),
-                  !["other", "scroll", "talisman", "toolkit", "wand"].includes(this.category),
+                  !["other", "scroll", "spell-gem", "talisman", "toolkit", "wand"].includes(this.category),
               ];
 
         const usesLabel = game.i18n.localize("PF2E.Item.Consumable.Uses.Label");
@@ -131,7 +131,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         if (!actor) return;
         const uses = this.uses;
 
-        if (["scroll", "wand"].includes(this.category) && this.system.spell) {
+        if (["scroll", "spell-gem", "wand"].includes(this.category) && this.system.spell) {
             if (actor.spellcasting?.canCastConsumable(this)) {
                 this.castEmbeddedSpell();
             } else if (actor.itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {
