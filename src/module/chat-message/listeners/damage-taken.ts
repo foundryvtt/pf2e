@@ -40,15 +40,11 @@ export const DamageTaken = {
         })();
 
         if (iwrApplications) {
-            $(iwrInfo).tooltipster({
-                theme: "crb-hover",
-                maxWidth: 400,
-                content: await fa.handlebars.renderTemplate(
-                    `systems/${SYSTEM_ID}/templates/chat/damage/iwr-breakdown.hbs`,
-                    { applications: iwrApplications },
-                ),
-                contentAsHTML: true,
-            });
+            iwrInfo.dataset.tooltipClass = "pf2e";
+            iwrInfo.dataset.tooltipHtml = await fa.handlebars.renderTemplate(
+                `systems/${SYSTEM_ID}/templates/chat/damage/iwr-breakdown.hbs`,
+                { applications: iwrApplications },
+            );
         }
     },
 };
