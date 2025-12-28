@@ -22,6 +22,18 @@ export class AutomationSettings extends SettingsMenuPF2e {
         return Object.assign(super.defaultOptions, { submitOnChange: false });
     }
 
+    static override register(): void {
+        super.register();
+        game.settings.registerMenu(SYSTEM_ID, "automation", {
+            name: "PF2E.SETTINGS.Automation.Name",
+            label: "PF2E.SETTINGS.Automation.Label",
+            hint: "PF2E.SETTINGS.Automation.Hint",
+            icon: "fa-solid fa-robot",
+            type: AutomationSettings,
+            restricted: true,
+        });
+    }
+
     protected static override get settings(): Record<ConfigPF2eListName, PartialSettingsData> {
         const prefix = `${AutomationSettings.namespace}.`;
         return {

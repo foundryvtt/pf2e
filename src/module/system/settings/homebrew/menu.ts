@@ -109,6 +109,18 @@ class HomebrewElements extends SettingsMenuPF2e {
         );
     }
 
+    static override register(): void {
+        super.register();
+        game.settings.registerMenu(SYSTEM_ID, "homebrew", {
+            name: "PF2E.SETTINGS.Homebrew.Name",
+            label: "PF2E.SETTINGS.Homebrew.Label",
+            hint: "PF2E.SETTINGS.Homebrew.Hint",
+            icon: "fa-solid fa-beer-mug-empty",
+            type: HomebrewElements,
+            restricted: true,
+        });
+    }
+
     protected static override get settings(): Record<HomebrewKey, PartialSettingsData> {
         return {
             ...this.#campaignSettings,

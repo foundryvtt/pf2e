@@ -167,6 +167,9 @@ export class VariantRulesSettings extends fa.api.HandlebarsApplicationMixin(fa.a
     };
 
     static register(): void {
+        for (const [key, data] of Object.entries(VariantRulesSettings.#SETTINGS)) {
+            game.settings.register(SYSTEM_ID, key, { ...data, name: data.type.label, scope: "world", config: false });
+        }
         game.settings.registerMenu(SYSTEM_ID, "variantRules", {
             name: "PF2E.SETTINGS.Variant.Name",
             label: "PF2E.SETTINGS.Variant.Label",
@@ -175,9 +178,6 @@ export class VariantRulesSettings extends fa.api.HandlebarsApplicationMixin(fa.a
             type: VariantRulesSettings,
             restricted: true,
         });
-        for (const [key, data] of Object.entries(VariantRulesSettings.#SETTINGS)) {
-            game.settings.register(SYSTEM_ID, key, { ...data, name: data.type.label, scope: "world", config: false });
-        }
     }
 
     protected override async _prepareContext(

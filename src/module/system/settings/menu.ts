@@ -41,7 +41,7 @@ abstract class SettingsMenuPF2e extends fav1.api.FormApplication {
         return {};
     }
 
-    static registerSettings(): void {
+    static register(): void {
         const settings = this.settings;
         for (const key of this.SETTINGS) {
             const setting = settings[key];

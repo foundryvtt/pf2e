@@ -102,6 +102,18 @@ const MetagameSettingsConfig = {
 class MetagameSettings extends SettingsMenuPF2e {
     static override namespace = "metagame";
 
+    static override register(): void {
+        super.register();
+        game.settings.registerMenu(SYSTEM_ID, "metagame", {
+            name: "PF2E.SETTINGS.Metagame.Name",
+            label: "PF2E.SETTINGS.Metagame.Label",
+            hint: "PF2E.SETTINGS.Metagame.Hint",
+            icon: "fa-solid fa-brain",
+            type: MetagameSettings,
+            restricted: true,
+        });
+    }
+
     static override get settings(): typeof MetagameSettingsConfig {
         return MetagameSettingsConfig;
     }

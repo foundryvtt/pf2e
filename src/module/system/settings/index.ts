@@ -217,14 +217,7 @@ export function registerSettings(): void {
         type: Boolean,
     });
 
-    game.settings.registerMenu("pf2e", "automation", {
-        name: "PF2E.SETTINGS.Automation.Name",
-        label: "PF2E.SETTINGS.Automation.Label",
-        hint: "PF2E.SETTINGS.Automation.Hint",
-        icon: "fa-solid fa-robot",
-        type: AutomationSettings,
-        restricted: true,
-    });
+    AutomationSettings.register();
     game.settings.register(SYSTEM_ID, "automation.actorsDeadAtZero", {
         name: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Name",
         hint: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Hint",
@@ -238,32 +231,12 @@ export function registerSettings(): void {
         default: "both",
         type: String,
     });
-    AutomationSettings.registerSettings();
 
-    game.settings.registerMenu("pf2e", "metagame", {
-        name: "PF2E.SETTINGS.Metagame.Name",
-        label: "PF2E.SETTINGS.Metagame.Label",
-        hint: "PF2E.SETTINGS.Metagame.Hint",
-        icon: "fa-solid fa-brain",
-        type: MetagameSettings,
-        restricted: true,
-    });
-    MetagameSettings.registerSettings();
-
-    game.settings.registerMenu("pf2e", "homebrew", {
-        name: "PF2E.SETTINGS.Homebrew.Name",
-        label: "PF2E.SETTINGS.Homebrew.Label",
-        hint: "PF2E.SETTINGS.Homebrew.Hint",
-        icon: "fa-solid fa-beer-mug-empty",
-        type: HomebrewElements,
-        restricted: true,
-    });
-    HomebrewElements.registerSettings();
-
+    MetagameSettings.register();
+    HomebrewElements.register();
     VariantRulesSettings.register();
     WorldClockSettings.register();
 
-    // Secret for now until the user side is complete and a UI is built
     game.settings.register(SYSTEM_ID, "campaignFeatSections", {
         name: "Campaign Feat Sections",
         scope: "world",
