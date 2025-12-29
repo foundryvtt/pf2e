@@ -63,16 +63,18 @@
     </li>
 </ol>
 
-<div class="form-group">
-    <label>{{localize "PF2E.Item.NPCAttack.LinkedWeapon"}}</label>
-    <div class="form-fields">
-        {{#if document.linkedWeapon}}
-            {{document.linkedWeapon.name}}
-        {{else}}
-            {{localize "PF2E.NoneOption"}}
-        {{/if}}
+{{#if document.actor}}
+    <div class="form-group">
+        <label>{{localize "PF2E.Item.NPCAttack.LinkedWeapon"}}</label>
+        <div class="form-fields">
+            {{#if document.linkedWeapon}}
+                {{document.linkedWeapon.name}}
+            {{else}}
+                {{localize "PF2E.NoneOption"}}
+            {{/if}}
+        </div>
     </div>
-</div>
+{{/if}}
 
 <div class="form-group stacked">
     <label>
