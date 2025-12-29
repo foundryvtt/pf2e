@@ -66,9 +66,11 @@
 <div class="form-group">
     <label>{{localize "PF2E.Item.NPCAttack.LinkedWeapon"}}</label>
     <div class="form-fields">
-        <select name="{{concat "flags." systemId ".linkedWeapon"}}" data-dtype="String">
-            {{selectOptions linkedWeapon.choices selected=linkedWeapon.selected blank=""}}
-        </select>
+        {{#if document.linkedWeapon}}
+            {{document.linkedWeapon.name}}
+        {{else}}
+            {{localize "PF2E.NoneOption"}}
+        {{/if}}
     </div>
 </div>
 

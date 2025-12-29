@@ -33,10 +33,6 @@ export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
                 label: game.i18n.localize(`PF2E.Actor.NPC.BonusLabel.${isCheck ? "modifier" : "save"}`),
                 value: item.system.bonus.value + (isCheck ? 0 : 10),
             },
-            linkedWeapon: {
-                selected: item.flags[SYSTEM_ID].linkedWeapon ?? null,
-                choices: R.mapToObj(item.actor?.itemTypes.weapon ?? [], (w) => [w.id, w.name]),
-            },
         };
     }
 
@@ -99,9 +95,5 @@ interface MeleeSheetData extends ItemSheetDataPF2e<MeleePF2e> {
     modifierOrSave: {
         label: string;
         value: number;
-    };
-    linkedWeapon: {
-        selected: string | null;
-        choices: Record<string, string>;
     };
 }

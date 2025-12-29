@@ -1,5 +1,6 @@
 import type { NPCPF2e } from "@actor";
 import { CreatureSheetPF2e, type CreatureSheetData } from "@actor/creature/sheet.ts";
+import { applyActorGroupUpdate, createActorGroupUpdate } from "@actor/helpers.ts";
 import { Modifier } from "@actor/modifiers.ts";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
@@ -7,6 +8,7 @@ import { createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
+import type { MeleePF2e, MeleeSource } from "@item/melee/index.ts";
 import { createNPCAttackTraitsAndTags, createTagifyTraits, eventToRollParams } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DicePF2e } from "@scripts/dice.ts";
@@ -425,10 +427,36 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                     }
                 }
 
+                // Create actions, and either relink to existing actions or create them
                 const attacks = item.toNPCAttacks().map((a) => a.toObject());
-                await actor.createEmbeddedDocuments("Item", attacks);
+                const missingLinks = actor.itemTypes.melee.filter((m) => !m.linkedWeapon);
+                const getComparisonSubset = (item: MeleeSource | MeleePF2e) => ({
+                    name: item.name,
+                    ...R.pick(item.system, ["action", "range"]),
+                });
+                const pairs = attacks.map((a): [MeleeSource, MeleePF2e | null] => [
+                    a,
+                    missingLinks.find(
+                        (l) =>
+                            a.flags[SYSTEM_ID].linkedWeapon &&
+                            R.isDeepEqual(getComparisonSubset(a), getComparisonSubset(l)),
+                    ) ?? null,
+                ]);
+                const update = createActorGroupUpdate({
+                    itemCreates: pairs.filter((p) => !p[1]).map((p) => p[0]),
+                    itemUpdates: pairs
+                        .filter((p): p is [MeleeSource, MeleePF2e] => !!p[1])
+                        .map(([newAction, oldAction]) => ({
+                            _id: oldAction.id,
+                            [`flags.${SYSTEM_ID}.linkedWeapon`]: newAction.flags[SYSTEM_ID].linkedWeapon,
+                        })),
+                });
+                await applyActorGroupUpdate(actor, update);
+
+                // Show correct notification based on update
+                const localizationKey = `PF2E.Actor.NPC.GenerateAttack.${update.itemCreates.length ? "Notification" : "NotificationRelink"}`;
                 ui.notifications.info(
-                    game.i18n.format("PF2E.Actor.NPC.GenerateAttack.Notification", {
+                    game.i18n.format(localizationKey, {
                         attack: attacks.at(0)?.name ?? "",
                     }),
                 );
