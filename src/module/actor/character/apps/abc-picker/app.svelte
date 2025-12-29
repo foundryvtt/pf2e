@@ -88,7 +88,7 @@
         justify-content: start;
         padding: var(--space-8) var(--space-8) 0;
         input::placeholder {
-            color: var(--color-light-5);
+            color: var(--color-form-hint);
         }
     }
 

@@ -3,15 +3,46 @@
     type SvelecteParams = Parameters<Required<Svelecte>["$set"]>[0];
     let { value = $bindable(), ...props }: SvelecteParams = $props();
 
-    // Svelecte position resolver that puts it on the body
-    function popoutPositionResolver(node: HTMLElement) {
-        // Add classes to element, including theme
-        const themed = node.closest(".themed, body");
-        const theme = [...(themed?.classList ?? [])].find((c) => c.startsWith("theme-"));
-        node.classList.add("detached", "pf2e");
+    // Track the detached dropdown node and its theme source for syncing
+    let dropdownNode: HTMLElement | null = $state(null);
+    let themeSource: HTMLElement | null = $state(null);
+
+    // Sync theme classes from the theme source to the dropdown
+    function syncTheme(node: HTMLElement, source: HTMLElement) {
+        const theme = [...source.classList].find((c) => c.startsWith("theme-"));
+        // Remove any existing theme classes
+        for (const cls of [...node.classList]) {
+            if (cls.startsWith("theme-")) {
+                node.classList.remove(cls);
+            }
+        }
+        // Add current theme
         if (theme) {
             node.classList.add("themed", theme);
+        } else {
+            node.classList.remove("themed");
         }
+    }
+
+    // Watch for theme changes on the theme source and sync to dropdown
+    $effect(() => {
+        if (!dropdownNode || !themeSource) return;
+
+        syncTheme(dropdownNode, themeSource);
+
+        const observer = new MutationObserver(() => syncTheme(dropdownNode!, themeSource!));
+        observer.observe(themeSource, { attributes: true, attributeFilter: ["class"] });
+
+        return () => observer.disconnect();
+    });
+
+    // Svelecte position resolver that puts it on the body
+    function popoutPositionResolver(node: HTMLElement) {
+        // Find the closest themed ancestor before detaching, or fall back to body
+        themeSource = node.closest<HTMLElement>(".themed") ?? document.body;
+
+        node.classList.add("detached", "pf2e");
+        dropdownNode = node;
 
         let destroyed = false;
         const selectElement = node.parentElement;
@@ -35,13 +66,15 @@
         return {
             destroy: () => {
                 destroyed = false;
+                dropdownNode = null;
+                themeSource = null;
                 selectElement?.appendChild(node);
             },
         };
     }
 
     const positionResolver = $derived(props.positionResolver ?? popoutPositionResolver);
-    const className = $derived((props.class ?? "" + " pf2e").trim());
+    const className = $derived(((props.class ?? "") + " pf2e").trim());
 </script>
 
 <Svelecte {...props} bind:value class={className} {positionResolver} />
@@ -50,18 +83,29 @@
     :global {
         .svelecte.pf2e,
         .sv_dropdown.pf2e {
+            /* Inaccessible foundry css vars */
+            --button-text-color: light-dark(var(--color-dark-1), var(--color-light-3));
+            --input-background-color: light-dark(rgba(0, 0, 0, 0.1), var(--color-cool-4));
+            --input-border-color: light-dark(var(--color-dark-6), transparent);
+            --input-height: 2rem;
+
             /** Svelecte Colors */
-            --sv-color: var(--color-dark-1);
             --sv-item-btn-color: var(--color-text-trait);
             --sv-item-btn-color-hover: var(--color-text-trait);
-            --sv-control-bg: rgba(0, 0, 0, 0.1);
-            --sv-icon-color: var(--color-dark-6);
+            --sv-control-bg: var(--input-background-color);
+            --sv-icon-color: var(--button-text-color);
             --sv-item-selected-bg: var(--color-bg-trait);
             --sv-item-btn-bg: var(--color-bg-trait);
+            --sv-placeholder-color: var(--color-form-hint);
+            --sv-dropdown-bg: light-dark(white, var(--color-cool-4));
+            --sv-dropdown-active-bg: light-dark(rgba(0, 0, 0, 0.1), var(--color-text-selection-bg));
+            --sv-border: 1px solid var(--input-border-color);
 
             --sv-selection-multi-wrap-padding: 0.15em;
             --sv-selection-gap: 0.2em;
-            --sv-min-height: 2rem; /* match var(--input-height), which is not exposed */
+            --sv-min-height: var(--input-height);
+
+            color: var(--color-text-primary);
 
             .sv-input--text {
                 width: auto;
@@ -72,7 +116,6 @@
                 border: none;
                 border-radius: unset;
                 outline: unset;
-                color: var(--input-text-color);
                 user-select: unset;
                 font-size: unset;
                 transition: unset;
@@ -89,16 +132,6 @@
                 min-height: unset;
                 border-radius: unset;
             }
-        }
-
-        body.theme-dark .application:not(.themed) .svelecte.pf2e,
-        .themed.theme-dark .svelecte.pf2e,
-        .themed.theme-dark.sv_dropdown.pf2e {
-            --sv-color: var(--color-light-3);
-            --sv-control-bg: var(--color-cool-4);
-            --sv-icon-color: var(--color-light-3);
-            --sv-dropdown-bg: var(--color-dark-2);
-            --sv-dropdown-active-bg: #553d3d;
         }
 
         body > .sv_dropdown.pf2e.detached {
