@@ -1,6 +1,6 @@
 import type { NPCPF2e } from "@actor";
 import { CreatureSheetPF2e, type CreatureSheetData } from "@actor/creature/sheet.ts";
-import { applyActorGroupUpdate, createActorGroupUpdate } from "@actor/helpers.ts";
+import { applyActorGroupUpdate } from "@actor/helpers.ts";
 import { Modifier } from "@actor/modifiers.ts";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
@@ -442,7 +442,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                             R.isDeepEqual(getComparisonSubset(a), getComparisonSubset(l)),
                     ) ?? null,
                 ]);
-                const update = createActorGroupUpdate({
+                const update = {
                     itemCreates: pairs.filter((p) => !p[1]).map((p) => p[0]),
                     itemUpdates: pairs
                         .filter((p): p is [MeleeSource, MeleePF2e] => !!p[1])
@@ -450,7 +450,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                             _id: oldAction.id,
                             [`flags.${SYSTEM_ID}.linkedWeapon`]: newAction.flags[SYSTEM_ID].linkedWeapon,
                         })),
-                });
+                };
                 await applyActorGroupUpdate(actor, update);
 
                 // Show correct notification based on update
