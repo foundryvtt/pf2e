@@ -88,7 +88,7 @@ export class DamageTypeManager {
 
         // Read setting damage types
         const customTypes = game.settings
-            .get("pf2e", "homebrew.damageTypes")
+            .get(SYSTEM_ID, "homebrew.damageTypes")
             .filter((t) => !reservedTerms.damageTypes.has(sluggify(t.label)));
         for (const data of customTypes) {
             this.addCustomDamage(data);

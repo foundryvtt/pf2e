@@ -188,7 +188,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
     #initialize() {
         /* Save world creation date/time if equal to default (i.e., server time at first retrieval of the setting) */
         const setting = game.pf2e.settings.worldClock;
-        const defaults = game.settings.settings.get("pf2e.worldClock")?.default;
+        const defaults = game.settings.settings.get(`${SYSTEM_ID}.worldClock`)?.default;
         if (!R.isPlainObject(defaults)) throw ErrorPF2e("Unexpected failure to find setting");
         if (setting.worldCreatedOn === null) {
             game.settings.set(SYSTEM_ID, "worldClock", { ...setting, worldCreatedOn: DateTime.utc().toISO() });

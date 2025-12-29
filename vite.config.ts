@@ -85,24 +85,51 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             preprocess: command === "serve" ? hmrPreprocess : undefined,
         }),
     ];
-    // Handle minification after build to allow for tree-shaking and whitespace minification
-    // "Note the build.minify option does not minify whitespaces when using the 'es' format in lib mode, as it removes
-    // pure annotations and breaks tree-shaking."
+    const packUUIDPattern = /Compendium\.pf2e\.[^\]]+/g;
+    const adjustUUIDForSF2e = (s: string): string =>
+        s.replace(packUUIDPattern, (uuid) =>
+            uuid
+                .replace("Compendium.pf2e.", "Compendium.sf2e.")
+                .replace(".actionspf2e.", ".actions.")
+                .replace(".ancestryfeatures.", ".ancestry-features.")
+                .replace(".classfeatures.", ".class-features.")
+                .replace(".conditionitems.", ".conditions.")
+                .replace("-srd.", "."),
+        );
     if (buildMode === "production") {
         plugins.push(
+            // Handle minification after build to allow for tree-shaking and whitespace minification
+            // "Note the build.minify option does not minify whitespaces when using the 'es' format in lib mode, as it
+            // removes pure annotations and breaks tree-shaking."
             {
                 name: "minify",
                 renderChunk: {
                     order: "post",
-                    async handler(code, chunk) {
-                        return chunk.fileName.endsWith(".mjs")
+                    handler: async (code, chunk) =>
+                        chunk.fileName.endsWith(".mjs")
                             ? esbuild.transform(code, {
                                   keepNames: true,
                                   minifyIdentifiers: false,
                                   minifySyntax: true,
                                   minifyWhitespace: true,
                               })
-                            : code;
+                            : code,
+                },
+            },
+            // Replace pf2e UUIDs with sf2e ones
+            {
+                name: "transformLangFile",
+                renderStart: {
+                    order: "post",
+                    handler: async (outputOptions) => {
+                        if (SYSTEM_ID === "pf2e") return;
+                        const langDir = path.join(outputOptions.dir ?? "", "lang");
+                        const langFilenames = fs.readdirSync(langDir);
+                        for (const filename of langFilenames) {
+                            const filePath = path.join(langDir, filename);
+                            const content = fs.readFileSync(filePath, { encoding: "utf-8" });
+                            fs.writeFileSync(filePath, adjustUUIDForSF2e(content));
+                        }
                     },
                 },
             },
@@ -136,12 +163,13 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     if (context.file.endsWith("en.json")) {
                         const basePath = context.file.slice(context.file.indexOf("lang/"));
                         console.debug(`Updating lang file at ${basePath}`);
-                        fs.promises.copyFile(context.file, `${outDir}/${basePath}`).then(() => {
-                            context.server.ws.send({
-                                type: "custom",
-                                event: "lang-update",
-                                data: { path: `systems/${SYSTEM_ID}/${basePath}` },
-                            });
+                        const content = fs.readFileSync(context.file, { encoding: "utf-8" });
+                        const adjusted = SYSTEM_ID === "sf2e" ? adjustUUIDForSF2e(content) : content;
+                        fs.writeFileSync(path.join(outDir, basePath), adjusted);
+                        context.server.ws.send({
+                            type: "custom",
+                            event: "lang-update",
+                            data: { path: `systems/${SYSTEM_ID}/${basePath}` },
                         });
                     } else if (context.file.endsWith(".hbs")) {
                         const basePath = context.file.slice(context.file.indexOf("templates/"));
@@ -232,6 +260,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             open: "/game",
             proxy: {
                 [`^(?!/systems/${SYSTEM_ID}/)`]: `http://localhost:${foundryPort}/`,
+                [`^/systems/${SYSTEM_ID}/lang`]: `http://localhost:${foundryPort}/`,
                 "/socket.io": {
                     target: `ws://localhost:${foundryPort}`,
                     ws: true,
