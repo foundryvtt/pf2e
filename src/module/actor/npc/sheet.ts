@@ -454,7 +454,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                 await applyActorGroupUpdate(actor, update);
 
                 // Show correct notification based on update
-                const localizationKey = `PF2E.Actor.NPC.GenerateAttack.${update.itemCreates.length ? "Notification" : "NotificationRelink"}`;
+                const localizationKey = `PF2E.Actor.NPC.GenerateAttack.Notification.${update.itemCreates.length ? "New" : "Relinked"}`;
                 ui.notifications.info(
                     game.i18n.format(localizationKey, {
                         attack: attacks.at(0)?.name ?? "",
