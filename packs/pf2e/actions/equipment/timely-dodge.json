@@ -1,0 +1,75 @@
+{
+    "_id": "gohBPHf4dxi4PkBk",
+    "folder": "859ptrPlsmmlYas9",
+    "img": "systems/pf2e/icons/actions/Reaction.webp",
+    "name": "Timely Dodge",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "defensive",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You are targeted by a Strike</p><hr /><p><strong>Effect</strong> You dart aside, gaining a +1 circumstance bonus to AC, then Step after the Strike resolves.</p>"
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #194: Cult of the Cave Worm"
+        },
+        "rules": [
+            {
+                "domain": "ac",
+                "key": "RollOption",
+                "option": "timely-dodge",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "timely-dodge"
+                ],
+                "selector": "ac",
+                "slug": "timely-dodge",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:granter:slug:effect-prey-mutagen-moderate"
+                ],
+                "selector": "ac",
+                "slug": "timely-dodge",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:granter:prey-mutagen:prey-mutagen-greater"
+                ],
+                "selector": "ac",
+                "slug": "timely-dodge",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:granter:prey-mutagen:prey-mutagen-major"
+                ],
+                "selector": "ac",
+                "slug": "timely-dodge",
+                "value": 4
+            }
+        ],
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "action"
+}
