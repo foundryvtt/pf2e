@@ -24,6 +24,13 @@ const CONDITION_SOURCES = ((): ConditionSource[] => {
 })();
 const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: "utf-8" }));
 
+// Calculate compendium remappings from sf2e to pf2e. Not used if pf2e
+const sf2eCompendiumRemap: Record<string, string> = {};
+for (const { name, path } of pf2eManifest.packs) {
+    const match = sf2eManifest.packs.find((p) => p.path === path);
+    if (match) sf2eCompendiumRemap[name] = match.name;
+}
+
 /** Get UUID redirects from JSON file, converting names to IDs. */
 function getUuidRedirects({ systemId }: { systemId: SystemId }): Record<CompendiumUUID, CompendiumUUID> {
     const redirectJSON = JSON.parse(
@@ -78,12 +85,34 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         style: ({ content }: { content: string }) => ({ code: `@layer system { ${content} }` }),
     };
 
-    const plugins = [
+    const plugins: Vite.PluginOption[] = [
         checker({ typescript: true }),
         tsconfigPaths({ loose: true }),
         sveltePlugin({
             preprocess: command === "serve" ? hmrPreprocess : undefined,
         }),
+        {
+            name: "transform-lang",
+            writeBundle: {
+                async handler() {
+                    const validFiles = systemJSON.languages.map((l) => path.basename(l.path));
+                    const langFiles = await fs.readdir(path.resolve(outDir, "lang"));
+                    for (const file of langFiles) {
+                        const langFilepath = path.resolve(outDir, "lang", file);
+                        if (!validFiles.includes(file)) {
+                            await fs.rm(langFilepath); // delete already copied file
+                        } else if (SYSTEM_ID === "sf2e") {
+                            const content = await fs.readFile(langFilepath, { encoding: "utf8" });
+                            const adjusted = content.replace(/Compendium\.pf2e\.([\w-]+)/g, (substring, match) => {
+                                const replacement = sf2eCompendiumRemap[match];
+                                return replacement ? `Compendium.sf2e.${replacement}` : substring;
+                            });
+                            await fs.writeFile(langFilepath, adjusted, { encoding: "utf8" });
+                        }
+                    }
+                },
+            },
+        },
     ];
     // Handle minification after build to allow for tree-shaking and whitespace minification
     // "Note the build.minify option does not minify whitespaces when using the 'es' format in lib mode, as it removes
@@ -136,7 +165,15 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     if (context.file.endsWith("en.json")) {
                         const basePath = context.file.slice(context.file.indexOf("lang/"));
                         console.debug(`Updating lang file at ${basePath}`);
-                        fs.promises.copyFile(context.file, `${outDir}/${basePath}`).then(() => {
+                        const content = fs.readFileSync(context.file, { encoding: "utf8" });
+                        const adjusted =
+                            SYSTEM_ID === "pf2e"
+                                ? content
+                                : content.replace(/Compendium\.pf2e\.([\w-]+)/g, (substring, match) => {
+                                      const replacement = sf2eCompendiumRemap[match];
+                                      return replacement ? `Compendium.sf2e.${replacement}` : substring;
+                                  });
+                        fs.writeFile(`${outDir}/${basePath}`, adjusted, { encoding: "utf8" }).then(() => {
                             context.server.ws.send({
                                 type: "custom",
                                 event: "lang-update",

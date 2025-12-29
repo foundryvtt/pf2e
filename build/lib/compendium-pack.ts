@@ -316,13 +316,15 @@ class CompendiumPack {
             source.flags.sf2e = source.flags.pf2e;
             delete source.flags.pf2e;
         }
-        return recursiveReplaceString(source, (s) => {
-            s = s.replaceAll("systems/pf2e", "systems/sf2e").replace(/\bflags\.pf2e\./g, "flags.sf2e.");
-            for (const [pf2eName, sf2eName] of Object.entries(this.sf2eCompendiumRemap)) {
-                s = s.replaceAll(`Compendium.pf2e.${pf2eName}`, `Compendium.sf2e.${sf2eName}`);
-            }
-            return s;
-        });
+        return recursiveReplaceString(source, (s) =>
+            s
+                .replaceAll("systems/pf2e", "systems/sf2e")
+                .replace(/\bflags\.pf2e\./g, "flags.sf2e.")
+                .replace(/Compendium\.pf2e\.([\w-]+)/g, (substring, match) => {
+                    const replacement = this.sf2eCompendiumRemap[match];
+                    return replacement ? `Compendium.sf2e.${replacement}` : substring;
+                }),
+        );
     }
 
     finalizeAll(): PackEntry[] {
