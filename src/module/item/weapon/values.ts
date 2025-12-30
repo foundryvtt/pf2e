@@ -145,7 +145,6 @@ const RANGED_ONLY_TRAITS: Set<WeaponTrait> = new Set([
     "scatter-15",
     "scatter-20",
     "splash",
-    "ranged-trip",
     "repeating",
     "thrown",
 ]);
