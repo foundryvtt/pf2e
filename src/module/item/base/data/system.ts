@@ -23,6 +23,7 @@ interface ActionCost {
 
 interface TraitConfig {
     area?: { type: EffectAreaShape; value: number | null };
+    capacity?: number;
     deadly?: string;
     fatal?: string;
     resilient?: number;

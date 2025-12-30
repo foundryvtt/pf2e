@@ -409,7 +409,8 @@ const DEFAULT_AMMO_STACK_GROUPS: Partial<Record<string, keyof typeof STACK_DEFIN
 interface BaseAmmoTypeData {
     parent: string | null;
     label: string;
-    magazine: boolean;
+    /** False if not a magazine type, or a default value to use for "infinite ammo" */
+    magazine: false | number;
     stackGroup: keyof typeof STACK_DEFINITIONS | null;
     weapon: string | null; // The associated base weapon or weapon slug (if any)
 }
@@ -439,16 +440,27 @@ const ammoTypes = {
             },
         ],
     ),
-    ...R.mapToObj(["magazine", "battery", "chem-tank"] as const, (slug) => [
-        slug,
-        {
-            parent: null,
-            label: `PF2E.Item.Ammo.Base.${slug}`,
-            magazine: true,
-            stackGroup: null,
-            weapon: null,
-        },
-    ]),
+    magazine: {
+        parent: null,
+        label: `PF2E.Item.Ammo.Base.magazine`,
+        magazine: 5,
+        stackGroup: null,
+        weapon: null,
+    },
+    battery: {
+        parent: null,
+        label: `PF2E.Item.Ammo.Base.battery`,
+        magazine: 10,
+        stackGroup: null,
+        weapon: null,
+    },
+    "chem-tank": {
+        parent: null,
+        label: `PF2E.Item.Ammo.Base.chem-tank`,
+        magazine: 8,
+        stackGroup: null,
+        weapon: null,
+    },
     // Include all rounds
     ...R.mapToObj(round5Firearms, (baseWeapon) => [
         `rounds-${baseWeapon}`,
@@ -484,7 +496,7 @@ const ammoTypes = {
         {
             parent: "magazine",
             label: `PF2E.Item.Ammo.Base.${baseWeapon}-magazine`,
-            magazine: true,
+            magazine: 5,
             stackGroup: null,
             weapon: baseWeapon,
         },
@@ -492,21 +504,21 @@ const ammoTypes = {
     "8-round-magazine": {
         parent: "magazine",
         label: `PF2E.Item.Ammo.Base.8-round-magazine`,
-        magazine: true,
+        magazine: 8,
         stackGroup: null,
         weapon: "barricade-buster",
     },
     "magazine-with-6-pellets": {
         parent: "magazine",
         label: `PF2E.Item.Ammo.Base.magazine-with-6-pellets`,
-        magazine: true,
+        magazine: 6,
         stackGroup: null,
         weapon: "air-repeater",
     },
     "magazine-with-8-pellets": {
         parent: "magazine",
         label: `PF2E.Item.Ammo.Base.magazine-with-8-pellets`,
-        magazine: true,
+        magazine: 8,
         stackGroup: null,
         weapon: "long-air-repeater",
     },

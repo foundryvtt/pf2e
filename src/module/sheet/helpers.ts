@@ -9,7 +9,7 @@ import type { ActionCost, TraitChatData } from "@item/base/data/index.ts";
 import { createEffectAreaLabel } from "@item/helpers.ts";
 import type { ItemType } from "@item/types.ts";
 import type { Rarity } from "@module/data.ts";
-import { htmlClosest, htmlQuery, sortLabeledRecord } from "@util";
+import { htmlClosest, htmlQuery, objectHasKey, sortLabeledRecord } from "@util";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 
@@ -252,6 +252,33 @@ function createNPCAttackTraitsAndTags(item: MeleePF2e): NPCAttackTraitOrTag[] {
         } else if (range.max) {
             const label = game.i18n.format("PF2E.Item.NPCAttack.Tags.RangeN", { n: range.max });
             tags.push({ label, description });
+        }
+    }
+
+    // Include magazine size of linked weapon
+    const actor = item.actor;
+    const weapon = item.linkedWeapon;
+    if (actor && weapon && !weapon.system.traits.config.capacity && weapon.system.ammo) {
+        const weaponAmmoData = objectHasKey(CONFIG.PF2E.ammoTypes, weapon.system.ammo.baseType)
+            ? CONFIG.PF2E.ammoTypes[weapon.system.ammo.baseType]
+            : null;
+        const magazine = (() => {
+            // If not a magazine, just return the capcity
+            if (!weaponAmmoData?.magazine) return weapon.system.ammo.capacity ?? 0;
+
+            // First try to check existing ammo
+            const ammo = weapon.ammo;
+            if (ammo?.isOfType("ammo") && ammo.isMagazine) return ammo.system.uses.max;
+
+            // Get the best possible magazine ammo size that *could* be loaded, or the default magazine size
+            const choices = actor.itemTypes.ammo.filter((a) => a.isAmmoFor(weapon)).map((a) => a.system.uses.max);
+            const maxChoice = Math.max(0, ...choices);
+            return maxChoice || weaponAmmoData.magazine;
+        })();
+        const minShownMagazine = SYSTEM_ID === "pf2e" ? 2 : 1;
+        if (magazine > minShownMagazine) {
+            const label = game.i18n.format("PF2E.Item.NPCAttack.Tags.MagN", { n: magazine });
+            tags.push({ label });
         }
     }
 
