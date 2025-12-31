@@ -202,9 +202,9 @@
                 "rules": [
                     {
                         "key": "RollOption",
-                        "label": "Target is frightened",
-                        "option": "fearful-attack",
-                        "toggleable": true
+                        "label": "PF2E.SpecificRule.TOTMToggle.Frightened",
+                        "option": "target:condition:frightened",
+                        "toggleable": "totm"
                     },
                     {
                         "category": "precision",
@@ -212,12 +212,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            {
-                                "or": [
-                                    "fearful-attack",
-                                    "target:condition:frightened"
-                                ]
-                            }
+                            "target:condition:frightened"
                         ],
                         "selector": "strike-damage"
                     }
