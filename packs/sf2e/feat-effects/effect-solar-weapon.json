@@ -402,9 +402,6 @@
                 "predicate": [
                     {
                         "not": "stellar-attunement:unattuned"
-                    },
-                    {
-                        "not": "solar-weapon-trait-one:two-hand-d10"
                     }
                 ],
                 "range": null,
@@ -415,29 +412,28 @@
                 ]
             },
             {
-                "category": "martial",
-                "damage": {
-                    "base": {
-                        "damageType": "{item|flags.sf2e.rulesSelections.solarWeaponDamageType}",
-                        "dice": 1,
-                        "die": "d10"
-                    }
-                },
-                "group": "{item|flags.sf2e.rulesSelections.weaponGroup}",
-                "key": "Strike",
-                "label": "SF2E.SpecificRule.Solarian.SolarWeapon.Label",
-                "predicate": [
-                    {
-                        "not": "stellar-attunement:unattuned"
-                    },
-                    "solar-weapon-trait-one:two-hand-d10"
-                ],
-                "range": null,
-                "slug": "solar-weapon",
-                "traits": [
-                    "attuned",
-                    "solarian"
-                ]
+              "domain": "damage",
+              "key": "RollOption",
+              "option": "solar-weapon-two-hand",
+              "toggleable": true,
+              "value": false,
+              "predicate": [
+                "solar-weapon-trait-one:two-hand-d10"
+              ],
+              "label":"Solar Weapon 2H"
+            },
+            {
+              "key": "DamageAlteration",
+              "property": "dice-faces",
+              "value": 10,
+              "predicate": [
+                "solar-weapon-two-hand"
+              ],
+              "label": "Solar Weapon Two Hand",
+              "mode": "override",
+              "selectors": [
+                "{item|id}-damage"
+              ]
             },
             {
                 "itemType": "weapon",
