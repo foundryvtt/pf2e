@@ -351,6 +351,29 @@
                 ]
             },
             {
+              "domain": "damage",
+              "key": "RollOption",
+              "option": "solar-weapon-two-hand",
+              "toggleable": true,
+              "value": false,
+              "predicate": [
+                "solar-weapon-trait-one:two-hand-d10"
+              ],
+              "label":"Solar Weapon 2H"
+            },
+            {
+              "key": "DamageAlteration",
+              "property": "dice-faces",
+              "value": 10,
+              "predicate": [
+                "solar-weapon-two-hand"
+              ],
+              "mode": "override",
+              "selectors": [
+                "{item|id}-damage"
+              ]
+            },
+            {
                 "itemType": "weapon",
                 "key": "ItemAlteration",
                 "mode": "add",
