@@ -163,7 +163,7 @@
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.mmdnWrQsh7vDspLK"
             },
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/daredevil-boots.webp",
+            "img": "icons/equipment/feet/boots-armored-red.webp",
             "name": "Daredevil Boots",
             "sort": 300000,
             "system": {
@@ -173,7 +173,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>These brightly colored, soft-soled boots motivate you to perform risky stunts and grant you the agility to succeed. The boots grant you a +2 item bonus to Acrobatics checks and a +1 circumstance bonus to checks to Tumble Through an enemy's space.</p>\n<p>The boots can grip solid surfaces and help you avoid a fall, allowing you to use the Grab an Edge reaction even if your hands aren't free. You treat falls as 10 feet shorter or, if you have the @UUID[Compendium.pf2e.feats-srd.Item.Cat Fall] feat, treat your proficiency rank in Acrobatics as one degree better to determine the benefits of that feat. If you have Cat Fall and are already legendary in Acrobatics, you can choose the speed of your fall, from 60 feet per round up to normal falling speed.</p>"
+                    "value": "<p>These brightly colored, soft-soled boots motivate you to perform risky stunts and grant you the agility to succeed. The boots grant you a +2 item bonus to Acrobatics checks and a +1 circumstance bonus to checks to [[/act tumble-through]] an enemy's space.</p>\n<p>The boots can grip solid surfaces and help you avoid a fall, allowing you to use the [[/act grab-an-edge]] reaction even if your hands aren't free. You treat falls as 10 feet shorter or, if you have the @UUID[Compendium.pf2e.feats-srd.Item.Cat Fall] feat, treat your proficiency rank in Acrobatics as one degree better to determine the benefits of that feat. If you have Cat Fall and are already legendary in Acrobatics, you can choose the speed of your fall, from 60 feet per round up to normal falling speed.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -198,9 +198,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 1,
                 "rules": [
@@ -212,11 +212,12 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "Daredevil Boots (Tumble Through)",
+                        "label": "PF2E.SpecificRule.Equipment.DaredevilBoots.TumbleThroughLabel",
                         "predicate": [
                             "action:tumble-through"
                         ],
-                        "selector": "acrobatics",
+                        "selector": "skill-check",
+                        "slug": "daredevil-boots-tumble-through",
                         "type": "circumstance",
                         "value": 1
                     }
