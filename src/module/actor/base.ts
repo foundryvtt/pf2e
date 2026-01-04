@@ -1,12 +1,4 @@
-import {
-    ActorAlliance,
-    ActorDimensions,
-    ActorInstances,
-    ApplyDamageParams,
-    AuraData,
-    SaveType,
-    UnaffectedType,
-} from "@actor/types.ts";
+import { ActorAlliance, ActorDimensions, ActorInstances, ApplyDamageParams, AuraData, SaveType } from "@actor/types.ts";
 import type { DialogV2Configuration } from "@client/applications/api/dialog.d.mts";
 import type { ActorUUID } from "@client/documents/_module.d.mts";
 import type { ToCompendiumOptions } from "@client/documents/abstract/_module.d.mts";
@@ -90,13 +82,7 @@ import { applyStackingRules } from "./modifiers.ts";
 import type { ActorSheetPF2e } from "./sheet/base.ts";
 import type { ActorSpellcasting } from "./spellcasting.ts";
 import type { ActorRechargeData, ActorType, EmbeddedItemInstances } from "./types.ts";
-import {
-    ACTOR_TYPES,
-    CREATURE_ACTOR_TYPES,
-    SAVE_TYPES,
-    SIZE_LINKABLE_ACTOR_TYPES,
-    UNAFFECTED_TYPES,
-} from "./values.ts";
+import { ACTOR_TYPES, CREATURE_ACTOR_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES } from "./values.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -343,34 +329,35 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Whether this actor is immune to an effect of a certain type */
     isImmuneTo(effect: AbstractEffectPF2e | ConditionSource | EffectSource | ConditionSlug): boolean {
         if (!game.pf2e.settings.iwr) return false;
-
         const item = typeof effect === "string" ? null : "parent" in effect ? effect : new ItemProxyPF2e(effect);
         const statements = new Set(item ? item.getRollOptions("item") : ["item:type:condition", `item:slug:${effect}`]);
-
         return this.attributes.immunities.some((i) => i.test(statements));
     }
 
     /** Whether this actor is affected by damage of a certain type despite lack of explicit immunity */
     isAffectedBy(damage: DamageType | ConditionPF2e): boolean {
-        const damageType = objectHasKey(CONFIG.PF2E.damageTypes, damage)
+        const damageType: string | null = objectHasKey(CONFIG.PF2E.damageTypes, damage)
             ? damage
             : damage.isOfType("condition")
               ? (damage.system.persistent?.damageType ?? null)
               : null;
-
-        if (!setHasElement(UNAFFECTED_TYPES, damageType)) return true;
         const traits = this.system.traits?.value ?? [];
-        const damageIsApplicable: Record<UnaffectedType, boolean> = {
-            good: traits.includes("evil"),
-            evil: traits.includes("good"),
-            lawful: traits.includes("chaotic"),
-            chaotic: traits.includes("lawful"),
-            vitality: !!this.attributes.hp?.negativeHealing,
-            void: !(this.modeOfBeing === "construct" || this.attributes.hp?.negativeHealing),
-            bleed: this.modeOfBeing === "living",
-            spirit: !this.itemTypes.effect.some((e) => e.traits.has("possession")),
-        };
-        return damageIsApplicable[damageType];
+        switch (damageType) {
+            case "vitality":
+                return !!this.system.attributes.hp?.negativeHealing;
+            case "void":
+                return !this.system.attributes.hp?.negativeHealing;
+            case "good":
+                return traits.includes("evil");
+            case "evil":
+                return traits.includes("good");
+            case "lawful":
+                return traits.includes("chaotic");
+            case "chaotic":
+                return traits.includes("lawful");
+            default:
+                return true;
+        }
     }
 
     /** Checks if the item can be added to this actor by checking the valid item types. */

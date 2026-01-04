@@ -160,6 +160,10 @@ abstract class IWR<TType extends IWRType> {
                             "damage:type:mental",
                             "damage:type:poison",
                             "damage:type:spirit",
+                            "damage:type:vitality",
+                            "damage:type:void",
+                            "origin:action:trait:vitality",
+                            "origin:action:trait:void",
                             {
                                 and: [
                                     "item:type:condition",

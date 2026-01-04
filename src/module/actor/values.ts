@@ -16,8 +16,6 @@ const WEAKNESS_TYPES: Set<WeaknessType> = new Set(R.keys(weaknessTypes));
 
 const RESISTANCE_TYPES: Set<ResistanceType> = new Set(R.keys(resistanceTypes));
 
-const UNAFFECTED_TYPES = new Set(["bleed", "good", "evil", "lawful", "chaotic", "spirit", "vitality", "void"] as const);
-
 /** All skill slugs that are part of the core system. Only used in migrations. */
 const CORE_SKILL_SLUGS = new Set([
     "acrobatics",
@@ -53,6 +51,5 @@ export {
     RESISTANCE_TYPES,
     SAVE_TYPES,
     SIZE_LINKABLE_ACTOR_TYPES,
-    UNAFFECTED_TYPES,
     WEAKNESS_TYPES,
 };
