@@ -2,13 +2,13 @@
     import ItemTraits from "@module/sheet/components/item-traits.svelte";
     import type { ReloadWeaponContext } from "./app.ts";
     import ItemSummary from "@module/sheet/components/item-summary.svelte";
-    import HeavyBullets from "./heavy-bullets.svelte";
+    import HeavyBullets from "../../../../../../static/assets/icons/heavy-bullets.svg?raw";
     const { state: data, foundryApp }: ReloadWeaponContext = $props();
     const openStates: Record<string, boolean> = $state({});
 </script>
 
-<div class="choices" class:empty={data.compatible.length === 0}>
-    {#if data.compatible.length === 0}
+<div class="choices flexcol" class:empty={!data.compatible.length}>
+    {#if !data.compatible.length}
         {game.i18n.localize("PF2E.Item.Weapon.Reloader.EmptyMessage")}
     {/if}
     {#each data.compatible as ammo}
@@ -24,15 +24,16 @@
                 <button
                     type="button"
                     class="select"
-                    aria-label={game.i18n.localize("PF2E.Item.Weapon.Reloader.ReloadAll")}
                     data-tooltip
+                    aria-label={game.i18n.localize("PF2E.Item.Weapon.Reloader.ReloadAll")}
                     onclick={() => foundryApp.reloadWeapon(ammo.id, true)}
                 >
-                    <HeavyBullets />
+                    {@html HeavyBullets}
                 </button>
             {/if}
-            <img src={ammo.img} alt="item" />
+            <img src={ammo.img} alt="Item" class:svg={ammo.img.endsWith(".svg")} />
             <button
+                type="button"
                 class="name flat"
                 data-rarity={ammo.rarity}
                 onclick={() => (openStates[ammo.uuid] = !openStates[ammo.uuid])}
@@ -44,15 +45,13 @@
                     {/if}
                     {#if ammo.uses}
                         <span class="uses">
-                            <span class="icon">
-                                <HeavyBullets />
-                            </span>
+                            {@html HeavyBullets}
                             {ammo.uses.value}
                         </span>
                     {/if}
                     <span class="quantity">x{ammo.quantity}</span>
                 </span>
-                {#if ammo.traits.length}
+                {#if ammo.traits.length || ammo.rarity !== "common"}
                     <ItemTraits traits={ammo.traits} rarity={ammo.rarity} />
                 {/if}
             </button>
@@ -62,50 +61,51 @@
 </div>
 
 <style>
-    .empty {
-        display: flex;
-        align-items: center;
-        padding: 1rem var(--space-8);
-        font-size: var(--font-size-16);
+    .choices {
+        gap: var(--space-8);
+        padding: var(--space-8);
+        &.empty {
+            align-items: center;
+            display: flex;
+            font-size: var(--font-size-16);
+            justify-content: center;
+            flex: 1;
+        }
     }
 
     .choice {
-        align-items: top;
+        align-items: start;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         gap: var(--space-8);
-        padding: var(--space-4) var(--space-8);
         width: 100%;
+
+        :global(svg.heavy-bullets) {
+            display: inline-block;
+            width: 0.75rem;
+            height: 0.75rem;
+
+            :global(path) {
+                fill: var(--color-text-secondary);
+            }
+        }
 
         &.depleted {
             opacity: 0.8;
             filter: grayscale(0.85);
         }
 
-        /* Make Icon White */
-        button,
-        .icon {
-            :global(path) {
-                fill: white;
-            }
-        }
-
         > button.select {
             --button-size: 1.75rem;
-            width: 1.75rem;
-            margin-top: var(--space-4);
-            transition: all 0.25s ease-in-out;
-            :global(svg) {
-                width: 30px;
-                height: 30px;
-            }
+            width: var(--button-size);
         }
 
         > img {
             width: 2rem;
-            height: 2rem;
-            margin-top: var(--space-1); /* align with name */
+            &.svg {
+                outline: 1px solid var(--color-border);
+            }
         }
 
         > .name {
@@ -114,20 +114,11 @@
             align-items: start;
             gap: 0;
             flex: 1;
-            justify-content: center;
-
-            .icon {
-                display: inline-block;
-                width: 0.75rem;
-                height: 0.75rem;
-                :global(svg) {
-                    width: 100%;
-                    height: 100%;
-                }
-            }
+            justify-content: start;
 
             .uses,
             .quantity {
+                color: var(--color-text-tertiary);
                 margin-left: var(--space-4);
             }
 

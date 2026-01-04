@@ -944,9 +944,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         handlers["reload"] = async (_, button) => {
             const weapon = this.getAttackActionFromDOM(button)?.item;
-            if (weapon) {
-                new WeaponReloader({ weapon }).activate(button);
-            }
+            const existing = foundry.applications.instances.get("weapon-reloader");
+            if (existing) await existing.close();
+            else if (weapon) new WeaponReloader({ weapon, anchor: button }).render({ force: true });
         };
 
         handlers["toggle-exploration"] = async (event) => {

@@ -468,7 +468,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     /** Attaches an item to this item as a subitem. If it is an ammo to a weapon, also performs reloading */
     async attach(
         item: PhysicalItemPF2e,
-        { quantity = 1, stack = false }: { quantity?: number; stack?: boolean } = {},
+        { quantity = 1, stack = false, render = true }: { quantity?: number; stack?: boolean; render?: boolean } = {},
     ): Promise<boolean> {
         if (!this._source.system.subitems) throw ErrorPF2e("This item does not accept attachments");
         const actor = this.actor;
@@ -546,12 +546,12 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             if (newQuantity > 0) {
                 updates.itemUpdates.push({ _id: item.id, ...existingItemUpdate });
             }
-            await applyActorGroupUpdate(actor, updates);
+            await applyActorGroupUpdate(actor, updates, { render });
             return true;
         } else {
             const updated = await Promise.all([
-                newQuantity <= 0 ? item.delete() : item.update(existingItemUpdate),
-                this.update({ "system.subitems": subitems }),
+                newQuantity <= 0 ? item.delete({ render }) : item.update(existingItemUpdate, { render }),
+                this.update({ "system.subitems": subitems }, { render }),
             ]);
             return updated.every((u) => !!u);
         }
