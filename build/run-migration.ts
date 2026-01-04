@@ -95,12 +95,10 @@ function jsonStringifyOrder(obj: object): string {
 }
 
 async function getAllFiles(allEntries: string[] = []): Promise<string[]> {
-    for (const systemId of ["pf2e", "sf2e"]) {
-        const packDirs = fs.readdirSync(path.resolve("packs", systemId));
-        for (const packDir of packDirs) {
-            console.log(`Collecting data for "${packDir}"`);
-            allEntries.push(...getPackJSONPaths(packDir, systemId));
-        }
+    const packDirs = fs.readdirSync(path.resolve("packs", SYSTEM_ID));
+    for (const packDir of packDirs) {
+        console.log(`Collecting data for "${packDir}"`);
+        allEntries.push(...getPackJSONPaths(packDir, SYSTEM_ID));
     }
     return allEntries;
 }
@@ -128,12 +126,10 @@ function setDefaults(source: PackEntry) {
 
 async function migrate() {
     const allEntries = await getAllFiles();
-
     const migrationRunner = new MigrationRunnerBase(migrations);
 
     for (const filePath of allEntries) {
         const content = await fs.readFile(filePath, { encoding: "utf-8" });
-
         let source:
             | ActorSourcePF2e
             | ItemSourcePF2e
@@ -163,7 +159,6 @@ async function migrate() {
                 if (isActorData(source)) {
                     const update = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
                     update.items = update.items.map((i) => fu.mergeObject({}, i, { performDeletions: true }));
-
                     pruneDefaults(source);
                     pruneDefaults(update);
 
@@ -171,7 +166,6 @@ async function migrate() {
                 } else if (isItemData(source)) {
                     source.system.slug = sluggify(source.name);
                     const update = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
-
                     pruneDefaults(source);
                     pruneDefaults(update);
 
