@@ -341,15 +341,6 @@ function registerTrackingSettings(): void {
         default: game.system.version,
         type: String,
     });
-
-    // Show the GM information about the remaster
-    game.settings.register(SYSTEM_ID, "seenRemasterJournalEntry", {
-        name: "Seen Remaster journal entry?",
-        scope: "world",
-        config: false,
-        default: false,
-        type: new fields.BooleanField(),
-    });
 }
 
 function registerWorldSchemaVersion(): void {

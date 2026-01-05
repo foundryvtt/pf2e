@@ -147,7 +147,6 @@ interface ClientSettingsPF2e extends fh.ClientSettings {
     get(scope: SystemId, setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
     get(scope: SystemId, setting: "minimumRulesUI"): Exclude<UserRole, 0>;
     get(scope: SystemId, setting: "nathMode"): boolean;
-    get(scope: SystemId, setting: "seenRemasterJournalEntry"): boolean;
     get(scope: SystemId, setting: "statusEffectType"): StatusEffectIconTheme;
     get(scope: SystemId, setting: "totmToggles"): boolean;
     get(scope: SystemId, setting: "worldSchemaVersion"): number;
