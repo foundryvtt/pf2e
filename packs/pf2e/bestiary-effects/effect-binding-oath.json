@@ -1,0 +1,53 @@
+{
+    "_id": "LRLc8KQIJa4FhvvW",
+    "img": "icons/magic/control/buff-flight-wings-runes-purple-orange.webp",
+    "name": "Effect: Binding Oath",
+    "system": {
+        "description": {
+            "value": "<p>You automatically critically succeeds on basic saving throws against the origin's abilities and spells.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "all": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:defense:basic",
+                    "origin:signature:{item|origin.signature}"
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "key": "RollOption",
+                "option": "binding-oath:origin:signature:{item|origin.signature}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

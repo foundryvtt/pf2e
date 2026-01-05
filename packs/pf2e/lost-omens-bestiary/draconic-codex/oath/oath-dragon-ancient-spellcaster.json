@@ -2523,13 +2523,13 @@
                     "value": 34
                 },
                 "damageRolls": {
-                    "0pvOpLs6OlafdneZ": {
-                        "damage": "2d6",
-                        "damageType": "spirit"
-                    },
-                    "m8gKCQdJYoajlYPs": {
+                    "0": {
                         "damage": "3d12+18",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "2d6",
+                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -2569,13 +2569,13 @@
                     "value": 32
                 },
                 "damageRolls": {
-                    "IvldIz62bZKH7Lp4": {
-                        "damage": "2d6",
-                        "damageType": "spirit"
-                    },
-                    "rr5IkEzI2iQFOhYw": {
+                    "0": {
                         "damage": "3d8+18",
                         "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "2d6",
+                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -2609,18 +2609,18 @@
                 "area": null,
                 "attackEffects": {
                     "value": [
-                        "push"
+                        "push-20-feet"
                     ]
                 },
                 "bonus": {
                     "value": 32
                 },
                 "damageRolls": {
-                    "MpdAklR0puvLtgBV": {
+                    "0": {
                         "damage": "3d10+18",
                         "damageType": "bludgeoning"
                     },
-                    "x6WeyPXkPll2JK2m": {
+                    "1": {
                         "damage": "2d6",
                         "damageType": "spirit"
                     }
@@ -2659,7 +2659,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The dragon forges a bond with a willing creature over an hour-long ceremony, making them a bonded companion. The dragon can always sense their distance from the companion and if they're moving closer or farther away. A bonded companion automatically critically succeeds on basic saving throws against the oath dragon's abilities and spells. This link is permanent and neither can form a new link until one member dies. If the dragon or the bonded companion dies, the survivor learns the identity of the killer, but the shock leaves the survivor @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 24 hours and prevents forming a new link for 1 month.</p>"
+                    "value": "<p>The dragon forges a bond with a willing creature over an hour-long ceremony, making them a bonded companion. The dragon can always sense their distance from the companion and if they're moving closer or farther away. A bonded companion automatically critically succeeds on basic saving throws against the oath dragon's abilities and spells. This link is permanent and neither can form a new link until one member dies. If the dragon or the bonded companion dies, the survivor learns the identity of the killer, but the shock leaves the survivor @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 24 hours and prevents forming a new link for 1 month.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Binding Oath]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2738,7 +2738,36 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.hearteningAuraAttackDamage",
+                        "value": 2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.hearteningAuraFastHealing",
+                        "value": 15
+                    },
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Heartening Aura"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 50,
+                        "slug": "heartening-aura",
+                        "traits": [
+                            "emotion",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -2764,7 +2793,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The oath dragon or a bonded companion within 15 feet is targeted with an attack</p><hr /><p><strong>Effect</strong> The dragon raises its wing to protect itself or the bonded companion, providing a +2 circumstance bonus to AC against the triggering attack. If the dragon is flying, it descends 10 feet after the attack is complete.</p>"
+                    "value": "<p><strong>Trigger</strong> The oath dragon or a bonded companion within 15 feet is targeted with an attack</p><hr /><p><strong>Effect</strong> The dragon raises its wing to protect itself or the bonded companion, providing a +2 circumstance bonus to AC against the triggering attack. If the dragon is flying, it descends 10 feet after the attack is complete.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Shielding Wing]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2793,7 +2822,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon unleashes a pronouncement that strikes at the soul of its enemies, dealing @Damage[13d10[spirit]|options:area-damage] damage in a @Template[type:cone|distance:50] (@Check[will|dc:41|basic] save). The dragon can't use Castigating Breath for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon unleashes a pronouncement that strikes at the soul of its enemies, dealing @Damage[13d10[spirit]|options:area-damage] damage in a @Template[type:cone|distance:50] (@Check[will|dc:41|basic|options:area-effect,item:defense:basic] save). The dragon can't use Castigating Breath for [[/gmr 1d4 #Recharge Castigating Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2935,7 +2964,7 @@
                     "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
-                "slug": "push",
+                "slug": "push-20-feet",
                 "traits": {
                     "value": []
                 }
@@ -2971,7 +3000,7 @@
                 "value": 43
             },
             "allSaves": {
-                "value": ""
+                "value": "+2 status to all saves vs. emotion"
             },
             "hp": {
                 "details": "",

@@ -1,0 +1,55 @@
+{
+    "_id": "o86YugTsxhm1T86j",
+    "img": "icons/magic/life/heart-pink.webp",
+    "name": "Effect: Heartening Aura",
+    "system": {
+        "description": {
+            "value": "<p>You gain a status bonus to attack and damage rolls. A bonded companion also gains fast healing.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack-roll",
+                    "damage"
+                ],
+                "type": "status",
+                "value": "@item.origin.flags.pf2e.hearteningAuraAttackDamage"
+            },
+            {
+                "key": "FastHealing",
+                "predicate": [
+                    "binding-oath:origin:signature:{item|origin.signature}"
+                ],
+                "type": "fast-healing",
+                "value": "@item.origin.flags.pf2e.hearteningAuraFastHealing"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
