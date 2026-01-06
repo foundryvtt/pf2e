@@ -91,7 +91,7 @@ function getGradeData(item: PhysicalItemPF2e) {
 
 /**
  * Checks if a change in traits leads to the item converting to sf2e or pf2e.
- * If so, it prompts for confirmation, and allows the user to cancel.
+ * If so, it prompts for confirmation if data is being deleted, and allows the user to cancel.
  * @returns pf2e or sf2e based on the new traits, or `null` if no change is to be made.
  * @throws an error if the user does not make a selection
  */
@@ -114,7 +114,8 @@ async function checkPhysicalItemSystemChange(
         ("reinforcing" in runes && runes.reinforcing > 0) ||
         (hasPotency && "property" in runes && runes.property.length > 0);
     const hasGrade = item.system.grade && item.system.grade !== "commercial";
-    if (wasSF2e === becomingSF2e || !(hasRunes || hasGrade)) return null;
+    if (wasSF2e === becomingSF2e) return null;
+    if (!(hasRunes || hasGrade)) return becomingSF2e ? "sf2e" : "pf2e";
 
     const key = `PF2E.Item.Physical.ChangeEquipmentSystem.${becomingSF2e ? "ToStarfinder" : "ToPathfinder"}`;
     const removedTrait = beforeSF2eTraits.find((t) => !newTraits.includes(t));
