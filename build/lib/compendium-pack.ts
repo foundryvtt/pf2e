@@ -150,7 +150,7 @@ class CompendiumPack {
                     // Ensure all linked-weapon IDs point to a weapon
                     const attackItems = docSource.items.filter((i): i is MeleeSource => i.type === "melee");
                     for (const item of attackItems) {
-                        const { linkedWeapon } = item.flags?.pf2e ?? {};
+                        const { linkedWeapon } = item.flags?.[systemId] ?? {};
                         const weaponFound = linkedWeapon
                             ? docSource.items.some((i) => i._id === linkedWeapon && i.type === "weapon")
                             : false;
