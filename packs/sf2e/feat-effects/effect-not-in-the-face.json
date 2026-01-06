@@ -4,7 +4,7 @@
     "name": "Effect: Not in the Face",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Not in the Face]</p>\n<p>You take a status penalty to attack and damage rolls against the origin. On a failure, you instead take a –1 circumstance penalty to the triggering attack roll.</p>"
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Not in the Face]</p>\n<p>You take a status penalty to attack and damage rolls against the origin. On a failure, you instead take a –1 status penalty to the triggering attack roll.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -51,9 +51,11 @@
                 "removeAfterRoll": [
                     "not-in-the-face:failure"
                 ],
-                "selector": "attack-roll",
+                "selector": [
+                    "attack-roll"
+                ],
                 "slug": "not-in-the-face-circumstance",
-                "type": "circumstance",
+                "type": "status",
                 "value": -1
             },
             {
