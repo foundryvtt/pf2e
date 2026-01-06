@@ -1389,6 +1389,8 @@ const traitDescriptions = {
     "deadly-d4": "PF2E.TraitDescriptionDeadly",
     "deadly-d6": "PF2E.TraitDescriptionDeadly",
     "deadly-d8": "PF2E.TraitDescriptionDeadly",
+    "deadly-d10": "PF2E.TraitDescriptionDeadly",
+    "deadly-d12": "PF2E.TraitDescriptionDeadly",
     "deadly-2d8": "PF2E.TraitDescriptionDeadly",
     "deadly-2d10": "PF2E.TraitDescriptionDeadly",
     "deadly-2d12": "PF2E.TraitDescriptionDeadly",
