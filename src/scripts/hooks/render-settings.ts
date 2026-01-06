@@ -50,14 +50,16 @@ export const RenderSettings = {
             licenseButton.append(createIcon("balance-scale"), " ", game.i18n.localize("PF2E.LegalNotice.Title"));
             licenseButton.addEventListener("click", () => new LegalNotice().render({ force: true }));
 
-            const remasterButton = document.createElement("button");
-            remasterButton.type = "button";
-            remasterButton.append(createIcon("rocket"), game.i18n.localize("PF2E.SETTINGS.Sidebar.Remaster"));
-            remasterButton.addEventListener("click", async () => {
-                const entry = await fromUuid("Compendium.pf2e.journals.JournalEntry.6L2eweJuM8W7OCf2");
-                entry?.sheet.render(true);
-            });
-            pf2eSettings.append(licenseButton, remasterButton);
+            if (SYSTEM_ID === "pf2e") {
+                const remasterButton = document.createElement("button");
+                remasterButton.type = "button";
+                remasterButton.append(createIcon("rocket"), game.i18n.localize("PF2E.SETTINGS.Sidebar.Remaster"));
+                remasterButton.addEventListener("click", async () => {
+                    const entry = await fromUuid("Compendium.pf2e.journals.JournalEntry.6L2eweJuM8W7OCf2");
+                    entry?.sheet.render(true);
+                });
+                pf2eSettings.append(licenseButton, remasterButton);
+            }
 
             // Migration Troubleshooting (if GM)
             if (game.user.isGM) {
