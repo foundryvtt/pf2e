@@ -240,8 +240,6 @@ const SystemActions: Action[] = [
     tumbleThrough.action,
 ];
 
-if (SYSTEM_ID === "sf2e") {
-    SystemActions.push(accessInfosphere, hack, operateDevice, navigate, plotCourse);
-}
+const SF2eOnlySystemActions = [accessInfosphere, hack, operateDevice, navigate, plotCourse];
 
-export { SystemActions };
+export { SF2eOnlySystemActions, SystemActions };

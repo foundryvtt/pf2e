@@ -27,7 +27,7 @@ import {
     xpFromEncounter,
 } from "@scripts/macros/index.ts";
 import { remigrate } from "@scripts/system/remigrate.ts";
-import { ActionMacros, SystemActions } from "@system/action-macros/index.ts";
+import { ActionMacros, SF2eOnlySystemActions, SystemActions } from "@system/action-macros/index.ts";
 import { Check } from "@system/check/check.ts";
 import { ConditionManager } from "@system/conditions/index.ts";
 import { EffectTracker } from "@system/effect-tracker.ts";
@@ -45,6 +45,11 @@ export const SetGamePF2e = {
         const actions = new Collection<string, Action>(
             SystemActions.map((action) => [action.slug, action]),
         ) as ActionCollection;
+        if (SYSTEM_ID === "sf2e" || game.modules.get("sf2e-anachronism")?.active) {
+            for (const sf2eAction of SF2eOnlySystemActions) {
+                actions.set(sf2eAction.slug, sf2eAction);
+            }
+        }
         // keep the old action functions around until everything has been converted
         for (const [name, action] of Object.entries({
             encouragingWords,
