@@ -60,7 +60,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // If this changes, the melee sheet and range item alterations must be changed in response
         const data = this.system.range;
         return data?.max
-            ? (data as RangeData) // typescript fails to detect that data.max is not null and so we must cast
+            ? { increment: null, max: data.max }
             : data?.increment
               ? { increment: data.increment, max: data.increment * 6 }
               : null;
