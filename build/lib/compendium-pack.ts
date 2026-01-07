@@ -289,7 +289,7 @@ class CompendiumPack {
                     const source = parsePackEntrySource(pf2ePath);
                     if (source.folder) {
                         const folderPath = pf2eFolderPaths[source.folder];
-                        source.folder = sf2eFolderLookup[folderPath] ?? null;
+                        source.folder = sf2eFolderLookup[folderPath] ?? folders.find((f) => f._id === source.folder);
                         if (!source.folder) {
                             console.warn(`Failed to find folder ${folderPath} for item ${name} in pack ${packDirName}`);
                         }
