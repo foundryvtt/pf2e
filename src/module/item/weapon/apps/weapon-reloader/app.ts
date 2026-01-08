@@ -1,23 +1,31 @@
+import { CreaturePF2e } from "@actor";
 import type { CharacterPF2e } from "@actor/character/document.ts";
+import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
 import { type PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { getLoadedAmmo } from "@item/weapon/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { ValueAndMax } from "@module/data.ts";
 import { BasePhysicalItemViewData, getBasePhysicalItemViewData } from "@module/sheet/helpers.ts";
 import { SvelteApplicationMixin, SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
-import { ErrorPF2e, getActionGlyph } from "@util";
+import { ErrorPF2e, getActionGlyph, htmlClosest } from "@util";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 import Root from "./app.svelte";
 
 interface WeaponReloaderConfiguration extends fa.ApplicationConfiguration {
     weapon: WeaponPF2e<CharacterPF2e>;
-    anchor: HTMLElement | null;
 }
 
 class WeaponReloader extends SvelteApplicationMixin<
     AbstractConstructorOf<fa.api.ApplicationV2> & { DEFAULT_OPTIONS: DeepPartial<WeaponReloaderConfiguration> }
 >(fa.api.ApplicationV2) {
+    constructor(options: DeepPartial<WeaponReloaderConfiguration> & { anchor: HTMLElement | null }) {
+        super(R.omit(options, ["anchor"]));
+        this.#anchorId = options.anchor?.dataset.anchorId ?? null;
+        this.#anchorAppId = htmlClosest(options.anchor, "[data-appid]")?.dataset.appid ?? null;
+        if (!this.#anchorId) throw ErrorPF2e("Unable to render without anchor element");
+    }
+
     static override DEFAULT_OPTIONS: DeepPartial<fa.ApplicationConfiguration> = {
         id: "weapon-reloader",
         classes: ["application", "absolute"],
@@ -31,6 +39,10 @@ class WeaponReloader extends SvelteApplicationMixin<
     override root = Root;
 
     #closeSignal = new AbortController();
+
+    #anchorAppId: string | null = null;
+    #anchorId: string | null = null;
+    #hook: number | null = null;
 
     /** A special close if clicked outside listener, pre-bound to "this" for add/remove support */
     #closeListener = (event: PointerEvent | KeyboardEvent | WheelEvent) => {
@@ -53,14 +65,12 @@ class WeaponReloader extends SvelteApplicationMixin<
     }
 
     protected override _initializeApplicationOptions(
-        options: DeepPartial<fa.ApplicationConfiguration> &
-            Partial<Pick<WeaponReloaderConfiguration, "weapon" | "anchor">>,
+        options: DeepPartial<fa.ApplicationConfiguration> & Partial<Pick<WeaponReloaderConfiguration, "weapon">>,
     ): fa.ApplicationConfiguration {
-        const { weapon, anchor } = options;
+        const weapon = options.weapon;
         if (!(weapon instanceof WeaponPF2e) || !weapon.actor?.isOfType("character")) {
             throw ErrorPF2e("Unable to render without weapon");
         }
-        if (!(anchor instanceof HTMLElement)) throw ErrorPF2e("Unable to render without anchor element");
         return super._initializeApplicationOptions(options);
     }
 
@@ -105,12 +115,8 @@ class WeaponReloader extends SvelteApplicationMixin<
         const remainingSpace = Math.max(0, capacity - numLoaded);
         const quantity = all ? Math.min(remainingSpace, ammo.quantity) : 1;
         if (remainingSpace > 0) {
-            await weapon.attach(ammo, { quantity, stack: true, render: false });
+            await weapon.attach(ammo, { quantity, stack: true });
             await this.#sendMessage(ammo);
-            Hooks.once("renderCreatureSheetPF2e", (app) => {
-                if (app === weapon.actor.sheet) this.setPosition();
-            });
-            weapon.actor.sheet.render();
         }
 
         // Check if we need to close
@@ -161,7 +167,7 @@ class WeaponReloader extends SvelteApplicationMixin<
 
     protected override _prePosition(position: fa.ApplicationPosition): void {
         super._prePosition(position);
-        const anchorId = this.options.anchor?.dataset.anchorId;
+        const anchorId = this.#anchorId;
         const target = anchorId ? document.querySelector(`[data-anchor-id="${anchorId}"]`) : null;
         if (target && this.element.parentElement) {
             const bounds = target.getBoundingClientRect();
@@ -181,12 +187,18 @@ class WeaponReloader extends SvelteApplicationMixin<
         document.addEventListener("click", this.#closeListener, { capture: true, signal });
         document.addEventListener("wheel", this.#closeListener, { capture: true, signal });
         document.addEventListener("keydown", this.#closeListener, { signal });
+
+        this.#hook = Hooks.on("renderCreatureSheetPF2e", (app) => {
+            if (String((app as CreatureSheetPF2e<CreaturePF2e>).appId) === this.#anchorAppId) this.setPosition();
+        });
     }
 
     protected override _tearDown(options: fa.ApplicationClosingOptions): void {
         super._tearDown(options);
         this.#closeSignal.abort();
         delete this.options.weapon.actor.apps[this.id];
+
+        if (typeof this.#hook === "number") Hooks.off("renderCreatureSheetPF2e", this.#hook);
     }
 }
 

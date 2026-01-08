@@ -75,7 +75,7 @@
                     {{/each}}
                     {{#if action.ammunition.remaining}}
                         <div class="empty plain">
-                            <a class="name" data-action="reload" data-anchor-id="{{action.item.uuid}}-actions">
+                            <a class="name" data-action="reload" data-anchor-id="{{@root.options.id}}-{{action.item.uuid}}-reload">
                                 <span>{{localize "PF2E.Actions.Interact.Reload.Title"}} <span class="action-glyph">{{action.ammunition.reloadGlyph}}</span></span>
                             </a>
                             <span class="remaining">

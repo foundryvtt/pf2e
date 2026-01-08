@@ -1,5 +1,32 @@
 .tab {
     @import "actions";
+
+    button.inline-control {
+        background: transparent;
+        border: 1px solid transparent;
+        box-shadow: none;
+        display: flex;
+        height: var(--button-size);
+        line-height: normal;
+        margin: unset;
+        text-decoration: none;
+        transition: none;
+        width: auto;
+
+        &:hover {
+            text-shadow: 0 0 8px var(--color-shadow-primary);
+        }
+
+        &:disabled {
+            --button-text-color: var(--color-text-subtle);
+            text-shadow: none;
+        }
+    }
+
+    input {
+        border: none;
+        border-radius: 0;
+    }
 }
 
 .tab.actions {

@@ -194,10 +194,10 @@ export default class Hooks {
      * Unregister a callback handler for a particular hook event
      *
      * @param hook  The unique name of the hooked event
-     * @param fn    The function that should be removed from the set of hooked callbacks
+     * @param fn    The function, or ID number for the function, that should be turned off
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    static off(hook: string, fn: (...args: any[]) => boolean | void | Promise<boolean | void>): void;
+    static off(hook: string, fn: ((...args: any[]) => boolean | void | Promise<boolean | void>) | number): void;
 
     /**
      * Call all hook listeners in the order in which they were registered
