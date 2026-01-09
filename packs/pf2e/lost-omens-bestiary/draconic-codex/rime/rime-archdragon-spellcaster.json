@@ -2485,13 +2485,13 @@
                     "value": 35
                 },
                 "damageRolls": {
-                    "FUfjDYj5GuugG9Qh": {
-                        "damage": "1d6",
-                        "damageType": "cold"
-                    },
-                    "uDnP9mOq8AnWir1g": {
+                    "0": {
                         "damage": "5d12+8",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -2530,13 +2530,13 @@
                     "value": 35
                 },
                 "damageRolls": {
-                    "9GAWs2LTKJ9lHP7T": {
-                        "damage": "1d6",
-                        "damageType": "cold"
-                    },
-                    "pGJN2pc7uxbSq3cc": {
+                    "0": {
                         "damage": "6d8+8",
                         "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -2576,13 +2576,13 @@
                     "value": 33
                 },
                 "damageRolls": {
-                    "BeH00rhFHbLcScd9": {
-                        "damage": "1d6",
-                        "damageType": "cold"
-                    },
-                    "vFP5NcIthhsfkQ9N": {
+                    "0": {
                         "damage": "5d10+8",
                         "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -2649,7 +2649,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>Snow doesn't impair the rime dragon's vision; they ignore concealment from snowfall.</p>"
+                    "value": "<p>Snow doesn't impair the rime dragon's vision; they ignore @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealment} from snowfall.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2717,14 +2717,23 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>20 feet. The adult rime dragon's presence lowers the temperature around them. A creature who enters or begins their turn in the aura must attempt a @Check[fortitude|dc:37] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature begins to shiver as the biting cold affects it. It takes a –5-foot status penalty to its Speeds until the end of its next turn.</p>\n<p><strong>Failure</strong> The creature's body temperature begins to drop. It takes a –10-foot status penalty to their Speeds and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> Ice begins to form on the creature. It's @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] ([[/act escape dc=37]]) and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} until the end of their its turn.</p>"
+                    "value": "<p>20 feet. The adult rime dragon's presence lowers the temperature around them. A creature who enters or begins their turn in the aura must attempt a @Check[fortitude|dc:37|options:area-effect,inflicts:enfeebled,inflicts:immobilized] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature begins to shiver as the biting cold affects it. It takes a –5-foot status penalty to its Speeds until the end of its next turn.</p>\n<p><strong>Failure</strong> The creature's body temperature begins to drop. It takes a –10-foot status penalty to their Speeds and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> Ice begins to form on the creature. It's @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] ([[/act escape dc=37]]) and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} until the end of their its turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Radiate Cold]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 20,
+                        "traits": [
+                            "cold",
+                            "primal"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -2750,7 +2759,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon breathes out a gust of frost and ice that deals @Damage[15d8[cold]|options:area-damage] damage in a @Template[type:cone|distance:40] (@Check[reflex|dc:40|basic] save). They can't use Blizzard Breath again for [[/gmr 1d4 #Recharge Blizzard Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes out a gust of frost and ice that deals @Damage[15d8[cold]|options:area-damage] damage in a @Template[type:cone|distance:40] (@Check[reflex|dc:40|basic|options:area-effect] save). They can't use Blizzard Breath again for [[/gmr 1d4 #Recharge Blizzard Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2782,7 +2791,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The dragon has temporary Hit Points from Rime Shield</p><hr /><p><strong>Effect</strong> The dragon launches the collected ice shards from its scales in a @Template[type:emanation|distance:5], dealing @Damage[8d6[piercing],4d6[cold]|options:area-damage] damage (@Check[reflex|dc:40|basic] save). The dragon then loses the AC bonus and temporary Hit Points from Rime Shield.</p>"
+                    "value": "<p><strong>Requirements</strong> The dragon has temporary Hit Points from Rime Shield</p><hr /><p><strong>Effect</strong> The dragon launches the collected ice shards from its scales in a @Template[type:emanation|distance:5], dealing @Damage[8d6[piercing],4d6[cold]|options:area-damage] damage (@Check[reflex|dc:40|basic|options:area-effect] save). The dragon then loses the AC bonus and temporary Hit Points from Rime Shield.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2822,7 +2831,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.rimeShieldTempHP",
+                        "value": 20
+                    }
+                ],
+                "selfEffect": {
+                    "name": "Effect: Rime Shield",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Rime Shield"
+                },
                 "slug": null,
                 "traits": {
                     "value": [
@@ -2914,7 +2934,7 @@
                 "value": 42
             },
             "allSaves": {
-                "value": ""
+                "value": "+2 status to all saves vs. primal"
             },
             "hp": {
                 "details": "",
@@ -3041,7 +3061,7 @@
         "traits": {
             "rarity": "rare",
             "size": {
-                "value": "huge"
+                "value": "grg"
             },
             "value": [
                 "cold",

@@ -1707,14 +1707,24 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet, @Check[will|dc:27].</p>\n<p>A creature entering the aura or starting its turn in the aura must attempt a Will save. Use the moderate spell DC for the failed prophet's level.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and becomes immune to broken mindscape for 1 minute.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} as disjointed visions of the failed prophet's mindscape assail its senses.</p>\n<p><strong>Failure</strong> The creature's mind is pulled into the failed prophet's mindscape. It's @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round. While paralyzed, the creature can take any actions with the mental or spirit traits, or that deal mental or spirit damage, as though those actions were purely mental. Such actions only have line of effect to the originating failed prophet and other creatures currently paralyzed by broken mindscape, though they treat all such creatures as though they were adjacent.</p>\n<p><strong>Critical Failure</strong> As failure, but the duration is 1 minute or until the failed prophet is destroyed, whichever happens first.</p>"
+                    "value": "<p>30 feet. A creature entering the aura or starting its turn in the aura must attempt a @Check[will|dc:27|options:area-effect,inflicts:stunned,inflicts:paralyzed] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and becomes immune to broken mindscape for 1 minute.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} as disjointed visions of the failed prophet's mindscape assail its senses.</p>\n<p><strong>Failure</strong> The creature's mind is pulled into the failed prophet's mindscape. It's @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round. While paralyzed, the creature can take any actions with the mental or spirit traits, or that deal mental or spirit damage, as though those actions were purely mental. Such actions only have line of effect to the originating failed prophet and other creatures currently paralyzed by broken mindscape, though they treat all such creatures as though they were adjacent.</p>\n<p><strong>Critical Failure</strong> As failure, but the duration is 1 minute or until the failed prophet is destroyed, whichever happens first.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": "Pathfinder Lost Omens Shining Kingdoms"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "illusion",
+                            "incapacitation",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

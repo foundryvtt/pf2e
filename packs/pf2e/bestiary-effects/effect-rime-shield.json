@@ -1,0 +1,48 @@
+{
+    "_id": "gvCHmUQ2WxTdBKLq",
+    "img": "icons/magic/defensive/shield-barrier-flaming-diamond-blue.webp",
+    "name": "Effect: Rime Shield",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +2 circumstance bonus to AC and temporary Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "TempHP",
+                "value": "@item.origin.flags.pf2e.rimeShieldTempHP"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

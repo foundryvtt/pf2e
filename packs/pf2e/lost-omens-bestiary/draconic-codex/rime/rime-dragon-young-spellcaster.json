@@ -1110,13 +1110,13 @@
                     "value": 14
                 },
                 "damageRolls": {
-                    "FUfjDYj5GuugG9Qh": {
-                        "damage": "1d6",
-                        "damageType": "cold"
-                    },
-                    "uDnP9mOq8AnWir1g": {
+                    "0": {
                         "damage": "2d10+5",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -1155,13 +1155,13 @@
                     "value": 12
                 },
                 "damageRolls": {
-                    "9GAWs2LTKJ9lHP7T": {
-                        "damage": "1d6",
-                        "damageType": "cold"
-                    },
-                    "pGJN2pc7uxbSq3cc": {
+                    "0": {
                         "damage": "2d8+5",
                         "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -1200,13 +1200,13 @@
                     "value": 12
                 },
                 "damageRolls": {
-                    "BeH00rhFHbLcScd9": {
-                        "damage": "1d6",
-                        "damageType": "cold"
-                    },
-                    "vFP5NcIthhsfkQ9N": {
+                    "0": {
                         "damage": "2d12+5",
                         "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -1273,7 +1273,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>Snow doesn't impair the rime dragon's vision; they ignore concealment from snowfall.</p>"
+                    "value": "<p>Snow doesn't impair the rime dragon's vision; they ignore @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealment} from snowfall.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1341,7 +1341,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon breathes out a gust of frost and ice that deals @Damage[6d8[cold]|options:area-damage] damage in a @Template[type:cone|distance:30] (@Check[reflex|dc:24|basic] save). They can't use Blizzard Breath again for [[/gmr 1d4 #Recharge Blizzard Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes out a gust of frost and ice that deals @Damage[6d8[cold]|options:area-damage] damage in a @Template[type:cone|distance:30] (@Check[reflex|dc:24|basic|options:area-effect] save). They can't use Blizzard Breath again for [[/gmr 1d4 #Recharge Blizzard Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1373,7 +1373,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The dragon has temporary Hit Points from Rime Shield</p><hr /><p><strong>Effect</strong> The dragon launches the collected ice shards from its scales in a @Template[type:emanation|distance:5], dealing @Damage[3d6[piercing],2d6[cold]|options:area-damage] damage (@Check[reflex|dc:24|basic] save). The dragon then loses the AC bonus and temporary Hit Points from Rime Shield.</p>"
+                    "value": "<p><strong>Requirements</strong> The dragon has temporary Hit Points from Rime Shield</p><hr /><p><strong>Effect</strong> The dragon launches the collected ice shards from its scales in a @Template[type:emanation|distance:5], dealing @Damage[3d6[piercing],2d6[cold]|options:area-damage] damage (@Check[reflex|dc:24|basic|options:area-effect] save). The dragon then loses the AC bonus and temporary Hit Points from Rime Shield.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1413,7 +1413,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.rimeShieldTempHP",
+                        "value": 5
+                    }
+                ],
+                "selfEffect": {
+                    "name": "Effect: Rime Shield",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Rime Shield"
+                },
                 "slug": null,
                 "traits": {
                     "value": [
@@ -1505,7 +1516,7 @@
                 "value": 23
             },
             "allSaves": {
-                "value": ""
+                "value": "+2 status to all saves vs. primal"
             },
             "hp": {
                 "details": "",
