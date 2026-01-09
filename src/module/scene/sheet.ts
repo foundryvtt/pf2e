@@ -18,8 +18,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
 
     static override TABS = (() => {
         const tabsConfig = super.TABS;
-        const label = SYSTEM_ID === "pf2e" ? "PF2E.Pathfinder" : "PF2E.Starfinder";
-        tabsConfig["sheet"].tabs.push({ id: SYSTEM_ID, icon: "action-glyph", label });
+        tabsConfig["sheet"].tabs.push({ id: SYSTEM_ID, icon: "action-glyph", label: "PF2E.SystemNameShort" });
         return tabsConfig;
     })();
 

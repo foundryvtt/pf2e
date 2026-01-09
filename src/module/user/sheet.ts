@@ -16,7 +16,7 @@ class UserConfigPF2e extends fa.sheets.UserConfig<UserPF2e> {
         primary: {
             tabs: [
                 { id: "core", icon: "fa-solid fa-user", label: "PACKAGECONFIG.Core" },
-                { id: "pf2e", icon: "action-glyph", label: "PF2E.Pathfinder" },
+                { id: "pf2e", icon: "action-glyph", label: "PF2E.SystemNameShort" },
             ],
             initial: "core",
         },
