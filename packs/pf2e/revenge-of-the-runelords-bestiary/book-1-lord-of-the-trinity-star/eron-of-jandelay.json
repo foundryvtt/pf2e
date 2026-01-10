@@ -886,14 +886,28 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The eron attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Steal] an object from a creature, using the tips of its immense talons with shocking agility. The object must be 2 Bulk or less. If the creature with the target object is in combat or on guard, the eron can still try to Steal the object if it attempts its Thievery check at mythic proficiency.</p>"
+                    "value": "<p>The eron attempts to [[/act steal roll-options=snatch-prize]] an object from a creature, using the tips of its immense talons with shocking agility. The object must be 2 Bulk or less. If the creature with the target object is in combat or on guard, the eron can still try to Steal the object if it attempts its Thievery check at mythic proficiency.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "action:steal",
+                            "snatch-prize"
+                        ],
+                        "selector": [
+                            "thievery-check"
+                        ],
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -924,7 +938,25 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "target:size",
+                                    4
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "claw-damage"
+                        ],
+                        "text": "{item|description}",
+                        "title": "{item|name}   <span class=\"action-glyph\">f</span>",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
