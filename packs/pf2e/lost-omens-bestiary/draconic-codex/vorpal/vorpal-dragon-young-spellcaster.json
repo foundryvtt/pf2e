@@ -1468,7 +1468,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The vorpal dragon beheads its foes—sometimes without killing them. A vorpal dragon's chin blade Strikes count as having the vorpal weapon property rune for the purpose of weaknesses. Whenever the vorpal dragon critically succeeds on a chin blade Strike, it deals an additional @Damage[2d6[persistent,bleed]] damage, which can be ended normally.</p>\n<p>When a vorpal dragon rolls a natural 20 on a chin blade Strike, the target must attempt a @Check[fortitude|dc:28] save; this has the incapacitation trait. On a failure, the creature is beheaded. A creature beheaded this way does not automatically die; instead, their head and body live on, disconnected but mystically linked, with the head controlling the body from afar. A beheaded creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] as they attempt to coordinate movements from an unusual perspective, or @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 4} and @UUID[Compendium.pf2e.conditionitems.Item.Blinded] and @UUID[Compendium.pf2e.conditionitems.Item.Deafened] if their head can't perceive their body from its location. These conditions are suppressed if the body holds its head, and don't apply to actions performed exclusively by the head, mind, or voice. If the body is killed, the head can live on, but destroying the head kills the body as well. This effect can be reversed by taking a 2-action activity, which has the manipulate trait, to firmly reattach the severed head to the correct body. Whether attaching the severed head to a different headless body is effective is at the GM's discretion.</p>"
+                    "value": "<p>The vorpal dragon beheads its foes—sometimes without killing them. A vorpal dragon's chin blade Strikes count as having the vorpal weapon property rune for the purpose of weaknesses. Whenever the vorpal dragon critically succeeds on a chin blade Strike, it deals an additional 2d6 persistent bleed damage, which can be ended normally.</p>\n<p>When a vorpal dragon rolls a natural 20 on a chin blade Strike, the target must attempt a @Check[fortitude|dc:28] save; this has the incapacitation trait. On a failure, the creature is beheaded. A creature beheaded this way does not automatically die; instead, their head and body live on, disconnected but mystically linked, with the head controlling the body from afar. A beheaded creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] as they attempt to coordinate movements from an unusual perspective, or @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 4} and @UUID[Compendium.pf2e.conditionitems.Item.Blinded] and @UUID[Compendium.pf2e.conditionitems.Item.Deafened] if their head can't perceive their body from its location. These conditions are suppressed if the body holds its head, and don't apply to actions performed exclusively by the head, mind, or voice. If the body is killed, the head can live on, but destroying the head kills the body as well. This effect can be reversed by taking a 2-action activity, which has the manipulate trait, to firmly reattach the severed head to the correct body. Whether attaching the severed head to a different headless body is effective is at the GM's discretion.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1495,8 +1495,20 @@
                             "decapitation"
                         ],
                         "key": "Immunity",
-                        "label": "decapitation",
+                        "label": "PF2E.IWR.Custom.Decapitation",
                         "type": "custom"
+                    },
+                    {
+                        "critical": false,
+                        "damageType": "bleed",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "hideIfDisabled": true,
+                        "key": "DamageDice",
+                        "predicate": [
+                            "check:outcome:critical-success"
+                        ],
+                        "selector": "chin-blade-damage"
                     }
                 ],
                 "slug": null,
