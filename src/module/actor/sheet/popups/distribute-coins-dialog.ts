@@ -116,11 +116,11 @@ export class DistributeCoinsDialog extends fa.api.HandlebarsApplicationMixin(fa.
 
         const listFormat = new Intl.ListFormat(game.i18n.lang, { style: "long", type: "conjunction" });
 
-        const actors = listFormat.format(selectedActors.map((a) => a.name));
+        const takers = listFormat.format(selectedActors.map((a) => a.name));
 
         const message = game.i18n.format(
             playerCount > 1 ? "PF2E.loot.DistributeEachMessage" : "PF2E.loot.DistributeMessage",
-            { share: share.toString({ unit: "raw" }), container: actor.name, actors },
+            { share: share.toString({ unit: "raw" }), container: actor.name, takers },
         );
 
         ChatMessagePF2e.create({
