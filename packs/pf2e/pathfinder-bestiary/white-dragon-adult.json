@@ -590,7 +590,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the dragon scores a critical hit with a Strike, it recharges its Breath Weapon</p>"
+                    "value": "<p>When the dragon scores a critical hit with a Strike, it recharges its Breath Weapon.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -603,9 +603,10 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "selector": "attack",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "selector": "strike-attack-roll",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
