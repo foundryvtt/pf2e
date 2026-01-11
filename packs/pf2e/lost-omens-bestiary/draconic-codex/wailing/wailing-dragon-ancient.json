@@ -639,14 +639,22 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>90 feet, A creature who enters or begins their turn in the area must attempt a @Check[fortitude|dc:28] save. Regardless of the result of the saving throw, the creature is temporarily immune to this dragon's subsonic drone for 1 minute.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3}.</p>"
+                    "value": "<p>90 feet. A creature who enters or begins their turn in the area must attempt a @Check[fortitude|dc:28|options:area-effect,inflicts:sickened] save. Regardless of the result of the saving throw, the creature is temporarily immune to this dragon's subsonic drone for 1 minute.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "traits": [
+                            "auditory"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

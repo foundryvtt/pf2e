@@ -350,14 +350,23 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>90 feet. A creature who enters or begins its turn in the area must attempt a @Check[will|dc:29] save. Regardless of the result of the saving throw, the creature is temporarily immune to the graceless domain aura for 1 minute. The dragon can exclude creatures from this aura.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> For 1 round, the first time the creature rolls an Athletics, Acrobatics, or Performance skill check, it must roll twice and take the worse result.</p>\n<p><strong>Failure</strong> For 1 minute, the first time each round the creature rolls an Athletics, Acrobatics, or Performance skill check, it must roll twice and take the worse result.</p>\n<p><strong>Critical Failure</strong> For 1 minute, every time the creature rolls an Athletics, Acrobatics, or Performance skill check, it must roll twice and take the worse result.</p>"
+                    "value": "<p>90 feet. A creature who enters or begins its turn in the area must attempt a @Check[will|dc:29|options:area-effect] save. Regardless of the result of the saving throw, the creature is temporarily immune to the graceless domain aura for 1 minute. The dragon can exclude creatures from this aura.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> For 1 round, the first time the creature rolls an Athletics, Acrobatics, or Performance skill check, it must roll twice and take the worse result.</p>\n<p><strong>Failure</strong> For 1 minute, the first time each round the creature rolls an Athletics, Acrobatics, or Performance skill check, it must roll twice and take the worse result.</p>\n<p><strong>Critical Failure</strong> For 1 minute, every time the creature rolls an Athletics, Acrobatics, or Performance skill check, it must roll twice and take the worse result.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 90,
+                        "traits": [
+                            "misfortune",
+                            "occult"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

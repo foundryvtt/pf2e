@@ -745,14 +745,23 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>60 feet. The divine majesty of an adult executor dragon can't be denied. A creature that enters or begins their turn in the aura must attempt a @Check[will|dc:44] save. Regardless of the result of the saving throw, the creature is temporarily immune to this dragon's aura of authority for 1 minute.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3} for 10 minutes.</p>"
+                    "value": "<p>60 feet. The divine majesty of an executor archdragon can't be denied. A creature that enters or begins their turn in the aura must attempt a @Check[will|dc:44|options:area-effect,inflicts:stupefied] save. Regardless of the result of the saving throw, the creature is temporarily immune to this dragon's aura of authority for 1 minute.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3} for 10 minutes.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "traits": [
+                            "emotion",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

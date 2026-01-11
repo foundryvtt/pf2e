@@ -3875,14 +3875,22 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet. Time shifts strangely in the presence of a time archdragon. Each creature starting their turn in the aura must attempt a @Check[fortitude|dc:43] save.</p>\n<p><strong>Success</strong> The creature is unaffected and temporarily immune for 24 hours.</p>\n<p><strong>Failure</strong> The creature's age advances to elderly or regresses to youth (determined randomly) for 1 round. If elderly, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}; if a youth, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3} or @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3}.</p>"
+                    "value": "<p>30 feet. Time shifts strangely in the presence of a time archdragon. Each creature starting their turn in the aura must attempt a @Check[fortitude|dc:43|options:area-effect,inflicts:clumsy,inflicts:enfeebled] save.</p>\n<p><strong>Success</strong> The creature is unaffected and temporarily immune for 24 hours.</p>\n<p><strong>Failure</strong> The creature's age advances to elderly or regresses to youth (determined randomly) for 1 round. If elderly, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}; if a youth, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3} or @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "arcane"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
