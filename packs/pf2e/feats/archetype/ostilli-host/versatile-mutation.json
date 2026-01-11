@@ -32,74 +32,9 @@
         },
         "rules": [
             {
-                "choices": [
-                    {
-                        "label": "PF2E.TraitAcid",
-                        "predicate": [
-                            {
-                                "not": "versatile-mutation-first:acid"
-                            }
-                        ],
-                        "value": "acid"
-                    },
-                    {
-                        "label": "PF2E.TraitCold",
-                        "predicate": [
-                            {
-                                "not": "versatile-mutation-first:cold"
-                            }
-                        ],
-                        "value": "cold"
-                    },
-                    {
-                        "label": "PF2E.TraitElectricity",
-                        "predicate": [
-                            {
-                                "not": "versatile-mutation-first:electricity"
-                            }
-                        ],
-                        "value": "electricity"
-                    },
-                    {
-                        "label": "PF2E.TraitFire",
-                        "predicate": [
-                            {
-                                "not": "versatile-mutation-first:fire"
-                            }
-                        ],
-                        "value": "fire"
-                    },
-                    {
-                        "label": "PF2E.TraitSonic",
-                        "predicate": [
-                            {
-                                "not": "versatile-mutation-first:sonic"
-                            }
-                        ],
-                        "value": "sonic"
-                    }
-                ],
-                "key": "ChoiceSet",
-                "predicate": [
-                    {
-                        "or": [
-                            "versatile-mutation-first:acid",
-                            "versatile-mutation-first:cold",
-                            "versatile-mutation-first:electricity",
-                            "versatile-mutation-first:fire",
-                            "versatile-mutation-first:sonic"
-                        ]
-                    },
-                    {
-                        "gte": [
-                            "self:level",
-                            16
-                        ]
-                    }
-                ],
-                "priority": 95,
-                "prompt": "PF2E.SpecificRule.Prompt.DamageType",
-                "rollOption": "versatile-mutation-second"
+                "count": true,
+                "key": "RollOption",
+                "option": "versatile-mutation-taken"
             },
             {
                 "choices": [
@@ -107,10 +42,7 @@
                         "label": "PF2E.TraitAcid",
                         "predicate": [
                             {
-                                "nor": [
-                                    "versatile-mutation-first:acid",
-                                    "versatile-mutation-second:acid"
-                                ]
+                                "not": "versatile-mutation:acid"
                             }
                         ],
                         "value": "acid"
@@ -119,10 +51,7 @@
                         "label": "PF2E.TraitCold",
                         "predicate": [
                             {
-                                "nor": [
-                                    "versatile-mutation-first:cold",
-                                    "versatile-mutation-second:cold"
-                                ]
+                                "not": "versatile-mutation:cold"
                             }
                         ],
                         "value": "cold"
@@ -131,10 +60,7 @@
                         "label": "PF2E.TraitElectricity",
                         "predicate": [
                             {
-                                "nor": [
-                                    "versatile-mutation-first:electricity",
-                                    "versatile-mutation-second:electricity"
-                                ]
+                                "not": "versatile-mutation:electricity"
                             }
                         ],
                         "value": "electricity"
@@ -143,10 +69,7 @@
                         "label": "PF2E.TraitFire",
                         "predicate": [
                             {
-                                "nor": [
-                                    "versatile-mutation-first:fire",
-                                    "versatile-mutation-second:fire"
-                                ]
+                                "not": "versatile-mutation:fire"
                             }
                         ],
                         "value": "fire"
@@ -155,10 +78,7 @@
                         "label": "PF2E.TraitSonic",
                         "predicate": [
                             {
-                                "nor": [
-                                    "versatile-mutation-first:sonic",
-                                    "versatile-mutation-second:sonic"
-                                ]
+                                "not": "versatile-mutation:sonic"
                             }
                         ],
                         "value": "sonic"
@@ -166,63 +86,122 @@
                 ],
                 "key": "ChoiceSet",
                 "predicate": [
-                    {
-                        "or": [
-                            "versatile-mutation-first:acid",
-                            "versatile-mutation-first:cold",
-                            "versatile-mutation-first:electricity",
-                            "versatile-mutation-first:fire",
-                            "versatile-mutation-first:sonic"
-                        ]
-                    },
-                    {
-                        "gte": [
-                            "self:level",
-                            16
-                        ]
-                    }
+                    "versatile-mutation-taken:1"
                 ],
-                "priority": 95,
+                "priority": 90,
                 "prompt": "PF2E.SpecificRule.Prompt.DamageType",
-                "rollOption": "versatile-mutation-third"
+                "rollOption": "versatile-mutation"
             },
             {
                 "choices": [
                     {
                         "label": "PF2E.TraitAcid",
+                        "predicate": [
+                            {
+                                "not": "versatile-mutation:acid"
+                            }
+                        ],
                         "value": "acid"
                     },
                     {
                         "label": "PF2E.TraitCold",
+                        "predicate": [
+                            {
+                                "not": "versatile-mutation:cold"
+                            }
+                        ],
                         "value": "cold"
                     },
                     {
                         "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            {
+                                "not": "versatile-mutation:electricity"
+                            }
+                        ],
                         "value": "electricity"
                     },
                     {
                         "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "not": "versatile-mutation:fire"
+                            }
+                        ],
                         "value": "fire"
                     },
                     {
                         "label": "PF2E.TraitSonic",
+                        "predicate": [
+                            {
+                                "not": "versatile-mutation:sonic"
+                            }
+                        ],
                         "value": "sonic"
                     }
                 ],
                 "key": "ChoiceSet",
                 "predicate": [
+                    "versatile-mutation-taken:2"
+                ],
+                "priority": 95,
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType",
+                "rollOption": "versatile-mutation"
+            },
+            {
+                "choices": [
                     {
-                        "nor": [
-                            "versatile-mutation-first:acid",
-                            "versatile-mutation-first:cold",
-                            "versatile-mutation-first:electricity",
-                            "versatile-mutation-first:fire",
-                            "versatile-mutation-first:sonic"
-                        ]
+                        "label": "PF2E.TraitAcid",
+                        "predicate": [
+                            {
+                                "not": "versatile-mutation:acid"
+                            }
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": [
+                            {
+                                "not": "versatile-mutation:cold"
+                            }
+                        ],
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            {
+                                "not": "versatile-mutation:electricity"
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "not": "versatile-mutation:fire"
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "predicate": [
+                            {
+                                "not": "versatile-mutation:sonic"
+                            }
+                        ],
+                        "value": "sonic"
                     }
                 ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    "versatile-mutation-taken:2"
+                ],
                 "prompt": "PF2E.SpecificRule.Prompt.DamageType",
-                "rollOption": "versatile-mutation-first"
+                "rollOption": "versatile-mutation"
             },
             {
                 "alwaysActive": true,
@@ -239,13 +218,7 @@
                                     8
                                 ]
                             },
-                            {
-                                "or": [
-                                    "versatile-mutation-first:acid",
-                                    "versatile-mutation-second:acid",
-                                    "versatile-mutation-third:acid"
-                                ]
-                            }
+                            "versatile-mutation:acid"
                         ],
                         "value": "acid"
                     },
@@ -262,13 +235,7 @@
                                     8
                                 ]
                             },
-                            {
-                                "or": [
-                                    "versatile-mutation-first:cold",
-                                    "versatile-mutation-second:cold",
-                                    "versatile-mutation-third:cold"
-                                ]
-                            }
+                            "versatile-mutation:cold"
                         ],
                         "value": "cold"
                     },
@@ -281,13 +248,7 @@
                                     8
                                 ]
                             },
-                            {
-                                "or": [
-                                    "versatile-mutation-first:electricity",
-                                    "versatile-mutation-second:electricity",
-                                    "versatile-mutation-third:electricity"
-                                ]
-                            }
+                            "versatile-mutation-second:electricity"
                         ],
                         "value": "electricity"
                     },
@@ -300,13 +261,7 @@
                                     8
                                 ]
                             },
-                            {
-                                "or": [
-                                    "versatile-mutation-first:fire",
-                                    "versatile-mutation-second:fire",
-                                    "versatile-mutation-third:fire"
-                                ]
-                            }
+                            "versatile-mutation:fire"
                         ],
                         "value": "fire"
                     },
@@ -323,13 +278,7 @@
                                     8
                                 ]
                             },
-                            {
-                                "or": [
-                                    "versatile-mutation-first:sonic",
-                                    "versatile-mutation-second:sonic",
-                                    "versatile-mutation-third:sonic"
-                                ]
-                            }
+                            "versatile-mutation:sonic"
                         ],
                         "value": "sonic"
                     },
@@ -344,9 +293,6 @@
             {
                 "key": "DamageAlteration",
                 "mode": "override",
-                "predicate": [
-                    "damage:type:piercing"
-                ],
                 "property": "damage-type",
                 "selectors": [
                     "spit-ambient-magic-inline-damage"
