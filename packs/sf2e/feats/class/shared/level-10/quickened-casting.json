@@ -1,21 +1,25 @@
 {
-    "_id": "pJB9powzIAxCJTKU",
-    "folder": "Rg0B9WunJDjE6Edi",
+    "_id": "v7ro0JY321lrvFtl",
+    "folder": "uXABPYhUIkADUbOE",
     "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
-    "name": "Reach Spell (Starfinder)",
+    "name": "Quickened Casting",
     "system": {
         "actionType": {
-            "value": "action"
+            "value": "free"
         },
         "actions": {
-            "value": 1
+            "value": null
         },
         "category": "class",
         "description": {
-            "value": "<p>You can extend the range of your spells. If the next action you use is to Cast a Spell that has a range, increase that spell's range by 30 feet. As is standard for increasing spell ranges, if the spell normally has a range of touch, you extend its range to 30 feet.</p>"
+            "value": "<p><strong>Frequency</strong> once per day</p><hr /><p>You accelerate your spellcasting. If your next action is to cast a mystic cantrip or a mystic spell that's at least 2 ranks lower than the highest-rank mystic spell slot you have, reduce the number of actions to cast it by 1 (minimum 1 action).</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
         },
         "level": {
-            "value": 1
+            "value": 10
         },
         "prerequisites": {
             "value": []
@@ -35,7 +39,7 @@
                 "suboptions": [
                     {
                         "label": "{item|name}",
-                        "value": "reach-spell"
+                        "value": "quickened-casting"
                     }
                 ],
                 "toggleable": true
@@ -45,12 +49,19 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "spellshape:reach-spell"
+                    "spellshape:quickened-casting",
+                    {
+                        "or": [
+                            "item:cast:actions:1",
+                            "item:cast:actions:2",
+                            "item:cast:actions:3"
+                        ]
+                    }
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "{item|description}"
+                        "text": "PF2E.SpecificRule.Spellshape.QuickenedCasting"
                     }
                 ]
             }
