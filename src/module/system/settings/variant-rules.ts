@@ -216,7 +216,7 @@ export class VariantRulesSettings extends fa.api.HandlebarsApplicationMixin(fa.a
         const submitData = formData.object;
         const promises: Promise<unknown>[] = [];
         for (const key of Object.keys(VariantRulesSettings.#SETTINGS)) {
-            const value = submitData[`pf2e.${key}`];
+            const value = submitData[`${SYSTEM_ID}.${key}`];
             if (value !== undefined) promises.push(game.settings.set(SYSTEM_ID, key, value));
         }
         await Promise.all(promises);
