@@ -277,7 +277,7 @@ class CompendiumPack {
                     getFolderPath({ folders: pf2eFolders, dirName: packDirName }, f),
                 ]);
                 // Maps the SF2e folder to the folder ID
-                const sf2eFolderLookup = R.mapToObj(folders, (f) => [
+                const sf2eFolderIds = R.mapToObj(folders, (f) => [
                     getFolderPath({ folders, dirName: packDirName }, f),
                     f._id,
                 ]);
@@ -289,7 +289,7 @@ class CompendiumPack {
                     const source = parsePackEntrySource(pf2ePath);
                     if (source.folder) {
                         const folderPath = pf2eFolderPaths[source.folder];
-                        source.folder = sf2eFolderLookup[folderPath] ?? folders.find((f) => f._id === source.folder);
+                        source.folder = sf2eFolderIds[folderPath] ?? folders.find((f) => f._id === source.folder)?._id;
                         if (!source.folder) {
                             console.warn(`Failed to find folder ${folderPath} for item ${name} in pack ${packDirName}`);
                         }
