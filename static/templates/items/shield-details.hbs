@@ -119,18 +119,24 @@
         {{#each propertyRuneSlots as |slot index|}}
             <div class="form-group">
                 <label
-                    for="{{../fieldIdPrefix}}integrated-runes-property-{{index}}"
+                    for="{{../fieldIdPrefix}}runes-property-{{index}}"
                     {{#if slot.disabled}}class="disabled"{{/if}}
                 >
                     {{localize (concat "PF2E.PropertyRuneLabel" (add index 1))}}
                 </label>
                 <select
                     name="system.traits.integrated.runes.property.{{index}}"
-                    id="{{../fieldIdPrefix}}integrated-runes-property-{{index}}"
+                    id="{{../fieldIdPrefix}}runes-property-{{index}}"
                     {{disabled slot.disabled}}
-                    {{#if slot.readOnly}}class="readonly"{{/if}}
+                    class="{{#if @root.item.isSpecific}}readonly{{/if}}{{#if slot.adjusted}} adjusted{{/if}}"
                 >
-                    {{selectOptions @root.weaponRunes.property selected=slot.slug valueAttr="slug" labelAttr="name" blank="" localize=true}}
+                    {{selectOptions
+                        @root.weaponRunes.property
+                        selected=slot.slug
+                        valueAttr="slug"
+                        labelAttr="name"
+                        blank=""
+                        localize=true}}
                 </select>
             </div>
         {{/each}}

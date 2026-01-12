@@ -7,7 +7,6 @@ import {
     PhysicalItemSheetPF2e,
     RUNE_DATA,
 } from "@item/physical/index.ts";
-import { WeaponPropertyRuneType } from "@item/weapon/types.ts";
 import { htmlQuery, sortStringRecord } from "@util";
 import * as R from "remeda";
 import { SpecificShieldData } from "./data.ts";
@@ -19,22 +18,26 @@ class ShieldSheetPF2e extends PhysicalItemSheetPF2e<ShieldPF2e> {
     override async getData(options?: Partial<ItemSheetOptions>): Promise<ShieldSheetData> {
         const sheetData = await super.getData(options);
         const shield = this.item;
-
         const isSpecificShield = shield.isSpecific;
         const weaponRunes = shield.system.traits.integrated?.runes;
-        const hasPotencyRune = !!weaponRunes?.potency;
-        const slotIndexes = ((): number[] => {
-            if (!hasPotencyRune) return [];
-            if (isSpecificShield) return weaponRunes.property.map((_p, index) => index);
-            return shield.system.material.type === "orichalcum" ? [0, 1, 2, 3] : [0, 1, 2];
+        const slotCount = ((): number => {
+            if (!weaponRunes?.potency) return 0;
+            if (isSpecificShield) return weaponRunes.property.length;
+            return shield.system.material.type === "orichalcum"
+                ? weaponRunes.potency === 3
+                    ? 4
+                    : weaponRunes.potency
+                : weaponRunes.potency;
         })();
-        const propertyRuneSlots = slotIndexes.map((i) => ({
-            slug: weaponRunes?.property[i] ?? null,
-            disabled:
-                !weaponRunes?.potency ||
-                ((i === 3 || weaponRunes.potency < 3) && i > 0 && (!weaponRunes.property[i - 1] || !isSpecificShield)),
-            readOnly: isSpecificShield,
-        }));
+        const propertyRuneSlots = Array.fromRange(slotCount).map((i) => {
+            const slug = weaponRunes?.property[i] ?? null;
+            return {
+                slug,
+                label: (slug && RUNE_DATA.weapon.property[slug]?.name) ?? null,
+                adjusted: !!slug && !weaponRunes?.property.includes(weaponRunes.property[i]),
+                disabled: i > 0 && !weaponRunes?.property[i - 1],
+            };
+        });
         const materialData = shield.isBuckler
             ? MATERIAL_DATA.shield.buckler
             : shield.isTowerShield
@@ -95,9 +98,10 @@ interface ShieldSheetData extends PhysicalItemSheetData<ShieldPF2e> {
     canChangeMaterial: boolean;
     preciousMaterials: MaterialSheetData;
     propertyRuneSlots: {
-        slug: WeaponPropertyRuneType | null;
+        slug: string | null;
+        label: string | null;
+        adjusted: boolean;
         disabled: boolean;
-        readOnly: boolean;
     }[];
     reinforcing: Record<number, string | null>;
     weaponRunes: typeof RUNE_DATA.weapon | null;
