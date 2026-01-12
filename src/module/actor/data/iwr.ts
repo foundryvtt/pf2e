@@ -25,12 +25,6 @@ abstract class IWR<TType extends IWRType> {
 
     protected abstract readonly typeLabels: Record<TType, string>;
 
-    static get disjuncter(): Intl.ListFormat {
-        return (this.#disjunctor ??= new Intl.ListFormat(game.i18n.lang, { style: "long", type: "disjunction" }));
-    }
-
-    static #disjunctor: Intl.ListFormat | null = null;
-
     constructor(data: IWRConstructorData<TType>) {
         this.type = data.type;
         this.exceptions = fu.deepClone(data.exceptions ?? []);
@@ -51,10 +45,11 @@ abstract class IWR<TType extends IWRType> {
     /** Create a possibly complex IWR label with exceptions and types for which the value doubles. */
     #createLabel({ withValue }: { withValue: boolean }): string {
         const type = this.typeLabel;
-        const exceptions = IWR.disjuncter.format(
+        const disjunctor = game.i18n.getListFormatter({ style: "long", type: "disjunction" });
+        const exceptions = disjunctor.format(
             this.exceptions.map((e) => game.i18n.localize(typeof e === "string" ? this.typeLabels[e] : e.label)),
         );
-        const doubleVs = IWR.disjuncter.format(
+        const doubleVs = disjunctor.format(
             this.doubleVs?.map((e) => game.i18n.localize(typeof e === "string" ? this.typeLabels[e] : e.label)) ?? [],
         );
         const key =
