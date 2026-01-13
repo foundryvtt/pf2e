@@ -1,3 +1,138 @@
+## 7.9.0
+
+### System Improvements
+
+- (jfn4th) Convert Craft and Repair Action Macros to Appv2 and Svelte
+- (jfn4th) Convert Recall Knowledge Breakdown to AppV2
+- (kromko) Prevent item transfer from triggering multiple times with multiple GMs present
+- (Rigo) Flip multiplier of held ctrl/shift keys in Trade Dialog to match actor sheet inventory
+- (stwlam) Convert Earn Income dialog to `ApplicationV2`
+- (stwlam) Remove automatic application of bleed immunity to undead
+- (stwlam) Replace tooltipster with foundry tooltip for iwr tips
+- (Supe) Add npc attack tag for magazine size
+- (Supe) Fix item price adjustment hint tooltip
+- (Supe) Show linked weapon in npc attack sheet and relink to compatible matches when generating attacks
+- (Tikael) Remove the Remaster Journal popup on new worlds
+
+### Bugfixes
+
+- (Rigo) Fix invalid localization string in NPC 'Show Artwork' tooltip
+- (stwlam) Ensure uniformity of `signedInteger` return values across locales
+- (stwlam) Fix number of property-rune slots shown for shield-integrated weapons
+- (stwlam) Remove ranged-trip from ranged-only traits
+- (stwlam) Restore labels to attacks on hazard sheets
+- (stwlam) Use ancestry reach value when setting PC reach from ancestry
+- (Supe) Fix NPCs and characters with 0 base speed increasing to 5.
+- (Supe) Fix removing platinum pieces when doing so by value
+- (Supe) Fix Strike RE with max but not increment getting set to range increment 5
+- (Supe) Fix weapon reload when doing so from the attack popup in the hotbar
+- (Supe) Set source grade value when adding the tech or analog trait to an empty weapon
+
+### Data Updates
+
+- (Ambrose, Mecha Maya, Rigo, Supe, Tikael) Prepare data for Starfinder 2e system
+- (Ambrose) Add Arcane tradition to Insect Form spell
+- (Ambrose) Add automation to Versatile Mutation feat
+- (Ambrose) Add effects for Sihedron Medallion and Whose Cry is Thunder
+- (Ambrose) Add inline checks for Influence Rumor and Endless Realities
+- (Ambrose) Add missing localizations for 5th Property Rune
+- (Ambrose) Add missing Elemental Eidolon actions and redirect links from Animal Companion module
+- (Ambrose) Update Publication Source on Elementalist Focus spells to Rage of Elements
+- (Ambrose) Fix Elemental Instinct's Raging Resistance
+- (Ambrose) Add missing link to Divine Aegis Effect
+- (Ambrose) Add scaling damage text to Pernicious Poltergeist spell
+- (Ambrose) Automate Dual Finisher's penalty on non-Agile weapons
+- (Ambrose) Brush up Tumbling Opportunist's description
+- (Ambrose) Brush up many NPCs
+- (Ambrose) Correct Assume Earth's Mantle Choice Set predicate for Large size Ancestries
+- (Ambrose) Correct feat category for Preternatural Polish
+- (Ambrose) Correct item level for 7th Rank Wand of Overflowing Life
+- (Ambrose) Correct Secondary Checks and Secondary Casters details for Concealment's Curtain
+- (Ambrose) Correct slugs in Dragon Spit Choice Set to include Ignition
+- (Ambrose) Correct sources for Flame Order, Stone Order and Wave Order druid class features
+- (Ambrose) Correct typos in Dragon Turret spell
+- (Ambrose) Delete and redirect npcs to their Monster Core 2 and Lost Omens Pathfinder Draconic Codex reprints
+- (Ambrose) Enable `removeAfterRoll` for Ancestral Memories spell effect
+- (Ambrose) Fix Nimble Dodge not working with Nimble Roll
+- (Ambrose) Remove extraneous links in Detect Metal, Detect Magic, and Consecrate
+- (Ambrose) Remove grapple trait from Kaiju Stance's Strike
+- (Ambrose) Update Anti Dragon Barding (Greater) description to correct the bonus value
+- (Ambrose) Update Divine Aegis effect to use Adjust Modifier
+- (Ambrose) Update Domains journal with Draconic Codex options
+- (Ambrose) Update Dragon Form's table to include options introduced in Draconic Codex
+- (Ambrose) Update Kickback trait description to match Remaster update
+- (Ambrose) Update Manifestation of Nightmare's Unnerving Echo's automation
+- (Ambrose) Update predicates on Double Slice Feat
+- (Ambrose) Update Yacob's Handwrap of Mighty Blows and add missing Striking Rune
+- (Ambrose) Update You're Next description Item Alteration to account for dedications
+- (Arrrthritis) Added missing traditions to Share Pain
+- (Daomephsta) Fix Cavern Troll's Furious Throw not being a reaction
+- (Dire Weasel) Add effect for Emergency Medical Assistance
+- (Dire Weasel) Add level to name of Akki NPCs
+- (Dire Weasel) Add traits and unify damage for Electrocable
+- (Dire Weasel) Allow Advanced Glory to be taken more than once
+- (Dire Weasel) Brush up Daredevil Boots
+- (Dire Weasel) Brush up NPC Swarming Bites abilities
+- (Dire Weasel) Fix predicates for Adept Benefit (Wand)
+- (Dire Weasel) Fix multiple token names and sources
+- (Dire Weasel) Fix some missing auras for Draconic Codex
+- (Dire Weasel) Remove prerequisites and self effect from Defensive Recovery
+- (Dire Weasel) Standardize automation for Draconic Momentum
+- (Dire Weasel) Standardize some ability recharge labels
+- (Dire Weasel) Update Battle Prayer damage links to auto-scale
+- (Dire Weasel) Update Hellcat's Fearful Attack toggle to be totm
+- (Dire Weasel) Update Horn of Blasting to last CRB printing
+- (Dire Weasel) Update Oath, Resurrection, and Rime Dragons
+- (Dire Weasel) Update Requiem Archdragons
+- (Dire Weasel) Update several rogue feats and a fighter feat to use inline actions
+- (DocSchlock) Cleanup Holy Host and Unholy Army
+- (DZ) Fix expression for Scales of Steel ancestry feat
+- (failwiz) Add automation to Underhanded Assault stealth penalty
+- (failwiz) Add some missing inlines on psychic class feats
+- (kromko) Add missing prices for Battlecry! items
+- (kromko) Fix capitalization of Suppressed trait description key
+- (kromko) Fix incorrect localization keys
+- (kromko) Fix some activation formatting
+- (kromko) Fix Stone Lion notes formatting
+- (kromko) Remove Draconic Frenzy and Momentum from draconic spellcasters
+- (kromko) Replace IWR disjunctor with core list formatter
+- (Longstrider) Fix several typos in SF2e data
+- (rectulo) Fix formatting in duty of the oathsworn description
+- (rectulo) Fix typo in prerequisites value for draconic paragon
+- (rectulo) Set level value to 20 for Sorshen's garment
+- (Reiaka) Fix fly speed calculation in Soaring Wings effect
+- (Rigo) Add 5 instead of 10 additional reach with Compliant Gold
+- (Rigo) Add critical hits exception to Skin Hard as Horn ikon
+- (Rigo) Add effect for Flensing Slice
+- (Rigo) Add spell effect for Crushing Ground
+- (Rigo) Allow merging of magical banner auras with commander's banner aura
+- (Rigo) Condense Living Fortification effect and make it a self-applied effect
+- (Rigo) Fix action cost of Scattershot on Barrage Dragons
+- (Rigo) Fix auto-resolving Choice Set in draconic benefactor
+- (Rigo) Fix typo in Aldori Swordlord effect and archdragon names
+- (Rigo) Grant slinger's reload and initial deed with their respective archetype feats
+- (Rigo) Link Share Hunter's Edge effects and add edge-sharing feat description addenda in Hunt Prey action
+- (Rigo) Set action cost of Mythic Strike to 1-action
+- (Rigo) Set uncommon rarity on some domain spells
+- (Rigo) Uncapitalize condition names in sleep spell
+- (Rigo) Update dragon instinct with Draconic Codex dragons
+- (SpartanCPA) Add Twisting Tree automation for Onyiji
+- (Suldrun45) Update Spell Effect: Dragon Form with the Draconic Codex options
+- (Supe) Fix ammo type for crescent cross
+- (Tikael) Add content from PFS 7-08 and SFS 1-11 and 1-12
+- (Tikael) Automate sanctification of Faith Tattoo
+- (Tikael) Automate Traditional Resistances Dragonblood feat
+- (Tikael) Fix heightened rank of Share Pain
+- (Tikael) Remove expiring effects from Runelords book 3 actors
+- (Vauxs) Add description alteration for juvenile flight feat: The Sequel
+- (Vlada) Add strike rule to solar weapon to change damage dice with two hand d10 trait
+- (websterguy) Fix AdjustModifier targeting on Effect Swift Standard
+- (websterguy) Remove unnecessary rule element from Extra Vial familiar ability
+
+### Under the Hood
+
+- (jfn4th) Use core color vars in `svelecte-pf2e' and abc picker
+
 ## 7.8.0
 
 ### System Improvements
