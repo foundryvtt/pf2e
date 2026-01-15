@@ -1,0 +1,79 @@
+{
+    "_id": "MwOIzOn144wosWHQ",
+    "img": "systems/pf2e/icons/equipment/armor/buckle-armor.webp",
+    "name": "Effect: Ouroboros Buckles (Swarm of Snakes)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ouroboros Buckles]</p>\n<p>You gain low-light vision, imprecise scent (30 feet), a Speed of 20 feet, a climb Speed of 20 feet, and a swim Speed of 20 feet. You have an AC of 16 + your level and ignore your armor's check penalty and Speed reduction. Also, you gain resistance 5 to physical damage and weakness 5 to area damage and splash damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 19
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Treasure Vault (Remastered)"
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "ignoreCheckPenalty": true,
+                        "ignoreSpeedReduction": true,
+                        "modifier": "16 + @actor.level"
+                    },
+                    "resistances": [
+                        {
+                            "type": "physical",
+                            "value": 5
+                        }
+                    ],
+                    "senses": {
+                        "lowLightVision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 30
+                        }
+                    },
+                    "size": "lg",
+                    "speeds": {
+                        "climb": 20,
+                        "land": 20,
+                        "swim": 20
+                    },
+                    "traits": [
+                        "large"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": [
+                                "area-damage",
+                                "splash-damage"
+                            ],
+                            "value": 5
+                        }
+                    ]
+                }
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
