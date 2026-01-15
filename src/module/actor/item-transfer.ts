@@ -47,7 +47,7 @@ export class ItemTransfer implements ItemTransferData {
     }
 
     async request(): Promise<void> {
-        const gamemaster = game.users.find((u) => u.isGM && u.active);
+        const gamemaster = game.users.activeGM;
         if (!gamemaster) {
             const source = this.#getSource();
             const target = this.#getTarget();

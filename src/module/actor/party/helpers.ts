@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor";
 
 /** Create the first party actor in this (typically new) world */
 async function createFirstParty(): Promise<void> {
-    if (game.user !== game.users.activeGM || game.settings.get(SYSTEM_ID, "createdFirstParty")) {
+    if (!game.user.isActiveGM || game.settings.get(SYSTEM_ID, "createdFirstParty")) {
         return;
     }
 

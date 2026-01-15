@@ -55,7 +55,7 @@ export const Ready = {
             // Save the current world schema version if hasn't before.
             storeInitialWorldVersions().then(async () => {
                 // Ensure only a single GM will run migrations if multiple are logged in
-                if (game.user !== game.users.activeGM) return;
+                if (!game.user.isActiveGM) return;
 
                 // 🎉
                 await createFirstParty();
