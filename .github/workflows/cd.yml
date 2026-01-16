@@ -34,13 +34,13 @@ jobs:
 
       - name: Update Manifest
         run: |
-          SYSTEM_VERSION=$(grep -oP '(?<="version": ")[^"]+' dist/system.json | tr -d '\n')
-          perl -pi -E "s|latest/download/pf2e\\.zip|download/$SYSTEM_VERSION/pf2e.zip|" dist/system.json
+          SYSTEM_VERSION=$(grep -oP '(?<="version": ")[^"]+' dist/pf2e/system.json | tr -d '\n')
+          perl -pi -E "s|latest/download/pf2e\\.zip|download/$SYSTEM_VERSION/pf2e.zip|" dist/pf2e/system.json
           echo "systemVersion=$SYSTEM_VERSION" >> $GITHUB_ENV
 
       - name: Zip Files
-        working-directory: ./dist
-        run: zip -r ./pf2e.zip ./*
+        working-directory: ./dist/pf2e
+        run: zip -r ./system.zip ./*
 
       - name: Zip JSON Assets
         working-directory: ./json-assets
@@ -52,10 +52,10 @@ jobs:
         id: create_version_release
         uses: ncipollo/release-action@v1
         with:
-          name: ${{ env.systemVersion }}
+          name: ${{ env.systemVersion }} (pf2e)
           allowUpdates: false
           draft: false
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "./dist/system.json,./dist/pf2e.zip,./json-assets/json-assets.zip"
-          tag: ${{ env.systemVersion }}
+          artifacts: "./dist/pf2e/system.json,./dist/pf2e/system.zip,./json-assets/json-assets.zip"
+          tag: pf2e-${{ env.systemVersion }}
