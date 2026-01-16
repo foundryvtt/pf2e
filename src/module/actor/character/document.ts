@@ -779,7 +779,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             // Add resilient bonuses for wearing armor with a resilient rune or trait.
             if (wornArmor) {
                 const fromTraits = wornArmor.system.traits.config?.resilient ?? 0;
-                const fromRunes = wornArmor.isInvested ? wornArmor.system.runes.resilient : 0;
+                const isFullyEquipped = wornArmor.isEquipped && wornArmor.isInvested !== false;
+                const fromRunes = isFullyEquipped ? wornArmor.system.runes.resilient : 0;
                 const resilientModifier = Math.max(fromTraits, fromRunes);
                 if (resilientModifier) {
                     const slug = "resilient";
