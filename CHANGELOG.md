@@ -1,3 +1,9 @@
+## 7.9.1
+
+### Bugfixes
+
+- Fixes an issue with the build process
+
 ## 7.9.0
 
 ### System Improvements

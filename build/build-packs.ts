@@ -13,7 +13,7 @@ const args = argv
             choices: ["pf2e", "sf2e"],
             default: "pf2e",
         }).option("json", {
-            describe: "Create JSON assets for translator distrubition",
+            describe: "Create JSON assets for translator distribution",
             type: "boolean",
             default: false,
         });
@@ -25,8 +25,10 @@ const args = argv
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 const inDir = path.resolve(__dirname, "..", "packs", args.system);
 const outDir = path.resolve(__dirname, "..", "dist", args.system, "packs");
-await fs.promises.rm(outDir, { recursive: true, force: true });
-await fs.promises.mkdir(outDir, { recursive: true });
+if (!args.json) {
+    await fs.promises.rm(outDir, { recursive: true, force: true });
+    await fs.promises.mkdir(outDir, { recursive: true });
+}
 
 // Loads all packs into memory for the sake of making all document name/id mappings available
 const packs = fs.readdirSync(inDir).map((p) => CompendiumPack.loadJSON(p, { systemId: args.system }));
