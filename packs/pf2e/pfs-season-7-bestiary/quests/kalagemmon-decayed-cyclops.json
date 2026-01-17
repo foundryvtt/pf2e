@@ -1,5 +1,5 @@
 {
-    "_id": "uEZ42WF31g07okFE",
+    "_id": "e4nlM9X0JKwLQu4r",
     "folder": "bP1lCxa96qIVwQ59",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
@@ -950,6 +950,42 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "FyquAicGzcA4Zqod",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Kalagemmon, Decayed Cyclops",
@@ -1051,9 +1087,13 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "darkvision",
+            "details": "",
             "mod": 7,
-            "senses": []
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
