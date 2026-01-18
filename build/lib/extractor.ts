@@ -462,27 +462,24 @@ class PackExtractor {
                         if (docSource.prototypeToken?.name === docSource.name) {
                             delete (docSource as { prototypeToken?: object }).prototypeToken;
                         } else if (docSource.prototypeToken) {
-                            const withToken: {
-                                img: ImageFilePath;
-                                prototypeToken: DeepPartial<foundry.data.PrototypeTokenSource>;
-                            } = docSource;
-                            const ringSetting = docSource.prototypeToken.ring;
-                            withToken.prototypeToken = { name: docSource.prototypeToken.name };
+                            const { name, ring, texture } = docSource.prototypeToken;
+                            const prototypeToken: DeepPartial<foundry.data.PrototypeTokenSource> = { name };
                             // Iconics have special tokens
-                            if (withToken.img?.includes("iconics")) {
-                                withToken.prototypeToken.texture = {
-                                    src: withToken.img.replace("Full", "") as ImageFilePath,
+                            if (docSource.img?.includes("iconics")) {
+                                prototypeToken.texture = {
+                                    src: docSource.img.replace("Full", "") as ImageFilePath,
                                 };
-                                const scale = docSource.prototypeToken.texture?.scaleX ?? 1;
+                                const scale = texture?.scaleX ?? 1;
                                 if (scale !== 1) {
-                                    withToken.prototypeToken.texture.scaleX = scale;
-                                    withToken.prototypeToken.texture.scaleY = scale;
+                                    prototypeToken.texture.scaleX = scale;
+                                    prototypeToken.texture.scaleY = scale;
                                 }
                             }
                             // If using dynamic ring, preserve enabled status and subject texture
-                            if (ringSetting?.enabled) {
-                                withToken.prototypeToken.ring = R.pick(ringSetting, ["enabled", "subject"]);
+                            if (ring?.enabled) {
+                                prototypeToken.ring = R.pick(ring, ["enabled", "subject"]);
                             }
+                            docSource.prototypeToken = prototypeToken as foundry.data.PrototypeTokenSource;
                         }
 
                         if ("publication" in docSource.system.details) {
