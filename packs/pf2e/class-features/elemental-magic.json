@@ -96,27 +96,20 @@
                     "class:sorcerer",
                     "feature:bloodline-elemental"
                 ],
-                "prompt": "PF2E.SpecificRule.Elementalist.Sorcerer.ElementalFocusPrompt",
-                "rollOption": "elemental-focus-adjustment"
+                "prompt": "PF2E.SpecificRule.Elementalist.Sorcerer.ElementalFocusPrompt.Initial",
+                "rollOption": "elemental-focus-initial"
             },
             {
                 "itemType": "spell",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "elemental-focus-adjustment:yes",
+                    "elemental-focus-initial:yes",
                     {
                         "or": [
                             {
                                 "and": [
                                     "item:slug:serrate",
-                                    "elementalist:elemental-cycle",
-                                    "feature:bloodline:elemental:metal"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "item:slug:repel-metal",
                                     "elementalist:elemental-cycle",
                                     "feature:bloodline:elemental:metal"
                                 ]
@@ -130,21 +123,7 @@
                             },
                             {
                                 "and": [
-                                    "item:slug:wood-walk",
-                                    "elementalist:elemental-cycle",
-                                    "feature:bloodline:elemental:wood"
-                                ]
-                            },
-                            {
-                                "and": [
                                     "item:slug:updraft",
-                                    "elementalist:inner-sea-elementalism",
-                                    "feature:bloodline:elemental:air"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "item:slug:powerful-inhalation",
                                     "elementalist:inner-sea-elementalism",
                                     "feature:bloodline:elemental:air"
                                 ]
@@ -157,19 +136,7 @@
                             },
                             {
                                 "and": [
-                                    "item:slug:stone-lance",
-                                    "feature:bloodline:elemental:earth"
-                                ]
-                            },
-                            {
-                                "and": [
                                     "item:slug:wildfire",
-                                    "feature:bloodline:elemental:fire"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "item:slug:combustion",
                                     "feature:bloodline:elemental:fire"
                                 ]
                             },
@@ -177,6 +144,86 @@
                                 "and": [
                                     "item:slug:rising-surf",
                                     "feature:bloodline:elemental:water"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "priority": 121,
+                "property": "other-tags",
+                "value": "blood-magic-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "elemental-focus-initial:yes",
+                    "item:slug:elemental-toss"
+                ],
+                "priority": 121,
+                "property": "other-tags",
+                "value": "blood-magic-spell"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": "yes"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "no"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:sorcerer",
+                    "feature:bloodline-elemental"
+                ],
+                "prompt": "PF2E.SpecificRule.Elementalist.Sorcerer.ElementalFocusPrompt.Advanced",
+                "rollOption": "elemental-focus-advanced"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "elemental-focus-initial:yes",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:slug:repel-metal",
+                                    "elementalist:elemental-cycle",
+                                    "feature:bloodline:elemental:metal"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:wood-walk",
+                                    "elementalist:elemental-cycle",
+                                    "feature:bloodline:elemental:wood"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:powerful-inhalation",
+                                    "elementalist:inner-sea-elementalism",
+                                    "feature:bloodline:elemental:air"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:stone-lance",
+                                    "feature:bloodline:elemental:earth"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:combustion",
+                                    "feature:bloodline:elemental:fire"
                                 ]
                             },
                             {
@@ -197,15 +244,10 @@
                 "key": "ItemAlteration",
                 "mode": "remove",
                 "predicate": [
-                    "elemental-focus-adjustment:yes",
-                    {
-                        "or": [
-                            "item:slug:elemental-toss",
-                            "item:slug:elemental-motion"
-                        ]
-                    }
+                    "elemental-focus-advanced:yes",
+                    "item:slug:elemental-motion"
                 ],
-                "priority": 150,
+                "priority": 121,
                 "property": "other-tags",
                 "value": "blood-magic-spell"
             }
