@@ -67,11 +67,147 @@
                 },
                 "flag": "wizardElmentalistSchool",
                 "key": "ChoiceSet",
+                "predicate": [
+                    "class:wizard"
+                ],
                 "prompt": "PF2E.SpecificRule.Wizard.ArcaneSchool.Prompt"
             },
             {
                 "key": "GrantItem",
+                "predicate": [
+                    "class:wizard"
+                ],
                 "uuid": "{item|flags.pf2e.rulesSelections.wizardElmentalistSchool}"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": "yes"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "no"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:sorcerer",
+                    "feature:bloodline-elemental"
+                ],
+                "prompt": "PF2E.SpecificRule.Elementalist.Sorcerer.ElementalFocusPrompt",
+                "rollOption": "elemental-focus-adjustment"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "elemental-focus-adjustment:yes",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:slug:serrate",
+                                    "elementalist:elemental-cycle",
+                                    "feature:bloodline:elemental:metal"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:repel-metal",
+                                    "elementalist:elemental-cycle",
+                                    "feature:bloodline:elemental:metal"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:arms-of-nature",
+                                    "elementalist:elemental-cycle",
+                                    "feature:bloodline:elemental:wood"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:wood-walk",
+                                    "elementalist:elemental-cycle",
+                                    "feature:bloodline:elemental:wood"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:updraft",
+                                    "elementalist:inner-sea-elementalism",
+                                    "feature:bloodline:elemental:air"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:powerful-inhalation",
+                                    "elementalist:inner-sea-elementalism",
+                                    "feature:bloodline:elemental:air"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:crushing-ground",
+                                    "feature:bloodline:elemental:earth"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:stone-lance",
+                                    "feature:bloodline:elemental:earth"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:wildfire",
+                                    "feature:bloodline:elemental:fire"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:combustion",
+                                    "feature:bloodline:elemental:fire"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:rising-surf",
+                                    "feature:bloodline:elemental:water"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:pulverizing-cascade",
+                                    "feature:bloodline:elemental:water"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "priority": 121,
+                "property": "other-tags",
+                "value": "blood-magic-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "elemental-focus-adjustment:yes",
+                    {
+                        "or": [
+                            "item:slug:elemental-toss",
+                            "item:slug:elemental-motion"
+                        ]
+                    }
+                ],
+                "priority": 150,
+                "property": "other-tags",
+                "value": "blood-magic-spell"
             }
         ],
         "subfeatures": {
