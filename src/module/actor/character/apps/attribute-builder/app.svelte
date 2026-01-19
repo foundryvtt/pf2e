@@ -4,7 +4,7 @@
     import { createButtonRecord } from "@module/apps/attribute-builder/helpers.ts";
     import AttributeButton from "@module/apps/attribute-builder/components/attribute-button.svelte";
     import RemainingIndicator from "@module/apps/attribute-builder/components/remaining-indicator.svelte";
-    import { signedInteger, tupleHasValue } from "@util";
+    import { tupleHasValue } from "@util";
     import * as R from "remeda";
     import { AttributeBuilder, type AttributeBuilderState } from "./app.ts";
 
@@ -254,21 +254,6 @@
         });
     });
 
-    // Input values for manual mode - track locally to avoid cursor jumping
-    let manualInputs: Record<AttributeString, string> = $state(
-        Object.fromEntries(attributeList.map((attr) => [attr, data.attributeModifiers[attr]?.mod ?? "+0"])) as Record<
-            AttributeString,
-            string
-        >,
-    );
-
-    // Sync manual inputs when state changes
-    $effect(() => {
-        for (const attr of attributeList) {
-            manualInputs[attr] = data.attributeModifiers[attr]?.mod ?? "+0";
-        }
-    });
-
     function handleManualInputFocus(event: FocusEvent): void {
         const input = event.target as HTMLInputElement;
         input.select();
@@ -278,7 +263,6 @@
         const input = event.target as HTMLInputElement;
         const value = Number(input.value) || 0;
         const clampedValue = Math.clamp(value, MODIFIER_MIN, MODIFIER_MAX);
-        manualInputs[attribute] = signedInteger(clampedValue);
         foundryApp.handleManualModChange(attribute, clampedValue);
     }
 
