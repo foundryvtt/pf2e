@@ -942,6 +942,8 @@
     }
 
     hr {
+        position: relative;
         margin: var(--space-8) 0;
+        z-index: -1;
     }
 </style>
