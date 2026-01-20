@@ -1,7 +1,7 @@
 {
-    "_id": "RawLEPwyT5CtCZ4D",
+    "_id": "Ydjj9h3EwhVLmv11",
     "img": "systems/pf2e/icons/spells/protection.webp",
-    "name": "Spell Effect: Protection",
+    "name": "Spell Effect: Protection (Aura)",
     "system": {
         "description": {
             "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Protection].</p>\n<p>You gain a +1 status bonus to Armor Class and saving throws.</p>"
@@ -12,6 +12,7 @@
             "unit": "minutes",
             "value": 1
         },
+        "fromSpell": false,
         "level": {
             "value": 1
         },
@@ -30,23 +31,6 @@
                 ],
                 "type": "status",
                 "value": 1
-            },
-            {
-                "effects": [
-                    {
-                        "uuid": "Compendium.pf2e.spell-effects.Item.Ydjj9h3EwhVLmv11"
-                    }
-                ],
-                "key": "Aura",
-                "predicate": [
-                    {
-                        "gte": [
-                            "parent:level",
-                            3
-                        ]
-                    }
-                ],
-                "radius": 10
             }
         ],
         "start": {
@@ -57,7 +41,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },
