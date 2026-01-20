@@ -44,7 +44,41 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:trait:auditory"
+                    {
+                        "or": [
+                            "item:trait:auditory",
+                            {
+                                "and": [
+                                    "item:trait:attack",
+                                    "item:trait:sonic"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:auditory",
+                            {
+                                "and": [
+                                    "item:trait:attack",
+                                    "item:trait:sonic"
+                                ]
+                            }
+                        ]
+                    }
                 ],
                 "property": "description",
                 "value": [
