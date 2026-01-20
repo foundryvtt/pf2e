@@ -98,14 +98,25 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet, or 60 feet if the tormented hero is at 170 HP or lower. The psychic agony of the tormented hero spills into the world around them, inflicting murderous hallucinations of being trampled by the Oliphaunt or crushed beneath Spindlehorn. A non-undead creature that ends its turn in the aura must succeed at a @Check[will|dc:37] save or take @Damage[5d8[bludgeoning]] damage and be knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                    "value": "<p>30 feet, or 60 feet if the tormented hero is at 170 HP or lower. The psychic agony of the tormented hero spills into the world around them, inflicting murderous hallucinations of being trampled by the Oliphaunt or crushed beneath Spindlehorn. A non-undead creature that ends its turn in the aura must succeed at a @Check[will|dc:37|options:area-effect,damaging-effect,inflicts:prone] save or take @Damage[5d8[bludgeoning]|options:area-damage] damage and be knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": "ternary(lte(@actor.hitPoints.value, 170), 60, 30)",
+                        "slug": "tortured-gaze",
+                        "traits": [
+                            "divine",
+                            "illusion",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
