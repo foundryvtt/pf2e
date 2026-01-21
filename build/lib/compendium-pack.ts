@@ -512,17 +512,13 @@ class CompendiumPack {
 
         const filePath = path.resolve(outDir, this.dirName);
         const outFile = filePath.concat(".json");
-        if (fs.existsSync(outFile)) {
-            fs.rmSync(outFile, { force: true });
-        }
+        if (fs.existsSync(outFile)) fs.rmSync(outFile, { force: true });
         fs.writeFileSync(outFile, JSON.stringify(this.finalizeAll()));
 
         // Save folders if available
         if (this.folders.length > 0) {
             const folderFile = filePath.concat("_folders.json");
-            if (fs.existsSync(folderFile)) {
-                fs.rmSync(folderFile, { force: true });
-            }
+            if (fs.existsSync(folderFile)) fs.rmSync(folderFile, { force: true });
             fs.writeFileSync(folderFile, JSON.stringify(this.folders));
         }
         console.log(`File "${this.dirName}.json" with ${this.data.length} entries created successfully.`);
@@ -532,18 +528,9 @@ class CompendiumPack {
 
     #isDocumentSource(maybeDocSource: unknown): maybeDocSource is PackEntry {
         if (!R.isPlainObject(maybeDocSource)) return false;
-        const checks = Object.entries({
-            name: (data: { name?: unknown }) => typeof data.name === "string",
-        });
-
-        const failedChecks = checks
-            .map(([key, check]) => (check(maybeDocSource) ? null : key))
-            .filter((key) => key !== null);
-
-        if (failedChecks.length > 0) {
-            throw PackError(`Document source in (${this.id}) has invalid or missing keys: ${failedChecks.join(", ")}`);
+        if (typeof maybeDocSource.name !== "string") {
+            throw PackError(`Document source in (${this.id}) has an invalid or missing name`);
         }
-
         return true;
     }
 
@@ -560,10 +547,9 @@ class CompendiumPack {
     }
 
     #assertSizeValid(source: ActorSourcePF2e | ItemSourcePF2e): void {
-        if (source.type === "npc" || source.type === "vehicle") {
-            if (!tupleHasValue(SIZES, source.system.traits.size.value)) {
-                throw PackError(`Actor size on ${source.name} (${source._id}) is invalid.`);
-            }
+        const sizeIsStored = source.type === "npc" || source.type === "vehicle";
+        if (sizeIsStored && !tupleHasValue(SIZES, source.system.traits.size.value)) {
+            throw PackError(`Actor size on ${source.name} (${source._id}) is invalid.`);
         }
     }
 }
