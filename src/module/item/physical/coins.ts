@@ -160,7 +160,7 @@ class Coins implements RawCoins {
         }
 
         // Simplify to GP if normalization is enabled
-        const coins = normalize ? this.#normalized() : this;
+        const coins = normalize ? this.normalized() : this;
 
         // Return 0 in the default denomination if there's nothing
         if (CURRENCY_TYPES.every((denomination) => !coins[denomination])) {
@@ -179,8 +179,12 @@ class Coins implements RawCoins {
         return parts.join(", ");
     }
 
-    /** Internal helper to normalize to GP */
-    #normalized() {
+    /** Returns the coins normalized to the system currency */
+    normalized(): Coins {
+        if (SYSTEM_ID === "sf2e") {
+            return new Coins({ credits: Math.ceil(this.copperValue / 10) });
+        }
+
         const coins = new Coins({ cp: this.copperValue });
         coins.sp = Math.floor(coins.cp / 10);
         coins.cp = coins.cp % 10;

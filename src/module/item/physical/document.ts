@@ -271,7 +271,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         if (traits.includes("infused")) this.system.temporary = true;
 
         // Normalize and fill price data
-        this.system.price.value = new Coins(this.system.temporary ? {} : this.system.price.value);
+        this.system.price.value = new Coins(this.system.temporary ? {} : this.system.price.value).normalized();
         this.system.price.per = Math.max(1, this.system.price.per ?? 1);
         this.system.price.sizeSensitive ??= true;
 
