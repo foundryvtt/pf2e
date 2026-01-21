@@ -5,7 +5,8 @@
     "name": "Reality Ripper",
     "system": {
         "ammo": {
-            "baseType": "battery"
+            "baseType": "battery",
+            "builtIn": false
         },
         "baseItem": "reality-ripper",
         "bonus": {
@@ -25,7 +26,7 @@
             "value": "<p>This sleek rifle converts energy into projectiles of concentrated magic that tears apart matter by destroying its bindings to the reality. A reality ripper is modular and has two modes: destructive and reaping. While in destructive mode, the reality ripper deals acid damage and gains the razing trait. While in reaping mode, a reality ripper deals void damage and gains the concussive trait.</p>\n<p>A realty ripper's minimum weapon improvement is tactical, meaning its tracking +1 cannot be removed, though further improvements can be still applied.</p>"
         },
         "expend": 2,
-        "grade": "commercial",
+        "grade": "tactical",
         "group": "corrosive",
         "hardness": 0,
         "hp": {
@@ -68,11 +69,27 @@
             "value": 0
         },
         "traits": {
+            "config": {
+                "modular": [
+                    {
+                        "damageType": "acid",
+                        "traits": [
+                            "razing"
+                        ]
+                    },
+                    {
+                        "damageType": "void",
+                        "traits": [
+                            "deadly-d10"
+                        ]
+                    }
+                ]
+            },
             "rarity": "uncommon",
             "value": [
                 "caster",
-                "deadly-d10",
                 "magical",
+                "modular",
                 "tech",
                 "unwieldy"
             ]
