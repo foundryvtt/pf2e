@@ -84,7 +84,7 @@ class AttributeBuilder extends SvelteApplicationMixin<
                 keyAttribute: actor.keyAttribute,
                 currentLevel: actor.level,
                 abpEnabled: this.#abpEnabled,
-                gradualBoostsVariant: game.settings.get("pf2e", "gradualBoostsVariant"),
+                gradualBoostsVariant: game.settings.get(SYSTEM_ID, "gradualBoostsVariant"),
             },
         };
     }
