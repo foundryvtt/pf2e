@@ -45,3 +45,10 @@ body > .pf2e.absolute {
     position: absolute;
     z-index: var(--z-index-tooltip);
 }
+
+//Remove in V14: https://github.com/foundryvtt/foundryvtt/issues/13550
+body.theme-light .application:not(.themed) hr,
+.themed.theme-light hr {
+    background: none;
+    border-top: 2px groove var(--color-light-2);
+}

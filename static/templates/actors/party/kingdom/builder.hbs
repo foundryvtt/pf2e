@@ -78,8 +78,8 @@
                             </div>
                         </div>
                         <div class="abilities">
-                            {{#each boosts.buttons as |state|}}
-                                {{> buttons state=state}}
+                            {{#each boosts.buttons as |state ability|}}
+                                {{> buttons state=state ability=ability}}
                             {{/each}}
                         </div>
                     </div>
@@ -181,8 +181,8 @@
         </div>
         {{#if data.buttons}}
             <div class="abilities">
-                {{#each data.buttons as |state|}}
-                    {{> buttons state=state}}
+                {{#each data.buttons as |state ability|}}
+                    {{> buttons state=state ability=ability}}
                 {{/each}}
             </div>
         {{else}}
@@ -192,11 +192,11 @@
 {{/inline}}
 
 {{#*inline "buttons"}}
-    <div class="row-column" data-ability="{{state.ability}}" data-stat="{{state.stat}}">
-        {{#if flaw}}
+    <div class="row-column" data-ability="{{ability}}">
+        {{#if state.flaw}}
             {{> boostButton type="flaw" button=state.flaw}}
         {{/if}}
-        {{#if boost}}
+        {{#if state.boost}}
             {{> boostButton type="boost" button=state.boost}}
         {{/if}}
     </div>

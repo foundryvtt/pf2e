@@ -1,4 +1,4 @@
-import type { BoostFlawState } from "@actor/character/apps/attribute-builder.ts";
+import { createButtonRecord, type BoostFlawState } from "@module/apps/attribute-builder/helpers.ts";
 import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { SocketMessage } from "@scripts/socket.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
@@ -180,57 +180,50 @@ class KingdomBuilder extends appv1.api.FormApplication<Kingdom> {
     }
 
     #prepareAbilityBuilder(): KingdomAbilityBuilderData {
-        function createButtons(): Record<KingdomAbility, BoostFlawState> {
-            return Array.from(KINGDOM_ABILITIES).reduce(
-                (accumulated, ability) => {
-                    accumulated[ability] = { ability };
-                    return accumulated;
-                },
-                {} as Record<KingdomAbility, BoostFlawState>,
-            );
-        }
-
         const choices = this.kingdom.build.boosts;
 
         const mainBoosts = R.mapToObj(KINGDOM_BUILD_CATEGORIES, (prop) => {
             const buildItem = this.kingdom[prop];
             if (!buildItem) return [prop, null];
 
-            const buttons = createButtons();
             const selectedChoices = objectHasKey(choices, prop) ? choices[prop] : [];
             const boosts = resolveKingdomBoosts(buildItem, selectedChoices);
             const remaining = Math.max(0, buildItem.boosts.length - boosts.length);
-            for (const ability of KINGDOM_ABILITIES) {
-                const selected = boosts.includes(ability);
 
+            const buttons = createButtonRecord(KINGDOM_ABILITIES, (ability) => {
+                const selected = boosts.includes(ability);
                 // Kingmaker doesn't allow boosting a stat that has a flaw
                 if (ability === buildItem.flaw) {
-                    buttons[ability].flaw = { selected: true, locked: true };
+                    return { flaw: { selected: true, locked: true } };
                 } else if (selected || buildItem.boosts.includes("free")) {
-                    buttons[ability].boost = {
-                        selected,
-                        locked: buildItem.boosts.includes(ability),
-                        disabled: !selected && !remaining,
+                    return {
+                        boost: {
+                            selected,
+                            locked: buildItem.boosts.includes(ability),
+                            disabled: !selected && !remaining,
+                        },
                     };
                 }
-            }
+                return {};
+            });
 
             return [prop, { buttons, remaining }];
         });
 
         const levelBoosts = R.mapToObj(KINGDOM_BOOST_LEVELS, (level) => {
             const eligible = this.kingdom.level >= level;
-
-            const buttons = createButtons();
             const boosts = this.kingdom.build.boosts[level];
             const remaining = eligible ? Math.max(0, 2 - boosts.length) : 0;
-            for (const ability of KINGDOM_ABILITIES) {
+
+            const buttons = createButtonRecord(KINGDOM_ABILITIES, (ability) => {
                 const selected = boosts.includes(ability) && eligible;
-                buttons[ability].boost = {
-                    selected,
-                    disabled: !selected && !remaining,
+                return {
+                    boost: {
+                        selected,
+                        disabled: !selected && !remaining,
+                    },
                 };
-            }
+            });
 
             return [level, { buttons, remaining, eligible }];
         });
