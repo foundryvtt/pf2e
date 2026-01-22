@@ -504,13 +504,14 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     private prepareTraits(): void {
         // Get SF2e grade. For PF2e this resolves as commercial, which is equal to no runes.
         const { traits, runes } = this.system;
-        const gradeData = CONFIG.PF2E.weaponImprovements[this.system.grade ?? "commercial"];
 
         // Determine if this weapon uses runes or CTASEUP and clear the opposing data
-        const isSF2e = traits.value.some((v) => ["tech", "analog"].includes(v));
+        const isSF2e =
+            traits.value.some((v) => ["tech", "analog"].includes(v)) ||
+            traits.config.modular?.some((m) => m.traits.some((t) => ["tech", "analog"].includes(t)));
         if (!isSF2e) this.system.grade = null;
         this.system.grade = isSF2e ? (this.system.grade ?? "commercial") : null;
-        if (traits.value.includes("tech") || traits.value.includes("consumable")) runes.potency = runes.striking = 0;
+        if (isSF2e || traits.value.includes("consumable")) runes.potency = runes.striking = 0;
 
         // Add traits from fundamental runes
         const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
@@ -521,6 +522,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (magicTrait) traits.value.push(magicTrait);
 
         // Add traits from weapon grade
+        const gradeData = CONFIG.PF2E.weaponImprovements[this.system.grade ?? "commercial"];
         if (gradeData.tracking) addOrUpgradeTrait(traits, `tracking-${gradeData.tracking}`);
         const highestTracking = traits.config.tracking || 0;
 

@@ -2,8 +2,8 @@ import { ActorPF2e, ActorProxyPF2e } from "@actor";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { ItemTransfer } from "@actor/item-transfer.ts";
 import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
-import { PhysicalItemSource } from "@item/base/data/index.ts";
-import { ContainerBulkData } from "@item/container/data.ts";
+import type { ArmorSource, PhysicalItemSource, ShieldSource, WeaponSource } from "@item/base/data/index.ts";
+import type { ContainerBulkData } from "@item/container/data.ts";
 import { REINFORCING_RUNE_LOC_PATHS } from "@item/shield/values.ts";
 import { Rarity } from "@module/data.ts";
 import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
@@ -90,20 +90,39 @@ function getGradeData(item: PhysicalItemPF2e) {
 }
 
 /**
- * Checks if a change in traits leads to the item converting to sf2e or pf2e.
- * If so, it prompts for confirmation if data is being deleted, and allows the user to cancel.
+ * Checks if a change in item data leads to the item converting to sf2e (tech or analog) or pf2e (archaic) mechanics.
+ * If so, it prompts for confirmation, allows the user to cancel, and returns the result.
+ * This is checked during document _preUpdate to determine if data should be cleaned.
  * @returns pf2e or sf2e based on the new traits, or `null` if no change is to be made.
  * @throws an error if the user does not make a selection
  */
 async function checkPhysicalItemSystemChange(
     item: PhysicalItemPF2e,
-    changed: DeepPartial<PhysicalItemSource>,
+    changed: DeepPartial<WeaponSource | ArmorSource | ShieldSource>,
 ): Promise<"pf2e" | "sf2e" | null> {
-    const newTraits: string[] | undefined = changed.system?.traits?.value;
-    if (!item.isOfType("weapon", "armor", "shield") || !newTraits) return null;
+    if (!item.isOfType("weapon", "armor", "shield")) return null;
 
+    const previousBaseTraits = item._source.system.traits.value;
+    const newBaseTraits = changed.system?.traits?.value ?? previousBaseTraits;
+    const previousModularConfig = item._source.system.traits.config?.modular;
+    const newModularConfig = changed.system?.traits?.config?.modular ?? previousModularConfig;
+    if (previousBaseTraits === newBaseTraits && previousModularConfig === newModularConfig) return null;
+
+    // Collect base traits, including from modular. Some SF2e items include tech/analog in the trait config itself
+    const previousTraits = [
+        previousBaseTraits,
+        tupleHasValue(previousBaseTraits, "modular")
+            ? (previousModularConfig?.flatMap((m) => m.traits ?? []) ?? [])
+            : [],
+    ].flat();
+    const newTraits = [
+        newBaseTraits,
+        tupleHasValue(newBaseTraits, "modular") ? (newModularConfig?.flatMap((m) => m.traits ?? []) ?? []) : [],
+    ].flat();
+
+    // Check for the presence of tech/analog in traits as well as the presence of runes
     const sf2eTraits = ["tech", "analog"] as const;
-    const beforeSF2eTraits = item._source.system.traits.value.filter((t) => tupleHasValue(sf2eTraits, t));
+    const beforeSF2eTraits = previousTraits.filter((t) => tupleHasValue(sf2eTraits, t));
     const wasSF2e = !!beforeSF2eTraits.length;
     const becomingSF2e = newTraits.some((t) => tupleHasValue(sf2eTraits, t));
     const runes = item._source.system.runes;
@@ -117,11 +136,15 @@ async function checkPhysicalItemSystemChange(
     if (wasSF2e === becomingSF2e) return null;
     if (!(hasRunes || hasGrade)) return becomingSF2e ? "sf2e" : "pf2e";
 
-    const key = `PF2E.Item.Physical.ChangeEquipmentSystem.${becomingSF2e ? "ToStarfinder" : "ToPathfinder"}`;
+    // Figure out the message. Swapping tech to analog only makes sense if its the base traits
+    const wasBaseSF2e = previousBaseTraits.some((t) => tupleHasValue(sf2eTraits, t));
+    const key = `PF2E.Item.Physical.ChangeEquipmentSystem.${becomingSF2e ? "ToStarfinder" : wasBaseSF2e ? "ToPathfinderOrSwap" : "ToPathfinder"}`;
     const removedTrait = beforeSF2eTraits.find((t) => !newTraits.includes(t));
     const otherTrait = removedTrait === "tech" ? "analog" : "tech";
     const newTrait = newTraits.find((t) => tupleHasValue(sf2eTraits, t));
     const otherTraitLabel = otherTrait && game.i18n.localize(CONFIG.PF2E.equipmentTraits[otherTrait]);
+
+    const showChangeButton = !becomingSF2e && wasBaseSF2e && changed.system?.traits?.value;
     const result = await foundry.applications.api.DialogV2.wait({
         window: { title: "PF2E.Item.Physical.ChangeEquipmentSystem.Title" },
         position: { width: 400 },
@@ -134,7 +157,7 @@ async function checkPhysicalItemSystemChange(
         }),
         buttons: [
             { action: "yes", label: "Yes", icon: "fa-solid fa-check", callback: () => true },
-            !becomingSF2e && {
+            showChangeButton && {
                 action: "change",
                 label: otherTraitLabel,
                 icon: "fa-solid fa-robot",
@@ -146,10 +169,10 @@ async function checkPhysicalItemSystemChange(
     if (!result) {
         item.render(); // tagify is optimistic, so we need to re-render
         throw Error;
-    } else if (result === "change") {
+    } else if (result === "change" && changed.system?.traits?.value) {
         // If the change button is pressed, we are staying as sf2e but swapping the trait used
-        // To the caller of this function, this is a no change
-        newTraits.push(otherTrait);
+        // To the caller of this function, this is a no system change
+        changed.system.traits.value.push(otherTrait);
         return null;
     }
 
