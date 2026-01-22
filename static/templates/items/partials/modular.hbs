@@ -13,6 +13,8 @@
                     <tagify-tags class="tags paizo-style modular-traits" name="{{basePath}}.traits" value="{{json config.traits}}"></tagify-tags>
                     <button type="button" class="inline-control icon fa-solid fa-trash" data-action="remove-modular-config" data-index="{{index}}"></button>
                 </div>
+            {{else}}
+                <div class="empty">{{localize "PF2E.Item.Weapon.Modular.Default"}}</div>
             {{/each}}
         </div>
     </fieldset>
