@@ -184,7 +184,7 @@ class Bulk {
                         ? new Bulk()
                         : b.value <= 1
                           ? new Bulk(0.1)
-                          : new Bulk(Math.max(0.1, Math.floor(0.1 * this.value))),
+                          : new Bulk(Math.max(0.1, Math.floor(0.5 * this.value))),
                 actorSizeIndex - itemSizeIndex,
                 this,
             );
