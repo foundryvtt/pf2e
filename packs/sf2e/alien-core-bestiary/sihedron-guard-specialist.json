@@ -1233,12 +1233,18 @@
         },
         {
             "_id": "zJDkvPqldJ2h66My",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.nW1ZJKG81d9I3mAA"
+            },
             "folder": "1zLXGqhSgBIthlcs",
             "img": "systems/sf2e/icons/equipment/weapons/grenade-chemical.webp",
             "name": "Electromag Grenade (Advanced)",
             "sort": 1600000,
             "system": {
-                "ammo": null,
+                "ammo": {
+                    "baseType": null,
+                    "builtIn": false
+                },
                 "baseItem": "grenade",
                 "bonus": {
                     "value": 0
@@ -1387,6 +1393,9 @@
         },
         {
             "_id": "23xVGHEFd406l9yf",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.0Hdg9aWMIYVGjvj0"
+            },
             "folder": "7JvVdcPLRxEK9sec",
             "img": "systems/sf2e/icons/abilities/blue-energy-streak.webp",
             "name": "Shock Module (Commercial)",
@@ -1398,10 +1407,11 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This circuit safely courses electricity through your weapon. It deals an extra @Damage[1d6[electricity]] damage. On a critical hit, electricity arcs out to deal an equal amount of electricity damage to up to two other creatures of your choice within 10 feet of the target.</p>"
+                    "value": "<p>This circuit safely courses electricity through your weapon. It deals an extra 1d6 electricity damage. On a critical hit, electricity arcs out to deal an equal amount of electricity damage to up to two other creatures of your choice within 10 feet of the target.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -1427,7 +1437,24 @@
                     "title": "Starfinder Player Core"
                 },
                 "quantity": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "electricity",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "{item|parentItem.id}-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|parentItem.id}-damage",
+                        "text": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.ShockModule.CriticalNote",
+                        "title": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.ShockModule.LabelCommercial"
+                    }
+                ],
                 "size": "med",
                 "slug": "shock-module-commercial",
                 "traits": {
@@ -1439,13 +1466,16 @@
                     ]
                 },
                 "usage": {
-                    "value": "other"
+                    "value": "installed-in-a-weapon"
                 }
             },
             "type": "equipment"
         },
         {
             "_id": "iBLny7sDGnFQImLy",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.kFfYq4ONuKMgISRi"
+            },
             "folder": "JlUS4L43QWp3cPhu",
             "img": "icons/commodities/gems/gem-faceted-diamond-blue.webp",
             "name": "Aeon Stone (Uplifting)",
@@ -1461,6 +1491,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -1511,6 +1542,9 @@
         },
         {
             "_id": "78pIy4cj633wFDRP",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.7psnMwQ95uO5apQz"
+            },
             "folder": "cTmXSS0L1MClVGP3",
             "img": "systems/sf2e/icons/abilities/purple-third-eye.webp",
             "name": "Darkvision Visor",
@@ -1526,6 +1560,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -1566,13 +1601,16 @@
                     ]
                 },
                 "usage": {
-                    "value": "other"
+                    "value": "installed-in-armor"
                 }
             },
             "type": "equipment"
         },
         {
             "_id": "0WehVWuky4urM09p",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.equipment.Item.5PS5ESGpnQfJNOdg"
+            },
             "folder": "F6h7fO0Z7cgQBVRD",
             "img": "systems/sf2e/icons/equipment/other/blue-battery.webp",
             "name": "Battery (Tactical)",
@@ -1588,7 +1626,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -1603,6 +1642,7 @@
                     "type": null
                 },
                 "price": {
+                    "per": 1,
                     "value": {
                         "sp": 20
                     }
@@ -1621,7 +1661,7 @@
                     "value": []
                 },
                 "uses": {
-                    "autoDestroy": true,
+                    "autoDestroy": false,
                     "max": 20,
                     "value": 20
                 }
