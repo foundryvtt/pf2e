@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { resetActors } from "@actor/helpers.ts";
 import { createFirstParty } from "@actor/party/helpers.ts";
-import { MigrationSummary } from "@module/apps/migration-summary.ts";
+import { MigrationSummary } from "@module/apps/migration-summary/app.ts";
 import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster.ts";
 import { MigrationList } from "@module/migration/index.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
@@ -59,7 +59,7 @@ export const Ready = {
                         );
                     }
                     await migrationRunner.runMigration();
-                    new MigrationSummary().render(true);
+                    new MigrationSummary().render({ force: true });
                 }
 
                 // Update the world system version
