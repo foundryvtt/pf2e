@@ -1,4 +1,4 @@
-name: PF2e System CI
+name: Project CI
 
 on:
   pull_request:
@@ -17,16 +17,15 @@ jobs:
         node-version: [24.x]
 
     steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
       - uses: pnpm/action-setup@v4
         with:
           version: 10
-
-      - uses: actions/checkout@v4
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
 
       - name: Cache NPM Deps
         id: cache-npm
@@ -37,8 +36,7 @@ jobs:
 
       - name: Install NPM Deps
         if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        run: |
-          npm ci
+        run: npm ci
 
       - name: Build
         run: |
@@ -46,5 +44,4 @@ jobs:
           pnpm run build:packs --system=sf2e
 
       - name: Test
-        run: |
-          npm run test
+        run: npm run test

@@ -105,7 +105,7 @@ export class DistributeCoinsDialog extends fa.api.HandlebarsApplicationMixin(fa.
 
         // return if there is nothing to distribute
         if (share.copperValue === 0) {
-            ui.notifications.warn("Nothing to distribute");
+            ui.notifications.warn("PF2E.loot.NothingToDistribute", { localize: true });
             return;
         }
 
@@ -114,16 +114,13 @@ export class DistributeCoinsDialog extends fa.api.HandlebarsApplicationMixin(fa.
             ...selectedActors.map((a) => a.inventory.addCurrency(share)),
         ]);
 
-        const each = playerCount > 1 ? "each " : "";
-        let message = `Distributed ${share.toString({ unit: "raw" })} ${each}from ${actor.name} to `;
-
-        // Distribute to actors
-        for (const actor of selectedActors) {
-            const index = selectedActors.indexOf(actor);
-            if (index === 0) message += `${actor.name}`;
-            else if (index < playerCount - 1) message += `, ${actor.name}`;
-            else message += ` and ${actor.name}.`;
-        }
+        const recipients = game.i18n
+            .getListFormatter({ style: "long", type: "conjunction" })
+            .format(selectedActors.map((a) => a.name));
+        const message = game.i18n.format(
+            playerCount > 1 ? "PF2E.loot.DistributeEachMessage" : "PF2E.loot.DistributeMessage",
+            { share: share.toString({ unit: "raw" }), container: actor.name, recipients },
+        );
 
         ChatMessagePF2e.create({
             author: game.user.id,

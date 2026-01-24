@@ -146,6 +146,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return this.system.traits.value.some((t) => t === "magical" || setHasElement(MAGIC_TRADITIONS, t));
     }
 
+    /** Returns true if invested, false if not invested and requires investment, and otherwise null */
     get isInvested(): boolean | null {
         if (!this.system.traits.value.includes("invested")) return null;
         return (
@@ -270,7 +271,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         if (traits.includes("infused")) this.system.temporary = true;
 
         // Normalize and fill price data
-        this.system.price.value = new Coins(this.system.temporary ? {} : this.system.price.value);
+        this.system.price.value = new Coins(this.system.temporary ? {} : this.system.price.value).normalized();
         this.system.price.per = Math.max(1, this.system.price.per ?? 1);
         this.system.price.sizeSensitive ??= true;
 

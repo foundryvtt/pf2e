@@ -133,6 +133,23 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     },
                 },
             },
+            // Move system banners into place and delete other system's
+            {
+                name: "moveSystemBanners",
+                renderStart: {
+                    handler: async (outputOptions) => {
+                        const outDir = outputOptions.dir ?? "";
+                        const otherSystemId = SYSTEM_ID === "pf2e" ? "sf2e" : "pf2e";
+                        const bannersDir = path.join(outDir, "assets", "system-banners");
+                        await fs.promises.rm(path.join(bannersDir, otherSystemId), { recursive: true, force: true });
+                        for (const filename of await fs.promises.readdir(path.join(bannersDir, SYSTEM_ID))) {
+                            const prebuildPath = path.join(bannersDir, SYSTEM_ID, filename);
+                            await fs.promises.rename(prebuildPath, path.join(bannersDir, filename));
+                        }
+                        await fs.promises.rm(path.join(bannersDir, SYSTEM_ID), { recursive: true, force: true });
+                    },
+                },
+            },
             ...viteStaticCopy({
                 targets: [
                     { src: `system.${SYSTEM_ID}.json`, dest: ".", rename: "system.json" },

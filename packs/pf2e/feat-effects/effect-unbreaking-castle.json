@@ -1,0 +1,67 @@
+{
+    "_id": "FMfcQ2EvQT8QV3V0",
+    "img": "icons/environment/settlement/castle.webp",
+    "name": "Effect: Unbreaking Castle",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Unbreaking Castle]</p>\n<p>You gain a circumstance bonus to AC.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder War of Immortals"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusOne",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusTwo",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusThree",
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusFour",
+                        "value": 4
+                    }
+                ],
+                "flag": "unbreakingCastle",
+                "key": "ChoiceSet",
+                "label": "PF2E.SpecificRule.Prompt.Bonus"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.unbreakingCastle"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

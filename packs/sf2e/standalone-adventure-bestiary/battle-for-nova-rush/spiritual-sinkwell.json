@@ -1,0 +1,170 @@
+{
+    "_id": "d3VwBxBy5VMwfgxG",
+    "folder": "EVPPkDCXu8rx7tKt",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "eG94AolZ8qPfQdSf",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Soul-Draining Wave",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A necromantic energy cannon hits Nova Rush</p><hr /><p><strong>Effect</strong> Spiritual energy assails the cargo hold, dealing @Damage[(1d6+3)[spirit]] damage to creatures in area <strong>B1</strong> (@Check[fortitude|dc:18|basic]). The haunt sprouts several tentacle-like void lashes and rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "spirit",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ImYmd8uQYdLUesww",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Void Lash",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "DeTi3YH7ttwqU0XC": {
+                        "damage": "1d6+3",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 40,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Oig6V7nEl9MCdGZs",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>[[/gmr 1d20+9 #Athletics]]{+9} Athletics</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Alien Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Spiritual Sinkwell",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 3
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A necromantic sinkwell siphons creatures' life essence</p>",
+            "disable": "<p>@Check[arcana|dc:16], @Check[occultism|dc:16], or @Check[religion|dc:16] (trained) to safely disperse the void energy, @Check[athletics|dc:18] or @Check[thievery|dc:18] (trained) to sabotage the sinkwell; three total successes are required.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Adventure Battle for Nova Rush"
+            },
+            "reset": "<p>The haunt deactivates after 1 minute and does not reactivate.</p>",
+            "routine": "<p>(5 actions) The haunt makes two void lash Strikes against targets it hasn't yet @UUID[Compendium.sf2e.conditions.Item.Grabbed], then Grabs each creature it hit, with no multiple attack penalty. It automatically pulls grabbed creatures 5 feet toward its center, then deals @Damage[(1d6+3)[spirit]] damage (@Check[fortitude|dc:18|basic]) to creatures within 10 feet of its center. Creatures that critically fail are @UUID[Compendium.sf2e.conditions.Item.Drained]{Drained 1}.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

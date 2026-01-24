@@ -1,0 +1,119 @@
+{
+    "_id": "k3P0APls0jHEYdHz",
+    "img": "icons/magic/control/debuff-energy-hold-green.webp",
+    "name": "Effect: Pall of Silence",
+    "system": {
+        "description": {
+            "value": "<p>You can't use sonic attacks, use auditory actions, or Cast a Spell without the subtle trait.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 14
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #220: Crypt of Runes"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:sonic",
+                            "item:damage:type:sonic"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "attack-roll",
+                    "attack-damage"
+                ],
+                "text": "{item|description}",
+                "title": "{item|name}"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:auditory",
+                            {
+                                "and": [
+                                    "item:trait:attack",
+                                    "item:trait:sonic"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:auditory",
+                            {
+                                "and": [
+                                    "item:trait:attack",
+                                    "item:trait:sonic"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "item:trait:subtle"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

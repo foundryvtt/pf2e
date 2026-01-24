@@ -1,6 +1,7 @@
 import type { DataFieldOptions } from "@common/data/_types.d.mts";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ModularConfig } from "@item/base/data/system.ts";
 import { PersistentDamageValueSchema } from "@item/condition/data.ts";
 import { addOrUpgradeTrait, itemIsOfType, removeTrait } from "@item/helpers.ts";
 import { prepareBulkData } from "@item/physical/helpers.ts";
@@ -1074,6 +1075,20 @@ const ITEM_ALTERATION_HANDLERS = {
             if (data.item.system.traits.value) {
                 if (data.alteration.mode === "add") {
                     addOrUpgradeTrait(data.item.system.traits, newValue);
+
+                    // Add specific hardcoded handling for modular. Assume BPS if no value given
+                    // todo: add support for modular configs in the annotation property.
+                    if (data.item instanceof Item && data.item.isOfType("weapon", "melee") && newValue === "modular") {
+                        const modular = (data.item.system.traits.config.modular ??= []);
+                        const bps: ModularConfig[] = [
+                            { damageType: "bludgeoning", traits: [] },
+                            { damageType: "piercing", traits: [] },
+                            { damageType: "slashing", traits: [] },
+                        ];
+                        modular.push(
+                            ...bps.filter((c): c is ModularConfig => !modular.some((m) => R.isDeepEqual(c, m))),
+                        );
+                    }
                 } else if (["subtract", "remove"].includes(data.alteration.mode)) {
                     removeTrait(data.item.system.traits, newValue);
                 }

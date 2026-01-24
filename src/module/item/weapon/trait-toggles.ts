@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { WeaponPF2e } from "@item";
+import { ModularConfig } from "@item/base/data/system.ts";
 import { nextDamageDieSize } from "@system/damage/helpers.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import { objectHasKey, tupleHasValue } from "@util";
@@ -27,18 +28,20 @@ class WeaponTraitToggles {
         return { selected };
     }
 
-    get modular(): { options: DamageType[]; selected: DamageType | null } {
+    get modular(): { options: ModularConfig[]; selected: number; config: ModularConfig } | null {
         const weapon = this.parent;
-        const options = this.#resolveOptions("modular");
-        const sourceSelection = weapon._source.system.traits.toggles?.modular?.selected;
-        const selected = tupleHasValue(options, sourceSelection)
-            ? sourceSelection
-            : // If the weapon's damage type is represented among the modular options, set the selection to it
-              options.includes(weapon.system.damage.damageType)
-              ? weapon.system.damage.damageType
-              : null;
+        const traits = weapon.system.traits;
+        if (!traits.value.includes("modular")) return null;
 
-        return { options, selected };
+        const existing = traits.config.modular?.length ? traits.config.modular : null;
+        const options = existing ?? [
+            { damageType: "bludgeoning", traits: [] },
+            { damageType: "piercing", traits: [] },
+            { damageType: "slashing", traits: [] },
+        ];
+        const selected = weapon._source.system.traits.toggles?.modular?.selected ?? 0;
+        const config = options.at(selected) ?? options[0];
+        return { options, selected, config };
     }
 
     get versatile(): { options: DamageType[]; selected: DamageType | null } {
@@ -50,7 +53,7 @@ class WeaponTraitToggles {
     }
 
     /** Collect selectable damage types among a list of toggleable weapon traits */
-    #resolveOptions(toggle: "modular" | "versatile"): DamageType[] {
+    #resolveOptions(toggle: "versatile"): DamageType[] {
         const weapon = this.parent;
         const types = weapon.system.traits.value
             .filter((t) => t.startsWith(toggle))
@@ -72,10 +75,7 @@ class WeaponTraitToggles {
             });
 
         const allOptions = Array.from(new Set(types));
-        return toggle === "modular"
-            ? allOptions
-            : // Filter out any versatile options that are the same as the weapon's base damage type
-              allOptions.filter((t) => weapon.system.damage.damageType !== t);
+        return allOptions.filter((t) => weapon.system.damage.damageType !== t);
     }
 
     applyChanges(): void {
@@ -95,13 +95,14 @@ class WeaponTraitToggles {
      * Update a modular or versatile weapon to change its damage type
      * @returns A promise indicating whether an update was made
      */
-    async update({ trait, selected }: ToggleWeaponTraitParams): Promise<boolean> {
+    async update(options: ToggleWeaponTraitParams): Promise<boolean> {
         const weapon = this.parent;
         const actor = weapon.actor;
         if (!actor?.isOfType("character")) return false;
 
+        const { trait, selected } = options;
         const property = trait === "double-barrel" ? "doubleBarrel" : trait;
-        const current = this[property].selected;
+        const current = this[property]?.selected;
         if (current === selected) return false;
 
         const item = actor.items.get(weapon.id);
@@ -113,7 +114,7 @@ class WeaponTraitToggles {
         } else if (trait === "versatile" && item?.isOfType("shield")) {
             item.update({ "system.traits.integrated.versatile.selected": selected });
         } else if (trait !== "double-barrel") {
-            weapon.rule?.toggleTrait({ trait, selected });
+            weapon.rule?.toggleTrait(options);
         }
 
         return true;
@@ -125,10 +126,9 @@ interface ToggleDoubleBarrelParams {
     selected: boolean;
 }
 
-interface ToggleModularVersatileParams {
-    trait: "modular" | "versatile";
-    selected: DamageType | null;
-}
+type ToggleModularVersatileParams =
+    | { trait: "modular"; selected: number | null }
+    | { trait: "versatile"; selected: DamageType | null };
 
 type ToggleWeaponTraitParams = ToggleDoubleBarrelParams | ToggleModularVersatileParams;
 

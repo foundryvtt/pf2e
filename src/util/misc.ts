@@ -204,8 +204,11 @@ function ordinalString(value: number): string {
 }
 
 /** Localizes a list of strings into a (possibly comma-delimited) list for the current language */
-function localizeList(items: string[], { conjunction = "or" }: { conjunction?: "and" | "or" } = {}): string {
-    items = [...items].sort((a, b) => a.localeCompare(b, game.i18n.lang));
+function localizeList(
+    items: string[],
+    { conjunction = "or", sort = true }: { conjunction?: "and" | "or"; sort?: boolean } = {},
+): string {
+    items = sort ? [...items].sort((a, b) => a.localeCompare(b, game.i18n.lang)) : items;
     const parts = conjunction === "or" ? "PF2E.ListPartsOr" : "PF2E.ListPartsAnd";
 
     if (items.length === 0) return "";

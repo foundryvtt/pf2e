@@ -1,10 +1,11 @@
 import { EffectPF2e, WeaponPF2e } from "@item";
+import type { ModularConfig } from "@item/base/data/system.ts";
 import type { ItemCarryType } from "@item/physical/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { ZeroToThree, ZeroToTwo } from "@module/data.ts";
 import type { RuleElementSource } from "@module/rules/index.ts";
-import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
-import { getActionGlyph, sluggify, tupleHasValue } from "@util";
+import { SheetOptions } from "@module/sheet/helpers.ts";
+import { getActionGlyph, localizeList, sluggify } from "@util";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 import { CharacterPF2e } from "./document.ts";
@@ -115,14 +116,29 @@ class WeaponAuxiliaryAction {
     }
 
     get options(): SheetOptions | null {
+        const traits = this.weapon.system.traits;
         if (this.annotation === "modular") {
-            const toggles = this.weapon.system.traits.toggles;
-            return createSheetOptions(
-                R.pick(CONFIG.PF2E.damageTypes, toggles.modular.options),
-                [toggles.modular.selected ?? []].flat(),
-            );
+            const toggles = traits.toggles.modular;
+            if (!toggles) return null;
+            const options = toggles.options.map((config, idx) => {
+                const label = this.#getModularConfigLabel(config);
+                return { value: String(idx), label, selected: idx === toggles.selected };
+            });
+
+            return R.mapToObj(options, (e) => [e.value, e]);
         }
         return null;
+    }
+
+    #getModularConfigLabel(config: ModularConfig) {
+        const parts: string[] = [];
+        if (config.damageType) parts.push(game.i18n.localize(CONFIG.PF2E.damageTypes[config.damageType]));
+        parts.push(
+            ...config.traits
+                .map((t) => game.i18n.localize(CONFIG.PF2E.weaponTraits[t]))
+                .sort((a, b) => a.localeCompare(b, game.i18n.lang)),
+        );
+        return localizeList(parts, { conjunction: "and", sort: false });
     }
 
     /**
@@ -135,8 +151,11 @@ class WeaponAuxiliaryAction {
 
         if (this.carryType) {
             await actor.changeCarryType(this.weapon, { carryType: this.carryType, handsHeld: this.hands ?? 0 });
-        } else if (selection && tupleHasValue(weapon.system.traits.toggles.modular.options, selection)) {
-            const updated = await weapon.system.traits.toggles.update({ trait: "modular", selected: selection });
+        } else if (selection && this.annotation === "modular" && selection) {
+            const updated = await weapon.system.traits.toggles.update({
+                trait: "modular",
+                selected: Number(selection),
+            });
             if (!updated) return;
         } else if (this.action === "raise-a-shield") {
             // Apply Effect: Raise a Shield
@@ -196,13 +215,14 @@ class WeaponAuxiliaryAction {
 
         const flavor = await fa.handlebars.renderTemplate(templates.flavor, { action: flavorAction, traits });
 
+        const modularConfig = weapon.system.traits.toggles.modular?.config;
         const content = await fa.handlebars.renderTemplate(templates.content, {
             imgPath: weapon.img,
             message: game.i18n.format(message, {
                 actor: actor.name,
                 weapon: weapon.name,
                 shield: weapon.shield?.name ?? weapon.name,
-                damageType: game.i18n.localize(`PF2E.Damage.RollFlavor.${selection}`),
+                modularConfig: modularConfig ? this.#getModularConfigLabel(modularConfig) : null,
             }),
         });
 

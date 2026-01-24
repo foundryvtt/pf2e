@@ -29,6 +29,8 @@
     {{formGroup systemFields.range.fields.max type="number" value=item._source.system.range.max}}
 {{/unless}}
 
+{{> (resolvePath "templates/items/partials/modular.hbs")}}
+
 <ol class="form-list">
     {{#each data.damageRolls as |damageRoll key|}}
         <li class="damage-partial" data-key="{{key}}">

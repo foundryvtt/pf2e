@@ -513,6 +513,7 @@ interface CharacterHitPoints extends HitPointsStatistic {
 }
 
 export type {
+    AttributeBoosts,
     BaseWeaponProficiencyKey,
     CategoryProficiencies,
     CharacterAbilities,

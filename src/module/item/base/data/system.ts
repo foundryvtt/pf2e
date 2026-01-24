@@ -1,6 +1,7 @@
 import type { DocumentFlags, DocumentFlagsSource } from "@common/data/_types.d.mts";
 import type * as fields from "@common/data/fields.d.mts";
 import type { EffectAreaShape, ItemType } from "@item/types.ts";
+import type { WeaponTrait } from "@item/weapon/types.ts";
 import type { MigrationRecord, OneToThree, PublicationData, Rarity } from "@module/data.ts";
 import type { RuleElementSource } from "@module/rules/index.ts";
 import type { DamageType } from "@system/damage/index.ts";
@@ -26,12 +27,18 @@ interface TraitConfig {
     capacity?: number;
     deadly?: string;
     fatal?: string;
+    modular: ModularConfig[] | undefined;
     resilient?: number;
     thrown?: number;
     tracking?: number;
     versatile?: DamageType[];
     volley?: number;
     [key: string]: unknown | undefined;
+}
+
+interface ModularConfig {
+    damageType: DamageType;
+    traits: WeaponTrait[];
 }
 
 interface ItemTraits<T extends ItemTrait = ItemTrait> {
@@ -177,6 +184,7 @@ export type {
     ItemTrait,
     ItemTraits,
     ItemTraitsNoRarity,
+    ModularConfig,
     OtherTagsOnly,
     RarityTraitAndOtherTags,
     TraitConfig,

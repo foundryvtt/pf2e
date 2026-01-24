@@ -1,11 +1,12 @@
 import type { ModelPropsFromSchema, SourceFromSchema } from "@common/data/fields.mjs";
 import type { MeleePF2e } from "@item";
-import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/model.ts";
+import { ItemSystemModel, ItemSystemSchema, TraitConfigField } from "@item/base/data/model.ts";
 import type {
     BaseItemSourcePF2e,
     ItemFlagsPF2e,
     ItemSystemSource,
     ItemTraitsNoRarity,
+    TraitConfig,
 } from "@item/base/data/system.ts";
 import type { EffectAreaShape } from "@item/types.ts";
 import { EFFECT_AREA_SHAPES } from "@item/values.ts";
@@ -55,6 +56,7 @@ class MeleeSystemData extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema> 
                         initial: undefined,
                     }),
                 ),
+                config: new TraitConfigField(),
             }),
             action: new fields.StringField({
                 choices: NPC_ATTACK_ACTIONS,
@@ -182,6 +184,7 @@ type NPCAttackSystemSchema = Omit<ItemSystemSchema, "traits"> & {
             false,
             true
         >;
+        config: TraitConfigField;
     }>;
     action: fields.StringField<NPCAttackActionType, NPCAttackActionType, true, false, true>;
     area: fields.SchemaField<
@@ -235,7 +238,7 @@ type MeleeSystemSource = fields.SourceFromSchema<NPCAttackSystemSchema> & {
 };
 
 type NPCAttackDamage = fields.SourceFromSchema<NPCAttackSystemSchema>["damageRolls"]["string"];
-type NPCAttackTraits = ItemTraitsNoRarity<NPCAttackTrait>;
+type NPCAttackTraits = ItemTraitsNoRarity<NPCAttackTrait> & { config: TraitConfig };
 
 export { MeleeSystemData };
 export type { MeleeFlags, MeleeSource, MeleeSystemSource, NPCAttackDamage, NPCAttackTraits };

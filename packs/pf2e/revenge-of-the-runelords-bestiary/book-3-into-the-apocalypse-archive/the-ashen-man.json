@@ -1072,14 +1072,22 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>120 feet. Wait long enough and reality always proves that all things begin so they can end. The Ashen Man is empowered whenever this belief is vindicated. When a creature in the aura gains the dying condition or increases its dying value, the Ashen Man becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened] 1 for 1 round. He can use the extra action only to Stride or Strike.</p>"
+                    "value": "<p>120 feet. Wait long enough and reality always proves that all things begin so they can end. The Ashen Man is empowered whenever this belief is vindicated. When a creature in the aura gains the @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition or increases its dying value, the Ashen Man becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened]{Quickened 1} for 1 round. He can use the extra action only to Stride or Strike.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 120,
+                        "traits": [
+                            "death"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

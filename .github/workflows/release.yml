@@ -1,0 +1,77 @@
+name: System Release
+
+on:
+  workflow_dispatch:
+    branches: [v13-dev]
+    inputs:
+      system:
+        description: System
+        required: true
+        type: choice
+        options:
+          - pf2e
+          - sf2e
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [24.x]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Cache NPM Deps
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          path: node_modules/
+          key: npm-${{ hashFiles('package-lock.json') }}
+
+      - name: Install NPM Deps
+        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+        run: npm ci
+
+      - name: Build
+        run: 'pnpm run build --system=${{ inputs.system }}'
+
+      - name: Build JSON packs
+        run: 'pnpm run build:packs:json --system=${{ inputs.system }}'
+
+      - name: Update Manifest
+        run: |
+          SYSTEM_VERSION=$(grep -oP '(?<="version": ")[^"]+' dist/${{ inputs.system }}/system.json | tr -d '\n')
+          perl -pi -E "s|latest/download/${{ inputs.system }} \\.zip|download/$SYSTEM_VERSION/${{ inputs.system }}.zip|" dist/${{ inputs.system }}/system.json
+          echo "systemVersion=$SYSTEM_VERSION" >> $GITHUB_ENV
+
+      - name: Zip Files
+        working-directory: './dist/${{ inputs.system }}'
+        run: zip -r ./system.zip ./*
+
+      - name: Zip JSON Assets
+        working-directory: ./json-assets
+        run: |
+          cp -r ../static/lang/ ./
+          zip -r ./json-assets.zip ./*
+
+      - name: Create Version Release
+        id: create_version_release
+        uses: ncipollo/release-action@v1
+        with:
+          name: '${{ env.systemVersion }} (${{ inputs.system }})'
+          allowUpdates: false
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: "./dist/${{ inputs.system }}/system.json,./dist/${{ inputs.system }}/system.zip,./json-assets/json-assets.zip"
+          tag: '${{ inputs.system }}-${{ env.systemVersion }}'

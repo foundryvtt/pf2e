@@ -59,8 +59,13 @@ import * as treatDisease from "./medicine/treat-disease.ts";
 import * as treatPoison from "./medicine/treat-poison.ts";
 import * as commandAnAnimal from "./nature/command-an-animal.ts";
 import * as perform from "./performance/perform.ts";
+import { drive } from "./piloting/drive.ts";
 import { navigate } from "./piloting/navigate.ts";
 import { plotCourse } from "./piloting/plot-course.ts";
+import { runOver } from "./piloting/run-over.ts";
+import { stop } from "./piloting/stop.ts";
+import { stunt } from "./piloting/stunt.ts";
+import { takeControl } from "./piloting/take-control.ts";
 import * as createForgery from "./society/create-forgery.ts";
 import { arrestAFall } from "./specialty-basic/arrest-a-fall.ts";
 import { avertGaze } from "./specialty-basic/avert-gaze.ts";
@@ -240,6 +245,21 @@ const SystemActions: Action[] = [
     tumbleThrough.action,
 ];
 
-const SF2eOnlySystemActions = [accessInfosphere, hack, operateDevice, navigate, plotCourse];
+/**
+ * Actions that are only relevant in the starfinder system and sf2e anachronism.
+ * @todo Some of these are present in pf2e as well but require more complicated handling.
+ */
+const SF2eOnlySystemActions = [
+    accessInfosphere,
+    drive,
+    hack,
+    navigate,
+    operateDevice,
+    plotCourse,
+    runOver,
+    stop,
+    stunt,
+    takeControl,
+];
 
 export { SF2eOnlySystemActions, SystemActions };

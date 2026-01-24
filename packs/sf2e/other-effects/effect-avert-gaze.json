@@ -1,0 +1,47 @@
+{
+    "_id": "ZXUOdZqUW22OX3ge",
+    "img": "icons/magic/perception/eye-ringed-glow-angry-small-red.webp",
+    "name": "Effect: Avert Gaze",
+    "system": {
+        "description": {
+            "value": "<p>Granted by </p>\n<p>You gain a +2 circumstance bonus to saves against visual abilities that require you to look at a creature or object, such as the radiant gaze of a solar nymph.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 0
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:visual"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
