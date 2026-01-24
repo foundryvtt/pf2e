@@ -325,7 +325,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         if (this.system.apex) {
             if (!this.traits.has("apex")) {
                 delete this.system.apex;
-            } else if (!this.isInvested) {
+            } else if (this.isInvested === false || (!this.isEquipped && this.isInvested === null)) {
                 this.system.apex.selected = false;
             }
         }
@@ -385,11 +385,13 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         }
 
         // Ensure that there is only one selected apex item, and all others are set to false
+        // Allow equipped non-invested OR any invested (invested apex weapons need not be equipped)
         if (this.system.apex) {
+            const isSufficientlyEquipped = this.isInvested || (this.isInvested === null && this.isEquipped);
             const otherApexData = this.actor.inventory.contents.flatMap((e) =>
                 e === this ? [] : (e.system.apex ?? []),
             );
-            if (this.system.apex.selected || (this.isInvested && otherApexData.every((d) => !d.selected))) {
+            if (this.system.apex.selected || (isSufficientlyEquipped && otherApexData.every((d) => !d.selected))) {
                 this.system.apex.selected = true;
                 for (const data of otherApexData) {
                     data.selected = false;
