@@ -704,7 +704,7 @@
         {
             "_id": "CpTRDv42ZCA5jHZL",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
+            "name": "+1 to All Saves vs. Magic",
             "sort": 1100000,
             "system": {
                 "actionType": {
@@ -726,18 +726,9 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "primal",
-                                    "occult",
-                                    "divine"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
-                        "type": "status",
                         "value": 1
                     }
                 ],
@@ -762,7 +753,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>If an invidiak attempts to possess a creature and the creature rolls a critical success on its saving throw to resist @UUID[Compendium.pf2e.spells-srd.Item.Possession], or if an invidiak's possession of a creature is ended prematurely, such as via a successful @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic], the invidiak takes @Damage[6d6[mental]] damage and cannot use possession for 24 hours.</p>"
+                    "value": "<p>If an invidiak attempts to possess a creature and the creature rolls a critical success on its saving throw to resist @UUID[Compendium.pf2e.spells-srd.Item.Possession], or if an invidiak's <em>possession</em> of a creature is ended prematurely, such as via a successful @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic], the invidiak takes @Damage[6d6[mental]] damage and cannot use <em>possession</em> for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -824,7 +815,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Each invidiak has a type of creature they prefer possessing, chosen from aberration, animal, beast, or any humanoid (such as dwarf, elf, or human)—in most cases, the favored type of target is human. When an invidiak casts possession on a favored host, the duration of possession increases to unlimited, and the effect lasts until dispelled or until the invidiak dismisses it.</p>"
+                    "value": "<p>Each invidiak has a type of creature they prefer possessing, chosen from aberration, animal, beast, or any humanoid (such as dwarf, elf, or human)—in most cases, the favored type of target is human. When an invidiak casts @UUID[Compendium.pf2e.spells-srd.Item.Possession] on a favored host, the duration of <em>possession</em> increases to unlimited, and the effect lasts until dispelled or until the invidiak dismisses it.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -917,10 +908,6 @@
                 {
                     "exceptions": [],
                     "type": "precision"
-                },
-                {
-                    "exceptions": [],
-                    "type": "bleed"
                 }
             ],
             "resistances": [
@@ -931,8 +918,7 @@
                     "exceptions": [
                         "force",
                         "ghost-touch",
-                        "vitality",
-                        "spirit"
+                        "vitality"
                     ],
                     "type": "all-damage",
                     "value": 5
