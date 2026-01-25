@@ -1,0 +1,86 @@
+{
+    "_id": "yopd0S7smKU5eB07",
+    "img": "systems/sf2e/icons/equipment/weapons/heavy-gun.webp",
+    "name": "Spell Effect: Enhance Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Enhance Weapon]</p>\n<p>The target weapon becomes an advanced weapon, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two.</p><hr /><p><strong>Heightened (6th)</strong> If the target is a commercial, tactical, advanced, or superior weapon, it becomes an elite weapon, gaining a +2 item bonus to attack rolls and increasing the number of weapon damage dice to three.</p>\n<p><strong>Heightened (9th)</strong> The target becomes a paragon weapon, gaining a +3 to item bonus to attack rolls and increasing the number of weapon damage dice to four.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "itemId": "{item|flags.sf2e.rulesSelections.weapon}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "property": "grade",
+                "value": "advanced"
+            },
+            {
+                "itemId": "{item|flags.sf2e.rulesSelections.weapon}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "{item|level}",
+                            6
+                        ]
+                    }
+                ],
+                "property": "grade",
+                "value": "elite"
+            },
+            {
+                "itemId": "{item|flags.sf2e.rulesSelections.weapon}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "{item|level}",
+                            9
+                        ]
+                    }
+                ],
+                "property": "grade",
+                "value": "paragon"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

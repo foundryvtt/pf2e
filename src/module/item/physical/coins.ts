@@ -80,7 +80,9 @@ class Coins implements RawCoins {
 
         switch (size) {
             case "lg": {
-                return basePrice.scale(2);
+                // PF Player Core page 270 vs SF Player Core page 235 give different price multipliers for large equipment
+                const scale = SYSTEM_ID === "pf2e" ? 2 : 1;
+                return basePrice.scale(scale);
             }
             case "huge": {
                 return basePrice.scale(4);

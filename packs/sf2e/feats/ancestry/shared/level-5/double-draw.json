@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Routine use of your arms allows you to quickly move held equipment around. You Interact twice to draw, stow, or swap items you have up to twice.</p>"
+            "value": "<p><strong>Kasatha, Skittermander</strong> Routine use of your arms allows you to quickly move held equipment around. You Interact twice to draw, stow, or swap items you have up to twice.</p>\n<p><strong>Shobhad</strong> You can efficiently move held equipment between your four arms. You Interact twice, using each to draw, stow, or swap items you have.</p>"
         },
         "level": {
             "value": 5
@@ -25,7 +25,19 @@
             "remaster": true,
             "title": "Starfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "text": "SF2E.SpecificRule.SharedAncestryFeats.DoubleDraw.{actor|ancestry.slug}.Description"
+                    }
+                ]
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
@@ -34,6 +46,8 @@
         "traits": {
             "rarity": "common",
             "value": [
+                "kasatha",
+                "shobhad",
                 "skittermander"
             ]
         }

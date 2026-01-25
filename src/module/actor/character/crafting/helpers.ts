@@ -61,9 +61,9 @@ function calculateCosts(
     const REWARDS = EarnIncomeDialog.REWARDS_BY_LEVEL;
     const level = Math.clamp(actor.level, 0, 20) as keyof typeof REWARDS;
     if (degreeOfSuccess === DegreeOfSuccess.CRITICAL_SUCCESS) {
-        Object.assign(reductionPerDay, REWARDS[level].rewards[proficiency]);
-    } else if (degreeOfSuccess === DegreeOfSuccess.SUCCESS) {
         Object.assign(reductionPerDay, REWARDS[(level + 1) as keyof typeof REWARDS].rewards[proficiency]);
+    } else if (degreeOfSuccess === DegreeOfSuccess.SUCCESS) {
+        Object.assign(reductionPerDay, REWARDS[level].rewards[proficiency]);
     } else if (degreeOfSuccess === DegreeOfSuccess.CRITICAL_FAILURE) {
         Object.assign(lostMaterials, materialCosts.scale(0.1));
     }

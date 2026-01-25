@@ -4,7 +4,7 @@
     "name": "Effect: Sanctify Armament",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Sanctify Armament]</p>\n<p>The weapon gains your holy or unholy trait. It also deals an additional 2d6 spirit damage to creatures of the opposed trait.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Sanctify Armament]</p>\n<p>The weapon gains the origin's holy or unholy trait. It also deals an additional 2d6 spirit damage to creatures of the opposed trait.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -42,13 +42,13 @@
                         "or": [
                             {
                                 "and": [
-                                    "self:trait:holy",
+                                    "parent:origin:trait:holy",
                                     "target:trait:unholy"
                                 ]
                             },
                             {
                                 "and": [
-                                    "self:trait:unholy",
+                                    "parent:origin:trait:unholy",
                                     "target:trait:holy"
                                 ]
                             }
@@ -64,7 +64,7 @@
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
-                    "self:trait:holy"
+                    "parent:origin:trait:holy"
                 ],
                 "property": "traits",
                 "value": "holy"
@@ -76,7 +76,7 @@
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
-                    "self:trait:unholy"
+                    "parent:origin:trait:unholy"
                 ],
                 "property": "traits",
                 "value": "unholy"

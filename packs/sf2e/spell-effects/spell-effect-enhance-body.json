@@ -1,0 +1,94 @@
+{
+    "_id": "oGUuRPGJHouppf8V",
+    "img": "icons/magic/unholy/strike-body-life-soul-green.webp",
+    "name": "Spell Effect: Enhance Body",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Enhance Body]</p>\n<p>Your unarmed attacks gain the tracking +1 trait, and increase the number of damage dice to two.</p><hr /><p><strong>Heightened (6th)</strong> The unarmed attacks gain the tracking +2 trait, and increase the number of weapon damage dice to three.</p>\n<p><strong>Heightened (9th)</strong> The unarmed attacks gain the tracking +3 trait, and increase the number of weapon damage dice to four.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "fromEquipment": false,
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:category:unarmed"
+                ],
+                "property": "traits",
+                "value": "tracking-1"
+            },
+            {
+                "fromEquipment": false,
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:category:unarmed",
+                    {
+                        "gte": [
+                            "{item|level}",
+                            6
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "tracking-2"
+            },
+            {
+                "fromEquipment": false,
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:category:unarmed",
+                    {
+                        "gte": [
+                            "{item|level}",
+                            9
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "tracking-3"
+            },
+            {
+                "fromEquipment": false,
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:category:unarmed"
+                ],
+                "property": "damage-dice-number",
+                "value": "ternary(gte(@item.level,9),4,ternary(gte(@item.level,6),3,2))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

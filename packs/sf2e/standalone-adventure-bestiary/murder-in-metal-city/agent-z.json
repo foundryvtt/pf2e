@@ -55,6 +55,9 @@
         },
         {
             "_id": "hOwbWyheK71mYRtO",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.spells.Item.kR5A0h2a9hY41wav"
+            },
             "folder": "o04idOr2cgTUSO5w",
             "img": "systems/sf2e/icons/abilities/purple-dimension-rift.webp",
             "name": "Entropy Strike",
@@ -65,18 +68,7 @@
                     "value": ""
                 },
                 "counteraction": false,
-                "damage": {
-                    "3tefev8txDHc5c92": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "5d8",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "void"
-                    }
-                },
+                "damage": {},
                 "defense": null,
                 "description": {
                     "value": "<p>You unleash a ray of entropy that rapidly and indiscriminately decays matter. Make a ranged spell attack against the target's AC. On a hit, the target takes 5d8 void damage, or it takes 2d6 persistent acid damage and is glitching 1 if it has the tech trait. On a critical hit, double the damage, and if the creature has the tech trait, it's glitching 2 and @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 1}.</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 1 die.</p>"
@@ -87,9 +79,7 @@
                 },
                 "heightening": {
                     "area": 0,
-                    "damage": {
-                        "3tefev8txDHc5c92": "1d8"
-                    },
+                    "damage": {},
                     "interval": 1,
                     "type": "interval"
                 },
@@ -108,10 +98,22 @@
                         "system": {
                             "damage": {
                                 "3tefev8txDHc5c92": {
-                                    "category": null
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "5d8",
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "materials": [],
+                                    "type": "void"
                                 }
                             },
-                            "defense": null
+                            "defense": null,
+                            "heightening": {
+                                "damage": {
+                                    "3tefev8txDHc5c92": "1d8"
+                                }
+                            }
                         }
                     },
                     "z3AdZivCvPIwQBMP": {
@@ -121,6 +123,7 @@
                         "system": {
                             "damage": {
                                 "3tefev8txDHc5c92": {
+                                    "applyMod": false,
                                     "category": "persistent",
                                     "formula": "2d6",
                                     "kinds": [
@@ -148,7 +151,7 @@
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "entropy-strike",
                 "target": {
                     "value": "1 creature or unattended object"
                 },
@@ -175,6 +178,9 @@
         },
         {
             "_id": "NkKhJ7ZXf69MoqZu",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.spells.Item.GdlG9a4o0ax0F2HT"
+            },
             "folder": "o04idOr2cgTUSO5w",
             "img": "systems/sf2e/icons/abilities/purple-hourglass.webp",
             "name": "Time's Edge",
@@ -238,7 +244,7 @@
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "times-edge",
                 "target": {
                     "value": ""
                 },
@@ -261,6 +267,9 @@
         },
         {
             "_id": "10tZONmHG9iClklS",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.spells.Item.VIKDSgBRR3Wd1mQx"
+            },
             "folder": "KGETkFaB5r8FyUND",
             "img": "systems/sf2e/icons/abilities/green-chart.webp",
             "name": "Doom Scroll",
@@ -305,7 +314,7 @@
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "doom-scroll",
                 "target": {
                     "value": ""
                 },
@@ -331,6 +340,9 @@
         },
         {
             "_id": "yuVFaDYoUQMpkdxx",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.spells.Item.H0WECXb2wvTHT9yk"
+            },
             "folder": "KGETkFaB5r8FyUND",
             "img": "systems/sf2e/icons/abilities/blue-ammunition.webp",
             "name": "Temporal Bullets",
@@ -344,7 +356,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> You fail (but not critically fail) an attack roll with a weapon.</p>\n<p>You rewind time and adjust probability to ensure an attack that just missed still does damage to its intended target. Roll damage as though you hit the target with the Strike, but the target only takes half the damage. You are then immune to temporal bullets for 10 minutes.</p>"
+                    "value": "<p><strong>Trigger</strong> You fail (but not critically fail) an attack roll with a weapon.</p><hr /><p>You rewind time and adjust probability to ensure an attack that just missed still does damage to its intended target. Roll damage as though you hit the target with the Strike, but the target only takes half the damage. You are then immune to temporal bullets for 10 minutes.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -367,7 +379,7 @@
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "temporal-bullets",
                 "target": {
                     "value": ""
                 },
@@ -390,6 +402,9 @@
         },
         {
             "_id": "NyR9x14mdNk8o31Y",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.spells.Item.VynaowCerc7B4yvI"
+            },
             "folder": "PUfxgisPd7TTDluV",
             "img": "icons/sundries/books/book-embossed-jewel-silver-green.webp",
             "name": "Akashic Download",
@@ -403,7 +418,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You execute a psychic search of the Akashic Record for information about a specific topic and magically transfer this data to your comm unit or computer. When you Cast this Spell, choose any skill in which you're trained that has the @UUID[Compendium.sf2e.actions.Item.Recall Knowledge] action.</p>\n<p>Any time during the duration, you can consult your comm unit while attempting a Recall Knowledge check using your chosen skill. This check gains a +1 status bonus. Checking your comm unit is part of the action to Recall Knowledge. You must be holding the comm unit to do so. The comm unit instantly compiles and displays snippets and selections from various media relevant to the topic, which grants you the bonus. If you roll a critical failure on this check, you get a failure instead. If the check is successful and the subject is a creature, you gain additional information or context about the creature. Once you reference the comm unit, the spell ends. When the spell ends, your access to the Akashic Record ends, and all the information you downloaded returns to the Akashic Record.</p><hr /><p><strong>Heightened (3rd)</strong> You can reference your comm unit three times before the spell ends.</p>"
+                    "value": "<p>You execute a psychic search of the Akashic Record for information about a specific topic and magically transfer this data to your comm unit or computer. When you Cast this Spell, choose any skill in which you're trained that has the @UUID[Compendium.sf2e.actions.Item.Recall Knowledge] action.</p>\n<p>Any time during the duration, you can consult your comm unit while attempting a Recall Knowledge check using your chosen skill. This check gains a +1 status bonus. Checking your comm unit is part of the action to Recall Knowledge. You must be holding the comm unit to do so. The comm unit instantly compiles and displays snippets and selections from various media relevant to the topic, which grants you the bonus. If you roll a critical failure on this check, you get a failure instead. If the check is successful and the subject is a creature, you gain additional information or context about the creature. Once you reference the comm unit, the spell ends. When the spell ends, your access to the Akashic Record ends, and all the information you downloaded returns to the Akashic Record.</p>\n<p>@UUID[Compendium.sf2e.spell-effects.Item.Spell Effect: Akashic Download]</p><hr /><p><strong>Heightened (3rd)</strong> You can reference your comm unit three times before the spell ends.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -426,7 +441,7 @@
                 },
                 "requirements": "You have a comm unit or computer, used as a locus.",
                 "rules": [],
-                "slug": null,
+                "slug": "akashic-download",
                 "target": {
                     "value": ""
                 },
@@ -448,6 +463,9 @@
         },
         {
             "_id": "n3cX0bfsrkPP9VXF",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.spells.Item.NkvRoN33RbDg3fl9"
+            },
             "folder": "PUfxgisPd7TTDluV",
             "img": "systems/sf2e/icons/abilities/pink-target-sign.webp",
             "name": "Analyze Target",
@@ -461,7 +479,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target, gathering data as magical holograms display information. When the casting is complete, you learn biometric information about the target, including its fingerprints, medical conditions, and other basic physiological information. You or anyone you advise about the analysis gains a +1 status bonus to checks to Impersonate the creature, to @UUID[Compendium.sf2e.actions.Item.Treat Wounds] on the creature, and to @UUID[Compendium.sf2e.actions.Item.Recall Knowledge] about it. If the target is illusory or under the effects of illusion magic, you detect this only if the effect's rank is lower than the rank of your analyze target spell.</p><hr /><p><strong>Heightened (3rd)</strong> The circumstance bonus increases to +2, and you can target up to 10 creatures.</p>\n<p><strong>Heightened (6th)</strong> The circumstance bonus increases to +3, and you can target any number of creatures.</p>"
+                    "value": "<p>You focus on the target, gathering data as magical holograms display information. When the casting is complete, you learn biometric information about the target, including its fingerprints, medical conditions, and other basic physiological information. You or anyone you advise about the analysis gains a +1 status bonus to checks to @UUID[Compendium.sf2e.actions.Item.Impersonate] the creature, to @UUID[Compendium.sf2e.actions.Item.Treat Wounds] on the creature, and to @UUID[Compendium.sf2e.actions.Item.Recall Knowledge] about it. If the target is illusory or under the effects of illusion magic, you detect this only if the effect's rank is lower than the rank of your analyze target spell.</p>\n<p>@UUID[Compendium.sf2e.spell-effects.Item.Spell Effect: Analyze Target]</p><hr /><p><strong>Heightened (3rd)</strong> The status bonus increases to +2, and you can target up to 10 creatures.</p>\n<p><strong>Heightened (6th)</strong> The status bonus increases to +3, and you can target any number of creatures.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -483,7 +501,7 @@
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "analyze-target",
                 "target": {
                     "value": "1 creature"
                 },
@@ -510,6 +528,9 @@
         },
         {
             "_id": "G55xB4DQnVUspe4Z",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.spells.Item.gpzpAAAJ1Lza2JVl"
+            },
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/sf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
@@ -526,7 +547,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your <em>detect magic</em> spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an @UUID[Compendium.sf2e.equipment.Item.Invisibility Potion]) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your <em>detect magic</em> spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an <em>invisibility potion</em>) typically are detected normally.</p><hr /><p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -541,7 +562,7 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "title": "Starfinder Player Core"
                 },
                 "range": {
                     "value": ""
@@ -575,6 +596,9 @@
         },
         {
             "_id": "GKIUFx1Q7RVju9qT",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.spells.Item.FEaM1B4WuiqFO7Uk"
+            },
             "folder": "PUfxgisPd7TTDluV",
             "img": "icons/magic/unholy/projectile-bolts-salvo-pink.webp",
             "name": "Eldritch Lance",
@@ -585,7 +609,18 @@
                     "value": ""
                 },
                 "counteraction": false,
-                "damage": {},
+                "damage": {
+                    "HSVx7dCjnK53Ic2d": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "mental"
+                    }
+                },
                 "defense": null,
                 "description": {
                     "value": "<p>You condense a beam of mind-assaulting eldritch energy from the dark spaces between the stars and fire it at a target. Make a ranged spell attack roll against the target's AC. If you hit, you deal 2d6 mental damage. On a critical success, you deal double damage.</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
@@ -593,6 +628,14 @@
                 "duration": {
                     "sustained": false,
                     "value": ""
+                },
+                "heightening": {
+                    "area": 0,
+                    "damage": {
+                        "HSVx7dCjnK53Ic2d": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 1
@@ -610,7 +653,7 @@
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "eldritch-lance",
                 "target": {
                     "value": "1 creature"
                 },
@@ -636,6 +679,9 @@
         },
         {
             "_id": "RND0f5k4Sc9EJifz",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.spells.Item.sNUvbMoMeLTnYJm8"
+            },
             "folder": "PUfxgisPd7TTDluV",
             "img": "systems/sf2e/icons/abilities/blue-energy-alien-hand.webp",
             "name": "Injury Echo",
@@ -646,18 +692,7 @@
                     "value": ""
                 },
                 "counteraction": false,
-                "damage": {
-                    "MKcVf1RIGVpzDPer": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "1d8",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "bludgeoning"
-                    }
-                },
+                "damage": {},
                 "defense": {
                     "save": {
                         "basic": true,
@@ -665,19 +700,11 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You manifest an injury from the future or past to harm a creature in the present. Choose bludgeoning, piercing, or slashing damage. The target takes 1d8 of the selected damage type with a basic Will save. If the target fails its save and then takes the same type of damage before the end of your next turn, it takes an additional 1d4 persistent bleed damage.</p><hr /><p><strong>Heightened (+2)</strong> The initial damage increases by 1d8, and the persistent damage on a failure increases by 1d4.</p>"
+                    "value": "<p>You manifest an injury from the future or past to harm a creature in the present. Choose bludgeoning, piercing, or slashing damage. The target takes 1d8 of the selected damage type with a basic Will save. If the target fails its save and then takes the same type of damage before the end of your next turn, it takes an additional @Damage[ceil((@item.level)/2)d4[persistent,bleed]] damage.</p><hr /><p><strong>Heightened (+2)</strong> The initial damage increases by 1d8, and the persistent damage on a failure increases by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
-                },
-                "heightening": {
-                    "area": 0,
-                    "damage": {
-                        "MKcVf1RIGVpzDPer": "1d8"
-                    },
-                    "interval": 2,
-                    "type": "interval"
                 },
                 "level": {
                     "value": 1
@@ -686,47 +713,84 @@
                     "value": "Q7C75iSUKaRpcmEY"
                 },
                 "overlays": {
-                    "4jPDYGN5K2VeNKqW": {
-                        "name": "Injury Echo (Bludgeoning)",
-                        "overlayType": "override",
-                        "sort": 1,
-                        "system": {
-                            "damage": {
-                                "MKcVf1RIGVpzDPer": {
-                                    "category": null
-                                }
-                            }
-                        }
-                    },
-                    "MU30RFbsCMge6HgC": {
-                        "name": "Injury Echo (Slashing)",
-                        "overlayType": "override",
-                        "sort": 3,
-                        "system": {
-                            "damage": {
-                                "MKcVf1RIGVpzDPer": {
-                                    "category": null,
-                                    "kinds": [
-                                        "damage"
-                                    ],
-                                    "type": "slashing"
-                                }
-                            }
-                        }
-                    },
-                    "fWvfeWjJGmEUyoIi": {
+                    "Nz2Dt9pkBviU7YNx": {
                         "name": "Injury Echo (Piercing)",
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
                             "damage": {
-                                "MKcVf1RIGVpzDPer": {
+                                "X6aUcgmF4twJh5gL": {
+                                    "applyMod": false,
                                     "category": null,
+                                    "formula": "1d8",
                                     "kinds": [
                                         "damage"
                                     ],
+                                    "materials": [],
                                     "type": "piercing"
                                 }
+                            },
+                            "heightening": {
+                                "area": 0,
+                                "damage": {
+                                    "X6aUcgmF4twJh5gL": "1d8"
+                                },
+                                "interval": 2,
+                                "type": "interval"
+                            }
+                        }
+                    },
+                    "bTPhCN8qHDYgs8Bd": {
+                        "name": "Injury Echo (Bludgeoning)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "2kU3mhyAecpOrFci": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "1d8",
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "materials": [],
+                                    "type": "bludgeoning"
+                                }
+                            },
+                            "heightening": {
+                                "area": 0,
+                                "damage": {
+                                    "2kU3mhyAecpOrFci": "1d8"
+                                },
+                                "interval": 2,
+                                "type": "interval"
+                            }
+                        }
+                    },
+                    "ljkuQpKCf9OtjqEM": {
+                        "name": "Injury Echo (Slashing)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "damage": {
+                                "EotUm3XBubhQrtWi": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "1d8",
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "materials": [],
+                                    "type": "slashing"
+                                }
+                            },
+                            "heightening": {
+                                "area": 0,
+                                "damage": {
+                                    "EotUm3XBubhQrtWi": "1d8"
+                                },
+                                "interval": 2,
+                                "type": "interval"
                             }
                         }
                     }
@@ -741,7 +805,7 @@
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "injury-echo",
                 "target": {
                     "value": "1 creature"
                 },
@@ -765,8 +829,11 @@
         },
         {
             "_id": "tK8B30CkLWaW9RKZ",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.spells.Item.uBo6g5aW087cLSJR"
+            },
             "folder": "PUfxgisPd7TTDluV",
-            "img": "systems/sf2e/icons/abilities/blue-arrow-up.webp",
+            "img": "icons/magic/light/explosion-impact-purple.webp",
             "name": "Mind Skewer",
             "sort": 1100000,
             "system": {
@@ -775,7 +842,18 @@
                     "value": ""
                 },
                 "counteraction": false,
-                "damage": {},
+                "damage": {
+                    "7Kfw2D6v6EKf50rP": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "mental"
+                    }
+                },
                 "defense": {
                     "save": {
                         "basic": true,
@@ -788,6 +866,14 @@
                 "duration": {
                     "sustained": false,
                     "value": ""
+                },
+                "heightening": {
+                    "area": 0,
+                    "damage": {
+                        "7Kfw2D6v6EKf50rP": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 1
@@ -806,7 +892,7 @@
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "mind-skewer",
                 "target": {
                     "value": "1 creature"
                 },
@@ -830,6 +916,9 @@
         },
         {
             "_id": "DAtLi81aIZdhOXcg",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.spells.Item.TVKNbcgTee19PXZR"
+            },
             "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/sf2e/icons/spells/shield.webp",
             "name": "Shield",
@@ -858,7 +947,7 @@
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "title": "Starfinder Player Core"
                 },
                 "range": {
                     "value": ""
@@ -890,6 +979,9 @@
         },
         {
             "_id": "Np8AIWdEwpV6I6SY",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.spells.Item.7P4eBdqWcgQJAFCa"
+            },
             "folder": "PUfxgisPd7TTDluV",
             "img": "systems/sf2e/icons/abilities/blue-laser-beam-rifle.webp",
             "name": "Shifting Surge",
@@ -903,7 +995,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You release a surge of magical energy that temporarily changes the type of damage dealt by a weapon. The next Strike the weapon makes deals your choice of acid, cold, electricity, fire, or sonic damage and deals an additional 1d6 extra damage of the same type as the weapon's normal damage.</p><hr /><p><strong>Heightened (+2)</strong> The extra damage increases by 1d6.</p>"
+                    "value": "<p>You release a surge of magical energy that temporarily changes the type of damage dealt by a weapon. The next Strike the weapon makes deals your choice of acid, cold, electricity, fire, or sonic damage and deals an additional 1d6 extra damage of the same type as the weapon's normal damage.</p><hr /><p><strong>Heightened (+2)</strong> The extra damage increases by 1d6.</p>\n<p>@UUID[Compendium.sf2e.spell-effects.Item.Spell Effect: Shifting Surge]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -926,7 +1018,7 @@
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": null,
+                "slug": "shifting-surge",
                 "target": {
                     "value": "one weapon held by you or a willing ally that deals acid, cold, electricity, fire, or sonic damage"
                 },
