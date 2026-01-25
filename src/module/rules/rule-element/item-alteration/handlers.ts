@@ -226,6 +226,46 @@ const ITEM_ALTERATION_HANDLERS = {
             }
         },
     }),
+    capacity: new ItemAlterationHandler({
+        fields: {
+            itemType: new fields.StringField({ required: true, choices: () => ["weapon"] }),
+            mode: new fields.StringField({
+                required: true,
+                choices: () => ["add", "downgrade", "override", "subtract", "multiply", "upgrade"],
+            }),
+            value: new fields.NumberField({
+                required: true,
+                nullable: false,
+                integer: true,
+                positive: true,
+                initial: undefined,
+            } as const),
+        },
+        validateForItem(item): validation.DataModelValidationFailure | void {
+            if (item.type !== "weapon") {
+                return new validation.DataModelValidationFailure({
+                    message: "Cannot change capacity of an item that is not a weapon",
+                });
+            }
+            const weapon = item as WeaponPF2e;
+            if (!weapon.system.ammo || !weapon.system.ammo.capacity || weapon.system.ammo.capacity < 1) {
+                return new validation.DataModelValidationFailure({
+                    message:
+                        "Cannot change capacity of a weapon that does not use ammo or the ammo type has no capacity",
+                });
+            }
+        },
+        handle: function (data: AlterationApplicationData) {
+            if (!this.isValid(data)) return;
+            if (!data.item.system.ammo || !data.item.system.ammo.capacity) return;
+            const newValue = AELikeRuleElement.getNewValue(
+                data.alteration.mode,
+                data.item.system.ammo.capacity,
+                data.alteration.value,
+            );
+            data.item.system.ammo.capacity = Math.max(newValue, 1);
+        },
+    }),
     category: new ItemAlterationHandler({
         fields: {
             itemType: new fields.StringField({ required: true, choices: ["armor"] }),
