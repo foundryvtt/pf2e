@@ -242,11 +242,6 @@ const ITEM_ALTERATION_HANDLERS = {
             } as const),
         },
         validateForItem(item): validation.DataModelValidationFailure | void {
-            if (item.type !== "weapon") {
-                return new validation.DataModelValidationFailure({
-                    message: "Cannot change capacity of an item that is not a weapon",
-                });
-            }
             const weapon = item as WeaponPF2e;
             if (!weapon.system.ammo || !weapon.system.ammo.capacity || weapon.system.ammo.capacity < 1) {
                 return new validation.DataModelValidationFailure({
