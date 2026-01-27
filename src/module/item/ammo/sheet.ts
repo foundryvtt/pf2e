@@ -63,11 +63,6 @@ class AmmoSheetPF2e extends PhysicalItemSheetPF2e<AmmoPF2e> {
             tagify(getInput("system.craftableAs"), { whitelist: validAmmoTypes });
         }
     }
-
-    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        formData["system.baseItem"] ||= null;
-        return super._updateObject(event, formData);
-    }
 }
 
 interface AmmoSheetData extends PhysicalItemSheetData<AmmoPF2e> {
