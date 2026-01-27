@@ -62,7 +62,7 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
         CONFIG.Canvas.polygonBackends[collisionType].create(c, {
             type: collisionType,
             source: pointSource,
-            boundaryShapes: [data.bounds],
+            radius: data.radiusPixels,
         }),
     );
 
@@ -89,6 +89,7 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
 interface GetAreaSquaresParams {
     bounds: PIXI.Rectangle;
     radius: number;
+    radiusPixels: number;
     token: TokenPF2e | TokenDocumentPF2e;
     traits?: string[];
 }
