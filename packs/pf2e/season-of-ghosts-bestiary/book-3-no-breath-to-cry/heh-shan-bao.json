@@ -50,6 +50,7 @@
             "name": "Longsword",
             "sort": 200000,
             "system": {
+                "ammo": null,
                 "baseItem": "longsword",
                 "bonus": {
                     "value": 0
@@ -76,6 +77,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "sword",
                 "hardness": 0,
                 "hp": {
@@ -122,6 +124,7 @@
                     ]
                 },
                 "usage": {
+                    "canBeAmmo": false,
                     "value": "held-in-one-hand"
                 }
             },
@@ -154,7 +157,8 @@
                     "inSlot": true,
                     "invested": null
                 },
-                "group": null,
+                "grade": null,
+                "group": "cloth",
                 "hardness": 0,
                 "hp": {
                     "max": 0,
@@ -212,10 +216,12 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This platinum choker bears characters from three language's alphabet (Celestial, Draconic, and Nagaji), and it gives knowledge of those languages and the associated culture's customs.</p>\n<p>You gain a +2 item bonus to Society checks and the ability to understand, speak, and write the chosen languages.</p>\n<p>Your excellent elocution reduces the DC of the flat check to perform an auditory action while deafened from 5 to 3.</p>\n<hr />\n<p><strong>Craft Requirements</strong> The choker bears characters from three languages and grants fluency in all three.</p>"
+                    "value": "<p>This platinum choker bears characters from three language's alphabet, and it gives knowledge of those languages and the associated culture's customs.</p>\n<p>You gain a +2 item bonus to Society checks and the ability to understand, speak, and write the chosen languages.</p>\n<p>Your excellent elocution reduces the DC of the flat check to perform an auditory action while deafened from 5 to 3.</p>\n<p><strong>Craft Requirements</strong> You know the languages the choker grants.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": false,
                     "invested": null
                 },
                 "hardness": 0,
@@ -247,6 +253,12 @@
                         "selector": "society",
                         "type": "item",
                         "value": 2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.build.languages.max",
+                        "value": 3
                     }
                 ],
                 "size": "med",
@@ -265,10 +277,7 @@
             "type": "equipment"
         },
         {
-            "_id": "WJjKh7Niq7YcDEwh",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QSQZJ5BC3DeHv153"
-            },
+            "_id": "voEblAacOECynAzt",
             "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
             "name": "Scroll of Crisis of Faith (Rank 4)",
             "sort": 500000,
@@ -299,6 +308,7 @@
                     "type": null
                 },
                 "price": {
+                    "per": 1,
                     "value": {
                         "gp": 70
                     }
@@ -313,12 +323,11 @@
                 "size": "med",
                 "slug": "scroll-of-4th-rank-spell",
                 "spell": {
-                    "_id": "FG46X4Kjyv4wmISt",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.3x6eUCm17n6ROzUa"
-                        }
+                    "_id": "2Ihoohm5SnZEgivm",
+                    "_stats": {
+                        "compendiumSource": "Compendium.pf2e.spells-srd.Item.3x6eUCm17n6ROzUa"
                     },
+                    "folder": "4fJHnYFqH0VjZXPv",
                     "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
                     "name": "Crisis of Faith",
                     "sort": 0,
@@ -448,13 +457,172 @@
             "type": "consumable"
         },
         {
-            "_id": "l7zUlMS0qMzJgHTQ",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QSQZJ5BC3DeHv153"
+            "_id": "J10mtAhEEOgPUL8A",
+            "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
+            "name": "Scroll of Divine Immolation (Rank 5)",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "scroll",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Divine Immolation]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 9
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 1,
+                    "value": {
+                        "gp": 150
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "scroll-of-5th-rank-spell",
+                "spell": {
+                    "_id": "ab1sdomJYf2UW4Hg",
+                    "_stats": {
+                        "compendiumSource": "Compendium.pf2e.spells-srd.Item.A16eFTRh82xIjMu8"
+                    },
+                    "folder": "iDjm2cXyRAe4VZ35",
+                    "img": "icons/magic/fire/explosion-embers-orange.webp",
+                    "name": "Divine Immolation",
+                    "sort": 0,
+                    "system": {
+                        "area": {
+                            "type": "burst",
+                            "value": 20
+                        },
+                        "cost": {
+                            "value": ""
+                        },
+                        "counteraction": false,
+                        "damage": {
+                            "b9dAiWfV57lyCWpP": {
+                                "applyMod": false,
+                                "category": null,
+                                "formula": "6d6",
+                                "kinds": [
+                                    "damage"
+                                ],
+                                "materials": [],
+                                "type": "fire"
+                            }
+                        },
+                        "defense": {
+                            "save": {
+                                "basic": true,
+                                "statistic": "reflex"
+                            }
+                        },
+                        "description": {
+                            "value": "<p>Divine flames scour creatures within the area. Creatures take 6d6 fire damage and @Damage[(@item.level -3)d6[persistent,fire]] damage. The divine power within the flames scorches the spirit as well; a creature takes spirit damage instead of fire damage from divine immolation if that would be more detrimental to the creature (as determined by the GM).</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and no persistent damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and persistent damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and double persistent damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6 and persistent damage increases by 1d6.</p>"
+                        },
+                        "duration": {
+                            "sustained": false,
+                            "value": ""
+                        },
+                        "heightening": {
+                            "area": 0,
+                            "damage": {
+                                "b9dAiWfV57lyCWpP": "1d6"
+                            },
+                            "interval": 1,
+                            "type": "interval"
+                        },
+                        "level": {
+                            "value": 5
+                        },
+                        "location": {
+                            "heightenedLevel": 5,
+                            "value": null
+                        },
+                        "publication": {
+                            "license": "ORC",
+                            "remaster": true,
+                            "title": "Pathfinder Player Core"
+                        },
+                        "range": {
+                            "value": "120 feet"
+                        },
+                        "requirements": "",
+                        "rules": [],
+                        "slug": "divine-immolation",
+                        "target": {
+                            "value": ""
+                        },
+                        "time": {
+                            "value": "2"
+                        },
+                        "traits": {
+                            "rarity": "common",
+                            "traditions": [
+                                "divine"
+                            ],
+                            "value": [
+                                "concentrate",
+                                "fire",
+                                "manipulate",
+                                "sanctified",
+                                "spirit"
+                            ]
+                        }
+                    },
+                    "type": "spell"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "consumable",
+                        "fire",
+                        "infused",
+                        "magical",
+                        "manipulate",
+                        "sanctified",
+                        "scroll",
+                        "spirit"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
             },
+            "type": "consumable"
+        },
+        {
+            "_id": "BU7qNLrLiGIuismq",
             "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
             "name": "Scroll of Fire Shield (Rank 4)",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -482,6 +650,7 @@
                     "type": null
                 },
                 "price": {
+                    "per": 1,
                     "value": {
                         "gp": 70
                     }
@@ -496,12 +665,11 @@
                 "size": "med",
                 "slug": "scroll-of-4th-rank-spell",
                 "spell": {
-                    "_id": "sdq2ETp48IpzjCU0",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.YrzBLPLd3r9m6t1p"
-                        }
+                    "_id": "rQaDrKl8nT9aA7ti",
+                    "_stats": {
+                        "compendiumSource": "Compendium.pf2e.spells-srd.Item.YrzBLPLd3r9m6t1p"
                     },
+                    "folder": "7cyoYPoPYA01mErU",
                     "img": "icons/magic/fire/barrier-shield-explosion-yellow.webp",
                     "name": "Fire Shield",
                     "sort": 0,
@@ -535,7 +703,7 @@
                             "damage": {
                                 "0": "1d6"
                             },
-                            "interval": 1,
+                            "interval": 2,
                             "type": "interval"
                         },
                         "level": {
@@ -601,171 +769,7 @@
             "type": "consumable"
         },
         {
-            "_id": "6x8eyPrc3IhatCEw",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tjLvRWklAylFhBHQ"
-            },
-            "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
-            "name": "Scroll of Flame Strike (Rank 5)",
-            "sort": 700000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "scroll",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Flame Strike]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 9
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 150
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "scroll-of-5th-rank-spell",
-                "spell": {
-                    "_id": "s5IYCm0MVbloHnZq",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.E3X2RbzWHCdz7gsk"
-                        }
-                    },
-                    "img": "icons/magic/fire/explosion-embers-orange.webp",
-                    "name": "Flame Strike",
-                    "sort": 0,
-                    "system": {
-                        "area": {
-                            "details": "10-foot radius, 40-foot-tall cylinder",
-                            "type": "burst",
-                            "value": 10
-                        },
-                        "cost": {
-                            "value": ""
-                        },
-                        "counteraction": false,
-                        "damage": {
-                            "0": {
-                                "applyMod": false,
-                                "category": null,
-                                "formula": "8d6",
-                                "kinds": [
-                                    "damage"
-                                ],
-                                "materials": [],
-                                "type": "fire"
-                            }
-                        },
-                        "defense": {
-                            "save": {
-                                "basic": true,
-                                "statistic": "reflex"
-                            }
-                        },
-                        "description": {
-                            "value": "<p><strong>Area:</strong> 10-foot radius, 40-foot-tall cylinder</p>\n<hr />\n<p>You call a rain of divine fire that plummets down from above, dealing 8d6 fire damage. Because the flame is infused with divine energy, creatures in the area apply only half their usual fire resistance. Creatures that are immune to fire, instead of gaining the usual benefit of immunity, treat the results of their saving throws as one degree of success better.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
-                        },
-                        "duration": {
-                            "sustained": false,
-                            "value": ""
-                        },
-                        "heightening": {
-                            "damage": {
-                                "0": "2d6"
-                            },
-                            "interval": 1,
-                            "type": "interval"
-                        },
-                        "level": {
-                            "value": 5
-                        },
-                        "location": {
-                            "heightenedLevel": 5,
-                            "value": null
-                        },
-                        "publication": {
-                            "license": "OGL",
-                            "remaster": false,
-                            "title": "Pathfinder Core Rulebook"
-                        },
-                        "range": {
-                            "value": "120 feet"
-                        },
-                        "requirements": "",
-                        "rules": [],
-                        "slug": "flame-strike",
-                        "target": {
-                            "value": ""
-                        },
-                        "time": {
-                            "value": "2"
-                        },
-                        "traits": {
-                            "rarity": "common",
-                            "traditions": [
-                                "divine"
-                            ],
-                            "value": [
-                                "concentrate",
-                                "fire",
-                                "manipulate"
-                            ]
-                        }
-                    },
-                    "type": "spell"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "consumable",
-                        "fire",
-                        "infused",
-                        "magical",
-                        "manipulate",
-                        "scroll"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "W36bwmw7dsG1cbHn",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ZmefGBXGJF3CFDbn"
-            },
+            "_id": "JyuiMAPsUKD3WAIJ",
             "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
             "name": "Scroll of Haste (Rank 3)",
             "sort": 800000,
@@ -796,6 +800,7 @@
                     "type": null
                 },
                 "price": {
+                    "per": 1,
                     "value": {
                         "gp": 30
                     }
@@ -810,12 +815,11 @@
                 "size": "med",
                 "slug": "scroll-of-3rd-rank-spell",
                 "spell": {
-                    "_id": "YUoLPIwaO3VKpvhg",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.o6YCGx4lycsYpww4"
-                        }
+                    "_id": "i6woTtnpLUgR7Jng",
+                    "_stats": {
+                        "compendiumSource": "Compendium.pf2e.spells-srd.Item.o6YCGx4lycsYpww4"
                     },
+                    "folder": "4fJHnYFqH0VjZXPv",
                     "img": "systems/pf2e/icons/spells/haste.webp",
                     "name": "Haste",
                     "sort": 0,
@@ -906,10 +910,7 @@
             "type": "consumable"
         },
         {
-            "_id": "mlCcXz1cStm2gKNh",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QSQZJ5BC3DeHv153"
-            },
+            "_id": "u27cltQuLC6uOyZu",
             "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
             "name": "Scroll of Hydraulic Torrent (Rank 4)",
             "sort": 900000,
@@ -940,6 +941,7 @@
                     "type": null
                 },
                 "price": {
+                    "per": 1,
                     "value": {
                         "gp": 70
                     }
@@ -954,12 +956,11 @@
                 "size": "med",
                 "slug": "scroll-of-4th-rank-spell",
                 "spell": {
-                    "_id": "YLejXJy0CdAw8iX1",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.Y3G6Y6EDgCY0s3fq"
-                        }
+                    "_id": "3cZBvFeT8409027p",
+                    "_stats": {
+                        "compendiumSource": "Compendium.pf2e.spells-srd.Item.Y3G6Y6EDgCY0s3fq"
                     },
+                    "folder": "7cyoYPoPYA01mErU",
                     "img": "icons/magic/air/wind-tornado-funnel-damage-blue.webp",
                     "name": "Hydraulic Torrent",
                     "sort": 0,
@@ -998,6 +999,7 @@
                             "value": ""
                         },
                         "heightening": {
+                            "area": 0,
                             "damage": {
                                 "0": "2d6"
                             },
@@ -1066,10 +1068,7 @@
             "type": "consumable"
         },
         {
-            "_id": "gG4CohuLfmb9cY3p",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tjLvRWklAylFhBHQ"
-            },
+            "_id": "SauRWVlCibnbAbnh",
             "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
             "name": "Scroll of Illusory Creature (Rank 5)",
             "sort": 1000000,
@@ -1100,6 +1099,7 @@
                     "type": null
                 },
                 "price": {
+                    "per": 1,
                     "value": {
                         "gp": 150
                     }
@@ -1114,12 +1114,11 @@
                 "size": "med",
                 "slug": "scroll-of-5th-rank-spell",
                 "spell": {
-                    "_id": "xhZjCTPbbETDSsoh",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.f8SBoXiXQjlCKqly"
-                        }
+                    "_id": "AbXsGwcO76YoFGGw",
+                    "_stats": {
+                        "compendiumSource": "Compendium.pf2e.spells-srd.Item.f8SBoXiXQjlCKqly"
                     },
+                    "folder": "lPzcDrjGDFbzuF2r",
                     "img": "icons/creatures/magical/spirit-undead-winged-ghost.webp",
                     "name": "Illusory Creature",
                     "sort": 0,
@@ -1207,10 +1206,7 @@
             "type": "consumable"
         },
         {
-            "_id": "8SDzEXswrUSmuCy8",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tjLvRWklAylFhBHQ"
-            },
+            "_id": "cvLEx01APXQNvoZN",
             "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
             "name": "Scroll of Illusory Scene (Rank 5)",
             "sort": 1100000,
@@ -1241,6 +1237,7 @@
                     "type": null
                 },
                 "price": {
+                    "per": 1,
                     "value": {
                         "gp": 150
                     }
@@ -1255,12 +1252,11 @@
                 "size": "med",
                 "slug": "scroll-of-5th-rank-spell",
                 "spell": {
-                    "_id": "yoWYnKluMoOoaQKp",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.Ucf8eynbZMfUucjE"
-                        }
+                    "_id": "sAyDe02VrGpceZkL",
+                    "_stats": {
+                        "compendiumSource": "Compendium.pf2e.spells-srd.Item.Ucf8eynbZMfUucjE"
                     },
+                    "folder": "iDjm2cXyRAe4VZ35",
                     "img": "icons/environment/wilderness/cave-entrance-vulcano.webp",
                     "name": "Illusory Scene",
                     "sort": 0,
@@ -1352,12 +1348,9 @@
             "type": "consumable"
         },
         {
-            "_id": "suJKB2Wxd3uHGkwK",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Y7UD64foDbDMV9sx"
-            },
+            "_id": "FNozxuBIFYUMBkEZ",
             "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
-            "name": "Scroll of Mirror Image (Rank 2)",
+            "name": "Scroll of Invisibility (Rank 2)",
             "sort": 1200000,
             "system": {
                 "baseItem": null,
@@ -1368,7 +1361,7 @@
                 "containerId": null,
                 "damage": null,
                 "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Mirror Image]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Invisibility]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -1386,6 +1379,7 @@
                     "type": null
                 },
                 "price": {
+                    "per": 1,
                     "value": {
                         "gp": 12
                     }
@@ -1400,14 +1394,13 @@
                 "size": "med",
                 "slug": "scroll-of-2nd-rank-spell",
                 "spell": {
-                    "_id": "4HjZtadCa1py3ftv",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.j8vIoIEWElvpwkcI"
-                        }
+                    "_id": "NSO9hUZotGxeYl3M",
+                    "_stats": {
+                        "compendiumSource": "Compendium.pf2e.spells-srd.Item.XXqE1eY3w3z6xJCB"
                     },
-                    "img": "systems/pf2e/icons/spells/mirror-image.webp",
-                    "name": "Mirror Image",
+                    "folder": "lPzcDrjGDFbzuF2r",
+                    "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
+                    "name": "Invisibility",
                     "sort": 0,
                     "system": {
                         "area": null,
@@ -1418,11 +1411,11 @@
                         "damage": {},
                         "defense": null,
                         "description": {
-                            "value": "<p>Three illusory images of you swirl about your space, potentially causing those who attack you to hit one of the images instead of you. Any attack that would hit you has a random chance of hitting one of your images instead of you. If all three images remain, there is a 1 in 4 chance of hitting you (1 on [[/r 1d4]]). With two images remaining, there is a 1 in 3 chance of hitting you (1-2 on [[/r 1d6]]). With only one image, the chances are 1 in 2 (1-3 on [[/r 1d6]]).</p>\n<p>Once an image is hit, it is destroyed. If an attack roll fails to hit your AC but doesn't critically fail, it destroys an image but has no additional effect (even if the attack would normally have an effect on a failure). If an attack roll is a critical success and would hit one of the images, one of the images is destroyed and the attack roll becomes a success against you. Once all the images are destroyed, the spell ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Mirror Image]</p>"
+                            "value": "<p>Illusions bend light around the target, rendering it @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. This makes it @UUID[Compendium.pf2e.conditionitems.Item.Undetected] to all creatures, though the creatures can attempt to find the target, making it @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
                         },
                         "duration": {
                             "sustained": false,
-                            "value": "1 minute"
+                            "value": "10 minutes"
                         },
                         "level": {
                             "value": 2
@@ -1432,18 +1425,18 @@
                             "value": null
                         },
                         "publication": {
-                            "license": "OGL",
-                            "remaster": false,
-                            "title": "Pathfinder Core Rulebook"
+                            "license": "ORC",
+                            "remaster": true,
+                            "title": "Pathfinder Player Core"
                         },
                         "range": {
-                            "value": ""
+                            "value": "touch"
                         },
                         "requirements": "",
                         "rules": [],
-                        "slug": "mirror-image",
+                        "slug": "invisibility",
                         "target": {
-                            "value": ""
+                            "value": "1 creature"
                         },
                         "time": {
                             "value": "2"
@@ -1455,10 +1448,9 @@
                                 "occult"
                             ],
                             "value": [
-                                "concentrate",
                                 "illusion",
                                 "manipulate",
-                                "visual"
+                                "subtle"
                             ]
                         }
                     },
@@ -1467,14 +1459,13 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "concentrate",
                         "consumable",
                         "illusion",
                         "infused",
                         "magical",
                         "manipulate",
                         "scroll",
-                        "visual"
+                        "subtle"
                     ]
                 },
                 "usage": {
@@ -1489,10 +1480,7 @@
             "type": "consumable"
         },
         {
-            "_id": "1aMQeo8T0ogV2MyF",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QSQZJ5BC3DeHv153"
-            },
+            "_id": "t7yqnWlTbjrk5qyb",
             "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
             "name": "Scroll of Soothe (Rank 4)",
             "sort": 1300000,
@@ -1508,7 +1496,8 @@
                     "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Soothe]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -1523,6 +1512,7 @@
                     "type": null
                 },
                 "price": {
+                    "per": 1,
                     "value": {
                         "gp": 70
                     }
@@ -1537,12 +1527,11 @@
                 "size": "med",
                 "slug": "scroll-of-4th-rank-spell",
                 "spell": {
-                    "_id": "TVYFShnLaSe9TaFJ",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.szIyEsvihc5e1w8n"
-                        }
+                    "_id": "Ngk6RKtoNIvDaJxA",
+                    "_stats": {
+                        "compendiumSource": "Compendium.pf2e.spells-srd.Item.szIyEsvihc5e1w8n"
                     },
+                    "folder": "T8AzYUgNIAgTJ9Iz",
                     "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
                     "name": "Soothe",
                     "sort": 0,
@@ -1645,10 +1634,7 @@
             "type": "consumable"
         },
         {
-            "_id": "lSiyKD76TrRTwMv1",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.JHa6VRhvjfI8gtN3"
-            },
+            "_id": "1sFeLrffEIgCaGea",
             "img": "icons/equipment/waist/belt-buckle-ring-leather-red.webp",
             "name": "Retrieval Belt",
             "sort": 1400000,
@@ -1660,7 +1646,7 @@
                     "ignored": 1,
                     "value": 0
                 },
-                "collapsed": true,
+                "collapsed": false,
                 "containerId": null,
                 "description": {
                     "gm": "<p>Contains ritual notes and journals</p>",
@@ -1668,8 +1654,6 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
                     "invested": null
                 },
                 "hardness": 0,
@@ -1700,7 +1684,7 @@
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "retrieval-belt",
                 "stowing": true,
                 "traits": {
                     "rarity": "uncommon",
@@ -1727,9 +1711,8 @@
             "name": "Longsword",
             "sort": 1500000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -1805,7 +1788,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> twice per day</p>\n<p><strong>Trigger</strong> Heh Shan-Bao would take any form of energy damage</p>\n<hr />\n<p><strong>Effect</strong> One of the many otherwise non-magical fulus Heh Shan-Bao keeps on his person flashes with golden light and crumbles to ash, granting him resistance 10 to the triggering damage type for 1 minute, or until he uses this ability again.</p>"
+                    "value": "<p><strong>Frequency</strong> twice per day</p>\n<p><strong>Trigger</strong> Heh Shan-Bao would take any form of energy damage</p><hr /><p><strong>Effect</strong> One of the many otherwise non-magical fulus Heh Shan-Bao keeps on his person flashes with golden light and crumbles to ash, granting him resistance 10 to the triggering damage type for 1 minute, or until he uses this ability again.</p>"
                 },
                 "frequency": {
                     "max": 2,
@@ -1840,7 +1823,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Heh Shan-Bao creates a set of nine temporary scrolls each morning that lose their magic after 24 hours. On a typical day, the governor has the scrolls listed below available for use.</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Crisis of Faith] (4th level)</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Fire Shield]</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Flame Strike]</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Haste]</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Hydraulic Torrent]</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Illusory Creature] (5th level)</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Illusory Scene]</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Mirror Image]</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Soothe] (4th level)</p>"
+                    "value": "<p>Heh Shan-Bao creates a set of nine temporary scrolls each morning that lose their magic after 24 hours. On a typical day, the governor has the scrolls listed below available for use.</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Crisis of Faith] (4th level)</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Fire Shield]</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Flame Strike]</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Haste]</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Hydraulic Torrent]</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Illusory Creature] (5th level)</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Illusory Scene]</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Invisibility]</p>\n<p>scroll of @UUID[Compendium.pf2e.spells-srd.Item.Soothe] (4th level)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1999,9 +1982,9 @@
             "privateNotes": "",
             "publicNotes": "",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder #198: No Breath to Cry"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Seasons of Ghosts Hardcover Compilation"
             }
         },
         "initiative": {

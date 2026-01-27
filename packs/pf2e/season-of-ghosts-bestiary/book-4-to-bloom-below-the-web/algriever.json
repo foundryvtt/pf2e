@@ -27,10 +27,13 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
                 "slots": {},
                 "slug": null,
                 "spelldc": {
-                    "dc": 25,
+                    "dc": 28,
                     "value": 20
                 },
                 "tradition": {
@@ -41,46 +44,49 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "EWOzykq7GEcNoPA8",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.7tR29sQt35NfIWqN"
-            },
-            "img": "systems/pf2e/icons/spells/anathematic-reprisal.webp",
-            "name": "Anathematic Reprisal",
+            "_id": "2IH16LpMVGyKWWkr",
+            "folder": "7cyoYPoPYA01mErU",
+            "img": "icons/magic/light/projectile-beam-yellow.webp",
+            "name": "Divine Wrath",
             "sort": 200000,
             "system": {
-                "area": null,
+                "area": {
+                    "type": "burst",
+                    "value": 20
+                },
                 "cost": {
                     "value": ""
                 },
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
-                        "formula": "4d6",
+                        "formula": "4d10",
                         "kinds": [
                             "damage"
                         ],
                         "materials": [],
-                        "type": "mental"
+                        "type": "spirit"
                     }
                 },
                 "defense": {
                     "save": {
-                        "basic": true,
-                        "statistic": "will"
+                        "basic": false,
+                        "statistic": "fortitude"
                     }
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature performs an act anathema to your deity.</p>\n<hr />\n<p>You punish a creature that transgresses against your deity, drawing upon the anguish you feel upon seeing one of your deity's anathema committed. You can cast this spell only when a creature actively commits a unique act of anathema. For example, if creating undead were anathema to your deity, you could use anathematic reprisal on a necromancer who had just created undead in front of you, but not on an undead creature just for existing. You deal 4d6 mental damage to the target, but a basic Will save can reduce this damage. If it fails, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round. The creature is then temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You channel the fury of divinity against your foes. You deal 4d10 spirit damage to enemies in the area, depending on their Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}; while it's sickened, it's also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
                 },
                 "heightening": {
+                    "area": 0,
                     "damage": {
-                        "0": "1d6"
+                        "0": "1d10"
                     },
                     "interval": 1,
                     "type": "interval"
@@ -96,22 +102,23 @@
                     },
                     "value": "TL18KRjyPRf3r3Eg"
                 },
+                "overlays": {},
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
-                    "value": "30 feet"
+                    "value": "120 feet"
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "anathematic-reprisal",
+                "slug": "divine-wrath",
                 "target": {
-                    "value": "the triggering creature"
+                    "value": ""
                 },
                 "time": {
-                    "value": "reaction"
+                    "value": "2"
                 },
                 "traits": {
                     "rarity": "common",
@@ -121,7 +128,8 @@
                     "value": [
                         "concentrate",
                         "manipulate",
-                        "mental"
+                        "sanctified",
+                        "spirit"
                     ]
                 }
             },
@@ -238,14 +246,74 @@
             "type": "spell"
         },
         {
+            "_id": "31p9g6igXDaWgYPz",
+            "folder": "lPzcDrjGDFbzuF2r",
+            "img": "systems/pf2e/icons/spells/dispel-magic.webp",
+            "name": "Dispel Magic",
+            "sort": 400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": true,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You unravel the magic behind a spell or effect. Attempt a counteract check against the target. If you successfully counteract a magic item, the item becomes a mundane item of its type for 10 minutes. This doesn't change the item's non-magical properties. If the target is an artifact or similar item, you automatically fail.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 5,
+                    "value": "TL18KRjyPRf3r3Eg"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "dispel-magic",
+                "target": {
+                    "value": "1 spell effect or unattended magic item"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
             "_id": "ntqI6s5O1lmP3R5t",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fangs",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": [
                         "algriever-venom"
@@ -284,11 +352,10 @@
             "_id": "WNuqp4Ou4TMblnmh",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Web",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": [
                         "web-trap"
@@ -322,7 +389,7 @@
             "_id": "8g3k5NnFrDv41xIZ",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Acolyte's Defense",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -332,7 +399,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The algriever is bonded with a shrine</p>\n<p><strong>Trigger</strong> A creature within sight of the algriever damages, desecrates, or defiles their bonded shrine</p>\n<hr />\n<p><strong>Effect</strong> The algriever Strides toward the creature; this movement doesn't trigger reactions. The algriever marks the creature as its enemy and gains a +2 status bonus to attack rolls against that enemy until they select a new enemy with Acolyte's Defense.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within sight of the algriever damages, desecrates, or defiles their bonded shrine</p>\n<p><strong>Requirements</strong> The algriever is bonded with a shrine</p><hr /><p><strong>Effect</strong> The algriever Strides toward the creature; this movement doesn't trigger reactions. The algriever marks the creature as their enemy and gains a +2 status bonus to attack rolls against that enemy until they select a new enemy with Acolyte's Defense.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -369,7 +436,7 @@
             "_id": "xON4ZEaAHMKDW6yf",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Shrine Bond",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -417,7 +484,7 @@
             "_id": "lujBmBqPwdAjHOw4",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Algriever Venom",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -427,7 +494,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[will|dc:28]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[mental]]</p>\n<p><strong>Stage 2</strong> 2d6 mental and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}</p>\n<p><strong>Stage 3</strong> 2d6 mental and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[will|dc:28]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[mental]] damage</p>\n<p><strong>Stage 2</strong> @Damage[2d6[mental]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}</p>\n<p><strong>Stage 3</strong> @Damage[2d6[mental]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -449,7 +516,7 @@
             "_id": "CCdkNzjPvh93Kyik",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Pilgrim's Ward",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -459,7 +526,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per month</p>\n<hr />\n<p><strong>Effect</strong> The algriever touches a willing creature and fills it with reverence for their bonded shrine. As long as the target creature obeys the edicts and anathemas of the algriever's bonded shrine, or until that algriever grants Pilgrim's Ward to a different creature, that creature gains a +1 status bonus to all Religion checks and Will saves.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Pilgrim's Ward]</p>"
+                    "value": "<p><strong>Frequency</strong> once per month</p><hr /><p><strong>Effect</strong> The algriever touches a willing creature and fills it with reverence for their bonded shrine. As long as the target creature obeys the edicts and anathemas of the algriever's bonded shrine, or until that algriever grants Pilgrim's Ward to a different creature, that creature gains a +1 status bonus to all Religion checks and Will saves.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Pilgrim's Ward]</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -484,7 +551,7 @@
             "_id": "GNtGKHLYqOVcNHdK",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Web Trap",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -570,9 +637,9 @@
             "privateNotes": "",
             "publicNotes": "<p>Some mistake these spiderlike spirits as scavengers looking to loot abandoned shrines, but they're actually the opposite: self-appointed guardians of forgotten places of worship, defending the sanctity of discarded faiths and tending sites that have no caretakers. Sometimes, an algriever's duties are tinged with sadness and grief, as they mourn the loss of those who once attended their chosen shrine. Others are filled with frustration and rage, viewing any who stumble upon their shrine as lapsed faithful at best or blasphemers at worse—sinners who deserve punishment.</p>\n<p>Algrievers have little interest in living creatures until they wander into their territory. Once an algriever's shrine has been breached, they block passage until the interlopers pay their respects. Aggressive algrievers steal from travelers or take hostages until their demands for an offering are satisfied. When algrievers suspect someone of committing blasphemy, no gifts can slake their thirst for vengeance.</p>\n<h2>Reactive Punishment</h2>\n<p>An algriever follows the edicts and anathemas of the deity or faith of the shrine to which they're bonded, although they remain neutral in alignment. Regardless of how large the shrine is, an algriever chooses three Medium or smaller objects in the shrine as their own focus for defense, and can use Acolyte's Defense against any creature that touches or disturbs those objects.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder #199: To Bloom Below the Web"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Seasons of Ghosts Hardcover Compilation"
             }
         },
         "initiative": {

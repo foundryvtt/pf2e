@@ -59,9 +59,9 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
-                        "applyMod": true,
+                        "applyMod": false,
                         "category": null,
-                        "formula": "0",
+                        "formula": "1d6",
                         "kinds": [
                             "damage"
                         ],
@@ -76,11 +76,11 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You push into the target's mind and daze it with a mental jolt. The jolt deals 1d6 mental damage, with a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
-                    "value": "1 round"
+                    "value": ""
                 },
                 "heightening": {
                     "damage": {
@@ -96,9 +96,9 @@
                     "value": "IfgRYpjy1kMxYZ7N"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "60 feet"
@@ -131,12 +131,10 @@
             "type": "spell"
         },
         {
-            "_id": "kY3tcsDI13TEic7v",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.atlgGNI1E1Ox3O3a"
-            },
+            "_id": "h8IS6kKJQwF9MCio",
+            "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
-            "name": "Ghost Sound",
+            "name": "Figment",
             "sort": 300000,
             "system": {
                 "area": null,
@@ -147,26 +145,11 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You create an auditory illusion of simple sounds that has a maximum volume equal to four normal humans shouting. The sounds emanate from a square you designate within range. You can't create intelligible words or other intricate sounds (such as music).</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The range increases to 60 feet.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 120 feet.</p>"
+                    "value": "<p>You create a simple illusory sound or vision. A sound adds the auditory trait to the spell and the sound can't include intelligible words or elaborate music. A vision adds the visual trait, can be no larger than a 5-foot cube, and is clearly crude and undetailed if viewed from within 15 feet. When you Cast or Sustain the Spell, you can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion] with the illusion, gaining a +2 circumstance bonus to your Deception check. If the attempt fails against a creature, that creature disbelieves the <em>figment</em>.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Figment]</p>"
                 },
                 "duration": {
                     "sustained": true,
                     "value": ""
-                },
-                "heightening": {
-                    "levels": {
-                        "3": {
-                            "range": {
-                                "value": "60 feet"
-                            }
-                        },
-                        "5": {
-                            "range": {
-                                "value": "120 feet"
-                            }
-                        }
-                    },
-                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -175,16 +158,16 @@
                     "value": "IfgRYpjy1kMxYZ7N"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "ghost-sound",
+                "slug": "figment",
                 "target": {
                     "value": ""
                 },
@@ -198,11 +181,11 @@
                         "occult"
                     ],
                     "value": [
-                        "auditory",
                         "cantrip",
                         "concentrate",
                         "illusion",
-                        "manipulate"
+                        "manipulate",
+                        "subtle"
                     ]
                 }
             },
@@ -214,11 +197,9 @@
             "name": "Beak",
             "sort": 400000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -227,7 +208,7 @@
                 "damageRolls": {
                     "0": {
                         "damage": "1d6",
-                        "damageType": "force"
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
@@ -242,12 +223,9 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "finesse",
-                        "force",
-                        "magical",
-                        "unarmed"
+                        "magical"
                     ]
                 }
             },
@@ -267,7 +245,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The phantom walks the thin line between the Ethereal and Material Planes in order to exist on both planes simultaneously.</p>\n<p>They can shift back to solely the Ethereal Plane by using this ability again.</p>"
+                    "value": "<p>The phantom walks the thin line between the Ethereal Plane and the Universe in order to exist on both planes simultaneously.</p>\n<p>They can shift back to solely the Ethereal Plane by using this ability again.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -277,7 +255,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -307,7 +284,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -381,16 +357,24 @@
             },
             "immunities": [
                 {
+                    "exceptions": [],
                     "type": "disease"
                 },
                 {
+                    "exceptions": [],
                     "type": "paralyzed"
                 },
                 {
+                    "exceptions": [],
                     "type": "poison"
                 },
                 {
+                    "exceptions": [],
                     "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "bleed"
                 }
             ],
             "resistances": [
@@ -400,7 +384,8 @@
                     ],
                     "exceptions": [
                         "force",
-                        "ghost-touch"
+                        "ghost-touch",
+                        "spirit"
                     ],
                     "type": "all-damage",
                     "value": 1
@@ -430,9 +415,9 @@
             "privateNotes": "",
             "publicNotes": "<p>The typical trajectory for souls passing to the afterlife is fairly straightforward, according to most theologians. When a mortal dies, their soul enters the River of Souls and eventually reaches the Boneyard, where it is judged by Pharasma. The judged soul moves onto its appropriate domain of final rest-Heaven, Hell, Abaddon, and so forth-where it becomes a petitioner.</p>\n<p>Complications arise, however, when a soul in queue for judgment prematurely departs from the River of Souls and is shunted into the Ethereal Plane. Whether as a result of nefarious interlopers like night hags, malignant planar magic, or even fate, these souls become dislodged from the natural order of life and death and linger in a sort of purgatory. Unlike petitioners, these ethereal phantoms retain memories of their life before death, and unlike spirits such as ghosts, phantoms aren't tinged with the foul influences of undeath-at least, not at first, though the threat of corruption hangs heavy over a phantom's existence. Some eventually succumb to that fate, while others eventually rejoin the River of Souls. Until then, these wandering souls are a kind unto themselves-one without a true home, agenda, or purpose.</p>\n<p>Many phantoms have no desire to remain in their strange state of purgatory, either because they seek to continue their journey through the River of Souls or because they fear the corruption of undeath. In order to complete the natural spiritual cycle and become judged so they can continue to the afterlife, a phantom must simply find a way back into the River of Souls. Such a quest is no easy feat, however-the hazy mists of the Ethereal Plane can befuddle even the most experienced traveler, and numerous predators prowl the realm in search of stray souls to bind or devour.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder #196: The Summer That Never Was"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Seasons of Ghosts Hardcover Compilation"
             }
         },
         "initiative": {

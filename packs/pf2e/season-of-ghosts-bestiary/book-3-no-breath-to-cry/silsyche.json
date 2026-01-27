@@ -378,9 +378,13 @@
                             "damage": {
                                 "0": {
                                     "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "type": "bludgeoning"
                                 }
-                            }
+                            },
+                            "defense": null
                         }
                     },
                     "cUFX7ExSLeoa3vIF": {
@@ -392,9 +396,13 @@
                             "damage": {
                                 "0": {
                                     "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "type": "piercing"
                                 }
-                            }
+                            },
+                            "defense": null
                         }
                     },
                     "zFWsMjoeCnLxqJaV": {
@@ -406,9 +414,13 @@
                             "damage": {
                                 "0": {
                                     "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "type": "slashing"
                                 }
-                            }
+                            },
+                            "defense": null
                         }
                     }
                 },
@@ -451,9 +463,8 @@
             "name": "Touch",
             "sort": 700000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -563,7 +574,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The silsyche creates a hospitable but illusory environment in an attempt to entice their targets into staying, including food and amenities. Creatures in the building must attempt a @Check[will|dc:24] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature perceives the home to be as the silsyche's illusion presents it but isn't compelled to stay.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with the building and refuses to leave. The creature can attempt another Will save at the end of each turn. On a success, they're no longer fascinated.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature becomes hostile to anyone who tries to make them leave the building. The creature can only attempt another Will save to end the effect at the end of any turn in which they attack an ally.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The silsyche creates a hospitable but illusory environment in an attempt to entice their targets into staying, including food and amenities. Creatures in the building must attempt a @Check[will|dc:24] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature perceives the home to be as the silsyche's illusion presents it but isn't compelled to stay.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with the building and refuses to leave. The creature can attempt another Will save at the end of each turn. On a success, it's no longer fascinated.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature becomes hostile to anyone who tries to make it leave the building. The creature can only attempt another Will save to end the effect at the end of any turn in which it attacks an ally.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -654,6 +665,7 @@
                     "exceptions": [
                         "force",
                         "ghost-touch",
+                        "spirit",
                         "void"
                     ],
                     "type": "all-damage",
@@ -684,9 +696,9 @@
             "privateNotes": "",
             "publicNotes": "<p>When a home is abandoned after it has been lived in for generations, sometimes the building itself mourns the loss of its family so greatly that it attracts the pity of a kami who has yet to claim a ward. Similar to how a tsukumogami manifests, such a conjoining of spiritual power can result in the formation of a silsyche—a spirit of an abandoned home who craves companionship. A silsyche never aims to outright harm those who enter the homes they form from. They are merely desperate for connection and lack the understanding that most others don't take kindly to captivity.</p>\n<p>The silsyche's true form is a slender, childlike shimmering figure with a headpiece resembling the structure they initially manifested from. These representations of the silsyche's first home reflect the warmth and welcome they yearn for, potentially even displaying mementos of the house's inhabitants that have long gone.</p>\n<h2>Range Of Possession</h2>\n<p>Most silsyches bond with a single home, typically a small building with one or two floors. More powerful silsyches can bond with larger structures, like fortresses or castles, or even large vehicles like sailing ships. Legends of entire towns being claimed by a single, incredibly powerful silsyche persist in stories to this day.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder #198: No Breath to Cry"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Seasons of Ghosts Hardcover Compilation"
             }
         },
         "initiative": {

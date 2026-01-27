@@ -1,0 +1,377 @@
+{
+    "_id": "oe7BIYlQXZas3TNE",
+    "folder": "ypirQ4SwFpvi9KAs",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "mc334q1nfka7sngl",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fire Fist",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d6+4",
+                        "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "udo3xq7mjc590h1k",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fire Mote",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+4",
+                        "damageType": "fire"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "fczuoyvm5wqij2to",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Intense Heat",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>5 feet. @Damage[2d6[fire]], @Check[reflex|dc:17|basic]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 5,
+                        "slug": "intense-heat",
+                        "traits": [
+                            "fire"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "40McFjcRX4SifzsC",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2fv011dfxayfhevz",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Water Vulnerability",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When a shrine caretaker is dealt damage by a water effect, the undead is wracked by pain, becoming @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. Water can't douse the shrine caretaker's flames. A shrine caretaker who emerges into the rainstorm functions as if @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} as long as they remain in the downpour. They can't lower this sickened condition on their own, but it ends automatically if they end their turn in shelter (such as areas <strong>C3b</strong> or <strong>C3d</strong>).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gocrv4xvdtl8n7hl",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Blazing Howl",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The shrine caretaker screams in agony, causing creatures in a @Template[type:emanation|distance:15] to burst into flame, which deals @Damage[4d6[fire]] damage to each creature in the area (@Check[will|dc:17|basic] save). A creature that critically fails its save is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}; this frightened condition is an emotion, fear, and mental effect.</p>\n<p>The caretaker can't use Blazing Howl again for [[/br 1d4 #Recharge Blazing Howl]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Shrine Caretaker",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -2
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": -1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 19
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 65,
+                "temp": 0,
+                "value": 65
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "special": "",
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 5
+                },
+                {
+                    "type": "water",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "Variant combusted",
+            "languages": {
+                "details": "(can't speak any language)",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Creatures whose lives end in flames can return as undead called combusted. Still burning even in death, they're consumed by everlasting anguish that drives them to reckless violence.</p>\n<p>Although combusted can no longer be truly harmed by fire, they endure the final moments of their death eternally, searing them with endless burning pain. Many combusted attempt to douse themselves in lakes or rivers, believing the flames that wreath their forms must be the source of their pain. However, water is more hindrance than help, and being immersed in it only amplifies their agony.</p>\n<p>No longer possessing the ability to communicate in anything other than agonized wails, combusted nonetheless retain their senses and memories. Yet they rarely seek to act on their past, for the pain drowns out thoughts of friendships, family, and vengeance. In time, combusted are driven to share their pain with others, for the instant their flames catch fire on another living being, they feel a single, fleeting moment of relief. This relief leads combusted into conflict with living creatures often, although those that attack large settlements rarely survive long.</p>\n<p>Some combusted form from those who died via spontaneous combustion, suddenly becoming so hot they burst into flames. This mysterious process isn't fully understood, though some scholars attribute it to shifts in power in the Plane of Fire causing hot spots in the Material Plane powerful enough to kill. Much more rarely, combusted arise around areas with especially intense magical flames, such as forges used to create magic weapons, when the fire sets creatures ablaze, so they burn to death and transcend into undeath in mere moments.</p>\n<p>Regardless of the source of their conflagration, the horrifying deaths that combusted suffered haunt them in the afterlife. Their charred, blackened corpses alight with flames are a constant reminder of their final moments in pain. The stench of burning flesh heralds their presence, each combusted leaving black smoke in their wake.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Seasons of Ghosts Hardcover Compilation"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 6,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 4
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 9
+            },
+            "athletics": {
+                "base": 10
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "chaotic",
+                "evil",
+                "fire",
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -4,14 +4,12 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "GQcODA0Wtnuc1z2H",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.NIsxR5zXtVa3PuyU"
-            },
+            "_id": "h4h3KR34SuiFZeD7",
             "img": "systems/pf2e/icons/equipment/weapons/temple-sword.webp",
             "name": "Temple Sword",
             "sort": 100000,
             "system": {
+                "ammo": null,
                 "baseItem": "temple-sword",
                 "bonus": {
                     "value": 0
@@ -30,14 +28,15 @@
                     "die": "d8"
                 },
                 "description": {
-                    "value": "<p>This heavy blade is favored by guardians of religious sites. It has a distinctive, crescent-shaped blade that seems to be a mix of a sickle and sword. It often has holes drilled into the blade or the pommel so that bells or other holy trinkets can be affixed to the weapon as an aid for prayer or mediation.</p>"
+                    "value": "<p>This heavy blade is favored by guardians of religious sites. It has a distinctive, crescent-shaped blade that seems to be a mix of a sickle and sword. It often has holes drilled into the blade or the pommel so that bells or other holy trinkets can be affixed to the weapon.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "sword",
                 "hardness": 0,
                 "hp": {
@@ -57,9 +56,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -98,11 +97,9 @@
             "name": "Fist",
             "sort": 200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": [
                         "sagebane"
                     ]
@@ -112,11 +109,11 @@
                 },
                 "damageRolls": {
                     "8a49gf7iwdxq2kp40clf": {
-                        "damage": "1d6+8",
+                        "damage": "2d6+8",
                         "damageType": "bludgeoning"
                     },
                     "w9qzsteb6tkmoqekrmm2": {
-                        "damage": "1d4",
+                        "damage": "1d6",
                         "damageType": "void"
                     }
                 },
@@ -132,7 +129,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "agile",
                         "magical",
@@ -143,19 +139,18 @@
             "type": "melee"
         },
         {
-            "_id": "DGrTlrod2V5wcFRj",
+            "_id": "NPQMoYqFSvl9osGx",
             "flags": {
                 "pf2e": {
-                    "linkedWeapon": "GQcODA0Wtnuc1z2H"
+                    "linkedWeapon": "h4h3KR34SuiFZeD7"
                 }
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Temple Sword",
             "sort": 300000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -163,7 +158,7 @@
                     "value": 18
                 },
                 "damageRolls": {
-                    "h2ye4kSnrLWVVo6x": {
+                    "C9hJbKg46SNK4xxY": {
                         "damage": "2d8+8",
                         "damageType": "slashing"
                     }
@@ -178,7 +173,7 @@
                 },
                 "range": null,
                 "rules": [],
-                "slug": null,
+                "slug": "temple-sword",
                 "traits": {
                     "value": [
                         "magical",
@@ -209,9 +204,9 @@
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [
                     {
@@ -221,18 +216,17 @@
                         "value": true
                     }
                 ],
-                "slug": "negative-healing",
+                "slug": "void-healing",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
             "type": "action"
         },
         {
-            "_id": "CHKrjbjG2iuM6dGa",
+            "_id": "zTFuXpu6BuPdbg6N",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Black Apoxia",
+            "name": "Brawling Critical",
             "sort": 500000,
             "system": {
                 "actionType": {
@@ -243,39 +237,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The target can't recover from the fatigued condition caused by black apoxia until the disease is cured</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:24]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} and @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and fatigued (1 day)</p>\n<p><strong>Stage 4</strong> dead</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "disease"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zTFuXpu6BuPdbg6N",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Brawling Critical",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>When the kurobozu scores a critical hit with an unarmed attack, the target must succeed at a @Check[fortitude|dc:22] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of its next turn.</p>"
+                    "value": "<p>When a monk of Kugaptee scores a critical hit with a fist Strike or a weapon with the monk trait, the target must succeed at a @Check[fortitude|dc:24] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of the monk's next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -296,7 +258,6 @@
                 ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -306,6 +267,37 @@
             "_id": "gzZaUElRwVXoDLly",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sagebane",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the monk of Kugaptee damages a living creature with a fist Strike or a weapon with the monk trait, the target must succeed at a @Check[fortitude|dc:24] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute.</p>\n<p>Further damage dealt by the monk of Kugaptee resets the duration to 1 minute and increases the stupefied value by 1 on a failed save, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "sagebane",
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CHKrjbjG2iuM6dGa",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scarlet Apoxia",
             "sort": 700000,
             "system": {
                 "actionType": {
@@ -316,7 +308,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the kurobozu damages a living creature with an unarmed Strike, the target must succeed at a @Check[fortitude|dc:24] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute.</p>\n<p>Further damage dealt by the kurobozu resets the duration to 1 minute and increases the stupefied value by 1 on a failed save, to a maximum of stupefied 4.</p>"
+                    "value": "<p>The target can't recover from the @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] condition caused by scarlet apoxia until the disease is cured</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:24]</p><hr /><p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} and fatigued (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and fatigued (1 day)</p>\n<p><strong>Stage 4</strong> dead (a creature that dies of scarlet apoxia reincarnates as a nindoru of equal or lower level 24 hours after death unless the body is given a proper funeral; once reincarnation occurs, the dead creature can't be restored to its original life until after the nindoru it reincarnates into is first slain)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -324,10 +316,10 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "sagebane",
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
+                        "disease",
                         "occult"
                     ]
                 }
@@ -348,7 +340,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The kurobozu is adjacent to a living creature that is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Slowed], @UUID[Compendium.pf2e.conditionitems.Item.Stunned], or @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]</p>\n<hr />\n<p><strong>Effect</strong> The kurobozu leans over and sucks the breath from the target, who must attempt a @Check[fortitude|dc:22] save. Regardless of the result, the creature is exposed to black apoxia and its breath reeks of carrion for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature can't speak for 1 minute.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and can't speak for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, plus the creature falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and begins suffocating.</p>"
+                    "value": "<p><strong>Requirements</strong> The monk of Kugaptee is adjacent to a living creature that's @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], slowed, stunned, or @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]</p><hr /><p><strong>Effect</strong> The monk of Kugaptee leans over and sucks the breath from the target, who must attempt a @Check[fortitude|dc:22] save. Regardless of the result, the creature is exposed to scarlet apoxia and its breath reeks of rotting wildflowers for 1 minute.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature can't speak for 1 minute.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and can't speak for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, plus the creature falls unconscious and begins suffocating.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -358,7 +350,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "incapacitation",
                         "occult"
@@ -381,7 +372,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The kurobozu makes two unarmed Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses, and the target must succeed at a @Check[fortitude|dc:22|traits:incapacitation] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure); this save has the incapacitation trait.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The monk of Kugaptee makes two fist Strikes. If both hit the same creature, combine their damage for the purposes of resistances and weaknesses, and the target must succeed at a @Check[fortitude|dc:22|traits:incapacitation] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure); this save has the incapacitation trait.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -396,40 +387,16 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "nOiQxEVLn3tVCv9I",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Monastic Lore",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "The Chewer",
+    "prototypeToken": {
+        "name": "Kurobozu"
+    },
     "system": {
         "abilities": {
             "cha": {
@@ -491,11 +458,12 @@
             }
         },
         "details": {
-            "blurb": "Variant male kurobozu",
+            "blurb": "Variant male monk of Kugaptee",
             "languages": {
                 "details": "",
                 "value": [
-                    "common"
+                    "common",
+                    "aklo"
                 ]
             },
             "level": {
@@ -506,7 +474,7 @@
             "publication": {
                 "license": "OGL",
                 "remaster": false,
-                "title": "Pathfinder #197: Let the Leaves Fall"
+                "title": "Pathfinder Bestiary 3"
             }
         },
         "initiative": {
@@ -538,17 +506,20 @@
         },
         "skills": {
             "acrobatics": {
-                "base": 14
+                "base": 14,
+                "special": []
             },
             "athletics": {
-                "base": 15
+                "base": 14,
+                "special": []
             },
             "stealth": {
-                "base": 14
+                "base": 14,
+                "special": []
             }
         },
         "traits": {
-            "rarity": "unique",
+            "rarity": "uncommon",
             "size": {
                 "value": "med"
             },

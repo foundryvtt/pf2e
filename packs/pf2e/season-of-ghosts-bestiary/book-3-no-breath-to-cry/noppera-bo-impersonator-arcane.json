@@ -83,6 +83,7 @@
                     "value": ""
                 },
                 "heightening": {
+                    "area": 0,
                     "damage": {
                         "0": "2d6"
                     },
@@ -206,12 +207,10 @@
             "type": "spell"
         },
         {
-            "_id": "d5hQ3M9rttsWoS12",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.f8hRqLJaxBVhF1u0"
-            },
-            "img": "systems/pf2e/icons/spells/acid-arrow.webp",
-            "name": "Acid Arrow",
+            "_id": "B5TdNvIJ1AU8O2Ko",
+            "folder": "lPzcDrjGDFbzuF2r",
+            "img": "icons/magic/acid/dissolve-arm-flesh.webp",
+            "name": "Acid Grip",
             "sort": 400000,
             "system": {
                 "area": null,
@@ -220,10 +219,10 @@
                 },
                 "counteraction": false,
                 "damage": {
-                    "0": {
+                    "YBeTuItHduzXElD5": {
                         "applyMod": false,
                         "category": null,
-                        "formula": "3d8",
+                        "formula": "2d8",
                         "kinds": [
                             "damage"
                         ],
@@ -231,9 +230,14 @@
                         "type": "acid"
                     }
                 },
-                "defense": null,
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
                 "description": {
-                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus @Damage[(floor(@item.rank/2))d6[persistent,acid]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p><hr /><p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                    "value": "<p>An ephemeral, taloned hand grips the target, burning it with magical acid. The target takes 2d8 acid damage plus @Damage[floor(@item.level/2)d6[persistent,acid]] damage depending on its Reflex save. A creature taking persistent damage from this spell takes a –10-foot status penalty to its Speeds. @UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Acid Grip]</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and no persistent damage, and the claw moves it up to 5 feet in a direction of your choice.</p>\n<p><strong>Failure</strong> The creature takes full damage and persistent damage, and the claw moves it up to 10 feet in a direction of your choice.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and full persistent damage, and the claw moves it up to 20 feet in a direction of your choice.</p><hr /><p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -241,7 +245,7 @@
                 },
                 "heightening": {
                     "damage": {
-                        "0": "2d8"
+                        "YBeTuItHduzXElD5": "2d8"
                     },
                     "interval": 2,
                     "type": "interval"
@@ -254,16 +258,16 @@
                     "value": "hUOZkwy7i9q5mMZZ"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "120 feet"
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "acid-arrow",
+                "slug": "acid-grip",
                 "target": {
                     "value": "1 creature"
                 },
@@ -278,7 +282,6 @@
                     ],
                     "value": [
                         "acid",
-                        "attack",
                         "concentrate",
                         "manipulate"
                     ]
@@ -287,12 +290,10 @@
             "type": "spell"
         },
         {
-            "_id": "WLRJZyqkpB9pHXEP",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.j8vIoIEWElvpwkcI"
-            },
-            "img": "systems/pf2e/icons/spells/mirror-image.webp",
-            "name": "Mirror Image",
+            "_id": "IDa6KMl5HBIHwtA2",
+            "folder": "lPzcDrjGDFbzuF2r",
+            "img": "icons/creatures/magical/construct-stone-earth-gray.webp",
+            "name": "Invisibility",
             "sort": 500000,
             "system": {
                 "area": null,
@@ -303,32 +304,31 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Three illusory images of you swirl about your space, potentially causing those who attack you to hit one of the images instead of you. Any attack that would hit you has a random chance of hitting one of your images instead of you. If all three images remain, there is a 1 in 4 chance of hitting you (1 on [[/r 1d4]]). With two images remaining, there is a 1 in 3 chance of hitting you (1-2 on [[/r 1d6]]). With only one image, the chances are 1 in 2 (1-3 on [[/r 1d6]]).</p>\n<p>Once an image is hit, it is destroyed. If an attack roll fails to hit your AC but doesn't critically fail, it destroys an image but has no additional effect (even if the attack would normally have an effect on a failure). If an attack roll is a critical success and would hit one of the images, one of the images is destroyed and the attack roll becomes a success against you. Once all the images are destroyed, the spell ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Mirror Image]</p>"
+                    "value": "<p>Illusions bend light around the target, rendering it @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. This makes it @UUID[Compendium.pf2e.conditionitems.Item.Undetected] to all creatures, though the creatures can attempt to find the target, making it @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
                 },
                 "duration": {
                     "sustained": false,
-                    "value": "1 minute"
+                    "value": "10 minutes"
                 },
                 "level": {
                     "value": 2
                 },
                 "location": {
-                    "heightenedLevel": 2,
                     "value": "hUOZkwy7i9q5mMZZ"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
-                    "value": ""
+                    "value": "touch"
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "mirror-image",
+                "slug": "invisibility",
                 "target": {
-                    "value": ""
+                    "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
@@ -340,10 +340,9 @@
                         "occult"
                     ],
                     "value": [
-                        "concentrate",
                         "illusion",
                         "manipulate",
-                        "visual"
+                        "subtle"
                     ]
                 }
             },
@@ -576,12 +575,10 @@
             "type": "spell"
         },
         {
-            "_id": "VVrCJWRrApEtXSLq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gYjPm7YwGtEa1oxh"
-            },
+            "_id": "wRP23bP3HEVyhiVT",
+            "folder": "D7UVaOiB40wTR6kv",
             "img": "icons/magic/movement/trail-streak-impact-blue.webp",
-            "name": "Ray of Frost",
+            "name": "Frostbite",
             "sort": 900000,
             "system": {
                 "area": null,
@@ -590,7 +587,7 @@
                 },
                 "counteraction": false,
                 "damage": {
-                    "0": {
+                    "3bsJUDEgedKhPx6T": {
                         "applyMod": false,
                         "category": null,
                         "formula": "2d4",
@@ -601,9 +598,14 @@
                         "type": "cold"
                     }
                 },
-                "defense": null,
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
+                    }
+                },
                 "description": {
-                    "value": "<p>You blast an icy ray. Make a spell attack roll. The ray deals 2d4 cold damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and takes a –10-foot status penalty to its Speeds for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Ray of Frost]</p>\n<p><strong>Success</strong> The target takes normal damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
+                    "value": "<p>An orb of biting cold coalesces around your target, freezing its body. The target takes 2d4 cold damage with a basic Fortitude save. On a critical failure, the target also gains weakness 1 to bludgeoning until the start of your next turn.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Frostbite]</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4 and the weakness on a critical failure increases by 1.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -611,7 +613,7 @@
                 },
                 "heightening": {
                     "damage": {
-                        "0": "1d4"
+                        "3bsJUDEgedKhPx6T": "1d4"
                     },
                     "interval": 1,
                     "type": "interval"
@@ -623,16 +625,16 @@
                     "value": "hUOZkwy7i9q5mMZZ"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
-                    "value": "120 feet"
+                    "value": "60 feet"
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "ray-of-frost",
+                "slug": "frostbite",
                 "target": {
                     "value": "1 creature"
                 },
@@ -646,7 +648,6 @@
                         "primal"
                     ],
                     "value": [
-                        "attack",
                         "cantrip",
                         "cold",
                         "concentrate",
@@ -662,9 +663,8 @@
             "name": "False Weapon",
             "sort": 1000000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -700,9 +700,8 @@
             "name": "False Weapon",
             "sort": 1100000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -759,7 +758,6 @@
                 "rules": [],
                 "slug": "telepathy",
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "aura",
                         "magical",
@@ -832,6 +830,15 @@
                             "self:condition:deafened"
                         ],
                         "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    },
+                    {
+                        "definition": [
+                            "self:effect:deafened"
+                        ],
+                        "key": "Weakness",
+                        "label": "{item|name}",
+                        "type": "custom",
+                        "value": 1
                     }
                 ],
                 "slug": null,
@@ -855,7 +862,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A noppera-bo impersonator carries a <em>+1 striking</em> weapon that looks identical to the favored weapon of the PC being impersonated. If the PC favors unarmed strikes, it appears as hand wraps. If the PC favors a ranged weapon, then the noppera-bo impersonator has no melee weapon and instead uses the ranged weapon rules above; otherwise, the noppera-bo impersonator has no ranged weapon. If the PCs favors no weapon, then the noppera-bo wields a club as its false weapon. This false weapon is only partially real and inflicts only mental damage when it hits; it gains none of the original weapon's traits or magical enhancements. If a noppera-bo impersonator's false weapon is broken, disarmed, or set down, it fades away. The noppera-bo impersonator can craft a replacement false weapon by spending 10 minutes to recreate one.</p>"
+                    "value": "<p>A noppera-bo impersonator carries a <em>+1 striking weapon</em> that looks identical to the favored weapon of the character being impersonated. If the PC favors unarmed Strikes, it appears as handwraps. If the impersonated character favors a ranged weapon, then the noppera-bo impersonator has no melee weapon and instead uses the ranged false weapon Strike above; otherwise, the noppera-bo impersonator has no ranged weapon. If the character favors no weapon, then the noppera-bo wields a club as their false weapon. This false weapon is only partially real and inflicts only mental damage when it hits; it gains none of the original weapon's traits or magical enhancements. If a noppera-bo impersonator's false weapon is broken, disarmed, or set down, it fades away. The noppera-bo impersonator can craft a replacement false weapon by spending 10 minutes to recreate one.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -901,6 +908,9 @@
         }
     ],
     "name": "Noppera-Bo Impersonator (Arcane)",
+    "prototypeToken": {
+        "name": "Noppera-Bo Impersonator"
+    },
     "system": {
         "abilities": {
             "cha": {
@@ -969,9 +979,9 @@
             "privateNotes": "",
             "publicNotes": "",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder #198: No Breath to Cry"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Seasons of Ghosts Hardcover Compilation"
             }
         },
         "initiative": {

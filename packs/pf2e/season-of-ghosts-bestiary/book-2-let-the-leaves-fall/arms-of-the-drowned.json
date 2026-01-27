@@ -17,7 +17,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature swims more than halfway across the river, ends their turn in the bridge shrine, or sets foot onto the northern bridge</p>\n<hr />\n<p><strong>Effect</strong> Ghostly arms rise up from the river to grab and shake both bridges. Creatures standing on the bridge must attempt a @Check[reflex|dc:20] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. A blast of river water sprays up inside the shrine to deposit two brood leech swarms in the shrine. The haunt and the leech swarms then roll initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature swims more than halfway across the river, ends their turn in the bridge shrine, or sets foot onto the northern bridge</p><hr /><p><strong>Effect</strong> Ghostly arms rise up from the river to grab and shake both bridges. Creatures standing on the bridge must attempt a @Check[reflex|dc:20] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. A blast of river water sprays up inside the shrine to deposit two brood leech swarms in the shrine. The haunt and the leech swarms then roll initiative.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -38,9 +38,8 @@
             "name": "Ghostly Arms",
             "sort": 0,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -49,7 +48,7 @@
                 },
                 "damageRolls": {},
                 "description": {
-                    "value": "<p><strong>Effect</strong> grapple</p>"
+                    "value": "<p><strong>Effect</strong> @UUID[Compendium.pf2e.actionspf2e.PMbdMWc2QroouFGD]{Grapple}</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -90,6 +89,7 @@
                     "type": "precision"
                 }
             ],
+            "resistances": [],
             "stealth": {
                 "details": "<p>(expert) to catch glimpses of ghostly figures drowning in the water below.</p>",
                 "value": 20
@@ -102,7 +102,6 @@
                 }
             ]
         },
-        "creatureType": "",
         "details": {
             "description": "<p>Ghostly arms rise up from the water to clutch and grab, while a geyser of leech-infested water sprays up into the central shrine.</p>",
             "disable": "<p>@Check[religion|dc:20] to offer prayers to calm the haunt, or @Check[intimidation|dc:23] to threaten the unquiet spirits away</p>",
@@ -111,28 +110,24 @@
                 "value": 3
             },
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder #197: Let the Leaves Fall"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Seasons of Ghosts Hardcover Compilation"
             },
             "reset": "<p>The haunt deactivates and resets at the start of any round in which the PCs aren't in the river, on the bridges, or in the shrines, but the leech swarms remain in the shrine for 10 minutes before retreating back into the water below.</p>",
             "routine": "<p>(3 actions) Ghostly arms flail about and attempt to grab creatures in the shrine or on either bridge. Each round, the haunt uses 3 actions to attempt to grapple a PC on the bridge or in the shrine. If a PC is @UUID[Compendium.pf2e.conditionitems.Item.Restrained], the haunt can use one of its actions to drag a PC into the river. A PC who's restrained in the river risks drowning.</p>"
         },
         "saves": {
             "fortitude": {
-                "saveDetail": "",
                 "value": 6
             },
             "reflex": {
-                "saveDetail": "",
                 "value": 12
             },
             "will": {
-                "saveDetail": "",
-                "value": null
+                "value": 0
             }
         },
-        "statusEffects": [],
         "traits": {
             "rarity": "unique",
             "size": {

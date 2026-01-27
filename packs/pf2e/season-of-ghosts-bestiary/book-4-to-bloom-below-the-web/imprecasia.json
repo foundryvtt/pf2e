@@ -27,10 +27,13 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
                 "slots": {},
                 "slug": null,
                 "spelldc": {
-                    "dc": 32,
+                    "dc": 30,
                     "value": 22
                 },
                 "tradition": {
@@ -192,7 +195,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Gentle restorative magic pushes back the effects of toxins and more complex maladies. Choose an affliction on the target, such as a curse, disease, or poison. If it has advanced past stage one, reduce the stage by one. This reduction can be applied only once to a given case of an affliction, with the case ending when it's completely cured. Although the reduction can't occur again, heightened versions of this spell attempt to counteract with each casting.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> Attempt to counteract the affliction if it is a disease or poison.</p>\n<p><strong>Heightened (4th)</strong> Attempt to counteract the affliction if it is a curse, disease, or poison.</p>"
+                    "value": "<p class=\"item-block-line last\">\n <span>\n <strong>Range</strong>\n touch;\n </span>\n <span>\n <strong>Targets</strong>\n 1 willing creature\n </span></p>\n\n<hr class=\"item-block-divider\">\n<p>Gentle restorative magic pushes back the effects of toxins and more complex maladies. Choose an affliction on the target, such as a curse, disease, or poison. If it has advanced past stage one, reduce the stage by one. This reduction can be applied only once to a given case of an affliction, with the case ending when it's completely cured. Although the reduction can't occur again, heightened versions of this spell attempt to counteract with each casting.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> Attempt to counteract the affliction if it is a disease or poison.</p>\n<p><strong>Heightened (4th)</strong> Attempt to counteract the affliction if it is a curse, disease, or poison.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -376,9 +379,8 @@
             "name": "Claws",
             "sort": 700000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": [
                         "homelands-hostility"
@@ -457,7 +459,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 30 feet of the imprecasia is @UUID[Compendium.pf2e.conditionitems.Item.Dying]</p>\n<hr />\n<p><strong>Effect</strong> The imprecasia inhales, drawing a thin blue streak of vapor out of the dying creature's body into their mouth. The dying creature's dying condition is reduced by 1, and the imprecasia regains @Damage[(2d10+9)[healing]] Hit Points.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet of the imprecasia is dying</p><hr /><p><strong>Effect</strong> The imprecasia inhales, drawing a thin blue streak of vapor out of the dying creature's body into their mouth. The dying creature's dying condition is reduced by 1, and the imprecasia regains 2d10+9 Hit Points.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -488,7 +490,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The imprecasia casts @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] against a curse afflicting a creature, but with a cast of two actions rather than 10 minutes. If they succeed in removing the curse, they also drains vitality from the creature, causing it to become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} unless it succeeds at a @Check[fortitude|dc:30] save (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure). If the curse is removed, the imprecasia doesn't expend that use of remove curse as a primal innate spell.</p>\n<h2>Targeting Items</h2>\n<p>An imprecasia can cast remove curse on a cursed item rather than on a creature, but they can't use Devour Curse on it. They can only do so on an item that's of a level equal to or less than their own level; on a success, the item is uncursed for 24 hours if it's of a level equal to or higher than the imprecasia's level –4, or uncursed permanently if it's lower level than that.</p>"
+                    "value": "<p>The imprecasia casts cleanse affliction against a curse afflicting a creature. If they succeed in removing the curse, they also breathe in vitality from the creature (appearing to inhale blue streaks of vapor from the target's body), causing the creature to become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} unless it succeeds at a @Check[fortitude|dc:30] save (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure). If the curse is removed, the imprecasia doesn't expend that use of cleanse affliction as a primal innate spell.</p><h2>Targeting Items</h2><p>An imprecasia can cast remove curse on a cursed item rather than on a creature, but they can't use Devour Curse on it. They can only do so on an item that's of a level equal to or less than their own level; on a success, the item is uncursed for 24 hours if it's of a level equal to or higher than the imprecasia's level –4, or uncursed permanently if it's lower level than that.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -621,9 +623,9 @@
             "privateNotes": "",
             "publicNotes": "<p>An imprecasia, commonly known as a curse eater, is a solitary fey drawn to the energy emanating from curses. They appear as emaciated humanoid creatures with shadowy wings, long thin hands with sharp claws, and insectile heads with feathery antenna.</p>\n<p>An imprecasia's appearance in a region signifies the land is troubled, but they're not unpopular creatures. On the contrary, an imprecasia's whereabouts are coveted information, as they have the ability to fully consume curses on objects and creatures. Many carrying the weight of a curse seek out curse eaters, most of whom will gladly accept doomed objects or charitably destroy an individual's curse.</p>\n<p>An imprecasia will never accept the idea of healing a cursed land or blighted region. One might even seek to strengthen the afflictions on a region simply to ensure a regular supply of food. A bolder imprecasia tracks cursed families over generations, feeding off their misfortune until the curse ends or the bloodline dies off. Any who attempt to destroy such curses may find themselves the enemy of an imprecasia defending their source of sustenance.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder #199: To Bloom Below the Web"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Seasons of Ghosts Hardcover Compilation"
             }
         },
         "initiative": {

@@ -349,7 +349,7 @@
                 },
                 "duration": {
                     "sustained": false,
-                    "value": "1 round"
+                    "value": ""
                 },
                 "heightening": {
                     "damage": {
@@ -676,9 +676,13 @@
                             "damage": {
                                 "0": {
                                     "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "type": "bludgeoning"
                                 }
-                            }
+                            },
+                            "defense": null
                         }
                     },
                     "cUFX7ExSLeoa3vIF": {
@@ -690,9 +694,13 @@
                             "damage": {
                                 "0": {
                                     "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "type": "piercing"
                                 }
-                            }
+                            },
+                            "defense": null
                         }
                     },
                     "zFWsMjoeCnLxqJaV": {
@@ -704,9 +712,13 @@
                             "damage": {
                                 "0": {
                                     "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "type": "slashing"
                                 }
-                            }
+                            },
+                            "defense": null
                         }
                     }
                 },
@@ -752,6 +764,7 @@
             "name": "Broken Kusarigama",
             "sort": 1100000,
             "system": {
+                "ammo": null,
                 "baseItem": "kusarigama",
                 "bonus": {
                     "value": 0
@@ -770,7 +783,7 @@
                     "die": "d8"
                 },
                 "description": {
-                    "value": "<p>This impressive weapon consists of a weight attached to a kama via a length of chain, which aids with disarming an opponent or attacking from a distance.</p>"
+                    "value": "<p>This impressive but demanding weapon consists of a weight attached to a kama via a length of chain, which aids with disarming an opponent or attacking from a distance.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -778,6 +791,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "knife",
                 "hardness": 0,
                 "hp": {
@@ -797,9 +811,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #166: Despair on Danger Island"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Treasure Vault (Remastered)"
                 },
                 "quantity": 1,
                 "range": null,
@@ -844,9 +858,8 @@
             "name": "Kusarigama",
             "sort": 1200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -892,9 +905,8 @@
             "name": "Bite",
             "sort": 1300000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -974,7 +986,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The kagekuma manifests a large bundle of straw, reeds, rope, yarn, hair, or the like, all lashed together with cords and strapped to its back. The kagekuma's AC increases to 27 as long as its bundle remains manifested, but its Speed is reduced to 15 feet.</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The kagekuma manifests a large bundle of straw, reeds, rope, yarn, hair, or the like, all lashed together with cords and strapped to their back. The kagekuma's AC increases to 27 as long as their bundle remains manifested, but their Speed is reduced to 15 feet.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -1061,7 +1073,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The kagekuma is casting a shadow</p>\n<hr />\n<p><strong>Effect</strong> The kagekuma targets an adjacent creature that's casting a shadow, then its shadow feeds on that creature's shadow. If the kagekuma has a manifested bundle, observers (including the creature whose shadow is being bitten) can notice the kagekuma's Shadow Bite only if they succeed at a @Check[perception|dc:38] check. The target must succeed at a @Check[fortitude|dc:26] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure).</p>"
+                    "value": "<p><strong>Requirements</strong> The kagekuma is casting a shadow</p><hr /><p><strong>Effect</strong> The kagekuma targets an adjacent creature that's casting a shadow, then their shadow feeds on that creature's shadow. If the kagekuma has a manifested bundle, observers (including the creature whose shadow is being bitten) can notice the kagekuma's Shadow Bite only if they succeed at a @Check[perception|dc:38] check. The target must succeed at a @Check[fortitude|dc:26] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1095,7 +1107,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The kagekuma has a manifested bundle</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The kagekuma causes its bundle to vanish, Strides, and then attempts a kusarigama Strike and a bite Strike.</p>"
+                    "value": "<p><strong>Requirements</strong> The kagekuma has a manifested bundle</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The kagekuma causes its bundle to vanish, Strides, and then attempts a kusarigama Strike and a bite Strike. The target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against both of these Strikes.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -1194,9 +1206,9 @@
             "privateNotes": "",
             "publicNotes": "<p>Kagekumas exist in the periphery, lurking in the very shadows of their prey. Known in some regions as \"shadefiends,\" this nindoru's ability to appear as uninteresting figures in the crowd allows them to feed even in populated areas. A kagekuma appears as a hunched over humanoid with a long neck and a fanged mouth, but when wearing a bundle, the creature's head and neck tuck in tight between its shoulders to become entirely obscured. The kagekuma personifies the cycle of trust being built and broken over and over again through the course of a complex relationship.</p>\n<h2>Kagekuma Bundles</h2>\n<p>A kagekuma's bundle is more than just a disguise and armor—it's a physical indication of how many lives they've cut short and how many souls they've supped upon. Whether the bundle is composed of straw, ropes, hair, or other materials, the individual lengths symbolize a sort of \"reaper's harvest,\" with each strand in the bundle representing a metaphorical lifeline that the nindoru has severed and collected—to an extent that the multitude of lives taken overwhelms the nindoru's own presence in the world.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder #198: No Breath to Cry"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Seasons of Ghosts Hardcover Compilation"
             }
         },
         "initiative": {
