@@ -844,15 +844,21 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         operation: Partial<Omit<DatabaseUpdateOperation<null>, "parent" | "pack">> = {},
     ): Promise<this | undefined> {
         if (this.parentItem) {
+            const changes = fu.expandObject(data) as DeepPartial<this["_source"]>;
+            changes._id = this.id;
+            if ((await this._preUpdate(changes, operation, game.user)) === false) {
+                return undefined;
+            }
+
             const parentItem = this.parentItem;
             const newSubitems = parentItem._source.system.subitems?.map((i) =>
-                i._id === this.id ? fu.mergeObject(i, data, { ...operation, inplace: false }) : i,
+                i._id === this.id ? fu.mergeObject(i, changes, { ...operation, inplace: false }) : i,
             );
             const parentContext = { ...operation, diff: true, recursive: true };
             const updated = await parentItem.update({ system: { subitems: newSubitems } }, parentContext);
             if (updated) {
                 this._onUpdate(
-                    data as DeepPartial<this["_source"]>,
+                    changes,
                     { action: "update", broadcast: false, updates: [], ...operation },
                     game.user.id,
                 );
