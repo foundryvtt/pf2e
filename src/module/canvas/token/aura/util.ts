@@ -48,7 +48,7 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
         }),
     );
 
-    const squareGrid = Array.from({ length: rowCount * rowCount }, (_, i) => {
+    const squares = Array.from({ length: rowCount * rowCount }, (_, i) => {
         const dx = Math.floor(i / rowCount);
         const dy = i % rowCount;
         return new EffectAreaSquare(
@@ -59,7 +59,7 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
         );
     });
 
-    return squareGrid
+    return squares
         .filter((s) => measureDistanceCuboid(tokenBounds, s) <= data.radius)
         .map((square) => {
             square.active = tokenCenterPolygons.some((c) => c.contains(square.center.x, square.center.y));
