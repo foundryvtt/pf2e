@@ -89,7 +89,10 @@ type DeferredModifier = DeferredValue<Modifier>;
 type DeferredDamageDice = (args: DeferredDamageDiceOptions) => DamageDicePF2e | null;
 type DeferredMovementType = DeferredValue<BaseSpeedSynthetic | null>;
 type DeferredEphemeralEffect = DeferredPromise<EffectSource | ConditionSource | null>;
-type DeferredStrike = (runes?: WeaponRuneSource) => WeaponPF2e<ActorPF2e> | null;
+type DeferredStrike = (options?: {
+    unarmedRunes?: WeaponRuneSource;
+    handwraps?: WeaponPF2e;
+}) => WeaponPF2e<ActorPF2e> | null;
 
 interface BaseSpeedSynthetic extends Omit<LabeledSpeed, "label" | "type"> {
     type: MovementType;

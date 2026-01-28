@@ -1,4 +1,5 @@
 import { AttributeString } from "@actor/types.ts";
+import { ItemUUID } from "@common/documents/_module.mjs";
 import type { AmmoType } from "@item/ammo/types.ts";
 import type { PhysicalItemSource } from "@item/base/data/index.ts";
 import type { ItemFlagsPF2e, TraitConfig } from "@item/base/data/system.ts";
@@ -48,6 +49,8 @@ type WeaponFlags = ItemFlagsPF2e & {
         attackItemBonus: number;
         /** A tracking property of whether the damage die size has been upgraded */
         damageFacesUpgraded: boolean;
+        /** The handwraps modifying this weapon */
+        handwraps?: ItemUUID | null;
     };
 };
 

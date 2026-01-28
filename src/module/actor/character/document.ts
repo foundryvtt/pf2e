@@ -48,7 +48,8 @@ import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } fr
 import type { EffectAreaShape, ItemType } from "@item/types.ts";
 import type { WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
-import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
+import { WeaponTrait } from "@item/weapon/types.ts";
+import { OneToThree, PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
@@ -1026,46 +1027,58 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const unarmedRunes = fu.deepClone(handwraps?._source.system.runes) ?? { potency: 0, striking: 0, property: [] };
 
         // Add a basic unarmed strike
-        const basicUnarmed = includeBasicUnarmed
-            ? ((): WeaponPF2e<this> => {
-                  const source: PreCreate<WeaponSource> = {
-                      _id: "xxPF2ExUNARMEDxx",
-                      name: game.i18n.localize("PF2E.WeaponTypeUnarmed"),
-                      type: "weapon",
-                      img: "icons/skills/melee/unarmed-punch-fist.webp",
-                      system: {
-                          slug: "basic-unarmed",
-                          category: "unarmed",
-                          baseItem: null,
-                          bonus: { value: 0 },
-                          damage: { dice: 1, die: "d4", damageType: "bludgeoning" } as const,
-                          equipped: {
-                              carryType: "worn",
-                              inSlot: true,
-                              handsHeld: 0,
-                          },
-                          group: "brawling",
-                          traits: { value: ["agile", "finesse", "nonlethal", "unarmed"] },
-                          usage: { value: "worngloves" },
-                          runes: unarmedRunes,
-                      },
-                  };
+        const basicUnarmed = (() => {
+            if (!includeBasicUnarmed) return null;
 
-                  // No handwraps, so generate straight from source
-                  const attack = new WeaponPF2e(source, { parent: this });
-                  for (const rule of this.synthetics.itemAlterations) {
-                      rule.applyAlteration({ singleItem: attack });
-                  }
-                  return attack;
-              })()
-            : null;
+            // Get traits, and include tracking from handwraps (Hardlight Handwraps)
+            const traits: WeaponTrait[] = ["agile", "finesse", "nonlethal", "unarmed"];
+            const handwrapsTracking = handwraps?.system.traits.config.tracking;
+            if (handwrapsTracking) {
+                traits.push(`tracking-${handwrapsTracking as OneToThree}`);
+            }
+
+            const source: PreCreate<WeaponSource> = {
+                _id: "xxPF2ExUNARMEDxx",
+                name: game.i18n.localize("PF2E.WeaponTypeUnarmed"),
+                type: "weapon",
+                img: "icons/skills/melee/unarmed-punch-fist.webp",
+                system: {
+                    slug: "basic-unarmed",
+                    category: "unarmed",
+                    baseItem: null,
+                    bonus: { value: 0 },
+                    damage: { dice: 1, die: "d4", damageType: "bludgeoning" } as const,
+                    equipped: {
+                        carryType: "worn",
+                        inSlot: true,
+                        handsHeld: 0,
+                    },
+                    group: "brawling",
+                    traits: { value: traits },
+                    usage: { value: "worngloves" },
+                    runes: unarmedRunes,
+                },
+                flags: {
+                    [SYSTEM_ID]: {
+                        handwraps: handwraps?.uuid,
+                    },
+                },
+            };
+
+            // No handwraps, so generate straight from source
+            const attack = new WeaponPF2e(source, { parent: this });
+            for (const rule of this.synthetics.itemAlterations) {
+                rule.applyAlteration({ singleItem: attack });
+            }
+            return attack;
+        })();
 
         const ammos = [
             ...itemTypes.ammo.filter((i) => !i.isStowed),
             ...itemTypes.weapon.filter((w) => w.system.usage.canBeAmmo),
         ];
         const syntheticWeapons = Object.values(synthetics.strikes)
-            .map((s) => s(unarmedRunes))
+            .map((s) => s({ unarmedRunes, handwraps }))
             .filter(R.isNonNull);
         // Exclude handwraps as a strike
         const weapons = [

@@ -12,6 +12,7 @@ import type {
     WeaponRangeIncrement,
     WeaponTrait,
 } from "@item/weapon/types.ts";
+import { OneToThree } from "@module/data.ts";
 import type { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import { objectHasKey, sluggify } from "@util";
 import { RuleElement, RuleElementOptions } from "./base.ts";
@@ -176,7 +177,7 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
     override beforePrepareData(): void {
         if (!this.test()) return;
         const slug = this.slug ?? sluggify(this.label);
-        this.actor.synthetics.strikes[slug] = (unarmedRunes) => this.#constructWeapon({ slug, unarmedRunes });
+        this.actor.synthetics.strikes[slug] = (options = {}) => this.#constructWeapon({ ...options, slug });
     }
 
     /** Exclude other strikes if this rule element specifies that its strike replaces all others */
@@ -206,7 +207,7 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
      * Construct a `WeaponPF2e` instance for use as the synthetic strike
      * @param damageType The resolved damage type for the strike
      */
-    #constructWeapon({ slug, unarmedRunes }: ConstructWeaponParams): WeaponPF2e<ActorPF2e> | null {
+    #constructWeapon({ slug, unarmedRunes, handwraps }: ConstructWeaponParams): WeaponPF2e<ActorPF2e> | null {
         const actor = this.actor;
 
         const attribute = this.resolveInjectedProperties(this.ability) || null;
@@ -233,6 +234,12 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
             return null;
         }
 
+        const traits = this.traits.filter((t): t is WeaponTrait => objectHasKey(CONFIG.PF2E.weaponTraits, t));
+        const handwrapsTracking = handwraps?.system.traits.config.tracking;
+        if (handwrapsTracking) {
+            traits.push(`tracking-${handwrapsTracking as OneToThree}`);
+        }
+
         const actorIsNPC = actor.isOfType("npc");
         const source: PreCreate<WeaponSource> = fu.deepClone({
             _id: this.fist ? "xxxxxxFISTxxxxxx" : this.item.id,
@@ -243,6 +250,7 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
                 [SYSTEM_ID]: {
                     battleForm: this.battleForm,
                     fixedAttack: actorIsNPC ? (this.attackModifier ?? null) : null,
+                    handwraps: this.category === "unarmed" ? handwraps?.uuid : null,
                 },
             },
             system: {
@@ -263,7 +271,7 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
                 range: (this.range?.increment ?? null) as WeaponRangeIncrement | null,
                 maxRange: this.range?.max ?? null,
                 traits: {
-                    value: this.traits as WeaponTrait[],
+                    value: traits,
                     otherTags: this.otherTags,
                     rarity: "common",
                     toggles: {
@@ -387,7 +395,9 @@ type StrikeSchema = RuleElementSchema & {
 interface ConstructWeaponParams {
     slug: string;
     /** Weapon runes from handwraps of mighty blows */
-    unarmedRunes: Maybe<WeaponRuneSource>;
+    unarmedRunes?: Maybe<WeaponRuneSource>;
+    /** The handwraps currently active on this character */
+    handwraps?: Maybe<WeaponPF2e>;
 }
 
 interface StrikeSource extends RuleElementSource {
