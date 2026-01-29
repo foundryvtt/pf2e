@@ -182,10 +182,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
             const save = system.saves[saveType];
             const label = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
             const base = save.value;
-
-            // Saving Throws with a value of 0 are not usable by the hazard
-            // Later on we'll need to explicitly check for null, since 0 is supposed to be valid
-            if (!base) return saves;
+            if (base === null) return saves;
 
             const statistic = new Statistic(this, {
                 slug: saveType,
