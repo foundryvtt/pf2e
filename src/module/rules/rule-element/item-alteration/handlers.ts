@@ -242,7 +242,7 @@ const ITEM_ALTERATION_HANDLERS = {
             } as const),
         },
         validateForItem(item): validation.DataModelValidationFailure | void {
-            if(!itemIsOfType(item, "weapon")) return;
+            if (!itemIsOfType(item, "weapon")) return;
             if (!item.system.ammo || !item.system.ammo.capacity || item.system.ammo.capacity < 1) {
                 return new validation.DataModelValidationFailure({
                     message:
