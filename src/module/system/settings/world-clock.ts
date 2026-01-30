@@ -13,7 +13,13 @@ interface SettingsContext extends fa.ApplicationRenderContext {
 }
 
 type WorldClockSettingSchema = {
-    dateTheme: fields.StringField<"AR" | "IC" | "AG" | "AD" | "CE", "AR" | "IC" | "AG" | "AD" | "CE", true, false, true>;
+    dateTheme: fields.StringField<
+        "AR" | "IC" | "AG" | "AD" | "CE",
+        "AR" | "IC" | "AG" | "AD" | "CE",
+        true,
+        false,
+        true
+    >;
     playersCanView: fields.BooleanField;
     showClockButton: fields.BooleanField;
     syncDarkness: fields.BooleanField;
