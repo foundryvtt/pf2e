@@ -58,7 +58,11 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
     };
 
     static #SCHEMA: fields.SchemaField<WorldClockSettingSchema> = new fields.SchemaField({
-        dateTheme: new fields.StringField({ required: true, choices: ["AR", "IC", "AG", "AD", "CE"], initial: "AR" }),
+        dateTheme: new fields.StringField({
+            required: true,
+            choices: ["AR", "IC", "AG", "AD", "CE"],
+            initial: SYSTEM_ID === "sf2e" ? "AG" : "AR",
+        }),
         playersCanView: new fields.BooleanField(),
         showClockButton: new fields.BooleanField({ initial: true }),
         syncDarkness: new fields.BooleanField(),
