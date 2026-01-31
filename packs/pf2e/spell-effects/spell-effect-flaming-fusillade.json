@@ -1,0 +1,53 @@
+{
+    "_id": "wSlBL3pDzvwMxCSV",
+    "img": "icons/magic/fire/explosion-embers-orange.webp",
+    "name": "Spell Effect: Flaming Fusillade",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Flaming Fusillade]</p>\n<p>When heightened to 9th rank, you gain a status bonus to damage dealt by <em>ignition</em> equal to <em>flaming fusillade</em>'s spell rank.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:slug:ignition",
+                    {
+                        "gte": [
+                            "parent:level",
+                            9
+                        ]
+                    }
+                ],
+                "selector": "spell-damage",
+                "type": "status",
+                "value": "@item.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
