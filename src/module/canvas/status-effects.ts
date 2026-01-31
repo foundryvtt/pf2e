@@ -181,7 +181,7 @@ export class StatusEffects {
 
     /** Called by `EncounterPF2e#_onUpdate` */
     static onUpdateEncounter(encounter: EncounterPF2e): void {
-        if (!(game.user.isGM && game.settings.get(SYSTEM_ID, "statusEffectShowCombatMessage"))) return;
+        if (!(game.user.isActiveGM && game.settings.get(SYSTEM_ID, "statusEffectShowCombatMessage"))) return;
 
         if (!encounter.started) {
             this.#lastCombatantToken = null;
