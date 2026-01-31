@@ -86,9 +86,9 @@
                     "value": "C87slniCJsgBKjT2"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -148,14 +148,15 @@
                     "value": "C87slniCJsgBKjT2"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "range": {
                     "value": ""
                 },
                 "requirements": "",
+                "ritual": null,
                 "rules": [],
                 "slug": "wanderers-guide",
                 "target": {
@@ -195,7 +196,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>With a rush of telekinetic power, you move a foe or something they carry. You can attempt to Disarm, Shove, or Trip the target using a spell attack roll instead of an Athletics check.</p>"
+                    "value": "<p>With a rush of telekinetic power, you move a foe or something they carry. You can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm], @UUID[Compendium.pf2e.actionspf2e.Item.Shove], @UUID[Compendium.pf2e.actionspf2e.Item.Reposition], or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] the target using a spell attack roll instead of an Athletics check.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -209,9 +210,9 @@
                     "value": "C87slniCJsgBKjT2"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "60 feet"
@@ -257,9 +258,9 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
-                        "applyMod": true,
+                        "applyMod": false,
                         "category": null,
-                        "formula": "0",
+                        "formula": "1d6",
                         "kinds": [
                             "damage"
                         ],
@@ -274,11 +275,11 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You push into the target's mind and daze it with a mental jolt. The jolt deals 1d6 mental damage, with a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
-                    "value": "1 round"
+                    "value": ""
                 },
                 "heightening": {
                     "damage": {
@@ -294,9 +295,9 @@
                     "value": "C87slniCJsgBKjT2"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "60 feet"
@@ -329,13 +330,80 @@
             "type": "spell"
         },
         {
+            "_id": "pjkTdySySppGnJnL",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.J7Y7tl0bbdz7TcCc"
+            },
+            "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
+            "name": "Enfeeble",
+            "sort": 600000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You sap the target's strength, depending on its Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} until the start of your next turn.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3} for 1 minute.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "value": "C87slniCJsgBKjT2"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "enfeeble",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
             "_id": "b8e2lLyzlaaV63pZ",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.4ZGte0i9YbLh4dRi"
             },
             "img": "systems/pf2e/icons/spells/item-facade.webp",
             "name": "Item Facade",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
@@ -359,9 +427,9 @@
                     "value": "C87slniCJsgBKjT2"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "touch"
@@ -398,7 +466,7 @@
             },
             "img": "icons/skills/ranged/arrow-flying-ornate-gold.webp",
             "name": "Know the Way",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "area": null,
                 "cost": {
@@ -455,74 +523,6 @@
             "type": "spell"
         },
         {
-            "_id": "pjkTdySySppGnJnL",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.J7Y7tl0bbdz7TcCc"
-            },
-            "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
-            "name": "Ray of Enfeeblement",
-            "sort": 800000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>A ray that saps a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save to determine the spell's effect. If your attack roll is a critical success, use the outcome for one degree of success worse than the result of its save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}.</p>\n<p><strong>Failure</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Critical Failure</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3}.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": "1 minute"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "heightenedLevel": 1,
-                    "value": "C87slniCJsgBKjT2"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "ray-of-enfeeblement",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ],
-                    "value": [
-                        "attack",
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
             "_id": "hOBn96ooVm55dUOk",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.tOhoGvmCMw4JpWcS"
@@ -531,6 +531,7 @@
             "name": "Broken Spear",
             "sort": 900000,
             "system": {
+                "ammo": null,
                 "baseItem": "spear",
                 "bonus": {
                     "value": 0
@@ -557,6 +558,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "spear",
                 "hardness": 0,
                 "hp": {
@@ -576,14 +578,14 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 2,
                 "range": null,
                 "reload": {
-                    "value": "-"
+                    "value": null
                 },
                 "rules": [],
                 "runes": {
@@ -599,6 +601,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "monk",
                         "thrown-20"
                     ]
                 },
@@ -615,7 +618,7 @@
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.EcLENuK2LXZdigTu"
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/waffle-iron.webp",
-            "name": "Cage",
+            "name": "Wicker Cage",
             "sort": 1000000,
             "system": {
                 "baseItem": null,
@@ -628,6 +631,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -677,9 +681,8 @@
             "name": "Broken Spear",
             "sort": 1100000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -723,11 +726,9 @@
             "name": "Hair Lash",
             "sort": 1200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": [
                         "grab"
                     ]
@@ -804,7 +805,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The guhdggi opens both of its mouths and, from its innermost humanoid mouth, belches forth a blast of red butterflies in a @Template[cone|distance:15]. All creatures in the area must attempt a @Check[reflex|dc:22|options:area-effect,damaging-effect,inflicts:sickened] save as the hideous insects' razor sharp wings and tiny claws slash and cut away at exposed flesh. The guhdggi can't Belch Butterflies again for [[/gmr 1d4 #Recharge Belch Butterflies]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage from the butterflies.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[slashing]|options:area-damage] damage from the butterflies.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d6[slashing],1d6[bleed]|options:area-damage]{4d6 slashing damage, 1d6 persistent bleed damage}, and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d6[slashing],2d6[bleed]|options:area-damage]{8d6 slashing damage, 2d6 persistent bleed damage}, and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>"
+                    "value": "<p>The guhdggi opens both of their mouths and, from their innermost humanoid mouth, belches forth a blast of red butterflies in a @Template[cone|distance:15]. All creatures in the area must attempt a @Check[reflex|dc:22|options:area-effect,damaging-effect,inflicts:sickened] save as the hideous insects' razor sharp wings and tiny claws slash and cut away at exposed flesh.</p>\n<p>The guhdggi can't Belch Butterflies again for [[/br 1d4 #Recharge Belch Butterflies]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage from the butterflies.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[slashing]|options:area-damage] damage from the butterflies.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d6[slashing],1d6[bleed]|options:area-damage]{4d6 slashing damage, 1d6 persistent bleed damage}, and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[8d6[slashing],2d6[bleed]|options:area-damage]{8d6 slashing damage, 2d6 persistent bleed damage}, and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -835,7 +836,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The guhdggi has grappled a Medium or smaller creature with its hair lash and doesn't have a creature caged</p><hr /><p><strong>Effect</strong> The guhdggi attempts an @Check[athletics|against:reflex] check opposed by the @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] creature's Reflex DC. If it succeeds, it places the creature into the cage it carries on its back. The guhdggi's hair lash no longer grapples the creature, and it can't attack a creature in its cage.</p>\n<p>The caged creature is grabbed. It takes @Damage[(2d4+6)[mental]] damage when first caged and at the end of each of its turns while it's caged. A caged victim can attempt to [[/act force-open dc=22]] or [[/act escape dc=22]] the cage with a DC 22 check, or it can attack the cage's wicker bars, but only with unarmed attacks or with weapons of light Bulk or less. Other creatures can attack the wicker bars as well but can't attempt to Force Open the cage or aid a caged creature's Escape if the guhdggi can resist. Attacks against the cage resolve against the guhdggi's AC, and if the cage takes at least 16 bludgeoning or slashing damage from a single attack or spell, the caged creature gets free.</p>\n<p>If the guhdggi dies, its cage crumbles to fragments.</p>"
+                    "value": "<p><strong>Requirements</strong> The guhdggi has grappled a Medium or smaller creature with its hair lash and doesn't have a creature caged</p><hr /><p><strong>Effect</strong> The guhdggi attempts an @Check[athletics|against:reflex] check against the @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] creature's Reflex DC. If they succeed, they place the creature into the cage they carry on their back. The guhdggi's hair lash no longer grapples the creature, and they can't attack a creature in their cage.</p>\n<p>The caged creature is grabbed. It takes @Damage[(2d4+6)[mental]] damage when first caged and at the end of each of its turns while it's caged. A caged victim can attempt to [[/act force-open dc=22]] or [[/act escape dc=22]] the cage with a DC 22 check, or it can attack the cage's wicker bars, but only with unarmed attacks or with weapons of light Bulk or less. Other creatures can attack the wicker bars as well but can't attempt to Force Open the cage or aid a caged creature's Escape if the guhdggi can resist. Attacks against the cage resolve against the guhdggi's AC, and if the cage takes at least 16 bludgeoning or slashing damage from a single attack or spell, the caged creature gets free.</p>\n<p>If the guhdggi dies, their cage crumbles to fragments.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -866,7 +867,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The guhdggi Strides, then makes two spear Strikes, one with each of the two spears it wields. Both Strikes must have the same target. Apply the guhdggi's multiple attack penalty to each Strike normally.</p>"
+                    "value": "<p>The guhdggi Strides, then makes two spear Strikes, one with each of the two spears they wield. Both Strikes must have the same target. Apply the guhdggi's multiple attack penalty to each Strike normally.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -895,7 +896,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The guhdggi manifests a tool from its thoughts. If its next action is to attempt a skill check that could be affected by the tool it chose, it gains a +2 item bonus to the skill check. The tool is then destroyed.</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The guhdggi manifests a tool from its thoughts. If its next action is to attempt a skill check that could be affected by the tool it chose, it gains a +2 item bonus to the skill check. The tool is then destroyed.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -976,7 +977,6 @@
                 "rules": [],
                 "slug": "grab",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -1065,9 +1065,9 @@
             "privateNotes": "",
             "publicNotes": "<p>A guhdggi forms from the corrupted reincarnated souls of those who have trod the same pilgrimage route through multiple lives. This type of nindoru looks like a bloated frog with long, slender human arms instead of front feet. Its eyes appear bulbous and blind yet are capable of sight. A guhdggi always carries a large wicker cage strapped to their back, while dozens of cords and straps affix a trove of broken weapons, tools, and items to their belly and flanks. When they walk, they do so with the aid of two long spears clutched in their forearms, stumbling and hopping in an ungainly gait. The most unsettling feature of the guhdggi is its second face, revealed when the frog-like mouth opens to reveal a human face peering from its throat amid a tangled nest of butterflies. This face has long, dark, animated hair capable of inflicting painful lashes, the lengths of which hang from the corner of the frog's mouth when its lips are closed.</p>\n<p>While the guhdggi is no longer capable of movement as swift as most humanoids walk, they still enjoy traveling while harboring a ferocious jealousy of those who can do so with greater ease. One would do well not to underestimate the stumbling stagger of a guhdggi, though! The fiend particularly delights in lying in wait along isolated sections of pilgrimage routes to ambush travelers, trapping victims in their cages and feeding upon their captive's mind and memories of previously visited places.</p>\n<p>Guhdggis embody the cycles of repeated journeys and the concept that every journey taken ends at the start of the next. Central to this concept is the notion that no journey ever truly begins or ends—they just emerge from the previous one.</p>\n<hr />\n<p>When an evil mortal soul that has been reincarnated multiple times is wrenched from the cycle of souls and corrupted, it can undergo a horrific transformation into a fiend known as a nindoru. A force for entropy and the breaking of cycles, nindorus are hideous creatures whose bodies often appear distorted, who wield weapons that have been shattered yet still function, and whose true face is often hidden from view. They display traits one might expect to see in an undead creature, such as decaying flesh or exposed bones, yet a nindoru is very much still alive.</p>\n<p>Each nindoru epitomizes the fracture of a specific cycle, be it one from the natural world or from societal traditions. To the nindoru, nothing is more delicious than the consumption of a creature who has reincarnated multiple times, with those who are theoretically about to ascend to true enlightenment presenting the tastiest meal. Those slain by a nindoru are themselves torn from the cycle—the lucky ones move on to the Boneyard for judgment, but many are instead corrupted to form more of these horrific fiends.</p>\n<p>Followers of Sangpotshi find nindoru to be particularly abhorrent and count them among the greatest threats imaginable. Most commonly found in regions of the world where the reincarnation cycle is strongest, nindorus are, like rakshasas and oni, associated most strongly with the Material Plane.</p>\n<h2>Reincarnated Souls</h2>\n<p>In some cases, you'll know if a creature a nindoru attacks has a reincarnated soul. Ancestries like samsarans are always reincarnated souls, and a PC's backstory or even their background can often indicate the presence of a previous life. All of the PCs in Season of Ghosts qualify as reincarnated souls, as they've relived their lives over and over for decades. If you ever need to determine if a creature's soul is reincarnated for the purpose of adjudicating a nindoru's ability, attempt a @Check[flat|dc:11]—on a success, it has a reincarnated soul.</p>\n<h2>Nindoru Demigods</h2>\n<p>The most powerful nindorus are demigods, although their cults are quite rare. Prone to reincarnation after death, nindoru demigods like Kugaptee are more properly known as \"nindoru ascetics.\"</p>\n<h2>Nindoru Traitors</h2>\n<p>While most nindorus are purely chaotic evil in nature, legends tell of exceptionally rare nindorus who manage to escape their own nature and ascend, reincarnating after death into kami or other more benevolent spirits and shedding the nindoru trait as they do so. Of course, these \"traitors\" are regarded as the most delicious meals imaginable by the nindorus left behind.</p>\n<h2>Nindoru Butterflies</h2>\n<p>One of the strangest shared traits of the various types of nindoru are the blood-red butterflies that seem to follow them around, nest on their bodies, or periodically emerge from their wounds. These unnerving insects are physical manifestations of the nindorus' thoughts and symbolize the countless past lives they once lived but turned their backs on. Nindoru butterflies never last long once they flutter more than a few feet from their source, fading away into smoke that quickly dissipates into the air.</p>\n<h2>Other Nindorus</h2>\n<p>Many other types of nindorus exist beyond the four presented on these pages. Others include the corpse-copying akashtis (sobbing nindorus), infiltrators of society known as kagekumas (lurking nindorus), the dead defiling shisagishins (crooked nindorus), and the powerful and brutal argyrzeis (headless nindorus).</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder #197: Let the Leaves Fall"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Seasons of Ghosts Hardcover Compilation"
             }
         },
         "initiative": {

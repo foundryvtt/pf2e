@@ -37,7 +37,7 @@ class HazardSystemData extends ActorSystemModel<HazardPF2e, HazardSystemSchema> 
 
         const createSaveDataSchema = () =>
             new fields.SchemaField<HazardSaveDataSchema>({
-                value: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 0 }),
+                value: new fields.NumberField({ required: true, nullable: true, integer: true, initial: null }),
             });
 
         return {
@@ -212,7 +212,7 @@ interface HazardTraits extends fields.ModelPropsFromSchema<HazardTraitsSchema> {
 }
 
 type HazardSaveDataSchema = {
-    value: fields.NumberField<number, number, true, false, true>;
+    value: fields.NumberField<number, number, true, true, true>;
 };
 
 type HazardAttributesSchema = {

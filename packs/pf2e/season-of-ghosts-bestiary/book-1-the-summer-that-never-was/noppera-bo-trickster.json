@@ -43,6 +43,7 @@
                     "invested": null
                 },
                 "expend": 1,
+                "grade": null,
                 "group": "bow",
                 "hardness": 0,
                 "hp": {
@@ -62,9 +63,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": 60,
@@ -103,6 +104,7 @@
             "name": "Shortsword",
             "sort": 200000,
             "system": {
+                "ammo": null,
                 "baseItem": "shortsword",
                 "bonus": {
                     "value": 0
@@ -129,6 +131,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "sword",
                 "hardness": 0,
                 "hp": {
@@ -148,9 +151,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -205,8 +208,11 @@
                 "dexCap": 4,
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
                     "invested": null
                 },
+                "grade": null,
                 "group": "leather",
                 "hardness": 0,
                 "hp": {
@@ -226,9 +232,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -266,8 +272,21 @@
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
                 "level": {
                     "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -276,9 +295,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 20,
                 "rules": [],
@@ -312,9 +331,8 @@
             "name": "Shortsword",
             "sort": 500000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -359,9 +377,8 @@
             "name": "Shortbow",
             "sort": 600000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -424,7 +441,6 @@
                 "rules": [],
                 "slug": "telepathy",
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "aura",
                         "magical",
@@ -492,6 +508,15 @@
                             "self:condition:deafened"
                         ],
                         "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    },
+                    {
+                        "definition": [
+                            "self:effect:deafened"
+                        ],
+                        "key": "Weakness",
+                        "label": "{item|name}",
+                        "type": "custom",
+                        "value": 1
                     }
                 ],
                 "slug": null,
@@ -642,7 +667,6 @@
                 ],
                 "slug": "sneak-attack",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -705,9 +729,9 @@
             "privateNotes": "",
             "publicNotes": "<p>These noppera-bos have mastered the art of disguise.</p>\n<hr />\n<p>Noppera-bos appear to be regular humans from behind, and might even resemble someone you know, until they turn to reveal a featureless face.</p>\n<h2>Consummate Professionals</h2>\n<p>While the typical noppera-bo is cruel and revels in the act of frightening or tormenting humanoid creatures, not all of them wallow in evil. Neutral noppera-bos tend to be pranksters who use their abilities to trick and tease, while the rare good noppera- bos instead use their abilities to honor and idolize those they admire while focusing their own time on developing their skills at art or crafting.</p>\n<h2>Noppera-bo Origins</h2>\n<p>There are many theories on the origins of noppera-bos—from tanuki whose change shape ability went wrong, to humanoids who were warped by curses, to naturally spawning yokai. Some even theorize this condition is a transmissible curse like lycanthropy. Most noppera-bos don't recall their origins, and are often more interested in pretending to be someone else entirely.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder #196: The Summer That Never Was"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Seasons of Ghosts Hardcover Compilation"
             }
         },
         "initiative": {
@@ -715,7 +739,7 @@
         },
         "perception": {
             "details": "no face",
-            "mod": 8,
+            "mod": 5,
             "senses": []
         },
         "resources": {},

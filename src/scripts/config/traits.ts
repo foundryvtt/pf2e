@@ -869,6 +869,7 @@ const consumableTraits = {
     structure: "PF2E.TraitStructure",
     talisman: "PF2E.TraitTalisman",
     tea: "PF2E.TraitTea",
+    tech: "PF2E.TraitTech",
     teleportation: "PF2E.TraitTeleportation",
     trap: "PF2E.TraitTrap",
     virulent: "PF2E.TraitVirulent",

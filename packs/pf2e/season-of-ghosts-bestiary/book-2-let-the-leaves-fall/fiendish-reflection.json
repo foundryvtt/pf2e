@@ -17,7 +17,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature looks at the water</p>\n<hr />\n<p><strong>Effect</strong> The creature sees its reflection on the water's surface distort into a fiendish version of themselves; they must succeed at a @Check[will|dc:20] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for as long as they remain frightened on a critical failure).</p>"
+                    "value": "<p><strong>Trigger</strong> A creature looks at the water</p><hr /><p><strong>Effect</strong> The creature sees its reflection on the water's surface distort into a fiendish version of itself; it must succeed at a @Check[will|dc:20] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} (and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for as long as it remains frightened on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -30,7 +30,8 @@
                     "value": [
                         "emotion",
                         "fear",
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -51,42 +52,40 @@
                 "temp": 0,
                 "value": 0
             },
+            "immunities": [],
+            "resistances": [],
             "stealth": {
                 "details": "<p>(expert)</p>",
                 "value": 13
-            }
+            },
+            "weaknesses": []
         },
-        "creatureType": "",
         "details": {
-            "description": "<p>Reflections viewed in the water here appear monstrous and fiendish.</p>",
-            "disable": "<p>@Check[religion|dc:20] to exorcise the haunt, or @Check[intimidation|dc:23] to turn the fear back on the haunt and overwhelm it</p>",
+            "description": "<p>Reflections viewed in the water here appear monstrous and fiendish; a PC who views themself in these waters sees a distorted version of themself looking back at them, sneering and mocking.</p>",
+            "disable": "<p>@Check[religion|dc:20] to exorcise the haunt, or @Check[intimidation|dc:23] to turn the fear back on the haunt and overwhelm it with its own terror</p>",
             "isComplex": false,
             "level": {
                 "value": 3
             },
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder #197: Let the Leaves Fall"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Seasons of Ghosts Hardcover Compilation"
             },
-            "reset": "<p>The haunt resets immediately and can trigger again the next round.</p>",
+            "reset": "<p>The haunt resets at the end of the round automatically, ready to trigger again the next tome someone looks into the water.</p>",
             "routine": ""
         },
         "saves": {
             "fortitude": {
-                "saveDetail": "",
                 "value": 0
             },
             "reflex": {
-                "saveDetail": "",
                 "value": 0
             },
             "will": {
-                "saveDetail": "",
                 "value": 0
             }
         },
-        "statusEffects": [],
         "traits": {
             "rarity": "unique",
             "size": {

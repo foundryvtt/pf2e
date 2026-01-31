@@ -83,6 +83,7 @@
                     "value": ""
                 },
                 "heightening": {
+                    "area": 0,
                     "damage": {
                         "0": "1d12"
                     },
@@ -156,7 +157,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>Over the course of a minute, you cause a thick wall of thorny brambles to grow from the ground. You create a 5-foot-thick wall of brambles and thorns in a straight line up to 60 feet long and 10 feet high. You must create the wall in an unbroken open space so its edges don't pass through any creatures or objects, or the spell is lost. The wall stands vertically. If you wish, the wall can be of a shorter length or height. Everything on each side of the wall has cover from creatures on the opposite side, and the wall's spaces are difficult terrain. For every move action a creature uses to enter at least one of the wall's spaces, that creature takes 3d4 piercing damage.</p>\n<p>Each 10-foot-by-10-foot section of the wall has AC 10, Hardness 10, and 20 Hit Points. It's immune to critical hits and precision damage. A destroyed section can be moved through freely.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The Hit Points of each section of the wall increase by 5, and the piercing damage increases by 1d4.</p>"
+                    "value": "<p>You grow a wall of thorny brambles from the ground. You create a 5-foot-thick wall of brambles and thorns in a straight line up to 60 feet long and 10 feet high. You must create the wall in an unbroken open space so its edges don't pass through any creatures or objects, or the spell is lost. The wall stands vertically. If you wish, the wall can be of a shorter length or height. Everything on each side of the wall has cover from creatures on the opposite side, and the wall's spaces are difficult terrain. For every move action a creature uses to enter at least one of the wall's spaces, that creature takes 3d4 piercing damage.</p>\n<p>Each 10-foot-by-10-foot section of the wall has AC 10, Hardness 10, and 20 Hit Points. It's immune to critical hits and precision damage. A destroyed section can be moved through freely.</p><hr /><p><strong>Heightened (+1)</strong> The Hit Points of each section of the wall increase by 5, and the piercing damage increases by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -196,6 +197,7 @@
                 "traits": {
                     "rarity": "common",
                     "traditions": [
+                        "arcane",
                         "primal"
                     ],
                     "value": [
@@ -251,6 +253,7 @@
                     "value": "1 minute"
                 },
                 "heightening": {
+                    "area": 0,
                     "damage": {
                         "0": "1d6"
                     },
@@ -321,7 +324,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You create a sticky web in the area that impedes creatures' movement each time they try to move through it. Squares filled with the web are difficult terrain. Each square can be cleared of the web by a single attack or effect that deals at least 5 slashing damage or 1 fire damage. A square has AC 5, and it automatically fails its saving throws.</p>\n<p>Each time a creature in the web begins to use a move action or enters the web during a move action, it must attempt an Athletics check or Reflex save against your spell DC to avoid taking a circumstance penalty to its Speeds or becoming @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]. A creature that gets out of the web ceases to take a circumstance penalty to its Speed from the web.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected, and it doesn't need to attempt further Athletics checks or saving throws against the web this turn. If it used an Athletics check, it clears the web from every square it leaves after leaving the square.</p>\n<p><strong>Success</strong> The creature is unaffected during its action. If it used an Athletics check, it clears the web from every square it leaves after leaving the square.</p>\n<p><strong>Failure</strong> The creature takes a –10-foot circumstance penalty to its Speeds until the start of its next turn.</p>\n<p><strong>Critical Failure</strong> The creature is Immobilized until the start of its next turn, after which it takes a –10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape to remove its Immobilized condition.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell's area increases to a 20-foot burst, and its range increases to 60 feet.</p>"
+                    "value": "<p>You create a sticky web in the area that impedes creatures' movement. Squares filled with the web are difficult terrain. Each time a creature in the web begins to use a move action or enters the web during a move action it's using, it must attempt an @Check[athletics] check or Reflex save against your spell DC to avoid taking a circumstance penalty to its Speeds or becoming @UUID[Compendium.pf2e.conditionitems.Item.Immobilized]. A creature that gets out of the web ceases to take a circumstance penalty to its Speed from the web. Each square can be cleared of the web by a single attack or effect that deals at least 5 slashing damage or 1 fire damage. A square has AC 5, and it automatically fails its saving throws.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected, and it doesn't need to attempt further Athletics checks or saving throws against the web this turn. If it used an Athletics check, it clears the web from every square it leaves during its movement.</p>\n<p><strong>Success</strong> The creature is unaffected during its action. If it used an Athletics check, it clears the web from every square it leaves during its movement.</p>\n<p><strong>Failure</strong> The creature takes a –10-foot circumstance penalty to its Speeds until the start of its next turn.</p>\n<p><strong>Critical Failure</strong> The creature is immobilized until the start of its next turn, after which it takes a –10-foot circumstance penalty to its Speeds for 1 round. It can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] to remove its immobilized condition.</p><hr /><p><strong>Heightened (4th)</strong> The spell's area increases to a @Template[burst|distance:20], and its range increases to 60 feet.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -332,7 +335,8 @@
                         "4": {
                             "area": {
                                 "areaType": "burst",
-                                "value": "20"
+                                "type": "burst",
+                                "value": 20
                             },
                             "range": {
                                 "value": "60 feet"
@@ -349,9 +353,9 @@
                     "value": "hUOZkwy7i9q5mMZZ"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
                 },
                 "range": {
                     "value": "30 feet"
@@ -380,34 +384,25 @@
             "type": "spell"
         },
         {
-            "_id": "FTjLPihJR7JpiYPy",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gISYsBFby1TiXfBt"
-            },
-            "img": "icons/magic/acid/projectile-smoke-glowing.webp",
-            "name": "Acid Splash",
+            "_id": "H6jd4CDjByisuet9",
+            "folder": "D7UVaOiB40wTR6kv",
+            "img": "icons/magic/acid/orb-bubble-smoke-drip.webp",
+            "name": "Caustic Blast",
             "sort": 600000,
             "system": {
-                "area": null,
+                "area": {
+                    "type": "burst",
+                    "value": 5
+                },
                 "cost": {
                     "value": ""
                 },
                 "counteraction": false,
                 "damage": {
-                    "0": {
+                    "yI4fzrhnbFxup4Ep": {
                         "applyMod": false,
                         "category": null,
-                        "formula": "1d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "acid"
-                    },
-                    "gcovwqxwitqchoin": {
-                        "applyMod": false,
-                        "category": "splash",
-                        "formula": "1",
+                        "formula": "1d8",
                         "kinds": [
                             "damage"
                         ],
@@ -415,90 +410,26 @@
                         "type": "acid"
                     }
                 },
-                "defense": null,
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
                 "description": {
-                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus 1 splash acid damage. On a critical success, the target also takes @Damage[(ceil(@item.level/2))[persistent,acid]] damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 2d6, and the persistent damage increases to 2.</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 3d6, the persistent damage increases to 3, and the splash damage increases to 2.</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 4d6, the persistent damage increases to 4, and the splash damage increases to 3.</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 5d6, the persistent damage increases to 5, and the splash damage increases to 4.</p>"
+                    "value": "<p>You fling a large glob of acid that immediately detonates, spraying nearby creatures. Creatures in the area take 1d8 acid damage with a basic Reflex save; on a critical failure, the creature also takes @Damage[(1+floor((@item.rank -1)/2))[persistent,acid]] damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 1d8, and the persistent damage on a critical failure increases by 1.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
                 },
                 "heightening": {
-                    "levels": {
-                        "3": {
-                            "damage": {
-                                "0": {
-                                    "applyMod": false,
-                                    "category": null,
-                                    "formula": "2d6",
-                                    "materials": [],
-                                    "type": "acid"
-                                },
-                                "gcovwqxwitqchoin": {
-                                    "applyMod": false,
-                                    "category": "splash",
-                                    "formula": "1",
-                                    "materials": [],
-                                    "type": "acid"
-                                }
-                            }
-                        },
-                        "5": {
-                            "damage": {
-                                "0": {
-                                    "applyMod": false,
-                                    "category": null,
-                                    "formula": "3d6",
-                                    "materials": [],
-                                    "type": "acid"
-                                },
-                                "gcovwqxwitqchoin": {
-                                    "applyMod": false,
-                                    "category": "splash",
-                                    "formula": "2",
-                                    "materials": [],
-                                    "type": "acid"
-                                }
-                            }
-                        },
-                        "7": {
-                            "damage": {
-                                "0": {
-                                    "applyMod": false,
-                                    "category": null,
-                                    "formula": "4d6",
-                                    "materials": [],
-                                    "type": "acid"
-                                },
-                                "gcovwqxwitqchoin": {
-                                    "applyMod": false,
-                                    "category": "splash",
-                                    "formula": "3",
-                                    "materials": [],
-                                    "type": "acid"
-                                }
-                            }
-                        },
-                        "9": {
-                            "damage": {
-                                "0": {
-                                    "applyMod": false,
-                                    "category": null,
-                                    "formula": "5d6",
-                                    "materials": [],
-                                    "type": "acid"
-                                },
-                                "gcovwqxwitqchoin": {
-                                    "applyMod": false,
-                                    "category": "splash",
-                                    "formula": "4",
-                                    "materials": [],
-                                    "type": "acid"
-                                }
-                            }
-                        }
+                    "area": 0,
+                    "damage": {
+                        "yI4fzrhnbFxup4Ep": "1d8"
                     },
-                    "type": "fixed"
+                    "interval": 2,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 1
@@ -507,18 +438,18 @@
                     "value": "hUOZkwy7i9q5mMZZ"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "acid-splash",
+                "slug": "caustic-blast",
                 "target": {
-                    "value": "1 creature"
+                    "value": ""
                 },
                 "time": {
                     "value": "2"
@@ -531,7 +462,6 @@
                     ],
                     "value": [
                         "acid",
-                        "attack",
                         "cantrip",
                         "concentrate",
                         "manipulate"
@@ -754,9 +684,8 @@
             "name": "False Weapon",
             "sort": 1000000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -792,9 +721,8 @@
             "name": "False Weapon",
             "sort": 1100000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -851,7 +779,6 @@
                 "rules": [],
                 "slug": "telepathy",
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "aura",
                         "magical",
@@ -924,6 +851,15 @@
                             "self:condition:deafened"
                         ],
                         "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    },
+                    {
+                        "definition": [
+                            "self:effect:deafened"
+                        ],
+                        "key": "Weakness",
+                        "label": "{item|name}",
+                        "type": "custom",
+                        "value": 1
                     }
                 ],
                 "slug": null,
@@ -947,7 +883,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A noppera-bo impersonator carries a <em>+1 striking</em> weapon that looks identical to the favored weapon of the PC being impersonated. If the PC favors unarmed strikes, it appears as hand wraps. If the PC favors a ranged weapon, then the noppera-bo impersonator has no melee weapon and instead uses the ranged weapon rules above; otherwise, the noppera-bo impersonator has no ranged weapon. If the PCs favors no weapon, then the noppera-bo wields a club as its false weapon. This false weapon is only partially real and inflicts only mental damage when it hits; it gains none of the original weapon's traits or magical enhancements. If a noppera-bo impersonator's false weapon is broken, disarmed, or set down, it fades away. The noppera-bo impersonator can craft a replacement false weapon by spending 10 minutes to recreate one.</p>"
+                    "value": "<p>A noppera-bo impersonator carries a <em>+1 striking weapon</em> that looks identical to the favored weapon of the character being impersonated. If the PC favors unarmed Strikes, it appears as handwraps. If the impersonated character favors a ranged weapon, then the noppera-bo impersonator has no melee weapon and instead uses the ranged false weapon Strike above; otherwise, the noppera-bo impersonator has no ranged weapon. If the character favors no weapon, then the noppera-bo wields a club as their false weapon. This false weapon is only partially real and inflicts only mental damage when it hits; it gains none of the original weapon's traits or magical enhancements. If a noppera-bo impersonator's false weapon is broken, disarmed, or set down, it fades away. The noppera-bo impersonator can craft a replacement false weapon by spending 10 minutes to recreate one.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -993,6 +929,9 @@
         }
     ],
     "name": "Noppera-Bo Impersonator (Primal)",
+    "prototypeToken": {
+        "name": "Noppera-Bo Impersonator"
+    },
     "system": {
         "abilities": {
             "cha": {
@@ -1061,9 +1000,9 @@
             "privateNotes": "",
             "publicNotes": "",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder #198: No Breath to Cry"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Seasons of Ghosts Hardcover Compilation"
             }
         },
         "initiative": {

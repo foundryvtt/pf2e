@@ -9,11 +9,9 @@
             "name": "Shadow Hand",
             "sort": 100000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -29,15 +27,14 @@
                     "value": ""
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "finesse",
                         "magical"
@@ -60,26 +57,25 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>An object shedding magical light (such as from the @UUID[Compendium.pf2e.spells-srd.Item.Light] spell) is treated as magical when used to attack the shadow.</p>"
+                    "value": "<p>Attacks against the shadow are treated as magical if made by a creature who is in magical light or with an object that is in magical light (such as from the @UUID[Compendium.pf2e.spells-srd.Item.Light] spell).</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
             "type": "action"
         },
         {
-            "_id": "pqLc5YtEMVdohgdE",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Infest Shadow",
+            "_id": "YzglqmBZyUccF3kd",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
             "sort": 300000,
             "system": {
                 "actionType": {
@@ -88,17 +84,24 @@
                 "actions": {
                     "value": null
                 },
-                "category": "offensive",
+                "category": "defensive",
                 "description": {
-                    "value": "<p>When a familiar shadow pulls free the shadow of the PC that they duplicate, it twists and writhes for a moment before it immediately slithers back around the character. The infested shadow seems to writhe and twist on its own, as if willfully ignoring the actions of the character to whom it's attached. The infested shadow has a habit of making distracting and embarrassing motions, and imparts a –2 status penalty to its attached PC's Deception, Diplomacy, and Stealth checks. If the PC is in a situation where they aren't casting a shadow (such as when they're in complete darkness or @UUID[Compendium.pf2e.conditionitems.Item.Invisible]), these penalties are suppressed, but return as soon as their infested shadow does. If a PC with an infested shadow gains the dying condition, the shadow breaks free and becomes a shadow spawn (which functions the same as a shadow spawn created by a typical shadow). This shadow spawn won't attack the creature it spawned from, but any other targets are fair game. If the dying character recovers, their shadow spawn immediately dies and their shadow returns to normal—otherwise the only way to be rid of this strange curse is through the use of a spell like remove curse.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
                 "traits": {
                     "value": []
                 }
@@ -106,20 +109,20 @@
             "type": "action"
         },
         {
-            "_id": "0Qt9ULbGzJV8ZG3W",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Shadow Spawn",
+            "_id": "nsVHNN1i9VPUjALW",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Infest Shadow",
             "sort": 400000,
             "system": {
                 "actionType": {
-                    "value": "passive"
+                    "value": "action"
                 },
                 "actions": {
-                    "value": null
+                    "value": 2
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When a creature's shadow is pulled free by Steal Shadow, it becomes a @UUID[Compendium.pf2e.pathfinder-monster-core.Actor.Shadow Spawn] under the command of the shadow that created it. This shadow spawn doesn't have Steal Shadow and is perpetually and incurably @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}. If the creature the shadow spawn was pulled from dies, the shadow spawn becomes a full-fledged, autonomous shadow. If the creature recovers from its @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeeblement}, its shadow returns to it and the shadow spawn is extinguished.</p>"
+                    "value": "<p><strong>Requirements</strong> The familiar shadow is adjacent to the PC whose image it duplicates, that PC is not in darkness or @UUID[Compendium.pf2e.conditionitems.Item.Invisible], and the familiar shadow is aware of the PC</p><hr /><p><strong>Effect</strong> The familiar shadow attempts to infest the shadow of the PC whose appearance it has. The familiar shadow twists and writhes against the PC's shadow before pulling back, and the targeted PC must attempt a @Check[will|dc:21] save with the following results.</p><hr /><p><strong>Critical Success</strong> The PC is unaffected and is immune to further attempts to Infest Shadow.</p>\n<p><strong>Success</strong> The PC is unaffected.</p>\n<p><strong>Failure</strong> The familiar shadow leaves its unholy influence behind in the PC's shadow, infesting it. The PC's shadow writhes and twists on its own, as if willfully ignoring the actions of the character to whom it's attached. The infested shadow has a habit of making distracting and embarrassing motions and imparts a –2 status penalty to its attached PC's Deception, Diplomacy, and Stealth checks. If the PC is in a situation where they aren't casting a shadow (such as when they're in complete darkness or are invisible), these penalties are suppressed, but they return as soon as their infested shadow does. If a PC with an infested shadow gains the dying condition, the shadow breaks free and becomes a shadow spawn (which functions the same as a shadow spawn created by a typical shadow). This shadow spawn won't attack the creature it spawned from, but any other targets are fair game. If the dying character recovers, their shadow spawn immediately dies, and their shadow returns to normal—otherwise, the only way to be rid of this strange curse is through the use of a spell like cleanse affliction, as it has an unlimited duration.</p>\n<p><strong>Critical Failure</strong> As failure, but the penalties apply to all checks made by the PC.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -129,8 +132,10 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": []
+                    "value": [
+                        "curse",
+                        "divine"
+                    ]
                 }
             },
             "type": "action"
@@ -152,14 +157,13 @@
                     "value": "<p>The shadow can @UUID[Compendium.pf2e.actionspf2e.Item.Hide] or end its @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] in a creature's or object's shadow.</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -179,17 +183,16 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The shadow hit a living creature with a shadow hand Strike on its previous action.</p>\n<p>This ability only functions against the PC who the shadow appears to duplicate.</p>\n<hr />\n<p><strong>Effect</strong> The shadow pulls at the target's shadow, making the creature @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}. This is cumulative with other enfeebled conditions from shadows, to a maximum of enfeebled 4. If this increases a creature's enfeebled value to 3 or more, the target's shadow is separated from its body. Enfeebled from Steal Shadow decreases by 1 every hour.</p>"
+                    "value": "<p><strong>Requirements</strong> The famliar shadow hit a living creature it is duplicating with a shadow hand Strike on its previous action</p><hr /><p><strong>Effect</strong> The famliar shadow pulls at the target's shadow, making the creature @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}. This is cumulative with other enfeebled conditions from shadows, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4}. If this increases a creature's enfeebled value to 3 or more, the target's shadow is separated from its body (see shadow spawn). The enfeebled value from Steal Shadow decreases by 1 every hour.</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "divine"
                     ]
@@ -199,6 +202,9 @@
         }
     ],
     "name": "Familiar Shadow",
+    "prototypeToken": {
+        "name": "Shadow"
+    },
     "system": {
         "abilities": {
             "cha": {
@@ -229,32 +235,39 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "void healing",
                 "max": 40,
                 "temp": 0,
                 "value": 40
             },
             "immunities": [
                 {
-                    "type": "bleed"
-                },
-                {
+                    "exceptions": [],
                     "type": "death-effects"
                 },
                 {
+                    "exceptions": [],
                     "type": "disease"
                 },
                 {
+                    "exceptions": [],
                     "type": "paralyzed"
                 },
                 {
+                    "exceptions": [],
                     "type": "poison"
                 },
                 {
+                    "exceptions": [],
                     "type": "precision"
                 },
                 {
+                    "exceptions": [],
                     "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "bleed"
                 }
             ],
             "resistances": [
@@ -265,7 +278,8 @@
                     "exceptions": [
                         "force",
                         "ghost-touch",
-                        "vitality"
+                        "vitality",
+                        "spirit"
                     ],
                     "type": "all-damage",
                     "value": 5
@@ -282,7 +296,7 @@
             }
         },
         "details": {
-            "blurb": "",
+            "blurb": "Variant shadow",
             "languages": {
                 "details": "",
                 "value": [
@@ -293,11 +307,11 @@
                 "value": 4
             },
             "privateNotes": "",
-            "publicNotes": "<p>The mysterious undead known as shadows lurk in dark places and feed on those who stray too far from the light. Those who parley with shadows, typically by keeping them at bay with a glowing weapon, may learn great secrets, for they are ideal spies.</p>",
+            "publicNotes": "<p>The mysterious undead known as shadows lurk in dark places and feed on those who stray too far from the light.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder #198: No Breath to Cry"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core"
             }
         },
         "initiative": {
@@ -341,8 +355,6 @@
                 "value": "med"
             },
             "value": [
-                "chaotic",
-                "evil",
                 "incorporeal",
                 "undead",
                 "unholy"

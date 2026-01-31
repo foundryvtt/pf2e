@@ -13,7 +13,13 @@ interface SettingsContext extends fa.ApplicationRenderContext {
 }
 
 type WorldClockSettingSchema = {
-    dateTheme: fields.StringField<"AR" | "IC" | "AD" | "CE", "AR" | "IC" | "AD" | "CE", true, false, true>;
+    dateTheme: fields.StringField<
+        "AR" | "IC" | "AG" | "AD" | "CE",
+        "AR" | "IC" | "AG" | "AD" | "CE",
+        true,
+        false,
+        true
+    >;
     playersCanView: fields.BooleanField;
     showClockButton: fields.BooleanField;
     syncDarkness: fields.BooleanField;
@@ -52,7 +58,11 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
     };
 
     static #SCHEMA: fields.SchemaField<WorldClockSettingSchema> = new fields.SchemaField({
-        dateTheme: new fields.StringField({ required: true, choices: ["AR", "IC", "AD", "CE"], initial: "AR" }),
+        dateTheme: new fields.StringField({
+            required: true,
+            choices: ["AR", "IC", "AG", "AD", "CE"],
+            initial: SYSTEM_ID === "sf2e" ? "AG" : "AR",
+        }),
         playersCanView: new fields.BooleanField(),
         showClockButton: new fields.BooleanField({ initial: true }),
         syncDarkness: new fields.BooleanField(),
@@ -102,7 +112,7 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
             rootId: this.id,
             fields: WorldClockSettings.#SCHEMA.fields,
             settings: game.pf2e.settings.worldClock,
-            dateThemes: R.mapToObj(["AR", "IC", "AD", "CE"], (k) => [
+            dateThemes: R.mapToObj(["AR", "IC", "AG", "AD", "CE"], (k) => [
                 k,
                 game.i18n.localize(`PF2E.SETTINGS.WorldClock.DateThemes.${k}`),
             ]),

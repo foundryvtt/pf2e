@@ -61,7 +61,7 @@ export class ItemTransfer implements ItemTransferData {
         }
 
         console.debug(`PF2e System | Requesting item transfer from GM ${gamemaster.name}`);
-        game.socket.emit("system.pf2e", { request: "itemTransfer", data: this } satisfies SocketMessage);
+        game.socket.emit(`system.${SYSTEM_ID}`, { request: "itemTransfer", data: this } satisfies SocketMessage);
     }
 
     // Only a GM can call this method, or else Foundry will block it (or would if we didn't first)

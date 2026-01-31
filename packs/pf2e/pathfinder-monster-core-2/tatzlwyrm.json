@@ -92,14 +92,27 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A tatzlwyrm's green, gray, and brown scales provide it natural camouflage. In areas of dense undergrowth, a tatzlwyrm can move at its full Speed when Sneaking, and it gains a +4 circumstance bonus to Hide.</p>"
+                    "value": "<p>A tatzlwyrm's green, gray, and brown scales provide it natural camouflage. In areas of dense undergrowth, a tatzlwyrm can move at its full Speed when [[/act sneak]]{Sneaking}, and it gains a +4 circumstance bonus to [[/act hide options=natural-camouflage]].</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "natural-camouflage",
+                            "action:hide"
+                        ],
+                        "selector": [
+                            "stealth"
+                        ],
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -184,8 +197,13 @@
                 }
             ],
             "speed": {
-                "otherSpeeds": [],
-                "value": 25
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 30
+                    }
+                ],
+                "value": 30
             }
         },
         "details": {

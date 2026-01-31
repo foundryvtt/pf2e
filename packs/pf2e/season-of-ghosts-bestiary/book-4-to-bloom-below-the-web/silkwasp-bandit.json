@@ -8,7 +8,7 @@
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.dUC8Fsa6FZtVikS3"
             },
-            "img": "systems/pf2e/icons/equipment/weapons/composite-longbow.webp",
+            "img": "icons/weapons/bows/longbow-recurve-brown.webp",
             "name": "Composite Longbow",
             "sort": 100000,
             "system": {
@@ -39,10 +39,11 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "expend": 1,
+                "grade": null,
                 "group": "bow",
                 "hardness": 0,
                 "hp": {
@@ -50,7 +51,7 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
                 "material": {
                     "grade": null,
@@ -62,9 +63,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": 100,
@@ -105,6 +106,7 @@
             "name": "Greataxe",
             "sort": 200000,
             "system": {
+                "ammo": null,
                 "baseItem": "greataxe",
                 "bonus": {
                     "value": 0
@@ -123,14 +125,15 @@
                     "die": "d12"
                 },
                 "description": {
-                    "value": "<p>This large battle axe is too heavy to wield with only one hand. Many greataxes incorporate two blades, and they are often \"bearded\", having a hook at the bottom to increase the strength of their chopping power.</p>"
+                    "value": "<p>This large battle axe is too heavy to wield with only one hand. Many greataxes incorporate two blades, and they are often \"bearded,\" having a hook at the bottom to increase the strength of their chopping power.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 2,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "axe",
                 "hardness": 0,
                 "hp": {
@@ -150,9 +153,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -205,9 +208,11 @@
                 "dexCap": 2,
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
                 },
+                "grade": null,
                 "group": "leather",
                 "hardness": 0,
                 "hp": {
@@ -227,9 +232,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -254,7 +259,7 @@
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
             },
-            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
+            "img": "icons/weapons/ammunition/arrows-broadhead-white.webp",
             "name": "Arrows",
             "sort": 400000,
             "system": {
@@ -267,8 +272,20 @@
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
                 "level": {
                     "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -277,9 +294,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 20,
                 "rules": [],
@@ -300,15 +317,12 @@
             "type": "ammo"
         },
         {
-            "_id": "6hJx21OusgWMq3sN",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rKknk8odXDBpON5l"
-            },
+            "_id": "5Pg2bMrJaEWe8cUQ",
             "img": "systems/pf2e/icons/equipment/consumables/ammunition/explosive-ammunition.webp",
-            "name": "Explosive Arrow",
+            "name": "Explosive Ammunition",
             "sort": 500000,
             "system": {
-                "baseItem": null,
+                "baseItem": "arrows",
                 "bulk": {
                     "value": 0
                 },
@@ -317,8 +331,20 @@
                 "description": {
                     "value": "<p><strong>Ammunition</strong> any</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>explosive ammunition</em> hits a target, the missile explodes in a @Template[burst|distance:10], dealing @Damage[6d6[fire]|options:area-damage] damage to each creature in the area (including the target). Each creature must attempt a @Check[reflex|dc:25|basic|options:area-effect] save.</p>"
                 },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
                 "level": {
                     "value": 9
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
                 },
                 "price": {
                     "value": {
@@ -368,11 +394,12 @@
             "name": "Greataxe",
             "sort": 600000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "primal-fear"
+                    ]
                 },
                 "bonus": {
                     "value": 15
@@ -387,15 +414,14 @@
                     "value": ""
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "magical",
                         "sweep"
@@ -415,11 +441,12 @@
             "name": "Composite Longbow",
             "sort": 700000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "primal-fear"
+                    ]
                 },
                 "bonus": {
                     "value": 14
@@ -434,8 +461,8 @@
                     "value": ""
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "range": {
@@ -445,7 +472,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "deadly-d10",
                         "propulsive",
@@ -457,13 +483,39 @@
             "type": "melee"
         },
         {
-            "_id": "owq1vQqeFtTypbuU",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.hFtNbo1LKYCoDy2O"
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
+            "_id": "QHjaZGpjLk4jCh9j",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Favored Game",
             "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A monster hunter specializes in bringing down certain non-humanoid creatures. These favored game are typically animals and beasts, but an individual might hunt dragons, plants, or more specialized creatures like tigers or manticores.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cFHJlVinmzogV39U",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -473,27 +525,26 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within your reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<hr />\n<p>You lash out at a foe that leaves an opening. Make a melee Strike against the triggering creature. If your attack is a critical hit and the trigger was a manipulate action, you disrupt that action. This Strike doesn't count toward your multiple attack penalty, and your multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [],
-                "slug": "attack-of-opportunity",
+                "slug": "reactive-strike",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
             "type": "action"
         },
         {
-            "_id": "xBb6evQkhB3uYAvn",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Rage",
-            "sort": 900000,
+            "_id": "z6dAfzucPpphEx6T",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Hunter's Onslaught",
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -503,45 +554,25 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The monster hunter isn't @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] or raging</p>\n<hr />\n<p><strong>Effect</strong> The monster hunter gains 9 temporary Hit Points that last until the rage ends. While raging, they deal 8 additional damage with melee attacks, gain a +10-foot status bonus to their Speed, and take a -1 penalty to AC. The monster hunter can't use concentrate actions except @UUID[Compendium.pf2e.actionspf2e.Item.Seek] and rage actions.</p>\n<p>The rage lasts for 1 minute, until there are no enemies the monster hunter can perceive, or until the monster hunter falls unconscious.</p>\n<p>Once the rage ends, the monster hunter can't again for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Rage]</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> The monster hunter isn't @UUID[Compendium.pf2e.conditionitems.Item.Fatigued]</p><hr /><p><strong>Effect</strong> The monster hunter leads an attack against their monstrous foe. The monster hunter chooses an enemy they can see that qualifies as their favored game. The monster hunter becomes @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by that creature and gains 10 temporary Hit Points that last as long as the onslaught does. During the onslaught, the hunter gains a +8 status bonus to damage rolls against the designated enemy, and allies in a 30-foot aura around the hunter gain half that bonus. The onslaught lasts for 1 minute or until either the monster hunter or the designated creature falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1H",
+                    "value": 1
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.TraitRage",
-                        "predicate": [
-                            "self:effect:rage"
-                        ],
-                        "selector": "ac",
-                        "value": -1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.TraitRage",
-                        "predicate": [
-                            "self:effect:rage"
-                        ],
-                        "selector": "melee-strike-damage",
-                        "value": 8
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.TraitRage",
-                        "predicate": [
-                            "self:effect:rage"
-                        ],
-                        "selector": "land-speed",
-                        "value": 10
-                    }
-                ],
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Hunter's Onslaught",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Hunter's Onslaught"
+                },
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "concentrate",
                         "emotion",
@@ -552,10 +583,43 @@
             "type": "action"
         },
         {
+            "_id": "rMyFoyfbCFtTsk1T",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Primal Fear",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the monster hunter hits a creature that qualifies as their favored game, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical hit).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "ggCUTswEGOjGvjj0",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Sudden Charge",
-            "sort": 1000000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -568,14 +632,13 @@
                     "value": "<p>The monster hunter Strides twice and makes a melee Strike.</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -585,7 +648,7 @@
             "_id": "ZBaDNdF5HlekM2y5",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Monster Lore",
-            "sort": 1100000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""
@@ -597,8 +660,8 @@
                     "value": 0
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "rules": [],
@@ -633,16 +696,16 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 23
+                "value": 22
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 108,
+                "max": 105,
                 "temp": 0,
-                "value": 108
+                "value": 105
             },
             "speed": {
                 "otherSpeeds": [],
@@ -650,7 +713,7 @@
             }
         },
         "details": {
-            "blurb": "variant monster hunter",
+            "blurb": "Human monster hunter",
             "languages": {
                 "details": "",
                 "value": [
@@ -661,11 +724,11 @@
                 "value": 6
             },
             "privateNotes": "",
-            "publicNotes": "<p>Some mercenaries eschew the complications of politics, oaths of service, and fealty and just get paid to hunt monsters. It's a straightforward form of mercenary service, often dangerous in the extreme, but one that can yield glory and fame.</p>\n<hr />\n<p>A broad category that includes those wielding arms, spells, or even guile and cunning, mercenaries hire themselves and their expertise to those with the gold to pay for it.</p>",
+            "publicNotes": "<p>Bounty hunters are constantly on the move, whether within city walls or the wilderness, trailing their fugitive quarries for capture... or disposal. Often relying on stealth or deception as much as martial skill, bounty hunters employ a vast array of talents to accomplish their goals and collect the hefty payout.</p><hr /><p>Whether they're hired to wage war, protect a caravan, or infiltrate an impenetrable fortress, there's ample work for mercenaries all over Golarion.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder #199: To Bloom Below the Web"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Seasons of Ghosts Hardcover Compilation"
             }
         },
         "initiative": {

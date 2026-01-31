@@ -4,7 +4,7 @@ import type { AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts"
 import { ErrorPF2e } from "@util";
 
 function activateSocketListener(): void {
-    game.socket.on("system.pf2e", async (...[message, userId]: PF2eSocketEventParams) => {
+    game.socket.on(`system.${SYSTEM_ID}`, async (...[message, userId]: PF2eSocketEventParams) => {
         const sender = game.users.get(userId, { strict: true });
         switch (message.request) {
             case "itemTransfer":

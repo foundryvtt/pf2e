@@ -8,24 +8,6 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
     if (!canvas.ready) return [];
     const squareWidth = canvas.dimensions.size;
     const rowCount = Math.ceil(data.bounds.width / squareWidth);
-    const emptyVector = Array<null>(rowCount - 1).fill(null);
-    const genColumn = (square: EffectAreaSquare): EffectAreaSquare[] => {
-        return emptyVector.reduce(
-            (colSquares) => {
-                const squareAbove = colSquares.at(-1)!;
-                const squareBelow = new EffectAreaSquare(
-                    square.x,
-                    squareAbove.y + squareWidth,
-                    squareWidth,
-                    squareWidth,
-                );
-                colSquares.push(squareBelow);
-                return colSquares;
-            },
-            [square],
-        );
-    };
-    const topLeftSquare = new EffectAreaSquare(data.bounds.x, data.bounds.y, squareWidth, squareWidth);
     const collisionType =
         data.traits?.includes("visual") && !data.traits.includes("auditory")
             ? "sight"
@@ -62,23 +44,22 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
         CONFIG.Canvas.polygonBackends[collisionType].create(c, {
             type: collisionType,
             source: pointSource,
-            boundaryShapes: [data.bounds],
+            radius: data.radiusPixels,
         }),
     );
 
-    return emptyVector
-        .reduce(
-            (squares: EffectAreaSquare[][]) => {
-                const lastSquare = squares.at(-1)?.at(-1) ?? { x: NaN, y: NaN };
-                const column = genColumn(
-                    new EffectAreaSquare(lastSquare.x + squareWidth, topLeftSquare.y, squareWidth, squareWidth),
-                );
-                squares.push(column);
-                return squares;
-            },
-            [genColumn(topLeftSquare)],
-        )
-        .flat()
+    const squares = Array.from({ length: rowCount * rowCount }, (_, i) => {
+        const dx = Math.floor(i / rowCount);
+        const dy = i % rowCount;
+        return new EffectAreaSquare(
+            data.bounds.x + squareWidth * dx,
+            data.bounds.y + squareWidth * dy,
+            squareWidth,
+            squareWidth,
+        );
+    });
+
+    return squares
         .filter((s) => measureDistanceCuboid(tokenBounds, s) <= data.radius)
         .map((square) => {
             square.active = tokenCenterPolygons.some((c) => c.contains(square.center.x, square.center.y));
@@ -89,6 +70,7 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
 interface GetAreaSquaresParams {
     bounds: PIXI.Rectangle;
     radius: number;
+    radiusPixels: number;
     token: TokenPF2e | TokenDocumentPF2e;
     traits?: string[];
 }

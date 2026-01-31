@@ -997,6 +997,7 @@ export const PF2ECONFIG = {
     worldClock: fu.mergeObject(configFromLocalization(EN_JSON.PF2E.WorldClock, "PF2E.WorldClock"), {
         AR: { yearOffset: 2700 },
         IC: { yearOffset: 5200 },
+        AG: { yearOffset: -1700 },
         AD: { yearOffset: -95 },
         CE: { yearOffset: 0 },
     }),

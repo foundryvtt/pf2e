@@ -9,9 +9,8 @@
             "name": "False Weapon",
             "sort": 100000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -47,9 +46,8 @@
             "name": "False Weapon",
             "sort": 200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -106,7 +104,6 @@
                 "rules": [],
                 "slug": "telepathy",
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "aura",
                         "magical",
@@ -179,6 +176,15 @@
                             "self:condition:deafened"
                         ],
                         "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    },
+                    {
+                        "definition": [
+                            "self:effect:deafened"
+                        ],
+                        "key": "Weakness",
+                        "label": "{item|name}",
+                        "type": "custom",
+                        "value": 1
                     }
                 ],
                 "slug": null,
@@ -202,7 +208,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A noppera-bo impersonator carries a <em>+1 striking</em> weapon that looks identical to the favored weapon of the PC being impersonated. If the PC favors unarmed strikes, it appears as hand wraps. If the PC favors a ranged weapon, then the noppera-bo impersonator has no melee weapon and instead uses the ranged weapon rules above; otherwise, the noppera-bo impersonator has no ranged weapon. If the PCs favors no weapon, then the noppera-bo wields a club as its false weapon. This false weapon is only partially real and inflicts only mental damage when it hits; it gains none of the original weapon's traits or magical enhancements. If a noppera-bo impersonator's false weapon is broken, disarmed, or set down, it fades away. The noppera-bo impersonator can craft a replacement false weapon by spending 10 minutes to recreate one.</p>"
+                    "value": "<p>A noppera-bo impersonator carries a <em>+1 striking weapon</em> that looks identical to the favored weapon of the character being impersonated. If the PC favors unarmed Strikes, it appears as handwraps. If the impersonated character favors a ranged weapon, then the noppera-bo impersonator has no melee weapon and instead uses the ranged false weapon Strike above; otherwise, the noppera-bo impersonator has no ranged weapon. If the character favors no weapon, then the noppera-bo wields a club as their false weapon. This false weapon is only partially real and inflicts only mental damage when it hits; it gains none of the original weapon's traits or magical enhancements. If a noppera-bo impersonator's false weapon is broken, disarmed, or set down, it fades away. The noppera-bo impersonator can craft a replacement false weapon by spending 10 minutes to recreate one.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -231,7 +237,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The noppera-bo impersonator gains one of the following abilities of your choice.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Impersonated Ability]</p>\n<ul>\n<li><strong>Armored</strong> The noppera-bo appears to be heavily armored, and they increase their AC to 24.</li>\n<li>@UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Attack of Opportunity]</li>\n<li><strong>Shield Carrier</strong> The noppera-bo carries a minor sturdy shield (that transforms into a useless prop if it's destroyed, dropped, or upon the noppera-bo's death), and they gain the Shield Block general feat.</li>\n<li><strong>Weapon Perk</strong> The noppera-bo chooses one of these weapon traits to add to their false weapon: agile, deadly d8, forceful, parry, reach, shove, sweep, or trip.</li>\n</ul>"
+                    "value": "<p>The noppera-bo impersonator gains one of the following abilities of your choice.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Impersonated Ability]</p><ul><li><strong>Armored</strong> The noppera-bo appears to be heavily armored, and they increase their AC to 24.</li><li>@UUID[Compendium.pf2e.bestiary-ability-glossary-srd.W7SbTykXrNwxDzJc]{Reactive Strike}</li><li><strong>Shield Carrier</strong> The noppera-bo carries a <em>@UUID[Compendium.pf2e.equipment-srd.f9ygr5Cjrmop8LWV]{Sturdy Shield (Minor)}</em> (that transforms into a useless prop if it's destroyed, dropped, or upon the noppera-bo's death), and they gain the Shield Block general feat.</li><li><strong>Weapon Perk</strong> The noppera-bo chooses one of these weapon traits to add to their false weapon: agile, deadly d8, forceful, parry, reach, shove, sweep, or trip.</li></ul>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -253,6 +259,9 @@
         }
     ],
     "name": "Noppera-Bo Impersonator (Martial)",
+    "prototypeToken": {
+        "name": "Noppera-Bo Impersonator"
+    },
     "system": {
         "abilities": {
             "cha": {
@@ -321,9 +330,9 @@
             "privateNotes": "",
             "publicNotes": "",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder #198: No Breath to Cry"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Seasons of Ghosts Hardcover Compilation"
             }
         },
         "initiative": {

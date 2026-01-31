@@ -9,9 +9,8 @@
             "name": "Head",
             "sort": 100000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -54,7 +53,7 @@
                 "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Lifesense (Precise) 120 feet",
+            "name": "Lifesense",
             "sort": 200000,
             "system": {
                 "actionType": {
@@ -65,17 +64,16 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The dalgyal gwishin senses the vital essence of living and undead creatures within the listed range.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
+                    "value": "<p>The dalgyal gwishin senses the vital essence of living and undead creatures within the listed range.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
                 "slug": "lifesense",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -98,12 +96,12 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet @Check[will|dc:19]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>30 feet @Check[will|dc:19]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [
                     {
@@ -119,7 +117,6 @@
                 ],
                 "slug": "frightful-presence",
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "aura",
                         "emotion",
@@ -144,7 +141,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>While the dalgyal gwishin has no physical body, its stone face is solid. It can't pass through solid objects.</p>"
+                    "value": "<p>While the dalgyal gwishin has no physical body, their stone face is solid. They can't pass through solid objects.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -179,9 +176,9 @@
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [
                     {
@@ -191,9 +188,8 @@
                         "value": true
                     }
                 ],
-                "slug": "negative-healing",
+                "slug": "void-healing",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -213,7 +209,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The dalgyal gwishin Strikes a creature that has a higher Charisma modifier than itself</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The dalgyal gwishin enters an envious frenzy as it senses strong ties of friendship and personality within the creature it struck. The dalgyal gwishin becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened] but can only use its quickened action to Strike the triggering creature. If the dalgyal gwishin fails to Strike the triggering creature at least once during its turn, Jealous Frenzy ends. It also ends after 1 minute. After Jealous Frenzy ends, the dalgyal gwishin is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute.</p>"
+                    "value": "<p><strong>Trigger</strong> The dalgyal gwishin Strikes a creature that has a higher Charisma modifier than themself</p><hr /><p><strong>Effect</strong> The dalgyal gwishin enters an envious frenzy as they sense strong ties of friendship and personality within the creature they struck. The dalgyal gwishin becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened] 1 but can use their quickened action only to Strike the triggering creature. If the dalgyal gwishin fails to Strike the triggering creature at least once during their turn, Jealous Frenzy ends. It also ends after 1 minute. After Jealous Frenzy ends, the dalgyal gwishin is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -229,6 +225,7 @@
                 "traits": {
                     "value": [
                         "divine",
+                        "emotion",
                         "mental"
                     ]
                 }
@@ -249,7 +246,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The dalgyal gwishin critically hits a creature or reduces a creature to 0 Hit Points while in a Jealous Frenzy</p>\n<hr />\n<p><strong>Effect</strong> The dalgyal gwishin presses its stony face to the creature's face, causing a ghostly imprint of that face to peel away and duplicate onto its head. The triggering creature must succeed at a @Check[will|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure). The dalgyal gwishin's Jealous Frenzy ends, and it doesn't become slowed.</p>"
+                    "value": "<p><strong>Trigger</strong> The dalgyal gwishin critically hits a creature or reduces a creature to 0 Hit Points while in a Jealous Frenzy</p><hr /><p><strong>Effect</strong> The dalgyal gwishin presses their stony face to the creature's face, causing a ghostly imprint of that face to peel away and duplicate onto their head. The triggering creature must succeed at a @Check[will|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure). The dalgyal gwishin's Jealous Frenzy ends, and they don't become slowed.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -340,6 +337,7 @@
                     "exceptions": [
                         "force",
                         "ghost-touch",
+                        "spirit",
                         "vitality"
                     ],
                     "type": "all-damage",
@@ -369,11 +367,11 @@
                 "value": 5
             },
             "privateNotes": "",
-            "publicNotes": "<p>A dalgyal gwishin is a faceless, undead spirit that wears a stone mask. This forlorn undead forms from the soul of a mortal who died a lonely death with no one to remember them, and is similarly unable to remember what it looked like in life. A dalgyal gwishin wanders the land of the living in search of any trace of who they were when they were alive. Full of anger, they remain envious of well-loved or famous individuals who are surrounded by close friends and admirers—the type of people who would never share the dalgyal gwishin's fate.</p>\n<p>While a dalgyal gwishin has little more than a ghostly body made of mist, the featureless stone mask it wears on its head is solid. Even the stolen faces it claims are transitory, cracking off after a day to form what looks akin to a fragile porcelain death mask. Some of these lonely spirits keep these masks and add them to a collection in a remote and forlorn lair, hoping to find companionship in an ever-growing display of silent faces.</p>\n<h2>Faceless Horror</h2>\n<p>The dalgyal gwishin's most significant physical trait—the lack of a face—is shared with the living aberrations known as noppera-bos. Despite this shared feature and the ability to steal faces, the two creatures don't cooperate and are more often bitter enemies. Anyone slain by a dalgyal gwishin leaves behind an unnerving faceless corpse.</p>",
+            "publicNotes": "<p>A dalgyal gwishin is a faceless, undead spirit that wears a stone mask. This forlorn undead forms from the soul of a mortal who died a lonely death with no one to remember them and is similarly unable to remember what it looked like in life. A dalgyal gwishin wanders the land of the living in search of any trace of who they were when they were alive. Full of anger, they remain envious of well-loved or famous individuals who are surrounded by close friends and admirers—the type of people who would never share the dalgyal gwishin's fate.</p>\n<p>While a dalgyal gwishin has little more than a ghostly body made of mist, the featureless stone mask it wears on its head is solid. Even the stolen faces it claims are transitory, cracking off after a day to form what looks akin to a fragile porcelain death mask. Some of these lonely spirits keep these masks and add them to a collection in a remote and forlorn lair, hoping to find companionship in an ever-growing display of silent faces.</p><h2>Faceless Horror</h2><p>The dalgyal gwishin's most significant physical trait—the lack of a face—is shared with the living aberrations known as noppera-bos. Despite this shared feature and the ability to steal faces, the two creatures don't cooperate and are more often bitter enemies. Anyone slain by a dalgyal gwishin leaves behind an unnerving faceless corpse.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder #197: Let the Leaves Fall"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Seasons of Ghosts Hardcover Compilation"
             }
         },
         "initiative": {

@@ -4,54 +4,14 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "9j9kz8bv8i4ae8b7",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3"
-            },
-            "img": "systems/pf2e/icons/conditions/slowed.webp",
-            "name": "Slowed",
-            "sort": 100000,
-            "system": {
-                "description": {
-                    "value": "<p>You have fewer actions. Slowed always includes a value. When you regain your actions at the start of your turn, reduce the number of actions you regain by your slowed value. Because slowed has its effect at the start of your turn, you don't immediately lose actions if you become slowed during your turn.</p>"
-                },
-                "duration": {
-                    "value": 0
-                },
-                "group": null,
-                "overrides": [],
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "references": {
-                    "children": [],
-                    "immunityFrom": [],
-                    "overriddenBy": [],
-                    "overrides": []
-                },
-                "rules": [],
-                "slug": "slowed",
-                "traits": {},
-                "value": {
-                    "isValued": true,
-                    "value": 1
-                }
-            },
-            "type": "condition"
-        },
-        {
             "_id": "wdsdNrRHG7tMUw5P",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 200000,
+            "sort": 100000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": [
                         "improved-push"
                     ]
@@ -69,15 +29,14 @@
                     "value": ""
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
                 "range": null,
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "reach-10",
                         "unarmed"
@@ -90,7 +49,7 @@
             "_id": "TtcFIJZjrZ4Vaaml",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Slow",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -103,14 +62,19 @@
                     "value": "<p>A zombie is permanently @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and can't use reactions.</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
+                    "license": "ORC",
+                    "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    }
+                ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -123,7 +87,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -136,9 +100,9 @@
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary 2"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [
                     {
@@ -148,9 +112,8 @@
                         "value": true
                     }
                 ],
-                "slug": "negative-healing",
+                "slug": "void-healing",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -162,8 +125,8 @@
                 "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.6l7e7CHQLESlI57U"
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Push 5 feet",
-            "sort": 500000,
+            "name": "Improved Push",
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -176,14 +139,13 @@
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedPush]</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
                 "slug": "improved-push",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -228,22 +190,28 @@
             },
             "immunities": [
                 {
-                    "type": "bleed"
-                },
-                {
+                    "exceptions": [],
                     "type": "death-effects"
                 },
                 {
+                    "exceptions": [],
                     "type": "disease"
                 },
                 {
+                    "exceptions": [],
                     "type": "paralyzed"
                 },
                 {
+                    "exceptions": [],
                     "type": "poison"
                 },
                 {
+                    "exceptions": [],
                     "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "bleed"
                 }
             ],
             "speed": {
@@ -273,9 +241,9 @@
             "privateNotes": "",
             "publicNotes": "<p>Necromantic augmentations have granted this zombie increased size and power.</p>\n<hr />\n<p>A zombie's only desire is to consume the living. Unthinking and ever-shambling harbingers of death, zombies stop only when they're destroyed.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder #196: The Summer That Never Was"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core"
             }
         },
         "initiative": {
@@ -307,7 +275,7 @@
         },
         "skills": {
             "athletics": {
-                "base": 9
+                "base": 11
             }
         },
         "traits": {
@@ -316,10 +284,8 @@
                 "value": "med"
             },
             "value": [
-                "evil",
                 "mindless",
                 "undead",
-                "unholy",
                 "zombie"
             ]
         }

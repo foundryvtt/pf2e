@@ -1,0 +1,63 @@
+{
+    "_id": "ulrGnvF0KAgEaifX",
+    "folder": "GIgYFdpFEabcVZwR",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Cornered Fury",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "bonus",
+        "description": {
+            "value": "<p>When you're physically outmatched, you fight with unexpected ferocity. If a foe of a larger size than you critically hits and damages you, that foe is @UUID[Compendium.sf2e.conditions.Item.Off-Guard] to you for 1 round.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "origin:enemy",
+                    {
+                        "gt": [
+                            "origin:size",
+                            "self:size"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "damage-received"
+                ],
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ratfolk"
+            ]
+        }
+    },
+    "type": "feat"
+}

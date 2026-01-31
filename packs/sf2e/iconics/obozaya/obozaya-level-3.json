@@ -4,8 +4,7 @@
     "img": "systems/sf2e/icons/iconics/portraits/oobozaya.webp",
     "items": [
         {
-            "_id": "eU3tO1zwdWtxHsMO",
-            "folder": "GDwAMtsePahRqYZn",
+            "_id": "Ey8nakwYgRotajDg",
             "img": "systems/sf2e/icons/ancestries/vesk.webp",
             "name": "Vesk",
             "sort": 0,
@@ -39,7 +38,7 @@
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p><em>Vesk are a warmongering, reptilian people who conquered the eight worlds in their solar system shortly after they developed spaceflight, forming the Veskarium empire. Vesk tend to embrace conflict and respect strength and military might.</em></p>"
                 },
                 "flaws": {
                     "0": {
@@ -80,7 +79,7 @@
             "type": "ancestry"
         },
         {
-            "_id": "wgyFoXbJZt3Dxx25",
+            "_id": "9OrJ9NkrwxMA9Snn",
             "folder": "QZmNJ1IWcw3aM6Ow",
             "img": "systems/sf2e/icons/default-icons/heritage.svg",
             "name": "Briskwander Vesk",
@@ -115,12 +114,12 @@
             "type": "heritage"
         },
         {
-            "_id": "mkVpFZNMb5K1tkAW",
+            "_id": "yQHsBZDFhEJqKMka",
             "flags": {
                 "sf2e": {
                     "itemGrants": {
                         "barricade": {
-                            "id": "m1jFXndZqJEbtfJN",
+                            "id": "pECyp0IlfcxnLYJ5",
                             "onDelete": "detach"
                         }
                     }
@@ -140,7 +139,7 @@
                         ]
                     },
                     "1": {
-                        "selected": "str",
+                        "selected": "wis",
                         "value": [
                             "cha",
                             "con",
@@ -184,11 +183,11 @@
             "type": "background"
         },
         {
-            "_id": "m1jFXndZqJEbtfJN",
+            "_id": "pECyp0IlfcxnLYJ5",
             "flags": {
                 "sf2e": {
                     "grantedBy": {
-                        "id": "mkVpFZNMb5K1tkAW",
+                        "id": "yQHsBZDFhEJqKMka",
                         "onDelete": "cascade"
                     }
                 }
@@ -196,7 +195,7 @@
             "folder": "952e2Tn00KbJ2FY3",
             "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
             "name": "Barricade",
-            "sort": 200000,
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -238,10 +237,10 @@
             "type": "feat"
         },
         {
-            "_id": "NB7IRxd4IOWJsw2H",
-            "img": "systems/sf2e/icons/classes/soldier.webp",
+            "_id": "z6mEJvtjqae7LOwE",
+            "img": "systems/sf2e/icons/class-icons/soldier.webp",
             "name": "Soldier",
-            "sort": 300000,
+            "sort": 0,
             "system": {
                 "ancestryFeatLevels": {
                     "value": [
@@ -466,7 +465,359 @@
             "type": "class"
         },
         {
-            "_id": "9Ie95sn90b6UEGZL",
+            "_id": "Qyywiqp98ayYBzmD",
+            "flags": {
+                "sf2e": {
+                    "itemGrants": {
+                        "bombard": {
+                            "id": "ImoPxcLfwIXpiaHi",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "IGK9KhXfktRKGmLz",
+            "img": "systems/sf2e/icons/abilities/cerulean-star.webp",
+            "name": "Soldier Fighting Style",
+            "sort": 300,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>As a soldier, you train using a specific style of fighting. Your style determines how you approach combat and often changes how you take advantage of your ability to suppress targets. Choose a soldier fighting style.</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Action Hero]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Armor Storm]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Bombard]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Close Quarters]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Erudite Warrior]</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "z6mEJvtjqae7LOwE",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:soldier-fighting-style"
+                            ]
+                        },
+                        "flag": "fightingStyle",
+                        "key": "ChoiceSet",
+                        "prompt": "SF2E.SpecificRule.Soldier.FightingStyle.Prompt",
+                        "selection": "Compendium.sf2e.class-features.Item.Bombard"
+                    },
+                    {
+                        "flag": "bombard",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.sf2e.rulesSelections.fightingStyle}"
+                    }
+                ],
+                "slug": "soldier-fighting-style",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "soldier"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "ImoPxcLfwIXpiaHi",
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "Qyywiqp98ayYBzmD",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "GyMklUN6ZJ9xixWD",
+            "img": "systems/sf2e/icons/abilities/energy-reaction.webp",
+            "name": "Bombard",
+            "sort": 400,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>There's nothing like a big gun (or maybe several) to get you through tough times. You've come to terms with the fact that a stray bullet from one of your barrages might sometimes hit an ally, but you try to minimize such instances of \"friendly fire.\" You've trained to avoid harming allies with your barrages and learned to expertly position your attacks around them.</p>\n<p>When you attack with an area weapon, you can select a number of allies within the area equal to half your Constitution modifier. The selected allies are unaffected by the attack. In addition, enemies who succeed (but not critically succeed) on their save against an area attack you make are still @UUID[Compendium.sf2e.conditions.Item.Suppressed] until the start of your next turn.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": [
+                            "area-fire-damage",
+                            "auto-fire-damage"
+                        ],
+                        "text": "SF2E.SpecificRule.Soldier.FightingStyle.Bombard.Note",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "bombard",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "otherTags": [
+                        "soldier-fighting-style"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "soldier"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "Asoend5ruIZDUj1F",
+            "folder": "IGK9KhXfktRKGmLz",
+            "img": "systems/sf2e/icons/abilities/yellow-tech-remnant.webp",
+            "name": "Walking Armory",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your endurance training empowers you to carry a load of heavy equipment. When determining your Strength for using armor, you can instead choose to use your Constitution modifier. If you already meet the Strength requirement for the armor you're wearing, reduce that armor's Bulk by 1 (to a minimum of 1).</p>\n<p>In addition, increase the amount of Bulk you can carry before becoming encumbered by half your Constitution modifier rounded up. Increase your maximum carried Bulk by your Constitution modifier.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "z6mEJvtjqae7LOwE",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": [
+                            "penalty:slug:armor-check-penalty",
+                            {
+                                "gte": [
+                                    "attribute:con:mod",
+                                    "armor:strength"
+                                ]
+                            }
+                        ],
+                        "selector": "skill-check",
+                        "suppress": true
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "add",
+                        "predicate": [
+                            "penalty:slug:armor-speed-penalty",
+                            {
+                                "gte": [
+                                    "attribute:con:mod",
+                                    "armor:strength"
+                                ]
+                            }
+                        ],
+                        "selector": "speed",
+                        "value": 5
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "inventory.bulk.encumberedAfterAddend",
+                        "value": "ceil(@actor.system.abilities.con.mod/2)"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "inventory.bulk.maxAddend",
+                        "value": "@actor.system.abilities.con.mod"
+                    }
+                ],
+                "slug": "walking-armory",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "soldier"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "bNJVXAVE32dwaMhv",
+            "folder": "IGK9KhXfktRKGmLz",
+            "img": "systems/sf2e/icons/abilities/red-bullets-in-flight.webp",
+            "name": "Suppressing Fire",
+            "sort": 100,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You have a knack for using powerful weapons to harry your foes and hinder their movement, preventing them from operating at their peak. When you make an attack with the area trait (such as @UUID[Compendium.sf2e.actions.Item.Area Fire] or @UUID[Compendium.sf2e.actions.Item.Auto-Fire]), you use it in a manner that suppresses your targets. Enemies in the affected area who fail their save against your attack become @UUID[Compendium.sf2e.conditions.Item.Suppressed] until the start of your next turn. A suppressed target takes a –1 circumstance penalty on attack rolls and takes a –10-foot status penalty to its Speeds. Some soldier abilities and class feats interact further with the suppressed condition.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "z6mEJvtjqae7LOwE",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": [
+                            "area-fire-damage",
+                            "auto-fire-damage"
+                        ],
+                        "text": "SF2E.SpecificRule.Soldier.SuppressingFire.Note",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "suppressing-fire",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "soldier"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "o91I6kXk4J4xq2IB",
+            "folder": "IGK9KhXfktRKGmLz",
+            "img": "systems/sf2e/icons/abilities/orange-target-sign.webp",
+            "name": "Primary Target",
+            "sort": 200,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You can focus fire on a single target when unleashing the full devastation of your powerful area weaponry. Before you make an area attack with a weapon (such as from the Area Fire or Auto-Fire actions), you can make a ranged Strike as a free action with the same weapon against a single creature in the area, who's selected as your primary target. If your attack is a burst, you must select the creature closest to the center of the attack. If your attack is a cone or line, you must select the creature closest to you. If two or more creatures are equidistant, you can choose which one is your primary target. On a hit, if your primary target rolls a success against your Area Fire or Auto-Fire action, they get a failure instead. This Strike doesn't count toward your multiple attack penalty.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "z6mEJvtjqae7LOwE",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "primary-target",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "soldier"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "xoyf7An1uTVXglqH",
+            "img": "systems/sf2e/icons/default-icons/lore.svg",
+            "name": "Warfare Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "hoR13B3XiLEZgDLn",
             "folder": "e6s8QLzAKqjMzzPL",
             "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
             "name": "Fearless",
@@ -515,13 +866,15 @@
                 },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "vesk"
+                    ]
                 }
             },
             "type": "feat"
         },
         {
-            "_id": "HpWjdhuYwRurieLv",
+            "_id": "FJyncuEpF3sF9opc",
             "folder": "81KtKO71Z3ZZ01KH",
             "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
             "name": "Quick Swap",
@@ -559,13 +912,15 @@
                 },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "soldier"
+                    ]
                 }
             },
             "type": "feat"
         },
         {
-            "_id": "2GaC8L7AmaTACoZQ",
+            "_id": "cfjOHBYjjxgMtnrv",
             "folder": "cJoNKs2FMCJkyEDK",
             "img": "systems/sf2e/icons/equipment/other/walkie-talkie.webp",
             "name": "Comm Unit",
@@ -655,11 +1010,11 @@
             "type": "equipment"
         },
         {
-            "_id": "B6oE3UT0sUtN2WP3",
+            "_id": "cRYRNLTSx1sr8JnV",
             "folder": "V89RPpe7fyCFC6NS",
             "img": "icons/weapons/polearms/spear-simple-hooked-grey.webp",
             "name": "Doshko",
-            "sort": 5200000,
+            "sort": 0,
             "system": {
                 "ammo": null,
                 "baseItem": "doshko",
@@ -743,11 +1098,11 @@
             "type": "weapon"
         },
         {
-            "_id": "2bVjfZhg9cpPyWzz",
+            "_id": "rXJ94GtpnKKAsQdn",
             "folder": "V89RPpe7fyCFC6NS",
             "img": "systems/sf2e/icons/equipment/weapons/heavy-gun-long.webp",
             "name": "Machine Gun",
-            "sort": 1000000,
+            "sort": 0,
             "system": {
                 "ammo": {
                     "baseType": "projectile-ammo",
@@ -775,8 +1130,8 @@
                     "value": "<p><strong>Upgrades:</strong> 1</p><hr /><p>These proven and reliable automatic weapons are capable of firing in short bursts or completely emptying their magazines to clear a battlefield.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 2,
+                    "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "expend": 1,
@@ -815,12 +1170,77 @@
                     "property": [],
                     "striking": 0
                 },
-                "selectedAmmoId": "ojKpAbUiTTSMG3wk",
                 "size": "med",
                 "slug": "machine-gun",
                 "splashDamage": {
                     "value": 0
                 },
+                "subitems": [
+                    {
+                        "_id": "3d1dFlPR2BkfkM1E",
+                        "_stats": {
+                            "compendiumSource": "Compendium.sf2e.equipment.Item.JSS89QXZggfF3OHJ"
+                        },
+                        "folder": "F6h7fO0Z7cgQBVRD",
+                        "img": "systems/sf2e/icons/equipment/weapons/red-rounds.webp",
+                        "name": "Projectile Ammo",
+                        "sort": 0,
+                        "system": {
+                            "baseItem": "projectile-ammo",
+                            "bulk": {
+                                "value": 0
+                            },
+                            "containerId": null,
+                            "craftableAs": null,
+                            "description": {
+                                "value": ""
+                            },
+                            "equipped": {
+                                "carryType": "attached",
+                                "handsHeld": 0
+                            },
+                            "hardness": 0,
+                            "hp": {
+                                "max": 0,
+                                "value": 0
+                            },
+                            "level": {
+                                "value": 0
+                            },
+                            "material": {
+                                "grade": null,
+                                "type": null
+                            },
+                            "price": {
+                                "per": 10,
+                                "value": {
+                                    "sp": 1
+                                }
+                            },
+                            "publication": {
+                                "license": "ORC",
+                                "remaster": true,
+                                "title": "Starfinder Player Core"
+                            },
+                            "quantity": 1,
+                            "rules": [],
+                            "size": "med",
+                            "slug": "projectile-ammo",
+                            "traits": {
+                                "rarity": "common",
+                                "value": [
+                                    "consumable"
+                                ]
+                            },
+                            "uses": {
+                                "autoDestroy": true,
+                                "max": 1,
+                                "value": 1
+                            }
+                        },
+                        "type": "ammo"
+                    }
+                ],
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -835,11 +1255,11 @@
             "type": "weapon"
         },
         {
-            "_id": "ojKpAbUiTTSMG3wk",
+            "_id": "3d1dFlPR2BkfkM1E",
             "folder": "F6h7fO0Z7cgQBVRD",
             "img": "systems/sf2e/icons/equipment/weapons/red-rounds.webp",
             "name": "Projectile Ammo",
-            "sort": 1100000,
+            "sort": 0,
             "system": {
                 "baseItem": "projectile-ammo",
                 "bulk": {
@@ -876,7 +1296,7 @@
                     "remaster": true,
                     "title": "Starfinder Player Core"
                 },
-                "quantity": 20,
+                "quantity": 19,
                 "rules": [],
                 "size": "med",
                 "slug": "projectile-ammo",
@@ -895,137 +1315,63 @@
             "type": "ammo"
         },
         {
-            "_id": "dzPOSzKrARqzOnoj",
-            "img": "systems/sf2e/icons/default-icons/lore.svg",
-            "name": "Warfare Lore",
+            "_id": "zT7boXbeDxSAbGpk",
+            "img": "icons/sundries/gaming/playing-cards-grey.webp",
+            "name": "Credstick",
             "sort": 0,
             "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
+                "baseItem": null,
+                "bulk": {
                     "value": 0
                 },
-                "proficient": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "3kTdYA9FkW1k1meq",
-            "folder": "ZAcXQ5KCAhc9MwXu",
-            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
-            "name": "Menacing Laughter",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "class",
+                "category": "credstick",
+                "containerId": null,
                 "description": {
-                    "value": "<p>Your laughter (or other vocalization) remains audible over the din of your weapons fire. Attempt an Intimidation check to @UUID[Compendium.sf2e.actions.Item.Demoralize] each creature within 30 feet who's @UUID[Compendium.sf2e.conditions.Item.Suppressed].</p>"
+                    "value": "<p>Most people in Starfinder keep their wealth on a protected item known as a credstick. These devices are often flat and roughly the size of a human finger. They range in dimensions and quality, but at the end of the day, they're just a means of conveniently carrying and spending money. Usage of these devices is determined by the owner, and a credstick can accept or spend funds with as simple an action as tapping it near a suitable banking device. When more rigorous security is necessary, they can require audio or biometric imprints in order to activate. Some advanced credsticks even have a magical component that might require a mental password or the recitation of a specific spell to access stored funds.</p>\n<p>Credsticks aren't gateways to the entirety of one's wealth, and larger stores of credits are often kept secured in banks, personal vaults, or secure databases. Instead, a credstick is a safe and anonymous means of moving credits around without being traced. Adventurers and common citizens alike often keep a credstick on their person to handle any purchases they might be called upon to make, while also only keeping just enough credits on them that losing the credstick wouldn't result in bankruptcy.</p>\n<p>Individuals in the Pact Worlds often carry credsticks, and other civilizations that interact with the Pact often turn local funds into credits and thus carry them to spend their converted currency. Sometimes a person might carry several credsticks, dedicating each one to a different use, or simply trading the stick away if they want to make a purchase of a predefined amount. If ever the number of credsticks on a person becomes too cumbersome, it's easy enough to move the funds between individual sticks and discard emptied sticks to save on space, however a credstick always has a negligible bulk.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
                 },
                 "level": {
-                    "taken": 2,
-                    "value": 2
+                    "value": 0
                 },
-                "location": "class-2",
-                "prerequisites": {
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 1,
+                    "value": {
+                        "sp": 14
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "credstick",
+                "temporary": false,
+                "traits": {
+                    "rarity": "common",
                     "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Starfinder Player Core"
-                },
-                "rules": [],
-                "slug": "menacing-laughter",
-                "subfeatures": {
-                    "proficiencies": {},
-                    "senses": {},
-                    "suppressedFeatures": []
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory"
-                    ]
                 }
             },
-            "type": "feat"
+            "type": "treasure"
         },
         {
-            "_id": "lRe9R6CfoBOr5AMT",
-            "folder": "admZiPs6ML6NgwMt",
-            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
-            "name": "Deadlift",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> You aren't @UUID[Compendium.sf2e.conditions.Item.Fatigued].</p><hr /><p>For 1 minute, you can carry 4 more Bulk than normal before becoming encumbered. The amount you can carry increases to 6 at expert, 8 at master, and 10 at legendary. When the benefits of this feat end, you become @UUID[Compendium.sf2e.conditions.Item.Fatigued] for 10 minutes.</p>"
-                },
-                "level": {
-                    "taken": 2,
-                    "value": 1
-                },
-                "location": "skill-2",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Athletics"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Starfinder Player Core"
-                },
-                "rules": [],
-                "selfEffect": {
-                    "name": "Effect: Deadlift",
-                    "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Deadlift"
-                },
-                "slug": "deadlift",
-                "subfeatures": {
-                    "proficiencies": {},
-                    "senses": {},
-                    "suppressedFeatures": []
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "Or9QMRXFBULv7CUI",
-            "folder": "waujsnHrfCsPk0zO",
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Toughness",
+            "_id": "d1q6bPrkOiWk6tJK",
+            "folder": "IGK9KhXfktRKGmLz",
+            "img": "systems/sf2e/icons/abilities/alien-eye.webp",
+            "name": "Fearsome Bulwark",
             "sort": 0,
             "system": {
                 "actionType": {
@@ -1034,37 +1380,44 @@
                 "actions": {
                     "value": null
                 },
-                "category": "general",
+                "category": "classfeature",
                 "description": {
-                    "value": "<p>Your body can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. You reduce the DC of recovery checks by 1.</p>"
+                    "value": "<p>Your sheer bulk terrifies foes, clearing a path for you on the battlefield. You can use your Constitution modifier instead of your Charisma modifier on Intimidation checks to @UUID[Compendium.sf2e.actions.Item.Coerce] or @UUID[Compendium.sf2e.actions.Item.Demoralize] and instead of your Strength modifier on Athletics checks to @UUID[Compendium.sf2e.actions.Item.Reposition] or @UUID[Compendium.sf2e.actions.Item.Shove].</p>"
                 },
                 "level": {
-                    "taken": 3,
-                    "value": 1
+                    "value": 3
                 },
-                "location": "general-3",
+                "location": "z6mEJvtjqae7LOwE",
                 "prerequisites": {
                     "value": []
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Player Core"
+                    "title": "Starfinder Player Core"
                 },
                 "rules": [
                     {
+                        "ability": "con",
                         "key": "FlatModifier",
-                        "selector": "hp",
-                        "value": "@actor.level"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "subtract",
-                        "path": "system.attributes.dying.recoveryDC",
-                        "value": 1
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:coerce",
+                                    "action:demoralize",
+                                    "action:reposition",
+                                    "action:shove"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "athletics",
+                            "intimidation"
+                        ],
+                        "type": "ability"
                     }
                 ],
-                "slug": "toughness",
+                "slug": "fearsome-bulwark",
                 "subfeatures": {
                     "proficiencies": {},
                     "senses": {},
@@ -1073,18 +1426,70 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "general"
+                        "soldier"
                     ]
                 }
             },
             "type": "feat"
         },
         {
-            "_id": "JlB73k5JR28orwiy",
+            "_id": "59RObf7nfjN0LHRm",
+            "folder": "fCUjDoIslLyWWTPv",
+            "img": "systems/sf2e/icons/abilities/blue-person-running.webp",
+            "name": "Reflex Expertise",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p><strong>Mystic</strong> Your connection blesses you with insight that helps you dodge danger. Your proficiency rank for Reflex saves increases to expert.</p><hr /><p><strong>Soldier</strong> You've developed a knack for dodging danger. Your proficiency rank for Reflex saves increases to expert.</p><hr /><p><strong>Witchwarper</strong> Your awareness of possible dangers, through incredible analysis or an understanding of the wider multiverse, increases your reflexes. Your proficiency rank for Reflex saves increases to expert.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "z6mEJvtjqae7LOwE",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "reflex-expertise",
+                "subfeatures": {
+                    "proficiencies": {
+                        "reflex": {
+                            "attribute": null,
+                            "rank": 2
+                        }
+                    },
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "mystic",
+                        "soldier",
+                        "witchwarper"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "M17UUVIxLPvMqiyG",
             "folder": "jjcF0lfrc3ZIoKv1",
             "img": "systems/sf2e/icons/equipment/armor/armor-chestplate-bue.webp",
             "name": "Hidden Soldier Armor",
-            "sort": 900000,
+            "sort": 0,
             "system": {
                 "acBonus": 5,
                 "baseItem": "hidden-soldier-armor",
@@ -1150,107 +1555,80 @@
             "type": "armor"
         },
         {
-            "_id": "ElYOPSVPx0WhCkoX",
-            "flags": {
-                "sf2e": {
-                    "itemGrants": {
-                        "bombard": {
-                            "id": "xjDVKVztEbonq1sj",
-                            "onDelete": "detach"
+            "_id": "ZR9QFu3vgoUtmieH",
+            "folder": "ZAcXQ5KCAhc9MwXu",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Menacing Laughter",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>Your laughter (or other vocalization) remains audible over the din of your weapons fire. Attempt an Intimidation check to @UUID[Compendium.sf2e.actions.Item.Demoralize] each creature within 30 feet who's @UUID[Compendium.sf2e.conditions.Item.Suppressed].</p>"
+                },
+                "level": {
+                    "taken": 2,
+                    "value": 2
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [],
+                "slug": "menacing-laughter",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "soldier"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "OjJtotdgUtxlMOxt",
+            "folder": "admZiPs6ML6NgwMt",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Deadlift",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You aren't @UUID[Compendium.sf2e.conditions.Item.Fatigued].</p><hr /><p>For 1 minute, you can carry 4 more Bulk than normal before becoming encumbered. The amount you can carry increases to 6 at expert, 8 at master, and 10 at legendary. When the benefits of this feat end, you become @UUID[Compendium.sf2e.conditions.Item.Fatigued] for 10 minutes.</p>"
+                },
+                "level": {
+                    "taken": 2,
+                    "value": 1
+                },
+                "location": "skill-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Athletics"
                         }
-                    }
-                }
-            },
-            "folder": "IGK9KhXfktRKGmLz",
-            "img": "systems/sf2e/icons/abilities/cerulean-star.webp",
-            "name": "Soldier Fighting Style",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>As a soldier, you train using a specific style of fighting. Your style determines how you approach combat and often changes how you take advantage of your ability to suppress targets. Choose a soldier fighting style.</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Action Hero]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Armor Storm]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Bombard]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Close Quarters]</p>\n<p>@UUID[Compendium.sf2e.class-features.Item.Erudite Warrior]</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "NB7IRxd4IOWJsw2H",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Starfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                "item:tag:soldier-fighting-style"
-                            ]
-                        },
-                        "flag": "fightingStyle",
-                        "key": "ChoiceSet",
-                        "prompt": "SF2E.SpecificRule.Soldier.FightingStyle.Prompt",
-                        "selection": "Compendium.sf2e.class-features.Item.Bombard"
-                    },
-                    {
-                        "flag": "bombard",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.sf2e.rulesSelections.fightingStyle}"
-                    }
-                ],
-                "slug": "soldier-fighting-style",
-                "subfeatures": {
-                    "proficiencies": {},
-                    "senses": {},
-                    "suppressedFeatures": []
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "xjDVKVztEbonq1sj",
-            "flags": {
-                "sf2e": {
-                    "grantedBy": {
-                        "id": "ElYOPSVPx0WhCkoX",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "folder": "GyMklUN6ZJ9xixWD",
-            "img": "systems/sf2e/icons/abilities/energy-reaction.webp",
-            "name": "Bombard",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>There's nothing like a big gun (or maybe several) to get you through tough times. You've come to terms with the fact that a stray bullet from one of your barrages might sometimes hit an ally, but you try to minimize such instances of \"friendly fire.\" You've trained to avoid harming allies with your barrages and learned to expertly position your attacks around them.</p>\n<p>When you attack with an area weapon, you can select a number of allies within the area equal to half your Constitution modifier. The selected allies are unaffected by the attack. In addition, enemies who succeed (but not critically succeed) on their save against an area attack you make are still @UUID[Compendium.sf2e.conditions.Item.Suppressed] until the start of your next turn.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
+                    ]
                 },
                 "publication": {
                     "license": "ORC",
@@ -1258,27 +1636,31 @@
                     "title": "Starfinder Player Core"
                 },
                 "rules": [],
-                "slug": "bombard",
+                "selfEffect": {
+                    "name": "Effect: Deadlift",
+                    "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Deadlift"
+                },
+                "slug": "deadlift",
                 "subfeatures": {
                     "proficiencies": {},
                     "senses": {},
                     "suppressedFeatures": []
                 },
                 "traits": {
-                    "otherTags": [
-                        "soldier-fighting-style"
-                    ],
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
                 }
             },
             "type": "feat"
         },
         {
-            "_id": "cXCj9SSJcsFFMJ9g",
-            "folder": "IGK9KhXfktRKGmLz",
-            "img": "systems/sf2e/icons/abilities/orange-target-sign.webp",
-            "name": "Primary Target",
+            "_id": "LSLlDItRqYsTDAI6",
+            "folder": "952e2Tn00KbJ2FY3",
+            "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+            "name": "Toughness",
             "sort": 0,
             "system": {
                 "actionType": {
@@ -1287,57 +1669,15 @@
                 "actions": {
                     "value": null
                 },
-                "category": "classfeature",
+                "category": "general",
                 "description": {
-                    "value": "<p>You can focus fire on a single target when unleashing the full devastation of your powerful area weaponry. Before you make an area attack with a weapon (such as from the Area Fire or Auto-Fire actions), you can make a ranged Strike as a free action with the same weapon against a single creature in the area, who's selected as your primary target. If your attack is a burst, you must select the creature closest to the center of the attack. If your attack is a cone or line, you must select the creature closest to you. If two or more creatures are equidistant, you can choose which one is your primary target. On a hit, if your primary target rolls a success against your Area Fire or Auto-Fire action, they get a failure instead. This Strike doesn't count toward your multiple attack penalty.</p>"
+                    "value": "<p>Your body can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. You reduce the DC of recovery checks by 1.</p>"
                 },
                 "level": {
+                    "taken": 3,
                     "value": 1
                 },
-                "location": "NB7IRxd4IOWJsw2H",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Starfinder Player Core"
-                },
-                "rules": [],
-                "slug": "primary-target",
-                "subfeatures": {
-                    "proficiencies": {},
-                    "senses": {},
-                    "suppressedFeatures": []
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "6a7duMqBe0egB40x",
-            "folder": "IGK9KhXfktRKGmLz",
-            "img": "systems/sf2e/icons/abilities/red-bullets-in-flight.webp",
-            "name": "Suppressing Fire",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You have a knack for using powerful weapons to harry your foes and hinder their movement, preventing them from operating at their peak. If you make an attack with a weapon that has the area trait (such as from the Area Fire or Auto-Fire actions), you use it in a manner that suppresses your targets. Enemies in the affected area who fail their save against your attack become @UUID[Compendium.sf2e.conditions.Item.Suppressed] until the start of your next turn. A suppressed target takes a –1 circumstance penalty on attack rolls and takes a –10-foot status penalty to its Speeds. Some soldier abilities and class feats interact further with the suppressed condition.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "NB7IRxd4IOWJsw2H",
+                "location": "general-3",
                 "prerequisites": {
                     "value": []
                 },
@@ -1348,164 +1688,18 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "predicate": [
-                            "item:trait:area"
-                        ],
-                        "selector": "ranged-strike-damage",
-                        "text": "SF2E.SpecificRule.Soldier.SuppressingFire.Note",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": "suppressing-fire",
-                "subfeatures": {
-                    "proficiencies": {},
-                    "senses": {},
-                    "suppressedFeatures": []
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "bn7UjaEHCjAMxYEz",
-            "folder": "IGK9KhXfktRKGmLz",
-            "img": "systems/sf2e/icons/abilities/yellow-tech-remnant.webp",
-            "name": "Walking Armory",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Your endurance training empowers you to carry a load of heavy equipment. When determining your Strength for using armor, you can instead choose to use your Constitution modifier. If you already meet the Strength requirement for the armor you're wearing, reduce that armor's Bulk by 1 (to a minimum of 1).</p>\n<p>In addition, increase the amount of Bulk you can carry before becoming encumbered by half your Constitution modifier rounded up. Increase your maximum carried Bulk by your Constitution modifier.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "NB7IRxd4IOWJsw2H",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Starfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "key": "AdjustModifier",
-                        "predicate": [
-                            "penalty:slug:armor-check-penalty",
-                            {
-                                "gte": [
-                                    "attribute:con:mod",
-                                    "armor:strength"
-                                ]
-                            }
-                        ],
-                        "selector": "skill-check",
-                        "suppress": true
-                    },
-                    {
-                        "key": "AdjustModifier",
-                        "mode": "add",
-                        "predicate": [
-                            "penalty:slug:armor-speed-penalty",
-                            {
-                                "gte": [
-                                    "attribute:con:mod",
-                                    "armor:strength"
-                                ]
-                            }
-                        ],
-                        "selector": "speed",
-                        "value": 5
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "add",
-                        "path": "inventory.bulk.encumberedAfterAddend",
-                        "value": "ceil(@actor.system.abilities.con.mod/2)"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "add",
-                        "path": "inventory.bulk.maxAddend",
-                        "value": "@actor.system.abilities.con.mod"
-                    }
-                ],
-                "slug": "walking-armory",
-                "subfeatures": {
-                    "proficiencies": {},
-                    "senses": {},
-                    "suppressedFeatures": []
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "uYY4qhnqWrllo8d2",
-            "folder": "IGK9KhXfktRKGmLz",
-            "img": "systems/sf2e/icons/abilities/alien-eye.webp",
-            "name": "Fearsome Bulwark",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Your sheer bulk terrifies foes, clearing a path for you on the battlefield. You can use your Constitution modifier instead of your Charisma modifier on Intimidation checks to @UUID[Compendium.sf2e.actions.Item.Coerce] or @UUID[Compendium.sf2e.actions.Item.Demoralize] and instead of your Strength modifier on Athletics checks to @UUID[Compendium.sf2e.actions.Item.Reposition] or @UUID[Compendium.sf2e.actions.Item.Shove].</p>"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": "NB7IRxd4IOWJsw2H",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Starfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "ability": "con",
                         "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:coerce",
-                                    "action:demoralize",
-                                    "action:reposition",
-                                    "action:shove"
-                                ]
-                            }
-                        ],
-                        "selector": [
-                            "athletics",
-                            "intimidation"
-                        ],
-                        "type": "ability"
+                        "selector": "hp",
+                        "value": "@actor.level"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "subtract",
+                        "path": "system.attributes.dying.recoveryDC",
+                        "value": 1
                     }
                 ],
-                "slug": "fearsome-bulwark",
+                "slug": "toughness",
                 "subfeatures": {
                     "proficiencies": {},
                     "senses": {},
@@ -1513,114 +1707,23 @@
                 },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "general"
+                    ]
                 }
             },
             "type": "feat"
-        },
-        {
-            "_id": "CacMyBiYE33P2qga",
-            "folder": "fCUjDoIslLyWWTPv",
-            "img": "systems/sf2e/icons/abilities/blue-person-running.webp",
-            "name": "Reflex Expertise",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p><strong>Mystic</strong> Your connection blesses you with insight that helps you dodge danger. Your proficiency rank for Reflex saves increases to expert.</p><hr /><p><strong>Soldier</strong> You've developed a knack for dodging danger. Your proficiency rank for Reflex saves increases to expert.</p><hr /><p><strong>Witchwarper</strong> Your awareness of possible dangers, through incredible analysis or an understanding of the wider multiverse, increases your reflexes. Your proficiency rank for Reflex saves increases to expert.</p>"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": "NB7IRxd4IOWJsw2H",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Starfinder Player Core"
-                },
-                "rules": [],
-                "slug": "reflex-expertise",
-                "subfeatures": {
-                    "proficiencies": {
-                        "reflex": {
-                            "attribute": null,
-                            "rank": 2
-                        }
-                    },
-                    "senses": {},
-                    "suppressedFeatures": []
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "gjc0TJdQvWAdqWVf",
-            "img": "icons/sundries/gaming/playing-cards-grey.webp",
-            "name": "Credstick",
-            "sort": 0,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "credstick",
-                "containerId": null,
-                "description": {
-                    "value": "<p>Most people in Starfinder keep their wealth on a protected item known as a credstick. These devices are often flat and roughly the size of a human finger. They range in dimensions and quality, but at the end of the day, they're just a means of conveniently carrying and spending money. Usage of these devices is determined by the owner, and a credstick can accept or spend funds with as simple an action as tapping it near a suitable banking device. When more rigorous security is necessary, they can require audio or biometric imprints in order to activate. Some advanced credsticks even have a magical component that might require a mental password or the recitation of a specific spell to access stored funds.</p>\n<p>Credsticks aren't gateways to the entirety of one's wealth, and larger stores of credits are often kept secured in banks, personal vaults, or secure databases. Instead, a credstick is a safe and anonymous means of moving credits around without being traced. Adventurers and common citizens alike often keep a credstick on their person to handle any purchases they might be called upon to make, while also only keeping just enough credits on them that losing the credstick wouldn't result in bankruptcy.</p>\n<p>Individuals in the Pact Worlds often carry credsticks, and other civilizations that interact with the Pact often turn local funds into credits and thus carry them to spend their converted currency. Sometimes a person might carry several credsticks, dedicating each one to a different use, or simply trading the stick away if they want to make a purchase of a predefined amount. If ever the number of credsticks on a person becomes too cumbersome, it's easy enough to move the funds between individual sticks and discard emptied sticks to save on space, however a credstick always has a negligible bulk.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "per": 1,
-                    "value": {
-                        "sp": 14
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Starfinder Player Core"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "credstick",
-                "temporary": false,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "treasure"
         }
     ],
     "name": "Obozaya (Level 3)",
+    "prototypeToken": {
+        "name": "Obozaya",
+        "texture": {
+            "scaleX": 1.2,
+            "scaleY": 1.2,
+            "src": "systems/sf2e/icons/iconics/portraits/oobozaya.webp"
+        }
+    },
     "system": {
         "abilities": null,
         "attributes": {
@@ -1633,10 +1736,10 @@
             "attributes": {
                 "boosts": {
                     "1": [
-                        "int",
                         "con",
+                        "str",
                         "dex",
-                        "wis"
+                        "int"
                     ]
                 }
             }
@@ -1692,7 +1795,6 @@
             "xp": {
                 "max": 1000,
                 "min": 0,
-                "pct": 0,
                 "value": 0
             }
         },
@@ -1722,11 +1824,8 @@
             }
         },
         "skills": {
-            "athletics": {
-                "rank": 0
-            },
-            "intimidation": {
-                "rank": 2
+            "acrobatics": {
+                "rank": 1
             },
             "nature": {
                 "rank": 1

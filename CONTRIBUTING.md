@@ -18,7 +18,7 @@ The project uses webpack to package the SASS files needed for a build and can cr
 
 - Run `npm run watch` to have any coding changes you make in your dev environment trigger an automatic rebuild.
 
-- To update compendium datafiles, run `npm run extractPacks ${compendium db filename} --system=pf2e` after editing the item directly in the built world's compendium, rather than editing the json files directly.
+- To update compendium datafiles, run `pnpm run extractPacks ${compendium db filename} --system=pf2e` after editing the item directly in the built world's compendium, rather than editing the json files directly.
 
 ## How to Help
 

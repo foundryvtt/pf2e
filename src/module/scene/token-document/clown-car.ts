@@ -84,7 +84,9 @@ class PartyClownCar {
         const distance = canvas.dimensions?.distance ?? 5;
         const radius = radiusPixels / distance;
         const areaBounds = new PIXI.Rectangle(center.x - radiusPixels, center.y - radiusPixels, diameter, diameter);
-        const squares = getAreaSquares({ bounds: areaBounds, radius, token: placeable }).filter((s) => s.active);
+        const squares = getAreaSquares({ bounds: areaBounds, radius, radiusPixels, token: placeable }).filter(
+            (s) => s.active,
+        );
         return R.sortBy(
             squares
                 .filter(

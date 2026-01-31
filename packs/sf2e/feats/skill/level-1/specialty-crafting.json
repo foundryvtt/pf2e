@@ -12,7 +12,7 @@
         },
         "category": "skill",
         "description": {
-            "value": "<p>Your training focused on Crafting one particular kind of item. Select one of the specialties listed below; you gain a +1 circumstance bonus to Crafting checks to Craft items of that type. If you are a master in Crafting, this bonus increases to +2. If it's unclear whether the specialty applies, the GM decides. Some specialties might apply only partially. For example, if you were making a morningstar and had specialty in woodworking, the GM might give you half your bonus because the item requires both blacksmithing and woodworking.</p>\n<table class=\"pf2e\" style=\"white-space:nowrap\">\n<thead>\n<tr>\n<th>Specialty</th>\n<th>Applicable Items</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Alchemy*</td>\n<td>Alchemical items such as elixirs</td>\n</tr>\n<tr>\n<td>Artistry</td>\n<td>Fine art, including jewelry</td>\n</tr>\n<tr>\n<td>Blacksmithing</td>\n<td>Durable metal goods, including metal armor</td>\n</tr>\n<tr>\n<td>Bookmaking</td>\n<td>Books and paper</td>\n</tr>\n<tr>\n<td>Glassmaking</td>\n<td>Glass, including glassware and windows</td>\n</tr>\n<tr>\n<td>Leatherworking</td>\n<td>Leather goods, including leather armor</td>\n</tr>\n<tr>\n<td>Pottery</td>\n<td>Ceramic goods</td>\n</tr>\n<tr>\n<td>Shipbuilding</td>\n<td>Ships and boats</td>\n</tr>\n<tr>\n<td>Stonemasonry</td>\n<td>Stone goods and structures</td>\n</tr>\n<tr>\n<td>Tailoring</td>\n<td>Clothing</td>\n</tr>\n<tr>\n<td>Weaving</td>\n<td>Textiles, baskets, and rugs</td>\n</tr>\n<tr>\n<td>Woodworking</td>\n<td>Wooden goods and structures</td>\n</tr>\n</tbody>\n</table>"
+            "value": "<p>Your training focused on Crafting one particular kind of item. Select one of the specialties listed below; you gain a +1 circumstance bonus to Crafting checks to Craft items of that type. If you are a master in Crafting, this bonus increases to +2. If it's unclear whether the specialty applies, the GM decides. Some specialties might apply only partially. For example, if you were making an Abadarcorp travel suit and had specialty in textiles, the GM might give you half your bonus because the item requires both armorsmithing and textiles to craft.</p><table class=\"pf2e\" style=\"white-space:nowrap\"><thead><tr><th>Specialty</th><th>Applicable Items</th></tr></thead><tbody><tr><td>Armorsmithing</td><td>Armor, shields and upgrades</td></tr><tr><td>Artistry</td><td>Fine art, including jewelry and solarian crystals</td></tr><tr><td>Automotives</td><td>Vehicles, including spaceships</td></tr><tr><td>Chemicals</td><td>Alcohol, ammunition, explosives, and fuel</td></tr><tr><td>Computer</td><td>Comm units, datapads, and virtual items</td></tr><tr><td>Engineering</td><td>Tech gadgets and accessories</td></tr><tr><td>Gunsmithing</td><td>Firearms and firearm upgrades</td></tr><tr><td>Life Science</td><td>Biotechnology and some pharmaceuticals</td></tr><tr><td>Robotics</td><td>Drones, mechs, and robots</td></tr><tr><td>Textiles</td><td>Clothing, leather, and polymer armor</td></tr></tbody></table>"
         },
         "level": {
             "value": 1
@@ -27,19 +27,19 @@
         "publication": {
             "license": "ORC",
             "remaster": true,
-            "title": "Pathfinder Player Core"
+            "title": "Starfinder Player Core"
         },
         "rules": [
             {
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Alchemy",
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Armorsmithing",
                         "predicate": [
                             {
-                                "not": "feat:specialty-crafting:alchemy"
+                                "not": "feat:specialty-crafting:armorsmithing"
                             }
                         ],
-                        "value": "alchemy"
+                        "value": "armorsmithing"
                     },
                     {
                         "label": "PF2E.SpecificRule.SpecialtyCrafting.Artistry",
@@ -51,94 +51,76 @@
                         "value": "artistry"
                     },
                     {
-                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Blacksmithing",
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Automotives",
                         "predicate": [
                             {
-                                "not": "feat:specialty-crafting:blacksmithing"
+                                "not": "feat:specialty-crafting:automotives"
                             }
                         ],
-                        "value": "blacksmithing"
+                        "value": "automotives"
                     },
                     {
-                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Bookmaking",
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Chemicals",
                         "predicate": [
                             {
-                                "not": "feat:specialty-crafting:bookmaking"
+                                "not": "feat:specialty-crafting:chemicals"
                             }
                         ],
-                        "value": "bookmaking"
+                        "value": "chemicals"
                     },
                     {
-                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Glassmaking",
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Computer",
                         "predicate": [
                             {
-                                "not": "feat:specialty-crafting:glassmaking"
+                                "not": "feat:specialty-crafting:computer"
                             }
                         ],
-                        "value": "glassmaking"
+                        "value": "computer"
                     },
                     {
-                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Leatherworking",
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Engineering",
                         "predicate": [
                             {
-                                "not": "feat:specialty-crafting:leatherworking"
+                                "not": "feat:specialty-crafting:engineering"
                             }
                         ],
-                        "value": "leatherworking"
+                        "value": "engineering"
                     },
                     {
-                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Pottery",
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Gunsmithing",
                         "predicate": [
                             {
-                                "not": "feat:specialty-crafting:pottery"
+                                "not": "feat:specialty-crafting:gunsmithing"
                             }
                         ],
-                        "value": "pottery"
+                        "value": "gunsmithing"
                     },
                     {
-                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Shipbuilding",
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.LifeScience",
                         "predicate": [
                             {
-                                "not": "feat:specialty-crafting:shipbuilding"
+                                "not": "feat:specialty-crafting:life-science"
                             }
                         ],
-                        "value": "shipbuilding"
+                        "value": "life-science"
                     },
                     {
-                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Stonemasonry",
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Robotics",
                         "predicate": [
                             {
-                                "not": "feat:specialty-crafting:stonemasonry"
+                                "not": "feat:specialty-crafting:robotics"
                             }
                         ],
-                        "value": "stonemasonry"
+                        "value": "robotics"
                     },
                     {
-                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Tailoring",
+                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Textiles",
                         "predicate": [
                             {
-                                "not": "feat:specialty-crafting:tailoring"
+                                "not": "feat:specialty-crafting:textiles"
                             }
                         ],
-                        "value": "tailoring"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Weaving",
-                        "predicate": [
-                            {
-                                "not": "feat:specialty-crafting:weaving"
-                            }
-                        ],
-                        "value": "weaving"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.SpecialtyCrafting.Woodworking",
-                        "predicate": [
-                            {
-                                "not": "feat:specialty-crafting:woodworking"
-                            }
-                        ],
-                        "value": "woodworking"
+                        "value": "textiles"
                     }
                 ],
                 "flag": "specialtyCrafting",

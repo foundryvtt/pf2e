@@ -88,7 +88,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
     };
 
     /** Setting: the date theme (Imperial Calendar not yet supported) */
-    get dateTheme(): "AR" | "IC" | "AD" | "CE" {
+    get dateTheme(): "AR" | "IC" | "AG" | "AD" | "CE" {
         return game.pf2e.settings.worldClock.dateTheme;
     }
 
@@ -127,6 +127,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
         switch (this.dateTheme) {
             case "AR": // Absalom Reckoning
             case "IC": // Imperial Calendar
+            case "AG": // After Gap
                 return game.i18n.localize(CONFIG.PF2E.worldClock[this.dateTheme].Era);
             case "AD": // Earth on the Material Plane
                 return this.worldTime.toFormat("G");
@@ -145,7 +146,8 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
     get month(): string {
         switch (this.dateTheme) {
             case "AR":
-            case "IC": {
+            case "IC":
+            case "AG": {
                 const months = CONFIG.PF2E.worldClock.AR.Months;
                 const month = this.worldTime.setLocale("en-US").monthLong as keyof typeof months;
                 return game.i18n.localize(months[month]);
@@ -161,6 +163,11 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
             case "AR":
             case "IC": {
                 const weekdays = CONFIG.PF2E.worldClock.AR.Weekdays;
+                const weekday = this.worldTime.setLocale("en-US").weekdayLong as keyof typeof weekdays;
+                return game.i18n.localize(weekdays[weekday]);
+            }
+            case "AG": {
+                const weekdays = CONFIG.PF2E.worldClock.AG.Weekdays;
                 const weekday = this.worldTime.setLocale("en-US").weekdayLong as keyof typeof weekdays;
                 return game.i18n.localize(weekdays[weekday]);
             }
