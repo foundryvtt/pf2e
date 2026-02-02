@@ -224,7 +224,26 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TwoHanded.Staff",
+                        "option": "two-handed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "label": "PF2E.TraitTwoHandD8",
+                        "override": {
+                            "dieSize": "d8"
+                        },
+                        "predicate": [
+                            "two-handed"
+                        ],
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": "staff",
                 "traits": {
                     "value": [
@@ -249,14 +268,23 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>15 feet. The bodach is always surrounded by a pall of gloomy gray, like the air before it rains. A non-fey or non-hag creature entering the aura or beginning their turn in the aura must succeed at a @Check[will|dc:21] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). A creature who succeeds is temporarily immune to the aura for 1 minute.</p>"
+                    "value": "<p>15 feet. The bodach is always surrounded by a pall of gloomy gray, like the air before it rains. A non-fey or non-hag creature entering the aura or beginning their turn in the aura must succeed at a @Check[will|dc:21|options:area-effect,inflicts:slowed] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). A creature who succeeds is temporarily immune to the aura for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 15,
+                        "traits": [
+                            "emotion",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -282,14 +310,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The bodach makes a staf Strike. If it hits, it deals an additional @Damage[2d8[spirit]] damage, and the target must attempt a save against either Mumbletongue or Stumblefoot (the bodach's choice).</p>"
+                    "value": "<p>The bodach makes a staff Strike. If it hits, it deals an additional 2d8 spirit damage, and the target must attempt a save against either Mumbletongue or Stumblefoot (the bodach's choice).</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "implacable-curse",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "spirit",
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "implacable-curse"
+                        ],
+                        "selector": "staff-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -311,7 +356,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The bodach mumbles a string of half-comprehensible nonsense, cursing creatures within a @Template[type:emanation|distance:10]. Each creature in the area must succeed at a @Check[will|dc:24] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute (stupefed 2 on a critical failure).</p>"
+                    "value": "<p>The bodach mumbles a string of half-comprehensible nonsense, cursing creatures within a @Template[type:emanation|distance:10]. Each creature in the area must succeed at a @Check[will|dc:24|options:area-effect,inflicts:stupefied] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -344,7 +389,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The bodach stares unblinkingly at its foes, cursing creatures within a @Template[type:cone|distance:15]. Each creature in the area must succeed at a @Check[fortitude|dc:24] save or become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 minute (@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} on a critical failure).</p>"
+                    "value": "<p>The bodach stares unblinkingly at its foes, cursing creatures within a @Template[type:cone|distance:15]. Each creature in the area must succeed at a @Check[fortitude|dc:24|options:area-effect,inflicts:clumsy,inflicts:enfeebled] save or become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 minute (@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -377,14 +422,34 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A bodach reduces any penalty it takes to its Speed by 5 feet (to a minimum of 0 feet). A bodach can ft into tight spaces as if it were a Small creature. It can move at its full Speed while Squeezing.</p>"
+                    "value": "<p>A bodach reduces any penalty it takes to its Speed by 5 feet (to a minimum of 0 feet). A bodach can fit into tight spaces as if it were a Small creature. It can move at its full Speed while @UUID[Compendium.pf2e.actionspf2e.Item.Squeeze]{Squeezing}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "add",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "penalty:type:ability",
+                                    "penalty:type:circumstance",
+                                    "penalty:type:item",
+                                    "penalty:type:potency",
+                                    "penalty:type:proficiency",
+                                    "penalty:type:status",
+                                    "penalty:type:untyped"
+                                ]
+                            }
+                        ],
+                        "selector": "land-speed",
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -430,7 +495,12 @@
                 "value": 110
             },
             "speed": {
-                "otherSpeeds": [],
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 10
+                    }
+                ],
                 "value": 25
             },
             "weaknesses": [
