@@ -173,7 +173,7 @@
                 "quantity": 1,
                 "range": null,
                 "reload": {
-                    "value": "-"
+                    "value": null
                 },
                 "rules": [],
                 "runes": {
@@ -341,14 +341,31 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>10 feet.</p>\n<p>Elemental water magic ebbs and flows into a tide giant. At the start of each of the giant's turns in combat, their cloak of high tide automatically activates if it's inactive or ends if it's already active. Any creature other than a tide giant that enters or starts its turn in the aura while it's active regains 5 HP; this is a healing vitality effect, and a creature can benefit from it only once per round. When active, the cloak appears as a magical, flowing cloak of seafoam that billows from the tidal giant's shoulders and the back of their limbs. The cloak is inactive when the tide giant isn't in combat.</p>"
+                    "value": "<p>10 feet.</p>\n<p>Elemental water magic ebbs and flows into a tide giant. At the start of each of the giant's turns in combat, their cloak of high tide automatically activates if it's inactive or ends if it's already active. Any creature other than a tide giant that enters or starts its turn in the aura while it's active regains @Damage[5[healing,vitality]|shortLabel] HP; this is a healing vitality effect, and a creature can benefit from it only once per round. When active, the cloak appears as a magical, flowing cloak of seafoam that billows from the tidal giant's shoulders and the back of their limbs. The cloak is inactive when the tide giant isn't in combat.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "cloak-of-high-tide",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "cloak-of-high-tide"
+                        ],
+                        "radius": 10,
+                        "traits": [
+                            "primal",
+                            "water"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -370,11 +387,11 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": 2
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The tide giant Swims, or Swims twice if their cloak of high tide is active. Holding out their trident, they slash those they pass, dealing @Damage[2d8[piercing]] damage and @Damage[2d6[persistent,bleed]] damage (@Check[reflex|dc:24|basic] save) to each enemy the giant moves within 10 feet of during their movement. Each creature can be affected only once during a single use of Blood Tide.</p>"
+                    "value": "<p>The tide giant Swims, or Swims twice if their cloak of high tide is active. Holding out their trident, they slash those they pass, dealing @Damage[2d8[piercing],2d6[bleed]] damage (@Check[reflex|dc:24|basic] save) to each enemy the giant moves within 10 feet of during their movement. Each creature can be affected only once during a single use of Blood Tide.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -406,7 +423,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A wave blasts from the giant's trident in a @Template[type:cone|distance:15] or a @Template[type:burst|distance:5] within 100 feet. If the giant's cloak of high tide is active, this is a @Template[type:cone|distance:30] or a @Template[type:burst|distance:10]. Each creature in the area takes @Damage[9d8[bludgeoning]|options:area-damage] damage with a @Check[reflex|dc:33|basic] save.</p>"
+                    "value": "<p>A wave blasts from the giant's trident in a @Template[type:cone|distance:15] or a @Template[type:burst|distance:5] within 100 feet. If the giant's cloak of high tide is active, this is a @Template[type:cone|distance:30] or a @Template[type:burst|distance:10]. Each creature in the area takes @Damage[9d8[bludgeoning]|options:area-damage] damage with a @Check[reflex|dc:33|basic|options:area-effect] save.</p>"
                 },
                 "publication": {
                     "license": "OGL",
