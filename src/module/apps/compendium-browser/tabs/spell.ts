@@ -85,14 +85,17 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     const actionGlyph = getActionGlyph(spellData.system.time.value);
 
                     // recording casting times
-                    const time: unknown = spellData.system.time.value;
-                    if (time && typeof time === "string") {
-                        const normalizedTime = time.toLocaleLowerCase("en").includes("reaction")
-                            ? "reaction"
-                            : sluggify(time);
-                        times.add(normalizedTime);
-                        spellData.system.time.value = normalizedTime;
-                    }
+                    const maybeTime: unknown = spellData.system.time.value;
+                    const time = ((): string | null => {
+                        if (maybeTime && typeof maybeTime === "string") {
+                            const normalizedTime = maybeTime.toLocaleLowerCase("en").includes("reaction")
+                                ? "reaction"
+                                : sluggify(maybeTime);
+                            times.add(normalizedTime);
+                            return normalizedTime;
+                        }
+                        return null;
+                    })();
 
                     // Prepare publication source
                     const { system } = spellData;
@@ -108,7 +111,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         uuid: spellData.uuid,
                         rank: spellData.system.level.value,
                         categories,
-                        time: spellData.system.time,
+                        time,
                         actionGlyph,
                         traditions: spellData.system.traits.traditions,
                         traits: spellData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
@@ -175,7 +178,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
 
         // Casting time
         if (selects.timefilter.selected) {
-            if (!(selects.timefilter.selected === indexData.time.value)) return false;
+            if (!(selects.timefilter.selected === indexData.time)) return false;
         }
 
         // Traditions
