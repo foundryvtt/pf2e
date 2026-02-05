@@ -2,7 +2,7 @@
     "_id": "igummwLlUerkERdy",
     "folder": "G2lJXGKdek6CEz9b",
     "img": "systems/sf2e/icons/actions/Reaction.webp",
-    "name": "Not Really There",
+    "name": "(Warped) Not Really There",
     "system": {
         "actionType": {
             "value": "reaction"
@@ -19,7 +19,27 @@
             "remaster": true,
             "title": "Starfinder Alien Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Not Really There",
+                "predicate": [
+                    "not-really-there"
+                ],
+                "selector": [
+                    "ac",
+                    "reflex"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "RollOption",
+                "option": "not-really-there",
+                "toggleable": true,
+                "value": true
+            }
+        ],
         "traits": {
             "value": [
                 "teleportation"

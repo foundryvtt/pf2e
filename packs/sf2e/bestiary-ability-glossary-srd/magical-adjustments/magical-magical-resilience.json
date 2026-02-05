@@ -2,7 +2,7 @@
     "_id": "7fLyMprZpSJGJqZI",
     "folder": "WPFYOoBk4HWfqpO9",
     "img": "systems/sf2e/icons/actions/Reaction.webp",
-    "name": "Magical Resilience",
+    "name": "(Magical) Magical Resilience",
     "system": {
         "actionType": {
             "value": "reaction"
@@ -19,7 +19,26 @@
             "remaster": true,
             "title": "Starfinder Alien Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Magical Resilience",
+                "predicate": [
+                    "magical-resilience"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "RollOption",
+                "option": "magical-resilience",
+                "toggleable": true,
+                "value": true
+            }
+        ],
         "traits": {
             "value": []
         }

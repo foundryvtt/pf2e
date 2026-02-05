@@ -1,0 +1,69 @@
+{
+    "_id": "Asd7LTVUZDrqZN6A",
+    "img": "icons/skills/wounds/injury-face-impact-orange.webp",
+    "name": "Effect: Self-Destructive Frenzy",
+    "system": {
+        "description": {
+            "value": "<p>While confused, the rendworm host gains a +1 circumstance bonus to attack rolls, a +2 circumstance bonus to damage rolls, and a –2 circumstance penalty to AC.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 3
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Alien Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "damage"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac"
+                ],
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade"
+                },
+                "uuid": "Compendium.sf2e.conditions.Item.Confused"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
