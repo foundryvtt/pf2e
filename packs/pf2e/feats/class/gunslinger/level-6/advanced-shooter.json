@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You've dedicated your training to the most complex and weird weapons of your favorite group. Choose firearms or crossbows. You gain proficiency with all advanced firearms as if they were martial firearms or with all advanced crossbows as if they were martial crossbows.</p>"
+            "value": "<p>You've dedicated your training to mastering even the most complex and weird firearms and crossbows from across the world. You gain proficiency with all advanced firearms as if they were martial firearms and with all advanced crossbows as if they were martial crossbows.</p>"
         },
         "level": {
             "value": 6
@@ -27,27 +27,17 @@
         },
         "rules": [
             {
-                "adjustName": false,
-                "choices": [
-                    {
-                        "label": "PF2E.WeaponGroupCrossbow",
-                        "value": "crossbow"
-                    },
-                    {
-                        "label": "PF2E.WeaponGroupFirearm",
-                        "value": "firearm"
-                    }
-                ],
-                "flag": "group",
-                "key": "ChoiceSet"
-            },
-            {
                 "definition": [
                     "item:category:advanced",
-                    "item:group:{item|flags.pf2e.rulesSelections.group}"
+                    {
+                        "or": [
+                            "item:group:crossbow",
+                            "item:group:firearm"
+                        ]
+                    }
                 ],
                 "key": "MartialProficiency",
-                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedGroup.{item|flags.pf2e.rulesSelections.group}",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedFirearmsCrossbows",
                 "predicate": [
                     "class:gunslinger"
                 ],
@@ -57,10 +47,15 @@
             {
                 "definition": [
                     "item:category:advanced",
-                    "item:group:{item|flags.pf2e.rulesSelections.group}"
+                    {
+                        "or": [
+                            "item:group:crossbow",
+                            "item:group:firearm"
+                        ]
+                    }
                 ],
                 "key": "MartialProficiency",
-                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedGroup.{item|flags.pf2e.rulesSelections.group}",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedFirearmsCrossbows",
                 "predicate": [
                     "feat:gunslinger-dedication"
                 ],
