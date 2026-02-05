@@ -1,3 +1,86 @@
+## 7.10.0
+
+### System Improvements
+
+- (Alex Clark) Add support for weapon capacity item alterations
+- (jfn4th) Convert Attribute Builder to AppV2 and Svelte
+- (kromko) Localize distribute currency message
+- (Mecha Maya) Add Starfinder Pact Standard (AG) to world clock options
+- (Supe) Add support for custom modular configurations
+- (Supe) Allow saves with a modifier of 0 in hazards
+- (Supe) Support apex items that don't require investment
+
+### Bugfixes
+
+- (Ashgar225) Fix duplicate status effect displays in combat when multiple GMs are present
+- (In3luki) Fix mutation from `system.time.value` reference in spell filter
+- (Scott) Corrected crafting crit success daily reduction
+- (Supe) Fix effects panel image paths with parenthesis
+- (Supe) Fix updates to nested ammo wiping the ammo type
+- (Supe) Halve the bulk of smaller items on larger actors instead of one tenth
+- (Supe) Support resilient item alterations on non-investment armor
+- (Tikael) Fix logic in DamageAlteration dice face upgrades/downgrades
+
+### Data Updates
+
+- (Ambrose, Mecha Maya, Rigo, Tikael) Add content and updates from Dark Archive Remastered
+- (Alex Clark) Fix Light Mortar Innovation benefit calculation due to misspelling of level
+- (Ambrose) Add `removeAfterRoll` option to Keep on Keeping On!'s effect
+- (Ambrose) Add action inline for Demoralize in Battle Cry skill feat
+- (Ambrose) Add effect to Unbreaking Castle feat
+- (Ambrose) Add Feat grants for Pirate Combat Training feat
+- (Ambrose) Add localizations for SF2e Install usage
+- (Ambrose) Add missing Converted Yearling Arabuk actor and Correct size of Solar Parade Float
+- (Ambrose) Add missing descriptions to the Brandish, Commander and Tactic traits
+- (Ambrose) Add missing IWR to Viper Swarm actor
+- (Ambrose) Add updates to Archetype journals
+- (Ambrose) Correct grabbed condition from "grappled" condition in Swarm Trait's description
+- (Ambrose) Correct selectors for Natkbakh Mythic Skills
+- (Ambrose) Correct Tatzlwyrm movement speed, add missing Climb speed and automate Natural Camouflage bonus
+- (Ambrose) Correct usage on Name Pendant
+- (Ambrose) Correct Weapon Expertise Critical Specialization for Swashbuckler to exclude Unarmed Weapons
+- (Ambrose) Link Titan Wrestler feat to Wrestler Dedication
+- (Ambrose) Remove reprinted Fire Wisp actor
+- (Ambrose) Update Deadly Grace's Damage Alteration predicates
+- (Ambrose) Update Elemental Magic to account for Wizard and Sorcerer adjustments
+- (Ambrose) Update Polymorph trait description to include full text
+- (brenael) Add actors from PFS Quest 27
+- (Dire Weasel) Add some missing aura automations to RotR NPCs
+- (Dire Weasel) Add spell effect for Flaming Fusillade
+- (Dire Weasel) Fix formatting of Moonburst's counteract
+- (Dire Weasel) Fix level of Wild Allegiance ritual
+- (Dire Weasel) Fix missing skills for Druid Circle
+- (Dire Weasel) Fix scaling on Spike Skin effect
+- (Dire Weasel) Fix Season of Ghosts Hardcover Compilation name
+- (Dire Weasel) Fix some Beginner Box remaster publication info
+- (Dire Weasel) Fix some missing compendium source
+- (Dire Weasel) Fix some token names
+- (Dire Weasel) Move some key descriptions to GM text
+- (Dire Weasel) Remove implicit spirit, vitality, and void immunities from Clockwork Corpse
+- (Dire Weasel) Update Ailuran, Bodach, Gravedigger's Call, and Invidiaks
+- (Dire Weasel) Update description of Shadow Blast and remove spell overlays
+- (Dire Weasel) Update Sanctify Armament so that it's not a self effect
+- (James Miller) Fix wisdom modifier for Inkdrop
+- (kromko) Add missing trigger to Love's Sacrifice
+- (kromko) Fix aura-blind areas appearing when aura touches a wall
+- (kromko) Fix Drive requirements formatting
+- (kromko) Fix hunter NPC's On the Hunt precision damage
+- (kromko) Remove Dragontongue from Vorpal Dragon
+- (kromko) Remove duplicates of Ritualist and Scroll Trickster dedications from journal
+- (kromko) Replace curvy quotes in names and descriptions with straight ones
+- (kromko) Update data of some actors from NPC Core
+- (kromko) Update descriptions in actions-en
+- (Longstrider) Fix "successful" misprints and several typos
+- (Longstrider) Remaster Cast a Spell activity, fix and polish other actions
+- (Mecha Maya) Update pf2e switchscythe to new modular system
+- (rectulo) Remaster phoenix description as per monster core
+- (rectulo) Update genie bloodline description
+- (Robert Kukuchka) Add base slug to Powerful Alchemy
+- (SpartanCPA) Move Lost Omens actors to Lost Omens compendium
+- (Tikael) Add content from SFS 1-13 and 1-14
+- (Tikael) Automate heightened Protection effect
+- (Tikael) Fix several data errors
+
 ## 7.9.1
 
 ### Bugfixes
