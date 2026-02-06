@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You've learned the secrets of making fire and sound bloom using black powder, metals, and paper. You most likely came by this knowledge through formal training with a fireworks house in Tian Xia or a fireworks company from Vudra, though perhaps you mastered fireworks completely by yourself after finding a secret stash in an old shipwreck.</p>\n<p>You become trained in Fireworks Lore or become an expert if you were already trained in it. You gain the Alchemical Crafting feat, the advanced alchemy benefits, and the Quick Alchemy benefits, creating up to 4 versatile vials during your daily preparations. You can replenish these vials during exploration just like an alchemist can. You can use your versatile vials to make fireworks, @UUID[Compendium.pf2e.actionspf2e.Item.Launch Fireworks], and use other feats from this archetype.</p>\n<p>You can also create a special item called a fireworks display using your daily alchemical consumables from your advanced alchemy benefits. These displays are designed to create distinctive effects you can use to make onlookers marvel and even to gain an advantage in combat. You gain the Launch Fireworks action and learn some basic effects. You can learn additional, more complex displays that use your daily fireworks display resources through other firework technician feats. The DC for any display is equal to your class DC or spell DC, whichever is higher.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.S4BZW9c5n6CctDxl]{Firework Technician}</p>"
+            "value": "<p>You've learned the secrets of making fire and sound bloom using black powder, metals, and paper. You most likely came by this knowledge through formal training with a fireworks house in Tian Xia or a fireworks company from Vudra, though perhaps you mastered fireworks completely by yourself after finding a secret stash in an old shipwreck.</p>\n<p>You become trained in Fireworks Lore or become an expert if you were already trained in it. You gain the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.Jkl5KOZih7MoMqAJ#quick-alchemy-benefits]{quick alchemy benefits}, creating up to 4 versatile vials during your daily preparations. Your versatile vials are pyrotechnic, so they have the fire trait and deal fire damage instead of acid. You can use versatile vials only for the @UUID[Compendium.pf2e.actionspf2e.Item.Launch Fireworks] action or with @UUID[Compendium.pf2e.actionspf2e.Item.Quick Alchemy] to create fireworks consumables, including @UUID[Compendium.pf2e.equipment-srd.Item.Black Powder (Dose)]{Doses} or rounds of black powder, the @UUID[Compendium.pf2e.equipment-srd.Item.Sparkler] item, and other items determined by the GM. You can replenish your versatile vials during exploration the same way an alchemist can.</p>\n<p>You can create fireworks displays to have distinctive effects you can use to make onlookers marvel and even to gain an advantage in combat. You gain the Launch Fireworks action and learn some basic effects. You can learn additional, more complex displays that use your versatile vials through other firework technician feats. These add a new fireworks display to your options for Launch Fireworks, each of which lists its number of actions and effects. The DC for Launch Fireworks is equal to your class DC or spell DC, whichever is higher.</p><hr /><p><strong>Special</strong> If you have @UUID[Compendium.pf2e.actionspf2e.Item.Quick Alchemy] from another source, such as being an alchemist or having the alchemist archetype, you can choose each time you create a versatile vial whether it's a standard vial or pyrotechnic vial.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.S4BZW9c5n6CctDxl]{Firework Technician}</p>"
         },
         "level": {
             "value": 2
@@ -35,16 +35,6 @@
                 "uuid": "Compendium.pf2e.feats-srd.Item.Alchemical Crafting"
             },
             {
-                "craftableItems": [
-                    "item:slug:fireworks-display"
-                ],
-                "isDailyPrep": true,
-                "key": "CraftingAbility",
-                "label": "PF2E.SpecificRule.Alchemist.AdvancedAlchemy",
-                "maxSlots": 4,
-                "slug": "advanced-alchemy"
-            },
-            {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Launch Fireworks"
             },
@@ -58,7 +48,12 @@
             },
             {
                 "craftableItems": [
-                    "item:slug:fireworks-display"
+                    {
+                        "or": [
+                            "item:slug:black-powder-dose",
+                            "item:slug:sparkler"
+                        ]
+                    }
                 ],
                 "key": "CraftingAbility",
                 "slug": "quick-alchemy"
@@ -66,6 +61,36 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Quick Alchemy"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:versatile-vial"
+                ],
+                "property": "traits",
+                "value": "fire"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:versatile-vial"
+                ],
+                "property": "traits",
+                "value": "acid"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:versatile-vial"
+                ],
+                "property": "damage-type",
+                "value": "fire"
             }
         ],
         "traits": {
