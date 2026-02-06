@@ -16,7 +16,7 @@ import { MockRollTable } from "tests/mocks/roll-table.ts";
 import { MockScene } from "tests/mocks/scene.ts";
 import { MockUser } from "tests/mocks/user.ts";
 import armorJSON from "../../packs/pf2e/equipment/scale-mail.json";
-import characterJSON from "../../packs/pf2e/iconics/amiri-level-1.json";
+import characterJSON from "../../packs/pf2e/iconics/amiri/amiri-level-1.json";
 
 const characterData = fu.deepClone(characterJSON) as unknown as CharacterSource;
 characterData.effects = [];
