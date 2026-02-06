@@ -204,6 +204,17 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             ].join(", ");
             system.attributes.hp = stat;
             setHitPointsRollOptions(this);
+
+            // Troop Thresholds
+            const hpMax = stat.max;
+            system.attributes.hp.thresholds = null;
+            if (this.system.traits.value.includes("troop") && hpMax >= 3) {
+                system.attributes.hp.thresholds = [
+                    { hp: hpMax, segments: 4 },
+                    { hp: Math.floor((hpMax * 2) / 3), segments: 3 },
+                    { hp: Math.floor(hpMax / 3), segments: 2 },
+                ];
+            }
         }
 
         this.prepareMovementData();

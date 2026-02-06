@@ -1,11 +1,10 @@
 import type { CreatureSheetData } from "@actor/creature/sheet.ts";
-import type { HitPointsStatistic } from "@actor/data/base.ts";
 import type { AbilityViewData } from "@actor/sheet/data-types.ts";
 import type { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import type { ImageFilePath, VideoFilePath } from "@common/constants.d.mts";
 import type { ItemPF2e } from "@item";
 import type { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
-import type { ZeroToFour } from "@module/data.ts";
+import type { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import type { NPCAttackTraitOrTag, TagifyEntry } from "@module/sheet/helpers.ts";
 import type { ArmorClassTraceData } from "@system/statistic/index.ts";
 import type { NPCAttributes, NPCPerceptionData, NPCSaveData, NPCSkillData, NPCSystemData } from "./data.ts";
@@ -45,7 +44,6 @@ interface NPCSystemSheetData extends NPCSystemData {
     perception: NPCPerceptionData & WithAdjustments & WithRank;
     attributes: NPCAttributes & {
         ac: ArmorClassTraceData & WithAdjustments;
-        hp: HitPointsStatistic & WithAdjustments;
     };
     details: NPCSystemData["details"] & {
         level: NPCSystemData["details"]["level"] & WithAdjustments;
@@ -75,6 +73,10 @@ interface NPCSpellcastingSheetData extends SpellcastingSheetData {
 
 /** Additional fields added in sheet data preparation */
 interface NPCSheetData extends CreatureSheetData<NPCPF2e> {
+    hp: ValueAndMax & {
+        details: string;
+        thresholds: { hp: number; segments: number; selected: boolean }[] | null;
+    } & WithAdjustments;
     attacks: NPCStrikeSheetData[];
     actions: NPCActionSheetData;
     data: NPCSystemSheetData;

@@ -243,15 +243,29 @@ class NPCSheetPF2e extends AbstractNPCSheet {
         level.adjustedHigher = level.value > Number(level.base);
         level.adjustedLower = level.value < Number(level.base);
 
-        const { ac, hp, hardness } = sheetData.data.attributes;
+        const { ac, hardness } = sheetData.data.attributes;
         const perception = sheetData.data.perception;
         const sourceAttributes = actorSource.system.attributes;
         ac.adjustedHigher = ac.value > sourceAttributes.ac.value;
         ac.adjustedLower = ac.value < sourceAttributes.ac.value;
-        hp.adjustedHigher = hp.max > sourceAttributes.hp.max;
-        hp.adjustedLower = hp.max < sourceAttributes.hp.max;
         perception.adjustedHigher = perception.totalModifier > actorSource.system.perception.mod;
         perception.adjustedLower = perception.totalModifier < actorSource.system.perception.mod;
+
+        // Health and Thresholds
+        const hp = actorSource.system.attributes.hp;
+        sheetData.hp = {
+            ...sheetData.data.attributes.hp,
+            adjustedHigher: hp.max > sourceAttributes.hp.max,
+            adjustedLower: hp.max < sourceAttributes.hp.max,
+            thresholds: null,
+        };
+        if (actor.system.attributes.hp.thresholds) {
+            sheetData.hp.thresholds = actor.system.attributes.hp.thresholds.map((t) => ({ ...t, selected: false }));
+            const selected = sheetData.hp.thresholds.findLast((t) => t.hp >= hp.value);
+            if (selected) selected.selected = true;
+        }
+
+        // Speed
         const speeds = sheetData.data.movement.speeds;
         const noLandTravel = R.omit(speeds, ["land", "travel"]);
         sheetData.speeds = {

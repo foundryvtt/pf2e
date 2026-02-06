@@ -1225,6 +1225,15 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             delta: finalDamage - damageAbsorbedByShield - damageAbsorbedByActor,
         });
 
+        // Test troop thresholds. If reached, snap the hp to that threshold and print a message later
+        const thresholds = this.isOfType("npc") ? this.system.attributes.hp.thresholds : null;
+        const threatenedThreshold = thresholds?.find((t) => hitPoints.max > t.hp);
+        const reachedThreshold =
+            threatenedThreshold && threatenedThreshold.hp >= damageResult.updates["system.attributes.hp.value"];
+        if (reachedThreshold) {
+            damageResult.updates["system.attributes.hp.value"] = threatenedThreshold.hp;
+        }
+
         // Save the pre-update state to calculate undo values
         const preUpdateSource = this.toObject();
 
@@ -1304,10 +1313,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                       : localize("ShieldDamagedForN")
                 : null;
 
+        const thresholdStatement = reachedThreshold ? localize("TroopThresholdReached") : null;
+
         const statements = ((): string => {
             const deathMessage =
                 instantDeath && localize(`InstantDeath.${sluggify(instantDeath, { camel: "bactrian" })}`);
-            const concatenated = [hpStatement, shieldStatement, deathMessage]
+            const concatenated = [hpStatement, shieldStatement, thresholdStatement, deathMessage]
                 .filter(R.isTruthy)
                 .map((s) =>
                     game.i18n.format(s, {
@@ -1315,6 +1326,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                         hpDamage: Math.abs(damageResult.totalApplied),
                         absorbedDamage: damageAbsorbedByShield,
                         shieldDamage,
+                        segments: threatenedThreshold?.segments,
                     }),
                 )
                 .join(" ");

@@ -128,6 +128,26 @@
     </div>
 </div>
 
+{{#if hp.thresholds}}
+    {{!-- Troop Thresholds --}}
+    <div class="subsection">
+        <header>
+            <label>
+                <i class="fa-solid fa-fw fa-people-group"></i>
+                <span>{{localize "PF2E.Actor.NPC.Thresholds"}}</span>
+            </label>
+        </header>
+        <div class="side-bar-section-content">
+            {{#each hp.thresholds as |t|}}
+                <div class="threshold {{#if t.selected}}selected{{/if}}">
+                    <span>{{localize "PF2E.Actor.NPC.SegmentsN" n=t.segments}}</span>
+                    <span>{{t.hp}}{{localize "PF2E.HitPointsShortLabel"}}</span>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+{{/if}}
+
 {{!-- INITIATIVE --}}
 <div class="subsection initiative">
     <header>
