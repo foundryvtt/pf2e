@@ -1,3 +1,29 @@
+## 7.10.1
+
+### System Improvements
+
+- (Supe) Propagate magical trait for tech/analog magical weapon upgrades
+
+### Bugfixes
+
+- (Supe) Fix adding gold sometimes adding platinum instead
+
+### Data Updates
+
+- (Abaddon) Fix mindscape door source
+- (Ambrose) Add folders to the Iconics compendium
+- (Dire Weasel) Brush up Stone Sister
+- (Dire Weasel) Brush up Two Tusk
+- (Dire Weasel) Fix level of Flying Submersible
+- (kromko) Replace Great Fortitude with Fortitude Expertise in Psychic class journal
+- (Rigo) Add bravado trait to swashbuckler bravado actions and Strikes
+- (Rigo) Automate Advanced Shooter proficiencies in most common cases
+- (Rigo) Implement PFS Dark Archive clarifications
+- (Rigo) Remove additional focus point from Psychic Dedication
+- (Rigo) Update Advanced Shooter to remaster
+- (Rigo) Update data to reflect 2026 Spring Errata
+- (Rigo) Update Deadly Strike to use Item Alteration over AdjustStrike
+
 ## 7.10.0
 
 ### System Improvements
