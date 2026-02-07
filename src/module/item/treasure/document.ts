@@ -3,7 +3,7 @@ import type { EnrichmentOptions } from "@client/applications/ux/text-editor.d.mt
 import type { RawItemChatData } from "@item/base/data/index.ts";
 import { Coins, PhysicalItemPF2e } from "@item/physical/index.ts";
 import type { Currency } from "@item/physical/types.ts";
-import { COIN_DENOMINATIONS } from "@item/physical/values.ts";
+import { COIN_DENOMINATIONS, DENOMINATION_BY_VALUE } from "@item/physical/values.ts";
 import type { TreasureSource, TreasureSystemData } from "./data.ts";
 
 class TreasurePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
@@ -33,9 +33,13 @@ class TreasurePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         super.prepareBaseData();
 
         // Check if this is credits/upb, if so, convert the price unit
+        // Also force the price to be one of a denomination if coins (it doesn't work otherwise)
         const unit = this.unit;
         if (unit === "credits" || unit === "upb") {
             this.system.price.value = new Coins({ [unit]: Math.ceil(this.price.value.copperValue / 10) });
+        } else if (this.isCoinage) {
+            const denomination = DENOMINATION_BY_VALUE[this.system.price.value.copperValue] ?? "gp";
+            this.system.price.value = new Coins({ [denomination]: 1 });
         }
     }
 

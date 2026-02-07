@@ -1,3 +1,5 @@
+import * as R from "remeda";
+
 const PHYSICAL_ITEM_TYPES = new Set([
     "ammo",
     "armor",
@@ -49,9 +51,12 @@ const DENOMINATION_RATES = {
     upb: 10,
 };
 
+const DENOMINATION_BY_VALUE = R.invert(DENOMINATION_RATES);
+
 export {
     COIN_DENOMINATIONS,
     CURRENCY_TYPES,
+    DENOMINATION_BY_VALUE,
     DENOMINATION_RATES,
     PHYSICAL_ITEM_TYPES,
     PRECIOUS_MATERIAL_GRADES,

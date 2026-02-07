@@ -21,6 +21,8 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
     override async getData(options?: Partial<ItemSheetOptions>): Promise<PhysicalItemSheetData<TItem>> {
         const sheetData = await super.getData(options);
         const { item } = this;
+        const isCurrency = item.isOfType("treasure") && item.isCurrency;
+        const priceUnit = (isCurrency ? item.unit : null) ?? "primary";
 
         const bulkAdjustment = getAdjustment(item.system.bulk.value, item._source.system.bulk.value, {
             better: "lower",
@@ -82,8 +84,8 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             bulkAdjustment,
             adjustedLevelHint,
             price: {
-                base: new Coins(item._source.system.price.value).toString({ short: true }),
-                label: item.system.price.value.toString({ short: true }),
+                base: new Coins(item._source.system.price.value).toString({ short: true, unit: priceUnit }),
+                label: item.system.price.value.toString({ short: true, unit: priceUnit }),
                 adjustment: priceAdjustment,
                 adjustmentHint: adjustedPriceHint,
                 per: item.system.price.per,
