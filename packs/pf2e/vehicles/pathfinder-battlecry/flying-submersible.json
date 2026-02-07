@@ -53,7 +53,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            {
+                                "not": "self:condition:broken"
+                            }
+                        ],
+                        "type": "fire",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -63,7 +74,7 @@
         },
         {
             "_id": "gQ7lxAlWZocn7vCA",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Deploy Balloons",
             "sort": 0,
             "system": {
@@ -71,7 +82,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": 3
                 },
                 "category": null,
                 "description": {
@@ -144,20 +155,14 @@
             },
             "immunities": [],
             "resistances": [],
-            "weaknesses": [
-                {
-                    "exceptions": [],
-                    "type": "fire",
-                    "value": 10
-                }
-            ]
+            "weaknesses": []
         },
         "details": {
             "AC": 0,
             "crew": "1 pilot, 3 crew",
             "description": "<p>This tubular vehicle flies with the aid of a pair of large gas-inflated balloons. With a clockwork-powered aft propeller, the vehicle can move forward if there are no extreme headwinds. Upon landing in the water, the balloons are deflated and stowed within the vehicle, while the aft propeller continues to move it on the surface of the water. By filling a long ballast tank in the vehicle's keel, it can then submerge and travel underwater. The vehicle can stay submerged for only 1 hour until it must resurface to refresh its oxygen supply. The weapons of this vehicle are in a special compartment that allows them to be fired and reloaded underwater.</p>",
             "level": {
-                "value": 0
+                "value": 17
             },
             "passengers": "30",
             "pilotingCheck": "Athletics (DC 38), Piloting Lore (DC 38), Sailing Lore (DC 36)",

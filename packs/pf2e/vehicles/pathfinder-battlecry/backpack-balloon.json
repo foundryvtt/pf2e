@@ -24,7 +24,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            {
+                                "not": "self:condition:broken"
+                            }
+                        ],
+                        "type": "fire",
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -116,13 +127,7 @@
             },
             "immunities": [],
             "resistances": [],
-            "weaknesses": [
-                {
-                    "exceptions": [],
-                    "type": "fire",
-                    "value": 5
-                }
-            ]
+            "weaknesses": []
         },
         "details": {
             "AC": 0,
