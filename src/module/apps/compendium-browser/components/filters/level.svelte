@@ -12,14 +12,10 @@
         const name = event.currentTarget.name;
         const value = Math.clamp(Number(event.currentTarget.value), level.min, level.max);
         if (name === "from") {
-            if (value > level.to) {
-                level.to = value;
-            }
+            if (value > level.to) level.to = value;
             level.from = value;
         } else if (name === "to") {
-            if (value < level.from) {
-                level.from = value;
-            }
+            if (value < level.from) level.from = value;
             level.to = value;
         }
         level.changed = level.from !== level.min || level.to !== level.max;

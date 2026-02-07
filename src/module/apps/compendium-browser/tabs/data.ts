@@ -6,7 +6,7 @@ import { KingmakerTrait } from "@item/campaign-feature/types.ts";
 import { FeatTrait } from "@item/feat/types.ts";
 import { PhysicalItemTrait } from "@item/physical/data.ts";
 import type { SearchResult } from "minisearch";
-import { SortDirection } from "../data.ts";
+import type { SortDirection } from "../data.ts";
 
 interface CheckboxOption {
     label: string;
@@ -19,6 +19,8 @@ interface CheckboxData {
     isExpanded: boolean;
     label: string;
     options: CheckboxOptions;
+    /** Defaults to the object key of this filter */
+    optionPrefix?: string;
     selected: string[];
 }
 
@@ -31,6 +33,8 @@ interface TraitData<T extends string = string> {
 interface SelectData {
     label: string;
     options: Record<string, string>;
+    /** Defaults to the object key of this filter */
+    optionPrefix?: string;
     selected: string;
 }
 
@@ -54,6 +58,8 @@ interface RangesInputData {
         inputMax: string;
     };
     label: string;
+    /** Defaults to the object key of this filter */
+    optionPrefix?: string;
 }
 
 interface LevelData {
@@ -70,7 +76,7 @@ interface BaseFilterData {
     search: {
         text: string;
     };
-    traits: TraitData<string>;
+    traits: TraitData;
 }
 
 interface ActionFilters extends BaseFilterData {
