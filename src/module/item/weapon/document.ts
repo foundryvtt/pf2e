@@ -513,13 +513,17 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         this.system.grade = isSF2e ? (this.system.grade ?? "commercial") : null;
         if (isSF2e || traits.value.includes("consumable")) runes.potency = runes.striking = 0;
 
-        // Add traits from fundamental runes
-        const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
-        const magicTrait =
-            hasRunes && !traits.value.some((t) => t === "magical" || setHasElement(MAGIC_TRADITIONS, t))
-                ? "magical"
-                : null;
-        if (magicTrait) traits.value.push(magicTrait);
+        // Add traits from fundamental runes or magical upgrades
+        // While it is not RAW for the magical trait to propagate, it is the intent for them to do so
+        if (!traits.value.some((t) => t === "magical" || setHasElement(MAGIC_TRADITIONS, t))) {
+            const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
+            const hasMagicUpgrade =
+                isSF2e &&
+                this.subitems.some(
+                    (s) => s.system.usage.type === "installed" && s.system.traits.value.includes("magical"),
+                );
+            if (hasRunes || hasMagicUpgrade) traits.value.push("magical");
+        }
 
         // Add traits from weapon grade
         const gradeData = CONFIG.PF2E.weaponImprovements[this.system.grade ?? "commercial"];
