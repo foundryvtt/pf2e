@@ -5,4 +5,9 @@ import type { MacroPF2e } from "@module/macro.ts";
 type CompendiumDocumentPF2e = ActorPF2e | ItemPF2e | JournalEntry | MacroPF2e | RollTable;
 type PackEntry = CompendiumDocumentPF2e["_source"];
 
-export type { PackEntry };
+interface PackManifest {
+    id: string;
+    packs: { name: string; path: string; type: string }[];
+}
+
+export type { PackEntry, PackManifest };

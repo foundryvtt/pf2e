@@ -56,9 +56,11 @@ function isItemSource(docSource: PackEntry): docSource is ItemSourcePF2e {
 }
 
 interface ConstructorParams {
+    id?: string;
     dirName: string;
     data: unknown[];
     folders: unknown[];
+    documentName?: CompendiumDocumentType;
     systemId: SystemId;
 }
 
@@ -69,14 +71,18 @@ interface ConstructorParams {
 const coreIcons = new Set(coreIconsJSON);
 
 class CompendiumPack {
-    constructor({ dirName, data, folders, systemId }: ConstructorParams) {
+    constructor({ id, dirName, data, folders, systemId, documentName }: ConstructorParams) {
         this.systemId = systemId;
         this.dirName = dirName;
-        const metadata = this.packsMetadata.find((d) => path.basename(d.path) === path.basename(dirName));
-        if (!metadata) throw PackError(`Compendium at ${dirName} has no metadata in the local system.json file.`);
-        this.id = metadata.name;
-        this.documentType = metadata.type;
-
+        if (id && documentName) {
+            this.id = id;
+            this.documentName = documentName;
+        } else {
+            const metadata = this.packsMetadata.find((d) => path.basename(d.path) === path.basename(dirName));
+            if (!metadata) throw PackError(`Compendium at ${dirName} has no metadata in the local system.json file.`);
+            this.id = id ?? metadata.name;
+            this.documentName = documentName ?? metadata.type;
+        }
         if (!this.#isPackData(data)) {
             throw PackError(`Data supplied for ${this.id} does not resemble Foundry document source data.`);
         }
@@ -91,8 +97,8 @@ class CompendiumPack {
 
         this.outDir = path.resolve(process.cwd(), `dist/${this.systemId}/packs`);
 
-        CompendiumPack.#namesToIds[this.documentType]?.set(this.id, new Map());
-        const packMap = CompendiumPack.#namesToIds[this.documentType]?.get(this.id);
+        CompendiumPack.#namesToIds[this.documentName]?.set(this.id, new Map());
+        const packMap = CompendiumPack.#namesToIds[this.documentName]?.get(this.id);
         if (!packMap) {
             throw PackError(`Compendium ${this.id} (${dirName}) was not found.`);
         }
@@ -167,7 +173,7 @@ class CompendiumPack {
 
     dirName: string;
 
-    documentType: CompendiumDocumentType;
+    documentName: CompendiumDocumentType;
 
     systemId: SystemId;
 
@@ -325,11 +331,11 @@ class CompendiumPack {
         });
     }
 
-    finalizeAll(): PackEntry[] {
-        return this.data.map((d) => JSON.parse(this.#finalize(d)));
+    finalizeAll(params?: { remap?: boolean }): PackEntry[] {
+        return this.data.map((d) => JSON.parse(this.#finalize(d, params)));
     }
 
-    #finalize(docSource: PackEntry): string {
+    #finalize(docSource: PackEntry, { remap = true }: { remap?: boolean } = {}): string {
         // Replace all compendium documents linked by name to links by ID
         const stringified = JSON.stringify(docSource);
         const worldItemLink = CompendiumPack.LINK_PATTERNS.world.exec(stringified);
@@ -355,7 +361,7 @@ class CompendiumPack {
                 item._stats = { ...partialStats, compendiumSource } as SourceFromSchema<DocumentStatsSchema<ItemUUID>>;
                 item.effects = [];
                 item.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
-                CompendiumPack.convertUUIDs(item, { to: "ids", map: CompendiumPack.#namesToIds.Item });
+                if (remap) CompendiumPack.convertUUIDs(item, { to: "ids", map: CompendiumPack.#namesToIds.Item });
             }
 
             docSource._stats.compendiumSource = this.#sourceIdOf(docSource._id ?? "", { docType: "Actor" });
@@ -374,7 +380,7 @@ class CompendiumPack {
             }
 
             // Convert uuids with names in GrantItem REs to well-formedness
-            CompendiumPack.convertUUIDs(docSource, { to: "ids", map: CompendiumPack.#namesToIds.Item });
+            if (remap) CompendiumPack.convertUUIDs(docSource, { to: "ids", map: CompendiumPack.#namesToIds.Item });
             docSource._stats.compendiumSource = this.#sourceIdOf(docSource._id ?? "", { docType: "Item" });
         } else if ("pages" in docSource) {
             for (const page of docSource.pages) {
@@ -401,6 +407,7 @@ class CompendiumPack {
             return `@UUID[${sourceId}]${labelBraceOrFullLabel}`;
         };
 
+        if (!remap) return JSON.stringify(docSource);
         return JSON.stringify(docSource)
             .replace(CompendiumPack.LINK_PATTERNS.uuid, replace)
             .replace(CompendiumPack.LINK_PATTERNS.compendium, replace);

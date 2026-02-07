@@ -25,8 +25,9 @@ if (!dataPathStats?.isDirectory()) {
     process.exit(1);
 }
 
-for (const systemId of ["pf2e", "sf2e"]) {
-    const symlinkPath = path.resolve(dataPath, "systems", systemId);
+for (const packageId of ["pf2e", "sf2e", "pf2e-anachronism", "sf2e-anachronism"]) {
+    const foundryFolder = packageId.endsWith("-anachronism") ? "modules" : "systems";
+    const symlinkPath = path.resolve(dataPath, foundryFolder, packageId);
     const symlinkStats = fs.lstatSync(symlinkPath, { throwIfNoEntry: false });
     if (symlinkStats) {
         const atPath = symlinkStats.isDirectory() ? "folder" : symlinkStats.isSymbolicLink() ? "symlink" : "file";
@@ -35,7 +36,7 @@ for (const systemId of ["pf2e", "sf2e"]) {
                 type: "confirm",
                 name: "value",
                 initial: false,
-                message: `A "${systemId}" ${atPath} already exists in the "systems" subfolder. Replace with new symlink?`,
+                message: `A "${packageId}" ${atPath} already exists in the "${foundryFolder}" subfolder. Replace with new symlink?`,
             })
         ).value;
         if (!proceed) {
@@ -50,7 +51,7 @@ for (const systemId of ["pf2e", "sf2e"]) {
         } else if (symlinkStats) {
             fs.unlinkSync(symlinkPath);
         }
-        fs.symlinkSync(path.resolve(process.cwd(), `dist/${systemId}`), symlinkPath);
+        fs.symlinkSync(path.resolve(process.cwd(), `dist/${packageId}`), symlinkPath);
     } catch (error) {
         if (error instanceof Error) {
             console.error(`An error was encountered trying to create a symlink: ${error.message}`);
