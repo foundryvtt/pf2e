@@ -29,7 +29,27 @@
             "remaster": true,
             "title": "Pathfinder #219: Lord of the Trinity Star"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:cast:actions:2",
+                            "item:cast:actions:3"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "You are @UUID[Compendium.pf2e.conditionitems.Item.Concealed] until the beginning of your next turn."
+                    }
+                ]
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
