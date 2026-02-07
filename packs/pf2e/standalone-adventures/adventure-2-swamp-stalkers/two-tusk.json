@@ -78,7 +78,7 @@
         {
             "_id": "1ygPuCqpeh1zETGK",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Status to Fortitude Saves vs. Grapple, Reposition, or Shove",
+            "name": "+2 to Fortitude Saves vs. Grapple",
             "sort": 300000,
             "system": {
                 "actionType": {
@@ -100,16 +100,9 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "action:grapple",
-                                    "action:reposition",
-                                    "action:shove"
-                                ]
-                            }
+                            "action:grapple"
                         ],
                         "selector": "fortitude",
-                        "type": "status",
                         "value": 2
                     }
                 ],
@@ -121,10 +114,39 @@
             "type": "action"
         },
         {
+            "_id": "u2L6rUylbE6CgTN3",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Belly Grease",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Two Tusk extrudes a slippery grease from his ventral glands to coat the barge under him and in a @Template[emanation|distance:5], turning the affected area into uneven ground for 10 minutes, after which it dries to a putrid crust. The DC to [[/act balance dc=18]] across the grease is 18.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "VYCgWYqjaWNgcP24",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Entangling Slime",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -134,7 +156,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A creature struck by a slurk's slime squirt becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and takes a –5-foot penalty to Speed for 1 hour or until the slime is removed.</p>\n<p>The slime can be removed with a total of three Interact actions by the entangled creature or creatures adjacent to the creature. These actions don't need to be consecutive or made by the same creature.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Entangling Slime]</p>"
+                    "value": "<p>A creature struck by Two Tusk's slime squirt becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and takes a –5-foot penalty to Speed for 1 hour or until the slime is removed. A PC can use an Interact action to splash swamp water on themself to wash away the stuff and remove this penalty.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Entangling Slime]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -178,13 +200,13 @@
                 "value": 17
             },
             "allSaves": {
-                "value": "+12 to fortitude saves vs. Grapple, Reposition, or Shove"
+                "value": "+12 to fortitude saves vs. Grapple"
             },
             "hp": {
                 "details": "",
                 "max": 35,
                 "temp": 0,
-                "value": 10
+                "value": 35
             },
             "speed": {
                 "otherSpeeds": [
