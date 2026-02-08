@@ -200,7 +200,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Associate attempts an Acrobatics, Athletic, Deception, or Intimidation check that uses no more than one action against a creature then makes a strike against the same creature. If the skill action succeeded the strike is made with a +1 circumstance bonus to the attack roll and deals an additional @Damage[1d6[precision]] damage.</p>"
+                    "value": "<p>The Associate attempts an Acrobatics, Athletic, Deception, or Intimidation check that uses no more than one action against a creature then makes a strike against the same creature. If the skill action succeeded the strike is made with a +1 circumstance bonus to the attack roll and deals an additional 1d6 precision damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -209,16 +209,14 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
                         "key": "RollOption",
-                        "label": "Jack of All Actions skill success",
-                        "option": "jack-of-all-actions-skill-success",
+                        "option": "jack-of-all-actions",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "jack-of-all-actions-skill-success"
+                            "jack-of-all-actions"
                         ],
                         "selector": [
                             "attack"
@@ -232,7 +230,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "jack-of-all-actions-skill-success"
+                            "jack-of-all-actions"
                         ],
                         "selector": "strike-damage"
                     }

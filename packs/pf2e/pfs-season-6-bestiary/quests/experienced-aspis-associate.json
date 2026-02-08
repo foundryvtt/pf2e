@@ -395,7 +395,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Associate attempts an Acrobatics, Athletic, Deception, or Intimidation check that uses no more than one action against a creature then makes a strike against the same creature. If the skill action succeeded the strike is made with a +1 circumstance bonus to the attack roll and deals an additional @Damage[1d8[precision]] damage.</p>"
+                    "value": "<p>The Associate attempts an Acrobatics, Athletic, Deception, or Intimidation check that uses no more than one action against a creature then makes a strike against the same creature. If the skill action succeeded the strike is made with a +1 circumstance bonus to the attack roll and deals an additional 1d8 precision damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -404,16 +404,14 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
                         "key": "RollOption",
-                        "label": "Jack of All Actions skill success",
-                        "option": "jack-of-all-actions-skill-success",
+                        "option": "jack-of-all-actions",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "jack-of-all-actions-skill-success"
+                            "jack-of-all-actions"
                         ],
                         "selector": [
                             "attack"
@@ -427,7 +425,7 @@
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "predicate": [
-                            "jack-of-all-actions-skill-success"
+                            "jack-of-all-actions"
                         ],
                         "selector": "strike-damage"
                     }
@@ -453,7 +451,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The aspis associate applies a contact poison or injury poison to one of their weapons; if they have a free hand, they can Interact to draw a poison as part of this action. They begin combat with a simple injury poison (as from the @UUID[Compendium.pf2e.feats-srd.Item.Poison Weapon] rogue feat from Player Core 171) already applied to their rapier and one dagger.</p>"
+                    "value": "<p>The aspis associate applies a contact poison or injury poison to one of their weapons; if they have a free hand, they can Interact to draw a poison as part of this action. They begin combat with a simple injury poison (as from the @UUID[Compendium.pf2e.feats-srd.Item.Poison Weapon] rogue feat) already applied to their rapier and one dagger.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -462,9 +460,7 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
                         "key": "RollOption",
-                        "label": "Simple injury posion applied",
                         "option": "simple-injury-poison",
                         "toggleable": true
                     },
