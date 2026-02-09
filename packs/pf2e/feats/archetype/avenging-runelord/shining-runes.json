@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Whenever you Cast a Spell that requires more than one action to cast, the signature Thassilonian runes you trace in the air flicker with light and command attention. They may blaze brightly, leave lingering fog, create discordant noise, or fill the air with an overwhelming scent, such that their presence obfuscates you from onlookers. You gain concealment from enemy creatures until the beginning of your next turn. The DC to identify your spells as you cast them is 2 higher than normal.</p>"
+            "value": "<p>Whenever you Cast a Spell that requires more than one action to cast, the signature Thassilonian runes you trace in the air flicker with light and command attention. They may blaze brightly, leave lingering fog, create discordant noise, or fill the air with an overwhelming scent, such that their presence obfuscates you from onlookers. You gain @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealment} from enemy creatures until the beginning of your next turn. The DC to identify your spells as you cast them is 2 higher than normal.</p>"
         },
         "level": {
             "value": 14
@@ -36,16 +36,16 @@
                 "mode": "add",
                 "predicate": [
                     {
-                        "or": [
-                            "item:cast:actions:2",
-                            "item:cast:actions:3"
+                        "gte": [
+                            "item:cast:actions",
+                            2
                         ]
                     }
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "You are @UUID[Compendium.pf2e.conditionitems.Item.Concealed] until the beginning of your next turn."
+                        "text": "PF2E.SpecificRule.AvengingRunelord.ShiningRunes.Note"
                     }
                 ]
             }
