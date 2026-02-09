@@ -20,10 +20,10 @@ export class ConditionManager {
 
     static initialize(): void {
         if (this.#initialized) return;
-
+        const packId = SYSTEM_ID === "pf2e" ? "pf2e.conditionitems" : "sf2e.conditions";
         this.conditions = new Map(
             CONDITION_SOURCES.flatMap((source) => {
-                const condition: ConditionPF2e<null> = new ConditionPF2e(source, { pack: "pf2e.conditionitems" });
+                const condition: ConditionPF2e<null> = new ConditionPF2e(source, { pack: packId });
                 return [
                     [condition.slug, condition],
                     [condition.uuid, condition],
