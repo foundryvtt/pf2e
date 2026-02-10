@@ -127,7 +127,7 @@ declare class Actor<TParent extends TokenDocument | null = TokenDocument | null>
      */
     getTokenDocument(
         data?: DeepPartial<foundry.documents.TokenSource>,
-        options?: Partial<DocumentConstructionContext<this>>,
+        options?: Partial<DocumentConstructionContext<Scene>>,
     ): Promise<NonNullable<TParent>>;
 
     /** Get an Array of Token images which could represent this Actor */

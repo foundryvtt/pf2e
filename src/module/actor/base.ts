@@ -978,7 +978,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Ensure newly-created tokens have dimensions matching this actor's size category */
     override async getTokenDocument(
         data: DeepPartial<foundry.documents.TokenSource> = {},
-        options?: DocumentConstructionContext<this>,
+        options?: DocumentConstructionContext<ScenePF2e>,
     ): Promise<NonNullable<TParent>> {
         if (this.prototypeToken.flags[SYSTEM_ID].linkToActorSize) {
             Object.assign(data, this.system.traits?.size?.tokenDimensions);
