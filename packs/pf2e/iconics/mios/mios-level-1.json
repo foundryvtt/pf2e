@@ -1,0 +1,3098 @@
+{
+    "_id": "wMTIXOfCTEKRW0UH",
+    "folder": "yuUzZE3t3acJKQwH",
+    "img": "systems/pf2e/icons/default-icons/character.svg",
+    "items": [
+        {
+            "_id": "FkQLZNYcEw9JKwgP",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+            },
+            "img": "systems/pf2e/icons/ancestries/human.webp",
+            "name": "Human",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 1,
+                    "custom": "",
+                    "value": []
+                },
+                "boosts": {
+                    "0": {
+                        "selected": "cha",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "str",
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    },
+                    "2": {
+                        "value": []
+                    }
+                },
+                "description": {
+                    "value": "<p><em>As unpredictable and varied as any of Golarion's peoples, humans have exceptional drive and the capacity to endure and expand. Though many civilizations thrived before humanity rose to prominence, humans have built some of the greatest and the most terrible societies throughout the course of history, and today they are the most populous people in the realms around the Inner Sea.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.7pU8yM7yPMw92SY3]{Human}</em></p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": []
+                    }
+                },
+                "hands": 2,
+                "hp": 8,
+                "items": {},
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common"
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "reach": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "human",
+                "speed": 25,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human",
+                        "humanoid"
+                    ]
+                },
+                "vision": "normal"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "4zqR9AApDpqIWD9Q",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.heritages.Item.hFBwsVcSnNCJoimo"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "arcaneSense": {
+                            "id": "aZ7VvWl1aMVWGMrM",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "O7DVLyyF05fGfpdo",
+            "img": "icons/environment/people/group.webp",
+            "name": "Versatile Human",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Human",
+                    "slug": "human",
+                    "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+                },
+                "description": {
+                    "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:trait:general"
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "versatileHeritage",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Arcane Sense"
+                    },
+                    {
+                        "flag": "arcaneSense",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.versatileHeritage}"
+                    }
+                ],
+                "slug": "versatile-human",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "aZ7VvWl1aMVWGMrM",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.blMeVamjGz4ODWxq"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "4zqR9AApDpqIWD9Q",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "QhHpEbq98ZJAyDiH",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Arcane Sense",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Your study of magic allows you to instinctively sense its presence. You can cast 1st-rank @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic] at will as an arcane innate spell. If you're a master in Arcana, the spell is heightened to 3rd rank; if you're legendary, it is heightened to 4th rank.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Arcana"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "arcane-sense",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "4Axlv6GVTLxzxvgK",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classes.Item.Y5GsHqzCzJlKka6x"
+            },
+            "img": "systems/pf2e/icons/default-icons/class.svg",
+            "name": "Thaumaturge",
+            "sort": 0,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 1,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    },
+                    "simple": 1,
+                    "unarmed": 1
+                },
+                "classFeatLevels": {
+                    "value": [
+                        1,
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 1,
+                    "medium": 1,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": "<p><em>The world is full of the unexplainable: ancient magic, dead gods, and even stranger things. In response, you've scavenged the best parts of every magical tradition and built up a collection of esoterica—a broken holy relic here, a sprig of mistletoe there—that you can use to best any creature by exploiting their weaknesses and vulnerabilities. The mystic implement you carry is both badge and weapon, its symbolic weight helping you bargain with and subdue the supernatural. Every path to power has its restrictions and costs, but you turn them all to your advantage. You're a thaumaturge, and you work wonders.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.qigU4oNH2KDVvhjX]{Thaumaturge}</em></p>"
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "hp": 8,
+                "items": {
+                    "1LMTz": {
+                        "img": "systems/pf2e/icons/features/classes/unlimited-esoterica.webp",
+                        "level": 19,
+                        "name": "Unlimited Esoterica",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Unlimited Esoterica"
+                    },
+                    "3rn78": {
+                        "img": "systems/pf2e/icons/features/classes/first-implement-and-esoterica.webp",
+                        "level": 1,
+                        "name": "First Implement and Esoterica",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.First Implement and Esoterica"
+                    },
+                    "4h2t7": {
+                        "img": "icons/skills/melee/hand-grip-sword-orange.webp",
+                        "level": 15,
+                        "name": "Greater Weapon Specialization",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
+                    },
+                    "59mfg": {
+                        "img": "icons/equipment/chest/breastplate-quilted-brown.webp",
+                        "level": 11,
+                        "name": "Medium Armor Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Medium Armor Expertise"
+                    },
+                    "63BEI": {
+                        "img": "systems/pf2e/icons/features/classes/second-adept.webp",
+                        "level": 11,
+                        "name": "Second Adept",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Second Adept"
+                    },
+                    "7qJbx": {
+                        "img": "icons/sundries/documents/document-tree-brown.webp",
+                        "level": 1,
+                        "name": "Esoteric Lore",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Esoteric Lore"
+                    },
+                    "91CWx": {
+                        "img": "systems/pf2e/icons/features/classes/third-implement.webp",
+                        "level": 15,
+                        "name": "Third Implement",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Third Implement"
+                    },
+                    "94AW8": {
+                        "img": "systems/pf2e/icons/features/classes/implements-empowerment.webp",
+                        "level": 1,
+                        "name": "Implement's Empowerment",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Implement's Empowerment"
+                    },
+                    "Ahe8D": {
+                        "img": "icons/magic/control/buff-strength-muscle-damage-orange.webp",
+                        "level": 15,
+                        "name": "Earned Resilience",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Earned Resilience"
+                    },
+                    "EeAOX": {
+                        "img": "systems/pf2e/icons/features/classes/implement-paragon.webp",
+                        "level": 17,
+                        "name": "Implement Paragon",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Implement Paragon"
+                    },
+                    "Fg8iw": {
+                        "img": "icons/skills/melee/blade-tip-chipped-blood-red.webp",
+                        "level": 13,
+                        "name": "Weapon Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Mastery"
+                    },
+                    "HFk1R": {
+                        "img": "systems/pf2e/icons/features/classes/intensify-vulnerability.webp",
+                        "level": 9,
+                        "name": "Intensify Vulnerability",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Intensify Vulnerability"
+                    },
+                    "VjdCa": {
+                        "img": "systems/pf2e/icons/features/classes/thaumaturgic-expertise.webp",
+                        "level": 9,
+                        "name": "Thaumaturgic Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Thaumaturgic Expertise"
+                    },
+                    "WiLza": {
+                        "img": "icons/skills/melee/hand-grip-sword-red.webp",
+                        "level": 5,
+                        "name": "Weapon Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Expertise"
+                    },
+                    "anx17": {
+                        "img": "systems/pf2e/icons/features/classes/second-implement.webp",
+                        "level": 5,
+                        "name": "Second Implement",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Second Implement"
+                    },
+                    "bifEL": {
+                        "img": "icons/magic/perception/eye-tendrils-web-purple.webp",
+                        "level": 9,
+                        "name": "Perception Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Perception Mastery"
+                    },
+                    "dMcnT": {
+                        "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+                        "level": 13,
+                        "name": "Perfected Mind",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Perfected Mind"
+                    },
+                    "etPSx": {
+                        "img": "systems/pf2e/icons/features/classes/implement-adept.webp",
+                        "level": 7,
+                        "name": "Implement Adept",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Implement Adept"
+                    },
+                    "f5coc": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
+                        "level": 7,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
+                    },
+                    "fdT0O": {
+                        "img": "systems/pf2e/icons/features/classes/thaumaturgic-mastery.webp",
+                        "level": 17,
+                        "name": "Thaumaturgic Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Thaumaturgic Mastery"
+                    },
+                    "gjFwy": {
+                        "img": "systems/pf2e/icons/features/classes/exploit-vulnerability.webp",
+                        "level": 1,
+                        "name": "Exploit Vulnerability",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Exploit Vulnerability"
+                    },
+                    "le5cj": {
+                        "img": "icons/equipment/chest/breastplate-collared-steel.webp",
+                        "level": 19,
+                        "name": "Medium Armor Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Medium Armor Mastery"
+                    },
+                    "o1UCf": {
+                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
+                        "level": 3,
+                        "name": "Reflex Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
+                    },
+                    "vgeGn": {
+                        "img": "icons/magic/control/silhouette-aura-energy.webp",
+                        "level": 7,
+                        "name": "Disciplined Mind",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Disciplined Mind"
+                    }
+                },
+                "keyAbility": {
+                    "selected": null,
+                    "value": [
+                        "cha"
+                    ]
+                },
+                "perception": 2,
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Dark Archive (Remastered)"
+                },
+                "rules": [],
+                "savingThrows": {
+                    "fortitude": 2,
+                    "reflex": 1,
+                    "will": 2
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                },
+                "slug": "thaumaturge",
+                "spellcasting": 0,
+                "trainedSkills": {
+                    "additional": 3,
+                    "value": [
+                        "arcana",
+                        "nature",
+                        "occultism",
+                        "religion"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common"
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "c1fPXRjgdsSImpri",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.VSQJtzQE6ikKdsnP"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "lantern": {
+                            "id": "FaEBJZSp1KovYGJx",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/first-implement-and-esoterica.webp",
+            "name": "First Implement and Esoterica",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your implement is a special object of symbolic importance: your badge as you treat with the supernatural and a powerful tool if things turn violent. Choose an implement from the options presented below:</p><ul><li>@UUID[Compendium.pf2e.classfeatures.Item.Amulet]</li><li>@UUID[Compendium.pf2e.classfeatures.Item.Bell]</li><li>@UUID[Compendium.pf2e.classfeatures.Item.Chalice]</li><li>@UUID[Compendium.pf2e.classfeatures.Item.Lantern]</li><li>@UUID[Compendium.pf2e.classfeatures.Item.Mirror]</li><li>@UUID[Compendium.pf2e.classfeatures.Item.Regalia]</li><li>@UUID[Compendium.pf2e.classfeatures.Item.Shield]</li><li>@UUID[Compendium.pf2e.classfeatures.Item.Tome]</li><li>@UUID[Compendium.pf2e.classfeatures.Item.Wand]</li><li>@UUID[Compendium.pf2e.classfeatures.Item.Weapon]</li></ul><p>You begin play with a mundane item of that type, and you gain the initiate benefit for that implement. While an implement is useful to you, it typically has no value if sold. If you acquire a new object of the same general implement type, you can switch your implement to the new object by spending 1 day of downtime with the new item. As you advance as a thaumaturge, you will collect up to three implements and unlock the hidden potential stored within each, so you can mix and match their benefits to suit your situation.</p>\n<p>While your implements are your primary tools in your dealings with the supernatural, you know the value of always being prepared. You constantly collect and carry various smaller mystic objects, bits of materials with paranormal affinities, and items used in folk practices: your esoterica. These might include cold-iron nails, scraps of scrolls and scriptures, fragments of bones purportedly from a saint, and other similar objects. You keep your esoterica in easy-to-access places on your person and are well practiced in brandishing your implement and esoterica together, so you can draw and use esoterica with the same hand you're using to wield an implement.</p><h3><strong>Exploit Vulnerability</strong></h3><p>You know that every creature, no matter how obscure, has a weakness. By identifying and empowering the right object, you can strike down even the most resilient of monsters. You gain the Exploit Vulnerability action.</p>\n<p>You can attempt to Exploit Vulnerabilities in one of two ways: either by invoking properties that repel that type of creature, or by attempting a more improvisational, ad-hoc method with your esoterica that can impose a custom weakness on any creature, albeit one that usually isn't as dire as a creature's existing weakness.</p><ul><li><strong>Mortal Weakness</strong> After identifying a creature's weakness, you use a thematically resonant bit of esoterica to attune your attacks to your discovery. Your unarmed and weapon Strikes activate the highest weakness you discovered with Exploit Vulnerability, even though the damage type your weapon deals doesn't change. This damage affects the target of your Exploit Vulnerability, as well as any other creatures of the exact same type, but not other creatures with the same weakness. For example, when fighting a pack of werewolves, you might use silver shavings or crushed moonstone to deal damage that applies their weakness to silver to your attacks against any of the werewolves, but you wouldn't apply this damage to any other monsters with a weakness to silver.</li><li><strong>Personal Antithesis</strong> You improvise a custom weakness on a creature by forcefully presenting and empowering a piece of esoterica that repels it on an individual level; for instance, against a tyrant, you might procure a broken chain that once held a captive. This causes the target creature, and only the target creature, to gain a weakness against your unarmed and weapon Strikes equal to 2 + half your level.</li></ul>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "4Axlv6GVTLxzxvgK",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Dark Archive (Remastered)"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.thaumaturge.adeptChoices",
+                        "priority": 10,
+                        "value": []
+                    },
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:thaumaturge-implement"
+                            ]
+                        },
+                        "flag": "implement",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.FirstImplement",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Lantern"
+                    },
+                    {
+                        "flag": "lantern",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.implement}"
+                    }
+                ],
+                "slug": "first-implement-and-esoterica",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "thaumaturge"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "eAVPGbEMWRroP9Ke",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.cvQmPkJtybMcHinK"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "dubiousKnowledge": {
+                            "id": "4oGsf2S0UCUNfqDf",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/sundries/documents/document-tree-brown.webp",
+            "name": "Esoteric Lore",
+            "sort": 100,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your experience with the unknown has taught you about strange phenomena of every kind. You become trained in Esoteric Lore, a special lore skill that can be used to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] regarding haunts, curses, and creatures of any type, but that can't be used to Recall Knowledge of other topics. Unlike a normal Lore skill, you use Charisma as your modifier on Esoteric Lore checks. You also gain the @UUID[Compendium.pf2e.feats-srd.Item.Dubious Knowledge] skill feat.</p>\n<p>At 3rd level, you become an expert in Esoteric Lore; at 7th level, you become a master in Esoteric Lore; and at 15th level, you become legendary in Esoteric Lore.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "4Axlv6GVTLxzxvgK",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Dark Archive (Remastered)"
+                },
+                "rules": [
+                    {
+                        "ability": "cha",
+                        "force": true,
+                        "key": "FlatModifier",
+                        "selector": [
+                            "esoteric",
+                            "esoteric-lore",
+                            "lore-esoteric"
+                        ],
+                        "type": "ability"
+                    },
+                    {
+                        "flag": "dubiousKnowledge",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Dubious Knowledge"
+                    }
+                ],
+                "slug": "esoteric-lore",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "thaumaturge"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "PxCXZ38rfeVEta9C",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.uwLNfBprqZw2osTb"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "exploitVulnerability": {
+                            "id": "8D6GIlKPJaJNi9j5",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/exploit-vulnerability.webp",
+            "name": "Exploit Vulnerability",
+            "sort": 300,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You know that every creature, no matter how obscure, has a weakness. By identifying and empowering the right object, you can strike down even the most resilient of monsters.</p>\n<p>You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Exploit Vulnerability] action.</p>\n<p>You can attempt to Exploit Vulnerabilities in one of two ways: either by invoking properties that repel that type of creature, or by attempting a more improvisational, ad-hoc method with your esoterica that can impose a custom weakness on any creature, albeit one that usually isn't as dire as a creature's existing weakness.</p>\n<p><strong>Mortal Weakness</strong> After identifying a creature's weakness, you use a thematically resonant bit of esoterica to attune your attacks to your discovery. Your unarmed and weapon Strikes activate the highest weakness you discovered with Exploit Vulnerability, even though the damage type your weapon deals doesn't change. This damage affects the target of your Exploit Vulnerability, as well as any other creatures of the exact same type, but not other creatures with the same weakness. For example, when fighting a pack of werewolves, you might use silver shavings or crushed moonstone to deal damage that applies their weakness to silver to your attacks against any of the werewolves, but you wouldn't apply this damage to any other monsters with a weakness to silver.</p>\n<p><strong>Personal Antithesis</strong> You improvise a custom weakness on a creature by forcefully presenting and empowering a piece of esoterica that repels it on an individual level; for instance, against a tyrant, you might procure a broken chain that once held a captive. This causes the target creature, and only the target creature, to gain a weakness against your unarmed and weapon Strikes equal to 2 + half your level.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "4Axlv6GVTLxzxvgK",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Dark Archive (Remastered)"
+                },
+                "rules": [
+                    {
+                        "flag": "exploitVulnerability",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Exploit Vulnerability"
+                    }
+                ],
+                "slug": "exploit-vulnerability",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "thaumaturge"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "FaEBJZSp1KovYGJx",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.AltwHU7hCqTwpn48"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "c1fPXRjgdsSImpri",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "initiateBenefitLantern": {
+                            "id": "Dlc3SJbHPYhvajo2",
+                            "onDelete": "detach"
+                        },
+                        "lanternImplement": {
+                            "id": "w0uXPBR0fZkyFm5n",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/lantern.webp",
+            "name": "Lantern",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Lantern implements shine the light of revelation to part shadows and expose truth. You might use a common glass lantern, torch, paper lantern, or other similar light source. Lantern implements are associated with the harrow suit of stars and the astrological signs of the lantern bearer and the archer.</p><h3><strong>Initiate Benefit</strong></h3><p>@Embed[Compendium.pf2e.classfeatures.Item.tBI15UqeQH7PLzAK inline]</p><h3><strong>Adept Benefit</strong></h3><p>@Embed[Compendium.pf2e.classfeatures.Item.QK5ojonup9AQBg4O inline]</p><h3><strong>Intensify Vulnerability</strong></h3><p>Your lantern's light flares and burns bright, leaving no shadows in which secrets and enemies can hide. The emanation of your lantern's aura doubles in size. Against the target of your Exploit Vulnerability, the status bonuses from the lantern's initiate benefit increase to +2. The creature takes a –2 status penalty to Deception checks and Stealth checks as long as it's within the aura. Additionally, the target of your Exploit Vulnerability can't be @UUID[Compendium.pf2e.conditionitems.Item.Concealed] while it's in the lantern's aura, though it still can potentially become hidden or undetected using cover or means other than the concealed condition.</p><h3><strong>Paragon Benefit</strong></h3><p>@Embed[Compendium.pf2e.classfeatures.Item.k9d3rDhYnHwLI8XF inline]</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Dark Archive (Remastered)"
+                },
+                "rules": [
+                    {
+                        "allowDuplicate": false,
+                        "flag": "lanternImplement",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.equipment-srd.Item.Lantern Implement"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.thaumaturge.initiateBenefit",
+                        "predicate": [
+                            "feat:thaumaturge-dedication"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Initiate Benefit (Lantern)"
+                    },
+                    {
+                        "flag": "initiateBenefitLantern",
+                        "key": "GrantItem",
+                        "predicate": [
+                            "class:thaumaturge"
+                        ],
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Initiate Benefit (Lantern)"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "flags.pf2e.thaumaturge.adeptChoices",
+                        "predicate": [
+                            "class:thaumaturge"
+                        ],
+                        "priority": 20,
+                        "value": {
+                            "label": "{item|name}",
+                            "predicate": [
+                                {
+                                    "not": "feature:adept-benefit-lantern"
+                                }
+                            ],
+                            "value": "Compendium.pf2e.classfeatures.Item.Adept Benefit (Lantern)"
+                        }
+                    }
+                ],
+                "slug": "lantern",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "otherTags": [
+                        "thaumaturge-implement"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "thaumaturge"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "w0uXPBR0fZkyFm5n",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AtiSK2lwEi25f3PT"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "FaEBJZSp1KovYGJx",
+                        "onDelete": "detach"
+                    }
+                }
+            },
+            "img": "icons/sundries/lights/lantern-iron-lit-yellow.webp",
+            "name": "Lantern Implement",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>@Embed[Compendium.pf2e.classfeatures.Item.AltwHU7hCqTwpn48 inline]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Dark Archive (Remastered)"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "implement-held"
+                    },
+                    {
+                        "key": "RollOption",
+                        "option": "implement:lantern:equipped"
+                    }
+                ],
+                "size": "med",
+                "slug": "lantern-implement",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "Dlc3SJbHPYhvajo2",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.tBI15UqeQH7PLzAK"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "FaEBJZSp1KovYGJx",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/lights/lantern-iron-lit-yellow.webp",
+            "name": "Initiate Benefit (Lantern)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>While you hold your lantern, its burning light leaves secrets no place to hide. You can light or extinguish your lantern with nothing but a thought, as a free action that has the concentrate trait. While lit, the lantern emits an aura of light in a 20-foot emanation; the aura has the light and magical traits. Everything in the aura is magically lit with bright light regardless of cover, and dim light extends beyond the aura an additional distance equal to the size of the aura. The aura's counteract rank against magical darkness is equal to half your level rounded up.</p>\n<p>The lantern's aura attempts to reveal the unseen. You and your allies in the lantern's aura gain a +1 status bonus to visual Perception checks to notice anything that is also within the aura and a +1 status bonus to checks to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] against creatures within the aura, as the light exposes their true natures. During exploration, even if you aren't Searching, the GM rolls a secret check for you to find traps, environmental hazards, haunts, and secrets (such as secret doors). The GM rolls each time a given hazard or secret comes within the lantern's aura. These effects have the magical and revelation traits.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Dark Archive (Remastered)"
+                },
+                "rules": [
+                    {
+                        "disabledIf": [
+                            {
+                                "not": "implement:lantern:equipped"
+                            }
+                        ],
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.Thaumaturge.Implement.Lantern.LightToggle",
+                        "option": "light-lantern-implement",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.thaumaturge.lantern",
+                        "value": 20
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "light-lantern-implement"
+                        ],
+                        "value": {
+                            "alpha": 0.2,
+                            "animation": {
+                                "intensity": 2,
+                                "speed": 3,
+                                "type": "pulse"
+                            },
+                            "bright": "@actor.flags.pf2e.thaumaturge.lantern",
+                            "color": "#fff285",
+                            "dim": "2*@actor.flags.pf2e.thaumaturge.lantern"
+                        }
+                    },
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Lantern"
+                            }
+                        ],
+                        "key": "Aura",
+                        "predicate": [
+                            "light-lantern-implement"
+                        ],
+                        "radius": "@actor.flags.pf2e.thaumaturge.lantern",
+                        "traits": [
+                            "light",
+                            "magical"
+                        ]
+                    }
+                ],
+                "slug": "initiate-benefit-lantern",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "thaumaturge"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "4oGsf2S0UCUNfqDf",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.1Bt7uCW2WI4sM84P"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "eAVPGbEMWRroP9Ke",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "QhHpEbq98ZJAyDiH",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Dubious Knowledge",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You're a treasure trove of information, but not all of it comes from reputable sources. When you fail (but don't critically fail) a Recall Knowledge check using any skill, you learn the correct answer and an erroneous answer, but you don't have any way to differentiate which is which. This can occur as knowing something is significant, but not whether it's good or bad.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in a skill with the Recall Knowledge action"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "failure"
+                        ],
+                        "predicate": [
+                            "action:recall-knowledge"
+                        ],
+                        "selector": "skill-check",
+                        "text": "PF2E.SpecificRule.DubiousKnowledge.Note",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "dubious-knowledge",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "8D6GIlKPJaJNi9j5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.actionspf2e.Item.fodJ3zuwQsYnBbtk"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "PxCXZ38rfeVEta9C",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "0wzDPkI2wF5fOax9",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Exploit Vulnerability",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requierments</strong> You are holding your implement.</p><hr /><p>You scour your experiences and learning to identify something that might repel your foe. You retrieve an object from your esoterica with the appropriate supernatural qualities, then use your implement to stoke the remnants of its power into a blaze. Select a creature you can see and attempt an @Check[esoteric-lore] check against a standard DC for its level, as you retrieve the right object from your esoterica and use your implement to empower it. You gain the following effects until you Exploit Vulnerabilities again.</p><hr /><p><strong>Critical Success</strong> You remember the creature's weaknesses, and as you empower your esoterica, you have a flash of insight that grants even more knowledge about the creature. You learn all of the creature's resistances, weaknesses, and immunities, including the amounts of the resistances and weaknesses and any unusual weaknesses or vulnerabilities, such as an oni's bean panic. You can exploit either the creature's mortal weakness or personal antithesis (see below). Your unarmed and weapon Strikes against the creature also become magical if they weren't already.</p>\n<p><strong>Success</strong> You recall an important fact about the creature, learning its highest weakness (or one of its highest weaknesses, if it has multiple with the same value) but not its other weaknesses, resistances, or immunities. You can exploit either the creature's mortal weakness or personal antithesis. Your unarmed and weapon Strikes against the creature also become magical if they weren't already.</p>\n<p><strong>Failure</strong> Failing to recall a salient weakness about the creature, you instead attempt to exploit a more personal vulnerability. You can exploit only the creature's personal antithesis. Your unarmed and weapon Strikes against the creature also become magical if they weren't already.</p>\n<p><strong>Critical Failure</strong> You couldn't remember the right object to use and become distracted while you rummage through your esoterica. You become @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of your next turn.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Dark Archive (Remastered)"
+                },
+                "rules": [],
+                "slug": "exploit-vulnerability",
+                "traits": {
+                    "value": [
+                        "esoterica",
+                        "manipulate",
+                        "thaumaturge"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iyOf3PYDDbOvmTwj",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.classfeatures.Item.PbNS8d3w3pYQYcVN"
+            },
+            "img": "systems/pf2e/icons/features/classes/implements-empowerment.webp",
+            "name": "Implement's Empowerment",
+            "sort": 200,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>The power of your implement can also be turned to the more common task of combat, its power adding to and amplifying the effects of runes and other magical empowerments. When you Strike, you can trace mystic patterns with an implement you're holding to empower the Strike, causing it to deal 2 additional Damage per weapon damage die. Channeling the power requires full use of your hands. You don't gain the benefit of implement's empowerment if you are holding anything in either hand other than a single one-handed weapon, other implements, or esoterica, and you must be holding at least one implement to gain the benefit.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "4Axlv6GVTLxzxvgK",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Dark Archive (Remastered)"
+                },
+                "rules": [
+                    {
+                        "disabledIf": [
+                            {
+                                "not": "implement-held"
+                            }
+                        ],
+                        "disabledValue": false,
+                        "key": "RollOption",
+                        "option": "implements-empowerment",
+                        "priority": 51,
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "implements-empowerment"
+                        ],
+                        "selector": "strike-damage",
+                        "value": "@weapon.system.damage.dice * 2"
+                    }
+                ],
+                "slug": "implements-empowerment",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "thaumaturge"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "fzdfUCrCKkO9MY28",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.backgrounds.Item.v0WPfxN6G8XFfFZT"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "assurance": {
+                            "id": "q5Ci1otpan76F4OJ",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Scholar (Nature)",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "int",
+                        "value": [
+                            "int",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "cha",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>You have a knack for learning and sequestered yourself from the outside world to learn all you could. You read about so many wondrous places and things in your books, always dreaming about one day seeing the real things. Eventually, that curiosity led you to leave your studies and become an adventurer.</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in your choice of the Arcana, Nature, Occultism, or Religion skill, and gain the @UUID[Compendium.pf2e.feats-srd.Item.Assurance] skill feat in your chosen skill. You're also trained in the Academia Lore skill.</p>"
+                },
+                "items": {},
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.Skill.Arcana",
+                                "value": "arcana"
+                            },
+                            {
+                                "label": "PF2E.Skill.Nature",
+                                "value": "nature"
+                            },
+                            {
+                                "label": "PF2E.Skill.Occultism",
+                                "value": "occultism"
+                            },
+                            {
+                                "label": "PF2E.Skill.Religion",
+                                "value": "religion"
+                            }
+                        ],
+                        "flag": "skill",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                        "selection": "nature"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                        "value": 1
+                    },
+                    {
+                        "flag": "assurance",
+                        "key": "GrantItem",
+                        "preselectChoices": {
+                            "assurance": "{item|flags.pf2e.rulesSelections.skill}"
+                        },
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Assurance"
+                    }
+                ],
+                "slug": "scholar",
+                "trainedSkills": {
+                    "lore": [
+                        "Academia Lore"
+                    ],
+                    "value": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "q5Ci1otpan76F4OJ",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.W6Gl9ePmItfDHji0"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "fzdfUCrCKkO9MY28",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "QhHpEbq98ZJAyDiH",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Assurance (Nature)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Even in the worst circumstances, you can perform basic tasks. Choose a skill you're trained in. You can forgo rolling a skill check for that skill to instead receive a result of 10 + your proficiency bonus (do not apply any other bonuses, penalties, or modifiers).</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times. Each time, choose a different skill and gain the benefits for that skill.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "maxTakable": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in at least one skill"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": {
+                            "config": "skills",
+                            "predicate": [
+                                {
+                                    "gte": [
+                                        "skill:{choice|value}:rank",
+                                        1
+                                    ]
+                                }
+                            ]
+                        },
+                        "flag": "assurance",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                        "selection": "nature"
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": [
+                            "substitute:assurance",
+                            {
+                                "not": "bonus:type:proficiency"
+                            }
+                        ],
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "suppress": true
+                    }
+                ],
+                "slug": "assurance",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fortune",
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "FBDbi3R3R9Uc3thQ",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Academia Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "YL7T56a0MbViw16E",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.PodajLVxqYSAqVox"
+            },
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "rootToLife": {
+                            "id": "Q6ZVG88CHntH6Z4D",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "hFVleadZ20Wc5Hkc",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Natural Ambition",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>You were raised to be ambitious and always reach for the stars, leading you to progress quickly in your chosen field. You gain a 1st-level class feat for your class. You must meet the prerequisites, but you can select the feat later in the character creation process in order to determine which prerequisites you meet.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:category:class",
+                                "item:trait:{actor|system.details.class.trait}",
+                                {
+                                    "or": [
+                                        "feature:dragon-instinct",
+                                        {
+                                            "not": "item:draconic-arrogance"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nor": [
+                                        "item:animal-companion",
+                                        "item:animal-companion-druid",
+                                        "item:bardic-lore",
+                                        "item:fire-lung",
+                                        "item:lingering-composition",
+                                        "item:leshy-familiar",
+                                        "item:martial-performance",
+                                        "item:shore-step",
+                                        "item:steadying-stone",
+                                        "item:storm-born",
+                                        "item:versatile-performance",
+                                        "item:untamed-form"
+                                    ]
+                                }
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "naturalAmbition",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Root to Life"
+                    },
+                    {
+                        "flag": "rootToLife",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.naturalAmbition}"
+                    }
+                ],
+                "slug": "natural-ambition",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "Q6ZVG88CHntH6Z4D",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.oQVp2UhXVBcELma5"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "YL7T56a0MbViw16E",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "BSQ0GEL1Ln2EoTsR",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Root to Life",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><span class=\"action-glyph\">1</span> or <span class=\"action-glyph\">2</span></p><hr /><p>Marigold, spider lily, pennyroyal-many primal traditions connect flowers and plants with the boundary between life and death, and you can leverage this association to keep an ally on this side of the line. You place a small plant or similar symbol on an adjacent @UUID[Compendium.pf2e.conditionitems.Item.Dying] creature, immediately stabilizing them; the creature is no longer dying and is instead @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] at 0 Hit Points.</p>\n<p>If you spend 2 actions instead of 1, you empower the act further by uttering a quick folk blessing to chase away ongoing pain, adding the auditory trait to the action. When you do so, attempt flat checks to remove each source of persistent damage affecting the target; due to the particularly effective assistance, the DC is 10 instead of the usual 15.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Dark Archive (Remastered)"
+                },
+                "rules": [],
+                "slug": "root-to-life",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "esoterica",
+                        "manipulate",
+                        "primal",
+                        "thaumaturge"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "zUB0mrosmhtwUUNw",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.KlqKpeq5OmTRxVHb"
+            },
+            "folder": "BSQ0GEL1Ln2EoTsR",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Diverse Lore",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>Your wandering studies mean you've heard rumors or theories about almost every topic... though admittedly, your sources aren't always the most reliable. You can take a -2 penalty to your check to Recall Knowledge with Esoteric Lore to Recall Knowledge about any topic, not just the usual topics available for Esoteric Lore. Additionally, when you succeed at your check to Exploit a Vulnerability, compare the result of your Esoteric Lore check to the DC to Recall Knowledge for that creature; if that number would be a success or a critical success, you gain information as if you had succeeded at the Recall Knowledge check.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Dark Archive (Remastered)"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:recall-knowledge",
+                            "diverse-lore"
+                        ],
+                        "selector": [
+                            "esoteric",
+                            "esoteric-lore",
+                            "lore-esoteric"
+                        ],
+                        "value": -2
+                    }
+                ],
+                "slug": "diverse-lore",
+                "subfeatures": {
+                    "proficiencies": {},
+                    "senses": {},
+                    "suppressedFeatures": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "thaumaturge"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "2YbqgJwB85gMe6F8",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Esoteric Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "QDzJDR1gu4RJu2mq",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
+            },
+            "img": "icons/containers/bags/pack-leather-white-tan.webp",
+            "name": "Backpack",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "capacity": 4,
+                    "heldOrStowed": 0.1,
+                    "ignored": 2,
+                    "value": 0
+                },
+                "collapsed": false,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A backpack holds up to 4 Bulk of items and the first 2 Bulk of these items don't count against your Bulk limits. If you're carrying or stowing the pack rather than wearing it on your back, its Bulk is light instead of negligible</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "backpack",
+                "stowing": true,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornbackpack"
+                }
+            },
+            "type": "backpack"
+        },
+        {
+            "_id": "kPm36utj7OC6BuO3",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
+            },
+            "img": "icons/weapons/daggers/dagger-straight-blue.webp",
+            "name": "Dagger",
+            "sort": 0,
+            "system": {
+                "ammo": null,
+                "baseItem": "dagger",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "expend": null,
+                "grade": null,
+                "group": "knife",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 2,
+                "range": null,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "dagger",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "usage": {
+                    "canBeAmmo": false,
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "GGbq8J0Xq3zv5PAW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AnwzlOs0njF9Jqnr"
+            },
+            "img": "icons/equipment/chest/vest-leather-tattered-white.webp",
+            "name": "Hide Armor",
+            "sort": 0,
+            "system": {
+                "acBonus": 3,
+                "baseItem": "hide-armor",
+                "bulk": {
+                    "value": 2
+                },
+                "category": "medium",
+                "checkPenalty": -2,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of furs, sturdy hide, and sometimes molded boiled leather, this armor provides protection due to its layers of leather, though its bulkiness slows the wearer down and decreases mobility.</p>"
+                },
+                "dexCap": 2,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "grade": null,
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "hide-armor",
+                "speedPenalty": -5,
+                "strength": 2,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "cADzac1u909C9cCa",
+            "img": "icons/equipment/leg/tasset-reticulated-steel-gold.webp",
+            "name": "Leg Support (Brace)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This brace supports Mios as an adventurer, holding their leg steady, and allowing them to move easily after their shattered leg's recovery from a werewolf bite.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "qHvCOYObhwtmk6TC",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.6I4YJAQUbTAqbpsI"
+            },
+            "img": "icons/weapons/axes/pickaxe-iron-green.webp",
+            "name": "Pick",
+            "sort": 0,
+            "system": {
+                "ammo": null,
+                "baseItem": "pick",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>A pick designed solely for combat has a sturdy wooden shaft and a heavy, pointed head to deliver devastating blows.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "expend": null,
+                "grade": null,
+                "group": "pick",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 7
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": null
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "pick",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fatal-d10"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "nGMdJgpY21NAGJMe",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.qoM7Va5GqcLLBzgu"
+            },
+            "img": "icons/commodities/claws/claw-bear-brown.webp",
+            "name": "Predator's Claw",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "talisman",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">F</span> (concentrate)</p>\n<p><strong>Trigger</strong> You critically succeed at an attack roll with the affixed weapon</p><hr /><p>This claw set in an iron clasp and chain is usually that of a large predator. When you activate the claw, the triggering attack gains the weapon's critical specialization effect.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Predator's Claw]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "predators-claw",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "magical",
+                        "talisman"
+                    ]
+                },
+                "usage": {
+                    "value": "affixed-to-weapon"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "IijY7tkWnpjSIFnb",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
+            },
+            "img": "icons/containers/ammunition/quiver-simple-brown.webp",
+            "name": "Bedroll",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "QDzJDR1gu4RJu2mq",
+                "description": {
+                    "value": "<p>A rolled up bed.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "bedroll",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "LEJWutpcgzE0Zlvv",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Ti4gWILk69LPxKuU"
+            },
+            "img": "icons/sundries/lights/candle-unlit-grey.webp",
+            "name": "Candle",
+            "sort": -100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": "QDzJDR1gu4RJu2mq",
+                "damage": null,
+                "description": {
+                    "value": "<p>A lit candle sheds dim light in a 10‐foot radius for 8 hours.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 10,
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "lit-candle"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "color": "#9b7337",
+                            "dim": 10,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitCandle",
+                        "option": "lit-candle",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": [
+                            "lit-candle"
+                        ],
+                        "value": "icons/sundries/lights/candle-unlit-grey.webp"
+                    }
+                ],
+                "size": "med",
+                "slug": "candle",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "LnMwYZfVYPKNZILj",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
+            "name": "Chalk",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": "QDzJDR1gu4RJu2mq",
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "stowed"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "chalk",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "CNFlHORsvZqgugHU",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.UlIxxLm71UdRgCFE"
+            },
+            "img": "icons/commodities/stone/geode-raw-tan.webp",
+            "name": "Flint and Steel",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": "QDzJDR1gu4RJu2mq",
+                "description": {
+                    "value": "<p>Flint and steel are useful in creating a fire if you have the time to catch a spark, though using them is typically too time-consuming to be practical during an encounter. Even in ideal conditions, using flint and steel to light a flame requires using at least 3 actions, and often significantly longer.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "flint-and-steel",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "c8GdZ7X0hjjt20eF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hDLbR56Id2OtU318"
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
+            "name": "Elixir of Life (Minor)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "elixir",
+                "containerId": null,
+                "damage": {
+                    "formula": "1d6",
+                    "kind": "healing",
+                    "type": "untyped"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p><hr /><p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain @Damage[1d6[healing]] Hit Points and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "elixir-of-life-minor",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "healing"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "DgduGBl2EjrtGL4F",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.L9ZV076913otGtiB"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
+            "name": "Rations",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": "QDzJDR1gu4RJu2mq",
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "stowed"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 1,
+                    "value": {
+                        "sp": 4
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "rations",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 7,
+                    "value": 7
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "hSRfCbpi9rq3TeAW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS"
+            },
+            "img": "icons/sundries/survival/rope-wrapped-brown.webp",
+            "name": "Rope",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "QDzJDR1gu4RJu2mq",
+                "description": {
+                    "value": "<p>50 feet of rope.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "rope",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "oFFqSwvqfPpjDq9O",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.81aHsD27HFGnq1Nt"
+            },
+            "img": "icons/sundries/survival/soap.webp",
+            "name": "Soap",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": "QDzJDR1gu4RJu2mq",
+                "description": {
+                    "value": "<p>Bar of soap.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "soap",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "NyOtT9rHvciqvoO5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
+            },
+            "img": "icons/sundries/lights/torch-brown.webp",
+            "name": "Torch",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "QDzJDR1gu4RJu2mq",
+                "description": {
+                    "value": "<p>A torch sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 1 hour. It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 5,
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "value": {
+                            "alpha": 0.3,
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 2,
+                                "type": "flame"
+                            },
+                            "attenuation": 0.4,
+                            "bright": 20,
+                            "color": "#ffae3d",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            {
+                                "not": "lit-torch"
+                            }
+                        ]
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "img": "icons/sundries/lights/torch-brown-lit.webp",
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            "lit-torch"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "value": "icons/sundries/lights/torch-brown-lit.webp"
+                    }
+                ],
+                "size": "med",
+                "slug": "torch",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "0vbCS7nAcadsaAHn",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.VnPh324pKwd2ZB66"
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
+            "name": "Waterskin",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "QDzJDR1gu4RJu2mq",
+                "description": {
+                    "value": "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "waterskin",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "53eipkuwAhBqqEd0",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QJb8S927Yj81EgHH"
+            },
+            "img": "icons/tools/scribal/ink-quill-red.webp",
+            "name": "Writing Set",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "QDzJDR1gu4RJu2mq",
+                "description": {
+                    "value": "<p>Using a writing set, you can draft correspondence and scribe scrolls. A set includes stationery, including a variety of paper and parchment, as well as ink, a quill or inkpen, sealing wax, and a simple seal. If you've written a large amount, you can refill your kit with extra ink and paper.</p>"
+                },
+                "equipped": {
+                    "carryType": "stowed",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "writing-set",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "9CthjsR4VKqTvV4r",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
+            "sort": 0,
+            "system": {
+                "ability": {
+                    "value": "cha"
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "slug": "",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 0,
+                    "value": 0
+                },
+                "tradition": {
+                    "value": "arcane"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "3NPe5XS76RefkPIW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
+            },
+            "folder": "D7UVaOiB40wTR6kv",
+            "img": "systems/pf2e/icons/spells/detect-magic.webp",
+            "name": "Detect Magic",
+            "sort": 0,
+            "system": {
+                "area": {
+                    "type": "emanation",
+                    "value": 30
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your <em>detect magic</em> spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an <em>invisibility potion</em>) typically are detected normally.</p><hr /><p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "9CthjsR4VKqTvV4r"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "detect-magic",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "detection",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        }
+    ],
+    "name": "Mios (Level 1)",
+    "prototypeToken": {
+        "name": "Mios"
+    },
+    "system": {
+        "abilities": null,
+        "attributes": {
+            "hp": {
+                "temp": 0,
+                "value": 17
+            }
+        },
+        "build": {
+            "attributes": {
+                "boosts": {
+                    "1": [
+                        "int",
+                        "cha",
+                        "str",
+                        "con"
+                    ]
+                }
+            }
+        },
+        "details": {
+            "age": {
+                "value": ""
+            },
+            "biography": {
+                "allies": "",
+                "anathema": [],
+                "appearance": "",
+                "attitude": "",
+                "backstory": "",
+                "beliefs": "",
+                "birthPlace": "",
+                "campaignNotes": "",
+                "catchphrases": "",
+                "dislikes": "",
+                "edicts": [],
+                "enemies": "",
+                "likes": "",
+                "organizations": ""
+            },
+            "ethnicity": {
+                "value": ""
+            },
+            "gender": {
+                "value": ""
+            },
+            "height": {
+                "value": ""
+            },
+            "keyability": {
+                "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "chthonian",
+                    "necril",
+                    "varisian"
+                ]
+            },
+            "level": {
+                "value": 1
+            },
+            "nationality": {
+                "value": ""
+            },
+            "weight": {
+                "value": ""
+            },
+            "xp": {
+                "max": 1000,
+                "min": 0,
+                "value": 0
+            }
+        },
+        "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
+        "pfs": {
+            "characterNumber": null,
+            "currentFaction": "EA",
+            "levelBump": false,
+            "playerNumber": null,
+            "reputation": {
+                "EA": null,
+                "GA": null,
+                "HH": null,
+                "RO": null,
+                "VS": null,
+                "VW": null
+            },
+            "school": null
+        },
+        "resources": {
+            "heroPoints": {
+                "max": 3,
+                "value": 1
+            }
+        },
+        "skills": {
+            "arcana": {
+                "rank": 0
+            },
+            "crafting": {
+                "rank": 1
+            },
+            "deception": {
+                "rank": 1
+            },
+            "diplomacy": {
+                "rank": 1
+            },
+            "medicine": {
+                "rank": 1
+            },
+            "society": {
+                "rank": 1
+            }
+        }
+    },
+    "type": "character"
+}
