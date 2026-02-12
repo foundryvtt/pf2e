@@ -298,6 +298,13 @@ export abstract class CompendiumBrowserTab {
         );
     }
 
+    /** Adds the publication source to `publications` if available and returns a `source` option for convenience */
+    protected preparePublicationSource(pubSource: string, publications: Set<string>): string {
+        if (!pubSource) return "source:none";
+        publications.add(pubSource);
+        return `source:${sluggify(pubSource)}`;
+    }
+
     /** Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits) */
     protected sortedConfig(obj: Record<string, string>): Record<string, string> {
         return Object.fromEntries(

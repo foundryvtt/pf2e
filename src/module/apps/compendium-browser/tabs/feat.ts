@@ -1,4 +1,3 @@
-import { sluggify } from "@util";
 import * as R from "remeda";
 import { CompendiumBrowser } from "../browser.ts";
 import { ContentTabName } from "../data.ts";
@@ -61,7 +60,6 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     );
                     continue;
                 }
-                const options: string[] = [];
                 const system = featData.system;
 
                 // Accommodate deprecated featType objects
@@ -87,28 +85,24 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                         }
                     }
                 }
-                options.push(...skills.map((s) => `skill:${s}`));
-
                 const category = system.category;
                 const type = featData.type;
                 const traits: string[] = system.traits.value;
+                const pubSource = system.publication?.title ?? system.source?.value ?? "";
+                const options: string[] = [
+                    ...traits.map((t: string) => `trait:${t.replace(/^hb_/, "")}`),
+                    ...skills.map((s) => `skill:${s}`),
+                    `category:${category}`,
+                    `type:${type}`,
+                    `level:${system.level.value}`,
+                    `rarity:${system.traits.rarity}`,
+                    this.preparePublicationSource(pubSource, publications),
+                ];
+
                 // Tag ancestry items without an ancestry trait
                 if (category === "ancestry" && !traits.some((t) => t in this.#creatureTraits)) {
                     options.push("trait:ancestry:universal");
                 }
-                options.push(`category:${category}`);
-                options.push(`type:${type}`);
-                options.push(...traits.map((t: string) => `trait:${t.replace(/^hb_/, "")}`));
-
-                // Prepare source
-                const pubSource = system.publication?.title ?? system.source?.value ?? "";
-                const sourceSlug = sluggify(pubSource);
-                if (pubSource) {
-                    publications.add(pubSource);
-                    options.push(`source:${sourceSlug}`);
-                }
-                options.push(`level:${system.level.value}`);
-                options.push(`rarity:${system.traits.rarity}`);
 
                 feats.push({
                     name: featData.name,

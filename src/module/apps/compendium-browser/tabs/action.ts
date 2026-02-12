@@ -1,5 +1,4 @@
 import { getActionIcon } from "@module/sheet/helpers.ts";
-import { sluggify } from "@util";
 import * as R from "remeda";
 import { CompendiumBrowser } from "../browser.ts";
 import { ContentTabName } from "../data.ts";
@@ -51,23 +50,18 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                     );
                     continue;
                 }
-                const options: string[] = [];
+
                 const system = actionData.system;
                 // update icons for any passive actions
                 if (system.actionType.value === "passive") actionData.img = getActionIcon("passive");
-                options.push(`action-type:${system.actionType.value}`);
-                options.push(...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`));
-
-                // Prepare publication source
                 const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
-                const sourceSlug = sluggify(pubSource);
-                if (pubSource) {
-                    publications.add(pubSource);
-                    options.push(`source:${sourceSlug}`);
-                }
-
-                options.push(`type:${actionData.type}`);
-                options.push(`category:${system.category}`);
+                const options: string[] = [
+                    `action-type:${system.actionType.value}`,
+                    ...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`),
+                    `type:${actionData.type}`,
+                    `category:${system.category}`,
+                    this.preparePublicationSource(pubSource, publications),
+                ];
 
                 actions.push({
                     name: actionData.name,

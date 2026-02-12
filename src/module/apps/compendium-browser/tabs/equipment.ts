@@ -1,7 +1,6 @@
 import { Coins } from "@item/physical/helpers.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { sluggify } from "@util";
 import * as R from "remeda";
 import { CompendiumBrowser } from "../browser.ts";
 import { ContentTabName } from "../data.ts";
@@ -66,23 +65,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         );
                         continue;
                     }
-                    const options: string[] = [];
-
-                    // Store price as a number for better sorting (note: we may be dealing with old data, convert if needed)
-                    const priceValue = itemData.system.price.value;
-                    const priceCoins =
-                        typeof priceValue === "string" ? Coins.fromString(priceValue) : new Coins(priceValue);
-                    const coinValue = priceCoins.copperValue;
-                    options.push(`price:${coinValue}`);
-
-                    // Prepare publication source
                     const system = itemData.system;
-                    const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
-                    const sourceSlug = sluggify(pubSource);
-                    if (pubSource) {
-                        publications.add(pubSource);
-                        options.push(`source:${sourceSlug}`);
-                    }
 
                     // Infer magical trait from runes
                     const traits: string[] = itemData.system.traits.value ?? [];
@@ -95,12 +78,24 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     ) {
                         traits.push("magical");
                     }
-                    options.push(...traits.map((t) => `trait:${t.replace(/^hb_/, "")}`));
-                    options.push(`level:${itemData.system.level?.value ?? 0}`);
-                    options.push(`type:category:${itemData.system.category ?? "none"}`);
-                    options.push(`type:group:${itemData.system.group ?? "none"}`);
-                    options.push(`rarity:${itemData.system.traits.rarity}`);
-                    options.push(`type:${itemData.type}`);
+
+                    // Store price as a number for better sorting (note: we may be dealing with old data, convert if needed)
+                    const priceValue = system.price.value;
+                    const priceCoins =
+                        typeof priceValue === "string" ? Coins.fromString(priceValue) : new Coins(priceValue);
+                    const coinValue = priceCoins.copperValue;
+
+                    const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
+                    const options: string[] = [
+                        ...traits.map((t) => `trait:${t.replace(/^hb_/, "")}`),
+                        `price:${coinValue}`,
+                        `level:${itemData.system.level?.value ?? 0}`,
+                        `type:category:${itemData.system.category ?? "none"}`,
+                        `type:group:${itemData.system.group ?? "none"}`,
+                        `rarity:${itemData.system.traits.rarity}`,
+                        `type:${itemData.type}`,
+                        this.preparePublicationSource(pubSource, publications),
+                    ];
 
                     equipment.push({
                         name: itemData.name,

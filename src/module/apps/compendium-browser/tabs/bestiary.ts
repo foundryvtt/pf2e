@@ -1,4 +1,3 @@
-import { sluggify } from "@util";
 import { CompendiumBrowser } from "../browser.ts";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.svelte.ts";
@@ -50,21 +49,18 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                     );
                     continue;
                 }
-                const options: string[] = [];
+
                 const system = actorData.system;
-                // Prepare publication source
                 const details = system.details;
                 const pubSource = String(details.publication?.title ?? details.source?.value ?? "").trim();
-                const sourceSlug = sluggify(pubSource);
-                if (pubSource) {
-                    publications.add(pubSource);
-                    options.push(`source:${sourceSlug}`);
-                }
-                options.push(...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`));
-                options.push(`level:${system.details.level.value}`);
-                options.push(`rarity:${system.traits.rarity}`);
-                options.push(`size:${system.traits.size.value}`);
-                options.push(`type:${actorData.type}`);
+                const options: string[] = [
+                    ...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`),
+                    `level:${system.details.level.value}`,
+                    `rarity:${system.traits.rarity}`,
+                    `size:${system.traits.size.value}`,
+                    `type:${actorData.type}`,
+                    this.preparePublicationSource(pubSource, publications),
+                ];
 
                 bestiaryActors.push({
                     name: actorData.name,

@@ -1,4 +1,3 @@
-import { sluggify } from "@util";
 import { CompendiumBrowser } from "../browser.ts";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.svelte.ts";
@@ -46,22 +45,17 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                     );
                     continue;
                 }
-                const options: string[] = [];
                 const system = actorData.system;
-
-                options.push(...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`));
-                // Prepare publication source
                 const details = system.details;
                 const pubSource = String(details.publication?.title ?? details.source?.value ?? "").trim();
-                const sourceSlug = sluggify(pubSource);
-                if (pubSource) {
-                    publications.add(pubSource);
-                    options.push(`source:${sourceSlug}`);
-                }
-                options.push(`complexity:${system.details.isComplex ? "complex" : "simple"}`);
-                options.push(`level:${system.details.level.value}`);
-                options.push(`rarity:${system.traits.rarity}`);
-                options.push(`type:${actorData.type}`);
+                const options: string[] = [
+                    ...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`),
+                    `complexity:${system.details.isComplex ? "complex" : "simple"}`,
+                    `level:${system.details.level.value}`,
+                    `rarity:${system.traits.rarity}`,
+                    `type:${actorData.type}`,
+                    this.preparePublicationSource(pubSource, publications),
+                ];
 
                 hazardActors.push({
                     name: actorData.name,

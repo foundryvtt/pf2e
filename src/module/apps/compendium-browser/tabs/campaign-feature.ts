@@ -1,5 +1,4 @@
 import { KINGMAKER_CATEGORIES } from "@item/campaign-feature/values.ts";
-import { sluggify } from "@util";
 import { CompendiumBrowser } from "../browser.ts";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.svelte.ts";
@@ -45,21 +44,16 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const featData of index.filter((i) => i.type === "campaignFeature")) {
-                const options: string[] = [];
                 const system = featData.system;
 
-                options.push(...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`));
-
-                // Prepare publication source
                 const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
-                const sourceSlug = sluggify(pubSource);
-                if (pubSource) {
-                    publications.add(pubSource);
-                    options.push(`source:${sourceSlug}`);
-                }
-                options.push(`category:${system.category}`);
-                options.push(`level:${system.level?.value ?? 0}`);
-                options.push(`rarity:${system.traits.rarity}`);
+                const options: string[] = [
+                    ...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`),
+                    `category:${system.category}`,
+                    `level:${system.level?.value ?? 0}`,
+                    `rarity:${system.traits.rarity}`,
+                    this.preparePublicationSource(pubSource, publications),
+                ];
 
                 feats.push({
                     name: featData.name,

@@ -43,7 +43,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const spellData of index) {
                 if (spellData.type !== "spell") continue;
-                const options: string[] = [];
 
                 if ("system" in spellData && R.isPlainObject(spellData.system)) {
                     spellData.system.ritual ??= null;
@@ -70,10 +69,17 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     isFocusSpell ? "focus" : null,
                     isRitual ? "ritual" : null,
                 ].filter(R.isTruthy);
-                options.push(...categories.map((c) => `category:${c}`));
-                options.push(...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`));
-                // format casting time (before value is sluggified)
-                const actionGlyph = getActionGlyph(system.time.value);
+
+                const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
+                const options: string[] = [
+                    ...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`),
+                    ...system.traits.traditions.map((t: string) => `tradition:${t}`),
+                    ...categories.map((c) => `category:${c}`),
+                    `rank:${system.level.value}`,
+                    `rarity:${system.traits.rarity}`,
+                    "type:spell",
+                    this.preparePublicationSource(pubSource, publications),
+                ];
 
                 // Casting time
                 const time: unknown = system.time.value;
@@ -86,27 +92,13 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     options.push(`time:${normalizedTime}`);
                 }
 
-                options.push(...system.traits.traditions.map((t: string) => `tradition:${t}`));
-                options.push(...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`));
-
-                // Publication Source
-                const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
-                const sourceSlug = sluggify(pubSource);
-                if (pubSource) {
-                    publications.add(pubSource);
-                    options.push(`source:${sourceSlug}`);
-                }
-                options.push(`rank:${system.level.value}`);
-                options.push(`rarity:${system.traits.rarity}`);
-                options.push("type:spell");
-
                 spells.push({
                     name: spellData.name,
                     originalName: spellData.originalName, // Added by Babele
                     img: spellData.img,
                     uuid: spellData.uuid,
                     rank: system.level.value,
-                    actionGlyph,
+                    actionGlyph: getActionGlyph(system.time.value),
                     rarity: system.traits.rarity,
                     options: new Set(options),
                 });
