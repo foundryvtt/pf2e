@@ -28,7 +28,7 @@ interface TraitConfig {
     deadly?: string;
     fatal?: string;
     modular: ModularConfig[] | undefined;
-    resilient?: number;
+    resilient: number;
     thrown?: number;
     tracking?: number;
     versatile?: DamageType[];

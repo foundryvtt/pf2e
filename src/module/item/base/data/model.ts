@@ -105,6 +105,7 @@ class TraitConfigField extends PrunedSchemaField<TraitConfigSchema> {
                 }),
                 { required: false, nullable: false },
             ),
+            resilient: new fields.NumberField({ required: false, nullable: false, initial: 0, min: 0 }),
         });
     }
 }
@@ -117,6 +118,7 @@ type TraitConfigSchema = {
         false,
         false
     >;
+    resilient: fields.NumberField<number, number, false, false, true>;
 };
 
 type ModularConfigSchema = {

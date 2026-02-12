@@ -99,7 +99,7 @@ function addOrUpgradeTrait<TTrait extends ItemTrait>(
     // Get traits and annotations object to potentially upgrade
     const isArray = Array.isArray(traits);
     const value = isArray ? traits : traits.value;
-    const config = isArray ? null : (traits.config ??= { modular: undefined });
+    const config = isArray ? null : (traits.config ??= { resilient: 0, modular: undefined });
 
     // Any special non-numerical annotated trait like area or versatile. These need special handling.
     const specialTraitRegex = /^(area|versatile)-(.*)$/;
