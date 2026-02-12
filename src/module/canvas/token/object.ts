@@ -281,11 +281,17 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         );
     }
 
-    /** Reposition aura textures after this token has moved. */
-    protected override _applyRenderFlags(flags: Record<string, boolean>): void {
+    /**
+     * Reposition aura textures after this token has moved.
+     * Also propagate refreshes to child tokens such as troops.
+     */
+    override _applyRenderFlags(flags: Record<string, boolean>): void {
         super._applyRenderFlags(flags);
         if (flags.refreshPosition) this.auras.refreshPositions();
         if (flags.refreshDistanceLabel) this.#refreshDistanceLabel();
+        for (const child of this.document.childTokens) {
+            child.object?._applyRenderFlags(flags);
+        }
     }
 
     /** Draw auras and flanking highlight lines if certain conditions are met */

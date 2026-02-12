@@ -205,7 +205,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             system.attributes.hp = stat;
             setHitPointsRollOptions(this);
 
-            // Troop Thresholds
+            // Troop Thresholds and special segment token size
             const hpMax = stat.max;
             system.attributes.hp.thresholds = null;
             if (this.system.traits.value.includes("troop") && hpMax >= 3) {
@@ -214,6 +214,11 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     { hp: Math.floor((hpMax * 2) / 3), segments: 3 },
                     { hp: Math.floor(hpMax / 3), segments: 2 },
                 ];
+                this.system.traits.size = new ActorSizePF2e({
+                    value: this.system.traits.size.value,
+                    wide: 10,
+                    long: 10,
+                });
             }
         }
 

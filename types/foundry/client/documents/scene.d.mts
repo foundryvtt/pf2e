@@ -284,6 +284,7 @@ export interface EmbeddedTokenUpdateOperation<TParent extends Scene> extends Dat
     /** Is the operation undoing a previous operation, only used by embedded Documents within a Scene */
     isUndo?: boolean;
     animation?: TokenAnimationOptions;
+    animate?: boolean;
 }
 
 export type SceneTokenOperation<TParent extends Scene> = SceneEmbeddedOperation<TParent> & {

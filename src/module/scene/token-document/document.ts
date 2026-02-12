@@ -8,6 +8,7 @@ import type { Point } from "@common/_types.d.mts";
 import type {
     DatabaseCreateCallbackOptions,
     DatabaseDeleteCallbackOptions,
+    DatabaseDeleteOperation,
     DatabaseOperation,
 } from "@common/abstract/_types.d.mts";
 import type Document from "@common/abstract/document.d.mts";
@@ -36,6 +37,31 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return this.actor?.isOfType("party")
             ? this.actor.members.every((a) => game.combat?.getCombatantsByActor(a).length)
             : super.inCombat;
+    }
+
+    override get actor(): ActorPF2e<this | null> | null {
+        return (this.parentToken?.actor ?? super.actor) as ActorPF2e<this | null> | null;
+    }
+
+    override get baseActor(): ActorPF2e<null> | null {
+        return (this.parentToken?.baseActor ?? super.baseActor) as ActorPF2e<null> | null;
+    }
+
+    override get combatant(): CombatantPF2e<EncounterPF2e, this> | null {
+        return (super.combatant ?? this.parentToken?.combatant ?? null) as CombatantPF2e<EncounterPF2e, this> | null;
+    }
+
+    /** Returns the parent token if this is a troop segment */
+    get parentToken(): TokenDocumentPF2e | null {
+        const parentTokenId = this.flags[SYSTEM_ID].parentTokenId;
+        return parentTokenId ? (this.scene?.tokens.get(parentTokenId) ?? null) : null;
+    }
+
+    /** Returns tokens that are additional views of this one. used for troops */
+    get childTokens(): TokenDocumentPF2e[] {
+        return this.flags[SYSTEM_ID].hasChildTokens
+            ? (this.scene?.tokens.filter((t) => t.flags[SYSTEM_ID].parentTokenId === this.id) ?? [])
+            : [];
     }
 
     /** This should be in Foundry core, but ... */
@@ -483,6 +509,47 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
     }
 
+    static override async deleteDocuments<TDocument extends Document>(
+        this: ConstructorOf<TDocument>,
+        ids?: string[],
+        operation?: Partial<DatabaseDeleteOperation<TDocument["parent"]>>,
+    ): Promise<TDocument[]>;
+    static override async deleteDocuments(
+        ids: string[] = [],
+        operation: Partial<DatabaseDeleteOperation<ScenePF2e>> = {},
+    ): Promise<TokenDocumentPF2e[]> {
+        // If this is a troop with child tokens, we might have to perform a swap if the real one is getting deleting
+        // This keeps the real one alive for the other children to refer to
+        const scene = operation.parent;
+        const tokens = ids.map((i) => scene?.tokens.get(i)).filter((t) => !!t) ?? [];
+        const withChildren = tokens.filter((t) => t.flags[SYSTEM_ID].hasChildTokens);
+        const updates: EmbeddedDocumentUpdateData[] = [];
+        for (const token of withChildren) {
+            const sacrifice = token.childTokens.find((t) => !ids.includes(t.id));
+            if (!sacrifice) continue;
+            ids.splice(ids.indexOf(token.id), 1, sacrifice.id);
+            updates.push({ _id: token.id, x: sacrifice.x, y: sacrifice.y });
+        }
+
+        const result = (await super.deleteDocuments(ids, operation)) as TokenDocumentPF2e[];
+        if (updates.length && result) {
+            scene?.updateEmbeddedDocuments("Token", updates, { animate: false });
+        }
+        return result;
+    }
+
+    static override createCombatants(tokens: TokenDocumentPF2e[], options?: { combat?: Combat }): Promise<Combatant[]> {
+        // Overriden to redirect to parent tokens in the case of troops
+        tokens = R.unique(tokens.map((t) => t.parentToken ?? t));
+        return super.createCombatants(tokens, options);
+    }
+
+    static override deleteCombatants(tokens: TokenDocumentPF2e[], options?: { combat?: Combat }): Promise<Combatant[]> {
+        // Overriden to redirect to parent tokens in the case of troops
+        tokens = R.unique(tokens.map((t) => t.parentToken ?? t));
+        return super.deleteCombatants(tokens, options);
+    }
+
     /* -------------------------------------------- */
     /*  Event Handlers                              */
     /* -------------------------------------------- */
@@ -516,6 +583,32 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         super._onCreate(data, options, userId);
         if (game.user.id === userId && this.actor?.isOfType("loot")) {
             this.actor.toggleTokenHiding();
+        }
+
+        // Create other child tokens for troop actors. Infinite recursion is prevented by checking the parentTokenId
+        // todo: consider sqrt to determine offset count and don't hardcode thresholds if people want more customizability here
+        const { actor, object, scene } = this;
+        const isNPC = actor?.isOfType("npc");
+        const thresholds = isNPC ? actor.system.attributes.hp.thresholds : null;
+        if (scene && object && isNPC && thresholds && !this.flags[SYSTEM_ID].parentTokenId) {
+            const widthPixels = this.mechanicalBounds.width;
+            const offsets = [
+                [1, 0],
+                [0, 1],
+                [1, 1],
+            ];
+            const segments = thresholds.findLast((t) => t.hp >= actor.system.attributes.hp.value)?.segments ?? 1;
+            const newTokens = R.range(0, Math.clamp(segments, 1, 4) - 1).map((idx) => {
+                const [xOffset, yOffset] = offsets[idx];
+                return {
+                    ...R.omit(this.toObject(), ["delta"]),
+                    x: this.x + xOffset * widthPixels,
+                    y: this.y + yOffset * widthPixels,
+                    flags: { pf2e: { parentTokenId: this.id } },
+                };
+            });
+            scene.createEmbeddedDocuments("Token", newTokens);
+            this.update({ flags: { [SYSTEM_ID]: { hasChildTokens: true } } });
         }
     }
 
@@ -580,8 +673,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
     flags: TokenFlagsPF2e;
     regions: Set<RegionDocumentPF2e<NonNullable<TParent>>>;
-    get actor(): ActorPF2e<this | null> | null;
-    get combatant(): CombatantPF2e<EncounterPF2e, this> | null;
     get object(): TokenPF2e<this> | null;
     get sheet(): TokenConfigPF2e;
 }

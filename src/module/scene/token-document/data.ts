@@ -4,6 +4,10 @@ import type { TokenSchema } from "@common/documents/token.d.mts";
 
 type TokenFlagsPF2e = DocumentFlags & {
     [SYSTEM_ID]: {
+        /** If true, this token is the primary token of a troop */
+        hasChildTokens?: boolean;
+        /** The parent token of a troop segment which certain operations should defer to */
+        parentTokenId?: string;
         linkToActorSize: boolean;
         autoscale: boolean;
     };
