@@ -46,26 +46,22 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                     );
                     continue;
                 }
-                const options = new Set<string>();
+                const options: string[] = [];
                 const system = actorData.system;
 
-                for (const trait of system.traits.value) {
-                    options.add(`trait:${trait}`);
-                }
-
+                options.push(...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`));
                 // Prepare publication source
                 const details = system.details;
                 const pubSource = String(details.publication?.title ?? details.source?.value ?? "").trim();
                 const sourceSlug = sluggify(pubSource);
                 if (pubSource) {
                     publications.add(pubSource);
-                    options.add(`source:${sourceSlug}`);
+                    options.push(`source:${sourceSlug}`);
                 }
-
-                options.add(`complexity:${system.details.isComplex ? "complex" : "simple"}`);
-                options.add(`level:${system.details.level.value}`);
-                options.add(`rarity:${system.traits.rarity}`);
-                options.add(`type:${actorData.type}`);
+                options.push(`complexity:${system.details.isComplex ? "complex" : "simple"}`);
+                options.push(`level:${system.details.level.value}`);
+                options.push(`rarity:${system.traits.rarity}`);
+                options.push(`type:${actorData.type}`);
 
                 hazardActors.push({
                     name: actorData.name,
@@ -74,7 +70,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                     uuid: actorData.uuid,
                     level: actorData.system.details.level.value,
                     rarity: actorData.system.traits.rarity,
-                    options,
+                    options: new Set(options),
                 });
             }
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);

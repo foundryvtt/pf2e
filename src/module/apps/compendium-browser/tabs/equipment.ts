@@ -66,14 +66,14 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         );
                         continue;
                     }
-                    const options = new Set<string>();
+                    const options: string[] = [];
 
                     // Store price as a number for better sorting (note: we may be dealing with old data, convert if needed)
                     const priceValue = itemData.system.price.value;
                     const priceCoins =
                         typeof priceValue === "string" ? Coins.fromString(priceValue) : new Coins(priceValue);
                     const coinValue = priceCoins.copperValue;
-                    options.add(`price:${coinValue}`);
+                    options.push(`price:${coinValue}`);
 
                     // Prepare publication source
                     const system = itemData.system;
@@ -81,11 +81,11 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     const sourceSlug = sluggify(pubSource);
                     if (pubSource) {
                         publications.add(pubSource);
-                        options.add(`source:${sourceSlug}`);
+                        options.push(`source:${sourceSlug}`);
                     }
 
                     // Infer magical trait from runes
-                    const traits = itemData.system.traits.value ?? [];
+                    const traits: string[] = itemData.system.traits.value ?? [];
                     const runes = itemData.system.runes;
                     const traditionTraits: Set<string> = MAGIC_TRADITIONS;
                     if (
@@ -95,14 +95,12 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     ) {
                         traits.push("magical");
                     }
-                    for (const trait of R.unique(traits)) {
-                        options.add(`trait:${trait}`);
-                    }
-                    options.add(`level:${itemData.system.level?.value ?? 0}`);
-                    options.add(`type:category:${itemData.system.category ?? "none"}`);
-                    options.add(`type:group:${itemData.system.group ?? "none"}`);
-                    options.add(`rarity:${itemData.system.traits.rarity}`);
-                    options.add(`type:${itemData.type}`);
+                    options.push(...traits.map((t) => `trait:${t.replace(/^hb_/, "")}`));
+                    options.push(`level:${itemData.system.level?.value ?? 0}`);
+                    options.push(`type:category:${itemData.system.category ?? "none"}`);
+                    options.push(`type:group:${itemData.system.group ?? "none"}`);
+                    options.push(`rarity:${itemData.system.traits.rarity}`);
+                    options.push(`type:${itemData.type}`);
 
                     equipment.push({
                         name: itemData.name,
@@ -112,7 +110,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         level: itemData.system.level?.value ?? 0,
                         price: priceCoins,
                         rarity: itemData.system.traits.rarity,
-                        options,
+                        options: new Set(options),
                     });
                 }
             }

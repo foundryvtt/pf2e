@@ -50,7 +50,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                     );
                     continue;
                 }
-                const options = new Set<string>();
+                const options: string[] = [];
                 const system = actorData.system;
                 // Prepare publication source
                 const details = system.details;
@@ -58,17 +58,13 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                 const sourceSlug = sluggify(pubSource);
                 if (pubSource) {
                     publications.add(pubSource);
-                    options.add(`source:${sourceSlug}`);
+                    options.push(`source:${sourceSlug}`);
                 }
-
-                for (const trait of system.traits.value) {
-                    options.add(`trait:${trait.replace(/^hb_/, "")}`);
-                }
-
-                options.add(`level:${system.details.level.value}`);
-                options.add(`rarity:${system.traits.rarity}`);
-                options.add(`size:${system.traits.size.value}`);
-                options.add(`type:${actorData.type}`);
+                options.push(...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`));
+                options.push(`level:${system.details.level.value}`);
+                options.push(`rarity:${system.traits.rarity}`);
+                options.push(`size:${system.traits.size.value}`);
+                options.push(`type:${actorData.type}`);
 
                 bestiaryActors.push({
                     name: actorData.name,
@@ -77,7 +73,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                     uuid: actorData.uuid,
                     level: actorData.system.details.level.value,
                     rarity: actorData.system.traits.rarity,
-                    options,
+                    options: new Set(options),
                 });
             }
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);

@@ -51,33 +51,30 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                     );
                     continue;
                 }
-                const options = new Set<string>();
+                const options: string[] = [];
                 const system = actionData.system;
                 // update icons for any passive actions
                 if (system.actionType.value === "passive") actionData.img = getActionIcon("passive");
-                options.add(`action-type:${system.actionType.value}`);
-
-                for (const trait of system.traits.value) {
-                    options.add(`trait:${trait.replace(/^hb_/, "")}`);
-                }
+                options.push(`action-type:${system.actionType.value}`);
+                options.push(...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`));
 
                 // Prepare publication source
                 const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
                 const sourceSlug = sluggify(pubSource);
                 if (pubSource) {
                     publications.add(pubSource);
-                    options.add(`source:${sourceSlug}`);
+                    options.push(`source:${sourceSlug}`);
                 }
 
-                options.add(`type:${actionData.type}`);
-                options.add(`category:${system.category}`);
+                options.push(`type:${actionData.type}`);
+                options.push(`category:${system.category}`);
 
                 actions.push({
                     name: actionData.name,
                     originalName: actionData.originalName, // Added by Babele
                     img: actionData.img,
                     uuid: actionData.uuid,
-                    options,
+                    options: new Set(options),
                 });
             }
         }

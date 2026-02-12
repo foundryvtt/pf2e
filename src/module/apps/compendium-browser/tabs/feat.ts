@@ -61,7 +61,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     );
                     continue;
                 }
-                const options = new Set<string>();
+                const options: string[] = [];
                 const system = featData.system;
 
                 // Accommodate deprecated featType objects
@@ -87,35 +87,28 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                         }
                     }
                 }
-
-                for (const skill of skills) {
-                    options.add(`skill:${skill}`);
-                }
+                options.push(...skills.map((s) => `skill:${s}`));
 
                 const category = system.category;
                 const type = featData.type;
                 const traits: string[] = system.traits.value;
                 // Tag ancestry items without an ancestry trait
                 if (category === "ancestry" && !traits.some((t) => t in this.#creatureTraits)) {
-                    options.add("trait:ancestry:universal");
+                    options.push("trait:ancestry:universal");
                 }
-                options.add(`category:${category}`);
-                options.add(`type:${type}`);
-
-                for (const trait of traits) {
-                    options.add(`trait:${trait.replace(/^hb_/, "")}`);
-                }
+                options.push(`category:${category}`);
+                options.push(`type:${type}`);
+                options.push(...traits.map((t: string) => `trait:${t.replace(/^hb_/, "")}`));
 
                 // Prepare source
                 const pubSource = system.publication?.title ?? system.source?.value ?? "";
                 const sourceSlug = sluggify(pubSource);
                 if (pubSource) {
                     publications.add(pubSource);
-                    options.add(`source:${sourceSlug}`);
+                    options.push(`source:${sourceSlug}`);
                 }
-
-                options.add(`level:${system.level.value}`);
-                options.add(`rarity:${system.traits.rarity}`);
+                options.push(`level:${system.level.value}`);
+                options.push(`rarity:${system.traits.rarity}`);
 
                 feats.push({
                     name: featData.name,
@@ -124,7 +117,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     uuid: featData.uuid,
                     level: featData.system.level.value,
                     rarity: featData.system.traits.rarity,
-                    options,
+                    options: new Set(options),
                 });
             }
         }

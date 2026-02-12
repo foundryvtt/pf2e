@@ -45,24 +45,21 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const featData of index.filter((i) => i.type === "campaignFeature")) {
-                const options = new Set<string>();
+                const options: string[] = [];
                 const system = featData.system;
 
-                for (const trait of system.traits.value.map((t: string) => t.replace(/^hb_/, ""))) {
-                    options.add(`trait:${trait}`);
-                }
+                options.push(...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`));
 
                 // Prepare publication source
                 const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
                 const sourceSlug = sluggify(pubSource);
                 if (pubSource) {
                     publications.add(pubSource);
-                    options.add(`source:${sourceSlug}`);
+                    options.push(`source:${sourceSlug}`);
                 }
-
-                options.add(`category:${system.category}`);
-                options.add(`level:${system.level?.value ?? 0}`);
-                options.add(`rarity:${system.traits.rarity}`);
+                options.push(`category:${system.category}`);
+                options.push(`level:${system.level?.value ?? 0}`);
+                options.push(`rarity:${system.traits.rarity}`);
 
                 feats.push({
                     name: featData.name,
@@ -71,7 +68,7 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
                     uuid: featData.uuid,
                     level: featData.system.level?.value,
                     rarity: system.traits.rarity,
-                    options,
+                    options: new Set(options),
                 });
             }
         }

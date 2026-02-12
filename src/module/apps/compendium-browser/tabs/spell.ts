@@ -43,7 +43,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const spellData of index) {
                 if (spellData.type !== "spell") continue;
-                const options = new Set<string>();
+                const options: string[] = [];
 
                 if ("system" in spellData && R.isPlainObject(spellData.system)) {
                     spellData.system.ritual ??= null;
@@ -55,13 +55,14 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     );
                     continue;
                 }
+                const system = spellData.system;
 
                 // Category
-                const isCantrip = spellData.system.traits.value.includes("cantrip");
+                const isCantrip = system.traits.value.includes("cantrip");
                 const isFocusSpell =
-                    spellData.system.traits.value.includes("focus") ||
-                    (isCantrip && (spellData.system.traits.traditions ?? []).length === 0);
-                const isRitual = !!spellData.system.ritual;
+                    system.traits.value.includes("focus") ||
+                    (isCantrip && (system.traits.traditions ?? []).length === 0);
+                const isRitual = !!system.ritual;
                 const isSpell = !isCantrip && !isFocusSpell && !isRitual;
                 const categories = [
                     isSpell ? "spell" : null,
@@ -69,64 +70,45 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     isFocusSpell ? "focus" : null,
                     isRitual ? "ritual" : null,
                 ].filter(R.isTruthy);
-                for (const category of categories) {
-                    options.add(`category:${category}`);
-                }
-
+                options.push(...categories.map((c) => `category:${c}`));
+                options.push(...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`));
                 // format casting time (before value is sluggified)
-                const actionGlyph = getActionGlyph(spellData.system.time.value);
+                const actionGlyph = getActionGlyph(system.time.value);
 
                 // Casting time
-                const time: unknown = spellData.system.time.value;
+                const time: unknown = system.time.value;
                 if (time && typeof time === "string") {
                     const normalizedTime = time.toLocaleLowerCase("en").includes("reaction")
                         ? "reaction"
                         : sluggify(time);
                     times.add(normalizedTime);
-                    spellData.system.time.value = normalizedTime;
-                    options.add(`time:${normalizedTime}`);
+                    system.time.value = normalizedTime;
+                    options.push(`time:${normalizedTime}`);
                 }
 
-                for (const tradition of spellData.system.traits.traditions) {
-                    options.add(`tradition:${tradition}`);
-                }
-
-                for (const trait of spellData.system.traits.value) {
-                    options.add(`trait:${trait.replace(/^hb_/, "")}`);
-                }
-
-                const defense = spellData.system.defense;
-                if (defense?.save) {
-                    if (defense.save.basic) options.add(`defense:save:basic`);
-                    options.add(`defense:save:${defense.save.statistic}`);
-                }
-                if (defense?.passive) options.add(`defense:passive:${defense.passive.statistic.split("-")[0]}`);
-                if (!defense && options.has(`trait:attack`) && !options.has("category:ritual")) {
-                    options.add(`defense:passive:armor`);
-                }
+                options.push(...system.traits.traditions.map((t: string) => `tradition:${t}`));
+                options.push(...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`));
 
                 // Publication Source
-                const system = spellData.system;
                 const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
                 const sourceSlug = sluggify(pubSource);
                 if (pubSource) {
                     publications.add(pubSource);
-                    options.add(`source:${sourceSlug}`);
+                    options.push(`source:${sourceSlug}`);
                 }
-
-                options.add(`rank:${spellData.system.level.value}`);
-                options.add(`rarity:${spellData.system.traits.rarity}`);
-                options.add("type:spell");
+                options.push(`rank:${system.level.value}`);
+                options.push(`rarity:${system.traits.rarity}`);
+                options.push("type:spell");
 
                 spells.push({
                     name: spellData.name,
                     originalName: spellData.originalName, // Added by Babele
                     img: spellData.img,
                     uuid: spellData.uuid,
-                    rank: spellData.system.level.value,
+                    rank: system.level.value,
                     actionGlyph,
-                    rarity: spellData.system.traits.rarity,
-                    options,
+                    rarity: system.traits.rarity,
+                    options: new Set(options),
                 });
             }
         }
