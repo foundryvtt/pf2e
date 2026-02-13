@@ -503,7 +503,8 @@ class CompendiumPack {
             fs.rmSync(packDir, { recursive: true });
         }
 
-        const db = await LevelDatabase.connect(packDir, { systemId: this.systemId, packName: path.basename(packDir) });
+        const manifest = this.systemId === "pf2e" ? pf2eManifest : sf2eManifest;
+        const db = await LevelDatabase.connect(packDir, { manifest, packName: path.basename(packDir) });
         await db.createPack(this.finalizeAll(), this.folders);
         await db.close();
         console.log(`Pack "${this.id}" with ${this.data.length} entries built successfully.`);

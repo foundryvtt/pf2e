@@ -6,7 +6,6 @@ import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { tupleHasValue } from "@util";
 import type { AbstractSublevel } from "abstract-level";
 import { ClassicLevel, type DatabaseOptions } from "classic-level";
-import fs from "fs";
 import * as R from "remeda";
 import { PackError } from "./helpers.ts";
 import { PackEntry, PackManifest } from "./types.ts";
@@ -17,9 +16,7 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
     constructor(location: string, options: LevelDatabaseOptions) {
         const dbOptions = options.dbOptions ?? { keyEncoding: "utf8", valueEncoding: "json" };
         super(location, dbOptions);
-        if (!options.systemId && !options.manifest) throw PackError("No system id or manifest given");
-        this.#manifest =
-            options.manifest ?? JSON.parse(fs.readFileSync(`system.${options.systemId}.json`, { encoding: "utf-8" }));
+        this.#manifest = options.manifest;
         const { dbKey, embeddedKey } = this.#getDBKeys(options.packName);
         this.#dbkey = dbKey;
         this.#embeddedKey = embeddedKey;
@@ -184,8 +181,7 @@ interface DBFolder {
 }
 
 interface LevelDatabaseOptions {
-    systemId?: SystemId;
-    manifest?: PackManifest;
+    manifest: PackManifest;
     packName: string;
     dbOptions?: DatabaseOptions<string, DBEntry>;
 }
