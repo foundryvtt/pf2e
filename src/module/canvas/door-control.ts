@@ -18,8 +18,13 @@ export class DoorControlPF2e extends fc.containers.DoorControl {
             { x: wallDoc.c[2], y: wallDoc.c[3] },
             this.center,
         ];
+        const character = game.user.character;
+        const partyTokens =
+            character?.isOfType("creature") && character.parties.size > 0
+                ? [...character.parties].flatMap((p) => p.getActiveTokens(true, false))
+                : [];
         const isInReach = R.unique(
-            [canvas.tokens.controlled, game.user.character?.getActiveTokens(true, false) ?? []].flat(),
+            [canvas.tokens.controlled, character?.getActiveTokens(true, false) ?? [], partyTokens].flat(),
         ).some((token) => {
             const actor = token.actor;
             if (!actor?.isOwner || !actor.isOfType("creature", "party")) return false;
