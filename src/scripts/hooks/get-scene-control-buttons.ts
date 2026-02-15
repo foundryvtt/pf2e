@@ -58,7 +58,7 @@ export const GetSceneControlButtons = {
 
             // GM Vision
             const gmVisionTool = ((): SceneControlTool => {
-                const binding = game.keybindings.actions.get("pf2e.gmVision")?.editable?.[0];
+                const binding = game.keybindings.actions.get(`${SYSTEM_ID}.gmVision`)?.editable?.[0];
                 const gmVisionLabel = game.i18n.localize("PF2E.Keybinding.GMVision.Label");
                 const bindingLabel = binding ? applications.sidebar.apps.ControlsConfig.humanizeBinding(binding) : "";
                 const gmVisionIcon = (active = game.pf2e.settings.gmVision): string =>
