@@ -1,9 +1,8 @@
-import { sluggify } from "@util";
 import * as R from "remeda";
 import { CompendiumBrowser } from "../browser.ts";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.svelte.ts";
-import { CompendiumBrowserIndexData, FeatFilters, TraitData } from "./data.ts";
+import { CompendiumBrowserIndexData, FeatFilters } from "./data.ts";
 
 export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "feat";
@@ -12,7 +11,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
 
     /* MiniSearch */
     override searchFields = ["name", "originalName"];
-    override storeFields = ["type", "name", "img", "uuid", "level", "category", "skills", "traits", "rarity", "source"];
+    override storeFields = ["name", "originalName", "img", "uuid", "level", "rarity", "options"];
 
     #creatureTraits = CONFIG.PF2E.creatureTraits;
 
@@ -47,66 +46,73 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const featData of index) {
-                if (featData.type === "feat") {
-                    featData.filters = {};
-                    // Check separately for one of "system.category or "system.featType.value" to provide backward
-                    // compatible support for unmigrated feats in non-system compendiums.
-                    const categoryPaths = ["system.category", "system.featType.value"];
-                    const nonCategoryPaths = indexFields.filter((f) => !categoryPaths.includes(f));
-                    const categoryPathFound = categoryPaths.some((p) => fu.hasProperty(featData, p));
+                if (featData.type !== "feat") continue;
+                // Check separately for one of "system.category or "system.featType.value" to provide backward
+                // compatible support for unmigrated feats in non-system compendiums.
+                const categoryPaths = ["system.category", "system.featType.value"];
+                const nonCategoryPaths = indexFields.filter((f) => !categoryPaths.includes(f));
+                const categoryPathFound = categoryPaths.some((p) => fu.hasProperty(featData, p));
 
-                    if (!this.hasAllIndexFields(featData, nonCategoryPaths) || !categoryPathFound) {
-                        console.warn(
-                            `Feat "${featData.name}" does not have all required data fields.`,
-                            `Consider unselecting pack "${pack.metadata.label}" in the compendium browser settings.`,
-                        );
-                        continue;
-                    }
-
-                    // Accommodate deprecated featType objects
-                    const featType: unknown = featData.system.featType;
-                    if (R.isPlainObject(featType) && "value" in featType && typeof featType.value === "string") {
-                        featData.system.category = featType.value;
-                        delete featData.system.featType;
-                    }
-
-                    // Prerequisites are strings that could contain translated skill names
-                    const prereqs: { value: string }[] = featData.system.prerequisites.value;
-                    const prerequisitesArr = prereqs.map((prerequisite) =>
-                        prerequisite?.value ? prerequisite.value.toLowerCase() : "",
+                if (!this.hasAllIndexFields(featData, nonCategoryPaths) || !categoryPathFound) {
+                    console.warn(
+                        `Feat "${featData.name}" does not have all required data fields.`,
+                        `Consider unselecting pack "${pack.metadata.label}" in the compendium browser settings.`,
                     );
-                    const skills: Set<string> = new Set();
-                    for (const prereq of prerequisitesArr) {
-                        for (const [key, value] of Object.entries(CONFIG.PF2E.skills)) {
-                            // Check the string for the english translation key or a translated skill name
-                            const translated = game.i18n.localize(value.label).toLocaleLowerCase(game.i18n.lang);
-                            if (prereq.includes(key) || prereq.includes(translated)) {
-                                // Alawys record the translation key to enable filtering
-                                skills.add(key);
-                            }
+                    continue;
+                }
+                const system = featData.system;
+
+                // Accommodate deprecated featType objects
+                const featType: unknown = system.featType;
+                if (R.isPlainObject(featType) && "value" in featType && typeof featType.value === "string") {
+                    system.category = featType.value;
+                    delete system.featType;
+                }
+
+                // Prerequisites are strings that could contain translated skill names
+                const prereqs: { value: string }[] = system.prerequisites.value;
+                const prerequisitesArr = prereqs.map((prerequisite) =>
+                    prerequisite?.value ? prerequisite.value.toLowerCase() : "",
+                );
+                const skills: Set<string> = new Set();
+                for (const prereq of prerequisitesArr) {
+                    for (const [key, value] of Object.entries(CONFIG.PF2E.skills)) {
+                        // Check the string for the english translation key or a translated skill name
+                        const translated = game.i18n.localize(value.label).toLocaleLowerCase(game.i18n.lang);
+                        if (prereq.includes(key) || prereq.includes(translated)) {
+                            // Alawys record the translation key to enable filtering
+                            skills.add(key);
                         }
                     }
-
-                    // Prepare source
-                    const pubSource = featData.system.publication?.title ?? featData.system.source?.value ?? "";
-                    const sourceSlug = sluggify(pubSource);
-                    if (pubSource) publications.add(pubSource);
-
-                    // Only store essential data
-                    feats.push({
-                        type: featData.type,
-                        name: featData.name,
-                        originalName: featData.originalName, // Added by Babele
-                        img: featData.img,
-                        uuid: featData.uuid,
-                        level: featData.system.level.value,
-                        category: featData.system.category,
-                        skills: [...skills],
-                        traits: featData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
-                        rarity: featData.system.traits.rarity,
-                        source: sourceSlug,
-                    });
                 }
+                const category = system.category;
+                const type = featData.type;
+                const traits: string[] = system.traits.value;
+                const pubSource = system.publication?.title ?? system.source?.value ?? "";
+                const options: string[] = [
+                    ...traits.map((t: string) => `trait:${t.replace(/^hb_/, "")}`),
+                    ...skills.map((s) => `skill:${s}`),
+                    `category:${category}`,
+                    `type:${type}`,
+                    `level:${system.level.value}`,
+                    `rarity:${system.traits.rarity}`,
+                    this.preparePublicationSource(pubSource, publications),
+                ];
+
+                // Tag ancestry items without an ancestry trait
+                if (category === "ancestry" && !traits.some((t) => t in this.#creatureTraits)) {
+                    options.push("trait:ancestry:universal");
+                }
+
+                feats.push({
+                    name: featData.name,
+                    originalName: featData.originalName, // Added by Babele
+                    img: featData.img,
+                    uuid: featData.uuid,
+                    level: featData.system.level.value,
+                    rarity: featData.system.traits.rarity,
+                    options: new Set(options),
+                });
             }
         }
 
@@ -123,48 +129,6 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Finished loading feats");
     }
 
-    protected override filterTraits(
-        traits: string[],
-        selected: TraitData["selected"],
-        condition: TraitData["conjunction"],
-    ): boolean {
-        // Pre-filter the selected traits if the current ancestry item has no ancestry traits
-        if (
-            this.filterData.checkboxes.category.selected.includes("ancestry") &&
-            !traits.some((t) => t in this.#creatureTraits)
-        ) {
-            const withoutAncestryTraits = selected.filter((t) => !(t.value in this.#creatureTraits));
-            return super.filterTraits(traits, withoutAncestryTraits, condition);
-        }
-        return super.filterTraits(traits, selected, condition);
-    }
-
-    protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, source, traits, level } = this.filterData;
-
-        // Level
-        if (!(entry.level >= level.from && entry.level <= level.to)) return false;
-        // Feat types
-        if (checkboxes.category.selected.length) {
-            if (!checkboxes.category.selected.includes(entry.category)) return false;
-        }
-        // Skills
-        if (checkboxes.skills.selected.length) {
-            if (!this.arrayIncludes(checkboxes.skills.selected, entry.skills)) return false;
-        }
-        // Traits
-        if (!this.filterTraits(entry.traits, traits.selected, traits.conjunction)) return false;
-        // Source
-        if (source.selected.length) {
-            if (!source.selected.includes(entry.source)) return false;
-        }
-        // Rarity
-        if (checkboxes.rarity.selected.length) {
-            if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
-        }
-        return true;
-    }
-
     protected override prepareFilterData(): FeatFilters {
         return {
             checkboxes: {
@@ -178,6 +142,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     isExpanded: false,
                     label: "PF2E.SkillsLabel",
                     options: {},
+                    optionPrefix: "skill",
                     selected: [],
                 },
                 rarity: {

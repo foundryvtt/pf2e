@@ -1,4 +1,3 @@
-import { sluggify } from "@util";
 import { CompendiumBrowser } from "../browser.ts";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.svelte.ts";
@@ -11,7 +10,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
 
     /* MiniSearch */
     override searchFields = ["name", "originalName"];
-    override storeFields = ["type", "name", "img", "uuid", "level", "complexity", "traits", "rarity", "source"];
+    override storeFields = ["name", "originalName", "img", "uuid", "level", "rarity", "options"];
 
     protected index = ["img", "system.details.level.value", "system.details.isComplex", "system.traits"];
 
@@ -46,24 +45,26 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                     );
                     continue;
                 }
-
-                // Prepare publication source
-                const { details } = actorData.system;
+                const system = actorData.system;
+                const details = system.details;
                 const pubSource = String(details.publication?.title ?? details.source?.value ?? "").trim();
-                const sourceSlug = sluggify(pubSource);
-                if (pubSource) publications.add(pubSource);
+                const options: string[] = [
+                    ...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`),
+                    `complexity:${system.details.isComplex ? "complex" : "simple"}`,
+                    `level:${system.details.level.value}`,
+                    `rarity:${system.traits.rarity}`,
+                    `type:${actorData.type}`,
+                    this.preparePublicationSource(pubSource, publications),
+                ];
 
                 hazardActors.push({
-                    type: actorData.type,
                     name: actorData.name,
                     originalName: actorData.originalName, // Added by Babele
                     img: actorData.img,
                     uuid: actorData.uuid,
                     level: actorData.system.details.level.value,
-                    complexity: actorData.system.details.isComplex ? "complex" : "simple",
-                    traits: actorData.system.traits.value,
                     rarity: actorData.system.traits.rarity,
-                    source: sourceSlug,
+                    options: new Set(options),
                 });
             }
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
@@ -78,35 +79,15 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                 simple: "PF2E.Actor.Hazard.Simple",
                 complex: "PF2E.TraitComplex",
             },
-            false,
+            { sort: false },
         );
+        this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, {
+            sort: false,
+        });
         this.filterData.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.hazardTraits);
-        this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
         this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
 
         console.debug("PF2e System | Compendium Browser | Finished loading Hazard actors");
-    }
-
-    protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, source, traits, level } = this.filterData;
-
-        // Level
-        if (!(entry.level >= level.from && entry.level <= level.to)) return false;
-        // Complexity
-        if (checkboxes.complexity.selected.length) {
-            if (!checkboxes.complexity.selected.includes(entry.complexity)) return false;
-        }
-        // Traits
-        if (!this.filterTraits(entry.traits, traits.selected, traits.conjunction)) return false;
-        // Source
-        if (source.selected.length) {
-            if (!source.selected.includes(entry.source)) return false;
-        }
-        // Rarity
-        if (checkboxes.rarity.selected.length) {
-            if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
-        }
-        return true;
     }
 
     protected override prepareFilterData(): HazardFilters {

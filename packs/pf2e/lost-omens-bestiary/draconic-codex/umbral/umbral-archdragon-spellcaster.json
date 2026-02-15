@@ -28,6 +28,9 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
                 "slots": {
                     "slot0": {
                         "max": 5,
@@ -1696,7 +1699,7 @@
             },
             "folder": "6JF73zNhT8zbp1qC",
             "img": "systems/pf2e/icons/spells/create-undead.webp",
-            "name": "Create Undead (shadows and greater shadows only)",
+            "name": "Create Undead (Shadows and Greater Shadows Only)",
             "sort": 2300000,
             "system": {
                 "area": null,
@@ -1762,7 +1765,7 @@
             },
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/darkness.webp",
-            "name": "Darkness (at will)",
+            "name": "Darkness (At Will)",
             "sort": 2400000,
             "system": {
                 "area": {
@@ -2841,13 +2844,13 @@
                     "value": 43
                 },
                 "damageRolls": {
-                    "kttAAfaCVZeifgWB": {
-                        "damage": "2d8",
-                        "damageType": "void"
-                    },
-                    "ysRY0qmEOHIRGETH": {
+                    "0": {
                         "damage": "4d8+22",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "2d8",
+                        "damageType": "void"
                     }
                 },
                 "description": {
@@ -2969,7 +2972,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The dragon can Hide in dim light even if they don't have cover.</p>"
+                    "value": "<p>The dragon can [[/act hide]] in dim light even if they don't have cover.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3016,7 +3019,7 @@
         {
             "_id": "RLrrIwEOLeFfp7SD",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 to all saves vs. shadow",
+            "name": "+2 to All Saves vs. Shadow",
             "sort": 4400000,
             "system": {
                 "actionType": {
@@ -3172,7 +3175,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon's jaws Strikes have the benefit of a ghost touch property rune and deal an additional 8d6 force damage to undead.</p>"
+                    "value": "<p>The dragon's jaws Strikes have the benefit of a @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch] property rune and deal an additional 8d6 force damage to undead.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3219,14 +3222,25 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the dragon deals void damage to a living creature with its jaws Strike, the umbral dragon gains 20 temporary HP that last for 1 minute and the creature must succeed at a @Check[fortitude|dc:44] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure). Further damage dealt by the dragon's jaws Strike increases the drained condition value by 1 on a failed save (2 on a critical failure), to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 4}.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Drain Vigor]</p>"
+                    "value": "<p>When the dragon deals void damage to a living creature with its jaws Strike, the umbral dragon gains 20 temporary HP that last for 1 minute and the creature must succeed at a @Check[fortitude|dc:44|options:inflicts:drained] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure). Further damage dealt by the dragon's jaws Strike increases the drained condition value by 1 on a failed save (2 on a critical failure), to a maximum of drained 4.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Drain Vigor]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "target:mode:living"
+                        ],
+                        "selector": "jaws-damage",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -3250,7 +3264,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The umbral dragon exhales in one of two ways. They can't use Tenebrous Breath again for [[/gmr 1d4 #Recharge Tenebrous Breath]]{1d4 rounds}.</p><ul><li><strong>Darkness</strong> (occult, void) The dragon breathes a blast of darkness that deals @Damage[24d6[void]|options:area-damage] damage in a @Template[type:cone|distance:60] (@Check[reflex|dc:46|basic|traits:occult,void] save). Undead creatures take @Damage[24d6[force]|options:area-damage]{force} damage instead of void damage.</li><li><p><strong>Shadows</strong> (occult, shadow) The dragon breathes a blast of shadows in a @Template[type:cone|distance:60]. Each creature within the cone must attempt a @Check[fortitude|dc:46|traits:occult,shadow] save.</p>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4} for 1 round.</p>\n<p><strong>Failure</strong> The creature is enfeebled 4 for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for 1 minute and @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p></li></ul>"
+                    "value": "<p>The umbral dragon exhales in one of two ways. They can't use Tenebrous Breath again for [[/gmr 1d4 #Recharge Tenebrous Breath]]{1d4 rounds}.</p><ul><li><strong>Darkness</strong> (occult, void) The dragon breathes a blast of darkness that deals @Damage[24d6[void]|options:area-damage] damage in a @Template[type:cone|distance:60] (@Check[reflex|dc:46|basic|traits:occult,void] save). Undead creatures take @Damage[24d6[force]|options:area-damage]{force} damage instead of void damage.</li><li><p><strong>Shadows</strong> (occult, shadow) The dragon breathes a blast of shadows in a @Template[type:cone|distance:60]. Each creature within the cone must attempt a @Check[fortitude|dc:46|options:inflicts:enfeebled,inflicts:blinded|traits:occult,shadow] save.</p>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4} for 1 round.</p>\n<p><strong>Failure</strong> The creature is enfeebled 4 for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is enfeebled 4 for 1 minute and @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p></li></ul>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3293,6 +3307,9 @@
         }
     ],
     "name": "Umbral Archdragon (Spellcaster)",
+    "prototypeToken": {
+        "name": "Umbral Archdragon"
+    },
     "system": {
         "abilities": {
             "cha": {
@@ -3320,7 +3337,7 @@
                 "value": 48
             },
             "allSaves": {
-                "value": ""
+                "value": "+2 to all saves vs. shadow"
             },
             "hp": {
                 "details": "",
@@ -3329,6 +3346,9 @@
                 "value": 525
             },
             "immunities": [
+                {
+                    "type": "enfeebled"
+                },
                 {
                     "type": "paralyzed"
                 },
@@ -3377,7 +3397,7 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "greater darkvision, voidsense (precise) 60 feet",
+            "details": "voidsense (precise) 60 feet",
             "mod": 40,
             "senses": [
                 {

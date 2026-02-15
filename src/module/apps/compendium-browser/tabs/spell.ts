@@ -2,9 +2,9 @@ import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { getActionGlyph, ordinalString, sluggify } from "@util";
 import * as R from "remeda";
 import { CompendiumBrowser } from "../browser.ts";
-import { ContentTabName } from "../data.ts";
+import type { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.svelte.ts";
-import { CompendiumBrowserIndexData, SpellFilters } from "./data.ts";
+import type { CompendiumBrowserIndexData, SpellFilters } from "./data.ts";
 
 export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "spell";
@@ -13,19 +13,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
 
     /* MiniSearch */
     override searchFields = ["name", "originalName"];
-    override storeFields = [
-        "type",
-        "name",
-        "img",
-        "uuid",
-        "rank",
-        "time",
-        "traditions",
-        "traits",
-        "categories",
-        "rarity",
-        "source",
-    ];
+    override storeFields = ["name", "originalName", "img", "uuid", "rank", "rarity", "actionGlyph", "options"];
 
     constructor(browser: CompendiumBrowser) {
         super(browser);
@@ -54,71 +42,66 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         for await (const { pack, index } of data) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const spellData of index) {
-                spellData.filters = {};
+                if (spellData.type !== "spell") continue;
 
-                if (spellData.type === "spell") {
-                    if ("system" in spellData && R.isPlainObject(spellData.system)) {
-                        spellData.system.ritual ??= null;
-                    }
-
-                    if (!this.hasAllIndexFields(spellData, indexFields)) {
-                        console.warn(
-                            `Item '${spellData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
-                        );
-                        continue;
-                    }
-
-                    const isCantrip = spellData.system.traits.value.includes("cantrip");
-                    const isFocusSpell =
-                        spellData.system.traits.value.includes("focus") ||
-                        (isCantrip && (spellData.system.traits.traditions ?? []).length === 0);
-                    const isRitual = !!spellData.system.ritual;
-                    const isSpell = !isCantrip && !isFocusSpell && !isRitual;
-                    const categories = [
-                        isSpell ? "spell" : null,
-                        isCantrip ? "cantrip" : null,
-                        isFocusSpell ? "focus" : null,
-                        isRitual ? "ritual" : null,
-                    ].filter(R.isTruthy);
-
-                    // format casting time (before value is sluggified)
-                    const actionGlyph = getActionGlyph(spellData.system.time.value);
-
-                    // recording casting times
-                    const maybeTime: unknown = spellData.system.time.value;
-                    const time = ((): string | null => {
-                        if (maybeTime && typeof maybeTime === "string") {
-                            const normalizedTime = maybeTime.toLocaleLowerCase("en").includes("reaction")
-                                ? "reaction"
-                                : sluggify(maybeTime);
-                            times.add(normalizedTime);
-                            return normalizedTime;
-                        }
-                        return null;
-                    })();
-
-                    // Prepare publication source
-                    const { system } = spellData;
-                    const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
-                    const sourceSlug = sluggify(pubSource);
-                    if (pubSource) publications.add(pubSource);
-
-                    spells.push({
-                        type: spellData.type,
-                        name: spellData.name,
-                        originalName: spellData.originalName, // Added by Babele
-                        img: spellData.img,
-                        uuid: spellData.uuid,
-                        rank: spellData.system.level.value,
-                        categories,
-                        time,
-                        actionGlyph,
-                        traditions: spellData.system.traits.traditions,
-                        traits: spellData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
-                        rarity: spellData.system.traits.rarity,
-                        source: sourceSlug,
-                    });
+                if ("system" in spellData && R.isPlainObject(spellData.system)) {
+                    spellData.system.ritual ??= null;
                 }
+
+                if (!this.hasAllIndexFields(spellData, indexFields)) {
+                    console.warn(
+                        `Item '${spellData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
+                    );
+                    continue;
+                }
+                const system = spellData.system;
+
+                // Category
+                const isCantrip = system.traits.value.includes("cantrip");
+                const isFocusSpell =
+                    system.traits.value.includes("focus") ||
+                    (isCantrip && (system.traits.traditions ?? []).length === 0);
+                const isRitual = !!system.ritual;
+                const isSpell = !isCantrip && !isFocusSpell && !isRitual;
+                const categories = [
+                    isSpell ? "spell" : null,
+                    isCantrip ? "cantrip" : null,
+                    isFocusSpell ? "focus" : null,
+                    isRitual ? "ritual" : null,
+                ].filter(R.isTruthy);
+
+                const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
+                const options: string[] = [
+                    ...system.traits.value.map((t: string) => `trait:${t.replace(/^hb_/, "")}`),
+                    ...system.traits.traditions.map((t: string) => `tradition:${t}`),
+                    ...categories.map((c) => `category:${c}`),
+                    `rank:${system.level.value}`,
+                    `rarity:${system.traits.rarity}`,
+                    "type:spell",
+                    this.preparePublicationSource(pubSource, publications),
+                ];
+
+                // Casting time
+                const time: unknown = system.time.value;
+                if (time && typeof time === "string") {
+                    const normalizedTime = time.toLocaleLowerCase("en").includes("reaction")
+                        ? "reaction"
+                        : sluggify(time);
+                    times.add(normalizedTime);
+                    system.time.value = normalizedTime;
+                    options.push(`time:${normalizedTime}`);
+                }
+
+                spells.push({
+                    name: spellData.name,
+                    originalName: spellData.originalName, // Added by Babele
+                    img: spellData.img,
+                    uuid: spellData.uuid,
+                    rank: system.level.value,
+                    actionGlyph: getActionGlyph(system.time.value),
+                    rarity: system.traits.rarity,
+                    options: new Set(options),
+                });
             }
         }
         // Set indexData
@@ -133,7 +116,10 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 selected: false,
             };
         }
-        this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
+
+        this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, {
+            sort: false,
+        });
         this.filterData.traits.options = this.generateMultiselectOptions(
             R.omit(CONFIG.PF2E.spellTraits, Array.from(MAGIC_TRADITIONS)),
         );
@@ -145,7 +131,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 focus: "PF2E.TraitFocus",
                 ritual: "PF2E.Item.Spell.Ritual.Label",
             },
-            false,
+            { sort: false },
         );
 
         this.filterData.selects.timefilter.options = [...times].sort().reduce(
@@ -157,54 +143,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         );
 
         console.debug("PF2e System | Compendium Browser | Finished loading spells");
-    }
-
-    protected override filterIndexData(indexData: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, source, traits, selects } = this.filterData;
-
-        // Rank
-        if (checkboxes.rank.selected.length > 0) {
-            const ranks = checkboxes.rank.selected.map((r) => Number(r));
-            if (!ranks.includes(indexData.rank)) return false;
-        }
-
-        // Categories
-        if (
-            checkboxes.category.selected.length > 0 &&
-            !R.isShallowEqual([...checkboxes.category.selected].sort(), indexData.categories.sort())
-        ) {
-            return false;
-        }
-
-        // Casting time
-        if (selects.timefilter.selected) {
-            if (!(selects.timefilter.selected === indexData.time)) return false;
-        }
-
-        // Traditions
-        if (
-            checkboxes.traditions.selected.length > 0 &&
-            R.intersection(checkboxes.traditions.selected, indexData.traditions).length === 0
-        ) {
-            return false;
-        }
-
-        // Traits
-        if (!this.filterTraits(indexData.traits, traits.selected, traits.conjunction)) {
-            return false;
-        }
-
-        // Rarity
-        if (checkboxes.rarity.selected.length > 0) {
-            if (!checkboxes.rarity.selected.includes(indexData.rarity)) return false;
-        }
-
-        // Source
-        if (source.selected.length > 0) {
-            if (!source.selected.includes(indexData.source)) return false;
-        }
-
-        return true;
     }
 
     protected override prepareFilterData(): SpellFilters {
@@ -220,6 +158,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     isExpanded: true,
                     label: "PF2E.CompendiumBrowser.Filter.Traditions",
                     options: {},
+                    optionPrefix: "tradition",
                     selected: [],
                 },
                 rank: {
@@ -250,6 +189,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 timefilter: {
                     label: "PF2E.CompendiumBrowser.Filter.CastingTime",
                     options: {},
+                    optionPrefix: "time",
                     selected: "",
                 },
             },

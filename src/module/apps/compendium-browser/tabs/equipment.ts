@@ -1,7 +1,6 @@
 import { Coins } from "@item/physical/helpers.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { sluggify } from "@util";
 import * as R from "remeda";
 import { CompendiumBrowser } from "../browser.ts";
 import { ContentTabName } from "../data.ts";
@@ -15,20 +14,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
 
     /* MiniSearch */
     override searchFields = ["name", "originalName"];
-    override storeFields = [
-        "type",
-        "name",
-        "img",
-        "uuid",
-        "level",
-        "category",
-        "group",
-        "price",
-        "priceInCopper",
-        "traits",
-        "rarity",
-        "source",
-    ];
+    override storeFields = ["name", "originalName", "img", "uuid", "level", "price", "rarity", "options"];
 
     constructor(browser: CompendiumBrowser) {
         super(browser);
@@ -40,7 +26,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     protected override async loadData(): Promise<void> {
         console.debug("PF2e System | Compendium Browser | Started loading inventory items");
 
-        const inventoryItems: CompendiumBrowserIndexData[] = [];
+        const equipment: CompendiumBrowserIndexData[] = [];
         const itemTypes = [...PHYSICAL_ITEM_TYPES, "kit"];
         // Define index fields for different types of equipment
 
@@ -79,21 +65,10 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         );
                         continue;
                     }
-
-                    // Store price as a number for better sorting (note: we may be dealing with old data, convert if needed)
-                    const priceValue = itemData.system.price.value;
-                    const priceCoins =
-                        typeof priceValue === "string" ? Coins.fromString(priceValue) : new Coins(priceValue);
-                    const coinValue = priceCoins.copperValue;
-
-                    // Prepare publication source
-                    const { system } = itemData;
-                    const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
-                    const sourceSlug = sluggify(pubSource);
-                    if (pubSource) publications.add(pubSource);
+                    const system = itemData.system;
 
                     // Infer magical trait from runes
-                    const traits = itemData.system.traits.value ?? [];
+                    const traits: string[] = itemData.system.traits.value ?? [];
                     const runes = itemData.system.runes;
                     const traditionTraits: Set<string> = MAGIC_TRADITIONS;
                     if (
@@ -104,39 +79,50 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         traits.push("magical");
                     }
 
-                    inventoryItems.push({
-                        type: itemData.type,
+                    // Store price as a number for better sorting (note: we may be dealing with old data, convert if needed)
+                    const priceValue = system.price.value;
+                    const priceCoins =
+                        typeof priceValue === "string" ? Coins.fromString(priceValue) : new Coins(priceValue);
+                    const coinValue = priceCoins.copperValue;
+
+                    const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
+                    const options: string[] = [
+                        ...traits.map((t) => `trait:${t.replace(/^hb_/, "")}`),
+                        `price:${coinValue}`,
+                        `level:${itemData.system.level?.value ?? 0}`,
+                        `type:category:${itemData.system.category ?? "none"}`,
+                        `type:group:${itemData.system.group ?? "none"}`,
+                        `rarity:${itemData.system.traits.rarity}`,
+                        `type:${itemData.type}`,
+                        this.preparePublicationSource(pubSource, publications),
+                    ];
+
+                    equipment.push({
                         name: itemData.name,
                         originalName: itemData.originalName, // Added by Babele
                         img: itemData.img,
                         uuid: itemData.uuid,
                         level: itemData.system.level?.value ?? 0,
-                        category: itemData.system.category ?? "",
-                        group: itemData.system.group ?? "",
                         price: priceCoins,
-                        priceInCopper: coinValue,
-                        traits: R.unique(itemData.system.traits.value),
                         rarity: itemData.system.traits.rarity,
-                        source: sourceSlug,
+                        options: new Set(options),
                     });
                 }
             }
         }
 
         // Set indexData
-        this.indexData = inventoryItems;
+        this.indexData = equipment;
 
         // Filters
-        this.filterData.checkboxes.armorTypes.options = this.generateCheckboxOptions(CONFIG.PF2E.armorCategories);
-        fu.mergeObject(
-            this.filterData.checkboxes.armorTypes.options,
-            this.generateCheckboxOptions(CONFIG.PF2E.armorGroups),
-        );
-        this.filterData.checkboxes.weaponTypes.options = this.generateCheckboxOptions(CONFIG.PF2E.weaponCategories);
-        fu.mergeObject(
-            this.filterData.checkboxes.weaponTypes.options,
-            this.generateCheckboxOptions(CONFIG.PF2E.weaponGroups),
-        );
+        this.filterData.checkboxes.armorTypes.options = {
+            ...this.generateCheckboxOptions(CONFIG.PF2E.armorCategories, { prefix: "category" }),
+            ...this.generateCheckboxOptions(CONFIG.PF2E.armorGroups, { prefix: "group" }),
+        };
+        this.filterData.checkboxes.weaponTypes.options = {
+            ...this.generateCheckboxOptions(CONFIG.PF2E.weaponCategories, { prefix: "category" }),
+            ...this.generateCheckboxOptions(CONFIG.PF2E.weaponGroups, { prefix: "group" }),
+        };
 
         this.filterData.traits.options = this.generateMultiselectOptions({
             ...CONFIG.PF2E.armorTraits,
@@ -157,49 +143,12 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             backpack: "TYPES.Item.backpack",
             kit: "TYPES.Item.kit",
         });
-        this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
+        this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, {
+            sort: false,
+        });
         this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
 
         console.debug("PF2e System | Compendium Browser | Finished loading inventory items");
-    }
-
-    protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, source, traits, ranges, level } = this.filterData;
-
-        // Level
-        if (!(entry.level >= level.from && entry.level <= level.to)) return false;
-        // Price
-        if (!(entry.priceInCopper >= ranges.price.values.min && entry.priceInCopper <= ranges.price.values.max))
-            return false;
-        // Item type
-        if (checkboxes.itemTypes.selected.length > 0 && !checkboxes.itemTypes.selected.includes(entry.type)) {
-            return false;
-        }
-        // Armor
-        if (
-            checkboxes.armorTypes.selected.length > 0 &&
-            !this.arrayIncludes(checkboxes.armorTypes.selected, [entry.category, entry.group])
-        ) {
-            return false;
-        }
-        // Weapon categories
-        if (
-            checkboxes.weaponTypes.selected.length > 0 &&
-            !this.arrayIncludes(checkboxes.weaponTypes.selected, [entry.category, entry.group])
-        ) {
-            return false;
-        }
-        // Traits
-        if (!this.filterTraits(entry.traits, traits.selected, traits.conjunction)) return false;
-        // Source
-        if (source.selected.length > 0 && !source.selected.includes(entry.source)) {
-            return false;
-        }
-        // Rarity
-        if (checkboxes.rarity.selected.length > 0 && !checkboxes.rarity.selected.includes(entry.rarity)) {
-            return false;
-        }
-        return true;
     }
 
     override parseRangeFilterInput(name: string, lower: string, upper: string): RangesInputData["values"] {
@@ -229,6 +178,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     isExpanded: true,
                     label: "PF2E.CompendiumBrowser.Filter.InventoryTypes",
                     options: {},
+                    optionPrefix: "type",
                     selected: [],
                 },
                 rarity: {
@@ -241,12 +191,14 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     isExpanded: false,
                     label: "PF2E.CompendiumBrowser.Filter.ArmorFilters",
                     options: {},
+                    optionPrefix: "type",
                     selected: [],
                 },
                 weaponTypes: {
                     isExpanded: false,
                     label: "PF2E.CompendiumBrowser.Filter.WeaponFilters",
                     options: {},
+                    optionPrefix: "type",
                     selected: [],
                 },
             },

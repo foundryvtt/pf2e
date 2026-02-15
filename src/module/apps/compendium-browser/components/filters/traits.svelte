@@ -11,7 +11,7 @@
         traits: TraitData;
     }
     const { traits = $bindable() }: Props = $props();
-    const exclude = $state(new SvelteSet<string>());
+    const exclude = new SvelteSet<string>();
 
     function onChangeConjunction(event: Event & { currentTarget: HTMLInputElement }): void {
         const value = event.currentTarget.value;
@@ -54,7 +54,7 @@
     selection={traitSelection}
     onChange={onChangeTraits}
     placeholder={game.i18n.localize("PF2E.SelectLabel")}
-    value={traits.selected.map((s) => s.value)}
+    value={traits.selected.map((t) => t.value)}
 />
 <div class="filter-conjunction">
     <label class="checkbox">
@@ -102,6 +102,7 @@
                 aria-label="deslect"
                 data-action="deselect"
                 use:itemAction={opt}
+                onclick={() => exclude.delete(opt.value)}
             >
                 <svg height="16" width="16" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
                     <path
