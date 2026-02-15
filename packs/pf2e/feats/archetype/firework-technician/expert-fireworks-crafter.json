@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You're particularly adept at crafting fireworks, allowing you to create more powerful fireworks than you otherwise could. When creating fireworks displays using your advanced alchemy benefits, you create 2 fireworks displays for each of your daily consumables that you expend.</p>"
+            "value": "<p>You're particularly adept at crafting fireworks, allowing you to create more fireworks than you otherwise could. Your number of versatile vials per day increases to 5.</p>"
         },
         "level": {
             "value": 6
@@ -34,18 +34,10 @@
         },
         "rules": [
             {
-                "batchSizes": {
-                    "other": [
-                        {
-                            "batchSize": 2,
-                            "definition": [
-                                "item:slug:fireworks-display"
-                            ]
-                        }
-                    ]
-                },
-                "key": "CraftingAbility",
-                "slug": "advanced-alchemy"
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.resources.versatileVials.max",
+                "value": "4 + @item.timesTaken"
             }
         ],
         "traits": {
