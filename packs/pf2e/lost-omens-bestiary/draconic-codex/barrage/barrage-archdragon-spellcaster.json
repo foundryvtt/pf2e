@@ -2456,7 +2456,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p>The dragon emits pulses of energy that radiates outward in a @Template[type:emanation|distance:25], dealing @Damage[(3d8+3)[force]|options:area-damage] damage (@Check[reflex|dc:42|basic] save).</p>\n<p>For each action spent, a new pulse of energy is created and each subsequent pulse after the first is 5 feet larger than the previous one.</p>"
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p><hr /><p>The dragon emits pulses of energy that radiates outward in a @Template[type:emanation|distance:25], dealing @Damage[(3d8+3)[force]|options:area-damage] damage (@Check[reflex|dc:42|basic|options:area-effect] save).</p>\n<p>For each action spent, a new pulse of energy is created and each subsequent pulse after the first is 5 feet larger than the previous one.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2520,14 +2520,54 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per minute</p><hr /><p><strong>Effect</strong> The barrage archdragon transforms into pure energy and surges across the battlefield. They Fly up to their Speed, and during this movement they have resistance 30 to all damage (except spirit damage). At any point during this movement, the dragon can make up to two claw Strikes; each of these Strikes deals an additional @Damage[(3d8+3)[force]] damage.</p>"
+                    "value": "<p><strong>Frequency</strong> once per minute</p><hr /><p><strong>Effect</strong> The barrage archdragon transforms into pure energy and surges across the battlefield. They Fly up to their Speed, and during this movement they have resistance 30 to all damage (except spirit damage). At any point during this movement, the dragon can make up to two claw Strikes; each of these Strikes deals an additional 3d8+3 force damage.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1M"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "unstoppable-onslaught",
+                        "toggleable": true
+                    },
+                    {
+                        "exceptions": [
+                            "spirit"
+                        ],
+                        "key": "Resistance",
+                        "predicate": [
+                            "unstoppable-onslaught"
+                        ],
+                        "type": "all-damage",
+                        "value": 30
+                    },
+                    {
+                        "damageType": "force",
+                        "diceNumber": 3,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "unstoppable-onslaught"
+                        ],
+                        "selector": "claw-damage"
+                    },
+                    {
+                        "damageType": "force",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "unstoppable-onslaught"
+                        ],
+                        "selector": "claw-damage",
+                        "value": 3
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
