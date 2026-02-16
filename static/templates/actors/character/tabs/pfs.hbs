@@ -7,6 +7,7 @@
             <span class="dash">&ndash;</span>
             <input type="number" class="character-number details-input" id="{{options.id}}-pfs-character-number" name="system.pfs.characterNumber" value="{{data.pfs.characterNumber}}" min="2001" max="9999" placeholder="2001" />
     </section>
+    {{#unless (eq systemId "sf2e")}}
     <section class="level-bump">
         <label class="details-label" for="{{options.id}}-pfs-level-bump">{{localize "PF2E.PFS.LevelBump"}}</label>
         <div class="toggle{{#if data.pfs.levelBump}} enabled{{/if}}">
@@ -30,6 +31,7 @@
         {{/each}}
         </div>
     </section>
+    {{/unless}}
 
     <header data-group-id="pfs">
         {{localize "PF2E.FeatPFSBoonHeader"}}
