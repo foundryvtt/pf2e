@@ -220,8 +220,18 @@ class ChatCards {
                     return;
                 }
                 case "roll-area-save": {
+                    const context = message.flags[SYSTEM_ID].context;
+                    const type = tupleHasValue(["area-fire", "auto-fire"], context?.type) ? context.type : null;
                     const dc = attack && "statistic" in attack ? attack.statistic.dc : null;
-                    return this.#rollActorSaves({ event, saveType: "reflex", origin: actor, item, dc });
+                    const extraRollOptions = type ? [`origin:action:slug:${type}`] : [];
+                    return this.#rollActorSaves({
+                        event,
+                        saveType: "reflex",
+                        origin: actor,
+                        item,
+                        dc,
+                        extraRollOptions,
+                    });
                 }
                 case "roll-area-damage":
                     attack?.damage?.({ event });
@@ -329,7 +339,14 @@ class ChatCards {
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
      */
-    static async #rollActorSaves({ event, saveType, origin, item, dc }: RollActorSavesParams): Promise<void> {
+    static async #rollActorSaves({
+        event,
+        saveType,
+        origin,
+        item,
+        dc,
+        extraRollOptions,
+    }: RollActorSavesParams): Promise<void> {
         const tokens = game.user.getActiveTokens();
         if (tokens.length === 0) {
             ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
@@ -340,7 +357,7 @@ class ChatCards {
             const save = token.actor?.saves?.[saveType];
             if (!save) return;
 
-            save.check.roll({ ...eventToRollParams(event, { type: "check" }), dc, item, origin });
+            save.check.roll({ ...eventToRollParams(event, { type: "check" }), dc, item, origin, extraRollOptions });
         }
     }
 }
@@ -358,6 +375,7 @@ interface RollActorSavesParams {
     origin: ActorPF2e;
     item: ItemPF2e<ActorPF2e>;
     dc: CheckDC | CheckDCReference | null;
+    extraRollOptions?: string[];
 }
 
 export { ChatCards };
