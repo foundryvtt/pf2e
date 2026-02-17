@@ -516,7 +516,7 @@
                 "rules": [
                     {
                         "key": "Aura",
-                        "radius": 0,
+                        "radius": 90,
                         "slug": "frightful-presence",
                         "traits": [
                             "emotion",
@@ -587,7 +587,22 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "tail-lash",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "tail-lash"
+                        ],
+                        "selector": "tail-attack",
+                        "value": -2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -714,14 +729,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The bog archdragon is in a swamp and doesn't have a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] in their jaws</p><hr /><p><strong>Effect</strong> The dragon Burrows, and if they end their movement directly under a creature, they make a jaws Strike against that creature, who is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the attack.</p>\n<p>If the Strike is successful, the dragon makes an Athletics check to grapple the target with their jaws; like Grab, this check doesn't use or contribute to the archdragon's multiple attack penalty.</p>\n<p>The dragon then Burrows again; any creature they have grabbed or restrained in their jaws moves with them.</p>"
+                    "value": "<p><strong>Requirements</strong> The bog archdragon is in a swamp and doesn't have a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] in their jaws</p><hr /><p><strong>Effect</strong> The dragon Burrows, and if they end their movement directly under a creature, they make a jaws Strike against that creature, who is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the attack.</p>\n<p>If the Strike is successful, the dragon makes an Athletics check to [[/act grapple]] the target with their jaws; like Grab, this check doesn't use or contribute to the archdragon's multiple attack penalty.</p>\n<p>The dragon then Burrows again; any creature they have grabbed or restrained in their jaws moves with them.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "drag-beneath-the-muck",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "drag-beneath-the-muck"
+                        ],
+                        "selectors": [
+                            "jaws-attack",
+                            "jaws-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -743,7 +775,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon belches a boiling spray of fermenting stomach acid that deals @Damage[14d8[acid]|options:area-damage] damage and @Damage[2d6[persistent,acid]] damage in a @Template[type:cone|distance:60] (@Check[reflex|dc:41|basic] save). They can't use Nidorous Breath again for [[/gmr 1d4 #Recharge Nidorous Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon belches a boiling spray of fermenting stomach acid that deals @Damage[14d8[acid],2d6[persistent,acid]|options:area-damage] damage in a @Template[type:cone|distance:60] (@Check[reflex|dc:41|basic|options:area-effect] save). They can't use Nidorous Breath again for [[/gmr 1d4 #Recharge Nidorous Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -809,7 +841,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Large, @Damage[(3d12+11)[acid]] plus Bog Rot, Rupture [35]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Large, @Damage[(3d12+11)[acid]] plus Bog Rot, Rupture 35</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1072,7 +1104,7 @@
             }
         },
         "traits": {
-            "rarity": "uncommon",
+            "rarity": "rare",
             "size": {
                 "value": "grg"
             },

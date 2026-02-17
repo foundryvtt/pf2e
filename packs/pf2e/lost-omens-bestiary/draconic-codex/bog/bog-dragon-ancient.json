@@ -198,7 +198,7 @@
                 "rules": [
                     {
                         "key": "Aura",
-                        "radius": 0,
+                        "radius": 90,
                         "slug": "frightful-presence",
                         "traits": [
                             "emotion",
@@ -269,7 +269,22 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "tail-lash",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "tail-lash"
+                        ],
+                        "selector": "tail-attack",
+                        "value": -2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -396,7 +411,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon belches a boiling spray of fermenting stomach acid that deals @Damage[12d8[acid]|options:area-damage] damage and @Damage[2d6[persistent,acid]] damage in a @Template[type:cone|distance:60] (@Check[reflex|dc:37|basic] save). They can't use Nidorous Breath again for [[/gmr 1d4 #Recharge Nidorous Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon belches a boiling spray of fermenting stomach acid that deals @Damage[12d8[acid],2d6[persistent,acid]|options:area-damage] damage in a @Template[type:cone|distance:50] (@Check[reflex|dc:37|basic|options:area-effect] save). They can't use Nidorous Breath again for [[/gmr 1d4 #Recharge Nidorous Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -462,7 +477,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Large, @Damage[(3d12+10)[acid]] plus Bog Rot, Rupture [33]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Large, @Damage[(3d12+10)[acid]] plus Bog Rot, Rupture 33</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "publication": {
                     "license": "ORC",
