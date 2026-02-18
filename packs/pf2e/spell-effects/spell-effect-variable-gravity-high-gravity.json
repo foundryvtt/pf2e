@@ -4,7 +4,7 @@
     "name": "Spell Effect: Variable Gravity (High Gravity)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Variable Gravity]</p>\n<p>You gain a +2 status bonus to your saving throws and DCs to resist forced movement and attempts to knock you prone</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Variable Gravity]</p>\n<p>You become encumbered. You gain a +2 status bonus to your saving throws and DCs to resist forced movement and attempts to knock you prone.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,6 +22,11 @@
         },
         "rules": [
             {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Encumbered"
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
                     {
@@ -33,7 +38,10 @@
                         ]
                     }
                 ],
-                "selector": "saving-throw",
+                "selector": [
+                    "saving-throw",
+                    "saving-throw-dc"
+                ],
                 "type": "status",
                 "value": 2
             }
