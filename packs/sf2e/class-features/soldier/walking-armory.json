@@ -35,6 +35,12 @@
                             "attribute:con:mod",
                             "armor:strength"
                         ]
+                    },
+                    {
+                        "lt": [
+                            "attribute:str:mod",
+                            "armor:strength"
+                        ]
                     }
                 ],
                 "selector": "skill-check",
@@ -46,10 +52,20 @@
                 "predicate": [
                     "penalty:slug:armor-speed-penalty",
                     {
-                        "gte": [
-                            "attribute:con:mod",
-                            "armor:strength"
-                        ]
+                        "and": [
+                            {
+                                "gte": [
+                                    "attribute:con:mod",
+                                    "armor:strength"
+                                ]
+                            },
+                            {
+                                "lt": [
+                                    "attribute:str:mod",
+                                    "armor:strength"
+                                ]
+                            }
+                        ]   
                     }
                 ],
                 "selector": "speed",
