@@ -36,6 +36,9 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
 
         /** Get this token's dimensions were they linked to its actor's size */
         get dimensionsFromActorSize(): number {
+            if (this.actor?.isOfType("npc") && this.actor?.system.attributes.hp?.thresholds) {
+                return 2;
+            }
             const actorSize = this.actor?.size ?? "med";
             return {
                 tiny: 0.5,

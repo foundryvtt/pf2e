@@ -214,6 +214,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     { hp: Math.floor((hpMax * 2) / 3), segments: 3 },
                     { hp: Math.floor(hpMax / 3), segments: 2 },
                 ];
+                this.system.traits.size.wide = 10;
+                this.system.traits.size.long = 10;
             }
         }
 

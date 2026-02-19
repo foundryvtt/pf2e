@@ -8,6 +8,7 @@ import type {
     DatabaseCreateCallbackOptions,
     DatabaseCreateOperation,
     DatabaseDeleteCallbackOptions,
+    DatabaseDeleteOperation,
     DatabaseUpdateCallbackOptions,
 } from "@common/abstract/_types.d.mts";
 import type EmbeddedCollection from "@common/abstract/embedded-collection.d.mts";
@@ -352,6 +353,12 @@ interface EncounterPF2e extends Combat {
     scene: ScenePF2e;
 
     rollNPC(options: RollInitiativeOptionsPF2e): Promise<this>;
+
+    deleteEmbeddedDocuments(
+        embeddedName: "Combatant",
+        dataId: string[],
+        operation?: Partial<DatabaseDeleteOperation<this>>,
+    ): Promise<CombatantPF2e<this>[]>;
 }
 
 interface EncounterMetrics {

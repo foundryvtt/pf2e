@@ -43,6 +43,13 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return this.parent;
     }
 
+    /** Returns the other segments of a troop that exists in the current scene, or null if this token doesn't belong to a troop */
+    get segments(): TokenDocumentPF2e[] | null {
+        const troopId = this.flags[SYSTEM_ID].troop?.id;
+        if (!troopId) return [];
+        return this.scene?.tokens.filter((t) => t.flags[SYSTEM_ID].troop?.id === troopId && t.id !== this.id) ?? null;
+    }
+
     /** Is this token emitting light with a negative value */
     get emitsDarkness(): boolean {
         return this.light.bright < 0;
@@ -493,9 +500,41 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
-        if (this.actor?.allowSynthetics === false && data.actorLink === false) {
+        const { actor, object, scene } = this;
+        if (actor?.allowSynthetics === false && data.actorLink === false) {
             this._source.actorLink = true;
         }
+
+        // Create other child tokens for troop actors. Infinite recursion is prevented by checking the flags
+        const isNPC = actor?.isOfType("npc");
+        const thresholds = isNPC ? actor.system.attributes.hp.thresholds : null;
+        if (scene && object && isNPC && thresholds && !this.flags[SYSTEM_ID].troop) {
+            const troop = { id: this.actorLink ? actor.id : fu.randomID(), linked: this.actorLink };
+            this._source.actorLink = false;
+            this._source.flags = fu.mergeObject(this._source.flags, { pf2e: { troop } });
+
+            // Create segments, currently max is 4
+            const widthPixels = this.mechanicalBounds.width;
+            const offsets = [
+                [1, 0],
+                [0, 1],
+                [1, 1],
+            ];
+            const segments = thresholds.findLast((t) => t.hp >= actor.system.attributes.hp.value)?.segments ?? 1;
+            const newTokens = R.range(0, Math.clamp(segments, 1, 4) - 1).map((idx) => {
+                const object = this.toObject();
+                const [xOffset, yOffset] = offsets[idx];
+                return {
+                    ...object,
+                    actorLink: false,
+                    x: this.x + xOffset * widthPixels,
+                    y: this.y + yOffset * widthPixels,
+                    flags: { pf2e: { troop } },
+                };
+            });
+            scene.createEmbeddedDocuments("Token", newTokens);
+        }
+
         return super._preCreate(data, options, user);
     }
 
@@ -505,9 +544,16 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         options: TokenUpdateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
-        if (this.actor?.allowSynthetics === false && (data.actorLink ?? this.actorLink) === false) {
+        const actor = this.actor;
+        if (actor?.allowSynthetics === false && (data.actorLink ?? this.actorLink) === false) {
             data.actorLink = true;
         }
+
+        // Troop tokens are always synthetic
+        if (this.scene && this.object && actor?.isOfType("npc") && actor.system.attributes.hp.thresholds) {
+            data.actorLink = false;
+        }
+
         return super._preUpdate(data, options, user);
     }
 
