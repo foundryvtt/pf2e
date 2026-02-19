@@ -1560,7 +1560,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.SkillVariant.Underwater",
+                        "option": "terrain:underwater",
+                        "toggleable": true
+                    },
+                    {
+                        "acuity": "precise",
+                        "key": "Sense",
+                        "predicate": [
+                            "terrain:underwater"
+                        ],
+                        "range": 120,
+                        "selector": "echolocation"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -1641,7 +1657,6 @@
                             "action:sense-motive"
                         ],
                         "selector": "perception",
-                        "type": "status",
                         "value": 2
                     }
                 ],
@@ -1666,7 +1681,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The dragon is critically hit with a melee attack</p><hr /><p><strong>Effect</strong> The dragon focuses their weighty gaze upon their assailant, filling their foe with dread. The triggering creature takes @Damage[4d6[mental]] damage with a @Check[will|dc:26|basic] save. Any creature who fails the save also becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
+                    "value": "<p><strong>Trigger</strong> The dragon is critically hit with a melee attack</p><hr /><p><strong>Effect</strong> The dragon focuses their weighty gaze upon their assailant, filling their foe with dread. The triggering creature takes @Damage[4d6[mental]] damage with a @Check[will|dc:26|basic|options:inflicts:frightened] save. Any creature who fails the save also becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1700,7 +1715,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A creature who takes damage from a brine dragon's jaws Strike must succeed at a @Check[fortitude|dc:26] save or be @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round.</p>"
+                    "value": "<p>A creature who takes damage from a brine dragon's jaws Strike must succeed at a @Check[fortitude|dc:26|options:inflicts:enfeebled] save or be @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1731,7 +1746,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon spews a @Template[type:line|distance:50] of pressurized water that deals @Damage[8d6[bludgeoning]|options:area-damage] damage with a @Check[reflex|dc:26|basic] save. A creature that fails the save is also @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} on a critical failure) for 1 minute. The dragon can't use Crushing Breath again for [[/gmr 1d4 #Recharge Crushing Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon spews a @Template[type:line|distance:50] of pressurized water that deals @Damage[8d6[bludgeoning]|options:area-damage] damage with a @Check[reflex|dc:26|basic|options:area-effect,inflicts:clumsy] save. A creature that fails the save is also @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} on a critical failure) for 1 minute. The dragon can't use Crushing Breath again for [[/gmr 1d4 #Recharge Crushing Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1762,7 +1777,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon expels a @Template[type:burst|distance:10] of pressurized water within 120 feet that lasts for 1 minute. A creature other than a brine dragon that enters or begins their turn within a burst must succeed at a @Check[fortitude|dc:26] save or become encumbered until the beginning of their next turn.</p>"
+                    "value": "<p>The dragon expels a @Template[type:burst|distance:10] of pressurized water within 120 feet that lasts for 1 minute. A creature other than a brine dragon that enters or begins their turn within a burst must succeed at a @Check[fortitude|dc:26|options:area-effect,inflicts:encumbered] save or become @UUID[Compendium.pf2e.conditionitems.Item.Encumbered] until the beginning of their next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1789,7 +1804,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 14
+                    "value": 16
                 },
                 "proficient": {
                     "value": 0
@@ -1916,7 +1931,7 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "aquatic echolocation 120 feet",
+            "details": "(+18 to Sense Motive); aquatic echolocation 120 feet",
             "mod": 16,
             "senses": [
                 {
