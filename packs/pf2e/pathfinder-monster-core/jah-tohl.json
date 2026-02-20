@@ -1329,40 +1329,64 @@
                         "alwaysActive": true,
                         "key": "RollOption",
                         "label": "PF2E.NPCAbility.BrainCollector.BrainBlistersRemaining",
-                        "option": "brain-blisters",
-                        "selection": "7",
+                        "option": "brain-blisters-stupefied",
+                        "selection": "0",
                         "suboptions": [
                             {
+                                "label": "PF2E.SpecificRule.Numbers.Zero",
+                                "value": "7"
+                            },
+                            {
                                 "label": "PF2E.SpecificRule.Numbers.One",
-                                "value": "1"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Numbers.Two",
-                                "value": "2"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Numbers.Three",
-                                "value": "3"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Numbers.Four",
-                                "value": "4"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Numbers.Five",
-                                "value": "5"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Numbers.Six",
                                 "value": "6"
                             },
                             {
+                                "label": "PF2E.SpecificRule.Numbers.Two",
+                                "value": "5"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Numbers.Three",
+                                "value": "4"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Numbers.Four",
+                                "value": "3"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Numbers.Five",
+                                "value": "2"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Numbers.Six",
+                                "value": "1"
+                            },
+                            {
                                 "label": "PF2E.SpecificRule.Numbers.Seven",
-                                "value": "7"
+                                "value": "0"
                             }
                         ],
                         "toggleable": true,
                         "value": true
+                    },
+                    {
+                        "alterations": [
+                            {
+                                "mode": "override",
+                                "property": "badge-value",
+                                "value": "{item|flags.pf2e.rulesSelections.brainBlistersStupefied}"
+                            }
+                        ],
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            {
+                                "gt": [
+                                    "{item|flags.pf2e.rulesSelections.brainBlistersStupefied}",
+                                    0
+                                ]
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied"
                     }
                 ],
                 "slug": null,
