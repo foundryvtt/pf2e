@@ -829,14 +829,22 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The dragon rolls initiative</p><hr /><p><strong>Effect</strong> The dragon targets all enemies it can see within 60 feet with calm heightened to a rank equal to half the dragon's level rounded up (@Check[will|dc:23] save). The dragon doesn't need to Sustain this effect, but if the dragon takes any hostile action against those affected, it breaks the effect for all creatures.</p>"
+                    "value": "<p><strong>Trigger</strong> The dragon rolls initiative</p><hr /><p><strong>Effect</strong> The dragon targets all enemies it can see within @Template[emanation|distance:60]{60 feet} with @UUID[Compendium.pf2e.spells-srd.Item.Calm] heightened to a rank equal to half the dragon's level rounded up (@Check[will|dc:23] save). The dragon doesn't need to Sustain this effect, but if the dragon takes any hostile action against those affected, it breaks the effect for all creatures.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
