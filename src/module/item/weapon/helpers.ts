@@ -1,8 +1,9 @@
 import { ActorPF2e } from "@actor";
 import { ConsumablePF2e } from "@item/consumable/document.ts";
+import type { EffectAreaShape } from "@item/types.ts";
 import { nextDamageDieSize } from "@system/damage/helpers.ts";
 import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
-import { tupleHasValue } from "@util";
+import { ErrorPF2e, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { WeaponPF2e } from "./document.ts";
 
@@ -40,4 +41,33 @@ function getLoadedAmmo<T extends WeaponPF2e<A>, A extends ActorPF2e | null>(
     return R.sortBy(ammo, (i) => i.sort);
 }
 
-export { getLoadedAmmo, processTwoHandTrait, upgradeWeaponTrait };
+/** Compute the area shape and size for an area-fire or auto-fire attack from a weapon */
+function computeWeaponArea(
+    weapon: WeaponPF2e,
+    action: "area-fire" | "auto-fire",
+    fallbackRange = 5,
+): { type: EffectAreaShape; value: number } {
+    if (weapon.baseType === "grenade") {
+        const description = weapon.system.description.value;
+        const areaMatch = description.match(/Template\[burst\|distance:(?<distance>\d+)\]/);
+        const value = Number(areaMatch?.groups?.distance ?? 5);
+        return { type: "burst", value };
+    }
+
+    const itemRange = weapon.system.range || fallbackRange;
+
+    if (action === "auto-fire") {
+        return {
+            type: "cone",
+            value: Math.max(5, Math.floor(itemRange / 2) - (Math.floor(itemRange / 2) % 5)),
+        };
+    }
+
+    // Area-fire from area trait
+    const areaAnnotation = weapon.system.traits.config?.area;
+    if (!areaAnnotation) throw ErrorPF2e(`Unable to calculate area for weapon ${weapon.uuid}`);
+    const type = areaAnnotation.type;
+    return { type, value: areaAnnotation.value || (type === "burst" ? 5 : itemRange) };
+}
+
+export { computeWeaponArea, getLoadedAmmo, processTwoHandTrait, upgradeWeaponTrait };

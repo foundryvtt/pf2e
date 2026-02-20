@@ -441,8 +441,51 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                     }
                 }
 
+                // Determine which attacks to generate based on weapon type
+                const isGrenade = item.baseType === "grenade";
+                const hasAreaTrait = !!item.system.traits.config?.area;
+                const isAutomatic = item.system.traits.value.includes("automatic");
+
+                let mode: "strike" | "area" | "both" | undefined;
+                if (isGrenade) {
+                    // Grenades always generate area-fire only, no prompt needed
+                    mode = "area";
+                } else if (hasAreaTrait || isAutomatic) {
+                    const areaKey = isAutomatic ? "AutoFire" : "AreaFire";
+                    const result = await foundry.applications.api.DialogV2.wait({
+                        window: {
+                            title: "PF2E.Actor.NPC.GenerateAttack.Mode.Title",
+                            icon: "fa-solid hammer-crash",
+                        },
+                        content: "",
+                        buttons: [
+                            {
+                                action: "strike",
+                                label: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Mode.Strike"),
+                                icon: "fa-solid fa-sword",
+                                default: true,
+                                callback: () => "strike" as const,
+                            },
+                            {
+                                action: "area",
+                                label: game.i18n.localize(`PF2E.Actor.NPC.GenerateAttack.Mode.${areaKey}`),
+                                icon: "fa-solid fa-burst",
+                                callback: () => "area" as const,
+                            },
+                            {
+                                action: "both",
+                                label: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Mode.Both"),
+                                icon: "fa-solid fa-list",
+                                callback: () => "both" as const,
+                            },
+                        ],
+                    });
+                    if (!result) return; // Dialog closed without selection
+                    mode = result as "strike" | "area" | "both";
+                }
+
                 // Create actions, and either relink to existing actions or create them
-                const attacks = item.toNPCAttacks().map((a) => a.toObject());
+                const attacks = item.toNPCAttacks({ mode }).map((a) => a.toObject());
                 const missingLinks = actor.itemTypes.melee.filter((m) => !m.linkedWeapon);
                 const getComparisonSubset = (item: MeleeSource | MeleePF2e) => ({
                     name: item.name,

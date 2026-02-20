@@ -20,7 +20,7 @@ import {
     getPropertyRuneSlots,
 } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import type { RangeData } from "@item/types.ts";
+import type { EffectAreaShape, RangeData } from "@item/types.ts";
 import type { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 import { WEAPON_UPGRADES } from "@scripts/config/usage.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
@@ -28,7 +28,7 @@ import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { WeaponDamage, WeaponFlags, WeaponSource, WeaponSystemData } from "./data.ts";
-import { processTwoHandTrait } from "./helpers.ts";
+import { computeWeaponArea, processTwoHandTrait } from "./helpers.ts";
 import { WeaponTraitToggles } from "./trait-toggles.ts";
 import type {
     BaseWeaponType,
@@ -666,7 +666,10 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     /** Generate a melee item from this weapon for use by NPCs */
-    toNPCAttacks(this: WeaponPF2e<NonNullable<TParent>>, { keepId = false } = {}): MeleePF2e<NonNullable<TParent>>[] {
+    toNPCAttacks(
+        this: WeaponPF2e<NonNullable<TParent>>,
+        { keepId = false, mode }: { keepId?: boolean; mode?: "strike" | "area" | "both" } = {},
+    ): MeleePF2e<NonNullable<TParent>>[] {
         const actor = this.actor;
         if (!actor.isOfType("npc")) throw ErrorPF2e("Melee items can only be generated for NPCs");
 
@@ -791,12 +794,24 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const newTraits = toAttackTraits(this.system.traits.value);
         const isThrown = newTraits.some((t) => t.startsWith("thrown-"));
         const rangeData = { increment: this._source.system.range, max: this._source.system.maxRange };
-        const source: PreCreate<MeleeSource> = {
-            _id: keepId ? this.id : null,
+
+        // Detect weapon capabilities for area/auto-fire attacks
+        const isGrenade = this.baseType === "grenade";
+        const hasAreaTrait = !!this.system.traits.config?.area;
+        const isAutomatic = this.system.traits.value.includes("automatic");
+
+        const buildSource = (
+            action: "strike" | "area-fire" | "auto-fire",
+            area: { type: EffectAreaShape; value: number } | null,
+            useKeepId: boolean,
+        ): PreCreate<MeleeSource> => ({
+            _id: useKeepId && keepId ? this.id : null,
             name: this._source.name,
             type: "melee",
             system: {
                 slug: this.slug ?? sluggify(this._source.name),
+                action,
+                area: area ?? undefined,
                 bonus: {
                     // Unless there is a fixed attack modifier, give an attack bonus approximating a high-threat NPC
                     value: this.flags[SYSTEM_ID].fixedAttack || Math.round(1.5 * this.actor.level + 7),
@@ -815,16 +830,48 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 range: !isThrown && (rangeData.increment || rangeData.max) ? rangeData : null,
             },
             flags: { [SYSTEM_ID]: { linkedWeapon: this.id } },
+        });
+
+        const createAttack = (source: PreCreate<MeleeSource>): MeleePF2e<NonNullable<TParent>> => {
+            const attack = new ItemProxyPF2e(source, { parent: this.actor }) as MeleePF2e<NonNullable<TParent>>;
+            // Melee items retrieve these during `prepareSiblingData`, but if the attack is from a Strike rule element,
+            // there will be no inventory weapon from which to pull the data.
+            attack.category = this.category;
+            attack.group = this.group;
+            attack.baseType = this.baseType;
+            return attack;
         };
 
-        const attack = new ItemProxyPF2e(source, { parent: this.actor }) as MeleePF2e<NonNullable<TParent>>;
-        // Melee items retrieve these during `prepareSiblingData`, but if the attack is from a Strike rule element,
-        // there will be no inventory weapon from which to pull the data.
-        attack.category = this.category;
-        attack.group = this.group;
-        attack.baseType = this.baseType;
+        const attacks: MeleePF2e<NonNullable<TParent>>[] = [];
 
-        return [attack, ...this.getAltUsages({ recurse: false }).flatMap((u) => u.toNPCAttacks())];
+        if (isGrenade) {
+            // Grenades: always area-fire only (no strike possible)
+            const area = computeWeaponArea(this, "area-fire");
+            attacks.push(createAttack(buildSource("area-fire", area, true)));
+        } else if (hasAreaTrait) {
+            // Area-trait weapons: default to area-fire only, respect mode if specified
+            if (mode === "strike" || mode === "both") {
+                attacks.push(createAttack(buildSource("strike", null, mode === "strike")));
+            }
+            if (mode !== "strike") {
+                const area = computeWeaponArea(this, "area-fire");
+                attacks.push(createAttack(buildSource("area-fire", area, true)));
+            }
+        } else if (isAutomatic) {
+            // Automatic weapons: default to strike + auto-fire, respect mode if specified
+            if (mode !== "area") {
+                attacks.push(createAttack(buildSource("strike", null, true)));
+            }
+            if (mode !== "strike") {
+                const area = computeWeaponArea(this, "auto-fire");
+                attacks.push(createAttack(buildSource("auto-fire", area, mode === "area")));
+            }
+        } else {
+            // Normal weapons: always generate a strike
+            attacks.push(createAttack(buildSource("strike", null, true)));
+        }
+
+        return [...attacks, ...this.getAltUsages({ recurse: false }).flatMap((u) => u.toNPCAttacks())];
     }
 
     /** Consume a unit of ammunition used by this weapon */
