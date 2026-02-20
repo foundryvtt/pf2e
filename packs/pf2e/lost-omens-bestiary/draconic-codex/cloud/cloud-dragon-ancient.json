@@ -364,17 +364,17 @@
                     "value": 36
                 },
                 "damageRolls": {
-                    "88GILwaUitGTWZ9H": {
-                        "damage": "2d6",
-                        "damageType": "sonic"
-                    },
-                    "JrmHlhaGHpWche0f": {
+                    "0": {
                         "damage": "3d10+18",
                         "damageType": "piercing"
                     },
-                    "rOkbvPoWEo4NvbV6": {
+                    "1": {
                         "damage": "1d12",
                         "damageType": "electricity"
+                    },
+                    "2": {
+                        "damage": "2d6",
+                        "damageType": "sonic"
                     }
                 },
                 "description": {
@@ -393,6 +393,7 @@
                         "electricity",
                         "magical",
                         "reach-20",
+                        "sonic",
                         "unarmed"
                     ]
                 }
@@ -665,7 +666,15 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -756,7 +765,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon conjures up a sudden mist in a @Template[type:burst|distance:20] within 120 feet. All creatures within the mist become @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creatures outside the mist become concealed to creatures within it. The dragon can use this action again to dismiss the mist—anyone else attempting to remove the dragonmist (via gust of wind or similar) must succeed at a counteract check. An ancient dragon can have up to five clouds of dragonmist active at a time.</p>"
+                    "value": "<p>The dragon conjures up a sudden mist in a @Template[type:burst|distance:20] within 120 feet. All creatures within the mist become @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creatures outside the mist become concealed to creatures within it. The dragon can use this action again to dismiss the mist—anyone else attempting to remove the dragonmist (via @UUID[Compendium.pf2e.spells-srd.Item.Gust of Wind] or similar) must succeed at a counteract check. An ancient dragon can have up to five clouds of dragonmist active at a time.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -820,7 +829,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>With a cloud dragon's mastery of their element, creating shapes and images in a fog is child's play. All creatures within or adjacent to one cloud of dragonmist must attempt a @Check[will|dc:41] save or be @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round (on a critical failure, they are also @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}).</p>"
+                    "value": "<p>With a cloud dragon's mastery of their element, creating shapes and images in a fog is child's play. All creatures within or adjacent to one cloud of dragonmist must attempt a @Check[will|dc:41|options:inflicts:off-guard,inflicts:frightened] save or be @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round (on a critical failure, they are also @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -851,7 +860,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon breathes a thundercloud that deals @Damage[20d6[electricity]|options:area-damage] damage in a @Template[type:cone|distance:60] (@Check[reflex|dc:41|basic] save). They can't use Thundercloud Breath again for [[/gmr 1d4 #Recharge Thundercloud Breath]]{1d4 rounds}.</p>\n<p>The cloud remains in the area for [[/gmr 1d4 #rounds]]{1d4 rounds}, with the effects of Dragonmist.</p>"
+                    "value": "<p>The dragon breathes a thundercloud that deals @Damage[20d6[electricity]|options:area-damage] damage in a @Template[type:cone|distance:60] (@Check[reflex|dc:41|basic|options:area-effect] save). They can't use Thundercloud Breath again for [[/gmr 1d4 #Recharge Thundercloud Breath]]{1d4 rounds}.</p>\n<p>The cloud remains in the area for [[/gmr 1d4 #rounds]]{1d4 rounds}, with the effects of Dragonmist.</p>"
                 },
                 "publication": {
                     "license": "OGL",
