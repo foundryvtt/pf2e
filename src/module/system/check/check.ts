@@ -304,7 +304,12 @@ class Check {
             title: context.title ?? "PF2E.Check.Label",
             traits: context.traits ?? [],
             substitutions,
-            dc: context.dc ? R.omit(context.dc, ["statistic"]) : null,
+            dc: context.dc
+                ? {
+                      ...R.omit(context.dc, ["statistic"]),
+                      value: context.dc.value,
+                  }
+                : null,
             skipDialog: context.skipDialog,
             isReroll: context.isReroll ?? false,
             outcome: context.outcome ?? null,
