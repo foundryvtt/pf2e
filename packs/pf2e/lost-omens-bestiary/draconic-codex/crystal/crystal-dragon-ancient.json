@@ -217,7 +217,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature at least 10 feet away from the dragon targets them with an attack</p>\n<p><strong>Requirements</strong> The dragon is on the ground and there is at least one unoccupied square between themself and the attacker</p><hr /><p><strong>Effect</strong> The dragon conjures a thin slab of stone in an unoccupied square between themself and the attacker. The dragon gains standard cover against the triggering attack. The stone falls on the first person other than the dragon who enters that square, dealing @Damage[8d6[bludgeoning]] damage with a @Check[reflex|dc:34|basic] save. Otherwise, it crumbles harmlessly after 1 round.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature at least 10 feet away from the dragon targets them with an attack</p>\n<p><strong>Requirements</strong> The dragon is on the ground and there is at least one unoccupied square between themself and the attacker</p><hr /><p><strong>Effect</strong> The dragon conjures a thin slab of stone in an unoccupied square between themself and the attacker. The dragon gains standard @UUID[Compendium.pf2e.other-effects.Item.Effect: Cover]{Cover} against the triggering attack. The stone falls on the first person other than the dragon who enters that square, dealing @Damage[8d6[bludgeoning]] damage with a @Check[reflex|dc:34|basic] save. Otherwise, it crumbles harmlessly after 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -253,7 +253,21 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "item:damage:category:physical"
+                        ],
+                        "selector": "damage-received",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -275,7 +289,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The claws of an ancient crystal dragon embed shards that slowly turns the flesh of those they Strike to crystal. The target must succeed at a @Check[fortitude|dc:34|options:inflicts:petrified,inflicts:slowed] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure) for 1 minute. Further failed saves against crystallize increase the slowed condition. Once a creature's actions are reduced to 0 by crystallize, that creature becomes petrified, turned into crystal instead of stone.</p>"
+                    "value": "<p>The claws of an ancient crystal dragon embed shards that slowly turns the flesh of those they Strike to crystal. The target must succeed at a @Check[fortitude|dc:34|options:inflicts:petrified,inflicts:slowed] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure) for 1 minute. Further failed saves against crystallize increase the slowed condition. Once a creature's actions are reduced to 0 by crystallize, that creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Petrified], turned into crystal instead of stone.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -376,7 +390,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon strikes a pose that makes its hide sparkle in the light. Each creature within 20 feet must succeed at a @Check[fortitude|dc:34|inflicts:dazzled] save or become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>"
+                    "value": "<p>The dragon strikes a pose that makes its hide sparkle in the light. Each creature within @Template[emanation|distance:20]{20 feet} must succeed at a @Check[fortitude|dc:34|options:area-effect,inflicts:dazzled] save or become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
