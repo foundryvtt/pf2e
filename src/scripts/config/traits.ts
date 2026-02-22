@@ -1378,6 +1378,7 @@ const traitDescriptions = {
     contact: "PF2E.TraitDescriptionContact",
     contingency: "PF2E.TraitDescriptionContingency",
     contract: "PF2E.TraitDescriptionContract",
+    cosmic: "PF2E.TraitDescriptionCosmic",
     "critical-brawling": "PF2E.TraitDescriptionCritical",
     "critical-corrosive": "PF2E.TraitDescriptionCritical",
     "critical-cryo": "PF2E.TraitDescriptionCritical",
