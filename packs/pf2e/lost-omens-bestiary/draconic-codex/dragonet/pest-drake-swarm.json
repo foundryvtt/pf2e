@@ -49,7 +49,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The swarm takes damage</p><hr /><p><strong>Effect</strong> The swarm's frenzied flapping intensifies as the dragonets attempt to confuse their foes. Each creature in the swarm's space must succeed at a @Check[will|dc:28] save or become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until they are outside of the swarm's space.</p>"
+                    "value": "<p><strong>Trigger</strong> The swarm takes damage</p><hr /><p><strong>Effect</strong> The swarm's frenzied flapping intensifies as the dragonets attempt to confuse their foes. Each creature in the swarm's space must succeed at a @Check[will|dc:28|options:area-effect,inflicts:dazzled] save or become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until they are outside of the swarm's space.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -80,7 +80,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Each enemy in the pest drake swarm's space takes @Damage[3d6[piercing]] damage and @Damage[2d6[persistent,acid]] damage (@Check[reflex|dc:28|basic] save).</p>"
+                    "value": "<p>Each enemy in the pest drake swarm's space takes @Damage[3d6[piercing],2d6[persistent,acid]|options:area-damage] damage (@Check[reflex|dc:28|basic|options:area-effect] save).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -229,9 +229,13 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "darkvision",
+            "details": "",
             "mod": 19,
-            "senses": []
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {

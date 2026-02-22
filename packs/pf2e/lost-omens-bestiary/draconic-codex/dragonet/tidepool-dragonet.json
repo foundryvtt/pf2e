@@ -600,14 +600,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragonet breathes a @Template[type:line|distance:15] of superheated gas. The dragonet can use this ability underwater even though it has the fire trait. If it does, the activity gains the water trait and emerges as a @Template[type:cone|distance:20] of boiling water. Each creature in the area must succeed at a @Check[reflex|dc:20] save or take @Damage[4d6[fire]|options:area-damage] damage. The dragonet can't use Boiling Breath again for [[/gmr 1d4 #Recharge Boiling Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragonet breathes a @Template[type:line|distance:15] of superheated gas. The dragonet can use this ability underwater even though it has the fire trait. If it does, the activity gains the water trait and emerges as a @Template[type:cone|distance:20] of boiling water. Each creature in the area must succeed at a @Check[reflex|dc:20|options:area-effect] save or take @Damage[4d6[fire]|options:area-damage] damage. The dragonet can't use Boiling Breath again for [[/gmr 1d4 #Recharge Boiling Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.SkillVariant.Underwater",
+                        "option": "terrain:underwater",
+                        "toggleable": true
+                    },
+                    {
+                        "itemId": "{item|id}",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "terrain:underwater"
+                        ],
+                        "property": "traits",
+                        "value": "water"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -735,9 +752,13 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "darkvision",
+            "details": "",
             "mod": 10,
-            "senses": []
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {

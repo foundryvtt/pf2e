@@ -340,7 +340,21 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "bounce-away",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "bounce-away"
+                        ],
+                        "type": "bludgeoning",
+                        "value": 3
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -362,7 +376,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The pearl dragonet breathes a @Template[type:cone|distance:15] of golden, fortune-altering mist. The dragonet chooses fortune or misfortune when using this ability, which gains the corresponding trait.</p>\n<p>If the dragonet chooses fortune, all creatures in the mist gain a bit of luck; the first time in the next round each affected creature attempts an attack roll or skill check, they roll twice and use the better result.</p>\n<p>If the dragonet chooses misfortune, each creature in the mist must attempt a @Check[will|dc:17] save.</p>\n<p>On a failure, the first time in the next round that creature attempts an attack roll or skill check, it must roll twice and use the worse result. The dragonet can't use Fortune Fog again for [[/gmr 1d4 #Recharge Fortune Fog]]{1d4 rounds}.</p>"
+                    "value": "<p>The pearl dragonet breathes a @Template[type:cone|distance:15] of golden, fortune-altering mist. The dragonet chooses fortune or misfortune when using this ability, which gains the corresponding trait.</p>\n<p>If the dragonet chooses fortune, all creatures in the mist gain a bit of luck; the first time in the next round each affected creature attempts an attack roll or skill check, they roll twice and use the better result.</p>\n<p>If the dragonet chooses misfortune, each creature in the mist must attempt a @Check[will|dc:17|options:area-effect|traits:misfortune] save.</p>\n<p>On a failure, the first time in the next round that creature attempts an attack roll or skill check, it must roll twice and use the worse result. The dragonet can't use Fortune Fog again for [[/gmr 1d4 #Recharge Fortune Fog]]{1d4 rounds}.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Fog of Chance]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -487,9 +501,13 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "darkvision",
+            "details": "",
             "mod": 9,
-            "senses": []
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {

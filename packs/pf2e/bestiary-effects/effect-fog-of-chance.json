@@ -1,0 +1,76 @@
+{
+    "_id": "ojzyLjd9094jkTPy",
+    "img": "icons/magic/air/fog-gas-smoke-swirling-yellow.webp",
+    "name": "Effect: Fog of Chance",
+    "system": {
+        "description": {
+            "value": "<ul><li><p><strong>Fortune</strong> The first time you attempt an attack roll or skill check, you roll twice and use the better result.</p></li><li><p><strong>Misfortune</strong> The first time you attempt an attack roll or skill check, you must roll twice and use the worse result.</p></li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitFortune",
+                        "value": "fortune"
+                    },
+                    {
+                        "label": "PF2E.TraitMisfortune",
+                        "value": "misfortune"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "fog-of-chance"
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "fog-of-chance:fortune"
+                ],
+                "removeAfterRoll": true,
+                "selector": [
+                    "attack-roll",
+                    "skill-check"
+                ]
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    "fog-of-chance:misfortune"
+                ],
+                "removeAfterRoll": true,
+                "selector": [
+                    "attack-roll",
+                    "skill-check"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
