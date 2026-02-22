@@ -511,7 +511,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (scene && object && isNPC && thresholds && !this.flags[SYSTEM_ID].troop) {
             const troop = { id: this.actorLink ? actor.id : fu.randomID(), linked: this.actorLink };
             this._source.actorLink = false;
-            this._source.flags = fu.mergeObject(this._source.flags, { pf2e: { troop } });
+            this._source.flags = fu.mergeObject(this._source.flags, { [SYSTEM_ID]: { troop } });
 
             // Create segments, currently max is 4
             const widthPixels = this.mechanicalBounds.width;
@@ -529,7 +529,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                     actorLink: false,
                     x: this.x + xOffset * widthPixels,
                     y: this.y + yOffset * widthPixels,
-                    flags: { pf2e: { troop } },
+                    flags: { [SYSTEM_ID]: { troop } },
                 };
             });
             scene.createEmbeddedDocuments("Token", newTokens);
