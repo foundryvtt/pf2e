@@ -227,7 +227,7 @@
                 "slug": null,
                 "spelldc": {
                     "dc": 44,
-                    "value": 0
+                    "value": 37
                 },
                 "tradition": {
                     "value": "divine"
@@ -1362,7 +1362,7 @@
             },
             "folder": "iDjm2cXyRAe4VZ35",
             "img": "systems/pf2e/icons/spells/tongues.webp",
-            "name": "Truespeech (constant)",
+            "name": "Truespeech (Constant)",
             "sort": 1600000,
             "system": {
                 "area": null,
@@ -2840,7 +2840,8 @@
                     "value": [
                         "magical",
                         "reach-20",
-                        "sanctified"
+                        "sanctified",
+                        "unarmed"
                     ]
                 }
             },
@@ -2884,7 +2885,8 @@
                         "agile",
                         "magical",
                         "reach-15",
-                        "sanctified"
+                        "sanctified",
+                        "unarmed"
                     ]
                 }
             },
@@ -2925,7 +2927,8 @@
                     "value": [
                         "magical",
                         "reach-25",
-                        "sanctified"
+                        "sanctified",
+                        "unarmed"
                     ]
                 }
             },
@@ -2952,7 +2955,62 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "divine-sanctification",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitHoly",
+                                "value": "holy"
+                            },
+                            {
+                                "label": "PF2E.TraitUnholy",
+                                "value": "unholy"
+                            },
+                            {
+                                "label": "PF2E.GenericLabel.NoSanctification",
+                                "value": "none"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "add": [
+                            "holy"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            "divine-sanctification:holy"
+                        ]
+                    },
+                    {
+                        "add": [
+                            "unholy"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            "divine-sanctification:unholy"
+                        ]
+                    },
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            "divine-sanctification:holy"
+                        ],
+                        "type": "unholy",
+                        "value": 20
+                    },
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            "divine-sanctification:unholy"
+                        ],
+                        "type": "holy",
+                        "value": 20
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -3165,7 +3223,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon screams the truth of the divine, dealing @Damage[17d8[sonic]|options:area-damage] damage in a @Template[type:cone|distance:60] (@Check[reflex|dc:44|basic] save). They can't use Divine Utterance again for [[/gmr 1d4 #Recharge Divine Utterance]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon screams the truth of the divine, dealing @Damage[17d8[sonic]|options:area-damage] damage in a @Template[type:cone|distance:60] (@Check[reflex|dc:44|basic|options:area-effect] save). They can't use Divine Utterance again for [[/gmr 1d4 #Recharge Divine Utterance]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3241,7 +3299,7 @@
                 "value": 45
             },
             "allSaves": {
-                "value": ""
+                "value": "+2 status to all saves vs. divine"
             },
             "hp": {
                 "details": "",
@@ -3273,7 +3331,7 @@
         "details": {
             "blurb": "",
             "languages": {
-                "details": "Plus one additional language spoken by celestials, Fiends, Or monitors as appropriate, Truespeech",
+                "details": "plus one additional language spoken by celestials, fiends, or monitors as appropriate; truespeech",
                 "value": [
                     "common",
                     "draconic"
@@ -3347,7 +3405,7 @@
         "traits": {
             "rarity": "rare",
             "size": {
-                "value": "huge"
+                "value": "grg"
             },
             "value": [
                 "divine",
