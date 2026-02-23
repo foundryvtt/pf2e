@@ -1227,7 +1227,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // Test troop thresholds. If reached, snap the hp to that threshold and print a message later
         const thresholds = this.isOfType("npc") ? this.system.attributes.hp.thresholds : null;
-        const threatenedThreshold = thresholds?.find((t) => hitPoints.max > t.hp);
+        const threatenedThreshold = thresholds?.find((t) => hitPoints.value > t.hp);
         const reachedThreshold =
             threatenedThreshold && threatenedThreshold.hp >= damageResult.updates["system.attributes.hp.value"];
         if (reachedThreshold) {
