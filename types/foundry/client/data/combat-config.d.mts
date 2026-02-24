@@ -34,7 +34,7 @@ export default class CombatConfiguration {
     /**
      * Get turn marker settings.
      */
-    get turnMarker(): object;
+    get turnMarker(): { enabled: boolean; animation: string; src: string; disposition: boolean };
 
     /**
      * Get tracked resource setting.

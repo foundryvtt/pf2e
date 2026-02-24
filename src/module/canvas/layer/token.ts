@@ -26,6 +26,26 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TOb
         return super._onClickLeft(event);
     }
 
+    /** For troops it only warns if every segment is being deleted */
+    protected override async _confirmDeleteKey(documents: TObject["document"][]): Promise<boolean> {
+        const tokens = new Set(documents);
+        const inCombat = game.combats.some((combat) =>
+            combat.combatants.some((combatant) => {
+                const combatantTokens = combatant.tokens;
+                return combatantTokens.length > 0 && combatantTokens.every((t) => tokens.has(t));
+            }),
+        );
+        if (!inCombat) return true;
+        const question = game.i18n.localize("AreYouSure");
+        const warning = game.i18n.localize("TOKEN.DeleteCombatantWarning");
+        return foundry.applications.api.DialogV2.confirm({
+            window: {
+                title: game.i18n.format("DOCUMENT.Delete", { type: game.i18n.localize(TokenDocument.metadata.label) }),
+            },
+            content: `<p><strong>${question}</strong> ${warning}</p>`,
+        });
+    }
+
     /** Cycle Z indices of a hovered token stack. */
     cycleStack(): boolean {
         const hovered = this.hover;

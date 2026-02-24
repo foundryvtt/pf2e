@@ -4,7 +4,7 @@ import type { Point } from "@common/_types.d.mts";
 import type { GridOffset2D } from "@common/grid/_types.d.mts";
 import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
-import type { TokenDocumentPF2e } from "@scene";
+import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e } from "@util";
 import * as R from "remeda";
 import type { CanvasPF2e, TokenLayerPF2e } from "../index.ts";
@@ -187,6 +187,29 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         const reach = context.reach ?? actor.getReach({ action: "attack" });
 
         return actor.canAttack && reach >= this.distanceTo(flankee, { reach });
+    }
+
+    /** Adds turn markers to all troop segments as well */
+    protected override _refreshTurnMarker(): void {
+        const troopId = this.document.flags[SYSTEM_ID].troop?.id;
+        const combatant = game.combat?.combatant;
+        const tokens = combatant?.tokens;
+        if (!tokens || !troopId || tokens.length <= 1) return super._refreshTurnMarker();
+
+        const turnMarker = this.document.turnMarker;
+        const markersEnabled =
+            CONFIG.Combat.settings.turnMarker.enabled && turnMarker.mode !== CONST.TOKEN_TURN_MARKER_MODES.DISABLED;
+        const isTurn = combatant.id === this.document.combatant?.id;
+        const markersActive = markersEnabled && isTurn;
+        if (markersActive) {
+            this.turnMarker ??= this.addChildAt(new foundry.canvas.placeables.tokens.TokenTurnMarker(this), 0);
+            canvas.tokens.turnMarkers.add(this as TokenPF2e<TokenDocumentPF2e<ScenePF2e>>);
+            this.turnMarker.draw();
+        } else if (this.turnMarker) {
+            canvas.tokens.turnMarkers.delete(this as TokenPF2e<TokenDocumentPF2e<ScenePF2e>>);
+            this.turnMarker.destroy();
+            this.turnMarker = null;
+        }
     }
 
     /**

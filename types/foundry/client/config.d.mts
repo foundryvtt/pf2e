@@ -310,6 +310,7 @@ export default interface Config<
             formula: ((combatant: TCombat["turns"][number]) => string) | null;
             decimals: number;
         };
+        settings: foundry.data.CombatConfiguration;
     };
 
     /** Configuration for the JournalEntry entity */

@@ -59,6 +59,9 @@ export default class Combat extends ClientBaseCombat {
     /** Is this combat active in the current scene? */
     get isActive(): boolean;
 
+    /** Is this Combat currently being viewed? */
+    get isView(): boolean;
+
     /* -------------------------------------------- */
     /*  Methods                                     */
     /* -------------------------------------------- */
@@ -290,6 +293,9 @@ export default class Combat extends ClientBaseCombat {
      * @param [combatant]       The new active combatant
      */
     protected _getCurrentState(combatant?: Combatant<this>): CombatHistoryData;
+
+    /** Update display of Token combat turn markers. */
+    protected _updateTurnMarkers(): void;
 
     /* -------------------------------------------- */
     /*  Turn Events                                 */
