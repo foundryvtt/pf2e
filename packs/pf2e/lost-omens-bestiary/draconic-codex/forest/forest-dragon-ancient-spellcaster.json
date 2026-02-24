@@ -2868,13 +2868,13 @@
                     "value": 36
                 },
                 "damageRolls": {
-                    "GFCL7eelR41OWsvQ": {
-                        "damage": "3d6",
-                        "damageType": "poison"
-                    },
-                    "IJtSVz2dv68REbIm": {
+                    "0": {
                         "damage": "4d10+17",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "3d6",
+                        "damageType": "poison"
                     }
                 },
                 "description": {
@@ -2891,7 +2891,8 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "reach-20"
+                        "reach-20",
+                        "unarmed"
                     ]
                 }
             },
@@ -2934,7 +2935,8 @@
                     "value": [
                         "agile",
                         "magical",
-                        "reach-15"
+                        "reach-15",
+                        "unarmed"
                     ]
                 }
             },
@@ -2976,7 +2978,8 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "reach-30"
+                        "reach-30",
+                        "unarmed"
                     ]
                 }
             },
@@ -3042,7 +3045,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:trait:metal"
+                        ],
+                        "selector": "damage-received",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -3075,7 +3089,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.fedByWaterTempHP",
+                        "value": 50
+                    }
+                ],
+                "selfEffect": {
+                    "name": "Effect: Fed by Water",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Fed by Water"
+                },
                 "slug": null,
                 "traits": {
                     "value": [
@@ -3331,7 +3356,15 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "jaws-damage",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -3492,7 +3525,7 @@
                 "value": 19
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>\"Never pick a wildflower you have not paid for, unless you dare risk the wrath of a dragon.\" This saying, and its variations, reflect the trepidations continental Tian Xia holds toward the forest dragon. The botanical dragons are considered wardens over life, plants, and the element of wood. Other imperial dragons seek them for their instincts and long memory, which make forest dragons invaluable consultants and decision makers during moments of crisis.</p>\n<p>Like the rest of their imperial cousins, the forest dragon likely originated from the elemental plane they embody, namely the Plane of Wood. That some forest dragons yet reside in the recently returned Eternal Forest supports this theory, though this only answers the location of origin, not how the dragons came to be. The Elemental Lord Shumunue might resemble a forest dragon, but she is not one herself, so the mystery of the dragons' progenitor remains unanswered to this day.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
