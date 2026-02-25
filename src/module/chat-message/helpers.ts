@@ -6,6 +6,7 @@ import { extractEphemeralEffects } from "@module/rules/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { ErrorPF2e, getActionGlyph, htmlQuery, htmlQueryAll, tupleHasValue } from "@util";
 import { traitSlugToObject } from "@util/tags.ts";
+import * as R from "remeda";
 import { ChatContextFlag, ChatMessageFlagsPF2e, CheckContextChatFlag } from "./data.ts";
 import { ChatMessagePF2e } from "./document.ts";
 
@@ -104,7 +105,7 @@ async function applyDamageFromMessage({
         ? messageItem.getRollOptions("item")
         : [];
 
-    for (const token of tokens) {
+    for (const token of R.uniqueBy(tokens, (t) => t.flags[SYSTEM_ID].troop?.id ?? t)) {
         if (!token.actor) continue;
         // Add roll option for ally/enemy status
         if (token.actor.alliance && message.actor) {

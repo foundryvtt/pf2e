@@ -121,6 +121,18 @@ class ScenePF2e extends Scene {
         this.updateEmbeddedDocuments("Token", entries, { animation: { movementSpeed: 1.5 } });
     }, 0);
 
+    override async view(): Promise<this> {
+        await super.view();
+
+        // Reset all troop actors on scene change in case some of them need to poach rule elements from siblings
+        // This is mostly needed for drained
+        for (const token of this.tokens.filter((t) => !!t.flags[SYSTEM_ID].troop)) {
+            token.actor?.reset();
+        }
+
+        return this;
+    }
+
     /* -------------------------------------------- */
     /*  Event Handlers                              */
     /* -------------------------------------------- */

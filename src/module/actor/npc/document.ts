@@ -1,4 +1,5 @@
 import { CreaturePF2e } from "@actor";
+import type { ActorUpdateCallbackOptions, ActorUpdateOperation } from "@actor/base.ts";
 import type { Abilities } from "@actor/creature/data.ts";
 import type { CreatureUpdateCallbackOptions } from "@actor/creature/index.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
@@ -20,10 +21,15 @@ import { TextEditorPF2e } from "@system/text-editor.ts";
 import { createHTMLElement, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
 import type { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
+import { ResetBatch } from "./reset-batch.ts";
 import type { VariantCloneParams } from "./types.ts";
 
 class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     declare initiative: ActorInitiative;
+    /** If this is a troop, contains the actors of the other troop segments in the current scene */
+    declare otherSegments: NPCPF2e[] | null;
+
+    static #resetBatch = new ResetBatch();
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...super.allowedItemTypes, "physical", "spellcastingEntry", "spell", "action", "melee", "lore"];
@@ -79,6 +85,10 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
+
+        const token = this.getActiveTokens().at(0)?.document;
+        this.otherSegments =
+            token?.segments?.map((t) => t.actor).filter((a): a is NPCPF2e => !!a?.isOfType("npc")) ?? null;
 
         this.flags[SYSTEM_ID].lootable ??= false;
         this.system.actions = [];
@@ -190,6 +200,10 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     modifier.modifier *= this.level;
                     return modifier;
                 }),
+                // Grab HP
+                this.otherSegments?.flatMap((a) => [
+                    ...extractModifiers(a.synthetics, ["hp"], { test: a.getRollOptions(["hp"]) }),
+                ]) ?? [],
             ].flat();
 
             const hpData = fu.deepClone(system.attributes.hp);
@@ -591,7 +605,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: CreatureUpdateCallbackOptions,
+        options: CreatureUpdateCallbackOptions & { fromTroop?: boolean },
         user: fd.BaseUser,
     ): Promise<boolean | void> {
         const result = await super._preUpdate(changed, options, user);
@@ -599,6 +613,16 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         if (isFullReplace || result === false || !changed.system) return result;
 
         this.#updatePrototypeToken(changed);
+
+        // Propagate HP updates to all sibling segments as well
+        const hpUpdates = changed.system.attributes?.hp;
+        if (hpUpdates && !options.fromTroop && this.otherSegments) {
+            for (const actor of this.otherSegments) {
+                if (actor?.isOfType("npc")) {
+                    actor.update({ "system.attributes.hp": hpUpdates }, { fromTroop: true });
+                }
+            }
+        }
 
         if (changed.system.skills) {
             for (const [key, skill] of Object.entries(changed.system.skills)) {
@@ -609,6 +633,24 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     fu.mergeObject(skill, { "-=note": null });
                 }
             }
+        }
+    }
+
+    override _onUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: ActorUpdateCallbackOptions,
+        userId: string,
+    ): void {
+        super._onUpdate(changed, options, userId);
+        for (const troop of this.otherSegments ?? []) {
+            NPCPF2e.#resetBatch.reset(troop);
+        }
+    }
+
+    protected override _onEmbeddedDocumentChange(): void {
+        super._onEmbeddedDocumentChange();
+        for (const troop of this.otherSegments ?? []) {
+            NPCPF2e.#resetBatch.reset(troop);
         }
     }
 
@@ -632,6 +674,11 @@ interface NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
     flags: NPCFlags;
     readonly _source: NPCSource;
     system: NPCSystemData;
+
+    update(
+        data: Record<string, unknown>,
+        operation?: Partial<ActorUpdateOperation<TParent>> & { fromTroop?: boolean },
+    ): Promise<this | undefined>;
 }
 
 export { NPCPF2e };
