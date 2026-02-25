@@ -465,11 +465,9 @@ class PackExtractor {
                         } else if (docSource.prototypeToken) {
                             const { name, ring, texture } = docSource.prototypeToken;
                             const prototypeToken: DeepPartial<foundry.data.PrototypeTokenSource> = { name };
-                            // Iconics have special tokens
-                            if (docSource.img?.includes("iconics")) {
-                                prototypeToken.texture = {
-                                    src: docSource.img.replace("Full", "") as ImageFilePath,
-                                };
+                            // Iconics may have tokens
+                            if (texture.src?.includes("iconics")) {
+                                prototypeToken.texture = { src: texture.src };
                                 const scale = texture?.scaleX ?? 1;
                                 if (scale !== 1) {
                                     prototypeToken.texture.scaleX = scale;
