@@ -103,7 +103,7 @@ function generateEncounterBudgets(partySize: number): EncounterBudgets {
 
 function getXPCharacterAdjustment(partySize: number, rating: string): number {
     const partySizeAdjustment = 4 - partySize;
-    return partySizeAdjustment * xpCharacterAdjustment.get(rating)
+    return partySizeAdjustment * (xpCharacterAdjustment.get(rating) ?? 0)
 }
 
 const rewardEncounterBudgets = generateEncounterBudgets(4);
