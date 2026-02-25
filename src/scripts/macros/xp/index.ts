@@ -50,6 +50,14 @@ const xpSimpleHazardDifferences = new Map([
     [4, 32],
 ]);
 
+const xpCharacterAdjustment = new Map([
+    ['trivial', 10],
+    ['low', 20],
+    ['moderate', 20],
+    ['severe', 30],
+    ['extreme', 40],
+])
+
 function getXPFromMap(partyLevel: number, entityLevel: number, values: Map<number, number>): number {
     // add +1 to all levels to account for -1 levels
     const difference = entityLevel + 1 - (partyLevel + 1);
@@ -83,14 +91,19 @@ export interface EncounterBudgets {
 }
 
 function generateEncounterBudgets(partySize: number): EncounterBudgets {
-    const budget = partySize * 20;
+    const baseBudget = 80;
     return {
-        trivial: Math.floor(budget * 0.5),
-        low: Math.floor(budget * 0.75),
-        moderate: budget,
-        severe: Math.floor(budget * 1.5),
-        extreme: Math.floor(budget * 2),
+        trivial: Math.floor(baseBudget * 0.5) + getXPCharacterAdjustment(partySize, 'trivial'),
+        low: Math.floor(baseBudget * 0.75) + getXPCharacterAdjustment(partySize, 'low'),
+        moderate: baseBudget + getXPCharacterAdjustment(partySize, 'moderate'),
+        severe: Math.floor(baseBudget * 1.5) + getXPCharacterAdjustment(partySize, 'severe'),
+        extreme: Math.floor(baseBudget * 2) + getXPCharacterAdjustment(partySize, 'extreme'),
     };
+}
+
+function getXPCharacterAdjustment(partySize: number, rating: string): number {
+    const partySizeAdjustment = 4 - partySize;
+    return partySizeAdjustment * xpCharacterAdjustment.get(rating)
 }
 
 const rewardEncounterBudgets = generateEncounterBudgets(4);
@@ -143,6 +156,7 @@ function calculateXP(
     const encounterBudgets = generateEncounterBudgets(partySize);
     const rating = calculateEncounterRating(totalXP, encounterBudgets);
     const ratingXP = rewardEncounterBudgets[rating];
+    const xpAwardCharacterAdjustment = getXPCharacterAdjustment(partySize, rating)
     return {
         partyLevel,
         partySize,
@@ -150,7 +164,7 @@ function calculateXP(
         encounterBudgets,
         rating,
         ratingXP,
-        xpPerPlayer: Math.floor((totalXP / partySize) * 4),
+        xpPerPlayer: totalXP - xpAwardCharacterAdjustment,
     };
 }
 
