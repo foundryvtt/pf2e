@@ -1,0 +1,68 @@
+{
+    "_id": "OXZHwDQVxDXxEYTv",
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Token of Salt and Earth",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This charm is usually worn around the neck or hanging from a belt. It consists of a three-part hourglass with individual glass bulbs filled with sea salts, charcoal ash, and minute slivers of silver. It grants the wearer a +1 item bonus to Stealth checks to Hide and Sneak from creatures with the unholy trait.</p>\n<p><strong>Activate—Hide from the Hateful</strong> <span class=\"action-glyph\">2</span> (illusion, manipulate, occult, subtle)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> By rotating the charm along one of its concentric rings, you become @UUID[Compendium.pf2e.conditionitems.Item.Invisible] to creatures with the fiend, fey, or undead trait (your choice) for 1 minute. If you use a hostile action, you're no longer invisible after the action is completed.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 6
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 225
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hellbreakers"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:sneak",
+                            "action:hide"
+                        ]
+                    },
+                    "target:trait:unholy"
+                ],
+                "selector": [
+                    "stealth"
+                ],
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worn"
+        }
+    },
+    "type": "equipment"
+}

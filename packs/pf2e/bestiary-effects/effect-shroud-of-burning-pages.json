@@ -1,0 +1,55 @@
+{
+    "_id": "iFPNXFOCYHIxIKBw",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Shroud of Burning Pages",
+    "system": {
+        "description": {
+            "value": "<p>The odvolos is surrounded by an aura of burning paper and scorched parchment, which provides concealment as if it was smoke. A creature within the aura takes a –2 circumstance penalty to Perception checks, and a creature that ends its turn in the aura must succeed at a @Check[reflex|dc:22] save or any items with written information held or carried by the creature takes @Damage[1d4[persistent,fire]] damage. Magical items and religious texts are immune to this effect.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hellbreakers"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "fevered-consciousness"
+                    }
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

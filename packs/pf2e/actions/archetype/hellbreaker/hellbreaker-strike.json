@@ -1,0 +1,83 @@
+{
+    "_id": "ASt94swgHlproIcd",
+    "folder": "Bx6BAtidAXgkxeSr",
+    "img": "systems/pf2e/icons/actions/TwoActions.webp",
+    "name": "Hellbreaker Strike",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>Make a weapon or unarmed Strike. This counts as two attacks when determining your multiple attack penalty. If your Strike hits, you deal an additional 2d8 spirit damage. At 18th level, this increases to 3d8 spirit damage.</p>"
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "hellbreaker-strike",
+                "toggleable": true
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 2,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "hellbreaker-strike"
+                ],
+                "selector": "strike-damage",
+                "slug": "hellbreaker-strike"
+            },
+            {
+                "key": "DamageAlteration",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            18
+                        ]
+                    }
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "hellbreaker-strike",
+                "value": 1
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:category:unarmed",
+                            "item:category:simple",
+                            "item:category:martial",
+                            "item:category:advanced"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "hellbreaker-strike"
+                ],
+                "property": "traits",
+                "value": "holy"
+            }
+        ],
+        "traits": {
+            "value": [
+                "holy"
+            ]
+        }
+    },
+    "type": "action"
+}

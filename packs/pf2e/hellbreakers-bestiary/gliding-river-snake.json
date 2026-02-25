@@ -1,0 +1,353 @@
+{
+    "_id": "7Bi8RASEG7d3tJ3I",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "x5BNMLtDmibgtNuK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "gliding-river-snake-venom"
+                    ]
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "mX7rMhX9JPyTUmAQ": {
+                        "damage": "1d6+2",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "YXW8vAweitq3vR5X",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Deep Breath",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The gliding river snake can hold its breath for about an hour.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "flags.pf2e.remainingAir.rounds",
+                        "value": 600
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UJDAKUDu0upkZ5Dz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Aerial Ambush",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The gliding river snake is higher than a creature</p><hr /><p><strong>Effect</strong> The gliding river snake launches up to 20 feet down toward a creature and makes a jaws Strike against it. If the snake hits, it doesn't take damage from the fall. If it misses, it takes only half the regular damage from the distance it fell.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Jl57V8Gd9v29K1nt",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Aquatic Ambush",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The gliding river snake is in water and a creature that hasn't detected it is within 20 feet</p><hr /><p><strong>Effect</strong> The gliding river snake moves up to its swim Speed + 10 feet toward the triggering creature, traveling on water and on land. Once the creature is in reach, the snake makes a jaws Strike against it. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against this Strike.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "aquatic-ambush",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "aquatic-ambush"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "strike-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    }
+                ],
+                "slug": "aquatic-ambush",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BvUvF8mWdzlVzMxf",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Gliding River Snake Venom",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d8[poison]] damage (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YpkiUd2Ft1QolMeD",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Weaving Glide",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The snake glides toward the ground, 5 feet down and up to 20 feet forward through the air. As long as it spends at least 1 action gliding each round and hasn't yet reached the ground, it remains in the air at the end of its turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Gliding River Snake",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 0
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 15
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 15,
+                "temp": 0,
+                "value": 15
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 15
+                    },
+                    {
+                        "type": "swim",
+                        "value": 20
+                    }
+                ],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 0
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Wise travelers keep watch for snakes along their path, but few expect them to attack from above. When threatened, the gliding river snake takes to high ground and launches toward its target, gliding through the air by flattening its ribs and controlling its flight by moving sinuously. If unable to make an aerial attack, the gliding river snake simply attempts to bite its target and snap off a finger or two. The snake's jaws are extremely powerful, able to bite clean through bone and flesh.</p>\n<p>The mildly venomous gliding river snake prefers to keep to itself but reacts harshly to potential threats with a vicious bite. Its mouth is filled with serrated teeth that tear into its prey rather than piercing like a typical snake. Using these teeth, the gliding river snake rends its food into chunks before swallowing, allowing it to target larger prey. Sometimes an unfortunate animal is beset by multiple gliding river snakes, covering it with writhing serpents. These group meals have been mistaken for a singular monster before, as only the snakes' tentacle-like bodies can be seen as they feast.</p>\n<p>The gliding river snake often lives in pairs, staying together with its mate through the mating season before separating in the off season. They lay their eggs either in trees or underwater, sometimes even stealing bird nests for their own uses once they've devoured the birds' eggs. Many a birdwatcher has been taken aback by the sight of hatching snakes up in the treetops, occasionally even laid side by side with bird eggs for easy access to a meal.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hellbreakers"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 6,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 3
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 2,
+                "special": [
+                    {
+                        "base": 6,
+                        "label": "to Swim",
+                        "predicate": [
+                            "action:swim"
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 5,
+                "special": []
+            },
+            "survival": {
+                "base": 5,
+                "special": []
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}

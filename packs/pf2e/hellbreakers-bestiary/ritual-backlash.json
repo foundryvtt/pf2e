@@ -1,0 +1,186 @@
+{
+    "_id": "NqidA1APAUcBG7wS",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ZA8LvW6RGUeu9LeQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Pulse of Fear",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each of Viro's enemies in a @Template[type:emanation|distance:20] from the ivory bowl must succeed at a @Check[will|dc:18] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ppFrEp6z5SbjcDJS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Vitality of Hell",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Viro or one of his allies gains 1d6 temporary Hit Points that last for 1 round.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Vitality of Hell]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "healing",
+                        "occult",
+                        "vitality"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "A3ou1qgi9G53pnqh",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Mindburn",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "P5Ks1ZHemkKwrB3m": {
+                        "damage": "1d8+1",
+                        "damageType": "mental"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Ritual Backlash",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 17
+            },
+            "emitsSound": "encounter",
+            "hardness": 8,
+            "hp": {
+                "details": "(ivory bowl)",
+                "max": 26,
+                "temp": 0,
+                "value": 26
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 5
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The space above the flame in the ivory bowl wavers and the smell of brimstone assaults the senses.</p>",
+            "disable": "<p>@Check[occultism|dc:20] or @Check[religion|dc:20] three times to suppress the backlash of energy, or defeat Viro Ahala</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hellbreakers"
+            },
+            "reset": "<p>Once Viro Ahala has been defeated, this trap can't be reset.</p>",
+            "routine": "<p>(3 actions) The hazard makes a ranged mindburn Strike, creates a Pulse of Fear, and bestows Vitality of Hell to Viro or one of his allies at random. If it's reduced to 2 actions, the hazard doesn't create a Pulse of Fear. If reduced to 1 action, the hazard only bestows Vitality of Hell.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 11
+            },
+            "reflex": {
+                "value": 4
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

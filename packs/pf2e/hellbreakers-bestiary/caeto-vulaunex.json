@@ -1,0 +1,1120 @@
+{
+    "_id": "3uUi2rjOEzJGCBkW",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "iwgEGVfAPlTLp8aB",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Champion Devotion Spells",
+            "sort": 100000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 30,
+                    "value": 22
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "MDJW5arNGepsLEqN",
+            "folder": "wnvibtD90h7CStDC",
+            "img": "icons/weapons/misc/whip-red-yellow.webp",
+            "name": "Commanding Lash",
+            "sort": 200000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>With the threat of more pain, you compel a creature you've recently harmed. You issue a command to the target, with the effects of the spell @UUID[Compendium.pf2e.spells-srd.Item.Command].If the target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened], @UUID[Compendium.pf2e.conditionitems.Item.Stupefied], or taking persistent damage, it takes a –2 circumstance penalty to the save. Regardless of the result, the target is then temporarily immune for 1 hour</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "until the end of your target's next turn"
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "iwgEGVfAPlTLp8aB"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "100 feet"
+                },
+                "requirements": "Your most recent action dealt damage to a target.",
+                "rules": [],
+                "slug": "commanding-lash",
+                "target": {
+                    "value": "A creature you dealt damage to on your most recent action."
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "cleric",
+                        "concentrate",
+                        "focus",
+                        "linguistic",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "mnJiFnbIalMqN9AH",
+            "folder": "wnvibtD90h7CStDC",
+            "img": "systems/pf2e/icons/spells/lay-on-hands.webp",
+            "name": "Lay on Hands",
+            "sort": 300000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Your hands become infused with powerful vitality, capable of healing a living creature or damaging an undead creature with a touch.</p><ul><li><strong>Willing Living Creature</strong> The target regains 6 Hit Points. If the target is someone other than yourself, it also gains a +2 status bonus to AC for 1 round.</li><li><strong>Undead Creature</strong> The target takes 1d6 vitality damage with a basic Fortitude save; on a failure, the target also takes a –2 status penalty to AC for 1 round.</li></ul><hr /><p><strong>Heightened (+1)</strong> The amount of healing increases by 6, and the damage to an undead target increases by 1d6.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Lay on Hands]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "iwgEGVfAPlTLp8aB"
+                },
+                "overlays": {
+                    "a33QUFoKgoOprovO": {
+                        "name": "Lay on Hands (Vs. Undead)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "37YW4ZGhxx7Y2mdI": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "1d6",
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "materials": [],
+                                    "type": "vitality"
+                                }
+                            },
+                            "defense": {
+                                "save": {
+                                    "basic": true,
+                                    "statistic": "fortitude"
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "37YW4ZGhxx7Y2mdI": "1d6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            }
+                        }
+                    },
+                    "uLuOg62dVyxvbW66": {
+                        "name": "Lay on Hands (Healing)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "b39tbePoPlJSzLku": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "6",
+                                    "kinds": [
+                                        "healing"
+                                    ],
+                                    "materials": [],
+                                    "type": "vitality"
+                                }
+                            },
+                            "defense": null,
+                            "heightening": {
+                                "damage": {
+                                    "b39tbePoPlJSzLku": "6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            }
+                        }
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "lay-on-hands",
+                "target": {
+                    "value": "1 willing living creature or 1 undead creature"
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "champion",
+                        "focus",
+                        "healing",
+                        "manipulate",
+                        "vitality"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "zWakDZSrKaSXS2Ii",
+            "folder": "wnvibtD90h7CStDC",
+            "img": "systems/pf2e/icons/spells/touch-of-obedience.webp",
+            "name": "Touch of Obedience",
+            "sort": 400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>Your imperious touch erodes the target's willpower, making it easier to control. The target attempts a Will save. Regardless of the result, it's then temporarily immune for 1 hour.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the end of your next turn.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} until the end of your next turn.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute and is forced to its knees, becoming prone.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "iwgEGVfAPlTLp8aB"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "touch-of-obedience",
+                "target": {
+                    "value": "1 living creature"
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "cleric",
+                        "focus",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "MlT9jKB11rajZfDZ",
+            "img": "icons/weapons/swords/sword-guard-blue.webp",
+            "name": "Longsword",
+            "sort": 500000,
+            "system": {
+                "ammo": null,
+                "baseItem": "longsword",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d8"
+                },
+                "description": {
+                    "value": "<p>Longswords, also known as arming swords, can be one-edged or two-edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "expend": null,
+                "grade": null,
+                "group": "sword",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": null
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [
+                        "shifting"
+                    ],
+                    "striking": 1
+                },
+                "size": "med",
+                "slug": "longsword",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "versatile-p"
+                    ]
+                },
+                "usage": {
+                    "canBeAmmo": false,
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "6doIvNITBPnQYEbt",
+            "img": "systems/pf2e/icons/equipment/shields/specific-shields/sturdy-shield.webp",
+            "name": "Sturdy Shield (Minor)",
+            "sort": 600000,
+            "system": {
+                "acBonus": 2,
+                "baseItem": "steel-shield",
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy.</p>\n<p>The shield has Hardness 8, HP 64, and BT 32.</p>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1
+                },
+                "grade": null,
+                "hardness": 8,
+                "hp": {
+                    "max": 64,
+                    "value": 64
+                },
+                "level": {
+                    "value": 4
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 100
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "reinforcing": 0
+                },
+                "size": "med",
+                "slug": "sturdy-shield-minor",
+                "specific": {
+                    "integrated": null,
+                    "material": {
+                        "grade": null,
+                        "type": null
+                    },
+                    "runes": {
+                        "reinforcing": 0
+                    }
+                },
+                "speedPenalty": 0,
+                "traits": {
+                    "integrated": null,
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "shield"
+        },
+        {
+            "_id": "aBiJOgDXdx9qud9z",
+            "img": "systems/pf2e/icons/equipment/armor/hellknight-plate.webp",
+            "name": "Hellknight Plate",
+            "sort": 700000,
+            "system": {
+                "acBonus": 6,
+                "baseItem": "hellknight-plate",
+                "bulk": {
+                    "value": 4
+                },
+                "category": "heavy",
+                "checkPenalty": -3,
+                "containerId": null,
+                "description": {
+                    "value": "<p>Hellknights wear a variety of armors decorated with designs specific to the order. Hellknight half plate is the armor of choice for Hellknight signifiers, and Hellknight breastplate serves those in the order who lack the training to wear heavy armor.</p>\n<p>A character who is a member of the Hellknights has access to these uncommon armors.</p>"
+                },
+                "dexCap": 0,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "grade": null,
+                "group": "plate",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 2
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 35
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Treasure Vault (Remastered)"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "hellknight-plate",
+                "speedPenalty": -10,
+                "strength": 4,
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "bulwark"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "gUKo5ksY3EY1v77r",
+            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
+            "name": "Religious Symbol (Asmodeus)",
+            "sort": 800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
+                "size": "med",
+                "slug": "religious-symbol-wooden",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "8I4BYibRj1WSSt0V",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to Will Saves vs. Mental",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "mental"
+                        ],
+                        "selector": [
+                            "will"
+                        ],
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gtywS0ReJSUsF0tu",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Godclaw Aura",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>15 feet. Followers of any deities on the Godclaw pantheon or of the pantheon itself within the aura immediately know Caeto is a champion of the Godclaw.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 15
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ulsn8MYXxW1ZH5X7",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shield Block",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ShieldBlock]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "shield-block",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YyodVTno08xEmDyI",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Steel Command",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature in Caeto's aura damages him</p><hr /><p><strong>Effect</strong> Caeto commands his enemy to kneel in supplication. The triggering creature must attempt a @Check[will|dc:30] save. They then become immune to Steel Command for 1 minute.</p><hr /><p><strong>Success</strong> The creature must choose to drop @UUID[Compendium.pf2e.conditionitems.Item.Prone] as a free action or take @Damage[3d6[mental],1d8[persistent,spirit]] damage.</p>\n<p><strong>Failure</strong> The creature must choose to drop prone as a free action and be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} or take @Damage[6d6[mental],2d8[persistent,spirit]] damage.</p>\n<p><strong>Critical Failure</strong> The creature drops prone, is slowed 1, and takes @Damage[12d6[mental],2d8[persistent,spirit]] damage</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oyiQa9Hg5qprE7bM",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Hand of the Avenger",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Caeto evokes his oath to bring justice to those he deems a threat to Isger. Until the end of his turn, Caeto can use his lay on hands to damage an enemy in his aura as if they were undead, dealing spirit damage instead of vitality damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "manipulate",
+                        "spirit"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Xm2NPU6MkjtK0Rps",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Lawbreaker's Bane",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Caeto gains a +4 status bonus on damage to Strikes against targets that he knows have broken the law. The bonus increases to +6 if the target is a known member of the Hellbreakers League.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.CaetoVulaunex.LawbreakersBane.Criminal",
+                        "option": "lawbreakers-bane",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.CaetoVulaunex.LawbreakersBane.Hellbreaker",
+                        "option": "lawbreakers-bane-hellbreaker",
+                        "predicate": [
+                            "lawbreakers-bane"
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "lawbreakers-bane"
+                        ],
+                        "selector": [
+                            "strike-damage"
+                        ],
+                        "slug": "lawbreakers-bane",
+                        "type": "status",
+                        "value": 4
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "add",
+                        "predicate": [
+                            "lawbreakers-bane-hellbreaker"
+                        ],
+                        "selector": "strike-damage",
+                        "slug": "lawbreakers-bane",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mhNxlbtHGjZzl37C",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Oppressive Might",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Caeto uses his posture to assert dominance over the masses. He attempts an Intimidation check to [[/act demoralize]] all non-allied creatures within 60 feet. He doesn't take a penalty against targets who don't understand his language. On a critical success, that target doesn't become temporarily immune to Caeto's other attempts to Demoralize them.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cqXRrnCYqsKmeWQT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Subdue Fugitive",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Requirements</strong> Caeto is wielding his longsword</p><hr /><p><strong>Effect</strong> Caeto uses his shifting rune's Shift Weapon to transform his sword into a flail and makes a melee Strike with it. If the Strike hits and deals damage, he can attempt an Athletics check as a free action to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] the target of the Strike. This attempt neither applies nor counts toward Caeto's multiple attack penalty.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT1M"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "subdue-fugitive",
+                        "toggleable": true
+                    },
+                    {
+                        "attackModifier": "24",
+                        "category": "martial",
+                        "damage": {
+                            "base": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 11
+                            }
+                        },
+                        "group": "sword",
+                        "key": "Strike",
+                        "label": "Shifting Longsword",
+                        "predicate": [
+                            {
+                                "not": "subdue-fugitive"
+                            }
+                        ],
+                        "slug": "shifting-longsword",
+                        "traits": [
+                            "magical",
+                            "versatile-p"
+                        ]
+                    },
+                    {
+                        "attackModifier": "24",
+                        "category": "martial",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 11
+                            }
+                        },
+                        "group": "flail",
+                        "key": "Strike",
+                        "label": "Shifting Flail",
+                        "predicate": [
+                            "subdue-fugitive"
+                        ],
+                        "slug": "shifting-flail",
+                        "traits": [
+                            "disarm",
+                            "sweep",
+                            "trip"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pDOec8mk8ql02Fgi",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Hell Lore",
+            "sort": 1700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 21
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "SrrifK3PkwuKRI12",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Warfare Lore",
+            "sort": 1800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 20
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Caeto Vulaunex",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 7
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 0
+            },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "(32 with shield raised)",
+                "value": 30
+            },
+            "allSaves": {
+                "value": "(+26 against mental)"
+            },
+            "hp": {
+                "details": "",
+                "max": 200,
+                "temp": 0,
+                "value": 200
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "Male human Hellknight",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "diabolic",
+                    "goblin"
+                ]
+            },
+            "level": {
+                "value": 11
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hellbreakers"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 21,
+            "senses": []
+        },
+        "resources": {
+            "focus": {
+                "max": 3,
+                "value": 3
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 24
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 23
+            },
+            "diplomacy": {
+                "base": 25
+            },
+            "intimidation": {
+                "base": 25
+            },
+            "medicine": {
+                "base": 21
+            },
+            "religion": {
+                "base": 21
+            },
+            "society": {
+                "base": 19
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "human",
+                "humanoid"
+            ]
+        }
+    },
+    "type": "npc"
+}

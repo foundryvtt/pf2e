@@ -1,0 +1,106 @@
+{
+    "_id": "zMhXntik28g9dcwX",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "IdnGpmo0oET5mvx9",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Panic at the Gala",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature rolls initiative</p><hr /><p><strong>Effect</strong> The crowd stampedes, dealing @Damage[4d6[bludgeoning]] damage to anyone on the great room floor (@Check[reflex|dc:20|basic] save), then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Gala Crowd",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 60,
+                "temp": 0,
+                "value": 60
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>-10 (+12 to initiative)</p>",
+                "value": 12
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>The panicked crowd of gala attendees reacts to the unexpected attack.</p>",
+            "disable": "<p>@Check[intimidation|dc:19], @Check[diplomacy|dc:21], or @Check[athletics|dc:24] to get guests to move out of harm's way; four total successes across all skills are required to disable the hazard</p>",
+            "isComplex": true,
+            "level": {
+                "value": 4
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hellbreakers"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The crowd reacts in one of the following ways, determined by a d12 die roll:</p><ul><li><strong>1–2</strong> <em>Hunker Down</em>: The crowd freezes in fear. It provides lesser cover to all creatures in the great room for 1 round.</li><li><strong>3–4</strong> <em>Run!</em>: Determine a random direction. Each creature in the area must succeed at a @Check[fortitude|dc:21] save or be moved 10 feet in that direction. On a critical failure, they're also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. This is forced movement.</li><li><strong>5–6</strong> <em>Hysteria</em>: The crowd's dread is contagious. Each creature in the area must attempt a @Check[will|dc:21] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure). This is an emotion, fear, and mental effect.</li><li><strong>7–8</strong> <em>Wailing</em>: The cries make it hard to concentrate. For 1 round, any creature in the area that attempts an action with the concentrate trait must succeed at a @Check[flat|dc:4] or the action is disrupted. This is an auditory effect.</li><li><strong>9–10</strong> <em>Crushing Press</em>: Members of the crowd shove and push, trying to find a way to safety. Each creature in the area takes @Damage[(2d8+5)[bludgeoning]] damage (@Check[fortitude|dc:21|basic] save).</li><li><p><strong>11–12</strong> <em>Wild Dismay</em>: The chaos is overwhelming. Each creature in the area must attempt a @Check[will|dc:21] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round. This is an emotion and mental effect.</p><p></p></li></ul>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 11
+            },
+            "reflex": {
+                "value": 11
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

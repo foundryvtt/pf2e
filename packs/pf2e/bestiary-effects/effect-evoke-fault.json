@@ -1,0 +1,53 @@
+{
+    "_id": "rZR7o9uj598vLVaY",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Evoke Fault",
+    "system": {
+        "description": {
+            "value": "<p>Brakknap gains a +1 status bonus to the attack roll of his next Strike against that target, and that Strike deals an extra 1d6 precision damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hellbreakers"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack-roll"
+                ],
+                "type": "status",
+                "value": 1
+            },
+            {
+                "category": "precision",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

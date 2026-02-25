@@ -1,0 +1,79 @@
+{
+    "_id": "3Qej6bMkgJ5ntllg",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Devil You Know",
+    "system": {
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hellbreakers"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "devil-you-know",
+                "uuid": ""
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:devil-you-know"
+                ],
+                "selector": [
+                    "skill-check"
+                ],
+                "slug": "devil-you-know",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "gte": [
+                                    "skill:devil-lore:rank",
+                                    3
+                                ]
+                            },
+                            {
+                                "gte": [
+                                    "skill:hellknight-lore:rank",
+                                    3
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "slug": "devil-you-know",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

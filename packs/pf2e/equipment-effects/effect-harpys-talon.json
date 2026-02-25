@@ -1,0 +1,58 @@
+{
+    "_id": "3aJ9AiJdOrwdjYPF",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Harpy's Talon",
+    "system": {
+        "description": {
+            "value": "<p>When you activate the harpy's talon, the weapon deals persistent bleed damage equal to the number of weapon damage dice. If the Strike was a critical success, the persistent bleed damage increases to twice the number of weapon damage dice.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hellbreakers"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageCategory": "persistent",
+                "damageType": "bleed",
+                "key": "FlatModifier",
+                "selector": [
+                    "{item|flags.pf2e.rulesSelections.weapon}-damage"
+                ],
+                "value": "@weapon.system.damage.dice"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

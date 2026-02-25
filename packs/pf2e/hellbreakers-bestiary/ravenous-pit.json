@@ -1,0 +1,95 @@
+{
+    "_id": "Re8o3Q3tYHGpRKre",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "l2I2RwjyOq1o0qTz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Deadly Inhale",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 15 feet of the hole</p><hr /><p><strong>Effect</strong> The ravenous pit seems to \"inhale,\" attempting to pull creatures into itself. Each creature within 15 feet must attempt a @Check[fortitude|dc:24] save. On a failure, the creature is pulled 5 feet closer to the hole (10 feet on a critical failure). The pit then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Ravenous Pit",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 13
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A seemingly ordinary hole in the forest floor exerts a strange gravity on creatures that come near.</p>",
+            "disable": "<p>@Check[nature|dc:23] or @Check[occultism|dc:23] (expert) three times to disperse the unusual energy surrounding the hole, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (3rd rank; counteract DC 22) to counteract the engulfing magic</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hellbreakers"
+            },
+            "reset": "<p>If the trap isn't disabled, it becomes dormant for 10 minutes if there are no creatures within 20 feet of it at the start of its turn.</p>",
+            "routine": "<p>(2 actions) For each action, the pit chooses a different creature within a @Template[type:emanation|distance:20] to attempt to swallow. That creature must attempt a @Check[fortitude|dc:22] save. On a failure, the creature is pulled 5 feet closer to the hole (10 feet on a critical failure). If this would pull the creature into the pit, that creature can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Grab an Edge] as a reaction (DC 22). A creature who falls into the pit disappears into an extradimensional space that feels like being buried alive. A creature takes @Damage[(2d8+7)[bludgeoning]] damage (@Check[fortitude|dc:20|basic] save) at the end of each its turns in the extradimensional space. A creature in this extradimensional space is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}; they can @UUID[Compendium.pf2e.actionspf2e.Item.Escape] this extradimensional space with a successful @Check[athletics|dc:22], Nature, or Survival check. If they succeed, they appear in a random spot no more than 10 feet from the hole as if they had clawed their way from the dirt.</p><p>While this trap is active, all creatures treat movement away from the pit as difficult terrain.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

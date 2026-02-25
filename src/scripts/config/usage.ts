@@ -27,6 +27,7 @@ const USAGES = {
     "affixed-to-a-ranged-weapon": "PF2E.TraitAffixedToARangedWeapon",
     "affixed-to-a-shield": "PF2E.TraitAffixedToAShield",
     "affixed-to-a-shield-or-weapon": "PF2E.TraitAffixedToAShieldOrWeapon",
+    "affixed-to-a-slashing-weapon": "PF2E.TraitAffixedToASlashingWeapon",
     "affixed-to-a-thrown-weapon": "PF2E.TraitAffixedToThrownWeapon",
     "affixed-to-a-two-handed-firearm-or-crossbow": "PF2E.TraitAffixedToATwoHandedFirearmOrCrossbow",
     "affixed-to-an-innovation": "PF2E.TraitAffixedToInnovation",

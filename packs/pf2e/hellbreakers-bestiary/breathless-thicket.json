@@ -1,0 +1,208 @@
+{
+    "_id": "PsXI3ZlrLXfC9P75",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "poF74j4ANYzXOwPF",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Branch Ambush",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature that breathes steps within 5 feet of a thicket</p><hr /><p><strong>Effect</strong> The thicket makes a sinewy leaves Strike against the triggering creature. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "96Xa83qOL0utYIrY",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Sinewy Leaves",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "branch-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {},
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "1dCxVtsOTzewXKwx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Branch Grab",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>If the breathless thicket hits a creature with its leaves, that creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the thicket. Unlike with a normal Grab, the creature isn't @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], but it can't move beyond the reach of the thicket's leaves. A creature can sever a branch by Striking against AC 18 and dealing at least @Damage[12[slashing]] damage. A branch doesn't have the thicket's Hardness, and damaging it doesn't deal damage to the thicket ([[/act escape dc=26]]).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9KBMsl6AsUBOi6oS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Suffocate",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The breathless thicket has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] one or more creatures that breathe</p><hr /><p><strong>Effect</strong> The dead flowers of the breathless thicket begin pulling oxygen from its victims' lungs. Each creature grabbed by the breathless thicket takes @Damage[4d6[bludgeoning]|traits:nonlethal]{4d6 nonlethal bludgeoning} damage and must attempt a @Check[fortitude|dc:26] save.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage and can immediately attempt to [[/act escape dc=26]] as a free action.</p>\n<p><strong>Success</strong> The creature takes half damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Failure</strong> The creature takes full damage, is stupefied 1 for 1 round, and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. For as long as it's grabbed by the thicket, the creature must hold its breath or suffocate.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature also falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and starts suffocating. If it's no longer grabbed, the creature stops suffocating.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation",
+                        "nonlethal"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Breathless Thicket",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "emitsSound": "encounter",
+            "hardness": 15,
+            "hp": {
+                "details": "",
+                "max": 58,
+                "temp": 0,
+                "value": 58
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert; or –10 and no minimum proficiency if the thicket has been recognized)</p>",
+                "value": 15
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 15
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>A 10-foot-wide patch of dead shrubs with wilted flowers steals the breath of the living.</p>",
+            "disable": "<p>@Check[nature|dc:28] (expert) or @Check[survival|dc:28] (expert) to recognize the thicket for what it is and avoid it</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hellbreakers"
+            },
+            "reset": "<p>The thicket goes back into hibernation 1 round after there are no more targets to Strike in its reach. It then remains dormant for 24 hours.</p>",
+            "routine": "<p>(3 actions) The breathless thickets patch attempts to Strike a creature in its reach. It then uses Suffocate if it has any creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]; otherwise, it continues to Strike.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 18
+            },
+            "reflex": {
+                "value": 11
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "plant"
+            ]
+        }
+    },
+    "type": "hazard"
+}

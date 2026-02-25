@@ -1,0 +1,98 @@
+{
+    "_id": "RZ7sXM76jGdfK17p",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "zhpneAnN515axuC0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Action",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 30 feet of the tree</p><hr /><p><strong>Effect</strong> The tree seems to grow and shrink simultaneously. Each creature within a @Template[type:emanation|distance:30] must attempt a @Check[will|dc:21] saving throw. The trap then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of its next turn from the disorientation.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as if unsure of the distance between places.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "illusion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Littler Beasts",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>At first, the tree looks small. Then the space around it warps to give the impression that it's a normalsized tree seen at a distance.</p>",
+            "disable": "<p>@Check[nature|dc:20] or @Check[occultism|dc:20] twice to disperse the warped magic around the tree, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (2nd rank; counteract DC 19) to counteract the warped magic</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hellbreakers"
+            },
+            "reset": "<p>If the trap isn't disabled, it becomes dormant for 10 minutes if there are no creatures within 60 feet of it at the start of its turn.</p>",
+            "routine": "<p>(1 action) The trap targets a random creature within 60 feet to try to bring it down to its size. That creature must attempt a @Check[will|dc:20] save. On a failure, the creature becomes Tiny in size until the beginning of its next turn. An affected creature's equipment shrinks with it but returns to its original size if removed. The creature's reach changes to 0 feet. This is a polymorph effect that has no effect on a Tiny creature. On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for the same duration.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

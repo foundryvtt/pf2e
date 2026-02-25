@@ -1,0 +1,48 @@
+{
+    "_id": "CvnIiMOigw3TeHYC",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Warding Paste (Wearer)",
+    "system": {
+        "description": {
+            "value": "<p>For the next hour, creatures with the unholy trait take a -1 circumstance penalty to melee attacks against the affected outfit's wearer.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hellbreakers"
+        },
+        "rules": [
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "self:trait:unholy"
+                ],
+                "selectors": [
+                    "strike-attack-roll"
+                ],
+                "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Warding Paste (Attacker)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

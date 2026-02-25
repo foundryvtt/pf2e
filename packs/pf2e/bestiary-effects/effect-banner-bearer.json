@@ -1,0 +1,49 @@
+{
+    "_id": "dCNQpHO0Ka8PW3z5",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Banner Bearer",
+    "system": {
+        "description": {
+            "value": "<p>All allies in the area gain a +1 status bonus to saves and DCs against devils and Hellknights.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hellbreakers"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:trait:devil"
+                ],
+                "selector": [
+                    "saving-throw",
+                    "ac"
+                ],
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

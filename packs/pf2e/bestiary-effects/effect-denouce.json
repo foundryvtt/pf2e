@@ -1,0 +1,53 @@
+{
+    "_id": "izuJvgHjqI6kQNbK",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Denouce",
+    "system": {
+        "description": {
+            "value": "<p>Until the start of Lefranek's next turn, any Strikes she or her allies make against the creature do an additional 1d4 precision damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "denounce",
+                "uuid": ""
+            },
+            {
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mark:denounce"
+                ],
+                "selector": "strike-damage",
+                "type": "precision"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

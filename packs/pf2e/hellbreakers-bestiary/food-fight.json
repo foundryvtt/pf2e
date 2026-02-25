@@ -1,0 +1,144 @@
+{
+    "_id": "8hHkStXSqi5atbLo",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "w8cE91mOL7rVQLvU",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Dinner Bell",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves adjacent to the set table</p><hr /><p><strong>Effect</strong> A loud phantom dinner bell rings before the plates begin to tremble and hover. Each creature in the room takes @Damage[(2d6+2)[sonic]] damage (@Check[fortitude|dc:17|basic] save). The haunt then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "occult",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6I4H4zXumxutDTc3",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Flung Food",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "yLSijQcMT0NJaUEO": {
+                        "damage": "1d10+4",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": "<p>no range increment or multiple attack penalty</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "occult",
+                        "spirit"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Food Fight",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "emitsSound": "encounter",
+            "hardness": 5,
+            "hp": {
+                "details": "per plate",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 8
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Ghostly food appears on cracked plates as they float above the table. The faint outline of children can occasionally be seen as the ectoplasmic food is flung throughout the room.</p>",
+            "disable": "<p>@Check[occultism|dc:17] (trained) to weaken the spiritual energy in the room, @Check[acrobatics|dc:18] (trained) to pluck a floating plate out of the air, or @Check[intimidation|dc:19] (trained) to reprimand one of the ghostly children for their poor behavior; each successful check disables one of four plates</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hellbreakers"
+            },
+            "reset": "<p>The haunt deactivates 1 minute after all creatures leave the room or after all four plates are destroyed. After 1 hour, if at least one plate remains, the haunt reactivates. If disabled, the haunt resets after 1 day and the plates magically reassemble. The haunt is permanently destroyed when the attic whisperer in area <strong>D5</strong> is destroyed.</p>",
+            "routine": "<p>(4 actions) For each plate disabled or destroyed, the haunt has 1 fewer action. On each action, spectral food is flung off a plate at a different living creature in the room. This ranged Strike doesn't provoke reactions. A creature critically hit by a flung food Strike is also @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 6
+            },
+            "reflex": {
+                "value": 10
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

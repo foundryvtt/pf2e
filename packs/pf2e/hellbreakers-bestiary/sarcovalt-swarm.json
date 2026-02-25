@@ -1,0 +1,451 @@
+{
+    "_id": "LKRWhSZqkrNfMnqq",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "k081YXMPXbzOubT5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 30 feet",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Telepathy]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "traits": {
+                    "value": [
+                        "aura",
+                        "magical",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MCdYvumxzVh8yf22",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Death Effects",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "death"
+                        ],
+                        "selector": [
+                            "saving-throw"
+                        ],
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7079qkZbqeqG7B2y",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Swarm Mind",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.SwarmMind]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "swarm-mind",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4dOF92ZHlnfvcC4d",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Aura of Blight",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>15 feet. The sarcovalt is surrounded by a miasma of infection. An enemy that enters or ends their turn in the aura must attempt a @Check[fortitude|dc:25] save.</p><hr /><p><strong>Success</strong> The creature is unaffected and becomes temporarily immune to the aura for 1 minute.</p>\n<p><strong>Failure</strong> Until the end of its next turn, the creature takes a –1 circumstance penalty to saves against disease effects.</p>\n<p><strong>Critical Failure</strong> Until the end of its next turn, the creature takes a –2 circumstance bonus against disease effects and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 15,
+                        "traits": [
+                            "disease"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9tXYasHPuZ7tB7bo",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Droning Waste",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The buzzing of the swarm's wings hit an unholy pitch, making those who hear it feel dizzy and lightheaded. Each creature within a @Template[type:emanation|distance:15] must attempt a @Check[will|dc:27] save. On a failure, it is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} and takes a –1 circumstance penalty to attack rolls until the start of its next turn (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5hZxx4bVaqMR8rps",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Heads Will Roll",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The swarm detaches its heads from its bodies and rains them down on its enemies in a @Template[type:burst|distance:10] radius within 30 feet. Each head deals falling damage, as if falling from 20 feet up, on any creature it lands on and otherwise takes the damage itself. If a head has a creature within its reach after it falls, it attempts to bite that creature. If any of these bites are critical successes, the head can immediately attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] the creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "heads-will-roll",
+                        "toggleable": true
+                    },
+                    {
+                        "attackModifier": 15,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 3,
+                                "die": "d8",
+                                "modifier": 5
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Bite",
+                        "predicate": [
+                            "heads-will-roll"
+                        ],
+                        "slug": "bite",
+                        "traits": "reach-10"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TjyddrbQCGwox9Im",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Swarming Bites",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each enemy in the swarm's space takes @Damage[4d6[piercing],2d4[persistent,bleed]|options:area-damage] damage (@Check[fortitude|dc:27|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Sarcovalt Swarm",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -1
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 2
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 27
+            },
+            "allSaves": {
+                "value": "+1 status to all saves vs. death effects"
+            },
+            "hp": {
+                "details": "",
+                "max": 155,
+                "temp": 0,
+                "value": 155
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "swarm-mind"
+                },
+                {
+                    "exceptions": [],
+                    "type": "sickened"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 10
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 20
+                    },
+                    {
+                        "type": "fly",
+                        "value": 40
+                    }
+                ],
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 10
+                },
+                {
+                    "exceptions": [],
+                    "type": "holy",
+                    "value": 10
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "telepathy 30 feet",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 9
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>In most cases, it’s very unlikely that one will come across a sarcovalt on their own. More likely, a swarm of Urgathoa’s disgusting creations will be beset upon an unfortunate village, the creatures just clever enough to duck away from the best attempts to kill them.</p><hr /><p>There are few creatures throughout the multiverse more bizarrely revolting than the sarcovalt, a fiend with the body of a fly and the head of a fleshless vulture skull. While a creature barely 2 feet long might not seem threatening, sarcovalt swarms can overwhelm entire villages. Sarcovalts' heads almost seem to be wholly separate entities from their bodies and will vomit up whatever they capture in their beaks hours later as putrid, coagulated sludge.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hellbreakers"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 19,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "lifesense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 16
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 20
+            },
+            "athletics": {
+                "base": 18
+            },
+            "intimidation": {
+                "base": 18
+            },
+            "stealth": {
+                "base": 20
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "fiend",
+                "swarm",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

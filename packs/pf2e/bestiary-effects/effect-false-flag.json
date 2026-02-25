@@ -1,0 +1,54 @@
+{
+    "_id": "LGxrp2XkcOJHRPLz",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: False Flag",
+    "system": {
+        "description": {
+            "value": "<p>Hellbreakers in the area take a –1 circumstance penalty to saving throws and DCs vs. effects that give the frightened or @UUID[Compendium.pf2e.conditionitems.Item.Confused] condition.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hellbreakers"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:confused",
+                            "inflicts:frightened"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

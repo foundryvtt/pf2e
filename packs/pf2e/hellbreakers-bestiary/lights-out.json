@@ -1,0 +1,100 @@
+{
+    "_id": "VZIEqLGCcisaWTlV",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "aeJ7GoZRXNCqYZwU",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Lullaby and Good Night",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> At least two living creatures enter the room</p><hr /><p><strong>Effect</strong> The sounds of a soothing lullaby fill the air. All living creatures in the room must attempt a @Check[will|dc:22] save. The haunt then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature gets slightly drowsy, taking a –1 status penalty to Perception checks for 1 round.</p>\n<p><strong>Failure</strong> The creature briefly nods off. They are @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and can't use reactions for 1 round after that.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "incapacitation",
+                        "mental",
+                        "occult",
+                        "sleep"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Lights Out",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 11
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Patches of darkness envelop the rickety beds in this room, from which can be heard the sounds of gentle snoring from children.</p>",
+            "disable": "<p>@Check[occultism|dc:18] (trained) to ward off the darkness or @Check[deception|dc:19] or @Check[performance|dc:19] (trained) to pretend to be asleep; two total success are required to disable the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hellbreakers"
+            },
+            "reset": "<p>The haunt deactivates 1 minute after all living creatures leave the room but resets immediately thereafter. If disabled, the haunt resets after 1 day. The haunt is permanently destroyed when the attic whisperer here is destroyed.</p>",
+            "routine": "<p>(1 action; darkness, occult) The haunt randomly chooses 1 living creature that it hadn't engulfed in darkness the previous round. Supernatural darkness wells over that creature, who must attempt a @Check[will|dc:18] save. On a failure, that creature is engulfed in a @Template[type:emanation|distance:5] of darkness centered on them and is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round. Any creatures in the emanation must attempt their own Will save or become blinded as well. Any non-magical light sources and magical light of 1st rank or lower the primary creature is holding or wearing cease to give off light for that duration.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

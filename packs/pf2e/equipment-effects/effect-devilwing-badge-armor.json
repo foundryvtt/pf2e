@@ -1,0 +1,118 @@
+{
+    "_id": "IdlSIN88G5Ca7TLe",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Devilwing Badge (Armor)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Devilwing Badge], @UUID[Compendium.pf2e.equipment-srd.Item.Devilwing Badge (Greater)], or @UUID[Compendium.pf2e.equipment-srd.Item.Devilwing Badge (Major)]</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hellbreakers"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:devilwing-badge",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Devilwing Badge"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:devilwing-badge-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Devilwing Badge (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:devilwing-badge-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Devilwing Badge (Major)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "devilwing-badge"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "devilwing-badge:devilwing-badge"
+                ],
+                "type": [
+                    "fire",
+                    "unholy"
+                ],
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "devilwing-badge:devilwing-badge-greater"
+                ],
+                "type": [
+                    "fire",
+                    "unholy"
+                ],
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "devilwing-badge:devilwing-badge-major"
+                ],
+                "type": [
+                    "fire",
+                    "unholy"
+                ],
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

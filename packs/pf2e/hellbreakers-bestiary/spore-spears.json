@@ -1,0 +1,143 @@
+{
+    "_id": "cASUTkCYH5TWeV7S",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "UEzAYOZH3GvroTLi",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Planar Ripple",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Two or more non-plant creatures step onto the moss pond</p><hr /><p><strong>Effect</strong> The moss pond ripples oddly as its connection to the Plane of Wood intensifies. Each creature on the pond must succeed at a @Check[reflex|dc:17] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. A creature who critically fails the save also takes @Damage[1d6[bludgeoning]] damage from the fall. The pond then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "wood"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1qHbwKl4948g1nZs",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spore Spear",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "Y69dqJWtHeE0aNmp": {
+                        "damage": "1d4",
+                        "damageType": "poison"
+                    },
+                    "me3ykEXA8dwAp1Yr": {
+                        "damage": "1d6+1",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": "<p>no multiple attack penalty</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "poison",
+                        "reach-10",
+                        "wood"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Spore Spears",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 7
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A large patch of moss ripples like the surface of a pond as spears of green plant matter jut outward.</p>",
+            "disable": "<p>@Check[nature|dc:17] or @Check[occultism|dc:17] twice to cut off the unstable connection to the Plane of Wood, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (2nd rank; counteract DC 16) to counteract the planar magic</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hellbreakers"
+            },
+            "reset": "<p>If the trap isn't disabled, it becomes dormant for 10 minutes if there are no creatures on or within 10 feet of the moss patch at the start of its turn.</p>",
+            "routine": "<p>(2 actions) For each action, the moss pond makes a spore spear Strike against a random non-plant creature on or within 10 feet of the moss pond.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

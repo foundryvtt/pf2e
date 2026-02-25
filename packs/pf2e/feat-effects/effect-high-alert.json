@@ -1,0 +1,50 @@
+{
+    "_id": "FlwmvnPH3Fu62hTE",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: High Alert",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 circumstance bonus to their AC and Reflex saving throws against devils and creatures allied with the Chelaxian government (as determined by the GM) until the beginning of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hellbreakers"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:trait:devil"
+                ],
+                "selector": [
+                    "ac",
+                    "reflex"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

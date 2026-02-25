@@ -1,0 +1,58 @@
+{
+    "_id": "3hyrbOFyIPF99hcY",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Field of Unholy Undeath",
+    "system": {
+        "description": {
+            "value": "<p>Undead allies within the aura gain a +1 status bonus to attack rolls and saving throws. If the ally has void healing, they also gain fast healing 5.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hellbreakers"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "undead"
+                ],
+                "selector": [
+                    "attack-roll",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FastHealing",
+                "predicate": [
+                    "self:negative-healing",
+                    "undead"
+                ],
+                "value": "@item.origin.flags.pf2e.fieldOfUndeathFastHealing"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

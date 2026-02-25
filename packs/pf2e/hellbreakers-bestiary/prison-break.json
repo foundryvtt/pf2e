@@ -1,0 +1,111 @@
+{
+    "_id": "tP0woUbGTLtaSiVG",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "xxv2EQ2SbfI8ybuz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rush to Freedom",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The door to holding cell B opens</p><hr /><p><strong>Effect</strong> The hazard grabs at the weapons of any creatures within 20 feet of the door, attempting to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] them with a +19 modifier, and then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Prison Break",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 62,
+                "temp": 0,
+                "value": 62
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 21
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 6
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 6
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>A prison mob makes a break for freedom, trampling anything in its path.</p>",
+            "disable": "<p>@Check[athletics|dc:27] to stop the prisoners in their tracks, @Check[diplomacy|dc:30] to reason with the mob, or @Check[intimidation|dc:27] to cow them into calming down</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hellbreakers"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) Prisoners trample toward the exit, dealing @Damage[(2d10+9)[bludgeoning]|options:area-damage] damage to each living creature in area <strong>K9</strong> and the hallway north of it (@Check[reflex|dc:25|basic] save). On a critical failure, the creature's grasp on anything it's carrying is weakened as if the hazard succeeded on a @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] attempt. If its grasp was already weakened, they drop the item.</p><p><strong>Special</strong> If the PCs have not defeated the hazard after 4 rounds, it automatically ends as all the prisoners escape.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 18
+            },
+            "reflex": {
+                "value": 12
+            },
+            "will": {
+                "value": 20
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

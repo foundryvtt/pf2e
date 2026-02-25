@@ -1,0 +1,108 @@
+{
+    "_id": "KqRkvwwQWX6C8YAx",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ZSYr0x5Gk6gnaFVW",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Terrifying Toy Box",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 10 feet of the toy box</p><hr /><p><strong>Effect</strong> The toy box lid slowly opens with a groan, revealing a yawning chasm into nothingness. Each creature who can see the toy box must attempt a @Check[will|dc:23] save. The haunt then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and can't reduce its frightened condition below 1 while the haunt is active.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Play Time",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "emitsSound": "encounter",
+            "hardness": 10,
+            "hp": {
+                "details": "toy box",
+                "max": 45,
+                "temp": 0,
+                "value": 45
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 13
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>An old, dusty toy box creaks open and forcefully expels a series of cracked and broken toys.</p>",
+            "disable": "<p>@Check[occultism|dc:19] (trained) to exorcise the spirits of the toy box, @Check[athletics|dc:20] (trained) to hold the toy box closed momentarily, or @Check[diplomacy|dc:21] (trained) to convince the spirits that play time is over; three total success are required to disable the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hellbreakers"
+            },
+            "reset": "<p>The haunt deactivates 1 minute after all creatures leave the room or if the toy box is destroyed. After 1 hour, if the toy box remains, the haunt reactivates. If disabled, the haunt resets after 1 day. The haunt is permanently destroyed when the attic whisperer in area <strong>D5</strong> is destroyed.</p>",
+            "routine": "<p>(1 action) The toy box belches forth a @Template[type:cone|distance:15] of toys, dealing 3d8 bludgeoning, piercing, or slashing damage (chosen randomly each time) with a @Check[reflex|dc:20|basic] save.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 12
+            },
+            "reflex": {
+                "value": 7
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

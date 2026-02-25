@@ -1,0 +1,52 @@
+{
+    "_id": "6bGS19fnwbv4E7mn",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Diabolic Certitude",
+    "system": {
+        "description": {
+            "value": "<p>When Gredress publicly espouses the superiority of Hell, she gains a +1 status bonus to skill checks, AC, and saves for 1 day. These bonuses don't apply against devils.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Book of the Dead"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "target:trait:devil"
+                    }
+                ],
+                "selector": [
+                    "skill-check",
+                    "ac",
+                    "saving-throw"
+                ],
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

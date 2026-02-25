@@ -1,0 +1,49 @@
+{
+    "_id": "00gozjbtueYWop0w",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Hell's Bane",
+    "system": {
+        "description": {
+            "value": "<p>When you critically succeed at a skill check to Recall Knowledge about a devil or Hellknight, you gain a +4 status bonus to damage against that creature for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hellbreakers"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:devil-you-know"
+                ],
+                "selector": [
+                    "damage"
+                ],
+                "type": "status",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

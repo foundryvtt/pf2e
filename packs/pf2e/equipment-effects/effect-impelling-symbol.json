@@ -1,0 +1,50 @@
+{
+    "_id": "4xeFMXOsfrNZ3Ijv",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Impelling Symbol",
+    "system": {
+        "description": {
+            "value": "<p>When you activate it, you gain a number of temporary Hit Points equal to your level plus the rank of the spell you cast. These temporary Hit Points last for 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hellbreakers"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "ranks"
+                },
+                "flag": "rank",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Rank"
+            },
+            {
+                "key": "TempHP",
+                "value": "@actor.level+@item.flags.pf2e.rulesSelections.rank"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
