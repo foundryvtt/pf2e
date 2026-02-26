@@ -25,6 +25,12 @@ const args = argv
             choices: ["pf2e", "sf2e", "both"],
             default: "both",
         });
+        argv.option("reportDuplicates", {
+            describe: "Report duplicate entries and the reason they were excluded",
+            type: "string",
+            choices: ["off", "id", "name", "all"],
+            default: "off",
+        });
     })
     .help(false)
     .version(false)
@@ -33,6 +39,8 @@ const args = argv
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 const distDir = path.resolve(__dirname, "..", "dist");
 const contentSystems = args.system === "both" ? (["pf2e", "sf2e"] as const) : [args.system];
+const reportDuplicates =
+    args.reportDuplicates === "off" ? [] : args.reportDuplicates === "all" ? ["id", "name"] : [args.reportDuplicates];
 
 /** Root module file contents of anachronism. This should be moved to a file somewhere. */
 const moduleSourceContents = String.raw`
@@ -79,7 +87,11 @@ const packPairs = allPackDirs.map((dir) => {
 
     // Get all overlaps between the two systems, which we need to redirect and not export
     // JournalEntries do not redirect, as they may be linked to by content in each system
-    const overlaps =
+    const idOverlaps =
+        manifestData.type === "JournalEntry"
+            ? new Set()
+            : new Set(pf2e?.data.map((d) => d._id)).intersection(new Set(sf2e?.data.map((d) => d._id)));
+    const nameOverlaps =
         manifestData.type === "JournalEntry"
             ? new Set()
             : new Set(pf2e?.data.map((d) => d.name)).intersection(new Set(sf2e?.data.map((d) => d.name)));
@@ -90,7 +102,8 @@ const packPairs = allPackDirs.map((dir) => {
         pf2e,
         sf2e,
         duplicated: new Set(duplicated),
-        overlaps,
+        idOverlaps,
+        nameOverlaps,
         get: (system: SystemId, idOrName: string): PackEntry | null => {
             const mapping = system === "pf2e" ? pf2eMap : sf2eMap;
             return mapping[idOrName] ?? null;
@@ -123,6 +136,7 @@ for (const contentSystem of contentSystems) {
     const targetSystem = contentSystem === "pf2e" ? "sf2e" : "pf2e";
     const contentPacks: CompendiumPack[] = [];
     console.log(`Starting ${contentSystem}-anachronism build`);
+    const reportSkipped: { name: string; id: string; pack: string; reason: string }[] = [];
 
     /**
      * Creates a resolver to convert pack/doctype/doc name data for the build
@@ -141,7 +155,8 @@ for (const contentSystem of contentSystems) {
 
         const duplicated = targetSystem === "sf2e" && pair.duplicated.has(name);
         const useTargetSystem =
-            !!entryInTargetSystem && (!entryInContentSystem || pair.overlaps.has(name) || duplicated);
+            !!entryInTargetSystem &&
+            (!entryInContentSystem || pair.idOverlaps.has(name) || pair.nameOverlaps.has(name) || duplicated);
         const packageId = useTargetSystem ? targetSystem : `${contentSystem}-anachronism`;
         const packId = useTargetSystem ? pair[targetSystem]!.id : pair[contentSystem]!.dirName;
         const resolvedEntry = useTargetSystem ? entryInTargetSystem : entryInContentSystem;
@@ -167,7 +182,21 @@ for (const contentSystem of contentSystems) {
         if (!pack) continue;
 
         const data = pack.data
-            .filter((d) => !packPair.overlaps.has(d.name))
+            .filter((d) => {
+                const idOverlap = packPair.idOverlaps.has(d._id);
+                if (idOverlap) {
+                    if (reportDuplicates.includes("id"))
+                        reportSkipped.push({ name: d.name, id: d._id ?? "", pack: pack?.id, reason: "same id" });
+                    return false;
+                }
+                const nameOverlap = packPair.nameOverlaps.has(d.name);
+                if (nameOverlap) {
+                    if (reportDuplicates.includes("name"))
+                        reportSkipped.push({ name: d.name, id: d._id ?? "", pack: pack?.id, reason: "same name" });
+                    return false;
+                }
+                return !nameOverlap;
+            })
             .map((entry) => {
                 entry = recursiveReplaceString(entry, (s) => {
                     s = s.replaceAll(`systems/${contentSystem}`, `systems/${targetSystem}`);
@@ -236,15 +265,19 @@ for (const contentSystem of contentSystems) {
                 const contentPack = pair[contentSystem];
                 const targetPack = pair[targetSystem];
                 if (!contentPack || !targetPack) return result;
-                for (const overlap of pair.overlaps) {
+                for (const id of pair.idOverlaps) {
+                    const docType = pair.docType;
+                    const originUUID = `Compendium.${contentSystem}.${contentPack.id}.${docType}.${id}`;
+                    const targetUUID = `Compendium.${targetSystem}.${targetPack.id}.${docType}.${id}`;
+                    result[originUUID] = targetUUID;
+                }
+                for (const name of pair.nameOverlaps) {
                     const docType = pair.docType;
                     const originId = (
-                        contentPack.data.find((d) => d.name === overlap) ??
-                        targetPack.data.find((d) => d.name === overlap)
+                        contentPack.data.find((d) => d.name === name) ?? targetPack.data.find((d) => d.name === name)
                     )?._id;
                     const targetId = (
-                        targetPack.data.find((d) => d.name === overlap) ??
-                        contentPack.data.find((d) => d.name === overlap)
+                        targetPack.data.find((d) => d.name === name) ?? contentPack.data.find((d) => d.name === name)
                     )?._id;
                     const originUUID = `Compendium.${contentSystem}.${contentPack.id}.${docType}.${originId}`;
                     const targetUUID = `Compendium.${targetSystem}.${targetPack.id}.${docType}.${targetId}`;
@@ -318,6 +351,20 @@ for (const contentSystem of contentSystems) {
         await db.close();
     }
     console.log(`Finished building ${contentSystem}-anachronism`);
+
+    // Produce report of skipped duplicates
+    if (reportSkipped.length > 0) {
+        console.log("Excluded duplicates:");
+        for (const pack of R.unique(reportSkipped.map((r) => r.pack))) {
+            console.log(` Pack "${pack}":`);
+            for (const entry of R.sortBy(
+                reportSkipped.filter((r) => r.pack === pack),
+                R.prop("name"),
+            )) {
+                console.log("   " + ` [${entry.id ?? " ".repeat(16)}] ` + entry.name + ` (${entry.reason})`);
+            }
+        }
+    }
 }
 
 /** A simple uuid remapper function */
