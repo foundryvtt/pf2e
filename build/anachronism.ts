@@ -186,13 +186,13 @@ for (const contentSystem of contentSystems) {
                 const idOverlap = packPair.idOverlaps.has(d._id);
                 if (idOverlap) {
                     if (reportDuplicates.includes("id"))
-                        reportSkipped.push({ name: d.name, id: d._id ?? "", pack: pack?.id, reason: "same id" });
+                        reportSkipped.push({ name: d.name, id: d._id ?? "", pack: pack?.id, reason: "id" });
                     return false;
                 }
                 const nameOverlap = packPair.nameOverlaps.has(d.name);
                 if (nameOverlap) {
                     if (reportDuplicates.includes("name"))
-                        reportSkipped.push({ name: d.name, id: d._id ?? "", pack: pack?.id, reason: "same name" });
+                        reportSkipped.push({ name: d.name, id: d._id ?? "", pack: pack?.id, reason: "name" });
                     return false;
                 }
                 return !nameOverlap;
