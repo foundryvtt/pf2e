@@ -617,9 +617,10 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         // Propagate HP updates to all sibling segments as well
         const hpUpdates = changed.system.attributes?.hp;
         if (hpUpdates && !options.fromTroop && this.otherSegments) {
+            const damageTaken = options.damageTaken;
             for (const actor of this.otherSegments) {
                 if (actor?.isOfType("npc")) {
-                    actor.update({ "system.attributes.hp": hpUpdates }, { fromTroop: true });
+                    actor.update({ "system.attributes.hp": hpUpdates }, { fromTroop: true, damageTaken });
                 }
             }
         }
