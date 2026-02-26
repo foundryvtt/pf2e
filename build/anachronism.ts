@@ -136,7 +136,7 @@ for (const contentSystem of contentSystems) {
     const targetSystem = contentSystem === "pf2e" ? "sf2e" : "pf2e";
     const contentPacks: CompendiumPack[] = [];
     console.log(`Starting ${contentSystem}-anachronism build`);
-    const reportSkipped: { name: string; id: string; pack: string; reason: string }[] = [];
+    const skippedEntries: { name: string; id: string; pack: string; reason: string }[] = [];
 
     /**
      * Creates a resolver to convert pack/doctype/doc name data for the build
@@ -186,13 +186,13 @@ for (const contentSystem of contentSystems) {
                 const idOverlap = packPair.idOverlaps.has(d._id);
                 if (idOverlap) {
                     if (reportDuplicates.includes("id"))
-                        reportSkipped.push({ name: d.name, id: d._id ?? "", pack: pack?.id, reason: "id" });
+                        skippedEntries.push({ name: d.name, id: d._id ?? "", pack: pack?.id, reason: "id" });
                     return false;
                 }
                 const nameOverlap = packPair.nameOverlaps.has(d.name);
                 if (nameOverlap) {
                     if (reportDuplicates.includes("name"))
-                        reportSkipped.push({ name: d.name, id: d._id ?? "", pack: pack?.id, reason: "name" });
+                        skippedEntries.push({ name: d.name, id: d._id ?? "", pack: pack?.id, reason: "name" });
                     return false;
                 }
                 return !nameOverlap;
@@ -353,12 +353,12 @@ for (const contentSystem of contentSystems) {
     console.log(`Finished building ${contentSystem}-anachronism`);
 
     // Produce report of skipped duplicates
-    if (reportSkipped.length > 0) {
+    if (skippedEntries.length > 0) {
         console.log("Excluded entries:");
-        for (const pack of R.unique(reportSkipped.map((r) => r.pack))) {
+        for (const pack of R.unique(skippedEntries.map((r) => r.pack))) {
             console.log(` Pack "${pack}":`);
             for (const entry of R.sortBy(
-                reportSkipped.filter((r) => r.pack === pack),
+                skippedEntries.filter((r) => r.pack === pack),
                 R.prop("name"),
             )) {
                 console.log("   " + ` [${entry.id ?? " ".repeat(16)}] ` + entry.name + ` (${entry.reason})`);
