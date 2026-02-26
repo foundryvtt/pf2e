@@ -354,7 +354,7 @@ for (const contentSystem of contentSystems) {
 
     // Produce report of skipped duplicates
     if (reportSkipped.length > 0) {
-        console.log("Excluded duplicates:");
+        console.log("Excluded entries:");
         for (const pack of R.unique(reportSkipped.map((r) => r.pack))) {
             console.log(` Pack "${pack}":`);
             for (const entry of R.sortBy(
