@@ -948,7 +948,14 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "crystal-implant",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -976,7 +983,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>60 feet. @Check[will|dc:35]</p>\n<p>This aura is suppressed as long as Mogaran's crystal implant is functioning.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>60 feet. @Check[will|dc:35|options:area-effect,inflicts:frightened]</p>\n<p>This aura is suppressed as long as Mogaran's crystal implant is functioning.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -986,6 +993,11 @@
                 "rules": [
                     {
                         "key": "Aura",
+                        "predicate": [
+                            {
+                                "not": "crystal-implant"
+                            }
+                        ],
                         "radius": 60,
                         "slug": "frightful-presence",
                         "traits": [

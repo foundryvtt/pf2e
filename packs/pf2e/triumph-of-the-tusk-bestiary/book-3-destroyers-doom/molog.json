@@ -475,7 +475,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet, @Check[will|dc:27].</p>\n<p>As long as Molog remains mounted and his standard is intact, he has frightful presence against enemies within the aura.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>30 feet. @Check[will|dc:27|options:area-effect,inflicts:frightened].</p>\n<p>As long as Molog remains mounted and his standard is intact, he has frightful presence against enemies within the aura.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -484,8 +484,23 @@
                 },
                 "rules": [
                     {
+                        "key": "RollOption",
+                        "option": "frightful-standard",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
                         "key": "Aura",
-                        "radius": 30
+                        "predicate": [
+                            "frightful-standard"
+                        ],
+                        "radius": 30,
+                        "slug": "frightful-standard",
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
                     }
                 ],
                 "slug": null,

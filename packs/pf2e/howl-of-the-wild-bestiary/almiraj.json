@@ -142,7 +142,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>5 feet @Check[will|dc:22]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence] Creatures that critically fail are also fleeing for 1 round.</p>"
+                    "value": "<p>5 feet. @Check[will|dc:22|options:area-effect,inflicts:frightened,inflicts:fleeing]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence] Creatures that critically fail are also @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -152,6 +152,7 @@
                 "rules": [
                     {
                         "key": "Aura",
+                        "radius": 5,
                         "slug": "frightful-presence",
                         "traits": [
                             "emotion",
