@@ -1,0 +1,105 @@
+{
+    "_id": "DZsWmzBEY8LsoF0H",
+    "folder": "hM2SOUWscHgvAMED",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "tiGlUAs0aUXgFTNK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shadow Lash",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "8IYWfPkqtfSG77rO": {
+                        "damage": "2d6",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": "<p><em>Note: This Strike can only be used with the <strong>Single Target</strong> result of the Shadow Walls' routine.</em></p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": null,
+                    "max": 120
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Shadow Walls",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "emitsSound": "encounter",
+            "hardness": 8,
+            "hp": {
+                "details": "Wall HP 15",
+                "max": 15,
+                "temp": 0,
+                "value": 15
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 10
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "",
+            "disable": "<p>@Check[arcana|dc:20], @Check[nature|dc:20], @Check[occultism|dc:20], or @Check[religion|dc:20] on each of the shadow walls (disabling three of the four walls ends the hazard), or activating the orrery with the <em>unlit star</em> as noted in \"The Orrery of Light.\"</p>",
+            "isComplex": true,
+            "level": {
+                "value": 4
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
+            },
+            "reset": "",
+            "routine": "<p>Each turn, the walls use 1 action. Roll a [[/gmr 1d10 #Routine Result]]{d10} and look up the result on the following list to determine which action the walls uses that round.</p><p><strong>1–4 Single Target</strong> The walls lash out at a random hero in the room. Roll a [[/gmr 1d4 #Random Hero]]{d4} and count to the number you rolled, starting with the player on your left, to determine which hero gets attacked. The shadow lash is a ranged Strike with +10 to hit. On a hit, it deals @Damage[2d6[void]] damage (doubled on a critical hit as normal).</p><p><strong>5–7 Wall Barrage</strong> The shadow arms lunge out from their respective wall, assaulting any one near an active wall. This hits any creature within 10 feet of an active wall (within 10 feet of a shadow hand on the map), dealing @Damage[2d6[void]|options:area-damage] damage. Each hero must attempt a @Check[reflex|dc:15|basic|options:area-effect] save, taking no damage on a critical success, half damage on a success, full damage on a failure, and double damage on a critical failure.</p><p><strong>8–9 Split Assault</strong> The shadows lash out against one half of the room. Roll [[/gmr 1d20 #Even Western Half, Odd Eastern Half]]{any die}. If the result is even, they assault the western half; otherwise, they assault the eastern half. This deals @Damage[2d6[void]|options:area-damage] damage to each creature in that half of the room, and each hero must attempt a @Check[reflex|dc:15|basic|options:area-effect] save.</p><p><strong>10 Overwhelming Assault</strong> Like the split assault attack, but it targets everyone in the room.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 7
+            },
+            "reflex": {
+                "value": 5
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": []
+        }
+    },
+    "type": "hazard"
+}
