@@ -4,7 +4,7 @@ import type { ActionDefaultOptions } from "@system/action-macros/index.ts";
 import { ErrorPF2e, localizer } from "@util";
 
 /** Effect: Raise a Shield */
-const ITEM_UUID = "Compendium.pf2e.equipment-effects.Item.2YgXoHvJfrDHucMr";
+const ITEM_UUID = `Compendium.${SYSTEM_ID}.equipment-effects.Item.2YgXoHvJfrDHucMr`;
 
 const TEMPLATES = {
     flavor: `./systems/${SYSTEM_ID}/templates/chat/action/flavor.hbs`,
