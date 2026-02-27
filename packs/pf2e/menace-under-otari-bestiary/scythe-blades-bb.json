@@ -14,7 +14,7 @@
                 "actions": {
                     "value": null
                 },
-                "category": null,
+                "category": "offensive",
                 "description": {
                     "value": "<p>When the trip wire is pulled or severed, both blades swing down, each one attacking all creatures under the ceiling grooves. The trap makes a melee attack with each blade with +17 to each attack roll. There's no multiple attack penalty on these attacks. On a hit, a blade deals 2d12+4 slashing damage. On a critical hit, the damage is doubled plus 6 extra damage.</p>"
                 },
@@ -26,7 +26,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "attack"
                     ]
@@ -40,9 +39,8 @@
             "name": "Scythe",
             "sort": 0,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -75,7 +73,7 @@
                 "slug": null,
                 "subjectToMAP": false,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": []
                 }
             },
@@ -101,15 +99,17 @@
             },
             "immunities": [
                 {
+                    "exceptions": [],
                     "type": "critical-hits"
                 }
             ],
+            "resistances": [],
             "stealth": {
                 "details": "",
                 "value": 13
-            }
+            },
+            "weaknesses": []
         },
-        "creatureType": "",
         "details": {
             "description": "<p>Two blades, each hidden in a 15-foot-long ceiling groove, are both connected to a trip wire.</p>",
             "disable": "<p>@Check[thievery|dc:21|traits:hazard|name:Disable Blade] to disable each blade.</p>",
@@ -120,18 +120,16 @@
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Beginner Box"
+                "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
             },
             "reset": "",
             "routine": ""
         },
         "saves": {
             "fortitude": {
-                "saveDetail": "",
                 "value": 12
             },
             "reflex": {
-                "saveDetail": "",
                 "value": 8
             },
             "will": {
@@ -139,7 +137,6 @@
                 "value": null
             }
         },
-        "statusEffects": [],
         "traits": {
             "rarity": "common",
             "size": {

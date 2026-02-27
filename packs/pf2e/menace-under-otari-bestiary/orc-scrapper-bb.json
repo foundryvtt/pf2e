@@ -11,6 +11,7 @@
             "name": "Javelin",
             "sort": 100000,
             "system": {
+                "ammo": null,
                 "baseItem": "javelin",
                 "bonus": {
                     "value": 0
@@ -37,6 +38,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "dart",
                 "hardness": 0,
                 "hp": {
@@ -56,9 +58,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 3,
                 "range": 30,
@@ -83,6 +85,7 @@
                     ]
                 },
                 "usage": {
+                    "canBeAmmo": false,
                     "value": "held-in-one-hand"
                 }
             },
@@ -93,10 +96,11 @@
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.War0uyLBx1jA0Ge7"
             },
-            "img": "systems/pf2e/icons/equipment/weapons/battle-axe.webp",
+            "img": "icons/weapons/axes/axe-battle-black.webp",
             "name": "Battle Axe",
             "sort": 200000,
             "system": {
+                "ammo": null,
                 "baseItem": "battle-axe",
                 "bonus": {
                     "value": 0
@@ -123,6 +127,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "axe",
                 "hardness": 0,
                 "hp": {
@@ -142,9 +147,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -197,9 +202,11 @@
                 "dexCap": 2,
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": false,
                     "invested": null
                 },
+                "grade": null,
                 "group": "leather",
                 "hardness": 0,
                 "hp": {
@@ -219,9 +226,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -252,11 +259,9 @@
             "name": "Battle Axe",
             "sort": 400000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -280,7 +285,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "agile",
                         "disarm"
@@ -295,11 +300,9 @@
             "name": "Fist",
             "sort": 500000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -323,7 +326,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "agile",
                         "nonlethal",
@@ -344,11 +347,9 @@
             "name": "Javelin",
             "sort": 600000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -372,7 +373,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "thrown-30"
                     ]
@@ -398,17 +399,16 @@
                 "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the orc is reduced to 0 Hit Points, they can use their reaction to remain conscious with 1 Hit Point, but they gain the wounded 1 condition (or increases the wounded value by 1 if they already have that condition). The orc can't use this ability at wounded 3.</p>"
+                    "value": "<p>When the orc is reduced to 0 Hit Points, they can use their reaction to remain conscious with 1 Hit Point, but they gain the @UUID[Compendium.pf2e.conditionitems.Item.Wounded]{Wounded 1} condition (or increases the wounded value by 1 if they already have that condition). The orc can't use this ability at wounded 3.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
                 "slug": "ferocity",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -469,11 +469,11 @@
                 "value": 0
             },
             "privateNotes": "",
-            "publicNotes": "<p>Orcs are proud, strong humanoids that live by the rule that might makes right. They amass in warbands both large and small, conquering territory and robbing those unlucky enough to cross their path. Countless small settlements, outposts, and forts have fallen at the hands of orc raiders, whose sheer destructiveness leaves an indelible mark on the lands they conquer. The furious and undisciplined rankand-file scrappers make up the bulk of an orc warband.</p>",
+            "publicNotes": "<p>Orcs are proud, strong humanoids that live by the rule that might makes right. They amass in warbands both large and small, conquering territory and robbing those unlucky enough to cross their path. Countless small settlements, outposts, and forts have fallen at the hands of orc raiders, whose sheer destructiveness leaves an indelible mark on the lands they conquer. The furious and undisciplined rank-and-file scrappers make up the bulk of an orc warband.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Beginner Box"
+                "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
             }
         },
         "initiative": {

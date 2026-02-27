@@ -11,6 +11,7 @@
             "name": "Dagger",
             "sort": 100000,
             "system": {
+                "ammo": null,
                 "baseItem": "dagger",
                 "bonus": {
                     "value": 0
@@ -37,6 +38,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "knife",
                 "hardness": 0,
                 "hp": {
@@ -63,7 +65,7 @@
                 "quantity": 1,
                 "range": null,
                 "reload": {
-                    "value": "-"
+                    "value": null
                 },
                 "rules": [],
                 "runes": {
@@ -98,11 +100,9 @@
             "name": "Claw",
             "sort": 200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": [
                         "corrupting-spite"
                     ]
@@ -128,7 +128,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "agile",
                         "unarmed"
@@ -143,9 +143,8 @@
             "name": "Dagger",
             "sort": 300000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": [
                         "corrupting-spite"
@@ -172,6 +171,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
+                    "config": {},
                     "value": [
                         "agile",
                         "versatile-s"
@@ -195,7 +195,7 @@
                 "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the wight is reduced to 0 Hit Points, it can use its reaction to make a Strike before being destroyed. It doesn't gain any Hit Points from corrupting spite on this Strike.</p>"
+                    "value": "<p>When the wight is reduced to 0 Hit Points, they can use their reaction to make a Strike before being destroyed. They don't gain any Hit Points from corrupting spite on this Strike.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -205,7 +205,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -225,7 +224,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the wight deals damage to a living creature with its claw or dagger Strike, the wight regains @Damage[2[void,healing]|shortLabel] Hit Points and the target must succeed at a @Check[fortitude|dc:17] save or take 2 damage that can't be healed. The wight can use corrupting spite multiple times, but a single creature can't take more than 8 unhealable damage.</p>\n<p>Each full night of rest heals 2 of the unhealable damage, and a full day of bed rest increases the recovery to 4 of the unhealable damage.</p>"
+                    "value": "<p>When the wight deals damage to a living creature with their claw or dagger Strike, the wight regains @Damage[2[healing]] Hit Points and the target must succeed at a @Check[fortitude|dc:17|options:damaging-effect] save or take @Damage[2] damage that can't be healed. The wight can use corrupting spite multiple times, but a single creature can't take more than 8 unhealable damage. Each full night of rest heals 2 of the unhealable damage, and a full day of bed rest increases the recovery of the unhealable damage to 4.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -235,7 +234,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "divine",
                         "void"
@@ -321,7 +319,7 @@
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Beginner Box"
+                "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
             }
         },
         "initiative": {

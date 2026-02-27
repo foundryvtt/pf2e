@@ -8,9 +8,8 @@
             "name": "Mandible",
             "sort": 100000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": [
                         "grab"
@@ -37,6 +36,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
+                    "config": {},
                     "value": []
                 }
             },
@@ -48,9 +48,8 @@
             "name": "Stinger",
             "sort": 200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": [
                         "giant-ant-venom"
@@ -77,6 +76,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
+                    "config": {},
                     "value": [
                         "agile"
                     ]
@@ -98,7 +98,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A target that takes piercing damage from the giant ant's stinger Strike must succeed at a @Check[fortitude|dc:18|traits:damaging-effect] save or take @Damage[1d10[poison]] damage.</p>"
+                    "value": "<p>A target that takes piercing damage from the giant ant's stinger Strike must succeed at a @Check[fortitude|dc:18|options:damaging-effect] save or take @Damage[1d10[poison]] damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -129,7 +129,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If the giant ant has a creature grabbed or restrained with its mandibles, it can spend this action to Stride up to its speed, carrying the creature with it. At the end of the Stride, place the creature in any open square adjacent to the giant ant.</p>"
+                    "value": "<p>If the giant ant has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] with its mandibles, it can spend this action to Stride up to its speed, carrying the creature with it. At the end of the Stride, place the creature in any open square adjacent to the giant ant.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -161,7 +161,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                    "value": "<p>When the ant succeeds at its mandibles Strike, it can use this action immediately after to attempt to [[/act grapple]] the target. This Grapple doesn't apply or count toward the ant's multiple attack penalty.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -171,7 +171,6 @@
                 "rules": [],
                 "slug": "grab",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -241,7 +240,7 @@
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Beginner Box"
+                "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
             }
         },
         "initiative": {

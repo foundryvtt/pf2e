@@ -11,6 +11,7 @@
             "name": "Club",
             "sort": 100000,
             "system": {
+                "ammo": null,
                 "baseItem": "club",
                 "bonus": {
                     "value": 0
@@ -37,6 +38,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "club",
                 "hardness": 0,
                 "hp": {
@@ -95,6 +97,7 @@
             "name": "Javelin",
             "sort": 200000,
             "system": {
+                "ammo": null,
                 "baseItem": "javelin",
                 "bonus": {
                     "value": 0
@@ -121,6 +124,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "dart",
                 "hardness": 0,
                 "hp": {
@@ -183,11 +187,9 @@
             "name": "Club",
             "sort": 300000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -211,7 +213,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": []
                 }
             },
@@ -223,11 +225,9 @@
             "name": "Jaws",
             "sort": 400000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -251,7 +251,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "unarmed"
                     ]
@@ -265,11 +265,9 @@
             "name": "Claw",
             "sort": 500000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -293,7 +291,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "agile",
                         "unarmed"
@@ -313,11 +311,9 @@
             "name": "Javelin",
             "sort": 600000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -341,7 +337,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "thrown-30"
                     ]
@@ -363,24 +359,16 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A creature that comes within @Template[emanation|distance:30] of the xulgath and can smell the xulgath must attempt a @Check[fortitude|dc:16] save. On a failure, the creature takes a -1 status penalty to all checks and DCs until it uses an action to retch. A creature that succeeds at its save isn't affected by any xulgaths' stenches for 1 minute <em>(Use @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1})</em>.</p>"
+                    "value": "<p>A creature that comes within 30 feet of the xulgath and can smell the xulgath must attempt a @Check[fortitude|dc:16|options:inflicts:sickened] save. On a failure, the creature takes a –1 status penalty to all checks and DCs until it uses an action to retch (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}). A creature that succeeds at its save isn't affected by any xulgaths' stenches for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "stench",
-                        "traits": []
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -445,7 +433,7 @@
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Beginner Box"
+                "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
             }
         },
         "initiative": {

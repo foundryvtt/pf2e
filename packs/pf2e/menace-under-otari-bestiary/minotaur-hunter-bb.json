@@ -11,6 +11,7 @@
             "name": "Greataxe",
             "sort": 100000,
             "system": {
+                "ammo": null,
                 "baseItem": "greataxe",
                 "bonus": {
                     "value": 0
@@ -37,6 +38,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "axe",
                 "hardness": 0,
                 "hp": {
@@ -90,13 +92,17 @@
         },
         {
             "_id": "ZbGvfggdVHs60uHl",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "6BFWEsQhdXfrdnwm"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Greataxe",
             "sort": 200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -121,6 +127,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
+                    "config": {},
                     "value": [
                         "reach-10",
                         "sweep"
@@ -135,9 +142,8 @@
             "name": "Horn",
             "sort": 300000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -147,7 +153,7 @@
                 "damageRolls": {
                     "84l7c3jVY7Nw8tXD": {
                         "damage": "1d8+8",
-                        "damageType": "bludgeoning"
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
@@ -162,6 +168,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
+                    "config": {},
                     "value": [
                         "unarmed"
                     ]
@@ -183,14 +190,30 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A minotaur automatically critically succeeds on Survival checks to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction] or @UUID[Compendium.pf2e.actionspf2e.Item.Track].</p>"
+                    "value": "<p>A minotaur automatically critically succeeds on Survival checks to [[/act sense-direction]] or [[/act track]]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "adjustment": {
+                            "all": "to-critical-success"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:sense-direction",
+                                    "action:track"
+                                ]
+                            }
+                        ],
+                        "selector": "survival"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -212,7 +235,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The minotaur makes two Strikes with its greataxe against two adjacent enemies, both of whom are within its reach. The second attack uses the same multiple attack penalty as the first, but attacks it makes after this take a -10 multiple attack penalty.</p>"
+                    "value": "<p>The minotaur makes two Strikes with their greataxe against two adjacent enemies, both of whom are within their reach. The second attack uses the same multiple attack penalty as the first, but attacks they make after this take a –10 multiple attack penalty.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -241,7 +264,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The minotaur Strides twice, then makes a horn Strike. If the moved at least 20 feet from their starting position, the Strike's damage is increased to 2d8+10 piercing.</p>"
+                    "value": "<p>The minotaur Strides twice, then makes a horn Strike. If they moved at least 20 feet from their starting position, the Strike's damage is increased to 2d8+10.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -337,7 +360,7 @@
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Beginner Box"
+                "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
             }
         },
         "initiative": {

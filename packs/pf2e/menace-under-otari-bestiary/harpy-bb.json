@@ -8,11 +8,9 @@
             "name": "Talon",
             "sort": 100000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -36,7 +34,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "agile",
                         "finesse",
@@ -52,9 +50,8 @@
             "name": "Jaws",
             "sort": 200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -79,6 +76,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
+                    "config": {},
                     "value": [
                         "finesse",
                         "unarmed"
@@ -101,7 +99,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A creature that comes within 30 feet of the harpy and can smell the harpy must attempt a @Check[fortitude|dc:21] save. On a failure, the creature takes a -1 status penalty to all checks and DCs until it uses an action to retch. A creature that succeeds at its save isn't affected by any harpy's stenches for 1 minute.</p>"
+                    "value": "<p>A creature that comes within 30 feet of the harpy and can smell the harpy must attempt a @Check[fortitude|dc:21|options:area-effect,inflicts:sickened] save. On a failure, the creature takes a –1 status penalty to all checks and DCs until it uses an action to retch (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}). A creature that succeeds at its save isn't affected by any harpy's stenches for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -130,7 +128,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The harpy uses the wind to pull its prey closer. A target within 20 feet must succeed at a @Check[fortitude|dc:21] save or be pulled adjacent to the harpy. The harpy then makes a jaws strike against the target. If the target is pulled into the air and cannot fly, it falls as normal.</p>"
+                    "value": "<p>The harpy uses the wind to pull its prey closer. A target within 20 feet must succeed at a @Check[fortitude|dc:21|options:forced-movement] save or be pulled adjacent to the harpy. The harpy then makes a jaws strike against the target. If the target is pulled into the air and cannot fly, it falls as normal.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -212,7 +210,7 @@
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Beginner Box"
+                "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
             }
         },
         "initiative": {

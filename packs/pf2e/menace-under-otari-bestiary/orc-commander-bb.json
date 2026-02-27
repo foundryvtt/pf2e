@@ -11,6 +11,7 @@
             "name": "Javelin",
             "sort": 100000,
             "system": {
+                "ammo": null,
                 "baseItem": "javelin",
                 "bonus": {
                     "value": 0
@@ -37,6 +38,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "dart",
                 "hardness": 0,
                 "hp": {
@@ -56,9 +58,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 6,
                 "range": 30,
@@ -83,6 +85,7 @@
                     ]
                 },
                 "usage": {
+                    "canBeAmmo": false,
                     "value": "held-in-one-hand"
                 }
             },
@@ -93,10 +96,11 @@
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.mlrmkpOlwpnGkw4I"
             },
-            "img": "systems/pf2e/icons/equipment/weapons/maul.webp",
+            "img": "icons/weapons/hammers/hammer-double-steel-embossed.webp",
             "name": "Maul",
             "sort": 200000,
             "system": {
+                "ammo": null,
                 "baseItem": "maul",
                 "bonus": {
                     "value": 0
@@ -123,6 +127,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "hammer",
                 "hardness": 0,
                 "hp": {
@@ -142,9 +147,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -197,9 +202,11 @@
                 "dexCap": 2,
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
                 },
+                "grade": null,
                 "group": "leather",
                 "hardness": 0,
                 "hp": {
@@ -219,9 +226,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -252,11 +259,9 @@
             "name": "Maul",
             "sort": 400000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -280,7 +285,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "shove"
                     ]
@@ -294,11 +299,9 @@
             "name": "Fist",
             "sort": 500000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -322,7 +325,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "agile",
                         "nonlethal",
@@ -343,11 +346,9 @@
             "name": "Javelin",
             "sort": 600000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -371,7 +372,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "thrown-30"
                     ]
@@ -397,17 +398,16 @@
                 "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the orc is reduced to 0 Hit Points, they can use their reaction to remain conscious with 1 Hit Point, but they gain the wounded 1 condition (or increases the wounded value by 1 if they already have that condition). The orc can't use this ability at wounded 3.</p>"
+                    "value": "<p>When the orc is reduced to 0 Hit Points, they can use their reaction to remain conscious with 1 Hit Point, but they gain the @UUID[Compendium.pf2e.conditionitems.Item.Wounded]{Wounded 1} condition (or increases the wounded value by 1 if they already have that condition). The orc can't use this ability at wounded 3.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
                 "slug": "ferocity",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -427,7 +427,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Bellowing mightily, the commander gives themself and all orc allies within @Template[emanation|distance:60]{60 feet} who can hear them a +1 status bonus to attack and damage rolls until the start of the orc commander's next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Battle Cry]</p>"
+                    "value": "<p>Bellowing mightily, the commander gives themself and all orc allies within 60 feet who can hear them a +1 status bonus to attack rolls and damage rolls until the start of the orc commander's next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Battle Cry]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -437,7 +437,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "concentrate",
                         "mental"
@@ -501,11 +500,11 @@
                 "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "<p>When orcs raid, the strongest is chosen as the leader. Bonds of blood are especially strong among orcs, and the mightiest orc holds are typically made up of siblings who have chosen a strong commander to protect their kinfolk.</p>",
+            "publicNotes": "<p>When orcs raid, the strongest is chosen as the leader. Bonds of blood are especially strong among orcs and the mightiest orc holds are typically made up of siblings who have chosen a strong commander to protect their kinfolk.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Beginner Box"
+                "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
             }
         },
         "initiative": {

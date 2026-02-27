@@ -8,9 +8,8 @@
             "name": "Jaws",
             "sort": 100000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": [
                         "grab"
@@ -37,6 +36,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
+                    "config": {},
                     "value": [
                         "unarmed"
                     ]
@@ -46,7 +46,7 @@
         },
         {
             "_id": "VLWCAVOCAqcO4PEB",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Avenging Bite",
             "sort": 200000,
             "system": {
@@ -96,7 +96,6 @@
                 },
                 "rules": [
                     {
-                        "domain": "damage",
                         "key": "RollOption",
                         "option": "pack-attack",
                         "toggleable": true
@@ -108,7 +107,7 @@
                         "predicate": [
                             "pack-attack"
                         ],
-                        "selector": "strike-damage"
+                        "selector": "jaws-damage"
                     }
                 ],
                 "slug": null,
@@ -120,7 +119,7 @@
         },
         {
             "_id": "Db24UdpGiWsgWITM",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Shred",
             "sort": 400000,
             "system": {
@@ -132,7 +131,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If the warg has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], it can spend one action to shred them with its teeth. The creature takes @Damage[1d6[slashing]] damage and can make a @Check[fortitude|dc:18|basic] save.</p>"
+                    "value": "<p>If the warg has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], they can spend one action to shred it with their teeth. The creature takes @Damage[1d6[slashing]] damage and can attempt a @Check[fortitude|dc:18|basic] save.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -164,7 +163,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the warg succeeds at its jaws Strike, it can use this action immediately after to attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] the target. This Grapple doesn't apply or count toward the warg's multiple attack penalty.</p>"
+                    "value": "<p>When the warg succeeds at its jaws Strike, it can use this action immediately after to attempt to [[/act grapple]] the target. This Grapple doesn't apply or count toward the warg's multiple attack penalty.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -174,7 +173,6 @@
                 "rules": [],
                 "slug": "grab",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -239,7 +237,7 @@
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Beginner Box"
+                "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
             }
         },
         "initiative": {

@@ -7,10 +7,11 @@
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.LJdbVTOZog39EEbi"
             },
-            "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
+            "img": "icons/weapons/swords/sword-guard-blue.webp",
             "name": "Longsword",
             "sort": 100000,
             "system": {
+                "ammo": null,
                 "baseItem": "longsword",
                 "bonus": {
                     "value": 0
@@ -29,7 +30,7 @@
                     "die": "d8"
                 },
                 "description": {
-                    "value": "<p>Longswords can be one-edged or two-edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
+                    "value": "<p>Longswords, also known as arming swords, can be one-edged or two-edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -37,6 +38,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "sword",
                 "hardness": 0,
                 "hp": {
@@ -56,9 +58,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -83,6 +85,7 @@
                     ]
                 },
                 "usage": {
+                    "canBeAmmo": false,
                     "value": "held-in-one-hand"
                 }
             },
@@ -93,7 +96,7 @@
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.hIgqLgH3YcLZBeoT"
             },
-            "img": "systems/pf2e/icons/equipment/weapons/shortbow.webp",
+            "img": "icons/weapons/bows/shortbow-leather.webp",
             "name": "Shortbow",
             "sort": 200000,
             "system": {
@@ -128,6 +131,7 @@
                     "invested": null
                 },
                 "expend": 1,
+                "grade": null,
                 "group": "bow",
                 "hardness": 0,
                 "hp": {
@@ -147,9 +151,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": 60,
@@ -184,7 +188,7 @@
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.Yr9yCuJiAlFh3QEB"
             },
-            "img": "icons/equipment/shield/heater-steel-boss-red.webp",
+            "img": "systems/pf2e/icons/equipment/shields/steel-shield.webp",
             "name": "Shield",
             "sort": 300000,
             "system": {
@@ -195,13 +199,14 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>A shield has 20 Hit Points. If a shield ever takes 10 damage or more, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Broken]. A broken shield can't be used for @UUID[Compendium.pf2e.actionspf2e.Item.Raise a Shield] or @UUID[Compendium.pf2e.feats-srd.Item.Shield Block], but you can still @UUID[Compendium.pf2e.actionspf2e.Item.Repair] it. If the shield loses all 20 Hit Points, it is completely destroyed.</p>"
+                    "value": "<p>Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.</p><table class=\"pf2e remaster\"><thead><tr><th>Hardness</th><th>HP</th><th>BT</th></tr></thead><tbody><tr><td>5</td><td>20</td><td>10</td></tr></tbody></table>"
                 },
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0,
                     "invested": null
                 },
+                "grade": null,
                 "hardness": 5,
                 "hp": {
                     "max": 20,
@@ -220,9 +225,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Beginner Box"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -263,8 +268,11 @@
                 "dexCap": 1,
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": false,
                     "invested": null
                 },
+                "grade": null,
                 "group": "plate",
                 "hardness": 0,
                 "hp": {
@@ -311,7 +319,7 @@
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
             },
-            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
+            "img": "icons/weapons/ammunition/arrows-broadhead-white.webp",
             "name": "Arrows",
             "sort": 500000,
             "system": {
@@ -324,8 +332,21 @@
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
                 "level": {
                     "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -334,9 +355,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 10,
                 "rules": [],
@@ -367,11 +388,9 @@
             "name": "Longsword",
             "sort": 600000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -395,7 +414,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "versatile-p"
                     ]
@@ -414,11 +433,9 @@
             "name": "Shortbow",
             "sort": 700000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -445,7 +462,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "deadly-d10",
                         "reload-0"
@@ -477,15 +494,6 @@
                 },
                 "rules": [
                     {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "formation"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "circumstance",
-                        "value": 1
-                    },
-                    {
                         "key": "RollOption",
                         "option": "formation",
                         "toggleable": true
@@ -495,14 +503,50 @@
                         "predicate": [
                             "formation"
                         ],
-                        "selector": "ac",
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
                         "type": "circumstance",
                         "value": 1
                     }
                 ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uhQQ9sANVbVafU9o",
+            "folder": "dfRpdU8Efsenms12",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Raise a Shield",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The hobgoblin soldier lifts up their shield to get a +2 circumstance bonus to AC until the start of their next turn</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Raise a Shield",
+                    "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Raise a Shield"
+                },
+                "slug": "raise-a-shield",
+                "traits": {
                     "value": []
                 }
             },
@@ -515,7 +559,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Shield Block",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -525,7 +569,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>If they @UUID[Compendium.pf2e.actionspf2e.Item.Raise a Shield]{Raised a Shield} since their last turn, the hobgoblin can spend their reaction to block a Strike. Reduce the damage by 5, but the hobgoblin and the shield both take the remaining damage, possibly @UUID[Compendium.pf2e.conditionitems.Item.Broken]{Breaking} or destroying the shield.</p>"
+                    "value": "<p>If they @UUID[Compendium.pf2e.actionspf2e.Item.Raise a Shield]{Raised a Shield} since their last turn, the hobgoblin can spend their reaction to block a Strike. Reduce the damage by 5, but the hobgoblin and the shield both take the remaining damage, possibly breaking or destroying the shield.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -535,7 +579,6 @@
                 "rules": [],
                 "slug": "shield-block",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -596,11 +639,11 @@
                 "value": 1
             },
             "privateNotes": "",
-            "publicNotes": "<p>Hobgoblins are singularly devoted to war, and their entire civilization is built upon fostering and maintaining conflict while simultaneously proving their superiority in battle. Highly organized, they work efficiently and effectively in groups, whether that group is a small raiding party, a roving war band, or a fully regimented army. Physically, hobgoblins stand about as tall as humans and have gray, ashen skin.</p>",
+            "publicNotes": "<p>Hobgoblins are devoted to war, and their entire civilization is built upon fostering and maintaining conflict while proving their battle superiority. Highly organized, they work efficiently in groups, whether that group is a small raiding party, a roving war band, or a fully regimented army. Physically, hobgoblins stand about as tall as humans and have gray, ashen skin.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Beginner Box"
+                "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
             }
         },
         "initiative": {

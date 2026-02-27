@@ -14,7 +14,7 @@
                 "actions": {
                     "value": null
                 },
-                "category": null,
+                "category": "offensive",
                 "description": {
                     "value": "<p>When a creature tries to unlock or @UUID[Compendium.pf2e.actionspf2e.Item.Pick a Lock]{Pick the Lock}, a spine extends to attack that creature with a Spine attack.</p>"
                 },
@@ -26,7 +26,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "attack"
                     ]
@@ -40,9 +39,8 @@
             "name": "Spine",
             "sort": 0,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -72,17 +70,14 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": []
                 }
             },
             "type": "melee"
         }
     ],
-    "name": "Envenomed Lock (BB)",
-    "prototypeToken": {
-        "name": "Envenomed Lock"
-    },
+    "name": "Envenomed Lock",
     "system": {
         "attributes": {
             "ac": {
@@ -90,7 +85,6 @@
             },
             "emitsSound": "encounter",
             "hardness": 6,
-            "hasHealth": true,
             "hp": {
                 "details": "",
                 "max": 24,
@@ -99,15 +93,17 @@
             },
             "immunities": [
                 {
+                    "exceptions": [],
                     "type": "critical-hits"
                 }
             ],
+            "resistances": [],
             "stealth": {
                 "details": "",
                 "value": 7
-            }
+            },
+            "weaknesses": []
         },
-        "creatureType": "",
         "details": {
             "description": "<p>A spring-loaded, poisoned spine is hidden near the keyhole of a lock. @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device]{Disabling} or breaking the trap doesn't disable or break the lock.</p>",
             "disable": "<p>@Check[thievery|dc:17|traits:hazard|name:Disable the Spring Mechanism] on the spring mechanism</p>",
@@ -118,26 +114,22 @@
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Beginner Box"
+                "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
             },
             "reset": "",
             "routine": ""
         },
         "saves": {
             "fortitude": {
-                "saveDetail": "",
                 "value": 8
             },
             "reflex": {
-                "saveDetail": "",
                 "value": 4
             },
             "will": {
-                "saveDetail": "",
-                "value": 0
+                "value": null
             }
         },
-        "statusEffects": [],
         "traits": {
             "rarity": "common",
             "size": {

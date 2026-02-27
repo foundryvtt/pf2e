@@ -5,7 +5,7 @@
         {
             "_id": "xa524Pmx1LWbJGLL",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Wizard Spells",
+            "name": "Spells",
             "sort": 100000,
             "system": {
                 "autoHeightenLevel": {
@@ -102,6 +102,10 @@
                 },
                 "location": {
                     "heightenedLevel": 1,
+                    "uses": {
+                        "max": 3,
+                        "value": 3
+                    },
                     "value": "xa524Pmx1LWbJGLL"
                 },
                 "publication": {
@@ -137,32 +141,30 @@
             "type": "spell"
         },
         {
-            "_id": "CcEPMmJ3By2YvJXr",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.y6rAdMK6EFlV6U0t"
-            },
-            "img": "systems/pf2e/icons/spells/dragon-breath.webp",
-            "name": "Breathe Fire",
+            "_id": "wxmfvnWYfyNwYBqC",
+            "folder": "D7UVaOiB40wTR6kv",
+            "img": "icons/magic/acid/orb-bubble-smoke-drip.webp",
+            "name": "Caustic Blast",
             "sort": 300000,
             "system": {
                 "area": {
-                    "type": "cone",
-                    "value": 15
+                    "type": "burst",
+                    "value": 5
                 },
                 "cost": {
                     "value": ""
                 },
                 "counteraction": false,
                 "damage": {
-                    "0": {
+                    "yI4fzrhnbFxup4Ep": {
                         "applyMod": false,
                         "category": null,
-                        "formula": "2d6",
+                        "formula": "1d8",
                         "kinds": [
                             "damage"
                         ],
                         "materials": [],
-                        "type": "fire"
+                        "type": "acid"
                     }
                 },
                 "defense": {
@@ -172,24 +174,24 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A gout of flame sprays from your mouth. You deal 2d6 fire damage to creatures in the area with a basic Reflex save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>You fling a large glob of acid that immediately detonates, spraying nearby creatures. Creatures in the area take 1d8 acid damage with a basic Reflex save; on a critical failure, the creature also takes @Damage[(1+floor((@item.rank -1)/2))[persistent,acid]] damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 1d8, and the persistent damage on a critical failure increases by 1.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
                 },
                 "heightening": {
+                    "area": 0,
                     "damage": {
-                        "0": "2d6"
+                        "yI4fzrhnbFxup4Ep": "1d8"
                     },
-                    "interval": 1,
+                    "interval": 2,
                     "type": "interval"
                 },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "heightenedLevel": 1,
                     "value": "xa524Pmx1LWbJGLL"
                 },
                 "publication": {
@@ -198,11 +200,11 @@
                     "title": "Pathfinder Player Core"
                 },
                 "range": {
-                    "value": ""
+                    "value": "30 feet"
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "breathe-fire",
+                "slug": "caustic-blast",
                 "target": {
                     "value": ""
                 },
@@ -216,8 +218,9 @@
                         "primal"
                     ],
                     "value": [
+                        "acid",
+                        "cantrip",
                         "concentrate",
-                        "fire",
                         "manipulate"
                     ]
                 }
@@ -225,18 +228,13 @@
             "type": "spell"
         },
         {
-            "_id": "1mfTWIJPjpIBibWb",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.y6rAdMK6EFlV6U0t"
-            },
-            "img": "systems/pf2e/icons/spells/dragon-breath.webp",
-            "name": "Breathe Fire",
+            "_id": "7LUzMiDV9dQHDkbx",
+            "folder": "D7UVaOiB40wTR6kv",
+            "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
+            "name": "Electric Arc",
             "sort": 400000,
             "system": {
-                "area": {
-                    "type": "cone",
-                    "value": 15
-                },
+                "area": null,
                 "cost": {
                     "value": ""
                 },
@@ -245,12 +243,12 @@
                     "0": {
                         "applyMod": false,
                         "category": null,
-                        "formula": "2d6",
+                        "formula": "2d4",
                         "kinds": [
                             "damage"
                         ],
                         "materials": [],
-                        "type": "fire"
+                        "type": "electricity"
                     }
                 },
                 "defense": {
@@ -260,7 +258,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A gout of flame sprays from your mouth. You deal 2d6 fire damage to creatures in the area with a basic Reflex save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>An arc of lightning leaps from one target to another. Each target takes 2d4 electricity damage with a basic Reflex save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -268,7 +266,7 @@
                 },
                 "heightening": {
                     "damage": {
-                        "0": "2d6"
+                        "0": "1d4"
                     },
                     "interval": 1,
                     "type": "interval"
@@ -277,7 +275,6 @@
                     "value": 1
                 },
                 "location": {
-                    "heightenedLevel": 1,
                     "value": "xa524Pmx1LWbJGLL"
                 },
                 "publication": {
@@ -286,13 +283,13 @@
                     "title": "Pathfinder Player Core"
                 },
                 "range": {
-                    "value": ""
+                    "value": "30 feet"
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "breathe-fire",
+                "slug": "electric-arc",
                 "target": {
-                    "value": ""
+                    "value": "1 or 2 creatures"
                 },
                 "time": {
                     "value": "2"
@@ -304,8 +301,9 @@
                         "primal"
                     ],
                     "value": [
+                        "cantrip",
                         "concentrate",
-                        "fire",
+                        "electricity",
                         "manipulate"
                     ]
                 }
@@ -313,10 +311,8 @@
             "type": "spell"
         },
         {
-            "_id": "lXJvLUhr2UtTXdev",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4"
-            },
+            "_id": "jAWMtfyLuj03m3fi",
+            "folder": "D7UVaOiB40wTR6kv",
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
             "sort": 500000,
@@ -329,11 +325,11 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Light]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                    "value": "<p>You create an orb of light that sheds bright light in a 20-foot radius (and dim light for the next 20 feet) in a color you choose. If you create the light in the same space as a willing creature, you can attach the light to the creature, causing it to float near that creature as it moves. You can Sustain the spell to move the light up to 60 feet; you can attach or detach it from a creature as part of this movement.</p>\n<p>You can Dismiss the spell. If you Cast the Spell while you already have four <em>light</em> spells active, you must choose one of the existing spells to end.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Light]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The orb sheds light in a 60-foot radius (and dim light for the next 60 feet).</p>"
                 },
                 "duration": {
                     "sustained": false,
-                    "value": "until the next time you make your daily preparations"
+                    "value": "until your next daily preparations"
                 },
                 "level": {
                     "value": 1
@@ -342,18 +338,18 @@
                     "value": "xa524Pmx1LWbJGLL"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
-                    "value": "touch"
+                    "value": "120 feet"
                 },
                 "requirements": "",
                 "rules": [],
                 "slug": "light",
                 "target": {
-                    "value": "1 object of 1 Bulk or less, either unattended or possessed by you or a willing ally"
+                    "value": ""
                 },
                 "time": {
                     "value": "2"
@@ -377,201 +373,10 @@
             "type": "spell"
         },
         {
-            "_id": "F2CkiVP1bPB0J8wq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.uZK2BYzPnxUBnDjr"
-            },
-            "img": "icons/magic/nature/root-vine-entangled-hand.webp",
-            "name": "Tangle Vine",
-            "sort": 600000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>A vine appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack roll against the target.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Tangle Vine]</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] condition and takes a –10-foot circumstance penalty to its Speeds for 1 round. It can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] against your spell DC to remove the penalty and the immobilized condition.</p>\n<p><strong>Success</strong> The target takes a –10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.</p>\n<p><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "xa524Pmx1LWbJGLL"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "tangle-vine",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "attack",
-                        "cantrip",
-                        "concentrate",
-                        "manipulate",
-                        "plant",
-                        "wood"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "QZT6fNReuzaY2ZO3",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.spells-srd.Item.60sgbuMWN0268dB7"
-            },
-            "img": "icons/skills/ranged/bullets-triple-ball-yellow.webp",
-            "name": "Telekinetic Projectile",
-            "sort": 700000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "2d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "untyped"
-                    }
-                },
-                "defense": null,
-                "description": {
-                    "value": "<p>You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack roll against the target. If you hit, you deal 2d6 bludgeoning, piercing, or slashing damage—as appropriate for the object you hurled. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>\n<hr />\n<p><strong>Critical Success</strong> You deal double damage.</p>\n<p><strong>Success</strong> You deal full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "xa524Pmx1LWbJGLL"
-                },
-                "overlays": {
-                    "2I469pfbYcmFvzOA": {
-                        "_id": "2I469pfbYcmFvzOA",
-                        "name": "Telekinetic Projectile (Bludgeoning)",
-                        "overlayType": "override",
-                        "sort": 1,
-                        "system": {
-                            "damage": {
-                                "0": {
-                                    "category": null,
-                                    "type": "bludgeoning"
-                                }
-                            }
-                        }
-                    },
-                    "cUFX7ExSLeoa3vIF": {
-                        "_id": "cUFX7ExSLeoa3vIF",
-                        "name": "Telekinetic Projectile (Piercing)",
-                        "overlayType": "override",
-                        "sort": 2,
-                        "system": {
-                            "damage": {
-                                "0": {
-                                    "category": null,
-                                    "type": "piercing"
-                                }
-                            }
-                        }
-                    },
-                    "zFWsMjoeCnLxqJaV": {
-                        "_id": "zFWsMjoeCnLxqJaV",
-                        "name": "Telekinetic Projectile (Slashing)",
-                        "overlayType": "override",
-                        "sort": 3,
-                        "system": {
-                            "damage": {
-                                "0": {
-                                    "category": null,
-                                    "type": "slashing"
-                                }
-                            }
-                        }
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "telekinetic-projectile",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "occult"
-                    ],
-                    "value": [
-                        "attack",
-                        "cantrip",
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "SScGd7XGz9e2sOLE",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
-            },
+            "_id": "53rujRVubQFgkgmy",
             "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
-            "sort": 800000,
+            "sort": 600000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -582,8 +387,7 @@
                     "value": "<p>A torch sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 1 hour. It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "carryType": "worn",
                     "invested": null
                 },
                 "hardness": 0,
@@ -604,9 +408,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [
@@ -616,7 +420,7 @@
                             "lit-torch"
                         ],
                         "value": {
-                            "alpha": 0.45,
+                            "alpha": 0.3,
                             "animation": {
                                 "intensity": 1,
                                 "speed": 2,
@@ -705,13 +509,11 @@
             "_id": "jzku4qcmz6H3dk9C",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Torch",
-            "sort": 900000,
+            "sort": 700000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -739,7 +541,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "fire"
                     ]
@@ -751,7 +553,7 @@
             "_id": "otqsXx9gjh7rnOpU",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Goblin Scuttle",
-            "sort": 1000000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -769,9 +571,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "",
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -781,7 +582,7 @@
             "_id": "pY7DRATVeNfGLzvD",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Fire Lore",
-            "sort": 1100000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -858,11 +659,11 @@
                 "value": 1
             },
             "privateNotes": "",
-            "publicNotes": "<p>Goblins find fire totally fascinating. It makes light. It's great for cooking. It's a fun toy! Some goblins take their people's admiration of fire a little bit too far and into the realm of deadly obsession.</p>\n<p>Goblins who turn their attentions to magic so they can learn to make fire from nothing are known as goblin igniters. These flame fanatics can be a great boon to a band of goblin raiders eager to torch their enemies and wreak havoc. More often, however, their presence is a double-edged sword. In the heat of the moment, goblin igniters sometimes lose sight of their goals and simply set fire to anything that will burn-including their own allies!</p>",
+            "publicNotes": "<p>Goblins find fire totally fascinating. It makes light. It's great for cooking. It's a fun toy! Some goblins take their people's admiration of fire a little bit too far and into the realm of deadly obsession.</p>\n<p>Goblins who turn their attention to magic so they can learn to make fire from nothing are known as goblin igniters. These flame fanatics can be a great boon to a band of goblin raiders eager to torch their enemies and wreak havoc. More often, however, their presence is a double-edged sword. In the heat of the moment, goblin igniters sometimes lose sight of their goals and simply set fire to anything that will burn—including their own allies!</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Beginner Box"
+                "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
             }
         },
         "initiative": {

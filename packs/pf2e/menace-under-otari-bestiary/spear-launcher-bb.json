@@ -14,7 +14,7 @@
                 "actions": {
                     "value": null
                 },
-                "category": null,
+                "category": "offensive",
                 "description": {
                     "value": "<p>When pressure is applied to the floor tile, the trap shoots a spear, making an attack against the creature or object on the floor tile. The trap makes a ranged Spear attack.</p>"
                 },
@@ -26,7 +26,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "attack"
                     ]
@@ -40,9 +39,8 @@
             "name": "Spear",
             "sort": 0,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -67,7 +65,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": []
                 }
             },
@@ -93,15 +91,17 @@
             },
             "immunities": [
                 {
+                    "exceptions": [],
                     "type": "critical-hits"
                 }
             ],
+            "resistances": [],
             "stealth": {
                 "details": "",
                 "value": 10
-            }
+            },
+            "weaknesses": []
         },
-        "creatureType": "",
         "details": {
             "description": "<p>A wall socket loaded with a spear connects to a floor tile in one 5-foot square.</p>",
             "disable": "<p>@Check[thievery|dc:18|traits:hazard|name:Disable Mechanism] on the floor tile or wall socket.</p>",
@@ -112,26 +112,22 @@
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Beginner Box"
+                "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
             },
             "reset": "",
             "routine": ""
         },
         "saves": {
             "fortitude": {
-                "saveDetail": "",
                 "value": 11
             },
             "reflex": {
-                "saveDetail": "",
                 "value": 3
             },
             "will": {
-                "saveDetail": "",
-                "value": 0
+                "value": null
             }
         },
-        "statusEffects": [],
         "traits": {
             "rarity": "common",
             "size": {

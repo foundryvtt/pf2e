@@ -8,9 +8,8 @@
             "name": "Jaws",
             "sort": 100000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -39,7 +38,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "poison",
                         "unarmed"
@@ -54,9 +53,8 @@
             "name": "Claw",
             "sort": 200000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -81,7 +79,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "agile",
                         "unarmed"
@@ -96,9 +94,8 @@
             "name": "Tail",
             "sort": 300000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -123,7 +120,7 @@
                 "rules": [],
                 "slug": "tail",
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "reach-10"
                     ]
@@ -137,9 +134,8 @@
             "name": "Horn",
             "sort": 400000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
                     "value": []
                 },
@@ -164,7 +160,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "unarmed"
                     ]
@@ -186,7 +182,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>When a creature within 10 feet uses a move action or leaves a square during a move action it's using, the dragon can use their reaction to make a tail Strike at the creature with a -2 penalty. If it hits, the creature stops moving in the square it was in when the dragon used this reaction.</p>"
+                    "value": "<p>When a creature within 10 feet uses a move action or leaves a square during a move action it's using, the dragon can use their reaction to make a tail Strike at the creature with a –2 penalty. If it hits, the creature stops moving in the square it was in when the dragon used this reaction.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -195,7 +191,6 @@
                 },
                 "rules": [
                     {
-                        "domain": "attack-roll",
                         "key": "RollOption",
                         "option": "twisting-tail",
                         "toggleable": true
@@ -221,7 +216,6 @@
                 ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -251,7 +245,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -292,7 +285,6 @@
                 ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -312,7 +304,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon breathes a toxic cloud that deals @Damage[5d6[poison]|options:area-damage] damage in a @Template[cone|distance:30]. Each creature in the area must attempt a @Check[reflex|dc:21|basic|options:area-effect] save.</p>\n<p>The dragon can't use their Poison Breath again for [[/gmr 1d4 #Recharge Poison Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes a toxic cloud that deals @Damage[5d6[poison]|options:area-damage] damage in a @Template[type:cone|distance:30]. Each creature in the area must attempt a @Check[reflex|dc:21|basic|options:area-effect] save. The dragon can't use Poison Breath again for [[/gmr 1d4 #Recharge Poison Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -322,10 +314,9 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": [
-                        "arcane",
-                        "poison"
+                        "poison",
+                        "primal"
                     ]
                 }
             },
@@ -409,7 +400,7 @@
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Beginner Box"
+                "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
             }
         },
         "initiative": {

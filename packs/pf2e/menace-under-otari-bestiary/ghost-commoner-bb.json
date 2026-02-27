@@ -8,11 +8,9 @@
             "name": "Ghostly Hand",
             "sort": 100000,
             "system": {
-                "attack": {
-                    "value": ""
-                },
+                "action": "strike",
+                "area": null,
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -36,7 +34,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
+                    "config": {},
                     "value": [
                         "agile",
                         "finesse",
@@ -73,7 +71,6 @@
                 "rules": [],
                 "slug": "ghost-site-bound",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -93,7 +90,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A ghost has no body and can pass through physical objects, though it can't end its turn inside one. Most checks that use Strength and require a body, such as @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] and @UUID[Compendium.pf2e.actionspf2e.Item.Shove], don't work against a ghost, and a ghost can't attempt such checks.</p>"
+                    "value": "<p>A ghost has no body and can pass through physical objects, though it can't end its turn inside one. Most checks that use Strength and require a body, such as @UUID[Compendium.pf2e.actionspf2e.Item.Grapple], don't work against a ghost, and a ghost can't attempt such checks.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -108,7 +105,6 @@
                 ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -132,7 +128,7 @@
                 "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>Setting right the injustice that led to the ghost's death allows it to move on to the afterlife. Otherwise, when destroyed, the ghost re-forms after [[/br 2d4 #Rejuvenation]]{2d4 days} within the location it's bound to, fully healed.</p>"
+                    "value": "<p>Setting right the injustice that led to the ghost's death allows it to move on to the afterlife. Otherwise, when destroyed, the ghost re-forms after [[/gmr 2d4 #days]]{2d4 days} within the location it's bound to, fully healed.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -142,7 +138,6 @@
                 "rules": [],
                 "slug": "ghost-rejuvenation",
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "divine"
                     ]
@@ -172,14 +167,14 @@
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
                 "slug": "ghost-frightful-moan",
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "divine",
+                        "emotion",
                         "fear",
                         "mental"
                     ]
@@ -239,6 +234,10 @@
                 {
                     "exceptions": [],
                     "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "void"
                 }
             ],
             "resistances": [
@@ -249,6 +248,7 @@
                     "exceptions": [
                         "force",
                         "ghost-touch",
+                        "spirit",
                         "vitality"
                     ],
                     "type": "all-damage",
@@ -279,7 +279,7 @@
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Beginner Box"
+                "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
             }
         },
         "initiative": {
