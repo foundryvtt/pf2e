@@ -105,6 +105,23 @@ class CombatantPF2e<
         return !!this.token?.playersCanSeeName;
     }
 
+    override get actor(): ActorPF2e | null {
+        return super.actor ?? this.tokens.at(0)?.actor ?? null;
+    }
+
+    override get token(): TTokenDocument {
+        return (super.token ?? this.tokens.at(0) ?? null) as TTokenDocument;
+    }
+
+    /** All tokens managed by this one combatant, including troop segments */
+    get tokens(): TokenDocumentPF2e[] {
+        const token = super.token;
+        const troopTokens = game.scenes
+            .get(this.sceneId ?? "")
+            ?.tokens.filter((t) => t.flags[SYSTEM_ID].troop?.id === this.flags[SYSTEM_ID].troop);
+        return [token, ...(troopTokens ?? [])].filter((t) => !!t);
+    }
+
     overridePriority(initiative: number): number | null {
         return this.flags[SYSTEM_ID].overridePriority[initiative] ?? null;
     }
@@ -300,6 +317,8 @@ interface CombatantPF2e<
 
 type CombatantFlags = DocumentFlags & {
     [SYSTEM_ID]: {
+        /** The id of the associated troop. Unless it is a linked token, this should restrict to per scene */
+        troop?: string;
         initiativeStatistic: SkillSlug | "perception" | null;
         roundOfLastTurn: number | null;
         roundOfLastTurnEnd: number | null;

@@ -150,8 +150,8 @@
                 },
                 "slug": null,
                 "spelldc": {
-                    "dc": 29,
-                    "value": 21
+                    "dc": 34,
+                    "value": 26
                 },
                 "tradition": {
                     "value": "divine"
@@ -2416,11 +2416,11 @@
                     "value": 28
                 },
                 "damageRolls": {
-                    "5hS6ddVyzWwH35jk": {
+                    "0": {
                         "damage": "3d10+11",
                         "damageType": "piercing"
                     },
-                    "Z4fNFMlv3uJ5cgYj": {
+                    "1": {
                         "damage": "1d8",
                         "damageType": "spirit"
                     }
@@ -2462,13 +2462,13 @@
                     "value": 28
                 },
                 "damageRolls": {
-                    "SrqRlcHFXMie9BLp": {
-                        "damage": "1d8",
-                        "damageType": "spirit"
-                    },
-                    "tMMjI1fPae9ogQU4": {
+                    "0": {
                         "damage": "3d8+11",
                         "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "1d8",
+                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -2510,13 +2510,13 @@
                     "value": 26
                 },
                 "damageRolls": {
-                    "2FbOytkvZYQFXZYY": {
-                        "damage": "1d8",
-                        "damageType": "spirit"
-                    },
-                    "QGnzwZUIXAuAO9fp": {
+                    "0": {
                         "damage": "3d10+11",
                         "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "1d8",
+                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -2687,7 +2687,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>15 feet. Delight dragon magic alters their surroundings, turning weapons into toys and spells into stage effects. All Strikes and other damaging effects used in the aura gain the nonlethal trait and are accompanied by magical sound effects. A creature entering or beginning their turn in the aura must attempt a @Check[will|dc:34] save.</p><hr /><p><strong>Failure</strong> The creature's first damaging effect (such as a Strike) this round does half damage.</p>\n<p><strong>Critical Failure</strong> All the creature's damaging effects this turn do half damage.</p>"
+                    "value": "<p>30 feet. Delight dragon magic alters their surroundings, turning weapons into toys and spells into stage effects. All Strikes and other damaging effects used in the aura gain the nonlethal trait and are accompanied by magical sound effects. A creature entering or beginning their turn in the aura must attempt a @Check[will|dc:34|options:area-effect] save.</p><hr /><p><strong>Failure</strong> The creature's first damaging effect (such as a Strike) this round does half damage.</p>\n<p><strong>Critical Failure</strong> All the creature's damaging effects this turn do half damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2696,10 +2696,17 @@
                 },
                 "rules": [
                     {
-                        "effects": [],
+                        "effects": [
+                            {
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Play Scape"
+                            }
+                        ],
                         "key": "Aura",
-                        "radius": 15,
-                        "traits": []
+                        "radius": 30,
+                        "traits": [
+                            "divine"
+                        ]
                     }
                 ],
                 "slug": null,
@@ -2755,7 +2762,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon unleashes a stream of magical bubbles in a @Template[type:cone|distance:40]. Each creature within the area takes @Damage[10d8[spirit]|options:area-damage] damage (@Check[will|dc:34|basic] save). A creature who fails the save is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as they give in to the joyful urge to dance, sing, laugh, or admire the world around them. On a critical failure, the creature is slowed 1 for 1 minute and can't use reactions for as long as they are slowed; they can attempt a new save at the end of each of its turn to end the slowed condition early.</p>"
+                    "value": "<p>The dragon unleashes a stream of magical bubbles in a @Template[type:cone|distance:40]. Each creature within the area takes @Damage[10d8[spirit]|options:area-damage] damage (@Check[will|dc:34|basic|options:area-effect,inflicts:slowed] save). A creature who fails the save is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as they give in to the joyful urge to dance, sing, laugh, or admire the world around them. On a critical failure, the creature is slowed 1 for 1 minute and can't use reactions for as long as they are slowed; they can attempt a new save at the end of each of its turn to end the slowed condition early.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2788,7 +2795,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon conjures up a magical arena to play a game, making up rules on the spot. Up to four target creatures inside the dragon's aura take @Damage[8d6[mental]] damage from the dragon's baffling explanation (@Check[will|dc:34|basic] save). Creatures who fail the save are @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round (1 minute on a critical failure). Regardless of result, all targets are immune for 24 hours.</p>"
+                    "value": "<p>The dragon conjures up a magical arena to play a game, making up rules on the spot. Up to four target creatures inside the dragon's aura take @Damage[8d6[mental]] damage from the dragon's baffling explanation (@Check[will|dc:34|basic|options:area-effect,inflicts:confused] save). Creatures who fail the save are @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round (1 minute on a critical failure). Regardless of result, all targets are immune for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",

@@ -77,14 +77,20 @@ const packPairs = allPackDirs.map((dir) => {
         ...R.mapToObj(sf2eDataWithId, (d) => [d.name, d]),
     };
 
+    // Get all overlaps between the two systems, which we need to redirect and not export
+    // JournalEntries do not redirect, as they may be linked to by content in each system
+    const overlaps =
+        manifestData.type === "JournalEntry"
+            ? new Set()
+            : new Set(pf2e?.data.map((d) => d.name)).intersection(new Set(sf2e?.data.map((d) => d.name)));
+
     return {
         packName: sf2e?.id ?? pf2e?.id ?? dir,
         docType: manifestData.type,
         pf2e,
         sf2e,
-        duplicated,
-        // Get all overlaps between the two systems, which we need to redirect and not export
-        overlaps: new Set(pf2e?.data.map((d) => d.name)).intersection(new Set(sf2e?.data.map((d) => d.name))),
+        duplicated: new Set(duplicated),
+        overlaps,
         get: (system: SystemId, idOrName: string): PackEntry | null => {
             const mapping = system === "pf2e" ? pf2eMap : sf2eMap;
             return mapping[idOrName] ?? null;
@@ -130,18 +136,21 @@ for (const contentSystem of contentSystems) {
 
         const entryInTargetSystem = pair.get(targetSystem, docNameOrId);
         const entryInContentSystem = pair.get(contentSystem, docNameOrId);
-        const resolvedEntry = entryInTargetSystem ?? entryInContentSystem;
-        if (resolvedEntry) {
-            const duplicated = targetSystem === "sf2e" && pair.duplicated.includes(resolvedEntry.name);
-            const useTargetSystem = entryInTargetSystem || duplicated;
-            const packageId = useTargetSystem ? targetSystem : `${contentSystem}-anachronism`;
-            const packId = useTargetSystem ? pair[targetSystem]!.id : pair[contentSystem]!.dirName;
-            return {
-                uuid: `Compendium.${packageId}.${packId}.${docType}.${resolvedEntry._id}`,
-                name: resolvedEntry.name,
-            };
-        }
-        return null;
+        const name = entryInTargetSystem?.name ?? entryInContentSystem?.name;
+        if (!name) return null;
+
+        const duplicated = targetSystem === "sf2e" && pair.duplicated.has(name);
+        const useTargetSystem =
+            !!entryInTargetSystem && (!entryInContentSystem || pair.overlaps.has(name) || duplicated);
+        const packageId = useTargetSystem ? targetSystem : `${contentSystem}-anachronism`;
+        const packId = useTargetSystem ? pair[targetSystem]!.id : pair[contentSystem]!.dirName;
+        const resolvedEntry = useTargetSystem ? entryInTargetSystem : entryInContentSystem;
+        if (!resolvedEntry) throw Error("Unexpected missing resolved entry");
+
+        return {
+            uuid: `Compendium.${packageId}.${packId}.${docType}.${resolvedEntry._id}`,
+            name: resolvedEntry.name,
+        };
     };
 
     const remapUuid = (uuid: string) => {

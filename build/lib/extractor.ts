@@ -466,7 +466,7 @@ class PackExtractor {
                             const { name, ring, texture } = docSource.prototypeToken;
                             const prototypeToken: DeepPartial<foundry.data.PrototypeTokenSource> = { name };
                             // Iconics may have tokens
-                            if (texture.src?.includes("iconics")) {
+                            if (texture?.src?.includes("iconics")) {
                                 prototypeToken.texture = { src: texture.src };
                                 const scale = texture?.scaleX ?? 1;
                                 if (scale !== 1) {

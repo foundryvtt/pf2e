@@ -21,7 +21,7 @@ import { PointLightSource, PointVisionSource, VisionSourceData } from "../source
 import { LightSourceData } from "../sources/base-light-source.mjs";
 import PlaceableObject, { PlaceableShape } from "./placeable-object.mjs";
 import Region, { RegionMovementSegment, RegionMovementWaypoint } from "./region.mjs";
-import { BaseTokenRuler } from "./tokens/_module.mjs";
+import { BaseTokenRuler, TokenTurnMarker } from "./tokens/_module.mjs";
 
 /** A Token is an implementation of PlaceableObject that represents an Actor within a viewed Scene on the game canvas. */
 export default class Token<TDocument extends TokenDocument = TokenDocument> extends PlaceableObject<TDocument> {
@@ -113,6 +113,12 @@ export default class Token<TDocument extends TokenDocument = TokenDocument> exte
      * This is undefined if the Token does not provide an active source of light.
      */
     light: PointLightSource<this>;
+
+    /**
+     * The Turn Marker of this Token.
+     * Only a subset of Token objects have a turn marker at any given time.
+     */
+    turnMarker: TokenTurnMarker | null;
 
     /** The current animations of this Token. */
     get animationContexts(): Map<string, TokenAnimationContext>;
@@ -401,6 +407,9 @@ export default class Token<TDocument extends TokenDocument = TokenDocument> exte
 
     /** Refresh the display of status effects, adjusting their position for the token width and height. */
     protected _refreshEffects(): void;
+
+    /* Refresh presentation of the Token's combat turn marker, if any. */
+    protected _refreshTurnMarker(): void;
 
     /**
      * Helper method to determine whether a token attribute is viewable under a certain mode

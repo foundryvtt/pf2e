@@ -327,11 +327,11 @@
                     "value": 22
                 },
                 "damageRolls": {
-                    "5hS6ddVyzWwH35jk": {
+                    "0": {
                         "damage": "2d10+8",
                         "damageType": "piercing"
                     },
-                    "Z4fNFMlv3uJ5cgYj": {
+                    "1": {
                         "damage": "1d8",
                         "damageType": "spirit"
                     }
@@ -373,13 +373,13 @@
                     "value": 22
                 },
                 "damageRolls": {
-                    "SrqRlcHFXMie9BLp": {
-                        "damage": "1d8",
-                        "damageType": "spirit"
-                    },
-                    "tMMjI1fPae9ogQU4": {
+                    "0": {
                         "damage": "2d8+8",
                         "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "1d8",
+                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -421,13 +421,13 @@
                     "value": 20
                 },
                 "damageRolls": {
-                    "2FbOytkvZYQFXZYY": {
-                        "damage": "1d8",
-                        "damageType": "spirit"
-                    },
-                    "QGnzwZUIXAuAO9fp": {
+                    "0": {
                         "damage": "2d10+8",
                         "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "1d8",
+                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -598,7 +598,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>15 feet. Delight dragon magic alters their surroundings, turning weapons into toys and spells into stage effects. All Strikes and other damaging effects used in the aura gain the nonlethal trait and are accompanied by magical sound effects. A creature entering or beginning their turn in the aura must attempt a @Check[will|dc:29] save.</p><hr /><p><strong>Failure</strong> The creature's first damaging effect (such as a Strike) this round does half damage.</p>\n<p><strong>Critical Failure</strong> All the creature's damaging effects this turn do half damage.</p>"
+                    "value": "<p>15 feet. Delight dragon magic alters their surroundings, turning weapons into toys and spells into stage effects. All Strikes and other damaging effects used in the aura gain the nonlethal trait and are accompanied by magical sound effects. A creature entering or beginning their turn in the aura must attempt a @Check[will|dc:29|options:area-effect] save.</p><hr /><p><strong>Failure</strong> The creature's first damaging effect (such as a Strike) this round does half damage.</p>\n<p><strong>Critical Failure</strong> All the creature's damaging effects this turn do half damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -607,10 +607,17 @@
                 },
                 "rules": [
                     {
-                        "effects": [],
+                        "effects": [
+                            {
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Play Scape"
+                            }
+                        ],
                         "key": "Aura",
                         "radius": 15,
-                        "traits": []
+                        "traits": [
+                            "divine"
+                        ]
                     }
                 ],
                 "slug": null,
@@ -666,7 +673,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon unleashes a stream of magical bubbles in a @Template[type:cone|distance:30]. Each creature within the area takes @Damage[7d8[spirit]|options:area-damage] damage (@Check[will|dc:29|basic] save). A creature who fails the save is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as they give in to the joyful urge to dance, sing, laugh, or admire the world around them. On a critical failure, the creature is slowed 1 for 1 minute and can't use reactions for as long as they are slowed; they can attempt a new save at the end of each of its turn to end the slowed condition early.</p>"
+                    "value": "<p>The dragon unleashes a stream of magical bubbles in a @Template[type:cone|distance:30]. Each creature within the area takes @Damage[7d8[spirit]|options:area-damage] damage (@Check[will|dc:29|basic|options:area-effect,inflicts:slowed] save). A creature who fails the save is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as they give in to the joyful urge to dance, sing, laugh, or admire the world around them. On a critical failure, the creature is slowed 1 for 1 minute and can't use reactions for as long as they are slowed; they can attempt a new save at the end of each of its turn to end the slowed condition early.</p>"
                 },
                 "publication": {
                     "license": "OGL",

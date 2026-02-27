@@ -88,7 +88,11 @@ export default class CombatTracker<TCombat extends Combat | null = Combat | null
      * @param combatant The Combatant whose turn is being prepared.
      * @param index The index of this entry in the turn order.
      */
-    protected _prepareTurnContext(combat: NonNullable<TCombat>, combatant: Combatant, index: number): Promise<object>;
+    protected _prepareTurnContext(
+        combat: NonNullable<TCombat>,
+        combatant: Combatant,
+        index: number,
+    ): Promise<TurnContext>;
 
     /* -------------------------------------------- */
     /*  Event Listeners & Handlers                  */
@@ -158,7 +162,7 @@ export default class CombatTracker<TCombat extends Combat | null = Combat | null
      * Handle pinging a combatant's token.
      * @param combatant The combatant.
      */
-    protected _onPingCombatant(combatant: Combatant): Promise<boolean>;
+    protected _onPingCombatant(combatant: Combatant): Promise<boolean | void>;
 
     /**
      * Handle rolling initiative for a single combatant.
@@ -206,4 +210,19 @@ export default class CombatTracker<TCombat extends Combat | null = Combat | null
      * Scroll to the current combatant in the combat log.
      */
     scrollToTurn(): void;
+}
+
+export interface TurnContext {
+    active: boolean;
+    canPing: boolean;
+    css: string;
+    effects: unknown[];
+    hasDecimals: boolean;
+    hidden: boolean;
+    id: string;
+    img: string;
+    initiative: number | null;
+    isOwner: boolean;
+    name: string;
+    resource: null;
 }

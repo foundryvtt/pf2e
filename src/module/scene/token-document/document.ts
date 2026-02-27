@@ -15,14 +15,15 @@ import type { ImageFilePath, TokenDisplayMode, VideoFilePath } from "@common/con
 import type { GridMeasurePathResult } from "@common/grid/_types.d.mts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 import { DifficultTerrainGrade, EnvironmentFeatureRegionBehavior, RegionDocumentPF2e } from "@scene";
 import { isDefaultTokenImage } from "@scene/helpers.ts";
 import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import { ScenePF2e } from "../document.ts";
 import { TokenAura } from "./aura/index.ts";
-import type { DetectionModeEntry, TokenFlagsPF2e } from "./data.ts";
+import type { DetectionModeEntry, TokenFlagsPF2e, WithTroopFlags } from "./data.ts";
 import type { TokenConfigPF2e } from "./sheets/token-config.ts";
 
 class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
@@ -30,6 +31,20 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** The most recently used animation for later use when a token override is reverted. */
     #lastAnimation: TokenAnimationOptions | null = null;
+
+    /** Returns the combatant representing this token or this token's troop */
+    override get combatant(): CombatantPF2e<EncounterPF2e, this> | null {
+        const troop = this.flags[SYSTEM_ID].troop;
+        const combatant =
+            super.combatant ??
+            (troop
+                ? game.combat?.combatants.find(
+                      (c) => (c.sceneId === this.scene?.id || troop.linked) && c.flags[SYSTEM_ID].troop === troop.id,
+                  )
+                : null) ??
+            null;
+        return combatant as CombatantPF2e<EncounterPF2e, this> | null;
+    }
 
     /** Returns if the token is in combat, though some actors have different conditions */
     override get inCombat(): boolean {
@@ -447,6 +462,88 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
     }
 
+    static override async createCombatants(
+        tokens: TokenDocumentPF2e[],
+        options?: { combat?: EncounterPF2e },
+    ): Promise<Combatant[]> {
+        const combatants = (await super.createCombatants(
+            tokens.filter((t) => !t.flags[SYSTEM_ID].troop),
+            options,
+        )) as CombatantPF2e[];
+
+        const troops = R.pipe(
+            tokens,
+            R.filter((t): t is WithTroopFlags<TokenDocumentPF2e> => !!t.flags[SYSTEM_ID].troop && !t.inCombat),
+            R.uniqueBy((t) => `${t.flags[SYSTEM_ID].troop.id}_${t.flags[SYSTEM_ID].troop.linked || t.scene?.id}`),
+        );
+
+        // Troops use non-actor combatants
+        if (troops) {
+            const combat = await (async (): Promise<EncounterPF2e> => {
+                const existing = options?.combat ?? combatants[0]?.combat ?? game.combats.viewed;
+                if (existing) return existing;
+
+                const combat = game.user.isGM ? await EncounterPF2e.create({ active: true }, { render: false }) : null;
+                if (!combat) throw new Error(game.i18n.localize("COMBAT.NoneActive"));
+                return combat;
+            })();
+            combatants.push(
+                ...(await combat.createEmbeddedDocuments(
+                    "Combatant",
+                    troops.map((t) => ({
+                        sceneId: t.parent?.id,
+                        hidden: t.hidden,
+                        flags: {
+                            [SYSTEM_ID]: {
+                                troop: t.flags[SYSTEM_ID].troop.id,
+                            },
+                        },
+                    })),
+                )),
+            );
+        }
+
+        return combatants;
+    }
+
+    /** Deletes combatants associated with the given tokens, accounting for troop combatants */
+    static override async deleteCombatants(
+        tokens: TokenDocumentPF2e[],
+        options?: { combat?: EncounterPF2e },
+    ): Promise<CombatantPF2e[]> {
+        const combat = options?.combat ?? game.combats.viewed;
+        if (!combat) return [];
+        const combatantIds = R.unique(tokens.map((t) => t.combatant?.id).filter((id): id is string => !!id));
+        return combat.deleteEmbeddedDocuments("Combatant", combatantIds);
+    }
+
+    static override async _onDeleteOperation(
+        documents: TokenDocumentPF2e[],
+        operation: foundry.abstract.DatabaseDeleteOperation<Document | null>,
+        user: UserPF2e,
+    ): Promise<void> {
+        await super._onDeleteOperation(documents, operation, user);
+
+        if (user.isSelf) {
+            // Also delete troop combatants. This happens after deletion, so we check by testing if no troop segment remains
+            const troopsToDelete = documents.filter((t) => t.flags[SYSTEM_ID].troop && !t.segments?.length);
+            const combatantsToDelete = R.unique(
+                troopsToDelete
+                    .map((t) => t.combatant)
+                    .map((c) => c?.id)
+                    .filter((id) => !!id),
+            );
+            if (combatantsToDelete.length === 0) return;
+
+            for (const combat of game.combats) {
+                const scene = combat.scene;
+                if (scene !== null && scene.id !== operation.parent?.id) continue;
+                const deleteIds = combat.combatants.filter((c) => combatantsToDelete.includes(c.id)).map((c) => c.id);
+                combat.deleteEmbeddedDocuments("Combatant", deleteIds);
+            }
+        }
+    }
+
     /**
      * Use actor updates (real or otherwise) that propagate down to ephemeral token changes  to provoke canvas object
      * re-rendering.
@@ -627,7 +724,6 @@ interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
     flags: TokenFlagsPF2e;
     regions: Set<RegionDocumentPF2e<NonNullable<TParent>>>;
     get actor(): ActorPF2e<this | null> | null;
-    get combatant(): CombatantPF2e<EncounterPF2e, this> | null;
     get object(): TokenPF2e<this> | null;
     get sheet(): TokenConfigPF2e;
 }

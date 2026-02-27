@@ -186,8 +186,8 @@
                 },
                 "slug": null,
                 "spelldc": {
-                    "dc": 41,
-                    "value": 33
+                    "dc": 45,
+                    "value": 37
                 },
                 "tradition": {
                     "value": "divine"
@@ -3000,11 +3000,11 @@
                     "value": 40
                 },
                 "damageRolls": {
-                    "5hS6ddVyzWwH35jk": {
+                    "0": {
                         "damage": "4d10+14",
                         "damageType": "piercing"
                     },
-                    "Z4fNFMlv3uJ5cgYj": {
+                    "1": {
                         "damage": "2d8",
                         "damageType": "spirit"
                     }
@@ -3046,13 +3046,13 @@
                     "value": 40
                 },
                 "damageRolls": {
-                    "SrqRlcHFXMie9BLp": {
-                        "damage": "2d8",
-                        "damageType": "spirit"
-                    },
-                    "tMMjI1fPae9ogQU4": {
+                    "0": {
                         "damage": "4d8+14",
                         "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "2d8",
+                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -3071,6 +3071,7 @@
                         "agile",
                         "holy",
                         "magical",
+                        "reach-10",
                         "unarmed"
                     ]
                 }
@@ -3091,16 +3092,16 @@
                     ]
                 },
                 "bonus": {
-                    "value": 40
+                    "value": 38
                 },
                 "damageRolls": {
-                    "2FbOytkvZYQFXZYY": {
+                    "0": {
+                        "damage": "4d12+14",
+                        "damageType": "bludgeoning"
+                    },
+                    "1": {
                         "damage": "2d8",
                         "damageType": "spirit"
-                    },
-                    "QGnzwZUIXAuAO9fp": {
-                        "damage": "4d10+14",
-                        "damageType": "bludgeoning"
                     }
                 },
                 "description": {
@@ -3339,7 +3340,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>15 feet. Delight dragon magic alters their surroundings, turning weapons into toys and spells into stage effects. All Strikes and other damaging effects used in the aura gain the nonlethal trait and are accompanied by magical sound effects. A creature entering or beginning their turn in the aura must attempt a @Check[will|dc:45] save.</p><hr /><p><strong>Failure</strong> The creature's first damaging effect (such as a Strike) this round does half damage.</p>\n<p><strong>Critical Failure</strong> All the creature's damaging effects this turn do half damage.</p>"
+                    "value": "<p>30 feet. Delight dragon magic alters their surroundings, turning weapons into toys and spells into stage effects. All Strikes and other damaging effects used in the aura gain the nonlethal trait and are accompanied by magical sound effects. A creature entering or beginning their turn in the aura must attempt a @Check[will|dc:45|options:area-effect] save.</p><hr /><p><strong>Failure</strong> The creature's first damaging effect (such as a Strike) this round does half damage.</p>\n<p><strong>Critical Failure</strong> All the creature's damaging effects this turn do half damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3348,10 +3349,17 @@
                 },
                 "rules": [
                     {
-                        "effects": [],
+                        "effects": [
+                            {
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Play Scape"
+                            }
+                        ],
                         "key": "Aura",
-                        "radius": 15,
-                        "traits": []
+                        "radius": 30,
+                        "traits": [
+                            "divine"
+                        ]
                     }
                 ],
                 "slug": null,
@@ -3407,7 +3415,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon unleashes a stream of magical bubbles in a @Template[type:cone|distance:60]. Each creature within the area takes @Damage[16d8[spirit]|options:area-damage] damage (@Check[will|dc:45|basic] save). A creature who fails the save is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as they give in to the joyful urge to dance, sing, laugh, or admire the world around them. On a critical failure, the creature is slowed 1 for 1 minute and can't use reactions for as long as they are slowed; they can attempt a new save at the end of each of its turn to end the slowed condition early.</p>"
+                    "value": "<p>The dragon unleashes a stream of magical bubbles in a @Template[type:cone|distance:60]. Each creature within the area takes @Damage[16d8[spirit]|options:area-damage] damage (@Check[will|dc:45|basic|options:area-effect,inflicts:slowed] save). A creature who fails the save is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as they give in to the joyful urge to dance, sing, laugh, or admire the world around them. On a critical failure, the creature is slowed 1 for 1 minute and can't use reactions for as long as they are slowed; they can attempt a new save at the end of each of its turn to end the slowed condition early.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3440,7 +3448,11 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The delight dragon transforms into a Huge sparkling cloud of gas for 10 minutes. During this time, the dragon gains resistance 20 to physical damage and is immune to precision damage, but they can't cast spells, activate items, or use Strikes or actions that have the attack or manipulate trait. They can only use their fly Speed, can slip through tiny cracks, and occupy the same space as other creatures. If the dragon ends their turn sharing the same space as other creatures, each of those creatures must attempt a @Check[will|dc:45] save or be @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] from a fit of giggles until the end of the dragon's next turn. The dragon can Dismiss this action as long as it has space to take its original size.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The delight dragon transforms into a Huge sparkling cloud of gas for 10 minutes. During this time, the dragon gains resistance 20 to physical damage and is immune to precision damage, but they can't cast spells, activate items, or use Strikes or actions that have the attack or manipulate trait. They can only use their fly Speed, can slip through tiny cracks, and occupy the same space as other creatures. If the dragon ends their turn sharing the same space as other creatures, each of those creatures must attempt a @Check[will|dc:45|options:area-effect,inflicts:off-guard] save or be @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] from a fit of giggles until the end of the dragon's next turn. The dragon can Dismiss this action as long as it has space to take its original size.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3452,6 +3464,13 @@
                         "key": "RollOption",
                         "option": "cloud-of-giggles",
                         "toggleable": true
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "cloud-of-giggles"
+                        ],
+                        "value": "huge"
                     },
                     {
                         "key": "Resistance",
@@ -3494,7 +3513,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon conjures up a magical arena to play a game, making up rules on the spot. Any number of target creatures inside the dragon's aura take @Damage[14d6[mental]] damage from the dragon's baffling explanation (@Check[will|dc:45|basic] save). Creatures who fail the save are @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round (1 minute on a critical failure). Regardless of result, all targets are immune for 24 hours.</p>"
+                    "value": "<p>The dragon conjures up a magical arena to play a game, making up rules on the spot. Any number of target creatures inside the dragon's aura take @Damage[14d6[mental]] damage from the dragon's baffling explanation (@Check[will|dc:45|basic|options:area-effect,inflicts:confused] save). Creatures who fail the save are @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round (1 minute on a critical failure). Regardless of result, all targets are immune for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3709,15 +3728,15 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 48
+                "value": 35
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 35
+                "value": 40
             },
             "will": {
                 "saveDetail": "",
-                "value": 40
+                "value": 36
             }
         },
         "skills": {

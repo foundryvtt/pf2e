@@ -1,5 +1,6 @@
 import type { ApplicationRenderContext } from "@client/applications/_types.d.mts";
 import type { HandlebarsRenderOptions } from "@client/applications/api/handlebars-application.d.mts";
+import type { TurnContext } from "@client/applications/sidebar/tabs/combat-tracker.mjs";
 import { combatantAndTokenDoc } from "@module/doc-helpers.ts";
 import type { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
@@ -44,6 +45,16 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
         const partContext = await super._preparePartContext(partId, context, options);
         if (partId === "metrics") Object.assign(partContext, { metrics: this.#prepareMetrics() });
         return partContext;
+    }
+
+    protected override async _prepareTurnContext(
+        combat: NonNullable<TEncounter>,
+        combatant: CombatantPF2e,
+        index: number,
+    ): Promise<TurnContext> {
+        const context = (await super._prepareTurnContext(combat, combatant, index)) as TurnContext;
+        if (combatant.flags[SYSTEM_ID].troop) context.effects = [];
+        return context;
     }
 
     /** Inject encounter metrics into the header part. */
@@ -269,6 +280,19 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
     /** Replace parent method with system-specific procedure */
     protected override _onToggleDefeatedStatus(combatant: CombatantPF2e<TEncounter>): Promise<void> {
         return combatant.toggleDefeated();
+    }
+
+    /** Ping all tokens involved with the combatant for troops */
+    protected override async _onPingCombatant(combatant: CombatantPF2e): Promise<boolean | void> {
+        if (!canvas.ready || combatant.sceneId !== canvas.scene?.id) return;
+        const tokens = combatant.tokens;
+        const tokenObjects = combatant.tokens.map((t) => t.object).filter((o) => !!o);
+        if (!tokenObjects.length || !tokenObjects.some((o) => this._isTokenVisible(o))) {
+            ui.notifications.warn("COMBAT.WarnNonVisibleToken", { localize: true });
+            return;
+        }
+        await Promise.all(tokens.map((t) => canvas.ping(t.center)));
+        return true;
     }
 
     static async #onClickToggleTarget(
