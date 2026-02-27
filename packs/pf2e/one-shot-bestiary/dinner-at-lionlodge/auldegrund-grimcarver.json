@@ -639,7 +639,7 @@
                 },
                 "rules": [],
                 "runes": {
-                    "potency": 1,
+                    "potency": 0,
                     "property": [],
                     "striking": 0
                 },
@@ -875,7 +875,7 @@
         {
             "_id": "sGGmfBpBIdaarMTN",
             "img": "systems/pf2e/icons/equipment/held-items/skeleton-key.webp",
-            "name": "Lionlodge Key Ring",
+            "name": "Key Ring",
             "sort": 1400000,
             "system": {
                 "baseItem": null,
@@ -884,7 +884,8 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Key ring for every door in Lionlodge.</p>"
+                    "gm": "<p>Contains keys to all locks in Lionlodge.</p>",
+                    "value": ""
                 },
                 "equipped": {
                     "carryType": "held",
@@ -1214,7 +1215,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Auldegrund is reduced to 60 or fewer Hit Points</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Auldegrund calls out, in Infernal, \"Give me the strength to slay these foes in your name, almighty Alocer!\" As he does so, his skin darkens to red, diabolic horns jut from his brow, a flaming lion-like mane appears around his head, burning wings burst from his shoulders, and his weapons ignite with black fire.</p>\n<p>He immediately heals @Damage[(3d6+7)[healing]] Hit Points, gains a fly speed of 25 feet, and deals an additional @Damage[1d6[fire]] damage with his melee and ranged Strikes.</p>\n<p>This is a risky gambit, though, for Alocer is not patient. At the end of each of Auldegrund's turns, he must attempt a @Check[flat|dc:11|name:End Invoke Alocer] (the DC of this flat check increases by 1 each round). On a failure, Alocer grows disappointed that Auldegrund has not defeated his foes and the effects of Invoke Alocer end immediately. This deals @Damage[(3d6+7)] damage to Auldegrund, removes his fly speed and additional fire damage to weapon Strikes, and causes Auldegrund to become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>"
+                    "value": "<p><strong>Trigger</strong> Auldegrund is reduced to 60 or fewer Hit Points</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> Auldegrund calls out, in Infernal, \"Give me the strength to slay these foes in your name, almighty Alocer!\" As he does so, his skin darkens to red, diabolic horns jut from his brow, a flaming lion-like mane appears around his head, burning wings burst from his shoulders, and his weapons ignite with black fire.</p>\n<p>He immediately heals @Damage[(3d6+7)[healing]] Hit Points, gains a fly speed of 25 feet, and deals an additional 1d6 fire damage with his melee and ranged Strikes.</p>\n<p>This is a risky gambit, though, for Alocer is not patient. At the end of each of Auldegrund's turns, he must attempt a @Check[flat|dc:11|name:End Invoke Alocer] (the DC of this flat check increases by 1 each round). On a failure, Alocer grows disappointed that Auldegrund has not defeated his foes and the effects of Invoke Alocer end immediately. This deals @Damage[(3d6+7)[untyped]] damage to Auldegrund, removes his fly speed and additional fire damage to weapon Strikes, and causes Auldegrund to become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -1228,9 +1229,7 @@
                 },
                 "rules": [
                     {
-                        "domain": "damage",
                         "key": "RollOption",
-                        "label": "Is under invocation of Alocar",
                         "option": "invoke-alocar",
                         "toggleable": true
                     },
@@ -1239,11 +1238,18 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "label": "Avatar of Alocar",
                         "predicate": [
                             "invoke-alocar"
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "invoke-alocar"
+                        ],
+                        "selector": "fly",
+                        "value": 25
                     }
                 ],
                 "slug": null,
@@ -1270,7 +1276,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Auldegrund takes time to line up a shot with his bow and smiles cruelly as he makes a ranged Strike with it.</p>\n<p>If he hits, he deals 2d6 precision damage and 1d6 bleed damage. Even if he misses, he still deals [[/r 2d6]] damage from the glancing blow. Only on a critical miss does his cruel shot deal no damage.</p>"
+                    "value": "<p>Auldegrund takes time to line up a shot with his bow and smiles cruelly as he makes a ranged Strike with it.</p>\n<p>If he hits, he deals 2d6 precision damage and 1d6 bleed damage. Even if he misses, he still deals @Damage[2d6[untyped]] damage from the glancing blow. Only on a critical miss does his cruel shot deal no damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1292,8 +1298,9 @@
                             "cruel-shot"
                         ],
                         "selector": "shortbow-attack",
-                        "text": "Aulderund deals [[/r 2d6]] damage even on a miss using Cruel Shot. A critical miss still deals no damage.",
-                        "title": "{item|name}"
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     },
                     {
                         "category": "precision",
@@ -1386,7 +1393,7 @@
             ]
         },
         "details": {
-            "blurb": "",
+            "blurb": "Male dwarf ritualist",
             "languages": {
                 "details": "",
                 "value": [
@@ -1452,10 +1459,10 @@
                 "base": 15
             },
             "occultism": {
-                "base": 15
+                "base": 17
             },
             "religion": {
-                "base": 17
+                "base": 15
             },
             "society": {
                 "base": 17
