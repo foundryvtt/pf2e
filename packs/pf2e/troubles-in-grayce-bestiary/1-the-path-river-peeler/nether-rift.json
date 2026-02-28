@@ -1,0 +1,119 @@
+{
+    "_id": "Adb41RiAbn5Xv4f3",
+    "folder": "646X6Ch7e37x5toe",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "0JHa8tWo6ERI6ppy",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Wind from the Netherworld",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The Path River Peeler enters the cave</p><hr /><p><strong>Effect</strong> A gust of ice-cold wind from the Netherworld blasts from the rift in a @Template[type:cone|distance:15]. Creatures in the area take @Damage[2d4[cold]|options:area-damage] damage (@Check[fortitude|dc:20|basic|options:area-effect] save). The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "cold",
+                        "shadow"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Nether Rift",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 44,
+                "temp": 0,
+                "value": 44
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "cold"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 5
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>A chill wind blows from a fissure in the cavern wall.</p>",
+            "disable": "<p>@Check[arcana|dc:18], @Check[nature|dc:18], @Check[occultism|dc:18], or @Check[religion|dc:18] (trained) to seal the rift, three successes total; or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (3rd rank; counteract DC 17)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventures: Troubles in Grayce"
+            },
+            "reset": "<p>The rift reopens after [[/gmr 2d10 #Years to reopen]] years. Killing the Path River Peeler permanently seals the rift.</p>",
+            "routine": "<p>(2 actions) The hazard uses its first action to repeat its Wind from the Netherworld reaction. If any patch of barrow claw remains, one of the patches chosen by the GM releases a cloud of spores. The spores fill the barrow claw's space and last until the beginning of the hazard's next turn. Creatures within the spores become @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creature outside the spores become concealed to creatures within it.</p><p>A creature that enters the spores or starts their turn in the area takes @Damage[1d6[persistent,cold]] damage until they brush off the spores as an Interact action.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 6
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "shadow",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}
