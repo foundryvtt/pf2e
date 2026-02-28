@@ -42,10 +42,50 @@
             "type": "melee"
         },
         {
+            "_id": "Ug3XiChjdFdUphbA",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Uncanny Climber",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A magnetic skink's feet allow it to climb virtually any surface, no matter how slick or sheer. If a skink attempts an Athletics check to [[/act climb]] and critically fails, it gets a failure instead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "criticalFailure": "to-failure"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "action:climb"
+                        ],
+                        "selector": "athletics"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "5hBW5iuHtYk2UaGh",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Launch Metal",
-            "sort": 200000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -74,7 +114,7 @@
             "_id": "lDeS18dnskh4FIBw",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Unsteadying Magnetism",
-            "sort": 300000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "action"
