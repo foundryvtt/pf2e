@@ -626,7 +626,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                     actorLink: false,
                     x: this.x + xOffset * widthPixels,
                     y: this.y + yOffset * widthPixels,
-                    flags: { [SYSTEM_ID]: { troop } },
+                    flags: fu.mergeObject(object.flags, { [SYSTEM_ID]: { troop } }),
                 };
             });
             scene.createEmbeddedDocuments("Token", newTokens);
