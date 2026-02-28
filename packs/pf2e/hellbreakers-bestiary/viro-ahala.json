@@ -519,10 +519,56 @@
             "type": "melee"
         },
         {
+            "_id": "nhUYrkLsg48GE4iO",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "+3 to Reflex Saves vs. Area Effects",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "area-effect",
+                                    "area-damage"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "reflex"
+                        ],
+                        "type": "untyped",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "zDCJ43WkBH6ExnV9",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Shield Block",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -551,13 +597,13 @@
             "_id": "cEmtu3MYq3QILFlp",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Punishing Cut",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": 2
                 },
                 "category": "offensive",
                 "description": {
@@ -605,13 +651,13 @@
             "_id": "U3Jv7z3vRB8BJMF7",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Shielded Charge",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": 2
                 },
                 "category": "offensive",
                 "description": {
@@ -634,7 +680,7 @@
             "_id": "bjPbevnyq51K3wDN",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Hell Lore",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""
@@ -685,7 +731,7 @@
                 "value": 21
             },
             "allSaves": {
-                "value": ""
+                "value": "+12 Reflex vs. area effects"
             },
             "hp": {
                 "details": "",
@@ -709,7 +755,7 @@
             ],
             "speed": {
                 "otherSpeeds": [],
-                "value": 25
+                "value": 20
             }
         },
         "details": {
@@ -744,15 +790,15 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 0
+                "value": 15
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 0
+                "value": 9
             },
             "will": {
                 "saveDetail": "",
-                "value": 0
+                "value": 12
             }
         },
         "skills": {

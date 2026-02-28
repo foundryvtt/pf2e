@@ -598,7 +598,6 @@ export const PF2ECONFIG = {
     },
 
     ranks: {
-        cantrip: "PF2E.TraitCantrip",
         1: "PF2E.Rank1",
         2: "PF2E.Rank2",
         3: "PF2E.Rank3",

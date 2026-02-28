@@ -3,13 +3,161 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "dNzQoRHKO4vUc2sx",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.giO4LwIKGzJZoaxa"
+            "_id": "IQsjeAtT0zbdKcUU",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
+            "sort": 100000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 17,
+                    "value": 9
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
             },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "HWq7vjJbNH7rm1Jm",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.6DfLZBl8wKIV03Iq"
+            },
+            "folder": "D7UVaOiB40wTR6kv",
+            "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
+            "name": "Ignition",
+            "sort": 200000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "cQDyW0QpjJ38MlSi": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "fire"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You snap your fingers and point at a target, which begins to smolder. Make a spell attack roll against the target's AC, dealing 2d4 fire damage on a hit. If the target is within your melee reach, you can choose to make a melee spell attack with the flame instead of a ranged spell attack, which increases all the spell's damage dice to d6s.</p><hr /><p><strong>Critical Success</strong> The target takes double damage and 1d4 persistent fire damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p><hr /><p><strong>Heightened (+1)</strong> The initial damage increases by 1d4 and the persistent fire damage on a critical hit increases by 1d4.</p>\n<p>@Damage[(@item.rank)d4[persistent,fire]]{Scaling Persistent Fire Damage}</p>\n<p>@Damage[(@item.rank)d6[persistent,fire]]{Scaling Persistent Fire Damage (Melee)}</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "cQDyW0QpjJ38MlSi": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "IQsjeAtT0zbdKcUU"
+                },
+                "overlays": {
+                    "eOCNn2ohYAvsYZjn": {
+                        "_id": "eOCNn2ohYAvsYZjn",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {}
+                    },
+                    "xYyA7CV1GaFTRjBQ": {
+                        "_id": "xYyA7CV1GaFTRjBQ",
+                        "name": "Ignition (Melee)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "cQDyW0QpjJ38MlSi": {
+                                    "formula": "2d6"
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "cQDyW0QpjJ38MlSi": "1d6"
+                                }
+                            },
+                            "range": {
+                                "value": "touch"
+                            }
+                        }
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "ignition",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "attack",
+                        "cantrip",
+                        "concentrate",
+                        "fire",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "dNzQoRHKO4vUc2sx",
             "img": "icons/weapons/crossbows/crossbow-simple-black.webp",
             "name": "Heavy Crossbow",
-            "sort": 100000,
+            "sort": 300000,
             "system": {
                 "ammo": {
                     "baseType": "bolts",
@@ -99,7 +247,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
             "name": "Rapier",
-            "sort": 200000,
+            "sort": 400000,
             "system": {
                 "ammo": null,
                 "baseItem": "rapier",
@@ -189,7 +337,7 @@
             },
             "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
             "name": "Studded Leather Armor",
-            "sort": 300000,
+            "sort": 500000,
             "system": {
                 "acBonus": 2,
                 "baseItem": "studded-leather-armor",
@@ -255,7 +403,7 @@
             "_id": "fjB3EpWvUf4zMABE",
             "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
             "name": "Bolts",
-            "sort": 400000,
+            "sort": 600000,
             "system": {
                 "baseItem": "bolts",
                 "bulk": {
@@ -319,7 +467,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Rapier",
-            "sort": 500000,
+            "sort": 700000,
             "system": {
                 "action": "strike",
                 "area": null,
@@ -368,7 +516,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Heavy Crossbow",
-            "sort": 600000,
+            "sort": 800000,
             "system": {
                 "action": "strike",
                 "area": null,
@@ -413,7 +561,7 @@
             "_id": "MybBGoPE3JY6ofKZ",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 700000,
+            "sort": 900000,
             "system": {
                 "action": "strike",
                 "area": null,
@@ -458,7 +606,7 @@
             "_id": "jwt2qKiSWNHaij95",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Captain's Edge",
-            "sort": 800000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -468,7 +616,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": ""
+                    "value": "<p>Lamperia deals an additional 1d8 precision damage with Strikes when aboard her ship.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -503,7 +651,7 @@
             "_id": "khlsSK1TcHBKLChx",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Hell's Glare",
-            "sort": 900000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -536,7 +684,7 @@
             "_id": "AJe62XtFYxTp6jIM",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Hell Lore",
-            "sort": 1000000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -562,7 +710,7 @@
             "_id": "orFAVsIZG7L5EYjD",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Sailing Lore",
-            "sort": 1100000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""
@@ -709,7 +857,7 @@
             }
         },
         "traits": {
-            "rarity": "common",
+            "rarity": "unique",
             "size": {
                 "value": "med"
             },

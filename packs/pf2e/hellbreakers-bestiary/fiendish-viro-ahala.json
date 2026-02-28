@@ -740,10 +740,56 @@
             "type": "action"
         },
         {
+            "_id": "9xpvfUMby4w2cbTP",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "+3 Status to Reflex Saves vs. Area Effects",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "area-effect",
+                                    "area-damage"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "reflex"
+                        ],
+                        "type": "status",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "7H03FheoBbcBTWsv",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Retributive Glare",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -772,7 +818,7 @@
             "_id": "vvngk0voKlte3AzC",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Furious Viper Cut",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -805,7 +851,7 @@
             "_id": "bAdHO2UdWuEH3bDC",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Wrathful Strike",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -859,7 +905,7 @@
             "_id": "IeJKcXIfEKNc2tmQ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Hell Lore",
-            "sort": 1600000,
+            "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
@@ -910,7 +956,7 @@
                 "value": 24
             },
             "allSaves": {
-                "value": "+1 status to all saves vs. magic"
+                "value": "+1 status to all saves vs. magic; +16 Ref vs. area effects"
             },
             "hp": {
                 "details": "",
@@ -937,8 +983,13 @@
                 }
             ],
             "speed": {
-                "otherSpeeds": [],
-                "value": 25
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 30
+                    }
+                ],
+                "value": 20
             },
             "weaknesses": [
                 {
@@ -951,8 +1002,13 @@
         "details": {
             "blurb": "Male devil warrior",
             "languages": {
-                "details": "",
-                "value": []
+                "details": "telepathy 100 feet",
+                "value": [
+                    "chthonian",
+                    "common",
+                    "daemonic",
+                    "diabolic"
+                ]
             },
             "level": {
                 "value": 7
@@ -1006,7 +1062,7 @@
             }
         },
         "traits": {
-            "rarity": "common",
+            "rarity": "unique",
             "size": {
                 "value": "med"
             },
