@@ -1,3 +1,66 @@
+## 7.11.0
+
+### System Improvements
+
+- (Supe) Add system implementation for troops
+
+### Bugfixes
+
+- (In3luki) Fix missing DC value in some check context flags
+
+### Data Updates
+
+- (Ambrose) Add 2026 silent Errata updates
+- (Ambrose) Add Dark Archive Iconics
+- (Ambrose) Add Eidolon options to Summoner journals and link to Eidolon class features
+- (Ambrose) Add grants for Channel Draconic Essence and Draconic Salvation to Draconic Acolyte dedication
+- (Ambrose) Add journal links to Archetype items
+- (Ambrose) Add note to Avenging Runelord's Shining Rune's Feat
+- (Ambrose) Add Tetanus passive to Rusty Spike Launcher hazard
+- (Ambrose) Brush up Rusalka's Flowing Hair action
+- (Ambrose) Correct Living Statue's saving throws
+- (Ambrose) Correct rarity for Sea Serpent
+- (Ambrose) Correct flags on Practiced Reloads and Slinger's Readiness feats
+- (Ambrose) Grant Additional Lore feat for Pirate Dedication
+- (Ambrose) Move Ancestry action Change Shape to Shared folder
+- (Ambrose) Update predicate traits for Grave Orc's saving throw bonus
+- (AshenShade) Fix Rule Element contention on Sextant of the Night
+- (Brenael) Add actors from PFS2 Quest 25 The Greengold Dilemma
+- (Dire Weasel) Add automation to Jah-Tohl's Brain Blisters
+- (Dire Weasel) Add damage and effect for Frozen Fog
+- (Dire Weasel) Add deadly d4 and d6 traits
+- (Dire Weasel) Add roll options to Frightful Presence inline saves
+- (Dire Weasel) Add some inline links to Concealed condition
+- (Dire Weasel) Brush up and update automation for multiple types of dragons
+- (Dire Weasel) Brush up Hell Hound Pack and Vordine Legion
+- (Dire Weasel) Brush up Variable Gravity spell and effect
+- (Dire Weasel) Fix automation for Leech-Clip effect
+- (Dire Weasel) Fix missing automation for some instances of Troop Spellcasting
+- (Dire Weasel) Fix Shokasura's Thorn attack effect
+- (Dire Weasel) Fix some missing compendiumSources
+- (Dire Weasel) Fix striking alteration on Effect: Invoke Offense
+- (Dire Weasel) Remove FotRP Peng and redirect to LO copy
+- (Dire Weasel) Remove some inline damage rolls handled by automation
+- (Dire Weasel) Tidy descriptions of Clear Mind, Sound Body, and Disappearance
+- (DocSchlock) Fix True Hypercognition action cost
+- (kromko) Add slug to Urthagul's jaws strike to fix Fulcrum Lens effect not working properly when the Strike name is translated
+- (kromko) Straighten single quotes and fix minor whitespace issues
+- (Longstrider) Add Resilient trait description
+- (Mose) Fix inline check typo on Dragged to the Depths' Reflex save
+- (rectulo) Add details to Hryngar Sharpshooter notes
+- (rectulo) Fix spelling of 'jah-tohl' in Collect Brain description
+- (Rigo) Relabel Taunt's DC penalty toggle to be clearer about its function
+- (Rigo) Tag Riddle the Sphinx feat as a body ikon feat
+- (kromko) Fix Escaped from Time initiative predicate
+- (SpartanCPA) Correct size of the Spellcaster Host Dragons
+- (SpartanCPA) Support Dynamic Tokens on pregenerated Iconics (including Beginner Box)
+- (steve148) Add description for cosmic trait
+- (stwlam) Bump Thaumaturge martial proficiency rank to expert in Weapon Expertise
+- (Tikael) Add missing NPC only Boost trait
+- (Tikael) Add PFS 7-11 and 7-12 actors
+- (Tikael) Change all system flag references to flags.system
+- (Tikael) Remove unnecessary text from remaster journal
+
 ## 7.10.1
 
 ### System Improvements
@@ -40,6 +103,7 @@
 
 - (Ashgar225) Fix duplicate status effect displays in combat when multiple GMs are present
 - (In3luki) Fix mutation from `system.time.value` reference in spell filter
+- (kromko) Fix aura-blind areas appearing when aura touches a wall
 - (Scott) Corrected crafting crit success daily reduction
 - (Supe) Fix effects panel image paths with parenthesis
 - (Supe) Fix updates to nested ammo wiping the ammo type
@@ -88,7 +152,6 @@
 - (Dire Weasel) Update Sanctify Armament so that it's not a self effect
 - (James Miller) Fix wisdom modifier for Inkdrop
 - (kromko) Add missing trigger to Love's Sacrifice
-- (kromko) Fix aura-blind areas appearing when aura touches a wall
 - (kromko) Fix Drive requirements formatting
 - (kromko) Fix hunter NPC's On the Hunt precision damage
 - (kromko) Remove Dragontongue from Vorpal Dragon
@@ -466,7 +529,7 @@
 - (Mecha Maya) Reduce light color intensity of several effects
 - (rectulo) Remove prerequisites for dragon stance
 - (rectulo) Remove unarmored prerequisite in Yacob's Dragon Stance
-- (Rigo) Add note upon receiving critical damage with Mountain Strategy (#20633)
+- (Rigo) Add note upon receiving critical damage with Mountain Strategy
 - (Rigo) Fix typo in Propaganda Promoter background's lore skill
 - (Rigo) Reduce light intensity of Light spell effect
 - (Rigo) Remove disabledIf fields reliant on resolved values in Exemplar ikon feats
