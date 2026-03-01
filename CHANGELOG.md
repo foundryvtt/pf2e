@@ -1,3 +1,18 @@
+## 7.11.1
+
+### Bugfixes
+
+- (Supe) Fix troop tokens with custom scaling such as from art modules
+
+### Data Updates
+
+- (Ambrose) Correct Elemental Sheathe links in Wyldheart journal page
+- (Ambrose) Correct level of Thunderclap Spell feat
+- (Cuingamehtar) Fix Cloak of Thirsty Fronds and Cloak of Devouring Thorns activation frequency
+- (Dire Weasel) Brush up Flare Beacons
+- (Longstrider) Implement minor creature fixes and "grappled" blanket fix
+- (Tikael) Fix hidden/ predication in several halfling feats and eye of the arclords
+
 ## 7.11.0
 
 ### System Improvements

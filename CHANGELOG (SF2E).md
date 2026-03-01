@@ -1,3 +1,15 @@
+## 0.0.6
+
+### Bugfixes
+
+- (Supe) Fix troop tokens with custom scaling such as from art modules
+
+### Data Updates
+
+- (Cuingamehtar) Fix Host Dragons' Frighful Presence DC
+- (Longstrider) Implement minor creature fixes and "grappled" blanket fix
+- (Tikael) Add icons for remaining SF ancestries and versatile heritages
+
 ## 0.0.5
 
 ### System Improvements
