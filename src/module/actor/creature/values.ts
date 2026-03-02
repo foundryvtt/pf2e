@@ -230,6 +230,7 @@ const UNCOMMON_SF_LANGUAGES = [
     "prelurian",
     "primacy",
     "pyric",
+    "requian",
     "sarcesian",
     "sarcesian-signed",
     "shadowtongue",
