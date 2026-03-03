@@ -573,7 +573,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>20 feet. The peacock phoenix is surrounded by an aura of iridescence. An adjacent creature that starts its turn in the aura must attempt a @Check[will|dc:35] save. On a failure, the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the start of its next turn.</p>"
+                    "value": "<p>20 feet. The peacock phoenix is surrounded by an aura of iridescence. An adjacent creature that starts its turn in the aura must attempt a @Check[will|dc:35|options:area-effect,inflicts:dazzled] save. On a failure, the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] until the start of its next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -582,10 +582,13 @@
                 },
                 "rules": [
                     {
-                        "effects": [],
                         "key": "Aura",
                         "radius": 20,
-                        "traits": []
+                        "traits": [
+                            "arcane",
+                            "light",
+                            "visual"
+                        ]
                     }
                 ],
                 "slug": null,
