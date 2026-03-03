@@ -241,7 +241,6 @@ const UNCOMMON_SF_LANGUAGES = [
     "talican",
     "thalassic",
     "triaxian",
-    "trinary",
     "utopian",
     "vlaka",
     "ysoki",
