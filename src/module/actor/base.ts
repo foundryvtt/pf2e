@@ -1225,14 +1225,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             delta: finalDamage - damageAbsorbedByShield - damageAbsorbedByActor,
         });
 
-        // Test troop thresholds. If reached, snap the hp to that threshold and print a message later
+        // Test troop thresholds. If reached, print a message with remaining thresholds later
         const thresholds = this.isOfType("npc") ? this.system.attributes.hp.thresholds : null;
-        const threatenedThreshold = thresholds?.find((t) => hitPoints.value > t.hp);
+        const currentThreshold = thresholds?.findLast((t) => t.hp >= hitPoints.value);
+        const newThreshold = thresholds?.findLast((t) => t.hp >= damageResult.updates["system.attributes.hp.value"]);
         const reachedThreshold =
-            threatenedThreshold && threatenedThreshold.hp >= damageResult.updates["system.attributes.hp.value"];
-        if (reachedThreshold) {
-            damageResult.updates["system.attributes.hp.value"] = threatenedThreshold.hp;
-        }
+            newThreshold && currentThreshold && currentThreshold.segments !== newThreshold.segments;
 
         // Save the pre-update state to calculate undo values
         const preUpdateSource = this.toObject();
@@ -1326,7 +1324,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                         hpDamage: Math.abs(damageResult.totalApplied),
                         absorbedDamage: damageAbsorbedByShield,
                         shieldDamage,
-                        segments: threatenedThreshold?.segments,
+                        segments: newThreshold?.segments,
                     }),
                 )
                 .join(" ");
