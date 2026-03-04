@@ -763,7 +763,9 @@
             "sort": 1200000,
             "system": {
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "draining-bite"
+                    ]
                 },
                 "bonus": {
                     "value": 27
@@ -916,14 +918,23 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>100 feet. The dibrasgorth's presence distorts the fabric of space. Any other creature who uses a teleportation effect or spell within the aura must attempt a @Check[fortitude|dc:33] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>"
+                    "value": "<p>100 feet. The dibrasgorth's presence distorts the fabric of space. Any other creature who uses a teleportation effect or spell within the aura must attempt a @Check[fortitude|dc:33|options:area-effect,inflicts:sickened] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 100,
+                        "slug": "warped-space",
+                        "traits": [
+                            "occult"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -948,7 +959,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dibrasgorth exhales a @Template[type:cone|distance:60] of noxious gas. Each creature in the area takes @Damage[7d6[poison]|options:area-damage] damage (@Check[fortitude|dc:30|basic] save). On a failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round (or 2 rounds on a critical failure).</p>"
+                    "value": "<p>The dibrasgorth exhales a @Template[type:cone|distance:60] of noxious gas. Each creature in the area takes @Damage[7d6[poison]|options:area-damage] damage (@Check[fortitude|dc:30|basic|options:area-effect,inflicts:confused] save). On a failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round (or 2 rounds on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -981,7 +992,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The dibrasgorth has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] with a tentacle</p><hr /><p><strong>Effect</strong> The dibrasgorth's tentacle whips through coterminous planes as it smashes the creature it is holding against the ground and other natural features in each plane before returning to this plane. The creature takes @Damage[5d8[bludgeoning]] damage (@Check[reflex|dc:30|basic] save). A creature who fails the save is also @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} by the rapid planar travel.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The dibrasgorth has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] with a tentacle</p><hr /><p><strong>Effect</strong> The dibrasgorth's tentacle whips through coterminous planes as it smashes the creature it is holding against the ground and other natural features in each plane before returning to this plane. The creature takes @Damage[5d8[bludgeoning]] damage (@Check[reflex|dc:30|basic|options:inflicts:stupefied,inflicts:sickened] save). A creature who fails the save is also @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} by the rapid planar travel.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -1005,19 +1016,19 @@
         },
         {
             "_id": "pefMP0GYkD8nfE0s",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Draining Bite",
             "sort": 1900000,
             "system": {
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A dibrasgorth feeds on the spirits of its victims. A creature that is damaged by the dibrasgorth's jaws Strike must attempt a @Check[fortitude|dc:30] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure). In addition, the dibrasgorth gains 10 temporary Hit Points that last for 1 minute if the creature fails or critically fails the save.</p>"
+                    "value": "<p>A dibrasgorth feeds on the spirits of its victims. A creature that is damaged by the dibrasgorth's jaws Strike must attempt a @Check[fortitude|dc:30|options:inflicts:drained] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure). In addition, the dibrasgorth gains 10 temporary Hit Points that last for 1 minute if the creature fails or critically fails the save.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Draining Bite]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1122,7 +1133,7 @@
         },
         "attributes": {
             "ac": {
-                "details": "",
+                "details": "all-around vision",
                 "value": 33
             },
             "allSaves": {
@@ -1188,7 +1199,7 @@
                 "value": 13
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>Dibrasgorths, sometimes called Mothers of Oblivion, are monstrous creatures of chaos who dwell in lightless spaces, often near the bottom of deep lakes and oceans both above and underground. They may look like hideous monsters with heads like a plesiosaur atop masses of tentacles, each tipped with a baleful red eye, but dibrasgorths have a twisted sense of cunning, likely due to their ability to see into and affect planes other than the one where they stand. Though they are quite powerful (with some the favored servants of Lamashtu), dibrasgorths prefer to keep their existence a secret from the mortals of the world above.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,

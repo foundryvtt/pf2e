@@ -116,9 +116,10 @@ class CombatantPF2e<
     /** All tokens managed by this one combatant, including troop segments */
     get tokens(): TokenDocumentPF2e[] {
         const token = super.token;
-        const troopTokens = game.scenes
-            .get(this.sceneId ?? "")
-            ?.tokens.filter((t) => t.flags[SYSTEM_ID].troop?.id === this.flags[SYSTEM_ID].troop);
+        const troopId = this.flags[SYSTEM_ID].troop;
+        const troopTokens = troopId
+            ? game.scenes.get(this.sceneId ?? "")?.tokens.filter((t) => t.flags[SYSTEM_ID].troop?.id === troopId)
+            : null;
         return [token, ...(troopTokens ?? [])].filter((t) => !!t);
     }
 

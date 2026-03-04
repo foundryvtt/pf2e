@@ -207,14 +207,24 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>60 feet.</p>\n<p>Volnagur constantly emits a cacophony that drowns out sound and thought while reinforcing Volnagur's song. Creatures that enter the aura must attempt a @Check[fortitude|dc:43] save or Volnagur's song becomes all they can hear for as long as they remain within the aura, making creatures @UUID[Compendium.pf2e.conditionitems.Item.Deafened] against all sources other than Volnagur.</p>\n<p>On a critical failure, the effect is permanent, and the cacophony rings in the target's ears regardless of range. The aura also attempts to counteract any auditory effect, any effect that would provide resistance or immunity to auditory or sonic effects, or any effect that would create silence (counteract rank 10, counteract modifier [[/r 1d20+33 #Counteract]]{+33}).</p>"
+                    "value": "<p>60 feet.</p>\n<p>Volnagur constantly emits a cacophony that drowns out sound and thought while reinforcing Volnagur's song. Creatures that enter the aura must attempt a @Check[fortitude|dc:43|options:area-effect,inflicts:deafened] save or Volnagur's song becomes all they can hear for as long as they remain within the aura, making creatures @UUID[Compendium.pf2e.conditionitems.Item.Deafened] against all sources other than Volnagur.</p>\n<p>On a critical failure, the effect is permanent, and the cacophony rings in the target's ears regardless of range. The aura also attempts to counteract any auditory effect, any effect that would provide resistance or immunity to auditory or sonic effects, or any effect that would create silence (counteract rank 10, counteract modifier [[/r 1d20+33 #Counteract]]{+33}).</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "alien-harmonics",
+                        "traits": [
+                            "auditory",
+                            "sonic"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

@@ -231,14 +231,23 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>5 feet. The heat from a daipex's arm cannons burns the intestines fed into the grafted weapons as ammunition. A creature that enters or begins its turn in the aura must succeed at a @Check[fortitude|dc:23] save or be @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 1}.</p>"
+                    "value": "<p>5 feet. The heat from a daipex's arm cannons burns the intestines fed into the grafted weapons as ammunition. A creature that enters or begins its turn in the aura must succeed at a @Check[fortitude|dc:23|options:area-effect,inflicts:sickened] save or be @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 1}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 5,
+                        "slug": "char-miasma",
+                        "traits": [
+                            "olfactory"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

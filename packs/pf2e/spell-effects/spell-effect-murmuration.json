@@ -1,0 +1,48 @@
+{
+    "_id": "rZRCgogKkUERRy6Q",
+    "img": "icons/creatures/birds/corvid-call-sound-blue.webp",
+    "name": "Spell Effect: Murmuration",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Murmuration]</p>\n<p>You take a –2 status penalty to your attack roll or hostile skill check.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": "if-enabled",
+                "selector": [
+                    "attack",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
