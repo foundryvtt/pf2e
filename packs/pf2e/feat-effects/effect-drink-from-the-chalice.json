@@ -22,18 +22,34 @@
         },
         "rules": [
             {
+                "choices": [
+                    {
+                        "label": "Yes",
+                        "predicate": [
+                            "parent:origin:item:tag:chalice-adept-benefit"
+                        ],
+                        "value": "yes"
+                    },
+                    {
+                        "label": "No",
+                        "value": "no"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Thaumaturge.Implement.Chalice.Adept.Prompt",
+                "rollOption": "adept-benefit-chalice-applies"
+            },
+            {
                 "key": "TempHP",
                 "predicate": [
-                    {
-                        "not": "parent:origin:item:tag:chalice-adept-benefit"
-                    }
+                    "adept-benefit-chalice-applies:no"
                 ],
                 "value": "max(3,@item.origin.level)"
             },
             {
                 "key": "TempHP",
                 "predicate": [
-                    "parent:origin:item:tag:chalice-adept-benefit"
+                    "adept-benefit-chalice-applies:yes"
                 ],
                 "value": "2*@item.origin.level"
             }
