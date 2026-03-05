@@ -1,0 +1,109 @@
+{
+    "_id": "N2oCj1LXgPalV9PI",
+    "folder": "kxsS2Jcb5uaZkwvC",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "XFAmqLJVZUSaekJI",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "On Display",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> At least two living creatures are in the room for more than a minute</p><hr /><p><strong>Effect</strong> The dolls in the cabinet begin to shake and shudder, filling the area with a feeling of overwhelming dread about what might happen next. Each living creature who can see the cabinet must succeed at a @Check[will|dc:20|options:inflicts:frightened] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure). The haunt then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Haunted Doll Cabinet",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 13
+            },
+            "emitsSound": "encounter",
+            "hardness": 5,
+            "hp": {
+                "details": "per shelf",
+                "max": 20,
+                "temp": 0,
+                "value": 20
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 7
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Three shelves inside a dusty cabinet each hold a row of dolls infused with the Doll House's malevolent spiritual energy.</p>",
+            "disable": "<p>@Check[occultism|dc:16] (trained) or @Check[religion|dc:16] (trained) to calm the spirits of one of three shelves in the cabinet</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventures: Troubles in Grayce"
+            },
+            "reset": "<p>The haunt deactivates 1 minute after all living creatures have left the area or when the soulbound dolls in the northwestern cabinet are destroyed. After 1 hour, the haunt is ready to trigger again. Putting Thalleus's spirit to rest permanently destroys the haunt.</p>",
+            "routine": "<p>(3 actions) For each shelf that remains, the haunt takes 1 action to target a living, non-construct creature in the room. Phantom dolls escape from the cabinet to rush that creature, clamber over them, and punch, kick, and bite them. The target takes @Damage[(1d6+2)[spirit]] damage (@Check[reflex|dc:17|basic] save).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 10
+            },
+            "reflex": {
+                "value": 4
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

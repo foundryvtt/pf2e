@@ -1,0 +1,106 @@
+{
+    "_id": "cfN3g0QmQ29AJEyI",
+    "folder": "kxsS2Jcb5uaZkwvC",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "wgooKvGcaXcmXpPw",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Phantom Hands",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature is adjacent to a grasping gem's shelf</p><hr /><p><strong>Effect</strong> The room becomes awash with eerie light as ghostly hands reach out from all directions. Each living creature in the room must attempt a @Check[fortitude|dc:24|options:area-effect,inflicts:immobilized] save. The haunt then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The phantom hands interfere with the creature's movements. The creature takes a –2 status penalty to its initiative roll.</p>\n<p><strong>Failure</strong> The phantom hands hold the creature in place. The creature takes a –2 status penalty to its initiative roll and is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] ([[/act escape dc=24]]) for the first round.</p>\n<p><strong>Critical Failure</strong> As failure, but if the creature attempts to Escape during the first round, it must roll twice and take the worse result. This is a misfortune effect.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Phantom Hands]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "spirit"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Grasping Gems",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "emitsSound": "encounter",
+            "hardness": 12,
+            "hp": {
+                "details": "per gem",
+                "max": 14,
+                "temp": 0,
+                "value": 14
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 12
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Four magically treated gems used to store fragments of souls begin glowing with an eerie malevolence.</p>",
+            "disable": "<p>@Check[arcana|dc:22] (trained), @Check[occultism|dc:22] (trained), or @Check[nature|dc:22] (trained) to quiet one of the four grasping gems</p>",
+            "isComplex": true,
+            "level": {
+                "value": 4
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventures: Troubles in Grayce"
+            },
+            "reset": "<p>The haunt deactivates 1 minute after all living creatures have left the room. One hour after this or being Disabled, the haunt is ready to trigger again. Putting Thalleus's spirit to rest permanently destroys the haunt.</p>",
+            "routine": "<p>(2 actions) During the haunt's first action, the grasping gems attempt an Athletics check (at a [[/r 1d20+4#Athletics]]{+14 modifier}) to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] each non-@UUID[Compendium.pf2e.conditionitems.Item.Immobilized] living creature in the room, rolling once and comparing the result to each target's Fortitude DC. For every gem that is disabled or destroyed, the haunt takes a cumulative –1 circumstance penalty to the check. For the haunt's second action, the gems' ghostly hands squeeze their victims. Each creature immobilized by the haunt takes @Damage[(2d8+5)[bludgeoning]] damage (@Check[fortitude|dc:21|basic] save).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 14
+            },
+            "reflex": {
+                "value": 8
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

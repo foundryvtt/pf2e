@@ -1,0 +1,145 @@
+{
+    "_id": "ZkqZwgQm9qmssVPe",
+    "folder": "kxsS2Jcb5uaZkwvC",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "mmLkBQ2PlCznM9Tg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Slide and Dice",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature is within 10 feet of a trapped wall</p><hr /><p><strong>Effect</strong> The hazard makes a serrated blade Strike against all creatures within 10 feet of the west, east, or south wall; these Strikes don't take a multiple attack penalty. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "u6a6QAOgq4ONfWje",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Serrated Blade",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "rWWsTL3k77perCqs": {
+                        "damage": "2d6+5",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": "<p>(no multiple attack penalty)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Wall Blades Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "emitsSound": "encounter",
+            "hardness": 10,
+            "hp": {
+                "details": "to destroy the mechanisms in one wall",
+                "max": 16,
+                "temp": 0,
+                "value": 16
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A series of rotating, serrated blades attached to long poles routinely slice out of grooves carved into the stone walls.</p>",
+            "disable": "<p>@Check[thievery|dc:20] (trained) to disengage the mechanisms that operate the blades in one wall</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventures: Troubles in Grayce"
+            },
+            "reset": "<p>The trap deactivates when the room is empty and resets after 1 minute.</p>",
+            "routine": "<p>(3 actions) For each wall in which the mechanisms have been disabled or destroyed, the hazard has 1 fewer action. On each action, the hazard makes a serrated blade Strike against one creature within 10 feet of the west, east, or south wall. Each set of wall blades acts once per turn.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 12
+            },
+            "reflex": {
+                "value": 6
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

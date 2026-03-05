@@ -1,0 +1,347 @@
+{
+    "_id": "qvHORqASyD9Poqym",
+    "folder": "uVHwhGLjohjA8abI",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "bombWfiiaIUZLtSC",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "1EZ5z9wqN03Fr23t": {
+                        "damage": "1d6+2",
+                        "damageType": "slashing"
+                    },
+                    "kRbEk6yuMFrrBPGK": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ntZeSDSEIU1TLvp4",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blood Scent",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A sangrist can detect creatures taking persistent bleed damage as an imprecise sense at the listed range.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1eKNRHr0FE6UxOin",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blood Vigor",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>While adjacent to a creature taking persistent bleed damage, the sangrist gains fast healing 3 and is @UUID[Compendium.pf2e.conditionitems.Item.Quickened] until the start of its next turn. The sangrist can use its extra action only to Step or Stride.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.Sangrist.BloodVigor.FastHealing.Toggle",
+                        "option": "blood-vigor",
+                        "toggleable": true
+                    },
+                    {
+                        "details": "PF2E.NPCAbility.Sangrist.BloodVigor.FastHealing.Details",
+                        "key": "FastHealing",
+                        "predicate": [
+                            "blood-vigor"
+                        ],
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mXR8m4OT10V7lA2l",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YZRl8dT4QFV22a3Q",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Bloodletter",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A sangrist intuitively exacerbates open cuts on living creatures with its attacks. The sangrint's claw Strikes deal an additional 1 precision damage to living creatures taking persistent bleed damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "damageCategory": "precision",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "target:condition:persistent-damage:bleed",
+                            "target:mode:living"
+                        ],
+                        "selector": [
+                            "claw-damage"
+                        ],
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Sangrist",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -1
+            },
+            "str": {
+                "mod": 2
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 17
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 2
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Sangrists are born from the bodies of those who bled out completely, often when they are left unburied without proper rites in places tainted by void energy, though the strong presence of void energy is not a requirement. Some victims who rise as sangrists suffered an accident or attack in a remote region and were never found and properly laid to rest, be it a slip of a blade when cleaning game or being gored by a wild hog.</p>\n<p>After rising as undead, these tragic creatures are drawn to sites of past carnage where the scent of blood and death lingers. They are commonly found in the war-torn lands of Lastwall, the haunted ruins of Ustalav, and the cursed battlefields of Geb, embodying a relentless hunger for the life they lost.</p>\n<p>Sangrists rely on stealth and ambushes, becoming more active at night. During times of inactivity, they fall into a strange stupor. In this state, they rock back and forth and frequently twitch, sometimes emitting a haunting humming sound.</p>\n<p>Some sangrists are solitary hunters, often stalking a solitary target for hours if not days. Others form packs, especially if they shared a bond in life. These packs exhibit a chilling, coordinated cunning, reminiscent of wolves on the prowl. Sangrists are patient hunters, sometimes tracking their victims for miles or observing them for hours before making a move. They target the weak and isolated, picking off those they can easily wound so that they bleed out even if they manage to outrun the sangrists. Retaining only a shadow of their former selves, sangrists rarely utter more than single-word sentences, usually to express their hatred for the living, their unending hunger, or where victims can be found.</p>\n<p>Although sangrists can't drink blood or gain nourishment from it, they sometimes pool blood in their cupped hands and pour it on their faces and bodies. They may also lie down next to the body of a slain enemy. This macabre ritual seems to be a desperate attempt to reconnect with the life they once had. These strange proclivities toward blood, nighttime activity, and the yearning for some semblance of their previous lives lead some sangrists to associate with vampires. Vampires generally don't find sangrists distasteful and find the undead creatures easy to manipulate into serving them as guardians and attendants.</p><h2>Taste for Blood</h2><p>These rare creatures have been mistaken for either feral vampires or blood obsessed zombies by soldiers and adventurers who don't have a firm understanding of the myriad forms undeath can come in. Those familiar with sangrists and who aim to hunt them often set out blood, frequently pig blood, as a lure.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventures: Troubles in Grayce"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "blood scent 30 feet",
+            "mod": 11,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 8
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 8
+            },
+            "athletics": {
+                "base": 6
+            },
+            "stealth": {
+                "base": 8
+            },
+            "survival": {
+                "base": 7
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "human",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}
