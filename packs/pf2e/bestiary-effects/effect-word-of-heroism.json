@@ -1,0 +1,49 @@
+{
+    "_id": "F2vfkxDnMjBZt91r",
+    "img": "icons/magic/symbols/rune-sigil-black-pink.webp",
+    "name": "Effect: Word of Heroism",
+    "system": {
+        "description": {
+            "value": "<p>You gain a status bonus to attack rolls, Perception checks, saving throws, and skill checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack-roll",
+                    "perception",
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": "@item.origin.flags.system.wordOfHeroismBonus"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

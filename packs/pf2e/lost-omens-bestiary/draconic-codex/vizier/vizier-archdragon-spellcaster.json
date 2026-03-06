@@ -1664,7 +1664,7 @@
             },
             "folder": "iDjm2cXyRAe4VZ35",
             "img": "systems/pf2e/icons/spells/tongues.webp",
-            "name": "Truespeech (constant)",
+            "name": "Truespeech (Constant)",
             "sort": 2400000,
             "system": {
                 "area": null,
@@ -2351,7 +2351,7 @@
             },
             "folder": "lPzcDrjGDFbzuF2r",
             "img": "systems/pf2e/icons/spells/humanoid-form.webp",
-            "name": "Humanoid Form (at will)",
+            "name": "Humanoid Form (At Will)",
             "sort": 3400000,
             "system": {
                 "area": null,
@@ -3063,13 +3063,13 @@
                     "value": 42
                 },
                 "damageRolls": {
-                    "5uqySl9bxr0NM4j5": {
-                        "damage": "6d6",
-                        "damageType": "fire"
-                    },
-                    "sbuv6hBgfwJ2oIjJ": {
+                    "0": {
                         "damage": "4d8+20",
                         "damageType": "piercing"
+                    },
+                    "1": {
+                        "damage": "6d6",
+                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -3230,7 +3230,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>When a dragon speaks, the universe listens. The dragon is immune to silence and abilities that would prevent them from speaking if the source's level is lower than the dragon's or its rank is lower than half the dragon's level rounded up.</p>"
+                    "value": "<p>When a dragon speaks, the universe listens. The dragon is immune to @UUID[Compendium.pf2e.spells-srd.Item.Silence] and abilities that would prevent them from speaking if the source's level is lower than the dragon's or its rank is lower than half the dragon's level rounded up.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3243,7 +3243,7 @@
                             "dragontongue"
                         ],
                         "key": "Immunity",
-                        "label": "dragontongue",
+                        "label": "PF2E.NPCAbility.VizierDragon.Dragontongue.ImmunityLabel",
                         "type": "custom"
                     }
                 ],
@@ -3386,7 +3386,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon expresses their power in one of two ways. The dragon can't use Powerful Utterance again for [[/gmr 1d4 #Recharge Powerful Utterance]]{1d4 rounds}.</p><ul><li><strong>Ardent Proclamation</strong> (occult, fire) The dragon breathes a blast of flame in a @Template[type:cone|distance:60] that deals @Damage[24d6[fire]|options:area-damage] damage (@Check[reflex|dc:46|basic|traits:occult,fire] save).</li><li><p><strong>Chastising Word</strong> (mental, occult) The dragon chides the targets strictly enough to leave the mind reeling. Each creature within a @Template[type:cone|distance:60] must succeed at a @Check[will|dc:46|traits:mental,occult] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} for 1 minute (or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 6} on a critical failure).</p>\n</li></ul>"
+                    "value": "<p>The dragon expresses their power in one of two ways. The dragon can't use Powerful Utterance again for [[/gmr 1d4 #Recharge Powerful Utterance]]{1d4 rounds}.</p><ul><li><strong>Ardent Proclamation</strong> (occult, fire) The dragon breathes a blast of flame in a @Template[type:cone|distance:60] that deals @Damage[24d6[fire]|options:area-damage] damage (@Check[reflex|dc:46|basic|options:area-effect|traits:occult,fire] save).</li><li><p><strong>Chastising Word</strong> (mental, occult) The dragon chides the targets strictly enough to leave the mind reeling. Each creature within a @Template[type:cone|distance:60] must succeed at a @Check[will|dc:46|options:area-effect,inflicts:stupefied|traits:mental,occult] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} for 1 minute (or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 6} on a critical failure).</p>\n</li></ul>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3415,7 +3415,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The dragon is a skilled mentor, and commands its students like a general. An ally within 60 feet of the dragon can Stride once and Strike once, in any order. If it hits, the Strike deals an additional @Damage[6d6[fire]] damage.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The dragon is a skilled mentor, and commands its students like a general. An ally within 60 feet of the dragon can Stride once and Strike once, in any order. If it hits, the Strike deals an additional 6d6 fire damage.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Word of Advice]</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -3426,7 +3426,14 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.wordOfAdviceDiceNumber",
+                        "value": 6
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -3453,7 +3460,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> Wise people listen when a vizier dragon speaks. An ally within 60 feet of the dragon gains immunity to the vizier dragon's Powerful Utterance and resistance 30 to all other damage for 1 round.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> Wise people listen when a vizier dragon speaks. An ally within 60 feet of the dragon gains immunity to the vizier dragon's Powerful Utterance and resistance 30 to all other damage for 1 round.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Word of Caution]</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -3464,7 +3471,14 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.wordOfCautionResistance",
+                        "value": 30
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -3494,7 +3508,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> Ancient dragons are the teachers of heroes. An ally within 60 feet of the dragon gains a +3 status bonus to attack rolls, Perception checks, saving throws, and skill checks for 1 minute.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> Ancient dragons are the teachers of heroes. An ally within 60 feet of the dragon gains a +3 status bonus to attack rolls, Perception checks, saving throws, and skill checks for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Word of Heroism]</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -3505,7 +3519,14 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.wordOfHeroismBonus",
+                        "value": 3
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -3532,7 +3553,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>An archdragon is a wellspring of power, a well from which one might drink deep. An ally within 60 feet of the dragon gains regeneration 25 for 1 round, and the dragon can Sustain this effect once per round as a free action.</p>"
+                    "value": "<p>An archdragon is a wellspring of power, a well from which one might drink deep. An ally within 60 feet of the dragon gains regeneration 25 for 1 round, and the dragon can Sustain this effect once per round as a free action.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Word of Vigor]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3584,7 +3605,7 @@
                 "value": 48
             },
             "allSaves": {
-                "value": ""
+                "value": "+1 status to all saves vs. magic"
             },
             "hp": {
                 "details": "",
