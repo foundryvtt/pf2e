@@ -36,7 +36,7 @@
     const pendingQueries: Set<Promise<unknown>> = new Set();
     async function sendQuery(data: TradeQueryData): Promise<void> {
         await Promise.allSettled(pendingQueries);
-        const promise = traderUser.query("pf2e.trade", data, { timeout: 15_000 });
+        const promise = traderUser.query(`${SYSTEM_ID}.trade`, data, { timeout: 15_000 });
         pendingQueries.add(promise);
         promise
             .then((data) => {
