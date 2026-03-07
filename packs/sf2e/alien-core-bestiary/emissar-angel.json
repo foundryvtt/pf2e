@@ -1071,8 +1071,28 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "morale-boost",
+                        "toggleable": true
+                    },
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "removeOnExit": false,
+                                "uuid": "Compendium.sf2e.bestiary-effects.Item.Effect: Morale Boost"
+                            }
+                        ],
+                        "key": "Aura",
+                        "predicate": [
+                            "morale-boost"
+                        ],
+                        "radius": 100
+                    }
+                ],
+                "slug": "morale-boost",
                 "traits": {
                     "value": []
                 }
@@ -1093,7 +1113,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The emissar commands an ally within 30 feet to ignore a harmful effect and keep fighting. The target gains 2d10 temporary Hit Points for 1 minute and suppresses one condition that's currently affecting it for the next [[/gmr 1d4 #rounds]]{1d4 rounds}, chosen from the following list: @UUID[Compendium.sf2e.conditions.Item.Confused], @UUID[Compendium.sf2e.conditions.Item.Fatigued], @UUID[Compendium.sf2e.conditions.Item.Fleeing], frightened, or stupefied. The target is then temporarily immune to Spin Doctor for 1 hour.</p>"
+                    "value": "<p>The emissar commands an ally within 30 feet to ignore a harmful effect and keep fighting. The target gains 2d10 temporary Hit Points for 1 minute and suppresses one condition that's currently affecting it for the next [[/gmr 1d4 #rounds]]{1d4 rounds}, chosen from the following list: @UUID[Compendium.sf2e.conditions.Item.Confused], @UUID[Compendium.sf2e.conditions.Item.Fatigued], @UUID[Compendium.sf2e.conditions.Item.Fleeing], @UUID[Compendium.sf2e.conditions.Item.Frightened], or @UUID[Compendium.sf2e.conditions.Item.Stupefied]. The target is then temporarily immune to Spin Doctor for 1 hour.</p>\n<p>@UUID[Compendium.sf2e.bestiary-effects.Item.Effect: Spin Doctor]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1101,7 +1121,7 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "spin-doctor",
                 "traits": {
                     "value": [
                         "healing",

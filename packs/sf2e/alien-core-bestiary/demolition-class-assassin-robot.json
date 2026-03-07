@@ -352,15 +352,34 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The demolition-class assassin robot attempts to close the distance between it and its target, removing all obstacles in its way. The robot makes a ranged Strike with its breaching gun against the [[/act force-open]] DC of a door or other obstacle. If successful, the obstacle gains the broken condition. The robot then Strides twice toward (and even through) the obstacle, but if the obstacle still bars the robot's movement, it stops adjacent to the obstacle and attempts an Athletics check to Force Open the obstacle with a +4 circumstance bonus.</p>"
+                    "value": "<p>The demolition-class assassin robot attempts to close the distance between it and its target, removing all obstacles in its way. The robot makes a ranged Strike with its breaching gun against the Force Open DC of a door or other obstacle. If successful, the obstacle gains the broken condition. The robot then Strides twice toward (and even through) the obstacle, but if the obstacle still bars the robot's movement, it stops adjacent to the obstacle and attempts an Athletics check to [[/act force-open]] the obstacle with a +4 circumstance bonus.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "breaching-rush",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:force-open",
+                            "breaching-rush"
+                        ],
+                        "selector": [
+                            "athletics"
+                        ],
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": "breaching-rush",
                 "traits": {
                     "value": []
                 }
@@ -456,7 +475,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The demolition-class assassin robot establishes a target lock on a creature it can see within 120 feet. The creature can't become @UUID[Compendium.sf2e.conditions.Item.Concealed] against the robot or [[/act create-a-diversion]] against the robot. This ability lasts until the robot loses line of sight with the target or the target otherwise becomes hidden.</p>"
+                    "value": "<p>The demolition-class assassin robot establishes a target lock on a creature it can see within 120 feet. The creature can't become @UUID[Compendium.sf2e.conditions.Item.Concealed] against the robot or [[/act create-a-diversion]] against the robot. This ability lasts until the robot loses line of sight with the target or the target otherwise becomes @UUID[Compendium.sf2e.conditions.Item.Hidden].</p>"
                 },
                 "publication": {
                     "license": "OGL",
