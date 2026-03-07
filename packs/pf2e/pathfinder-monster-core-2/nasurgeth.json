@@ -751,9 +751,6 @@
                 "rules": [
                     {
                         "key": "Aura",
-                        "predicate": [
-                            "terrain:underwater"
-                        ],
                         "radius": 60,
                         "slug": "midnight-depths",
                         "traits": [
@@ -764,20 +761,20 @@
                         ]
                     },
                     {
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.Nasurgeth.MidnightDepths.Underwater",
+                        "option": "midnight-depths-underwater",
+                        "toggleable": true
+                    },
+                    {
                         "damageType": "cold",
                         "diceNumber": 2,
                         "dieSize": "d10",
                         "key": "DamageDice",
                         "predicate": [
-                            "terrain:underwater"
+                            "midnight-depths-underwater"
                         ],
                         "selector": "{item|id}-inline-damage"
-                    },
-                    {
-                        "key": "RollOption",
-                        "label": "PF2E.SkillVariant.Underwater",
-                        "option": "terrain:underwater",
-                        "toggleable": true
                     }
                 ],
                 "slug": null,
