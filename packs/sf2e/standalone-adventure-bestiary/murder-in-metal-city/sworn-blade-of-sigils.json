@@ -66,7 +66,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your <em>detect magic</em> spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an @UUID[Compendium.sf2e.equipment.Item.Invisibility Potion]) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your <em>detect magic</em> spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an <em>invisibility potion</em>) typically are detected normally.</p><hr /><p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -211,18 +211,7 @@
                     "value": ""
                 },
                 "counteraction": false,
-                "damage": {
-                    "MKcVf1RIGVpzDPer": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "1d8",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "bludgeoning"
-                    }
-                },
+                "damage": {},
                 "defense": {
                     "save": {
                         "basic": true,
@@ -230,19 +219,11 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You manifest an injury from the future or past to harm a creature in the present. Choose bludgeoning, piercing, or slashing damage. The target takes 1d8 of the selected damage type with a basic Will save. If the target fails its save and then takes the same type of damage before the end of your next turn, it takes an additional 1d4 persistent bleed damage.</p><hr /><p><strong>Heightened (+2)</strong> The initial damage increases by 1d8, and the persistent damage on a failure increases by 1d4.</p>"
+                    "value": "<p>You manifest an injury from the future or past to harm a creature in the present. Choose bludgeoning, piercing, or slashing damage. The target takes 1d8 of the selected damage type with a basic Will save. If the target fails its save and then takes the same type of damage before the end of your next turn, it takes an additional @Damage[ceil((@item.level)/2)d4[persistent,bleed]] damage.</p><hr /><p><strong>Heightened (+2)</strong> The initial damage increases by 1d8, and the persistent damage on a failure increases by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
-                },
-                "heightening": {
-                    "area": 0,
-                    "damage": {
-                        "MKcVf1RIGVpzDPer": "1d8"
-                    },
-                    "interval": 2,
-                    "type": "interval"
                 },
                 "level": {
                     "value": 1
@@ -251,47 +232,84 @@
                     "value": "IdCTOq0ety9fKHxH"
                 },
                 "overlays": {
-                    "4jPDYGN5K2VeNKqW": {
-                        "name": "Injury Echo (Bludgeoning)",
-                        "overlayType": "override",
-                        "sort": 1,
-                        "system": {
-                            "damage": {
-                                "MKcVf1RIGVpzDPer": {
-                                    "category": null
-                                }
-                            }
-                        }
-                    },
-                    "MU30RFbsCMge6HgC": {
-                        "name": "Injury Echo (Slashing)",
-                        "overlayType": "override",
-                        "sort": 3,
-                        "system": {
-                            "damage": {
-                                "MKcVf1RIGVpzDPer": {
-                                    "category": null,
-                                    "kinds": [
-                                        "damage"
-                                    ],
-                                    "type": "slashing"
-                                }
-                            }
-                        }
-                    },
-                    "fWvfeWjJGmEUyoIi": {
+                    "Nz2Dt9pkBviU7YNx": {
                         "name": "Injury Echo (Piercing)",
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
                             "damage": {
-                                "MKcVf1RIGVpzDPer": {
+                                "X6aUcgmF4twJh5gL": {
+                                    "applyMod": false,
                                     "category": null,
+                                    "formula": "1d8",
                                     "kinds": [
                                         "damage"
                                     ],
+                                    "materials": [],
                                     "type": "piercing"
                                 }
+                            },
+                            "heightening": {
+                                "area": 0,
+                                "damage": {
+                                    "X6aUcgmF4twJh5gL": "1d8"
+                                },
+                                "interval": 2,
+                                "type": "interval"
+                            }
+                        }
+                    },
+                    "bTPhCN8qHDYgs8Bd": {
+                        "name": "Injury Echo (Bludgeoning)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "2kU3mhyAecpOrFci": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "1d8",
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "materials": [],
+                                    "type": "bludgeoning"
+                                }
+                            },
+                            "heightening": {
+                                "area": 0,
+                                "damage": {
+                                    "2kU3mhyAecpOrFci": "1d8"
+                                },
+                                "interval": 2,
+                                "type": "interval"
+                            }
+                        }
+                    },
+                    "ljkuQpKCf9OtjqEM": {
+                        "name": "Injury Echo (Slashing)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "damage": {
+                                "EotUm3XBubhQrtWi": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "1d8",
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "materials": [],
+                                    "type": "slashing"
+                                }
+                            },
+                            "heightening": {
+                                "area": 0,
+                                "damage": {
+                                    "EotUm3XBubhQrtWi": "1d8"
+                                },
+                                "interval": 2,
+                                "type": "interval"
                             }
                         }
                     }
