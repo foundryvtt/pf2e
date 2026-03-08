@@ -18,6 +18,7 @@ import * as R from "remeda";
 import type { IntegratedWeaponData, ShieldSource, ShieldSystemData } from "./data.ts";
 import { setActorShieldData } from "./helpers.ts";
 import type { BaseShieldType, ShieldTrait } from "./types.ts";
+import { performLatePreparation } from "@item/helpers.ts";
 
 class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     static override get validTraits(): Record<ShieldTrait, string> {
@@ -238,7 +239,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const shieldThrowTrait = this.system.traits.value.find((t) => t.startsWith("shield-throw-"));
         if (shieldThrowTrait) weaponTraits.push(`thrown-${shieldThrowTrait.slice(-2)}` as WeaponTrait);
 
-        const baseData: BaseWeaponData = fu.deepClone({
+        let weaponData: BaseWeaponData = fu.deepClone({
             ...R.pick(this, ["_id", "name", "img"]),
             type: "weapon",
             system: {
@@ -262,8 +263,8 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const versatileTrait = this.system.traits.value.find((t) => t.includes("versatile"));
             const versatileWeaponTrait = versatileTrait?.slice(versatileTrait.indexOf("versatile")) ?? null;
             if (objectHasKey(CONFIG.PF2E.weaponTraits, versatileWeaponTrait)) {
-                baseData.system.traits.value.push(versatileWeaponTrait);
-                baseData.system.traits.toggles = {
+                weaponData.system.traits.value.push(versatileWeaponTrait);
+                weaponData.system.traits.toggles = {
                     versatile: { selected: this.system.traits.integrated.versatile?.selected ?? damageType },
                 };
             }
@@ -279,12 +280,12 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             if (integratedWeaponRunes?.potency || integratedWeaponRunes?.striking) {
                 additionalData.name = this._source.name;
             }
-            const combinedData = fu.mergeObject(baseData, additionalData);
-
-            return new ItemProxyPF2e(combinedData, { parent: this.parent, shield: this }) as WeaponPF2e<TParent>;
+            weaponData = fu.mergeObject(weaponData, additionalData);
         }
 
-        return new ItemProxyPF2e(baseData, { parent: this.parent, shield: this }) as WeaponPF2e<TParent>;
+        const weapon = new ItemProxyPF2e(weaponData, { parent: this.parent, shield: this }) as WeaponPF2e<TParent>;
+        performLatePreparation(weapon);
+        return weapon;
     }
 
     protected override async _preUpdate(
