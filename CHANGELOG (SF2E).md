@@ -1,3 +1,16 @@
+## 0.0.7
+
+### Bugfixes
+
+- (Supe) Fixed pinging and delete confirmations for non-troop combatants
+- (Supe) Remove throttle for troop thresholds
+
+### Data Updates
+
+- (Ambrose) Remove heightened 4th rank Enlarge spell effect
+- (eltariel) Update saving throw predicate for Cloned Astrazoan to use "or"
+- (Mecha Maya) Add missing languages from Alien Core
+
 ## 0.0.6
 
 ### Bugfixes

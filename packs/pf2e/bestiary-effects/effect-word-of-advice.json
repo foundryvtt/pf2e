@@ -1,0 +1,45 @@
+{
+    "_id": "iTjPZQneHwBqlRiq",
+    "img": "icons/magic/symbols/rune-sigil-red-orange.webp",
+    "name": "Effect: Word of Advice",
+    "system": {
+        "description": {
+            "value": "<p>Your Strike deals additional fire damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "damageType": "fire",
+                "diceNumber": "@item.origin.flags.system.wordOfAdviceDiceNumber",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

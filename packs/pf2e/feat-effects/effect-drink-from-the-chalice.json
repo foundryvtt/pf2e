@@ -22,18 +22,34 @@
         },
         "rules": [
             {
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "predicate": [
+                            "parent:origin:item:tag:chalice-adept-benefit"
+                        ],
+                        "value": "adept"
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": "initiate"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Thaumaturge.Implement.Chalice.Adept.Prompt",
+                "rollOption": "drink-from-the-chalice-temp-hp"
+            },
+            {
                 "key": "TempHP",
                 "predicate": [
-                    {
-                        "not": "parent:origin:item:tag:chalice-adept-benefit"
-                    }
+                    "drink-from-the-chalice-temp-hp:initiate"
                 ],
                 "value": "max(3,@item.origin.level)"
             },
             {
                 "key": "TempHP",
                 "predicate": [
-                    "parent:origin:item:tag:chalice-adept-benefit"
+                    "drink-from-the-chalice-temp-hp:adept"
                 ],
                 "value": "2*@item.origin.level"
             }

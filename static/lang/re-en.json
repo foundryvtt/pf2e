@@ -1351,6 +1351,11 @@
                     "RedClawLabel": "Red Claw"
                 }
             },
+            "Nasurgeth": {
+                "MidnightDepths": {
+                    "InWater": "Midnight Depths — In Water"
+                }
+            },
             "Necrohulk": {
                 "AlchemicalCartridgeRuptured": "Alchemical Cartridge Ruptured"
             },
@@ -1625,6 +1630,15 @@
                             "Note": "The target becomes @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1}"
                         }
                     }
+                }
+            },
+            "VizierDragon": {
+                "Dragontongue": {
+                    "ImmunityLabel": "dragontongue"
+                },
+                "PowerfulUtterance": 
+                {
+                    "ImmunityLabel": "powerful utterance"
                 }
             },
             "Vordine": {
@@ -6990,8 +7004,9 @@
                     },
                     "Chalice": {
                         "Adept": {
-                            "DescriptionAlteration": "On a sip, the temporary Hit Points granted to the creature increase to twice your level. When drained, the chalice heals the creature 5 Hit Points for each level you have.",
-                            "Note": "If you or an ally within 30 feet takes piercing or slashing damage from a foe's critical hit or takes persistent bleed damage, @UUID[Compendium.pf2e.actionspf2e.Item.D91jQs0wleU5ml4K]{Drinking from the Chalice} before the end of your next turn grants that injured creature greater restoration to make up for its lost vitality.<p>On a sip, the temporary Hit Points granted to the creature increase to twice your level. When drained, the chalice heals the creature 5 Hit Points for each level you have.</p><p>@UUID[Compendium.pf2e.feat-effects.Item.Sq558879cgEc1lGC]{Effect: Chalice Adept Benefit (Self)}</p>"
+                            "DescriptionAlteration": "If you or an ally within 30 feet takes piercing or slashing damage from a foe's critical hit or takes persistent bleed damage, Drinking from the Chalice before the end of your next turn grants that injured creature greater restoration to make up for its lost vitality. On a sip, the temporary Hit Points granted to the creature increase to twice your level. When drained, the chalice heals the creature @Damage[(5 * @actor.level)[healing,vitality]|shortLabel|traits:healing,vitality] Hit Points (or @Damage[(5 * @actor.level)[healing,void]|traits:healing,void] if they have void healing).",
+                            "Note": "If you or an ally within 30 feet takes piercing or slashing damage from a foe's critical hit or takes persistent bleed damage, @UUID[Compendium.pf2e.actionspf2e.Item.D91jQs0wleU5ml4K]{Drinking from the Chalice} before the end of your next turn grants that injured creature greater restoration to make up for its lost vitality.<p>On a sip, the temporary Hit Points granted to the creature increase to twice your level. When drained, the chalice heals the creature 5 Hit Points for each level you have.</p>",
+                            "Prompt": "Does the chalice's adept benefit apply?"
                         },
                         "Label": "Chalice"
                     },

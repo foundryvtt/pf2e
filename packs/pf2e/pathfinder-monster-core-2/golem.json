@@ -908,7 +908,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>The golem can carry 13 Bulk before becoming encumbered and can carry a maximum Bulk of 18.</p>"
+                    "value": "<p>The golem can carry 13 Bulk before becoming @UUID[Compendium.pf2e.conditionitems.Item.Encumbered] and can carry a maximum Bulk of 18.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -950,14 +950,48 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>After the golem casts a holy spell, their Strikes deal an additional @Damage[1d8[spirit]] damage and gain the divine and holy traits. These benefits last until the end of the golem's next turn.</p>"
+                    "value": "<p>After the golem casts a holy spell, their Strikes deal an additional 1d8 spirit damage and gain the divine and holy traits. These benefits last until the end of the golem's next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "consecrated-fists",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "spirit",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "consecrated-fists"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "consecrated-fists"
+                        ],
+                        "property": "traits",
+                        "value": "divine"
+                    },
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "consecrated-fists"
+                        ],
+                        "property": "traits",
+                        "value": "holy"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -1033,6 +1067,12 @@
                 "temp": 0,
                 "value": 170
             },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "acid"
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
