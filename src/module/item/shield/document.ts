@@ -239,7 +239,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const shieldThrowTrait = this.system.traits.value.find((t) => t.startsWith("shield-throw-"));
         if (shieldThrowTrait) weaponTraits.push(`thrown-${shieldThrowTrait.slice(-2)}` as WeaponTrait);
 
-        let weaponData: BaseWeaponData = fu.deepClone({
+        const baseData: BaseWeaponData = fu.deepClone({
             ...R.pick(this, ["_id", "name", "img"]),
             type: "weapon",
             system: {
@@ -258,13 +258,14 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             },
         });
 
+        let weaponData: BaseWeaponData | undefined;
         if (this.system.traits.integrated) {
             const damageType = this.system.traits.integrated.damageType;
             const versatileTrait = this.system.traits.value.find((t) => t.includes("versatile"));
             const versatileWeaponTrait = versatileTrait?.slice(versatileTrait.indexOf("versatile")) ?? null;
             if (objectHasKey(CONFIG.PF2E.weaponTraits, versatileWeaponTrait)) {
-                weaponData.system.traits.value.push(versatileWeaponTrait);
-                weaponData.system.traits.toggles = {
+                baseData.system.traits.value.push(versatileWeaponTrait);
+                baseData.system.traits.toggles = {
                     versatile: { selected: this.system.traits.integrated.versatile?.selected ?? damageType },
                 };
             }
@@ -280,10 +281,11 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             if (integratedWeaponRunes?.potency || integratedWeaponRunes?.striking) {
                 additionalData.name = this._source.name;
             }
-            weaponData = fu.mergeObject(weaponData, additionalData);
+            weaponData = fu.mergeObject(baseData, additionalData);
         }
 
-        const weapon = new ItemProxyPF2e(weaponData, { parent: this.parent, shield: this }) as WeaponPF2e<TParent>;
+        const weapon = new ItemProxyPF2e(weaponData ?? baseData, 
+            { parent: this.parent, shield: this }) as WeaponPF2e<TParent>;
         performLatePreparation(weapon);
         return weapon;
     }
