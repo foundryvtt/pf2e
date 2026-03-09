@@ -284,8 +284,10 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             weaponData = fu.mergeObject(baseData, additionalData);
         }
 
-        const weapon = new ItemProxyPF2e(weaponData ?? baseData, 
-            { parent: this.parent, shield: this }) as WeaponPF2e<TParent>;
+        const weapon = new ItemProxyPF2e(weaponData ?? baseData, {
+            parent: this.parent,
+            shield: this,
+        }) as WeaponPF2e<TParent>;
         performLatePreparation(weapon);
         return weapon;
     }
