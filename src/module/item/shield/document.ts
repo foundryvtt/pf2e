@@ -258,8 +258,8 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             },
         });
 
-        let weaponData: BaseWeaponData | undefined;
-        if (this.system.traits.integrated) {
+        const weaponData: BaseWeaponData = (() => {
+            if (!this.system.traits.integrated) return baseData;
             const damageType = this.system.traits.integrated.damageType;
             const versatileTrait = this.system.traits.value.find((t) => t.includes("versatile"));
             const versatileWeaponTrait = versatileTrait?.slice(versatileTrait.indexOf("versatile")) ?? null;
@@ -281,13 +281,10 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             if (integratedWeaponRunes?.potency || integratedWeaponRunes?.striking) {
                 additionalData.name = this._source.name;
             }
-            weaponData = fu.mergeObject(baseData, additionalData);
-        }
+            return fu.mergeObject(baseData, additionalData);
+        })();
 
-        const weapon = new ItemProxyPF2e(weaponData ?? baseData, {
-            parent: this.parent,
-            shield: this,
-        }) as WeaponPF2e<TParent>;
+        const weapon = new ItemProxyPF2e(weaponData, { parent: this.parent, shield: this }) as WeaponPF2e<TParent>;
         performLatePreparation(weapon);
         return weapon;
     }
