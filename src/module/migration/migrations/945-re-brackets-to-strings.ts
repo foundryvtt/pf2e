@@ -69,7 +69,9 @@ export class Migration945REBracketsToStrings extends MigrationBase {
             if (R.isPlainObject(inner)) {
                 if ("brackets" in inner && Array.isArray(inner.brackets)) {
                     outer[key] = this.#convertBracket(inner as MysteryBracketedValue);
-                } else outer[key] = this.#convertBrackets(inner);
+                } else {
+                    outer[key] = this.#convertBrackets(inner);
+                }
             } else if (Array.isArray(inner)) {
                 // Battle forms
                 outer[key] = inner.map((i) => (R.isPlainObject(i) ? this.#convertBrackets(i) : i));

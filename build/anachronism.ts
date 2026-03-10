@@ -331,8 +331,9 @@ for (const contentSystem of contentSystems) {
         ...R.clone(mainManifest),
         packs: contentPacks.map(({ id, dirName }) => {
             const original = contentSystemManifest.packs.find((p) => (compendiumRemap[p.name] ?? p.name) === id);
-            if (!original)
+            if (!original) {
                 throw PackError(`Failed to pack data in manifest for ${id} in content system ${contentSystem}`);
+            }
             return {
                 ...original,
                 name: compendiumRemap[original.name] ?? original.name,

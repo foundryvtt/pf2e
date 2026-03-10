@@ -20,6 +20,7 @@ export default defineConfig(
             parserOptions: { project: "./tsconfig.json" },
         },
         rules: {
+            curly: ["error", "multi-line", "consistent"],
             eqeqeq: "error",
             "prettier/prettier": "error",
             "no-console": "off",
