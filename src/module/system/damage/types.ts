@@ -108,11 +108,16 @@ interface ResolvedDamageFormulaData extends DamageFormulaData {
     breakdown: Record<DegreeOfSuccessString, string[]>;
 }
 
+interface DamageDiceTerm {
+    number: number;
+    faces: DamageDiceFaces;
+}
+
 interface DamagePartialTerm {
     /** The static amount of damage of the current damage type and category. */
     modifier: number;
     /** Maps the die face ("d4", "d6", "d8", "d10", "d12") to the number of dice of that type. */
-    dice: { number: number; faces: DamageDiceFaces } | null;
+    dice: DamageDiceTerm | null;
 }
 
 interface BaseDamageData {
@@ -161,6 +166,7 @@ export type {
     DamageCategoryUnique,
     DamageDamageContext,
     DamageDiceFaces,
+    DamageDiceTerm,
     DamageDieSize,
     DamageFormulaData,
     DamageIRBypassData,

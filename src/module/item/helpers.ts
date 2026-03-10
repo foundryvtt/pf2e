@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { MeasuredTemplateType } from "@common/constants.mjs";
 import { MeasuredTemplatePF2e } from "@module/canvas/measured-template.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import type { DamageType } from "@system/damage/types.ts";
+import type { DamageDiceTerm, DamageType } from "@system/damage/types.ts";
 import { createHTMLElement, ErrorPF2e, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import type { Converter } from "showdown";
 import { processSanctification } from "./ability/helpers.ts";
@@ -150,14 +150,22 @@ function addOrUpgradeTrait<TTrait extends ItemTrait>(
     const upgradeAnnotation = annotatedTraitMatch[2];
     const traitPattern = new RegExp(String.raw`${traitBase}-(\d*d?\d*)`);
     const existingTrait = value.find((t) => traitPattern.test(t));
-    const existingAnnotation = existingTrait?.match(traitPattern)?.at(1);
-    const configValue = ["deadly", "fatal"].includes(traitBase) ? upgradeAnnotation : Number(upgradeAnnotation);
-    if (!(existingTrait && existingAnnotation)) {
-        if (!value.includes(newTrait)) value.push(newTrait);
-        if (config) config[traitBase] = configValue;
-    } else if (mode === "override" || _expectedValueOf(upgradeAnnotation) > _expectedValueOf(existingAnnotation)) {
-        value.splice(value.indexOf(existingTrait), 1, newTrait);
-        if (config) config[traitBase] = configValue;
+    const existingAnno = existingTrait?.match(traitPattern)?.at(1);
+    const isXdY = ["boost", "deadly", "fatal", "two-hand"].includes(traitBase);
+    const existingConfigValue = !existingAnno ? null : isXdY ? parseXdY(existingAnno) : Number(existingAnno);
+    const upgradeConfigValue = isXdY ? parseXdY(upgradeAnnotation) : Number(upgradeAnnotation);
+    if (upgradeConfigValue !== null) {
+        if (!(existingTrait && existingAnno)) {
+            if (!value.includes(newTrait)) value.push(newTrait);
+            if (config) config[traitBase] = upgradeConfigValue;
+        } else if (
+            mode === "override" ||
+            existingConfigValue === null ||
+            _expectedValueOf(upgradeConfigValue) > _expectedValueOf(existingConfigValue)
+        ) {
+            value.splice(value.indexOf(existingTrait), 1, newTrait);
+            if (config) config[traitBase] = upgradeConfigValue;
+        }
     }
 }
 
@@ -194,11 +202,18 @@ function removeTrait<TTrait extends ItemTrait>(
     }
 }
 
-function _expectedValueOf(annotation: string): number {
+/** Slightly faster parse than using foundry's roll class */
+function parseXdY(annotation: string): DamageDiceTerm | null {
     const traitValueMatch = annotation.match(/(\d*)d(\d+)/);
-    return traitValueMatch
-        ? Number(traitValueMatch[1] || 1) * ((Number(traitValueMatch[2]) + 1) / 2)
-        : Number(annotation);
+    if (!traitValueMatch) return null;
+    const faces = Number(traitValueMatch[2]);
+    if (!tupleHasValue([4, 6, 8, 10, 12] as const, faces)) return null;
+    return { number: Number(traitValueMatch[1] || 1), faces };
+}
+
+function _expectedValueOf(annotation: DamageDiceTerm | number): number {
+    if (typeof annotation === "number") return annotation;
+    return (annotation.number || 1) * ((annotation.faces + 1) / 2);
 }
 
 function createEffectAreaLabel(areaData: { type: EffectAreaShape; value: number }): string {

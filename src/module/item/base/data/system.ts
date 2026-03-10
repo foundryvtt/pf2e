@@ -4,7 +4,7 @@ import type { EffectAreaShape, ItemType } from "@item/types.ts";
 import type { WeaponTrait } from "@item/weapon/types.ts";
 import type { MigrationRecord, OneToThree, PublicationData, Rarity } from "@module/data.ts";
 import type { RuleElementSource } from "@module/rules/index.ts";
-import type { DamageType } from "@system/damage/index.ts";
+import type { DamageDiceTerm, DamageType } from "@system/damage/index.ts";
 import type { Predicate } from "@system/predication.ts";
 import type { ItemTrait } from "../types.ts";
 
@@ -24,13 +24,15 @@ interface ActionCost {
 
 interface TraitConfig {
     area?: { type: EffectAreaShape; value: number | null };
+    boost?: DamageDiceTerm;
     capacity?: number;
-    deadly?: string;
-    fatal?: string;
+    deadly?: DamageDiceTerm;
+    fatal?: DamageDiceTerm;
     modular: ModularConfig[] | undefined;
     resilient?: number;
     thrown?: number;
     tracking?: number;
+    "two-hand"?: DamageDiceTerm;
     versatile?: DamageType[];
     volley?: number;
     [key: string]: unknown | undefined;
