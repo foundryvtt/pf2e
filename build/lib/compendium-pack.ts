@@ -197,10 +197,25 @@ class CompendiumPack {
     };
 
     get packsMetadata(): PackMetadata[] {
-        return (this.#packsMetadata ??= JSON.parse(fs.readFileSync(`system.${this.systemId}.json`, "utf-8")).packs);
+        return (this.#packsMetadata ??= this.#cachedSystemJSON.packs as PackMetadata[]);
+    }
+
+    get #cachedSystemJSON(): Record<string, unknown> {
+        return (this.#systemJSON ??= JSON.parse(fs.readFileSync(`system.${this.systemId}.json`, "utf-8")));
+    }
+
+    get partialStats(): DocumentStatsData {
+        const s = this.#cachedSystemJSON as { compatibility: { minimum: string }; version: string };
+        return (this.#partialStats ??= {
+            coreVersion: s.compatibility.minimum,
+            systemId: this.systemId,
+            systemVersion: s.version,
+        } as DocumentStatsData);
     }
 
     #packsMetadata: PackMetadata[] | null = null;
+    #partialStats: DocumentStatsData | null = null;
+    #systemJSON: Record<string, unknown> | null = null;
 
     static get sf2eCompendiumRemap(): Record<string, string> {
         if (this.#sf2eCompendiumRemap) return this.#sf2eCompendiumRemap;
@@ -343,13 +358,7 @@ class CompendiumPack {
             throw PackError(`${docSource.name} (${this.id}) has a link to a world item: ${worldItemLink[0]}`);
         }
 
-        // Stamp actors and items with partial stats data so the server won't attempt to migrate
-        const systemJSON = JSON.parse(fs.readFileSync(`system.${this.systemId}.json`, { encoding: "utf-8" }));
-        const partialStats = {
-            coreVersion: systemJSON.compatibility.minimum,
-            systemId: this.systemId,
-            systemVersion: systemJSON.version,
-        } as DocumentStatsData;
+        const partialStats = this.partialStats;
         docSource._stats = { ...partialStats };
 
         if (isActorSource(docSource)) {
