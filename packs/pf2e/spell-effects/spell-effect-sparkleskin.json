@@ -1,0 +1,62 @@
+{
+    "_id": "ZK90sMiPCJzet8Rg",
+    "img": "systems/pf2e/icons/spells/sparkleskin.webp",
+    "name": "Spell Effect: Sparkleskin",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Sparkleskin]</p>\n<p>You gain a +2 status bonus on Deception checks to Create a Diversion and to Feint, and on Performance checks to Perform that have the visual trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens Firebrands"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:create-a-diversion",
+                            "action:feint"
+                        ]
+                    }
+                ],
+                "selector": "deception",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:perform",
+                    "visual"
+                ],
+                "selector": "performance",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
