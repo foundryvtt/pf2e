@@ -251,6 +251,7 @@ class ActionMacroHelpers {
                             target: rollTarget,
                             dc,
                             type,
+                            domains: statistic.domains,
                             options: finalOptions,
                             notes: [...notes, ...(statistic.notes ?? [])],
                             dosAdjustments,
