@@ -4,7 +4,7 @@
     "name": "Spell Effect: Sparkleskin",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Sparkleskin]</p>\n<p>You gain a +2 status bonus on Deception checks to Create a Diversion and to Feint, and on Performance checks to Perform that have the visual trait.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Sparkleskin]</p>\n<p>You gain a +2 status bonus on Deception checks to Create a Diversion and to Feint, and on Performance checks to Perform that have the visual trait.</p>\n<p>When you take damage, creatures in a 5-foot emanation must attempt a Fortitude save.</p>\n<p><strong>Failure</strong> The creature is dazzled for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is dazzled for 3 rounds.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -45,6 +45,12 @@
                 "selector": "performance",
                 "type": "status",
                 "value": 2
+            },
+            {
+                "key": "Note",
+                "selector": "damage-received",
+                "text": "PF2E.SpecificRule.SpellEffectSparkleskin.DamageNote",
+                "title": "{item|name}"
             }
         ],
         "start": {
