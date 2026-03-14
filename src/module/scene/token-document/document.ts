@@ -674,9 +674,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             }
             for (const segment of segments ?? []) {
                 const segmentActor = segment.actor;
-                if (segmentActor) {
-                    TokenDocumentPF2e.#resetBatch.reset(segmentActor);
-                }
+                if (segmentActor) TokenDocumentPF2e.#resetBatch.reset(segmentActor);
             }
         }
     }
@@ -739,9 +737,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         for (const segment of this.segments ?? []) {
             const segmentActor = segment.actor;
-            if (segmentActor) {
-                TokenDocumentPF2e.#resetBatch.reset(segmentActor);
-            }
+            if (segmentActor) TokenDocumentPF2e.#resetBatch.reset(segmentActor);
         }
     }
 }
