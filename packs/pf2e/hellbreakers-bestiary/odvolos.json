@@ -316,119 +316,6 @@
             "type": "weapon"
         },
         {
-            "_id": "YSkBQVMp0G0r1Nb2",
-            "flags": {
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "AJ5M5iA3JtZPHa8f",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/conditions/concealed.webp",
-            "name": "Concealed",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": "<p>You are difficult for one or more creatures to see due to thick fog or some other obscuring feature. You can be concealed to some creatures but not others. While concealed, you can still be @UUID[Compendium.pf2e.conditionitems.Item.Observed], but you're tougher to target. A creature that you're concealed from must succeed at a @Check[flat|showDC:all|dc:5] when targeting you with an attack, spell, or other effect. If the check fails, you aren't affected. Area effects aren't subject to this flat check.</p>"
-                },
-                "fromSpell": false,
-                "group": "senses",
-                "overrides": [],
-                "persistent": null,
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "references": {
-                    "children": [],
-                    "overriddenBy": [],
-                    "overrides": [],
-                    "parent": null
-                },
-                "rules": [],
-                "slug": "concealed",
-                "traits": {
-                    "value": []
-                },
-                "value": {
-                    "isValued": false,
-                    "value": null
-                }
-            },
-            "type": "condition"
-        },
-        {
-            "_id": "AJ5M5iA3JtZPHa8f",
-            "flags": {
-                "pf2e": {
-                    "itemGrants": {
-                        "concealed": {
-                            "id": "YSkBQVMp0G0r1Nb2",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "folder": "IWFoQXuwMsyD1VND",
-            "img": "systems/pf2e/icons/default-icons/effect.svg",
-            "name": "Effect: Shroud of Burning Pages",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": "<p>The odvolos is surrounded by an aura of burning paper and scorched parchment, which provides concealment as if it was smoke. A creature within the aura takes a –2 circumstance penalty to Perception checks, and a creature that ends its turn in the aura must succeed at a @Check[reflex|dc:22] save or any items with written information held or carried by the creature takes @Damage[1d4[persistent,fire]] damage. Magical items and religious texts are immune to this effect.</p>"
-                },
-                "duration": {
-                    "expiry": null,
-                    "sustained": false,
-                    "unit": "unlimited",
-                    "value": -1
-                },
-                "fromSpell": false,
-                "level": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "flag": "concealed",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "not": "fevered-consciousness"
-                            }
-                        ],
-                        "selector": [
-                            "perception"
-                        ],
-                        "type": "circumstance",
-                        "value": -2
-                    }
-                ],
-                "slug": null,
-                "start": {
-                    "initiative": null,
-                    "value": 0
-                },
-                "tokenIcon": {
-                    "show": true
-                },
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "effect"
-        },
-        {
             "_id": "1UkVgyo88cmzXp6m",
             "flags": {
                 "pf2e": {
@@ -437,7 +324,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Longspear",
-            "sort": 700000,
+            "sort": 500000,
             "system": {
                 "action": "strike",
                 "area": null,
@@ -479,7 +366,7 @@
             "_id": "VsbjFlSs6BXp2EQC",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Torch",
-            "sort": 800000,
+            "sort": 600000,
             "system": {
                 "action": "strike",
                 "area": null,
@@ -520,7 +407,7 @@
             "_id": "vYJfEfEzGA1CJAcf",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 30 feet",
-            "sort": 900000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -553,7 +440,7 @@
             "_id": "KoMfzVvaYXwnhc0G",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Fevered Consciousness",
-            "sort": 1000000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -587,7 +474,7 @@
             "_id": "fD6d0Yic25umyPuI",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 1100000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -616,7 +503,7 @@
             "_id": "2QiHYHOogtqH19lt",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "-1 Status to All Saves vs. Emotion Effects",
-            "sort": 1200000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -637,7 +524,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "emotion"
+                            "item:trait:emotion"
                         ],
                         "selector": [
                             "saving-throw"
@@ -657,7 +544,7 @@
             "_id": "275BApptYn7EkiUs",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1300000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -680,7 +567,7 @@
                         "predicate": [
                             "item:magical",
                             {
-                                "not": "emotion"
+                                "not": "item:trait:emotion"
                             }
                         ],
                         "selector": [
@@ -701,7 +588,7 @@
             "_id": "BjycFDoNB3L064aX",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Purge Records",
-            "sort": 1400000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -730,7 +617,7 @@
             "_id": "vvBpkNSv6mOdSUVi",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Shroud of Burning Pages",
-            "sort": 1500000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -740,7 +627,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>15 feet. The odvolos is surrounded by an aura of burning paper and scorched parchment, which provides concealment as if it was smoke. A creature within the aura takes a –2 circumstance penalty to Perception checks, and a creature that ends its turn in the aura must succeed at a @Check[reflex|dc:22] save or any items with written information held or carried by the creature takes @Damage[1d4[persistent,fire]] damage. Magical items and religious texts are immune to this effect.</p>"
+                    "value": "<p>15 feet. The odvolos is surrounded by an aura of burning paper and scorched parchment, which provides @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealment} as if it was smoke. A creature within the aura takes a –2 circumstance penalty to Perception checks, and a creature that ends its turn in the aura must succeed at a @Check[reflex|dc:22|options:area-effect] save or any items with written information held or carried by the creature takes @Damage[1d4[persistent,fire]] damage. Magical items and religious texts are immune to this effect.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -775,7 +662,7 @@
             "_id": "STeGuJ5028k9wlaF",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Pyre's Mercy",
-            "sort": 1600000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -810,7 +697,7 @@
             "_id": "hC9xiB50R6GDryIv",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Torchbearer",
-            "sort": 1700000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -820,7 +707,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Piercing weapons wielded by an odvolos gain the magical trait and deal an additional 1d4 dire damage on a successful Strike and 1d8 persistent fire damage on a critical hit.</p>"
+                    "value": "<p>Piercing weapons wielded by an odvolos gain the magical trait and deal an additional 1d4 fire damage on a successful Strike and 1d8 persistent fire damage on a critical hit.</p>"
                 },
                 "publication": {
                     "license": "OGL",
