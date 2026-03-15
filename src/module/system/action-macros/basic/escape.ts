@@ -41,7 +41,9 @@ function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
     const statistic = strikes
         .map((strike) => {
             const modifiers = (strike.modifiers ?? []).concat(data.modifiers ?? []);
-            return new StatisticModifier("unarmed", modifiers, rollOptions) as StrikeData;
+            const newStatistic = new StatisticModifier("unarmed", modifiers, rollOptions) as StrikeData;
+            if ("domains" in strike) newStatistic.domains = strike.domains;
+            return newStatistic;
         })
         .reduce(toHighestModifier, null);
     return statistic ? { actor, rollOptions, statistic } : null;
@@ -67,14 +69,16 @@ function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
                 rollOptions: actionRollOptions,
                 target: opts.target,
             }).rollOptions;
+            const newStatistic = new StatisticModifier(
+                statistic.slug,
+                statistic.modifiers.concat(data.modifiers ?? []),
+                rollOptions,
+            ) as StrikeData;
+            newStatistic.domains = statistic.domains;
             return {
                 actor: opts.actor,
                 rollOptions,
-                statistic: new StatisticModifier(
-                    statistic.slug,
-                    statistic.modifiers.concat(data.modifiers ?? []),
-                    rollOptions,
-                ) as StrikeData,
+                statistic: newStatistic,
             };
         });
 

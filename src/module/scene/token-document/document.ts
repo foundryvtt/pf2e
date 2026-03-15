@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { PrototypeTokenPF2e } from "@actor/data/base.ts";
+import { ResetBatch } from "@actor/npc/reset-batch.ts";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 import type { TokenAnimationOptions, TrackedAttributesDescription } from "@client/_types.d.mts";
 import type { TokenResourceData } from "@client/canvas/placeables/token.d.mts";
@@ -27,6 +28,8 @@ import type { DetectionModeEntry, TokenFlagsPF2e, WithTroopFlags } from "./data.
 import type { TokenConfigPF2e } from "./sheets/token-config.ts";
 
 class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
+    static #resetBatch = new ResetBatch();
+
     declare auras: Map<string, TokenAura>;
 
     /** The most recently used animation for later use when a token override is reverted. */
@@ -660,6 +663,20 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (game.user.id === userId && this.actor?.isOfType("loot")) {
             this.actor.toggleTokenHiding();
         }
+
+        // Resync when troops are recently created or segments are added
+        // This also informs other segments that this segment was created
+        const actor = this.actor;
+        if (actor?.isOfType("npc") && this.flags[SYSTEM_ID].troop) {
+            const segments = this.segments;
+            if (segments?.length && !actor.otherSegments?.length) {
+                TokenDocumentPF2e.#resetBatch.reset(actor);
+            }
+            for (const segment of segments ?? []) {
+                const segmentActor = segment.actor;
+                if (segmentActor) TokenDocumentPF2e.#resetBatch.reset(segmentActor);
+            }
+        }
     }
 
     protected override _onUpdate(
@@ -716,6 +733,11 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             for (const effect of this.actor.itemTypes.effect) {
                 game.pf2e.effectTracker.unregister(effect);
             }
+        }
+
+        for (const segment of this.segments ?? []) {
+            const segmentActor = segment.actor;
+            if (segmentActor) TokenDocumentPF2e.#resetBatch.reset(segmentActor);
         }
     }
 }

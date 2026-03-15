@@ -995,6 +995,7 @@ const hazardTraits = {
     consumable: "PF2E.TraitConsumable",
     curse: "PF2E.TraitCurse",
     environmental: "PF2E.TraitEnvironmental",
+    fear: "PF2E.TraitFear",
     haunt: "PF2E.TraitHaunt",
     inhaled: "PF2E.TraitInhaled",
     kaiju: "PF2E.TraitKaiju",

@@ -1351,6 +1351,11 @@
                     "RedClawLabel": "Red Claw"
                 }
             },
+            "Nasurgeth": {
+                "MidnightDepths": {
+                    "InWater": "Midnight Depths — In Water"
+                }
+            },
             "Necrohulk": {
                 "AlchemicalCartridgeRuptured": "Alchemical Cartridge Ruptured"
             },
@@ -1625,6 +1630,14 @@
                             "Note": "The target becomes @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1}"
                         }
                     }
+                }
+            },
+            "VizierDragon": {
+                "Dragontongue": {
+                    "ImmunityLabel": "dragontongue"
+                },
+                "PowerfulUtterance": {
+                    "ImmunityLabel": "powerful utterance"
                 }
             },
             "Vordine": {
@@ -6213,6 +6226,11 @@
             "SkilledClimber": {
                 "Label": "Climbing Cavern Wall or Tree"
             },
+            "SkillFeat": {
+                "RecognizeSpell": {
+                    "RollOptionLabel": "Critical success on Recognize Spell"
+                }
+            },
             "SkillMastery": {
                 "ExpertPrompt": "Select a skill to become expert in.",
                 "MasterPrompt": "Select a skill to become master in."
@@ -6990,8 +7008,9 @@
                     },
                     "Chalice": {
                         "Adept": {
-                            "DescriptionAlteration": "On a sip, the temporary Hit Points granted to the creature increase to twice your level. When drained, the chalice heals the creature 5 Hit Points for each level you have.",
-                            "Note": "If you or an ally within 30 feet takes piercing or slashing damage from a foe's critical hit or takes persistent bleed damage, @UUID[Compendium.pf2e.actionspf2e.Item.D91jQs0wleU5ml4K]{Drinking from the Chalice} before the end of your next turn grants that injured creature greater restoration to make up for its lost vitality.<p>On a sip, the temporary Hit Points granted to the creature increase to twice your level. When drained, the chalice heals the creature 5 Hit Points for each level you have.</p><p>@UUID[Compendium.pf2e.feat-effects.Item.Sq558879cgEc1lGC]{Effect: Chalice Adept Benefit (Self)}</p>"
+                            "DescriptionAlteration": "If you or an ally within 30 feet takes piercing or slashing damage from a foe's critical hit or takes persistent bleed damage, Drinking from the Chalice before the end of your next turn grants that injured creature greater restoration to make up for its lost vitality. On a sip, the temporary Hit Points granted to the creature increase to twice your level. When drained, the chalice heals the creature @Damage[(5 * @actor.level)[healing,vitality]|shortLabel|traits:healing,vitality] Hit Points (or @Damage[(5 * @actor.level)[healing,void]|traits:healing,void] if they have void healing).",
+                            "Note": "If you or an ally within 30 feet takes piercing or slashing damage from a foe's critical hit or takes persistent bleed damage, @UUID[Compendium.pf2e.actionspf2e.Item.D91jQs0wleU5ml4K]{Drinking from the Chalice} before the end of your next turn grants that injured creature greater restoration to make up for its lost vitality.<p>On a sip, the temporary Hit Points granted to the creature increase to twice your level. When drained, the chalice heals the creature 5 Hit Points for each level you have.</p>",
+                            "Prompt": "Does the chalice's adept benefit apply?"
                         },
                         "Label": "Chalice"
                     },
@@ -7550,6 +7569,35 @@
             "Hardlight": {
                 "TouchingProjectorLabel": "Touching Projector"
             },
+            "Ignurso": {
+                "Lavaproof": {
+                    "ImmunityLabel": "lavaproof"
+                }
+            },
+            "Illumantula": {
+                "RelativityField": {
+                    "WeaknessLabel": "fortune"
+                }
+            },
+            "Paradox17": {
+                "NaturalInvisibility": {
+                    "ResistanceException": "from creatures observing it"
+                }
+            },
+            "ParadoxicalSolipsist": {
+                "PerceiveUnreality": {
+                    "ResistanceException": "source of damage is hidden to them"
+                }
+            },
+            "RallyTheTroops": {
+                "Ally": "Next to Ally",
+                "Commander": "Next to Commander"
+            },
+            "SihedronGuardThunderstriker": {
+                "NavigationalSpellshape": {
+                    "Alteration": "If the next action the aeon guard uses is to Cast a Spell that has a range, increase that spell's range by 30 feet. In addition, if the spell requires an attack roll or a Reflex save, any targets of the spell that have lesser cover reduce the bonuses they gain from cover by 1 against the spell."
+                }
+            },
             "Vorthuul": {
                 "QuantumDuality": {
                     "AbsoluteTranquility": "Absolute Tranquility",
@@ -7607,8 +7655,11 @@
                 "Mindrender": {
                     "Label": "Psychic Shock"
                 },
+                "OverwhelmingEgo": {
+                    "Label": "First Psychic Shock strike this round"
+                },
                 "Telepredict": {
-                    "Toggle": "Telepredict: Dealt mental damage"
+                    "Toggle": "Telepredict — Dealt mental damage"
                 }
             },
             "Corpsefolk": {
@@ -7617,6 +7668,24 @@
                 }
             },
             "Dragonkin": {
+                "DragonkinBreath": {
+                    "Acid": "Acid (Corrosive)",
+                    "Bludgeoning": "Bludgeoning (Hammer)",
+                    "Cold": "Cold (Cryo)",
+                    "Electricity": "Electricity (Shock)",
+                    "Fire": "Fire (Flame)",
+                    "Piercing": "Piercing (Spear)",
+                    "Slashing": "Slashing (Knife)",
+                    "Sonic": "Sonic (Sonic)"
+                },
+                "DragonsTenacity": {
+                    "InflictsParalyzed": "Dragon's Tenacity — Effect makes you Paralyzed",
+                    "MagicEffect": "Dragon's Tenacity — Magic effect makes you Paralyzed"
+                },
+                "Moodscales": {
+                    "Modifier": "Moodscales — Against emotion effects",
+                    "Note": "If you roll a success on a saving throw against an emotion effect, you get a critical success instead."
+                },
                 "WeaponFamiliarity": {
                     "AdvancedWeapons": "Advanced Dragonkin Weapons",
                     "MartialWeapons": "Martial Dragonkin Weapons"
@@ -7672,7 +7741,7 @@
                     }
                 },
                 "CommUnit": {
-                    "Lit": "Comm Unit Lit"
+                    "Flashlight": "Comm Unit — Flashlight"
                 },
                 "Flashlight": {
                     "Lit": "Flashlight Lit"
@@ -7684,6 +7753,9 @@
                     "Superior": "Attempt a @Check[flat|dc:18] check. On a success, the critical hit becomes a normal hit.",
                     "Tactical": "Attempt a @Check[flat|dc:20] check. On a success, the critical hit becomes a normal hit.",
                     "Ultimate": "Attempt a @Check[flat|dc:16] check. On a success, the critical hit becomes a normal hit."
+                },
+                "Magboots": {
+                    "ClimbMetalSurfaces": "Magboots — Climb metal surfaces"
                 },
                 "SolarianCrystals": {
                     "Gluon": {
@@ -7780,8 +7852,14 @@
                 "ElectricKalo": {
                     "Alteration": "If you cast this spell with only 1 target, you gain electricity resistance equal to half your level (minimum 1) until the end of your next turn."
                 },
+                "EnhancedEcholocation": {
+                    "FocusSenses": "Focus Senses"
+                },
                 "GelidBite": {
                     "Note": "On a critical hit, the target is also @UUID[Compendium.sf2e.conditions.Item.enA7BxAjBb7ns1iF]{Suppressed} until the end of your next turn, unless it succeeds at a @Check[fortitude|against:class-spell] save against your class DC or spell DC, whichever is higher."
+                },
+                "SilentTide": {
+                    "ImprovedSneak": "Silent Tide — Improved Sneak While Swimming"
                 }
             },
             "Kasatha": {
@@ -7939,6 +8017,9 @@
                 "CoronalFlare": {
                     "Note": "Coronal Flare"
                 },
+                "UndeadSlayer": {
+                    "Note": "When you succeed or critically succeed at a check to Recall Knowledge against an undead creature that you can see, you identify a weak spot in their defenses—for 1 minute, you gain access to the critical specialization effects of all weapons and unarmed attacks for attacks you make against that specific creature."
+                },
                 "WeaponFamiliarity": {
                     "AdvancedWeapons": "Advanced Sarcesian Weapons",
                     "MartialWeapons": "Martial Sarcesian Weapons"
@@ -7964,6 +8045,16 @@
                 "WeaponFamiliarity": {
                     "AdvancedWeapons": "Advanced Shobhad Weapons",
                     "MartialWeapons": "Martial Shobhad Weapons"
+                }
+            },
+            "SkillFeat": {
+                "FaceInTheCrowd": {
+                    "CrowdSize": {
+                        "Five": "At least 5 creatures",
+                        "Ten": "At least 10 creatures",
+                        "Hundred": "At least 100 creatures"
+                    },
+                    "Prompt": "Select a crowd size."
                 }
             },
             "Skittermander": {
@@ -8114,6 +8205,22 @@
             "Vlaka": {
                 "MenacingSnarl": {
                     "Label": "Target frightened by Menacing Snarl"
+                },
+                "RuinDelver": {
+                    "AgainstHazards": "Ruin Delver — Against hazards"
+                },
+                "SensoryDiversity": {
+                    "Blind": "Blind",
+                    "Deaf": "Deaf",
+                    "Deafblind": "Deafblind",
+                    "HearingSighted": "Hearing/Sighted",
+                    "Prompt": "Select one sensory array."
+                },
+                "StarMarked": {
+                    "SheddingLight": "Shedding Light"
+                },
+                "TalentedTracker": {
+                    "TrackByScent": "Talented Tracker — Track by Scent"
                 }
             },
             "Witchwarper": {

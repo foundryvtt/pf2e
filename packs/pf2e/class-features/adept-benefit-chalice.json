@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>The life essence shed from blood empowers your chalice. If you or an ally within 30 feet takes piercing or slashing damage from a foe's critical hit or takes persistent bleed damage, @UUID[Compendium.pf2e.actionspf2e.Item.Drink from the Chalice]{Drinking from the Chalice} before the end of your next turn grants that injured creature greater restoration to make up for its lost vitality.</p>\n<p>On a sip, the temporary Hit Points granted to the creature increase to twice your level. When drained, the chalice heals the creature 5 Hit Points for each level you have.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Chalice Adept Benefit (Self)]</p>"
+            "value": "<p>The life essence shed from blood empowers your chalice. If you or an ally within 30 feet takes piercing or slashing damage from a foe's critical hit or takes persistent bleed damage, @UUID[Compendium.pf2e.actionspf2e.Item.Drink from the Chalice]{Drinking from the Chalice} before the end of your next turn grants that injured creature greater restoration to make up for its lost vitality.</p>\n<p>On a sip, the temporary Hit Points granted to the creature increase to twice your level. When drained, the chalice heals the creature 5 Hit Points for each level you have.</p>"
         },
         "level": {
             "value": 7
@@ -59,6 +59,31 @@
                 "selector": "damage-received",
                 "text": "PF2E.SpecificRule.Thaumaturge.Implement.Chalice.Adept.Note",
                 "title": "{item|name}"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Thaumaturge.Implement.Adept.Label",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:drink-from-the-chalice"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Thaumaturge.Implement.Chalice.Adept.DescriptionAlteration"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:drink-from-the-chalice"
+                ],
+                "property": "other-tags",
+                "value": "chalice-adept-benefit"
             }
         ],
         "traits": {

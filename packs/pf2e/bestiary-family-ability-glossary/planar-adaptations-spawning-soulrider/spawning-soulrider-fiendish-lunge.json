@@ -12,14 +12,31 @@
         },
         "category": "offensive",
         "description": {
-            "value": "<p>The spawning soulrider Strides or Swims twice, making a tail Strike at any point during its movement. The Strike deals an additional @Damage[1d4[spirit]] damage.</p>"
+            "value": "<p>The spawning soulrider Strides or Swims twice, making a tail Strike at any point during its movement. The Strike deals an additional 1d4 spirit damage.</p>"
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder Monster Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "damage",
+                "key": "RollOption",
+                "option": "fiendish-lunge",
+                "toggleable": true
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "fiendish-lunge"
+                ],
+                "selector": "tail-damage"
+            }
+        ],
         "traits": {
             "value": [
                 "unholy"

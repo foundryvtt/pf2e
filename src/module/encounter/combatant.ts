@@ -116,9 +116,10 @@ class CombatantPF2e<
     /** All tokens managed by this one combatant, including troop segments */
     get tokens(): TokenDocumentPF2e[] {
         const token = super.token;
-        const troopTokens = game.scenes
-            .get(this.sceneId ?? "")
-            ?.tokens.filter((t) => t.flags[SYSTEM_ID].troop?.id === this.flags[SYSTEM_ID].troop);
+        const troopId = this.flags[SYSTEM_ID].troop;
+        const troopTokens = troopId
+            ? game.scenes.get(this.sceneId ?? "")?.tokens.filter((t) => t.flags[SYSTEM_ID].troop?.id === troopId)
+            : null;
         return [token, ...(troopTokens ?? [])].filter((t) => !!t);
     }
 
@@ -160,27 +161,35 @@ class CombatantPF2e<
         Hooks.callAll("pf2e.startTurn", this, encounter, game.user.id);
     }
 
+    /** Runs end turn events. These run per represented actor, so for troops it'll run per segment. */
     async endTurn(options: { round: number }): Promise<void> {
         const round = options.round;
-        const { actor, encounter } = this;
-        if (!encounter || !actor) return;
+        const { encounter } = this;
+        const thisActor = this.actor;
+        if (!encounter || !thisActor) return;
 
-        // Run condition end of turn effects, unless the actor is dead
-        if (!actor.isDead) {
-            const activeConditions = actor.conditions.active;
-            for (const condition of activeConditions) {
-                await condition.onEndTurn({ token: this.token });
+        const tokens = this.tokens;
+        const scene = tokens.at(0)?.scene;
+        const familiar = thisActor.isOfType("character") ? thisActor.familiar : null;
+        if (familiar && scene) {
+            const famToken = familiar.getDependentTokens({ scenes: [scene] })?.[0];
+            if (famToken) tokens.push(famToken);
+        }
+        for (const token of tokens) {
+            const actor = token.actor;
+            if (!actor) continue;
+
+            // Run condition end of turn effects, unless the actor is dead
+            if (!actor.isDead) {
+                const activeConditions = actor.conditions.active;
+                for (const condition of activeConditions) {
+                    await condition.onEndTurn({ token });
+                }
             }
-        }
 
-        // Effect changes on turn start/end
-        const eventType = "turn-end";
-        for (const effect of actor.itemTypes.effect) {
-            await effect.onEncounterEvent(eventType);
-        }
-        if (actor.isOfType("character") && actor.familiar) {
-            for (const effect of actor.familiar.itemTypes.effect) {
-                await effect.onEncounterEvent(eventType);
+            // Effect changes on turn end
+            for (const effect of actor.itemTypes.effect) {
+                await effect.onEncounterEvent("turn-end");
             }
         }
 

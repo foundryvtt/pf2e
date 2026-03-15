@@ -31,11 +31,15 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SkillFeat.RecognizeSpell.RollOptionLabel",
+                "option": "recognize-spell",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
-                "label": "Critical success on Recognize Spell",
                 "predicate": [
-                    "action:recognize-spell",
-                    "critical-success"
+                    "recognize-spell"
                 ],
                 "selector": [
                     "ac",
