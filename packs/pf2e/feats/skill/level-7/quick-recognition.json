@@ -5,7 +5,7 @@
     "name": "Quick Recognition",
     "system": {
         "actionType": {
-            "value": "free"
+            "value": "passive"
         },
         "actions": {
             "value": null
@@ -14,10 +14,7 @@
         "description": {
             "value": "<p>You Recognize Spells swiftly. Once per round, you can @UUID[Compendium.pf2e.feats-srd.Item.Recognize Spell]{Recognize a Spell} using a skill in which you're a master as a free action.</p>"
         },
-        "frequency": {
-            "max": 1,
-            "per": "round"
-        },
+        "frequency": null,
         "level": {
             "value": 7
         },
@@ -36,7 +33,22 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:recognize-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

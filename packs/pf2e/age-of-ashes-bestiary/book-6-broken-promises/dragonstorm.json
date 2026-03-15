@@ -17,7 +17,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A new wave begins</p>\n<hr />\n<p><strong>Effect</strong> Roll [[/r 1d10]] to determine which effect manifests from the following possibilities. The placement of these effects is guided by Dahak's will, and they should manifest in the most detrimental locations possible to the PCs.</p>"
+                    "value": "<p><strong>Trigger</strong> A new wave begins</p>\n<hr />\n<p><strong>Effect</strong> Roll [[/gmr 1d10 #Localized Dragonstorm]] to determine which effect manifests from the following possibilities. The placement of these effects is guided by Dahak's will, and they should manifest in the most detrimental locations possible to the PCs.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -49,7 +49,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p>A torrent of acid drenches creatures in a @Template[burst|distance:20]. Creatures in the area take @Damage[6d10[acid]] damage (@Check[reflex|dc:42|basic] save). Creatures that critically fail also take @Damage[5[persistent,acid]] damage.</p>"
+                    "value": "<p>A torrent of acid drenches creatures in a @Template[burst|distance:20]. Creatures in the area take @Damage[6d10[acid]|options:area-damage] damage (@Check[reflex|dc:42|basic|options:area-effect] save). Creatures that critically fail also take @Damage[5[persistent,acid]] damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -81,7 +81,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p>A barrage of freezing wind and hail assaults all creatures in a @Template[burst|distance:20]. Creatures in the area take @Damage[3d10[cold],3d10[bludgeoning]]{3d10 cold damage and 3d10 bludgeoning damage} (@Check[reflex|dc:42|basic] save). Creatures that critically fail are @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>"
+                    "value": "<p>A barrage of freezing wind and hail assaults all creatures in a @Template[burst|distance:20]. Creatures in the area take @Damage[3d10[cold],3d10[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:42|basic|options:area-effect,inflicts:slowed] save). Creatures that critically fail are @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -113,7 +113,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p>Several bolts of lightning strike all creatures in a @Template[burst|distance:20]. Creatures in the area take @Damage[6d10[electricity]] damage (@Check[reflex|dc:42|basic] save). Creatures that critically fail their saves become @UUID[Compendium.pf2e.conditionitems.Item.Blinded] and @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round.</p>"
+                    "value": "<p>Several bolts of lightning strike all creatures in a @Template[burst|distance:20]. Creatures in the area take @Damage[6d10[electricity]|options:area-damage] damage (@Check[reflex|dc:42|basic|options:area-effect,inflicts:blinded,inflicts:deafened] save). Creatures that critically fail their saves become @UUID[Compendium.pf2e.conditionitems.Item.Blinded] and @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -145,7 +145,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p>Gouts of flame fall on all creatures in a @Template[burst|distance:20]. Creatures in the area take @Damage[6d10[fire]] damage (@Check[reflex|dc:42|basic] save). Creatures that critically fail their saves also take @Damage[5[persistent,fire]] damage.</p>"
+                    "value": "<p>Gouts of flame fall on all creatures in a @Template[burst|distance:20]. Creatures in the area take @Damage[6d10[fire]|options:area-damage] damage (@Check[reflex|dc:42|basic|options:area-effect] save). Creatures that critically fail their saves also take @Damage[5[persistent,fire]] damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -177,7 +177,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p>Poisonous mist rolls forth, covering a @Template[burst|distance:20] for 1 round. Creatures within the mist become @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and creatures outside it become concealed to creatures within it. Creatures within the mist take @Damage[6d10[poison]] damage (@Check[fortitude|dc:42|basic] save). Creatures that critically fail their saves become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}.</p>"
+                    "value": "<p>Poisonous mist rolls forth, covering a @Template[burst|distance:20] for 1 round. Creatures within the mist become @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and creatures outside it become concealed to creatures within it. Creatures within the mist take @Damage[6d10[poison]|options:area-damage] damage (@Check[fortitude|dc:42|basic|options:area-effect,inflicts:enfeebled] save). Creatures that critically fail their saves become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -249,7 +249,7 @@
         },
         "statusEffects": [],
         "traits": {
-            "rarity": "common",
+            "rarity": "rare",
             "size": {
                 "value": "med"
             },

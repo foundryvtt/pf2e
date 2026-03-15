@@ -11,7 +11,7 @@
             "system": {
                 "attackEffects": {
                     "value": [
-                        "tomb-curse"
+                        "shadow-curse"
                     ]
                 },
                 "bonus": {
@@ -60,7 +60,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A tomb jelly can feel nearby motion through vibration and air movement.</p>"
+                    "value": "<p>Concentrated congealed magic can feel nearby motion through vibration and air movement.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -89,7 +89,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The concentrated congealed magic splatters some of its substance on a willing undead creature within its reach. The target regains @Damage[5[healing,void]|shortLabel] HP, and its melee Strikes get the benefits of shadow curse until the end of its next turn.</p>"
+                    "value": "<p>The concentrated congealed magic splatters some of its substance on a willing undead creature within its reach. The target regains @Damage[5[healing,void]|shortLabel] HP, and its melee Strikes get the benefits of shadow curse until the end of its next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Bound in Death]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -150,14 +150,23 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A creature hit by concentrated congealed magic's pseudopod takes @Damage[1d6[persistent,void]] damage. If the creature dies while it has this persistent damage, its corpse is affected by @UUID[Compendium.pf2e.spells-srd.Item.Peaceful Rest], except the concentrated congealed magic can still dissolve its flesh.</p>"
+                    "value": "<p>A creature hit by concentrated congealed magic's pseudopod takes 1d6 persistent void damage. If the creature dies while it has this persistent damage, its corpse is affected by @UUID[Compendium.pf2e.spells-srd.Item.Peaceful Rest], except the concentrated congealed magic can still dissolve its flesh.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "category": "persistent",
+                        "damageType": "void",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "pseudopod-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

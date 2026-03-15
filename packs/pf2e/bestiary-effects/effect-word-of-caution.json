@@ -1,0 +1,52 @@
+{
+    "_id": "jQdNEbZ7n7B10aZC",
+    "img": "icons/magic/symbols/rune-sigil-rough-white-teal.webp",
+    "name": "Effect: Word of Caution",
+    "system": {
+        "description": {
+            "value": "<p>You gain immunity to the origin's Powerful Utterance and resistance to all other damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:slug:powerful-utterance",
+                    "origin:signature:{item|origin.signature}"
+                ],
+                "key": "Immunity",
+                "label": "PF2E.NPCAbility.VizierDragon.PowerfulUtterance.ImmunityLabel",
+                "type": "custom"
+            },
+            {
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "@item.origin.flags.system.wordOfCautionResistance"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

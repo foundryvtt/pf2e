@@ -160,7 +160,7 @@ export class Load {
         Math.match = (...args) => args.find((a) => a !== null) ?? 0;
         Math.when = (condition, then) => (condition ? then : null);
 
-        CONFIG.queries["pf2e.trade"] = TradeDialog.handleQuery;
+        CONFIG.queries[`${SYSTEM_ID}.trade`] = TradeDialog.handleQuery;
 
         // Mystery Man but with a drop shadow
         Actor.DEFAULT_ICON = `systems/${SYSTEM_ID}/icons/default-icons/mystery-man.svg`;

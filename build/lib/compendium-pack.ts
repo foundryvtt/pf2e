@@ -112,6 +112,11 @@ class CompendiumPack {
         };
 
         for (const docSource of this.data) {
+            // Assert there are no entries with the same name
+            if (packMap.has(docSource.name)) {
+                throw PackError(`Compendium ${this.id} (${dirName}) has multiple entries named ${docSource.name}.`);
+            }
+
             // Populate CompendiumPack.namesToIds for later conversion of compendium links
             packMap.set(docSource.name, docSource._id ?? "");
 

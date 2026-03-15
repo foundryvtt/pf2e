@@ -170,7 +170,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>10 feet. @Damage[7d6[fire]] damage @Check[reflex|dc:28|basic]</p>"
+                    "value": "<p>10 feet. @Damage[7d6[fire]|options:area-damage] damage @Check[reflex|dc:28|basic|options:area-effect]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -212,14 +212,44 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the elemental inferno scores a critical hit, its body surges with blue flames, increasing the damage of its intense heat and Inferno Leap by @Damage[3d6[fire]]{3d6} until the start of its next turn.</p>"
+                    "value": "<p>When the elemental inferno scores a critical hit, its body surges with blue flames, increasing the damage of its intense heat and Inferno Leap by 3d6 until the start of its next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "strike-attack-roll",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    },
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "blue-flames",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "blue-flames"
+                        ],
+                        "property": "dice-number",
+                        "selectors": [
+                            "inferno-leap-inline-damage",
+                            "intense-heat-inline-damage"
+                        ],
+                        "value": 3
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

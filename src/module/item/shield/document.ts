@@ -18,6 +18,11 @@ import * as R from "remeda";
 import type { IntegratedWeaponData, ShieldSource, ShieldSystemData } from "./data.ts";
 import { setActorShieldData } from "./helpers.ts";
 import type { BaseShieldType, ShieldTrait } from "./types.ts";
+import { performLatePreparation } from "@item/helpers.ts";
+
+type BaseWeaponData = Pick<WeaponSource, "_id" | "type" | "name" | "img"> & {
+    system: Partial<WeaponSystemSource> & { traits: WeaponTraitsSource };
+};
 
 class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     static override get validTraits(): Record<ShieldTrait, string> {
@@ -225,13 +230,36 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         return typeOnly ? itemType : game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
     }
 
+    /** Build the data for an integrated weapon from this shield */
+    #buildIntegratedWeaponData(baseData: BaseWeaponData): BaseWeaponData {
+        if (!this.system.traits.integrated) return baseData;
+        const damageType = this.system.traits.integrated.damageType;
+        const versatileTrait = this.system.traits.value.find((t) => t.includes("versatile"));
+        const versatileWeaponTrait = versatileTrait?.slice(versatileTrait.indexOf("versatile")) ?? null;
+        if (objectHasKey(CONFIG.PF2E.weaponTraits, versatileWeaponTrait)) {
+            baseData.system.traits.value.push(versatileWeaponTrait);
+            baseData.system.traits.toggles = {
+                versatile: { selected: this.system.traits.integrated.versatile?.selected ?? damageType },
+            };
+        }
+
+        const integratedWeaponRunes = this.system.traits.integrated?.runes;
+        const additionalData: { name?: string; system: Partial<WeaponSystemSource> } = {
+            system: {
+                damage: { dice: 1, die: "d6", damageType, modifier: 0, persistent: null },
+                runes: integratedWeaponRunes,
+            },
+        };
+        // Allow the weapon to be renamed
+        if (integratedWeaponRunes?.potency || integratedWeaponRunes?.striking) {
+            additionalData.name = this._source.name;
+        }
+        return fu.mergeObject(baseData, additionalData);
+    }
+
     /** Generate a shield bash or other weapon(-like) item from this shield */
     generateWeapon(): WeaponPF2e<TParent> | null {
         if (this.isStowed) return null;
-
-        type BaseWeaponData = Pick<WeaponSource, "_id" | "type" | "name" | "img"> & {
-            system: Partial<WeaponSystemSource> & { traits: WeaponTraitsSource };
-        };
 
         const shieldTraits: string[] = this.system.traits.value;
         const weaponTraits: WeaponTrait[] = shieldTraits.filter((t): t is WeaponTrait => t in CONFIG.PF2E.weaponTraits);
@@ -257,34 +285,12 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             },
         });
 
-        if (this.system.traits.integrated) {
-            const damageType = this.system.traits.integrated.damageType;
-            const versatileTrait = this.system.traits.value.find((t) => t.includes("versatile"));
-            const versatileWeaponTrait = versatileTrait?.slice(versatileTrait.indexOf("versatile")) ?? null;
-            if (objectHasKey(CONFIG.PF2E.weaponTraits, versatileWeaponTrait)) {
-                baseData.system.traits.value.push(versatileWeaponTrait);
-                baseData.system.traits.toggles = {
-                    versatile: { selected: this.system.traits.integrated.versatile?.selected ?? damageType },
-                };
-            }
-
-            const integratedWeaponRunes = this.system.traits.integrated?.runes;
-            const additionalData: { name?: string; system: Partial<WeaponSystemSource> } = {
-                system: {
-                    damage: { dice: 1, die: "d6", damageType, modifier: 0, persistent: null },
-                    runes: integratedWeaponRunes,
-                },
-            };
-            // Allow the weapon to be renamed
-            if (integratedWeaponRunes?.potency || integratedWeaponRunes?.striking) {
-                additionalData.name = this._source.name;
-            }
-            const combinedData = fu.mergeObject(baseData, additionalData);
-
-            return new ItemProxyPF2e(combinedData, { parent: this.parent, shield: this }) as WeaponPF2e<TParent>;
-        }
-
-        return new ItemProxyPF2e(baseData, { parent: this.parent, shield: this }) as WeaponPF2e<TParent>;
+        const weapon = new ItemProxyPF2e(this.#buildIntegratedWeaponData(baseData), {
+            parent: this.parent,
+            shield: this,
+        }) as WeaponPF2e<TParent>;
+        performLatePreparation(weapon);
+        return weapon;
     }
 
     protected override async _preUpdate(

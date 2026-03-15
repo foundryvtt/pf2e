@@ -253,6 +253,10 @@
                 },
                 "location": {
                     "heightenedLevel": 2,
+                    "uses": {
+                        "max": 2,
+                        "value": 2
+                    },
                     "value": "LebunvH85R2kh57v"
                 },
                 "publication": {
@@ -774,6 +778,97 @@
             "type": "spell"
         },
         {
+            "_id": "28hAektxW9UJqxC1",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.spells.Item.QpP30fcEl4NGjHwo"
+            },
+            "folder": "PUfxgisPd7TTDluV",
+            "img": "systems/sf2e/icons/abilities/yellow-sonic-scream.webp",
+            "name": "Sonic Scream",
+            "sort": 1100000,
+            "system": {
+                "area": {
+                    "type": "cone",
+                    "value": 15
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "n4FTlEWWL2vqFbwN": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "1d8",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "sonic"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You unleash a painfully rapid cone of vibrations by letting out a cathartic scream, dealing 1d8 sonic damage to creatures in the area with a basic Fortitude save. A creature that fails its saving throw also becomes @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 1}.</p><hr /><p><strong>Heightened (+1)</strong> Increases the damage by 1d8.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "area": 0,
+                    "damage": {
+                        "n4FTlEWWL2vqFbwN": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "value": "LebunvH85R2kh57v"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "sonic-scream",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
             "_id": "1ZE1VERjj1eAmKQT",
             "_stats": {
                 "compendiumSource": "Compendium.sf2e.spells.Item.jgN33YSYXB8iIHTw"
@@ -781,7 +876,7 @@
             "folder": "9xujKNVgcczpuL4g",
             "img": "icons/skills/movement/figure-running-gray.webp",
             "name": "Stumble",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "area": null,
                 "cost": {
@@ -844,7 +939,7 @@
             "_id": "RxkFmeMFXdoxjoB7",
             "img": "icons/equipment/shield/heater-stone-orange.webp",
             "name": "Fire Shield",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "acBonus": 1,
                 "baseItem": null,
@@ -900,7 +995,7 @@
             "_id": "lkkJyn3VkoZLO7St",
             "img": "systems/sf2e/icons/default-icons/melee.svg",
             "name": "Double Fist",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "action": "strike",
                 "area": null,
@@ -941,7 +1036,7 @@
             "_id": "Gc28NcOLvC5m0KBB",
             "img": "systems/sf2e/icons/actions/Reaction.webp",
             "name": "Shield Block",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -970,7 +1065,7 @@
             "_id": "bzTCkklRROHIWKwE",
             "img": "systems/sf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1006,7 +1101,7 @@
             "_id": "2TQ3kkQlNVkRSrm1",
             "img": "systems/sf2e/icons/default-icons/action.svg",
             "name": "Fiery Vitality",
-            "sort": 1600000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -1016,11 +1111,11 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> Any time Kitthaine uses a spell or ability with the fire trait, they regain @Damage[7[healing]] Hit Points (to a maximum of their total HP).</p>"
+                    "value": "<p><strong>Effect</strong> Any time Kitthaine uses a spell or ability with the fire trait, they regain @Damage[7[healing]] Hit Points (to a maximum of their total HP).</p>"
                 },
                 "frequency": {
                     "max": 1,
-                    "per": "day"
+                    "per": "round"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1039,7 +1134,7 @@
             "_id": "L5iyJ7YedXaz7vc1",
             "img": "systems/sf2e/icons/default-icons/action.svg",
             "name": "Fire Shield",
-            "sort": 1700000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "action"
