@@ -21,10 +21,9 @@ function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
     opts: CheckContextOptions<ItemType>,
     data: CheckContextData<ItemType>,
 ) {
-    const actionRollOptions = ["action:escape", "action:escape:unarmed"];
     const { rollOptions } = opts.buildContext({
         actor: opts.actor,
-        rollOptions: actionRollOptions,
+        rollOptions: ["action:escape:unarmed", ...data.rollOptions],
         target: opts.target,
     });
     const actor = opts.actor;
@@ -63,10 +62,9 @@ function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
         .map((slug) => opts.actor.getStatistic(slug))
         .filter((statistic): statistic is Statistic => !!statistic)
         .map((statistic) => {
-            const actionRollOptions = ["action:escape", `action:escape:${statistic.slug}`];
             const rollOptions = opts.buildContext({
                 actor: opts.actor,
-                rollOptions: actionRollOptions,
+                rollOptions: [`action:escape:${statistic.slug}`, ...data.rollOptions],
                 target: opts.target,
             }).rollOptions;
             const newStatistic = new StatisticModifier(
