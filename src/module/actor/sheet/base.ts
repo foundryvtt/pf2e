@@ -5,6 +5,7 @@ import type { InitiativeRollResult } from "@actor/initiative.ts";
 import type Tabs from "@client/applications/ux/tabs.d.mts";
 import type { AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
+import type { ItemUUID } from "@client/documents/_module.d.mts";
 import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import { AbstractEffectPF2e, ItemPF2e, SpellPF2e } from "@item";
@@ -1256,8 +1257,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             const actorFormulas = fu.deepClone(actor.system.crafting.formulas);
             const existingUuids = new Set(actorFormulas.map((f) => f.uuid));
             const slug = item.system.slug ?? item.slug ?? sluggify(item.name);
-            const variantUuids = await getVariantUUIDs(slug);
-            const uuidsToAdd = variantUuids.length > 0 ? variantUuids : [item.uuid];
+            const expansionSetting =
+                (game.settings.get(SYSTEM_ID, "craftingFormulaVariantExpansion") as string) ?? "ask";
+            const addAll =
+                expansionSetting === "yes" ||
+                (expansionSetting === "ask" && (await this.#confirmAddFormulaVariants()) === true);
+            const variantUuids = addAll ? await getVariantUUIDs(slug) : [];
+            const uuidsToAdd: ItemUUID[] = variantUuids.length > 0 ? variantUuids : [item.uuid];
             const newUuids = uuidsToAdd.filter((uuid) => !existingUuids.has(uuid));
             if (newUuids.length > 0) {
                 for (const uuid of newUuids) {
@@ -1405,6 +1411,43 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
             this.actor.createEmbeddedDocuments("Item", [itemSource]);
         }
+    }
+
+    /** Render a dialog to confirm whether to add all formula variants. Allows the user to save their decision.
+     * Default is to add only the dropped item if dismissed. */
+    async #confirmAddFormulaVariants(): Promise<boolean> {
+        const checkboxChecked = (dialog: { element: HTMLElement }) =>
+            htmlQuery<HTMLInputElement>(dialog.element, "input[name=saveFormulaVariantDecision]")?.checked ?? false;
+        const dialogContent =
+            `<p>${game.i18n.localize("PF2E.CraftingTab.AddFormulaVariantDialogContent")}</p>` +
+            `<p><label><input type="checkbox" name="saveFormulaVariantDecision" checked> ${game.i18n.localize(
+                "PF2E.CraftingTab.AddFormulaVariantDialogSaveDecision",
+            )}</label></p>`;
+        const addAll = await foundry.applications.api.DialogV2.confirm({
+            window: {
+                title: game.i18n.localize("PF2E.CraftingTab.AddFormulaVariantDialogTitle"),
+                icon: "fa-solid fa-flask",
+            },
+            content: dialogContent,
+            yes: {
+                default: true,
+                callback: (_event, _button, dialog) => {
+                    if (checkboxChecked(dialog)) {
+                        game.settings.set(SYSTEM_ID, "craftingFormulaVariantExpansion", "yes");
+                    }
+                    return true;
+                },
+            },
+            no: {
+                callback: (_event, _button, dialog) => {
+                    if (checkboxChecked(dialog)) {
+                        game.settings.set(SYSTEM_ID, "craftingFormulaVariantExpansion", "no");
+                    }
+                    return false;
+                },
+            },
+        });
+        return addAll === true;
     }
 
     /** Render confirmation dialog to sell all treasure */

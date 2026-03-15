@@ -30,16 +30,18 @@ async function buildVariantIndex(): Promise<Map<string, Set<ItemUUID>>> {
     const index = new Map<string, Set<ItemUUID>>();
     const physicalTypes = new Set(PHYSICAL_ITEM_TYPES);
 
-    const packs = game.packs.filter(
-        (p): p is CompendiumCollection<ItemPF2e<null>> => p.documentName === "Item",
-    );
+    const packs = game.packs.filter((p): p is CompendiumCollection<ItemPF2e<null>> => p.documentName === "Item");
 
     for (const pack of packs) {
         try {
             const packIndex = await pack.getIndex({ fields: ["uuid", "system.slug", "type"] });
             const entries = (packIndex as { contents?: unknown[] }).contents ?? [];
             for (const entry of entries) {
-                const typed = entry as CompendiumIndexData & { type?: string; uuid?: string; system?: { slug?: string } };
+                const typed = entry as CompendiumIndexData & {
+                    type?: string;
+                    uuid?: string;
+                    system?: { slug?: string };
+                };
                 if (!(physicalTypes as Set<string>).has(typed.type ?? "")) continue;
 
                 const uuid = typed.uuid;
