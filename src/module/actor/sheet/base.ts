@@ -51,6 +51,7 @@ import {
     objectHasKey,
     setHasElement,
     signedInteger,
+    sluggify,
     tupleHasValue,
 } from "@util";
 import { createSortable } from "@util/destroyables.ts";
@@ -66,6 +67,7 @@ import type {
     InventoryItem,
     SheetInventory,
 } from "./data-types.ts";
+import { getVariantUUIDs } from "@actor/character/crafting/formula-variants.ts";
 import { createBulkPerLabel, onClickCreateSpell } from "./helpers.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
 import { IdentifyItemPopup } from "./popups/identify-popup.ts";
@@ -1252,8 +1254,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             }
         } else if (item.isOfType("physical") && actor.isOfType("character") && craftingTab) {
             const actorFormulas = fu.deepClone(actor.system.crafting.formulas);
-            if (!actorFormulas.some((f) => f.uuid === item.uuid)) {
-                actorFormulas.push({ uuid: item.uuid });
+            const existingUuids = new Set(actorFormulas.map((f) => f.uuid));
+            const slug = item.system.slug ?? item.slug ?? sluggify(item.name);
+            const variantUuids = await getVariantUUIDs(slug);
+            const uuidsToAdd = variantUuids.length > 0 ? variantUuids : [item.uuid];
+            const newUuids = uuidsToAdd.filter((uuid) => !existingUuids.has(uuid));
+            if (newUuids.length > 0) {
+                for (const uuid of newUuids) {
+                    actorFormulas.push({ uuid });
+                }
                 await actor.update({ "system.crafting.formulas": actorFormulas });
             }
             return [item];
