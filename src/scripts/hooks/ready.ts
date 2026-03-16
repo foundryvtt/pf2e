@@ -15,11 +15,13 @@ import Sortable from "sortablejs";
 export const Ready = {
     listen: (): void => {
         Hooks.once("ready", () => {
-            // Proceed no further if blacklisted modules are enabled
-            const blacklistedModules = ["pf2e-action-support-engine", "pf2e-action-support-engine-macros"];
-            const blacklistedId = blacklistedModules.find((id) => game.modules.get(id)?.active);
-            if (blacklistedId) {
-                const message = `PF2E System halted: module "${blacklistedId}" is not supported.`;
+            // Proceed no further if forbidden modules are enabled
+            const forbiddenModules = ["pf2e-token-pack", "pf2e-token-pack-character-gallery"];
+            const blanketBanned = game.modules.some(
+                (m) => m.id.startsWith("pf2e-ts-adv") || m.authors.some((a) => a.name === "TaleSale"),
+            );
+            if (blanketBanned || forbiddenModules.some((id) => game.modules.has(id))) {
+                const message = `PF2E system halted: one or more of your modules are not supported.`;
                 ui.notifications.error(message, { permanent: true });
                 CONFIG.PF2E = {} as typeof CONFIG.PF2E;
                 game.pf2e = {} as typeof game.pf2e;
