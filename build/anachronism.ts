@@ -1,4 +1,6 @@
-import { recursiveReplaceString } from "@util/misc.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
+import { objectHasKey, recursiveReplaceString, sluggify } from "@util/misc.ts";
 import fs from "fs";
 import path from "path";
 import * as R from "remeda";
@@ -6,6 +8,7 @@ import url from "url";
 import yargs, { Argv } from "yargs";
 import pf2eAnachronismManifest from "../module.pf2e-anachronism.json" with { type: "json" };
 import sf2eAnachronismManifest from "../module.sf2e-anachronism.json" with { type: "json" };
+import langEn from "../static/lang/en.json" with { type: "json" };
 import pf2eManifest from "../system.pf2e.json" with { type: "json" };
 import sf2eManifest from "../system.sf2e.json" with { type: "json" };
 import duplicates from "./duplicates.json" with { type: "json" };
@@ -54,6 +57,7 @@ const sf2ePacks = fs
     .map((p) => CompendiumPack.loadJSON(path.join(sf2eInDir, p), { systemId: "sf2e" }));
 console.log("SF2e Packs Loaded");
 
+// Assemble pack pairs, which are used to detect duplicates and overlaps
 const allPackDirs = R.unique([...pf2eManifest.packs, ...sf2eManifest.packs].map((p) => path.basename(p.path)));
 const packPairs = allPackDirs.map((dir) => {
     const pf2e = pf2ePacks.find((p) => p.dirName === dir);
@@ -317,6 +321,34 @@ for (const contentSystem of contentSystems) {
         await db.createPack(pack.finalizeAll({ remap: false }), pack.folders);
         await db.close();
     }
+
+    // Create export log.
+    // These help check for content removed between releases, such as when an ancestry from pf2e is added to sf2e.
+    const getObjectProp = <T extends object, K extends string | null>(obj: T, key: K) => {
+        return objectHasKey(obj, key) ? obj[key] : undefined;
+    };
+    const exportLog = R.pipe(
+        contentPacks.filter((p) => p.documentName === "Item"),
+        R.flatMap((p) => p.data as ItemSourcePF2e[]), // filtered by documentName
+        R.groupBy((i) => (itemIsOfType(i, "feat") ? `feat-${i.system.category}` : i.type)),
+        R.entries(),
+        R.map(([key, value]) => {
+            const featCategorySlug = key.startsWith("feat-")
+                ? sluggify(key.replace("feat-", ""), { camel: "bactrian" }).replace("feature", "Feature")
+                : null;
+            const featCategoryLabel =
+                getObjectProp(langEn.PF2E.Item.Feat.Category, featCategorySlug) ?? featCategorySlug;
+            const itemType = featCategorySlug ? "Feat/Feature" : (getObjectProp(langEn.TYPES.Item, key) ?? key);
+            return [
+                featCategoryLabel ? `${itemType} (${featCategoryLabel})` : itemType,
+                ...R.sortBy(value, (v) => v.name).map((v) => `  [${v._id}] ${v.name}`),
+            ];
+        }),
+        R.sortBy((values) => values[0]),
+        R.flat(),
+    ).join("\n");
+    await fs.promises.writeFile(path.join(__dirname, `exports/${contentSystem}-anachronism.txt`), exportLog, "utf8");
+
     console.log(`Finished building ${contentSystem}-anachronism`);
 }
 
