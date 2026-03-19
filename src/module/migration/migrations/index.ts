@@ -254,3 +254,4 @@ export { Migration952AmmoTraitsAndOptions } from "./952-ammo-traits-options.ts";
 export { Migration953NotStrikeDamage } from "./953-not-strike-damage.ts";
 export { Migration954ExplicitBleedImmunity } from "./954-explicit-bleed-immunity.ts";
 export { Migration955HazardNullSaves } from "./955-hazard-null-saves.ts";
+export { Migration956OathOfTheDefenderApplyOnce } from "./956-oath-of-the-defender-apply-once.ts";
