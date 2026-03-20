@@ -115,7 +115,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     /** Whether the item has an attached (or affixed, applied, etc.) usage */
     get isAttachable(): boolean {
-        return false;
+        return ["attached", "installed"].includes(this.system.usage.type);
     }
 
     get price(): Price {

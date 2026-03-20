@@ -80,7 +80,9 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             ? [game.i18n.localize(CONFIG.PF2E.consumableCategories[this.category]), true]
             : [
                   this.generateUnidentifiedName({ typeOnly: true }),
-                  !["other", "scroll", "spell-gem", "talisman", "toolkit", "wand"].includes(this.category),
+                  !["other", "scroll", "spell-chip", "spell-gem", "talisman", "toolkit", "wand"].includes(
+                      this.category,
+                  ),
               ];
 
         const usesLabel = game.i18n.localize("PF2E.Item.Consumable.Uses.Label");
@@ -92,7 +94,13 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             properties:
                 this.isIdentified && this.uses.max > 1 ? [`${this.uses.value}/${this.uses.max} ${usesLabel}`] : [],
             category,
-            isUsable: isUsableItemType && !fromFormula && this.parent && this.parent.items.get(this.id),
+            isUsable:
+                isUsableItemType &&
+                !fromFormula &&
+                this.parent &&
+                this.parent.items.some(
+                    (i) => i.id === this.id || (i.isOfType("physical") && i.subitems.some((s) => s.id === this.id)),
+                ),
         });
     }
 
@@ -131,7 +139,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         if (!actor) return;
         const uses = this.uses;
 
-        if (["scroll", "spell-gem", "wand"].includes(this.category) && this.system.spell) {
+        if (["scroll", "spell-chip", "spell-gem", "wand"].includes(this.category) && this.system.spell) {
             if (actor.spellcasting?.canCastConsumable(this)) {
                 this.castEmbeddedSpell();
             } else if (actor.itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {

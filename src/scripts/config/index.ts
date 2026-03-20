@@ -881,6 +881,22 @@ export const PF2ECONFIG = {
                           10: "Compendium.sf2e.equipment.Item.ulNSlan9Q5j1ozPI",
                       },
                   },
+                  "spell-chip": {
+                      name: "PF2E.Item.Consumable.Category.spell-chip",
+                      nameTemplate: "PF2E.Item.Physical.FromSpell.spell-chip",
+                      compendiumUuids: {
+                          1: "Compendium.sf2e.equipment.Item.U48mM3lcrBTh25d9",
+                          2: "Compendium.sf2e.equipment.Item.88WZweNBd4j2X2hd",
+                          3: "Compendium.sf2e.equipment.Item.Wn8GEmCG24QIM1wt",
+                          4: "Compendium.sf2e.equipment.Item.5O3DUTQoUA3rcF6v",
+                          5: "Compendium.sf2e.equipment.Item.nyTMtaCsBvXeK4JP",
+                          6: "Compendium.sf2e.equipment.Item.PinBkpx2xRvmUiiM",
+                          7: "Compendium.sf2e.equipment.Item.TBtiV7FLBpI2HtCC",
+                          8: "Compendium.sf2e.equipment.Item.cUks0bsnFkfxeojU",
+                          9: "Compendium.sf2e.equipment.Item.sB9xK4xLUCyXUDzm",
+                          10: null,
+                      },
+                  },
               },
 
     attitude: {

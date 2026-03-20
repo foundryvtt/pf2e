@@ -160,8 +160,14 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         handlers["recovery-check"] = (event) => actor.rollRecovery(event);
 
         handlers["consume-item"] = (event) => {
-            const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
-            const item = actor.inventory.get(itemId, { strict: true });
+            const element = htmlClosest(event.target, "[data-item-id],[data-subitem-id]");
+            const itemId = element?.dataset?.itemId ?? element?.dataset?.subitemId;
+            const item = actor.inventory.contents
+                .flatMap((i) => [i, ...i.subitems.contents])
+                .find((i) => i.id === itemId);
+            if (!item) {
+                throw new Error(`Item [${itemId}] does not exist in on actor ${actor.name} [${actor.id}]`);
+            }
             return item.isOfType("consumable") && item.consume();
         };
 

@@ -1,5 +1,6 @@
 import { CharacterPF2e } from "@actor";
 import { CharacterAttributesSource, CharacterResourcesSource } from "@actor/character/data.ts";
+import { PhysicalItemPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -44,6 +45,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
         };
         const itemCreates: PreCreate<ItemSourcePF2e>[] = [];
         const itemUpdates: EmbeddedDocumentUpdateData[] = [];
+        const subitemsUpdates: { item: PhysicalItemPF2e; update: { [key: string]: unknown } }[] = [];
         // A list of messages informing the user of updates made due to rest
         const statements: string[] = [];
 
@@ -99,6 +101,25 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
         itemUpdates.push(...wands.map((wand) => ({ _id: wand.id, "system.uses.value": wand.uses.max })));
         const wandRecharged = itemUpdates.length > 0;
 
+        // Restore spell chips charges
+        const chips = actor.items
+            .filter((i) => i.isOfType("physical"))
+            .flatMap((i) =>
+                i.isOfType("consumable") ? [i] : [...i.subitems.contents].filter((s) => s.isOfType("consumable")),
+            )
+            .filter((s) => s.category === "spell-chip" && s.uses.value < s.uses.max);
+        for (const chip of chips) {
+            if (chip.parentItem)
+                subitemsUpdates.push({
+                    item: chip,
+                    update: { "system.uses.value": chip.uses.max },
+                });
+            else {
+                itemUpdates.push({ _id: chip.id, "system.uses.value": chip.uses.max });
+            }
+        }
+        const chipsRecharged = chips.length > 0;
+
         // Restore reagents
         const resources = actor.system.resources;
         const reagents = resources.crafting.infusedReagents;
@@ -152,6 +173,11 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
             await actor.updateEmbeddedDocuments("Item", itemUpdates, { render: false });
         }
 
+        // Spell chips are subitems and can't be updated in bulk
+        for (const { item, update } of subitemsUpdates) {
+            await item.update(update);
+        }
+
         if (recharges.affected.frequencies) {
             statements.push(localize("Message.Frequencies"));
         }
@@ -184,6 +210,11 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
         // Wand recharge
         if (wandRecharged) {
             statements.push(localize("Message.WandsCharges"));
+        }
+
+        // Chips recharge
+        if (chipsRecharged) {
+            statements.push(localize("Message.ChipsCharges"));
         }
 
         // Conditions removed
