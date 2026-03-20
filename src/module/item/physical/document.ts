@@ -37,7 +37,7 @@ import { COIN_DENOMINATIONS } from "./values.ts";
 
 abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     /** The item in which this item is embedded */
-    parentItem: PhysicalItemPF2e | null;
+    parentItem: PhysicalItemPF2e<TParent> | null;
 
     /**
      * The cached container of this item, if in a container, or null

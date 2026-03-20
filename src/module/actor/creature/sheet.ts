@@ -152,9 +152,14 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         };
 
         handlers["draw-item"] = (event) => {
-            const itemId = htmlClosest(event.target, "[data-item-id")?.dataset.itemId;
-            const item = actor.inventory.get(itemId, { strict: true });
-            return actor.changeCarryType(item, { carryType: "held", handsHeld: 1 });
+            const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
+            const item = actor.inventory.contents
+                .flatMap((i) => [i, ...i.subitems.contents])
+                .find((i) => i.id === itemId);
+            if (!item) {
+                throw new Error(`Item [${itemId}] does not exist in on actor ${actor.name} [${actor.id}]`);
+            }
+            return actor.changeCarryType(item.parentItem ?? item, { carryType: "held", handsHeld: 1 });
         };
 
         handlers["recovery-check"] = (event) => actor.rollRecovery(event);
