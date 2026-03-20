@@ -7,7 +7,7 @@ export const CloseWorldClockSettings = {
             if (game.user.isGM) {
                 game.socket.emit("system.pf2e", {
                     request: "refreshSceneControls",
-                    data: { layer: "TokenLayer" },
+                    data: { layer: "tokens" },
                 } satisfies SocketMessage);
             }
         });

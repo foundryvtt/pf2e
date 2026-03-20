@@ -78,7 +78,11 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
             config: false,
             type: WorldClockSettings.#SCHEMA,
             onChange: (data) => {
-                game.pf2e.settings.worldClock = { ...(data as WorldClockSettingData) };
+                const cache = game.pf2e.settings;
+                const wasShowingButton = cache.worldClock.showClockButton;
+                cache.worldClock = { ...(data as WorldClockSettingData) };
+                const showButtonChanged = wasShowingButton !== cache.worldClock.showClockButton;
+                if (showButtonChanged && ui.controls.control?.name === "tokens") ui.controls.render({ reset: true });
             },
         });
         game.settings.registerMenu(SYSTEM_ID, "worldClock", {
