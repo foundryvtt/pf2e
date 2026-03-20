@@ -865,25 +865,9 @@ export const PF2ECONFIG = {
                   },
               }
             : {
-                  "spell-gem": {
-                      name: "PF2E.Item.Consumable.Category.spell-gem",
-                      nameTemplate: "PF2E.Item.Physical.FromSpell.spell-gem",
-                      compendiumUuids: {
-                          1: "Compendium.sf2e.equipment.Item.R6LuVXimv1Hh8ehE",
-                          2: "Compendium.sf2e.equipment.Item.p5DYjh3sCSjzrBBg",
-                          3: "Compendium.sf2e.equipment.Item.Nwl7YydQ0r8cAhw7",
-                          4: "Compendium.sf2e.equipment.Item.88IBM9viOjJ0kJbm",
-                          5: "Compendium.sf2e.equipment.Item.BVCQFla90m2JDepV",
-                          6: "Compendium.sf2e.equipment.Item.9PAmdF8UqVQKXWPA",
-                          7: "Compendium.sf2e.equipment.Item.JgvLQeWK45OxFrx0",
-                          8: "Compendium.sf2e.equipment.Item.Vt6VVUXFf1boNs3P",
-                          9: "Compendium.sf2e.equipment.Item.8nNTrkf4ZCqkApNT",
-                          10: "Compendium.sf2e.equipment.Item.ulNSlan9Q5j1ozPI",
-                      },
-                  },
                   "spell-chip": {
                       name: "PF2E.Item.Consumable.Category.spell-chip",
-                      nameTemplate: "PF2E.Item.Physical.FromSpell.spell-chip",
+                      nameTemplate: "PF2E.Item.Physical.FromSpell.SpellChip",
                       compendiumUuids: {
                           1: "Compendium.sf2e.equipment.Item.U48mM3lcrBTh25d9",
                           2: "Compendium.sf2e.equipment.Item.88WZweNBd4j2X2hd",
@@ -895,6 +879,22 @@ export const PF2ECONFIG = {
                           8: "Compendium.sf2e.equipment.Item.cUks0bsnFkfxeojU",
                           9: "Compendium.sf2e.equipment.Item.sB9xK4xLUCyXUDzm",
                           10: null,
+                      },
+                  },
+                  "spell-gem": {
+                      name: "PF2E.Item.Consumable.Category.spell-gem",
+                      nameTemplate: "PF2E.Item.Physical.FromSpell.SpellGem",
+                      compendiumUuids: {
+                          1: "Compendium.sf2e.equipment.Item.R6LuVXimv1Hh8ehE",
+                          2: "Compendium.sf2e.equipment.Item.p5DYjh3sCSjzrBBg",
+                          3: "Compendium.sf2e.equipment.Item.Nwl7YydQ0r8cAhw7",
+                          4: "Compendium.sf2e.equipment.Item.88IBM9viOjJ0kJbm",
+                          5: "Compendium.sf2e.equipment.Item.BVCQFla90m2JDepV",
+                          6: "Compendium.sf2e.equipment.Item.9PAmdF8UqVQKXWPA",
+                          7: "Compendium.sf2e.equipment.Item.JgvLQeWK45OxFrx0",
+                          8: "Compendium.sf2e.equipment.Item.Vt6VVUXFf1boNs3P",
+                          9: "Compendium.sf2e.equipment.Item.8nNTrkf4ZCqkApNT",
+                          10: "Compendium.sf2e.equipment.Item.ulNSlan9Q5j1ozPI",
                       },
                   },
               },
