@@ -796,7 +796,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>An excuba's visual appearance is altered when the excuba is perceived by creatures, items, and objects with the tech trait (such as robotic creatures, cameras, and sensors) unless they succeed at a Perception check against the excuba's Deception DC. Excubas in their swarm form appear to be formless shadows and are additionally @UUID[Compendium.sf2e.conditions.Item.Concealed], while excubas in their humanoid forms register as familiar- or unremarkable-looking humanoids.</p>"
+                    "value": "<p>An excuba's visual appearance is altered when the excuba is perceived by creatures, items, and objects with the tech trait (such as robotic creatures, cameras, and sensors) unless they succeed at a @Check[perception|against:deception] check against the excuba's Deception DC. Excubas in their swarm form appear to be formless shadows and are additionally @UUID[Compendium.sf2e.conditions.Item.Concealed], while excubas in their humanoid forms register as familiar- or unremarkable-looking humanoids.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -927,7 +927,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Each enemy creature in the swarm's space takes @Damage[2d8[sonic]] damage (@Check[reflex|dc:21|basic] save). On a failure, creatures and objects with the tech trait become glitching 1 (or glitching 2 on a critical failure).</p>"
+                    "value": "<p>Each enemy creature in the swarm's space takes @Damage[2d8[sonic]|options:area-damage] damage (@Check[reflex|dc:21|basic|options:area-effect,inflicts:glitching] save). On a failure, creatures and objects with the tech trait become @UUID[Compendium.sf2e.conditions.Item.Glitching]{Glitching 1} (or @UUID[Compendium.sf2e.conditions.Item.Glitching]{Glitching 2} on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",

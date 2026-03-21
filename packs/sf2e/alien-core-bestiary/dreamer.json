@@ -1356,7 +1356,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The Dreamer is reduced to half or less than half their total Hit Points</p><hr /><p><strong>Effect</strong> The injured Dreamer erupts into a terrifying state of psychic fury, requiring all non-Dreamers in a @Template[type:emanation|distance:30] to attempt a @Check[will|dc:24] save. The Dreamer gains a +2 status bonus to attack and damage rolls for 1 minute but can't use their innate spells. After they stop raging, a Dreamer can't enter an Atavistic Rage again for 1 minute.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 2} and @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Critical Failure</strong> The creature becomes @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 3} and @UUID[Compendium.sf2e.conditions.Item.Fleeing] for 1 round.</p>"
+                    "value": "<p><strong>Trigger</strong> The Dreamer is reduced to half or less than half their total Hit Points</p><hr /><p><strong>Effect</strong> The injured Dreamer erupts into a terrifying state of psychic fury, requiring all non-Dreamers in a @Template[type:emanation|distance:30] to attempt a @Check[will|dc:24|options:area-effect] save. The Dreamer gains a +2 status bonus to attack and damage rolls for 1 minute but can't use their innate spells. After they stop raging, a Dreamer can't enter an Atavistic Rage again for 1 minute.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 2} and @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Critical Failure</strong> The creature becomes @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 3} and @UUID[Compendium.sf2e.conditions.Item.Fleeing] for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1364,6 +1364,10 @@
                     "title": ""
                 },
                 "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Atavistic Rage",
+                    "uuid": "Compendium.sf2e.bestiary-effects.Item.Effect: Atavistic Rage"
+                },
                 "slug": null,
                 "traits": {
                     "value": [
@@ -1389,7 +1393,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Any creature that uses an emotion or mental effect on a Dreamer must succeed at a @Check[will|dc:24] save or become @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 1} for the next [[/gmr 1d4 #rounds]]{1d4 rounds} as fragments of prophetic songs fill its mind.</p>"
+                    "value": "<p>Any creature that uses an emotion or mental effect on a Dreamer must succeed at a @Check[will|dc:24|options:inflicts:slowed] save or become @UUID[Compendium.sf2e.conditions.Item.Slowed]{Slowed 1} for the next [[/gmr 1d4 #rounds]]{1d4 rounds} as fragments of prophetic songs fill its mind.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1420,7 +1424,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any creature struck by a Dreamer's tentacle must attempt a @Check[will|dc:24] save to resist a wave of sensory overstimulation. The creature is then temporarily immune to all synesthetic shocks for 1 minute.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is suppressed and @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 1} until the end of its next turn.</p>\n<p><strong>Failure</strong> As success, but the creature is also @UUID[Compendium.sf2e.conditions.Item.Dazzled] until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but with a duration of 2 rounds, and the creature is also @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 2}.</p>"
+                    "value": "<p>Any creature struck by a Dreamer's tentacle must attempt a @Check[will|dc:24|options:inflicts:dazzled,inflicts:stupefied,inflicts:stunned,inflicts:suppressed] save to resist a wave of sensory overstimulation. The creature is then temporarily immune to all synesthetic shocks for 1 minute.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Suppressed] and @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 1} until the end of its next turn.</p>\n<p><strong>Failure</strong> As success, but the creature is also @UUID[Compendium.sf2e.conditions.Item.Dazzled] until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but with a duration of 2 rounds, and the creature is also @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 2}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

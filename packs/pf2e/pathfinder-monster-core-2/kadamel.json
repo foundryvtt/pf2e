@@ -970,6 +970,7 @@
                 "rules": [
                     {
                         "key": "Aura",
+                        "radius": 10,
                         "traits": [
                             "divine"
                         ]
@@ -1028,7 +1029,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The kadamel hit with a stone axe Strike during its most recent action</p><hr /><p><strong>Effect</strong> The kadamel's axe explodes into calcifying powder. The creature the axe hit and each non-archon creature in a @Template[type:emanation|distance:5] must succeed at a @Check[fortitude|dc:38] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute. If the creature was already slowed by one of the kadamel's abilities, a failed save causes it to be petrifed permanently.</p>"
+                    "value": "<p><strong>Requirements</strong> The kadamel hit with a stone axe Strike during its most recent action</p><hr /><p><strong>Effect</strong> The kadamel's axe explodes into calcifying powder. The creature the axe hit and each non-archon creature in a @Template[type:emanation|distance:5] must succeed at a @Check[fortitude|dc:38|options:area-effect,inflicts:slowed,inflicts:petrified] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute. If the creature was already slowed by one of the kadamel's abilities, a failed save causes it to be @UUID[Compendium.pf2e.conditionitems.Item.Petrified] permanently.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1060,7 +1061,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The kadamel alters the inscriptions on their body to store an 8th-rank spell, choosing from divine decree, divine immolation, divine wrath, or planar seal. While storing the spell, the kadamel chooses an area they're guarding, typically a room containing a planar portal. When an intruder enters the area, the spell is cast automatically and expended. If the spell is targeted, it targets the triggering creature, and if it has an area, the area is centered on the triggering creature. Noticing the glyph requires a successful @Check[perception|dc:38] check. The glyph has an unlimited duration and ends if the kadamel uses this ability again or Dismisses the glyph.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The kadamel alters the inscriptions on their body to store an 8th-rank spell, choosing from @UUID[Compendium.pf2e.spells-srd.Item.Divine Decree], @UUID[Compendium.pf2e.spells-srd.Item.Divine Immolation], @UUID[Compendium.pf2e.spells-srd.Item.Divine Wrath], or @UUID[Compendium.pf2e.spells-srd.Item.Planar Seal]. While storing the spell, the kadamel chooses an area they're guarding, typically a room containing a planar portal. When an intruder enters the area, the spell is cast automatically and expended. If the spell is targeted, it targets the triggering creature, and if it has an area, the area is centered on the triggering creature. Noticing the glyph requires a successful @Check[perception|dc:38] check. The glyph has an unlimited duration and ends if the kadamel uses this ability again or Dismisses the glyph.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -1181,17 +1182,17 @@
         },
         "attributes": {
             "ac": {
-                "details": "",
+                "details": "all-around vision",
                 "value": 40
             },
             "allSaves": {
-                "value": ""
+                "value": "+1 status to all saves vs. magic"
             },
             "hp": {
                 "details": "",
-                "max": 120,
+                "max": 300,
                 "temp": 0,
-                "value": 120
+                "value": 300
             },
             "immunities": [
                 {

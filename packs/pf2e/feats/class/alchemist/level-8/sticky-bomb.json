@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You can mix in a sticky additive to an alchemical bomb to make its contents adhere and continue to deal damage. A creature hit by a sticky bomb also takes persistent damage equal to and of the same type as the bomb's splash damage. If the bomb already deals persistent damage, combine the two amounts.</p>"
+            "value": "<p>You can mix in a sticky additive to an alchemical bomb to make its contents adhere and continue to deal damage. A creature hit by a sticky bomb also takes persistent damage equal to and of the same type as the bomb's splash damage. Use the splash damage amount listed in the bomb's stat block, even if you used an ability to change the splash damage dealt. If the bomb already deals persistent damage, combine the two amounts.</p>"
         },
         "level": {
             "value": 8
@@ -42,32 +42,6 @@
                 "selector": "alchemical-bomb-base-type-damage",
                 "slug": "sticky-bomb",
                 "value": "@weapon.system.splashDamage.value"
-            },
-            {
-                "key": "AdjustModifier",
-                "mode": "upgrade",
-                "predicate": [
-                    {
-                        "or": [
-                            "feat:calculated-splash",
-                            "feature:field-discovery-bomber"
-                        ]
-                    }
-                ],
-                "selector": "alchemical-bomb-base-type-damage",
-                "slug": "sticky-bomb",
-                "value": "@actor.abilities.int.mod"
-            },
-            {
-                "key": "AdjustModifier",
-                "mode": "add",
-                "predicate": [
-                    "expanded-splash"
-                ],
-                "priority": 41,
-                "selector": "alchemical-bomb-base-type-damage",
-                "slug": "sticky-bomb",
-                "value": "@actor.abilities.int.mod"
             }
         ],
         "traits": {

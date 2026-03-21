@@ -3,10 +3,49 @@
     "img": "systems/sf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "rPkUeK10k42FGuWZ",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.conditions.Item.DmAIPqOBomZ7H95W"
+            },
+            "img": "systems/sf2e/icons/conditions/concealed.webp",
+            "name": "Concealed",
+            "sort": 100000,
+            "system": {
+                "description": {
+                    "value": "<p>While you are concealed from a creature, such as in a thick fog, you are difficult for that creature to see. You can still be observed, but you're tougher to target. A creature that you're concealed from must succeed at a @Check[flat|dc:5|name:Concealed|showDC:all] when targeting you with an attack, spell, or other effect.</p>\n<p>Area effects aren't subject to this flat check. If the check fails, the attack, spell, or effect doesn't affect you.</p>"
+                },
+                "fromSpell": false,
+                "group": "senses",
+                "overrides": [],
+                "persistent": null,
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "references": {
+                    "children": [],
+                    "overriddenBy": [],
+                    "overrides": [],
+                    "parent": null
+                },
+                "rules": [],
+                "slug": "concealed",
+                "traits": {
+                    "value": []
+                },
+                "value": {
+                    "isValued": false,
+                    "value": null
+                }
+            },
+            "type": "condition"
+        },
+        {
             "_id": "Tv5WJt2VIeKbltwC",
             "img": "systems/sf2e/icons/default-icons/melee.svg",
             "name": "Autograph Pen",
-            "sort": 100000,
+            "sort": 200000,
             "system": {
                 "action": "strike",
                 "area": null,
@@ -46,7 +85,7 @@
             "_id": "1gNYAwP651XU7NNX",
             "img": "systems/sf2e/icons/default-icons/melee.svg",
             "name": "Vocalization",
-            "sort": 200000,
+            "sort": 300000,
             "system": {
                 "action": "strike",
                 "area": null,
@@ -89,7 +128,7 @@
             "_id": "bVysYHdsIKKLs7Bf",
             "img": "systems/sf2e/icons/actions/Passive.webp",
             "name": "Fan Club",
-            "sort": 300000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -118,7 +157,7 @@
             "_id": "aNFD0eNndUfnZGTg",
             "img": "systems/sf2e/icons/actions/Passive.webp",
             "name": "Phantasmal Fans",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -128,7 +167,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>20 feet. A rowdy spectral crowd always surrounds the dredgelit. The dredgelit has concealment against all creatures, and the crowd counts as difficult terrain.</p>"
+                    "value": "<p>20 feet. A rowdy spectral crowd always surrounds the dredgelit. The dredgelit has @UUID[Compendium.sf2e.conditions.Item.Concealed]{Concealment} against all creatures, and the crowd counts as difficult terrain.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -158,7 +197,7 @@
             "_id": "dz8runi56wJIYxhk",
             "img": "systems/sf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -194,7 +233,7 @@
             "_id": "psCMa9aY4X9pT8TN",
             "img": "systems/sf2e/icons/actions/OneAction.webp",
             "name": "Alluring Debut",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -204,7 +243,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once every 10 minutes</p><hr /><p><strong>Effect</strong> The dredgelit attempts a Performance check against the Will DC of a single creature within 30 feet, recreating an iconic show.</p><hr /><p><strong>Critical Success</strong> The creature becomes part of their fan club for 24 hours, even if it's unwilling.</p>\n<p><strong>Success</strong> As critical success, but only for 1 hour.</p>\n<p><strong>Failure</strong> The creature is unaffected.</p>\n<p><strong>Critical Failure</strong> The creature is unaffected, and the dredgelit is so embarrassed by their failure to perform that they take @Damage[2d8[mental]] damage.</p>"
+                    "value": "<p><strong>Frequency</strong> once every 10 minutes</p><hr /><p><strong>Effect</strong> The dredgelit attempts a @Check[performance|defense:will] check against the Will DC of a single creature within 30 feet, recreating an iconic show.</p><hr /><p><strong>Critical Success</strong> The creature becomes part of their fan club for 24 hours, even if it's unwilling.</p>\n<p><strong>Success</strong> As critical success, but only for 1 hour.</p>\n<p><strong>Failure</strong> The creature is unaffected.</p>\n<p><strong>Critical Failure</strong> The creature is unaffected, and the dredgelit is so embarrassed by their failure to perform that they take @Damage[2d8[mental]] damage.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -229,7 +268,7 @@
             "_id": "vTpl6y3UY52Cm6xd",
             "img": "systems/sf2e/icons/actions/OneAction.webp",
             "name": "Parasocial Leech",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -239,7 +278,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The dredgelit leeches vitality from a creature in their fan club. The dredgelit attempts a Performance check against the Will DC of the creature. The creature takes @Damage[6d6[void]] damage, and the dredgelit regains @Damage[10[healing]] Hit Points.</p><hr /><p><strong>Critical Success</strong> The target takes double damage and is @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 2} and @UUID[Compendium.sf2e.conditions.Item.Immobilized] for 1 round.</p>\n<p><strong>Success</strong> The target takes full damage and is @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 1} and immobilized for 1 round.</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<p><strong>Critical Failure</strong> The target is unaffected. The dredgelit's abysmal performance results in them taking @Damage[2d8[mental]] damage instead of regaining Hit Points.</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The dredgelit leeches vitality from a creature in their fan club. The dredgelit attempts a @Check[performance|defense:will|options:inflicts:immobilized,inflicts:stunned] check against the Will DC of the creature. The creature takes @Damage[6d6[void]] damage, and the dredgelit regains @Damage[10[healing]] Hit Points.</p><hr /><p><strong>Critical Success</strong> The target takes double damage and is @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 2} and @UUID[Compendium.sf2e.conditions.Item.Immobilized] for 1 round.</p>\n<p><strong>Success</strong> The target takes full damage and is @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 1} and immobilized for 1 round.</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<p><strong>Critical Failure</strong> The target is unaffected. The dredgelit's abysmal performance results in them taking @Damage[2d8[mental]] damage instead of regaining Hit Points.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -267,7 +306,7 @@
             "_id": "q1WTtCZmv6fG9whV",
             "img": "systems/sf2e/icons/default-icons/lore.svg",
             "name": "Media Lore",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
