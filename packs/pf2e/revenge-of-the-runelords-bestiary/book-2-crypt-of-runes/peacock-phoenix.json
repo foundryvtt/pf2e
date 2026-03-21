@@ -616,6 +616,7 @@
                     "value": null
                 },
                 "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p>When the peacock phoenix dies while incorporeal, they return to life at the start of their next turn with full Hit Points. They are no longer incorporeal, lose the spirit trait, gain the beast trait, and lose their immunities and resistances (except for mythic resistance) and radiant panoply. Their Strength modifier becomes +7. They lose their radiant wing Strike and gain a beak and talon Strike.</p>"
                 },
@@ -639,7 +640,8 @@
                             "rebirth"
                         ],
                         "remove": [
-                            "incorporeal"
+                            "incorporeal",
+                            "spirit"
                         ]
                     },
                     {
@@ -760,6 +762,15 @@
                             "rebirth"
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.abilities.str.mod",
+                        "predicate": [
+                            "rebirth"
+                        ],
+                        "value": 12
                     }
                 ],
                 "slug": null,
@@ -822,14 +833,32 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Cost</strong> 1 Mythic Point</p><hr /><p><strong>Effect</strong> The creature attempts its next skill check with a +4 bonus and is considered to have mythic proficiency for that check. This applies to one skill when this ability is gained and a second skill if the creature is 12th level or higher.</p>"
+                    "value": "<p><strong>Cost</strong> 1 Mythic Point</p><hr /><p><strong>Effect</strong> The phoenix attempts their next Athletics or Stealth skill check with a +4 bonus and has mythic proficiency for that check.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": "Pathfinder War of Immortals"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "mythic-skill",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "mythic-skill"
+                        ],
+                        "selector": [
+                            "athletics",
+                            "stealth"
+                        ],
+                        "slug": "mythic-skill-bonus",
+                        "value": 4
+                    }
+                ],
                 "slug": "mythic-mythic-skill",
                 "traits": {
                     "value": []
