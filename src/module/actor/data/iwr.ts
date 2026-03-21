@@ -338,19 +338,12 @@ class Resistance extends IWR<ResistanceType> implements ResistanceSource {
 
     override readonly doubleVs: IWRException<ResistanceType>[];
 
-    readonly applyOnce: boolean;
-
     constructor(
-        data: IWRConstructorData<ResistanceType> & {
-            value: number;
-            doubleVs?: IWRException<ResistanceType>[];
-            applyOnce?: boolean;
-        },
+        data: IWRConstructorData<ResistanceType> & { value: number; doubleVs?: IWRException<ResistanceType>[] },
     ) {
         super(data);
         this.value = data.value;
         this.doubleVs = fu.deepClone(data.doubleVs ?? []);
-        this.applyOnce = data.applyOnce ?? false;
     }
 
     override toObject(): ResistanceDisplayData {
@@ -358,7 +351,6 @@ class Resistance extends IWR<ResistanceType> implements ResistanceSource {
             ...super.toObject(),
             value: this.value,
             doubleVs: fu.deepClone(this.doubleVs),
-            applyOnce: this.applyOnce,
         };
     }
 
@@ -378,12 +370,11 @@ class Resistance extends IWR<ResistanceType> implements ResistanceSource {
     }
 }
 
-type ResistanceDisplayData = IWRDisplayData<ResistanceType> & Pick<Resistance, "value" | "doubleVs" | "applyOnce">;
+type ResistanceDisplayData = IWRDisplayData<ResistanceType> & Pick<Resistance, "value" | "doubleVs">;
 
 interface ResistanceSource extends IWRSource<ResistanceType> {
     value: number;
     doubleVs?: IWRException<ResistanceType>[];
-    applyOnce?: boolean;
 }
 
 /** Weaknesses to things that "[don't] normally deal damage, such as water": applied separately as untyped damage */

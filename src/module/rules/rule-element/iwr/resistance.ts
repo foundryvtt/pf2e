@@ -4,7 +4,6 @@ import type { StrictArrayField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleValue } from "../data.ts";
 import { IWRException, IWRExceptionField, IWRRuleElement, IWRRuleSchema } from "./base.ts";
-import fields = foundry.data.fields;
 
 /** @category RuleElement */
 class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
@@ -14,17 +13,7 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
             value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
             exceptions: this.createExceptionsField(this.dictionary),
             doubleVs: this.createExceptionsField(this.dictionary),
-            applyOnce: new fields.BooleanField({ required: false, initial: undefined }),
         };
-    }
-
-    static override validateJoint(source: fields.SourceFromSchema<ResistanceRuleSchema>): void {
-        super.validateJoint(source);
-        if (typeof source.applyOnce === "boolean" && !source.type.every((t) => t === "custom")) {
-            throw new foundry.data.validation.DataModelValidationError(
-                "applyOnce can only be specified for custom resistance types",
-            );
-        }
     }
 
     static override get dictionary(): Record<ResistanceType, string> {
@@ -45,7 +34,6 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
                     r.type === resistanceType &&
                     R.isDeepEqual(r.exceptions, this.exceptions) &&
                     R.isDeepEqual(r.doubleVs, this.doubleVs) &&
-                    r.applyOnce === (this.applyOnce ?? false) &&
                     R.isDeepEqual(r.definition, this.definition ?? null),
             );
             if (current) {
@@ -68,7 +56,6 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
                     definition: this.definition,
                     exceptions: this.exceptions,
                     doubleVs: this.doubleVs,
-                    applyOnce: this.applyOnce,
                     source: this.item.name,
                 }),
         );
@@ -76,21 +63,19 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
 }
 
 interface ResistanceRuleElement
-    extends IWRRuleElement<ResistanceRuleSchema>, ModelPropsFromRESchema<ResistanceRuleSchema> {
+    extends IWRRuleElement<ResistanceRuleSchema>,
+        ModelPropsFromRESchema<ResistanceRuleSchema> {
     value: RuleValue;
 
     type: ResistanceType[];
     // Typescript 5.3 doesn't fully resolve conditional types, so it is redefined here
     exceptions: IWRException<ResistanceType>[];
-
-    applyOnce: boolean | undefined;
 }
 
 type ResistanceRuleSchema = Omit<IWRRuleSchema, "exceptions"> & {
     value: ResolvableValueField<true, false, false>;
     exceptions: StrictArrayField<IWRExceptionField<ResistanceType>>;
     doubleVs: StrictArrayField<IWRExceptionField<ResistanceType>>;
-    applyOnce: fields.BooleanField<boolean, boolean, false, false, false>;
 };
 
 export { ResistanceRuleElement };
