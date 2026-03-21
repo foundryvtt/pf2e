@@ -172,12 +172,15 @@ function calculateMAPs(
     { domains, options }: { domains: string[]; options: Set<string> | string[] },
 ): MultipleAttackPenaltyData {
     const slugAndLabel = { slug: "multiple-attack-penalty", label: "PF2E.MultipleAttackPenalty" } as const;
+    if (item.isOfType("melee") && !item.system.subjectToMAP) {
+        return Object.assign(slugAndLabel, { map1: 0, map2: 0 });
+    }
     const baseMap =
         item.isOfType("action", "melee", "weapon") && item.traits.has("agile")
             ? { ...slugAndLabel, map1: -4, map2: -8 }
             : { ...slugAndLabel, map1: -5, map2: -10 };
 
-    const optionSet = options instanceof Set ? options : new Set(options);
+    const optionSet = Array.isArray(options) ? new Set(options) : options;
     const maps = item.actor?.synthetics.multipleAttackPenalties ?? {};
     const fromSynthetics = domains
         .flatMap((d) => maps[d] ?? [])
@@ -528,7 +531,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 
     // Multiple attack penalty
     const maps = calculateMAPs(item, { domains, options: initialRollOptions });
-    const createMapModifier = (prop: "map1" | "map2") => {
+    const createMAPenalty = (prop: "map1" | "map2") => {
         return new Modifier({
             slug: maps.slug,
             label: maps.label,
@@ -537,20 +540,22 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         });
     };
 
-    const labels = [
-        `${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(strike.totalModifier)}`,
-        ...(["map1", "map2"] as const).map((prop) => {
-            const modifier = createMapModifier(prop);
-            modifier.applyAdjustments({ rollOptions: baseOptions });
-            const penalty = modifier.ignored ? 0 : modifier.value;
-            return game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-                value: signedInteger(strike.totalModifier + penalty),
-                penalty,
-            });
-        }),
-    ];
-
-    strike.variants = [null, ...(["map1", "map2"] as const).map(createMapModifier)].map((map, mapIncreases) => ({
+    const labels = [`${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(strike.totalModifier)}`];
+    if (item.system.subjectToMAP) {
+        labels.push(
+            ...(["map1", "map2"] as const).map((prop) => {
+                const penalty = createMAPenalty(prop);
+                penalty.applyAdjustments({ rollOptions: baseOptions });
+                const penaltyValue = penalty.ignored ? 0 : penalty.value;
+                return game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                    value: signedInteger(strike.totalModifier + penaltyValue),
+                    penalty: penaltyValue,
+                });
+            }),
+        );
+    }
+    const penalties = item.system.subjectToMAP ? [null, ...(["map1", "map2"] as const).map(createMAPenalty)] : [null];
+    strike.variants = penalties.map((map, mapIncreases) => ({
         label: labels[mapIncreases],
         roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
             params.options ??= [];
