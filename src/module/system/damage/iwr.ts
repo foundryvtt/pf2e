@@ -41,190 +41,177 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
         (w) => w.applyOnce && instances.some((i) => w.test([...i.formalDescription, ...rollOptions])),
     );
     const damageWeaknesses = weaknesses.filter((w) => !applyOnceWeaknesses.includes(w));
+    const resistanceIds = new Map(resistances.map((r, index) => [r, index]));
+    const resistanceCandidatesByInstance: ResistanceApplicationCandidate[][] = [];
 
-    const preparedInstances = instances.map((instance): PreparedInstanceApplication => {
-        const formalDescription = new Set([...instance.formalDescription, ...rollOptions]);
+    const applications = instances
+        .flatMap((instance, index): IWRApplication[] => {
+            const formalDescription = new Set([...instance.formalDescription, ...rollOptions]);
 
-        // If the roll's total was increased to a minimum of 1, treat the first instance as having a total of 1
-        const wasIncreased = instance.total <= 0 && typeof roll.options.increasedFrom === "number";
-        const isFirst = instances.indexOf(instance) === 0;
-        const instanceTotal = wasIncreased && isFirst ? 1 : Math.max(instance.total, 0);
+            // If the roll's total was increased to a minimum of 1, treat the first instance as having a total of 1
+            const wasIncreased = instance.total <= 0 && typeof roll.options.increasedFrom === "number";
+            const isFirst = instances.indexOf(instance) === 0;
+            const instanceTotal = wasIncreased && isFirst ? 1 : Math.max(instance.total, 0);
 
-        // Step 0: Inapplicable damage outside the IWR framework
-        if (!actor.isAffectedBy(instance.type)) {
-            return {
-                applications: [{ category: "unaffected", type: instance.type, adjustment: -1 * instanceTotal }],
-                baseResistance: null,
-                boostedResistance: null,
-            };
-        }
+            // Step 0: Inapplicable damage outside the IWR framework
+            if (!actor.isAffectedBy(instance.type)) {
+                resistanceCandidatesByInstance[index] = [];
+                return [{ category: "unaffected", type: instance.type, adjustment: -1 * instanceTotal }];
+            }
 
-        // Step 1: Immunities
+            // Step 1: Immunities
 
-        // If the target is immune to the entire instance, we're done with it.
-        const applicableImmunities = immunities.filter(
-            // Handle critical hits separately (see below)
-            (i) => i.type !== "critical-hits" && i.test(formalDescription),
-        );
-        const appliedImmunity = applicableImmunities.find(
-            (i) => !hasImmunityRedirection(i, immunities, irRedirects.immunities),
-        );
-        if (appliedImmunity) {
-            return {
-                applications: [{ category: "immunity", type: appliedImmunity.label, adjustment: -1 * instanceTotal }],
-                baseResistance: null,
-                boostedResistance: null,
-            };
-        }
+            // If the target is immune to the entire instance, we're done with it.
+            const applicableImmunities = immunities.filter(
+                // Handle critical hits separately (see below)
+                (i) => i.type !== "critical-hits" && i.test(formalDescription),
+            );
+            const appliedImmunity = applicableImmunities.find(
+                (i) => !hasImmunityRedirection(i, immunities, irRedirects.immunities),
+            );
+            if (appliedImmunity) {
+                resistanceCandidatesByInstance[index] = [];
+                return [{ category: "immunity", type: appliedImmunity.label, adjustment: -1 * instanceTotal }];
+            }
 
-        const instanceApplications: IWRApplication[] = [];
+            const instanceApplications: IWRApplication[] = [];
 
-        let redirectedFromImmunity: DamageType | null = null;
-        for (const immunity of applicableImmunities) {
-            const redirect = irRedirects.immunities.find((ir) => hasImmunityRedirection(immunity, immunities, [ir]));
-            const redirectLabel = redirect ? new Immunity({ type: redirect.to }).typeLabel : "???";
-            if (redirect) redirectedFromImmunity = redirect.to;
-            instanceApplications.push({
-                category: "immunity",
-                type: immunity.typeLabel,
-                adjustment: 0,
-                redirect: redirectLabel,
-            });
-        }
-
-        // Before getting a manually-adjusted total, check for immunity to critical hits and "undouble"
-        // (or untriple) the total.
-        const critImmunity = immunities.find((i) => i.type === "critical-hits" && i.test(formalDescription));
-        const isCriticalSuccess = roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
-        const critImmuneTotal = instance.critImmuneTotal;
-        const critImmunityApplies = isCriticalSuccess && !!critImmunity && critImmuneTotal < instanceTotal;
-
-        // If the total was undoubled, log it as an immunity application
-        if (critImmunityApplies) {
-            instanceApplications.push({
-                category: "immunity",
-                type: critImmunity.label,
-                adjustment: -1 * (instanceTotal - critImmuneTotal),
-            });
-        }
-
-        const precisionImmunity = immunities.find((i) => i.type === "precision");
-        const precisionDamage = critImmunityApplies
-            ? Math.floor(instance.componentTotal("precision") / 2)
-            : instance.componentTotal("precision");
-        if (precisionDamage > 0 && precisionImmunity?.test([...formalDescription, "damage:component:precision"])) {
-            // If the creature is immune to both critical hits and precision damage, precision immunity will only
-            // reduce damage by half the precision damage dealt (with critical-hit immunity effectively reducing
-            // the other half).
-            const maxReducible = critImmunityApplies ? critImmuneTotal : instanceTotal;
-            if (maxReducible > 0) {
+            let redirectedFromImmunity: DamageType | null = null;
+            for (const immunity of applicableImmunities) {
+                const redirect = irRedirects.immunities.find((ir) =>
+                    hasImmunityRedirection(immunity, immunities, [ir]),
+                );
+                const redirectLabel = redirect ? new Immunity({ type: redirect.to }).typeLabel : "???";
+                if (redirect) redirectedFromImmunity = redirect.to;
                 instanceApplications.push({
                     category: "immunity",
-                    type: precisionImmunity.applicationLabel,
-                    adjustment: -1 * Math.min(precisionDamage, maxReducible),
+                    type: immunity.typeLabel,
+                    adjustment: 0,
+                    redirect: redirectLabel,
                 });
             }
-        }
 
-        const afterImmunities = Math.max(
-            instanceTotal + instanceApplications.reduce((sum, a) => sum + a.adjustment, 0),
-            0,
-        );
+            // Before getting a manually-adjusted total, check for immunity to critical hits and "undouble"
+            // (or untriple) the total.
+            const critImmunity = immunities.find((i) => i.type === "critical-hits" && i.test(formalDescription));
+            const isCriticalSuccess = roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
+            const critImmuneTotal = instance.critImmuneTotal;
+            const critImmunityApplies = isCriticalSuccess && !!critImmunity && critImmuneTotal < instanceTotal;
 
-        // Push applicable persistent damage to a separate list
-        if (instance.persistent && !instance.options.evaluatePersistent) {
-            persistent.push(instance);
-        }
+            // If the total was undoubled, log it as an immunity application
+            if (critImmunityApplies) {
+                instanceApplications.push({
+                    category: "immunity",
+                    type: critImmunity.label,
+                    adjustment: -1 * (instanceTotal - critImmuneTotal),
+                });
+            }
 
-        if (afterImmunities === 0) {
-            return {
-                applications: instanceApplications,
-                baseResistance: null,
-                boostedResistance: null,
-            };
-        }
+            const precisionImmunity = immunities.find((i) => i.type === "precision");
+            const precisionDamage = critImmunityApplies
+                ? Math.floor(instance.componentTotal("precision") / 2)
+                : instance.componentTotal("precision");
+            if (precisionDamage > 0 && precisionImmunity?.test([...formalDescription, "damage:component:precision"])) {
+                // If the creature is immune to both critical hits and precision damage, precision immunity will only
+                // reduce damage by half the precision damage dealt (with critical-hit immunity effectively reducing
+                // the other half).
+                const maxReducible = critImmunityApplies ? critImmuneTotal : instanceTotal;
+                if (maxReducible > 0) {
+                    instanceApplications.push({
+                        category: "immunity",
+                        type: precisionImmunity.applicationLabel,
+                        adjustment: -1 * Math.min(precisionDamage, maxReducible),
+                    });
+                }
+            }
 
-        // Step 3: Weaknesses
-        const mainWeaknesses = damageWeaknesses.filter((w) => w.test(formalDescription));
-        const splashDamage = instance.componentTotal("splash");
-        const splashWeakness = splashDamage ? (weaknesses.find((w) => w.type === "splash-damage") ?? null) : null;
-        const precisionWeakness =
-            precisionDamage > 0
-                ? weaknesses.find(
-                      (r) => r.type === "precision" && r.test([...formalDescription, "damage:component:precision"]),
-                  )
-                : null;
-        const highestWeakness = [...mainWeaknesses, precisionWeakness, splashWeakness]
-            .filter(R.isTruthy)
-            .reduce(
-                (highest: Weakness | null, w) =>
-                    w && !highest ? w : w && highest && w.value > highest.value ? w : highest,
-                null,
+            const afterImmunities = Math.max(
+                instanceTotal + instanceApplications.reduce((sum, a) => sum + a.adjustment, 0),
+                0,
             );
 
-        if (highestWeakness) {
-            instanceApplications.push({
-                category: "weakness",
-                type: highestWeakness.applicationLabel,
-                adjustment: highestWeakness.value,
-            });
-        }
-        const afterWeaknesses = afterImmunities + (highestWeakness?.value ?? 0);
-
-        // Step 4: Resistances
-        const workingResistanceData = resistances.map(
-            (r) =>
-                new WorkingResistanceData(r, {
-                    applicable:
-                        r.test(formalDescription) &&
-                        !applicableImmunities.some(
-                            (i) => i.type === r.type && i.exceptions.every((e) => tupleHasValue(r.exceptions, e)),
-                        ),
-                    value: r.getDoubledValue(formalDescription),
-                    ignored: ignoredResistances.some((ir) => ir.test(formalDescription)),
-                }),
-        );
-        const applicableResistances = workingResistanceData.filter((r) => r.applicable);
-        const criticalResistance = resistances.find((r) => r.type === "critical-hits");
-        if (criticalResistance && isCriticalSuccess) {
-            const maxResistable = instanceTotal - critImmuneTotal;
-            if (maxResistable > 0) {
-                applicableResistances.push(
-                    new WorkingResistanceData(criticalResistance, {
-                        value: Math.min(criticalResistance.getDoubledValue(formalDescription), maxResistable),
-                        ignored: ignoredResistances.some((ir) => ir.test(formalDescription)),
-                    }),
-                );
+            // Push applicable persistent damage to a separate list
+            if (instance.persistent && !instance.options.evaluatePersistent) {
+                persistent.push(instance);
             }
-        }
 
-        const precisionResistance = ((): WorkingResistanceData | null => {
-            const resistance =
-                precisionDamage > 0 && !precisionImmunity
-                    ? resistances.find(
+            if (afterImmunities === 0) {
+                resistanceCandidatesByInstance[index] = [];
+                return instanceApplications;
+            }
+
+            // Step 3: Weaknesses
+            const mainWeaknesses = damageWeaknesses.filter((w) => w.test(formalDescription));
+            const splashDamage = instance.componentTotal("splash");
+            const splashWeakness = splashDamage ? (weaknesses.find((w) => w.type === "splash-damage") ?? null) : null;
+            const precisionWeakness =
+                precisionDamage > 0
+                    ? weaknesses.find(
                           (r) => r.type === "precision" && r.test([...formalDescription, "damage:component:precision"]),
                       )
                     : null;
-            return resistance
-                ? new WorkingResistanceData(resistance, {
-                      value: Math.min(resistance.getDoubledValue(formalDescription), precisionDamage),
-                  })
-                : null;
-        })();
-        if (precisionResistance) applicableResistances.push(precisionResistance);
+            const highestWeakness = [...mainWeaknesses, precisionWeakness, splashWeakness]
+                .filter(R.isTruthy)
+                .reduce(
+                    (highest: Weakness | null, w) =>
+                        w && !highest ? w : w && highest && w.value > highest.value ? w : highest,
+                    null,
+                );
 
-        return {
-            applications: instanceApplications,
-            baseResistance: getResistanceApplication({
-                afterWeaknesses,
-                applicableImmunities,
-                availableResistances: applicableResistances.filter((r) => !r.applyOnce),
-                allResistances: workingResistanceData,
-                immunities,
-                redirectedFromImmunity,
-                redirects: irRedirects.resistances,
-            }),
-            boostedResistance: getResistanceApplication({
+            if (highestWeakness) {
+                instanceApplications.push({
+                    category: "weakness",
+                    type: highestWeakness.applicationLabel,
+                    adjustment: highestWeakness.value,
+                });
+            }
+            const afterWeaknesses = afterImmunities + (highestWeakness?.value ?? 0);
+
+            // Step 4: Resistances
+            const workingResistanceData = resistances.map(
+                (r) =>
+                    new WorkingResistanceData(r, {
+                        applicable:
+                            r.test(formalDescription) &&
+                            !applicableImmunities.some(
+                                (i) => i.type === r.type && i.exceptions.every((e) => tupleHasValue(r.exceptions, e)),
+                            ),
+                        value: r.getDoubledValue(formalDescription),
+                        ignored: ignoredResistances.some((ir) => ir.test(formalDescription)),
+                    }),
+            );
+            const applicableResistances = workingResistanceData.filter((r) => r.applicable);
+            const criticalResistance = resistances.find((r) => r.type === "critical-hits");
+            if (criticalResistance && isCriticalSuccess) {
+                const maxResistable = instanceTotal - critImmuneTotal;
+                if (maxResistable > 0) {
+                    applicableResistances.push(
+                        new WorkingResistanceData(criticalResistance, {
+                            value: Math.min(criticalResistance.getDoubledValue(formalDescription), maxResistable),
+                            ignored: ignoredResistances.some((ir) => ir.test(formalDescription)),
+                        }),
+                    );
+                }
+            }
+
+            const precisionResistance = ((): WorkingResistanceData | null => {
+                const resistance =
+                    precisionDamage > 0 && !precisionImmunity
+                        ? resistances.find(
+                              (r) =>
+                                  r.type === "precision" &&
+                                  r.test([...formalDescription, "damage:component:precision"]),
+                          )
+                        : null;
+                return resistance
+                    ? new WorkingResistanceData(resistance, {
+                          value: Math.min(resistance.getDoubledValue(formalDescription), precisionDamage),
+                      })
+                    : null;
+            })();
+            if (precisionResistance) applicableResistances.push(precisionResistance);
+
+            resistanceCandidatesByInstance[index] = getResistanceCandidates({
                 afterWeaknesses,
                 applicableImmunities,
                 availableResistances: applicableResistances,
@@ -232,25 +219,12 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                 immunities,
                 redirectedFromImmunity,
                 redirects: irRedirects.resistances,
-            }),
-        };
-    });
+                resistanceIds,
+            });
 
-    const strongestApplyOnce = preparedInstances.reduce(
-        (best: { index: number; improvement: number } | null, prepared, index) => {
-            const improvement =
-                getResistanceReduction(prepared.boostedResistance) - getResistanceReduction(prepared.baseResistance);
-            return improvement > (best?.improvement ?? 0) ? { index, improvement } : best;
-        },
-        null,
-    );
-
-    const applications = preparedInstances
-        .flatMap((prepared, index): IWRApplication[] => {
-            const resistance =
-                strongestApplyOnce?.index === index ? prepared.boostedResistance : prepared.baseResistance;
-            return resistance ? [...prepared.applications, resistance] : prepared.applications;
+            return instanceApplications;
         })
+        .concat(...selectResistanceApplications(resistanceCandidatesByInstance).map((c) => c.application))
         .concat(
             ...applyOnceWeaknesses.map(
                 (w): IWRApplication => ({ category: "weakness", type: w.typeLabel, adjustment: w.value }),
@@ -305,13 +279,9 @@ class WorkingResistanceData {
     get label(): string {
         return this.resistance.applicationLabel;
     }
-
-    get applyOnce(): boolean {
-        return this.resistance.applyOnce;
-    }
 }
 
-function getResistanceApplication(params: GetResistanceApplicationParams): ResistanceApplication | null {
+function getResistanceCandidates(params: GetResistanceCandidatesParams): ResistanceApplicationCandidate[] {
     const {
         afterWeaknesses,
         applicableImmunities,
@@ -320,8 +290,10 @@ function getResistanceApplication(params: GetResistanceApplicationParams): Resis
         immunities,
         redirectedFromImmunity,
         redirects,
+        resistanceIds,
     } = params;
 
+    const candidates = new Map<number, ResistanceApplicationCandidate>();
     const highestResistance = availableResistances
         .filter((r) => !r.ignored)
         .reduce(
@@ -330,6 +302,24 @@ function getResistanceApplication(params: GetResistanceApplicationParams): Resis
             null,
         );
 
+    for (const resistance of availableResistances.filter((r) => !r.ignored)) {
+        const resistanceId = resistanceIds.get(resistance.resistance);
+        if (typeof resistanceId !== "number") continue;
+
+        const application: ResistanceApplication = {
+            category: "resistance",
+            type: resistance.label,
+            adjustment: -1 * Math.min(afterWeaknesses, resistance.value),
+            ignored: false,
+        };
+        setResistanceCandidate(candidates, {
+            application,
+            damage: afterWeaknesses,
+            reduction: getResistanceReduction(application),
+            resistanceId,
+        });
+    }
+
     const highestIgnored = availableResistances
         .filter((r) => r.ignored)
         .reduce(
@@ -337,7 +327,6 @@ function getResistanceApplication(params: GetResistanceApplicationParams): Resis
                 (r && !highest) || (r && highest && r.value > highest.value) ? r : highest,
             null,
         );
-
     const resistanceRedirect = getResistanceRedirection({
         immunities,
         resistances: allResistances,
@@ -345,38 +334,116 @@ function getResistanceApplication(params: GetResistanceApplicationParams): Resis
         redirects,
     });
 
-    const finalResistance = highestResistance ?? resistanceRedirect?.resistance;
-    if (finalResistance?.value) {
-        const application: ResistanceApplication = {
-            category: "resistance",
-            type: finalResistance.label,
-            adjustment: -1 * Math.min(afterWeaknesses, finalResistance.value),
-            ignored: false,
-        };
-        if (resistanceRedirect) {
-            application.adjustment = -1 * Math.min(afterWeaknesses, resistanceRedirect.resistance?.value ?? 0);
+    if (resistanceRedirect?.resistance) {
+        const resistanceId = resistanceIds.get(resistanceRedirect.resistance.resistance);
+        if (typeof resistanceId === "number") {
+            const application: ResistanceApplication = {
+                category: "resistance",
+                type: resistanceRedirect.resistance.label,
+                adjustment: -1 * Math.min(afterWeaknesses, resistanceRedirect.resistance.value),
+                ignored: false,
+            };
             if (resistanceRedirect.redirect.to !== redirectedFromImmunity) {
                 application.redirect = new Resistance({
                     type: resistanceRedirect.redirect.to,
                     value: 0,
                 }).typeLabel;
             }
+            setResistanceCandidate(candidates, {
+                application,
+                damage: afterWeaknesses,
+                reduction: getResistanceReduction(application),
+                resistanceId,
+            });
         }
-        return application;
     }
 
-    return highestIgnored
-        ? {
-              category: "resistance",
-              type: highestIgnored.label,
-              adjustment: 0,
-              ignored: true,
-          }
-        : null;
+    if (candidates.size === 0 && highestIgnored) {
+        const resistanceId = resistanceIds.get(highestIgnored.resistance);
+        if (typeof resistanceId === "number") {
+            const application: ResistanceApplication = {
+                category: "resistance",
+                type: highestIgnored.label,
+                adjustment: 0,
+                ignored: true,
+            };
+            setResistanceCandidate(candidates, { application, damage: afterWeaknesses, reduction: 0, resistanceId });
+        }
+    }
+
+    return Array.from(candidates.values());
 }
 
-function getResistanceReduction(application: ResistanceApplication | null): number {
-    return Math.abs(application?.adjustment ?? 0);
+function setResistanceCandidate(
+    candidates: Map<number, ResistanceApplicationCandidate>,
+    candidate: ResistanceApplicationCandidate,
+): void {
+    const existing = candidates.get(candidate.resistanceId);
+    if (
+        !existing ||
+        candidate.reduction > existing.reduction ||
+        (candidate.reduction === existing.reduction && candidate.damage > existing.damage)
+    ) {
+        candidates.set(candidate.resistanceId, candidate);
+    }
+}
+
+function selectResistanceApplications(
+    candidatesByInstance: ResistanceApplicationCandidate[][],
+): ResistanceApplicationCandidate[] {
+    const resistanceBits = new Map(
+        Array.from(new Set(candidatesByInstance.flatMap((candidates) => candidates.map((c) => c.resistanceId)))).map(
+            (id, index) => [id, index],
+        ),
+    );
+    const memo = new Map<string, SelectedResistanceApplications>();
+
+    function select(instanceIndex: number, usedMask: bigint): SelectedResistanceApplications {
+        if (instanceIndex >= candidatesByInstance.length) {
+            return { reduction: 0, damage: 0, applications: [] };
+        }
+
+        const key = `${instanceIndex}:${usedMask}`;
+        const existing = memo.get(key);
+        if (existing) return existing;
+
+        let best: SelectedResistanceApplications = { reduction: -1, damage: -1, applications: [] };
+        for (const candidate of candidatesByInstance[instanceIndex]) {
+            const resistanceBit = resistanceBits.get(candidate.resistanceId);
+            if (typeof resistanceBit !== "number") continue;
+
+            const bitmask = 1n << BigInt(resistanceBit);
+            if ((usedMask & bitmask) !== 0n) continue;
+
+            const next = select(instanceIndex + 1, usedMask | bitmask);
+            const reduction = candidate.reduction + next.reduction;
+            const damage = candidate.damage + next.damage;
+            if (reduction > best.reduction || (reduction === best.reduction && damage > best.damage)) {
+                best = {
+                    damage,
+                    reduction,
+                    applications: [candidate, ...next.applications],
+                };
+            }
+        }
+
+        const skipped = select(instanceIndex + 1, usedMask);
+        if (
+            skipped.reduction > best.reduction ||
+            (skipped.reduction === best.reduction && skipped.damage > best.damage)
+        ) {
+            best = skipped;
+        }
+
+        memo.set(key, best);
+        return best;
+    }
+
+    return select(0, 0n).applications;
+}
+
+function getResistanceReduction(application: ResistanceApplication): number {
+    return Math.abs(application.adjustment);
 }
 
 function hasImmunityRedirection(
@@ -438,7 +505,7 @@ interface GetResistanceRedirectionParams {
     redirects: ResistanceRedirect[];
 }
 
-interface GetResistanceApplicationParams {
+interface GetResistanceCandidatesParams {
     afterWeaknesses: number;
     applicableImmunities: Immunity[];
     availableResistances: WorkingResistanceData[];
@@ -446,6 +513,7 @@ interface GetResistanceApplicationParams {
     immunities: Immunity[];
     redirectedFromImmunity: DamageType | null;
     redirects: ResistanceRedirect[];
+    resistanceIds: Map<Resistance, number>;
 }
 
 interface ResistanceRedirection {
@@ -453,10 +521,17 @@ interface ResistanceRedirection {
     redirect: ResistanceRedirect;
 }
 
-interface PreparedInstanceApplication {
-    applications: IWRApplication[];
-    baseResistance: ResistanceApplication | null;
-    boostedResistance: ResistanceApplication | null;
+interface ResistanceApplicationCandidate {
+    application: ResistanceApplication;
+    damage: number;
+    reduction: number;
+    resistanceId: number;
+}
+
+interface SelectedResistanceApplications {
+    damage: number;
+    reduction: number;
+    applications: ResistanceApplicationCandidate[];
 }
 
 interface IWRApplicationData {
