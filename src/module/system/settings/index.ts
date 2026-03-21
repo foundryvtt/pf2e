@@ -101,18 +101,18 @@ export function registerSettings(): void {
         },
     });
 
-    const formulaVariantExpansionChoices = ["ask", "yes", "no"] as const;
+    const formulaVersionExpansionChoices = ["ask", "yes", "level", "no"] as const;
     game.settings.register(SYSTEM_ID, "craftingFormulaVariantExpansion", {
-        name: "PF2E.SETTINGS.CraftingFormulaVariantExpansion.Name",
-        hint: "PF2E.SETTINGS.CraftingFormulaVariantExpansion.Hint",
+        name: "PF2E.SETTINGS.CraftingFormulaVersionExpansion.Name",
+        hint: "PF2E.SETTINGS.CraftingFormulaVersionExpansion.Hint",
         scope: "client",
         config: true,
         type: new fields.StringField({
             required: true,
             nullable: false,
-            choices: R.mapToObj(formulaVariantExpansionChoices, (v) => [
+            choices: R.mapToObj(formulaVersionExpansionChoices, (v) => [
                 v,
-                `PF2E.SETTINGS.CraftingFormulaVariantExpansion.${v}`,
+                `PF2E.SETTINGS.CraftingFormulaVersionExpansion.${v}`,
             ]),
             initial: "ask",
         }),
