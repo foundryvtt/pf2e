@@ -75,10 +75,7 @@ async function buildVersionIndex(): Promise<Map<string, VersionIndexEntry[]>> {
     }
 
     versionIndex = new Map(
-        [...index].map(([baseSlug, entries]) => [
-            baseSlug,
-            [...entries].map(([uuid, level]) => ({ uuid, level })),
-        ]),
+        [...index].map(([baseSlug, entries]) => [baseSlug, [...entries].map(([uuid, level]) => ({ uuid, level }))]),
     );
     return versionIndex;
 }

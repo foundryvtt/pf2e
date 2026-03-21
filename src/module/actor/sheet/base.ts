@@ -1259,8 +1259,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             const slug = item.system.slug ?? item.slug ?? sluggify(item.name);
             const expansionSetting =
                 (game.settings.get(SYSTEM_ID, "craftingFormulaVariantExpansion") as string) ?? "ask";
-            const addMode =
-                expansionSetting === "ask" ? await this.#confirmAddFormulaVersions() : expansionSetting;
+            const addMode = expansionSetting === "ask" ? await this.#confirmAddFormulaVersions() : expansionSetting;
             const versionUuids =
                 addMode === "yes"
                     ? await getVersionUUIDs(slug)
