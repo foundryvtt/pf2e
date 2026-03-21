@@ -40,14 +40,18 @@
         "quantity": 1,
         "rules": [
             {
+                "key": "RollOption",
+                "label": "Wings Deployed",
+                "option": "wings-deployed",
+                "toggleable": true,
+                "value": false
+            },
+            {
                 "key": "BaseSpeed",
                 "predicate": [
                     "wings-deployed",
                     {
-                        "nor": [
-                            "armor:category:heavy",
-                            "armor:category:medium"
-                        ]
+                        "nor": ["armor:category:heavy", "armor:category:medium"]
                     }
                 ],
                 "selector": "fly",
@@ -55,13 +59,8 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": [
-                    "action:maneuver-in-flight",
-                    "wings-deployed"
-                ],
-                "selector": [
-                    "acrobatics"
-                ],
+                "predicate": ["action:maneuver-in-flight", "wings-deployed"],
+                "selector": ["acrobatics"],
                 "type": "item",
                 "value": 2
             }
@@ -69,9 +68,7 @@
         "size": "med",
         "traits": {
             "rarity": "common",
-            "value": [
-                "biotech"
-            ]
+            "value": ["biotech"]
         },
         "usage": {
             "value": "implanted"
