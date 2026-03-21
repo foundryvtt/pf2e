@@ -570,7 +570,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>15 feet. A creature that begins its turn within the area must attempt a @Check[will|dc:14] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to buffering zone for 1 day.</p>\n<p><strong>Success</strong> The creature treats the buffering zone as difficult terrain for 1 round.</p>\n<p><strong>Failure</strong> As success, and the creature is pushed back 5 feet and takes a –1 status penalty to attack rolls for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is pushed back beyond the boundary of the buffering zone and can't reenter the buffering zone for 1 round.</p>"
+                    "value": "<p>15 feet. A creature that begins its turn within the area must attempt a @Check[will|dc:14] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to buffering zone for 1 day.</p>\n<p><strong>Success</strong> The creature treats the buffering zone as difficult terrain for 1 round.</p>\n<p><strong>Failure</strong> As success, and the creature is pushed back 5 feet and takes a –1 status penalty to attack rolls for 1 round.</p>\n<p>@UUID[Compendium.sf2e.bestiary-effects.Item.Effect: Buffering Zone (Failure)]</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is pushed back beyond the boundary of the buffering zone and can't reenter the buffering zone for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -622,8 +622,22 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "reflect-aggression",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "reflect-aggression"
+                        ],
+                        "type": "all-damage",
+                        "value": 3
+                    }
+                ],
+                "slug": "reflect-aggression",
                 "traits": {
                     "value": [
                         "mental"
@@ -646,7 +660,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The erabryth forces a creature within 60 feet to relive its most painful memories and regrets in an instant, confronting it with it difficult memories to help it reconcile its actions and let go of its pain. The target must attempt a @Check[will|dc:17] save. Regardless of the result, the target is then temporarily immune to Forced Reflection for 1 day.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 1} and frightened 1.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 2} and @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 2}.</p>"
+                    "value": "<p>The erabryth forces a creature within 60 feet to relive its most painful memories and regrets in an instant, confronting it with it difficult memories to help it reconcile its actions and let go of its pain. The target must attempt a @Check[will|dc:17|options:inflicts:frightened,inflicts:stunned] save. Regardless of the result, the target is then temporarily immune to Forced Reflection for 1 day.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 1} and frightened 1.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 2} and @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 2}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

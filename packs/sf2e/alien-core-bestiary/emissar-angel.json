@@ -421,7 +421,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel vital energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of vitality damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(concentrate)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"action-glyph\">3</span> <strong>(concentrate)</strong> You disperse vital energy in a @Template[emanation|distance:30]. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel vital energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of vitality damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> (concentrate) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"action-glyph\">3</span> (concentrate) You disperse vital energy in a @Template[emanation|distance:30]. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1081,8 +1081,28 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "morale-boost",
+                        "toggleable": true
+                    },
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "removeOnExit": false,
+                                "uuid": "Compendium.sf2e.bestiary-effects.Item.Effect: Morale Boost"
+                            }
+                        ],
+                        "key": "Aura",
+                        "predicate": [
+                            "morale-boost"
+                        ],
+                        "radius": 100
+                    }
+                ],
+                "slug": "morale-boost",
                 "traits": {
                     "value": []
                 }
@@ -1103,7 +1123,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The emissar commands an ally within 30 feet to ignore a harmful effect and keep fighting. The target gains 2d10 temporary Hit Points for 1 minute and suppresses one condition that's currently affecting it for the next [[/gmr 1d4 #rounds]]{1d4 rounds}, chosen from the following list: @UUID[Compendium.sf2e.conditions.Item.Confused], @UUID[Compendium.sf2e.conditions.Item.Fatigued], @UUID[Compendium.sf2e.conditions.Item.Fleeing], frightened, or stupefied. The target is then temporarily immune to Spin Doctor for 1 hour.</p>"
+                    "value": "<p>The emissar commands an ally within 30 feet to ignore a harmful effect and keep fighting. The target gains 2d10 temporary Hit Points for 1 minute and suppresses one condition that's currently affecting it for the next [[/gmr 1d4 #rounds]]{1d4 rounds}, chosen from the following list: @UUID[Compendium.sf2e.conditions.Item.Confused], @UUID[Compendium.sf2e.conditions.Item.Fatigued], @UUID[Compendium.sf2e.conditions.Item.Fleeing], @UUID[Compendium.sf2e.conditions.Item.Frightened], or @UUID[Compendium.sf2e.conditions.Item.Stupefied]. The target is then temporarily immune to Spin Doctor for 1 hour.</p>\n<p>@UUID[Compendium.sf2e.bestiary-effects.Item.Effect: Spin Doctor]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1111,7 +1131,7 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "spin-doctor",
                 "traits": {
                     "value": [
                         "healing",

@@ -1,3 +1,47 @@
+## 7.11.3
+
+### Bugfixes
+
+- (iDantar) Fix embedded shields not being alterable by rule elements
+- (Supe) Also resolve persistent damage for troop segments and familiars
+- (Supe) Also sync troop tokens on token creation and deletion
+- (Supe) Fix roll options and selectors passed to inline escape checks
+
+### Data Updates
+
+- (Abaddon) Fix hellbreakers sources
+- (Ambrose) Add effect to Prescience Mythic Feat
+- (Ambrose) Add icon and missing publication source to Divine Keystone ritual
+- (Ambrose) Add icon to Defy Hell stance effect and brush up predicates
+- (Ambrose) Add icon to Divine Cornerstone effect
+- (Ambrose) Add inline check to the Cover Tracks skill action
+- (Ambrose) Add item bonus to Fire Ring
+- (Ambrose) Add Kardosian Fragment's Recall Knowledge bonus and effect for temporary hit points
+- (Ambrose) Add note addenda to Quick Recognition for Recognize Spell
+- (Ambrose) Add Zoophonia to the Bard muse Class Feature
+- (Ambrose) Correct Kraken Caller's to hit bonus for melee Trident and Jaws strikes
+- (Ambrose) Remove Soothe from Seoni's spell selection
+- (Ambrose) Update Dandy Dedication automation
+- (Ambrose) Update rule elements on Recognize Spell skill feat
+- (Arrrthritis) Fixed Roaring Applause's Heightening Value
+- (Dire Weasel) Add automation for NPC abilities Consecrated Fists, Fiendish Lunge, Infected Wounds, Midnight Depths
+- (Dire Weasel) Add fear trait to A Falling Star's Memories
+- (Dire Weasel) Minor updates to Odvolos, Skeletal Tiger Lord and Vizier Dragons
+- (Dire Weasel) Fix attack effects for Concentrated Congealed Magic's Pseudopod
+- (Dire Weasel) Fix missing predicate for Nanoshard Swarm's Battle Form clumsy grant
+- (iDantar) Base tempHP given by Plant Banner on origin's level
+- (iDantar) Display Adept Benefit on Drink from the Chalice at all times
+- (iDantar) Make Channel Divine Spark increase Nimbus's aura and prevent it's deactivation
+- (iDantar) Use weapon potency for Fox Arson bonus damage calculation
+- (kromko) Fix `@Check` typos for skills and lores
+- (Mose) Fix typo in Monster Core Sea Serpent
+- (RakuJa) Fix stealth DC for Shaken Loose
+- (rectulo) Change category from 'classfeature' to 'class' for Spell Acceleration
+- (rectulo) Fix basic save in the robe of the erinys description
+- (rectulo) Fix description of purgatory emissary's staff
+- (rectulo) Fix formatting in Impelling Symbol description
+- (SpartanCPA) Correct price of Greater Endless Quiver
+
 ## 7.11.2
 
 ### Bugfixes

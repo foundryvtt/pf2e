@@ -34,6 +34,10 @@
                 "Text": "The target must succeed at a @Check[fortitude|dc:19] save or be @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} for 1 round by the intense cold (slowed 1 for 1 minute on a critical failure).",
                 "Title": "Freezing Ammunition"
             },
+            "GlueBullet": {
+                "Text": "On a hit, the target takes a –10-foot circumstance penalty to its Speeds for [[/r 2d4 #rounds]]{2d4 rounds}. On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized}. @UUID[Compendium.pf2e.equipment-effects.Item.dBjXvsLFezo2fGRa]{Effect: Glue Bullet}.",
+                "Title": "Glue Bullet"
+            },
             "MeteorShot": {
                 "CriticalFailureText": "On a critical failure, the weapon misfires.",
                 "Greater": {
@@ -2507,7 +2511,7 @@
                             "Description": "When you use a mutagen, you gain a number of temporary Hit Points equal to your Intelligence modifier (minimum 0) plus half your level. These temporary Hit Points last for 1 minute or until the mutagen's duration expires, whichever comes first. You can't gain temporary HP from drinking a mutagen again for 1 minute."
                         },
                         "FieldVials": {
-                            "Description": "You can drink the contents of one your versatile vials to suppress the drawback you take from one mutagen currently affecting you until the beginning of your next turn. A vial used this way loses the acid, bomb, and splash traits and gains the elixir trait. If you have more than one drawback due to @UUID[Compendium.pf2e.feats-srd.Item.jSkJIWPfSZZzvYzq]{Combine Elixirs} or a similar ability, drinking the vial suppresses one drawback of your choice."
+                            "Description": "You can drink the contents of one your versatile vials to suppress the drawback you take from one mutagen currently affecting you for 1 minute. A vial used this way loses the acid, bomb, and splash traits and gains the elixir trait. If you have more than one drawback due to @UUID[Compendium.pf2e.feats-srd.Item.jSkJIWPfSZZzvYzq]{Combine Elixirs} or a similar ability, drinking the vial suppresses one drawback of your choice."
                         }
                     },
                     "Prompt": "Select a research field.",
@@ -3359,8 +3363,8 @@
                         "SpellSwapping": "As you gain new spells in your repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same rank. This spell can be a cantrip. You can also swap out spells by retraining during downtime."
                     },
                     "oracle": {
-                        "PartOne": "The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-rank divine spells of your choice and five divine cantrips of your choice. You choose these from the common spells on the divine list or from other divine spells to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell rank.",
-                        "PartTwo": "You add to this spell repertoire as you increase in level. Each time you get a spell slot (see the Oracle Spells per Day table), you add a spell to your spell repertoire of the same rank. At 2nd level, you select another 1st-rank spell; at 3rd level, you select two 2nd-rank spells, and so on. When you add spells, you might add a higher-rank version of a spell you already have, so you can cast a heightened version of that spell.",
+                        "PartOne": "The collection of spells you can cast is called your spell repertoire. At 1st level, you learn three 1st-rank divine spells of your choice and five divine cantrips of your choice. You choose these from the common spells on the divine list or from other divine spells to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell rank.",
+                        "PartTwo": "You add to this spell repertoire as you increase in level. Each time you get a spell slot (see the Oracle Spells per Day table), you add a spell to your spell repertoire of the same rank. At 2nd level, you select another 1st-rank spell; at 3rd level, you select three 2nd-rank spells, and so on. When you add spells, you might add a higher-rank version of a spell you already have, so you can cast a heightened version of that spell.",
                         "PartThree": "Your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it wouldn't give you another spell slot, and vice versa.",
                         "SpellSwapping": "As you gain new spells in your repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same rank. This spell can be a cantrip. You can also swap out spells by retraining during downtime."
                     },
@@ -3915,6 +3919,7 @@
                 }
             },
             "EnvenomCompanion": {
+                "RollOptionLabel": "Envenom Companion — First hit of the round",
                 "DamageNote": "A creature that is damaged by this poison must attempt a @Check[fortitude|traits:poison] save. On a failure, it's also @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for 1 round."
             },
             "Equipment": {
@@ -6402,6 +6407,9 @@
             "SpellEffectKgalaserkesAxes": {
                 "ToggleLabel": "Kgalaserke's Axes — Damaged by target"
             },
+            "SpellEffectLevitate": {
+                "RollOptionLabel": "Levitate — Stabilized this turn"
+            },
             "SpellEffectMantle": {
                 "FrozenHeart": {
                     "DamageNote": {
@@ -6456,14 +6464,25 @@
             "SpellEffectMentalMap": {
                 "ToggleLabel": "Mental Map — Enable Survival and Recall Knowledge bonus"
             },
+            "SpellEffectMindSwap": {
+                "RollOptionLabel": "Mind Swap — Impersonate the Other Target of Mind Swap"
+            },
             "SpellEffectPreciousMetals": {
                 "Copper": "Copper",
                 "Gold": "Gold",
                 "Iron": "Iron",
                 "Steel": "Steel"
             },
+            "SpellEffectPrismaticShield": {
+                "RollOptionLabel": "Prismatic Shield — Targeted by a Large Ranged Weapon"
+            },
             "SpellEffectProtection": {
                 "Prompt": "Choose which alignment trait you are protecting against."
+            },
+            "SpellEffectSpiritOfTheBeast": {
+                "AspectOfInsight": "Aspect of Insight",
+                "AspectOfMight": "Aspect of Might",
+                "AspectOfSwiftness": "Aspect of Swiftness"
             },
             "SpellEffectSweetDream": {
                 "Glamor": "Dream of Glamor",

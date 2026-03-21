@@ -10,7 +10,7 @@
             "value": "1d20"
         },
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem]</p>\n<p>Choose a creature you can see, and roll a d20. If you Strike the chosen creature, you use the result of the roll you made to Devise a Stratagem for your Strike's attack roll instead of rolling.</p>\n<p>When you make this substitution, you can also add your Intelligence modifier to your attack roll instead of your Strength or Dexterity modifier, provided your Strike uses an agile or finesse melee weapon, an agile or finesse unarmed attack, a ranged weapon (which must be agile or finesse if it's a melee weapon with the thrown trait) or sap.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Devise a Stratagem]</p>\n<p>Choose a creature you can see. Roll a d20, then decide on an attack stratagem or skill stratagem.</p>\n<p><strong>Attack Stratagem</strong> If you Strike the chosen creature before the start of your next turn, your Strike gains the fortune trait and you must use the result of the d20 roll for your next Strike's attack roll this round instead of rolling. When you make this substitution, you can add your Intelligence modifier to your attack roll instead of your Strength or Dexterity modifier.</p>\n<p><strong>Skill Stratagem</strong> You gain a +1 circumstance bonus to your next Intelligence-, Wisdom-, or Charisma-based skill check or Perception check involving the target before the start of your next turn. If you would gain your Pursue a Lead investigation bonus to such a check, that bonus increases by 1 instead of you gaining the +1 bonus listed</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -53,6 +53,16 @@
                     }
                 ],
                 "toggleable": true
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "target:mark:devise-a-stratagem",
+                    "devise-a-stratagem:attack"
+                ],
+                "property": "traits",
+                "value": "fortune"
             },
             {
                 "key": "SubstituteRoll",
