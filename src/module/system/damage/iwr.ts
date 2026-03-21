@@ -327,6 +327,7 @@ function getResistanceCandidates(params: GetResistanceCandidatesParams): Resista
                 (r && !highest) || (r && highest && r.value > highest.value) ? r : highest,
             null,
         );
+    // An alternative resistance (or lack thereof) caused by such abilities as the Concussive weapon trait
     const resistanceRedirect = getResistanceRedirection({
         immunities,
         resistances: allResistances,
@@ -361,6 +362,7 @@ function getResistanceCandidates(params: GetResistanceCandidatesParams): Resista
     if (candidates.size === 0 && highestIgnored) {
         const resistanceId = resistanceIds.get(highestIgnored.resistance);
         if (typeof resistanceId === "number") {
+            // The target's resistance was ignored: log it but don't decrease damage
             const application: ResistanceApplication = {
                 category: "resistance",
                 type: highestIgnored.label,
