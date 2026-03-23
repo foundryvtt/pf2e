@@ -265,6 +265,7 @@ export class InlineRollLinks {
                             : [],
                         rollOptions: [
                             item?.isOfType("action", "feat") ? `${opposingRole}:action:slug:${item.slug}` : null,
+                            ...extraRollOptions,
                         ].filter(R.isTruthy),
                     });
                     if (defenseStat) {
