@@ -3089,7 +3089,7 @@
                 "rules": [
                     {
                         "disabledIf": [
-                            "push-my-luck-misfortune"
+                            "self:effect:push-my-luck-misfortune"
                         ],
                         "disabledValue": false,
                         "key": "RollOption",
@@ -3165,30 +3165,14 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Okoro targets a creature with an attack</p>\n<p><strong>Requirements</strong> The triggering creature was the target of Observe Weakness this turn</p>\n<hr />\n<p><strong>Effect</strong> Okoro draws upon his future luck to guarantee his attack. When he makes his attack roll, if he rolls lower than 10 on the die, he treats that attack roll as a 10 instead. This is in addition to rolling twice and taking the higher result from Observe Weakness. Afterward, Okoro's luck is temporarily spent, and he must roll twice and use the lower result of his next 3 checks; this is a misfortune effect. He can't use Push My Luck again until he's completed these 3 checks.</p>"
+                    "value": "<p><strong>Trigger</strong> Okoro targets a creature with an attack</p>\n<p><strong>Requirements</strong> The triggering creature was the target of Observe Weakness this turn</p><hr /><p><strong>Effect</strong> Okoro draws upon his future luck to guarantee his attack. When he makes his attack roll, if he rolls lower than 10 on the die, he treats that attack roll as a 10 instead. This is in addition to rolling twice and taking the higher result from Observe Weakness. Afterward, Okoro's luck is temporarily spent, and he must roll twice and use the lower result of his next 3 checks; this is a misfortune effect. He can't use Push My Luck again until he's completed these 3 checks.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Push My Luck (Misfortune)]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.UnshadowedOkoro.PushMyLuck.MisfortuneLabel",
-                        "option": "push-my-luck-misfortune",
-                        "priority": 49,
-                        "toggleable": true
-                    },
-                    {
-                        "keep": "lower",
-                        "key": "RollTwice",
-                        "predicate": [
-                            "push-my-luck-misfortune"
-                        ],
-                        "selector": "all"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
