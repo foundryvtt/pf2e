@@ -225,11 +225,16 @@ class EarnIncomeDialog extends fa.api.HandlebarsApplicationMixin(fa.api.Applicat
         if (!skill?.proficient) throw ErrorPF2e("Skill not found");
         await game.settings.set(SYSTEM_ID, "earnIncome", { level, days, skill: skillSlug });
         const dc = calculateDC(level);
+        const label = await fa.handlebars.renderTemplate(`systems/${SYSTEM_ID}/templates/chat/action/header.hbs`, {
+            glyph: null,
+            subtitle: game.i18n.format("PF2E.ActionsCheck.x", { type: skill.label }),
+            title: "PF2E.Actions.EarnIncome.Title",
+        });
         const roll = await skill.roll({
             ...eventToRollParams(event, { type: "check" }),
             action: "earn-income",
             dc,
-            label: `Earn Income: ${skill.label}`,
+            label,
             traits: ["downtime"],
         });
         if (!roll) throw ErrorPF2e("Unexpected failure to make check roll");
