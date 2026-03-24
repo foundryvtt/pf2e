@@ -20,13 +20,14 @@ import { PackEntry } from "./lib/types.ts";
 import pf2eRedirects from "./uuid-redirects/pf2e.json" with { type: "json" };
 import sf2eRedirects from "./uuid-redirects/sf2e.json" with { type: "json" };
 
-const argv = yargs(process.argv.slice(2)) as Argv<{ system: SystemId | "both"; json: boolean }>;
+type ModuleId = `${SystemId}-anachronism`;
+const argv = yargs(process.argv.slice(2)) as Argv<{ module: ModuleId | "both"; json: boolean }>;
 const args = argv
-    .command("$0 [system] [json]", "Build the anachronism modules", () => {
-        argv.option("system", {
-            describe: "The FVTT system for which to build packs",
+    .command("$0 [system] [json]", "Build one or both the anachronism modules", () => {
+        argv.option("module", {
+            describe: "The FVTT module to create",
             type: "string",
-            choices: ["pf2e", "sf2e", "both"],
+            choices: ["pf2e-anachronism", "sf2e-anachronism", "both"],
             default: "both",
         });
     })
@@ -37,7 +38,9 @@ const args = argv
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 const logsDir = path.join(__dirname, "logs");
 const distDir = path.resolve(__dirname, "..", "dist");
-const contentSystems = args.system === "both" ? (["pf2e", "sf2e"] as const) : [args.system];
+const contentSystems: SystemId[] =
+    args.module === "both" ? (["pf2e", "sf2e"] as const) : [args.module === "pf2e-anachronism" ? "pf2e" : "sf2e"];
+console.log(`Building Modules: ${contentSystems.map((c) => `${c}-anachronism`)}`);
 
 /** Root module file contents of anachronism. This should be moved to a file somewhere. */
 const moduleSourceContents = String.raw`
@@ -313,23 +316,10 @@ for (const contentSystem of contentSystems) {
     );
 
     // Create Manifest. The PF2e anachronism manifest needs data from the actual pf2e system manifest
-    const targetSystemManifest = targetSystem === "pf2e" ? pf2eManifest : sf2eManifest;
     const contentSystemManifest = contentSystem === "pf2e" ? pf2eManifest : sf2eManifest;
     const mainManifest = contentSystem === "pf2e" ? pf2eAnachronismManifest : sf2eAnachronismManifest;
     const outputManifest = {
         ...R.clone(mainManifest),
-        relationships: {
-            systems: [
-                {
-                    id: targetSystem,
-                    type: "system",
-                    manifest: targetSystemManifest.manifest,
-                    compatibility: {
-                        minimum: targetSystemManifest.version,
-                    },
-                },
-            ],
-        },
         packs: contentPacks.map(({ id, dirName }) => {
             const original = contentSystemManifest.packs.find((p) => (compendiumRemap[p.name] ?? p.name) === id);
             if (!original)

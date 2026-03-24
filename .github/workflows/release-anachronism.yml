@@ -1,0 +1,68 @@
+name: Anachronism Release
+
+on:
+  workflow_dispatch:
+    branches: [v13-dev]
+    inputs:
+      module:
+        description: Module
+        required: true
+        type: choice
+        options:
+          - pf2e-anachronism
+          - sf2e-anachronism
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [24.x]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Cache NPM Deps
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          path: node_modules/
+          key: npm-${{ hashFiles('package-lock.json') }}
+
+      - name: Install NPM Deps
+        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+        run: npm ci
+
+      - name: Build
+        run: 'pnpm run build:anachronism --module=${{ inputs.module }}'
+
+      - name: Update Manifest
+        run: |
+          MODULE_VERSION=$(grep -oP '(?<="version": ")[^"]+' dist/${{ inputs.module }}/module.json | tr -d '\n')
+          perl -pi -E "s|latest/download/${{ inputs.module }} \\.zip|download/$MODULE_VERSION/${{ inputs.module }}.zip|" dist/${{ inputs.module }}/module.json
+          echo "moduleVersion=$MODULE_VERSION" >> $GITHUB_ENV
+
+      - name: Zip Files
+        working-directory: './dist/${{ inputs.module }}'
+        run: zip -r ./module.zip ./*
+
+      - name: Create Version Release
+        id: create_version_release
+        uses: ncipollo/release-action@v1
+        with:
+          name: '${{ env.moduleVersion }} (${{ inputs.module }})'
+          allowUpdates: false
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: "./dist/${{ inputs.module }}/module.json,./dist/${{ inputs.module }}/module.zip"
+          tag: '${{ inputs.module }}-${{ env.moduleVersion }}'
