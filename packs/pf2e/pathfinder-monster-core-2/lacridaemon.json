@@ -387,10 +387,52 @@
             "type": "action"
         },
         {
+            "_id": "3R3gyr1g5LXQOY2n",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "qEksYPQ2gGBBTZL8",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Steal Bearings",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -400,7 +442,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 30 feet Strides</p><hr /><p><strong>Effect</strong> The lacridaemon attempts to redirect the triggering creature so it eventually becomes as lost as the lacridaemon. The triggering creature attempts a @Check[will|dc:17] save. Regardless of the result, the creature becomes temporarily immune to all attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Steal] Bearings for 1 minute.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature treats all squares as difficult terrain for its Stride.</p>\n<p><strong>Critical Failure</strong> As failure, except that the lacridaemon determines where the target moves during the Stride, though it can't move it into hazardous terrain or a place it can't stand.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet Strides</p><hr /><p><strong>Effect</strong> The lacridaemon attempts to redirect the triggering creature so it eventually becomes as lost as the lacridaemon. The triggering creature attempts a @Check[will|dc:17] save. Regardless of the result, the creature becomes temporarily immune to all attempts to Steal Bearings for 1 minute.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature treats all squares as difficult terrain for its Stride.</p>\n<p><strong>Critical Failure</strong> As failure, except that the lacridaemon determines where the target moves during the Stride, though it can't move it into hazardous terrain or a place it can't stand.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -419,7 +461,7 @@
             "_id": "1PddQwhLpsTxVsMR",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Weeping Aura",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -429,7 +471,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>60 feet. The sounds of crying constantly surround a lacridaemon. A creature that first enters the area must attempt a @Check[will|dc:17] save as the sounds cause major disorientation. On a failure, the creature takes a –2 status penalty to Survival checks to Sense Direction (–4 on a critical failure) for 1 day. After attempting the save, the creature is temporarily immune to the lacridaemon's weeping aura for 1 day. The penalties from multiple weeping auras can increase up to a cumulative total of –10.</p>"
+                    "value": "<p>60 feet. The sounds of crying constantly surround a lacridaemon. A creature that first enters the area must attempt a @Check[will|dc:17] save as the sounds cause major disorientation. On a failure, the creature takes a –2 status penalty to Survival checks to Sense Direction (–4 on a critical failure) for 1 day. After attempting the save, the creature is temporarily immune to the lacridaemon's weeping aura for 1 day. The penalties from multiple weeping auras can increase up to a cumulative total of –10.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Weeping Aura]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -438,7 +480,6 @@
                 },
                 "rules": [
                     {
-                        "effects": [],
                         "key": "Aura",
                         "radius": 60,
                         "traits": [
@@ -460,7 +501,7 @@
             "_id": "z5pmjocp8G1YLjMz",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Lacridaemon Venom",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -492,7 +533,7 @@
             "_id": "ZI45E6XW5WaXZNr4",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Venomous Spray",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -502,7 +543,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The lacridaemon's begins to weep, spraying its venom-filled tears at all creatures within 30 feet. The creatures are immediately exposed to lacridaemon venom. Other lacridaemons are immune to this venom.</p>"
+                    "value": "<p>The lacridaemon's begins to weep, spraying its venom-filled tears at all creatures within @Template[emanation|distance:30]{30 feet}. The creatures are immediately exposed to lacridaemon venom. Other lacridaemons are immune to this venom.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -546,7 +587,7 @@
                 "value": 18
             },
             "allSaves": {
-                "value": ""
+                "value": "+1 status to all saves vs. magic"
             },
             "hp": {
                 "details": "",

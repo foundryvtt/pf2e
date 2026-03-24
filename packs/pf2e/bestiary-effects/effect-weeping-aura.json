@@ -1,0 +1,61 @@
+{
+    "_id": "NRH7Eo6F5YYtUf4g",
+    "img": "icons/magic/water/water-hand.webp",
+    "name": "Effect: Weeping Aura",
+    "system": {
+        "badge": {
+            "labels": [
+                "-2",
+                "-4",
+                "-6",
+                "-8",
+                "-10"
+            ],
+            "loop": false,
+            "max": null,
+            "min": null,
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>You take a status penalty to Survival checks to Sense Direction.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:sense-direction"
+                ],
+                "selector": "survival",
+                "type": "status",
+                "value": "@item.badge.value * -2"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
