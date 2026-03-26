@@ -121,7 +121,25 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "coil",
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            "item:slug:fangs"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "coil"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "reach-10"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -143,7 +161,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The goblin snake belches a cloud of nauseating vapor in a @Template[type:cone|distance:15]. Non-goblin creatures within the cloud must succeed at a @Check[fortitude|dc:16] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. On a critical failure, a creature is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as it is sickened. Creatures that successfully save are immune for 24 hours. The goblin snake can't use Goblin Breath again for [[/gmr 1d4 #Recharge Goblin Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The goblin snake belches a cloud of nauseating vapor in a @Template[type:cone|distance:15]. Non-goblin creatures within the cloud must succeed at a @Check[fortitude|dc:16|options:area-effect,inflicts:sickened,inflicts:slowed] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. On a critical failure, a creature is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as it is sickened. Creatures that successfully save are immune for 24 hours. The goblin snake can't use Goblin Breath again for [[/gmr 1d4 #Recharge Goblin Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

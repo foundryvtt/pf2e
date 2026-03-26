@@ -114,7 +114,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>15 feet.</p>\n<p>A gobmob snake's heads constantly bicker and snipe at one another, annoying and distracting anyone nearby. Each non-goblin creature that begins its turn in the aura must attempt a @Check[will|dc:21|options:area-effect] save. On a failure, it takes a –1 status penalty to Perception checks and Will saves for 1 round. On a success, it is temporarily immune for 1 minute.</p>"
+                    "value": "<p>15 feet.</p>\n<p>A gobmob snake's heads constantly bicker and snipe at one another, annoying and distracting anyone nearby. Each non-goblin creature that begins its turn in the aura must attempt a @Check[will|dc:21|options:area-effect] save. On a failure, it takes a –1 status penalty to Perception checks and Will saves for 1 round. On a success, it is temporarily immune for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Incessant Yammering]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -157,14 +157,28 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Whenever a gobmob snake critically fails at an attack roll or skill check, it must succeed at a @Check[flat|dc:5] or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as its heads argue over which of them is to blame. An enemy can provoke an argument by attempting a @Check[deception|dc:20] check as a single action with the auditory, concentrate, linguistic, and mental traits.</p>"
+                    "value": "<p>Whenever a gobmob snake critically fails at an attack roll or skill check, it must succeed at a @Check[flat|dc:5] or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as its heads argue over which of them is to blame. An enemy can provoke an argument by attempting a @Check[deception|dc:20|traits:auditory,concentrate,linguistic,mental] check as a single action with the auditory, concentrate, linguistic, and mental traits.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalFailure"
+                        ],
+                        "selector": [
+                            "attack-roll",
+                            "skill-check"
+                        ],
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -193,7 +207,25 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "coil",
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            "item:slug:fangs"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "coil"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "reach-10"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -215,7 +247,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The gobmob snake belches a cloud of nauseating vapor in a @Template[type:cone|distance:15]. Non-goblin creatures within the cloud must succeed at a @Check[fortitude|dc:20] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. On a critical failure, a creature is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as it is sickened. Creatures that successfully save are immune for 24 hours. The gobmob snake can't use Goblin Breath again for [[/gmr 1d4 #Recharge Goblin Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The gobmob snake belches a cloud of nauseating vapor in a @Template[type:cone|distance:15]. Non-goblin creatures within the cloud must succeed at a @Check[fortitude|dc:20|options:area-effect,inflicts:sickened,inflicts:slowed] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. On a critical failure, a creature is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as it is sickened. Creatures that successfully save are immune for 24 hours. The gobmob snake can't use Goblin Breath again for [[/gmr 1d4 #Recharge Goblin Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
