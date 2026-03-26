@@ -27,16 +27,13 @@
         },
         "rules": [
             {
-                "itemType": "weapon",
                 "key": "ItemAlteration",
+                "itemType": "weapon",
                 "mode": "upgrade",
                 "predicate": [
-                    {
-                        "or": [
-                            "item:base:shield-boss",
-                            "item:base:shield-spikes"
-                        ]
-                    }
+                    "item:equipped",
+                    "item:group:shield",
+                    "item:melee"
                 ],
                 "property": "damage-dice-faces"
             }

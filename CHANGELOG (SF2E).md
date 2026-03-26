@@ -1,3 +1,28 @@
+## 0.0.8
+
+### Bugfixes
+
+- (iDantar) Fix embedded shields not being alterable by rule elements
+- (Justin Hayes) Fix a bug preventing players from trading
+- (Supe) Also resolve persistent damage for troop segments and familiars
+- (Supe) Also sync troop tokens on token creation and deletion
+- (Supe) Fix roll options and selectors passed to inline escape checks
+
+### Data Updates
+
+- (Ambrose) Add missing Animal Form spell and missing forms
+- (Ambrose) Add missing Emotionless Android level 1 ancestry feat
+- (Ambrose) Update Retractable trait description to match SF Player Core text
+- (kromko) Add missing Dispelling Globe, deduplicate Disappearance, restore `compendiumSource` to actor-embedded spells and refresh them from compendium
+- (kromko) Add missing localization strings to SF2e
+- (kromko) Add rituals from Alien Core
+- (kromko) Fix `@Check` typos for skills and lores
+- (kromko) Refresh Sihedron Guard Thunderstriker's spell gem
+- (kromko) Remove duplicate Gambler background
+- (Longstrider) Implement Alien Core creature improvements (A-E)
+- (Tikael) Brush up Guilt of the Grave World NPCs and backgrounds
+- (Tikael) Fix loading of Replica Zo Microphones
+
 ## 0.0.7
 
 ### Bugfixes

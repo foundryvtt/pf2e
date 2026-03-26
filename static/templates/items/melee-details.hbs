@@ -13,7 +13,7 @@
                 value="{{data.area.value}}"
             />
             <select id="{{fieldIdPrefix}}area-type" name="system.area.type">
-                {{selectOptions areaShapes selected=data.area.type blank="" localize=true}}
+                {{selectOptions areaShapes selected=source.system.area.type blank="" localize=true}}
             </select>
         </div>
     </div>
@@ -25,11 +25,13 @@
 </div>
 
 {{#unless item.traits.config.thrown}}
-    {{formGroup systemFields.range.fields.increment type="number" value=item._source.system.range.increment}}
-    {{formGroup systemFields.range.fields.max type="number" value=item._source.system.range.max}}
+    {{formGroup systemFields.range.fields.increment type="number" value=source.system.range.increment}}
+    {{formGroup systemFields.range.fields.max type="number" value=source.system.range.max}}
 {{/unless}}
 
 {{> (resolvePath "templates/items/partials/modular.hbs")}}
+
+{{formGroup systemFields.subjectToMAP value=source.system.subjectToMAP}}
 
 <ol class="form-list">
     {{#each data.damageRolls as |damageRoll key|}}

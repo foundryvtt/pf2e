@@ -137,6 +137,7 @@ class MeleeSystemData extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema> 
                 },
                 { required: true, nullable: true, initial: null },
             ),
+            subjectToMAP: new fields.BooleanField({ initial: true }),
         };
     }
 
@@ -225,6 +226,7 @@ type NPCAttackSystemSchema = Omit<ItemSystemSchema, "traits"> & {
         true,
         true
     >;
+    subjectToMAP: fields.BooleanField;
 };
 
 type EffectAreaSchema = {

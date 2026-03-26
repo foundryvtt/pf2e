@@ -17,7 +17,7 @@ function activateSocketListener(): void {
             case "refreshSceneControls":
                 if (!game.user.isGM && message.data.layer === ui.controls.control?.name) {
                     console.debug("PF2e System | Refreshing Scene Controls");
-                    ui.controls.render();
+                    ui.controls.render({ reset: true });
                 }
                 break;
             case "showSheet": {

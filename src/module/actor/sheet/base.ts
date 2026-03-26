@@ -1352,10 +1352,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         if (!objectHasKey(CONFIG.PF2E.Item.documentClasses, itemType)) {
             throw ErrorPF2e(`Unrecognized item type: types`);
         }
-
-        if (itemType === "spell") {
-            return onClickCreateSpell(this.actor, dataset);
-        }
+        if (itemType === "spell") return onClickCreateSpell(this.actor, dataset);
 
         const itemSource = ((): DeepPartial<ItemSourcePF2e> | null => {
             switch (itemType) {

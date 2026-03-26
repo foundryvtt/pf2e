@@ -21,10 +21,9 @@ function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
     opts: CheckContextOptions<ItemType>,
     data: CheckContextData<ItemType>,
 ) {
-    const actionRollOptions = ["action:escape", "action:escape:unarmed"];
     const { rollOptions } = opts.buildContext({
         actor: opts.actor,
-        rollOptions: actionRollOptions,
+        rollOptions: ["action:escape:unarmed", ...data.rollOptions],
         target: opts.target,
     });
     const actor = opts.actor;
@@ -41,7 +40,9 @@ function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
     const statistic = strikes
         .map((strike) => {
             const modifiers = (strike.modifiers ?? []).concat(data.modifiers ?? []);
-            return new StatisticModifier("unarmed", modifiers, rollOptions) as StrikeData;
+            const newStatistic = new StatisticModifier("unarmed", modifiers, rollOptions) as StrikeData;
+            if ("domains" in strike) newStatistic.domains = strike.domains;
+            return newStatistic;
         })
         .reduce(toHighestModifier, null);
     return statistic ? { actor, rollOptions, statistic } : null;
@@ -61,20 +62,21 @@ function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
         .map((slug) => opts.actor.getStatistic(slug))
         .filter((statistic): statistic is Statistic => !!statistic)
         .map((statistic) => {
-            const actionRollOptions = ["action:escape", `action:escape:${statistic.slug}`];
             const rollOptions = opts.buildContext({
                 actor: opts.actor,
-                rollOptions: actionRollOptions,
+                rollOptions: [`action:escape:${statistic.slug}`, ...data.rollOptions],
                 target: opts.target,
             }).rollOptions;
+            const newStatistic = new StatisticModifier(
+                statistic.slug,
+                statistic.modifiers.concat(data.modifiers ?? []),
+                rollOptions,
+            ) as StrikeData;
+            newStatistic.domains = statistic.domains;
             return {
                 actor: opts.actor,
                 rollOptions,
-                statistic: new StatisticModifier(
-                    statistic.slug,
-                    statistic.modifiers.concat(data.modifiers ?? []),
-                    rollOptions,
-                ) as StrikeData,
+                statistic: newStatistic,
             };
         });
 

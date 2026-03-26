@@ -4,6 +4,7 @@ import type { ApplicationV1HeaderButton, AppV1RenderOptions } from "@client/appv
 import type { DataField } from "@common/data/fields.d.mts";
 import { ItemPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import type { Rarity } from "@module/data.ts";
 import { RuleElements, RuleElementSource } from "@module/rules/index.ts";
 import {
@@ -114,18 +115,19 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
         const validTraits = this.validTraits;
         const hasRarity = !item.isOfType("action", "condition", "deity", "effect", "lore", "melee");
         const itemTraits = item.system.traits?.value ?? [];
-        const sourceTraits = item._source.system.traits?.value ?? [];
+        const source = item._source;
+        const sourceTraits = source.system.traits?.value ?? [];
         const traits = validTraits ? createSheetTags(validTraits, itemTraits) : null;
         const traitTagifyData = validTraits
             ? createTagifyTraits(itemTraits, { sourceTraits, record: validTraits })
             : null;
         const otherTagsTagifyData = createTagifyTraits(item.system.traits.otherTags, {
-            sourceTraits: item._source.system.traits.otherTags,
+            sourceTraits: source.system.traits.otherTags,
         });
 
         const modularConfigs =
-            item.isOfType("weapon", "melee") && item.system.traits.value?.includes("modular")
-                ? (item._source.system.traits.config?.modular ?? [])
+            itemIsOfType(source, "weapon", "melee") && source.system.traits.value.includes("modular")
+                ? (source.system.traits.config?.modular ?? [])
                 : null;
 
         return {
@@ -142,6 +144,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
             editable: this.isEditable,
             document: item,
             item,
+            source,
             isPhysical: false,
             data: item.system,
             systemFields: item.system instanceof ItemSystemModel ? item.system.schema.fields : {},
@@ -717,6 +720,7 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemShee
     sidebarTemplate: string | null;
     detailsTemplate: string;
     item: TItem;
+    source: TItem["_source"];
     data: TItem["system"];
     systemFields: Record<string, DataField>;
     /** The leading part of IDs used for label-input/select matching */

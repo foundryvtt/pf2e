@@ -225,12 +225,46 @@
                 },
                 "rules": [
                     {
-                        "effects": [],
+                        "key": "RollOption",
+                        "option": "self:ruinous-aura",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.Foot.Preformatted.10",
+                                "value": "10"
+                            },
+                            {
+                                "label": "PF2E.Foot.Preformatted.20",
+                                "value": "20"
+                            },
+                            {
+                                "label": "PF2E.Foot.Preformatted.30",
+                                "value": "30"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
                         "key": "Aura",
-                        "radius": 10,
+                        "predicate": [
+                            "self:ruinous-aura"
+                        ],
+                        "radius": "@item.flags.system.rulesSelections.selfruinousAura",
                         "traits": [
                             "occult"
                         ]
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "self:ruinous-aura"
+                        ],
+                        "selector": "damage-received",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
@@ -264,7 +298,15 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -288,7 +330,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Each enemy in the vogorond's ruinous aura takes @Damage[8d6[bludgeoning]] damage (@Check[reflex|dc:40|basic] save).</p>"
+                    "value": "<p>Each enemy in the vogorond's ruinous aura takes @Damage[8d6[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:40|basic|options:area-effect] save).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -317,7 +359,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The vogorond's ruinous aura is active</p><hr /><p><strong>Effect</strong> The vogorond launches a piece of rubble up to 100 feet. Upon impact, the rubble explodes in a @Template[type:burst|distance:20]. Any creatures in the area take @Damage[15d8[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:40|basic] save). The radius of the vogorond's aura then decreases by 10 feet. The vogorond can't Launch Rubble again for [[/gmr 1d4 #Recharge Launch Rubble]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Requirements</strong> The vogorond's ruinous aura is active</p><hr /><p><strong>Effect</strong> The vogorond launches a piece of rubble up to 100 feet. Upon impact, the rubble explodes in a @Template[type:burst|distance:20]. Any creatures in the area take @Damage[15d8[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:40|basic|options:area-effect] save). The radius of the vogorond's aura then decreases by 10 feet. The vogorond can't Launch Rubble again for [[/gmr 1d4 #Recharge Launch Rubble]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

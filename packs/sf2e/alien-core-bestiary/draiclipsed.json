@@ -448,7 +448,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The draiclipsed is photonic</p><hr /><p><strong>Effect</strong> The draiclipsed releases the light they've consumed in a blast of corrupted electromagnetic energy, dealing 3d8 electricity and @Damage[3d8[void]|options:area-damage] damage in a @Template[type:cone|distance:30] (@Check[reflex|dc:24|basic] save). The draiclipsed is no longer photonic.</p>"
+                    "value": "<p><strong>Requirements</strong> The draiclipsed is photonic</p><hr /><p><strong>Effect</strong> The draiclipsed releases the light they've consumed in a blast of corrupted electromagnetic energy, dealing @Damage[3d8[electricity],3d8[void]|options:area-damage] damage in a @Template[type:cone|distance:30] (@Check[reflex|dc:24|basic|options:area-effect] save). The draiclipsed is no longer photonic.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -481,15 +481,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If at least one other draiclipsed is within the draiclipsed's eclipse shroud, the draiclipsed's Strikes deal an additional @Damage[1d8[void]] damage.</p>"
+                    "value": "<p>If at least one other draiclipsed is within the draiclipsed's eclipse shroud, the draiclipsed's Strikes deal an additional 1d8 void damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "gathering-darkness",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "void",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "gathering-darkness"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": "gathering-darkness",
                 "traits": {
                     "value": []
                 }

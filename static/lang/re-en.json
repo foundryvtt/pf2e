@@ -34,6 +34,10 @@
                 "Text": "The target must succeed at a @Check[fortitude|dc:19] save or be @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} for 1 round by the intense cold (slowed 1 for 1 minute on a critical failure).",
                 "Title": "Freezing Ammunition"
             },
+            "GlueBullet": {
+                "Text": "On a hit, the target takes a –10-foot circumstance penalty to its Speeds for [[/r 2d4 #rounds]]{2d4 rounds}. On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized}. @UUID[Compendium.pf2e.equipment-effects.Item.dBjXvsLFezo2fGRa]{Effect: Glue Bullet}.",
+                "Title": "Glue Bullet"
+            },
             "MeteorShot": {
                 "CriticalFailureText": "On a critical failure, the weapon misfires.",
                 "Greater": {
@@ -1636,8 +1640,7 @@
                 "Dragontongue": {
                     "ImmunityLabel": "dragontongue"
                 },
-                "PowerfulUtterance": 
-                {
+                "PowerfulUtterance": {
                     "ImmunityLabel": "powerful utterance"
                 }
             },
@@ -2508,7 +2511,7 @@
                             "Description": "When you use a mutagen, you gain a number of temporary Hit Points equal to your Intelligence modifier (minimum 0) plus half your level. These temporary Hit Points last for 1 minute or until the mutagen's duration expires, whichever comes first. You can't gain temporary HP from drinking a mutagen again for 1 minute."
                         },
                         "FieldVials": {
-                            "Description": "You can drink the contents of one your versatile vials to suppress the drawback you take from one mutagen currently affecting you until the beginning of your next turn. A vial used this way loses the acid, bomb, and splash traits and gains the elixir trait. If you have more than one drawback due to @UUID[Compendium.pf2e.feats-srd.Item.jSkJIWPfSZZzvYzq]{Combine Elixirs} or a similar ability, drinking the vial suppresses one drawback of your choice."
+                            "Description": "You can drink the contents of one your versatile vials to suppress the drawback you take from one mutagen currently affecting you for 1 minute. A vial used this way loses the acid, bomb, and splash traits and gains the elixir trait. If you have more than one drawback due to @UUID[Compendium.pf2e.feats-srd.Item.jSkJIWPfSZZzvYzq]{Combine Elixirs} or a similar ability, drinking the vial suppresses one drawback of your choice."
                         }
                     },
                     "Prompt": "Select a research field.",
@@ -3360,8 +3363,8 @@
                         "SpellSwapping": "As you gain new spells in your repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same rank. This spell can be a cantrip. You can also swap out spells by retraining during downtime."
                     },
                     "oracle": {
-                        "PartOne": "The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-rank divine spells of your choice and five divine cantrips of your choice. You choose these from the common spells on the divine list or from other divine spells to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell rank.",
-                        "PartTwo": "You add to this spell repertoire as you increase in level. Each time you get a spell slot (see the Oracle Spells per Day table), you add a spell to your spell repertoire of the same rank. At 2nd level, you select another 1st-rank spell; at 3rd level, you select two 2nd-rank spells, and so on. When you add spells, you might add a higher-rank version of a spell you already have, so you can cast a heightened version of that spell.",
+                        "PartOne": "The collection of spells you can cast is called your spell repertoire. At 1st level, you learn three 1st-rank divine spells of your choice and five divine cantrips of your choice. You choose these from the common spells on the divine list or from other divine spells to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell rank.",
+                        "PartTwo": "You add to this spell repertoire as you increase in level. Each time you get a spell slot (see the Oracle Spells per Day table), you add a spell to your spell repertoire of the same rank. At 2nd level, you select another 1st-rank spell; at 3rd level, you select three 2nd-rank spells, and so on. When you add spells, you might add a higher-rank version of a spell you already have, so you can cast a heightened version of that spell.",
                         "PartThree": "Your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it wouldn't give you another spell slot, and vice versa.",
                         "SpellSwapping": "As you gain new spells in your repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same rank. This spell can be a cantrip. You can also swap out spells by retraining during downtime."
                     },
@@ -3916,6 +3919,7 @@
                 }
             },
             "EnvenomCompanion": {
+                "RollOptionLabel": "Envenom Companion — First hit of the round",
                 "DamageNote": "A creature that is damaged by this poison must attempt a @Check[fortitude|traits:poison] save. On a failure, it's also @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for 1 round."
             },
             "Equipment": {
@@ -6227,6 +6231,11 @@
             "SkilledClimber": {
                 "Label": "Climbing Cavern Wall or Tree"
             },
+            "SkillFeat": {
+                "RecognizeSpell": {
+                    "RollOptionLabel": "Critical success on Recognize Spell"
+                }
+            },
             "SkillMastery": {
                 "ExpertPrompt": "Select a skill to become expert in.",
                 "MasterPrompt": "Select a skill to become master in."
@@ -6398,6 +6407,9 @@
             "SpellEffectKgalaserkesAxes": {
                 "ToggleLabel": "Kgalaserke's Axes — Damaged by target"
             },
+            "SpellEffectLevitate": {
+                "RollOptionLabel": "Levitate — Stabilized this turn"
+            },
             "SpellEffectMantle": {
                 "FrozenHeart": {
                     "DamageNote": {
@@ -6452,17 +6464,28 @@
             "SpellEffectMentalMap": {
                 "ToggleLabel": "Mental Map — Enable Survival and Recall Knowledge bonus"
             },
+            "SpellEffectMindSwap": {
+                "RollOptionLabel": "Mind Swap — Impersonate the Other Target of Mind Swap"
+            },
             "SpellEffectPreciousMetals": {
                 "Copper": "Copper",
                 "Gold": "Gold",
                 "Iron": "Iron",
                 "Steel": "Steel"
             },
+            "SpellEffectPrismaticShield": {
+                "RollOptionLabel": "Prismatic Shield — Targeted by a Large Ranged Weapon"
+            },
             "SpellEffectProtection": {
                 "Prompt": "Choose which alignment trait you are protecting against."
             },
             "SpellEffectSparkleskin": {
                 "DamageNote": "When you take damage, glitter bursts out of your wound in a @Template[emanation|distance:5]. Creatures in the area must attempt a Fortitude save.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is dazzled for 3 rounds."
+            },
+            "SpellEffectSpiritOfTheBeast": {
+                "AspectOfInsight": "Aspect of Insight",
+                "AspectOfMight": "Aspect of Might",
+                "AspectOfSwiftness": "Aspect of Swiftness"
             },
             "SpellEffectSweetDream": {
                 "Glamor": "Dream of Glamor",
@@ -7568,6 +7591,35 @@
             "Hardlight": {
                 "TouchingProjectorLabel": "Touching Projector"
             },
+            "Ignurso": {
+                "Lavaproof": {
+                    "ImmunityLabel": "lavaproof"
+                }
+            },
+            "Illumantula": {
+                "RelativityField": {
+                    "WeaknessLabel": "fortune"
+                }
+            },
+            "Paradox17": {
+                "NaturalInvisibility": {
+                    "ResistanceException": "from creatures observing it"
+                }
+            },
+            "ParadoxicalSolipsist": {
+                "PerceiveUnreality": {
+                    "ResistanceException": "source of damage is hidden to them"
+                }
+            },
+            "RallyTheTroops": {
+                "Ally": "Next to Ally",
+                "Commander": "Next to Commander"
+            },
+            "SihedronGuardThunderstriker": {
+                "NavigationalSpellshape": {
+                    "Alteration": "If the next action the aeon guard uses is to Cast a Spell that has a range, increase that spell's range by 30 feet. In addition, if the spell requires an attack roll or a Reflex save, any targets of the spell that have lesser cover reduce the bonuses they gain from cover by 1 against the spell."
+                }
+            },
             "Vorthuul": {
                 "QuantumDuality": {
                     "AbsoluteTranquility": "Absolute Tranquility",
@@ -7625,8 +7677,11 @@
                 "Mindrender": {
                     "Label": "Psychic Shock"
                 },
+                "OverwhelmingEgo": {
+                    "Label": "First Psychic Shock strike this round"
+                },
                 "Telepredict": {
-                    "Toggle": "Telepredict: Dealt mental damage"
+                    "Toggle": "Telepredict — Dealt mental damage"
                 }
             },
             "Corpsefolk": {
@@ -7635,6 +7690,24 @@
                 }
             },
             "Dragonkin": {
+                "DragonkinBreath": {
+                    "Acid": "Acid (Corrosive)",
+                    "Bludgeoning": "Bludgeoning (Hammer)",
+                    "Cold": "Cold (Cryo)",
+                    "Electricity": "Electricity (Shock)",
+                    "Fire": "Fire (Flame)",
+                    "Piercing": "Piercing (Spear)",
+                    "Slashing": "Slashing (Knife)",
+                    "Sonic": "Sonic (Sonic)"
+                },
+                "DragonsTenacity": {
+                    "InflictsParalyzed": "Dragon's Tenacity — Effect makes you Paralyzed",
+                    "MagicEffect": "Dragon's Tenacity — Magic effect makes you Paralyzed"
+                },
+                "Moodscales": {
+                    "Modifier": "Moodscales — Against emotion effects",
+                    "Note": "If you roll a success on a saving throw against an emotion effect, you get a critical success instead."
+                },
                 "WeaponFamiliarity": {
                     "AdvancedWeapons": "Advanced Dragonkin Weapons",
                     "MartialWeapons": "Martial Dragonkin Weapons"
@@ -7690,7 +7763,7 @@
                     }
                 },
                 "CommUnit": {
-                    "Lit": "Comm Unit Lit"
+                    "Flashlight": "Comm Unit — Flashlight"
                 },
                 "Flashlight": {
                     "Lit": "Flashlight Lit"
@@ -7702,6 +7775,12 @@
                     "Superior": "Attempt a @Check[flat|dc:18] check. On a success, the critical hit becomes a normal hit.",
                     "Tactical": "Attempt a @Check[flat|dc:20] check. On a success, the critical hit becomes a normal hit.",
                     "Ultimate": "Attempt a @Check[flat|dc:16] check. On a success, the critical hit becomes a normal hit."
+                },
+                "Magboots": {
+                    "ClimbMetalSurfaces": "Magboots — Climb metal surfaces"
+                },
+                "UltralightWings": {
+                    "WingsDeployed": "Ultralight Wings — Wings Deployed"
                 },
                 "SolarianCrystals": {
                     "Gluon": {
@@ -7798,8 +7877,14 @@
                 "ElectricKalo": {
                     "Alteration": "If you cast this spell with only 1 target, you gain electricity resistance equal to half your level (minimum 1) until the end of your next turn."
                 },
+                "EnhancedEcholocation": {
+                    "FocusSenses": "Focus Senses"
+                },
                 "GelidBite": {
                     "Note": "On a critical hit, the target is also @UUID[Compendium.sf2e.conditions.Item.enA7BxAjBb7ns1iF]{Suppressed} until the end of your next turn, unless it succeeds at a @Check[fortitude|against:class-spell] save against your class DC or spell DC, whichever is higher."
+                },
+                "SilentTide": {
+                    "ImprovedSneak": "Silent Tide — Improved Sneak While Swimming"
                 }
             },
             "Kasatha": {
@@ -7957,6 +8042,9 @@
                 "CoronalFlare": {
                     "Note": "Coronal Flare"
                 },
+                "UndeadSlayer": {
+                    "Note": "When you succeed or critically succeed at a check to Recall Knowledge against an undead creature that you can see, you identify a weak spot in their defenses—for 1 minute, you gain access to the critical specialization effects of all weapons and unarmed attacks for attacks you make against that specific creature."
+                },
                 "WeaponFamiliarity": {
                     "AdvancedWeapons": "Advanced Sarcesian Weapons",
                     "MartialWeapons": "Martial Sarcesian Weapons"
@@ -7982,6 +8070,16 @@
                 "WeaponFamiliarity": {
                     "AdvancedWeapons": "Advanced Shobhad Weapons",
                     "MartialWeapons": "Martial Shobhad Weapons"
+                }
+            },
+            "SkillFeat": {
+                "FaceInTheCrowd": {
+                    "CrowdSize": {
+                        "Five": "At least 5 creatures",
+                        "Ten": "At least 10 creatures",
+                        "Hundred": "At least 100 creatures"
+                    },
+                    "Prompt": "Select a crowd size."
                 }
             },
             "Skittermander": {
@@ -8132,6 +8230,22 @@
             "Vlaka": {
                 "MenacingSnarl": {
                     "Label": "Target frightened by Menacing Snarl"
+                },
+                "RuinDelver": {
+                    "AgainstHazards": "Ruin Delver — Against hazards"
+                },
+                "SensoryDiversity": {
+                    "Blind": "Blind",
+                    "Deaf": "Deaf",
+                    "Deafblind": "Deafblind",
+                    "HearingSighted": "Hearing/Sighted",
+                    "Prompt": "Select one sensory array."
+                },
+                "StarMarked": {
+                    "SheddingLight": "Shedding Light"
+                },
+                "TalentedTracker": {
+                    "TrackByScent": "Talented Tracker — Track by Scent"
                 }
             },
             "Witchwarper": {

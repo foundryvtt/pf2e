@@ -31,16 +31,78 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Deception",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:deception:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.Skill.Deception",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:deception:rank",
+                                    0
+                                ]
+                            }
+                        ],
+                        "value": 1
+                    }
+                ],
+                "flag": "deceptionRank",
+                "key": "ChoiceSet"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Society",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:society:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.Skill.Society",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:society:rank",
+                                    0
+                                ]
+                            }
+                        ],
+                        "value": 1
+                    }
+                ],
+                "flag": "societyRank",
+                "key": "ChoiceSet"
+            },
+            {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.deception.rank",
-                "value": 1
+                "value": "{item|flags.system.rulesSelections.deceptionRank}"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.society.rank",
-                "value": 1
+                "value": "{item|flags.system.rulesSelections.societyRank}"
             },
             {
                 "allowDuplicate": false,
