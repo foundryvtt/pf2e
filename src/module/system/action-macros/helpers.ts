@@ -166,6 +166,7 @@ class ActionMacroHelpers {
                 const actionTraits = (options.traits ?? []).filter(
                     (t): t is AbilityTrait => t in CONFIG.PF2E.actionTraits,
                 );
+                combinedOptions.push(...(actionTraits.map((t) => `item:trait:` + t) ?? []));
                 const notes = options.extraNotes?.(statistic.slug) ?? [];
                 const label = (await options.content?.(header)) ?? header;
 
