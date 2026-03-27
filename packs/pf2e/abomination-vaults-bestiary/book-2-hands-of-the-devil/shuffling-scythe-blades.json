@@ -17,7 +17,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature steps in the 15-footby-25-foot area where the branching hallways connect</p>\n<hr />\n<p><strong>Effect</strong> The trap uses Scythe Shuffle; each blade makes a scythe Strike against each creature in its region, then it uses Scythe Shuffle again. The trap then rolls for initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature steps in the 15-foot-by-25-foot area where the branching hallways connect</p><hr /><p><strong>Effect</strong> The trap uses Scythe Shuffle; each blade makes a scythe Strike against each creature in its region, then it uses Scythe Shuffle again. The trap then rolls for initiative.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -47,7 +47,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p>The blades travel erratically throughout the hallway's branches, out of sight under the floors or behind the walls. For each blade, roll [[/gmr 1d4 #Direction Scythe Blade]]{1d4} to determine the region in which it next makes scythe Strikes. A creature can @UUID[Compendium.pf2e.actionspf2e.Item.Seek] (@Check[perception|dc:22|traits:action:seek]) to learn clues about blades in the region they're currently occupying. On a success, the creature knows how many blades are currently in its region.</p>\n<p>1. Main intersection (the 15-foot-by-25-foot area where the hallways connect, as marked on area <strong>B20</strong>)</p>\n<p>2. North branch (from the main intersection to the secret door to area <strong>B14</strong>)</p>\n<p>3. Central hall (from the main intersection to the secret door to area <strong>B24</strong>)</p>\n<p>4. South branch (from the main intersection to the wall shared with area <strong>B25</strong>)</p>"
+                    "value": "<p>The blades travel erratically throughout the hallway's branches, out of sight under the floors or behind the walls. For each blade, roll [[/gmr 1d4 #Direction Scythe Blade]]{1d4} to determine the region in which it next makes scythe Strikes. A creature can [[/act seek dc=22]] to learn clues about blades in the region they're currently occupying. On a success, the creature knows how many blades are currently in its region.</p>\n<p>1. Main intersection (the 15-foot-by-25-foot area where the hallways connect, as marked on area <strong>E20</strong>)</p>\n<p>2. North branch (from the main intersection to the secret door to area <strong>E14</strong>)</p>\n<p>3. Central hall (from the main intersection to the secret door to area <strong>E24</strong>)</p>\n<p>4. South branch (from the main intersection to the wall shared with area <strong>E25</strong>)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -74,9 +74,7 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": [
-                        "no-map"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 20
@@ -88,7 +86,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>No MAP applies to strikes made by scythe attacks</p>"
+                    "value": "<p>No multiple attack penalty</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -98,6 +96,7 @@
                 "range": null,
                 "rules": [],
                 "slug": null,
+                "subjectToMAP": false,
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -106,36 +105,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "oKefVQZfmh0iqIhc",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "No MAP",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": null,
-                "description": {
-                    "value": "<p>The Scythe Strikes do not apply a MAP.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "no-map",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Shuffling Scythe Blades",
@@ -178,9 +147,9 @@
             "publication": {
                 "license": "OGL",
                 "remaster": false,
-                "title": "Pathfinder #164: Hands of the Devil"
+                "title": "Pathfinder Abomination Vaults Hardcover Compilation"
             },
-            "reset": "<p>The trap resets when no creatures remain in area <strong>B20</strong>. Damaged or destroyed blades aren't repaired when the trap resets.</p>",
+            "reset": "<p>The trap resets when no creatures remain in area <strong>E20</strong>. Damaged or destroyed blades aren't repaired when the trap resets.</p>",
             "routine": "<p>(7 actions) The trap spends 1 action for each of its blades; a blade makes a scythe Strike against each creature in its region. With its final action, the trap uses Scythe Shuffle. Reduce the number of actions the trap can take by 1 for each destroyed blade.</p>"
         },
         "saves": {
@@ -194,7 +163,7 @@
             },
             "will": {
                 "saveDetail": "",
-                "value": 0
+                "value": null
             }
         },
         "statusEffects": [],

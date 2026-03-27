@@ -1516,7 +1516,7 @@ const traitDescriptions = {
     harnessed: "PF2E.TraitDescriptionHarnessed",
     haunt: "PF2E.TraitDescriptionHaunt",
     healing: "PF2E.TraitDescriptionHealing",
-    "hefty-14": "PF2E.TraitDescriptionHefty",
+    "hefty-2": "PF2E.TraitDescriptionHefty",
     herald: "PF2E.TraitDescriptionHerald",
     hex: "PF2E.TraitDescriptionHex",
     hindering: "PF2E.TraitDescriptionHindering",

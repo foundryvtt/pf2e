@@ -4,7 +4,7 @@
     "name": "Effect: Invoke Movement",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Invoke Movement]</p>\n<p>You gain a burrow, climb, fly or swim speed.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Invoke Movement]</p>\n<p>You gain a burrow, climb, fly or swim speed equal to your Speed (or half your Speed if you selected burrow).</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,16 +22,27 @@
         },
         "rules": [
             {
-                "choices": {
-                    "config": "speedTypes",
-                    "predicate": [
-                        {
-                            "not": "speed:{choice|value}"
-                        }
-                    ]
-                },
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Burrow",
+                        "value": "burrow"
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Climb",
+                        "value": "climb"
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Fly",
+                        "value": "fly"
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Swim",
+                        "value": "swim"
+                    }
+                ],
                 "flag": "speed",
                 "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.MovementType",
                 "rollOption": "invoke-movement"
             },
             {
@@ -39,7 +50,8 @@
                 "predicate": [
                     {
                         "not": "invoke-movement:burrow"
-                    }
+                    },
+                    "self:effect:enter-spirit-trance"
                 ],
                 "selector": "{item|flags.system.rulesSelections.speed}",
                 "value": "@actor.system.movement.speeds.land.value"
@@ -47,7 +59,8 @@
             {
                 "key": "BaseSpeed",
                 "predicate": [
-                    "invoke-movement:burrow"
+                    "invoke-movement:burrow",
+                    "self:effect:enter-spirit-trance"
                 ],
                 "selector": "burrow",
                 "value": "floor(@actor.system.movement.speeds.land.value / 2)"
