@@ -1102,7 +1102,24 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:damage:type:piercing",
+                                    "item:damage:type:slashing"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "damage-received"
+                        ],
+                        "text": "{item|description}",
+                        "title": "{item|name}"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
