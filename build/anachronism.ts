@@ -93,11 +93,11 @@ const packPairs = allPackDirs.map((dir) => {
                 continue;
             }
 
-            // Items have stricter overlap requires
+            // Feats have stricter overlap requires
             const isItem = isItemSource(pf2eData) && sf2eData && isItemSource(sf2eData);
-            if (isItem) {
-                const isFeat = itemIsOfType(pf2eData, "feat") && itemIsOfType(sf2eData, "feat");
-                if (isFeat && pf2eData.system.category !== sf2eData.system.category) continue;
+            if (isItem && itemIsOfType(pf2eData, "feat") && itemIsOfType(sf2eData, "feat")) {
+                if (pf2eData.system.category !== sf2eData.system.category) continue;
+                if (pf2eData.system.category === "classfeature") continue;
             }
 
             overlaps.add(pf2eData.name);
