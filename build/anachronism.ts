@@ -83,8 +83,7 @@ const packPairs = allPackDirs.map((dir) => {
     };
 
     // Get all overlaps between the two systems, which we need to redirect and not export
-    // JournalEntries do not redirect, as they may be linked to by content in each system
-    // Actors do not share compendiunms and never overlap
+    // An overlap is either a name or an id. Some actor types never overlap.
     const overlaps: Set<string> = new Set();
     if (!["JournalEntry", "Actor"].includes(manifestData.type) && pf2e && sf2e) {
         for (const pf2eData of pf2e.data ?? []) {
@@ -93,11 +92,20 @@ const packPairs = allPackDirs.map((dir) => {
                 continue;
             }
 
-            // Feats have stricter overlap requires
+            // If the id matches, always consider it an overlap. Add the id though.
+            if (pf2eData._id && pf2eData._id === sf2eData._id) {
+                overlaps.add(pf2eData._id);
+                continue;
+            }
+
             const isItem = isItemSource(pf2eData) && sf2eData && isItemSource(sf2eData);
             if (isItem && itemIsOfType(pf2eData, "feat") && itemIsOfType(sf2eData, "feat")) {
+                // The category must match to be considered an overlap. Class features are also never overlaps
                 if (pf2eData.system.category !== sf2eData.system.category) continue;
                 if (pf2eData.system.category === "classfeature") continue;
+            } else if (isItem && itemIsOfType(pf2eData, "background") && itemIsOfType(sf2eData, "background")) {
+                // Backgrounds often share names but aren't the same at all. Rely on id overlaps only.
+                continue;
             }
 
             overlaps.add(pf2eData.name);
@@ -156,12 +164,14 @@ for (const contentSystem of contentSystems) {
 
         const entryInTargetSystem = pair.get(targetSystem, docNameOrId);
         const entryInContentSystem = pair.get(contentSystem, docNameOrId);
+        const id = entryInTargetSystem?._id ?? entryInContentSystem?._id;
         const name = entryInTargetSystem?.name ?? entryInContentSystem?.name;
-        if (!name) return null;
+        if (!name || !id) return null;
 
         const duplicated = targetSystem === "sf2e" && pair.duplicated.has(name);
         const useTargetSystem =
-            !!entryInTargetSystem && (!entryInContentSystem || pair.overlaps.has(name) || duplicated);
+            !!entryInTargetSystem &&
+            (!entryInContentSystem || pair.overlaps.has(id) || pair.overlaps.has(name) || duplicated);
         const packageId = useTargetSystem ? targetSystem : `${contentSystem}-anachronism`;
         const packId = useTargetSystem ? pair[targetSystem]!.id : pair[contentSystem]!.dirName;
         const resolvedEntry = useTargetSystem ? entryInTargetSystem : entryInContentSystem;
@@ -346,7 +356,11 @@ for (const contentSystem of contentSystems) {
     const exportLog = R.pipe(
         packPairs.filter((p) => p.documentName === "Item"),
         R.flatMap(({ overlaps, ...data }) =>
-            [...overlaps].map((name) => data[targetSystem]?.data.find((d) => d.name === name)),
+            [...overlaps].map(
+                (idOrName) =>
+                    data[contentSystem]?.data.find((d) => d.name === idOrName || d._id === idOrName) ??
+                    data[targetSystem]?.data.find((d) => d.name === idOrName || d._id === idOrName),
+            ),
         ),
         R.filter((i): i is ItemSourcePF2e => !!i && isItemSource(i)),
         R.groupBy((i) => (itemIsOfType(i, "feat") ? `feat-${i.system.category}` : i.type)),
