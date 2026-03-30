@@ -283,9 +283,20 @@ abstract class CreaturePF2e<
         super.prepareData();
 
         // Add spell collections from spell consumables if a matching spellcasting ability is found
-        const spellConsumables = this.itemTypes.consumable.filter(
-            (c) => ["scroll", "wand", "spell-gem"].includes(c.category) && c.isIdentified && !c.isStowed,
-        );
+        // If the item is a Scroll, Wand or Spell Gem, get the item directly from the inventory
+        // If the item is a Spell Chip, only consider it if it's attached.
+        const spellConsumables = this.items
+            .filter((i) => i.isOfType("physical"))
+            .flatMap((i) =>
+                i.isOfType("consumable") ? [i] : [...i.subitems.contents].filter((i) => i.isOfType("consumable")),
+            )
+            .filter(
+                (c) =>
+                    c.isIdentified &&
+                    !c.isStowed &&
+                    (["scroll", "wand", "spell-gem"].includes(c.category) ||
+                        (c.category === "spell-chip" && c.parentItem)),
+            );
         for (const consumable of spellConsumables) {
             const spell = consumable.embeddedSpell;
             if (!spell?.id) continue;

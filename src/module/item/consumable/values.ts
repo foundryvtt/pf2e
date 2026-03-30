@@ -10,6 +10,7 @@ const CONSUMABLE_CATEGORIES = new Set([
     "poison",
     "potion",
     "scroll",
+    "spell-chip",
     "spell-gem",
     "snare",
     "talisman",

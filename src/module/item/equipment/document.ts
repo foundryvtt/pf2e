@@ -15,6 +15,14 @@ class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         return this.system.usage.type === "installed";
     }
 
+    override acceptsSubitem(candidate: PhysicalItemPF2e): boolean {
+        const usage = candidate.system.usage;
+        if (this.slug === "comm-unit" && usage.type === "installed" && usage.where.includes("comm-unit")) {
+            return true;
+        }
+        return super.acceptsSubitem(candidate);
+    }
+
     override async getChatData(
         this: EquipmentPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptionsPF2e = {},

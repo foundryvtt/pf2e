@@ -110,6 +110,7 @@ const USAGES = {
     "held-in-one-or-two-hands": "PF2E.TraitHeldOneTwoHands",
     "held-in-two-hands": "PF2E.TraitHeldTwoHands",
     implanted: "PF2E.TraitImplanted",
+    "installed-in-a-computer-or-comm-unit": "PF2E.TraitInstalledInAComputerOrCommUnit",
     "installed-in-a-datapad": "PF2E.TraitInstalledInADatapad",
     "mounted-on-a-tripod-or-bracket": "PF2E.TraitMountedOnATripodOrBracket",
     other: "PF2E.TraitOther",
