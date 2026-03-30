@@ -24,7 +24,6 @@ export { Migration722CraftingSystemData } from "./722-crafting-system-data.ts";
 export { Migration723CumulativeItemBonuses } from "./723-cumulative-item-bonuses.ts";
 export { Migration724CraftingMaxItemLevel } from "./724-crafting-max-item-level.ts";
 export { Migration725QuickClimbREs } from "./725-quick-climb-rule-elements.ts";
-export { Migration726JournalSetting } from "./726-journal-setting.ts";
 export { Migration727TrimSelfRollOptions } from "./727-trim-self-roll-options.ts";
 export { Migration728FlattenPhysicalProperties } from "./728-flatten-physical-properties.ts";
 export { Migration729CumulativeItemBonusCleanup } from "./729-cumulative-item-bonus-cleanup.ts";
