@@ -19,6 +19,7 @@ import Collection from "@common/utils/collection.mjs";
 import Token, { TokenResourceData } from "../canvas/placeables/token.mjs";
 import {
     Actor,
+    ActorDelta,
     BaseToken,
     BaseUser,
     Combat,
@@ -641,6 +642,8 @@ export default interface TokenDocument<TParent extends Scene | null = Scene | nu
     get object(): Token<this> | null;
     get sheet(): TokenConfig;
     get uuid(): TokenDocumentUUID;
+
+    delta: ActorDelta<this> | null;
 
     update(
         data: Record<string, unknown>,
