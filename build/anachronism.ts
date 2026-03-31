@@ -1,5 +1,6 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
+import { classTraits } from "@scripts/config/traits.ts";
 import { objectHasKey, recursiveReplaceString, sluggify } from "@util/misc.ts";
 import fs from "fs";
 import path from "path";
@@ -100,9 +101,14 @@ const packPairs = allPackDirs.map((dir) => {
 
             const isItem = isItemSource(pf2eData) && sf2eData && isItemSource(sf2eData);
             if (isItem && itemIsOfType(pf2eData, "feat") && itemIsOfType(sf2eData, "feat")) {
-                // The category must match to be considered an overlap. Class features are also never overlaps
+                const allTraits = [...pf2eData.system.traits.value, ...sf2eData.system.traits.value];
+
+                // The category must match to be considered an overlap.
                 if (pf2eData.system.category !== sf2eData.system.category) continue;
+
+                // Class features and class feats for classes are also never overlaps
                 if (pf2eData.system.category === "classfeature") continue;
+                if (pf2eData.system.category === "class" && allTraits.some((t) => t in classTraits)) continue;
             } else if (isItem && itemIsOfType(pf2eData, "background") && itemIsOfType(sf2eData, "background")) {
                 // Backgrounds often share names but aren't the same at all. Rely on id overlaps only.
                 continue;
