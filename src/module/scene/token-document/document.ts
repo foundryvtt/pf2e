@@ -35,6 +35,16 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     /** The most recently used animation for later use when a token override is reverted. */
     #lastAnimation: TokenAnimationOptions | null = null;
 
+    /** Prevent eager construction of synthetic actors */
+    override get actor(): ActorPF2e<this | null> | null {
+        if (game.ready || this.scene?.isView || this.hasConstructedActor || this.inCombat) {
+            return super.actor as ActorPF2e<this | null> | null;
+        }
+        return Array.isArray(this._source.delta?.items) && this._source.delta.items.some((i) => i.type === "effect")
+            ? (super.actor as ActorPF2e<this | null> | null)
+            : null;
+    }
+
     /** Returns the combatant representing this token or this token's troop */
     override get combatant(): CombatantPF2e<EncounterPF2e, this> | null {
         const troop = this.flags[SYSTEM_ID].troop;
@@ -51,7 +61,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** Returns if the token is in combat, though some actors have different conditions */
     override get inCombat(): boolean {
-        return this.actor?.isOfType("party")
+        return this.actorLink && this.actor?.isOfType("party")
             ? this.actor.members.every((a) => game.combat?.getCombatantsByActor(a).length)
             : super.inCombat;
     }
@@ -158,6 +168,13 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                     b.system.terrain.difficult > highest ? b.system.terrain.difficult : highest,
                 0,
             );
+    }
+
+    /** Is this token's actor present and constructed? Synthetic actors are done so lazily. */
+    get hasConstructedActor(): boolean {
+        return this.actorLink
+            ? !!this.baseActor
+            : !!(Object.getOwnPropertyDescriptor(this, "delta")?.value && this.delta?.syntheticActor);
     }
 
     /** Check actor for effects found in `CONFIG.specialStatusEffects` */
@@ -300,7 +317,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const flags = fu.mergeObject(this.flags, { [SYSTEM_ID]: {} });
         const actor = this.actor;
         if (!actor) return;
-
         TokenDocumentPF2e.assignDefaultImage(this);
 
         // Dimensions and scale
@@ -409,7 +425,8 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     protected override _inferMovementAction(): string {
         const actor = this.actor;
-        switch (actor?.type) {
+        if (!actor) return super._inferMovementAction();
+        switch (actor.type) {
             case "character":
             case "npc":
             case "familiar":
@@ -660,13 +677,13 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(data: this["_source"], options: DatabaseCreateCallbackOptions, userId: string): void {
         super._onCreate(data, options, userId);
-        if (game.user.id === userId && this.actor?.isOfType("loot")) {
-            this.actor.toggleTokenHiding();
+        const actor = this.actor;
+        if (game.user.id === userId && actor?.isOfType("loot")) {
+            actor.toggleTokenHiding();
         }
 
         // Resync when troops are recently created or segments are added
         // This also informs other segments that this segment was created
-        const actor = this.actor;
         if (actor?.isOfType("npc") && this.flags[SYSTEM_ID].troop) {
             const segments = this.segments;
             if (segments?.length && !actor.otherSegments?.length) {
@@ -745,7 +762,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
     flags: TokenFlagsPF2e;
     regions: Set<RegionDocumentPF2e<NonNullable<TParent>>>;
-    get actor(): ActorPF2e<this | null> | null;
+    get baseActor(): ActorPF2e<null> | null;
     get object(): TokenPF2e<this> | null;
     get sheet(): TokenConfigPF2e;
 }

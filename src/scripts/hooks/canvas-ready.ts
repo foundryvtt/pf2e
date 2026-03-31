@@ -17,7 +17,6 @@ export const CanvasReady = {
             game.pf2e.effectPanel.render({ force: true });
             if (!canvas.scene) return;
 
-            if (game.ready) canvas.scene.reset();
             // Accomodate hex grid play with a usable default cone angle
             CONFIG.MeasuredTemplate.defaults.angle = canvas.grid.isHexagonal ? 60 : 90;
 
