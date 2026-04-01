@@ -1,0 +1,115 @@
+{
+    "_id": "8GXuOAZR2i39RGji",
+    "img": "systems/sf2e/icons/ancestries/izalguun.webp",
+    "name": "Izalguun",
+    "system": {
+        "additionalLanguages": {
+            "count": 1,
+            "custom": "",
+            "value": []
+        },
+        "boosts": {
+            "0": {
+                "value": [
+                    "str"
+                ]
+            },
+            "1": {
+                "value": [
+                    "int"
+                ]
+            },
+            "2": {
+                "value": [
+                    "str",
+                    "dex",
+                    "con",
+                    "int",
+                    "wis",
+                    "cha"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p><em>Originally from the Scoured Stars, izalguuns can switch between quadrupedal and bipedal forms and have lived on many worlds.</em></p>"
+        },
+        "flaws": {
+            "0": {
+                "value": [
+                    "dex"
+                ]
+            }
+        },
+        "hands": 4,
+        "hp": 8,
+        "items": {
+            "S8Wn9": {
+                "img": "icons/skills/melee/unarmed-punch-fist-yellow-red.webp",
+                "level": 1,
+                "name": "Four-Armed",
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Four-Armed"
+            },
+            "wvaM3": {
+                "img": "icons/skills/movement/arrow-upward-blue.webp",
+                "level": 1,
+                "name": "Posture",
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Posture"
+            }
+        },
+        "languages": {
+            "custom": "",
+            "value": [
+                "common",
+                "izalguun"
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "reach": 5,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.standardizedAncestryFeats",
+                "priority": 10,
+                "value": {
+                    "ancestralResistance": {
+                        "choices": [
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-resistance:piercing"
+                                    }
+                                ],
+                                "value": "piercing"
+                            }
+                        ]
+                    },
+                    "ancestralSkills": {
+                        "skillOne": "athletics",
+                        "skillTwo": "crafting"
+                    },
+                    "climbingSpecialist": {
+                        "speed": 20
+                    }
+                }
+            }
+        ],
+        "size": "med",
+        "speed": 20,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "beast",
+                "humanoid",
+                "izalguun"
+            ]
+        },
+        "vision": "darkvision"
+    },
+    "type": "ancestry"
+}

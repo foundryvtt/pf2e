@@ -1,0 +1,58 @@
+{
+    "_id": "EZovoxxZamD2Z8nH",
+    "folder": "gxvrDhcx3C0xrndB",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Unrelenting Joy",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Requirements</strong> You're @UUID[Compendium.sf2e.conditions.Item.Frightened] or taking persistent mental damage.</p><hr /><p>Your outlook on life is full of boundless hope. Reduce your frightened condition by 1. If you're taking persistent mental damage, roll a @Check[flat|dc:15] to see if you recover from that persistent mental damage.</p><hr /><p><strong>Special</strong> The frequency of Unrelenting Joy is once per minute as long as your soulfeel is attuned to joy.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT10M"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "soulfeel:joy"
+                ],
+                "property": "frequency-per",
+                "value": "PT1M"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "emotion",
+                "moyishuu"
+            ]
+        }
+    },
+    "type": "feat"
+}

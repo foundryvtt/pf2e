@@ -1,0 +1,63 @@
+{
+    "_id": "gqBTGkXxKWmqGm1Q",
+    "folder": "cndLRyDsVj87CcNn",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Copaxi Adaptability",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>During your adventures—most likely offworld—you've honed your ability to adapt to one of the predominant ancestries around you. You gain the @UUID[Compendium.sf2e.feats.Item.Adopted Ancestry] general feat, and you also gain one 1st-level ancestry feat from the ancestry you chose for the Adopted Ancestry feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Adopted Ancestry"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:1",
+                        "item:trait:{actor|system.details.ancestry.adopted}"
+                    ]
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneAncestryFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.feat}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "copaxi"
+            ]
+        }
+    },
+    "type": "feat"
+}

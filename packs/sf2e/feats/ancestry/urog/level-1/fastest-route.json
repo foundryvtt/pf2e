@@ -1,0 +1,67 @@
+{
+    "_id": "BPksziKYwI9Fn3GI",
+    "folder": "eGhC9dEUSmUVtyxj",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Fastest Route",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>By recalculating variables like traffic, weather, and attacks from giant space tardigrades, you can determine the best way to get from here to there, and you might even wildly claim to be able to get there in a shorter distance than it actually is. When you succeed at a Piloting check to [[/act navigate]], you critically succeed instead. If you critically fail a Piloting check to [[/act plot-course]], you fail instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Piloting"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:navigate"
+                ],
+                "selector": "piloting"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:plot-course"
+                ],
+                "selector": "piloting"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "urog"
+            ]
+        }
+    },
+    "type": "feat"
+}

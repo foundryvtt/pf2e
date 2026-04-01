@@ -1,0 +1,48 @@
+{
+    "_id": "3aicexoWTeIgDIwA",
+    "folder": "1pYcSYgbwMJJ2Nt6",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Gold-Blooded Madrosarai",
+    "system": {
+        "ancestry": {
+            "name": "Madrosarai",
+            "slug": "madrosarai",
+            "uuid": "Compendium.sf2e.ancestries.Item.q6fTXrRTneiqXs63"
+        },
+        "description": {
+            "value": "<p>Aurum blood fills your veins, giving your skin a metallic sheen that seems to glow under light. Your bloodline is often associated with leadership and the ability to coordinate others.</p>\n<p>You become trained in Intimidation. If you would automatically become trained in Intimidation (from your background or class, for example), you instead become trained in another skill of your choice. You gain the @UUID[Compendium.sf2e.feats.Item.Group Coercion] skill feat. If you roll a critical failure on an Intimidation check to [[/act coerce]] a humanoid, you get a failure instead.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Group Coercion"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:coerce"
+                ],
+                "selector": "intimidation"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.intimidation.rank",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

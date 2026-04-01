@@ -1,0 +1,72 @@
+{
+    "_id": "XRjekIgkv8qsAxJv",
+    "img": "icons/skills/targeting/crosshair-pointed-orange.webp",
+    "name": "Effect: Size Up",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Size Up]</p>\n<p>You gain a +2 circumstance bonus to Perception checks when you Sense the Motive of your focus and a +2 circumstance bonus to your Perception DC should your focus attempt to Lie or Feint against you. You gain a +2 circumstance bonus to Deception, Diplomacy, and Intimidation checks against your focus</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "size-up"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:mark:size-up",
+                    {
+                        "or": [
+                            "action:feint",
+                            "action:lie"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "perception-dc"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:size-up"
+                ],
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

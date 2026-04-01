@@ -1,0 +1,84 @@
+{
+    "_id": "gbNshpJlAC1yKd65",
+    "folder": "5cGIpSGYRyZSXWB4",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Legionnaire Ryphorian",
+    "system": {
+        "ancestry": {
+            "name": "Ryphorian",
+            "slug": "ryphorian",
+            "uuid": "Compendium.sf2e.ancestries.Item.WfllaPpt1pxGVMAG"
+        },
+        "description": {
+            "value": "<p>Whether you were born on the planet Triaxus or in a military facility far off in the Vast, your family has been part of the Skyfire Legion for generations. This massive mercenary company has been your extended family your whole life, and its concepts of honor and brotherhood are foundational to you. These military traditions have had a greater role in your early development than even the normal seasonal cycles that influence most ryphorians' lives. You've trained hard to make yourself ready for a life of discipline and battle, even if you eventually chose a path outside the legion.</p>\n<p>You gain the @UUID[Compendium.sf2e.feats.Item.Armor Proficiency] feat. If your class makes you trained in all types of armor, you instead become trained in Athletics (or a skill of your choice if you're already trained in Athletics) and gain the @UUID[Compendium.sf2e.feats.Item.Shield Block] skill feat.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Character.Proficiency.Defense.LightShort",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "defense:light:rank:0",
+                                    "defense:medium:rank:0",
+                                    "defense:heavy:rank:0"
+                                ]
+                            }
+                        ],
+                        "value": "not-trained"
+                    },
+                    {
+                        "label": "PF2E.Actor.Character.Proficiency.Defense.HeavyShort",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "defense:light:rank:0",
+                                    "defense:medium:rank:0",
+                                    "defense:heavy:rank:0"
+                                ]
+                            }
+                        ],
+                        "value": "trained"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "legionnaire-ryphorian"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "legionnaire-ryphorian:not-trained"
+                ],
+                "uuid": "Compendium.sf2e.feats.Item.Armor Proficiency"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.athletics.rank",
+                "predicate": [
+                    "legionnaire-ryphorian:trained"
+                ],
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "legionnaire-ryphorian:trained"
+                ],
+                "uuid": "Compendium.sf2e.feats.Item.Shield Block"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

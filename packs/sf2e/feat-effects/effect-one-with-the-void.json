@@ -1,0 +1,44 @@
+{
+    "_id": "Stvn3BZz9B9otBJl",
+    "img": "systems/sf2e/icons/spells/consuming-darkness.webp",
+    "name": "Effect: One with the Void",
+    "system": {
+        "description": {
+            "value": "<p>You've become so soaked in void energies from your studies that you're empowered by them. You gain void healing until you Dismiss the effect.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.hp.negativeHealing",
+                "value": true
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,60 @@
+{
+    "_id": "BsvBldgJcViD0YMi",
+    "folder": "L0bch9SEZ5rlmNNK",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Put it Back Together",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>When outside technology started streaming into Marata, industrious maraquois didn't simply accept it: they wanted to learn how it worked. You love taking new toys apart to see what makes them tick—but unlike most, you can always put them back together. You become trained in Crafting. If you would automatically become trained in Crafting (from your background or class, for example), you instead become trained in another skill of your choice. You gain a +2 circumstance bonus to Crafting checks to Craft a formula by reverse engineering it from an item you possess.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.crafting.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "craft-a-formula"
+                ],
+                "selector": [
+                    "crafting"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "maraquoi"
+            ]
+        }
+    },
+    "type": "feat"
+}

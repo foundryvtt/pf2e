@@ -1,0 +1,56 @@
+{
+    "_id": "jJX6rYoKEW0neDu6",
+    "img": "icons/skills/social/diplomacy-handshake-blue.webp",
+    "name": "Effect: Hold Hands",
+    "system": {
+        "description": {
+            "value": "<p>+2 circumstance bonus to your saving throws against attempts to [[/act demoralize]], [[/act reposition]], [[/act shove]], or [[/act trip]] you.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:demoralize",
+                            "action:reposition",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

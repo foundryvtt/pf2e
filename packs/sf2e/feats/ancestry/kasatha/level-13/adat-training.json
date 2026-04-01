@@ -1,0 +1,87 @@
+{
+    "_id": "9HKf50t7PWKaqOF9",
+    "folder": "ilyb6Eah4dq8fMur",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Adat Training",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have studied the art of adat—the kasathan mystical technique of preserving a slice of brain from a deceased intelligent creature and establishing a technomagical link to the creature's soul. The kasathan Doyenate use these to preserve the wisdom of their ancestors, and you've adapted their technique for use in the field to draw important information out of a target or send disorienting messages to a target's mind.</p>\n<p>You gain @UUID[Compendium.sf2e.spells.Item.Holographic Memory] and @UUID[Compendium.sf2e.spells.Item.Void Whispers] as 3rd-rank divine innate spells. You can cast each spell once per day, and when you cast <em>holographic memory</em>, you can extract a memory of up to 10 minutes instead of 5 minutes.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:holographic-memory",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:holographic-memory",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:kasatha"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:void-whispers",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:void-whispers",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:kasatha"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kasatha"
+            ]
+        }
+    },
+    "type": "feat"
+}

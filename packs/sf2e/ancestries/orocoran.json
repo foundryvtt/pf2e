@@ -1,0 +1,187 @@
+{
+    "_id": "6BG5tO0g9kCFfTym",
+    "img": "systems/sf2e/icons/ancestries/orocoran.webp",
+    "name": "Orocoran",
+    "system": {
+        "additionalLanguages": {
+            "count": 0,
+            "custom": "",
+            "value": []
+        },
+        "boosts": {
+            "0": {
+                "value": [
+                    "dex"
+                ]
+            },
+            "1": {
+                "value": [
+                    "wis"
+                ]
+            },
+            "2": {
+                "value": [
+                    "str",
+                    "dex",
+                    "con",
+                    "int",
+                    "wis",
+                    "cha"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p><em>Orocorans are aberrations who were transformed by years of consuming magical ichor from their native Aucturn. After their home world hatched into the Newborn, many have relocated to other parts of the galaxy.</em></p>"
+        },
+        "flaws": {
+            "0": {
+                "value": [
+                    "con"
+                ]
+            }
+        },
+        "hands": 2,
+        "hp": 6,
+        "items": {
+            "4NBjQ": {
+                "img": "systems/sf2e/icons/abilities/purple-alien-brain.webp",
+                "level": 1,
+                "name": "Limited Telepathy",
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Limited Telepathy"
+            }
+        },
+        "languages": {
+            "custom": "",
+            "value": [
+                "common",
+                "aklo"
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "reach": 5,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.standardizedAncestryFeats",
+                "priority": 10,
+                "value": {
+                    "ancestralResistance": {
+                        "choices": [
+                            {
+                                "label": "PF2E.TraitMental",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-resistance:mental"
+                                    }
+                                ],
+                                "value": "mental"
+                            }
+                        ]
+                    },
+                    "ancestralSkills": {
+                        "skillOne": "deception",
+                        "skillTwo": "occultism"
+                    },
+                    "ancestralUnarmedAttack": {
+                        "choices": [
+                            {
+                                "label": "PF2E.BattleForm.Attack.Proboscis",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-unarmed-attack:proboscis"
+                                    }
+                                ],
+                                "value": "proboscis"
+                            },
+                            {
+                                "label": "PF2E.BattleForm.Attack.ProjectileVomit",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-unarmed-attack:projectile-vomit"
+                                    }
+                                ],
+                                "value": "projectile-vomit"
+                            }
+                        ]
+                    },
+                    "climbingSpecialist": {
+                        "speed": 20
+                    }
+                }
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "knife",
+                "img": "icons/commodities/biological/antenna-yellow.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Proboscis",
+                "predicate": [
+                    "ancestral-unarmed-attack:proboscis"
+                ],
+                "slug": "proboscis",
+                "traits": [
+                    "finesse",
+                    "grapple",
+                    "unarmed"
+                ]
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "acid",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "acid",
+                "img": "icons/magic/acid/dissolve-drip-droplet-smoke.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.ProjectileVomit",
+                "predicate": [
+                    "ancestral-unarmed-attack:projectile-vomit"
+                ],
+                "range": {
+                    "increment": 30
+                },
+                "slug": "projectile-vomit",
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    "item:id:{item|id}"
+                ]
+            }
+        ],
+        "size": "med",
+        "speed": 25,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "aberration",
+                "orocoran"
+            ]
+        },
+        "vision": "darkvision"
+    },
+    "type": "ancestry"
+}

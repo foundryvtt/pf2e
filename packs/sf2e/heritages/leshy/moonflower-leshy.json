@@ -1,0 +1,92 @@
+{
+    "_id": "udoUR75AqcPUxR6M",
+    "folder": "IuWsY9Y3pxGGJrR5",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Moonflower Leshy",
+    "system": {
+        "ancestry": {
+            "name": "Leshy",
+            "slug": "leshy",
+            "uuid": "Compendium.sf2e.ancestries.Item.2VaJHHfoMisPwNOQ"
+        },
+        "description": {
+            "value": "<p>Your body is made from twisting vines accentuated by glowing orbs. Like the moonflowers you're related to, you might dwell on Galvix or have sprouted on another world.</p>\n<p>Your size is Medium instead of Small. Additionally, you constantly shed bright light in a 20-foot radius (and dim light for the next 20 feet) in a color you choose; this effect has the light and primal traits. Its counteract rank is equal to half your level (rounded down), and its counteract DC is equal to the higher of your class or spell DC.</p>\n<p>You can suppress your light by spending one Interact action, at which point the light doesn't return until you restore it by spending 2 actions that have the concentrate and manipulate traits. When you restore the light, you can choose a new color.</p>\n<p>Moonflower leshies are always photosynthetic.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "value": "medium"
+            },
+            {
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Leshy.MoonflowerLeshy.ToggleLabel",
+                "option": "moonflower-leshy-lit",
+                "suboptions": [
+                    {
+                        "label": "PF2E.Color.Blue",
+                        "value": "#0000FF"
+                    },
+                    {
+                        "label": "PF2E.Color.Cyan",
+                        "value": "#43D6D6"
+                    },
+                    {
+                        "label": "PF2E.Color.Green",
+                        "value": "#00FF00"
+                    },
+                    {
+                        "label": "PF2E.Color.Indigo",
+                        "value": "#4B0082"
+                    },
+                    {
+                        "label": "PF2E.Color.Magenta",
+                        "value": "#FF00FF"
+                    },
+                    {
+                        "label": "PF2E.Color.Orange",
+                        "value": "#FFA400"
+                    },
+                    {
+                        "label": "PF2E.Color.Red",
+                        "value": "#FF0000"
+                    },
+                    {
+                        "label": "PF2E.Color.Violet",
+                        "value": "#9400D3"
+                    },
+                    {
+                        "label": "PF2E.Color.White",
+                        "value": "#AAAAAA"
+                    },
+                    {
+                        "label": "PF2E.Color.Yellow",
+                        "value": "#FAFA00"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "moonflower-leshy-lit"
+                ],
+                "value": {
+                    "alpha": 0.3,
+                    "bright": 4,
+                    "color": "{item|flags.system.rulesSelections.moonflowerLeshyLit}",
+                    "dim": 8
+                }
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

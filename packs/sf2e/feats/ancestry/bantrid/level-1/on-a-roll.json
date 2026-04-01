@@ -1,0 +1,69 @@
+{
+    "_id": "adDVh2HLP9Msx8zI",
+    "folder": "VFQ4pYaZee6zfdmE",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "On A Roll",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Nothing will stop you from moving forward. Each time you use an action with the move trait, you gain a +2 circumstance bonus to saves against effects that would impose the @UUID[Compendium.sf2e.conditions.Item.Fatigued], @UUID[Compendium.sf2e.conditions.Item.Immobilized], @UUID[Compendium.sf2e.conditions.Item.Paralyzed], slowed, or @UUID[Compendium.sf2e.conditions.Item.Suppressed] conditions until the end of your next turn. When you would be fatigued, immobilized, paralyzed, slowed, or suppressed for at least 2 rounds, reduce that duration by 1 round.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Bantrid.OnARollPrompt",
+                "option": "moved-last-turn",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "moved-last-turn",
+                    {
+                        "or": [
+                            "inflicts:fatigued",
+                            "inflicts:immobilized",
+                            "inflicts:paralyzed",
+                            "inflicts:slowed",
+                            "inflicts:suppressed"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "bantrid"
+            ]
+        }
+    },
+    "type": "feat"
+}

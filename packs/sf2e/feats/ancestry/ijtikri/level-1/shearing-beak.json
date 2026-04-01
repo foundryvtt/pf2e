@@ -1,0 +1,83 @@
+{
+    "_id": "xYaom3wtgQ1tQ1Un",
+    "folder": "Wo0bOV3K9Ko2BKX1",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Shearing Beak",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Powerful muscles anchor your beak, enabling you to take devastating bites out of any target you can immobilize. You gain a beak unarmed attack that deals @Damage[1d8[slashing]] damage. Your beak is in the brawling group and has the backstabber, grapple, razing, and unarmed traits. However, the beak is awkward to deploy as a weapon. You take a –2 circumstance penalty to beak Strikes against targets that aren't @UUID[Compendium.sf2e.conditions.Item.Grabbed], helpless, @UUID[Compendium.sf2e.conditions.Item.Prone], or @UUID[Compendium.sf2e.conditions.Item.Restrained]. Even if an effect increases your melee reach, your beak's reach can't exceed 5 feet.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/sf2e/icons/unarmed-attacks/beak.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Beak",
+                "range": null,
+                "slug": "beak",
+                "traits": [
+                    "backstabber",
+                    "grapple",
+                    "razing",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "nor": [
+                            "target:condition:grabbed",
+                            "target:condition:immobilized",
+                            "target:condition:prone",
+                            "target:condition:grabbed"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "beak-attack-roll"
+                ],
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ijtikri"
+            ]
+        }
+    },
+    "type": "feat"
+}

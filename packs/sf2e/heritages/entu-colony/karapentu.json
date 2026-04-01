@@ -1,0 +1,40 @@
+{
+    "_id": "AvEovZgvDyKIm8VQ",
+    "folder": "XXYsYFHhepnrAh1A",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Karapentu",
+    "system": {
+        "ancestry": {
+            "name": "Entu Colony",
+            "slug": "entu-colony",
+            "uuid": "Compendium.sf2e.ancestries.Item.HIfj37OghTgagFkx"
+        },
+        "description": {
+            "value": "<p>You bonded with a karapal, a freshwater amphibian from Saaruq-5. You gain a swim Speed equal to your land Speed, and you gain the amphibious trait, enabling you to breathe in water and air.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "swim-speed",
+                "slug": "karapentu-swim-speed",
+                "value": "@actor.system.movement.speeds.land.value"
+            },
+            {
+                "add": [
+                    "amphibious"
+                ],
+                "key": "ActorTraits"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

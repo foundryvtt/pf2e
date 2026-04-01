@@ -1,0 +1,50 @@
+{
+    "_id": "uWqSWbLLEDZmQzGi",
+    "folder": "HJrzHjmA4LYT6t5h",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Drift Delver Gnome",
+    "system": {
+        "ancestry": {
+            "name": "Gnome",
+            "slug": "gnome",
+            "uuid": "Compendium.sf2e.ancestries.Item.UTOmHzXvED8gfsHE"
+        },
+        "description": {
+            "value": "<p>While many of your kin still feel the call of the First World, you're drawn to a much newer source of curiosity: the Drift, the artificial plane created by Triune. Your hair shines and sparkles with the phantasmagoric colors of the Machine God's plane. Whether you're a devotee of Triune with a supernatural sense of the plane or a veteran pilot with months of travel logged there, you're at home flying around the chaotic dimension.</p>\n<p>You become trained in Piloting. If you would automatically become trained in Piloting (from your background or class, for example), you instead become trained in a skill of your choice. You gain a +1 circumstance bonus to Piloting to @UUID[Compendium.sf2e.actions.Item.Navigate] within or @UUID[Compendium.sf2e.actions.Item.Plot Course] through the Drift, and you reduce the travel time it takes to fly to a destination in or through the Drift by 1 day.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.piloting.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:navigate",
+                            "action:plot-course"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "piloting"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

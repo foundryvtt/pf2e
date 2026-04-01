@@ -1,0 +1,76 @@
+{
+    "_id": "onpjKbg3rIhq0JBa",
+    "img": "icons/magic/nature/mushroom-glow-red.webp",
+    "name": "Effect: Mycelium Armor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Mycelium Armor]</p>\n<p>You gain a +2 status bonus to AC and resistance 10 to physical damage, and are @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1}</p>\n<p>If you gain Hit Points or temporary Hit Points while this ability is active, until the end of your next turn, you deal an additional 2d6 poison damage with all your unarmed melee Strikes.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "type": "physical",
+                "value": 10
+            },
+            {
+                "key": "RollOption",
+                "label": "Extra poison damage",
+                "option": "mycelium-armor",
+                "toggleable": true
+            },
+            {
+                "critical": false,
+                "damageType": "poison",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:trait:unarmed",
+                    "mycelium-armor"
+                ],
+                "selector": [
+                    "melee-damage"
+                ]
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.conditions.Item.Clumsy"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

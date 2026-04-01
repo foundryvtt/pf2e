@@ -1,0 +1,150 @@
+{
+    "_id": "FeoOVtm7zVhgxXtg",
+    "img": "systems/sf2e/icons/ancestries/bantrid.webp",
+    "name": "Bantrid",
+    "system": {
+        "additionalLanguages": {
+            "count": 0,
+            "custom": "",
+            "value": []
+        },
+        "boosts": {
+            "0": {
+                "value": [
+                    "con"
+                ]
+            },
+            "1": {
+                "value": [
+                    "dex"
+                ]
+            },
+            "2": {
+                "value": [
+                    "str",
+                    "dex",
+                    "con",
+                    "int",
+                    "wis",
+                    "cha"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p><em>Bantrids are abberations who move using an organ shaped like a rotating ball. They woke up 10 years ago on Hibb with no memories.</em></p>"
+        },
+        "flaws": {
+            "0": {
+                "value": [
+                    "wis"
+                ]
+            }
+        },
+        "hands": 2,
+        "hp": 6,
+        "items": {
+            "JgNSE": {
+                "img": "icons/skills/movement/figure-running-gray.webp",
+                "level": 1,
+                "name": "Restless",
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Restless"
+            },
+            "cmvHI": {
+                "img": "icons/skills/targeting/target-strike-gray.webp",
+                "level": 1,
+                "name": "Anosmatic",
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Anosmatic"
+            }
+        },
+        "languages": {
+            "custom": "",
+            "value": [
+                "common",
+                "bantridi"
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "reach": 5,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.standardizedAncestryFeats",
+                "priority": 10,
+                "value": {
+                    "ancestralSkills": {
+                        "skillOne": "acrobatics",
+                        "skillTwo": "piloting"
+                    },
+                    "ancestralUnarmedAttack": {
+                        "choices": [
+                            {
+                                "label": "PF2E.BattleForm.Attack.FootOrb",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-unarmed-attack:foot-orb"
+                                    }
+                                ],
+                                "value": "foot-orb"
+                            }
+                        ]
+                    },
+                    "climbingSpecialist": {
+                        "speed": 15
+                    },
+                    "swimmingSpecialist": {
+                        "speed": 15
+                    }
+                }
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/magic/unholy/orb-glowing-yellow-purple.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.FootOrb",
+                "predicate": [
+                    "ancestral-unarmed-attack:foot-orb"
+                ],
+                "slug": "foot-orb",
+                "traits": [
+                    "forceful",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    "item:id:{item|id}"
+                ]
+            }
+        ],
+        "size": "sm",
+        "speed": 25,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "aberration",
+                "bantrid"
+            ]
+        },
+        "vision": "darkvision"
+    },
+    "type": "ancestry"
+}

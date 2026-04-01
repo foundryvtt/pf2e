@@ -1,0 +1,83 @@
+{
+    "_id": "JsggylQc0omAsExA",
+    "img": "icons/magic/control/control-influence-rally-purple.webp",
+    "name": "Effect: Unleashed Anger",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Unleashed Anger]</p>\n<p>Your size increases to Large, and you're @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1}. You gain a +1 status bonus to melee damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    {
+                        "not": "feat:greater-unleashed-anger"
+                    }
+                ],
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "feat:greater-unleashed-anger"
+                ],
+                "reach": {
+                    "override": 10
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.conditions.Item.Clumsy"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "melee-strike-damage"
+                ],
+                "slug": "unleash-anger-damage-bonus",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:controlled-rage"
+                ],
+                "selector": "melee-strike-damage",
+                "slug": "unleash-anger-damage-bonus",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

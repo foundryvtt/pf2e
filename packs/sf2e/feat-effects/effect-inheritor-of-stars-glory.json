@@ -1,0 +1,64 @@
+{
+    "_id": "jeYrs3IIaZTwSWT3",
+    "img": "icons/magic/fire/orb-lightning-sun.webp",
+    "name": "Effect: Inheritor of Star's Glory",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Inheritor of Star's Glory]</p>\n<p>You become Small (or Medium, if you're a massive novian). You gain a +2 status bonus to melee damage and Intimidation checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": true,
+                "selector": [
+                    "melee-damage",
+                    "intimidation"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    {
+                        "not": "heritage:massive-novian"
+                    }
+                ],
+                "value": "small"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "heritage:massive-novian"
+                ],
+                "value": "medium"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,44 @@
+{
+    "_id": "4pLG0nlD6cn45hT6",
+    "folder": "4ZqJggiKiu3BZ0cz",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Sonic Aurora Fonqugon",
+    "system": {
+        "ancestry": {
+            "name": "Fonqugon",
+            "slug": "fonqugon",
+            "uuid": "Compendium.sf2e.ancestries.Item.vlYBDZbj6zWBFR0b"
+        },
+        "description": {
+            "value": "<p>Charged particles from Rodnarth's sun, Jonid's Star, can sometimes hit the planet's atmosphere at an improbable but especially destructive angle. The reaction causes an intensely beautiful aurora, but the thunderous booms and blinding flashes accompanying such events drive most fonqugons and other creatures to seek shelter.</p>\n<p>As a sonic aurora fonqugon, you're especially sensitive to light and sound. You gain a +2 circumstance bonus to Perception checks to [[/act seek]], and you gain sonic resistance equal to half your level (minimum 1).</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:seek"
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "type": "sonic",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

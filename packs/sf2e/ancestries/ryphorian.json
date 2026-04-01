@@ -1,0 +1,168 @@
+{
+    "_id": "WfllaPpt1pxGVMAG",
+    "img": "systems/sf2e/icons/ancestries/ryphorian.webp",
+    "name": "Ryphorian",
+    "system": {
+        "additionalLanguages": {
+            "count": 0,
+            "custom": "",
+            "value": []
+        },
+        "boosts": {
+            "0": {
+                "value": [
+                    "con"
+                ]
+            },
+            "1": {
+                "value": [
+                    "wis"
+                ]
+            },
+            "2": {
+                "value": [
+                    "str",
+                    "dex",
+                    "con",
+                    "int",
+                    "wis",
+                    "cha"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p><em>Ryphorians are humanoids from Triaxus who evolved to express variable physiologies depending on their season of birth. They have deep cultural ties with the dragons and dragonkin of their home world.</em></p>"
+        },
+        "flaws": {
+            "0": {
+                "value": [
+                    "str"
+                ]
+            }
+        },
+        "hands": 2,
+        "hp": 8,
+        "items": {
+            "1n2cm": {
+                "img": "icons/skills/targeting/target-strike-triple-blue.webp",
+                "level": 1,
+                "name": "Notched Ears",
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Notched Ears"
+            }
+        },
+        "languages": {
+            "custom": "",
+            "value": [
+                "common",
+                "draconic",
+                "triaxian"
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "reach": 5,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.standardizedAncestryFeats",
+                "priority": 10,
+                "value": {
+                    "ancestralResistance": {
+                        "choices": [
+                            {
+                                "label": "PF2E.TraitFire",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-resistance:fire"
+                                    }
+                                ],
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-resistance:cold"
+                                    }
+                                ],
+                                "value": "cold"
+                            }
+                        ]
+                    },
+                    "ancestralSkills": {
+                        "skillOne": "nature",
+                        "skillTwo": "survival"
+                    }
+                }
+            },
+            {
+                "definition": [
+                    "item:category:martial",
+                    {
+                        "or": [
+                            "item:trait:ryphorian",
+                            "item:base:cryopike",
+                            "item:base:skyfire-sword",
+                            "item:base:zero-cannon"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Ryphorian.WeaponFamiliarity.MartialWeapons",
+                "predicate": [
+                    "feat:ancestral-weapon-familiarity"
+                ],
+                "sameAs": "simple",
+                "slug": "martial-ryphorian-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:ryphorian",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Ryphorian.WeaponFamiliarity.AdvancedWeapons",
+                "predicate": [
+                    "feat:ancestral-weapon-familiarity"
+                ],
+                "sameAs": "martial",
+                "slug": "advanced-ryphorian-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:ryphorian",
+                            "item:base:cryopike",
+                            "item:base:skyfire-sword",
+                            "item:base:zero-cannon"
+                        ]
+                    },
+                    "feat:ancestral-weapon-familiarity"
+                ]
+            }
+        ],
+        "size": "med",
+        "speed": 25,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "humanoid",
+                "ryphorian"
+            ]
+        },
+        "vision": "low-light-vision"
+    },
+    "type": "ancestry"
+}

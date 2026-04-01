@@ -1,0 +1,51 @@
+{
+    "_id": "mBQs6juKeqG97LjF",
+    "folder": "5kh6p6waRVkGpjjf",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Lowcrawler Talphi",
+    "system": {
+        "ancestry": {
+            "name": "Talphi",
+            "slug": "talphi",
+            "uuid": "Compendium.sf2e.ancestries.Item.Fhhxk7toaVGjwoMY"
+        },
+        "description": {
+            "value": "<p>Growing up under extremely high gravity has shaped the skeletons of talphi pups, giving them low-slung cylindrical bodies and limbs that naturally stay close to their sides. Some pups develop a wide stance and dramatically hunched shoulders, which makes them look even shorter than other talphis' average modest stature but gives them an extraordinarily stable center of balance. So-called lowcrawlers have found a niche in many talphi groups scouting through narrow and potentially unstable caverns, protecting their companions from risk of falling. The occupying Veskarium forces often employ lowcrawlers to scout hard-to-reach locations.</p>\n<p>Your body is stouter than most, and you sit uncommonly close to the ground. Despite your light weight and small frame, it's a challenge to take you off your feet. You gain a +2 circumstance bonus to your DCs against attempts to [[/act shove]] or [[/act trip]] you. This bonus also applies to saving throws against spells or effects that attempt to knock you @UUID[Compendium.sf2e.conditions.Item.Prone]. You also gain the @UUID[Compendium.sf2e.actions.Item.Feign Prone] action.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Feign Prone"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:trip",
+                            "action:shove",
+                            "inflicts-prone"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "reflex-dc",
+                    "fortitude-dc",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

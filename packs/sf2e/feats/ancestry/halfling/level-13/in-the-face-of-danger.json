@@ -1,0 +1,75 @@
+{
+    "_id": "qAz7tLyBrSzVPegS",
+    "folder": "NegloFlgYAb7s3XW",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "In the Face of Danger",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your exemplary courage and mental fortitude carry you through the most daunting of situations. When you roll a success on a saving throw against a fear effect, you get a critical success instead. In addition, you gain a +1 circumstance bonus to Will saves against fear effects and a +2 circumstance bonus to your Will DC against attempts to [[/act demoralize]] you.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": [
+                    "will"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:demoralize"
+                ],
+                "selector": [
+                    "will-dc"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "halfling"
+            ]
+        }
+    },
+    "type": "feat"
+}

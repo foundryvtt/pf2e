@@ -1,0 +1,45 @@
+{
+    "_id": "EKRBg0ydRsHdvc7G",
+    "img": "icons/magic/life/heart-area-circle-red-green.webp",
+    "name": "Effect: One with the Stone",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.One with the Stone]</p>\n<p>You gain temporary Hit Points equal to your level for as long as @UUID[Compendium.sf2e.spells.Item.Enlarge] is in effect.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "self:effect:enlarge"
+                ],
+                "value": "@actor.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,42 @@
+{
+    "_id": "W2flbcSZF5o0oPV3",
+    "img": "icons/magic/control/fear-fright-monster-grin-red-orange.webp",
+    "name": "Effect: Unforgiving Fury",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Unforgiving Fury]</p>\n<p>You gain a number of temporary Hit Points equal to your Charisma modifier.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@actor.system.abilities.cha.mod"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

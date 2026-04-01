@@ -1,0 +1,48 @@
+{
+    "_id": "dug2BtLbknb8AlJs",
+    "img": "icons/magic/time/arrows-circling-pink.webp",
+    "name": "Effect: Sync Up",
+    "system": {
+        "description": {
+            "value": "<p>You are @UUID[Compendium.sf2e.conditions.Item.Quickened] for 3 rounds and can use the extra action only to Step, Stride, or prepare to Aid. For the duration, you can't be flanked. If you use a ranged Strike against a target being flanked by two other allies in your hive mind, that target is @UUID[Compendium.sf2e.conditions.Item.Off-Guard] to that Strike.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 3
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.flankable",
+                "value": false
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.conditions.Item.Quickened"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

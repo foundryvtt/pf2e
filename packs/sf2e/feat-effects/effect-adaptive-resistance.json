@@ -1,0 +1,50 @@
+{
+    "_id": "q9gRPJBtyyJwgTRb",
+    "img": "systems/sf2e/icons/abilities/green-dotted-hex.webp",
+    "name": "Effect: Adaptive Resistance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Adaptive Resistance]</p>\n<p>Pick one damage type that your target is resistant or immune to. You gain resistance to that damage type equal to half your level for 1 minute. If the creature has a compound resistance or immunity, pick one damage type; for example, if a creature is resistant to all physical damage, you could pick bludgeoning, piercing, or slashing.</p>\n<p>If you don't know the target's resistances or immunities, you gain a resistance chosen at random. If the target has no immunities or resistances, you gain no resistance, and this use doesn't count against Adaptive Resistance's frequency.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "damageTypes"
+                },
+                "flag": "resistance",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.system.rulesSelections.resistance}",
+                "value": "max(floor(@actor.level/2),1)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

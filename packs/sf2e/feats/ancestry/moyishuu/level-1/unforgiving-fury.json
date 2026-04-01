@@ -1,0 +1,62 @@
+{
+    "_id": "vCDJybbGPmPErHQV",
+    "folder": "gxvrDhcx3C0xrndB",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Unforgiving Fury",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Trigger</strong> You critically succeed at a Strike.</p><hr /><p>Violence further fuels your fury and resilience. You gain a number of temporary Hit Points equal to your Charisma modifier until the end of your next turn.</p><hr /><p><strong>Special</strong> The frequency of Unforgiving Fury is once per minute as long as your soulfeel is attuned to fury.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT10M"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "soulfeel:fury"
+                ],
+                "property": "frequency-per",
+                "value": "PT1M"
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Unforgiving Fury",
+            "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Unforgiving Fury"
+        },
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "emotion",
+                "moyishuu"
+            ]
+        }
+    },
+    "type": "feat"
+}

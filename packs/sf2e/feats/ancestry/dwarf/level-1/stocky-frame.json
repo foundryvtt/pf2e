@@ -1,0 +1,76 @@
+{
+    "_id": "SGnJWBvPnRvMw43I",
+    "folder": "soQXo5kk4aANsHLd",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Stocky Frame",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your squat form and low center of gravity make you remarkably sturdy. You gain a +1 circumstance bonus to Athletics checks to [[/act force-open]], [[/act reposition]], and [[/act shove]] as well as to your Fortitude DCs against attempts to Reposition and Shove you. When you succeed at an Athletics check to Reposition or Shove, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:force-open",
+                            "action:reposition",
+                            "action:shove"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "athletics",
+                    "fortitude"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:reposition",
+                            "action:shove"
+                        ]
+                    }
+                ],
+                "selector": "athletics"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

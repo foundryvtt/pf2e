@@ -1,0 +1,54 @@
+{
+    "_id": "ISNM7bcjvzMQPvW3",
+    "folder": "XRYlvHgabwIfyMq7",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Wyrd Kasatha",
+    "system": {
+        "ancestry": {
+            "name": "Kasatha",
+            "slug": "kasatha",
+            "uuid": "Compendium.sf2e.ancestries.Item.H6dkr1GtoQhuQqJm"
+        },
+        "description": {
+            "value": "<p>Some Great Families of Kasath maintain close relationships with witchwyrds, a group of insular alien merchants who wander the galaxy and outer planes conducting trade. You're a descendant of one such family, and you've grown up learning traditional magical techniques.</p>\n<p>You can cast @UUID[Compendium.sf2e.spells.Item.Force Barrage] as a 1st-rank arcane innate spell once per day. In addition, you gain the @UUID[Compendium.sf2e.actions.Item.Deflect Force] reaction.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Deflect Force"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:force-barrage",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:force-barrage",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:kasatha"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

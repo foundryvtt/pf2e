@@ -1,0 +1,59 @@
+{
+    "_id": "UVgnvpU5ucGXRMfH",
+    "folder": "gxvrDhcx3C0xrndB",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Unfathomable Sorrow",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Trigger</strong> An enemy causes you to become frightened or take persistent mental damage.</p><hr /><p>The depth of your sorrow causes the negativity coming from others to cascade back at them. The triggering creature becomes @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 1}, and that enemy can't reduce their frightened condition below 1 until the beginning of your next turn.</p><hr /><p><strong>Special</strong> The frequency of Unfathomable Sorrow is once per minute as long as your soulfeel is attuned to sorrow.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT10M"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "soulfeel:sorrow"
+                ],
+                "property": "frequency-per",
+                "value": "PT1M"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "emotion",
+                "mental",
+                "moyishuu"
+            ]
+        }
+    },
+    "type": "feat"
+}

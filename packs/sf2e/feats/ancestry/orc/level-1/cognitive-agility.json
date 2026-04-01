@@ -1,0 +1,69 @@
+{
+    "_id": "ltDPEaMDX9K8eFXu",
+    "folder": "WgxLt0hkTXVP3rlN",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Cognitive Agility",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You adjust quickly to changing circumstances in battle, whether from intense training or some intrinsic knowledge. As a result, you're able to shake off effects that are intended to distract or cloud the mind.</p>\n<p>You gain a +1 status bonus to saving throws against emotion effects and a +1 to your Perception DC against attempts to @UUID[Compendium.sf2e.actions.GkmbTGfg8KcgynOA]{Create a Diversion} and [[/act feint]].</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:emotion"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:create-a-diversion",
+                            "action:feint"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "perception-dc"
+                ],
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "orc"
+            ]
+        }
+    },
+    "type": "feat"
+}

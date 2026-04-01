@@ -1,0 +1,76 @@
+{
+    "_id": "BWzP4Sj8PRNJFqtC",
+    "folder": "Nb2NgA8vm0C66R34",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Mageslayer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>As a result of generational war between your peoples, you've trained in special antimagic techniques to battle elven and lashunta spellcasters. You gain a mageslayer claw unarmed attack that deals @Damage[1d6[slashing]] damage, is in the brawling weapon group, and has the finesse, primal, and unarmed traits. A creature you Strike with your mageslayer claw must attempt a Will save against the higher of your class DC or spell DC. On a failure, the creature becomes @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 1} for 1 minute (or @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 2} on a critical failure).</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Soldier Formian heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/magic/unholy/hand-claw-fire-blue.webp",
+                "key": "Strike",
+                "label": "Mageslayer Claw",
+                "range": null,
+                "slug": "mageslayer-claw",
+                "traits": [
+                    "finesse",
+                    "primal",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "Note",
+                "selector": [
+                    "{item|id}-attack"
+                ],
+                "text": "A creature you Strike with your mageslayer claw must attempt a @Check[will|against:class-spell] save against the higher of your class DC or spell DC. On a failure, the creature becomes @UUID[Compendium.sf2e.conditions.Item.Stupefied]{stupefied 1} for 1 minute (or @UUID[Compendium.sf2e.conditions.Item.Stupefied]{stupefied 2} on a critical failure).",
+                "title": "Mageslayer"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "formian"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,114 @@
+{
+    "_id": "npeQFG4ozTGNGh9f",
+    "folder": "MPtoEfDI1122eRrB",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Homebrewed Core",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You were originally designed or built by an independent foundry, without some of the restrictions and safety mechanisms that would be in place for most other xenometric android production facilities. Choose one of the following.</p><ul><li>You're one size larger than your ancestry, up to Large. You gain a +1 circumstance bonus to Intimidation checks to [[/act demoralize]]. Add the @UUID[Compendium.sf2e.feats.Item.Stretching Reach] standardized ancestry feat to your available standardized ancestry feats.</li><li>You're one size smaller than your ancestry but no smaller than Small. You gain a +1 circumstance bonus to Stealth checks to [[/act hide]] and [[/act sneak]]. Add the @UUID[Compendium.sf2e.feats.LK6niBb38mEraYRS] standardized ancestry feat to your available standardized ancestry feats.</li><li>You have an additional pair of limbs but can only have one pair active at a time. You can change which of your limbs are active with the @UUID[Compendium.sf2e.actions.Item.Switch Hands] action. Add the @UUID[Compendium.sf2e.feats.Item.All Hands on Deck] and @UUID[Compendium.sf2e.feats.Item.Double Draw] standardized ancestry feats to your available standardized ancestry feats.</li></ul>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "One size larger",
+                        "value": "larger"
+                    },
+                    {
+                        "label": "One size smaller",
+                        "value": "smaller"
+                    },
+                    {
+                        "label": "Additional pair of limbs",
+                        "value": "limbs"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "Choose one of the following",
+                "rollOption": "homebrewed-core"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "homebrewed-core:larger"
+                ],
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:demoralize",
+                    "homebrewed-core:larger"
+                ],
+                "selector": [
+                    "intimidation"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "homebrewed-core:smaller"
+                ],
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "homebrewed-core:smaller",
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "stealth"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "homebrewed-core:limbs"
+                ],
+                "uuid": "Compendium.sf2e.actions.Item.Switch Hands"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lineage",
+                "xenometric-android"
+            ]
+        }
+    },
+    "type": "feat"
+}

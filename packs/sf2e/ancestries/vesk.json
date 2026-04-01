@@ -56,7 +56,177 @@
             "title": "Starfinder Player Core"
         },
         "reach": 5,
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.standardizedAncestryFeats",
+                "priority": 10,
+                "value": {
+                    "ancestralSkills": {
+                        "skillOne": "athletics",
+                        "skillTwo": "intimidation"
+                    },
+                    "ancestralUnarmedAttack": {
+                        "choices": [
+                            {
+                                "label": "PF2E.BattleForm.Attack.Claw",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-unarmed-attack:claw"
+                                    }
+                                ],
+                                "value": "claw"
+                            },
+                            {
+                                "label": "PF2E.BattleForm.Attack.Jaws",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-unarmed-attack:jaws"
+                                    }
+                                ],
+                                "value": "jaws"
+                            },
+                            {
+                                "label": "PF2E.BattleForm.Attack.Tail",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-unarmed-attack:tail"
+                                    }
+                                ],
+                                "value": "tail"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/commodities/claws/claw-lizard-white-black.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    "ancestral-unarmed-attack:claw"
+                ],
+                "slug": "claw",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    "ancestral-unarmed-attack:jaws"
+                ],
+                "slug": "jaws",
+                "traits": [
+                    "grapple",
+                    "unarmed"
+                ]
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/creatures/abilities/tail-swipe-green.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tail",
+                "predicate": [
+                    "ancestral-unarmed-attack:tail"
+                ],
+                "slug": "tail",
+                "traits": [
+                    "sweep",
+                    "trip",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    "item:id:{item|id}"
+                ]
+            },
+            {
+                "definition": [
+                    "item:category:martial",
+                    {
+                        "or": [
+                            "item:trait:vesk",
+                            "item:base:doshko"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Vesk.WeaponFamiliarity.MartialWeapons",
+                "predicate": [
+                    "feat:ancestral-weapon-familiarity"
+                ],
+                "sameAs": "simple",
+                "slug": "martial-vesk-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:vesk",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Vesk.WeaponFamiliarity.AdvancedWeapons",
+                "predicate": [
+                    "feat:ancestral-weapon-familiarity"
+                ],
+                "sameAs": "martial",
+                "slug": "advanced-vesk-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:vesk",
+                            "item:base:doshko"
+                        ]
+                    },
+                    "feat:ancestral-weapon-familiarity"
+                ]
+            }
+        ],
         "size": "med",
         "speed": 20,
         "traits": {

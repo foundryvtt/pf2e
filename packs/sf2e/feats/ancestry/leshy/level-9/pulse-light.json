@@ -1,0 +1,69 @@
+{
+    "_id": "jhXr8Pitlgrxp8rf",
+    "folder": "sg7GQZOAsQzW5SvG",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Pulse Light",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You surge your internal light in a brilliant flash, disorienting everyone nearby and revealing anything that would try to hide from your sight. You can cast @UUID[Compendium.sf2e.spells.Item.Revealing Light] as a 2nd-rank primal innate spell once per hour, except it doesn't dazzle moonflowers and moonflower leshies.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Moonflower Leshy heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:revealing-light",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:revealing-light",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:leshy"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "leshy"
+            ]
+        }
+    },
+    "type": "feat"
+}

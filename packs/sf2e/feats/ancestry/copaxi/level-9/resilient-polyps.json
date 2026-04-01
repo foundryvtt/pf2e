@@ -1,0 +1,63 @@
+{
+    "_id": "vMp0srkZH154Kn1k",
+    "folder": "wAmJx6ZzSBlehG8t",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Resilient Polyps",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Thanks to your focus on your body's health as it grows new polyps, your polyps are especially resilient. Increase your maximum Hit Points by your level. When you have the dying condition, the DC of your recovery checks is equal to 9 + your dying value (instead of 10 + your dying value).</p>\n<p>If you also have the @UUID[Compendium.sf2e.feats.Item.Toughness] feat, the Hit Points gained from it and this feat are cumulative, and the DC of your recovery checks is equal to 6 + your dying value.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "value": "@actor.level"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "downgrade",
+                "path": "system.attributes.dying.recoveryDC",
+                "value": 9
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "downgrade",
+                "path": "system.attributes.dying.recoveryDC",
+                "predicate": [
+                    "feat:toughness"
+                ],
+                "value": 6
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "copaxi"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,136 @@
+{
+    "_id": "xnyxdTM1MkkmLxD1",
+    "folder": "P77CkF2oSxC4yMD8",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Absorbent Plating",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Some threats go beyond the physical, and your chitin can adapt to protect you from them. You gain resistance to acid, cold, electricity, fire, or sonic damage equal to half your level.</p><hr /><p><strong>Special</strong> You can take this feat multiple times. Each time you do so, select a different damage type.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "maxTakable": null,
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "predicate": [
+                            {
+                                "not": "absorbent-plating:acid"
+                            }
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": [
+                            {
+                                "not": "absorbent-plating:cold"
+                            }
+                        ],
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            {
+                                "not": "absorbent-plating:electricity"
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "not": "absorbent-plating:fire"
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "predicate": [
+                            {
+                                "not": "absorbent-plating:sonic"
+                            }
+                        ],
+                        "value": "sonic"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Trait",
+                "rollOption": "absorbent-plating"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "absorbent-plating:acid"
+                ],
+                "type": "acid",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "absorbent-plating:cold"
+                ],
+                "type": "cold",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "absorbent-plating:electricity"
+                ],
+                "type": "electricity",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "absorbent-plating:fire"
+                ],
+                "type": "fire",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "absorbent-plating:sonic"
+                ],
+                "type": "sonic",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "trox"
+            ]
+        }
+    },
+    "type": "feat"
+}

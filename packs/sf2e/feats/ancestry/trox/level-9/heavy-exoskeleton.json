@@ -1,0 +1,107 @@
+{
+    "_id": "1yXf3bCCmPbeLFDv",
+    "folder": "N6m0m8GQJKD3HSyh",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Heavy Exoskeleton",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your chitinous plates have thickened in response to heavy punishment. Every bit of scar tissue that forms on your plates and every healed fracture have built your natural defenses into a protective layer that's truly a sight to behold. Your exoskeleton becomes heavy armor, and your proficiency in your exoskeleton armor becomes equal to your proficiency in medium armor. Your armor now grants a +5 item bonus to AC, has a +1 Dex cap, a check penalty of –2, a –10-foot penalty to Speed, and a Strength threshold of +3. It has a Bulk of 3 and the bulwark, comfort, and exposed traits. It's in the plate armor group. You can wear flight suits, but no other armor.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "fortified trox heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:chitinous-plates"
+                ],
+                "property": "ac-bonus",
+                "value": 1
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:chitinous-plates"
+                ],
+                "property": "speed-penalty",
+                "value": -10
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:chitinous-plates"
+                ],
+                "property": "category",
+                "value": "heavy"
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:chitinous-plates"
+                ],
+                "property": "bulk",
+                "value": 3
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:chitinous-plates"
+                ],
+                "property": "traits",
+                "value": "bulwark"
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:chitinous-plates"
+                ],
+                "property": "traits",
+                "value": "analog"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "trox"
+            ]
+        }
+    },
+    "type": "feat"
+}

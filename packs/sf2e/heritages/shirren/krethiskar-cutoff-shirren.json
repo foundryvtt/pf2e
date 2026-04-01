@@ -1,0 +1,61 @@
+{
+    "_id": "RJm0SHvvKNO5j6y8",
+    "folder": "6GBQ9SXd2LXiTpeL",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Krethiskar Cutoff Shirren",
+    "system": {
+        "ancestry": {
+            "name": "Shirren",
+            "slug": "shirren",
+            "uuid": "Compendium.sf2e.ancestries.Item.FjBJNHdiWAvu1lV7"
+        },
+        "description": {
+            "value": "<p>You were awoken on Krethiskar after hundreds of years of hibernation. In appearance, you resemble the shirren's distant ancestor, the kucharn, with a fearsome spiked and armored carapace. However, your exposure to the szandite crystals after so much time has multiplied your telekinetic abilities such that you've become extremely sensitive to the psychic energy radiating off others.</p>\n<p>You gain a +2 circumstance bonus to Perception checks to [[/act sense-motive]]. In addition, you can cast @UUID[Compendium.sf2e.spells.Item.Command] as a 1st-rank occult innate spell once per day.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:sense-motive"
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:command",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:command",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:shirren"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

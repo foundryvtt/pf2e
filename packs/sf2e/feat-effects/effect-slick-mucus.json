@@ -1,0 +1,59 @@
+{
+    "_id": "Ax22CnvK5FeXLt6g",
+    "img": "icons/magic/acid/projectile-glowing-bubbles.webp",
+    "name": "Effect: Slick Mucus",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Slick Mucus]</p>\n<p>You gain +2 circumstance bonus to Escape. You can then Stride. During this Stride, you have a +10-foot circumstance bonus to your Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:escape"
+                ],
+                "selector": [
+                    "attack-roll"
+                ],
+                "slug": "slick-mucus-escape-bonus",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "all-speeds"
+                ],
+                "slug": "slick-mucus-speed-bonus",
+                "type": "circumstance",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

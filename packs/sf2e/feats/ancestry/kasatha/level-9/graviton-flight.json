@@ -1,0 +1,61 @@
+{
+    "_id": "w5dy713giA8jM7k3",
+    "folder": "qfGGSsPstdtdXVL0",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Graviton Flight",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You know that there's no such thing as a true zero-gravity environment. You're sensitive to the ebbs and flows of microgravity and can use it to propel yourself even when you're floating @UUID[Compendium.sf2e.conditions.Item.Untethered]. When you're in an area of zero gravity, you gain a fly Speed of 30 feet, and you can Fly in zero gravity.</p><hr /><p><strong>Special</strong> You can use the @UUID[Compendium.sf2e.feats.Item.Weightless Defense] feat while Flying in zero gravity, even if you're not untethered. The benefits end if you stop Flying or leave zero gravity.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Void Acolyte Kasatha heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:weightless-defense"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kasatha"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,51 @@
+{
+    "_id": "cShf7HifoNI7XzKd",
+    "folder": "3GHqFZTVzZNZi37U",
+    "img": "systems/sf2e/icons/actions/OneAction.webp",
+    "name": "Toxic Tear",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "defensive",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> Make a beak Strike against a creature that's @UUID[Compendium.sf2e.conditions.Item.Grabbed], helpless, @UUID[Compendium.sf2e.conditions.Item.Prone], or @UUID[Compendium.sf2e.conditions.Item.Restrained]. If this Strike hits, the persistent poison damage increases to @Damage[1d4[persistent,poison]] damage per weapon damage die.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "round"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "toxic-tear",
+                "toggleable": true
+            },
+            {
+                "category": "persistent",
+                "damageType": "poison",
+                "diceNumber": "@weapon.system.damage.dice",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "toxic-tear"
+                ],
+                "selector": "beak-damage"
+            }
+        ],
+        "traits": {
+            "value": [
+                "poison"
+            ]
+        }
+    },
+    "type": "action"
+}

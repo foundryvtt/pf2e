@@ -1,0 +1,151 @@
+{
+    "_id": "c5chhfAMlDjmO2iL",
+    "folder": "3X9QDbnoK8dXa9va",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Genetic Environmental Adaptation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your molecular structure is more resistant to certain damage types. You gain additional resistance to the damage type chosen with @UUID[Compendium.sf2e.feats.Item.Molecular Modification]. Your resistance to the chosen damage type equals your level, instead of half your level.</p><hr /><p><strong>Special</strong> If you've taken Molecular Modification multiple times, you can take this feat multiple times, each time gaining additional resistance to a different damage type chosen with Molecular Modification.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "maxTakable": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Molecular Modification"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "predicate": [
+                            "molecular-modification:acid",
+                            {
+                                "not": "genetic-environmental-adaptation:acid"
+                            }
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "predicate": [
+                            "molecular-modification:bludgeoning",
+                            {
+                                "not": "genetic-environmental-adaptation:bludgeoning"
+                            }
+                        ],
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": [
+                            "molecular-modification:cold",
+                            {
+                                "not": "genetic-environmental-adaptation:cold"
+                            }
+                        ],
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            "molecular-modification:electricity",
+                            {
+                                "not": "genetic-environmental-adaptation:electricity"
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            "molecular-modification:fire",
+                            {
+                                "not": "genetic-environmental-adaptation:fire"
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "predicate": [
+                            "molecular-modification:piercing",
+                            {
+                                "not": "genetic-environmental-adaptation:piercing"
+                            }
+                        ],
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "predicate": [
+                            "molecular-modification:poison",
+                            {
+                                "not": "genetic-environmental-adaptation:poison"
+                            }
+                        ],
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "predicate": [
+                            "molecular-modification:slashing",
+                            {
+                                "not": "genetic-environmental-adaptation:slashing"
+                            }
+                        ],
+                        "value": "slashing"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "predicate": [
+                            "molecular-modification:sonic",
+                            {
+                                "not": "genetic-environmental-adaptation:sonic"
+                            }
+                        ],
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "resistance",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType",
+                "rollOption": "genetic-environmental-adaptation"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.sf2e.rulesSelections.resistance}",
+                "value": "@actor.level"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barathu"
+            ]
+        }
+    },
+    "type": "feat"
+}

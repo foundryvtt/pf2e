@@ -1,0 +1,49 @@
+{
+    "_id": "ckS3zXR5NQeoWVp9",
+    "folder": "diMsOd1sbYmizPTw",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Jury-Rigging Raxilite",
+    "system": {
+        "ancestry": {
+            "name": "Raxilite",
+            "slug": "raxilite",
+            "uuid": "Compendium.sf2e.ancestries.Item.lU4TJFs95esViIHI"
+        },
+        "description": {
+            "value": "<p>You've installed a specialized surgical module that allows you to repurpose scrap metal to perform emergency repairs on your body.</p>\n<p>You become trained in your choice of Crafting or Medicine (or another skill if you're already trained in both). Once per day, you can spend 10 minutes to feed 1 Bulk worth of scrap metal into your surgical module. If you do, you regain a number of Hit Points equal to @Damage[(@actor.level*5)[healing]]{five times your level}. Scrap metal is generally readily available for free.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Crafting",
+                        "value": "crafting"
+                    },
+                    {
+                        "label": "PF2E.Skill.Medicine",
+                        "value": "medicine"
+                    }
+                ],
+                "flag": "juryRiggingRaxilite",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.juryRiggingRaxilite}.rank",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

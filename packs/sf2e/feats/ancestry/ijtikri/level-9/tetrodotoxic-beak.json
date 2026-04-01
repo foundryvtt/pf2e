@@ -1,0 +1,66 @@
+{
+    "_id": "nGzCYfpkw6lzy6xU",
+    "folder": "e2tQMC8PZ8b64a5d",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Tetrodotoxic Beak",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Venomous glands near your mouth can give your saliva toxic properties. Your beak unarmed strike deals an additional 1 persistent poison damage. This increases to 2 persistent poison damage if your beak deals at least three weapon damage dice. In addition, you gain the @UUID[Compendium.sf2e.actions.Item.Toxic Tear] action.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Shearing Beak"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Toxic Tear"
+            },
+            {
+                "critical": false,
+                "damageCategory": "persistent",
+                "damageType": "poison",
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "toxic-tear"
+                    }
+                ],
+                "selector": [
+                    "beak-damage"
+                ],
+                "value": "ternary(gte(@weapon.system.damage.dice,3),2,1)"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ijtikri"
+            ]
+        }
+    },
+    "type": "feat"
+}

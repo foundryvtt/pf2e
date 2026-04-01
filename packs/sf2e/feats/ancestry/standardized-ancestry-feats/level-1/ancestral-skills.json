@@ -1,0 +1,67 @@
+{
+    "_id": "3iiARSS25VacP3Nc",
+    "folder": "1vMsI0rRn60oXnii",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Ancestral Skills",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have a keen interest in the origins of your people. You become trained in the skills listed in your ancestry's skills entry. If you would automatically become trained in one of those skills (from your background or class, for example), you instead become trained in a skill of your choice.</p>\n<p>You also gain the @UUID[Compendium.sf2e.feats.Item.Additional Lore] general feat for the Lore skill associated with your ancestry (for example, androids have Android Lore and ysoki have Ysoki Lore).</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{actor|flags.system.standardizedAncestryFeats.ancestralSkills.skillOne}.rank",
+                "predicate": [
+                    {
+                        "not": "no-ancestral-skills"
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{actor|flags.system.standardizedAncestryFeats.ancestralSkills.skillTwo}.rank",
+                "predicate": [
+                    {
+                        "not": "no-ancestral-skills"
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Additional Lore"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

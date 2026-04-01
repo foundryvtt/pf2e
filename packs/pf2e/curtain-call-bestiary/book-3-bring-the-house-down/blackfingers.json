@@ -1034,6 +1034,7 @@
                 "traits": {
                     "value": [
                         "agile",
+                        "finesse",
                         "magical",
                         "thrown-10",
                         "versatile-s"
@@ -1089,7 +1090,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day;</p>\n<p><strong>Duration</strong> 1 minute</p>\n<p><strong>Trigger</strong> Blackfingers damages a creature</p><hr /><p><strong>Effect</strong> Murderous instinct consumes Blackfingers' mind. He gains a +2 status bonus to attacks and damage with his dagger, but is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} and cannot use concentrate abilities. If he brings a creature to 0 Hit Points while consumed by bloodlust, he gains 20 temporary Hit Points, and this effect ends.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Duration</strong> 1 minute</p>\n<p><strong>Trigger</strong> Blackfingers damages a creature</p><hr /><p><strong>Effect</strong> Murderous instinct consumes Blackfingers' mind. He gains a +2 status bonus to attacks and damage with his dagger, but is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} and cannot use concentrate abilities. If he brings a creature to 0 Hit Points while consumed by bloodlust, he gains 20 temporary Hit Points, and this effect ends.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -1118,7 +1119,7 @@
         {
             "_id": "tew93zc38tdbtkse",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Poison Sense (Precise) 30 feet",
+            "name": "Poison Sense (Precise) 60 feet",
             "sort": 1800000,
             "system": {
                 "actionType": {
@@ -1159,7 +1160,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>60 feet. Each creature that enters or starts its turn within the area must succeed at a @Check[fortitude|dc:39] saving throw or gain weakness 10 to poison (weakness 15 on a critical failure). Worshippers of Norgorber are immune, as are those who drank any poison in area <strong>C3</strong>.</p>"
+                    "value": "<p>60 feet. Each creature that enters or starts its turn within the area must succeed at a @Check[fortitude|dc:39|options:area-effect] saving throw or gain weakness 10 to poison (weakness 15 on a critical failure). Worshippers of Norgorber are immune, as are those who drank any poison in area <strong>C3</strong>.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Venomous Aura]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1169,7 +1170,11 @@
                 "rules": [
                     {
                         "key": "Aura",
-                        "radius": 60
+                        "radius": 60,
+                        "traits": [
+                            "occult",
+                            "poison"
+                        ]
                     }
                 ],
                 "slug": null,
@@ -1237,7 +1242,20 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "change-shape",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "change-shape"
+                        ],
+                        "value": "tiny"
+                    }
+                ],
                 "slug": "change-shape",
                 "traits": {
                     "rarity": "common",
@@ -1583,7 +1601,7 @@
                 "value": "med"
             },
             "value": [
-                "aberration",
+                "humanoid",
                 "unholy"
             ]
         }

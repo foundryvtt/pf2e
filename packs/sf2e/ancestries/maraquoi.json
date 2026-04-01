@@ -1,0 +1,150 @@
+{
+    "_id": "XcmRKGimGvezRawa",
+    "img": "systems/sf2e/icons/ancestries/maraquoi.webp",
+    "name": "Maraquoi",
+    "system": {
+        "additionalLanguages": {
+            "count": 0,
+            "custom": "",
+            "value": []
+        },
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            },
+            "2": {
+                "value": []
+            }
+        },
+        "description": {
+            "value": "<p><em>Maraquois are a bipedal species from the Brethedan moon of Marata known for their fine artisanal creations and excellent climbing.</em></p>"
+        },
+        "flaws": {
+            "0": {
+                "value": []
+            }
+        },
+        "hands": 2,
+        "hp": 8,
+        "items": {
+            "uXUMt": {
+                "img": "icons/commodities/biological/tail-rodent-orange.webp",
+                "level": 1,
+                "name": "Prehensile Tail",
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Prehensile Tail"
+            },
+            "wb4qk": {
+                "img": "icons/skills/targeting/crosshair-pointed-orange.webp",
+                "level": 1,
+                "name": "Dermal Hearing",
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Dermal Hearing"
+            }
+        },
+        "languages": {
+            "custom": "",
+            "value": [
+                "common",
+                "maratan"
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "reach": 5,
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "value": 15
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.standardizedAncestryFeats",
+                "priority": 10,
+                "value": {
+                    "ancestralSkills": {
+                        "skillOne": "society",
+                        "skillTwo": "survival"
+                    },
+                    "ancestralUnarmedAttack": {
+                        "choices": [
+                            {
+                                "label": "PF2E.BattleForm.Attack.Jaws",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-unarmed-attack:jaws"
+                                    }
+                                ],
+                                "value": "jaws"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    "ancestral-unarmed-attack:jaws"
+                ],
+                "slug": "jaws",
+                "traits": [
+                    "grapple",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    "item:id:{item|id}"
+                ]
+            }
+        ],
+        "size": "med",
+        "speed": 25,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "humanoid",
+                "maraquoi"
+            ]
+        },
+        "vision": "low-light-vision"
+    },
+    "type": "ancestry"
+}

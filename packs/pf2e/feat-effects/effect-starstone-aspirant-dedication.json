@@ -1,0 +1,62 @@
+{
+    "_id": "XBJzkEhL6MidoT3o",
+    "img": "icons/magic/light/explosion-star-glow-blue.webp",
+    "name": "Effect: Starstone Aspirant Dedication",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Starstone Aspirant Dedication]</p>\n<p>You can choose a skill you're untrained in. You can attempt skill actions that normally require you to be trained in that skill, and you gain a circumstance bonus to checks with that skill.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        {
+                            "lte": [
+                                "skill:{choice|value}:rank",
+                                0
+                            ]
+                        }
+                    ]
+                },
+                "flag": "starstoneAspirant",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "{item|flags.system.rulesSelections.starstoneAspirant}"
+                ],
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.level,15),3,ternary(gte(@actor.level,8),2,1))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

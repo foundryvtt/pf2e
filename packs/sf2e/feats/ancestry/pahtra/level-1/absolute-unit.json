@@ -1,0 +1,62 @@
+{
+    "_id": "KfwyjoBy4ytF9YDx",
+    "folder": "7bFT1TWmlVSVtWdD",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Absolute Unit",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your size gives the impression that there's no room to escape. You gain the @UUID[Compendium.sf2e.feats.Item.Intimidating Glare] skill feat. Additionally, if you're blocking a target's passage down a hallway or door, you gain a +1 circumstance bonus to your Intimidation checks when you [[/act demoralize]] that target.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Proudhome Pahtra heritage"
+                },
+                {
+                    "value": "trained in Intimidation"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:demoralize",
+                    "blocking-path"
+                ],
+                "selector": [
+                    "intimidation"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "pahtra"
+            ]
+        }
+    },
+    "type": "feat"
+}

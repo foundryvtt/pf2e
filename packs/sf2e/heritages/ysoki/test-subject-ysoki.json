@@ -1,0 +1,102 @@
+{
+    "_id": "ebKqZR0TcPUsHhZw",
+    "folder": "bB5HzELH07UIY03Z",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Test-Subject Ysoki",
+    "system": {
+        "ancestry": {
+            "name": "Ysoki",
+            "slug": "ysoki",
+            "uuid": "Compendium.sf2e.ancestries.Item.P6PcVnCkh4XMdefw"
+        },
+        "description": {
+            "value": "<p>You're a test-subject ysoki, having survived extensive experiments on your body that have fundamentally altered your physiology. Choose from one of the following test-subject ysoki heritages.</p>\n<p><strong>Extra Limbs</strong> You have four arms, which allows you to wield and hold up to four hands' worth of weapons and equipment. At any time, one pair of hands is designated as your active hands. You can change this designation from one pair of hands to another by taking the @UUID[Compendium.sf2e.actions.Item.Switch Hands] action.</p>\n<p><strong>Psychic Augmentation</strong> You have a cranial transmitter. You gain limited telepathy, meaning you can communicate mentally with creatures within 30 feet. You can communicate only with creatures that share a language with you. This doesn't give you any access to their thoughts, and it communicates no more information than normal speech would.</p>\n<p><strong>Cybernetic Augmentation</strong> You're biologically infused with computer hookups. You gain the tech trait and become trained in Computers. If you would automatically become trained in Computers (from your background or class, for example), you instead become trained in another skill of your choice. You have a datajack that can't be removed and that doesn't use an augmentation slot, and you gain the @UUID[Compendium.sf2e.feats.Item.Assurance] skill feat for Computers.</p>\n<p><strong>Radioactive Exposure</strong> to extreme radiation changed your cellular composition. You aren't sickened from radiation sickness. You gain the @UUID[Compendium.sf2e.actions.Item.Contaminate] action.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "SF2e.SpecificRule.Ysoki.TestSubject.ExtraLimbs",
+                        "value": "extra-limbs"
+                    },
+                    {
+                        "label": "SF2e.SpecificRule.Ysoki.TestSubject.PsychicAugmentation",
+                        "value": "psychic-augmentation"
+                    },
+                    {
+                        "label": "SF2e.SpecificRule.Ysoki.TestSubject.CyberneticAugmentation",
+                        "value": "cybernetic-augmentation"
+                    },
+                    {
+                        "label": "SF2e.SpecificRule.Ysoki.TestSubject.Radioactive",
+                        "value": "radioactive"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "SF2e.SpecificRule.Ysoki.TestSubject.SelectTestSubject",
+                "rollOption": "test-subject"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "test-subject:psychic-augmentation"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Limited Telepathy"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.computers.rank",
+                "predicate": [
+                    "test-subject:cybernetic-augmentation"
+                ],
+                "value": 1
+            },
+            {
+                "add": [
+                    "tech"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "test-subject:cybernetic-augmentation"
+                ]
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "test-subject:cybernetic-augmentation"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.sf2e.equipment.Item.Datajack (Commercial)"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "test-subject:cybernetic-augmentation"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.sf2e.feats.Item.Assurance"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "test-subject:radioactive"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.sf2e.actions.Item.Contaminate"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

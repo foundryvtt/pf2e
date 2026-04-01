@@ -1,0 +1,201 @@
+{
+    "_id": "Fhhxk7toaVGjwoMY",
+    "img": "systems/sf2e/icons/ancestries/talphi.webp",
+    "name": "Talphi",
+    "system": {
+        "additionalLanguages": {
+            "count": 0,
+            "custom": "",
+            "value": []
+        },
+        "boosts": {
+            "0": {
+                "value": [
+                    "dex"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha"
+                ]
+            },
+            "2": {
+                "value": [
+                    "str",
+                    "dex",
+                    "con",
+                    "int",
+                    "wis",
+                    "cha"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p><em>Talphis are members of a mole-like humanoid species from Vesk-4 who specialize in burrowing, gravity attunement, and elemental earth magic.</em></p>"
+        },
+        "flaws": {
+            "0": {
+                "value": [
+                    "wis"
+                ]
+            }
+        },
+        "hands": 2,
+        "hp": 6,
+        "items": {},
+        "languages": {
+            "custom": "",
+            "value": [
+                "common"
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "reach": 5,
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "burrow",
+                "value": 15
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.standardizedAncestryFeats",
+                "priority": 10,
+                "value": {
+                    "ancestralResistance": {
+                        "choices": [
+                            {
+                                "label": "PF2E.TraitPoison",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-resistance:poison"
+                                    }
+                                ],
+                                "value": "poison"
+                            }
+                        ]
+                    },
+                    "ancestralSkills": {
+                        "skillOne": "crafting",
+                        "skillTwo": "society"
+                    },
+                    "ancestralUnarmedAttack": {
+                        "choices": [
+                            {
+                                "label": "PF2E.BattleForm.Attack.Claw",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-unarmed-attack:claw"
+                                    }
+                                ],
+                                "value": "claw"
+                            }
+                        ]
+                    },
+                    "burrowingSpecialist": {
+                        "speed": 25
+                    }
+                }
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/commodities/claws/claw-canine-brown-grey.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    "ancestral-unarmed-attack:claw"
+                ],
+                "slug": "claw",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    "item:id:{item|id}"
+                ]
+            },
+            {
+                "definition": [
+                    "item:category:martial",
+                    {
+                        "or": [
+                            "item:trait:talphi",
+                            "item:group:pick"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Talphi.WeaponFamiliarity.MartialWeapons",
+                "predicate": [
+                    "feat:ancestral-weapon-familiarity"
+                ],
+                "sameAs": "simple",
+                "slug": "martial-talphi-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:talphi",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Talphi.WeaponFamiliarity.AdvancedWeapons",
+                "predicate": [
+                    "feat:ancestral-weapon-familiarity"
+                ],
+                "sameAs": "martial",
+                "slug": "advanced-talphi-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:talphi",
+                            "item:group:pick"
+                        ]
+                    },
+                    "feat:ancestral-weapon-familiarity"
+                ]
+            }
+        ],
+        "size": "med",
+        "speed": 20,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "humanoid",
+                "talphi"
+            ]
+        },
+        "vision": "normal"
+    },
+    "type": "ancestry"
+}

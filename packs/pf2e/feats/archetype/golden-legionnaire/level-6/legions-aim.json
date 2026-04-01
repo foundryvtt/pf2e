@@ -1,0 +1,70 @@
+{
+    "_id": "2FqgPiW7B0w9jzXd",
+    "folder": "IxqLvsRmygrz4Apt",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Legion's Aim",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Long hours of experimentation with the Platinum Wing have familiarized you with experimental weaponry. You have familiarity with martial firearms and alchemical bombs, treating them as simple weapons for the purposes of proficiency. You ignore the penalty for making ranged attacks within your second range increment with alchemical bombs. You gain access to uncommon firearms and alchemical bombs.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Golden Legionnaire Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:category:martial",
+                    {
+                        "or": [
+                            "item:group:firearm",
+                            "item:group:bomb"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "Martial Firearms and Bombs",
+                "sameAs": "simple",
+                "slug": "martial-firearms-bombs"
+            },
+            {
+                "domain": "ranged-attack-roll",
+                "key": "RollOption",
+                "option": "ignore-range-penalty:2",
+                "predicate": [
+                    "item:group:bomb"
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>This mask is often devoid of eyeholes or other decorative features. The mask doesn't obscure your vision, though it makes it impossible for others to see your eyes. While wearing your <em>signifer's mask</em>, you gain +1 circumstance bonus to Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Lie], Intimidation checks, and Deception DCs against @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive].</p>"
+            "value": "<p>This mask is often devoid of eyeholes or other decorative features. The mask doesn't obscure your vision, though it makes it impossible for others to see your eyes. While wearing your signifer's mask, you gain a +1 circumstance bonus to Deception checks to [[/act lie]], Intimidation checks to [[/act coerce]], and Deception DCs against [[/act sense-motive]].</p>"
         },
         "hardness": 0,
         "hp": {
@@ -27,9 +27,9 @@
             "value": {}
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens Character Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
         },
         "quantity": 1,
         "rules": [
@@ -49,7 +49,12 @@
             },
             {
                 "key": "FlatModifier",
-                "selector": "intimidation",
+                "predicate": [
+                    "action:coerce"
+                ],
+                "selector": [
+                    "intimidation"
+                ],
                 "type": "circumstance",
                 "value": 1
             },

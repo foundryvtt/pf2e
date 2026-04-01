@@ -1,0 +1,47 @@
+{
+    "_id": "JZGy20v74pSYR7yF",
+    "folder": "n6xAAibQJiIyiJfs",
+    "img": "systems/sf2e/icons/actions/TwoActions.webp",
+    "name": "Drill Rush",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>You Channel the World's Core, Stride, then Strike. You gain a +10-foot status bonus to your burrow Speed for this action, and if you Burrow, your movement doesn't trigger reactions.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "strike-from-the-worlds-core",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "strike-from-the-worlds-core"
+                ],
+                "selector": [
+                    "all-speeds"
+                ],
+                "type": "status",
+                "value": 10
+            }
+        ],
+        "traits": {
+            "value": [
+                "traversal"
+            ]
+        }
+    },
+    "type": "action"
+}

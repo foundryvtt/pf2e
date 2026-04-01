@@ -1,0 +1,60 @@
+{
+    "_id": "QQI5h2C4YPoIOreo",
+    "folder": "L0bch9SEZ5rlmNNK",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Balancing Tail",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've developed a healthy appreciation for your prehensile tail. It's hard to imagine life without it—you'd probably fall over all the time. Luckily, yours is there to help keep your balance, even in the trickiest situations. You gain a +1 circumstance bonus to Acrobatics checks to [[/act balance]] and a +1 circumstance bonus to your Reflex DC against attempts to [[/act trip]] you. As long as your tail isn't holding an item, you aren't @UUID[Compendium.sf2e.conditions.Item.Off-Guard] while on a narrow surface or uneven ground.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:trip",
+                            "action:balance"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "reflex-dc",
+                    "acrobatics"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "maraquoi"
+            ]
+        }
+    },
+    "type": "feat"
+}

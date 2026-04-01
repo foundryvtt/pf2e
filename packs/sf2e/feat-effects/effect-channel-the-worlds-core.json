@@ -1,0 +1,115 @@
+{
+    "_id": "gWDgX4Zs8O1lxfcQ",
+    "img": "icons/magic/earth/orb-ringed-lava-black-orange.webp",
+    "name": "Effect: Channel the World's Core",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Channel the World's Core]</p>\n<p>You deal an additional 1d4 damage per weapon damage die to the next attack you make with your weapon.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": [
+                            "feat:dead-worlds"
+                        ],
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            "feat:dead-worlds"
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            "feat:dead-worlds"
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "predicate": [
+                            "feat:dead-worlds"
+                        ],
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "predicate": [
+                            "feat:dead-worlds"
+                        ],
+                        "value": "void"
+                    }
+                ],
+                "flag": "channelCoreDamage",
+                "key": "ChoiceSet",
+                "rollOption": "channel-core-damage"
+            },
+            {
+                "damageType": "{item|flags.system.rulesSelections.channelCoreDamage}",
+                "diceNumber": "@weapon.system.damage.dice",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "{item|flags.system.rulesSelections.weapon}-damage",
+                "slug": "channel-core-extra-dice"
+            },
+            {
+                "definition": [
+                    "item:slug:{item|flags.system.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "channel-core-damage:poison"
+                ],
+                "property": "weapon-traits",
+                "value": "radiation"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,65 @@
+{
+    "_id": "NGInnZ5bj0dF1fo7",
+    "folder": "nJmSTeABFlZOmqMJ",
+    "img": "icons/magic/defensive/shield-barrier-blades-teal.webp",
+    "name": "Contained Emotions",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>You keep your emotions contained. Creatures take a –2 circumstance penalty to [[/act sense-motive]] checks against you. You gain a +1 circumstance bonus to saving throws against emotion effects. If you roll a success on a saving throw against an emotion effect, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:emotion"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "action:sense-motive"
+                ],
+                "selectors": [
+                    "perception"
+                ],
+                "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Contained Emotions"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "madrosarai"
+            ]
+        }
+    },
+    "type": "feat"
+}

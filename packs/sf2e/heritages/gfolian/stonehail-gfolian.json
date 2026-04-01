@@ -1,0 +1,54 @@
+{
+    "_id": "WmyMkqUME3Tzi7uR",
+    "folder": "Q03TOgwXTJo2mCgj",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Stonehail G'folian",
+    "system": {
+        "ancestry": {
+            "name": "G'folian",
+            "slug": "gfolian",
+            "uuid": "Compendium.sf2e.ancestries.Item.fqn2WK47MN0gqax3"
+        },
+        "description": {
+            "value": "<p>Thick chitin enhances your shell, and you might even descend directly from a strain of massive g'folians known to dwell within the deepest mountains of Inthana. You can choose to become Large instead of Medium when you select this heritage. You gain 10 healing Hit Points from your ancestry instead of 8 and gain a +1 circumstance bonus to Fortitude saves against diseases and poisons.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.ancestryhp",
+                "value": 10
+            },
+            {
+                "key": "CreatureSize",
+                "value": "large"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

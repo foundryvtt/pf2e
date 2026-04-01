@@ -1,0 +1,86 @@
+{
+    "_id": "PPSH5vdf90KC95jJ",
+    "folder": "91RVTblXt7hBtocM",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Reveal Beasts",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "bonus",
+        "description": {
+            "value": "<p>You're adept at revealing—or creating—fear among those who threaten civilization. If you succeed at a check to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] to identify an animal, beast, fungus, or plant, you get a critical success instead. Additionally, whenever you critically succeed at a check to Recall Knowledge against an animal, beast, fungus, or plant, that creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Order of the Nail"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "reveal-beasts",
+                "toggleable": true
+            },
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "reveal-beasts",
+                            "target:trait:animal",
+                            "target:trait:beast",
+                            "target:trait:fungus",
+                            "target:trait:plant"
+                        ]
+                    }
+                ],
+                "selector": "skill-check"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:recall-knowledge",
+                    {
+                        "or": [
+                            "reveal-beasts",
+                            "target:trait:animal",
+                            "target:trait:beast",
+                            "target:trait:fungus",
+                            "target:trait:plant"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "skill-check"
+                ],
+                "text": "PF2E.SpecificRule.RevealBeasts.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

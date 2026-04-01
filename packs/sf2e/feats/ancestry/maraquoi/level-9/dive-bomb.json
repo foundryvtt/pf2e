@@ -1,0 +1,62 @@
+{
+    "_id": "7X1B7kyAjuDUj4VT",
+    "folder": "WRZEE221zOFs0FRd",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Dive Bomb",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>A well-trained maraquoi hunter can launch themself at their prey from any perch, in any direction. You [[/act high-jump]], [[/act long-jump]], or [[/act maneuver-in-flight]] to [[/act fly]] your fly Speed. If you move at least 10 feet and end in a square adjacent to a target, make a melee Strike or attempt to [[/act shove]] the target. If you rolled a critical success on your Athletics check to High Jump or a success on your Acrobatics check to Maneuver in Flight, your target is @UUID[Compendium.sf2e.conditions.Item.Off-Guard] to this attack.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "action:maneuver-in-flight",
+                            "action:high-jump"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "athletics",
+                    "acrobatics"
+                ],
+                "text": "Your target is @UUID[Compendium.sf2e.conditions.Item.Off-Guard] to this attack."
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "maraquoi"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,60 @@
+{
+    "_id": "udUrzHOieqcQBb8H",
+    "img": "icons/magic/defensive/barrier-shield-dome-deflect-blue.webp",
+    "name": "Effect: Inspiring Presence (Augustana's Pride)",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +1 status bonus to attack rolls, damage rolls, and saves against fear for 1 round.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack-roll",
+                    "damage"
+                ],
+                "slug": "inspiring-presence-attack-bonus",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "slug": "inspiring-presence-saving-throw-bonus",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

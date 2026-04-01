@@ -1,0 +1,43 @@
+{
+    "_id": "Xnt4hGFXYdY5jYOk",
+    "img": "icons/skills/movement/feet-winged-boots-blue.webp",
+    "name": "Effect: Rise Up!",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Rise Up!]</p>\n<p>You gain a fly Speed equal to their Speed or 20 feet, whichever is greater.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "max(20,@actor.system.movement.speeds.land.value)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,45 @@
+{
+    "_id": "4CVM1CKudi7K92yN",
+    "img": "icons/magic/lightning/bolt-forked-orange-purple.webp",
+    "name": "Effect: Electrify LFAN",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Electrify LFAN]</p>\n<p>Your Strikes deal an additional d6 electricity damage per weapon damage die.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "damageType": "electricity",
+                "diceNumber": "@weapon.system.damage.dice",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

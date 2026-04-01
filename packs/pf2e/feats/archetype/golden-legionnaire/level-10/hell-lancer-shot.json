@@ -1,0 +1,68 @@
+{
+    "_id": "jAQRg40crmZgPkDr",
+    "folder": "gABOy7Vbsht1l9VY",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Hell-Lancer Shot",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Make a ranged Strike with a firearm against a fiend, ignoring the fiend's @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition and any lesser cover. If this Strike hits, you gain a circumstance bonus to damage equal to twice the number of weapon damage dice. This counts as two attacks when calculating your multiple attack penalty.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Golden Legionnaire Dedication"
+                },
+                {
+                    "value": "trained in martial firearms"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "domain": "damage",
+                "key": "RollOption",
+                "option": "hell-lancer-shot",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "hell-lancer-shot"
+                ],
+                "selector": [
+                    "ranged-strike-damage"
+                ],
+                "slug": "gravity-weapon",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice * 2"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

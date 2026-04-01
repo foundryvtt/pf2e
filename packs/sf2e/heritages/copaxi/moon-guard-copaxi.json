@@ -1,0 +1,49 @@
+{
+    "_id": "p9LZa824mlvlf0dS",
+    "folder": "j3UQPomndcmFNZFX",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Moon Guard Copaxi",
+    "system": {
+        "ancestry": {
+            "name": "Copaxi",
+            "slug": "copaxi",
+            "uuid": "Compendium.sf2e.ancestries.Item.tvjMyXjibIywAPh2"
+        },
+        "description": {
+            "value": "<p>You've lived a significant portion of your life on Sabraxid, Tabrid Minor's moon, in or around one of the many colonies that have sprung up in the recent decades as the government increases its focus on interstellar travel. You, along with most of the moon's copaxi residents, have had to face the undead remains of the warriors from the copaxi civil wars that were flung beyond the planet's atmosphere by powerful gravity-wielding copaxis.</p>\n<p>As a moon guard copaxi, you've adapted to a harsh life on the fringes of the Sabraxid moon colonies. You gain 8 Hit Points from your ancestry instead of 6. You also gain a +1 circumstance bonus to saving throws against effects with the death or void trait.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.ancestryhp",
+                "value": 8
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:death",
+                            "item:trait:void"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

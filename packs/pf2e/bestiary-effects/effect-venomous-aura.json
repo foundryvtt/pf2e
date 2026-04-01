@@ -1,0 +1,58 @@
+{
+    "_id": "6fPk2jOEp7LOsV7J",
+    "img": "icons/skills/toxins/symbol-poison-drop-skull-green.webp",
+    "name": "Effect: Venomous Aura",
+    "system": {
+        "description": {
+            "value": "<p>You gain weakness 10 to poison (weakness 15 on a critical failure).</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 20
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #206: Bring the House Down"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": 10
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": 15
+                    }
+                ],
+                "flag": "weakness",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "Weakness",
+                "type": "poison",
+                "value": "@item.flags.system.rulesSelections.weakness"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

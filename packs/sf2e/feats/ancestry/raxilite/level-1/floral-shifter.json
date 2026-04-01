@@ -1,0 +1,88 @@
+{
+    "_id": "rzIqdNslqg0kR8Od",
+    "folder": "BYaf9Ovo97hBejda",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Floral Shifter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>When you change between your flowering and seeding states, you perform other subtle alterations to your body to enhance your abilities. You can change between a flowering state and a seeding state by spending 1 week of downtime.</p>\n<p>If you're flowering, your pleasant aroma makes you more charming. You gain a +1 circumstance bonus to Diplomacy checks to [[/act make-an-impression options=floral-shifter:flowering traits=olfactory]]; this effect has the olfactory trait. The bonus increases to +2 if you're a master in Diplomacy. If you're seeding, you instead gain immunity to falling damage whenever you're in an atmosphere.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "floral-shifter",
+                "suboptions": [
+                    {
+                        "label": "Flowering",
+                        "value": "flowering"
+                    },
+                    {
+                        "label": "Seeding",
+                        "value": "seeding"
+                    }
+                ],
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:make-an-impression",
+                    "floral-shifter:flowering"
+                ],
+                "selector": [
+                    "diplomacy"
+                ],
+                "slug": "floral-shifter-diplomancy-bonus",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:diplomacy:rank",
+                            3
+                        ]
+                    }
+                ],
+                "selector": "diplomacy",
+                "slug": "floral-shifter-diplomancy-bonus",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "raxilite"
+            ]
+        }
+    },
+    "type": "feat"
+}

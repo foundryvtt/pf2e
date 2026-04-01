@@ -1,0 +1,59 @@
+{
+    "_id": "ii1NY1YvM7lsql6n",
+    "img": "icons/magic/sonic/explosion-shock-sound-wave.webp",
+    "name": "Effect: Cue the Music",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Cue the Music]</p>\n<p>You gain a +1 status bonus to your initiative rolls and to saves against emotion effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "initiative"
+                ],
+                "slug": "cue-the-music-initiative-bonus",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:emotion"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "slug": "cue-the-music-saving-throw-bonus",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

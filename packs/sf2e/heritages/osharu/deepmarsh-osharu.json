@@ -1,0 +1,39 @@
+{
+    "_id": "BmO4C2D61p3YypAL",
+    "folder": "L5MqbVNd9qLMG1fp",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Deepmarsh Osharu",
+    "system": {
+        "ancestry": {
+            "name": "Osharu",
+            "slug": "osharu",
+            "uuid": "Compendium.sf2e.ancestries.Item.r1f3ChFtmCRQ9fMj"
+        },
+        "description": {
+            "value": "<p>Deepmarsh osharus are highly solitary, forsaking the comforts, luxuries, and benefits of society to seek the ascetic wisdom and challenges of the deepest swamps. Novel pathogens and venomous fauna are near-daily occurrences in the primordial breeding ground of the fetid mire, and surviving takes knowledge of the common dangers.</p>\n<p>You become trained in Survival. If you would automatically become trained in Survival (from your background or class, for example), you instead become trained in another skill of your choice. You also gain poison resistance equal to half your level (minimum 1).</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.survival.rank",
+                "value": 1
+            },
+            {
+                "key": "Resistance",
+                "type": "poison",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

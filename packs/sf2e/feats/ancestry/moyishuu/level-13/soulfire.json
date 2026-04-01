@@ -1,0 +1,85 @@
+{
+    "_id": "0JrCGJWNoSKhgJAL",
+    "folder": "9o0XU6D3nXxbv6Il",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Soulfire",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your understanding of your own emotions and soul deepens profoundly. You gain additional benefits depending on your current soulfeel attunement.</p>\n<p><strong>Fury:</strong> You gain a +2 circumstance bonus to your Athletics checks.</p>\n<p><strong>Joy:</strong> You gain a fly Speed of 20 feet.</p>\n<p><strong>Sorrow:</strong> You gain a burrow Speed of 10 feet.</p>\n<p><strong>Wonder:</strong> You gain a +2 circumstance bonus to your Perception checks.</p><hr /><p><strong>Special</strong> If you have @UUID[Compendium.sf2e.feats.Item.Mascot Power!], the summoned minion gains the same benefits of Soulfire as you.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "soulfeel:fury"
+                ],
+                "selector": [
+                    "athletics"
+                ],
+                "slug": "soulfire-fury",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "soulfeel:wonder"
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "slug": "soulfire-wonder",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "soulfeel:joy"
+                ],
+                "selector": "fly",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "soulfeel:sorrow"
+                ],
+                "selector": "burrow",
+                "value": 10
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "moyishuu"
+            ]
+        }
+    },
+    "type": "feat"
+}

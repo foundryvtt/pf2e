@@ -1,0 +1,57 @@
+{
+    "_id": "JDvBWzG4ivMPPYfI",
+    "img": "icons/magic/fire/beam-jet-stream-trails-orange.webp",
+    "name": "Effect: Scorching Lifeblood",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Scorching Lifeblood]</p>\n<p>Any creature that touches you, deals piercing or slashing damage to you, or hits you with a melee unarmed attack takes 3d6 fire damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "item:melee",
+                    {
+                        "not": "item:trait:reach"
+                    },
+                    {
+                        "or": [
+                            "item:damage:type:piercing",
+                            "item:damage:type:slashing",
+                            "item:trait:unarmed"
+                        ]
+                    }
+                ],
+                "selector": "damage-received",
+                "text": "You take @Damage[3d6[fire]] damage",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

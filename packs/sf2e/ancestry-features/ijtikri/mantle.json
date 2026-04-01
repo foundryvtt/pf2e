@@ -1,0 +1,53 @@
+{
+    "_id": "W0H7J1XQvkF1pfMD",
+    "folder": "wzs4Bzb4AgsPCRA6",
+    "img": "icons/commodities/biological/shell-conch-gray.webp",
+    "name": "Mantle",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>Your petrified shell shields your most vulnerable anatomy. You gain resistance to precision damage equal to half your level (minimum 1).</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "not": "self:effect:sacrificial-shell"
+                    }
+                ],
+                "type": "precision",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ijtikri"
+            ]
+        }
+    },
+    "type": "feat"
+}

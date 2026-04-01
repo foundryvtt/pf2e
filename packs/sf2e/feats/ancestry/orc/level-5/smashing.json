@@ -1,0 +1,58 @@
+{
+    "_id": "rzAzunxDANLfmpgG",
+    "folder": "tr7bo75vSuFLoVU8",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Smashing!",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You focus your energy and concentrate on your target to find cracks and flaws you can exploit before you Strike. This Strike gains the razing trait, dealing additional damage to objects equal to double the number of weapon damage dice. On a critical hit, a targeted tech item becomes @UUID[Compendium.sf2e.conditions.Item.Glitching]{Glitching 1}.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "smashing-active",
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "smashing-active"
+                ],
+                "property": "traits",
+                "value": "razing"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "orc"
+            ]
+        }
+    },
+    "type": "feat"
+}

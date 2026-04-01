@@ -1,0 +1,57 @@
+{
+    "_id": "d4QnZCis80KgMNX1",
+    "folder": "O9n1bpHpPjHDaqgS",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Nostalgia for Worlds Lost",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You miss your home world of Aucturn, and even if you don't want to go back to your time there, the thought of its strange vistas fills your heart with fond memories. If you would critically fail a saving throw against an emotion effect, you get a failure instead. In addition, you gain the @UUID[Compendium.sf2e.actions.Item.Thoughts of a Lost Home] action.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:emotion"
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Thoughts of a Lost Home"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "orocoran"
+            ]
+        }
+    },
+    "type": "feat"
+}

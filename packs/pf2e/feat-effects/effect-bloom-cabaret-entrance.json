@@ -1,0 +1,56 @@
+{
+    "_id": "N7XvZ8A5Cj3PW1X3",
+    "img": "icons/environment/settlement/city-gate.webp",
+    "name": "Effect: Bloom Cabaret Entrance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Bloom Cabaret Entrance]</p>\n<p>You gain a +2 circumstance bonus to the first Deception, Diplomacy, or Intimidation check you attempt.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "check:statistic:diplomacy",
+                            "check:statistic:deception",
+                            "check:statistic:intimidation"
+                        ]
+                    }
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": [
+                    "skill-check"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

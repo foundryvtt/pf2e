@@ -1,0 +1,247 @@
+{
+    "_id": "cGBjkNm9P7Ra09rp",
+    "img": "systems/sf2e/icons/abilities/blue-organization-insignia.webp",
+    "name": "Spell Effect: Eldritch Bond",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Eldritch Bond]</p>\n<p>You gain up to two of the following abilities:</p><ul><li>Darkvision</li><li>Mental resistance equal to half your level (minimum 1)</li><li>A tentacle unarmed attack that deals bludgeoning damage</li><li>A stinger unarmed attack that deals acid damage and has the agile and finesse traits</li><li>A beam ranged unarmed attack with a range increment of 40 feet that deals mental damage</li><li>10-foot reach on all melee attacks (including the above)</li><li>Melee strikes (including those above) affect incorporeal creatures as if they had the @UUID[Compendium.sf2e.equipment.Item.Ghost Killer] upgrade.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Darkvision",
+                        "value": "darkvision"
+                    },
+                    {
+                        "label": "PF2E.GenericLabel.Resist.Mental",
+                        "value": "mental-resistance"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Tentacle",
+                        "value": "tentacle"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Stinger",
+                        "value": "stinger"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Beam",
+                        "value": "beam"
+                    },
+                    {
+                        "label": "PF2E.TraitReach",
+                        "value": "reach"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.GhostKiller.Label",
+                        "value": "ghost-killer"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "priority": 110,
+                "prompt": "PF2E.SpecificRule.Prompt.Ability",
+                "rollOption": "eldritch-bond"
+            },
+            {
+                "allowNoSelection": true,
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Darkvision",
+                        "predicate": [
+                            {
+                                "not": "eldritch-bond:darkvision"
+                            }
+                        ],
+                        "value": "darkvision"
+                    },
+                    {
+                        "label": "PF2E.GenericLabel.Resist.Mental",
+                        "predicate": [
+                            {
+                                "not": "eldritch-bond:mental-resistance"
+                            }
+                        ],
+                        "value": "mental-resistance"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Tentacle",
+                        "predicate": [
+                            {
+                                "not": "eldritch-bond:tentacle"
+                            }
+                        ],
+                        "value": "tentacle"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Stinger",
+                        "predicate": [
+                            {
+                                "not": "eldritch-bond:stinger"
+                            }
+                        ],
+                        "value": "stinger"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Beam",
+                        "predicate": [
+                            {
+                                "not": "eldritch-bond:beam"
+                            }
+                        ],
+                        "value": "beam"
+                    },
+                    {
+                        "label": "PF2E.TraitReach",
+                        "predicate": [
+                            {
+                                "not": "eldritch-bond:reach"
+                            }
+                        ],
+                        "value": "reach"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Equipment.Upgrades.Weapon.GhostKiller.Label",
+                        "predicate": [
+                            {
+                                "not": "eldritch-bond:ghost-killer"
+                            }
+                        ],
+                        "value": "ghost-killer"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SecondAbility",
+                "rollOption": "eldritch-bond"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "eldritch-bond:darkvision"
+                ],
+                "selector": "darkvision"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "eldritch-bond:mental-resistance"
+                ],
+                "type": "mental",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": "ternary(gte(@item.level,9),4,ternary(gte(@item.level,6),3,ternary(gte(@item.level,3),2,1)))",
+                        "die": "d8"
+                    }
+                },
+                "img": "systems/sf2e/icons/unarmed-attacks/tentacle.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tentacle",
+                "predicate": [
+                    "eldritch-bond:tentacle"
+                ],
+                "range": null,
+                "slug": "tentacle"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "acid",
+                        "dice": "ternary(gte(@item.level,9),4,ternary(gte(@item.level,6),3,ternary(gte(@item.level,3),2,1)))",
+                        "die": "d6"
+                    }
+                },
+                "img": "systems/sf2e/icons/unarmed-attacks/stinger.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Stinger",
+                "predicate": [
+                    "eldritch-bond:stinger"
+                ],
+                "range": null,
+                "slug": "stinger",
+                "traits": [
+                    "agile",
+                    "finesse"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "mental",
+                        "dice": "ternary(gte(@item.level,9),4,ternary(gte(@item.level,6),3,ternary(gte(@item.level,3),2,1)))",
+                        "die": "d6"
+                    }
+                },
+                "img": "systems/sf2e/icons/abilities/purple-dimension-rift.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Beam",
+                "predicate": [
+                    "eldritch-bond:beam"
+                ],
+                "range": {
+                    "increment": 40
+                },
+                "slug": "beam"
+            },
+            {
+                "definition": [
+                    "item:melee"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "eldritch-bond:reach",
+                    {
+                        "not": "item:trait:reach"
+                    }
+                ],
+                "property": "weapon-traits",
+                "value": "reach"
+            },
+            {
+                "definition": [
+                    "item:melee"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "eldritch-bond:ghost-killer"
+                ],
+                "property": "property-runes",
+                "value": "ghost-touch"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

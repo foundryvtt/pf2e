@@ -1,0 +1,63 @@
+{
+    "_id": "cZyhFXHxnmtK0hlY",
+    "folder": "UQzbX54JVTdRIFws",
+    "img": "icons/commodities/treasure/glass-crystal-green.webp",
+    "name": "Clan Crystal",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>At birth, you're given a one-handed simple weapon crafted with your clan crystal. The crystal can't be removed, and selling the weapon or crystal is a terrible taboo that earns you the disdain of other dwarves.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:category:simple",
+                        "item:usage:hands:1",
+                        {
+                            "not": "item:trait:consumable"
+                        }
+                    ],
+                    "itemType": "weapon"
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.weapon}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

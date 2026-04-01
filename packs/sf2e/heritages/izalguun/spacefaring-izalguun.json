@@ -1,0 +1,53 @@
+{
+    "_id": "0XmZvX1XXFnVgJEx",
+    "folder": "oaWTv7oS6R2sl3tT",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Spacefaring Izalguun",
+    "system": {
+        "ancestry": {
+            "name": "Izalguun",
+            "slug": "izalguun",
+            "uuid": "Compendium.sf2e.ancestries.Item.8GXuOAZR2i39RGji"
+        },
+        "description": {
+            "value": "<p>You've left your home planet to wander the galaxy. Wandering for so long has given you the chance to perfect your skills at wayfaring. You become trained in Piloting. If you would automatically become trained in Piloting (from your background or class, for example), you instead become trained in another skill of your choice. If you roll a success on a Piloting check to @UUID[Compendium.sf2e.actions.Item.Navigate] or @UUID[Compendium.sf2e.actions.Item.Plot Course], you get a critical success instead.</p>\n<p>In addition, you've come across people of myriad backgrounds throughout your travels and have heard dubious rumors aplenty. You gain the @UUID[Compendium.sf2e.feats.Item.Dubious Knowledge] skill feat, even if you don't meet the prerequisites.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Dubious Knowledge"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.piloting.rank",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:navigate",
+                            "action:plot-course"
+                        ]
+                    }
+                ],
+                "selector": "piloting"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

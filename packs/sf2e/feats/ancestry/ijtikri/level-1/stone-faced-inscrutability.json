@@ -1,0 +1,60 @@
+{
+    "_id": "tbJwCh7o7TfxGsnw",
+    "folder": "Wo0bOV3K9Ko2BKX1",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Stone-Faced Inscrutability",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your mineralized mantle and practiced stoicism ensure that others sense your emotions only when you want them to. Other creatures take a –2 circumstance penalty to Perception checks to [[/act sense-motive]] against you. In addition, if you roll a success on your saving throw against an emotion effect, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "EphemeralEffect",
+                "selectors": [
+                    "perception"
+                ],
+                "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Stone-Faced Inscrutability"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:emotion"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ijtikri"
+            ]
+        }
+    },
+    "type": "feat"
+}

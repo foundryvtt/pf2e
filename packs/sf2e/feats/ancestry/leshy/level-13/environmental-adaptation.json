@@ -1,0 +1,73 @@
+{
+    "_id": "HeHBlqAg84g749iW",
+    "folder": "x0bemoQQCKxMUFBV",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Environmental Adaptation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your body contains polymers that you can rapidly reconfigure to resist extreme temperatures. You treat environmental cold and heat effects as if they were two steps less extreme (incredible cold becomes severe, extreme cold becomes mild, and so on).</p>\n<p>Additionally, you gain resistance equal to half your level to your choice of cold or fire. You can change your choice during daily preparations, as well as with the @UUID[Compendium.sf2e.actions.Item.Instantaneous Adaptation] reaction.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Hardy Leshy heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Instantaneous Adaptation"
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Prompt.Resistance",
+                "option": "environmental-adaptation-resistance",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.system.rulesSelections.environmentalAdaptationResistance}",
+                "value": "max(floor(@actor.level/2),1)"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "leshy"
+            ]
+        }
+    },
+    "type": "feat"
+}

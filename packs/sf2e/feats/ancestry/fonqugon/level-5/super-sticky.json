@@ -1,0 +1,77 @@
+{
+    "_id": "yx8SkBe6iQWtguNF",
+    "folder": "s7vBvzblpDqLaNYa",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Super Sticky",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your body is very sticky. You gain a +2 circumstance bonus to your Fortitude and Reflex DCs against attempts to [[/act reposition]], [[/act shove]], or [[/act trip]] you. This bonus also applies to saving throws against spells or effects that attempt to force you to move or knock you @UUID[Compendium.sf2e.conditions.Item.Prone]. In addition, if any effect would force you to move 10 feet or more, you're moved only half the distance.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:reposition",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "reflex-dc",
+                    "fortitude-dc"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:prone",
+                            "inflicts:forced-movement"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fonqugon"
+            ]
+        }
+    },
+    "type": "feat"
+}

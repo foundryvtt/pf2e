@@ -1,0 +1,43 @@
+{
+    "_id": "dRF0szwsbL0FKBxP",
+    "folder": "dBOM0ik7W6nF8Ek7",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Caravan Cousin Halfling",
+    "system": {
+        "ancestry": {
+            "name": "Halfling",
+            "slug": "halfling",
+            "uuid": "Compendium.sf2e.ancestries.Item.4Yw9X0SD3Mr3DtnW"
+        },
+        "description": {
+            "value": "<p>You spent a significant portion of your life traveling with a halfling caravan, wheeling and dealing with people from all kinds of worlds, social strata, and moral inclinations.</p>\n<p>You become trained in Diplomacy. If you would automatically become trained in Diplomacy (from your background or class, for example), you instead become trained in a skill of your choice. You gain the @UUID[Compendium.sf2e.feats.Item.Bargain Hunter] feat and a +1 status bonus to Diplomacy checks to @UUID[Compendium.sf2e.actions.Item.Earn Income].</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Bargain Hunter"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:earn-income"
+                ],
+                "selector": [
+                    "diplomacy"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,96 @@
+{
+    "_id": "znrubdU7Jj9x0TAL",
+    "folder": "diMsOd1sbYmizPTw",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Inheritor Raxilite",
+    "system": {
+        "ancestry": {
+            "name": "Raxilite",
+            "slug": "raxilite",
+            "uuid": "Compendium.sf2e.ancestries.Item.lU4TJFs95esViIHI"
+        },
+        "description": {
+            "value": "<p>You were influenced by a great hero. Perhaps you grew up hearing stories of them, or perhaps you had a formative experience assisting them with a grand project. You might have added their initials or another acronym associated with them to your own name as a mark of respect, or you might be waiting to do so until you've accomplished a deed worthy of their name. Regardless of the nature of your connection to this hero, you hope to build upon their legacy.</p>\n<p>Choose a field in which your hero excelled; you gain the feats and proficiencies listed. The options below are the default; your GM might allow other combinations based on the skill feats granted by different backgrounds.</p>\n<p><strong>Bioengineer:</strong> Your hero is a pioneer in bioengineering. They might have made their name working on critical systems like the IMAS or LFAN, or perhaps their innovations center around the living ships that hold cities on Raxil aloft. You become trained in Crafting (or another skill if you're already trained in Crafting), and you gain the @UUID[Compendium.sf2e.feats.Item.Specialty Crafting] skill feat in life science.</p>\n<p><strong>Daredevil:</strong> Your hero is a risk taker; or perhaps they were, if one of their dangerous exploits cost them their life. They might have been an explorer of uncharted planets or an alpha tester for new technology. By following in their footsteps, you've forced your body to adapt to survive in harrowing conditions. You gain the @UUID[Compendium.sf2e.feats.Item.Diehard] general feat.</p>\n<p><strong>Emissary:</strong> Your hero is a famous diplomat, such as one of the first emissaries to establish contact between Raxil and other worlds. You become trained in Society (or another skill if you're already trained in Society), and you gain the @UUID[Compendium.sf2e.feats.Item.Digital Ambassador] skill feat.</p>\n<p><strong>Interstellar Pilot:</strong> Your hero was among the first raxilites to engage in interstellar travel. Like your hero, you enjoy experimenting with your starships to optimize their performance. You become trained in Piloting (or another skill if you're already trained in Piloting), and you gain the @UUID[Compendium.sf2e.feats.Item.Express Driver] skill feat.</p>\n<p><strong>Physician:</strong> Your hero's work has saved countless lives, whether as a field medic, a hospital founder, or a leader in pharmaceutical development and distribution. You become trained in Medicine (or another skill if you're already trained in Medicine), and you gain the @UUID[Compendium.sf2e.feats.Item.Battle Medicine] skill feat.</p>\n<p><strong>Software Architect:</strong> Your hero has developed innovative software that revolutionized their field. You become trained in Computers (or another skill if you're already trained in Computers), and you gain the @UUID[Compendium.sf2e.feats.Item.Phreaker] skill feat.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "Bioengineer",
+                        "value": {
+                            "feat": "Compendium.sf2e.feats.Item.Specialty Crafting",
+                            "skill": "crafting"
+                        }
+                    },
+                    {
+                        "label": "Daredevil",
+                        "value": {
+                            "feat": "Compendium.sf2e.feats.Item.Diehard",
+                            "skill": "daredevil"
+                        }
+                    },
+                    {
+                        "label": "Emissary",
+                        "value": {
+                            "feat": "Compendium.sf2e.feats.Item.Digital Ambassador",
+                            "skill": "society"
+                        }
+                    },
+                    {
+                        "label": "Interstellar Pilot",
+                        "value": {
+                            "feat": "Compendium.sf2e.feats.Item.Express Driver",
+                            "skill": "piloting"
+                        }
+                    },
+                    {
+                        "label": "Physician",
+                        "value": {
+                            "feat": "Compendium.sf2e.feats.Item.Battle Medicine",
+                            "skill": "medicine"
+                        }
+                    },
+                    {
+                        "label": "Software Architect",
+                        "value": {
+                            "feat": "Compendium.sf2e.feats.Item.Phreaker",
+                            "skill": "computers"
+                        }
+                    }
+                ],
+                "flag": "inheritorRaxilite",
+                "key": "ChoiceSet",
+                "prompt": "Choose a field"
+            },
+            {
+                "key": "RollOption",
+                "option": "inheritor-field:{item|flags.system.rulesSelections.inheritorRaxilite.skill}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.inheritorRaxilite.skill}.rank",
+                "predicate": [
+                    {
+                        "not": "inheritor-field:daredevil"
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.inheritorRaxilite.feat}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

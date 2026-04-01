@@ -1,0 +1,74 @@
+{
+    "_id": "OThtiWNxIQ8H9UWu",
+    "folder": "Wmisa1LxbCfzDd4x",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Bouncy Ball",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>By landing your foot orb directly on the ground, you can use your momentum to bounce yourself forward. If you land on the ground at the end of a jump (whether performing a [[/act high-jump]], [[/act long-jump]], or [[/act leap]]), you can use High Jump or Long Jump as a single action, but you don't get to Stride as part of the activity.</p><hr /><p><strong>Special</strong> If you have the @UUID[Compendium.sf2e.feats.Item.Quick Jump] skill feat, you gain a +2 circumstance bonus to your Athletics check for your second High Jump or Long Jump.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Bouncy Orb Bantrid heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:high-jump",
+                            "action:long-jump"
+                        ]
+                    },
+                    "second-jump"
+                ],
+                "selector": [
+                    "athletics"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Bantrid.BouncyBall.SecondJump",
+                "option": "second-jump",
+                "predicate": [
+                    "feat:quick-jump"
+                ],
+                "toggleable": true
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "bantrid"
+            ]
+        }
+    },
+    "type": "feat"
+}

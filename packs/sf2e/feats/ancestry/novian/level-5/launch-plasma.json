@@ -1,0 +1,68 @@
+{
+    "_id": "wqZskSzuG9Pege6u",
+    "folder": "uZzdsoVMfGoN2zBV",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Launch Plasma",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p><hr /><p>You can launch a ball of plasma and stellar ejecta across the battlefield that explodes on impact, raining plasma and flame in a small area. Launch Plasma deals @Damage[ceil(@actor.level/2)d6[fire]] damage in a @Template[burst|distance:5] within 60 feet. Each creature in the area must attempt a @Check[reflex|against:class-spell|basic] save against the higher of your class DC or spell DC. On a critical failure, a creature also takes @Damage[(ceil(@actor.level/2))[persistent,electricity]] damage.</p>\n<p>At 7th level and every 2 levels thereafter, the fire damage increases by 1d6, and the persistent electricity damage increases by 1. At 17th level, the area increases to a @Template[burst|distance:10].</p><hr /><p><strong>Special</strong> If you're a @UUID[Compendium.sf2e.heritages.Item.Volatile Novian], Launch Plasma and @UUID[Compendium.sf2e.actions.Item.Mini-Nova]{Mini-Nova's} damage dice are both increased to d8s.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "heritage:volatile-novian",
+                    {
+                        "or": [
+                            "item:slug:mini-nova",
+                            "item:slug:launch-plasma"
+                        ]
+                    }
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "inline-damage"
+                ],
+                "value": 8
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "electricity",
+                "fire",
+                "novian",
+                "primal"
+            ]
+        }
+    },
+    "type": "feat"
+}

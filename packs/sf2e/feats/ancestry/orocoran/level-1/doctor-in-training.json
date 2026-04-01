@@ -1,0 +1,82 @@
+{
+    "_id": "V0BbHW8wQA0jcrRV",
+    "folder": "O9n1bpHpPjHDaqgS",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Doctor in Training",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You believe a healthy mind and body is integral to a life well lived, dedicating yourself to helping others recover swiftly from illness and disease. You become trained in Medicine. If you would automatically become trained in Medicine (from your background or class, for example), you instead become trained in another skill of your choice. In addition, you gain a +1 circumstance bonus on Medicine checks to [[/act administer-first-aid]], [[/act treat-disease]], and [[/act treat-poison]], and if you get a critical failure on one of these checks, you get a failure instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.medicine.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:administer-first-aid",
+                            "action:treat-disease",
+                            "action:treat-poison"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "medicine"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:administer-first-aid",
+                            "action:treat-disease",
+                            "action:treat-poison"
+                        ]
+                    }
+                ],
+                "selector": "medicine"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "orocoran"
+            ]
+        }
+    },
+    "type": "feat"
+}

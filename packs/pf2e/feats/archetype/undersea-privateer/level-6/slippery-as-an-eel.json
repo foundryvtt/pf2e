@@ -1,0 +1,68 @@
+{
+    "_id": "lLYn6GtAbyns0ENC",
+    "folder": "P9SfDMZUPlGlu9AQ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Slippery As An Eel",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>You mimic the serpentine movements of an eel. While underwater, you gain a +2 circumstance bonus to Acrobatics checks to [[/act escape skill=acrobatics]], [[/act squeeze]], and [[/act tumble-through]].</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Undersea Privateer Dedication"
+                },
+                {
+                    "value": "trained in Acrobatics"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:escape",
+                            "action:squeeze",
+                            "action:tumble-through"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "acrobatics"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

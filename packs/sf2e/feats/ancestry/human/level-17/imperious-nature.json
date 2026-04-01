@@ -1,0 +1,65 @@
+{
+    "_id": "qtRCWjwe4MzkCFjR",
+    "folder": "VLAxhQyJ5FHfHVp9",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Imperious Nature",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your legendary abilities set you apart from the rest of humanity, and you can project an air of majesty that inspires compliance in those around you.</p>\n<p>Once per day, you can cast @UUID[Compendium.sf2e.spells.Item.Command] as a 7th-rank occult innate spell using the higher of your class DC or spell DC. Because you're projecting your presence more so than words, this effect loses the linguistic trait.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:command",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:command",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:human"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "human"
+            ]
+        }
+    },
+    "type": "feat"
+}

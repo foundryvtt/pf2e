@@ -1,0 +1,50 @@
+{
+    "_id": "MbLXxoDfRUQJbIhr",
+    "img": "icons/skills/social/wave-halt-stop.webp",
+    "name": "Effect: Such a Disgrace!",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Such a Disgrace!]</p>\n<p>You gain a +1 circumstance bonus to reroll a Will saving throw.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "such-a-disgrace"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": [
+                    "will"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

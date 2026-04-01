@@ -1,0 +1,106 @@
+{
+    "_id": "pBMGaS0WcG4GlN9F",
+    "folder": "ITpaw6J6U3w9oGJa",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Plentiful Bile",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have an unending supply of toxins and bile. Select one of the following abilities you possess: @UUID[Compendium.sf2e.feats.Item.Coat in Bile], @UUID[Compendium.sf2e.actions.Item.Slitherskin], or @UUID[Compendium.sf2e.feats.Item.Spew Acidic Bile]. If you selected Coat in Bile or Spew Acidic Bile, the frequency of the selected ability becomes once per 10 minutes, rather than once per day. If you selected Slitherskin, the frequency of Slitherskin becomes once per 10 minutes, rather than once per hour.</p><hr /><p><strong>Special</strong> You can take this feat more than once, selecting a different ability you possess each time.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "maxTakable": 3,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Coat in Bile, slitherskin orocoran heritage, or Spew Acidic Bile"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "Coat in Bile",
+                        "predicate": [
+                            "feat:coat-in-bile",
+                            {
+                                "not": "plentiful-bile:coat-in-bile"
+                            }
+                        ],
+                        "value": "coat-in-bile"
+                    },
+                    {
+                        "label": "Slitherskin",
+                        "predicate": [
+                            "heritage:slitherskin-orocoran",
+                            {
+                                "not": "plentiful-bile:slitherskin-orocoran"
+                            }
+                        ],
+                        "value": "slitherskin"
+                    },
+                    {
+                        "label": "Spew Acidic Bile",
+                        "predicate": [
+                            "feat:spew-acidic-bile",
+                            {
+                                "not": "plentiful-bile:spew-acidic-bile"
+                            }
+                        ],
+                        "value": "spew-acidic-bile"
+                    }
+                ],
+                "flag": "ability",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Ability",
+                "rollOption": "plentiful-bile"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:{item|flags.system.rulesSelections.ability}"
+                ],
+                "property": "frequency-per",
+                "value": "PT10M"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:{item|flags.system.rulesSelections.ability}"
+                ],
+                "property": "frequency-per",
+                "value": "PT10M"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "orocoran"
+            ]
+        }
+    },
+    "type": "feat"
+}

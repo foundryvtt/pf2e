@@ -1,0 +1,71 @@
+{
+    "_id": "CbAY6dKhTEPdYbbm",
+    "folder": "tr7bo75vSuFLoVU8",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Alloyed Attacks",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've layered alloys over your fists and tusks to improve their efficiency in dispatching certain foes. This enhancement might be voluntary or part of some unwanted evolution or experimentation. Choose cold iron or silver. Your melee unarmed attacks have the special properties of a weapon made of that metal. If you're at least 13th level, you can choose adamantine instead of just cold iron or silver.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Ancestral Unarmed Attack"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.PreciousMaterialColdIron",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialSilver",
+                        "value": "silver"
+                    }
+                ],
+                "flag": "material",
+                "key": "ChoiceSet"
+            },
+            {
+                "definition": [
+                    "item:trait:unarmed"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "selector": "melee-strike-damage",
+                "value": "{item|flags.system.rulesSelections.material}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "orc"
+            ]
+        }
+    },
+    "type": "feat"
+}

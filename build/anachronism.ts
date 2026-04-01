@@ -1,4 +1,7 @@
-import { recursiveReplaceString } from "@util/misc.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
+import { classTraits } from "@scripts/config/traits.ts";
+import { objectHasKey, recursiveReplaceString, sluggify } from "@util/misc.ts";
 import fs from "fs";
 import path from "path";
 import * as R from "remeda";
@@ -6,10 +9,11 @@ import url from "url";
 import yargs, { Argv } from "yargs";
 import pf2eAnachronismManifest from "../module.pf2e-anachronism.json" with { type: "json" };
 import sf2eAnachronismManifest from "../module.sf2e-anachronism.json" with { type: "json" };
+import langEn from "../static/lang/en.json" with { type: "json" };
 import pf2eManifest from "../system.pf2e.json" with { type: "json" };
 import sf2eManifest from "../system.sf2e.json" with { type: "json" };
 import duplicates from "./duplicates.json" with { type: "json" };
-import { CompendiumPack } from "./lib/compendium-pack.ts";
+import { CompendiumPack, isItemSource } from "./lib/compendium-pack.ts";
 import { PackError } from "./lib/helpers.ts";
 import { LevelDatabase } from "./lib/level-database.ts";
 import { PackEntry } from "./lib/types.ts";
@@ -31,6 +35,7 @@ const args = argv
     .parseSync();
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
+const logsDir = path.join(__dirname, "logs");
 const distDir = path.resolve(__dirname, "..", "dist");
 const contentSystems = args.system === "both" ? (["pf2e", "sf2e"] as const) : [args.system];
 
@@ -54,6 +59,7 @@ const sf2ePacks = fs
     .map((p) => CompendiumPack.loadJSON(path.join(sf2eInDir, p), { systemId: "sf2e" }));
 console.log("SF2e Packs Loaded");
 
+// Assemble pack pairs, which are used to detect duplicates and overlaps
 const allPackDirs = R.unique([...pf2eManifest.packs, ...sf2eManifest.packs].map((p) => path.basename(p.path)));
 const packPairs = allPackDirs.map((dir) => {
     const pf2e = pf2ePacks.find((p) => p.dirName === dir);
@@ -78,15 +84,43 @@ const packPairs = allPackDirs.map((dir) => {
     };
 
     // Get all overlaps between the two systems, which we need to redirect and not export
-    // JournalEntries do not redirect, as they may be linked to by content in each system
-    const overlaps =
-        manifestData.type === "JournalEntry"
-            ? new Set()
-            : new Set(pf2e?.data.map((d) => d.name)).intersection(new Set(sf2e?.data.map((d) => d.name)));
+    // An overlap is either a name or an id. Some actor types never overlap.
+    const overlaps: Set<string> = new Set();
+    if (!["JournalEntry", "Actor"].includes(manifestData.type) && pf2e && sf2e) {
+        for (const pf2eData of pf2e.data ?? []) {
+            const sf2eData = sf2e.data.find((d) => d.name === pf2eData.name || d._id === pf2eData._id);
+            if (!sf2eData || !("type" in pf2eData) || !("type" in sf2eData) || pf2eData.type !== sf2eData.type) {
+                continue;
+            }
+
+            // If the id matches, always consider it an overlap. Add the id though.
+            if (pf2eData._id && pf2eData._id === sf2eData._id) {
+                overlaps.add(pf2eData._id);
+                continue;
+            }
+
+            const isItem = isItemSource(pf2eData) && sf2eData && isItemSource(sf2eData);
+            if (isItem && itemIsOfType(pf2eData, "feat") && itemIsOfType(sf2eData, "feat")) {
+                const allTraits = [...pf2eData.system.traits.value, ...sf2eData.system.traits.value];
+
+                // The category must match to be considered an overlap.
+                if (pf2eData.system.category !== sf2eData.system.category) continue;
+
+                // Class features and class feats for classes are also never overlaps
+                if (pf2eData.system.category === "classfeature") continue;
+                if (pf2eData.system.category === "class" && allTraits.some((t) => t in classTraits)) continue;
+            } else if (isItem && itemIsOfType(pf2eData, "background") && itemIsOfType(sf2eData, "background")) {
+                // Backgrounds often share names but aren't the same at all. Rely on id overlaps only.
+                continue;
+            }
+
+            overlaps.add(pf2eData.name);
+        }
+    }
 
     return {
         packName: sf2e?.id ?? pf2e?.id ?? dir,
-        docType: manifestData.type,
+        documentName: manifestData.type,
         pf2e,
         sf2e,
         duplicated: new Set(duplicated),
@@ -136,12 +170,14 @@ for (const contentSystem of contentSystems) {
 
         const entryInTargetSystem = pair.get(targetSystem, docNameOrId);
         const entryInContentSystem = pair.get(contentSystem, docNameOrId);
+        const id = entryInTargetSystem?._id ?? entryInContentSystem?._id;
         const name = entryInTargetSystem?.name ?? entryInContentSystem?.name;
-        if (!name) return null;
+        if (!name || !id) return null;
 
         const duplicated = targetSystem === "sf2e" && pair.duplicated.has(name);
         const useTargetSystem =
-            !!entryInTargetSystem && (!entryInContentSystem || pair.overlaps.has(name) || duplicated);
+            !!entryInTargetSystem &&
+            (!entryInContentSystem || pair.overlaps.has(id) || pair.overlaps.has(name) || duplicated);
         const packageId = useTargetSystem ? targetSystem : `${contentSystem}-anachronism`;
         const packId = useTargetSystem ? pair[targetSystem]!.id : pair[contentSystem]!.dirName;
         const resolvedEntry = useTargetSystem ? entryInTargetSystem : entryInContentSystem;
@@ -237,7 +273,7 @@ for (const contentSystem of contentSystems) {
                 const targetPack = pair[targetSystem];
                 if (!contentPack || !targetPack) return result;
                 for (const overlap of pair.overlaps) {
-                    const docType = pair.docType;
+                    const docType = pair.documentName;
                     const originId = (
                         contentPack.data.find((d) => d.name === overlap) ??
                         targetPack.data.find((d) => d.name === overlap)
@@ -317,6 +353,40 @@ for (const contentSystem of contentSystems) {
         await db.createPack(pack.finalizeAll({ remap: false }), pack.folders);
         await db.close();
     }
+
+    // Get a log of all items that were excluded from exports
+    // These do not include intentional duplicates from dupicates.json, only overlaps
+    const getObjectProp = <T extends object, K extends string | null>(obj: T, key: K) => {
+        return objectHasKey(obj, key) ? obj[key] : undefined;
+    };
+    const exportLog = R.pipe(
+        packPairs.filter((p) => p.documentName === "Item"),
+        R.flatMap(({ overlaps, ...data }) =>
+            [...overlaps].map(
+                (idOrName) =>
+                    data[contentSystem]?.data.find((d) => d.name === idOrName || d._id === idOrName) ??
+                    data[targetSystem]?.data.find((d) => d.name === idOrName || d._id === idOrName),
+            ),
+        ),
+        R.filter((i): i is ItemSourcePF2e => !!i && isItemSource(i)),
+        R.groupBy((i) => (itemIsOfType(i, "feat") ? `feat-${i.system.category}` : i.type)),
+        R.entries(),
+        R.map(([key, value]) => {
+            const featCategorySlug = key.startsWith("feat-")
+                ? sluggify(key.replace("feat-", ""), { camel: "bactrian" }).replace("feature", "Feature")
+                : null;
+            const featCategoryLabel =
+                getObjectProp(langEn.PF2E.Item.Feat.Category, featCategorySlug) ?? featCategorySlug;
+            const itemType = featCategorySlug ? "Feat/Feature" : (getObjectProp(langEn.TYPES.Item, key) ?? key);
+            const title = featCategoryLabel ? `${itemType} (${featCategoryLabel})` : itemType;
+            return [`### ${title}`, ...R.sortBy(value, (v) => v.name).map((v) => `- [${v._id}] ${v.name}`)];
+        }),
+        R.sortBy((values) => values[0]),
+        R.flat(),
+    ).join("\n");
+    await fs.promises.mkdir(logsDir, { recursive: true });
+    await fs.promises.writeFile(path.join(logsDir, `exclusions-${contentSystem}-anachronism.md`), exportLog, "utf8");
+
     console.log(`Finished building ${contentSystem}-anachronism`);
 }
 

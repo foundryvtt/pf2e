@@ -1,0 +1,69 @@
+{
+    "_id": "zYmtszU93ojhuo8r",
+    "folder": "lABvbD3hQgfKeemt",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Crystal Ball",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your foot orb has become a reflection of all of creation, allowing you to zoom in and project scenes from across the cosmos upon its crystalline surface. You can cast @UUID[Compendium.sf2e.spells.Item.Scrying] twice per day as a 6th-rank innate spell of the same tradition as the cantrip chosen for your jeweled orb bantrid heritage. Any visual information you receive through <em>scrying</em> this way appears within your foot orb, and any auditory information is emitted as sound out from the surface of your foot orb.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Jeweled Orb Bantrid heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:scrying",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:scrying",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:bantrid"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "bantrid"
+            ]
+        }
+    },
+    "type": "feat"
+}

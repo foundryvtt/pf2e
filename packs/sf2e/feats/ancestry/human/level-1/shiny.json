@@ -1,0 +1,63 @@
+{
+    "_id": "wrbNmwV9cGWZ6Mxb",
+    "folder": "hFVleadZ20Wc5Hkc",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Shiny",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your personality shines bright in a galaxy of stars. You become trained in Performance (or another skill if you're already trained in Performance), and you gain a +3 circumstance bonus on checks to Aid for Deception, Diplomacy, Intimidation, and Performance checks.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.performance.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:aid"
+                ],
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation",
+                    "performance"
+                ],
+                "type": "circumstance",
+                "value": 3
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "human"
+            ]
+        }
+    },
+    "type": "feat"
+}

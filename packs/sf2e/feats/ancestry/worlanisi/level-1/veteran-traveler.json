@@ -1,0 +1,91 @@
+{
+    "_id": "mD36216cjxV6n6aO",
+    "folder": "nOIwocCBGZ9JFo59",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Veteran Traveler",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've spent years traveling, and you know better than most that roads aren't always paved. Or clear. Or even built yet. You become trained in Nature or Survival. If you're already trained in both of those skills, you instead become trained in another skill of your choice. Choose one kind of terrain from the following list: muddy, rocky, sandy, sloped, or undergrowth. You ignore difficult or uneven terrain of that type.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.Skill.Survival",
+                        "value": "survival"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.sf2e.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Terrain.Muddy",
+                        "value": "muddy"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Rocky",
+                        "value": "rocky"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Sandy",
+                        "value": "sandy"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Sloped",
+                        "value": "sloped"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Undergrowth",
+                        "value": "undergrowth"
+                    }
+                ],
+                "flag": "terrain",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.TerrainExpertise.Prompt"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "worlanisi"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,119 @@
+{
+    "_id": "r1f3ChFtmCRQ9fMj",
+    "img": "systems/sf2e/icons/ancestries/osharu.webp",
+    "name": "Osharu",
+    "system": {
+        "additionalLanguages": {
+            "count": 0,
+            "custom": "",
+            "value": []
+        },
+        "boosts": {
+            "0": {
+                "value": [
+                    "int"
+                ]
+            },
+            "1": {
+                "value": [
+                    "wis"
+                ]
+            },
+            "2": {
+                "value": [
+                    "str",
+                    "dex",
+                    "con",
+                    "int",
+                    "wis",
+                    "cha"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p><em>Osharus are slug-like inhabitants of Pabaq with a scholarly nature who move by secreting slime trails.</em></p>"
+        },
+        "flaws": {
+            "0": {
+                "value": [
+                    "con"
+                ]
+            }
+        },
+        "hands": 2,
+        "hp": 6,
+        "items": {
+            "BLMs1": {
+                "img": "systems/sf2e/icons/equipment/other/green-foam-flask.webp",
+                "level": 1,
+                "name": "Slime Squirt",
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Slime Squirt"
+            }
+        },
+        "languages": {
+            "custom": "",
+            "value": [
+                "common"
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "reach": 5,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.standardizedAncestryFeats",
+                "priority": 10,
+                "value": {
+                    "ancestralResistance": {
+                        "choices": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-resistance:bludgeoning"
+                                    }
+                                ],
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitSonic",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-resistance:sonic"
+                                    }
+                                ],
+                                "value": "sonic"
+                            }
+                        ]
+                    },
+                    "ancestralSkills": {
+                        "skillOne": "religion",
+                        "skillTwo": "religion"
+                    },
+                    "climbingSpecialist": {
+                        "speed": 25
+                    },
+                    "swimmingSpecialist": {
+                        "speed": 20
+                    }
+                }
+            }
+        ],
+        "size": "med",
+        "speed": 25,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "humanoid",
+                "osharu"
+            ]
+        },
+        "vision": "darkvision"
+    },
+    "type": "ancestry"
+}

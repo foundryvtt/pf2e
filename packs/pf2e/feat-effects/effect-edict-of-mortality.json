@@ -1,0 +1,83 @@
+{
+    "_id": "6lwPOXa25qx9Lo46",
+    "img": "icons/skills/social/trading-justice-scale-yellow.webp",
+    "name": "Effect: Edict of Mortality",
+    "system": {
+        "description": {
+            "value": "<p>Grabted by Edict of Mortality</p>\n<p>if you attempt to Cast a Spell with the divine trait, you must succeed at a flat check or the action is lost.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "edict-of-mortality"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:divine",
+                    "edict-of-mortality:critical-success"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "You must succeed at a @Check[flat|dc:7] or the action is lost."
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:divine",
+                    "edict-of-mortality:success"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "You must succeed at a @Check[flat|dc:5] or the action is lost."
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

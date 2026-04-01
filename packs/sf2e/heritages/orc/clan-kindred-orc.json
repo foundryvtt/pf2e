@@ -1,0 +1,44 @@
+{
+    "_id": "lEe4j2x7PkatF0ig",
+    "folder": "muNDwNH4CudrVBhZ",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Clan Kindred Orc",
+    "system": {
+        "ancestry": {
+            "name": "Orc",
+            "slug": "orc",
+            "uuid": "Compendium.sf2e.ancestries.Item.VsrLmFkekJXItxcd"
+        },
+        "description": {
+            "value": "<p>The belief that your ancestors walk with Torag among the stars holds a personal meaning for you. Raised among dwarves, you're a symbol of all that's been lost but also all that's been built anew. Dwarves have taught you all your life, taking you in just as they would any other member of the clan, while also recognizing your importance to their shared culture with orcs.</p>\n<p>You gain the Dwarven Lore feat, learn Dwarven as an additional language, and gain the @UUID[Compendium.sf2e.ancestry-features.Item.Clan Crystal] dwarven ancestry feature. In addition, when you gain an ancestry feat, you can choose from dwarf and orc feats in addition to those from other sources.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Clan Crystal"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.details.ancestry.adopted",
+                "value": "dwarf"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.details.ancestry.countsAs",
+                "value": "dwarf"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

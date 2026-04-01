@@ -1,0 +1,69 @@
+{
+    "_id": "XRELkkGeODmkCelw",
+    "folder": "3vF2EmDudDeCL3or",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Empathic Pulse",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your whiskers buzz with energy as empathic pulses collect within them that you can unleash in a burst of intense emotions. You can cast @UUID[Compendium.sf2e.spells.Item.Vibe Check] four times per day as a 2nd-rank occult innate spell, selecting a different emotion each time. You can cast <em>vibe check</em> as a 4th-rank spell by using two daily uses of the spell, but you still only project a single emotion when you cast <em>vibe check</em> this way.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:vibe-check",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:vibe-check",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:brenneri"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "brenneri"
+            ]
+        }
+    },
+    "type": "feat"
+}

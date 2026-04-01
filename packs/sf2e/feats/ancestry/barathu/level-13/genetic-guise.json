@@ -1,0 +1,65 @@
+{
+    "_id": "6upvE2FoHGPOVzvJ",
+    "folder": "iGZRQPNdMrOIx1IB",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Genetic Guise",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've lived among other creatures and cultures for most of your life, and you can alter your body and demeanor to precisely mimic a humanoid.</p>\n<p>You can cast @UUID[Compendium.sf2e.spells.Item.Humanoid Form] as a 5th-rank occult innate spell once per day, except the duration is increased to 1 hour.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:humanoid-form",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:humanoid-form",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:barathu"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barathu"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,137 @@
+{
+    "_id": "mvomk7uS0Gfh72sg",
+    "img": "systems/sf2e/icons/ancestries/trox.webp",
+    "name": "Trox",
+    "system": {
+        "additionalLanguages": {
+            "count": 0,
+            "custom": "",
+            "value": []
+        },
+        "boosts": {
+            "0": {
+                "value": [
+                    "str"
+                ]
+            },
+            "1": {
+                "value": [
+                    "con"
+                ]
+            },
+            "2": {
+                "value": [
+                    "str",
+                    "dex",
+                    "con",
+                    "int",
+                    "wis",
+                    "cha"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p><em>Troxes are hulking bipedal insectile beings who coexist with shirrens on N'Chak, a moon of Liavara, where they're ruled by the living incarnation of their ancestral god, Hylax the Forever Queen.</em></p>"
+        },
+        "flaws": {
+            "0": {
+                "value": [
+                    "dex"
+                ]
+            }
+        },
+        "hands": 2,
+        "hp": 10,
+        "items": {
+            "p3vWa": {
+                "img": "icons/skills/melee/unarmed-punch-fist-white.webp",
+                "level": 1,
+                "name": "Vestigial Arms",
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Vestigial Arms"
+            }
+        },
+        "languages": {
+            "custom": "",
+            "value": [
+                "common"
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "reach": 5,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.standardizedAncestryFeats",
+                "priority": 10,
+                "value": {
+                    "ancestralSkills": {
+                        "skillOne": "diplomacy",
+                        "skillTwo": "intimidation"
+                    },
+                    "ancestralUnarmedAttack": {
+                        "choices": [
+                            {
+                                "label": "PF2E.BattleForm.Attack.Mandibles",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-unarmed-attack:mandible"
+                                    }
+                                ],
+                                "value": "mandible"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/creatures/invertebrates/spider-mandibles-brown.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Mandibles",
+                "predicate": [
+                    "ancestral-unarmed-attack:mandible"
+                ],
+                "slug": "mandible",
+                "traits": [
+                    "unarmed",
+                    "versatile-b"
+                ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    "item:id:{item|id}"
+                ]
+            }
+        ],
+        "size": "lg",
+        "speed": 25,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "humanoid",
+                "trox"
+            ]
+        },
+        "vision": "darkvision"
+    },
+    "type": "ancestry"
+}

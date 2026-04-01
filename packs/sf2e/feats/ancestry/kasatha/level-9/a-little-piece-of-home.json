@@ -1,0 +1,81 @@
+{
+    "_id": "afBl8mCbDcy6x05A",
+    "folder": "qfGGSsPstdtdXVL0",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "A Little Piece of Home",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your affinity with the plant life of Kasath has made it so that you can summon it from nearly anywhere.</p>\n<p>You gain @UUID[Compendium.sf2e.spells.Item.Verdant Code] as a 2nd-rank arcane innate spell you can cast once per hour. You gain a +2 status bonus to your basic Reflex saves to avoid the piercing damage from your <em>verdant code</em>.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Green Warden Kasatha heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:verdant-code",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:verdant-code",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:kasatha"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:slug:verdant-code"
+                ],
+                "selector": [
+                    "reflex"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kasatha"
+            ]
+        }
+    },
+    "type": "feat"
+}

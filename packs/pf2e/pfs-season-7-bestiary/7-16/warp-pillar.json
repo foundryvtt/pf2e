@@ -1,0 +1,219 @@
+{
+    "_id": "zMKqpHwEYiMk3dX8",
+    "folder": "ByPqmVDMvxGRLk79",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Lg2b43SOS7b24tQO",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Time Shift",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature attacks the pillar or approaches within 5 feet of it, or the other warp pillar activates</p><hr /><p><strong>Effect</strong> The trap casts @UUID[Compendium.pf2e.spells-srd.Item.Slow] (@Check[fortitude|dc:18|traits:magical|options:item:type:spell]) on a random creature within 30 feet, then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "inline-dc"
+                        ],
+                        "value": -1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "ac",
+                            "attack"
+                        ],
+                        "value": -2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "time-drain-damage"
+                        ],
+                        "value": -3
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "hp"
+                        ],
+                        "value": -8
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "subtract",
+                        "path": "system.attributes.hardness.value",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SfaQaAxozvqmVBfq",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Speed 30 feet",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aXwyJ46C43u7XLcw",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Time Drain",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "cxqgTVHmrZOoKgem": {
+                        "damage": "1d8+4",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": "<p>plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round on a hit (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} for 1 round on a critical hit); no multiple attack penalty</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "override",
+                        "selector": "strike-attack-roll",
+                        "slug": "multiple-attack-penalty",
+                        "value": 0
+                    }
+                ],
+                "slug": "time-drain",
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical",
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Warp Pillar",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "emitsSound": "encounter",
+            "hardness": 8,
+            "hp": {
+                "details": "",
+                "max": 32,
+                "temp": 0,
+                "value": 32
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained); @Check[perception|dc:18] to realize the pillars can move, noticing the pillar has a DC of 0.</p>",
+                "value": 8
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A time-disrupting field shimmers around a 9-foot-tall pillar of obsidian and bronze that magically slides across the room.</p>",
+            "disable": "<p>@Check[arcana|dc:18], @Check[crafting|dc:18], @Check[occultism|dc:18], or @Check[thievery|dc:18]; three successes deactivates a pillar, as does destroying it.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #7-16: A Star's Journey"
+            },
+            "reset": "<p>If the pillar isn't destroyed, it resets 1 minute after making no time drain attacks.</p>",
+            "routine": "<p>(two actions) The pillar Steps or Strides to get as close to as many targets as possible, then makes a time drain Strike against each creature within its reach.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 11
+            },
+            "reflex": {
+                "value": 12
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

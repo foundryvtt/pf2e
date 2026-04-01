@@ -1,0 +1,73 @@
+{
+    "_id": "PXX62nURxMcWAQwu",
+    "folder": "14NYrMjMXWfWRG8a",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Izalraan Gatherer's Lore",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have a deep understanding of plants, and you rarely make mistakes about them. You become trained in Life Science Lore and Nature. If you would automatically become trained in one of those skills (from your background or class, for example), you instead become trained in another skill of your choice. If you get a critical failure on a Life Science Lore or Nature check to @UUID[Compendium.sf2e.actions.Item.Recall Knowledge] about plants, you get a failure instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Izalraan Izalguun heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nature.rank",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "nature"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "life-science-lore"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "izalguun"
+            ]
+        }
+    },
+    "type": "feat"
+}

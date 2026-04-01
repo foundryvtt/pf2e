@@ -1,0 +1,46 @@
+{
+    "_id": "pW3ZVV9zaw7UinHH",
+    "folder": "ldyNMsK0tU65ynPm",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Living Codex Barathu",
+    "system": {
+        "ancestry": {
+            "name": "Barathu",
+            "slug": "barathu",
+            "uuid": "Compendium.sf2e.ancestries.Item.3iuWdarohpDFhlxX"
+        },
+        "description": {
+            "value": "<p>You love learning and have cataloged all your experiences with other creatures and environments. After a lifetime of exploration, you've learned how to codify all your findings into your own genetic material. This dynamic algorithm enables you to share your knowledge and experience with others of your kind in vast collectives. To share with other ancestries, you've also learned how to interface your genetic code with computers and program them to create a vast database for others to access. While your experiences are extensive and varied, you've also gained a unique perspective on everything you've learned, allowing certain benefits to those who glean information from you specifically.</p>\n<p>You're trained in Society (or another skill of your choice if you're already trained in Society). You gain a +4 circumstance bonus to checks to [[/act aid]] on @UUID[Compendium.sf2e.actions.Item.Recall Knowledge].</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.society.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:aid",
+                    "action:recall-knowledge"
+                ],
+                "selector": [
+                    "check"
+                ],
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

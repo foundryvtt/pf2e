@@ -1,0 +1,78 @@
+{
+    "_id": "SRZrPQ4bkPyIJLdl",
+    "folder": "3X9QDbnoK8dXa9va",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Excavating Tentacles",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your reinforced tentacles wrap together to burrow through the ground. You gain a burrow Speed of 15 feet for as long as your tentacles are wrapped together, and then you Burrow. You take a -10-foot status penalty to your land and fly Speeds until you unwrap your tentacles as a free action.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Rugged Explorer Barathu heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "wrap-tentacles",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "wrap-tentacles"
+                ],
+                "selector": [
+                    "land-speed"
+                ],
+                "value": -10
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "wrap-tentacles"
+                ],
+                "selector": [
+                    "fly-speed"
+                ],
+                "value": -10
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "wrap-tentacles"
+                ],
+                "selector": "burrow",
+                "value": 15
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

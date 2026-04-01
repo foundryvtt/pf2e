@@ -1,0 +1,66 @@
+{
+    "_id": "VhJBxcduyXuNED74",
+    "img": "icons/magic/nature/leaf-armor-scale-green.webp",
+    "name": "Effect: Fractal-Lite",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Fractal-Lite]</p>\n<p>You lose any item bonus to AC and all other effects and bonuses from armor, and you use your proficiency rank in unarmored defense. You gain resistance 8 to physical damage and are immune to precision damage. You gain a fly Speed of 10 feet if you didn't already have a fly Speed.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "bonus:type:item"
+                ],
+                "selector": "ac",
+                "suppress": true
+            },
+            {
+                "key": "Resistance",
+                "type": "physical",
+                "value": 8
+            },
+            {
+                "key": "Immunity",
+                "type": "precision"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "not": "speed:fly"
+                    }
+                ],
+                "selector": "fly",
+                "slug": "fractal-lite-fly",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

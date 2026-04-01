@@ -1,0 +1,49 @@
+{
+    "_id": "FFYDFjloBxT1A7cM",
+    "folder": "uC894i93srZ80uMv",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Surithic Worlanisi",
+    "system": {
+        "ancestry": {
+            "name": "Worlanisi",
+            "slug": "worlanisi",
+            "uuid": "Compendium.sf2e.ancestries.Item.oKcAbl5mPNkFYhQM"
+        },
+        "description": {
+            "value": "<p>You've pursued the psychic crafts that your ancestors used during ancient times. The psychic resonance your horn-cones invite can be painful, yet through discipline and perseverance, you've developed a semblance of your ancestors' hunting prowess.</p>\n<p>By focusing on psychic echoes left behind by your prey, you're able to hunt and track in the most inhospitable conditions—even the vacuum of space. You're trained in Survival. If you would automatically become trained in Survival (from your background or class, for example), you instead become trained in another skill of your choice. You have the @UUID[Compendium.sf2e.feats.Item.Experienced Tracker] skill feat. In addition, you have imprecise thoughtsense with a range of 20 feet. However, your weakness to mental damage from psychic reverb increases to be equal to half your level (minimum 1).</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Experienced Tracker"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.survival.rank",
+                "value": 1
+            },
+            {
+                "key": "Weakness",
+                "type": "mental",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": 20,
+                "selector": "thoughtsense"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

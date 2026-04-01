@@ -1,0 +1,450 @@
+{
+    "_id": "gSjijU7CefEIpdN1",
+    "folder": "lfjFg7DMTm55QgpK",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "SjeYNul8p6CUxKEl",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status Bonus to all saves vs. darkness and shadow",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:trait:darkness",
+                                    "item:trait:shadow"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "saving-throw"
+                        ],
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TLxd78CZCKcGSGlc",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Elusive Target",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The Iriatykian outriders gain a +1 circumstance bonus to AC and a +1 circumstance bonus to Reflex saving throws against attacks and effects from unmounted enemies.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "elusive-target",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "elusive-target"
+                        ],
+                        "selector": [
+                            "ac",
+                            "reflex"
+                        ],
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pFeKTKhajRguiZPW",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.EawOw47nHueUPnYc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Defenses",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopDefenses]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": "troop-defenses",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Gq6I0QHMRcyFa4fm",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.MXI6zwrvbQNIv7ji"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Movement",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopMovement]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": "troop-movement",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "K5E3yWaTQ0oP1wLg",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Mounted Charge",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The outriders Stride twice with a +10-foot circumstance bonus to their Speed. If they move at least 10 feet, they deal @Damage[(2d8+6)[piercing]|options:area-damage] damage (@Check[reflex|dc:22|basic] save) to enemies in a @Template[type:emanation|distance:10] at the end of their movement. If at least one enemy damaged by the charge is the source of a magical darkness effect, the outriders can immediately use their Shatter Shadows ability as a free action, gaining a +1 circumstance bonus to the counteract check.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "utwjJcUzlnGMO338",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mounted Troop",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Effects that target only animals, humans, or humanoids might not work on the outriders, subject to the GM's discretion.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "auVLK7MxrfP8W4Xl",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Mounted Volley",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The outriders draw or reload their longbows, then launch a volley of arrows at creatures in a @Template[type:burst|distance:10] within 100 feet, dealing @Damage[3d8[piercing]|options:area-damage] damage (@Check[reflex|dc:22|basic] save). When the squadron is reduced to 2 segments, this area decreases to a @Template[type:burst|distance:5].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sALnPt2WV8XV6F8v",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Shatter Shadows",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The outriders are within an area of magical darkness</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The outriders call on the power wielded by Iriatykis, attempting to dispel any darkness effects in a @Template[type:emanation|distance:20] with a [[/r 1d20+14 #Counteract]]{+14} counteract modifier and a counteract rank of 4th. Each successfully counteracted effect explodes in a storm of tenebrous fragments, inflicting @Damage[2d6[spirit]|options:area-damage] damage to enemies in a @Template[type:burst|distance:20] centered on the effect (@Check[reflex|dc:22] save). Velstracs and worshippers of Zon-Kuthon get an outcome one degree worse than the result of their rolls on this saving throw.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0DqJnTG0QE7xDUqg",
+            "img": "systems/pf2e/icons/actions/OneThreeActions.webp",
+            "name": "Skewering Strikes",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The outriders plunge their longspears at enemies in a @Template[type:emanation|distance:10] (@Check[reflex|dc:22|basic] save). The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[1d8[piercing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d8+6)[piercing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(2d8+11)[piercing]|options:area-damage] damage</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Iriatykian Outrider Band",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 3
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 24
+            },
+            "allSaves": {
+                "value": "+2 status bonus to all saves vs. darkness and shadow"
+            },
+            "hp": {
+                "details": "",
+                "max": 120,
+                "temp": 0,
+                "value": 120
+            },
+            "speed": {
+                "details": "troop movement",
+                "otherSpeeds": [],
+                "value": 40
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 7
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 7
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "shadowtongue",
+                    "varisian"
+                ]
+            },
+            "level": {
+                "value": 7
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Named for Horselord Iriatykis, forger of the mythic spear <em>Shadowpiercer</em> and instigator of the most successful rebellion against Nidal's shadowy overlords in living memory, these grimly determined riders seek to resist the brutal authority of the Umbral Court over the lands and peoples they call their own. While their efforts have mostly been focused on liberating rural communities on the nation's outskirts thus far, they have also begun targeted strikes against mercenary bands and supply caravans traveling through Nidal on their way to aid the Chelaxian war effort.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Lost Omens Hellfire Dispatches"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 14,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 14
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 17
+            },
+            "athletics": {
+                "base": 15
+            },
+            "intimidation": {
+                "base": 14
+            },
+            "occultism": {
+                "base": 12
+            },
+            "survival": {
+                "base": 15
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "animal",
+                "human",
+                "humanoid",
+                "troop"
+            ]
+        }
+    },
+    "type": "npc"
+}

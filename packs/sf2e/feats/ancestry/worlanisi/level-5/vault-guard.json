@@ -1,0 +1,74 @@
+{
+    "_id": "tw6yZ28XLQFwKxzw",
+    "folder": "4R6GH8KxKwgaEKvJ",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Vault Guard",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your training under the elite mercenaries in the Vault were brutal for your body and your mind, but they've hardened your constitution and left you with rare expertise. You've done plenty of drills wearing the heaviest equipment, and you're quick to adapt to even the most specialized protective gear. You're trained in heavy armor. Whenever you gain a class feature that grants you expert or greater proficiency in medium armor, you also gain that proficiency in heavy armor.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "vorlathi worlanisi heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.heavy.rank",
+                "predicate": [
+                    "champion-dedication:heavy"
+                ],
+                "value": "max(@actor.system.proficiencies.defenses.light.rank,@actor.system.proficiencies.defenses.medium.rank,ternary(gte(@actor.level,13),min(@actor.system.proficiencies.defenses.unarmored.rank,2),1))"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.heavy.rank",
+                "predicate": [
+                    {
+                        "gte": [
+                            "defense:medium:rank",
+                            2
+                        ]
+                    }
+                ],
+                "value": "@actor.system.proficiencies.defenses.medium.rank"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "heavy": {
+                    "rank": 1
+                }
+            },
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "worlanisi"
+            ]
+        }
+    },
+    "type": "feat"
+}

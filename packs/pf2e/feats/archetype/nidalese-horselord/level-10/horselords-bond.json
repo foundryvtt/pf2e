@@ -1,0 +1,72 @@
+{
+    "_id": "KNMKhrpOLb5X6RaX",
+    "folder": "6c0VliTIplfH3W87",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Horselord's Bond",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your bond with your horse becomes supernaturally strong as the two of you continue your crusade against Zon-Kuthon's dominion. You and your horse gain greater darkvision. In addition, when your horse succeeds at a save against effects that would cause the @UUID[Compendium.pf2e.conditionitems.Item.Confused], @UUID[Compendium.pf2e.conditionitems.Item.Controlled], or @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] condition, it gets a critical success instead.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Nidalese Horselord Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:confused",
+                            "inflicts:controlled",
+                            "inflicts:fascinated"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {
+                "greater-darkvision": {
+                    "range": null,
+                    "special": {
+                        "ancestry": false,
+                        "llv": false,
+                        "second": false
+                    }
+                }
+            },
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

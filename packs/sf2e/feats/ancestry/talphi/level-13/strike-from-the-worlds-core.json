@@ -1,0 +1,58 @@
+{
+    "_id": "Dgqh2dQFR9jiwoaa",
+    "folder": "hGZ2ec88ebi1k0gQ",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Strike From the World's Core",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You use the power of the world's core to move through the earth and Strike your foe. You gain the @UUID[Compendium.sf2e.actions.Item.Drill Rush] action and can use @UUID[Compendium.sf2e.feats.Item.Channel the World's Core] with a frequency of once per minute, rather than once per day.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Drill Rush"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    "item:slug:channel-the-worlds-core"
+                ],
+                "property": "frequency-per",
+                "value": "PT1M"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "talphi",
+                "traversal"
+            ]
+        }
+    },
+    "type": "feat"
+}

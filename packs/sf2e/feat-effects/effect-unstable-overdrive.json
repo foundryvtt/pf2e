@@ -1,0 +1,58 @@
+{
+    "_id": "hJI3OxpC4qcr7uxp",
+    "img": "icons/magic/symbols/cog-glowing-green.webp",
+    "name": "Effect: Unstable Overdrive",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Unstable Overdrive]</p>\n<p>You become quickened and glitching 1. While quickened in this way, you gain a +2 status bonus to your AC, attack rolls, and saving throws. You can’t reduce your glitching value until you lose the quickened condition.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.conditions.Item.Quickened"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.conditions.Item.Glitching"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac",
+                    "saving-throw",
+                    "attack-roll"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

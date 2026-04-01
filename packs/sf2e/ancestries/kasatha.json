@@ -63,7 +63,97 @@
             "title": "Starfinder Player Core"
         },
         "reach": 5,
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.standardizedAncestryFeats",
+                "priority": 10,
+                "value": {
+                    "ancestralResistance": {
+                        "choices": [
+                            {
+                                "label": "PF2E.TraitFire",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-resistance:fire"
+                                    }
+                                ],
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-resistance:cold"
+                                    }
+                                ],
+                                "value": "cold"
+                            }
+                        ]
+                    },
+                    "ancestralSkills": {
+                        "skillOne": "diplomacy",
+                        "skillTwo": "society"
+                    }
+                }
+            },
+            {
+                "definition": [
+                    "item:category:martial",
+                    {
+                        "or": [
+                            "item:trait:kasatha",
+                            "item:base:dueling-sword",
+                            "item:base:puzzleblade",
+                            "item:base:shock-truncheon",
+                            "item:base:singing-spear"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Kasatha.WeaponFamiliarity.MartialWeapons",
+                "predicate": [
+                    "feat:ancestral-weapon-familiarity"
+                ],
+                "sameAs": "simple",
+                "slug": "martial-kasatha-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:kasatha",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Kasatha.WeaponFamiliarity.AdvancedWeapons",
+                "predicate": [
+                    "feat:ancestral-weapon-familiarity"
+                ],
+                "sameAs": "martial",
+                "slug": "advanced-kasatha-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:kasatha",
+                            "item:base:dueling-sword",
+                            "item:base:puzzleblade",
+                            "item:base:shock-truncheon",
+                            "item:base:singing-spear"
+                        ]
+                    },
+                    "feat:ancestral-weapon-familiarity"
+                ]
+            }
+        ],
         "size": "med",
         "speed": 25,
         "traits": {

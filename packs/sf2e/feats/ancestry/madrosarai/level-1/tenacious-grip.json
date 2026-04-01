@@ -1,0 +1,61 @@
+{
+    "_id": "0P3iENvddT3MwxxJ",
+    "folder": "3sWCgJwTjiDbm7ys",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Tenacious Grip",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your hands maintain a firm grip on anything they hold. You gain a +2 circumstance bonus to your Reflex DC when defending against checks to [[/act disarm]] you. A creature that succeeds at a check to Disarm you gains only a +1 circumstance bonus on further attempts to Disarm you, and you take only a –1 circumstance penalty to attacks with the held item.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:disarm"
+                ],
+                "selector": [
+                    "reflex-dc"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "selector": "weapon-attack-roll",
+                "slug": "disarm-penalty",
+                "value": -1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "madrosarai"
+            ]
+        }
+    },
+    "type": "feat"
+}

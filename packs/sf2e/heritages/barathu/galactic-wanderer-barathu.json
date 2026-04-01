@@ -1,0 +1,54 @@
+{
+    "_id": "yoRROuepSyzCYadn",
+    "folder": "ldyNMsK0tU65ynPm",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Galactic Wanderer Barathu",
+    "system": {
+        "ancestry": {
+            "name": "Barathu",
+            "slug": "barathu",
+            "uuid": "Compendium.sf2e.ancestries.Item.3iuWdarohpDFhlxX"
+        },
+        "description": {
+            "value": "<p>The wonders of the universe called to you early in life, beckoning you to leave the confines of terrestrial spheres and travel the galaxy instead. As a young barathu, you spent much of your time exploring the vastness of space, seeking out celestial bodies and learning about the flora and fauna that had adapted to live within them.</p>\n<p>You gain the cosmic trait, and in areas of zero gravity, your fly Speed increases by 10. Additionally, you gain the @UUID[Compendium.sf2e.actions.Item.Living Capsule] action when in a zero-gravity environment.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Living Capsule"
+            },
+            {
+                "add": [
+                    "cosmic"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Gravity.ZeroGravity",
+                "option": "terrain:zero-gravity",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "terrain:zero-gravity"
+                ],
+                "selector": [
+                    "fly-speed"
+                ],
+                "value": 10
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

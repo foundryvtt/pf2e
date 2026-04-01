@@ -1,0 +1,49 @@
+{
+    "_id": "DVn7pg3awMLiQbc6",
+    "folder": "92UNUwfr1syfEk7f",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Ever Vigilant",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your extra set of eyes allows you to constantly be aware of your surroundings. You aren't @UUID[Compendium.sf2e.conditions.Item.Off-Guard] to flanking creatures of your level or lower.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.offGuardable",
+                "value": "@actor.level"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "madrosarai"
+            ]
+        }
+    },
+    "type": "feat"
+}

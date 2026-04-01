@@ -1,0 +1,47 @@
+{
+    "_id": "sPBX9xGEsFxdUlnn",
+    "folder": "IGZeBKeH3esdU74F",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Rubberlimb Orocora",
+    "system": {
+        "ancestry": {
+            "name": "Orocoran",
+            "slug": "orocoran",
+            "uuid": "Compendium.sf2e.ancestries.Item.6BG5tO0g9kCFfTym"
+        },
+        "description": {
+            "value": "<p>Your limbs are rubbery, making it tough for others to get a grip on you.</p>\n<p>You become trained in Acrobatics. If you would automatically become trained in Acrobatics (from your background or class, for example), you instead become trained in another skill of your choice. You gain a +1 circumstance bonus on checks to [[/act escape]]. In addition, you don't treat tight spaces that don't require you to [[/act squeeze]] as difficult terrain.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.acrobatics.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:escape"
+                ],
+                "selector": [
+                    "acrobatics",
+                    "athletics",
+                    "unarmed-attack"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,75 @@
+{
+    "_id": "SQixiaTh0yh7Dvqa",
+    "folder": "5cGIpSGYRyZSXWB4",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Liminal Ryphorian",
+    "system": {
+        "ancestry": {
+            "name": "Ryphorian",
+            "slug": "ryphorian",
+            "uuid": "Compendium.sf2e.ancestries.Item.WfllaPpt1pxGVMAG"
+        },
+        "description": {
+            "value": "<p>You were born during the brief spring or autumn seasons of Triaxus's eccentric orbits. You demonstrate a blend of both summerborn and winterborn traits. Before the advent of modern gene therapy and spaceflight, liminal ryphorians were even rarer than they are today and were viewed with awe and mystery. Even in present times, they're afforded status akin to that of a minor celebrity in some of Triaxus's more rural districts.</p>\n<p>You gain a +1 circumstance bonus to saves against all cold and fire effects, which increases to +2 when you reach 13th level. Additionally, you reduce the flat check DC to end persistent cold and fire damage you're currently taking from 15 to 10, which is reduced to 5 with appropriate assistance.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:fire",
+                            "item:trait:cold"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "slug": "liminal-ryphorian-save-bonus",
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.level,13),2,1)"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            13
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "liminal-ryphorian-save-bonus",
+                "value": 2
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:damage:type:fire",
+                            "item:damage:type:cold"
+                        ]
+                    }
+                ],
+                "property": "pd-recovery-dc",
+                "value": 10
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

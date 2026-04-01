@@ -1,0 +1,66 @@
+{
+    "_id": "3stViCnalLbJccHA",
+    "folder": "9CAWI709PwWJexze",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Forgotten in the Crowd",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can leverage your forgettable appearance to escape your pursuers. You gain @UUID[Compendium.sf2e.spells.Item.Invisibility] as a 2nd-rank arcane innate spell once per day, targeting yourself only.</p><hr /><p><strong>Special</strong> If you have the @UUID[Compendium.sf2e.feats.Item.Face in the Crowd] skill feat, you can cast invisibility twice per day instead of once per day.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:invisibility",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:invisibility",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:human"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "arcane",
+                "human"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,150 @@
+{
+    "_id": "X4SQ5BxzJxRqSQNc",
+    "folder": "j3UQPomndcmFNZFX",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Self-Focus Copaxi",
+    "system": {
+        "ancestry": {
+            "name": "Copaxi",
+            "slug": "copaxi",
+            "uuid": "Compendium.sf2e.ancestries.Item.tvjMyXjibIywAPh2"
+        },
+        "description": {
+            "value": "<p>You've broken away from many of the very rigid modern-day societal expectations present among copaxis on Tabrid Minor that require you to sacrifice from your own life for the sake of the industrialists. In ancient times, copaxis didn't have such regimented lives, and the variety of copaxis' physical forms was much greater.</p>\n<p>As a so-called \"self-focus copaxi,\" you've rediscovered the art of focusing inward on the way your body's polyps grow and adapt, giving you greater control over your physical form than most copaxis. You gain any two of the following copaxi ancestry feats: @UUID[Compendium.sf2e.feats.Item.Aggressive Antlers], @UUID[Compendium.sf2e.feats.Item.Armored Shell], @UUID[Compendium.sf2e.feats.Item.Coral Fists], @UUID[Compendium.sf2e.feats.Item.Copaxi Scent], @UUID[Compendium.sf2e.feats.Item.Four-Armed Copaxi], or @UUID[Compendium.sf2e.feats.Item.Multi-Legged Copaxi].</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "not": "feat:aggressive-antlers"
+                            }
+                        ],
+                        "value": "Compendium.sf2e.feats.Item.Aggressive Antlers"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feat:armored-shell"
+                            }
+                        ],
+                        "value": "Compendium.sf2e.feats.Item.Armored Shell"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feat:coral-fists"
+                            }
+                        ],
+                        "value": "Compendium.sf2e.feats.Item.Coral Fists"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feat:copaxi-scent"
+                            }
+                        ],
+                        "value": "Compendium.sf2e.feats.Item.Copaxi Scent"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feat:four-armed-copaxi"
+                            }
+                        ],
+                        "value": "Compendium.sf2e.feats.Item.Four-Armed Copaxi"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feat:multi-legged-copaxi"
+                            }
+                        ],
+                        "value": "Compendium.sf2e.feats.Item.Multi-Legged Copaxi"
+                    }
+                ],
+                "flag": "featOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Feat",
+                "rollOption": "self-focus-feat-one"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "not": "feat:aggressive-antlers"
+                            }
+                        ],
+                        "value": "Compendium.sf2e.feats.Item.Aggressive Antlers"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feat:armored-shell"
+                            }
+                        ],
+                        "value": "Compendium.sf2e.feats.Item.Armored Shell"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feat:coral-fists"
+                            }
+                        ],
+                        "value": "Compendium.sf2e.feats.Item.Coral Fists"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feat:copaxi-scent"
+                            }
+                        ],
+                        "value": "Compendium.sf2e.feats.Item.Copaxi Scent"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feat:four-armed-copaxi"
+                            }
+                        ],
+                        "value": "Compendium.sf2e.feats.Item.Four-Armed Copaxi"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "feat:multi-legged-copaxi"
+                            }
+                        ],
+                        "value": "Compendium.sf2e.feats.Item.Multi-Legged Copaxi"
+                    }
+                ],
+                "flag": "featTwo",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Feat",
+                "rollOption": "self-focus-feat-two"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.featOne}"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.featTwo}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

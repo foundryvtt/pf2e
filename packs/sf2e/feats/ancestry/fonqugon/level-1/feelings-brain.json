@@ -1,0 +1,64 @@
+{
+    "_id": "qRt5tPQzlDYmqa90",
+    "folder": "sYMYC2XO1jsvlHTz",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Feelings Brain",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>While you've got just as many emotions as other people, you've got an entire brain dedicated to keeping them under control so they don't interfere with the rest of your brains. You gain a +1 circumstance bonus to saves against emotion effects, and if you roll a success on a save against an emotion effect, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:emotion"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:emotion"
+                ],
+                "selector": "fortitude"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fonqugon"
+            ]
+        }
+    },
+    "type": "feat"
+}

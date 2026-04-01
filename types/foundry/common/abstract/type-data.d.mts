@@ -64,7 +64,7 @@ import * as abstract from "./_module.mjs";
  * ```
  */
 export default abstract class TypeDataModel<
-    TParent extends abstract.DataModel,
+    TParent extends abstract.DataModel | null,
     TSchema extends abstract.DataSchema,
 > extends abstract.DataModel<TParent, TSchema> {
     /** The package that is providing this DataModel for the given sub-type. */
@@ -107,7 +107,7 @@ export default abstract class TypeDataModel<
      * @returns Return false to exclude this Document from the creation operation
      */
     protected _preCreate(
-        data: DeepPartial<TParent["_source"]>,
+        data: DeepPartial<NonNullable<TParent>["_source"]>,
         options: abstract.DatabaseCreateCallbackOptions,
         user: User,
     ): Promise<boolean | void>;
@@ -122,7 +122,7 @@ export default abstract class TypeDataModel<
      * @param userId The id of the User requesting the document update
      */
     protected _onCreate(
-        data: DeepPartial<TParent["_source"]>,
+        data: DeepPartial<NonNullable<TParent>["_source"]>,
         options: abstract.DatabaseCreateCallbackOptions,
         userId: string,
     ): void;
@@ -153,7 +153,7 @@ export default abstract class TypeDataModel<
      * @param userId The id of the User requesting the document update
      */
     protected _onUpdate(
-        changed: DeepPartial<TParent["_source"]>,
+        changed: DeepPartial<NonNullable<TParent>["_source"]>,
         options: abstract.DatabaseUpdateCallbackOptions,
         userId: string,
     ): void;

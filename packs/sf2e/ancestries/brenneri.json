@@ -1,0 +1,153 @@
+{
+    "_id": "9p9GNLHDRocLlKVU",
+    "img": "systems/sf2e/icons/ancestries/brenneri.webp",
+    "name": "Brenneri",
+    "system": {
+        "additionalLanguages": {
+            "count": 0,
+            "custom": "",
+            "value": []
+        },
+        "boosts": {
+            "0": {
+                "value": [
+                    "con"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha"
+                ]
+            },
+            "2": {
+                "value": [
+                    "str",
+                    "dex",
+                    "con",
+                    "int",
+                    "wis",
+                    "cha"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p><em>Brenneris are otterlike humanoids from watery Varturan who appreciate teamwork and are known for their dapper sense of style and disarming appearances.</em></p>"
+        },
+        "flaws": {
+            "0": {
+                "value": [
+                    "str"
+                ]
+            }
+        },
+        "hands": 2,
+        "hp": 8,
+        "items": {
+            "ZJuOC": {
+                "img": "icons/commodities/biological/antenna-blue.webp",
+                "level": 1,
+                "name": "Empathetic Whiskers",
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Empathetic Whiskers"
+            },
+            "x2HUR": {
+                "img": "icons/magic/air/air-pressure-shield-blue.webp",
+                "level": 1,
+                "name": "Breath Control",
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Breath Control"
+            }
+        },
+        "languages": {
+            "custom": "",
+            "value": [
+                "common",
+                "brenneri"
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "reach": 5,
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "swim",
+                "value": 20
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.standardizedAncestryFeats",
+                "priority": 10,
+                "value": {
+                    "ancestralSkills": {
+                        "skillOne": "diplomacy",
+                        "skillTwo": "society"
+                    },
+                    "ancestralUnarmedAttack": {
+                        "choices": [
+                            {
+                                "label": "PF2E.BattleForm.Attack.Claw",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-unarmed-attack:claw"
+                                    }
+                                ],
+                                "value": "claw"
+                            }
+                        ]
+                    },
+                    "swimmingSpecialist": {
+                        "speed": 30
+                    }
+                }
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/commodities/claws/claw-canine-brown-grey.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    "ancestral-unarmed-attack:claw"
+                ],
+                "slug": "claw",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    "item:id:{item|id}"
+                ]
+            }
+        ],
+        "size": "med",
+        "speed": 25,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "brenneri",
+                "humanoid"
+            ]
+        },
+        "vision": "darkvision"
+    },
+    "type": "ancestry"
+}

@@ -1,0 +1,56 @@
+{
+    "_id": "Kz4E8heU12IGcYoi",
+    "folder": "yhoDeqavUrSQZUNq",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Righteous Resistance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "bonus",
+        "description": {
+            "value": "<p>You can cast @UUID[Compendium.pf2e.spells-srd.Item.Resist Energy] as a divine innate spell twice per day, except you can target only yourself. If you grant yourself resistance to fire damage, the resistance is equal to either the spell's normal value or to your level, whichever is higher.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Righteous Resistance]</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Order of the Pyre"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:resist-energy",
+                    "spellcasting:category:innate",
+                    "spellcasting:tradition:divine"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

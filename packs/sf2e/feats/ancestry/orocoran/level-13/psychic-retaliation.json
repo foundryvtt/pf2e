@@ -1,0 +1,62 @@
+{
+    "_id": "y7qftLZrpnoe4hmR",
+    "folder": "ITpaw6J6U3w9oGJa",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Psychic Retaliation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The psychic static that shrouds your mind is a weapon as much as a defense. Whenever you use Static Shield and succeed at the triggering save, if the source of the mental effect was a creature, your psychic static lashes out at them and deals mental damage equal to half your level (or equal to your level on a critical success, @Damage[(floor(@actor.level/2))[mental]], @Damage[(@actor.level)[mental]]).</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "mindstatic orocoran heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:static-shield"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "mental",
+                "orocoran"
+            ]
+        }
+    },
+    "type": "feat"
+}

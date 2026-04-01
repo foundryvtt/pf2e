@@ -1,0 +1,69 @@
+{
+    "_id": "udnAPwdSJtehT7ER",
+    "folder": "TIeMcfnAdh56SVIX",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Electrotether Ball",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>By quickly spinning your magnetic orb while channeling primal energy through it, you can create a tether of electricity that can pull objects and creatures across the battlefield, including yourself.</p>\n<p>You can cast @UUID[Compendium.sf2e.spells.Item.Electrotether] as a 3rd-rank primal innate spell twice per day, but the target becomes \"one creature, unattended object, or metal structure.\"</p>\n<p>If you target an unattended object, you immediately pull the object into your square and can grab the item if you have a free hand. If you target a metal surface, such as the side of a starship or building, you are immediately moved to the structure (this movement doesn't trigger reactions based on movement) and [[/act climb]].</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Magnetic Orb Bantrid heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:electrotether",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:electrotether",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:bantrid"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "bantrid"
+            ]
+        }
+    },
+    "type": "feat"
+}

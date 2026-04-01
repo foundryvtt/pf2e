@@ -1,0 +1,49 @@
+{
+    "_id": "g2m4vNyluDrkuZYt",
+    "img": "icons/magic/control/debuff-energy-hold-blue-yellow.webp",
+    "name": "Effect: Adhesive Grip",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Adhesive Grip]</p>\n<p>When a creature you've grabbed rolls a failure on its check to Escape, it gets a critical failure instead, and if it rolls a critical success, it gets a success instead.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalSuccess": "one-degree-worse",
+                    "failure": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:escape"
+                ],
+                "selector": "attack-roll"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,80 @@
+{
+    "_id": "Il4Zx2Z2tvJoWVTF",
+    "folder": "jbRCmcvYkuzGDHOY",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Mortal Possibility",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You made yourself into a paragon of mortality and prove that deities aren't needed to achieve greatness. Choose a skill you have master proficiency in. You become legendary in that skill. In addition, you gain a skill feat of your choice for that skill. The first time each day that you succeed at a skill check with that skill, you gain a +3 status bonus to your next skill check of any skill within the next hour.</p>"
+        },
+        "level": {
+            "value": 20
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Pure Legion Enforcer Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        {
+                            "gte": [
+                                "skill:{choice|value}:rank",
+                                3
+                            ]
+                        }
+                    ]
+                },
+                "flag": "mortalPossibility",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mortal-possibility"
+                ],
+                "selector": [
+                    "{item|flags.system.rulesSelections.mortalPossibility}-check"
+                ],
+                "type": "status",
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.mortalPossibility}.rank",
+                "value": 4
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

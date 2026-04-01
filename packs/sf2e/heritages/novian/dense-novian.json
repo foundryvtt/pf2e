@@ -1,0 +1,48 @@
+{
+    "_id": "Lf0jLZUteBraHsFE",
+    "folder": "OSWqtYGGdPwvT2rD",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Dense Novian",
+    "system": {
+        "ancestry": {
+            "name": "Novian",
+            "slug": "novian",
+            "uuid": "Compendium.sf2e.ancestries.Item.waaL4y6dUPzy8Emb"
+        },
+        "description": {
+            "value": "<p>Whether you were born from an explosive supernova or brilliant nebula, your progenitor star remains out there to this day, burning bright as a superdense neutron star or a white dwarf. Like your progenitor, you're incredibly dense, weighing twice as much as a typical novian. You're capable of standing firm against the strongest of external forces and enduring any hardship.</p>\n<p>You gain a +2 circumstance bonus to your Fortitude and Reflex DCs against attempts to [[/act reposition]], [[/act shove]], or [[/act trip]] you. This bonus also applies to saving throws against spells or effects that attempt to force you to move or knock you @UUID[Compendium.sf2e.conditions.Item.Prone]. In addition, if any effect would force you to move 10 feet or more, you're moved only half the distance.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "forced-movement",
+                            "inflicts:prone",
+                            "action:reposition",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "reflex",
+                    "fortitude"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

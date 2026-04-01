@@ -1,0 +1,68 @@
+{
+    "_id": "HMrxQvSTPSbaUmUd",
+    "folder": "BYaf9Ovo97hBejda",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Brawler LFAN",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>In addition to allowing you to wield weapons made for much larger creatures, your LFAN lets you wrestle way above your weight class. You gain a +1 circumstance bonus on Athletics checks to [[/act disarm]], [[/act grapple]], [[/act reposition]], [[/act shove]], or [[/act trip]] Small and Tiny creatures. You can attempt to Disarm, Grapple, Reposition, Shove, or Trip creatures of up to Huge size. If you're legendary in Athletics, you can also attempt these actions on Gargantuan creatures.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Athletics"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "brawler-lfan",
+                    {
+                        "or": [
+                            "action:disarm",
+                            "action:grapple",
+                            "action:reposition",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "athletics"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lfan",
+                "raxilite"
+            ]
+        }
+    },
+    "type": "feat"
+}

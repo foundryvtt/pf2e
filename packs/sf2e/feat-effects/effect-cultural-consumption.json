@@ -1,0 +1,49 @@
+{
+    "_id": "GnxVwCUqrLS2P2RF",
+    "img": "icons/skills/social/diplomacy-peace-alliance.webp",
+    "name": "Effect: Cultural Consumption",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Cultural Consumption]</p>\n<p>You gain a +2 circumstance bonus to Charisma-based skill checks against creatures related to the culture.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "cultural-consumption"
+                ],
+                "selector": [
+                    "cha-skill-check"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,58 @@
+{
+    "_id": "QFglrJ1STC0L82aP",
+    "img": "icons/magic/perception/eye-winged-pink.webp",
+    "name": "Effect: Activate Sensilla",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Activate Sensilla]</p>\n<p>You gain imprecise tremorsense.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    {
+                        "not": "feat:super-sensilla"
+                    }
+                ],
+                "range": 20,
+                "selector": "tremorsense"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "feat:super-sensilla"
+                ],
+                "range": 100,
+                "selector": "tremorsense"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

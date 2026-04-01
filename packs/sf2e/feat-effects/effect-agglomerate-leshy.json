@@ -1,0 +1,58 @@
+{
+    "_id": "rmKcSjjP9gdzirRt",
+    "img": "icons/magic/unholy/hand-claw-fire-green.webp",
+    "name": "Effect: Agglomerate Leshy",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Agglomerate Leshy]</p>\n<p>Once per day as a two-action activity with the concentrate trait, you can grow a burst of foliage that further reinforces your body, increasing your reach by 5 feet, granting you a +2 status bonus to melee damage rolls, and making you @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1} for 10 minutes.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 13
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.conditions.Item.Clumsy"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "melee-strike-damage"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.reach.base",
+                "phase": "afterDerived",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

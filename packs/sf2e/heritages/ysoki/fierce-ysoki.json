@@ -1,0 +1,76 @@
+{
+    "_id": "r4rMKhYwX6WTSfl6",
+    "folder": "bB5HzELH07UIY03Z",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Fierce Ysoki",
+    "system": {
+        "ancestry": {
+            "name": "Ysoki",
+            "slug": "ysoki",
+            "uuid": "Compendium.sf2e.ancestries.Item.P6PcVnCkh4XMdefw"
+        },
+        "description": {
+            "value": "<p>You're a fierce ysoki, built differently from others with a bulkier body and sharp teeth. You gain an attribute boost to Strength instead of Dexterity and an attribute flaw to Dexterity instead of Strength. You gain 8 Hit Points from your ancestry instead of 6. Your jaws unarmed attack deals 1d8 piercing, is in the brawling group, and has the grapple and unarmed traits instead.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.ancestryhp",
+                "value": 8
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:slug:sharp-teeth-jaws"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": 8
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:sharp-teeth-jaws"
+                ],
+                "property": "traits",
+                "value": "grapple"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:sharp-teeth-jaws"
+                ],
+                "property": "traits",
+                "value": "agile"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:sharp-teeth-jaws"
+                ],
+                "property": "traits",
+                "value": "finesse"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

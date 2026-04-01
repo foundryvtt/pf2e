@@ -1,0 +1,71 @@
+{
+    "_id": "STTSd8g7hN1iDpu6",
+    "folder": "cndLRyDsVj87CcNn",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Copaxi Diplomat",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've taken on a role as a diplomat, whether as an official government agent, an ecological activist seeking allies, a frequent visitor to other worlds, a petitioner for Pact Worlds protectorate status, or simply as someone who recognizes the need to strengthen bonds between interstellar communities.</p>\n<p>You gain a +1 circumstance bonus to Diplomacy checks to [[/act gather-information]] and [[/act make-an-impression]] against sapient creatures as well as to Perception checks to @UUID[Compendium.sf2e.actions.Item.Sense Motive]{Sense the Motives} of such creatures.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:gather-information",
+                            "action:make-an-impression"
+                        ]
+                    },
+                    "sentient-creatures"
+                ],
+                "selector": [
+                    "diplomacy"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:sense-motive"
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "copaxi"
+            ]
+        }
+    },
+    "type": "feat"
+}

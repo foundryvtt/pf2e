@@ -1,0 +1,62 @@
+{
+    "_id": "fYZ1vNXDqgkG4e48",
+    "img": "systems/sf2e/icons/spells/comprehend-language.webp",
+    "name": "Effect: Ancestral Communion",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Ancestral Communion]</p>\n<p>You gain a +2 status bonus to the chosen skill and can attempt any skill check that normally requires you to have master proficiency in that skill, and if you're untrained in that skill, your proficiency bonus to untrained skill checks is equal to your level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        {
+                            "lte": [
+                                "skill:{choice|value}:rank",
+                                2
+                            ]
+                        }
+                    ]
+                },
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "{item|flags.sf2e.rulesSelections.skill}"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
