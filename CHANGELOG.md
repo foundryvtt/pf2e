@@ -1,3 +1,64 @@
+## 7.12.0
+
+### System Improvements
+
+- (stwlam) Add option to NPC Attack items to exempt them from MAP
+
+### Bugfixes
+
+- (stwlam) Fix refreshing scene controls when "Show World Clock" setting is changed
+- (Tikael) Add `item:trait` roll options to action macros
+
+### Data Updates
+
+- (Ambrose, Mecha Maya, Tikael) Add content from Hellfire Dispatches
+- (Ambrose) Add Damage Note to Tolokand's Toxic Blood ability
+- (Ambrose) Add icon to Shield Bow
+- (Ambrose) Add Notes to Scare to Death
+- (Ambrose) Correct Fear of God's frequency
+- (Ambrose) Correct Vivacious Speed embed link in Swashbuckler class journal
+- (Ambrose) Expand GM Screen Chase subsystem journal entry
+- (Ambrose) Organize class feat folders sorting and renamed Shared folder to Shared Class Feats
+- (Ambrose) Refactor Wizard's Drain Familiar
+- (Ambrose) Remove Aura from Protection's spell effect
+- (Ambrose) Update Peacock Phoenix's Rebirth ability to remove the Spirit Trait and automate it's Mythic Skill ability
+- (Ambrose) Update Whirling Throw localized notes to match Player Core 2 text
+- (Dire Weasel) Add automation for Glue Bullet
+- (Dire Weasel) Add effect for Compel Courage
+- (Dire Weasel) Add roll options to Petrifying Glance inline save
+- (Dire Weasel) Add spell effect for Sparkleskin
+- (Dire Weasel) Brush up several NPCs
+- (Holly Valenta) Update Draconic Fury to calculate damage based on actor level
+- (iDantar) Update Shield Warfare to work with shield bash
+- (kromko) Add missing localization to PF2e spell effects
+- (kromko) Fix some hazards' check labels
+- (kromko) Remove `strong` tags around trait lists in Heal/Harm and consumable activations
+- (Maksim) Add missing ranged details to Marcien Blakros's Backbiter
+- (Maksim) Fix antifungal salve effect duration
+- (Maksim) Fix missing sanctification trait on Herald's Weapon
+- (MarpoOcknew) Fix healing calculation in Administer Ambient Magic
+- (Razytos) Fix duration of Entreat Spirit effect
+- (rectulo) Fix chthonian in shade (dead vault)
+- (rectulo) Fix formatting in Godclaw pantheon description
+- (rectulo) Fix Planar Incarnation to match Remaster Outer Rifts
+- (rectulo) Fix sanctification spelling in hārakasura description
+- (rectulo) Fix typo in garadasura description
+- (rectulo) Update potion description to reflect horned dragon
+- (Rigo) Limit Knave's Standard damage to off-guard targets only
+- (Rigo) Remove fire resistance and immunity with Curse of Engulfing Flames
+- (Rigo) Update data to match Player Core 2 Spring Errata
+- (Rigo) Update some Choice Sets to use spell rank config list
+- (Rigo) Use explicit choices in Invoke Movement's Choice Set
+- (Shriakhilc) Fix property rune on Icicle
+- (Tikael) Add content from SFS 1-17 and 1-18
+- (Tikael) Fix action type of Warden's Reload
+- (Tikael) Fix level 5 Samo's attribute boosts and languages
+
+### Under the Hood
+
+- (stwlam) Avoid eager construction of all synthetic actors during world load
+- (stwlam) Remove system `JournalSheet` subclass
+
 ## 7.11.3
 
 ### Bugfixes
