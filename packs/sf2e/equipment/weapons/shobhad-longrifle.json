@@ -23,7 +23,7 @@
             "die": "d8"
         },
         "description": {
-            "value": ""
+            "value": "<p><strong>Upgrades:</strong> 0</p><hr /><p>This martial sniper rifle is the traditional weapon of the shobhad-neh. It comes with a built-in commercial silencer and commercial sniper's scope that must be upgraded separately from the weapon but are integrated into the shobhad longrifle and do not occupy upgrade slots.</p>"
         },
         "expend": 1,
         "grade": null,
@@ -65,6 +65,170 @@
         "splashDamage": {
             "value": 0
         },
+        "subitems": [
+            {
+                "_id": "CLcMpeG40P1ykkKA",
+                "_stats": {
+                    "compendiumSource": "Compendium.sf2e.equipment.Item.nPmeqjZ8b0mjqSfs"
+                },
+                "folder": "7JvVdcPLRxEK9sec",
+                "img": "systems/sf2e/icons/equipment/consumables/other-consumables/silencer.webp",
+                "name": "Silencer (Commercial)",
+                "sort": 0,
+                "system": {
+                    "baseItem": null,
+                    "bulk": {
+                        "value": 0
+                    },
+                    "containerId": null,
+                    "description": {
+                        "value": "<p>A cylinder is filled with internal sound baffles to reduce noise. The weapon doesn't make a loud noise when fired. However, creatures hit by the ammunition might still cry out in pain.</p>"
+                    },
+                    "equipped": {
+                        "carryType": "installed",
+                        "handsHeld": 0
+                    },
+                    "hardness": 0,
+                    "hp": {
+                        "max": 0,
+                        "value": 0
+                    },
+                    "level": {
+                        "value": 0
+                    },
+                    "material": {
+                        "grade": null,
+                        "type": null
+                    },
+                    "price": {
+                        "value": {
+                            "sp": 10
+                        }
+                    },
+                    "publication": {
+                        "license": "ORC",
+                        "remaster": true,
+                        "title": "Starfinder Player Core"
+                    },
+                    "quantity": 1,
+                    "rules": [],
+                    "size": "med",
+                    "slug": "silencer-commercial",
+                    "traits": {
+                        "rarity": "common",
+                        "value": [
+                            "tech"
+                        ]
+                    },
+                    "usage": {
+                        "value": "installed-in-ranged-weapon-without-a-loudener"
+                    }
+                },
+                "type": "equipment"
+            },
+            {
+                "_id": "KccChmA8Bse3Rflm",
+                "_stats": {
+                    "compendiumSource": "Compendium.sf2e.equipment.Item.10lYyQDoJXUojKm2"
+                },
+                "folder": "7JvVdcPLRxEK9sec",
+                "img": "systems/sf2e/icons/equipment/other/attached-items/scope.webp",
+                "name": "Sniper's Scope (Commercial)",
+                "sort": 0,
+                "system": {
+                    "baseItem": null,
+                    "bulk": {
+                        "value": 0
+                    },
+                    "containerId": null,
+                    "description": {
+                        "value": "<p>A telescopic sighting attachment helps view distant targets.</p><hr /><p><strong>Activate—Adjust Sight</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Effect</strong> Increase the range increment of the weapon the scope is attached to by 10 feet. If the weapon has a base range increment of 50 feet or more, increase the range of the weapon by 20 feet instead. This lasts until the beginning of your next turn or until you're no longer wielding the weapon this scope is attached to, whichever comes first. This does not increase the size of area attacks.</p>"
+                    },
+                    "equipped": {
+                        "carryType": "installed",
+                        "handsHeld": 0
+                    },
+                    "hardness": 0,
+                    "hp": {
+                        "max": 0,
+                        "value": 0
+                    },
+                    "level": {
+                        "value": 1
+                    },
+                    "material": {
+                        "grade": null,
+                        "type": null
+                    },
+                    "price": {
+                        "value": {
+                            "sp": 150
+                        }
+                    },
+                    "publication": {
+                        "license": "ORC",
+                        "remaster": true,
+                        "title": "Starfinder Player Core"
+                    },
+                    "quantity": 1,
+                    "rules": [
+                        {
+                            "key": "RollOption",
+                            "option": "{item|parentItem.id}-snipers-scope",
+                            "toggleable": true,
+                            "value": true
+                        },
+                        {
+                            "itemType": "weapon",
+                            "key": "ItemAlteration",
+                            "mode": "add",
+                            "predicate": [
+                                "item:id:{item|parentItem.id}",
+                                "{item|parentItem.id}-snipers-scope",
+                                {
+                                    "lt": [
+                                        "item:range-increment",
+                                        50
+                                    ]
+                                }
+                            ],
+                            "property": "range-increment",
+                            "value": 10
+                        },
+                        {
+                            "itemType": "weapon",
+                            "key": "ItemAlteration",
+                            "mode": "add",
+                            "predicate": [
+                                "item:id:{item|parentItem.id}",
+                                "{item|parentItem.id}-snipers-scope",
+                                {
+                                    "gte": [
+                                        "item:range-increment",
+                                        50
+                                    ]
+                                }
+                            ],
+                            "priority": 115,
+                            "property": "range-increment",
+                            "value": 20
+                        }
+                    ],
+                    "size": "med",
+                    "slug": "snipers-scope-commercial",
+                    "traits": {
+                        "rarity": "common",
+                        "value": [
+                            "tech"
+                        ]
+                    },
+                    "usage": {
+                        "value": "installed-in-a-weapon-sight"
+                    }
+                },
+                "type": "equipment"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
