@@ -437,8 +437,11 @@ interface SlugField<
     options: SlugFieldOptions<TRequired, TNullable, THasInitial>;
 }
 
-interface SlugFieldOptions<TRequired extends boolean, TNullable extends boolean, THasInitial extends boolean>
-    extends StringFieldOptions<string, TRequired, TNullable, THasInitial> {
+interface SlugFieldOptions<
+    TRequired extends boolean,
+    TNullable extends boolean,
+    THasInitial extends boolean,
+> extends StringFieldOptions<string, TRequired, TNullable, THasInitial> {
     camel?: SlugCamel;
 }
 

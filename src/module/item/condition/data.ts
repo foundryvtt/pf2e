@@ -90,7 +90,8 @@ class ConditionSystemData extends ItemSystemModel<ConditionPF2e, ConditionSystem
 }
 
 interface ConditionSystemData
-    extends ItemSystemModel<ConditionPF2e, ConditionSystemSchema>,
+    extends
+        ItemSystemModel<ConditionPF2e, ConditionSystemSchema>,
         Omit<ModelPropsFromSchema<ConditionSystemSchema>, "description" | "value"> {
     slug: ConditionSlug;
     duration: DurationData;

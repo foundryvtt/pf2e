@@ -19,8 +19,7 @@ interface BookSystemSource extends PhysicalSystemSource {
 }
 
 interface BookSystemData
-    extends Omit<BookSystemSource, SourceOmission>,
-        Omit<PhysicalSystemData, "subitems" | "traits"> {}
+    extends Omit<BookSystemSource, SourceOmission>, Omit<PhysicalSystemData, "subitems" | "traits"> {}
 
 type SourceOmission =
     | "apex"

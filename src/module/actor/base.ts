@@ -2060,8 +2060,10 @@ interface ActorUpdateOperation<TParent extends TokenDocumentPF2e | null> extends
     previous?: { maxHitPoints?: number };
 }
 
-interface ActorUpdateCallbackOptions
-    extends Omit<ActorUpdateOperation<null>, "action" | "pack" | "parent" | "restoreDelta" | "noHook" | "updates"> {}
+interface ActorUpdateCallbackOptions extends Omit<
+    ActorUpdateOperation<null>,
+    "action" | "pack" | "parent" | "restoreDelta" | "noHook" | "updates"
+> {}
 
 interface EmbeddedItemUpdateOperation<TParent extends ActorPF2e> extends DatabaseUpdateOperation<TParent> {
     checkHP?: boolean;

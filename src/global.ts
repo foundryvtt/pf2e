@@ -156,17 +156,16 @@ interface ClientSettingsPF2e extends fh.ClientSettings {
     get(scope: string, key: string, options?: { document?: boolean }): unknown;
 }
 
-interface GamePF2e
-    extends Game<
-        ActorPF2e<null>,
-        ActorsPF2e<ActorPF2e<null>>,
-        ChatMessagePF2e,
-        EncounterPF2e,
-        ItemPF2e<null>,
-        MacroPF2e,
-        ScenePF2e,
-        UserPF2e
-    > {
+interface GamePF2e extends Game<
+    ActorPF2e<null>,
+    ActorsPF2e<ActorPF2e<null>>,
+    ChatMessagePF2e,
+    EncounterPF2e,
+    ItemPF2e<null>,
+    MacroPF2e,
+    ScenePF2e,
+    UserPF2e
+> {
     pf2e: {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         actions: Record<string, Function> & Collection<string, Action>;

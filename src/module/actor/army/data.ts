@@ -127,8 +127,7 @@ class ArmySystemData extends ActorSystemModel<ArmyPF2e, ArmySystemSchema> {
 }
 
 interface ArmySystemData
-    extends ActorSystemModel<ArmyPF2e, ArmySystemSchema>,
-        fields.ModelPropsFromSchema<ArmySystemSchema> {
+    extends ActorSystemModel<ArmyPF2e, ArmySystemSchema>, fields.ModelPropsFromSchema<ArmySystemSchema> {
     attributes: fields.ModelPropsFromSchema<ArmyAttributesSchema> & {
         hp: {
             max: number;

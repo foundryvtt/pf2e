@@ -85,8 +85,7 @@ class SubstituteRollRuleElement extends RuleElement<SubstituteRollSchema> {
 }
 
 interface SubstituteRollRuleElement
-    extends RuleElement<SubstituteRollSchema>,
-        ModelPropsFromRESchema<SubstituteRollSchema> {}
+    extends RuleElement<SubstituteRollSchema>, ModelPropsFromRESchema<SubstituteRollSchema> {}
 
 type SubstituteRollSchema = RuleElementSchema & {
     selector: fields.StringField<string, string, true, false, true>;

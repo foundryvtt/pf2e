@@ -99,7 +99,8 @@ class KitSystemData extends ItemSystemModel<KitPF2e, KitSystemSchema> {
 }
 
 interface KitSystemData
-    extends ItemSystemModel<KitPF2e, KitSystemSchema>,
+    extends
+        ItemSystemModel<KitPF2e, KitSystemSchema>,
         Omit<fields.ModelPropsFromSchema<KitSystemSchema>, "description"> {}
 
 type KitEntryData = NonNullable<KitSystemData["items"][string]>;

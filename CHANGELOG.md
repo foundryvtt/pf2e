@@ -1,3 +1,13 @@
+## 7.12.1
+
+### Bugfixes
+
+- (stwlam) Fix issue causing stack overflow during some token data preparation
+
+### Data Updates
+
+- (Ambrose) Correct size categories of Gluttonous Geode and Crystal Strider
+
 ## 7.12.0
 
 ### System Improvements

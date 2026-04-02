@@ -980,8 +980,9 @@ interface PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> 
     system: PhysicalSystemData;
 }
 
-interface PhysicalItemConstructionContext<TParent extends ActorPF2e | null>
-    extends DocumentConstructionContext<TParent> {
+interface PhysicalItemConstructionContext<
+    TParent extends ActorPF2e | null,
+> extends DocumentConstructionContext<TParent> {
     parentItem?: PhysicalItemPF2e<TParent>;
 }
 

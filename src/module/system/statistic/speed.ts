@@ -99,8 +99,9 @@ interface SpeedStatisticData<TType extends MovementType | "travel"> extends Omit
     source?: string | null;
 }
 
-interface SpeedStatisticTraceData<TType extends MovementType | "travel" = MovementType | "travel">
-    extends BaseStatisticTraceData {
+interface SpeedStatisticTraceData<
+    TType extends MovementType | "travel" = MovementType | "travel",
+> extends BaseStatisticTraceData {
     type: TType;
     value: number;
     base: number;
@@ -112,8 +113,10 @@ interface LandSpeedStatisticTraceData extends SpeedStatisticTraceData<"land"> {
     step: number;
 }
 
-interface ExtendParams<TType extends MovementType | "travel">
-    extends Pick<SpeedStatisticData<TType>, "type" | "base" | "modifiers" | "source"> {}
+interface ExtendParams<TType extends MovementType | "travel"> extends Pick<
+    SpeedStatisticData<TType>,
+    "type" | "base" | "modifiers" | "source"
+> {}
 
 export { SpeedStatistic };
 export type { LandSpeedStatisticTraceData, SpeedStatisticTraceData };

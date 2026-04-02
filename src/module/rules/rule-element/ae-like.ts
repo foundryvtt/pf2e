@@ -246,8 +246,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElement<TSchem
 }
 
 interface AELikeRuleElement<TSchema extends AELikeSchema>
-    extends RuleElement<TSchema>,
-        ModelPropsFromRESchema<AELikeSchema> {}
+    extends RuleElement<TSchema>, ModelPropsFromRESchema<AELikeSchema> {}
 
 interface AutoChangeEntry {
     source: string;

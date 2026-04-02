@@ -99,8 +99,9 @@ interface ArmorStatisticData extends StatisticData {
     details?: string;
 }
 
-interface ArmorClassTraceData<TAttribute extends AttributeString | null = AttributeString | null>
-    extends StatisticTraceData<TAttribute> {
+interface ArmorClassTraceData<
+    TAttribute extends AttributeString | null = AttributeString | null,
+> extends StatisticTraceData<TAttribute> {
     details: string;
     slug: "ac";
 }

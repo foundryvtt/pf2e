@@ -41,7 +41,6 @@ interface AncestrySystemSource extends ABCSystemSource {
 }
 
 interface AncestrySystemData
-    extends Omit<AncestrySystemSource, "description" | "items">,
-        Omit<ABCSystemData, "level" | "traits"> {}
+    extends Omit<AncestrySystemSource, "description" | "items">, Omit<ABCSystemData, "level" | "traits"> {}
 
 export type { AncestrySource, AncestrySystemData, AncestrySystemSource, AncestryTraits, CreatureTraits };

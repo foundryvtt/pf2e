@@ -81,7 +81,8 @@ class HitPointsStatistic<TActor extends HPStatActor = HPStatActor> extends BaseS
 }
 
 interface HitPointsTraceData
-    extends BaseStatisticTraceData,
+    extends
+        BaseStatisticTraceData,
         Pick<HitPointsStatistic, "max" | "temp" | "negativeHealing" | "unrecoverable" | "details"> {
     /** The actor's current hit points */
     value: number;

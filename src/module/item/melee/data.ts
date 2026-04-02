@@ -169,7 +169,8 @@ class MeleeSystemData extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema> 
 }
 
 interface MeleeSystemData
-    extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema>,
+    extends
+        ItemSystemModel<MeleePF2e, NPCAttackSystemSchema>,
         Omit<fields.ModelPropsFromSchema<NPCAttackSystemSchema>, "description"> {
     traits: NPCAttackTraits;
 }

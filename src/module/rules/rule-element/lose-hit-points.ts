@@ -56,8 +56,7 @@ class LoseHitPointsRuleElement extends RuleElement<LoseHitPointsRuleSchema> {
 type LoseHitPointsSource = fields.SourceFromSchema<LoseHitPointsRuleSchema>;
 
 interface LoseHitPointsRuleElement
-    extends RuleElement<LoseHitPointsRuleSchema>,
-        ModelPropsFromRESchema<LoseHitPointsRuleSchema> {
+    extends RuleElement<LoseHitPointsRuleSchema>, ModelPropsFromRESchema<LoseHitPointsRuleSchema> {
     get actor(): CreaturePF2e;
 }
 

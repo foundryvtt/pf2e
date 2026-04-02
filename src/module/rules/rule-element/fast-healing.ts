@@ -103,8 +103,7 @@ type FastHealingRuleSchema = RuleElementSchema & {
 };
 
 interface FastHealingRuleElement
-    extends RuleElement<FastHealingRuleSchema>,
-        ModelPropsFromRESchema<FastHealingRuleSchema> {}
+    extends RuleElement<FastHealingRuleSchema>, ModelPropsFromRESchema<FastHealingRuleSchema> {}
 
 type FastHealingType = "fast-healing" | "regeneration";
 

@@ -75,8 +75,10 @@ interface EffectTargetSource extends RuleElementSource {
     targetId?: string;
 }
 
-interface OwnedWeaponChoiceSetSource
-    extends Pick<foundry.data.fields.SourceFromSchema<ChoiceSetSchema>, "key" | "prompt"> {
+interface OwnedWeaponChoiceSetSource extends Pick<
+    foundry.data.fields.SourceFromSchema<ChoiceSetSchema>,
+    "key" | "prompt"
+> {
     selection?: string;
     choices: {
         ownedItems: true;

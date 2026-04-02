@@ -76,8 +76,9 @@ interface BaseStatisticTraceData {
 }
 
 /** Data intended to be merged back into actor data (usually for token attribute/RE purposes) */
-interface StatisticTraceData<TAttribute extends AttributeString | null = AttributeString | null>
-    extends BaseStatisticTraceData {
+interface StatisticTraceData<
+    TAttribute extends AttributeString | null = AttributeString | null,
+> extends BaseStatisticTraceData {
     /** Either the totalModifier or the dc depending on what the data is for */
     value: number;
     totalModifier: number;

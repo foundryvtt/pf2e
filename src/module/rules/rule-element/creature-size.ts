@@ -154,8 +154,7 @@ class CreatureSizeRuleElement extends RuleElement<CreatureSizeRuleSchema> {
 }
 
 interface CreatureSizeRuleElement
-    extends RuleElement<CreatureSizeRuleSchema>,
-        ModelPropsFromRESchema<CreatureSizeRuleSchema> {
+    extends RuleElement<CreatureSizeRuleSchema>, ModelPropsFromRESchema<CreatureSizeRuleSchema> {
     get actor(): CreaturePF2e;
 }
 

@@ -148,8 +148,7 @@ class LanguageSettings extends foundry.abstract.DataModel<null, LanguageSettings
 }
 
 interface LanguageSettings
-    extends foundry.abstract.DataModel<null, LanguageSettingsSchema>,
-        ModelPropsFromSchema<LanguageSettingsSchema> {}
+    extends foundry.abstract.DataModel<null, LanguageSettingsSchema>, ModelPropsFromSchema<LanguageSettingsSchema> {}
 
 type LanguageSettingsSchema = {
     /** The "common" tongue of the region, rather than languages of common rarity */

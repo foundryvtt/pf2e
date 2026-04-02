@@ -1963,8 +1963,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 }
 
-interface CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null>
-    extends CreaturePF2e<TParent> {
+interface CharacterPF2e<
+    TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null,
+> extends CreaturePF2e<TParent> {
     flags: CharacterFlags;
     readonly _source: CharacterSource;
     system: CharacterSystemData;

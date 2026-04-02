@@ -30,8 +30,7 @@ interface AmmoUses {
 }
 
 interface AmmoSystemData
-    extends Omit<AmmoSystemSource, SourceOmission>,
-        Omit<PhysicalSystemData, "baseItem" | "subitems" | "traits"> {
+    extends Omit<AmmoSystemSource, SourceOmission>, Omit<PhysicalSystemData, "baseItem" | "subitems" | "traits"> {
     apex?: never;
 }
 

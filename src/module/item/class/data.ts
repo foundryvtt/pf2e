@@ -101,7 +101,8 @@ class ClassSystemData extends ItemSystemModel<ClassPF2e, ClassSystemSchema> {
 }
 
 interface ClassSystemData
-    extends ItemSystemModel<ClassPF2e, ClassSystemSchema>,
+    extends
+        ItemSystemModel<ClassPF2e, ClassSystemSchema>,
         Omit<fields.ModelPropsFromSchema<ClassSystemSchema>, "description"> {
     level?: never;
     traits: RarityTraitAndOtherTags;

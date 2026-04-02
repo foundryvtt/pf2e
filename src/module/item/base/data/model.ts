@@ -60,8 +60,8 @@ abstract class ItemSystemModel<TParent extends ItemPF2e, TSchema extends ItemSys
     }
 }
 
-interface ItemSystemModel<TParent extends ItemPF2e, TSchema extends ItemSystemSchema>
-    extends foundry.abstract.TypeDataModel<TParent, TSchema> {
+interface ItemSystemModel<TParent extends ItemPF2e, TSchema extends ItemSystemSchema> extends foundry.abstract
+    .TypeDataModel<TParent, TSchema> {
     description: ItemDescriptionData;
 }
 

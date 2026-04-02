@@ -158,8 +158,7 @@ class TreasureSystemData extends ItemSystemModel<TreasurePF2e, TreasureSystemSch
 }
 
 interface TreasureSystemData
-    extends ItemSystemModel<TreasurePF2e, TreasureSystemSchema>,
-        fields.ModelPropsFromSchema<TreasureSystemSchema> {
+    extends ItemSystemModel<TreasurePF2e, TreasureSystemSchema>, fields.ModelPropsFromSchema<TreasureSystemSchema> {
     bulk: BulkData;
     description: ItemDescriptionData;
     equipped: TreasureEquippedData;

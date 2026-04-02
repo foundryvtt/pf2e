@@ -34,8 +34,7 @@ class LootSystemData extends ActorSystemModel<LootPF2e, LootSystemSchema> {
 }
 
 interface LootSystemData
-    extends ActorSystemModel<LootPF2e, LootSystemSchema>,
-        fields.ModelPropsFromSchema<LootSystemSchema> {
+    extends ActorSystemModel<LootPF2e, LootSystemSchema>, fields.ModelPropsFromSchema<LootSystemSchema> {
     details: LootDetails;
     traits?: never;
     attributes: LootAttributes;

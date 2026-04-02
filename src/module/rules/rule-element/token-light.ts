@@ -57,8 +57,7 @@ class TokenLightRuleElement extends RuleElement<TokenLightRuleSchema> {
 }
 
 interface TokenLightRuleElement
-    extends RuleElement<TokenLightRuleSchema>,
-        ModelPropsFromRESchema<TokenLightRuleSchema> {}
+    extends RuleElement<TokenLightRuleSchema>, ModelPropsFromRESchema<TokenLightRuleSchema> {}
 
 type TokenLightValueSchema = Omit<LightDataSchema, "bright" | "color" | "dim"> & {
     bright: ResolvableValueField<false, false, false>;

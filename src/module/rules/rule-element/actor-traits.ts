@@ -73,7 +73,6 @@ type ActorTraitsRuleSchema = RuleElementSchema & {
 };
 
 interface ActorTraitsRuleElement
-    extends RuleElement<ActorTraitsRuleSchema>,
-        ModelPropsFromRESchema<ActorTraitsRuleSchema> {}
+    extends RuleElement<ActorTraitsRuleSchema>, ModelPropsFromRESchema<ActorTraitsRuleSchema> {}
 
 export { ActorTraitsRuleElement };

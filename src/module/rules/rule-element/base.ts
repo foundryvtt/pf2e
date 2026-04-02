@@ -355,8 +355,7 @@ abstract class RuleElement<TSchema extends RuleElementSchema = RuleElementSchema
 }
 
 interface RuleElement<TSchema extends RuleElementSchema>
-    extends foundry.abstract.DataModel<ItemPF2e<ActorPF2e>, TSchema>,
-        ModelPropsFromSchema<RuleElementSchema> {
+    extends foundry.abstract.DataModel<ItemPF2e<ActorPF2e>, TSchema>, ModelPropsFromSchema<RuleElementSchema> {
     constructor: typeof RuleElement<TSchema>;
 
     get schema(): LaxSchemaField<TSchema>;

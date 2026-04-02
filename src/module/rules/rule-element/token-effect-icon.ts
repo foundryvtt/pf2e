@@ -41,8 +41,7 @@ class TokenEffectIconRuleElement extends RuleElement<TokenEffectIconSchema> {
 }
 
 interface TokenEffectIconRuleElement
-    extends RuleElement<TokenEffectIconSchema>,
-        ModelPropsFromRESchema<TokenEffectIconSchema> {}
+    extends RuleElement<TokenEffectIconSchema>, ModelPropsFromRESchema<TokenEffectIconSchema> {}
 
 type TokenEffectIconSchema = RuleElementSchema & {
     value: fields.StringField<string, string, false, false, false>;

@@ -164,7 +164,8 @@ interface ItemTransferConfiguration extends fa.api.DialogV2Configuration {
 }
 
 interface WaitParams
-    extends DeepPartial<Omit<ItemTransferConfiguration, "recipient" | "item">>,
+    extends
+        DeepPartial<Omit<ItemTransferConfiguration, "recipient" | "item">>,
         Pick<ItemTransferConfiguration, "recipient" | "item"> {}
 
 interface ResolutionData {

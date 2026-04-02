@@ -87,8 +87,7 @@ class EffectSpinoffRuleElement extends RuleElement<EffectSpinoffSchema> {
 }
 
 interface EffectSpinoffRuleElement
-    extends RuleElement<EffectSpinoffSchema>,
-        ModelPropsFromRESchema<EffectSpinoffSchema> {
+    extends RuleElement<EffectSpinoffSchema>, ModelPropsFromRESchema<EffectSpinoffSchema> {
     slug: string;
 
     get item(): PhysicalItemPF2e<ActorPF2e>;
