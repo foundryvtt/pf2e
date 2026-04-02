@@ -37,7 +37,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** Prevent eager construction of synthetic actors */
     override get actor(): ActorPF2e<this | null> | null {
-        if (game.ready || this.scene?.isView || this.hasConstructedActor || this.inCombat) {
+        if (game.ready || this.actorLink || this.scene?.isView || this.hasConstructedActor || super.inCombat) {
             return super.actor as ActorPF2e<this | null> | null;
         }
         return Array.isArray(this._source.delta?.items) && this._source.delta.items.some((i) => i.type === "effect")
