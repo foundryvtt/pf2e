@@ -63,8 +63,7 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
 }
 
 interface ResistanceRuleElement
-    extends IWRRuleElement<ResistanceRuleSchema>,
-        ModelPropsFromRESchema<ResistanceRuleSchema> {
+    extends IWRRuleElement<ResistanceRuleSchema>, ModelPropsFromRESchema<ResistanceRuleSchema> {
     value: RuleValue;
 
     type: ResistanceType[];

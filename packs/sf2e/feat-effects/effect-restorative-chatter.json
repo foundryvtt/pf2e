@@ -1,0 +1,42 @@
+{
+    "_id": "j8PdZa8f0ekkdIYw",
+    "img": "systems/sf2e/icons/abilities/green-plus-sign.webp",
+    "name": "Effect: Restorative Chatter",
+    "system": {
+        "description": {
+            "value": "<p>Your body physically heals when you can communicate with your allies. You can choose if your communication with allies is auditory or visual, and this action gains that trait when used. You gain fast healing equal to half your level for 1 minute. While Restorative Chatter is active, if you no longer meet the requirements, this fast healing ends.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "FastHealing",
+                "value": "max(floor(@actor.level/2),1)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

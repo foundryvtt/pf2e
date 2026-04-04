@@ -125,7 +125,8 @@ class FamiliarSystemData extends ActorSystemModel<FamiliarPF2e, FamiliarSystemSc
 }
 
 interface FamiliarSystemData
-    extends foundry.abstract.TypeDataModel<FamiliarPF2e, FamiliarSystemSchema>,
+    extends
+        foundry.abstract.TypeDataModel<FamiliarPF2e, FamiliarSystemSchema>,
         ModelPropsFromSchema<FamiliarSystemSchema> {
     attributes: CreatureAttributes;
     details: FamiliarDetails;

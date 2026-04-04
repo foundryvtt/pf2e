@@ -1,0 +1,52 @@
+{
+    "_id": "5BIn9LonvhJz6h7B",
+    "folder": "fDu1MIrGVoxivMwS",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Faith Converted Urog",
+    "system": {
+        "ancestry": {
+            "name": "Urog",
+            "slug": "urog",
+            "uuid": "Compendium.sf2e.ancestries.Item.1gJeLPnHFATPQej2"
+        },
+        "description": {
+            "value": "<p>You believe the best way to learn the about the universe is to go to the gods who created it. Your research has most likely led you away from Dykon to spiritual mentors, with the hopes of learning directly from the gods themselves.</p>\n<p>You become trained in Religion (or another skill of your choice if you're already trained in Religion) and gain the @UUID[Compendium.sf2e.feats.Item.Student of the Canon] feat. You also gain a +1 circumstance bonus to @UUID[Compendium.sf2e.actions.Item.Learn a Spell].</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Student of the Canon"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:learn-a-spell"
+                ],
+                "selector": [
+                    "arcana",
+                    "nature",
+                    "occultism",
+                    "religion"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.religion.rank",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

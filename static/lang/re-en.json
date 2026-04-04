@@ -114,6 +114,7 @@
                 "Antler": "Antler",
                 "AqueousFist": "Aqueous Fist",
                 "Beak": "Beak",
+                "Beam": "Beam",
                 "Beard": "Beard",
                 "Belly": "Belly",
                 "BigClaw": "Big Claw",
@@ -756,6 +757,7 @@
         },
         "FeatDescription": {
             "Frequency": {
+                "OncePerDay": "once per day",
                 "OncePerHour": "once per hour",
                 "OncePerTurn": "once per turn"
             },
@@ -786,7 +788,8 @@
                 "ClimbLeapStride": "Your previous action was to Climb, Leap, or Stride"
             },
             "Resist": {
-                "ForcedMovement": "vs. forced movement"
+                "ForcedMovement": "vs. forced movement",
+                "Mental": "Mental Resistance"
             },
             "StrikeCount": {
                 "First": "First Strike",
@@ -1188,6 +1191,12 @@
                     "DeceiversSurprise": "Target is Off-Guard due to a Feint or Deceiver's Surprise"
                 }
             },
+            "FangwoodSentinel": {
+                "ThusAlwaysToTyrants": {
+                    "Ally": "Ally",
+                    "Enemy": "Enemy"
+                }
+            },
             "FatedDoom": {
                 "RollOptionLabel": "First encounter of the day"
             },
@@ -1385,6 +1394,14 @@
                     "SneakAttack": "Sneak Attack",
                     "WeaponPerk": "Weapon Perk",
                     "WeaponPerkPrompt": "Select a Weapon Perk"
+                }
+            },
+            "OrtMob": {
+                "Subservience": {
+                    "Hustle": "Hustle",
+                    "Kill": "Kill",
+                    "Rally": "Rally",
+                    "Work": "Work"
                 }
             },
             "PaleStranger": {
@@ -3812,6 +3829,15 @@
             "Duel": {
                 "Dueling": "Dueling"
             },
+            "Dandy": {
+                "DoYouKnowWhoIAm": {
+                    "City": "City",
+                    "Metropolis": "Metropolis"
+                },
+                "IvyPlayhouseStrike": {
+                    "Note": "The target becomes @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} until the end of your next turn."
+                }
+            },
             "Dwarf": {
                 "BlastResistance": {
                     "RollOptionLabel": "Blast Resistance — Saving against dazzled or deafened"
@@ -5571,6 +5597,14 @@
                     "Resistance": "Proteankin Resistance"
                 }
             },
+            "NidaleseHorselord": {
+                "DefyChains": {
+                    "DamageNote": {
+                        "Level14": "You increase the amount of damage you take by @Damage[4d6[untyped]], and deal @Damage[4d6[spirit]] damage to the triggering fiend.",
+                        "Level18": "You increase the amount of damage you take by @Damage[5d6[untyped]], and deal @Damage[5d6[spirit]] damage to the triggering fiend."
+                    }
+                }
+            },
             "Notes": {
                 "NoteLabel": "Note",
                 "RequirementsNotMet": "The creature does not currently meet the requirements to use this ability."
@@ -5752,6 +5786,7 @@
                 "Rune": "Select a Rune.",
                 "Sanctification": "Select a sanctification.",
                 "SavingThrow": "Select a saving throw.",
+                "SecondAbility": "Select a second ability.",
                 "SecondImplement": "Select a second implement.",
                 "Sense": "Select a sense.",
                 "Shield": "Select a shield.",
@@ -6222,6 +6257,12 @@
             "ShroudMoss": {
                 "AssumeShapeTargetLabel": "Attacking the creature it stole this shape from"
             },
+            "SisterOfTheGoldenErinys": {
+                "FiendishBrand": {
+                    "EffectNote": "You must succeed at a @Check[flat|dc:5] or the spell is disrupted.",
+                    "StrikeNote": "Anytime you cast a holy spell while the bleed damage persists, you must succeed at a DC 5 flat check or the spell is disrupted. @UUID[Compendium.pf2e.feat-effects.Item.vG11WE95sDmDcip4]{Effect: Fiendish Brand}"
+                }
+            },
             "SixthPillar": {
                 "SixthPillarMastery": {
                     "AttackNote": "Whenever you succeed at an unarmed Strike against an opponent, they have a -1 status penalty to saves against your spells until the start of your next turn. @UUID[Compendium.pf2e.feat-effects.Item.DX6v0lcI2uA99Yjv]{Effect: Sixth Pillar Mastery}",
@@ -6234,6 +6275,12 @@
             "SkillFeat": {
                 "RecognizeSpell": {
                     "RollOptionLabel": "Critical success on Recognize Spell"
+                },
+                "ScareToDeath": {
+                    "CriticalFailure": "The target is unaffected.",
+                    "CriticalSuccess": "The target must attempt a @Check[fortitude|against:intimidation] save against your Intimidation DC. On a critical failure, it dies. On any other result, it becomes @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 2} and is @UUID[Compendium.pf2e.conditionitems.Item.sDPxOjQ9kx2RZE8D]{Fleeing} for 1 round. The critical failure effect has the death trait.",
+                    "Failure": "The target becomes @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 1}.",
+                    "Success": "The target becomes @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 2}."
                 }
             },
             "SkillMastery": {
@@ -6478,6 +6525,9 @@
             },
             "SpellEffectProtection": {
                 "Prompt": "Choose which alignment trait you are protecting against."
+            },
+            "SpellEffectSparkleskin": {
+                "DamageNote": "When you take damage, glitter bursts out of your wound in a @Template[emanation|distance:5]. Creatures in the area must attempt a Fortitude save.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is dazzled for 3 rounds."
             },
             "SpellEffectSpiritOfTheBeast": {
                 "AspectOfInsight": "Aspect of Insight",
@@ -7132,6 +7182,9 @@
                     "Note": "The target is @UUID[Compendium.pf2e.conditionitems.Item.sDPxOjQ9kx2RZE8D]{Fleeing} for 1 round."
                 }
             },
+            "UnderseaPrivateer": {
+                "RollOptionLabel": "Fighting in or underwater"
+            },
             "UntamedShift": {
                 "ElementalMatter": "Elemental Matter",
                 "LongVines": "Long Vines",
@@ -7221,7 +7274,7 @@
                 "Melee": "Melee Infusion",
                 "Ranged": "Ranged Infusion",
                 "RangedSuboptions": {
-                    "100Volley": "100 ft., Volley 30ft.",
+                    "100Volley": "100 ft., Volley 30 ft.",
                     "50Propulsive": "50 ft., Propulsive",
                     "20Thrown": "20 ft., Thrown"
                 }
@@ -7407,6 +7460,11 @@
                 "ExplosiveArrival": {
                     "Label": "Explosive Arrival: Creature Trait"
                 },
+                "ImprovedFamiliarAttunement": {
+                    "Description": "You expend the magical power stored in your familiar. During the current turn, you can cast one spell you prepared today and already cast, without spending a spell slot. You must still Cast the Spell and meet the spell's other requirements.",
+                    "Name": "Drain Familiar",
+                    "Requirements": "Your familiar is on your person."
+                },
                 "Runelord": {
                     "ArcaneBond": {
                         "DescriptionAddendum": "Runelords hail from an era where even a scholar was expected to be able to defend themself with arms if necessary, leading to the practice of attaching a blade to the typical wizard's staff. You must choose a polearm or spear as your arcane bond. In place of an arcane thesis, you have a personal rune, which appears on your bonded weapon. The weapon functions as a staff with charges equal to the highest rank of spells you can cast and contains the sin spells from your sin up to that rank (including your cantrips). Your personal rune isn't a property rune and doesn't count against the weapon's limit of such runes. If you prepare a magical staff, it merges with your bonded item until your next daily preparations, adding its charges and spell list. While merged, the weapons haft takes on aesthetic aspects of the staff.",
@@ -7503,6 +7561,7 @@
             "Mountain": "Mountain",
             "Plains": "Plains",
             "Sky": "Sky",
+            "Space": "Space",
             "Swamp": "Swamp",
             "Underground": "Underground"
         },
@@ -7823,6 +7882,9 @@
                             "LabelTactical": "Tactical Frost Module",
                             "CriticalNoteCommercial": "On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn unless it succeeds at a @Check[type:fortitude|dc:24] save.",
                             "CriticalNoteTactical": "On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn unless it succeeds at a @Check[type:fortitude|dc:34] save."
+                        },
+                        "GhostKiller": {
+                            "Label": "Ghost Killer"
                         },
                         "HolyModule": {
                             "LabelCommercial": "Commercial Holy Module",

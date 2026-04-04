@@ -36,8 +36,37 @@
                 "uuid": "Compendium.pf2e.feats-srd.Item.Familiar"
             },
             {
-                "key": "GrantItem",
-                "uuid": "Compendium.pf2e.actionspf2e.Item.Drain Familiar"
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:drain-bonded-item"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.FeatDescription.Frequency.OncePerDay",
+                        "title": "PF2E.Frequency.Label"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.Wizard.ImprovedFamiliarAttunement.Requirements",
+                        "title": "PF2E.FeatDescription.Requirements.Label"
+                    },
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Wizard.ImprovedFamiliarAttunement.Description"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:drain-bonded-item"
+                ],
+                "property": "name",
+                "value": "PF2E.SpecificRule.Wizard.ImprovedFamiliarAttunement.Name"
             }
         ],
         "traits": {

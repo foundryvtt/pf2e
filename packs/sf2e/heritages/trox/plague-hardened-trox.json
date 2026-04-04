@@ -1,0 +1,43 @@
+{
+    "_id": "v6iZJAS4E8OsOYkC",
+    "folder": "GaunQ9A9yjzg0Kku",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Plague-Hardened Trox",
+    "system": {
+        "ancestry": {
+            "name": "Trox",
+            "slug": "trox",
+            "uuid": "Compendium.sf2e.ancestries.Item.mvomk7uS0Gfh72sg"
+        },
+        "description": {
+            "value": "<p>You might have worked as a researcher at the Gretheshe vaults on Nchak that were flooded with a cornucopia of deadly, virulent pathogens, or you might have lived in the surrounding areas. No matter how it happened, you've built up an immunity to the pathogens within these vaults, and you have little fear of environmental risks that would kill a less hearty creature.</p>\n<p>You gain a +2 circumstance bonus to saves to resist diseases. You gain the @UUID[Compendium.sf2e.feats.Item.Toughness] general feat.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Toughness"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:disease"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

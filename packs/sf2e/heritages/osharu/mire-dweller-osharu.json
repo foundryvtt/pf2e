@@ -1,0 +1,61 @@
+{
+    "_id": "KABeb9mZOeeFhbc3",
+    "folder": "L5MqbVNd9qLMG1fp",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Mire Dweller Osharu",
+    "system": {
+        "ancestry": {
+            "name": "Osharu",
+            "slug": "osharu",
+            "uuid": "Compendium.sf2e.ancestries.Item.r1f3ChFtmCRQ9fMj"
+        },
+        "description": {
+            "value": "<p>The inhabitants of the swampy Mire are hardier than their more studious brethren, and they often eschew academic pursuits in favor of more naturalistic fields like zoology or agriculture. You are well-acquainted with the flora and fauna of the swamps and extrapolate your naturalistic observations to species off Pabaq as well.</p>\n<p>You become trained in Nature. If you would automatically become trained in Nature (from your background or class, for example), you instead become trained in another skill of your choice. Additionally, you gain a +1 circumstance bonus to saves against plant, poison, and wood effects, and if you roll a success against a poison effect, you get a critical success instead.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nature.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:plant",
+                            "item:trait:poison",
+                            "item:trait:wood"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:poison"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

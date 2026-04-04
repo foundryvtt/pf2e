@@ -162,7 +162,8 @@ class AfflictionSystemData extends ItemSystemModel<AfflictionPF2e, AfflictionSys
 }
 
 interface AfflictionSystemData
-    extends ItemSystemModel<AfflictionPF2e, AfflictionSystemSchema>,
+    extends
+        ItemSystemModel<AfflictionPF2e, AfflictionSystemSchema>,
         Omit<ModelPropsFromSchema<AfflictionSystemSchema>, "description"> {}
 
 type AfflictionSystemSchema = AbstractEffectSchema & {

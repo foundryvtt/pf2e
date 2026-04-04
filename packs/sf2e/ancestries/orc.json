@@ -1,0 +1,214 @@
+{
+    "_id": "lSGWXjcbOa6O5fTx",
+    "img": "systems/sf2e/icons/ancestries/orc-sf2e.webp",
+    "name": "Orc",
+    "system": {
+        "additionalLanguages": {
+            "count": 0,
+            "custom": "",
+            "value": []
+        },
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            },
+            "2": {
+                "value": []
+            }
+        },
+        "description": {
+            "value": "<p><em>The few and ferocious orcs of the Pact Worlds believe many of their kin are still fighting alongside Torag against a terrible foe. Beyond those who hail from lost Golarion are orcs from the planet Marixah of the Gideron Authority. Orcs have a plethora of powerful feats at their disposal to help them smash through enemies and shake off even the most fatal of blows, proving that even in the age of lasers and starships they're a force to be reckoned with.</em></p>\n<p>@UUID[Compendium.sf2e.journals.JournalEntry.Cf6Ej0OgFpqg2VoF.JournalEntryPage.2fuShc4ogz1yIuAS]{Orc}</p>"
+        },
+        "flaws": {
+            "0": {
+                "value": []
+            }
+        },
+        "hands": 2,
+        "hp": 10,
+        "items": {},
+        "languages": {
+            "custom": "",
+            "value": [
+                "common",
+                "orcish"
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "reach": 5,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.standardizedAncestryFeats",
+                "priority": 10,
+                "value": {
+                    "ancestralSkills": {
+                        "skillOne": "athletics",
+                        "skillTwo": "survival"
+                    },
+                    "ancestralUnarmedAttack": {
+                        "choices": [
+                            {
+                                "label": "PF2E.BattleForm.Attack.Tusks",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-unarmed-attack:tusks"
+                                    }
+                                ],
+                                "value": "tusks"
+                            },
+                            {
+                                "label": "PF2E.BattleForm.Attack.Fist",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-unarmed-attack:fist"
+                                    }
+                                ],
+                                "value": "fist"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/commodities/bones/horn-worn-grey.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tusks",
+                "predicate": [
+                    "ancestral-unarmed-attack:tusks"
+                ],
+                "slug": "tusks",
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "fist": true,
+                "group": "brawling",
+                "img": "icons/skills/melee/unarmed-punch-fist.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Fist",
+                "predicate": [
+                    "ancestral-unarmed-attack:fist"
+                ],
+                "slug": "fist",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "shove",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    "item:id:{item|id}"
+                ]
+            },
+            {
+                "definition": [
+                    "item:category:martial",
+                    {
+                        "or": [
+                            "item:trait:orc",
+                            "item:group:axe"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Orc.WeaponFamiliarity.MartialWeapons",
+                "predicate": [
+                    "feat:ancestral-weapon-familiarity"
+                ],
+                "sameAs": "simple",
+                "slug": "martial-orc-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:orc",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Dwarf.WeaponFamiliarity.AdvancedWeapons",
+                "predicate": [
+                    "feat:ancestral-weapon-familiarity"
+                ],
+                "sameAs": "martial",
+                "slug": "advanced-orc-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:orc",
+                            "item:group:axe"
+                        ]
+                    },
+                    "feat:ancestral-weapon-familiarity"
+                ]
+            }
+        ],
+        "size": "med",
+        "speed": 25,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "humanoid",
+                "orc"
+            ]
+        },
+        "vision": "darkvision"
+    },
+    "type": "ancestry"
+}

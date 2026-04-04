@@ -1,0 +1,61 @@
+{
+    "_id": "1RrwaWFGv4yI0T07",
+    "img": "icons/magic/defensive/shield-barrier-glowing-blue.webp",
+    "name": "Effect: Intensify Shell",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Intensify Shell]</p>\n<p>You gain a +2 status bonus to AC and resistance 10 to physical damage, but you take a –10-foot status penalty to your Speeds.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac"
+                ],
+                "slug": "intensify-shell-ac-bonus",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "all-speeds"
+                ],
+                "slug": "intensify-shell-speed-penalty",
+                "type": "status",
+                "value": -10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

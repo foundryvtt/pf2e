@@ -1,0 +1,69 @@
+{
+    "_id": "HAG8DaTtvy5M78W7",
+    "folder": "YXHca9vS0JCv37Qy",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Fortified Monument",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Tapping into the divine magic that keeps the erosion of centuries at bay allows you to harden your body. You can cast @UUID[Compendium.sf2e.spells.Item.Cairn Form] twice per day as a 6th-rank divine innate spell that can only target yourself. In addition to the normal effects of <em>cairn form</em>, whenever a creature damages you with an unarmed attack or non-reach melee weapon, the attacking creature takes @Damage[8[bludgeoning]] damage.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Enshrined Vesk heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:cairn-form",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:cairn-form",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:vesk"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "vesk"
+            ]
+        }
+    },
+    "type": "feat"
+}

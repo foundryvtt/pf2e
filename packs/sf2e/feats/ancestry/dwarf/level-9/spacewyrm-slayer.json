@@ -1,0 +1,92 @@
+{
+    "_id": "24haMRxP8n7KIgA7",
+    "folder": "eB8QpOXoZIHJlI1D",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Spacewyrm Slayer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You remember tales of legendary dwarven heroes who battled spacefaring dragon raiders, and you keep their epic deeds alive in your heart.</p>\n<p>Select a magical tradition. When you successfully Strike against a dragon, you gain a circumstance bonus to your damage equal to the number of weapon damage dice. This bonus increases to double the number of weapon damage dice if your target dragon has the trait associated with the magical tradition you selected when you gained this feat.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "actorFlag": true,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitArcane",
+                        "value": "arcane"
+                    },
+                    {
+                        "label": "PF2E.TraitDivine",
+                        "value": "divine"
+                    },
+                    {
+                        "label": "PF2E.TraitOccult",
+                        "value": "occult"
+                    },
+                    {
+                        "label": "PF2E.TraitPrimal",
+                        "value": "primal"
+                    }
+                ],
+                "flag": "spacewyrm-slayer",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Tradition",
+                "selection": "arcane"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Spacewyrm Slayer (Dragon)",
+                "predicate": [
+                    "target:trait:dragon"
+                ],
+                "selector": [
+                    "strike-damage"
+                ],
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:dragon",
+                    "target:trait:{actor|flags.system.spacewyrm-slayer}"
+                ],
+                "selector": [
+                    "strike-damage"
+                ],
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice * 2"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

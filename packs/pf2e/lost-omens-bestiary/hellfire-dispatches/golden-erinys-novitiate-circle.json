@@ -1,0 +1,367 @@
+{
+    "_id": "nWBx8eOkera03Esv",
+    "folder": "lfjFg7DMTm55QgpK",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "gtrxKSHe25UEfxM8",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Opportunistic Halt",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 5 feet uses a move action or leaves a square during a move action it's using</p><hr /><p><strong>Effect</strong> The novitiates strike at the triggering creature, dealing @Damage[(2d8+3)[bludgeoning]] damage (@Check[reflex|dc:19|basic] save). If the save is a critical failure and the trigger was a move action, that action is disrupted.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Kf6UMODAwhonZg7L",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.EawOw47nHueUPnYc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Defenses",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopDefenses]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": "troop-defenses",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WBasBp6L2MMXK01U",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.MXI6zwrvbQNIv7ji"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Movement",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopMovement]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": "troop-movement",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tE9jSrGI6UX2oEpw",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unholy Quickness",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Sisters of the Golden Erinys are renowned for their uncanny reflexes, which grant them a +2 circumstance bonus to AC against ranged attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:ranged"
+                        ],
+                        "selector": [
+                            "ac"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uSZNrlhE5HULrwyU",
+            "img": "systems/pf2e/icons/actions/OneThreeActions.webp",
+            "name": "Flurry of Vengeance",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The novitiates unleash a barrage of painful unarmed blows against enemies in a @Template[type:emanation|distance:5] (@Check[reflex|dc:19|basic] save). The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[1d8[piercing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d8+3)[piercing]|options:area-damage] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(2d8+7)[piercing]|options:area-damage] damage</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AqFrAJGLevyO739Q",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Pain Points",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The novitiates are taught how best to cause pain with their strikes. The novitiates use a 1-action Flurry of Vengeance. Each creature that fails its Reflex save is also @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round as its body is wracked with excruciating agony.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "f41UP17HGartnVYx",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Storm of Blades",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The novitiates unleash a hail of thrown blades, dealing @Damage[3d8[slashing]|options:area-damage] damage in a @Template[type:burst|distance:10] within 20 feet (@Check[reflex|dc:19|basic] save). When the novitiates are reduced to 2 segments, this area decreases to a @Template[type:burst|distance:5].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Golden Erinys Novitiate Circle",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 2
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 21
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 75,
+                "temp": 0,
+                "value": 75
+            },
+            "speed": {
+                "details": "troop movement",
+                "otherSpeeds": [],
+                "value": 35
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 5
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "diabolic"
+                ]
+            },
+            "level": {
+                "value": 5
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The convents of the Sisterhood of the Golden Erinys train female monks who study a form of martial arts based on the devils of Hell.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Lost Omens Hellfire Dispatches"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 12,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 11
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 13
+            },
+            "athletics": {
+                "base": 12
+            },
+            "intimidation": {
+                "base": 11
+            },
+            "religion": {
+                "base": 12
+            },
+            "stealth": {
+                "base": 13
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "human",
+                "humanoid",
+                "troop",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

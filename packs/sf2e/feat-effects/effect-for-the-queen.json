@@ -1,0 +1,54 @@
+{
+    "_id": "FIdFX4WI50vzf6Pc",
+    "img": "icons/commodities/treasure/crown-gold-satin-gems-red.webp",
+    "name": "Effect: For the Queen!",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.For the Queen!]</p>\n<p>You are quickened and have a +2 status bonus to saving throws against mental effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.conditions.Item.Quickened"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:mental"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

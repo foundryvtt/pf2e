@@ -77,7 +77,8 @@ class AbilityTraitToggles extends foundry.abstract.DataModel<AbilitySystemData |
 }
 
 interface AbilityTraitToggles
-    extends foundry.abstract.DataModel<AbilitySystemData | FeatSystemData, TraitToggleSchema>,
+    extends
+        foundry.abstract.DataModel<AbilitySystemData | FeatSystemData, TraitToggleSchema>,
         ModelPropsFromSchema<TraitToggleSchema> {}
 
 type TraitToggleSchema = {

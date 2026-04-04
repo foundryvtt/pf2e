@@ -1,0 +1,50 @@
+{
+    "_id": "97rhMZy7FCjGKwri",
+    "folder": "ldyNMsK0tU65ynPm",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Covert Observer Barathu",
+    "system": {
+        "ancestry": {
+            "name": "Barathu",
+            "slug": "barathu",
+            "uuid": "Compendium.sf2e.ancestries.Item.3iuWdarohpDFhlxX"
+        },
+        "description": {
+            "value": "<p>You wish to learn about others but are concerned that your mere presence might affect how they live and act. Rather than directly engaging with other cultures or wildlife, you prefer to unobtrusively observe them. You can modify the shape of your body as well as genetically modify its composition to blend in with the natural surroundings of those you seek to observer.</p>\n<p>You become trained in Stealth. If you would automatically become trained in Stealth (from your background or class, for example), you instead become trained in another skill of your choice. You gain the @UUID[Compendium.sf2e.feats.Item.Quiet Allies] skill feat (even if you don't meet the feat's prerequisites). You can spend 10 minutes modifying the shape and color of your body to gain a +2 circumstance bonus to Stealth while using the [[/act avoid-notice]] exploration activity in that environment (this bonus applies to initiative rolls with Stealth if you're Avoiding Notice at the start of an encounter).</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.stealth.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Quiet Allies"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:avoid-notice",
+                    "camouflaged"
+                ],
+                "selector": [
+                    "stealth"
+                ],
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

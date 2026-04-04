@@ -38,7 +38,6 @@ import { STACK_DEFINITIONS } from "@item/physical/bulk.ts";
 import { PreciousMaterialGrade } from "@item/physical/types.ts";
 import { MeleeWeaponGroup, WeaponCategory, WeaponGroup, WeaponReloadTime } from "@item/weapon/types.ts";
 import { Size, ZeroToThree } from "@module/data.ts";
-import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
 import { configFromLocalization, sluggify } from "@util";
 import * as R from "remeda";
 import {
@@ -1095,8 +1094,6 @@ export const PF2ECONFIG = {
             weapon: WeaponPF2e,
         },
     },
-
-    JournalEntry: { sheetClass: JournalSheetPF2e },
 
     Canvas: {
         darkness: {

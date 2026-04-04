@@ -1,0 +1,68 @@
+{
+    "_id": "9vtog1y3fP2AwQn0",
+    "folder": "7uMKz33tuzciZSEn",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Inexorable",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The plant or fungus your body is based upon has a penchant for becoming a multi-planetary invasive species. When you're not on your home world, you gain a +1 circumstance bonus to saving throws against diseases and poisons. When you succeed at a saving throw against an affliction that's benefiting from this bonus, you improve your condition by 2 stages (or by 1 stage if the affliction is virulent).</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "on-home-world"
+                    },
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Leshy.InexorableToggle",
+                "option": "on-home-world",
+                "toggleable": true
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "leshy"
+            ]
+        }
+    },
+    "type": "feat"
+}

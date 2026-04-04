@@ -126,8 +126,7 @@ class SpecialStatisticRuleElement extends RuleElement<SpecialStatisticSchema> {
 }
 
 interface SpecialStatisticRuleElement
-    extends RuleElement<SpecialStatisticSchema>,
-        ModelPropsFromRESchema<SpecialStatisticSchema> {
+    extends RuleElement<SpecialStatisticSchema>, ModelPropsFromRESchema<SpecialStatisticSchema> {
     slug: string;
 
     get actor(): CreaturePF2e;

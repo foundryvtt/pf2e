@@ -1,0 +1,68 @@
+{
+    "_id": "3S9Lrom6QnQN53bN",
+    "folder": "eGhC9dEUSmUVtyxj",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Conglobation",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You shift your crystalline plates to curl up into a ball as a defensive posture. While you're in Conglobation, you gain a +4 circumstance bonus to AC and are @UUID[Compendium.sf2e.conditions.Item.Immobilized]. You're in Conglobation until you Interact to return to your usual posture.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "crystal carapace urog heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "conglobation",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "conglobation"
+                ],
+                "selector": [
+                    "ac"
+                ],
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.conditions.Item.Immobilized"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "urog"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -53,6 +53,72 @@
                         "text": "{item|description}"
                     }
                 ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:duration:0",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:area:type:burst",
+                                    {
+                                        "gte": [
+                                            "item:area:size",
+                                            10
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    {
+                                        "or": [
+                                            "item:area:type:cone",
+                                            "item:area:type:line"
+                                        ]
+                                    },
+                                    {
+                                        "lte": [
+                                            "item:area:size",
+                                            15
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "spellshape:widen-spell"
+                ],
+                "property": "area-size",
+                "value": 5
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:duration:0",
+                    {
+                        "or": [
+                            "item:area:type:line",
+                            "item:area:type:cone"
+                        ]
+                    },
+                    {
+                        "gt": [
+                            "item:area:size",
+                            15
+                        ]
+                    },
+                    "spellshape:widen-spell"
+                ],
+                "priority": 119,
+                "property": "area-size",
+                "value": 10
             }
         ],
         "subfeatures": {

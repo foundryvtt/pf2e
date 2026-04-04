@@ -139,7 +139,8 @@ class AbilitySystemData extends ItemSystemModel<AbilityItemPF2e, AbilitySystemSc
 }
 
 interface AbilitySystemData
-    extends ItemSystemModel<AbilityItemPF2e, AbilitySystemSchema>,
+    extends
+        ItemSystemModel<AbilityItemPF2e, AbilitySystemSchema>,
         Omit<fields.ModelPropsFromSchema<AbilitySystemSchema>, "description"> {}
 
 type AbilitySystemSchema = Omit<ItemSystemSchema, "traits"> & {

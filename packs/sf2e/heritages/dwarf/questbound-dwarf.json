@@ -1,0 +1,61 @@
+{
+    "_id": "ZH08RhSCb4Cq4vwE",
+    "folder": "y0d6snvLwPrLupCA",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Questbound Dwarf",
+    "system": {
+        "ancestry": {
+            "name": "Dwarf",
+            "slug": "dwarf",
+            "uuid": "Compendium.sf2e.ancestries.Item.dDsYoohxyRNgtR4u"
+        },
+        "description": {
+            "value": "<p>Your clan has dedicated itself to galactic exploration aboard a dwarven generation ship like the Star Citadel Ironstar as part of the New Quest for Sky. Decades in space have left you more familiar with navigating stars than tunnels.</p>\n<p>You become trained in Piloting. If you would automatically become trained in Piloting (from your background or class, for example), you instead become trained in a skill of your choice. If you succeed at a Piloting check to @UUID[Compendium.sf2e.actions.Item.Navigate] or @UUID[Compendium.sf2e.actions.Item.Plot Course], you get a critical success instead. You also gain a +1 circumstance bonus to Piloting checks made to @UUID[Compendium.sf2e.actions.Item.Recall Knowledge] about starships.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.piloting.rank",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:navigate",
+                            "action:plot-course"
+                        ]
+                    }
+                ],
+                "selector": "piloting"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "about-starships"
+                ],
+                "selector": [
+                    "piloting"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

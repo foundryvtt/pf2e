@@ -1,0 +1,51 @@
+{
+    "_id": "5KDHxCnc923wtc9M",
+    "img": "icons/magic/control/debuff-chains-green.webp",
+    "name": "Effect: Multi-Armed Grab",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Multi-Armed Grab]</p>\n<p>You take a –2 circumstance penalty to Escape from the origin</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:escape"
+                ],
+                "selector": [
+                    "attack-roll",
+                    "athletics",
+                    "acrobatics"
+                ],
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

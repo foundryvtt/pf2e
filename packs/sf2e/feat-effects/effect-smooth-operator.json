@@ -1,0 +1,54 @@
+{
+    "_id": "tBkIC1NHTuwmXXmX",
+    "img": "icons/magic/control/debuff-chains-orb-movement-blue.webp",
+    "name": "Effect: Smooth Operator",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Smooth Operator]</p>\n<p>Whenever a creature rolls a failure on a check to Grapple, Shove, or Trip you, it gets a critical failure instead.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "failure": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": "athletics"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

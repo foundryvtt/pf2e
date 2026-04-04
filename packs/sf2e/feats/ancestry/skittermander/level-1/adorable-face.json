@@ -1,0 +1,76 @@
+{
+    "_id": "8LYaf2PCR1orxtIw",
+    "folder": "OudXPBNC7vz7ubf8",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Adorable Face",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your big-eyed, pleading look melts hard hearts. You gain your choice of the @UUID[Compendium.sf2e.feats.Item.Charming Liar] or @UUID[Compendium.sf2e.feats.Item.Hobnobber] skill feats, even if you don't meet the feat's prerequisites. Additionally, you gain a +1 circumstance bonus to initiative rolls when you use Deception or Diplomacy for initiative.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.sf2e.feats.Item.Charming Liar"
+                    },
+                    {
+                        "value": "Compendium.sf2e.feats.Item.Hobnobber"
+                    }
+                ],
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SkillFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.sf2e.rulesSelections.feat}"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "deception",
+                            "diplomacy"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "initiative"
+                ],
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "skittermander"
+            ]
+        }
+    },
+    "type": "feat"
+}

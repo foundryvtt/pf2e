@@ -101,8 +101,9 @@ class PickAThingPrompt<TThing extends string | number | object> extends SvelteAp
     }
 }
 
-interface PickAThingPromptConfiguration<TThing extends string | number | object = string | number | object>
-    extends DeepPartial<fa.ApplicationConfiguration> {
+interface PickAThingPromptConfiguration<
+    TThing extends string | number | object = string | number | object,
+> extends DeepPartial<fa.ApplicationConfiguration> {
     prompt: string;
     item: ItemPF2e;
     title: string;
@@ -121,8 +122,9 @@ interface PickableThing<T extends string | number | object = string | number | o
     group?: string;
 }
 
-interface PickAThingRenderContext<T extends string | number | object = string | number | object>
-    extends SvelteApplicationRenderContext {
+interface PickAThingRenderContext<
+    T extends string | number | object = string | number | object,
+> extends SvelteApplicationRenderContext {
     updateSelection: (option: PickableThing<T> | null) => void;
     resolve: (option: PickableThing<T> | null) => void;
     testAllowedDrop: (option: ItemPF2e) => boolean;

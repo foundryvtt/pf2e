@@ -106,7 +106,7 @@ const USAGES = {
     "etched-onto-thrown-weapon": "PF2E.TraitEtchedOntoAThrownWeapon",
     "held-in-one-hand": "PF2E.TraitHeldOneHand",
     "held-in-one-hand-or-free-standing": "PF2E.TraitHeldOneHandFreeStanding",
-    "held-in-1-hand-hung-on-a-cord-or-attached-to-clothing": "PF2E.HeldInOneHandHungOnACordOrAttachedToClothing",
+    "held-in-1-hand-hung-on-a-cord-or-attached-to-clothing": "PF2E.TraitHeldInOneHandHungOnACordOrAttachedToClothing",
     "held-in-one-or-two-hands": "PF2E.TraitHeldOneTwoHands",
     "held-in-two-hands": "PF2E.TraitHeldTwoHands",
     implanted: "PF2E.TraitImplanted",

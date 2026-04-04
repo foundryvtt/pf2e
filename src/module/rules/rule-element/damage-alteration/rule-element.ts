@@ -122,8 +122,7 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
 }
 
 interface DamageAlterationRuleElement
-    extends RuleElement<DamageAlterationSchema>,
-        ModelPropsFromRESchema<DamageAlterationSchema> {}
+    extends RuleElement<DamageAlterationSchema>, ModelPropsFromRESchema<DamageAlterationSchema> {}
 
 type DamageAlterationProperty = "dice-faces" | "dice-number" | "damage-type" | "tags";
 

@@ -1,0 +1,54 @@
+{
+    "_id": "8HEYMCPyQWdqTTSG",
+    "folder": "UaGjtETTmBm1yaTe",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Connected to the Cosmos",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Like the ancient copaxis who occupied your planet's majestic sky cities, you've become connected to the cosmic forces of gravity. You gain a permanent fly Speed equal to your land Speed. You gain the cosmic trait. You can use your fly Speed to Fly normally in a vacuum or zero-gravity environment. You're still susceptible to effects that require breathing while in normal atmosphere.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "add": [
+                    "cosmic"
+                ],
+                "key": "ActorTraits"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "@actor.system.movement.speeds.land.value"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "copaxi"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -91,8 +91,7 @@ class EphemeralEffectRuleElement extends RuleElement<EphemeralEffectSchema> {
 }
 
 interface EphemeralEffectRuleElement
-    extends RuleElement<EphemeralEffectSchema>,
-        ModelPropsFromRESchema<EphemeralEffectSchema> {}
+    extends RuleElement<EphemeralEffectSchema>, ModelPropsFromRESchema<EphemeralEffectSchema> {}
 
 type EphemeralEffectSchema = RuleElementSchema & {
     affects: fields.StringField<"target" | "origin", "target" | "origin", true, false, true>;

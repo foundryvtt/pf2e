@@ -1,0 +1,172 @@
+{
+    "_id": "cdhgByGG1WtuaK73",
+    "img": "systems/sf2e/icons/ancestries/leshy-sf2e.webp",
+    "name": "Leshy",
+    "system": {
+        "additionalLanguages": {
+            "count": 0,
+            "custom": "",
+            "value": []
+        },
+        "boosts": {
+            "0": {
+                "value": [
+                    "con"
+                ]
+            },
+            "1": {
+                "value": [
+                    "wis"
+                ]
+            },
+            "2": {
+                "value": [
+                    "str",
+                    "dex",
+                    "con",
+                    "int",
+                    "wis",
+                    "cha"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p><em>As nature spirits, leshies can be incarnated on any planet, taking on the features of bizarre alien flora unknown to the druids of lost Golarion. These include the glowing moonflower leshies, the quadrapetal ksarik leshies, and even leshies who naturally absorb dangerous radiation! Other options include fungal leshies who produce dangerous spores, feats that let photosynthetic leshies absorb lasers, and the ability to permanently grow into a Large leshy.</em></p>\n<p>@UUID[Compendium.sf2e.journals.JournalEntry.Cf6Ej0OgFpqg2VoF.JournalEntryPage.QQg7aOtPsNKAx416]{Leshy}</p>"
+        },
+        "flaws": {
+            "0": {
+                "value": [
+                    "int"
+                ]
+            }
+        },
+        "hands": 2,
+        "hp": 8,
+        "items": {
+            "BremY": {
+                "img": "icons/magic/nature/root-vine-beanstolk-green.webp",
+                "level": 1,
+                "name": "Plant Nourishment",
+                "uuid": "Compendium.sf2e.ancestry-features.Item.Plant Nourishment"
+            }
+        },
+        "languages": {
+            "custom": "",
+            "value": [
+                "common",
+                "fey"
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "reach": 5,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.standardizedAncestryFeats",
+                "priority": 10,
+                "value": {
+                    "ancestralSkills": {
+                        "skillOne": "nature",
+                        "skillTwo": "stealth"
+                    },
+                    "ancestralUnarmedAttack": {
+                        "choices": [
+                            {
+                                "label": "PF2E.BattleForm.Attack.Thorn",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-unarmed-attack:thorn"
+                                    }
+                                ],
+                                "value": "thorn"
+                            },
+                            {
+                                "label": "PF2E.BattleForm.Attack.Branch",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-unarmed-attack:branch"
+                                    }
+                                ],
+                                "value": "branch"
+                            }
+                        ]
+                    },
+                    "climbingSpecialist": {
+                        "speed": 25
+                    }
+                }
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/magic/nature/vines-thorned-entwined-glow-green.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Thorn",
+                "predicate": [
+                    "ancestral-unarmed-attack:thorn"
+                ],
+                "slug": "thorn",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/magic/nature/tree-bare-glow-yellow.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Branch",
+                "predicate": [
+                    "ancestral-unarmed-attack:branch"
+                ],
+                "slug": "branch",
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    "item:id:{item|id}"
+                ]
+            }
+        ],
+        "size": "sm",
+        "speed": 25,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "leshy",
+                "plant"
+            ]
+        },
+        "vision": "low-light-vision"
+    },
+    "type": "ancestry"
+}

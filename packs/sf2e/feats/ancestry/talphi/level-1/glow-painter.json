@@ -1,0 +1,73 @@
+{
+    "_id": "7jfbNTFpqv51V3hm",
+    "folder": "LK0R1m4cFKQUSS5c",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Glow Painter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Nearly all talphis decorate themselves with swirling, glowing patterns to identify themselves in the dark, and because it looks nice, but you take it to another level by truly immersing yourself in the luminescent art form. You cover yourself and your armor with enough glowing patterns to emit dim light within 15 feet of you. While you emit light, you also gain a +1 circumstance bonus to Performance checks to [[/act perform]]. You can cover or uncover the light with an Interact action.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "glow-painter",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "perform",
+                    "glow-painter"
+                ],
+                "selector": [
+                    "performance"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "glow-painter"
+                ],
+                "value": {
+                    "alpha": 0.2,
+                    "bright": 0,
+                    "color": "#e49449",
+                    "dim": 15
+                }
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "light",
+                "talphi"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,63 @@
+{
+    "_id": "jsHIAHWseRSVILx0",
+    "folder": "QUOerCgxRDu6riVa",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "My Friends Are My Power!",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The rush you get from helping your companions becomes even more intense in the heat of battle. When you successfully Aid an ally's attack, you gain a +1 circumstance bonus to your attack rolls until the end of your next turn.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Just Happy to Help!"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "aided-ally-attack",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "aided-ally-attack"
+                ],
+                "selector": [
+                    "attack-roll"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "shirren"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,70 @@
+{
+    "_id": "Xwf4AbAjYRqxenZ5",
+    "folder": "l6VOQmDO0Q5DKu2a",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Sacrificial Shell",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Trigger</strong> An attack, spell, or effect would deal damage to you.</p>\n<p><strong>Requirements</strong> Your shell isn't broken.</p><hr /><p>An ijtikri's shell is tough enough to discourage foes from striking vital organs, but you're brave enough to literally block attacks head-on. You gain resistance equal to your Constitution modifier plus your level against all damage from the triggering attack or effect. After resolving the effect, your shell is broken, during which time you are @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1} and lose your resistance to precision damage granted by your mantle ability. The first time per day that someone successfully uses the Medicine skill to @UUID[Compendium.sf2e.actions.Item.Treat Wounds]{Treat your Wounds} while your shell is broken, their efforts also repair your shell. Your shell is also repaired fully when you rest for 8 hours.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Constitution +2"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "Sacrificial Shell - Block Damage",
+                "option": "sacrificial-shell",
+                "predicate": [
+                    {
+                        "not": "self:effect:sacrificial-shell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "sacrificial-shell"
+                ],
+                "type": "all-damage",
+                "value": "@actor.level + @actor.abilities.con.mod"
+            }
+        ],
+        "selfEffect": {
+            "name": "Effect: Sacrificial Shell",
+            "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Sacrificial Shell"
+        },
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ijtikri"
+            ]
+        }
+    },
+    "type": "feat"
+}

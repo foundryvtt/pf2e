@@ -67,7 +67,8 @@ type OptionalProperties = "isFlexible" | "isFocusPool" | "isInnate" | "isPrepare
 
 /** Spell list render data for a `BaseSpellcastingEntry` */
 interface SpellcastingSheetData
-    extends Omit<BaseSpellcastingEntry<ActorPF2e>, "statistic" | OptionalProperties | UnusedProperties>,
+    extends
+        Omit<BaseSpellcastingEntry<ActorPF2e>, "statistic" | OptionalProperties | UnusedProperties>,
         SpellCollectionData {
     statistic: StatisticChatData | null;
     hasCollection: boolean;

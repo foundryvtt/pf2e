@@ -33,7 +33,6 @@ import { ShieldSheetPF2e } from "@item/shield/sheet.ts";
 import { SpellSheetPF2e } from "@item/spell/sheet.ts";
 import { TreasureSheetPF2e } from "@item/treasure/sheet.ts";
 import { WeaponSheetPF2e } from "@item/weapon/sheet.ts";
-import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
 import { UserConfigPF2e } from "@module/user/sheet.ts";
 import { SceneConfigPF2e } from "@scene/sheet.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
@@ -169,14 +168,6 @@ export function registerSheets(): void {
             makeDefault: true,
         });
     }
-
-    // JOURNAL ENTRY
-    fd.collections.Journal.unregisterSheet("core", appv1.sheets.JournalSheet);
-    fd.collections.Journal.registerSheet("pf2e", JournalSheetPF2e, {
-        label: () =>
-            game.i18n.format("SHEETS.DefaultDocumentSheet", { document: game.i18n.localize("DOCUMENT.JournalEntry") }),
-        makeDefault: true,
-    });
 
     // USER
     fd.collections.Users.unregisterSheet("core", foundry.applications.sheets.UserConfig);

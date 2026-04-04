@@ -518,8 +518,7 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
 }
 
 interface BattleFormRuleElement
-    extends RuleElement<BattleFormRuleSchema>,
-        ModelPropsFromRESchema<BattleFormRuleSchema> {
+    extends RuleElement<BattleFormRuleSchema>, ModelPropsFromRESchema<BattleFormRuleSchema> {
     get actor(): CharacterPF2e;
 }
 

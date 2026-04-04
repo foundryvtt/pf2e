@@ -1,0 +1,39 @@
+{
+    "_id": "I8SDKbuK7RQDnT8s",
+    "folder": "4ZqJggiKiu3BZ0cz",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Fire Flood Fonqugon",
+    "system": {
+        "ancestry": {
+            "name": "Fonqugon",
+            "slug": "fonqugon",
+            "uuid": "Compendium.sf2e.ancestries.Item.vlYBDZbj6zWBFR0b"
+        },
+        "description": {
+            "value": "<p>Rodnarth's rivers sometimes become infested with a rapidly blooming algae that has an especially destructive life cycle. When the algae colony dies, it produces a chemical compound that turns the river water into a fiery liquid, also expanding its volume with sudden intensity. This causes a sort of flash flood that incinerates everything in its wake and threatens to cascade into other wildfires during dry weather. As a fire flood fonqugon, you're especially hardy, just like the fonqon tree that survived a fire flood before birthing you. You gain @Damage[8[healing]] Hit Points from your ancestry instead of 6, and you gain fire resistance equal to half your level (minimum 1).</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "fire",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.ancestryhp",
+                "value": 8
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

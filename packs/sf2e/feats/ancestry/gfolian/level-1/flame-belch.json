@@ -1,0 +1,80 @@
+{
+    "_id": "7mXtqmmXCP6V3Pc0",
+    "folder": "pYjgJm5ETmr6BaVc",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Flame Belch",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your body has developed a reserve of extra chemicals that can be used to produce smaller expulsions. You gain a flame belch ranged unarmed attack with a range increment of 30 feet that deals @Damage[1d4[fire]] damage. When you critically succeed at a flame belch Strike, the target takes persistent fire damage equal to half your level (minimum 1). Flame belches don't add critical specialization effects. You take a –2 circumstance penalty on attacks with your flame belch if you can't use your @UUID[Compendium.sf2e.ancestry-features.Item.Fire Breath].</p><hr /><p><strong>Special</strong> If you have @UUID[Compendium.sf2e.feats.Item.Admixture Breath], you can use it to change the type of damage you deal with Flame Belch.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "fire",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/magic/fire/blast-jet-stream-splash.webp",
+                "key": "Strike",
+                "label": "Flame Belch",
+                "range": 30,
+                "slug": "flame-belch"
+            },
+            {
+                "critical": true,
+                "damageCategory": "persistent",
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "selector": [
+                    "flame-belch-damage"
+                ],
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fire-breath-used"
+                ],
+                "selector": [
+                    "flame-belch-attack-roll"
+                ],
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gfolian"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,89 @@
+{
+    "_id": "q9ssy4PN38l0930m",
+    "folder": "NTmGmDCCp9hxcV6o",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Defy Chains",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> A fiend within 15 feet of you damages you with a Strike.</p><hr /><p>You turn to face a fiend that attacked you, looking them squarely in the eyes (if it has them) and showing no fear. You increase the amount of damage you take by 4d6, and deal 4d6 spirit damage to the triggering fiend. The damage you take and deal increases to 5d6 at 18th level.</p>\n<p>In addition, if the fiend has an aura and you're in it, you can attempt an Intimidation check to counteract the aura's effect, using half your level rounded up as the counteract rank. If you succeed, the effects of the aura are suppressed until the end of the triggering fiend's next turn.</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Nidalese Horselord Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "origin:trait:fiend",
+                    {
+                        "lte": [
+                            "self:level",
+                            14
+                        ]
+                    }
+                ],
+                "selector": [
+                    "damage-received"
+                ],
+                "text": "PF2E.SpecificRule.NidaleseHorselord.DefyChains.DamageNote.Level14"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "origin:trait:fiend",
+                    {
+                        "gte": [
+                            "self:level",
+                            18
+                        ]
+                    }
+                ],
+                "selector": [
+                    "damage-received"
+                ],
+                "text": "PF2E.SpecificRule.NidaleseHorselord.DefyChains.DamageNote.Level18"
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Defy Chains"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "occult",
+                "sanctified"
+            ]
+        }
+    },
+    "type": "feat"
+}

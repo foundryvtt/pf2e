@@ -1,0 +1,57 @@
+{
+    "_id": "O89vJCmW8S3BD8cH",
+    "folder": "VFQ4pYaZee6zfdmE",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Magic Collate Ball",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your jeweled orb has a lattice to process magic that can automatically troubleshoot and correct calculations in magical formulas to prevent mishaps when using unfamiliar magic.</p>\n<p>You become trained in a skill matching the tradition of the innate spell you gained with the jeweled orb bantrid heritage. The relevant skills are Arcana for arcane, Nature for primal, Occultism for occult, or Religion for divine. If you were already trained in the relevant skill, you become trained in another one of those skills. You gain the @UUID[Compendium.sf2e.feats.Item.Trick Magic Item] skill feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Jeweled Orb Bantrid heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Trick Magic Item"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{actor|flags.system.jeweledOrbBantrid.skill}.rank",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "bantrid"
+            ]
+        }
+    },
+    "type": "feat"
+}

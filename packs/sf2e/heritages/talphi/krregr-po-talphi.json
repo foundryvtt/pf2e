@@ -1,0 +1,46 @@
+{
+    "_id": "LaT0HffqKRwM0lHW",
+    "folder": "5kh6p6waRVkGpjjf",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Krregr Po Talphi",
+    "system": {
+        "ancestry": {
+            "name": "Talphi",
+            "slug": "talphi",
+            "uuid": "Compendium.sf2e.ancestries.Item.Fhhxk7toaVGjwoMY"
+        },
+        "description": {
+            "value": "<p>Nearly all talphi pups experiment with artistry during their youth, be it learning to master symbols with glowing paints or building small sculptures and other tactile art pieces from stone, metal, and crystals easily found throughout Vesk-4's cave systems. Some talphis enjoy their work so much, or find they have such a knack for it, that they become semiprofessional artistic diplomats. They spend their days making beautiful gifts with no practical function but to be given to other groups as a means of starting relationships on the right foot. Rumor has it that a group of krregrs were able to prevent countless casualties during the initial Veskarium invasion through a series of well-designed gifts given to strategically chosen invading officers.</p>\n<p>You become trained in Crafting. If you would automatically become trained in Crafting (from your background or class, for example), you instead become trained in another skill of your choice. With an hour of work, you can attempt a Crafting check at the standard DC for your level to create a beautiful trinket of negligible Bulk out of readily available materials, such as a piece of scrap metal or stone. You can use Crafting instead of Diplomacy to [[/act make-an-impression skill=crafting]] by giving your target your most recently crafted trinket; if the trinket was crafted with that specific individual in mind, you gain a +2 circumstance bonus to this check. Unless the target refuses or returns the trinket, you'll have to Craft a new trinket if you want to present your most recently crafted trinket to a different creature.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.crafting.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:make-an-impression",
+                    "krregr-po-talphi"
+                ],
+                "selector": [
+                    "crafting"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

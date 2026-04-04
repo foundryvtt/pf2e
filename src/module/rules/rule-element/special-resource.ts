@@ -218,8 +218,7 @@ class SpecialResourceRuleElement extends RuleElement<SpecialResourceSchema> {
 }
 
 interface SpecialResourceRuleElement
-    extends RuleElement<SpecialResourceSchema>,
-        ModelPropsFromRESchema<SpecialResourceSchema> {
+    extends RuleElement<SpecialResourceSchema>, ModelPropsFromRESchema<SpecialResourceSchema> {
     slug: string;
     max: number;
     value: number;

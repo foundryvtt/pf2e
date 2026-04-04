@@ -1,0 +1,65 @@
+{
+    "_id": "ZtTTYNlIV1u2Hepe",
+    "folder": "6RNH9MTQT8XPqx0v",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Hang in There (Nu)Friend!",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your absolute dedication to your friends lets you call upon some galactic power to keep them safe in their darkest hour. You can cast @UUID[Compendium.sf2e.spells.Item.Breath of Life] as a 5th-rank divine innate spell once per day; however, you only restore @Damage[5[healing]] Hit Points instead of 5d8.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:breath-of-life",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:breath-of-life",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:skittermander"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "skittermander"
+            ]
+        }
+    },
+    "type": "feat"
+}

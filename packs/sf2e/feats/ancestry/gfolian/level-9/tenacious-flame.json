@@ -1,0 +1,55 @@
+{
+    "_id": "fO2OLRkc7y3421Jd",
+    "folder": "jmCDGRBt93IJsTng",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Tenacious Flame",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The flame from your Fire Breath now lingers on targets. When a target fails its save against your Fire Breath, it also takes 1d6 persistent fire damage. The damage increases to 2d6 at 13th level and 3d6 at 17th level.</p><hr /><p><strong>Special</strong> If you use @UUID[Compendium.sf2e.feats.Item.Admixture Breath] to change the damage type of your @UUID[Compendium.sf2e.ancestry-features.Item.Fire Breath], the persistent damage changes to match the new damage type.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Flame Belch"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "category": "persistent",
+                "diceNumber": "ternary(gte(@actor.level,17),3,ternary(gte(@actor.level,13),2,1))",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "fire-breath-inline-damage",
+                "slug": "tenacious-flame"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gfolian"
+            ]
+        }
+    },
+    "type": "feat"
+}

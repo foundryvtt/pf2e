@@ -1,0 +1,64 @@
+{
+    "_id": "bdzVlHHuGGDEreTx",
+    "img": "icons/commodities/flowers/clover-red.webp",
+    "name": "Effect: Rose Warden Dedication",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Rose Warden Dedication]</p>\n<p>You gain a +1 circumstance bonus to your Fortitude DC and saving throws against being confused, controlled, grabbed, immobilized, or restrained by a figure of authority</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "rose-warden-dedication",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "rose-warden-dedication",
+                    {
+                        "or": [
+                            "inflicts:confused",
+                            "inflicts:controlled",
+                            "inflicts:grabbed",
+                            "inflicts:immobolized",
+                            "inflicts:restrained"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude-dc",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

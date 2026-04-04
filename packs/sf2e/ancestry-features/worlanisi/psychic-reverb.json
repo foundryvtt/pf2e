@@ -1,0 +1,64 @@
+{
+    "_id": "5KNuFBPzyGiicXWt",
+    "folder": "HPTJfcMQVCRpJhBB",
+    "img": "systems/sf2e/icons/spells/feeblemind.webp",
+    "name": "Psychic Reverb",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>Your horn-cones amplify psychic effects—both incoming and outgoing. You take a –1 circumstance penalty to saving throws against mental effects and have weakness to mental damage equal to one quarter your level (minimum 1).</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:mental"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": -1
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    {
+                        "not": "heritage:surithic-worlanisi"
+                    }
+                ],
+                "type": "mental",
+                "value": "max(1,floor(@actor.level/4))"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "worlanisi"
+            ]
+        }
+    },
+    "type": "feat"
+}

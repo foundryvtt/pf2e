@@ -1,0 +1,131 @@
+{
+    "_id": "yD3jBMNIOBP6yknI",
+    "folder": "CdXuDn0XHKdh7M6j",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Entu Spore Caps",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The fungal caps all over your body release toxic spores when disturbed. Each time you become @UUID[Compendium.sf2e.conditions.Item.Grabbed] by a creature or an adjacent creature hits you with an attack, you deal @Damage[(ternary(gte(@actor.level,17),5,ternary(gte(@actor.level,13),4,ternary(gte(@actor.level,9),3,2))))[poison]] damage to that creature. This damage increases to 3 at 9th level, 4 at 13th level, and 5 at 17th level.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "self:condition:grabbed",
+                    {
+                        "lte": [
+                            "self:level",
+                            8
+                        ]
+                    },
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    }
+                ],
+                "selector": [
+                    "damage-received"
+                ],
+                "text": "You deal @Damage[2[poison]] to any creature that has you grabbed or an adjacent creature hits you with an attack."
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "self:condition:grabbed",
+                    {
+                        "lte": [
+                            "self:level",
+                            12
+                        ]
+                    },
+                    {
+                        "gte": [
+                            "self:level",
+                            9
+                        ]
+                    }
+                ],
+                "selector": [
+                    "damage-received"
+                ],
+                "text": "You deal @Damage[3[poison]] to any creature that has you grabbed or an adjacent creature hits you with an attack."
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "self:condition:grabbed",
+                    {
+                        "lte": [
+                            "self:level",
+                            16
+                        ]
+                    },
+                    {
+                        "gte": [
+                            "self:level",
+                            13
+                        ]
+                    }
+                ],
+                "selector": [
+                    "damage-received"
+                ],
+                "text": "You deal @Damage[4[poison]] to any creature that has you grabbed or an adjacent creature hits you with an attack."
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "self:condition:grabbed",
+                    {
+                        "lte": [
+                            "self:level",
+                            16
+                        ]
+                    },
+                    {
+                        "gte": [
+                            "self:level",
+                            17
+                        ]
+                    }
+                ],
+                "selector": [
+                    "damage-received"
+                ],
+                "text": "You deal @Damage[5[poison]] to any creature that has you grabbed or an adjacent creature hits you with an attack."
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "entu-colony"
+            ]
+        }
+    },
+    "type": "feat"
+}

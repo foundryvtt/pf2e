@@ -1,0 +1,42 @@
+{
+    "_id": "XTdCu0zJyHe5kIYF",
+    "folder": "qtgqiJJse5cdCajq",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Queen's Court Formian",
+    "system": {
+        "ancestry": {
+            "name": "Formian",
+            "slug": "formian",
+            "uuid": "Compendium.sf2e.ancestries.Item.yOnW818fHTfnwg2k"
+        },
+        "description": {
+            "value": "<p>You're one of the hive queen's attendants, whether a taskmaster, aristocrat, bureaucrat, entrepreneur, or other advisor. Many formians go their entire lives without ever directly interacting with their queen except through their hive mind, but members of the queen's court see the queen on a regular basis, and even while traveling far from the colony, their queen's regal influence still reaches them.</p>\n<p>As a member of the queen's court, the constant presence of your queen in your mind makes you especially resistant to others' efforts to control you. If you roll a success on a saving throw against a mental effect that attempts to directly control your actions, you critically succeed instead. Additionally, thanks to your experience as a diplomat you gain the @UUID[Compendium.sf2e.feats.Item.Linguistic Prodigy] standardized ancestry feat, ignoring its prerequisites.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Linguistic Prodigy"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "inflicts:controlled"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,79 @@
+{
+    "_id": "oR8b5V0p2a0RP19Y",
+    "folder": "fmxtULnBcanMr4WT",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Technomagical Scrapper",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Given how most humans don't have ancestral home worlds of their own, many must scrape and scavenge to get by. You become trained in Crafting and your choice of Arcana, Nature, Occultism, or Religion. If you were already trained in Crafting, you become an expert instead. If you were already trained in Arcana, Nature, Occultism, and Religion, you become an expert in one of those skills instead. You can @UUID[Compendium.sf2e.actions.Item.Repair] items that have both the magic and tech traits without a repair toolkit and without taking a -2 circumstance penalty, improvising tools from whatever you have at hand.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.crafting.rank",
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.Skill.Religion",
+                        "value": "religion"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.sf2e.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "human"
+            ]
+        }
+    },
+    "type": "feat"
+}

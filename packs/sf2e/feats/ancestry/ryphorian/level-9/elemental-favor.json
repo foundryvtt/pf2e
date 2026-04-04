@@ -1,0 +1,57 @@
+{
+    "_id": "2NHwGMTOxUnt22qo",
+    "folder": "Pz7wM2l8afmzJhaq",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Elemental Favor",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Even though the calling of your blood doesn't lie squarely with the summerborn or winterborn, you feel that you can nudge it in one direction or the other to help protect you. You gain resistance to cold and fire equal to half your level.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "liminal ryphorian heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "fire",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Resistance",
+                "type": "cold",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ryphorian"
+            ]
+        }
+    },
+    "type": "feat"
+}

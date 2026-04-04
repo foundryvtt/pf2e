@@ -1,0 +1,83 @@
+{
+    "_id": "8yoq65YOI36Tv4c0",
+    "img": "icons/creatures/unholy/demon-fire-horned-clawed.webp",
+    "name": "Stance: Golden Erinys Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Golden Erinys Stance]</p>\n<p>You can make fury's fang unarmed attacks. These deal 1d6 piercing damage; are in the brawling group; and have the agile, backstabber, finesse, forceful, nonlethal, and unarmed traits.</p>\n<p>While in the stance, if you critically hit with a melee Strike that deals piercing damage, the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (with a DC to remove equal to your class DC); this is in addition to any critical specialization effect you might gain from the attack.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/creatures/unholy/demon-fire-horned-clawed.webp",
+                "key": "Strike",
+                "label": "Fury's Fang",
+                "range": null,
+                "traits": [
+                    "agile",
+                    "backstabber",
+                    "finesse",
+                    "forceful",
+                    "nonlethal",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "item:damage:type:piercing"
+                ],
+                "selector": [
+                    "melee-strike-attack-roll"
+                ],
+                "text": "The target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (with a DC to remove equal to your class DC); this is in addition to any critical specialization effect you might gain from the attack.",
+                "title": "{item|name}"
+            },
+            {
+                "flag": "punctureFlesh",
+                "key": "GrantItem",
+                "predicate": [
+                    "feat:cruel-piercing"
+                ],
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Puncture Flesh"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

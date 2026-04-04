@@ -165,8 +165,7 @@ interface DamageDiceSource extends RuleElementSource {
 }
 
 interface DamageDiceRuleElement
-    extends RuleElement<DamageDiceRuleSchema>,
-        ModelPropsFromRESchema<DamageDiceRuleSchema> {}
+    extends RuleElement<DamageDiceRuleSchema>, ModelPropsFromRESchema<DamageDiceRuleSchema> {}
 
 type DamageDiceRuleSchema = RuleElementSchema & {
     /** All domains to add a modifier to */

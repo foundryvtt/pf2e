@@ -1,0 +1,61 @@
+{
+    "_id": "j4FWjXVW0KHYPDKl",
+    "folder": "L0bch9SEZ5rlmNNK",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Early Adopter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Though cutting-edge technology has only recently arrived in your home world, you've proven yourself to be a natural with new trinkets and devices the moment you get your hands on them. You become trained in Crafting. If you would automatically become trained in Crafting (from your background or class, for example), you instead become trained in another skill of your choice. You gain a +1 circumstance bonus on Crafting checks to @UUID[Compendium.sf2e.actions.Item.Recall Knowledge] about tech items.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.crafting.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "item:trait:tech"
+                ],
+                "selector": [
+                    "crafting"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "maraquoi"
+            ]
+        }
+    },
+    "type": "feat"
+}

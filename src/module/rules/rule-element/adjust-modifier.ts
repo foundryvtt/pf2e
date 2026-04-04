@@ -118,8 +118,7 @@ class AdjustModifierRuleElement extends RuleElement<AdjustModifierSchema> {
 }
 
 interface AdjustModifierRuleElement
-    extends RuleElement<AdjustModifierSchema>,
-        ModelPropsFromRESchema<AdjustModifierSchema> {
+    extends RuleElement<AdjustModifierSchema>, ModelPropsFromRESchema<AdjustModifierSchema> {
     suppress: boolean;
     maxApplications: number;
 }

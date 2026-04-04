@@ -1,0 +1,61 @@
+{
+    "_id": "0z6N6876SD83JfgY",
+    "folder": "RCHC3kL4BRl87W8Q",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Adhesive Grip",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your sticky mucous lets you hang onto foes with a painfully tenacious grip. When you roll a critical failure on a check to [[/act grapple]] a target, you get a failure instead. In addition, when a creature you've @UUID[Compendium.sf2e.conditions.Item.Grabbed] rolls a failure on its check to Escape, it gets a critical failure instead, and if it rolls a critical success, it gets a success instead.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:grapple"
+                ],
+                "selector": "athletics"
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "selectors": [
+                    "attack-roll"
+                ],
+                "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Adhesive Grip"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "osharu"
+            ]
+        }
+    },
+    "type": "feat"
+}

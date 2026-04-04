@@ -1,0 +1,72 @@
+{
+    "_id": "u8Fd0gMjCu24MBSd",
+    "folder": "yPAQ9ZOFxYNYeVtW",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Solid Stance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>When you stand on four legs, you dig into the ground firmly, making yourself particularly difficult to move. While in quadrupedal posture, you gain a +4 circumstance bonus to your Fortitude or Reflex DCs against attempts to [[/act reposition]], [[/act shove]], or [[/act trip]] you. This bonus also applies to saving throws against spells or effects that attempt to move you or knock you @UUID[Compendium.sf2e.conditions.Item.Prone]. When you move, except to Stand, you lose the benefits of this feat until the beginning of your next turn.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:reposition",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude-dc",
+                    "reflex-dc"
+                ],
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "inflicts:forced-movement"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "izalguun"
+            ]
+        }
+    },
+    "type": "feat"
+}

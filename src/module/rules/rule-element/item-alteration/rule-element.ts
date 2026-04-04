@@ -185,8 +185,7 @@ class ItemAlterationRuleElement extends RuleElement<ItemAlterationRuleSchema> {
 }
 
 interface ItemAlterationRuleElement
-    extends RuleElement<ItemAlterationRuleSchema>,
-        ModelPropsFromRESchema<ItemAlterationRuleSchema> {
+    extends RuleElement<ItemAlterationRuleSchema>, ModelPropsFromRESchema<ItemAlterationRuleSchema> {
     constructor: typeof ItemAlterationRuleElement;
 }
 

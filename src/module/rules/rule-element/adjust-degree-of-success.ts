@@ -69,8 +69,7 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElement<AdjustDegreeRuleSchem
 }
 
 interface AdjustDegreeOfSuccessRuleElement
-    extends RuleElement<AdjustDegreeRuleSchema>,
-        ModelPropsFromRESchema<AdjustDegreeRuleSchema> {
+    extends RuleElement<AdjustDegreeRuleSchema>, ModelPropsFromRESchema<AdjustDegreeRuleSchema> {
     get actor(): CharacterPF2e | NPCPF2e;
 }
 

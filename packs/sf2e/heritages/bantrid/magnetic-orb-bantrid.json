@@ -1,0 +1,71 @@
+{
+    "_id": "gKSpj4ErXFb9P95v",
+    "folder": "L0SWset2a35KS7fu",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Magnetic Orb Bantrid",
+    "system": {
+        "ancestry": {
+            "name": "Bantrid",
+            "slug": "bantrid",
+            "uuid": "Compendium.sf2e.ancestries.Item.FeoOVtm7zVhgxXtg"
+        },
+        "description": {
+            "value": "<p>Using a combination of an iron-rich diet, augmentations, and medication, you've developed a foot orb with a magnetic metallic core.</p>\n<p>You gain a climb Speed equal to your Speed, but you can use this climb Speed only to climb on metal surfaces. You can move across metal surfaces using your land Speed even in zero gravity. While standing on a metal surface, you gain a +2 circumstance bonus to Acrobatics checks to balance and to your Fortitude DC to avoid being repositioned or shoved.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "SF2E.SpecificRule.Bantrid.MagneticOrb.MetalSurface",
+                "option": "metal-surface",
+                "toggleable": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "metal-surface"
+                ],
+                "selector": "climb",
+                "value": "\"@actor.system.attributes.speed.total\""
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "metal-surface",
+                    "action:balance"
+                ],
+                "selector": [
+                    "acrobatics"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "metal-surface",
+                    {
+                        "or": [
+                            "action:reposition",
+                            "action:shove"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude-dc"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

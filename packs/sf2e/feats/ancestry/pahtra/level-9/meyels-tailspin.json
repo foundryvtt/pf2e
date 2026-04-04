@@ -1,0 +1,61 @@
+{
+    "_id": "akFRcm7hKr2gxCil",
+    "folder": "eGFeg46AJl35v2TB",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Meyel's Tailspin",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You're @UUID[Compendium.sf2e.conditions.Item.Prone].</p><hr /><p>This technique allows you to use the momentum of your attack with the assistance of your tail to spin back onto your feet. Make a melee Strike with your claws or a battle ribbon, then Stand. You don't take the –2 circumstance penalty for attacking while prone, and your Stand action doesn't trigger reactions from the target of your Strike.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Prehensile Limbs (tail)"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "meyels-tailspin"
+                ],
+                "selector": "strike-attack-roll",
+                "slug": "prone",
+                "suppress": true
+            },
+            {
+                "key": "RollOption",
+                "option": "meyels-tailspin",
+                "toggleable": true
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "pahtra"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -124,8 +124,7 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
 }
 
 interface IWRRuleElement<TSchema extends IWRRuleSchema>
-    extends RuleElement<TSchema>,
-        ModelPropsFromRESchema<IWRRuleSchema> {
+    extends RuleElement<TSchema>, ModelPropsFromRESchema<IWRRuleSchema> {
     constructor: typeof IWRRuleElement<TSchema>;
 }
 

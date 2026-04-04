@@ -1,0 +1,50 @@
+{
+    "_id": "mrZQiNQDUOao8Qvc",
+    "img": "systems/sf2e/icons/spells/energy-aegis.webp",
+    "name": "Effect: Weightless Defense",
+    "system": {
+        "description": {
+            "value": "<p>You lose the @UUID[Compendium.sf2e.conditions.Item.Off-Guard] condition from being untethered, and you gain a +1 circumstance bonus to AC and Reflex saves for as long as you're untethered or until you use an action with the manipulate trait.</p><hr /><p><strong>Special</strong> If you're a void acolyte kasatha, you don't lose the benefits of Weightless Defense by using an action with the manipulate trait.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:untethered"
+                ],
+                "selector": [
+                    "ac",
+                    "reflex"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

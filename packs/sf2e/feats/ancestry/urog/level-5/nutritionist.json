@@ -1,0 +1,74 @@
+{
+    "_id": "rhprDp0P5ZqlX97Y",
+    "folder": "t83Pstr2fTxtylhH",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Nutritionist",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your cilia are even more selective about the molecules they siphon for nutrients. You gain a +1 circumstance bonus to saving throws against diseases and poisons. If you roll a success on a saving throw against a disease or poison, you get a critical success instead. If you have a different ability that would improve the save in this way (such as the soldier's tough as nails class feature), if you roll a critical failure on the save, you get a failure instead.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "urog"
+            ]
+        }
+    },
+    "type": "feat"
+}

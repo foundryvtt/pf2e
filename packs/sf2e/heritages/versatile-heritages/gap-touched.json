@@ -1,0 +1,45 @@
+{
+    "_id": "QcbrI0l9nnC92sOm",
+    "folder": "Qp1m86m0gIoj2ch5",
+    "img": "systems/sf2e/icons/ancestries/gap-touched.webp",
+    "name": "Gap-Touched",
+    "system": {
+        "ancestry": null,
+        "description": {
+            "value": "<p>While the Gap is often used as a reference to the moment in which Golarion disappeared and the universe collectively forgot all memories associated with the now lost planet, the term more accurately refers to the unknown period of history that culminated in that event, of which most memories and records are scrambled or otherwise lost. Gap-touched individuals possess an innate connection to this period of time and the phenomenon that severed it from everyone's memories. Whether they have some unknown connection to the truth or were permanently changed upon understanding this universally censored secret, these individuals are fated to live as enigmas defined by an amnesiac existence.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.standardizedAncestryFeats.ancestralResistance.choices",
+                "priority": 1,
+                "value": []
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.system.standardizedAncestryFeats.ancestralResistance.choices",
+                "value": {
+                    "label": "PF2E.TraitMental",
+                    "predicate": [
+                        {
+                            "not": "ancestral-resistance:mental"
+                        }
+                    ],
+                    "value": "mental"
+                }
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

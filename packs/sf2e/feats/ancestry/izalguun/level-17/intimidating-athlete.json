@@ -1,0 +1,67 @@
+{
+    "_id": "seBRiOMUr1IZYlWy",
+    "folder": "CN9WYMWyLjSZFoRZ",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Intimidating Athlete",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your physique is so impressive that your acts of strength astound your foes. When you succeed or critically succeed at an Athletics check to [[/act grapple]], [[/act reposition]], [[/act shove]], or [[/act trip]], you can, as a free action, attempt an Athletics or Intimidation check to [[/act demoralize]] one creature within 30 feet. You also gain the @UUID[Compendium.sf2e.feats.Item.Intimidating Glare] skill feat, even if you don't meet the prerequisites.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Intimidating Glare"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:reposition",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "athletics"
+                ],
+                "text": "You can attempt an [[/act demoralize skill=athletics]]{Athletics} or Intimidation check to [[/act demoralize]] one creature within 30 feet.</p>"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "izalguun"
+            ]
+        }
+    },
+    "type": "feat"
+}

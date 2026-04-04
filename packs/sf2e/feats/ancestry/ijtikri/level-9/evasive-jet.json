@@ -1,0 +1,68 @@
+{
+    "_id": "V4rAlqpJD0yMIML7",
+    "folder": "e2tQMC8PZ8b64a5d",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Evasive Jet",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> A creature that you can see targets you with an attack.</p>\n<p><strong>Requirements</strong> You aren't encumbered. With a reflexive burst from your siphons, you try to flit away from the attack. You gain a +2 circumstance bonus to AC against the triggering attack. If the attack fails or critically fails, you can also Stride or Swim up to 10 feet as part of the reaction.</p><hr /><p><strong>Special</strong> If you have the @UUID[Compendium.sf2e.feats.Item.Spray Ink] feat, you can also expel a puff of ink as part of this reaction. In addition to the circumstance bonus to AC, you're @UUID[Compendium.sf2e.conditions.Item.Concealed] against the triggering attack.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Jet"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "evasive-jet",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "evasive-jet"
+                ],
+                "selector": [
+                    "ac"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ijtikri",
+                "move"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,47 @@
+{
+    "_id": "nCrYxbS8h3Ik9hyQ",
+    "img": "icons/magic/defensive/shield-barrier-glowing-triangle-green.webp",
+    "name": "Effect: Fear No Pain!",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Fear No Pain!]</p>\n<p>You gain a +2 circumstance bonus to reroll a failed save.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": "if-enabled",
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

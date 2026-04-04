@@ -1,0 +1,62 @@
+{
+    "_id": "YovKvEu98JLGtB1g",
+    "folder": "jjxl8UTLvOSUcary",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Glowsilk Lashunta",
+    "system": {
+        "ancestry": {
+            "name": "Lashunta",
+            "slug": "lashunta",
+            "uuid": "Compendium.sf2e.ancestries.Item.ZDExBZqdqYUtv5dg"
+        },
+        "description": {
+            "value": "<p>The jungles of Castrovel are home to megafauna, mold storms, and wild magic. The main city of Jabask in the Glowsilk Jungle welcomes adrenaline seekers, as even reaching the city requires shuttle flights that zoom through routes with only inches of clearance. Residents of Glowsilk learn to be self-sufficient and anticipate danger.</p>\n<p>You're a Glowsilk lashunta and excel at living without the safety guardrails of civilization. You become trained in Survival and gain the @UUID[Compendium.sf2e.feats.Item.Urban Survivalist] skill feat. If you would automatically become trained in Survival (such as from your background or class, for example), you instead become trained in another skill of your choice. You gain a +1 circumstance bonus to saving throws against poison. This bonus increases to +2 for saving throws against a fungal poison.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Urban Survivalist"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.survival.rank",
+                "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:poison"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "Glowsilk Lashunta (fungus)",
+                "predicate": [
+                    "item:trait:poison",
+                    "item:trait:fungus"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

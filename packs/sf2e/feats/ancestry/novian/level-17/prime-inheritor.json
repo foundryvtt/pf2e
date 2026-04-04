@@ -1,0 +1,70 @@
+{
+    "_id": "2JUAex11tfZ5L0JZ",
+    "folder": "QvZJy6lggnN67hU7",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Prime Inheritor",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're the inheritor of your progenitor star's stellar glory. Your mere presence terrifies your enemies and emboldens your allies. You gain a +1 status bonus to Diplomacy and Intimidation checks. This bonus increases to +4 against novians. In addition, you gain the @UUID[Compendium.sf2e.actions.Item.Unleash Majesty] action.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Unleash Majesty"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "slug": "prime-inheritor",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "target:trait:novian"
+                ],
+                "selectors": [
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "slug": "prime-inheritor",
+                "value": 4
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "novian"
+            ]
+        }
+    },
+    "type": "feat"
+}

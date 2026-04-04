@@ -1,3 +1,42 @@
+## 0.0.9
+
+### System Improvements
+
+- (stwlam) Add option to NPC Attack items to exempt them from MAP
+
+### Bugfixes
+
+- (stwlam) Fix refreshing scene controls when "Show World Clock" setting is changed
+- (Tikael) Add `item:trait` roll options to action macros
+
+### Data Updates
+
+- (Ambrose, Mecha Maya, Tikael) Add content from Galactic Ancestries
+- (Ambrose) Add missing deities and philosophies
+- (Ambrose) Add Necromancer's Apprentice Background to Duplicates.json and update Armored Coat's id to match PF2e
+- (Ambrose) Add Notes to Scare to Death
+- (Ambrose) Expand GM Screen Chase subsystem journal entry
+- (Ambrose) Update slug for Sharp-Toothed Vlaka's Jaw attack
+- (kromko) Add Armor base sf2e localization overrides
+- (kromko) Add description and built-in upgrades to Shobhad Longrifle
+- (kromko) Add journal links to ancestries, classes and dedications
+- (kromko) Add REs to Emotionless and Widen Spell to match PF2e, add missing terrain to Terrain Expertise
+- (kromko) Fix AbadarCorp Rep archetype capitalization
+- (kromko) Fix Cosmic Dragon Adult Spellcaster's Stellar Breath inline check
+- (kromko) Fix publication for Emissary, heightening for Summon Instrument, and minor typos
+- (kromko) Fix Space Pirate archetype journal entry intro
+- (kromko) Remove `strong` tags around trait lists in Heal/Harm and consumable activations
+- (Longstrider) Add spell effect for Eldritch Bond
+- (Longstrider) Fix Hefty 2 trait description
+- (Longstrider) Fix the Aeon Guard and Veskarium Paratrooper
+- (Maksim) Add deployment toggle to Ultralight Wings
+- (Tikael) Add missing language to Vlaka
+
+### Under the Hood
+
+- (stwlam) Avoid eager construction of all synthetic actors during world load
+- (stwlam) Remove system `JournalSheet` subclass
+
 ## 0.0.8
 
 ### Bugfixes

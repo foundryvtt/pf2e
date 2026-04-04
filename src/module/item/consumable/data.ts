@@ -40,8 +40,7 @@ type ConsumableDamageHealing = {
 };
 
 interface ConsumableSystemData
-    extends Omit<ConsumableSystemSource, SourceOmission>,
-        Omit<PhysicalSystemData, "subitems" | "traits"> {
+    extends Omit<ConsumableSystemSource, SourceOmission>, Omit<PhysicalSystemData, "subitems" | "traits"> {
     apex?: never;
 }
 

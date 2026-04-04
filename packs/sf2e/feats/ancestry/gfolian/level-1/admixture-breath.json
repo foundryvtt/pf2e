@@ -1,0 +1,92 @@
+{
+    "_id": "hQtGqN3eCCr6U64e",
+    "folder": "pYjgJm5ETmr6BaVc",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Admixture Breath",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your internal chemical balance is adaptable, allowing you to control the composition of your normally flaming expulsions. When you use @UUID[Compendium.sf2e.ancestry-features.Item.Fire Breath], you can choose to deal acid or cold damage instead of fire damage.</p><hr /><p><strong>Special</strong> If you're a mystic with the elemental connection, you can also choose bludgeoning, electricity, or poison damage instead of fire damage.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "admixture-breath",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "predicate": [
+                            "feature:elemental"
+                        ],
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            "feature:elemental"
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "predicate": [
+                            "feature:elemental"
+                        ],
+                        "value": "poison"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "admixture-breath"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "fire-breath-inline-damage",
+                    "flame-belch-damage"
+                ],
+                "value": "{item|flags.system.rulesSelections.admixtureBreath}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gfolian"
+            ]
+        }
+    },
+    "type": "feat"
+}

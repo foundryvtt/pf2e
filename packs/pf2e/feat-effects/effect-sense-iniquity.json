@@ -1,0 +1,66 @@
+{
+    "_id": "xHoPyS1kU0duz4nQ",
+    "img": "systems/pf2e/icons/abilities/alien-eye.webp",
+    "name": "Effect: Sense Iniquity",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Sense Iniquity]</p>\n<p>You gain a +2 status bonus to your Perception DC against attempts to [[/act create-a-diversion]], [[/act feint]] you, or [[/act lie]] to you. During this time, if you [[/act seek]] to locate a hidden creature or to see through a creature's @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] attempt, you gain a +2 status bonus to the Perception check.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:create-a-diversion",
+                            "action:feint",
+                            "action:lie"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "perception-dc"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:seek"
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

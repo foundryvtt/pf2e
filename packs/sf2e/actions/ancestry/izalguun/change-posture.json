@@ -1,0 +1,54 @@
+{
+    "_id": "L2k363LraGLUZIgM",
+    "folder": "bsJKHdVt5v62xLza",
+    "img": "systems/sf2e/icons/actions/OneAction.webp",
+    "name": "Change Posture",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>You change from bipedal posture to quadrupedal posture or from quadrupedal to bipedal. Choose a set of active hands. Depending on your posture, you have different physical properties.</p><ul><li><strong>Bipedal:</strong> Your land Speed is 20 feet. You gain the @UUID[Compendium.sf2e.feats.Item.Stretching Reach] ancestry feat, even if you don't meet the prerequisites.</li><li><p><strong>Quadrupedal:</strong> Your land Speed is 30 feet. Your middle limbs can't hold anything or be designated as active hands.</p></li></ul>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "posture",
+                "predicate": [
+                    {
+                        "not": "item:exclusively-quadrupedal"
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.NPCAbility.Sykever.Bipedal",
+                        "value": "bipedal"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.Sykever.Quadrupedal",
+                        "value": "quadrupedal"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Stretching Reach"
+            }
+        ],
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "action"
+}

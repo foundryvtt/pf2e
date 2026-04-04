@@ -1,0 +1,76 @@
+{
+    "_id": "qivgblNqjcuSosBE",
+    "folder": "EeNqAQ7tDdHoclFm",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Synthetic Physiology",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your unusual synthetic physiology enables you to resist aliments even better than most constructed or biological organisms. You gain a +2 circumstance bonus to saving throws against diseases, poisons, and radiation. If you roll a success on a saving throw against a disease, poison, or radiation, you get a critical success instead.</p>\n<p>If you roll a critical failure on the save, you get a failure instead.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison",
+                            "item:trait:radiation"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison",
+                            "item:trait:radiation"
+                        ]
+                    }
+                ],
+                "selector": "fortitude"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "xenometric-android"
+            ]
+        }
+    },
+    "type": "feat"
+}

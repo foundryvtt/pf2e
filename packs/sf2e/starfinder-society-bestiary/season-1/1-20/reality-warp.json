@@ -1,0 +1,96 @@
+{
+    "_id": "4wblzSbaGKhezoer",
+    "folder": "qlFz78qpjmH6h0hQ",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "haZa5ftYlVA43SXe",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Blip. Reset.",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters any area of the hazard</p><hr /><p><strong>Effect</strong> The reality warp causes the timeline to repeatedly blip and reset, approximately every six seconds, causing the triggering creature to flicker back and forth in time. They must attempt a @Check[will|dc:20] save. The hazard rolls initiative and one area (<strong>A1</strong>–<strong>A5</strong>) becomes active, determined randomly.</p><hr /><p><strong>Critical Success</strong> The triggering creature uses the time blip to their advantage; on the first check they attempt on their turn each round, they can roll twice and take the better result, until the hazard is defeated. This is a fortune effect.</p>\n<p><strong>Success</strong> The triggering creature is unaffected.</p>\n<p><strong>Failure</strong> On the first check the triggering creature attempts on their turn each round, they must roll twice and take the worse result, until the hazard is defeated. This is a misfortune effect.</p>\n<p><strong>Critical Failure</strong> As failure, except the triggering creature must roll every check twice.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Reality Warp",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 10
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Reality glitches, causing one of the camp's five areas to jump backward and forward in time, buildings and people alike dissolving in the temporal chaos.</p>",
+            "disable": "<p>@Check[arcana|dc:18], @Check[nature|dc:18], @Check[occultism|dc:18], or @Check[religion|dc:18] (trained) to magically reinforce Akiton's reality, or @Check[intimidation|dc:19] (trained) to impose your will on the reality warp; must be in the hazard's active area to Disable it.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Society Scenario #1-20: Magic Unleashed"
+            },
+            "reset": "",
+            "routine": "<p>(2 actions) With its first action, reality warps in the hazard's active area, dealing @Damage[(1d10+6)[force]] damage to all creatures in that area (@Check[fortitude|dc:20|basic] save). With its second action, the active hazard moves to a different area, determined randomly. Any creatures in this new active area must attempt a @Check[will|dc:20] save. On a failure, they are @UUID[Compendium.sf2e.conditions.Item.Stunned]{Stunned 1} as they try to process the changing reality; on a critical failure, they are also @UUID[Compendium.sf2e.conditions.Item.Off-Guard] for 1 round.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

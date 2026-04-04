@@ -1,0 +1,66 @@
+{
+    "_id": "ZhBrOcrcCXieDkKe",
+    "folder": "fmxtULnBcanMr4WT",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Empathetic Connection",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Winning friends and influencing people are among the things that humans do best, and you know that objective is best accomplished using your innate magical empathy.</p>\n<p>You gain @UUID[Compendium.sf2e.spells.Item.Mindlink] as a 1st-rank occult innate spell at-will. When you cast this spell, you can allow the willing target of the spell to impart information to you instead. After you cast this spell, the target is temporarily immune to your mindlink innate spell for 24 hours.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:mindlink",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:mindlink",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:human"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "human",
+                "occult"
+            ]
+        }
+    },
+    "type": "feat"
+}

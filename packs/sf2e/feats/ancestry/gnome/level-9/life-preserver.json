@@ -1,0 +1,65 @@
+{
+    "_id": "8WhINLRVJsFFetLc",
+    "folder": "o33UqAr29Q1ytyNe",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Life Preserver",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>An innate wellspring of protective magic guards you from unexpected environmental danger. You can cast @UUID[Compendium.sf2e.spells.Item.Life Seal] once per day as a 3rd-rank primal innate spell. You can target only yourself, but the duration increases to 10 minutes.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:life-seal",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:life-seal",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:gnome"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gnome"
+            ]
+        }
+    },
+    "type": "feat"
+}

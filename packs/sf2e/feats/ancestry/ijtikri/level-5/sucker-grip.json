@@ -1,0 +1,85 @@
+{
+    "_id": "UrTIdLEPflX8AuVm",
+    "folder": "l6VOQmDO0Q5DKu2a",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Sucker Grip",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your limbs' myriad suckers provide you unrivaled grip strength,. You gain a +1 circumstance bonus to Athletics checks to [[/act force-open]], and you don't take an item penalty when Forcing something Open for not having a crowbar or other suitable tool. When you roll a success on a check to Force Open, you get a critical success instead. In addition, while you're in contact with a floor or other solid surface, you gain a +1 circumstance bonus to your Fortitude and Reflex DCs against attempts to [[/act disarm]], [[/act reposition]], [[/act shove]], or [[/act trip]] you.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:force-open"
+                ],
+                "selector": [
+                    "athletics"
+                ],
+                "slug": "sucker-grip-force-open-bonus",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:disarm",
+                            "action:reposition",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude-dc",
+                    "refiex-dc"
+                ],
+                "slug": "sucker-grip-defense-bonus",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:force-open"
+                ],
+                "selector": "athletics"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ijtikri"
+            ]
+        }
+    },
+    "type": "feat"
+}

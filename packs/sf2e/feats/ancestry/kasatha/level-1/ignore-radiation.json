@@ -1,0 +1,72 @@
+{
+    "_id": "fUynQ1g3ORxCZdvf",
+    "folder": "30HYsSE058hZBlNE",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Ignore Radiation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Exposure to low levels of cosmic radiation over a long period of time has made your cells more resilient. You gain a +1 circumstance bonus to Fortitude saving throws against poison; this bonus increases to +2 against radiation.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Void Acolyte Kasatha heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "Ignore Radiation (Poison)",
+                "predicate": [
+                    "item:trait:poison"
+                ],
+                "selector": [
+                    "fortitude"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:radiation"
+                ],
+                "selector": [
+                    "fortitude"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kasatha"
+            ]
+        }
+    },
+    "type": "feat"
+}

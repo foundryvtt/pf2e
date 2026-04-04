@@ -1,0 +1,98 @@
+{
+    "_id": "1Z4ps6u7RtA57ksK",
+    "folder": "Le7DuWWrPfDytWIX",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Do You Know Who I Am?",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p>Your reputation casts a long shadow, allowing you to throw your cultural weight around, especially in larger settlements. With a well-timed tirade or attention-getting shout, you can break a foe's mind and bring them low. Choose a foe within 30 feet, and attempt an @Check[intimidation|against:will] check against the target's Will DC. You gain a +1 circumstance bonus to this check if you're in a city or a +2 circumstance bonus to this check if you're in a metropolis. If you're specifically in Absalom, the bonus is instead +3. The target is then temporarily immune to your Do You Know Who I Am? for 24 hours.</p><hr /><p><strong>Critical Success</strong> The target takes @Damage[12d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}. It can't reduce its frightened condition below 1 if it ends its turn adjacent to you.</p>\n<p><strong>Success</strong> The target takes @Damage[6d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<p><strong>Critical Failure</strong> The target is unaffected, and the embarrassment causes you to take @Damage[6d6[mental]] damage.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT1H"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Dandy Dedication"
+                },
+                {
+                    "value": "master in Intimidation"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "In settlement",
+                "option": "do-you-know-who-i-am",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Dandy.DoYouKnowWhoIAm.City",
+                        "value": "city"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Dandy.DoYouKnowWhoIAm.Metropolis",
+                        "value": "metropolis"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "do-you-know-who-i-am"
+                ],
+                "selector": [
+                    "intimidation"
+                ],
+                "slug": "do-you-know-who-i-am-bonus",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "do-you-know-who-i-am:metropolis"
+                ],
+                "selector": "intimidation",
+                "slug": "do-you-know-who-i-am-bonus",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "auditory",
+                "concentrate",
+                "emotion",
+                "fear",
+                "linguistic",
+                "mental"
+            ]
+        }
+    },
+    "type": "feat"
+}

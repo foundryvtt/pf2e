@@ -66,7 +66,73 @@
             "title": "Starfinder Player Core"
         },
         "reach": 5,
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.standardizedAncestryFeats",
+                "priority": 10,
+                "value": {
+                    "ancestralSkills": {
+                        "skillOne": "occultism",
+                        "skillTwo": "society"
+                    }
+                }
+            },
+            {
+                "definition": [
+                    "item:category:martial",
+                    {
+                        "or": [
+                            "item:trait:lashunta",
+                            "item:base:seeker-rifle",
+                            "item:slug:shuriken-drone",
+                            "item:base:singing-spear"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Lashunta.WeaponFamiliarity.MartialWeapons",
+                "predicate": [
+                    "feat:ancestral-weapon-familiarity"
+                ],
+                "sameAs": "simple",
+                "slug": "martial-lashunta-weapons"
+            },
+            {
+                "definition": [
+                    "item:trait:lashunta",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "label": "SF2E.SpecificRule.Lashunta.WeaponFamiliarity.AdvancedWeapons",
+                "predicate": [
+                    "feat:ancestral-weapon-familiarity"
+                ],
+                "sameAs": "martial",
+                "slug": "advanced-lashunta-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:lashunta",
+                            "item:base:seeker-rifle",
+                            "item:slug:shuriken-drone",
+                            "item:base:singing-spear"
+                        ]
+                    },
+                    "feat:ancestral-weapon-familiarity"
+                ]
+            }
+        ],
         "size": "med",
         "speed": 25,
         "traits": {

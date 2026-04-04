@@ -1,0 +1,304 @@
+{
+    "_id": "hm8C2R9t2OLhmdwO",
+    "folder": "zfngJuNNUPaE7w2Q",
+    "img": "systems/sf2e/icons/abilities/green-protoplasm.webp",
+    "name": "Mutant Goblin Mutation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>Select one mutation from the list below.</p><ul><li><strong>Bioelectricity</strong> You gain a bioshock unarmed attack that deals 1d4 electricity damage. Your bioshock attack is in the shock group and has the finesse, nonlethal, and unarmed traits.</li><li><strong>Chromatophores</strong> You become trained in Stealth. If you would automatically become trained in Stealth (from your background or class, for example), you instead become trained in a skill of your choice. You gain the @UUID[Compendium.sf2e.feats.Item.Terrain Stalker] skill feat, except instead of a selected difficult terrain, you can use this feat while adjacent to or within areas of bright artificial light, such as a large neon sign or nightclub.</li><li><strong>Extra Limbs</strong> You grow a second pair of arms. You can select the @UUID[Compendium.sf2e.feats.Item.All Hands on Deck] and @UUID[Compendium.sf2e.feats.Item.Double Draw] standardized ancestry feats.</li><li><strong>Flight</strong> You gain a fly Speed of 20 feet.</li><li><strong>Gills</strong> You gain a swim Speed of 25 feet and can breathe underwater for 1 minute at a time.</li><li><strong>Limited Telepathy</strong> You can communicate mentally with creatures within 15 feet. You can communicate only with creatures that share a language with you. This doesn't give you any access to their thoughts, and it communicates no more information than normal speech would.</li><li><strong>Mutant Magic</strong> You gain the @UUID[Compendium.sf2e.feats.Item.Ancestral Cantrip] (primal; @UUID[Compendium.sf2e.spells.Item.Caustic Blast]) standardized ancestry feat, except the spell doesn't have the manipulate trait as you hock the glob of acid from your mouth.</li><li><p><strong>Suckers</strong> You gain a climb Speed of 20 feet.</p></li></ul>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "SF2E.SpecificRule.Goblin.MutantGoblin.Bioelectricity",
+                        "predicate": [
+                            {
+                                "not": "mutant-goblin-mutation:bioelectricity"
+                            }
+                        ],
+                        "value": "bioelectricity"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Goblin.MutantGoblin.Chromatophores",
+                        "predicate": [
+                            {
+                                "not": "mutant-goblin-mutation:chromatophores"
+                            }
+                        ],
+                        "value": "chromatophores"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Goblin.MutantGoblin.ExtraLimbs",
+                        "predicate": [
+                            {
+                                "not": "mutant-goblin-mutation:extra-limbs"
+                            }
+                        ],
+                        "value": "extra-limbs"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Goblin.MutantGoblin.Flight",
+                        "predicate": [
+                            {
+                                "not": "mutant-goblin-mutation:flight"
+                            }
+                        ],
+                        "value": "flight"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Goblin.MutantGoblin.Gills",
+                        "predicate": [
+                            {
+                                "not": "mutant-goblin-mutation:gills"
+                            }
+                        ],
+                        "value": "gills"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Goblin.MutantGoblin.LimitedTelepathy",
+                        "predicate": [
+                            {
+                                "not": "mutant-goblin-mutation:limited-telepathy"
+                            }
+                        ],
+                        "value": "limited-telepathy"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Goblin.MutantGoblin.MutantMagic",
+                        "predicate": [
+                            {
+                                "not": "mutant-goblin-mutation:mutant-magic"
+                            }
+                        ],
+                        "value": "mutant-magic"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Goblin.MutantGoblin.Suckers",
+                        "predicate": [
+                            {
+                                "not": "mutant-goblin-mutation:suckers"
+                            }
+                        ],
+                        "value": "suckers"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "SF2E.SpecificRule.Goblin.Prompt",
+                "rollOption": "mutant-goblin-mutation"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "mutant-goblin-mutation:bioelectricity"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "SF2E.SpecificRule.Goblin.MutantGoblin.BioelectricityDescription"
+                    }
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "electricity",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "shock",
+                "img": "systems/sf2e/icons/abilities/purple-neurons.webp",
+                "key": "Strike",
+                "label": "SF2E.SpecificRule.Goblin.MutantGoblin.Bioshock",
+                "predicate": [
+                    "mutant-goblin-mutation:bioelectricity"
+                ],
+                "traits": [
+                    "finesse",
+                    "nonlethal",
+                    "unarmed"
+                ]
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "mutant-goblin-mutation:chromatophores"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "SF2E.SpecificRule.Goblin.MutantGoblin.ChromatophoresDescription"
+                    }
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.stealth.rank",
+                "predicate": [
+                    "mutant-goblin-mutation:chromatophores"
+                ],
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "mutant-goblin-mutation:chromatophores"
+                ],
+                "uuid": "Compendium.sf2e.feats.Item.Terrain Stalker"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "mutant-goblin-mutation:extra-limbs"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "SF2E.SpecificRule.Goblin.MutantGoblin.ExtraLimbsDescription"
+                    }
+                ]
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "mutant-goblin-mutation:flight"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "SF2E.SpecificRule.Goblin.MutantGoblin.FlightDescription"
+                    }
+                ]
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "mutant-goblin-mutation:flight"
+                ],
+                "selector": "fly",
+                "value": 20
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "mutant-goblin-mutation:gills"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "SF2E.SpecificRule.Goblin.MutantGoblin.GillsDescription"
+                    }
+                ]
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "mutant-goblin-mutation:gills"
+                ],
+                "selector": "swim",
+                "value": 25
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "mutant-goblin-mutation:limited-telepathy"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "SF2E.SpecificRule.Goblin.MutantGoblin.LimitedTelepathyDescription"
+                    }
+                ]
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "mutant-goblin-mutation:mutant-magic"
+                ],
+                "uuid": "Compendium.sf2e.feats.Item.Ancestral Cantrip"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "mutant-goblin-mutation:mutant-magic"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "SF2E.SpecificRule.Goblin.MutantGoblin.MutantMagicDescription"
+                    }
+                ]
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "mutant-goblin-mutation:suckers"
+                ],
+                "selector": "climb",
+                "value": 20
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "mutant-goblin-mutation:suckers"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "SF2E.SpecificRule.Goblin.MutantGoblin.SuckersDescription"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "goblin"
+            ]
+        }
+    },
+    "type": "feat"
+}

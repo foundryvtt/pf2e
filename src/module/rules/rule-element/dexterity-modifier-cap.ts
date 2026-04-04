@@ -33,8 +33,7 @@ class DexterityModifierCapRuleElement extends RuleElement<DexterityModifierCapRu
 }
 
 interface DexterityModifierCapRuleElement
-    extends RuleElement<DexterityModifierCapRuleSchema>,
-        ModelPropsFromRESchema<DexterityModifierCapRuleSchema> {
+    extends RuleElement<DexterityModifierCapRuleSchema>, ModelPropsFromRESchema<DexterityModifierCapRuleSchema> {
     get actor(): CharacterPF2e | NPCPF2e;
 }
 

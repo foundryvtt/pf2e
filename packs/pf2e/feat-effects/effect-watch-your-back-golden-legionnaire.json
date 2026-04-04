@@ -1,0 +1,44 @@
+{
+    "_id": "7vUZ5aYQx2K3BcI1",
+    "img": "systems/pf2e/icons/abilities/yellow-sonic-scream.webp",
+    "name": "Effect: Watch Your Back (Golden Legionnaire)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Watch Your Back]</p>\n<p>You can't be <a class=\"content-link\" draggable=\"true\" data-link=\"\" data-uuid=\"Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg\" data-id=\"AJh5ex99aV6VTggg\" data-type=\"Item\" data-pack=\"pf2e.conditionitems\" data-tooltip=\"Item\" data-tooltip-text=\"Condition Item\">Off-Guard</a> due to flanking.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 14
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.flankable",
+                "value": false
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,87 @@
+{
+    "_id": "MlcCtlwwJEKusoUK",
+    "img": "icons/creatures/fish/squid-kraken-orange.webp",
+    "name": "Effect: Invoke the Leviathan",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Invoke the Leviathan]</p>\n<p>you transform into a Gargantuan ijtikri leviathan battle form.</p>\n<p>You gain the following statistics and abilities.</p><ul><li>AC = 22 + your level. Ignore your armor's check penalty and Speed reduction.</li><li>10 temporary Hit Points.</li><li>Speed 10 feet, fly 40 feet, swim 60 feet</li><li>The following unarmed melee attacks. You're trained with this attack, and your attack modifier is +25. This attack is Strength based. If your unarmed attack modifier is higher, you can use it instead. <strong>Melee</strong> <span class=\"action-glyph\">1</span> tentacle (backswing, grapple, reach 30 feet), Damage 3d10+15 bludgeoning; <strong>Area Fire</strong> <span class=\"action-glyph\">2</span> wail (@Template[type:cone|distance:60]), Damage 3d10+15 sonic (basic Reflex save versus the higher of your class DC or spell DC)</li><li>Acrobatics modifier of +15 and Athletics modifier of +25, unless your own modifiers are higher.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "hasHands": true,
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "22 + @actor.level"
+                    },
+                    "size": "grg",
+                    "skills": {
+                        "acrobatics": {
+                            "modifier": 15
+                        },
+                        "athletics": {
+                            "modifier": 25
+                        }
+                    },
+                    "speeds": {
+                        "fly": 40,
+                        "land": 10,
+                        "swim": 60
+                    },
+                    "strikes": {
+                        "tentacle": {
+                            "ability": "str",
+                            "baseType": "tentacle",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 3,
+                                "die": "d10",
+                                "modifier": 15
+                            },
+                            "img": "icons/creatures/tentacles/tentacle-earth-green.webp",
+                            "modifier": 25,
+                            "traits": [
+                                "backswing",
+                                "grapple",
+                                "unarmed",
+                                "reach-30"
+                            ]
+                        }
+                    },
+                    "tempHP": 10
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Wail"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

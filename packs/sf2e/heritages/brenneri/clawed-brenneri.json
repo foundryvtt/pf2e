@@ -1,0 +1,49 @@
+{
+    "_id": "bxANiZwdKO4Amw9G",
+    "folder": "ODa79BBjLRkRqKPw",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Clawed Brenneri",
+    "system": {
+        "ancestry": {
+            "name": "Brenneri",
+            "slug": "brenneri",
+            "uuid": "Compendium.sf2e.ancestries.Item.9p9GNLHDRocLlKVU"
+        },
+        "description": {
+            "value": "<p>You are a particularly muscular brenneri with pronounced claws, standing out as a potential defender or soldier among your pod. You can pry open oysters or crabs with ease, and your claws are robust enough to serve as a natural defense.</p>\n<p>Additionally, you become trained in Athletics. If you would automatically become trained in Athletics (from your background or class, for example), you instead become trained in a skill of your choice. You gain a +1 circumstance bonus on Athletics checks to [[/act force-open]], and you gain the @UUID[Compendium.sf2e.feats.Item.Ancestral Unarmed Attack] (claw, 1d6 slashing [agile, finesse, unarmed], brawling weapon group) ancestry feat.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Ancestral Unarmed Attack"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.athletics.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:force-open"
+                ],
+                "selector": [
+                    "athletics"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

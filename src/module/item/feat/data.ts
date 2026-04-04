@@ -241,7 +241,8 @@ class FeatSystemData extends ItemSystemModel<FeatPF2e, FeatSystemSchema> {
 }
 
 interface FeatSystemData
-    extends ItemSystemModel<FeatPF2e, FeatSystemSchema>,
+    extends
+        ItemSystemModel<FeatPF2e, FeatSystemSchema>,
         Omit<fields.ModelPropsFromSchema<FeatSystemSchema>, "description"> {}
 
 type FeatSystemSchema = Omit<ItemSystemSchema, "traits"> & {

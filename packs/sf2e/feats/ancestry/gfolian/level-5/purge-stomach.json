@@ -1,0 +1,59 @@
+{
+    "_id": "t2VyYuvHMM4ynUei",
+    "folder": "2N8o7toO9rSZAsNY",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Purge Stomach",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You gain the sickened condition or fail a save against an ingested poison.</p>\n<p><strong>Requirements</strong> You can use @UUID[Compendium.sf2e.ancestry-features.Item.Fire Breath].</p><hr /><p>Thanks to control of your stomach, you can expel foreign substances in your body with ease. Reduce your sickened condition by 2, and immediately attempt a saving throw with a +2 circumstance bonus against any ingested poisons you've been exposed to within the last minute. You can't use @UUID[Compendium.sf2e.ancestry-features.Item.Fire Breath] for [[/gmr 1d4 #rounds]]{1d4 rounds}.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:poison",
+                    "purge-stomach"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gfolian"
+            ]
+        }
+    },
+    "type": "feat"
+}

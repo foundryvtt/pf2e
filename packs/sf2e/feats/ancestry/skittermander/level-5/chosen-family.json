@@ -1,0 +1,63 @@
+{
+    "_id": "nWEmwsSrbgrELqJ0",
+    "folder": "UlPQfiL1oyohMypz",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Chosen Family",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Traveling across the galaxy, you've formed a tight bond with your found family, absorbing some of their culture now as your own. You gain the @UUID[Compendium.sf2e.feats.Item.Adopted Ancestry] general feat, and you also gain one 1st-level ancestry feat from the ancestry you chose for the Adopted Ancestry feat.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Adopted Ancestry"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:1",
+                        "item:trait:{actor|system.details.ancestry.adopted}"
+                    ]
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneAncestryFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.sf2e.rulesSelections.feat}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "skittermander"
+            ]
+        }
+    },
+    "type": "feat"
+}

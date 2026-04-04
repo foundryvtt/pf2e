@@ -1,0 +1,62 @@
+{
+    "_id": "DzpEFWD2H6IXIkCf",
+    "folder": "o33UqAr29Q1ytyNe",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Fluent in Critter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're obsessed with animals and communicating with them, consuming countless videos, recordings, and first-person accounts to hone your ability to speak with them. When you attempt a Diplomacy check to [[/act make-an-impression]] on or make a [[/act request]] of an animal, roll twice and take the better result.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Creature Speech (animal)"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "target:trait:animal",
+                    {
+                        "or": [
+                            "action:make-an-impression",
+                            "action:request"
+                        ]
+                    }
+                ],
+                "selector": "diplomacy"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fortune",
+                "gnome"
+            ]
+        }
+    },
+    "type": "feat"
+}

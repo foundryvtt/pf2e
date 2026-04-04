@@ -1,0 +1,59 @@
+{
+    "_id": "UmEAySAO3mgdEocu",
+    "folder": "nYMHl7Ooe3vUH1Jl",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Oozebonded Pahtra",
+    "system": {
+        "ancestry": {
+            "name": "Pahtra",
+            "slug": "pahtra",
+            "uuid": "Compendium.sf2e.ancestries.Item.75TqHknsQuinDLjn"
+        },
+        "description": {
+            "value": "<p>You're a Volosian, a deep-jungle pahtra of the southern Pulonis coasts who permanently bonded with a specially bred symbiotic ooze called a hymothoa. Your body secretes a slime that protects your coat, keeping it slippery and shiny.</p>\n<p>You gain resistance to acid damage equal to half your level (minimum 1), and a +2 circumstance bonus to Reflex saves to avoid being Engulfed by creatures and to checks to @UUID[Compendium.sf2e.actions.Item.Escape] after being Engulfed.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "acid",
+                "value": "max(floor(@actor.level/2),1)"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:slug:engulf"
+                ],
+                "selector": [
+                    "reflex"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "Oozebonded Pahtra (Escape)",
+                "predicate": [
+                    "action:escape",
+                    "item:slug:engulf"
+                ],
+                "selector": [
+                    "all"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

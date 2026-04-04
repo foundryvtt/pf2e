@@ -152,8 +152,7 @@ type WeaponRuneSource = {
 };
 
 interface WeaponSystemData
-    extends Omit<WeaponSystemSource, SourceOmission>,
-        Omit<Investable<PhysicalSystemData>, "material" | "subitems"> {
+    extends Omit<WeaponSystemSource, SourceOmission>, Omit<Investable<PhysicalSystemData>, "material" | "subitems"> {
     traits: WeaponTraits;
     baseItem: BaseWeaponType | null;
     material: WeaponMaterialData;

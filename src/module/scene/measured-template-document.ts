@@ -73,8 +73,9 @@ class MeasuredTemplateDocumentPF2e<
     }
 }
 
-interface MeasuredTemplateDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
-    extends MeasuredTemplateDocument<TParent> {
+interface MeasuredTemplateDocumentPF2e<
+    TParent extends ScenePF2e | null = ScenePF2e | null,
+> extends MeasuredTemplateDocument<TParent> {
     get object(): MeasuredTemplatePF2e<this> | null;
 
     flags: DocumentFlags & {

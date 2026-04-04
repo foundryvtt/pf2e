@@ -1,0 +1,44 @@
+{
+    "_id": "5KsI1u0AXUiJYPzv",
+    "folder": "ODa79BBjLRkRqKPw",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Bioluminescent Brenneri",
+    "system": {
+        "ancestry": {
+            "name": "Brenneri",
+            "slug": "brenneri",
+            "uuid": "Compendium.sf2e.ancestries.Item.9p9GNLHDRocLlKVU"
+        },
+        "description": {
+            "value": "<p>You are descended from members of a community that lives in a network of sea caves where the sun doesn't reach, known as the Jobuwa Chasms. Other life in these caves, such as the winged murzzilats, barrel through the tight spaces at incredible speed. Injury from unintended collisions is so common that many beings who live in the chasms have evolved to emit light as a warning.</p>\n<p>Your fur is made up of specialized fibers that absorb light from fluorescent algae. You can make your fur glow with bioluminescence or pat it down to stop glowing with an Interact action. When you glow, you shed bright light in a 20-foot radius (and dim light for the next 20 feet).</p>\n<p>You are not @UUID[Compendium.sf2e.conditions.Item.Off-Guard] while in water, and you don't take the usual penalties for using a bludgeoning or slashing melee weapon in water, or to ranged attacks made underwater or against an underwater enemy.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "bioluminescence-active"
+                ],
+                "value": {
+                    "alpha": 0.15,
+                    "bright": 4,
+                    "dim": 8
+                }
+            },
+            {
+                "key": "RollOption",
+                "option": "bioluminescence-active",
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

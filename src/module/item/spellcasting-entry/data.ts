@@ -59,8 +59,7 @@ interface SpellCollectionTypeSource {
 }
 
 interface SpellcastingEntrySystemData
-    extends Omit<SpellcastingEntrySystemSource, "description">,
-        Omit<ItemSystemData, "level" | "traits"> {
+    extends Omit<SpellcastingEntrySystemSource, "description">, Omit<ItemSystemData, "level" | "traits"> {
     prepared: SpellCollectionTypeData;
 }
 

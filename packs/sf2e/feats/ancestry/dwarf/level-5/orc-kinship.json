@@ -1,0 +1,63 @@
+{
+    "_id": "4UNquu2wAieXg1H6",
+    "folder": "vCf4KDE8Ev7peLdk",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Orc Kinship",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The Quest for Sky caused many wars between orcs and dwarves in the past, but now, you're the only ones who can truly understand each other. You've spent time around orcs and learned from them, and you proudly count yourself among their friends.</p>\n<p>You gain the @UUID[Compendium.sf2e.feats.Item.Adopted Ancestry] general feat and must select orc as the feat's chosen ancestry. You also gain one 1st-level @UUID[Compendium.sf2e.ancestries.Item.Orc] ancestry feat.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Adopted Ancestry"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:1",
+                        "item:trait:orc"
+                    ]
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneAncestryFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.feat}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

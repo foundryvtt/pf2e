@@ -1,0 +1,65 @@
+{
+    "_id": "mzqWGGrxUgFznI0h",
+    "folder": "O9Y4ICUw89SpWvCb",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Personal Trinket",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have an object that comforts you, such as a favorite rock, a childhood stuffed animal, or another trinket. While you hold your personal trinket, you gain a +1 circumstance bonus on saving throws and to Will DCs against fear effects. If your personal trinket is ever lost or destroyed, you can gain another one by spending 1 week of downtime searching for a suitable replacement.</p>\n<p>Additionally, you gain the @UUID[Compendium.sf2e.actions.Item.Self Soothe] action.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Self Soothe"
+            },
+            {
+                "key": "RollOption",
+                "option": "personal-trinket",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "personal-trinket",
+                    "item:trait:fear"
+                ],
+                "selector": [
+                    "saving-throw",
+                    "will-dc"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "brenneri"
+            ]
+        }
+    },
+    "type": "feat"
+}

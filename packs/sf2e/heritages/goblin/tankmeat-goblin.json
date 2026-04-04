@@ -1,0 +1,74 @@
+{
+    "_id": "Al0kW5lh60VJGmdx",
+    "folder": "JEyupHR1W9yfaksj",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Tankmeat Goblin",
+    "system": {
+        "ancestry": {
+            "name": "Goblin",
+            "slug": "goblin",
+            "uuid": "Compendium.sf2e.ancestries.Item.6jZ55zVCy4pbOL4g"
+        },
+        "description": {
+            "value": "<p>You're genetically modified cannon fodder loyal to the Gideron Authority. While you're wounded, you gain a +5 status bonus to your Speeds. While wounded, your melee Strikes and ranged Strikes with thrown weapons deal persistent bleed damage equal to your combined wounded and doomed value.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:wounded"
+                ],
+                "selector": [
+                    "all-speeds"
+                ],
+                "type": "status",
+                "value": 5
+            },
+            {
+                "damageCategory": "persistent",
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:wounded",
+                    {
+                        "or": [
+                            "item:melee",
+                            "item:thrown-melee"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "strike-damage"
+                ],
+                "value": "@actor.conditions.wounded.value"
+            },
+            {
+                "damageCategory": "persistent",
+                "key": "FlatModifier",
+                "label": "Tankmeat Goblin (Doomed)",
+                "predicate": [
+                    "self:condition:doomed",
+                    {
+                        "or": [
+                            "item:melee",
+                            "item:thrown-melee"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "strike-damage"
+                ],
+                "value": "@actor.conditions.doomed.value"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

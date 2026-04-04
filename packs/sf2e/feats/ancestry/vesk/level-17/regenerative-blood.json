@@ -1,0 +1,69 @@
+{
+    "_id": "E2US7AKKcjxF2JoY",
+    "folder": "ure1boXIlqeoz4dG",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Regenerative Blood",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You use ritualistic prayer to gain supercharged regenerative abilities, giving your blood the power to heal wounds and regrow lost limbs, even when applied to others. You can cast @UUID[Compendium.sf2e.spells.Item.Regenerate] as a 7th-rank primal innate spell twice per day.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Wavecrested Vesk heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:cairn-form",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:regenerate",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:vesk"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "vesk"
+            ]
+        }
+    },
+    "type": "feat"
+}

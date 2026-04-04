@@ -1,0 +1,54 @@
+{
+    "_id": "JGQFlHY0J0LluvlH",
+    "folder": "y0d6snvLwPrLupCA",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Deep Space Hryngar",
+    "system": {
+        "ancestry": {
+            "name": "Dwarf",
+            "slug": "dwarf",
+            "uuid": "Compendium.sf2e.ancestries.Item.dDsYoohxyRNgtR4u"
+        },
+        "description": {
+            "value": "<p>You're a hryngar, one of the subterranean dwarves of Golarion's Darklands who rejected the Quest for Sky. Droskar, the outcast god of toil and tyranny, forged your ancestors' society into cruel hierarchies. Today, some hryngars honor Droskar by participating in a variety of schemes, from casinos to repo operations, along with shady professions such as cryptobroker and loan shark.</p>\n<p>You have an attribute bonus to Charisma and a flaw to Wisdom rather than the other way around (unless you choose two free attribute boosts instead of the usual boosts and flaw). You become trained in Deception. If you would automatically become trained in Deception (from your background or class, for example), you instead become trained in a skill of your choice. If a creature owes you money or has caused you significant financial loss, you have a +1 circumstance bonus to Deception checks to Lie to them, to Perception DCs against attempts to Lie to you, and to Intimidation checks to [[/act coerce]] or [[/act demoralize]] them.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.deception.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:lie",
+                            "action:coerce",
+                            "action:demoralize"
+                        ]
+                    },
+                    "owes-money"
+                ],
+                "selector": [
+                    "deception",
+                    "perception",
+                    "intimidation"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

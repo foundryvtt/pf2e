@@ -1,0 +1,71 @@
+{
+    "_id": "QqUYiPypN4T6eVnD",
+    "folder": "RCHC3kL4BRl87W8Q",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Thoroughly Slimed",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your sprayed slime thickens on contact with air, giving it some substantial stopping power and possibly even locking foes in place. When you use @UUID[Compendium.sf2e.ancestry-features.Item.Slime Squirt] or @UUID[Compendium.sf2e.feats.Item.Slime Spray], creatures in the area must attempt a @Check[reflex|against:class-spell] save against the higher of your class DC or spell DC. On a failure, they become @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1} for 1 round. On a critical failure, they become @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 2} and @UUID[Compendium.sf2e.conditions.Item.Immobilized] for 1 round.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:slime-squirt"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:slime-spray"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "osharu"
+            ]
+        }
+    },
+    "type": "feat"
+}

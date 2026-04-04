@@ -1,0 +1,112 @@
+{
+    "_id": "ewMWv9hHpQosX1cl",
+    "folder": "VFQ4pYaZee6zfdmE",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Roll Model",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've made your foot orb into a living work of couture art, becoming what young bantrids often call a baller. Whether you've incorporated it into stunning performances as a diva or use it to impress others who might not have even encountered a bantrid before, people can't help but admire your taste and style.</p>\n<p>You either become trained in Diplomacy and gain the @UUID[Compendium.sf2e.feats.Item.Group Impression] skill feat, or you become trained in Performance and gain the @UUID[Compendium.sf2e.feats.Item.Impressive Performance] skill feat. If you're already trained in one of these skills, you must take the other one and can choose from either skill feat. If you're trained in both skills, you become trained in a different skill of your choice instead and can choose from either skill feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "predicate": [
+                            "skill:diplomacy:rank:0"
+                        ],
+                        "value": "diplomacy"
+                    },
+                    {
+                        "label": "PF2E.Skill.Performance",
+                        "predicate": [
+                            "skill:performance:rank:0"
+                        ],
+                        "value": "performance"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            "skill:diplomacy:rank:0",
+                            "skill:performance:rank:0"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "roll-model"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.skill}.rank",
+                "predicate": [
+                    {
+                        "or": [
+                            "roll-model:deception",
+                            "roll-model:diplomacy"
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            "roll-model:diplomacy"
+                        ],
+                        "value": "Compendium.sf2e.feats.Item.Group Impression"
+                    },
+                    {
+                        "predicate": [
+                            "roll-model:performance"
+                        ],
+                        "value": "Compendium.sf2e.feats.Item.Impressive Performance"
+                    }
+                ],
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SkillFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.feat}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "bantrid"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,107 @@
+{
+    "_id": "VEaZ2G0b3KSeKkJb",
+    "folder": "hLjqS3RxuQAReE1h",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Researched Spell Resistance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>While humans lacks the innate magic of other ancestries, they makes up for it with the ability to learn the mystical arts and protect themselves from magical threats.</p>\n<p>Choose one of the four spell traditions in which you're an expert in its corresponding skill (arcane for Arcana, primal for Nature, occult for Occultism, and divine for Religion). You gain a +1 circumstance bonus to all saving throws against spells and effects with the corresponding tradition's trait. If you are or become a master in a skill corresponding to a previously chosen spell tradition, you can choose another tradition in which you're trained in its corresponding skill. You can repeat this process until you've chosen all four spell traditions</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "maxTakable": null,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Expert in Arcana, Nature, Occultism, or Religion"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitArcane",
+                        "predicate": [
+                            "skill:arcana:rank:2",
+                            {
+                                "not": "researched-spell-resistance:arcane"
+                            }
+                        ],
+                        "value": "arcane"
+                    },
+                    {
+                        "label": "PF2E.TraitPrimal",
+                        "predicate": [
+                            "skill:nature:rank:2",
+                            {
+                                "not": "researched-spell-resistance:primal"
+                            }
+                        ],
+                        "value": "primal"
+                    },
+                    {
+                        "label": "PF2E.TraitOccult",
+                        "predicate": [
+                            "skill:occultism:rank:2",
+                            {
+                                "not": "researched-spell-resistance:occult"
+                            }
+                        ],
+                        "value": "occult"
+                    },
+                    {
+                        "label": "PF2E.TraitDivine",
+                        "predicate": [
+                            "skill:religion:rank:2",
+                            {
+                                "not": "researched-spell-resistance:divine"
+                            }
+                        ],
+                        "value": "divine"
+                    }
+                ],
+                "flag": "tradition",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Tradition",
+                "rollOption": "researched-spell-resistance"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:{item|flags.sf2e.rulesSelections.tradition}"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "human"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,420 @@
+{
+    "_id": "U1RloAQupBZfGy9x",
+    "folder": "lfjFg7DMTm55QgpK",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "4DrkpwGYKG819FgV",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Now!!",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves adjacent to the infiltrators or takes a hostile action against them</p>\n<p><strong>Requirements</strong> The infiltrators are disguised</p><hr /><p><strong>Effect</strong> The infiltrators cast aside their disguises and unleash a 2-action Blindside against all enemies in a @Template[type:emanation|distance:5]. A creature that critically fails the save takes an additional 1d6 precision damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "now",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "now"
+                        ],
+                        "selector": "blindside-inline-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YKCNzEvmYCOIknfE",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.EawOw47nHueUPnYc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Defenses",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopDefenses]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": "troop-defenses",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ItbVGKoJJMc1O89d",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.MXI6zwrvbQNIv7ji"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Movement",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopMovement]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder NPC Core"
+                },
+                "rules": [],
+                "slug": "troop-movement",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3aieAwMZYHygv9wU",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Undercover",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>By spending 2 hours preparing disguises, performing reconnaissance, and the like, the infiltrators can convincingly impersonate any troop unit of their level or lower that has the humanoid trait. Alternatively, they can disguise themselves as a mixed assortment of humanoid noncombatants who don't obviously form a cohesive unit. This functions as the Impersonate action with the infiltrators gaining a +2 circumstance bonus to their Deception DC. Infiltrators can't use Undercover to appear as specific individuals, nor can they impersonate groups that require resources unavailable to them, at the GM's discretion (impersonating a cavalry unit without access to mounts, for example).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "undercover",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "undercover"
+                        ],
+                        "selector": [
+                            "deception-dc"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "exploration",
+                        "manipulate",
+                        "secret"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rxoWm9immyT5ileK",
+            "img": "systems/pf2e/icons/actions/OneThreeActions.webp",
+            "name": "Blindside",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The infiltrators strike against enemies in a @Template[type:emanation|distance:5], dealing damage of a type appropriate to any weapons or implements incorporated into their disguise, with a @Check[reflex|dc:23|basic] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(1d8+1)[bludgeoning]]{1d8+1 bludgeoning, piercing, or slashing damage}</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d8+8)[bludgeoning]]{2d8+8 bludgeoning, piercing, or slashing damage}</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(3d8+9)[bludgeoning]]{3d8+9 bludgeoning, piercing, or slashing damage}</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "blindside",
+                        "selection": "bludgeoning",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            },
+                            {
+                                "label": "PF2E.TraitSlashing",
+                                "value": "slashing"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "damage:type:bludgeoning"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-inline-damage"
+                        ],
+                        "value": "{item|flags.system.rulesSelections.blindside}"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OLEJJ0mQLPObNyBr",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Faces in the Crowd",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Twilight Talon infiltrators are masters of blending into and dispersing seamlessly among large groups. While disguised as noncombatants, they can move into other creatures' spaces, and other creatures can move into the team's spaces.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qUp0ao0Z9dPIcpJR",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Snap Shot",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The infiltrators draw or reload concealed hand crossbows and launch a hail of bolts in a @Template[type:burst|distance:10] within 60 feet that deals @Damage[5d6[piercing]|options:area-damage] damage (@Check[reflex|dc:23|basic] save). When the unit is reduced to 2 segments, this area decreases to a @Template[type:burst|distance:5].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Twilight Talon Infiltrator Team",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 4
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": 1
+            },
+            "str": {
+                "mod": 2
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 27
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 135,
+                "temp": 0,
+                "value": 135
+            },
+            "speed": {
+                "details": "troop movement",
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 7
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 7
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
+            "level": {
+                "value": 8
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>These teams of elite Andoren field agents possess specialized training in executing covert operations. Many have recently been dispatched to Isger to assist the insurgents of the Hellbreakers League in throwing off the yoke of Chelaxian oppression.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Lost Omens Hellfire Dispatches"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 16
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 16,
+                "special": []
+            },
+            "athletics": {
+                "base": 14,
+                "special": []
+            },
+            "deception": {
+                "base": 18,
+                "special": []
+            },
+            "stealth": {
+                "base": 18,
+                "special": []
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "human",
+                "humanoid",
+                "troop"
+            ]
+        }
+    },
+    "type": "npc"
+}

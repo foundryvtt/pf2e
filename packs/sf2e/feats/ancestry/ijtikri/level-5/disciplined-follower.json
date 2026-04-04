@@ -1,0 +1,60 @@
+{
+    "_id": "cwDKKQoGztmdfnlf",
+    "folder": "l6VOQmDO0Q5DKu2a",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Disciplined Follower",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You adapt to new hierarchies with ease and find reassurance in a reliable command structure. When using the @UUID[Compendium.sf2e.actions.Item.Follow the Expert] activity in exploration mode, you gain a +3 circumstance bonus if the ally you're following is an expert and a +4 circumstance bonus if your ally is a master. In addition, if you roll a success on your saving throw against a mental effect that would make you controlled, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "selector": "skill-check",
+                "slug": "follow-the-expert-circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "inflicts:controlled"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ijtikri"
+            ]
+        }
+    },
+    "type": "feat"
+}

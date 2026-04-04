@@ -61,7 +61,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElement, ItemAlterat
 }
 
 interface ItemAlteration
-    extends foundry.abstract.DataModel<RuleElement, ItemAlterationSchema>,
+    extends
+        foundry.abstract.DataModel<RuleElement, ItemAlterationSchema>,
         fields.ModelPropsFromSchema<ItemAlterationSchema> {}
 
 type ItemAlterationSchema = {

@@ -1,0 +1,58 @@
+{
+    "_id": "tjaiwqPAVetw2Gla",
+    "folder": "soQXo5kk4aANsHLd",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Dwarven Zero-G Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Dwarves who have spent their lives aboard orbital clanholdings or Star Citadels find themselves at ease in low gravity environments. You aren't @UUID[Compendium.sf2e.conditions.Item.Off-Guard] or @UUID[Compendium.sf2e.conditions.Item.Clumsy] due to being @UUID[Compendium.sf2e.conditions.Item.Untethered] in zero-g. At 13th level, you gain a climb Speed of 20 feet while in low gravity or zero-g.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            13
+                        ]
+                    },
+                    "terrain:low-gravity",
+                    "terrain:zero-gravity"
+                ],
+                "selector": "climb",
+                "value": 20
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

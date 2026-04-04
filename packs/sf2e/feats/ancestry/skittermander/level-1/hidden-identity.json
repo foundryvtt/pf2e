@@ -1,0 +1,58 @@
+{
+    "_id": "1cXEcZndyYCzKIr8",
+    "folder": "OudXPBNC7vz7ubf8",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Hidden Identity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Unlike others with the power of song, you like to be able to fly under the radar when you need to. You've developed a second identity in the process. You become trained in Deception. If you're already trained in Deception, you instead become trained in another skill of your choice. You gain the @UUID[Compendium.sf2e.feats.Item.Favored Disguise] skill feat, and the @UUID[Compendium.sf2e.actions.Item.Skitter Idol Transformation] activity.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "onlyLevel1": true,
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Favored Disguise"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.actions.Item.Skitter Idol Transformation"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.deception.rank",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "skittermander"
+            ]
+        }
+    },
+    "type": "feat"
+}

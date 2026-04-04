@@ -1,0 +1,54 @@
+{
+    "_id": "0sNnWNSToD3FrbtF",
+    "img": "icons/creatures/reptiles/chameleon-camouflage-green-brown.webp",
+    "name": "Effect: Shifthide Camouflage",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.actions.Item.Shifthide Camouflage]</p>\n<p>You gain a +2 circumstance bonus on Stealth checks to <span>Hide</span> and <span>Sneak.</span></p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "stealth"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

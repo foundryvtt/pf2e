@@ -1,0 +1,60 @@
+{
+    "_id": "b7Elwnf434IRjFQd",
+    "folder": "TwsLH6uefb4FBeFB",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Listen to the Stone",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You open your mind to the whispers of the land and learn its secrets. You can cast @UUID[Compendium.sf2e.spells.Item.Speak with Stones] once per day as a 5th-rank primal innate spell. Additionally, you can use Nature to [[/act track skill=nature]] and [[/act seek skill=nature]] instead of Survival and Perception. You gain a +2 circumstance bonus when you use Nature to Track and Seek in an environment with natural or worked stone floors.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "listen-to-the-stone",
+                    {
+                        "or": [
+                            "action:seek",
+                            "action:track"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "nature"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "talphi"
+            ]
+        }
+    },
+    "type": "feat"
+}

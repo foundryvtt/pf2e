@@ -1,0 +1,62 @@
+{
+    "_id": "UFmM3efwBsZh85Wr",
+    "folder": "Y7gxBMEPiFuhn9Ji",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "The Bigger They Are",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've learned to make good use of your diminutive stature and angle your attacks when fighting larger enemies. If you critically hit a Large or larger enemy with a ranged Strike while using a weapon that fires projectile ammo, you knock them @UUID[Compendium.sf2e.conditions.Item.Prone]. A creature knocked prone by your unusually angled shots learns how to brace for impact, becoming immune to The Bigger They Are for 24 hours.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "gte": [
+                            "target:size",
+                            3
+                        ]
+                    }
+                ],
+                "selector": [
+                    "ranged-strike-attack-roll"
+                ],
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "halfling"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -30,10 +30,8 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
         // actor, and it may be in the middle of construction presently.
         if (originUUID.startsWith("Scene.")) {
             const tokenUUID = originUUID.replace(/\.Actor\..+$/, "");
-            const tokenDoc = fromUuidSync(tokenUUID);
-            if (!(tokenDoc instanceof TokenDocumentPF2e)) return null;
-            const descriptor = Object.getOwnPropertyDescriptor(tokenDoc, "delta");
-            return descriptor?.value instanceof ActorDelta ? (descriptor.value.syntheticActor ?? null) : null;
+            const tokenDoc = fromUuidSync<TokenDocumentPF2e>(tokenUUID);
+            return tokenDoc?.hasConstructedActor ? tokenDoc.actor : null;
         }
 
         return fromUuidSync<ActorPF2e>(originUUID);

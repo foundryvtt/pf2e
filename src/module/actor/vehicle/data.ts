@@ -216,8 +216,7 @@ interface VehicleMovementData {
 }
 
 interface VehicleSystemData
-    extends ActorSystemModel<VehiclePF2e, VehicleSystemSchema>,
-        fields.ModelPropsFromSchema<VehicleSystemSchema> {
+    extends ActorSystemModel<VehiclePF2e, VehicleSystemSchema>, fields.ModelPropsFromSchema<VehicleSystemSchema> {
     traits: VehicleTraits;
     attributes: VehicleAttributes;
     details: VehicleDetails;

@@ -1,0 +1,59 @@
+{
+    "_id": "ALbZYYpBos9RZiN0",
+    "folder": "EeNqAQ7tDdHoclFm",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Deconstruction",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your knowledge of your own constructed anatomy, combined with your experience in combat, helps you take down other constructed foes with greater ease. Against constructs and robots, you gain a circumstance bonus to damage with weapon and unarmed Strikes equal to the number of weapon damage dice.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:construct",
+                            "target:trait:robot"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "strike-damage"
+                ],
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "xenometric-android"
+            ]
+        }
+    },
+    "type": "feat"
+}

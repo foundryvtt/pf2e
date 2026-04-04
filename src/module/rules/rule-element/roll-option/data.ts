@@ -30,7 +30,8 @@ class Suboption extends foundry.abstract.DataModel<RollOptionRuleElement, Subopt
 }
 
 interface Suboption
-    extends foundry.abstract.DataModel<RollOptionRuleElement, SuboptionSchema>,
+    extends
+        foundry.abstract.DataModel<RollOptionRuleElement, SuboptionSchema>,
         fields.ModelPropsFromSchema<SuboptionSchema> {}
 
 type RollOptionSchema = RuleElementSchema & {

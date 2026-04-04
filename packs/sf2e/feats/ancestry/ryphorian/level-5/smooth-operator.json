@@ -1,0 +1,81 @@
+{
+    "_id": "EgclcqDiOi0CvNse",
+    "folder": "QIlm4LjxjTbJY3L3",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Smooth Operator",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your glistening skin oils make it harder to pin you down. Whenever you roll a success on a check to Escape or a saving throw against an effect that would impose the @UUID[Compendium.sf2e.conditions.Item.Grabbed], @UUID[Compendium.sf2e.conditions.Item.Immobilized], or @UUID[Compendium.sf2e.conditions.Item.Restrained] condition on you, you get a critical success instead. Whenever a creature rolls a failure on a check to [[/act grapple]], [[/act shove]], or [[/act trip]] you, it gets a critical failure instead.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "summerborn ryphorian heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:escape"
+                ],
+                "selector": "attack-roll"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:grabbed",
+                            "inflicts:immobolized",
+                            "inflicts:restrained"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "selectors": [
+                    "athletics"
+                ],
+                "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Smooth Operator"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "ryphorian"
+            ]
+        }
+    },
+    "type": "feat"
+}

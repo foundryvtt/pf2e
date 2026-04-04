@@ -1,0 +1,51 @@
+{
+    "_id": "wqhlTNfkTdP1oLpC",
+    "folder": "fDu1MIrGVoxivMwS",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Magic Dabbler Urog",
+    "system": {
+        "ancestry": {
+            "name": "Urog",
+            "slug": "urog",
+            "uuid": "Compendium.sf2e.ancestries.Item.1gJeLPnHFATPQej2"
+        },
+        "description": {
+            "value": "<p>You seek to unravel the secrets of magic as though they were a science. Maybe you've found new efficiencies by combining magic and technology, or maybe you've discovered how to channel the divine without the need for gods. Either way, you've unlocked a magical knack to make your life easier.</p>\n<p>You gain the @UUID[Compendium.sf2e.feats.Item.Ancestral Cantrip] standardized ancestry feat. If your epistemological approach is empirical, this is a primal spell; otherwise, it's an arcane spell. You also gain a +1 circumstance bonus to @UUID[Compendium.sf2e.actions.Item.Identify Magic] and @UUID[Compendium.sf2e.actions.Item.Learn a Spell].</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Ancestral Cantrip"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:learn-a-spell",
+                            "action:identify-magic"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "arcana",
+                    "nature",
+                    "occultism",
+                    "religion"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

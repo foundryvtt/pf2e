@@ -1,0 +1,68 @@
+{
+    "_id": "5YRxQP7YkurtpxWs",
+    "folder": "TIeMcfnAdh56SVIX",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Designer Orb",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Whether you adjusted your diet or used augmentations, you've adapted your foot orb to take on special qualities without compromising the integrity and utility of your original body. You gain the mechanical benefits of the @UUID[Compendium.sf2e.heritages.Item.Bouncy Orb Bantrid]{Bouncy Orb}, @UUID[Compendium.sf2e.heritages.Item.Jeweled Orb Bantrid]{Jeweled Orb}, @UUID[Compendium.sf2e.heritages.Item.Magnetic Orb Bantrid]{Magnetic Orb}, or @UUID[Compendium.sf2e.heritages.Item.Hollow Orb Bantrid]{Hollow Orb} bantrid heritage. This does not allow you to take feats or gain any benefits that require a specific bantrid heritage.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "value": "Compendium.sf2e.heritages.Item.Bouncy Orb Bantrid"
+                    },
+                    {
+                        "value": "Compendium.sf2e.heritages.Item.Jeweled Orb Bantrid"
+                    },
+                    {
+                        "value": "Compendium.sf2e.heritages.Item.Magnetic Orb Bantrid"
+                    },
+                    {
+                        "value": "Compendium.sf2e.heritages.Item.Hollow Orb Bantrid"
+                    }
+                ],
+                "flag": "heritage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Heritage"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.heritage}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "bantrid"
+            ]
+        }
+    },
+    "type": "feat"
+}

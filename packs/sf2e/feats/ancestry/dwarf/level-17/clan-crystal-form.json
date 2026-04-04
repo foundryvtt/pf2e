@@ -1,0 +1,65 @@
+{
+    "_id": "UITOsbNoqJKS6eNu",
+    "folder": "QSDRemQlikZy78tQ",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Clan Crystal Form",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your clan crystal glows and expands, coating you in the ores found in the crust of the planet you were born nearest to.</p>\n<p>You can cast @UUID[Compendium.sf2e.spells.Item.Cairn Form] twice per day as a 6th-rank primal innate spell. You resemble the statue found on your clan crystal when you do so. While in cairn form, increase the damage die size of your clan crystal weapon by one step, and double your resistance to laser weapons and effects with the light trait.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:cairn-form",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:cairn-form",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:dwarf"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

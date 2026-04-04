@@ -1,0 +1,71 @@
+{
+    "_id": "M67HrFy6LGBfU9Jv",
+    "folder": "qfGGSsPstdtdXVL0",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Doom-Strengthened",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your relationship with death has progressed such that you are empowered when you feel it near. You can use the @UUID[Compendium.sf2e.actions.Item.Doomsayer's Litany] reaction as often as you like.</p>\n<p>In addition to its usual trigger, you can use Doomsayer's Litany whenever an ally's dying value increases. When you use the reaction, the +2 status bonus applies to any recovery checks or saving throw the ally attempts until the end of their next turn, instead of just the triggering recovery check.</p>\n<p>Whenever you use your Doomsayer's Litany reaction, you gain a status bonus equal to your @UUID[Compendium.sf2e.conditions.Item.Doomed] value or the doomed value of the triggering ally to attack rolls and saving throws until the end of your next turn.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Doomsayer Kasatha heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:doomsayers-litany"
+                ],
+                "property": "frequency-max",
+                "value": 1
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:doomsayers-litany"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kasatha"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,47 @@
+{
+    "_id": "z17jszMgX7gpRlwv",
+    "img": "icons/magic/control/debuff-chains-green.webp",
+    "name": "Effect: Defy Chains",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Defy Chains]</p>\n<p>You deal additional d6 damage to the origin.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "diceNumber": "ternary(gte(@target.level,18),5,4)",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "self:trait:fiend"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

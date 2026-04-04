@@ -1,0 +1,45 @@
+{
+    "_id": "f1K7ybfxZmt45rmz",
+    "folder": "4ZqJggiKiu3BZ0cz",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Lightning Wave Fonqugon",
+    "system": {
+        "ancestry": {
+            "name": "Fonqugon",
+            "slug": "fonqugon",
+            "uuid": "Compendium.sf2e.ancestries.Item.vlYBDZbj6zWBFR0b"
+        },
+        "description": {
+            "value": "<p>Rodnarth's oceans are generally considered to be utterly impassable. The oceans produce intense static at unpredictable intervals. The cause of this static is unknown but is thought to be related to the combative nature of a deep sea colossus. Even the most curious fonqugons are reluctant to explore the depths and discern the truth. Whatever the cause of the static, it produces immense, electrically charged tidal waves. While the waves themselves don't typically reach inland fonqon groves, the massive blasts of ball lightning rolling off the waves can travel many hundreds of miles.</p>\n<p>As a lightning wave fonqugon, the sudden shock to your system before your birth has made you quick to react and capable of withstanding shocks. You gain a +1 circumstance bonus to initiative rolls with Perception, and you gain electricity resistance equal to half your level (minimum 1).</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "electricity",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "check:statistic:base:perception"
+                ],
+                "selector": [
+                    "initiative"
+                ],
+                "slug": "scouting-bonus",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

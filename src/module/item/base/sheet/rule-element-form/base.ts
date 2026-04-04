@@ -365,8 +365,10 @@ function cleanPredicate(source: { predicate?: unknown }) {
     }
 }
 
-interface RuleElementFormSheetData<TSource extends RuleElementSource, TObject extends RuleElement | null>
-    extends Omit<RuleElementFormOptions<TSource, TObject>, "sheet"> {
+interface RuleElementFormSheetData<TSource extends RuleElementSource, TObject extends RuleElement | null> extends Omit<
+    RuleElementFormOptions<TSource, TObject>,
+    "sheet"
+> {
     item: ItemPF2e;
     label: string;
     /** A prefix for use in label-input/select pairs */

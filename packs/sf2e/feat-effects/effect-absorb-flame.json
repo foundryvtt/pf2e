@@ -1,0 +1,47 @@
+{
+    "_id": "qljNFYceOwaYUcR1",
+    "img": "icons/magic/fire/orb-vortex.webp",
+    "name": "Effect: Absorb Flame",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Absorb Flame]</p>\n<p>Your next Strike deals additional fire damage equal to half your level (rounded up).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "removeAfterRoll": true,
+                "selector": [
+                    "strike-damage"
+                ],
+                "value": "ceil(@actor.level/2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

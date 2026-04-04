@@ -1,0 +1,57 @@
+{
+    "_id": "OuyecSkppgvS8bHV",
+    "folder": "14NYrMjMXWfWRG8a",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Ancient Izalguun Engineering",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>As one of the izalguuns who created the advanced technology of Izalraan, you have a deep understanding of engineering practices. You become trained in Crafting. If you would automatically become trained in Crafting (from your background or class, for example), you instead become trained in another skill of your choice. You gain the @UUID[Compendium.sf2e.feats.Item.Electrical Engineer] skill feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Ancient Izalguun heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Electrical Engineer"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.crafting.rank",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "izalguun"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,64 @@
+{
+    "_id": "P0u6wmM11SfCB76d",
+    "folder": "s7pmZ4EPUQV4oV75",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Pharmacologically Impervious",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>A common way to try to stave off the Bleaching is to experiment with substances. As a result, each new generation of gnomes becomes more inured to toxic and hazardous materials. You gain poison resistance equal to half your level as well as a +1 circumstance bonus to Fortitude saves against diseases and poisons.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "poison",
+                "value": "max(floor(@actor.level/2),1)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gnome"
+            ]
+        }
+    },
+    "type": "feat"
+}

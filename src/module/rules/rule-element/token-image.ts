@@ -151,8 +151,7 @@ class TokenImageRuleElement extends RuleElement<TokenImageRuleSchema> {
 }
 
 interface TokenImageRuleElement
-    extends RuleElement<TokenImageRuleSchema>,
-        ModelPropsFromRESchema<TokenImageRuleSchema> {}
+    extends RuleElement<TokenImageRuleSchema>, ModelPropsFromRESchema<TokenImageRuleSchema> {}
 
 type TokenImageRuleSchema = RuleElementSchema & {
     /** An image or video path */

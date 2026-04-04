@@ -67,8 +67,7 @@ class MartialProficiencyRuleElement extends RuleElement<MartialProficiencySchema
 }
 
 interface MartialProficiencyRuleElement
-    extends RuleElement<MartialProficiencySchema>,
-        ModelPropsFromRESchema<MartialProficiencySchema> {
+    extends RuleElement<MartialProficiencySchema>, ModelPropsFromRESchema<MartialProficiencySchema> {
     get actor(): CharacterPF2e;
 }
 

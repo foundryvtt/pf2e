@@ -1,0 +1,47 @@
+{
+    "_id": "xbwpV7b2bNQkdPs3",
+    "folder": "qtgqiJJse5cdCajq",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Worker Formian",
+    "system": {
+        "ancestry": {
+            "name": "Formian",
+            "slug": "formian",
+            "uuid": "Compendium.sf2e.ancestries.Item.yOnW818fHTfnwg2k"
+        },
+        "description": {
+            "value": "<p>You're a worker formian, the most common kind of formian found in any settlement. Responsible for hauling food and construction materials, delivering messages, assisting builders, carrying fallen soldiers, and countless other tasks, workers form the backbone of formian society.</p>\n<p>As a worker formian, you become trained in Athletics. If you would automatically become trained in Athletics (such as from your background or class, for example), you instead become trained in another skill of your choice. Additionally, your Speed is 30 feet, and you can carry an additional 5 Bulk beyond your normal limits before becoming encumbered or overburdened.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.athletics.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "land-speed"
+                ],
+                "value": 5
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "inventory.bulk.encumberedAfterAddend",
+                "value": 5
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

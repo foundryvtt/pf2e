@@ -1,0 +1,71 @@
+{
+    "_id": "HnM11MrcZbiomlKY",
+    "folder": "RCHC3kL4BRl87W8Q",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Caustic Biotoxins",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your body excretes abrasive chemicals in your slime when you're threatened. When you use @UUID[Compendium.sf2e.ancestry-features.Item.Slime Squirt] or @UUID[Compendium.sf2e.feats.Item.Slime Spray], creatures in the area take @Damage[floor(@item.level/3)d4[persistent,acid]] damage with a basic @Check[reflex|against:class-spell] saving throw against the higher of your class DC or spell DC. At 12th level and every three levels thereafter, the persistent acid damage increases by 1d4.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:slime-squirt"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:slime-spray"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "osharu"
+            ]
+        }
+    },
+    "type": "feat"
+}

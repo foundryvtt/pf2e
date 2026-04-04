@@ -157,8 +157,9 @@ class SpellcastingCreateAndEditDialog extends appv1.api.FormApplication<Spellcas
     }
 }
 
-interface SpellcastingCreateAndEditDialogSheetData
-    extends appv1.api.FormApplicationData<SpellcastingEntryPF2e<CreaturePF2e>> {
+interface SpellcastingCreateAndEditDialogSheetData extends appv1.api.FormApplicationData<
+    SpellcastingEntryPF2e<CreaturePF2e>
+> {
     actor: CreaturePF2e;
     system: SpellcastingEntrySystemSource;
     magicTraditions: typeof CONFIG.PF2E.magicTraditions;

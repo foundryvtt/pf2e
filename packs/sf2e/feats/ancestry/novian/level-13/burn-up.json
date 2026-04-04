@@ -1,0 +1,61 @@
+{
+    "_id": "9CIKxLVRVKWnnn5o",
+    "folder": "Zegod8vCpCvFks6I",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Burn Up",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You vent copious amounts of thermal energy as you fly, burning anyone in your path. Whenever you use Shooting Star, you can choose to vent thermal energy. If you do, you deal @Damage[(ceil(@actor.level/2)-4)d6[fire]] damage to all creatures in the spaces you move through, with a @Check[reflex|against:class-spell|basic] save against the higher of your class DC or spell DC. On a critical failure, a creature additionally catches fire, taking @Damage[ternary(gte(@actor.level,17),2,1)d4[persistent,fire]] damage.</p>\n<p>At 15th level and every 2 levels thereafter, the fire damage increases by 1d6, and at 17th level, the persistent fire damage increases by 1d4.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Shooting Star"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:shooting-star"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "novian"
+            ]
+        }
+    },
+    "type": "feat"
+}

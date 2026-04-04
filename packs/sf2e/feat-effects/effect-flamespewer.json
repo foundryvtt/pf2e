@@ -1,0 +1,92 @@
+{
+    "_id": "ohgzmXpRpt3meJX6",
+    "img": "icons/magic/fire/blast-jet-stream-embers-red.webp",
+    "name": "Effect: Flamespewer",
+    "system": {
+        "description": {
+            "value": "<p>During your daily preparations, you can tinker with one tech weapon, using an upgrade slot to apply a chem tank to the weapon until your next daily preparations. The weapon deals fire damage and gains the boost 1d6 and critical (flame) traits. If it already dealt fire damage, it gains the boost 1d8 trait instead. Each time you boost the weapon, it expends 1 chem.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:trait:tech"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "fromEquipment": false,
+                "itemId": "{item|flags.system.rulesSelections.weapon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "item:damage:type:fire"
+                    }
+                ],
+                "property": "traits",
+                "value": "boost-1d6"
+            },
+            {
+                "fromEquipment": false,
+                "itemId": "{item|flags.system.rulesSelections.weapon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:damage:type:fire"
+                ],
+                "property": "traits",
+                "value": "boost-1d8"
+            },
+            {
+                "fromEquipment": false,
+                "itemId": "{item|flags.system.rulesSelections.weapon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "critical-flame"
+            },
+            {
+                "fromEquipment": false,
+                "itemId": "{item|flags.system.rulesSelections.weapon}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "value": "fire"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

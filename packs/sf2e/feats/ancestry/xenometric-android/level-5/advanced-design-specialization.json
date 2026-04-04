@@ -1,0 +1,59 @@
+{
+    "_id": "OhHpJ4GsW1uxFYeM",
+    "folder": "EeNqAQ7tDdHoclFm",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Advanced Design Specialization",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're able to unlock dormant abilities in your design. Choose an android heritage. You gain all of its mechanical effects. You count as having that heritage for the purposes of qualifying for feats.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "filter": [
+                        "item:ancestry:android"
+                    ],
+                    "itemType": "heritage"
+                },
+                "flag": "androidHeritage",
+                "key": "ChoiceSet",
+                "prompt": "Select an android heritage"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.sf2e.rulesSelections.androidHeritage}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "xenometric-android"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,57 @@
+{
+    "_id": "jvSw10EnRK2vCF65",
+    "folder": "EymjJvVlKKps8IZ5",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Sovyrian Elf",
+    "system": {
+        "ancestry": {
+            "name": "Elf",
+            "slug": "elf",
+            "uuid": "Compendium.sf2e.ancestries.Item.klv5A13hq2juAD2f"
+        },
+        "description": {
+            "value": "<p>Sovyrian is the ancestral birthplace of all elves, and it's your home. You might trace your lineage back hundreds of generations of elves, or your family might have returned to Castrovel only recently as refugees of the Gap. You've honed your talent for untangling magical mysteries, and your sixth sense for missing links also helps you in spotting hidden agendas in business and politics.</p>\n<p>You gain a +2 circumstance bonus to checks to @UUID[Compendium.sf2e.actions.Item.Identify Magic] and @UUID[Compendium.sf2e.actions.Item.Decipher Writing] and a +1 circumstance bonus to Perception checks made to Sense Motive. When you attempt a check to [[/act sense-motive]], the Perception DC doesn't increase when your target is concealing their features or otherwise hidden from you. In addition, you learn the Castrovelian language.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "sense-motive"
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "Identify Magic or Decipher Writing",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:identify-magic",
+                            "action:decipher-writing"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "skill-check"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,99 @@
+{
+    "_id": "aF3lWP8mPiX8NeVZ",
+    "folder": "BPHsR3KIQSMUTGTS",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Bioluminescence (Shirren)",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can induce a chemical reaction that allows a part of your body to glow. You must designate what part of your body glows when you take this feat.</p>\n<p>You begin to glow with bright light in a 20-foot radius and dim light for the next 20 feet. While you're glowing, you can't be undetected and, you take a –4 penalty to Stealth checks to [[/act hide]] and [[/act sneak]]. You can Dismiss the glow as a free action. At 9th level, you shed bright light in a 40-foot radius and dim light for the next 40 feet.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "bioluminescence-active"
+                ],
+                "value": {
+                    "alpha": 0.15,
+                    "bright": "@actor.flags.sf2e.shirren.bioluminescence.bright",
+                    "dim": "@actor.flags.sf2e.shirren.bioluminescence.dim"
+                }
+            },
+            {
+                "key": "RollOption",
+                "option": "bioluminescence-active",
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.sf2e.shirren.bioluminescence.dim",
+                "value": 8
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.sf2e.shirren.bioluminescence.bright",
+                "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.sf2e.shirren.bioluminescence.dim",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            9
+                        ]
+                    }
+                ],
+                "value": 16
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.sf2e.shirren.bioluminescence.bright",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            9
+                        ]
+                    }
+                ],
+                "value": 8
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "shirren"
+            ]
+        }
+    },
+    "type": "feat"
+}

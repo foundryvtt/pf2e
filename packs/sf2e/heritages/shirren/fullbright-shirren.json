@@ -1,0 +1,45 @@
+{
+    "_id": "UYgqxqmwj2sqkZRt",
+    "folder": "6GBQ9SXd2LXiTpeL",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Fullbright Shirren",
+    "system": {
+        "ancestry": {
+            "name": "Shirren",
+            "slug": "shirren",
+            "uuid": "Compendium.sf2e.ancestries.Item.FjBJNHdiWAvu1lV7"
+        },
+        "description": {
+            "value": "<p>You were raised in one of the shirren colonies, and as a result, you're used to the sun never setting on your work. Having to manually retreat into the shadowed caverns to rest has made you accustomed to working harder on less sleep.</p>\n<p>You only have to rest for 6 hours to gain the full benefit of an 8-hour rest. In addition, you're resistant to the effects of fatigue; you gain a +1 circumstance bonus to saving throws against effects that would make you @UUID[Compendium.sf2e.conditions.Item.Drained], @UUID[Compendium.sf2e.conditions.Item.Enfeebled], or @UUID[Compendium.sf2e.conditions.Item.Fatigued].</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:drained",
+                            "inflicts:enfeebled",
+                            "inflicts:fatigued"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,87 @@
+{
+    "_id": "0VOzclP73W0txuvF",
+    "folder": "MyG6Mg5pwihDfpy2",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Ivy Playhouse Strike",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've spent so many hours at the Ivy Playhouse or sparring with the Street Performers and Actors' Guild that you've picked up some stage combat techniques. In a fight, you can apply these approaches to make an attack less harmful but more confounding to your foes. Make a melee Strike. If you hit, you take a circumstance penalty to damage equal to the number of weapon damage dice, and the damage gains the nonlethal trait. However, the target is perplexed by the theatricality of your attack and becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the end of your next turn.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Dandy Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "ivy-playhouse-strike",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "ivy-playhouse-strike",
+                    "item:melee"
+                ],
+                "selector": [
+                    "melee-strike-damage"
+                ],
+                "type": "circumstance",
+                "value": "-1*(@weapon.system.damage.dice)"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "ivy-playhouse-strike",
+                    "item:melee"
+                ],
+                "property": "weapon-traits",
+                "value": "nonlethal"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "ivy-playhouse-strike",
+                    "item:melee"
+                ],
+                "selector": [
+                    "melee-strike-damage"
+                ],
+                "text": "The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the end of your next turn.",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "flourish"
+            ]
+        }
+    },
+    "type": "feat"
+}

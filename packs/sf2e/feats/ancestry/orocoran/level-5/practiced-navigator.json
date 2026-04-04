@@ -1,0 +1,62 @@
+{
+    "_id": "yMsxjscW9dGYWwUY",
+    "folder": "hsN9JehijxNVy47T",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Practiced Navigator",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've traveled to hundreds of places scattered across dozens of worlds and glimpsed wonders both beautiful and strange. When you roll a success on a Piloting check to Navigate or Plot Course, or on a Survival check to Sense Direction, you get a critical success instead. In addition, you gain a +10-foot circumstance bonus to Speed during overland travel.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:navigate",
+                            "action:plot-course",
+                            "action:sense-direction"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "piloting",
+                    "survival"
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "orocoran"
+            ]
+        }
+    },
+    "type": "feat"
+}

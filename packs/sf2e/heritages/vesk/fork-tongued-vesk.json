@@ -1,0 +1,70 @@
+{
+    "_id": "OR3hGCWMBnmthHvL",
+    "folder": "QZmNJ1IWcw3aM6Ow",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Fork-tongued Vesk",
+    "system": {
+        "ancestry": {
+            "name": "Vesk",
+            "slug": "vesk",
+            "uuid": "Compendium.sf2e.ancestries.Item.06FBb4UDg64S5AYI"
+        },
+        "description": {
+            "value": "<p>Fork-tongued vesk of the Gojori swamps turn their saliva into potent venom by ingesting a toxic cocktail of swamp water mixed with poisonous plants and insects. Traveling to new worlds has further developed this already lethal venom by broadening the scope of new ingredients added to their dangerous diets. No two forked-tongued vesk have exactly the same saliva composition.</p>\n<p>You have a +1 circumstance bonus to saving throws against disease and poison. You're immune to the poison damage caused by the jaws attack of fork-tongued vesk. You gain a venomous jaws unarmed attack that deals 1d4 poison damage and has the grapple and unarmed traits. On a critical hit, the target takes persistent poison damage equal to the number of weapon damage dice. This attack doesn't have a weapon group or critical specialization effect.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "value": 1
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "poison",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "img": "icons/magic/water/tendrils-ice-growth.webp",
+                "key": "Strike",
+                "label": "SF2E.SpecificRule.Vesk.ForkTongued.VenomousJaws",
+                "slug": "venomous-jaws",
+                "traits": [
+                    "grapple",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "SF2E.SpecificRule.Vesk.ForkTongued.CriticalNote",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

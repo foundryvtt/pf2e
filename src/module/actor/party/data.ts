@@ -77,8 +77,7 @@ class PartySystemData extends ActorSystemModel<PartyPF2e, PartySystemSchema> {
 }
 
 interface PartySystemData
-    extends ActorSystemModel<PartyPF2e, PartySystemSchema>,
-        ModelPropsFromSchema<PartySystemSchema> {
+    extends ActorSystemModel<PartyPF2e, PartySystemSchema>, ModelPropsFromSchema<PartySystemSchema> {
     attributes: PartyAttributes;
     details: PartyDetails;
     movement: PartyMovementData;

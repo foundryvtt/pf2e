@@ -174,8 +174,7 @@ class HazardSystemData extends ActorSystemModel<HazardPF2e, HazardSystemSchema> 
 }
 
 interface HazardSystemData
-    extends ActorSystemModel<HazardPF2e, HazardSystemSchema>,
-        fields.ModelPropsFromSchema<HazardSystemSchema> {
+    extends ActorSystemModel<HazardPF2e, HazardSystemSchema>, fields.ModelPropsFromSchema<HazardSystemSchema> {
     traits: HazardTraits;
     attributes: HazardAttributes;
     details: HazardDetails;

@@ -1,0 +1,59 @@
+{
+    "_id": "HH5aan2VrfP78DZs",
+    "folder": "CwsMmmsGmeDuzwEv",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Forgotten Heritage",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>The distant memories of your heritage, once lost and long forgotten, begin to manifest physically. You gain a heritage from your ancestry in addition to this versatile heritage. If an ability from this new heritage conflicts with an ability from your versatile heritage, you choose which of the conflicting abilities your character has, as normal. You count as having that heritage for the purposes of qualifying for feats.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "filter": [
+                        "item:ancestry:{actor|system.details.ancestry.trait}"
+                    ],
+                    "itemType": "heritage"
+                },
+                "flag": "heritage",
+                "key": "ChoiceSet",
+                "prompt": "Select a heritage"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.sf2e.rulesSelections.heritage}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "gap-touched"
+            ]
+        }
+    },
+    "type": "feat"
+}

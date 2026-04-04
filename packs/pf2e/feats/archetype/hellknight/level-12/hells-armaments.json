@@ -1,0 +1,51 @@
+{
+    "_id": "J5s7NeFHYuFSdhrX",
+    "folder": "meMFFdAduCrksghE",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Hell's Armaments",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've trained relentlessly with your order's weapon to maximize their deadliness. When you get a critical success on a Strike with one of your order's favored weapons, the target must attempt a @Check[fortitude|against:class] save against your class DC. If you have access to that weapon's critical specialization effect, you must choose whether to use that effect or this one.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes a –10-foot circumstance penalty to its Speeds until the end of your next turn.</p>\n<p><strong>Failure</strong> As success, and the target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of your next turn.</p>\n<p><strong>Critical Failure</strong> As success, and the target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} until the end of your next turn.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Hellknight Preferment"
+                },
+                {
+                    "value": "expert in at least one of your order's favored weapons"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.system.hellknightArchetype.featCount",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

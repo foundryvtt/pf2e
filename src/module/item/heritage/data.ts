@@ -42,7 +42,8 @@ class HeritageSystemData extends ItemSystemModel<HeritagePF2e, HeritageSystemSch
 }
 
 interface HeritageSystemData
-    extends ItemSystemModel<HeritagePF2e, HeritageSystemSchema>,
+    extends
+        ItemSystemModel<HeritagePF2e, HeritageSystemSchema>,
         Omit<fields.ModelPropsFromSchema<HeritageSystemSchema>, "description"> {
     level?: never;
 }

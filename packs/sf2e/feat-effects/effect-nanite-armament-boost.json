@@ -1,0 +1,82 @@
+{
+    "_id": "WUXWS9SkVMDS1ri2",
+    "img": "icons/magic/lightning/orb-ball-blue.webp",
+    "name": "Effect: Nanite Armament Boost",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Nanite Armament Boost]</p>\n<p>The weapon deals electricity damage, and it gains the boost trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "selectors": [
+                    "{item|flags.sf2e.rulesSelections.weapon}-damage"
+                ],
+                "value": "electricity"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|flags.sf2e.rulesSelections.weapon}",
+                    {
+                        "not": "feat:nanite-armament-overcharge"
+                    }
+                ],
+                "property": "traits",
+                "value": "boost-1d4"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|flags.sf2e.rulesSelections.weapon}",
+                    "feat:nanite-armament-overcharge"
+                ],
+                "property": "traits",
+                "value": "boost-1d8"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

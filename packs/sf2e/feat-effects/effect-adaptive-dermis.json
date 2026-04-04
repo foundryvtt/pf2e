@@ -1,0 +1,78 @@
+{
+    "_id": "iMh34rzRpLOoKNbL",
+    "img": "icons/magic/defensive/armor-stone-skin.webp",
+    "name": "Effect: Adaptive Dermis",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Adaptive Dermis]</p>\n<p>You gain resistance 5 to the chosen damage type.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "value": "void"
+                    }
+                ],
+                "flag": "damageType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.system.rulesSelections.damageType}",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

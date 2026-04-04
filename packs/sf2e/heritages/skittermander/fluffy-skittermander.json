@@ -1,0 +1,49 @@
+{
+    "_id": "itVWSleeetAd1BWB",
+    "folder": "Oaf4JXgHYgudsSrK",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Fluffy Skittermander",
+    "system": {
+        "ancestry": {
+            "name": "Skittermander",
+            "slug": "skittermander",
+            "uuid": "Compendium.sf2e.ancestries.Item.0qcXAQo7iZkZXNO9"
+        },
+        "description": {
+            "value": "<p>Your long, fast-growing fur can be groomed to cool or insulate your body.</p>\n<p>Your winter coat gives you cold resistance equal to half your level (minimum 1), and you treat environmental cold effects as if they were one step less extreme (incredible cold becomes extreme, extreme cold becomes severe, and so on).</p>\n<p>Your summer coat gives you fire resistance equal to half your level (minimum 1), and you treat all environmental heat effects as if they were one step less extreme.</p>\n<p>You can shed or grow a new coat as part of your daily preparations.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "fluffy-coat",
+                "suboptions": [
+                    {
+                        "label": "SF2E.SpecificRule.Skittermander.Fluffy.WinterCoat",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Skittermander.Fluffy.SummerCoat",
+                        "value": "fire"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.system.rulesSelections.fluffyCoat}",
+                "value": "max(floor(@actor.level/2),1)"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,91 @@
+{
+    "_id": "x0TfqgVnwUW3Hxdv",
+    "folder": "C2DWOiWQDJIgtWjq",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Tectonic Psychic",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your psychic connection to the environment stretches to the ground below and manipulates lava as though it were alive. You gain @UUID[Compendium.sf2e.spells.Item.Wall of Fire] and <em>Uncanny Eruption</em> as 7th-rank primal innate spells. You can cast each of these primal innate spells once per day.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Sapping Psychic"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:wall-of-fire",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:wall-of-fire",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:lashunta"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:uncanny-eruption",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:uncanny-eruption",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:lashunta"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lashunta"
+            ]
+        }
+    },
+    "type": "feat"
+}

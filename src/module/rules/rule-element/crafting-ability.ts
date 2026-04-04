@@ -143,8 +143,7 @@ class CraftingAbilityRuleElement extends RuleElement<CraftingAbilityRuleSchema> 
 }
 
 interface CraftingAbilityRuleElement
-    extends RuleElement<CraftingAbilityRuleSchema>,
-        ModelPropsFromRESchema<CraftingAbilityRuleSchema> {
+    extends RuleElement<CraftingAbilityRuleSchema>, ModelPropsFromRESchema<CraftingAbilityRuleSchema> {
     readonly parent: ItemPF2e<CharacterPF2e>;
     slug: string;
 

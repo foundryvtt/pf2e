@@ -104,7 +104,8 @@ class EffectSystemData extends ItemSystemModel<EffectPF2e, EffectSystemSchema> {
 }
 
 interface EffectSystemData
-    extends ItemSystemModel<EffectPF2e, EffectSystemSchema>,
+    extends
+        ItemSystemModel<EffectPF2e, EffectSystemSchema>,
         Omit<ModelPropsFromSchema<EffectSystemSchema>, "description" | "badge"> {
     expired: boolean;
     badge: EffectBadge | null;

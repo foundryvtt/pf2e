@@ -1,0 +1,70 @@
+{
+    "_id": "Tb3HdcrQC7mXcVFT",
+    "folder": "79DeA15ewTbduGYU",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Jungle Adaptation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're part of a colony that builds inside massive trees rather than below the ground. You become trained in Nature and Survival. If you would automatically become trained in Nature or Survival (such as from your background or class, for example), you instead become trained in another skill of your choice. You gain a climb Speed of 5 feet.</p><hr /><p><strong>Special</strong> If you take the @UUID[Compendium.sf2e.feats.Item.Climbing Specialist] ancestry feat, you gain a climb Speed of 30 feet instead of 20 feet.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "slug": "jungle-adaptation-climb-speed",
+                "value": 5
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.Skill.Survival",
+                        "value": "survival"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "formian"
+            ]
+        }
+    },
+    "type": "feat"
+}

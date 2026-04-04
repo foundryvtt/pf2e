@@ -1,0 +1,65 @@
+{
+    "_id": "8DujoAaRZhbzgakQ",
+    "folder": "30HYsSE058hZBlNE",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Well-Connected",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've studied the dense and interconnected network of kasathan Great Families. You know all their major achievements, and you can use this knowledge either to flatter or to find the right person for a job, depending on what the situation calls for.</p>\n<p>You become trained in Society and gain the @UUID[Compendium.sf2e.feats.Item.Streetwise] skill feat. In addition, when you're in a settlement with a significant kasatha population, you can request help or expertise by meeting with a member of a Great Family; when you do so, you gain a +2 status bonus to Society checks to @UUID[Compendium.sf2e.actions.Item.Gather Information].</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.society.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Streetwise"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:gather-information",
+                    "great-family"
+                ],
+                "selector": [
+                    "society"
+                ],
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "kasatha"
+            ]
+        }
+    },
+    "type": "feat"
+}

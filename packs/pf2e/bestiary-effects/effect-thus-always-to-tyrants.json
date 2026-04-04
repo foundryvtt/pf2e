@@ -1,0 +1,61 @@
+{
+    "_id": "MMTeeCVAr6rDgYtI",
+    "img": "icons/magic/holy/chalice-glowing-gold.webp",
+    "name": "Effect: Thus Always to Tyrants",
+    "system": {
+        "description": {
+            "value": "<p><strong>Ally</strong>: You gain a +1 status bonus to attack rolls.</p>\n<p><strong>Enemy</strong>: You take a –1 penalty to attack rolls.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.NPCAbility.FangwoodSentinel.ThusAlwaysToTyrants.Ally",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.FangwoodSentinel.ThusAlwaysToTyrants.Enemy",
+                        "value": -1
+                    }
+                ],
+                "flag": "targetType",
+                "key": "ChoiceSet",
+                "prompt": "Select a target"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack-roll"
+                ],
+                "type": "status",
+                "value": "{item|flags.system.rulesSelections.targetType}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -74,6 +74,68 @@
                 "key": "BaseSpeed",
                 "selector": "fly",
                 "value": "20"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.system.standardizedAncestryFeats",
+                "priority": 10,
+                "value": {
+                    "ancestralSkills": {
+                        "skillOne": "crafting",
+                        "skillTwo": "medicine"
+                    },
+                    "ancestralUnarmedAttack": {
+                        "choices": [
+                            {
+                                "label": "PF2E.BattleForm.Attack.Tentacle",
+                                "predicate": [
+                                    {
+                                        "not": "ancestral-unarmed-attack:tentacle"
+                                    }
+                                ],
+                                "value": "tentacle"
+                            }
+                        ]
+                    },
+                    "swimmingSpecialist": {
+                        "speed": 20
+                    }
+                }
+            },
+            {
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/creatures/tentacles/tentacles-octopus-black-pink.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tentacle",
+                "predicate": [
+                    "ancestral-unarmed-attack:tentacle"
+                ],
+                "slug": "tentacle",
+                "traits": [
+                    "finesse",
+                    "reach",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    "item:id:{item|id}"
+                ]
             }
         ],
         "size": "med",

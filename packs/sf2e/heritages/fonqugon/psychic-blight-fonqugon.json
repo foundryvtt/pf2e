@@ -1,0 +1,44 @@
+{
+    "_id": "EIuXey5YwW8JhXro",
+    "folder": "4ZqJggiKiu3BZ0cz",
+    "img": "systems/sf2e/icons/default-icons/heritage.svg",
+    "name": "Psychic Blight Fonqugon",
+    "system": {
+        "ancestry": {
+            "name": "Fonqugon",
+            "slug": "fonqugon",
+            "uuid": "Compendium.sf2e.ancestries.Item.vlYBDZbj6zWBFR0b"
+        },
+        "description": {
+            "value": "<p>Rodnarth's flora, like the flora on most planets, is generally mindless, but Rodnarth's swamps are occasionally plagued by a parasitic virus that affects its plant life, growing into brain-like tumors that animate all manner of plants and cause them to run amok. The blight mutates rapidly and can adapt to infest fonqugons, driving entire regions into a psychic haze. The nature of this phenomenon is, of course, unpredictable: some afflicted fonqugon settlements are driven to violence, others become so passive they die of starvation or exposure, and others turn to cannibalism. A fonqon tree that manages to fend off a psychic blight infection typically ceases reproducing for many years as it purges the virus from its system, but any fonqugons growing beneath the tree at the time of the exposure might be born as psychic blight fonqugons.</p>\n<p>As a psychic blight fonqugon, your mind has adapted to withstand mental intrusion. You gain a +1 circumstance bonus to saving throws against mental effects, and you gain mental resistance equal to half your level (minimum 1).</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:mental"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "Resistance",
+                "type": "mental",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

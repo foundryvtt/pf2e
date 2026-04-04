@@ -1,0 +1,48 @@
+{
+    "_id": "P5r9ZR5tOvzQnTyb",
+    "img": "icons/creatures/slimes/slime-face-hollow-green.webp",
+    "name": "Effect: Become Ooze",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.actions.Item.Become Ooze]</p>\n<p>You have resistance equal to half your level to slashing and piercing damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "slashing",
+                "value": "max(floor(@actor.level/2),1)"
+            },
+            {
+                "key": "Resistance",
+                "type": "piercing",
+                "value": "max(floor(@actor.level/2),1)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

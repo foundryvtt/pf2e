@@ -1,0 +1,58 @@
+{
+    "_id": "BLGfR2qmVYSy1NLt",
+    "folder": "QK4Sedhsygt5dHEa",
+    "img": "icons/skills/targeting/target-strike-triple-blue.webp",
+    "name": "Notched Ears",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
+        "description": {
+            "value": "<p>Your ears are feathery and notched for finely tuned detection of sound and changes in pressure, often surprising those who thought they were hiding themselves or their machinations. You gain a +2 circumstance bonus to your Perception checks to [[/act seek]] or for initiative rolls when opposed by hidden or undetected creatures, or to [[/act sense-motive]] to determine if a creature is verbally Lying. This benefit doesn't apply if you can't hear, or if the other creatures involved are incapable of making sound (for example, if it's affected by a @UUID[Compendium.sf2e.spells.Item.Silence] spell).</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:seek",
+                    {
+                        "nor": [
+                            "self:condition:deafened",
+                            "target:effect:silence"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

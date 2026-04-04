@@ -1,0 +1,78 @@
+{
+    "_id": "WYdQ9BcYXGILgVOp",
+    "folder": "VFQ4pYaZee6zfdmE",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Retrotech",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You might not remember your past, but some part of you has an innate understanding of the basic layout and user interfaces of ancient pre-Gap technology. You become trained in your choice of Computers or Crafting. If you're already trained in both, you instead become trained in a Lore skill related to technology. You gain a +2 circumstance bonus to @UUID[Compendium.sf2e.actions.Item.Recall Knowledge] checks using Computers, Crafting, or Piloting to identify ancient technology designed before the Gap.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Computers",
+                        "value": "computers"
+                    },
+                    {
+                        "label": "PF2E.Skill.Crafting",
+                        "value": "crafting"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "before-the-gap"
+                ],
+                "selector": [
+                    "computers",
+                    "crafting",
+                    "piloting"
+                ],
+                "value": 2
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "bantrid"
+            ]
+        }
+    },
+    "type": "feat"
+}
