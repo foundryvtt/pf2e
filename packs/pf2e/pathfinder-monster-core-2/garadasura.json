@@ -424,7 +424,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>50 feet. A garadasura exudes a 50-foot aura whenever it remains motionless for at least 1 round. If the garadasura has the holy trait, all allied creatures within the area gain a +1 status bonus to AC and saving throws. If the garadasura has the unholy trait, all unallied creatures that enter this area must succeed at a @Check[will|dc:30] save or spend their next action to move toward the garadasura's location. If the garadasura moves, the efect ends for all currently affected creatures.</p>"
+                    "value": "<p>50 feet. A garadasura exudes a 50-foot aura whenever it remains motionless for at least 1 round. If the garadasura has the holy trait, all allied creatures within the area gain a +1 status bonus to AC and saving throws. If the garadasura has the unholy trait, all unallied creatures that enter this area must succeed at a @Check[will|dc:30|options:area-effect,forced-movement] save or spend their next action to move toward the garadasura's location. If the garadasura moves, the efect ends for all currently affected creatures.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -433,13 +433,11 @@
                 },
                 "rules": [
                     {
-                        "effects": [],
                         "key": "Aura",
                         "radius": 50,
                         "traits": [
                             "divine",
-                            "mental",
-                            "unholy"
+                            "mental"
                         ]
                     }
                 ],

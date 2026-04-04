@@ -125,7 +125,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet. Creatures that start their turn in the spore tyrannosaurus's aura are in danger of inhaling the toxic spores that it constantly exudes. Creatures without the fungus or plant trait take @Damage[4d6[poison]] damage (@Check[fortitude|dc:30|basic] save) upon entering the aura or starting their turn in the aura. Those who fail are also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} by the spores.</p>"
+                    "value": "<p>30 feet. Creatures that start their turn in the spore tyrannosaurus's aura are in danger of inhaling the toxic spores that it constantly exudes. Creatures without the fungus or plant trait take @Damage[4d6[poison]|options:area-damage] damage (@Check[fortitude|dc:30|basic|options:area-effect,inflicts:sickened] save) upon entering the aura or starting their turn in the aura. Those who fail are also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} by the spores.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -135,7 +135,11 @@
                 "rules": [
                     {
                         "key": "Aura",
-                        "radius": 30
+                        "radius": 30,
+                        "traits": [
+                            "fungus",
+                            "primal"
+                        ]
                     }
                 ],
                 "slug": null,

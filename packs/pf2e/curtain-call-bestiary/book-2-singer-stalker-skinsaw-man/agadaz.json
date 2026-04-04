@@ -524,7 +524,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet. A feeling of recklessness surrounds a gambling devil. When a non-fiend creature enters the aura or begins its turn in the aura, it must attempt a @Check[will|dc:21] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Risk Aura for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The next time the creature rolls a d20, it must roll twice. If either roll is a natural 20, the creature uses that result; otherwise, it must take the lower of the two results.</p>\n<p><strong>Critical Failure</strong> As failure, but applies to all of the creature's d20 rolls as long as it remains in the aura.</p>"
+                    "value": "<p>30 feet. A feeling of recklessness surrounds a gambling devil. When a non-fiend creature enters the aura or begins its turn in the aura, it must attempt a @Check[will|dc:21|options:area-effect] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Risk Aura for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The next time the creature rolls a d20, it must roll twice. If either roll is a natural 20, the creature uses that result; otherwise, it must take the lower of the two results.</p>\n<p><strong>Critical Failure</strong> As failure, but applies to all of the creature's d20 rolls as long as it remains in the aura.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -534,7 +534,12 @@
                 "rules": [
                     {
                         "key": "Aura",
-                        "radius": 30
+                        "radius": 30,
+                        "traits": [
+                            "divine",
+                            "mental",
+                            "misfortune"
+                        ]
                     }
                 ],
                 "slug": null,
