@@ -55,14 +55,20 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElement, ItemAlterat
                 mode: this.mode,
                 itemType: item.type,
                 value: (this.value = this.parent.resolveValue(this.value, fallbackValue)),
+                ...(this.property === "damage-dice-faces"
+                    ? {
+                          overrideAppliesFacesUpgrade:
+                              (this.parent as RuleElement & { overrideAppliesFacesUpgrade?: boolean })
+                                  .overrideAppliesFacesUpgrade ?? true,
+                      }
+                    : {}),
             },
         });
     }
 }
 
 interface ItemAlteration
-    extends
-        foundry.abstract.DataModel<RuleElement, ItemAlterationSchema>,
+    extends foundry.abstract.DataModel<RuleElement, ItemAlterationSchema>,
         fields.ModelPropsFromSchema<ItemAlterationSchema> {}
 
 type ItemAlterationSchema = {

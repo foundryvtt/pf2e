@@ -139,7 +139,14 @@ class RuleElementForm<
             form: await this.#getFormHelpers(mergedRule),
             autogenerate,
             rootId: this.sheet.id,
-            hiddenFields: ["ignored", "requiresEquipped", "requiresInvestment", "removeUponCreate", "battleForm"],
+            hiddenFields: [
+                "ignored",
+                "requiresEquipped",
+                "requiresInvestment",
+                "removeUponCreate",
+                "battleForm",
+                "overrideAppliesFacesUpgrade",
+            ],
             omittedFields: ["key", "priority", "spinoff"],
             validationFailures,
         };
@@ -365,10 +372,8 @@ function cleanPredicate(source: { predicate?: unknown }) {
     }
 }
 
-interface RuleElementFormSheetData<TSource extends RuleElementSource, TObject extends RuleElement | null> extends Omit<
-    RuleElementFormOptions<TSource, TObject>,
-    "sheet"
-> {
+interface RuleElementFormSheetData<TSource extends RuleElementSource, TObject extends RuleElement | null>
+    extends Omit<RuleElementFormOptions<TSource, TObject>, "sheet"> {
     item: ItemPF2e;
     label: string;
     /** A prefix for use in label-input/select pairs */

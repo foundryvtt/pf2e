@@ -312,6 +312,11 @@ const ITEM_ALTERATION_HANDLERS = {
                 choices: () => DAMAGE_DICE_FACES,
                 initial: null,
             } as const),
+            overrideAppliesFacesUpgrade: new fields.BooleanField({
+                required: false,
+                nullable: false,
+                initial: true,
+            }),
         },
         validate: (data) => {
             const hasBasicStructure = R.isPlainObject(data) && "mode" in data && "value" in data;
@@ -342,14 +347,18 @@ const ITEM_ALTERATION_HANDLERS = {
 
             const item = data.item;
             const mode = data.alteration.mode;
-            if (!item.system.damage.die) return;
-            if (mode === "upgrade" && !item.flags[SYSTEM_ID].damageFacesUpgraded) {
-                item.system.damage.die = nextDamageDieSize({ upgrade: item.system.damage.die });
+            const die = item.system.damage.die;
+            if (mode === "upgrade" && !item.flags[SYSTEM_ID].damageFacesUpgraded && die) {
+                item.system.damage.die = nextDamageDieSize({ upgrade: die });
                 item.flags[SYSTEM_ID].damageFacesUpgraded = true;
-            } else if (mode === "downgrade") {
-                item.system.damage.die = nextDamageDieSize({ downgrade: item.system.damage.die });
+            } else if (mode === "downgrade" && die) {
+                item.system.damage.die = nextDamageDieSize({ downgrade: die });
             } else if (mode === "override" && typeof data.alteration.value === "number") {
-                if (data.alteration.value > Number(item.system.damage.die.replace("d", ""))) {
+                if (
+                    data.alteration.overrideAppliesFacesUpgrade &&
+                    die &&
+                    data.alteration.value > Number(die.replace("d", ""))
+                ) {
                     item.flags[SYSTEM_ID].damageFacesUpgraded = true;
                 }
                 item.system.damage.die = `d${data.alteration.value}`;

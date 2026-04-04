@@ -45,6 +45,8 @@ class ItemAlterationRuleElement extends RuleElement<ItemAlterationRuleSchema> {
                 initial: undefined,
             }),
             battleForm: new fields.BooleanField(),
+            /** When false, a damage-die override to a larger size does not set `damageFacesUpgraded` */
+            overrideAppliesFacesUpgrade: new fields.BooleanField({ initial: true }),
             ...ItemAlteration.defineSchema(),
         };
     }
@@ -58,7 +60,7 @@ class ItemAlterationRuleElement extends RuleElement<ItemAlterationRuleSchema> {
     }
 
     /** Alteration properties that should be processed at the end of data preparation */
-    static #DELAYED_PROPERTIES = ["pd-recovery-dc"];
+    static #DELAYED_PROPERTIES = ["damage-dice-faces", "pd-recovery-dc"];
 
     /** Alteration properties that should only be processed when requested directly */
     static #LAZY_PROPERTIES = ["description"];
@@ -197,6 +199,8 @@ type ItemAlterationRuleSchema = RuleElementSchema &
         itemId: fields.StringField<string, string, false, false, false>;
         /** Whether this rule element is compatible with battle forms */
         battleForm: fields.BooleanField;
+        /** If true (default), `damage-dice-faces` override to a larger die sets `damageFacesUpgraded` */
+        overrideAppliesFacesUpgrade: fields.BooleanField;
     };
 
 interface ApplyAlterationOptions {
