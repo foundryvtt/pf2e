@@ -277,7 +277,7 @@ interface StrikeData extends StatisticModifier, BasicAttackAction {
     /** Alternative usages of a strike weapon: thrown, combination-melee, etc. */
     altUsages?: AttackAction[];
     /** A list of attack variants which apply the Multiple Attack Penalty. */
-    variants: { label: string; roll: RollFunction<AttackRollParams> }[];
+    variants: { penalty: number; label: string; roll: RollFunction<AttackRollParams> }[];
 }
 
 interface AreaAttack extends BasicAttackAction {

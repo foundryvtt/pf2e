@@ -23,5 +23,22 @@
                 {{localize "PF2E.Item.Activation.Activate"}}
             </button>
         {{/if}}
+        {{#if strike}}
+            <div class="attack-buttons" data-item-uuid="{{strike.item.uuid}}" data-attack-slug="{{strike.slug}}">
+                {{#each strike.variants as |variant index|}}
+                    <button type="button" data-action="strike" data-variant-index="{{index}}" data-visibility="owner">
+                        {{#if (eq index 0)}}
+                            <span>
+                                <span class="name">{{localize "PF2E.WeaponStrikeLabel"}}</span>
+                                <span class="action-glyph">{{@root.strike.glyph}}</span>
+                                {{variant.label}}
+                            </span>
+                        {{else}}
+                            {{localize "PF2E.MAPAbbreviationLabel" penalty=variant.penalty}}
+                        {{/if}}
+                    </button>
+                {{/each}}
+            </div>
+        {{/if}}
     </div>
 {{/if}}
