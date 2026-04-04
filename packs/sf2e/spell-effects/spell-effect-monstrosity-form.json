@@ -1,0 +1,430 @@
+{
+    "_id": "oMtbVNQ5YFmmQUlU",
+    "img": "systems/sf2e/icons/spells/monstrosity-form.webp",
+    "name": "Spell Effect: Monstrosity Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.spells.Item.Monstrosity Form]</p>\n<p>You transform into the shape of a legendary monster, assuming a Huge battle form. When you Cast this Spell, choose dust manta, nyssholora, or space worm. While in one of these forms, you gain the beast trait. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose.</p><ul><li>AC = 20 + your level. Ignore your armor's check penalty and Speed reduction.</li><li>20 temporary Hit Points.</li><li>Darkvision.</li><li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can Strike with. You're trained with them. Your attack modifier is +28, and you use the listed damage. These attacks are Strength based (for the purpose of the @UUID[Compendium.sf2e.conditions.Item.Enfeebled] condition, for example). If your unarmed attack modifier is higher, you can use it instead.</li><li>Athletics modifier of +30, unless your own is higher.</li></ul><p>You gain specific abilities based on the monster you choose:</p><ul><li><p><strong>Dust Manta</strong></p><ul><li>Speed 15 feet, burrow 40 feet;</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> stinger (agile, finesse, reach 15 feet), <strong>Damage</strong> 2d6+12 piercing plus 4d4 persistent poison;</li><li><strong>Burrowing Charge</strong> <span class=\"action-glyph\">2</span> (move) You Burrow up to twice your burrow Speed, then [[/act leap]] vertically up to 25 feet high, making a stinger Strike against a creature at any point during the jump. After the Leap, you fall to the ground, but take no damage from the fall if you land on dirt or sand.</li></ul></li></ul><ul><li><p><strong>Nyssholora</strong></p><ul><li>Speed 40 feet;</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> jaws (reach 10 feet), <strong>Damage</strong> 2d12+20 piercing;</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> phasic blade (razing, reach 15 feet), <strong>Damage</strong> 2d10+13 sonic plus phasic strike;</li><li><strong>Ranged</strong> <span class=\"action-glyph\">1</span> tail scourge discharge (range increment 120 feet), Damage 7d6 electricity;</li><li><strong>Phasic Flurry</strong> <span class=\"action-glyph\">3</span> (move, traversal) You Stride up to your Speed, then make a phasic blade Strike against each creature within reach. Each attack counts toward your multiple attack penalty, but don't increase the penalty until all these attacks have been made;</li><li><strong>Phasic Strike</strong> Your phasic blade Strikes treat any object or construct they hit as if it had half as much Hardness as usual.</li></ul></li><li><p><strong>Space Worm</strong></p><ul><li>Speed 40 feet, burrow 40 feet, swim 40 feet;</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> jaws (reach 15 feet), <strong>Damage</strong> 2d12+20 piercing;</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> tongue (finesse, reach 30 feet), <strong>Effect</strong> tongue grab; &gt;A creature hit by your tongue becomes @UUID[Compendium.sf2e.conditions.Item.Grabbed] by you. The creature isn't @UUID[Compendium.sf2e.conditions.Item.Immobilized], but it can't move beyond the reach of your tongue. A creature can sever the tongue with a Strike against your AC that deals at least 30 slashing damage. This deals no damage to you but prevents you from using your tongue Strike until you regrow your tongue, such as by casting the spell again later.</li></ul></li></ul><hr /><p><strong>Heightened (9th)</strong> You instead gain AC = 22 + your level, 25 temporary HP, attack modifier +31, increase damage by one damage die, and Athletics +33.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.MonstrosityForm.ChoiceSet.DustManta",
+                        "value": "dust-manta"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.MonstrosityForm.ChoiceSet.Nyssholora",
+                        "value": "nyssholora"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.MonstrosityForm.ChoiceSet.SpaceWorm",
+                        "value": "space-worm"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Form",
+                "rollOption": "monstrosity-form"
+            },
+            {
+                "brackets": [
+                    {
+                        "start": 8,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "20 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 30
+                                }
+                            },
+                            "strikes": {
+                                "stinger": {
+                                    "modifier": 28
+                                }
+                            },
+                            "tempHP": 20
+                        }
+                    },
+                    {
+                        "start": 9,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "22 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 33
+                                }
+                            },
+                            "strikes": {
+                                "stinger": {
+                                    "damage": {
+                                        "dice": 3
+                                    },
+                                    "modifier": 31,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-15",
+                                        "finesse",
+                                        "agile"
+                                    ]
+                                }
+                            },
+                            "tempHP": 25
+                        }
+                    }
+                ],
+                "key": "BattleForm",
+                "overrides": {
+                    "immunities": [
+                        {
+                            "type": "immobilized"
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "speeds": {
+                        "burrow": 30,
+                        "land": 40,
+                        "swim": 20
+                    },
+                    "strikes": {
+                        "stinger": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 12
+                            },
+                            "traits": [
+                                "unarmed",
+                                "reach-15",
+                                "finesse",
+                                "agile"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "beast"
+                    ]
+                },
+                "predicate": [
+                    "monstrosity-form:dust-manta"
+                ]
+            },
+            {
+                "category": "persistent",
+                "damageType": "poison",
+                "diceNumber": 4,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "monstrosity-form:dust-manta"
+                ],
+                "selector": "stinger-damage"
+            },
+            {
+                "brackets": [
+                    {
+                        "start": 8,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "20 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 30
+                                }
+                            },
+                            "strikes": {
+                                "jaws": {
+                                    "modifier": 28
+                                },
+                                "phasic-blade": {
+                                    "modifier": 28
+                                },
+                                "tail-scourge-discharge": {
+                                    "modifier": 28
+                                }
+                            },
+                            "tempHP": 20
+                        }
+                    },
+                    {
+                        "start": 9,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "22 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 33
+                                }
+                            },
+                            "strikes": {
+                                "jaws": {
+                                    "damage": {
+                                        "dice": 3
+                                    },
+                                    "modifier": 31,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-10"
+                                    ]
+                                },
+                                "phasic-blade": {
+                                    "damage": {
+                                        "dice": 3
+                                    },
+                                    "modifier": 31,
+                                    "traits": [
+                                        "unarmed",
+                                        "reach-15",
+                                        "razing"
+                                    ]
+                                },
+                                "tail-scourge-discharge": {
+                                    "damage": {
+                                        "dice": 8
+                                    },
+                                    "modifier": 31
+                                }
+                            },
+                            "tempHP": 25
+                        }
+                    }
+                ],
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "speeds": {
+                        "land": 40
+                    },
+                    "strikes": {
+                        "jaws": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d12",
+                                "modifier": 20
+                            },
+                            "traits": [
+                                "unarmed",
+                                "reach-10"
+                            ]
+                        },
+                        "phasic-blade": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "sonic",
+                                "dice": 2,
+                                "die": "d12",
+                                "modifier": 13
+                            },
+                            "traits": [
+                                "unarmed",
+                                "reach-15",
+                                "razing"
+                            ]
+                        },
+                        "tail-scourge-discharge": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "electricity",
+                                "dice": 7,
+                                "die": "d6"
+                            },
+                            "range": {
+                                "max": 120
+                            }
+                        }
+                    },
+                    "traits": [
+                        "beast"
+                    ]
+                },
+                "predicate": [
+                    "monstrosity-form:nyssholora"
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "monstrosity-form:nyssholora"
+                ],
+                "selector": [
+                    "phasic-blade-damage"
+                ],
+                "text": "PF2E.BattleForm.MonstrosityForm.PhasicStrike.Note",
+                "title": "PF2E.BattleForm.MonstrosityForm.PhasicStrike.Label"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "monstrosity-form:nyssholora"
+                ],
+                "uuid": "Compendium.sf2e.actions.Item.Phasic Flurry"
+            },
+            {
+                "brackets": [
+                    {
+                        "start": 8,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "20 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 30
+                                }
+                            },
+                            "strikes": {
+                                "jaws": {
+                                    "modifier": 28
+                                },
+                                "tongue": {
+                                    "modifier": 28
+                                }
+                            },
+                            "tempHP": 20
+                        }
+                    },
+                    {
+                        "start": 9,
+                        "value": {
+                            "armorClass": {
+                                "modifier": "22 + @actor.level"
+                            },
+                            "size": "huge",
+                            "skills": {
+                                "athletics": {
+                                    "modifier": 33
+                                }
+                            },
+                            "strikes": {
+                                "jaws": {
+                                    "damage": {
+                                        "dice": 3
+                                    },
+                                    "modifier": 31
+                                },
+                                "tongue": {
+                                    "modifier": 31
+                                }
+                            },
+                            "tempHP": 25
+                        }
+                    }
+                ],
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "speeds": {
+                        "burrow": 40,
+                        "land": 40,
+                        "swim": 40
+                    },
+                    "strikes": {
+                        "jaws": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d12",
+                                "modifier": 20
+                            },
+                            "traits": [
+                                "unarmed",
+                                "reach-15"
+                            ]
+                        },
+                        "tongue": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            },
+                            "traits": [
+                                "unarmed",
+                                "finesse",
+                                "reach-30"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "animal"
+                    ]
+                },
+                "predicate": [
+                    "monstrosity-form:space-worm"
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "monstrosity-form:space-worm"
+                ],
+                "selector": [
+                    "tongue-attack-roll"
+                ],
+                "text": "PF2E.BattleForm.MonstrosityForm.TongueGrab.Note",
+                "title": "PF2E.BattleForm.MonstrosityForm.TongueGrab.Label"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
