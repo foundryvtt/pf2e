@@ -13,14 +13,16 @@ class ArithmeticExpression extends terms.RollTerm<ArithmeticExpressionData> {
         super(termData);
 
         this.operator = termData.operator;
-        this.operands = termData.operands.slice(0, 2).map((datum) => {
-            if (datum instanceof terms.RollTerm) return datum;
+        this.operands = termData.operands.slice(0, 2).map((operand) => {
+            if (operand instanceof terms.RollTerm) return operand;
             const TermCls =
-                CONFIG.Dice.termTypes[datum.class ?? ""] ??
-                Object.values(CONFIG.Dice.terms).find((t) => t.name === datum.class) ??
+                CONFIG.Dice.termTypes[operand.class ?? ""] ??
+                Object.values(CONFIG.Dice.terms).find((t) => t.name === operand.class) ??
                 terms.Die;
-            return simplifyTerm(TermCls.fromData(datum));
+            return simplifyTerm(TermCls.fromData(operand));
         }) as [terms.RollTerm, terms.RollTerm];
+
+        if (this.#dataIsCriticalDoubling(termData)) this.options.crit = 2;
     }
 
     static override SERIALIZE_ATTRIBUTES = ["operator", "operands"];
@@ -147,6 +149,19 @@ class ArithmeticExpression extends terms.RollTerm<ArithmeticExpressionData> {
         return ArithmeticExpression.totalOf(this.operator, left, right)!;
     }
 
+    /** Whether the data of the child term is a critical hit doubling */
+    #dataIsCriticalDoubling(data: terms.RollTermData): data is ArithmeticExpressionData {
+        return (
+            "operator" in data &&
+            data.operator === "*" &&
+            "operands" in data &&
+            Array.isArray(data.operands) &&
+            data.operands.length === 2 &&
+            data.operands.every((o): o is Record<string, unknown> => R.isPlainObject(o)) &&
+            data.operands[0].number === 2
+        );
+    }
+
     /** Construct a string for an HTML rendering of this term */
     render(): DocumentFragment {
         const fragment = new DocumentFragment();
@@ -221,9 +236,6 @@ class Grouping extends terms.RollTerm<GroupingData> {
         } else {
             super(termData);
             this.term = childTerm;
-            if (this.#dataIsCriticalDoubling(termData.term)) {
-                this.options.crit = 2;
-            }
         }
 
         this._evaluated = termData.evaluated ?? this.term._evaluated ?? true;
@@ -297,19 +309,6 @@ class Grouping extends terms.RollTerm<GroupingData> {
 
     get maximumValue(): number {
         return DamageInstance.getValue(this.term, "maximum");
-    }
-
-    /** Whether the data of the child term is a critical hit doubling */
-    #dataIsCriticalDoubling(data: terms.RollTermData): data is ArithmeticExpressionData {
-        return (
-            "operator" in data &&
-            data.operator === "*" &&
-            "operands" in data &&
-            Array.isArray(data.operands) &&
-            data.operands.length === 2 &&
-            data.operands.every((o): o is Record<string, unknown> => R.isPlainObject(o)) &&
-            data.operands[0].number === 2
-        );
     }
 
     protected override async _evaluate(
