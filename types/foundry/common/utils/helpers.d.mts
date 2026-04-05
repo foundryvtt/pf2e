@@ -8,7 +8,7 @@ import Document from "@common/abstract/document.mjs";
  * @param delay An amount of time in milliseconds to delay
  * @return A wrapped function which can be called to debounce execution
  */
-export function debounce<T extends unknown[]>(callback: (...args: T) => unknown, delay: number): (...args: T) => void;
+export function debounce<T extends unknown>(callback: (...args: T[]) => unknown, delay: number): (...args: T[]) => void;
 
 /**
  * Recursively freezes (`Object.freeze`) the object (or value).
