@@ -1,10 +1,7 @@
 export const DropCanvasData = {
     listen: (): void => {
         Hooks.on("dropCanvasData", (_canvas, data, event) => {
-            if (!(data.type === "Item" || data.type === "PersistentDamage")) {
-                return true;
-            }
-
+            if (data.type !== "Item" && data.type !== "PersistentDamage") return true;
             const dropTarget = canvas.tokens.quadtree
                 .getObjects(new PIXI.Rectangle(data.x, data.y))
                 .values()
