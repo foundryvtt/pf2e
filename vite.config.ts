@@ -11,7 +11,6 @@ import * as Vite from "vite";
 import checker from "vite-plugin-checker";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import tsconfigPaths from "vite-tsconfig-paths";
-import packageJSON from "./package.json" with { type: "json" };
 import { sluggify } from "./src/util/misc.ts";
 import pf2eManifest from "./system.pf2e.json" with { type: "json" };
 import sf2eManifest from "./system.sf2e.json" with { type: "json" };
@@ -229,6 +228,18 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         fs.writeFileSync("./vendor.mjs", `/** ${message} */\n`);
     }
 
+    const codeSplitting: Vite.Rolldown.CodeSplittingOptions =
+        buildMode === "production"
+            ? {
+                  groups: [
+                      {
+                          name: "vendor",
+                          test: /node_modules/,
+                      },
+                  ],
+              }
+            : {};
+
     return {
         base: command === "build" ? "./" : `/systems/${SYSTEM_ID}/`,
         publicDir: "static",
@@ -258,15 +269,13 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 formats: ["es"],
                 fileName: SYSTEM_ID,
             },
-            rollupOptions: {
+            rolldownOptions: {
                 external: /(?:\.\.\/icons\/[a-z]+\/[-a-z/]+\.webp|ui\/parchment\.jpg)$/,
                 output: {
                     assetFileNames: `styles/${SYSTEM_ID}.css`,
                     chunkFileNames: "[name].mjs",
                     entryFileNames: `${SYSTEM_ID}.mjs`,
-                    manualChunks: {
-                        vendor: buildMode === "production" ? Object.keys(packageJSON.dependencies) : [],
-                    },
+                    codeSplitting,
                 },
                 watch: { buildDelay: 100 },
             },
