@@ -32,7 +32,25 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens Hellfire Dispatches"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:commitment-to-protection",
+                    {
+                        "not": "feat:lasting-protection"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Feat.CommitmentToProtection.EffectNote"
+                    }
+                ]
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

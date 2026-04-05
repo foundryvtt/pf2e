@@ -1,0 +1,103 @@
+{
+    "_id": "njBBqklLmBEFwKLB",
+    "img": "icons/equipment/shield/heater-steel-gold.webp",
+    "name": "Effect: Commitment to Protection (Lasting Protection)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Commitment to Protection]</p>\n<p>You gain a circumstance bonus or penalty to AC against the target's next attack.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Hellfire Dispatches"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "commmitment-to-protection"
+            },
+            {
+                "key": "TokenMark",
+                "slug": "commmitment-to-protection",
+                "uuid": ""
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:mark:commmitment-to-protection",
+                    {
+                        "or": [
+                            "commmitment-to-protection:critical-success",
+                            "commmitment-to-protection:success"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "ac"
+                ],
+                "slug": "commmitment-to-protection-ac-bonus",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "commmitment-to-protection:critical-success"
+                ],
+                "selector": "ac",
+                "slug": "commmitment-to-protection-ac-bonus",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:mark:commmitment-to-protection",
+                    "commmitment-to-protection:failure"
+                ],
+                "selector": [
+                    "ac"
+                ],
+                "slug": "commmitment-to-protection-ac-penalty",
+                "type": "circumstance",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
