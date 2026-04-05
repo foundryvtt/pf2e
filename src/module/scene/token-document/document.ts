@@ -313,8 +313,8 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
-        super.prepareBaseData();
         const flags = fu.mergeObject(this.flags, { [SYSTEM_ID]: {} });
+        super.prepareBaseData();
         const actor = this.actor;
         if (!actor) return;
         TokenDocumentPF2e.assignDefaultImage(this);
