@@ -16,7 +16,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p>When the trip wire is pulled or severed, both blades swing down, each one attacking all creatures under the ceiling grooves with a Scythe attack. The trap makes a Scythe melee attack with each blade. There's no multiple attack penalty on these attacks.</p>"
+                    "value": "<p>When the trip wire is pulled or severed, both blades swing down, each one attacking all creatures under the ceiling grooves. The trap makes a melee attack with each blade with +17 to each attack roll. There's no multiple attack penalty on these attacks. On a hit, a blade deals 2d12+4 slashing damage. On a critical hit, the damage is doubled plus 6 extra damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -44,9 +44,7 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": [
-                        "no-map"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 17
@@ -58,7 +56,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>No MAP applies to strikes made by scythe attacks</p>"
+                    "value": "<p>No multiple attack penalty</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -69,49 +67,19 @@
                 "rules": [
                     {
                         "critical": true,
-                        "diceNumber": 6,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "selector": "{item|_id}-damage"
+                        "key": "FlatModifier",
+                        "selector": "{item|id}-damage",
+                        "value": 6
                     }
                 ],
                 "slug": null,
+                "subjectToMAP": false,
                 "traits": {
                     "rarity": "common",
                     "value": []
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "haWc7Vo7IDgvIPU9",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "No MAP",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": null,
-                "description": {
-                    "value": "<p>The Scythe Strikes do not apply a MAP.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "no-map",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Scythe Blades (BB)",
@@ -168,7 +136,7 @@
             },
             "will": {
                 "saveDetail": "",
-                "value": 0
+                "value": null
             }
         },
         "statusEffects": [],
