@@ -1,3 +1,22 @@
+## 0.0.11
+
+### Bugfixes
+
+- (stwlam) Fix errors with token document flags during data preparation
+
+### Data Updates
+
+- (Ambrose) Correct Insect Form's Mantis damage type
+- (kromko) Fix Loosen Skin trigger
+- (kromko) Fix Rubberlimb Orocoran heritage name
+- (kromko) Fix Tactical Medkit Treat Wounds predicate
+
+## 0.0.10
+
+### Bugfixes
+
+- (stwlam) Fix issue causing stack overflow during some token data preparation
+
 ## 0.0.9
 
 ### System Improvements

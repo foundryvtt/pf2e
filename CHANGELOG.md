@@ -1,3 +1,16 @@
+## 7.12.2
+
+### Bugfixes
+
+- (stwlam) Fix errors with token document flags during data preparation
+
+### Data Updates
+
+- (Ambrose) Clean up several erroneous links in Covetous Corridor Hazard
+- (Ambrose) Correct Insect Form's Mantis damage type
+- (Ambrose) Update Call Companion's publication source
+- (Tikael) Add missing spirit weakness to Bythos
+
 ## 7.12.1
 
 ### Bugfixes
