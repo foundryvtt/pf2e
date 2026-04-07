@@ -3,25 +3,8 @@
     "img": "icons/magic/light/explosion-glow-spiral-teal.webp",
     "name": "Spell Effect: Benediction",
     "system": {
-        "badge": {
-            "labels": [
-                "15 ft.",
-                "25 ft.",
-                "35 ft.",
-                "45 ft.",
-                "55 ft.",
-                "65 ft.",
-                "75 ft.",
-                "85 ft.",
-                "95 ft.",
-                "105 ft."
-            ],
-            "loop": false,
-            "type": "counter",
-            "value": 1
-        },
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Benediction]</p>\n<p>You and your allies gain a +1 status bonus to AC while within the emanation.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Benediction]</p>\n<p>You gain a +1 status bonus to AC.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -39,20 +22,6 @@
         },
         "rules": [
             {
-                "effects": [
-                    {
-                        "affects": "allies",
-                        "includesSelf": false,
-                        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Benediction"
-                    }
-                ],
-                "key": "Aura",
-                "predicate": [
-                    "self:signature:{item|origin.signature}"
-                ],
-                "radius": "5 + @item.badge.value * 10"
-            },
-            {
                 "key": "FlatModifier",
                 "selector": "ac",
                 "slug": "benediction",
@@ -68,6 +37,7 @@
             "show": true
         },
         "traits": {
+            "rarity": "common",
             "value": []
         }
     },

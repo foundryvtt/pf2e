@@ -1,0 +1,65 @@
+{
+    "_id": "PFTwBKQVLm1A0Gbl",
+    "img": "icons/magic/light/explosion-glow-spiral-teal.webp",
+    "name": "Aura: Benediction",
+    "system": {
+        "badge": {
+            "labels": [
+                "15 ft.",
+                "25 ft.",
+                "35 ft.",
+                "45 ft.",
+                "55 ft.",
+                "65 ft.",
+                "75 ft.",
+                "85 ft.",
+                "95 ft.",
+                "105 ft."
+            ],
+            "loop": false,
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Benediction]</p>\n<p>You and your allies gain a +1 status bonus to AC while within the emanation. Once per round on subsequent turns, you can Sustain the spell to increase the emanation's radius by 10 feet.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Benediction"
+                    }
+                ],
+                "key": "Aura",
+                "radius": "5 + @item.badge.value * 10",
+                "traits": []
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
