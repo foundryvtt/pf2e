@@ -89,7 +89,7 @@
             {/if}
         </header>
 
-        <ul class="modifier-list">
+        <ul class="modifier-list scrollable">
             {#if context.type === "flat-check"}
                 <li class="empty">
                     {localize("PF2E.ChatRollDetails.FlatCheckNoModifiers")}
@@ -107,10 +107,9 @@
                 <li class="modifier" class:disabled={!d.enabled} data-type="dice" data-idx={idx}>
                     <header>
                         <span class="label-slug">{d.label} ({d.slug})</span>
-                        <i
-                            class="fa-solid fa-circle-info"
-                            onpointerenter={(evt) => showOptionsTooltip(evt.currentTarget, new DamageDicePF2e(d))}
-                        ></i>
+                        <span class="options-note" onpointerenter={(evt) => showOptionsTooltip(evt.currentTarget, new DamageDicePF2e(d))} role="note">
+                            <i class="fa-solid fa-circle-info" inert></i>
+                        </span>
                     </header>
                     <div>
                         <span>
@@ -127,10 +126,9 @@
                 <li class="modifier" class:disabled={!m.enabled} data-type="modifier" data-idx={idx}>
                     <header>
                         <span class="label-slug">{m.label} ({m.slug})</span>
-                        <i
-                            class="fa-solid fa-circle-info"
-                            onpointerenter={(evt) => showOptionsTooltip(evt.currentTarget, new Modifier(m))}
-                        ></i>
+                        <span class="options-note" onpointerenter={(evt) => showOptionsTooltip(evt.currentTarget, new Modifier(m))} role="note">
+                            <i class="fa-solid fa-circle-info" inert></i>
+                        </span>
                     </header>
                     <div>
                         <span>
@@ -236,8 +234,6 @@
     }
 
     .modifiers {
-        grid-area: "modifiers";
-
         ul {
             li {
                 display: block;
@@ -256,7 +252,7 @@
                     gap: var(--space-4);
                     margin-bottom: 0.25em;
 
-                    i {
+                    .options-note {
                         margin-left: auto;
                         padding-left: var(--space-4);
                     }
