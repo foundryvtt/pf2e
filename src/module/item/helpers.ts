@@ -254,6 +254,7 @@ function placeRegionFromItem(
         highlightMode: "coverage",
         displayMeasurements: true,
         ownership: { [game.user.id]: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER },
+        visibility: CONST.REGION_VISIBILITY.ALWAYS,
         flags: {
             [SYSTEM_ID]: {
                 messageId: message?.id,

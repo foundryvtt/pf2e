@@ -2122,15 +2122,27 @@ export const REGION_EVENTS: Readonly<{
  */
 export const REGION_VISIBILITY: Readonly<{
     /**
-     * Only visible on the RegionLayer.
+     * Only visible on the RegionLayer to Users with Observer permissions when unlocked.
+     */
+    LAYER_UNLOCKED: 4;
+
+    /**
+     * Only visible on the RegionLayer to Users with Observer permissions.
      */
     LAYER: 0;
+
     /**
-     * Only visible to Gamemasters.
+     * Always visible to Gamemasters.
      */
     GAMEMASTER: 1;
+
     /**
-     * Visible to anyone.
+     * Always visible to Observers.
+     */
+    OBSERVER: 3;
+
+    /**
+     * Always visible to anyone.
      */
     ALWAYS: 2;
 }>;
