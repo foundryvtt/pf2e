@@ -23,7 +23,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     }
 
     override get title(): string {
-        return this.editing ? game.i18n.format("PF2E.Actor.Hazard.TitleEdit", { name: super.title }) : super.title;
+        return this.editing ? _loc("PF2E.Actor.Hazard.TitleEdit", { name: super.title }) : super.title;
     }
 
     get editing(): boolean {
@@ -131,7 +131,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             const save = this.actor.saves[saveType];
             if (this.editing || save) {
                 results.push({
-                    label: game.i18n.localize(`PF2E.Saves${saveType.titleCase()}Short`),
+                    label: _loc(`PF2E.Saves${saveType.titleCase()}Short`),
                     type: saveType,
                     mod: save?.check.mod,
                 });

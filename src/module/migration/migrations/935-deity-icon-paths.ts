@@ -33,7 +33,7 @@ export class Migration935DeityIconPaths extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        source.img = this.#getUpdatedPath(source.img, { type: source.type, slug: source.system.slug });
+        source.img &&= this.#getUpdatedPath(source.img, { type: source.type, slug: source.system.slug });
     }
 
     override async updateToken(source: TokenSource): Promise<void> {

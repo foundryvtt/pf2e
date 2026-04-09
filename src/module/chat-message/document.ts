@@ -1,11 +1,11 @@
 import type { ActorPF2e } from "@actor";
 import type { AttackAction, StrikeData } from "@actor/data/base.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
-import type { DataModelConstructionContext } from "@common/abstract/_module.d.mts";
 import type {
     ChatMessageCreateCallbackOptions,
     ChatMessageCreateOperation,
-} from "@common/documents/chat-message.d.mts";
+} from "@client/documents/chat-message.d.mts";
+import type { DataModelConstructionContext } from "@common/abstract/_module.d.mts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { RollInspector } from "@module/apps/roll-inspector/app.ts";
 import type { UserPF2e } from "@module/user/index.ts";
@@ -358,7 +358,7 @@ class ChatMessagePF2e extends ChatMessage {
             dataset: { action: "setAsInitiative", tooltip: true },
         });
         button.type = "button";
-        button.ariaLabel = game.i18n.format("PF2E.Check.SetAsInitiative", { actor: this.token.name });
+        button.ariaLabel = _loc("PF2E.Check.SetAsInitiative", { actor: this.token.name });
         const selector = this.isReroll ? ".reroll-second .dice-total" : ".dice-total";
         html.querySelector(selector)?.appendChild(button);
     }

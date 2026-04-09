@@ -15,7 +15,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const characters = actors.filter((a): a is CharacterPF2e => a?.type === "character");
     if (characters.length === 0) {
-        ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NoPCTokenSelected"));
+        ui.notifications.error(_loc("PF2E.ErrorMessage.NoPCTokenSelected"));
         return [];
     }
     const localize = localizer("PF2E.Action.RestForTheNight");
@@ -60,7 +60,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
                     ? "PF2E.Action.RestForTheNight.Message.HitPointsSingle"
                     : "PF2E.Action.RestForTheNight.Message.HitPoints";
             actorUpdates.attributes.hp = { value: (attributes.hp.value += hpRestored) };
-            statements.push(game.i18n.format(singularOrPlural, { hitPoints: hpRestored }));
+            statements.push(_loc(singularOrPlural, { hitPoints: hpRestored }));
         }
 
         // Conditions

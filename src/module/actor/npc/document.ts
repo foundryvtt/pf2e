@@ -213,7 +213,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             stat.max = stat.max + stat.totalModifier;
             stat.value = Math.min(stat.value, stat.max); // Make sure the current HP isn't higher than the max HP
             stat.breakdown = [
-                game.i18n.format("PF2E.MaxHitPointsBaseLabel", { base }),
+                _loc("PF2E.MaxHitPointsBaseLabel", { base }),
                 ...stat.modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${signedInteger(m.modifier)}`),
             ].join(", ");
             system.attributes.hp = stat;
@@ -311,7 +311,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         const saves: Partial<Record<SaveType, Statistic>> = {};
         for (const saveType of SAVE_TYPES) {
             const save = system.saves[saveType];
-            const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
+            const saveName = _loc(CONFIG.PF2E.saves[saveType]);
             const base = save.value;
             const attribute = save.attribute;
             const domains = [saveType, `${attribute}-based`, "saving-throw", "all"];
@@ -454,10 +454,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 const button = createHTMLElement("button", { dataset: { action: "consume", item: item.id } });
                 button.style.width = "auto";
                 button.style.lineHeight = "14px";
-                button.innerHTML = game.i18n.localize("PF2E.Item.Consumable.Uses.Use");
-                return `${item.name} - ${game.i18n.localize("TYPES.Item.consumable")} (${item.quantity}) ${
-                    button.outerHTML
-                }`;
+                button.innerHTML = _loc("PF2E.Item.Consumable.Uses.Use");
+                return `${item.name} - ${_loc("TYPES.Item.consumable")} (${item.quantity}) ${button.outerHTML}`;
             }
             return item.name;
         };
@@ -626,12 +624,9 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         }
 
         if (changed.system.skills) {
-            for (const [key, skill] of Object.entries(changed.system.skills)) {
-                if (key.startsWith("-=") || !skill) continue;
-
-                if (skill.note === "") {
-                    delete skill.note;
-                    fu.mergeObject(skill, { "-=note": null });
+            for (const skill of Object.values(changed.system.skills)) {
+                if (skill?.note === "") {
+                    fu.mergeObject(skill, { note: _del });
                 }
             }
         }

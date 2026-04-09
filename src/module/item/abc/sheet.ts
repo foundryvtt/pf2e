@@ -31,7 +31,7 @@ abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> 
 
     protected getLocalizedAbilities(traits: { value: AttributeString[] }): { [key: string]: string } {
         if (traits !== undefined && traits.value) {
-            if (traits.value.length === 6) return { free: game.i18n.localize("PF2E.AbilityFree") };
+            if (traits.value.length === 6) return { free: _loc("PF2E.AbilityFree") };
             return Object.fromEntries(traits.value.map((x: AttributeString) => [x, CONFIG.PF2E.abilities[x]]));
         }
 
@@ -47,10 +47,10 @@ abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> 
             return true;
         }
 
-        const goodCategories = validCategories.map((c) => game.i18n.localize(CONFIG.PF2E.featCategories[c]));
+        const goodCategories = validCategories.map((c) => _loc(CONFIG.PF2E.featCategories[c]));
         if (goodCategories.length > 0) {
-            const badCategory = game.i18n.localize(CONFIG.PF2E.featCategories[feat.category]);
-            const warning = game.i18n.format("PF2E.Item.ABC.InvalidDrop", {
+            const badCategory = _loc(CONFIG.PF2E.featCategories[feat.category]);
+            const warning = _loc("PF2E.Item.ABC.InvalidDrop", {
                 badType: badCategory,
                 goodType: goodCategories[0],
             });

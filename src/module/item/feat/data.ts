@@ -161,13 +161,13 @@ class FeatSystemData extends ItemSystemModel<FeatPF2e, FeatSystemSchema> {
                 proficiencies: new RecordField(
                     new fields.StringField({ required: true, nullable: false, choices: getIncreasableProficiencies }),
                     new fields.SchemaField({
-                        rank: new fields.NumberField<OneToFour, OneToFour, true, false, false>({
+                        rank: new fields.NumberField<OneToFour, OneToFour, true, false, true>({
                             required: true,
                             nullable: false,
                             integer: true,
                             min: 1,
                             max: 4,
-                            initial: undefined,
+                            initial: 1,
                         }),
                         attribute: new fields.StringField<AttributeString, AttributeString, true, true, true>({
                             required: true,
@@ -300,7 +300,7 @@ type FeatSystemSchema = Omit<ItemSystemSchema, "traits"> & {
         proficiencies: RecordField<
             fields.StringField<IncreasableProficiency, IncreasableProficiency, true, false, false>,
             fields.SchemaField<{
-                rank: fields.NumberField<OneToFour, OneToFour, true, false, false>;
+                rank: fields.NumberField<OneToFour, OneToFour, true, false, true>;
                 attribute: fields.StringField<AttributeString, AttributeString, true, true, true>;
             }>
         >;

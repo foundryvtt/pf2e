@@ -15,9 +15,7 @@ async function repair(options: RepairActionOptions): Promise<void> {
         console.warn("PF2e System | No item selected to repair: aborting");
         return;
     } else if (!(item instanceof PhysicalItemPF2e)) {
-        ui.notifications.warn(
-            game.i18n.format("PF2E.Actions.Repair.Warning.NotPhysicalItem", { item: item?.name ?? "" }),
-        );
+        ui.notifications.warn(_loc("PF2E.Actions.Repair.Warning.NotPhysicalItem", { item: item?.name ?? "" }));
         return;
     }
 
@@ -31,7 +29,7 @@ async function repair(options: RepairActionOptions): Promise<void> {
             if (item) {
                 const pwol = game.pf2e.settings.variants.pwol.enabled;
                 return {
-                    label: game.i18n.format("PF2E.Actions.Repair.Labels.ItemLevelRepairDC", { level: item.level }),
+                    label: _loc("PF2E.Actions.Repair.Labels.ItemLevelRepairDC", { level: item.level }),
                     value: calculateDC(item.level, { pwol }),
                     visibility: "all",
                 };
@@ -125,7 +123,7 @@ async function onRepairChatCardEvent(
         const beforeRepair = item.system.hp.value;
         const afterRepair = Math.min(item.system.hp.max, beforeRepair + value);
         await item.update({ "system.hp.value": afterRepair });
-        const content = game.i18n.format("PF2E.Actions.Repair.Chat.ItemRepaired", {
+        const content = _loc("PF2E.Actions.Repair.Chat.ItemRepaired", {
             itemName: item.name,
             repairedDamage: afterRepair - beforeRepair,
             afterRepairHitPoints: afterRepair,
@@ -150,7 +148,7 @@ async function onRepairChatCardEvent(
             const beforeDamage = item.system.hp.value;
             const afterDamage = Math.max(0, item.system.hp.value - damage);
             await item.update({ "system.hp.value": afterDamage });
-            const content = game.i18n.format("PF2E.Actions.Repair.Chat.ItemDamaged", {
+            const content = _loc("PF2E.Actions.Repair.Chat.ItemDamaged", {
                 itemName: item.name,
                 damageDealt: beforeDamage - afterDamage,
                 afterDamageHitPoints: afterDamage,
@@ -178,7 +176,7 @@ async function renderRepairResult(
     value: string,
 ): Promise<string> {
     const templatePath = `systems/${SYSTEM_ID}/templates/system/actions/repair/repair-result-partial.hbs`;
-    const label = game.i18n.format(buttonLabel, { value });
+    const label = _loc(buttonLabel, { value });
     return fa.handlebars.renderTemplate(templatePath, { item, label, result, value });
 }
 

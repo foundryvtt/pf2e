@@ -398,31 +398,6 @@ export const DOCUMENT_LINK_TYPES: readonly [
 ];
 
 /**
- * The supported dice roll visibility modes
- * @see https://foundryvtt.com/article/dice/
- */
-export const DICE_ROLL_MODES: Readonly<{
-    /**
-     * This roll is visible to all players.
-     */
-    PUBLIC: "publicroll";
-    /**
-     * Rolls of this type are only visible to the player that rolled and any Game Master users.
-     */
-    PRIVATE: "gmroll";
-    /**
-     * A private dice roll only visible to Game Master users. The rolling player will not see the result of their own roll.
-     */
-    BLIND: "blindroll";
-    /**
-     * A private dice roll which is only visible to the user who rolled it.
-     */
-    SELF: "selfroll";
-}>;
-
-export type RollMode = (typeof DICE_ROLL_MODES)[keyof typeof DICE_ROLL_MODES];
-
-/**
  * The allowed fill types which a Drawing object may display
  * @see https://foundryvtt.com/article/drawings/
  */
@@ -1132,31 +1107,6 @@ export const USER_ROLE_NAMES: {
 export type UserRole = keyof typeof USER_ROLE_NAMES;
 
 /**
- * An enumeration of the allowed types for a MeasuredTemplate embedded document
- * @see https://foundryvtt.com/article/measurement/
- */
-export const MEASURED_TEMPLATE_TYPES: Readonly<{
-    /**
-     * Circular templates create a radius around the starting point.
-     */
-    CIRCLE: "circle";
-    /**
-     * Cones create an effect in the shape of a triangle or pizza slice from the starting point.
-     */
-    CONE: "cone";
-    /**
-     * A rectangle uses the origin point as one of the corners, treating the origin as being inside of the rectangle's area.
-     */
-    RECTANGLE: "rect";
-    /**
-     * A ray creates a single line that is one square in width and as long as you want it to be.
-     */
-    RAY: "ray";
-}>;
-
-export type MeasuredTemplateType = (typeof MEASURED_TEMPLATE_TYPES)[keyof typeof MEASURED_TEMPLATE_TYPES];
-
-/**
  * Define the recognized User capabilities which individual Users or role levels may be permitted to perform
  */
 export const USER_PERMISSIONS: Readonly<{
@@ -1307,6 +1257,10 @@ export const USER_PERMISSIONS: Readonly<{
 }>;
 
 export type UserPermission = keyof typeof USER_PERMISSIONS;
+
+export const EDGE_RESTRICTION_TYPES: readonly ["light", "darkness", "sight", "sound", "move"];
+
+export type EdgeRestrictionType = (typeof EDGE_RESTRICTION_TYPES)[number];
 
 /**
  * The allowed directions of effect that a Wall can have
@@ -2053,6 +2007,8 @@ export const COMBAT_ANNOUNCEMENTS: readonly ["startEncounter", "nextUp", "yourTu
  */
 export const TEXTURE_DATA_FIT_MODES: readonly ["fill", "contain", "cover", "width", "height"];
 
+export type TextureDataFitMode = (typeof TEXTURE_DATA_FIT_MODES)[number];
+
 /**
  * The maximum depth to recurse to when embedding enriched text.
  */
@@ -2178,6 +2134,8 @@ export const REGION_VISIBILITY: Readonly<{
      */
     ALWAYS: 2;
 }>;
+
+export type RegionVisibility = (typeof REGION_VISIBILITY)[keyof typeof REGION_VISIBILITY];
 
 /**
  * The types of a Region movement segment.

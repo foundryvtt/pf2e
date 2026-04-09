@@ -87,9 +87,7 @@ class Kingdom extends foundry.abstract.DataModel<PartySystemData, KingdomSchema>
             classes: ["create-button", "icon", ...hoverIcon],
             children: [fontAwesomeIcon("crown")],
             dataset: {
-                tooltip: game.i18n.localize(
-                    `PF2E.Kingmaker.SIDEBAR.${this.active === true ? "OpenSheet" : "CreateKingdom"}`,
-                ),
+                tooltip: _loc(`PF2E.Kingmaker.SIDEBAR.${this.active === true ? "OpenSheet" : "CreateKingdom"}`),
             },
         });
 
@@ -99,7 +97,7 @@ class Kingdom extends foundry.abstract.DataModel<PartySystemData, KingdomSchema>
             if (!this.active) {
                 const startBuilding = await foundry.applications.api.DialogV2.confirm({
                     window: { title: "PF2E.Kingmaker.KingdomBuilder.Title", icon: "fa-solid fa-castle" },
-                    content: `<p>${game.i18n.localize("PF2E.Kingmaker.KingdomBuilder.ActivationMessage")}</p>`,
+                    content: `<p>${_loc("PF2E.Kingmaker.KingdomBuilder.ActivationMessage")}</p>`,
                 });
                 if (startBuilding) {
                     await this.update({ active: "building" });
@@ -121,13 +119,13 @@ class Kingdom extends foundry.abstract.DataModel<PartySystemData, KingdomSchema>
         const roll = await new Roll(formula).evaluate();
         await roll.toMessage(
             {
-                flavor: game.i18n.localize("PF2E.Kingmaker.Kingdom.CollectDialog.NewResourcePoints"),
+                flavor: _loc("PF2E.Kingmaker.Kingdom.CollectDialog.NewResourcePoints"),
                 speaker: {
                     ...ChatMessagePF2e.getSpeaker(this.actor),
                     alias: this.name,
                 },
             },
-            { rollMode: "publicroll" },
+            { messageMode: "public" },
         );
 
         this.update({

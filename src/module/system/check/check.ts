@@ -86,19 +86,16 @@ class Check {
             rollOptions.add(`map:increases:${context.mapIncreases}`);
         }
 
-        // Figure out the default roll mode (if not already set by the event)
+        // Figure out the default message-visibility mode (if not already set by the event)
         // ignore the secret trait if the ignoreSecretTrait setting is enabled
         if (rollOptions.has("secret") && !game.pf2e.settings.metagame.secretChecks) {
-            context.rollMode ??= game.user.isGM ? "gmroll" : "blindroll";
+            context.messageMode ??= game.user.isGM ? "gm" : "blind";
         }
-        context.rollMode = objectHasKey(CONFIG.Dice.rollModes, context.rollMode)
-            ? context.rollMode
-            : game.settings.get("core", "rollMode");
+        context.messageMode = objectHasKey(CONFIG.ChatMessage.modes, context.messageMode)
+            ? context.messageMode
+            : game.settings.get("core", "messageMode");
 
-        if (rollOptions.size > 0 && !context.isReroll) {
-            check.calculateTotal(rollOptions);
-        }
-
+        if (rollOptions.size > 0 && !context.isReroll) check.calculateTotal(rollOptions);
         context.substitutions ??= [];
         const requiredSubstitution = context.substitutions.find((s) => s.required && s.selected);
         if (requiredSubstitution) {
@@ -152,9 +149,9 @@ class Check {
                     fortune: "PF2E.TraitFortune",
                     misfortune: "PF2E.TraitMisfortune",
                 }[substitution.effectType];
-                const extraTag = game.i18n.format("PF2E.SpecificRule.SubstituteRoll.EffectType", {
-                    type: game.i18n.localize(effectType),
-                    substitution: reduceItemName(game.i18n.localize(substitution.label)),
+                const extraTag = _loc("PF2E.SpecificRule.SubstituteRoll.EffectType", {
+                    type: _loc(effectType),
+                    substitution: reduceItemName(_loc(substitution.label)),
                 });
 
                 return [substitution.value.toString(), [extraTag]];
@@ -185,7 +182,7 @@ class Check {
         };
 
         const totalModifierPart = signedInteger(check.totalModifier, { emptyStringZero: true });
-        const allowInteractive = context.rollMode !== "blindroll";
+        const allowInteractive = context.messageMode !== "blind";
         const roll = await new CheckRoll(`${dice}${totalModifierPart}`, {}, options).evaluate({ allowInteractive });
 
         // Collect the check specific options. These only exist for DoS Adjustments and notes
@@ -299,7 +296,7 @@ class Check {
                 postRoll: postRollOptions,
             },
             notes: notes.map((n) => n.toObject()),
-            rollMode: context.rollMode,
+            messageMode: context.messageMode,
             rollTwice: context.rollTwice ?? false,
             title: context.title ?? "PF2E.Check.Label",
             traits: context.traits ?? [],
@@ -323,12 +320,10 @@ class Check {
                     origin: item?.getOriginData(),
                 },
             };
-
             const speaker = ChatMessagePF2e.getSpeaker({ actor: context.actor, token: context.token });
-            const rollMode = contextFlag.rollMode;
+            const messageMode = contextFlag.messageMode;
             const create = context.createMessage;
-
-            return roll.toMessage({ speaker, flavor, flags }, { rollMode, create }) as MessagePromise;
+            return roll.toMessage({ speaker, flavor, flags }, { messageMode, create }) as MessagePromise;
         })();
 
         if (callback) {
@@ -364,7 +359,7 @@ class Check {
                 context.traits
                     ?.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits))
                     .map((trait) => {
-                        trait.label = game.i18n.localize(trait.label);
+                        trait.label = _loc(trait.label);
                         return trait;
                     }) ?? [],
                 (t) => t.name,
@@ -381,7 +376,7 @@ class Check {
                               ? CONFIG.PF2E.spellTraits
                               : CONFIG.PF2E.npcAttackTraits;
                           const obj = traitSlugToObject(t, dictionary);
-                          obj.label = game.i18n.localize(obj.label);
+                          obj.label = _loc(obj.label);
                           return obj;
                       })
                       .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang))
@@ -424,7 +419,7 @@ class Check {
                 return tag;
             });
         const tagsFromOptions = extraTags.map((t) => {
-            const label = game.i18n.localize(t);
+            const label = _loc(t);
             const slug = sluggify(label);
             return toTagElement({ name: slug, label, description: null }, "transparent");
         });
@@ -444,7 +439,7 @@ class Check {
     /** Reroll a rolled check given a chat message. */
     static async rerollFromMessage(message: ChatMessagePF2e, options: RerollOptions = {}): Promise<void> {
         if (!(message.isAuthor || game.user.isGM)) {
-            ui.notifications.error(game.i18n.localize("PF2E.RerollMenu.ErrorCantDelete"));
+            ui.notifications.error(_loc("PF2E.RerollMenu.ErrorCantDelete"));
             return;
         }
 
@@ -462,15 +457,13 @@ class Check {
             console.warn(`${resource.label} is not a supported resource. Using it might lead to unexpected results.`);
         }
 
-        let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${options.keep}`);
+        let rerollFlavor = _loc(`PF2E.RerollMenu.MessageKeep.${options.keep}`);
         if (resource) {
             // If the reroll costs a hero or mythic point, first check if the actor has one to spare and spend it
             if (rerollingActor?.isOfType("character")) {
                 if (resource && resource.value > 0) {
                     await rerollingActor.updateResource(resource.slug, resource.value - 1);
-                    rerollFlavor = game.i18n.localize(
-                        `PF2E.RerollMenu.Message${sluggify(resource.slug, { camel: "bactrian" })}`,
-                    );
+                    rerollFlavor = _loc(`PF2E.RerollMenu.Message${sluggify(resource.slug, { camel: "bactrian" })}`);
                 } else {
                     ui.notifications.warn("PF2E.RerollMenu.WarnNoResource", {
                         localize: true,
@@ -511,7 +504,7 @@ class Check {
             const mythicModifierValue = 10 + (pwolVariant ? 0 : actor.level);
             const proficiencyModifierValue = proficiencyModifier.modifier;
             proficiencyModifier.modifier = mythicModifierValue;
-            proficiencyModifier.label = game.i18n.localize("PF2E.TraitMythic");
+            proficiencyModifier.label = _loc("PF2E.TraitMythic");
             // Calculate the new total modifier
             const options = fu.deepClone(oldRoll.options);
             options.totalModifier = (options.totalModifier ?? 0) - proficiencyModifierValue + mythicModifierValue;
@@ -525,7 +518,7 @@ class Check {
         Hooks.callAll("pf2e.preReroll", Roll.fromJSON(oldRollJSON), unevaluatedNewRoll, resource, options.keep);
 
         // Evaluate the new roll and call a second hook allowing the roll to be altered
-        const allowInteractive = context.rollMode !== "blindroll";
+        const allowInteractive = context.messageMode !== "blind";
         const newRoll = await unevaluatedNewRoll.evaluate({ allowInteractive });
         Hooks.callAll("pf2e.reroll", Roll.fromJSON(oldRollJSON), newRoll, resource, options.keep);
 
@@ -606,7 +599,7 @@ class Check {
                           const mythicValue = signedInteger(10 + (pwolVariant ? 0 : actor.level), {
                               emptyStringZero: true,
                           });
-                          mythicTag.innerHTML = `${game.i18n.localize("PF2E.TraitMythic")} ${mythicValue}`;
+                          mythicTag.innerHTML = `${_loc("PF2E.TraitMythic")} ${mythicValue}`;
                           proficiencyTag.after(mythicTag);
                       }
                   }
@@ -644,7 +637,7 @@ class Check {
                 speaker: message.speaker,
                 flags: { core: { initiativeRoll }, [SYSTEM_ID]: systemFlags },
             },
-            { rollMode: context.rollMode },
+            { messageMode: context.messageMode },
         )) as ChatMessagePF2e;
 
         if (systemFlags.treatWoundsMacroFlag) {
@@ -703,8 +696,7 @@ class Check {
 
         const dc = degree.dc;
         const needsDCParam = !!dc.label && Number.isInteger(dc.value) && !dc.label.includes("{dc}");
-        const customLabel =
-            needsDCParam && dc.label ? `<dc>${game.i18n.localize(dc.label)}: {dc}</dc>` : (dc.label ?? null);
+        const customLabel = needsDCParam && dc.label ? `<dc>${_loc(dc.label)}: {dc}</dc>` : (dc.label ?? null);
 
         const opposingActor = await (async (): Promise<ActorPF2e | null> => {
             if (!opposer?.actor) return null;
@@ -751,11 +743,9 @@ class Check {
                     dc.slug ?? (dc.statistic instanceof StatisticDifficultyClass ? dc.statistic.parent.slug : null);
                 return fromParams === "ac" ? "armor" : (fromParams?.replace(/-dc$/, "") ?? null);
             })();
-            const dcType = game.i18n.localize(
+            const dcType = _loc(
                 dc.label?.trim() ||
-                    game.i18n.localize(
-                        objectHasKey(checkDCs.Specific, dcSlug) ? checkDCs.Specific[dcSlug] : checkDCs.Unspecific,
-                    ),
+                    _loc(objectHasKey(checkDCs.Specific, dcSlug) ? checkDCs.Specific[dcSlug] : checkDCs.Unspecific),
             );
 
             // Get any circumstance penalties or bonuses to the target's DC
@@ -771,14 +761,14 @@ class Check {
             const visible = opposingActor?.hasPlayerOwner || dc.visible || game.pf2e.settings.metagame.dcs;
 
             if (typeof preadjustedDC !== "number" || circumstances.length === 0) {
-                const labelKey = game.i18n.localize(
+                const labelKey = _loc(
                     opposerData
                         ? targeting
                             ? checkDCs.Label.WithTarget
                             : checkDCs.Label.WithOrigin
                         : (customLabel ?? checkDCs.Label.NoTarget),
                 );
-                const markup = game.i18n.format(labelKey, { dcType, dc: dc.value, opposer: opposerData?.name ?? null });
+                const markup = _loc(labelKey, { dcType, dc: dc.value, opposer: opposerData?.name ?? null });
 
                 return { markup, visible };
             }
@@ -794,7 +784,7 @@ class Check {
             const translation =
                 adjustment.direction === "no-change" ? checkDCs.Label.NoChangeTarget : checkDCs.Label.AdjustedTarget;
 
-            const markup = game.i18n.format(translation, {
+            const markup = _loc(translation, {
                 opposer: opposerData?.name ?? game.user.name,
                 dcType,
                 preadjusted: preadjustedDC,
@@ -818,12 +808,12 @@ class Check {
             const checkOrAttack = sluggify(dc.scope ?? "Check", { camel: "bactrian" });
             const locPath = (checkOrAttack: string, dosKey: DegreeOfSuccessString) =>
                 `PF2E.Check.Result.Degree.${checkOrAttack}.${dosKey}`;
-            const unadjusted = game.i18n.localize(locPath(checkOrAttack, DEGREE_OF_SUCCESS_STRINGS[degree.unadjusted]));
+            const unadjusted = _loc(locPath(checkOrAttack, DEGREE_OF_SUCCESS_STRINGS[degree.unadjusted]));
             const [adjusted, locKey] = degree.adjustment
-                ? [game.i18n.localize(locPath(checkOrAttack, DEGREE_OF_SUCCESS_STRINGS[degree.value])), "AdjustedLabel"]
+                ? [_loc(locPath(checkOrAttack, DEGREE_OF_SUCCESS_STRINGS[degree.value])), "AdjustedLabel"]
                 : [unadjusted, "Label"];
 
-            const markup = game.i18n.format(`PF2E.Check.Result.${locKey}`, {
+            const markup = _loc(`PF2E.Check.Result.${locKey}`, {
                 adjusted,
                 unadjusted,
                 offset: offset.value,

@@ -98,7 +98,7 @@ class AmmoPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phys
         if (this.system.craftableAs) {
             const exhausted = uses.max >= thisMany && uses.value === thisMany;
             const key = exhausted && uses.max > 1 ? "UseExhausted" : uses.max > thisMany ? "UseMulti" : "UseSingle";
-            const content = game.i18n.format(`PF2E.ConsumableMessage.${key}`, {
+            const content = _loc(`PF2E.ConsumableMessage.${key}`, {
                 name: this.name,
                 current: uses.value - thisMany,
             });
@@ -158,7 +158,7 @@ class AmmoPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phys
                 .map(([slug, data]) => ({
                     slug,
                     ...data,
-                    option: { value: slug, label: game.i18n.localize(data.label) },
+                    option: { value: slug, label: _loc(data.label) },
                 }));
             const compatibleTypes = craftableAs.length
                 ? allAmmoTypes.filter((t) => craftableAs.includes(t.slug) || tupleHasValue(craftableAs, t.parent))
@@ -169,13 +169,13 @@ class AmmoPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phys
 
             const result = await new PickAThingPrompt<AmmoType>({
                 title: this.name,
-                prompt: game.i18n.localize("PF2E.Item.Ammo.SpecialAmmoPicker.Prompt"),
+                prompt: _loc("PF2E.Item.Ammo.SpecialAmmoPicker.Prompt"),
                 item: this,
                 choices: R.sortBy(compatibleTypes, (t) => (supported.includes(t.slug) ? 0 : t.weapon ? 2 : 1)).map(
                     (t) => ({
                         value: t.slug,
-                        label: game.i18n.localize(t.label),
-                        group: game.i18n.localize(
+                        label: _loc(t.label),
+                        group: _loc(
                             `PF2E.Item.Ammo.Groups.${supported.includes(t.slug) ? "OwnWeapons" : t.weapon ? "WeaponSpecific" : "General"}`,
                         ),
                     }),

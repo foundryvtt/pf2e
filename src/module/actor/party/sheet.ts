@@ -137,13 +137,13 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 : null;
             const blurb =
                 actor.isOfType("character") && actor.ancestry && actor.class
-                    ? game.i18n.format("PF2E.Actor.Character.Blurb", {
+                    ? _loc("PF2E.Actor.Character.Blurb", {
                           level: actor.level,
                           ancestry: actor.ancestry.name,
                           class: actor.class.name,
                       })
                     : actor.isOfType("familiar") && actor.master
-                      ? game.i18n.format("PF2E.Actor.Familiar.Blurb", { master: actor.master.name })
+                      ? _loc("PF2E.Actor.Familiar.Blurb", { master: actor.master.name })
                       : actor.isOfType("npc")
                         ? actor.system.details.blurb.trim() || null
                         : null;
@@ -231,10 +231,10 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                         slug: language,
                         label:
                             language === "common" && commonLanguage
-                                ? game.i18n.format("PF2E.Actor.Creature.Language.CommonLanguage", {
-                                      language: game.i18n.localize(CONFIG.PF2E.languages[commonLanguage]),
+                                ? _loc("PF2E.Actor.Creature.Language.CommonLanguage", {
+                                      language: _loc(CONFIG.PF2E.languages[commonLanguage]),
                                   })
-                                : game.i18n.localize(CONFIG.PF2E.languages[language]),
+                                : _loc(CONFIG.PF2E.languages[language]),
                         actors: this.#getActorsThatUnderstand(language),
                     }),
                 ),
@@ -298,11 +298,10 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const actorUUID = htmlClosest(rollLink, "[data-actor-uuid]")?.dataset.actorUuid;
             const actor = fromUuidSync(actorUUID ?? "");
             if (!(actor instanceof ActorPF2e)) continue;
-
             rollLink.addEventListener("click", (event) => {
-                const rollMode = rollLink.dataset.secret ? (game.user.isGM ? "gmroll" : "blindroll") : undefined;
+                const messageMode = rollLink.dataset.secret ? (game.user.isGM ? "gm" : "blind") : undefined;
                 const statistic = actor.getStatistic(rollLink.dataset.statistic ?? "");
-                statistic?.roll({ ...eventToRollParams(event, { type: "check" }), rollMode });
+                statistic?.roll({ ...eventToRollParams(event, { type: "check" }), messageMode });
             });
         }
 
@@ -335,7 +334,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                         ? true
                         : await foundry.applications.api.DialogV2.confirm({
                               window: { title: "PF2E.Actor.Party.RemoveMember.Title" },
-                              content: game.i18n.localize("PF2E.Actor.Party.RemoveMember.Content"),
+                              content: _loc("PF2E.Actor.Party.RemoveMember.Content"),
                               yes: { default: true },
                           });
                     if (confirmed && actor) {
@@ -367,7 +366,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const slug = languageTag.dataset.language as Language;
             const actors = this.#getActorsThatUnderstand(slug);
             const members = actors.map((m) => m.name).join(", ");
-            const titleLabel = game.i18n.localize("PF2E.Actor.Party.MembersLabel");
+            const titleLabel = _loc("PF2E.Actor.Party.MembersLabel");
             const title = createHTMLElement("strong", { children: [titleLabel] });
             const content = createHTMLElement("span", { children: [title, members] });
             createTooltipster(languageTag, { content });
@@ -379,7 +378,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const statistics = this.actor.members.map((m) => m.skills[slug]).filter(R.isTruthy);
             const labels = R.sortBy(statistics, (s) => s.mod).map((statistic) => {
                 const rank = statistic.rank ?? (statistic.proficient ? 1 : 0);
-                const prof = game.i18n.localize(CONFIG.PF2E.proficiencyLevels[rank]);
+                const prof = _loc(CONFIG.PF2E.proficiencyLevels[rank]);
                 const label = `${statistic.actor.name} (${prof}) ${signedInteger(statistic.mod)}`;
                 const row = createHTMLElement("div", { children: [label] });
                 row.style.textAlign = "right";
@@ -438,8 +437,8 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const invalid = toTest.filter((i) => !supported.includes(i.type));
         if (invalid.length) {
             for (const source of invalid) {
-                const type = game.i18n.localize(CONFIG.Item.typeLabels[source.type] ?? source.type.titleCase());
-                ui.notifications.error(game.i18n.format("PF2E.Item.CannotAddType", { type }));
+                const type = _loc(CONFIG.Item.typeLabels[source.type] ?? source.type.titleCase());
+                ui.notifications.error(_loc("PF2E.Item.CannotAddType", { type }));
             }
             return [];
         }

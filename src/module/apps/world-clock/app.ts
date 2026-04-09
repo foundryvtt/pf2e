@@ -83,7 +83,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
         const advanceOrRetract = html.querySelector<HTMLButtonElement>("button[name=advance], button[name=retract]");
         if (advanceOrRetract) {
             advanceOrRetract.name = retractTime ? "retract" : "advance";
-            advanceOrRetract.innerText = game.i18n.localize(retractTime ? Retract : Advance);
+            advanceOrRetract.innerText = _loc(retractTime ? Retract : Advance);
         }
     };
 
@@ -128,7 +128,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
             case "AR": // Absalom Reckoning
             case "IC": // Imperial Calendar
             case "AG": // After Gap
-                return game.i18n.localize(CONFIG.PF2E.worldClock[this.dateTheme].Era);
+                return _loc(CONFIG.PF2E.worldClock[this.dateTheme].Era);
             case "AD": // Earth on the Material Plane
                 return this.worldTime.toFormat("G");
             default:
@@ -150,7 +150,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
             case "AG": {
                 const months = CONFIG.PF2E.worldClock.AR.Months;
                 const month = this.worldTime.setLocale("en-US").monthLong as keyof typeof months;
-                return game.i18n.localize(months[month]);
+                return _loc(months[month]);
             }
             default:
                 return this.worldTime.monthLong!;
@@ -164,12 +164,12 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
             case "IC": {
                 const weekdays = CONFIG.PF2E.worldClock.AR.Weekdays;
                 const weekday = this.worldTime.setLocale("en-US").weekdayLong as keyof typeof weekdays;
-                return game.i18n.localize(weekdays[weekday]);
+                return _loc(weekdays[weekday]);
             }
             case "AG": {
                 const weekdays = CONFIG.PF2E.worldClock.AG.Weekdays;
                 const weekday = this.worldTime.setLocale("en-US").weekdayLong as keyof typeof weekdays;
-                return game.i18n.localize(weekdays[weekday]);
+                return _loc(weekdays[weekday]);
             }
             default:
                 return this.worldTime.weekdayLong!;
@@ -206,7 +206,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
         const date =
             this.dateTheme === "CE"
                 ? this.worldTime.toLocaleString(DateTime.DATE_HUGE)
-                : game.i18n.format(CONFIG.PF2E.worldClock.Date, {
+                : _loc(CONFIG.PF2E.worldClock.Date, {
                       era: this.era,
                       year: this.year,
                       month: this.month,
@@ -277,7 +277,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
     static createSyncedMessage(): HTMLSpanElement {
         const managedBy = document.createElement("span");
         managedBy.classList.add("managed");
-        managedBy.innerHTML = " ".concat(game.i18n.localize("PF2E.Scene.SyncDarkness.ManagedBy"));
+        managedBy.innerHTML = " ".concat(_loc("PF2E.Scene.SyncDarkness.ManagedBy"));
         // Create a link to open world clock settings
         const anchor = document.createElement("a");
         const wtLink = managedBy.querySelector("wt");

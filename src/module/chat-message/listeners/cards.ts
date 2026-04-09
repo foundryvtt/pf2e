@@ -6,7 +6,7 @@ import { SAVE_TYPES } from "@actor/values.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
 import { PhysicalItemPF2e, type ItemPF2e } from "@item";
 import { isSpellConsumableUUID } from "@item/consumable/spell-consumables.ts";
-import { placeItemTemplate } from "@item/helpers.ts";
+import { placeRegionFromItem } from "@item/helpers.ts";
 import { Coins } from "@item/physical/helpers.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { effectTraits } from "@scripts/config/traits.ts";
@@ -136,10 +136,9 @@ class ChatCards {
                     spell?.placeTemplate(message);
                     return;
                 case "spell-template-clear": {
-                    const templateIds =
-                        canvas.scene?.templates.filter((t) => t.message === message).map((t) => t.id) ?? [];
+                    const regionIds = canvas.scene?.regions.filter((t) => t.message === message).map((t) => t.id) ?? [];
                     button.disabled = true;
-                    await canvas.scene?.deleteEmbeddedDocuments("MeasuredTemplate", templateIds);
+                    await canvas.scene?.deleteEmbeddedDocuments("Region", regionIds);
                     button.disabled = false;
                     return;
                 }
@@ -177,7 +176,7 @@ class ChatCards {
                         const consumable = actor.items.get(button.dataset.item ?? "");
                         if (consumable?.isOfType("consumable")) {
                             const oldQuant = consumable.quantity;
-                            const consumableString = game.i18n.localize("TYPES.Item.consumable");
+                            const consumableString = _loc("TYPES.Item.consumable");
                             const toReplace = `${consumable.name} - ${consumableString} (${oldQuant})`;
                             await consumable.consume();
                             const currentQuant = oldQuant === 1 ? 0 : consumable.quantity;
@@ -186,7 +185,7 @@ class ChatCards {
                                 `${consumable.name} - ${consumableString} (${currentQuant})`,
                             );
                             if (currentQuant === 0) {
-                                const buttonStr = `>${game.i18n.localize("PF2E.Item.Consumable.Uses.Use")}</button>`;
+                                const buttonStr = `>${_loc("PF2E.Item.Consumable.Uses.Use")}</button>`;
                                 flavor = flavor?.replace(buttonStr, ` disabled${buttonStr}`);
                             }
                             await message.update({ flavor });
@@ -229,7 +228,7 @@ class ChatCards {
                 case "place-area-template": {
                     const context = message.flags[SYSTEM_ID].context;
                     const area = tupleHasValue(["area-fire", "auto-fire"], context?.type) ? context.area : null;
-                    if (area) placeItemTemplate(area, { item, message });
+                    if (area) placeRegionFromItem(area, { item, message });
                     return;
                 }
             }
@@ -249,7 +248,7 @@ class ChatCards {
                 const craftingCost = Coins.fromPrice(physicalItem.price, quantity);
                 const coinsToRemove = button.classList.contains("full") ? craftingCost : craftingCost.scale(0.5);
                 if (!(await actor.inventory.removeCoins(coinsToRemove))) {
-                    ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
+                    ui.notifications.warn(_loc("PF2E.Actions.Craft.Warning.InsufficientCoins"));
                     return;
                 }
 
@@ -257,7 +256,7 @@ class ChatCards {
                     craftSpellConsumable(physicalItem, quantity, actor);
                     ChatMessagePF2e.create({
                         author: game.user.id,
-                        content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
+                        content: _loc("PF2E.Actions.Craft.Information.PayAndReceive", {
                             actorName: actor.name,
                             cost: coinsToRemove.toString(),
                             quantity: quantity,
@@ -273,13 +272,13 @@ class ChatCards {
 
                 const result = await actor.addToInventory(itemObject, undefined);
                 if (!result) {
-                    ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.CantAddItem"));
+                    ui.notifications.warn(_loc("PF2E.Actions.Craft.Warning.CantAddItem"));
                     return;
                 }
 
                 ChatMessagePF2e.create({
                     author: game.user.id,
-                    content: game.i18n.format("PF2E.Actions.Craft.Information.LoseMaterials", {
+                    content: _loc("PF2E.Actions.Craft.Information.LoseMaterials", {
                         actorName: actor.name,
                         cost: coinsToRemove.toString(),
                         quantity: quantity,
@@ -292,11 +291,11 @@ class ChatCards {
                 const materialCosts = craftingCost.scale(0.5);
                 const coinsToRemove = materialCosts.scale(0.1);
                 if (!(await actor.inventory.removeCoins(coinsToRemove))) {
-                    ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
+                    ui.notifications.warn(_loc("PF2E.Actions.Craft.Warning.InsufficientCoins"));
                 } else {
                     ChatMessagePF2e.create({
                         author: game.user.id,
-                        content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
+                        content: _loc("PF2E.Actions.Craft.Information.PayAndReceive", {
                             actorName: actor.name,
                             cost: coinsToRemove.toString(),
                         }),

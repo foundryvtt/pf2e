@@ -200,13 +200,13 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             flavor: createHTMLElement("div", {
                 children: [
                     createHTMLElement("strong", {
-                        children: [game.i18n.localize("PF2E.Kingmaker.Army.Potions.UsedPotionHeader")],
+                        children: [_loc("PF2E.Kingmaker.Army.Potions.UsedPotionHeader")],
                     }),
                     document.createElement("hr"),
                 ],
             }).outerHTML,
             content: createHTMLElement("p", {
-                children: [game.i18n.localize("PF2E.Kingmaker.Army.Potions.UsedPotionContent")],
+                children: [_loc("PF2E.Kingmaker.Army.Potions.UsedPotionContent")],
             }).outerHTML,
             style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
         });
@@ -329,12 +329,11 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             variants: [0, 1, 2].map((idx) => {
                 const mapModifier = idx === 0 ? null : createMapModifier(`map${idx as 1 | 2}`);
                 const penalty = mapModifier?.modifier ?? 0;
-
                 return {
                     label:
                         idx === 0
                             ? signedInteger(statistic.mod)
-                            : game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                            : _loc("PF2E.MAPAbbreviationValueLabel", {
                                   value: signedInteger(statistic.mod + penalty),
                                   penalty,
                               }),
@@ -410,7 +409,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                 ui.notifications.error("PF2E.Kingmaker.Army.Error.InvalidTacticType", {
                     format: {
                         name: source.name,
-                        type: game.i18n.localize(CONFIG.PF2E.kingmakerTraits[this.system.traits.type]),
+                        type: _loc(CONFIG.PF2E.kingmakerTraits[this.system.traits.type]),
                     },
                 });
                 return false;

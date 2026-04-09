@@ -42,18 +42,18 @@ class Sense extends foundry.abstract.DataModel<ActorPF2e, SenseSchema> {
     get label(): string | null {
         const buildLabel = (type: string, acuity?: Maybe<SenseAcuity>, range?: Maybe<number>): string => {
             const senses: Record<string, string | undefined> = CONFIG.PF2E.senses;
-            const sense = game.i18n.localize(senses[type] ?? "") || type;
-            const acuityLabel = acuity ? game.i18n.localize(CONFIG.PF2E.senseAcuities[acuity]) : null;
+            const sense = _loc(senses[type] ?? "") || type;
+            const acuityLabel = acuity ? _loc(CONFIG.PF2E.senseAcuities[acuity]) : null;
             return acuity && range
-                ? game.i18n.format("PF2E.Actor.Creature.Sense.WithAcuityAndRange", {
+                ? _loc("PF2E.Actor.Creature.Sense.WithAcuityAndRange", {
                       sense,
                       acuity: acuityLabel,
                       range,
                   })
                 : acuity
-                  ? game.i18n.format("PF2E.Actor.Creature.Sense.WithAcuity", { sense, acuity: acuityLabel })
+                  ? _loc("PF2E.Actor.Creature.Sense.WithAcuity", { sense, acuity: acuityLabel })
                   : range
-                    ? game.i18n.format("PF2E.Actor.Creature.Sense.WithRange", { sense, range })
+                    ? _loc("PF2E.Actor.Creature.Sense.WithRange", { sense, range })
                     : sense;
         };
 

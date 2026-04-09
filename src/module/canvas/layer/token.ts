@@ -26,8 +26,10 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TOb
         return super._onClickLeft(event);
     }
 
-    /** For troops it only warns if every segment is being deleted */
+    /** Reimplementation to avoid warning for troop tokens unless it is the last segment of the troop  */
     protected override async _confirmDeleteKey(documents: TObject["document"][]): Promise<boolean> {
+        const warnings = [];
+        if (documents.some((t) => t.attachments.regions.size)) warnings.push("TOKEN.DeleteAttachedRegionWarning");
         const tokens = new Set(documents);
         const inCombat = game.combats.some((combat) =>
             combat.combatants.some((combatant) => {
@@ -35,14 +37,13 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TOb
                 return combatantTokens.length > 0 && combatantTokens.every((t) => tokens.has(t));
             }),
         );
-        if (!inCombat) return true;
-        const question = game.i18n.localize("AreYouSure");
-        const warning = game.i18n.localize("TOKEN.DeleteCombatantWarning");
+        if (inCombat) warnings.push("TOKEN.DeleteCombatantWarning");
+        if (!warnings.length) return true;
         return foundry.applications.api.DialogV2.confirm({
             window: {
-                title: game.i18n.format("DOCUMENT.Delete", { type: game.i18n.localize(TokenDocument.metadata.label) }),
+                title: _loc("DOCUMENT.Delete", { type: _loc(TokenDocument.metadata.label) }),
             },
-            content: `<p><strong>${question}</strong> ${warning}</p>`,
+            content: `<p><strong>${_loc("COMMON.AreYouSure")}</strong></p>${warnings.map((w) => `<p>${_loc(w)}</p>`)}`,
         });
     }
 

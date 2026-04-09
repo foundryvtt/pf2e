@@ -91,12 +91,8 @@ class AttributeBuilder extends SvelteApplicationMixin<
 
     async toggleAlternateAncestryBoosts(): Promise<void> {
         const ancestry = this.#actor.ancestry;
-        if (!ancestry) return;
-        if (ancestry.system.alternateAncestryBoosts) {
-            await ancestry.update({ "system.-=alternateAncestryBoosts": null });
-        } else {
-            await ancestry.update({ "system.alternateAncestryBoosts": [] });
-        }
+        const hasAlternateBoosts = !!ancestry?.system.alternateAncestryBoosts;
+        await ancestry?.update({ "system.alternateAncestryBoosts": hasAlternateBoosts ? _del : [] });
     }
 
     async toggleLegacyVoluntaryFlaw(): Promise<void> {
@@ -106,7 +102,7 @@ class AttributeBuilder extends SvelteApplicationMixin<
         const voluntary = ancestry.system.voluntary;
         if (voluntary?.boost !== undefined) {
             const flaws = R.unique(voluntary.flaws);
-            await ancestry.update({ system: { voluntary: { "-=boost": null, flaws } } });
+            await ancestry.update({ system: { voluntary: { boost: _del, flaws } } });
         } else {
             const flaws = voluntary?.flaws.slice(0, 2) ?? [];
             await ancestry.update({ system: { voluntary: { boost: null, flaws } } });

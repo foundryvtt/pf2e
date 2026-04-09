@@ -1,8 +1,8 @@
 import { MODIFIER_TYPES, Modifier, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import type { ApplicationV1Options } from "@client/appv1/api/application-v1.d.mts";
-import type { RollMode } from "@common/constants.d.mts";
+import type { ChatMessageMode } from "@client/config.d.mts";
 import type { RollSubstitution } from "@module/rules/synthetics.ts";
-import { ErrorPF2e, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlQuery, htmlQueryAll, objectHasKey, setHasElement } from "@util";
 import * as R from "remeda";
 import type { RollTwiceOption } from "../rolls.ts";
 import type { CheckCheckContext } from "./types.ts";
@@ -65,9 +65,7 @@ export class CheckModifiersDialog extends fav1.api.Application {
         const fortune = this.context.rollTwice === "keep-higher";
         const misfortune = this.context.rollTwice === "keep-lower";
         const none = fortune === misfortune;
-        const rollMode =
-            this.context.rollMode === "roll" ? game.settings.get("core", "rollMode") : this.context.rollMode;
-
+        const messageMode = this.context.messageMode ?? game.settings.get("core", "messageMode");
         return {
             appId: this.id,
             modifiers: this.check.modifiers.map((m) => ({
@@ -75,8 +73,8 @@ export class CheckModifiersDialog extends fav1.api.Application {
                 hideIfDisabled: !this.#originallyEnabled.has(m) && m.hideIfDisabled,
             })),
             totalModifier: this.check.totalModifier,
-            rollModes: CONFIG.Dice.rollModes,
-            rollMode,
+            messageModes: R.mapValues(CONFIG.ChatMessage.modes, (m) => m.label),
+            messageMode: messageMode,
             showCheckDialogs: game.user.settings.showCheckDialogs,
             substitutions: this.#resolveSubstitutions(),
             fortune,
@@ -159,7 +157,7 @@ export class CheckModifiersDialog extends fav1.api.Application {
                 throw ErrorPF2e("Unexpected invalid modifier type");
             }
             if (!name || !name.trim()) {
-                name = game.i18n.localize(value < 0 ? `PF2E.PenaltyLabel.${type}` : `PF2E.BonusLabel.${type}`);
+                name = _loc(value < 0 ? `PF2E.PenaltyLabel.${type}` : `PF2E.BonusLabel.${type}`);
             }
             if (errors.length > 0) {
                 ui.notifications.error(errors.join(" "));
@@ -175,13 +173,11 @@ export class CheckModifiersDialog extends fav1.api.Application {
             });
         }
 
-        const rollModeInput = htmlQuery<HTMLSelectElement>(html, "select[name=rollmode]");
-        rollModeInput?.addEventListener("change", () => {
-            const rollMode = rollModeInput.value;
-            if (!tupleHasValue(Object.values(CONST.DICE_ROLL_MODES), rollMode)) {
-                throw ErrorPF2e("Unexpected roll mode");
-            }
-            this.context.rollMode = rollMode;
+        const modeInput = htmlQuery<HTMLSelectElement>(html, "select[name=messageMode]");
+        modeInput?.addEventListener("change", () => {
+            const mode = modeInput.value;
+            if (!objectHasKey(CONFIG.ChatMessage.modes, mode)) throw ErrorPF2e("Unexpected message-visibility mode");
+            this.context.messageMode = mode;
         });
 
         // Toggle show dialog default
@@ -209,8 +205,8 @@ interface CheckDialogData {
     appId: string;
     modifiers: RawModifier[];
     totalModifier: number;
-    rollModes: Record<RollMode, string>;
-    rollMode: RollMode | "roll" | undefined;
+    messageModes: Record<ChatMessageMode, string>;
+    messageMode: ChatMessageMode;
     showCheckDialogs: boolean;
     substitutions: RollSubstitutionDialogData[];
     fortune: boolean;

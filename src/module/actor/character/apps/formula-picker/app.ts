@@ -93,16 +93,16 @@ class FormulaPicker extends SvelteApplicationMixin<
 
         const prompt =
             mode === "prepare"
-                ? game.i18n.format("PF2E.Actor.Character.Crafting.PrepareHint", {
+                ? _loc("PF2E.Actor.Character.Crafting.PrepareHint", {
                       remaining: sheetData.remainingSlots,
                   })
                 : resource
-                  ? game.i18n.format("PF2E.Actor.Character.Crafting.Action.Hint", {
+                  ? _loc("PF2E.Actor.Character.Crafting.Action.Hint", {
                         resource: resource.label,
                         value: resource.value,
                         max: resource.max,
                     })
-                  : game.i18n.localize("PF2E.Actor.Character.Crafting.Action.HintResourceless");
+                  : _loc("PF2E.Actor.Character.Crafting.Action.HintResourceless");
 
         return {
             foundryApp: this,

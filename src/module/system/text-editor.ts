@@ -64,11 +64,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
     ): Promise<HTMLAnchorElement | null> {
         const anchor = await super._createInlineRoll(match, rollData, options);
         const formula = anchor?.dataset.formula;
-        const rollModes = ["roll", ...Object.values(CONST.DICE_ROLL_MODES)];
-        if (!formula || !rollModes.includes(anchor.dataset.mode ?? "")) {
-            return anchor;
-        }
-
+        if (!formula || !objectHasKey(CONFIG.ChatMessage.modes, anchor.dataset.mode)) return anchor;
         const roll = ((): DamageRoll | null => {
             try {
                 return new DamageRoll(formula);
@@ -76,10 +72,9 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
                 return null;
             }
         })();
+
         // Consider any roll formula with d20s or coins to definitely not be a damage roll
-        if (!roll || !looksLikeDamageRoll(roll)) {
-            return anchor;
-        }
+        if (!roll || !looksLikeDamageRoll(roll)) return anchor;
 
         // Replace the die icon with one representing the damage roll's first damage die
         const icon = damageDiceIcon(roll);
@@ -95,7 +90,6 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
             anchor.draggable = true;
             anchor.dataset.persistent = "";
         }
-
         return anchor;
     }
 
@@ -135,10 +129,10 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         })();
 
         const options = anchor.dataset.flavor ? { flavor: anchor.dataset.flavor } : {};
-
         const speaker = ChatMessagePF2e.getSpeaker({ actor });
-        const rollMode = objectHasKey(CONFIG.Dice.rollModes, anchor.dataset.mode) ? anchor.dataset.mode : "roll";
-
+        const messageMode = objectHasKey(CONFIG.ChatMessage.modes, anchor.dataset.mode)
+            ? anchor.dataset.mode
+            : game.settings.get("core", "messageMode");
         const baseFormula = anchor.dataset.baseFormula;
         if (baseFormula) {
             const item = rollData.item instanceof ItemPF2e ? rollData.item : null;
@@ -170,7 +164,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
                             : damageKinds.has("healing") && !damageKinds.has("damage")
                               ? "Healing"
                               : "Both";
-                    return game.i18n.localize(`PF2E.Damage.Kind.${locKey}.Roll.Noun`);
+                    return _loc(`PF2E.Damage.Kind.${locKey}.Roll.Noun`);
                 })();
                 const name =
                     subtitle && item?.isOfType("action", "feat") && item.actionCost
@@ -180,7 +174,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
                               title: item.name,
                           })
                         : (anchor.dataset.name ?? item?.name ?? "");
-                args.template.name = game.i18n.localize(name);
+                args.template.name = _loc(name);
 
                 await DamagePF2e.roll(args.template, args.context);
             }
@@ -190,7 +184,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
 
         const roll = new DamageRoll(anchor.dataset.formula, rollData, options);
         const flavor = roll.options.flavor ? roll.options.flavor : undefined;
-        return roll.toMessage({ speaker, flavor }, { rollMode });
+        return roll.toMessage({ speaker, flavor }, { messageMode });
     }
 
     static processUserVisibility(content: string, options: EnrichmentOptionsPF2e): string {
@@ -223,7 +217,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
             case "Localize":
                 return this.#localize(paramString, options);
             case "Template":
-                return this.#createTemplate(paramString, inlineLabel, item);
+                return this.#createTemplateRegion(paramString, inlineLabel, item);
             default:
                 return null;
         }
@@ -264,7 +258,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
     }
 
     static async #localize(paramString: string, options: EnrichmentOptionsPF2e): Promise<HTMLElement | null> {
-        const content = game.i18n.localize(paramString);
+        const content = _loc(paramString);
         if (content === paramString) {
             ui.notifications.error(`Failed to localize ${paramString}!`);
             return null;
@@ -275,31 +269,25 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
     }
 
     /** Create inline template button from @template command */
-    static #createTemplate(paramString: string, label?: string, item?: ItemPF2e | null): HTMLSpanElement | null {
+    static #createTemplateRegion(paramString: string, label?: string, item?: ItemPF2e | null): HTMLSpanElement | null {
         // Get parameters from data
         const params = this.#parseInlineParams(paramString, { first: "type" });
         if (!params) return null;
 
         // Check for correct param notation
         if (!params.type) {
-            ui.notifications.error(game.i18n.localize("PF2E.InlineTemplateErrors.TypeMissing"));
+            ui.notifications.error(_loc("PF2E.InlineTemplateErrors.TypeMissing"));
         } else if (!params.distance) {
-            ui.notifications.error(game.i18n.localize("PF2E.InlineTemplateErrors.DistanceMissing"));
+            ui.notifications.error(_loc("PF2E.InlineTemplateErrors.DistanceMissing"));
             return null;
         } else if (!tupleHasValue(EFFECT_AREA_SHAPES, params.type)) {
-            ui.notifications.error(
-                game.i18n.format("PF2E.InlineTemplateErrors.TypeUnsupported", { type: params.type }),
-            );
+            ui.notifications.error(_loc("PF2E.InlineTemplateErrors.TypeUnsupported", { type: params.type }));
             return null;
         } else if (isNaN(+params.distance)) {
-            ui.notifications.error(
-                game.i18n.format("PF2E.InlineTemplateErrors.DistanceNoNumber", { distance: params.distance }),
-            );
+            ui.notifications.error(_loc("PF2E.InlineTemplateErrors.DistanceNoNumber", { distance: params.distance }));
             return null;
         } else if (params.width && isNaN(+params.width)) {
-            ui.notifications.error(
-                game.i18n.format("PF2E.InlineTemplateErrors.WidthNoNumber", { width: params.width }),
-            );
+            ui.notifications.error(_loc("PF2E.InlineTemplateErrors.WidthNoNumber", { width: params.width }));
             return null;
         } else {
             // If no traits are entered manually use the traits from rollOptions if available
@@ -308,25 +296,26 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
 
             // If no button label is entered directly create default label
             if (!label) {
-                label = game.i18n.format("PF2E.TemplateLabel", {
+                label = _loc("PF2E.TemplateLabel", {
                     size: params.distance,
-                    unit: game.i18n.localize("PF2E.Foot.Label"),
-                    shape: game.i18n.localize(`PF2E.Area.Shape.${params.type}`),
+                    unit: _loc("PF2E.Foot.Label"),
+                    shape: _loc(`PF2E.Area.Shape.${params.type}`),
                 });
             }
 
             // Add the html elements used for the inline buttons
             const html = document.createElement("span");
             html.innerHTML = label;
-            html.setAttribute("data-pf2-effect-area", params.type);
-            html.setAttribute("data-pf2-distance", params.distance);
-            if (params.traits !== "") html.setAttribute("data-pf2-traits", params.traits);
-            if (params.type === "line") html.setAttribute("data-pf2-width", params.width ?? "5");
+            html.dataset.type = params.type;
+            html.dataset.distance = params.distance;
+            if (params.traits) html.dataset.traits = params.traits;
+            if (params.type === "line") html.dataset.width = params.width;
             if (["cone", "line"].includes(params.type)) {
-                html.setAttribute("data-tooltip", "PF2E.Item.Spell.MeasuredTemplate.PlacementTooltip");
-                html.setAttribute("data-tooltip-class", "pf2e");
+                html.ariaLabel = _loc("PF2E.Item.Spell.MeasuredTemplate.PlacementTooltip");
+                html.dataset.tooltip = "";
+                html.dataset.tooltipClass = "pf2e";
             }
-            if (params.itemUuid !== "") html.setAttribute("data-item-uuid", params.itemUuid);
+            if (params.itemUuid) html.dataset.itemUuid = params.itemUuid;
             return html;
         }
         return null;
@@ -379,7 +368,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
             return this.#invalidInlineAction(
                 ["unresolvable-action"],
                 "fa-solid fa-link-slash",
-                game.i18n.format("PF2E.InlineAction.Warning.UnresolvableAction", { slug }),
+                _loc("PF2E.InlineAction.Warning.UnresolvableAction", { slug }),
             );
         }
 
@@ -400,7 +389,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
             return this.#invalidInlineAction(
                 [],
                 ["fa-solid fa-slash", "fa-solid fa-person-running"],
-                game.i18n.format("PF2E.InlineAction.Warning.InvalidAction", { slug }),
+                _loc("PF2E.InlineAction.Warning.InvalidAction", { slug }),
             );
         }
 
@@ -436,8 +425,8 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         text.innerText = trimmedLabel
             ? trimmedLabel
             : variant?.name
-              ? `${game.i18n.localize(action.name)} - ${game.i18n.localize(variant.name)}`
-              : game.i18n.localize(action.name);
+              ? `${_loc(action.name)} - ${_loc(variant.name)}`
+              : _loc(action.name);
         element.appendChild(text);
 
         // difficulty class
@@ -456,26 +445,26 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
             if (dc && showDC) {
                 if (!Number.isNumeric(dc)) {
                     // (Statistic vs Defense DC)
-                    const defense = game.i18n.localize(`PF2E.Check.DC.Specific.${dc}`);
+                    const defense = _loc(`PF2E.Check.DC.Specific.${dc}`);
                     const text = statistic
-                        ? game.i18n.format("PF2E.InlineAction.Check.StatisticVsDefense", {
+                        ? _loc("PF2E.InlineAction.Check.StatisticVsDefense", {
                               defense,
                               statistic: ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic,
                           })
-                        : game.i18n.format("PF2E.InlineAction.Check.VsDefense", { defense });
+                        : _loc("PF2E.InlineAction.Check.VsDefense", { defense });
                     details.innerText = `(${text})`;
                 } else if (statistic) {
                     // (<span data-visibility="...">DC #</span> Statistic)
                     const span = createHTMLElement("span", {
                         dataset: { visibility },
-                        children: [game.i18n.format("PF2E.InlineAction.Check.DC", { dc })],
+                        children: [_loc("PF2E.InlineAction.Check.DC", { dc })],
                     });
                     const end = statistic ? ` ${ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic})` : ")";
                     details.append("(", span, end);
                 } else {
                     // <span data-visibility="...">(DC #)</span>
                     details.dataset.visibility = visibility;
-                    details.innerText = `(${game.i18n.format("PF2E.InlineAction.Check.DC", { dc })})`;
+                    details.innerText = `(${_loc("PF2E.InlineAction.Check.DC", { dc })})`;
                 }
             } else {
                 // (Statistic)
@@ -493,7 +482,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
 
         // traits as tooltip
         element.dataset["tooltip"] = traits
-            .map((t) => game.i18n.localize(CONFIG.PF2E.actionTraits[t] || t))
+            .map((t) => _loc(CONFIG.PF2E.actionTraits[t] || t))
             .sort()
             .join(", ");
 
@@ -522,7 +511,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
 
         const type = rawParams.type?.trim();
         if (!type) {
-            ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.TypeMissing"));
+            ui.notifications.warn(_loc("PF2E.InlineCheck.Errors.TypeMissing"));
             return null;
         }
 
@@ -573,11 +562,11 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         }
 
         if (adjustments.length > types.length) {
-            ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.AdjustmentLengthMismatch"));
+            ui.notifications.warn(_loc("PF2E.InlineCheck.Errors.AdjustmentLengthMismatch"));
             return null;
         }
         if (adjustments.some((adj) => !Number.isInteger(Math.trunc(Number(adj))))) {
-            ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.NonIntegerAdjustment"));
+            ui.notifications.warn(_loc("PF2E.InlineCheck.Errors.NonIntegerAdjustment"));
             return null;
         }
 
@@ -626,15 +615,15 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         })();
         icon.classList.add("icon");
 
-        const name = game.i18n.localize(params.name ?? item?.name ?? params.type);
+        const name = _loc(params.name ?? item?.name ?? params.type);
         const localize = localizer("PF2E.InlineCheck");
 
         // Get the label
         const label = (() => {
-            if (inlineLabel) return game.i18n.localize(inlineLabel);
+            if (inlineLabel) return _loc(inlineLabel);
 
             if (tupleHasValue(SAVE_TYPES, params.type)) {
-                const saveName = game.i18n.localize(CONFIG.PF2E.saves[params.type]);
+                const saveName = _loc(CONFIG.PF2E.saves[params.type]);
                 return params.basic ? localize("BasicWithSave", { save: saveName }) : saveName;
             }
 
@@ -692,7 +681,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
                 const text = anchor.innerText;
                 anchor.querySelector("span.label")?.replaceWith(
                     createLabel(
-                        game.i18n.format("PF2E.DCWithValueAndVisibility", {
+                        _loc("PF2E.DCWithValueAndVisibility", {
                             role: params.showDC,
                             dc: displayedDC,
                             text,
@@ -717,7 +706,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
     }): Promise<HTMLElement | null> {
         const rawParams = this.#parseInlineParams(args.paramString, { first: "formula" });
         if (!rawParams || !rawParams.formula) {
-            ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.TypeMissing"));
+            ui.notifications.warn(_loc("PF2E.InlineCheck.Errors.TypeMissing"));
             return null;
         }
 
@@ -727,7 +716,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
 
         // Verify all custom domains are valid. Don't allow any valid domains, and don't attempt to sanitize
         if (domains.some((d) => !/^[a-z][-a-z0-9]+-damage$/.test(d))) {
-            ui.notifications.warn(game.i18n.format("PF2E.InlineCheck.Errors.InvalidDomains", { type: "@Damage" }));
+            ui.notifications.warn(_loc("PF2E.InlineCheck.Errors.InvalidDomains", { type: "@Damage" }));
             return null;
         }
 
@@ -782,7 +771,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
                 tooltip: args.inlineLabel
                     ? formula
                     : baseFormula && baseFormula !== formula
-                      ? game.i18n.format("PF2E.InlineDamage.Base", { formula: baseFormula })
+                      ? _loc("PF2E.InlineDamage.Base", { formula: baseFormula })
                       : null,
                 damageRoll: rawParams.formula,
                 name: rawParams.name,

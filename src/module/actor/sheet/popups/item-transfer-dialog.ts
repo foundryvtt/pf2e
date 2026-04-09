@@ -42,7 +42,7 @@ class ItemTransferDialog extends fa.api.DialogV2<ItemTransferConfiguration> {
         initialized.window.icon = ItemTransferDialog.#MODE_ICONS[initialized.mode ?? "move"];
         const mode = initialized.mode;
         const itemName = initialized.item.name;
-        initialized.window.title = game.i18n.format(`PF2E.ItemTransferDialog.Title.${mode}`, { item: itemName });
+        initialized.window.title = _loc(`PF2E.ItemTransferDialog.Title.${mode}`, { item: itemName });
         return initialized;
     }
 
@@ -64,7 +64,7 @@ class ItemTransferDialog extends fa.api.DialogV2<ItemTransferConfiguration> {
         const isAmmo = item.isOfType("ammo");
         const quantity = mode === "purchase" ? (isAmmo ? Math.min(10, item.quantity) : 1) : checkedValue;
         const context = {
-            prompt: game.i18n.format(`PF2E.ItemTransferDialog.Prompt.${mode}`, {
+            prompt: _loc(`PF2E.ItemTransferDialog.Prompt.${mode}`, {
                 actor: actorName,
             }),
             item,

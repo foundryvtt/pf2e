@@ -1,11 +1,12 @@
-import { SkillSlug } from "@actor/types.ts";
+import type { SkillSlug } from "@actor/types.ts";
 import { CORE_SKILL_SLUGS } from "@actor/values.ts";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { PickableThing } from "@module/apps/pick-a-thing-prompt/app.ts";
 import { SIZES } from "@module/data.ts";
-import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
-import { BattleFormSource } from "@module/rules/rule-element/battle-form/types.ts";
-import { ChoiceSetSource, UninflatedChoiceSet } from "@module/rules/rule-element/choice-set/data.ts";
-import { RollOptionSource } from "@module/rules/rule-element/roll-option/rule-element.ts";
+import type { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
+import type { BattleFormSource } from "@module/rules/rule-element/battle-form/types.ts";
+import type { ChoiceSetObject, ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
+import type { RollOptionSource } from "@module/rules/rule-element/roll-option/rule-element.ts";
 import { objectHasKey, recursiveReplaceString, tupleHasValue } from "@util";
 import { MigrationBase } from "../base.ts";
 import { SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SkillAbbreviation } from "./927-class-background-skill-longform.ts";
@@ -98,7 +99,7 @@ export class Migration929RemoveSkillAbbreviations extends MigrationBase {
             rule.selection = SKILL_DICTIONARY[rule.selection];
         }
 
-        const choices = rule.choices ? (rule.choices as UninflatedChoiceSet) : null;
+        const choices = rule.choices ? (rule.choices as string | PickableThing[] | ChoiceSetObject) : null;
         if (Array.isArray(choices)) {
             for (const choice of choices) {
                 if (typeof choice === "object" && choice.value) {
@@ -123,7 +124,7 @@ export class Migration929RemoveSkillAbbreviations extends MigrationBase {
 }
 
 export function isSizeChoice(rule: ChoiceSetSource): boolean {
-    const choices = rule.choices ? (rule.choices as UninflatedChoiceSet) : null;
+    const choices = rule.choices ? (rule.choices as string | PickableThing[] | ChoiceSetObject) : null;
     if (Array.isArray(choices)) {
         return choices.some((choice) => {
             if (!choice || typeof choice !== "object") return false;

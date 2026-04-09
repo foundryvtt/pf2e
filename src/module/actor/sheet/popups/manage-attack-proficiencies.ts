@@ -3,7 +3,7 @@ import type { CharacterPF2e } from "@actor/character/document.ts";
 import { fontAwesomeIcon, htmlClosest, htmlQuery, localizer, objectHasKey } from "@util";
 
 async function add(actor: CharacterPF2e): Promise<void> {
-    const message = game.i18n.localize("PF2E.AddCombatProficiency.Message");
+    const message = _loc("PF2E.AddCombatProficiency.Message");
     const weaponGroups = CONFIG.PF2E.weaponGroups;
     const baseWeapons = CONFIG.PF2E.baseWeaponTypes;
     const template = await fa.handlebars.renderTemplate(
@@ -12,12 +12,12 @@ async function add(actor: CharacterPF2e): Promise<void> {
     );
 
     const dialog = new foundry.appv1.api.Dialog({
-        title: game.i18n.localize("PF2E.AddCombatProficiency.Title"),
+        title: _loc("PF2E.AddCombatProficiency.Title"),
         content: template,
         buttons: {
             add: {
                 icon: fontAwesomeIcon("check").outerHTML,
-                label: game.i18n.localize("PF2E.AddShortLabel"),
+                label: _loc("PF2E.AddShortLabel"),
                 callback: async ($dialog) => {
                     const dialog = $dialog[0];
                     const selection = htmlQuery<HTMLSelectElement>(dialog, "select[name=proficiency]")?.value;
@@ -32,7 +32,7 @@ async function add(actor: CharacterPF2e): Promise<void> {
             },
             cancel: {
                 icon: fontAwesomeIcon("times").outerHTML,
-                label: game.i18n.localize("Cancel"),
+                label: _loc("Cancel"),
             },
         },
         default: "cancel",
@@ -47,7 +47,7 @@ function remove(actor: CharacterPF2e, event: PointerEvent): void {
     const key = htmlClosest(event.target, "[data-slug]")?.dataset.slug ?? "";
     const translationKey = key?.replace(/^weapon-(?:base|group)-/, "") ?? "";
     const name = objectHasKey(weaponGroups, translationKey)
-        ? game.i18n.localize(weaponGroups[translationKey])
+        ? _loc(weaponGroups[translationKey])
         : (baseWeapons[translationKey] ?? baseShields[translationKey] ?? translationKey);
 
     const localize = localizer("PF2E.RemoveCombatProficiency");
@@ -58,7 +58,7 @@ function remove(actor: CharacterPF2e, event: PointerEvent): void {
         yes: {
             callback: () => {
                 if (!(key in (actor._source.system.proficiencies?.attacks ?? {}))) return;
-                actor.update({ [`system.proficiencies.attacks.-=${key}`]: null });
+                actor.update({ [`system.proficiencies.attacks.${key}`]: _del });
             },
             default: false,
         },

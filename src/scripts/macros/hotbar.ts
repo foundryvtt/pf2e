@@ -8,7 +8,7 @@ import { EffectTrait } from "@item/abstract-effect/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
 import { MacroPF2e } from "@module/macro.ts";
-import { eventToRollMode } from "@module/sheet/helpers.ts";
+import { eventToMessageMode } from "@module/sheet/helpers.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { objectHasKey } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
@@ -40,7 +40,7 @@ export async function rollItemMacro(itemIdOrUuid: string, event: Event | null = 
     if (!item) return null;
 
     if (item.isOfType("action", "feat")) {
-        return createUseActionMessage(item, eventToRollMode(event));
+        return createUseActionMessage(item, eventToMessageMode(event));
     }
 
     // Trigger the item roll
@@ -67,16 +67,14 @@ export async function createActionMacro({
             const config = blast.configs.find((c) => c.element === elementTrait);
             if (!config) return null;
             return {
-                name: game.i18n.localize(config.label),
+                name: _loc(config.label),
                 command: `game.pf2e.rollActionMacro({ actorUUID: "${actorUUID}", type: "blast", elementTrait: "${elementTrait}" })`,
                 img: config.img,
             };
         } else if (actionIndex !== undefined) {
             const action = actor.system.actions[actionIndex];
             if (!action) return null;
-            const actionName = game.i18n.localize(
-                action.type === "strike" ? "PF2E.WeaponStrikeLabel" : action.attackRollType,
-            );
+            const actionName = _loc(action.type === "strike" ? "PF2E.WeaponStrikeLabel" : action.attackRollType);
             return {
                 name: `${actionName}: ${action.label}`,
                 command: `game.pf2e.rollActionMacro({ actorUUID: "${actorUUID}",  type: "${action.type}", itemId: "${action.item.id}", slug: "${action.slug}" })`,
@@ -166,10 +164,8 @@ export async function rollActionMacro({
 
     const meleeOrRanged = strike.item.isMelee ? "melee" : "ranged";
     const identifier = `${strike.item.id}.${strike.slug}.${meleeOrRanged}`;
-    const description = await TextEditorPF2e.enrichHTML(game.i18n.localize(strike.description));
-
+    const description = await TextEditorPF2e.enrichHTML(_loc(strike.description));
     const templateData = { actor, strike, identifier, description };
-
     const content = await fa.handlebars.renderTemplate(
         `systems/${SYSTEM_ID}/templates/chat/strike-card.hbs`,
         templateData,
@@ -180,11 +176,10 @@ export async function rollActionMacro({
         content,
         style: CONST.CHAT_MESSAGE_STYLES.OTHER,
     };
-
-    const rollMode = game.settings.get("core", "rollMode");
-    if (["gmroll", "blindroll"].includes(rollMode))
+    const messageMode = game.settings.get("core", "messageMode");
+    if (["gm", "blind"].includes(messageMode))
         chatData.whisper = ChatMessage.getWhisperRecipients("GM").map((u) => u.id);
-    if (rollMode === "blindroll") chatData.blind = true;
+    if (messageMode === "blind") chatData.blind = true;
 
     return ChatMessagePF2e.create(chatData);
 }
@@ -220,7 +215,7 @@ if (item?.type === "condition") {
         }
     }
 } else {
-    ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.ItemNotFoundByUUID", { uuid: ITEM_UUID }));
+    ui.notifications.error(_loc("PF2E.ErrorMessage.ItemNotFoundByUUID", { uuid: ITEM_UUID }));
 }
 `;
     const toggleMacro =

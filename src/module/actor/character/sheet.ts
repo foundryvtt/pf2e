@@ -32,7 +32,7 @@ import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
 import type { LabeledValueAndMax, ZeroToFour } from "@module/data.ts";
-import { eventToRollMode, eventToRollParams, getActionIcon } from "@module/sheet/helpers.ts";
+import { eventToMessageMode, eventToRollParams, getActionIcon } from "@module/sheet/helpers.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import type { CheckDC } from "@system/degree-of-success.ts";
@@ -121,10 +121,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (tab) tab.initial = "biography";
         }
 
-        sheetData.numberToRank = R.mapToObj([0, 1, 2, 3, 4] as const, (n) => [
-            n,
-            game.i18n.localize(`PF2E.ProficiencyLevel${n}`),
-        ]);
+        sheetData.numberToRank = R.mapToObj([0, 1, 2, 3, 4] as const, (n) => [n, _loc(`PF2E.ProficiencyLevel${n}`)]);
 
         sheetData.senses = condenseSenses(this.actor.perception.senses.contents);
 
@@ -283,7 +280,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // limiting the amount of characters for the save labels
         for (const save of Object.values(sheetData.data.saves)) {
-            save.short = game.i18n.format(`PF2E.Saves${save.label}Short`);
+            save.short = _loc(`PF2E.Saves${save.label}Short`);
         }
 
         // Is the character's key ability score overridden by an Active Effect?
@@ -312,10 +309,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 }
                 const label =
                     language === "common" && commonLanguage
-                        ? game.i18n.format("PF2E.Actor.Creature.Language.CommonLanguage", {
-                              language: game.i18n.localize(CONFIG.PF2E.languages[commonLanguage]),
+                        ? _loc("PF2E.Actor.Creature.Language.CommonLanguage", {
+                              language: _loc(CONFIG.PF2E.languages[commonLanguage]),
                           })
-                        : game.i18n.localize(CONFIG.PF2E.languages[language]);
+                        : _loc(CONFIG.PF2E.languages[language]);
                 return { slug: language, label, tooltip: null, overLimit: false };
             });
 
@@ -325,13 +322,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             for (const language of commonFirst.filter((l) => l.slug && sourceLanguages.includes(l.slug)).reverse()) {
                 if (!language.slug) continue;
                 language.overLimit = isOverMax && sourceLanguages.indexOf(language.slug) + 1 > languagesBuild.max;
-                language.tooltip = language.overLimit
-                    ? game.i18n.localize("PF2E.Actor.Character.Language.OverLimit")
-                    : null;
+                language.tooltip = language.overLimit ? _loc("PF2E.Actor.Character.Language.OverLimit") : null;
             }
 
-            const unallocatedLabel = game.i18n.localize("PF2E.Actor.Character.Language.Unallocated.Label");
-            const unallocatedTooltip = game.i18n.localize("PF2E.Actor.Character.Language.Unallocated.Tooltip");
+            const unallocatedLabel = _loc("PF2E.Actor.Character.Language.Unallocated.Label");
+            const unallocatedTooltip = _loc("PF2E.Actor.Character.Language.Unallocated.Tooltip");
             const unallocatedLanguages = Array.fromRange(Math.max(0, languagesBuild.max - languagesBuild.value)).map(
                 () => ({ slug: null, label: unallocatedLabel, tooltip: unallocatedTooltip, overLimit: false }),
             );
@@ -343,9 +338,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // Sort skills by localized label
         sheetData.data.skills = Object.fromEntries(
             Object.entries(sheetData.data.skills).sort(([_keyA, skillA], [_keyB, skillB]) =>
-                game.i18n
-                    .localize(skillA.label ?? "")
-                    .localeCompare(game.i18n.localize(skillB.label ?? ""), game.i18n.lang),
+                game.i18n.localize(skillA.label ?? "").localeCompare(_loc(skillB.label ?? ""), game.i18n.lang),
             ),
         ) as Record<SkillSlug, CharacterSkillData>;
 
@@ -408,9 +401,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     #prepareAbilities(): CharacterSheetData["actions"] {
         const result: CharacterSheetData["actions"] = {
             encounter: {
-                action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
-                reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
-                free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
+                action: { label: _loc("PF2E.ActionsActionsHeader"), actions: [] },
+                reaction: { label: _loc("PF2E.ActionsReactionsHeader"), actions: [] },
+                free: { label: _loc("PF2E.ActionsFreeActionsHeader"), actions: [] },
             },
             exploration: { active: [], other: [] },
             downtime: [],
@@ -700,7 +693,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 const type = htmlQuery<HTMLSelectElement>(customModifierEl, ".add-modifier-type")?.value ?? "";
                 const label =
                     htmlQuery<HTMLInputElement>(customModifierEl, ".add-modifier-name")?.value?.trim() ??
-                    game.i18n.localize(`PF2E.ModifierType.${type}`);
+                    _loc(`PF2E.ModifierType.${type}`);
                 if (!setHasElement(MODIFIER_TYPES, type)) {
                     ui.notifications.error("Type is required.");
                     return;
@@ -748,9 +741,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     const ranks: readonly string[] = CONFIG.PF2E.proficiencyLevels;
                     const rank = ranks[highestUpgrade.value];
                     ui.notifications.warn(
-                        game.i18n.format("PF2E.Actor.Character.Proficiency.HigherUpgrade", {
+                        _loc("PF2E.Actor.Character.Proficiency.HigherUpgrade", {
                             ability: highestUpgrade.source,
-                            rank: game.i18n.format(rank),
+                            rank: _loc(rank),
                         }),
                     );
                     this.render();
@@ -805,13 +798,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             throw ErrorPF2e("Sheet navigation not found");
         }
 
-        navTitleArea.innerText = game.i18n.localize(activeTab.dataset.tooltip ?? "");
+        navTitleArea.innerText = _loc(activeTab.dataset.tooltip ?? "");
         const manageTabsAnchor = htmlQuery<HTMLAnchorElement>(sheetNavigation, ":scope > a[data-action=manage-tabs]");
         if (manageTabsAnchor) new PCSheetTabManager(this.actor, manageTabsAnchor);
 
         sheetNavigation.addEventListener("click", (event) => {
             const anchor = htmlClosest(event.target, "a[data-tab]");
-            if (anchor) navTitleArea.innerText = game.i18n.localize(anchor.dataset.tooltip ?? "");
+            if (anchor) navTitleArea.innerText = _loc(anchor.dataset.tooltip ?? "");
         });
     }
 
@@ -969,7 +962,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const abilityItem = this.actor.itemTypes.action.find(
                 (i) => i.slug === "channel-elements" && i.system.selfEffect,
             );
-            if (abilityItem) await createUseActionMessage(abilityItem, eventToRollMode(event));
+            if (abilityItem) await createUseActionMessage(abilityItem, eventToMessageMode(event));
         };
 
         // INVENTORY
@@ -993,7 +986,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         handlers["create-feat"] = () => {
             this.actor.createEmbeddedDocuments("Item", [
                 {
-                    name: game.i18n.localize(CONFIG.PF2E.featCategories.bonus),
+                    name: _loc(CONFIG.PF2E.featCategories.bonus),
                     type: "feat",
                     system: { category: "bonus" },
                 },
@@ -1042,7 +1035,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 if (item) {
                     await ChatMessagePF2e.create({
                         author: game.user.id,
-                        content: game.i18n.format("PF2E.Actions.Craft.Information.ReceiveItem", {
+                        content: _loc("PF2E.Actions.Craft.Information.ReceiveItem", {
                             actorName: this.actor.name,
                             itemName: item.name,
                             quantity: 1,
@@ -1136,7 +1129,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
             // Render confirmation modal dialog
             const name = this.#knownFormulas[uuid]?.item.name;
-            const content = `<p class="note">${game.i18n.format("PF2E.CraftingTab.RemoveFormulaDialogQuestion", {
+            const content = `<p class="note">${_loc("PF2E.CraftingTab.RemoveFormulaDialogQuestion", {
                 name,
             })}</p>`;
             if (
@@ -1165,7 +1158,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             // Render confirmation modal dialog
             const ability = this.actor.crafting.abilities.get(slug, { strict: true });
             const name = this.#knownFormulas[uuid]?.item.name;
-            const question = game.i18n.format("PF2E.CraftingTab.UnprepareFormulaDialogQuestion", { name });
+            const question = _loc("PF2E.CraftingTab.UnprepareFormulaDialogQuestion", { name });
             const content = `<p class="hint">${question}</p>`;
             if (
                 event.ctrlKey ||
@@ -1394,7 +1387,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             await item.update({ [propertyKey]: newValue });
         }
         if (newValue !== fu.getProperty(item, propertyKey)) {
-            ui.notifications.warn(game.i18n.localize("PF2E.ErrorMessage.MinimumProfLevelSetByFeatures"));
+            ui.notifications.warn(_loc("PF2E.ErrorMessage.MinimumProfLevelSetByFeatures"));
         }
     }
 
@@ -1455,7 +1448,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                   : alreadyRolled
                     ? "AlreadyRolled"
                     : null;
-            if (reason) link.dataset.tooltip = game.i18n.format(`PF2E.Encounter.${reason}`, { actor: this.actor.name });
+            if (reason) link.dataset.tooltip = _loc(`PF2E.Encounter.${reason}`, { actor: this.actor.name });
         }
     }
 

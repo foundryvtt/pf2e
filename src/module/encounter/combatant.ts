@@ -64,7 +64,7 @@ class CombatantPF2e<
         options: { combat?: EncounterPF2e } = {},
     ): Promise<CombatantPF2e<EncounterPF2e> | null> {
         if (!game.combat) {
-            ui.notifications.error(game.i18n.localize("PF2E.Encounter.NoActiveEncounter"));
+            ui.notifications.error(_loc("PF2E.Encounter.NoActiveEncounter"));
             return null;
         }
         const token = actor.getActiveTokens().pop();
@@ -87,7 +87,7 @@ class CombatantPF2e<
             );
             return combatants.at(0) ?? null;
         }
-        ui.notifications.error(game.i18n.format("PF2E.Encounter.NoTokenInScene", { actor: actor.name }));
+        ui.notifications.error(_loc("PF2E.Encounter.NoTokenInScene", { actor: actor.name }));
         return null;
     }
 
@@ -299,10 +299,9 @@ class CombatantPF2e<
 
         // Send out a message with information on an automatic effect that occurs upon an actor's death
         if (changed.defeated && game.user.id === userId) {
+            const messageMode = this.actor?.hasPlayerOwner ? "public" : "gm";
             for (const action of this.actor?.itemTypes.action ?? []) {
-                if (action.system.deathNote) {
-                    action.toMessage(undefined, { rollMode: this.actor?.hasPlayerOwner ? "publicroll" : "gmroll" });
-                }
+                if (action.system.deathNote) action.toMessage(undefined, { mode: messageMode });
             }
         }
     }

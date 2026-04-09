@@ -10,11 +10,11 @@ const createDisintegrateEffect = (): PreCreate<EffectSource> => {
     return {
         _id: null,
         type: "effect",
-        name: game.i18n.localize("PF2E.Item.Effect.Disintegrated.Name"),
+        name: _loc("PF2E.Item.Effect.Disintegrated.Name"),
         img: `systems/${SYSTEM_ID}/icons/effects/fine-powder.svg`,
         system: {
             slug: "effect-fine-powder",
-            description: { value: game.i18n.localize("PF2E.Item.Effect.Disintegrated.Description") },
+            description: { value: _loc("PF2E.Item.Effect.Disintegrated.Description") },
             rules: [rule],
             tokenIcon: { show: false },
         },

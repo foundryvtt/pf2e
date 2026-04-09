@@ -32,7 +32,7 @@ class RecallKnowledgePopup extends fa.api.HandlebarsApplicationMixin(fa.api.Appl
         return {
             ...(await super._prepareContext(options)),
             standard: {
-                label: localizeList(skills.map((s) => game.i18n.localize(CONFIG.PF2E.skills[s].label))),
+                label: localizeList(skills.map((s) => _loc(CONFIG.PF2E.skills[s].label))),
                 attempts: this.#padAttempts(standard.progression),
             },
             loreEasy: this.#padAttempts(lore[0].progression),

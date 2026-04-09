@@ -86,7 +86,7 @@ abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
     #prepareSaves(systemData: NPCSystemSheetData): void {
         for (const saveType of SAVE_TYPES) {
             const save = systemData.saves[saveType];
-            save.labelShort = game.i18n.localize(`PF2E.Saves${saveType.titleCase()}Short`);
+            save.labelShort = _loc(`PF2E.Saves${saveType.titleCase()}Short`);
             save.adjustedHigher = save.totalModifier > Number(save.base);
             save.adjustedLower = save.totalModifier < Number(save.base);
         }
@@ -130,9 +130,7 @@ abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
                     }),
                 ],
             };
-            if (anchor.dataset.secret !== undefined) {
-                args.rollMode = game.user.isGM ? "gmroll" : "blindroll";
-            }
+            if (anchor.dataset.secret !== undefined) args.messageMode = game.user.isGM ? "gm" : "blind";
             return statistic?.roll(args);
         };
 
@@ -175,7 +173,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
             const actorName = canSeeName ? (this.token?.name ?? this.actor.name) : "";
 
             if (this.actor.isDead) {
-                return `${actorName} [${game.i18n.localize("PF2E.NPC.Dead")}]`;
+                return `${actorName} [${_loc("PF2E.NPC.Dead")}]`;
             } else {
                 return actorName;
             }
@@ -197,22 +195,20 @@ class NPCSheetPF2e extends AbstractNPCSheet {
         sheetData.identificationDCs = ((): NPCIdentificationSheetData => {
             const data = actor.identificationDCs;
             const skills =
-                data.skills.length > 0
-                    ? localizeList(data.skills.map((s) => game.i18n.localize(CONFIG.PF2E.skills[s].label)))
-                    : null;
+                data.skills.length > 0 ? localizeList(data.skills.map((s) => _loc(CONFIG.PF2E.skills[s].label))) : null;
             return {
                 standard: skills
-                    ? game.i18n.format("PF2E.Actor.NPC.Identification.Skills.Label", {
+                    ? _loc("PF2E.Actor.NPC.Identification.Skills.Label", {
                           skills,
                           dc: data.standard.dc,
-                          adjustment: game.i18n.localize(CONFIG.PF2E.dcAdjustments[data.standard.start]),
+                          adjustment: _loc(CONFIG.PF2E.dcAdjustments[data.standard.start]),
                       })
                     : null,
-                lore: game.i18n.format("PF2E.Actor.NPC.Identification.Lore.Label", {
+                lore: _loc("PF2E.Actor.NPC.Identification.Lore.Label", {
                     dc1: data.lore[0].dc,
-                    adjustment1: game.i18n.localize(CONFIG.PF2E.dcAdjustments[data.lore[0].start]),
+                    adjustment1: _loc(CONFIG.PF2E.dcAdjustments[data.lore[0].start]),
                     dc2: data.lore[1].dc,
-                    adjustment2: game.i18n.localize(CONFIG.PF2E.dcAdjustments[data.lore[1].start]),
+                    adjustment2: _loc(CONFIG.PF2E.dcAdjustments[data.lore[1].start]),
                 }),
             };
         })();
@@ -333,7 +329,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                 const breakdown = attack.type === "strike" ? attack.breakdown : attack.statistic.dc.breakdown;
                 const damageFormula = item.dealsDamage ? String(await attack.damage?.({ getFormula: true })) : null;
                 const effects = ((): string => {
-                    const list = attack.additionalEffects.map((e) => game.i18n.localize(e.label));
+                    const list = attack.additionalEffects.map((e) => _loc(e.label));
                     return listFormatter.format(list);
                 })();
 
@@ -353,8 +349,8 @@ class NPCSheetPF2e extends AbstractNPCSheet {
             }),
         );
         const actions: NPCActionSheetData = {
-            passive: { label: game.i18n.localize("PF2E.ActionTypePassive"), actions: [] },
-            active: { label: game.i18n.localize("PF2E.ActionTypeAction"), actions: [] },
+            passive: { label: _loc("PF2E.ActionTypePassive"), actions: [] },
+            active: { label: _loc("PF2E.ActionTypeAction"), actions: [] },
         };
 
         // By default when sort is tied, free comes before reaction which comes before action
@@ -410,7 +406,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
             if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) return;
             const modifier = this.actor.system.abilities[attribute].mod;
             const parts = ["@modifier"];
-            const title = game.i18n.localize(`PF2E.AbilityCheck.${attribute}`);
+            const title = _loc(`PF2E.AbilityCheck.${attribute}`);
             const data = { modifier };
             const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
 
@@ -431,7 +427,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                 if (existing.length > 0) {
                     const proceed = await foundry.applications.api.DialogV2.confirm({
                         window: { title: "PF2E.Actor.NPC.GenerateAttack.Confirm.Title", icon: "fa-solid hammer-crash" },
-                        content: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Confirm.Content"),
+                        content: _loc("PF2E.Actor.NPC.GenerateAttack.Confirm.Content"),
                         no: { default: true },
                     });
                     if (proceed) {
@@ -469,7 +465,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
 
                 // Show correct notification based on update
                 const localizationKey = `PF2E.Actor.NPC.GenerateAttack.Notification.${update.itemCreates.length ? "New" : "Relinked"}`;
-                ui.notifications.info(game.i18n.format(localizationKey, { attack: attacks.at(0)?.name ?? "" }));
+                ui.notifications.info(_loc(localizationKey, { attack: attacks.at(0)?.name ?? "" }));
             };
         }
 

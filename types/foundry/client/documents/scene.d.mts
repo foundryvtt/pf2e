@@ -16,7 +16,6 @@ import {
     BaseScene,
     BaseUser,
     DrawingDocument,
-    MeasuredTemplateDocument,
     NoteDocument,
     NoteSource,
     RegionDocument,
@@ -172,7 +171,6 @@ export default interface Scene extends ClientBaseScene {
     readonly notes: EmbeddedCollection<NoteDocument<this>>;
     readonly regions: EmbeddedCollection<RegionDocument<this>>;
     readonly sounds: EmbeddedCollection<AmbientSoundDocument<this>>;
-    readonly templates: EmbeddedCollection<MeasuredTemplateDocument<this>>;
     readonly tokens: EmbeddedCollection<TokenDocument<this>>;
     readonly tiles: EmbeddedCollection<TileDocument<this>>;
     readonly walls: EmbeddedCollection<WallDocument<this>>;

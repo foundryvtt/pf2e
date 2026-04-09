@@ -1,15 +1,16 @@
 // @ts-check
 
 import json from "@eslint/json";
+import {defineConfig} from "eslint/config"
 import ts from "@typescript-eslint/eslint-plugin";
 import jest from "eslint-plugin-jest";
 import prettier from "eslint-plugin-prettier";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-export default tseslint.config(
+export default defineConfig(
     { ignores: ["dist/**/*", "packs/**/*", "static/lib/**/*", "*.mjs"] },
-    { plugins: { jest, prettier, json, "@typescript-eslint": ts } },
+    { plugins: { jest, prettier, json, "@typescript-eslint": tseslint.plugin } },
     {
         files: ["**/*.ts"],
         languageOptions: {

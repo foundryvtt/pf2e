@@ -44,7 +44,7 @@ class PersistentDamageEditor extends fa.api.HandlebarsApplicationMixin(fa.api.Ap
     }
 
     override get title(): string {
-        return game.i18n.format("PF2E.Item.Condition.PersistentDamage.Dialog.Title", { actor: this.actor.name });
+        return _loc("PF2E.Item.Condition.PersistentDamage.Dialog.Title", { actor: this.actor.name });
     }
 
     protected override async _prepareContext(): Promise<PersistentDialogContext> {
@@ -66,7 +66,7 @@ class PersistentDamageEditor extends fa.api.HandlebarsApplicationMixin(fa.api.Ap
     #prepareDamageTypes(): DamageTypeData[] {
         const labels = CONFIG.PF2E.damageTypes;
         return R.keys(labels)
-            .map((type) => ({ type, label: game.i18n.localize(labels[type] ?? type) }))
+            .map((type) => ({ type, label: _loc(labels[type] ?? type) }))
             .sort((a, b) => a.label.localeCompare(b.label));
     }
 
@@ -80,7 +80,7 @@ class PersistentDamageEditor extends fa.api.HandlebarsApplicationMixin(fa.api.Ap
         if (isValid) {
             input.setCustomValidity("");
         } else {
-            input.setCustomValidity(game.i18n.localize("PF2E.Item.Condition.PersistentDamage.Dialog.Invalid"));
+            input.setCustomValidity(_loc("PF2E.Item.Condition.PersistentDamage.Dialog.Invalid"));
             input.addEventListener("input", () => input.setCustomValidity(""), { once: true });
         }
 

@@ -130,8 +130,8 @@ export function registerSettings(): void {
     });
 
     game.settings.register(SYSTEM_ID, "critFumbleButtons", {
-        name: game.i18n.localize("PF2E.SETTINGS.critFumbleCardButtons.name"),
-        hint: game.i18n.localize("PF2E.SETTINGS.critFumbleCardButtons.hint"),
+        name: _loc("PF2E.SETTINGS.critFumbleCardButtons.name"),
+        hint: _loc("PF2E.SETTINGS.critFumbleCardButtons.hint"),
         scope: "world",
         config: true,
         type: new fields.BooleanField(),
@@ -139,8 +139,8 @@ export function registerSettings(): void {
     });
 
     game.settings.register(SYSTEM_ID, "drawCritFumble", {
-        name: game.i18n.localize("PF2E.SETTINGS.critFumbleCards.name"),
-        hint: game.i18n.localize("PF2E.SETTINGS.critFumbleCards.hint"),
+        name: _loc("PF2E.SETTINGS.critFumbleCards.name"),
+        hint: _loc("PF2E.SETTINGS.critFumbleCards.hint"),
         scope: "world",
         config: true,
         type: new fields.BooleanField(),

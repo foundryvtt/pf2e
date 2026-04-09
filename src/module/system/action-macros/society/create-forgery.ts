@@ -44,13 +44,13 @@ async function createForgeryCallback(
     })();
     const gmNotes = (() => {
         if (["criticalSuccess", "success"].includes(result.outcome ?? "")) {
-            return game.i18n.format("PF2E.Actions.CreateForgery.ForgedDocument.SuccessGmNote", {
+            return _loc("PF2E.Actions.CreateForgery.ForgedDocument.SuccessGmNote", {
                 societyDC: societyDC?.value ?? null,
             });
         } else if (["criticalFailure", "failure"].includes(result.outcome ?? "")) {
-            return game.i18n.format("PF2E.Actions.CreateForgery.ForgedDocument.FailureGmNote", {
-                failure: game.i18n.localize("PF2E.Actions.CreateForgery.Notes.failure"),
-                success: game.i18n.localize("PF2E.Actions.CreateForgery.Notes.success"),
+            return _loc("PF2E.Actions.CreateForgery.ForgedDocument.FailureGmNote", {
+                failure: _loc("PF2E.Actions.CreateForgery.Notes.failure"),
+                success: _loc("PF2E.Actions.CreateForgery.Notes.success"),
                 total: result.roll.total,
             });
         }
@@ -61,12 +61,12 @@ async function createForgeryCallback(
     await Item.create(
         {
             img: `systems/${SYSTEM_ID}/icons/equipment/adventuring-gear/scroll-case.webp`,
-            name: game.i18n.localize("PF2E.Actions.CreateForgery.ForgedDocument.Name"),
+            name: _loc("PF2E.Actions.CreateForgery.ForgedDocument.Name"),
             type: "equipment",
             system: {
                 description: {
                     gm: gmNotes,
-                    value: game.i18n.format("PF2E.Actions.CreateForgery.ForgedDocument.Description", {
+                    value: _loc("PF2E.Actions.CreateForgery.ForgedDocument.Description", {
                         societyDC: societyDC?.value ?? null,
                     }),
                 },
@@ -78,7 +78,7 @@ async function createForgeryCallback(
     );
 
     // remind user that an item was created in the actor's inventory
-    const notification = game.i18n.format("PF2E.Actions.CreateForgery.ForgedDocumentCreatedNotification", {
+    const notification = _loc("PF2E.Actions.CreateForgery.ForgedDocumentCreatedNotification", {
         name: result.actor.name,
     });
     ui.notifications.info(notification);

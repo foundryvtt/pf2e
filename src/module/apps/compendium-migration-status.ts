@@ -15,7 +15,7 @@ class CompendiumMigrationStatus extends appv1.api.Application {
         options.template = `systems/${SYSTEM_ID}/templates/system/compendium-migration-status.hbs`;
         options.classes = ["compendium-migration-status"];
         options.height = "auto";
-        options.title = game.i18n.localize("PF2E.CompendiumMigrationStatus.Title");
+        options.title = _loc("PF2E.CompendiumMigrationStatus.Title");
         return options;
     }
 
@@ -48,14 +48,12 @@ class CompendiumMigrationStatus extends appv1.api.Application {
                 Object.entries(MigrationRunner.FOUNDRY_SCHEMA_VERSIONS),
                 R.sortBy(([_, schema]) => schema),
                 R.findLast(([_, schema]) => schemaVersion >= schema),
-            )?.[0] ?? game.i18n.localize("PF2E.CompendiumMigrationStatus.FoundryOld");
+            )?.[0] ?? _loc("PF2E.CompendiumMigrationStatus.FoundryOld");
 
         return {
             ...(await super.getData(options)),
             compendium: this.compendium,
-            schemaVersion: Number.isNaN(schemaVersion)
-                ? game.i18n.localize("PF2E.CompendiumMigrationStatus.Invalid")
-                : schemaVersion,
+            schemaVersion: Number.isNaN(schemaVersion) ? _loc("PF2E.CompendiumMigrationStatus.Invalid") : schemaVersion,
             foundryVersion,
             module: game.modules.get(this.compendium.metadata.packageName ?? ""),
             updated: schemaVersion >= MigrationRunner.LATEST_SCHEMA_VERSION,

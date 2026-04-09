@@ -11,7 +11,7 @@ const PREFIX = "PF2E.Actions.LearnASpell";
 class LearnASpellActionVariant extends SingleCheckActionVariant {
     override async use(options: Partial<SingleCheckActionUseOptions>): Promise<CheckResultCallback[]> {
         if (!options?.statistic) {
-            return Promise.reject(game.i18n.localize(`${PREFIX}.Warning.NoSkill`));
+            return Promise.reject(_loc(`${PREFIX}.Warning.NoSkill`));
         }
         const rollOption = `action:learn-a-spell:${options.statistic}`;
         options.rollOptions ??= [];

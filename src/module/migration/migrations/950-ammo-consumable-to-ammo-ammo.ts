@@ -163,7 +163,7 @@ export class Migration950AmmoConsumableToAmmoAmmo extends MigrationBase {
             system.baseItem = fromSlug;
         }
 
-        source.img = source.img.replace(/\bconsumable\.svg$/, "ammo.svg") as ImageFilePath;
+        source.img &&= source.img.replace(/\bconsumable\.svg$/, "ammo.svg") as ImageFilePath;
         source.type = "ammo";
         if ("game" in globalThis) {
             // Assign to both system and ==system. Future migrations can write to system and it "should" be fine, they're the same reference

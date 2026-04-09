@@ -11,8 +11,8 @@ class SpeedStatistic<TActor extends ActorPF2e, TType extends MovementType | "tra
         const type = options.type;
         const slug = `${type}-speed`;
         const domains = (options.domains ??= ["all-speeds", "speed", slug]);
-        const typeLabel = game.i18n.localize(`PF2E.Actor.Speed.Type.${type.capitalize()}`);
-        const label = (options.label ??= game.i18n.format("PF2E.Actor.Speed.Type.Label", { type: typeLabel }));
+        const typeLabel = _loc(`PF2E.Actor.Speed.Type.${type.capitalize()}`);
+        const label = (options.label ??= _loc("PF2E.Actor.Speed.Type.Label", { type: typeLabel }));
         super(actor, Object.assign(options, { label, slug }));
         this.type = type;
         this.base = Math.max(0, (options.base ??= 25));

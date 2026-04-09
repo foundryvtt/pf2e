@@ -35,7 +35,7 @@ export class TrickMagicItemPopup {
     async #initialize(): Promise<void> {
         const skills = TRICK_MAGIC_SKILLS.filter((skill) => skill in this.checkDC).map((value) => ({
             value,
-            label: game.i18n.localize(CONFIG.PF2E.skills[value].label),
+            label: _loc(CONFIG.PF2E.skills[value].label),
             modifier: this.actor.skills[value].check.mod,
         }));
         const buttons = skills.reduce((accumulated: Record<string, appv1.api.DialogButton>, skill) => {

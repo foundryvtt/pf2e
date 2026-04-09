@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type { ApplicationV1Options } from "@client/appv1/api/_module.d.mts";
+import { ChatMessageMode } from "@client/config.mjs";
 import type { Rolled } from "@client/dice/roll.d.mts";
-import type { RollMode } from "@common/constants.d.mts";
 import type { ItemPF2e } from "@item";
 import { createSimpleFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
 import { ErrorPF2e } from "@util";
@@ -44,7 +44,7 @@ class DicePF2e {
         flavor,
         onClose,
         dialogOptions,
-        rollMode = game.settings.get("core", "rollMode"),
+        messageMode = game.settings.get("core", "messageMode"),
         rollType = "",
     }: {
         event: PointerEvent | JQuery.TriggeredEvent;
@@ -58,7 +58,7 @@ class DicePF2e {
         flavor?: (parts: (string | number | string[])[], data: Record<string, unknown>) => string;
         onClose?: (html: HTMLElement | JQuery, parts: (string | number)[], data: Record<string, unknown>) => void;
         dialogOptions?: Partial<ApplicationV1Options>;
-        rollMode?: RollMode;
+        messageMode?: ChatMessageMode;
         rollType?: string;
     }): Promise<unknown> {
         // Inner roll function
@@ -71,10 +71,10 @@ class DicePF2e {
             let flav = flavor instanceof Function ? flavor(rollParts, data) : title;
             if (adv === 1) {
                 rollParts[0] = ["2d20kh"];
-                flav = game.i18n.format("PF2E.Roll.FortuneTitle", { title: title });
+                flav = _loc("PF2E.Roll.FortuneTitle", { title: title });
             } else if (adv === -1) {
                 rollParts[0] = ["2d20kl"];
-                flav = game.i18n.format("PF2E.Roll.MisfortuneTitle", { title: title });
+                flav = _loc("PF2E.Roll.MisfortuneTitle", { title: title });
             }
 
             // Don't include situational bonuses unless they are defined
@@ -96,7 +96,7 @@ class DicePF2e {
                     flavor: flav,
                     flags: { [SYSTEM_ID]: { context: { type: rollType }, origin } },
                 },
-                { rollMode: $form ? ($form.find("[name=rollMode]").val() as RollMode) : rollMode },
+                { messageMode: $form ? ($form.find("[name=messageMode]").val() as ChatMessageMode) : messageMode },
             );
             return roll;
         };
@@ -109,7 +109,7 @@ class DicePF2e {
         ) {
             return _roll(parts, 0);
         } else if (event.ctrlKey || event.metaKey) {
-            rollMode = "blindroll"; // Forcing blind roll on control (or meta) click
+            messageMode = "blind"; // Forcing blind roll on control (or meta) click
             return _roll(parts, 0);
         } else if (event.shiftKey || !userSettingQuickD20Roll) {
             if (parts.indexOf("@circumstanceBonus") === -1) parts = parts.concat(["@circumstanceBonus"]);
@@ -120,9 +120,9 @@ class DicePF2e {
             template = template || `systems/${SYSTEM_ID}/templates/chat/roll-dialog.hbs`;
             const dialogData = {
                 data,
-                rollMode,
+                messageMode,
                 formula: parts.join(" + "),
-                rollModes: CONFIG.Dice.rollModes,
+                messageModes: CONFIG.ChatMessage.modes,
             };
             const content = await foundry.applications.handlebars.renderTemplate(template, dialogData);
             let roll: Roll;
@@ -134,25 +134,25 @@ class DicePF2e {
                         content,
                         buttons: {
                             advantage: {
-                                label: game.i18n.localize("PF2E.Roll.Fortune"),
+                                label: _loc("PF2E.Roll.Fortune"),
                                 callback: async (html) => {
                                     roll = await _roll(parts, 1, html);
                                 },
                             },
                             normal: {
-                                label: game.i18n.localize("PF2E.Roll.Normal"),
+                                label: _loc("PF2E.Roll.Normal"),
                                 callback: async (html) => {
                                     roll = await _roll(parts, 0, html);
                                 },
                             },
                             disadvantage: {
-                                label: game.i18n.localize("PF2E.Roll.Misfortune"),
+                                label: _loc("PF2E.Roll.Misfortune"),
                                 callback: async (html) => {
                                     roll = await _roll(parts, -1, html);
                                 },
                             },
                         },
-                        default: game.i18n.localize("PF2E.Roll.Normal"),
+                        default: _loc("PF2E.Roll.Normal"),
                         close: (html) => {
                             if (onClose) onClose(html, parts, data);
                             resolve(roll);
@@ -178,7 +178,6 @@ class DicePF2e {
                 return `${nd}d${d}${mods}`;
             }),
         );
-
         return this;
     }
 }

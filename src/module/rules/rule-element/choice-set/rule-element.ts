@@ -32,7 +32,6 @@ import {
     ChoiceSetPackQuery,
     ChoiceSetSchema,
     ChoiceSetSource,
-    UninflatedChoiceSet,
 } from "./data.ts";
 import fields = foundry.data.fields;
 
@@ -41,7 +40,6 @@ import fields = foundry.data.fields;
  * @category RuleElement
  */
 class ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema> {
-    declare choices: UninflatedChoiceSet;
     declare flag: string;
     declare allowedDrops: AllowedDropsData | null;
     declare allowNoSelection: boolean;
@@ -217,7 +215,7 @@ class ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema> {
         const selection =
             this.#getPreselection(this.choices) ??
             (await new PickAThingPrompt({
-                prompt: game.i18n.localize(this.prompt),
+                prompt: _loc(this.prompt),
                 item: this.item,
                 title: this.label,
                 choices: this.choices,
@@ -326,7 +324,7 @@ class ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema> {
         try {
             const choiceData = choices.map((c) => ({
                 value: c.value,
-                label: game.i18n.localize(c.label),
+                label: _loc(c.label),
                 img: c.img,
             }));
 
@@ -558,7 +556,7 @@ class ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema> {
     /**  Change the name of the parent item after a selection is made */
     #adjustName(original: string, selection: { label: string }): string {
         if (this.adjustName === true) {
-            const label = game.i18n.localize(selection.label);
+            const label = _loc(selection.label);
             const newName = `${original} (${label})`;
             // Deduplicate if parenthetical is already present
             const pattern = ((): RegExp => {
@@ -575,13 +573,10 @@ class ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema> {
                         Array.isArray(r.choices) &&
                         r.selection !== null,
                 ),
-                (cs) => [
-                    cs.flag,
-                    game.i18n.localize(Array.from(cs.choices).find((c) => c.value === cs.selection)?.label ?? ""),
-                ],
+                (cs) => [cs.flag, _loc(Array.from(cs.choices).find((c) => c.value === cs.selection)?.label ?? "")],
             );
-            return game.i18n.format(this.adjustName, {
-                [this.flag]: game.i18n.localize(selection.label),
+            return _loc(this.adjustName, {
+                [this.flag]: _loc(selection.label),
                 ...priorChoiceSets,
             });
         }

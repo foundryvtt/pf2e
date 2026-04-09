@@ -52,7 +52,7 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends appv1.sheets.Ac
     }
 
     override get title(): string {
-        return game.i18n.format("PF2E.Actor.Creature.SpellPreparation.Title", { actor: this.actor.name });
+        return _loc("PF2E.Actor.Creature.SpellPreparation.Title", { actor: this.actor.name });
     }
 
     /**

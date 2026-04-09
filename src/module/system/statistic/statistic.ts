@@ -11,8 +11,8 @@ import {
 } from "@actor/modifiers.ts";
 import { CheckContext } from "@actor/roll-context/check.ts";
 import { AttributeString } from "@actor/types.ts";
+import type { ChatMessageMode } from "@client/config.d.mts";
 import type { Rolled } from "@client/dice/_module.d.mts";
-import type { RollMode } from "@common/constants.d.mts";
 import type { ItemPF2e } from "@item";
 import { AbilityTrait } from "@item/ability/types.ts";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
@@ -31,7 +31,7 @@ import { Check, CheckRollCallback } from "@system/check/check.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckCheckContext, CheckType, RollTwiceOption } from "@system/check/types.ts";
 import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
-import { ErrorPF2e, signedInteger, sluggify } from "@util";
+import { ErrorPF2e, objectHasKey, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
 import { BaseStatistic } from "./base.ts";
 import {
@@ -369,26 +369,26 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
 
     #determineLabel(data: StatisticData): string {
         const parentLabel = this.parent.label;
-        if (data.check?.label) return game.i18n.localize(data.check?.label);
+        if (data.check?.label) return _loc(data.check?.label);
 
         // Check for specific check localization, and use if it exists
         const checkKey = `PF2E.ActionsCheck.${this.parent.slug}`;
-        const checkLabel = game.i18n.localize(checkKey);
+        const checkLabel = _loc(checkKey);
         if (!["x", "x-attack-roll"].includes(this.parent.slug) && checkLabel !== checkKey) {
             return checkLabel;
         }
 
         if (this.domains.includes("spell-attack-roll")) {
-            return game.i18n.format("PF2E.SpellAttackWithTradition", { tradition: parentLabel });
+            return _loc("PF2E.SpellAttackWithTradition", { tradition: parentLabel });
         }
 
         switch (this.type) {
             case "skill-check":
-                return game.i18n.format("PF2E.SkillCheckWithName", { skillName: parentLabel });
+                return _loc("PF2E.SkillCheckWithName", { skillName: parentLabel });
             case "saving-throw":
-                return game.i18n.format("PF2E.SavingThrowWithName", { saveName: parentLabel });
+                return _loc("PF2E.SavingThrowWithName", { saveName: parentLabel });
             case "perception-check":
-                return game.i18n.format("PF2E.PerceptionCheck");
+                return _loc("PF2E.PerceptionCheck");
             default:
                 return parentLabel;
         }
@@ -402,17 +402,12 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         // Work with a `CheckDC` object
         args.dc = typeof args.dc === "number" ? { value: Math.trunc(args.dc) || 0 } : (args.dc ?? null);
 
-        // Allow use of events for modules and macros but don't allow it for internal system use
-        const { rollMode, skipDialog } = (() => {
-            if (R.isPlainObject(args) && R.isObjectType(args.event)) {
-                const event = "originalEvent" in args.event ? args.event.originalEvent : args.event;
-                if (event instanceof PointerEvent) {
-                    const { rollMode, skipDialog } = args;
-                    return fu.mergeObject({ rollMode, skipDialog }, eventToRollParams(event, { type: "check" }));
-                }
-            }
-
-            return args;
+        // Allow use of events for modules and macros but not for internal system use
+        const { messageMode, skipDialog } = (() => {
+            if (!("event" in args) || !R.isObjectType(args.event) || !(args.event instanceof PointerEvent)) return args;
+            const { messageMode: maybeMode, skipDialog } = args;
+            const messageMode = objectHasKey(CONFIG.ChatMessage.modes, maybeMode) ? maybeMode : "public";
+            return Object.assign({ messageMode, skipDialog }, eventToRollParams(event, { type: "check" }));
         })();
 
         const self = this.actor;
@@ -598,7 +593,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             options,
             action: args.action,
             damaging: args.damaging,
-            rollMode,
+            messageMode,
             skipDialog,
             rollTwice: args.rollTwice || extractRollTwice(selfActor.synthetics.rollTwice, domains, options),
             substitutions: extractRollSubstitutions(selfActor.synthetics.rollSubstitutions, domains, options),
@@ -670,8 +665,8 @@ interface StatisticRollParameters {
     modifiers?: Modifier[];
     /** The originating item of this attack, if any */
     item?: ItemPF2e<ActorPF2e> | null;
-    /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
-    rollMode?: RollMode | "roll";
+    /** The ChatMessage visibility mode to use when rendering this roll. */
+    messageMode?: ChatMessageMode;
     /** Should the dialog be skipped */
     skipDialog?: boolean;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
@@ -748,7 +743,7 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
 
     get breakdown(): string {
         const enabledMods = this.modifiers.filter((m) => m.enabled);
-        return [game.i18n.localize("PF2E.DCBase")]
+        return [_loc("PF2E.DCBase")]
             .concat(enabledMods.map((m) => `${m.label} ${signedInteger(m.modifier)}`))
             .join(", ");
     }

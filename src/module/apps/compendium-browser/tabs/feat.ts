@@ -78,7 +78,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                 for (const prereq of prerequisitesArr) {
                     for (const [key, value] of Object.entries(CONFIG.PF2E.skills)) {
                         // Check the string for the english translation key or a translated skill name
-                        const translated = game.i18n.localize(value.label).toLocaleLowerCase(game.i18n.lang);
+                        const translated = _loc(value.label).toLocaleLowerCase(game.i18n.lang);
                         if (prereq.includes(key) || prereq.includes(translated)) {
                             // Alawys record the translation key to enable filtering
                             skills.add(key);

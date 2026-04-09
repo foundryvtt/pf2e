@@ -110,23 +110,21 @@ function setImmunitiesFromTraits(actor: CreaturePF2e): void {
         ];
         for (const immunityType of constructImmunities) {
             if (!existing.includes(immunityType)) {
-                immunities.push(
-                    new Immunity({ type: immunityType, source: game.i18n.localize("PF2E.TraitConstruct") }),
-                );
+                immunities.push(new Immunity({ type: immunityType, source: _loc("PF2E.TraitConstruct") }));
             }
         }
     }
 
     // "They are immune to all mental effects." – GMC pg. 331
     if (traits.includes("mindless") && !existing.includes("mental")) {
-        immunities.push(new Immunity({ type: "mental", source: game.i18n.localize("PF2E.TraitMindless") }));
+        immunities.push(new Immunity({ type: "mental", source: _loc("PF2E.TraitMindless") }));
     }
 
     // "Swarms are immune to the grappled [sic], prone, and restrained conditions." – GMC pg. 334
     if (traits.includes("swarm")) {
         for (const immunity of ["grabbed", "prone", "restrained"] as const) {
             if (!existing.includes(immunity)) {
-                immunities.push(new Immunity({ type: immunity, source: game.i18n.localize("PF2E.TraitSwarm") }));
+                immunities.push(new Immunity({ type: immunity, source: _loc("PF2E.TraitSwarm") }));
             }
         }
     }

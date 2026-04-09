@@ -772,7 +772,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         this.saves = R.mapToObj(SAVE_TYPES, (saveType) => {
             const save = this.system.saves[saveType];
-            const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
+            const saveName = _loc(CONFIG.PF2E.saves[saveType]);
             const modifiers: Modifier[] = [];
             const selectors = [saveType, `${save.attribute}-based`, "saving-throw", "all"];
 
@@ -1030,7 +1030,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ? ((): WeaponPF2e<this> => {
                   const source: PreCreate<WeaponSource> = {
                       _id: "xxPF2ExUNARMEDxx",
-                      name: game.i18n.localize("PF2E.WeaponTypeUnarmed"),
+                      name: _loc("PF2E.WeaponTypeUnarmed"),
                       type: "weapon",
                       img: "icons/skills/melee/unarmed-punch-fist.webp",
                       system: {
@@ -1217,8 +1217,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             glyph: getActionGlyph(actionCost),
             description:
                 action === "area-fire"
-                    ? game.i18n.localize("PF2E.Actions.AreaFire.Description")
-                    : game.i18n.localize("PF2E.Actions.AutoFire.Description"),
+                    ? _loc("PF2E.Actions.AreaFire.Description")
+                    : _loc("PF2E.Actions.AutoFire.Description"),
             ready:
                 (weapon.isEquipped && handsAvailable) ||
                 (weapon.isThrown && weapon.reload === "0" && weapon.isWorn && handsReallyFree > 0),
@@ -1235,8 +1235,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 .sort((a, b) => a.label.localeCompare(b.label)),
             variants: [
                 {
-                    label: game.i18n.format("PF2E.ActionWithDC", {
-                        label: game.i18n.localize(actionLabel),
+                    label: _loc("PF2E.ActionWithDC", {
+                        label: _loc(actionLabel),
                         dc: statistic.dc.value,
                     }),
                     roll: () => {
@@ -1509,7 +1509,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 adjustModifiers([penalty].filter(R.isTruthy), initialRollOptions);
 
                 return penalty
-                    ? game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                    ? _loc("PF2E.MAPAbbreviationValueLabel", {
                           value: signedInteger(action.totalModifier + penalty.value),
                           penalty: penalty.value,
                       })
@@ -1529,7 +1529,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                 if (params.consumeAmmo && expend > ammoRemaining) {
                     const message = ammoRemaining ? "PF2E.Strike.Ranged.InsufficientAmmo" : "PF2E.Strike.Ranged.NoAmmo";
-                    ui.notifications.warn(game.i18n.format(message, { weapon: weapon.name, actor: this.name }));
+                    ui.notifications.warn(_loc(message, { weapon: weapon.name, actor: this.name }));
                     return null;
                 }
                 const targetToken = params.getFormula
@@ -1584,7 +1584,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     extractDegreeOfSuccessAdjustments(context.origin.actor.synthetics, context.domains),
                 ].flat();
 
-                const title = game.i18n.format(
+                const title = _loc(
                     weapon.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
                     { weapon: weapon.name },
                 );
@@ -1735,14 +1735,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         const description = [
-            createHTMLElement("p", { children: [game.i18n.localize(flavor.description)] }).outerHTML,
+            createHTMLElement("p", { children: [_loc(flavor.description)] }).outerHTML,
             createHTMLElement("hr").outerHTML,
             createHTMLElement("dl", {
                 children: [
-                    createHTMLElement("dt", { innerHTML: game.i18n.localize("PF2E.CritSuccess") }),
-                    createHTMLElement("dd", { children: [game.i18n.localize(flavor.criticalSuccess)] }),
-                    createHTMLElement("dt", { innerHTML: game.i18n.localize("PF2E.Success") }),
-                    createHTMLElement("dd", { children: [game.i18n.localize(flavor.success)] }),
+                    createHTMLElement("dt", { innerHTML: _loc("PF2E.CritSuccess") }),
+                    createHTMLElement("dd", { children: [_loc(flavor.criticalSuccess)] }),
+                    createHTMLElement("dt", { innerHTML: _loc("PF2E.Success") }),
+                    createHTMLElement("dd", { children: [_loc(flavor.success)] }),
                 ],
             }).outerHTML,
         ].join("");
@@ -1754,7 +1754,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (!ammo) {
             return true;
         } else if (ammo.quantity < 1) {
-            ui.notifications.warn(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
+            ui.notifications.warn(_loc("PF2E.ErrorMessage.NotEnoughAmmo"));
             return false;
         } else {
             const existingCallback = params.callback;

@@ -38,8 +38,8 @@
 
     const props: TraitsProps = $props();
     const i18n: Partial<SvelecteI18n> = {
-        empty: game.i18n.localize("PF2E.CompendiumBrowser.TraitsComponent.Empty"),
-        nomatch: game.i18n.localize("PF2E.CompendiumBrowser.TraitsComponent.NoMatch"),
+        empty: _loc("PF2E.CompendiumBrowser.TraitsComponent.Empty"),
+        nomatch: _loc("PF2E.CompendiumBrowser.TraitsComponent.NoMatch"),
     };
 </script>
 

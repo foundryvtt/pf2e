@@ -46,7 +46,7 @@ class FastHealingRuleElement extends RuleElement<FastHealingRuleSchema> {
                 throw Error("deactivatedBy is only valid for type regeneration");
             }
             if (data.details) {
-                data.details = game.i18n.localize(data.details);
+                data.details = _loc(data.details);
             }
         } else if (data.type === "regeneration") {
             if (data.details) {
@@ -55,13 +55,11 @@ class FastHealingRuleElement extends RuleElement<FastHealingRuleSchema> {
             }
             if (data.deactivatedBy?.length) {
                 const typesArr = data.deactivatedBy.map((type) =>
-                    objectHasKey(CONFIG.PF2E.weaknessTypes, type)
-                        ? game.i18n.localize(CONFIG.PF2E.weaknessTypes[type])
-                        : type,
+                    objectHasKey(CONFIG.PF2E.weaknessTypes, type) ? _loc(CONFIG.PF2E.weaknessTypes[type]) : type,
                 );
 
                 const types = localizeList(typesArr);
-                data.details = game.i18n.format("PF2E.Encounter.Broadcast.FastHealing.DeactivatedBy", { types });
+                data.details = _loc("PF2E.Encounter.Broadcast.FastHealing.DeactivatedBy", { types });
             }
         }
     }
@@ -77,14 +75,14 @@ class FastHealingRuleElement extends RuleElement<FastHealingRuleSchema> {
             return this.failValidation("value must be a number or a roll formula");
         }
 
-        const receivedMessage = game.i18n.localize(`PF2E.Encounter.Broadcast.FastHealing.${this.type}.ReceivedMessage`);
+        const receivedMessage = _loc(`PF2E.Encounter.Broadcast.FastHealing.${this.type}.ReceivedMessage`);
         const postFlavor = `<div data-visibility="owner">${this.details ?? this.getReducedLabel()}</div>`;
         const flavor = `<div>${receivedMessage}</div>${postFlavor}`;
 
         const roll = (await new DamageRoll(`{(${value})[healing]}`).evaluate()).toJSON();
-        const rollMode = this.actor.hasPlayerOwner ? "publicroll" : "gmroll";
+        const mode = this.actor.hasPlayerOwner ? "public" : "gm";
         const speaker = ChatMessagePF2e.getSpeaker({ actor: this.actor, token: this.token });
-        ChatMessagePF2e.create({ flavor, speaker, rolls: [roll] }, { rollMode });
+        ChatMessagePF2e.create({ flavor, speaker, rolls: [roll] }, { mode });
     }
 }
 

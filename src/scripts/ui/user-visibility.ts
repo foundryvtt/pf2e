@@ -48,8 +48,8 @@ class UserVisibilityPF2e {
             for (const button of saveButtons) {
                 const saveType = button.dataset.save;
                 if (objectHasKey(CONFIG.PF2E.saves, saveType)) {
-                    const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
-                    button.innerText = game.i18n.format("PF2E.SavingThrowWithName", { saveName });
+                    const saveName = _loc(CONFIG.PF2E.saves[saveType]);
+                    button.innerText = _loc("PF2E.SavingThrowWithName", { saveName });
                 }
             }
         } else if (!document?.hasPlayerOwner && !dcSetting) {

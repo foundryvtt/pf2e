@@ -61,7 +61,7 @@ export class Migration850FlatFootedToOffGuard extends MigrationBase {
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         source.name = source.name.replace(this.#oldNamePattern, this.#newName);
-        source.img = source.img.replace(this.#imgPattern, "off-guard.webp") as ImageFilePath;
+        source.img &&= source.img.replace(this.#imgPattern, "off-guard.webp") as ImageFilePath;
         source.system = recursiveReplaceString(source.system, (s) => this.#replace(s));
     }
 

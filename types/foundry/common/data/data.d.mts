@@ -5,6 +5,7 @@ import {
     ImageFilePath,
     ShapeDataType,
     TileOcclusionMode,
+    TokenShapeType,
     VideoFilePath,
 } from "@common/constants.mjs";
 import DataModel from "../abstract/data.mjs";
@@ -46,12 +47,11 @@ export class LightData<TParent extends DataModel | null> extends DataModel<TPare
 }
 
 export interface LightData<TParent extends DataModel | null>
-    extends DataModel<TParent, LightDataSchema>,
-        fields.ModelPropsFromSchema<LightDataSchema> {}
+    extends DataModel<TParent, LightDataSchema>, fields.ModelPropsFromSchema<LightDataSchema> {}
 
 export type LightSource = fields.SourceFromSchema<LightDataSchema>;
 
-type LightDataSchema = {
+export type LightDataSchema = {
     /** An opacity for the emitted light, if any */
     alpha: fields.AlphaField;
     /** The angle of emission for this point source */
@@ -103,8 +103,7 @@ export class ShapeData<TParent extends DataModel | null> extends DataModel<TPare
 }
 
 export interface ShapeData<TParent extends DataModel | null>
-    extends DataModel<TParent, ShapeDataSchema>,
-        fields.ModelPropsFromSchema<ShapeDataSchema> {}
+    extends DataModel<TParent, ShapeDataSchema>, fields.ModelPropsFromSchema<ShapeDataSchema> {}
 
 type ShapeDataSchema = {
     /**
@@ -133,19 +132,24 @@ export class BaseShapeData<TSchema extends BaseShapeDataSchema> extends DataMode
 
     /** The possible shape types. */
     static get TYPES(): {
-        rectangle: typeof RectangleShapeData;
-        circle: typeof CircleShapeData;
-        ellipse: typeof EllipseShapeData;
-        polygon: typeof PolygonShapeData;
+        [RectangleShapeData.TYPE]: typeof RectangleShapeData;
+        [CircleShapeData.TYPE]: typeof CircleShapeData;
+        [EllipseShapeData.TYPE]: typeof EllipseShapeData;
+        [EmanationShapeData.TYPE]: typeof EmanationShapeData;
+        [ConeShapeData.TYPE]: typeof ConeShapeData;
+        [RingShapeData.TYPE]: typeof RingShapeData;
+        [LineShapeData.TYPE]: typeof LineShapeData;
+        [PolygonShapeData.TYPE]: typeof PolygonShapeData;
+        [TokenShapeData.TYPE]: typeof TokenShapeData;
+        [GridShapeData.TYPE]: typeof GridShapeData;
     };
 
     /** The bottom and top elevation of the shape. A value of null means -/+Infinity. */
     elevation?: { bottom: number | null; top: number | null };
 }
 
-interface BaseShapeData<TSchema extends BaseShapeDataSchema = BaseShapeDataSchema>
-    extends DataModel<DataModel | null, TSchema>,
-        fields.ModelPropsFromSchema<BaseShapeDataSchema> {}
+export interface BaseShapeData<TSchema extends BaseShapeDataSchema = BaseShapeDataSchema>
+    extends DataModel<DataModel | null, TSchema>, fields.ModelPropsFromSchema<BaseShapeDataSchema> {}
 
 type BaseShapeDataSchema = {
     /** The type of shape, a value in BaseShapeData.TYPES. */
@@ -158,14 +162,13 @@ type BaseShapeDataSchema = {
 export class RectangleShapeData extends BaseShapeData<RectangleShapeDataSchema> {
     static override defineSchema(): RectangleShapeDataSchema;
 
-    static override TYPE: "rectangle";
+    static override readonly TYPE: "rectangle";
 }
 
-interface RectangleShapeData
-    extends BaseShapeData<RectangleShapeDataSchema>,
-        fields.ModelPropsFromSchema<RectangleShapeDataSchema> {
+export interface RectangleShapeData
+    extends BaseShapeData<RectangleShapeDataSchema>, fields.ModelPropsFromSchema<RectangleShapeDataSchema> {
     readonly _source: Omit<fields.SourceFromSchema<RectangleShapeDataSchema>, "type"> & { type: "rectangle" };
-    type: "rectangle";
+    readonly type: "rectangle";
 }
 
 type RectangleShapeDataSchema = BaseShapeDataSchema & {
@@ -183,16 +186,17 @@ type RectangleShapeDataSchema = BaseShapeDataSchema & {
 
 /** The data model for a circle shape. */
 export class CircleShapeData extends BaseShapeData<CircleShapeDataSchema> {
-    static override defineSchema(): CircleShapeDataSchema;
+    static override LOCALIZATION_PREFIXES: string[];
 
-    static override TYPE: "circle";
+    static override readonly TYPE: "circle";
+
+    static override defineSchema(): CircleShapeDataSchema;
 }
 
-interface CircleShapeData
-    extends BaseShapeData<CircleShapeDataSchema>,
-        fields.ModelPropsFromSchema<CircleShapeDataSchema> {
+export interface CircleShapeData
+    extends BaseShapeData<CircleShapeDataSchema>, fields.ModelPropsFromSchema<CircleShapeDataSchema> {
     readonly _source: Omit<fields.SourceFromSchema<CircleShapeDataSchema>, "type"> & { type: "circle" };
-    type: "circle";
+    readonly type: "circle";
 }
 
 type CircleShapeDataSchema = BaseShapeDataSchema & {
@@ -206,16 +210,17 @@ type CircleShapeDataSchema = BaseShapeDataSchema & {
 
 /** The data model for an ellipse shape. */
 export class EllipseShapeData extends BaseShapeData<EllipseShapeDataSchema> {
-    static defineSchema(): EllipseShapeDataSchema;
+    static override LOCALIZATION_PREFIXES: string[];
 
-    static override TYPE: "ellipse";
+    static override readonly TYPE: "ellipse";
+
+    static defineSchema(): EllipseShapeDataSchema;
 }
 
-interface EllipseShapeData
-    extends BaseShapeData<EllipseShapeDataSchema>,
-        fields.ModelPropsFromSchema<EllipseShapeDataSchema> {
+export interface EllipseShapeData
+    extends BaseShapeData<EllipseShapeDataSchema>, fields.ModelPropsFromSchema<EllipseShapeDataSchema> {
     readonly _source: Omit<fields.SourceFromSchema<EllipseShapeDataSchema>, "type"> & { type: "ellipse" };
-    type: "ellipse";
+    readonly type: "ellipse";
 }
 
 type EllipseShapeDataSchema = BaseShapeDataSchema & {
@@ -231,16 +236,151 @@ type EllipseShapeDataSchema = BaseShapeDataSchema & {
     rotation: fields.NumberField<number, number, true, false, false>;
 };
 
+/**
+ * The data model for an emanation shape.
+ *
+ * @property {BaseShapeData} base     .
+ * @property {number} radius          .
+ * @property {boolean} gridBased
+ */
+export class EmanationShapeData extends BaseShapeData<EmanationShapeDataSchema> {
+    static override LOCALIZATION_PREFIXES: string[];
+
+    static override TYPE: "emanation";
+
+    static override defineSchema(): EmanationShapeDataSchema;
+}
+
+export interface EmanationShapeData
+    extends BaseShapeData<EmanationShapeDataSchema>, fields.ModelPropsFromSchema<EmanationShapeDataSchema> {
+    readonly _source: Omit<fields.SourceFromSchema<EmanationShapeDataSchema>, "type"> & { type: "emanation" };
+}
+
+type EmanationShapeDataSchema = BaseShapeDataSchema & {
+    /** The base shape of the emanation */
+    base: fields.TypedSchemaField<Omit<typeof BaseShapeData.TYPES, "emanation">>;
+    /** The radius of the emanation in pixels */
+    radius: fields.NumberField<number, number, true, false, false>;
+    /**
+     * If the shape is grid-based, its dimensions are converted into grid units by dividing each by the grid size and
+     * multiplying by the grid distance. The shape is then constructed using these dimensions conforming to the grid's
+     * metric.
+     */
+    gridBased: fields.BooleanField;
+};
+
+/**
+ * The data model for a cone shape
+ */
+export class ConeShapeData extends BaseShapeData<ConeShapeDataSchema> {
+    static override LOCALIZATION_PREFIXES: string[];
+
+    static override readonly TYPE: "cone";
+
+    static override defineSchema(): ConeShapeDataSchema;
+
+    static override validateJoint(data: fields.SourceFromSchema<ConeShapeDataSchema>): void;
+}
+
+export interface ConeShapeData
+    extends BaseShapeData<ConeShapeDataSchema>, fields.ModelPropsFromSchema<ConeShapeDataSchema> {
+    readonly _source: Omit<fields.SourceFromSchema<ConeShapeDataSchema>, "type"> & { type: "cone" };
+}
+
+type ConeShapeDataSchema = BaseShapeDataSchema & {
+    /** The x-coordinate of the center point in pixels */
+    x: fields.NumberField<number, number, true, false, false>;
+    /** The y-coordinate of the center point in pixels */
+    y: fields.NumberField<number, number, true, false, false>;
+    /** The radius of the cone in pixels */
+    radius: fields.NumberField<number, number, true, false, false>;
+    /** The angle of the cone in degrees */
+    angle: fields.AngleField<true, false, false>;
+    /** The direction of the cone in degrees */
+    rotation: fields.AngleField;
+    /** The curvature */
+    curvature: fields.StringField<"round" | "flat" | "semicircle", "round" | "flat" | "semicircle", true, false, true>;
+    /**
+     * If the shape is grid-based, its dimensions are converted into grid units by dividing each by the grid size and
+     * multiplying by the grid distance. The shape is then constructed using these dimensions conforming to the grid's metric.
+     */
+    gridBased: fields.BooleanField;
+};
+
+/**
+ * The data model for a ring shape.
+ */
+export class RingShapeData extends BaseShapeData<RingShapeDataSchema> {
+    static override LOCALIZATION_PREFIXES: string[];
+
+    static override readonly TYPE: "ring";
+
+    static override defineSchema(): RingShapeDataSchema;
+}
+
+type RingShapeDataSchema = BaseShapeDataSchema & {
+    /** The x-coordinate of the origin in pixels */
+    x: fields.NumberField<number, number, true, false, false>;
+    /** The y-coordinate of the origin in pixels */
+    y: fields.NumberField<number, number, true, false, false>;
+    /** The radius of the ring in pixels */
+    radius: fields.NumberField<number, number, true, false, false>;
+    /** The inner width of the ring in pixels */
+    innerWidth: fields.NumberField<number, number, true, false, false>;
+    /** The outer width of the ring in pixels */
+    outerWidth: fields.NumberField<number, number, true, false, false>;
+    /**
+     * If the shape is grid-based, its dimensions are converted into grid units by dividing each by the grid size and
+     * multiplying by the grid distance. The shape is then constructed using these dimensions conforming to the grid's
+     * metric.
+     */
+    gridBased: fields.BooleanField;
+};
+
+/**
+ * The data model for a line shape
+ */
+export class LineShapeData extends BaseShapeData<LineShapeDataSchema> {
+    static override LOCALIZATION_PREFIXES: string[];
+
+    static override readonly TYPE: "line";
+
+    static override defineSchema(): LineShapeDataSchema;
+}
+
+export interface LineShapeData
+    extends BaseShapeData<LineShapeDataSchema>, fields.ModelPropsFromSchema<LineShapeDataSchema> {
+    readonly _source: Omit<fields.SourceFromSchema<LineShapeDataSchema>, "type"> & { type: "line" };
+}
+
+type LineShapeDataSchema = BaseShapeDataSchema & {
+    /** The x-coordinate of the origin in pixels */
+    x: fields.NumberField<number, number, true, false, false>;
+    /** The x-coordinate of the origin in pixels */
+    y: fields.NumberField<number, number, true, false, false>;
+    /** The length of the line in pixels */
+    length: fields.NumberField<number, number, true, false, false>;
+    /** The width of the line in pixels */
+    width: fields.NumberField<number, number, true, false, false>;
+    /** The rotation around the origin of the line in degrees */
+    rotation: fields.AngleField;
+    /**
+     * If the shape is grid-based, its dimensions are converted into grid units by dividing each by the grid size and
+     * multiplying by the grid distance. The shape is then constructed using these dimensions conforming to the grid's
+     * metric.
+     */
+    gridBased: fields.BooleanField;
+};
+
 /** The data model for a polygon shape. */
 export class PolygonShapeData extends BaseShapeData<PolygonShapeDataSchema> {
     static defineSchema(): PolygonShapeDataSchema;
 
-    static override TYPE: "polygon";
+    static override readonly TYPE: "polygon";
 }
 
-interface PolygonShapeData
-    extends BaseShapeData<PolygonShapeDataSchema>,
-        fields.ModelPropsFromSchema<PolygonShapeDataSchema> {
+export interface PolygonShapeData
+    extends BaseShapeData<PolygonShapeDataSchema>, fields.ModelPropsFromSchema<PolygonShapeDataSchema> {
     readonly _source: Omit<fields.SourceFromSchema<PolygonShapeDataSchema>, "type"> & { type: "polygon" };
     type: "polygon";
 }
@@ -249,6 +389,74 @@ type PolygonShapeDataSchema = BaseShapeDataSchema & {
     /** The points of the polygon ([x0, y0, x1, y1, ...]). The polygon must not be self-intersecting. */
     points: fields.ArrayField<fields.NumberField<number, number, true, false, false>>;
 };
+
+/**
+ * The data model for a token shape.
+ */
+export class TokenShapeData extends BaseShapeData<TokenShapeDataSchema> {
+    static override LOCALIZATION_PREFIXES: string[];
+
+    static override readonly TYPE: "token";
+
+    static override defineSchema(): TokenShapeDataSchema;
+}
+
+export interface TokenShapeData
+    extends BaseShapeData<TokenShapeDataSchema>, fields.ModelPropsFromSchema<TokenShapeDataSchema> {
+    readonly _source: Omit<fields.SourceFromSchema<TokenShapeDataSchema>, "type"> & { type: "token" };
+}
+
+type TokenShapeDataSchema = BaseShapeDataSchema & {
+    /** The top-left x-coordinate in pixels (integer). */
+    x: fields.NumberField<number, number, true, false, false>;
+    /** The top-left y-coordinate in pixels (integer). */
+    y: fields.NumberField<number, number, true, false, false>;
+    /** The width in grid spaces (positive). */
+    width: fields.NumberField<number, number, true, false, false>;
+    /** The height in grid spaces (positive). */
+    height: fields.NumberField<number, number, true, false, false>;
+    /** The shape type (see {@link CONST.TOKEN_SHAPES}). */
+    shape: fields.NumberField<TokenShapeType | TokenShapeType, true, true, false>;
+};
+
+/**
+ * The data model for a shape that is the union of grid spaces.
+ *
+ * @property {GridOffset2D[]} offsets    The grid offsets covered by this shape
+ * @property {Point|null} origin         The optional grid space origin, which is by default
+ *                                       the center point of the first grid space in `offsets`
+ */
+export class GridShapeData extends BaseShapeData<GridShapeDataSchema> {
+    static override LOCALIZATION_PREFIXES: string[];
+
+    static override TYPE: "grid";
+
+    static override defineSchema(): GridShapeDataSchema;
+}
+
+export interface GridShapeData
+    extends BaseShapeData<GridShapeDataSchema>, fields.ModelPropsFromSchema<GridShapeDataSchema> {
+    readonly _source: Omit<fields.SourceFromSchema<GridShapeDataSchema>, "type"> & { type: "grid" };
+}
+
+type GridShapeDataSchema = BaseShapeDataSchema & {
+    offsets: fields.GridOffsetsField;
+    origin: fields.SchemaField<
+        {
+            x: fields.NumberField<number, number, true, false, false>;
+            y: fields.NumberField<number, number, true, false, false>;
+        },
+        { x: number; y: number },
+        { x: number; y: number },
+        true,
+        true,
+        true
+    >;
+};
+
+export type SpecificShapeSource = InstanceType<
+    (typeof BaseShapeData.TYPES)[keyof typeof BaseShapeData.TYPES]
+>["_source"];
 
 /** A {@link fields.SchemaField} subclass used to represent texture data. */
 export class TextureData extends fields.SchemaField<TextureDataSchema> {
@@ -356,8 +564,7 @@ export class PrototypeToken<TParent extends documents.BaseActor | null> extends 
 }
 
 export interface PrototypeToken<TParent extends documents.BaseActor | null>
-    extends DataModel<TParent, PrototypeTokenSchema>,
-        fields.ModelPropsFromSchema<PrototypeTokenSchema> {}
+    extends DataModel<TParent, PrototypeTokenSchema>, fields.ModelPropsFromSchema<PrototypeTokenSchema> {}
 
 type PrototypeTokenSchema = Omit<
     TokenSchema,
@@ -385,8 +592,8 @@ export class TombstoneData<
 
 export interface TombstoneData<
     TParent extends documents.BaseActorDelta<documents.BaseToken<documents.BaseScene | null> | null> | null,
-> extends DataModel<TParent, TombstoneDataSchema>,
-        fields.SourceFromSchema<TombstoneDataSchema> {
+>
+    extends DataModel<TParent, TombstoneDataSchema>, fields.SourceFromSchema<TombstoneDataSchema> {
     readonly _source: TombstoneSource;
 }
 
@@ -426,3 +633,5 @@ export interface VideoData {
     autoplay: boolean;
     volume: boolean;
 }
+
+export {};

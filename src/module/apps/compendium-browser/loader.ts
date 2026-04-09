@@ -45,7 +45,7 @@ class PackLoader {
                     this.#setModuleArt(packId, filteredIndex);
                     yield { pack, index: filteredIndex };
                 } else {
-                    ui.notifications.warn(game.i18n.format("PF2E.BrowserWarnPackNotLoaded", { pack: pack.collection }));
+                    ui.notifications.warn(_loc("PF2E.BrowserWarnPackNotLoaded", { pack: pack.collection }));
                 }
             }
         }

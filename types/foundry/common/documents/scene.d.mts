@@ -24,7 +24,6 @@ export default interface BaseScene extends Document<null, SceneSchema>, fields.M
     readonly notes: EmbeddedCollection<documents.BaseNote<this>>;
     readonly regions: EmbeddedCollection<documents.BaseRegion<this>>;
     readonly sounds: EmbeddedCollection<documents.BaseAmbientSound<this>>;
-    readonly templates: EmbeddedCollection<documents.BaseMeasuredTemplate<this>>;
     readonly tokens: EmbeddedCollection<documents.BaseToken<this>>;
     readonly tiles: EmbeddedCollection<documents.BaseTile<this>>;
     readonly walls: EmbeddedCollection<documents.BaseWall<this>>;
@@ -125,8 +124,6 @@ type SceneSchema = {
     regions: fields.EmbeddedCollectionField<documents.BaseRegion<BaseScene>>;
     /** A collection of embedded AmbientSound objects. */
     sounds: fields.EmbeddedCollectionField<documents.BaseAmbientSound<BaseScene>>;
-    /** A collection of embedded MeasuredTemplate objects. */
-    templates: fields.EmbeddedCollectionField<documents.BaseMeasuredTemplate<BaseScene>>;
     /** A collection of embedded Tile objects. */
     tiles: fields.EmbeddedCollectionField<documents.BaseTile<BaseScene>>;
     /** A collection of embedded Wall objects. */

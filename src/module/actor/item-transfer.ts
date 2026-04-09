@@ -54,9 +54,7 @@ export class ItemTransfer implements ItemTransferData {
             const loot = [source, target].find((a) => a?.isLootableBy(game.user) && !a.isOwner);
 
             if (!loot) throw ErrorPF2e("Unexpected missing actor");
-            ui.notifications.error(
-                game.i18n.format("PF2E.loot.GMSupervisionError", { loot: ItemTransfer.#tokenName(loot) }),
-            );
+            ui.notifications.error(_loc("PF2E.loot.GMSupervisionError", { loot: ItemTransfer.#tokenName(loot) }));
             return;
         }
 
@@ -125,7 +123,7 @@ export class ItemTransfer implements ItemTransferData {
     static #tokenName(document: ActorPF2e | User): string {
         if ("items" in document) {
             // Use a special moniker for party actors
-            if (document.isOfType("party")) return game.i18n.localize("PF2E.loot.PartyStash");
+            if (document.isOfType("party")) return _loc("PF2E.loot.PartyStash");
 
             // check to see if the token name can be seen
             const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
@@ -135,7 +133,7 @@ export class ItemTransfer implements ItemTransferData {
             // hide name if the token's name is not visible and the token is an NPC
             if (document.token) {
                 return !canSeeName && document.isOfType("npc")
-                    ? game.i18n.localize("PF2E.loot.LootUnknownNPCMessage")
+                    ? _loc("PF2E.loot.LootUnknownNPCMessage")
                     : document.token.name;
             }
 
@@ -174,7 +172,7 @@ export class ItemTransfer implements ItemTransferData {
 
             const content = await fa.handlebars.renderTemplate(this.#templatePaths.content, {
                 imgPath: targetActor.img,
-                message: game.i18n.format(message, { buyer: targetActor.name }),
+                message: _loc(message, { buyer: targetActor.name }),
             });
 
             const flavor = await this.#messageFlavor(sourceActor, targetActor, localize("BuySubtitle"));
@@ -190,7 +188,7 @@ export class ItemTransfer implements ItemTransferData {
         }
 
         // Exhaustive pattern match to determine speaker and item-transfer parties
-        type PatternMatch = [speaker: string, subtitle: string, formatArgs: Parameters<Localization["format"]>];
+        type PatternMatch = [speaker: string, subtitle: string, formatArgs: Parameters<Localization["localize"]>];
 
         const [speaker, subtitle, formatArgs] = ((): PatternMatch => {
             const isMerchant = (actor: ActorPF2e) => actor.isOfType("loot") && actor.isMerchant;
@@ -332,16 +330,14 @@ export class ItemTransfer implements ItemTransferData {
         // Don't bother showing quantity if it's only 1:
         const content = await fa.handlebars.renderTemplate(this.#templatePaths.content, {
             imgPath: item.img,
-            message: game.i18n.format(...formatArgs).replace(/\b1 × /, ""),
+            message: _loc(...formatArgs).replace(/\b1 × /, ""),
         });
-
-        const flavor = await this.#messageFlavor(sourceActor, targetActor, subtitle);
 
         await ChatMessagePF2e.create({
             author: requester.id,
             speaker: { alias: speaker },
             style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
-            flavor,
+            flavor: await this.#messageFlavor(sourceActor, targetActor, subtitle),
             content,
         });
     }

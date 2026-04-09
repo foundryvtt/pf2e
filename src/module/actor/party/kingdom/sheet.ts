@@ -150,22 +150,22 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             ...data,
             actor: this.actor,
             kingdom: this.kingdom,
-            nationTypeLabel: game.i18n.localize(`PF2E.Kingmaker.Kingdom.NationType.${kingdom.nationType}`),
+            nationTypeLabel: _loc(`PF2E.Kingmaker.Kingdom.NationType.${kingdom.nationType}`),
             abilities: KINGDOM_ABILITIES.map((slug) => {
                 return {
                     ...this.kingdom.abilities[slug],
                     slug,
-                    label: game.i18n.localize(KINGDOM_ABILITY_LABELS[slug]),
-                    ruinLabel: game.i18n.localize(KINGDOM_RUIN_LABELS[slug]),
+                    label: _loc(KINGDOM_ABILITY_LABELS[slug]),
+                    ruinLabel: _loc(KINGDOM_RUIN_LABELS[slug]),
                 };
             }),
             commodities: KINGDOM_COMMODITIES.map((type) => ({
                 ...kingdom.resources.commodities[type],
                 type,
-                label: game.i18n.localize(KINGDOM_COMMODITY_LABELS[type]),
+                label: _loc(KINGDOM_COMMODITY_LABELS[type]),
                 workSites: {
-                    label: game.i18n.localize(`PF2E.Kingmaker.WorkSites.${type}.Name`),
-                    description: game.i18n.localize(`PF2E.Kingmaker.WorkSites.${type}.Description`),
+                    label: _loc(`PF2E.Kingmaker.WorkSites.${type}.Name`),
+                    description: _loc(`PF2E.Kingmaker.WorkSites.${type}.Description`),
                     hasResource: ["lumber", "ore", "stone"].includes(type),
                     value: kingdom.resources.workSites[type].value,
                     resource: kingdom.resources.workSites[type].resource,
@@ -187,11 +187,11 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 return {
                     ...data,
                     slug,
-                    label: game.i18n.localize(`PF2E.Kingmaker.Kingdom.LeadershipRole.${slug}`),
+                    label: _loc(`PF2E.Kingmaker.Kingdom.LeadershipRole.${slug}`),
                     actor,
                     img: actor?.prototypeToken.texture.src ?? actor?.img ?? ActorPF2e.DEFAULT_ICON,
-                    abilityLabel: game.i18n.localize(KINGDOM_ABILITY_LABELS[KINGDOM_LEADERSHIP_ABILITIES[slug]]),
-                    penaltyLabel: game.i18n.localize(`PF2E.Kingmaker.Kingdom.VacancyPenalty.${slug}`),
+                    abilityLabel: _loc(KINGDOM_ABILITY_LABELS[KINGDOM_LEADERSHIP_ABILITIES[slug]]),
+                    penaltyLabel: _loc(`PF2E.Kingmaker.Kingdom.VacancyPenalty.${slug}`),
                 };
             }),
             actions: R.sortBy(kingdom.activities, (a) => a.name).map((item) => ({
@@ -204,7 +204,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             skills: R.sortBy(Object.values(this.kingdom.skills), (s) => s.label),
             feats: [kingdom.features, kingdom.feats, kingdom.bonusFeats],
             actionFilterChoices: KINGDOM_TRAITS.map((trait) => ({
-                label: game.i18n.localize(CONFIG.PF2E.kingmakerTraits[trait]),
+                label: _loc(CONFIG.PF2E.kingmakerTraits[trait]),
                 value: trait,
                 selected: false, // selected is handled without re-render
             })),
@@ -278,7 +278,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             storage: KINGDOM_COMMODITIES.map((type) => ({
                 type,
                 value: settlement.storage[type],
-                label: game.i18n.localize(KINGDOM_COMMODITY_LABELS[type]),
+                label: _loc(KINGDOM_COMMODITY_LABELS[type]),
             })),
         };
     }
@@ -420,7 +420,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 const type = htmlQuery<HTMLSelectElement>(customModifierEl, ".add-modifier-type")?.value ?? "";
                 const label =
                     htmlQuery<HTMLInputElement>(customModifierEl, ".add-modifier-name")?.value?.trim() ??
-                    game.i18n.localize(`PF2E.ModifierType.${type}`);
+                    _loc(`PF2E.ModifierType.${type}`);
                 if (!setHasElement(MODIFIER_TYPES, type)) {
                     ui.notifications.error("Type is required.");
                     return;
@@ -513,7 +513,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         handlers["create-feat"] = () => {
             this.actor.createEmbeddedDocuments("Item", [
                 {
-                    name: game.i18n.localize(CONFIG.PF2E.featCategories.bonus),
+                    name: _loc(CONFIG.PF2E.featCategories.bonus),
                     type: "campaignFeature",
                     system: {
                         campaign: "kingmaker",
@@ -578,11 +578,11 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 event?.ctrlKey ||
                 (await foundry.applications.api.DialogV2.confirm({
                     window: { title: "PF2E.DeleteItemTitle", icon: "fa-solid fa-trash" },
-                    content: `<p>${game.i18n.format("PF2E.DeleteQuestion", { name: `"${settlement.name}"` })}</p>`,
+                    content: `<p>${_loc("PF2E.DeleteQuestion", { name: `"${settlement.name}"` })}</p>`,
                     no: { default: true },
                 }));
             if (result) {
-                this.kingdom.update({ [`settlements.-=${id}`]: null });
+                this.kingdom.update({ [`settlements.${id}`]: _del });
             }
         });
     }

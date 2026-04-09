@@ -1,4 +1,4 @@
-import { ApplicationConfiguration, ApplicationRenderContext } from "@client/applications/_types.mjs";
+import { ApplicationConfiguration, ApplicationRenderContext, FormFooterButton } from "@client/applications/_types.mjs";
 import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
 import { CompendiumDocument } from "@client/documents/_module.mjs";
 import CompendiumCollection, { CompendiumIndexData } from "@client/documents/collections/compendium-collection.mjs";
@@ -27,6 +27,10 @@ export interface CompendiumPackDirectoryContext {
     sourceIcon: string;
     /** CSS class names. */
     css: string;
+}
+
+export interface CompendiumDirectoryRenderContext extends ApplicationRenderContext {
+    buttons: FormFooterButton[];
 }
 
 export default class CompendiumDirectory extends HandlebarsApplicationMixin(AbstractSidebarTab) {
@@ -71,13 +75,13 @@ export default class CompendiumDirectory extends HandlebarsApplicationMixin(Abst
 
     protected override _onRender(context: ApplicationRenderContext, options: HandlebarsRenderOptions): Promise<void>;
 
-    protected override _prepareContext(options: HandlebarsRenderOptions): Promise<ApplicationRenderContext>;
+    protected override _prepareContext(options: HandlebarsRenderOptions): Promise<CompendiumDirectoryRenderContext>;
 
     protected override _preparePartContext(
         partId: string,
-        context: ApplicationRenderContext,
+        context: CompendiumDirectoryRenderContext,
         options: HandlebarsRenderOptions,
-    ): Promise<ApplicationRenderContext>;
+    ): Promise<CompendiumDirectoryRenderContext>;
 
     /**
      * Prepare render context for the directory part.

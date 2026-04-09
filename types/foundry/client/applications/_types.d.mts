@@ -195,12 +195,12 @@ export interface FormNode {
 }
 
 export interface FormFooterButton {
-    type: string;
+    type: "button" | "reset" | "submit";
     name?: string;
     icon?: string;
     label?: string;
+    tooltip?: string;
     action?: string;
     cssClass?: string;
-    /** @default false */
     disabled?: boolean;
 }

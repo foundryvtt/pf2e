@@ -153,14 +153,14 @@ class EscapeActionVariant extends SingleCheckActionVariant {
                 const statistic = unarmedStrikeWithHighestModifier(options, data)?.statistic;
                 if (statistic) {
                     return {
-                        label: game.i18n.localize("PF2E.TraitUnarmed"),
+                        label: _loc("PF2E.TraitUnarmed"),
                         modifier: statistic.totalModifier,
                         slug: args.slug,
                     };
                 }
             }
             return {
-                label: game.i18n.localize("PF2E.TraitUnarmed"),
+                label: _loc("PF2E.TraitUnarmed"),
                 slug: args.slug,
             };
         }

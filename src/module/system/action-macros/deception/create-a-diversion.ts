@@ -1,5 +1,5 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { SingleCheckAction } from "@actor/actions/index.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const PREFIX = "PF2E.Actions.CreateADiversion";
 const CREATE_A_DIVERSION_VARIANTS = ["distracting-words", "gesture", "trick"] as const;
@@ -7,30 +7,30 @@ type CreateADiversionVariant = (typeof CREATE_A_DIVERSION_VARIANTS)[number];
 
 function createADiversion(options: { variant: CreateADiversionVariant } & SkillActionOptions): void {
     const { title, traits, variant } = (() => {
-        const mainTitle = game.i18n.localize(`${PREFIX}.Title`);
+        const mainTitle = _loc(`${PREFIX}.Title`);
         switch (options?.variant) {
             case "distracting-words":
                 return {
-                    title: mainTitle + " - " + game.i18n.localize(`${PREFIX}.DistractingWords.Title`),
+                    title: mainTitle + " - " + _loc(`${PREFIX}.DistractingWords.Title`),
                     traits: ["auditory", "linguistic", "mental"],
                     variant: options.variant,
                 };
             case "gesture":
                 return {
-                    title: mainTitle + " - " + game.i18n.localize(`${PREFIX}.Gesture.Title`),
+                    title: mainTitle + " - " + _loc(`${PREFIX}.Gesture.Title`),
                     traits: ["manipulate", "mental"],
                     variant: options.variant,
                 };
             case "trick":
                 return {
-                    title: mainTitle + " - " + game.i18n.localize(`${PREFIX}.Trick.Title`),
+                    title: mainTitle + " - " + _loc(`${PREFIX}.Trick.Title`),
                     traits: ["manipulate", "mental"],
                     variant: options.variant,
                 };
             default: {
                 const variant = options?.variant ? `'${options.variant}'` : "null";
                 const variants = CREATE_A_DIVERSION_VARIANTS.map((v) => `'${v}'`).join(", ");
-                ui.notifications.error(game.i18n.format(`${PREFIX}.Warning.UnknownVariant`, { variant, variants }));
+                ui.notifications.error(_loc(`${PREFIX}.Warning.UnknownVariant`, { variant, variants }));
                 throw new Error(`Unknown variant ${variant} for Create a Diversion, use one of ${variants}.`);
             }
         }
@@ -90,4 +90,4 @@ const action = new SingleCheckAction({
     ],
 });
 
-export { createADiversion as legacy, action };
+export { action, createADiversion as legacy };

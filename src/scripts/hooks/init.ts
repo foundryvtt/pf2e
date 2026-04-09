@@ -1,4 +1,4 @@
-import type { SchemaField } from "@common/data/fields.d.mts";
+import type { DataModelSchemaField } from "@common/data/fields.d.mts";
 import type { ActorSchema } from "@common/documents/actor.d.mts";
 import { MystifiedTraits } from "@item/base/data/values.ts";
 import {
@@ -64,68 +64,6 @@ export const Init = {
                 CONFIG.compendium.uuidRedirects[from] = to;
             }
 
-            // Configure the bundled TinyMCE editor with PF2-specific options
-            CONFIG.TinyMCE.extended_valid_elements = "pf2-action[action|glyph]";
-            CONFIG.TinyMCE.content_css.push(`systems/${SYSTEM_ID}/styles/pf2e.css`);
-            CONFIG.TinyMCE.style_formats = (CONFIG.TinyMCE.style_formats ?? []).concat({
-                title: "PF2E",
-                items: [
-                    {
-                        title: "Icons 1 2 3 F R",
-                        inline: "span",
-                        classes: ["action-glyph"],
-                        wrapper: true,
-                    },
-                    {
-                        title: "Inline Header",
-                        block: "h4",
-                        classes: "inline-header",
-                    },
-                    {
-                        title: "Info Block",
-                        block: "section",
-                        classes: "info",
-                        wrapper: true,
-                        exact: true,
-                        merge_siblings: false,
-                    },
-                    {
-                        title: "Stat Block",
-                        block: "section",
-                        classes: "statblock",
-                        wrapper: true,
-                        exact: true,
-                        merge_siblings: false,
-                    },
-                    {
-                        title: "Trait",
-                        block: "section",
-                        classes: "traits",
-                        wrapper: true,
-                    },
-                    {
-                        title: "Written Note",
-                        block: "p",
-                        classes: "message",
-                    },
-                    {
-                        title: "GM Text Block",
-                        block: "div",
-                        wrapper: true,
-                        attributes: {
-                            "data-visibility": "gm",
-                        },
-                    },
-                    {
-                        title: "GM Text Inline",
-                        inline: "span",
-                        attributes: {
-                            "data-visibility": "gm",
-                        },
-                    },
-                ],
-            });
-
             // Register custom enricher
             CONFIG.ux.TextEditor = TextEditorPF2e;
             CONFIG.TextEditor.enrichers.push({
@@ -158,7 +96,7 @@ export const Init = {
             SetGamePF2e.onInit();
 
             // Set Hover by Owner and rotation locked in PrototypeToken schema initial values
-            const prototypeFields = (foundry.documents.BaseActor.schema as SchemaField<ActorSchema>).fields
+            const prototypeFields = (foundry.documents.BaseActor.schema as DataModelSchemaField<ActorSchema>).fields
                 .prototypeToken.fields;
             prototypeFields.displayName.initial = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
             prototypeFields.displayBars.initial = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;

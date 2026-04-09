@@ -31,13 +31,13 @@ async function prepStrings(costs: Costs, item: PhysicalItemPF2e) {
 
     return {
         reductionPerDay: costs.reductionPerDay.toString(),
-        materialCost: game.i18n.format("PF2E.Actions.Craft.Details.PayMaterials", {
+        materialCost: _loc("PF2E.Actions.Craft.Details.PayMaterials", {
             cost: costs.materials.toString(),
         }),
-        itemCost: game.i18n.format("PF2E.Actions.Craft.Details.PayFull", {
+        itemCost: _loc("PF2E.Actions.Craft.Details.PayFull", {
             cost: costs.itemPrice.toString(),
         }),
-        lostMaterials: game.i18n.format("PF2E.Actions.Craft.Details.LostMaterials", {
+        lostMaterials: _loc("PF2E.Actions.Craft.Details.LostMaterials", {
             cost: costs.lostMaterials.toString(),
         }),
         itemLink: await TextEditorPF2e.enrichHTML(item.link, { rollData }),
@@ -93,13 +93,13 @@ export async function craftItem(
     }
     const result = await actor.addToInventory(itemSource);
     if (!result) {
-        ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.CantAddItem"));
+        ui.notifications.warn(_loc("PF2E.Actions.Craft.Warning.CantAddItem"));
         return;
     }
 
     await ChatMessagePF2e.create({
         author: game.user.id,
-        content: game.i18n.format("PF2E.Actions.Craft.Information.ReceiveItem", {
+        content: _loc("PF2E.Actions.Craft.Information.ReceiveItem", {
             actorName: actor.name,
             quantity: itemQuantity,
             itemName: item.name,
@@ -131,16 +131,16 @@ export async function craftSpellConsumable(
     );
 
     new appv1.api.Dialog({
-        title: game.i18n.localize("PF2E.Actions.Craft.SelectSpellDialog.Title"),
+        title: _loc("PF2E.Actions.Craft.SelectSpellDialog.Title"),
         content,
         buttons: {
             cancel: {
                 icon: fontAwesomeIcon("times").outerHTML,
-                label: game.i18n.localize("Cancel"),
+                label: _loc("Cancel"),
             },
             craft: {
                 icon: fontAwesomeIcon("hammer").outerHTML,
-                label: game.i18n.localize("PF2E.Actions.Craft.SelectSpellDialog.CraftButtonLabel"),
+                label: _loc("PF2E.Actions.Craft.SelectSpellDialog.CraftButtonLabel"),
                 callback: async ($dialog) => {
                     const spellId = String($dialog.find("select[name=spell]").val());
                     const spell = actor.items.get(spellId);

@@ -11,7 +11,7 @@ export class EquipmentSheetPF2e extends PhysicalItemSheetPF2e<EquipmentPF2e> {
 
         return {
             ...sheetData,
-            itemType: category ? game.i18n.format(`PF2E.Item.Equipment.Category.${category}`) : sheetData.itemType,
+            itemType: category ? _loc(`PF2E.Item.Equipment.Category.${category}`) : sheetData.itemType,
             otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, item.system.traits.otherTags),
         };
     }

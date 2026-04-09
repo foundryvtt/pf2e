@@ -373,8 +373,10 @@ export interface TokenConstrainMovementPathOptions {
     history?: boolean | DeepReadonly<TokenMeasuredMovementWaypoint[]>;
 }
 
-interface TokenConstrainedMovementWaypoint
-    extends Omit<TokenMeasuredMovementWaypoint, "userId" | "movementId" | "cost"> {}
+interface TokenConstrainedMovementWaypoint extends Omit<
+    TokenMeasuredMovementWaypoint,
+    "userId" | "movementId" | "cost"
+> {}
 
 export interface TokenFindMovementPathOptions {
     /**
@@ -913,15 +915,35 @@ export type SearchableField = DataField | { [K in string]: SearchableField };
 export interface FromCompendiumOptions {
     /** Clear the currently assigned folder. */
     clearFolder?: boolean;
-
+    /** Clear fields which store Document state. */
+    clearState?: boolean;
     /** Clear the current sort order. */
     clearSort?: boolean;
-
     /** Clear Document ownership. */
     clearOwnership?: boolean;
-
     /** Retain the Document ID from the source Compendium. */
     keepId?: boolean;
+    /** In cases where necessary, prompt the user with a confirmation dialog */
+    dialog?: boolean;
+}
+
+export interface ToCompendiumOptions {
+    /** Clear the flags object */
+    clearFlags?: boolean;
+    /** Clear any prior source information */
+    clearSource?: boolean;
+    /** Clear the currently assigned sort order */
+    clearSort?: boolean;
+    /** Clear the currently assigned folder */
+    clearFolder?: boolean;
+    /** Clear document ownership */
+    clearOwnership?: boolean;
+    /** Clear fields which store document state */
+    clearState?: boolean;
+    /** Retain the current Document id */
+    keepId?: boolean;
+    /** In cases where necessary, prompt the user with a confirmation dialog */
+    dialog?: boolean;
 }
 
 export interface RollTableHTMLEmbedConfig extends DocumentHTMLEmbedConfig {

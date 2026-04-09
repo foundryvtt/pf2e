@@ -1,8 +1,9 @@
 import type { ActorPF2e } from "@actor/base.ts";
+import type { ToCompendiumOptions } from "@client/_types.d.mts";
 import type { DialogV2Configuration } from "@client/applications/api/dialog.d.mts";
 import type { DocumentHTMLEmbedConfig } from "@client/applications/ux/text-editor.d.mts";
+import type { ChatMessageMode } from "@client/config.d.mts";
 import type { ItemUUID } from "@client/documents/_module.d.mts";
-import type { ToCompendiumOptions } from "@client/documents/abstract/_module.d.mts";
 import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {
@@ -13,7 +14,7 @@ import type {
     DatabaseUpdateCallbackOptions,
     Document,
 } from "@common/abstract/_module.d.mts";
-import type { ImageFilePath, RollMode } from "@common/constants.d.mts";
+import type { ImageFilePath } from "@common/constants.d.mts";
 import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { addOrUpgradeTrait, itemIsOfType, markdownToHTML } from "@item/helpers.ts";
@@ -25,7 +26,7 @@ import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { RuleElement, RuleElementOptions, RuleElementSource, RuleElements } from "@module/rules/index.ts";
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
-import { eventToRollMode } from "@module/sheet/helpers.ts";
+import { eventToMessageMode } from "@module/sheet/helpers.ts";
 import { type EnrichmentOptionsPF2e, type RollDataPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
@@ -208,7 +209,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      */
     async toMessage(
         event?: Maybe<Event>,
-        options: { rollMode?: RollMode | "roll"; create?: boolean; data?: Record<string, unknown> } = {},
+        options: { mode?: ChatMessageMode; create?: boolean; data?: Record<string, unknown> } = {},
     ): Promise<ChatMessagePF2e | undefined> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
 
@@ -227,8 +228,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         };
 
         // Basic chat message data
-        const rollMode = options.rollMode ?? eventToRollMode(event);
-        const chatData = ChatMessagePF2e.applyRollMode(
+        const messageMode = options.mode ?? eventToMessageMode(event);
+        const chatData = ChatMessagePF2e.applyMode(
             {
                 style: CONST.CHAT_MESSAGE_STYLES.OTHER,
                 speaker: ChatMessagePF2e.getSpeaker({
@@ -238,14 +239,14 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 content: await fa.handlebars.renderTemplate(template, templateData),
                 flags: { [SYSTEM_ID]: { origin: this.getOriginData() } },
             },
-            rollMode,
+            messageMode,
         );
 
         // Create the chat message
-        const operation = { rollMode, renderSheet: false };
+        const operation = { messageMode, renderSheet: false };
         return (options.create ?? true)
             ? ChatMessagePF2e.create(chatData, operation)
-            : new ChatMessagePF2e(chatData, { rollMode });
+            : new ChatMessagePF2e(chatData, { messageMode });
     }
 
     /** A shortcut to `item.toMessage(..., { create: true })`, kept for backward compatibility */
@@ -479,9 +480,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     // Create paragraph element
                     const paragraph = createHTMLElement("p");
                     if (line.title) {
-                        paragraph.appendChild(
-                            createHTMLElement("strong", { children: [game.i18n.localize(line.title)] }),
-                        );
+                        paragraph.appendChild(createHTMLElement("strong", { children: [_loc(line.title)] }));
                         paragraph.appendChild(new Text(" "));
                     }
                     const text = markdownToHTML(line.text);
@@ -501,12 +500,12 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             return Promise.all(
                 description.addenda.flatMap((unfiltered) => {
                     const addendum = {
-                        label: game.i18n.localize(unfiltered.label),
+                        label: _loc(unfiltered.label),
                         contents: unfiltered.contents
                             .filter((c) => c.predicate.test(rollOptions))
                             .map((line) => {
                                 if (!line.processed) {
-                                    line.title &&= game.i18n.localize(line.title).trim();
+                                    line.title &&= _loc(line.title).trim();
                                     line.text = markdownToHTML(line.text);
                                     line.processed = true;
                                 }
@@ -559,7 +558,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     ): TraitChatData[] {
         const traitChatLabels = traits
             .map((trait) => {
-                const label = game.i18n.localize(dictionary[trait] ?? trait);
+                const label = _loc(dictionary[trait] ?? trait);
                 const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
 
                 return {
@@ -669,7 +668,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 // Send a notification if the effect wasn't automatically added by an aura
                 if (!(effect.isOfType("effect") && effect.fromAura)) {
                     const locKey = isUnaffected ? "PF2E.Damage.IWR.ActorIsUnaffected" : "PF2E.Damage.IWR.ActorIsImmune";
-                    const message = game.i18n.format(locKey, { actor: actor.name, effect: effect.name });
+                    const message = _loc(locKey, { actor: actor.name, effect: effect.name });
                     ui.notifications.info(message);
                 }
             }
@@ -997,6 +996,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 interface ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
     constructor: typeof ItemPF2e;
     flags: ItemFlagsPF2e;
+    img: ImageFilePath;
     readonly _source: ItemSourcePF2e;
     system: ItemSystemData;
 

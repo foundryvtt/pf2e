@@ -10,9 +10,7 @@ async function processGrantDeletions(item: ItemPF2e<ActorPF2e>, pendingItems: It
 
     // Handle deletion restrictions, aborting early if found in either this item's granter or any of its grants
     if (granter && parentGrant?.onDelete === "restrict" && !pendingItems.includes(granter)) {
-        ui.notifications.warn(
-            game.i18n.format("PF2E.Item.RemovalPrevented", { item: item.name, preventer: granter.name }),
-        );
+        ui.notifications.warn("PF2E.Item.RemovalPrevented", { format: { item: item.name, preventer: granter.name } });
         pendingItems.splice(pendingItems.indexOf(item), 1);
         return;
     }
@@ -21,9 +19,9 @@ async function processGrantDeletions(item: ItemPF2e<ActorPF2e>, pendingItems: It
         const grantee = actor.items.get(grant.id);
         if (grantee?.flags[SYSTEM_ID].grantedBy?.id !== item.id) continue;
         if (grantee.flags[SYSTEM_ID].grantedBy.onDelete === "restrict" && !pendingItems.includes(grantee)) {
-            ui.notifications.warn(
-                game.i18n.format("PF2E.Item.RemovalPrevented", { item: item.name, preventer: grantee.name }),
-            );
+            ui.notifications.warn("PF2E.Item.RemovalPrevented", {
+                format: { item: item.name, preventer: grantee.name },
+            });
             pendingItems.splice(pendingItems.indexOf(item), 1);
             return;
         }
@@ -52,7 +50,7 @@ async function processGrantDeletions(item: ItemPF2e<ActorPF2e>, pendingItems: It
 
         // Unset the grant flag and leave the granted item on the actor
         if (grantee.flags[SYSTEM_ID].grantedBy.onDelete === "detach" && !pendingItems.includes(grantee)) {
-            await grantee.update({ [`flags.${SYSTEM_ID}.-=grantedBy`]: null }, { render: false });
+            await grantee.update({ [`flags.${SYSTEM_ID}.grantedBy`]: _del }, { render: false });
         }
     }
 }

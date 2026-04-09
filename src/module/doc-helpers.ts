@@ -33,8 +33,8 @@ async function preImportJSON(json: string): Promise<string | null> {
     if (fu.isNewerVersion(sourceSchemaVersion, worldSchemaVersion)) {
         // Refuse to import if the schema version on the document is higher than the system schema verson;
         ui.notifications.error(
-            game.i18n.format("PF2E.ErrorMessage.CantImportTooHighVersion", {
-                sourceName: game.i18n.localize("DOCUMENT.Actor"),
+            _loc("PF2E.ErrorMessage.CantImportTooHighVersion", {
+                sourceName: _loc("DOCUMENT.Actor"),
                 sourceSchemaVersion,
                 worldSchemaVersion,
             }),

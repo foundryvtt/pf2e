@@ -95,7 +95,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         chatData.sound ??= CONFIG.sounds.dice;
         chatData.content = rolls.reduce((t, r) => t + r.total, 0).toString();
         const operation = {
-            rollMode: objectHasKey(CONFIG.Dice.rollModes, command) ? command : game.settings.get("core", "rollMode"),
+            mode: objectHasKey(CONFIG.ChatMessage.modes, command) ? command : game.settings.get("core", "messageMode"),
         };
         return ChatMessagePF2e.create(chatData, operation);
     }
@@ -212,7 +212,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             const span = createHTMLElement("span", { classes: ["effect-applied"] });
             const anchor = effect.toAnchor({ attrs: { draggable: "true" } });
             const locKey = "PF2E.Item.Ability.SelfAppliedEffect.Applied";
-            const statement = game.i18n.format(locKey, { effect: anchor.outerHTML });
+            const statement = _loc(locKey, { effect: anchor.outerHTML });
             span.innerHTML = statement;
             htmlQuery(buttons, "button[data-action=applyEffect]")?.replaceWith(span);
             await message.update({ content: parsedMessageContent.innerHTML });
@@ -275,7 +275,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
 
         await actor.undoDamage(appliedDamage);
         ui.notifications.info(
-            game.i18n.format(`PF2E.RevertDamage.${appliedDamage.isHealing ? "Healing" : "Damage"}Message`, {
+            _loc(`PF2E.RevertDamage.${appliedDamage.isHealing ? "Healing" : "Damage"}Message`, {
                 actor: actor.name,
             }),
         );
@@ -297,8 +297,8 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
 
         const condition = actor.getCondition(`persistent-damage-${damageType}`);
         if (!condition?.system.persistent) {
-            const damageTypeLocalized = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
-            const message = game.i18n.format("PF2E.Item.Condition.PersistentDamage.Error.DoesNotExist", {
+            const damageTypeLocalized = _loc(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
+            const message = _loc("PF2E.Item.Condition.PersistentDamage.Error.DoesNotExist", {
                 damageType: damageTypeLocalized,
             });
             ui.notifications.warn(message);
@@ -394,7 +394,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
 
                             const hardness = document.createElement("span");
                             hardness.classList.add("tag");
-                            const hardnessLabel = game.i18n.localize("PF2E.HardnessLabel");
+                            const hardnessLabel = _loc("PF2E.HardnessLabel");
                             hardness.innerHTML = `${hardnessLabel}: ${shield.hardness}`;
 
                             const itemLi = document.createElement("li");

@@ -117,7 +117,7 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
         if (!this.parent) {
             this.updateSource({ "system.location": null });
             if (this._source.system.frequency) {
-                this.updateSource({ "system.frequency.-=value": null });
+                this.updateSource({ "system.frequency.value": _del });
             }
         }
         return super._preCreate(data, options, user);
@@ -155,7 +155,7 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
         const list = this.system.prerequisites?.value?.map((item) => item.value).join(", ") ?? "";
         return (
             (list
-                ? `<p><strong>${game.i18n.localize("PF2E.FeatPrereqLabel")}</strong> ${list}</p>` +
+                ? `<p><strong>${_loc("PF2E.FeatPrereqLabel")}</strong> ${list}</p>` +
                   (config.hr === false ? "" : "<hr>")
                 : "") + this.description
         );

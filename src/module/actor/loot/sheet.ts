@@ -45,8 +45,8 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
             fields: (actor as BaseActor).schema.fields,
             systemFields: actor.system.schema.fields,
             lootSheetTypeOptions: [
-                { value: "Loot", label: game.i18n.localize("PF2E.loot.LootLabel") },
-                { value: "Merchant", label: game.i18n.localize("PF2E.loot.MerchantLabel") },
+                { value: "Loot", label: _loc("PF2E.loot.LootLabel") },
+                { value: "Merchant", label: _loc("PF2E.loot.MerchantLabel") },
             ],
         };
     }

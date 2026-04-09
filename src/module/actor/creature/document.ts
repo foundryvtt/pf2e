@@ -34,7 +34,7 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import { Predicate } from "@system/predication.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
-import { SpeedStatistic, SpeedStatisticTraceData } from "@system/statistic/speed.ts";
+import { SpeedStatistic } from "@system/statistic/speed.ts";
 import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { CreatureMovementData, CreatureResources, CreatureSystemData, VisionLevel, VisionLevels } from "./data.ts";
@@ -356,7 +356,7 @@ abstract class CreaturePF2e<
         if (this.isOfType("character", "npc")) {
             attributes.shield = {
                 itemId: null,
-                name: game.i18n.localize("PF2E.ArmorTypeShield"),
+                name: _loc("PF2E.ArmorTypeShield"),
                 ac: 0,
                 hp: { value: 0, max: 0 },
                 brokenThreshold: 0,
@@ -392,29 +392,6 @@ abstract class CreaturePF2e<
             withPartialMovement.movement.speeds[type] = { value, base: value };
         }
         if ("speed" in this.system.attributes) delete this.system.attributes.speed;
-        Object.defineProperty(this.system.attributes, "speed", {
-            get: () => {
-                const message = [
-                    "You are accessing CreaturePF2e#system#attributes#speed.",
-                    "Movement data is now found at #system#movement#speeds.",
-                ].join(" ");
-                fu.logCompatibilityWarning(message, { since: "7.5.0", until: "8.0.0", once: true });
-                const speeds = this.system.movement.speeds;
-                const land = speeds.land;
-                const otherSpeeds = Object.entries(speeds)
-                    .filter(
-                        (e): e is [string, SpeedStatisticTraceData] =>
-                            !!e[1] && ["burrow", "fly", "swim"].includes(e[0]),
-                    )
-                    .map(([type, s]) => ({ type, value: s.base, total: s.value, breakdown: s.breakdown }));
-                return {
-                    value: land.base,
-                    total: land.value,
-                    breakdown: land.breakdown,
-                    otherSpeeds,
-                };
-            },
-        });
     }
 
     override prepareEmbeddedDocuments(): void {
@@ -705,7 +682,7 @@ abstract class CreaturePF2e<
         if (!data) return null;
 
         const label = tupleHasValue(CORE_RESOURCES, slug)
-            ? game.i18n.localize(`PF2E.Actor.Resource.${key.capitalize()}`)
+            ? _loc(`PF2E.Actor.Resource.${key.capitalize()}`)
             : (this.synthetics.resources[key]?.label ?? key.capitalize());
         return { ...data, slug, label };
     }

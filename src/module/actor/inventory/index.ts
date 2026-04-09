@@ -206,7 +206,7 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
                     if (type === "credits") {
                         update.itemUpdates.push({
                             _id: item.id,
-                            "system.price.==value": { sp: moneyQuantity - removeResult[type] },
+                            "system.price.value": _replace({ sp: moneyQuantity - removeResult[type] }),
                         });
                     } else {
                         update.itemUpdates.push({

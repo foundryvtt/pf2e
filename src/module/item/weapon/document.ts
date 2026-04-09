@@ -354,7 +354,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
         const reloadValue = (this.system.reload.value ||= null);
         this.system.reload.label = reloadValue
-            ? game.i18n.format("PF2E.Item.Weapon.Reload.LabelN", {
+            ? _loc("PF2E.Item.Weapon.Reload.LabelN", {
                   value: CONFIG.PF2E.weaponReload[reloadValue],
               })
             : null;
@@ -582,9 +582,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const baseShieldTypes: Record<string, string | undefined> = CONFIG.PF2E.baseShieldTypes;
         const base = this.baseType ? (baseWeaponTypes[this.baseType] ?? baseShieldTypes[this.baseType] ?? null) : null;
         const group = this.group ? CONFIG.PF2E.weaponGroups[this.group] : null;
-        const itemType = game.i18n.localize(base ?? group ?? "TYPES.Item.weapon");
+        const itemType = _loc(base ?? group ?? "TYPES.Item.weapon");
 
-        return typeOnly ? itemType : game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
+        return typeOnly ? itemType : _loc("PF2E.identification.UnidentifiedItem", { item: itemType });
     }
 
     /**
@@ -920,7 +920,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const updates =
                 this.actor?.itemTypes.melee
                     .filter((a) => a.flags[SYSTEM_ID].linkedWeapon === this.id)
-                    .map((a) => ({ _id: a.id, [`flags.${SYSTEM_ID}.-=linkedWeapon`]: null })) ?? [];
+                    .map((a) => ({ _id: a.id, [`flags.${SYSTEM_ID}.linkedWeapon`]: _del })) ?? [];
             this.actor?.updateEmbeddedDocuments("Item", updates);
         }
     }

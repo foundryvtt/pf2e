@@ -47,10 +47,10 @@ abstract class IWR<TType extends IWRType> {
         const type = this.typeLabel;
         const disjunctor = game.i18n.getListFormatter({ style: "long", type: "disjunction" });
         const exceptions = disjunctor.format(
-            this.exceptions.map((e) => game.i18n.localize(typeof e === "string" ? this.typeLabels[e] : e.label)),
+            this.exceptions.map((e) => _loc(typeof e === "string" ? this.typeLabels[e] : e.label)),
         );
         const doubleVs = disjunctor.format(
-            this.doubleVs?.map((e) => game.i18n.localize(typeof e === "string" ? this.typeLabels[e] : e.label)) ?? [],
+            this.doubleVs?.map((e) => _loc(typeof e === "string" ? this.typeLabels[e] : e.label)) ?? [],
         );
         const key =
             this.exceptions.length > 0
@@ -61,26 +61,17 @@ abstract class IWR<TType extends IWRType> {
                   ? "DoubleVs"
                   : "Simple";
         const value = withValue ? (this.value ?? "") : "";
-
-        return game.i18n
-            .format(`PF2E.Damage.IWR.CompositeLabel.${key}`, {
-                type,
-                value,
-                exceptions,
-                doubleVs,
-            })
-            .replace(/\s+/g, " ")
-            .trim();
+        const formatArgs = { type, value, exceptions, doubleVs };
+        return _loc(`PF2E.Damage.IWR.CompositeLabel.${key}`, formatArgs).replace(/\s+/g, " ").trim();
     }
 
     /** A label consisting of just the type */
     get typeLabel(): string {
-        return game.i18n.localize(this.#customLabel ?? this.typeLabels[this.type]);
+        return _loc(this.#customLabel ?? this.typeLabels[this.type]);
     }
 
     protected describe(iwrType: IWRException<TType>): PredicateStatement[] {
         if (R.isPlainObject(iwrType)) return iwrType.definition;
-
         switch (iwrType) {
             case "air":
             case "alchemical":

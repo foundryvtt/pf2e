@@ -24,7 +24,7 @@ import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import { ScenePF2e } from "../document.ts";
 import { TokenAura } from "./aura/index.ts";
-import type { DetectionModeEntry, TokenFlagsPF2e, WithTroopFlags } from "./data.ts";
+import type { TokenFlagsPF2e, WithTroopFlags } from "./data.ts";
 import type { TokenConfigPF2e } from "./sheets/token-config.ts";
 
 class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
@@ -34,16 +34,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** The most recently used animation for later use when a token override is reverted. */
     #lastAnimation: TokenAnimationOptions | null = null;
-
-    /** Prevent eager construction of synthetic actors */
-    override get actor(): ActorPF2e<this | null> | null {
-        if (game.ready || this.actorLink || this.scene?.isView || this.hasConstructedActor || super.inCombat) {
-            return super.actor as ActorPF2e<this | null> | null;
-        }
-        return Array.isArray(this._source.delta?.items) && this._source.delta.items.some((i) => i.type === "effect")
-            ? (super.actor as ActorPF2e<this | null> | null)
-            : null;
-    }
 
     /** Returns the combatant representing this token or this token's troop */
     override get combatant(): CombatantPF2e<EncounterPF2e, this> | null {
@@ -64,11 +54,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return this.actorLink && this.actor?.isOfType("party")
             ? this.actor.members.every((a) => game.combat?.getCombatantsByActor(a).length)
             : super.inCombat;
-    }
-
-    /** This should be in Foundry core, but ... */
-    get scene(): TParent {
-        return this.parent;
     }
 
     /** Returns the other segments of a troop that exists in the current scene, or null if this token doesn't belong to a troop */
@@ -379,9 +364,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         // Reset detection modes if using rules-based vision
         const hasVision = actor.perception.hasVision;
-        const lightPerception: DetectionModeEntry = { id: "lightPerception", enabled: hasVision, range: Infinity };
-        const basicSight: DetectionModeEntry = { id: "basicSight", enabled: hasVision, range: 0 };
-        this.detectionModes = [lightPerception, basicSight];
+        const lightPerception = { enabled: hasVision, range: Infinity };
+        const basicSight = { enabled: hasVision, range: 0 };
+        this.detectionModes = { lightPerception, basicSight };
 
         // Reset sight defaults and set vision mode.
         // Unlike detection modes, there can only be one, and it decides how the player is currently seeing.
@@ -400,26 +385,22 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         // Update basic sight and adjust saturation based on darkvision or light levels
         if (visionMode === "darkvision") {
             this.sight.range = basicSight.range = Infinity;
-
             if (actor.isOfType("character") && actor.flags[SYSTEM_ID].colorDarkvision) {
                 this.sight.saturation = 1;
             } else if (!game.user.settings.monochromeDarkvision) {
                 this.sight.saturation = 0;
             }
         }
-
         if (actor.perception.senses.has("see-invisibility")) {
-            this.detectionModes.push({ id: "seeInvisibility", enabled: true, range: Infinity });
+            this.detectionModes.seeInvisibility = { enabled: true, range: Infinity };
         }
-
         const tremorsense = actor.perception.senses.get("tremorsense");
         if (tremorsense) {
-            this.detectionModes.push({ id: "feelTremor", enabled: true, range: tremorsense.range });
+            this.detectionModes.feelTremor = { enabled: true, range: tremorsense.range };
         }
-
         if (!actor.hasCondition("deafened")) {
             const range = scene?.flags[SYSTEM_ID].hearingRange ?? Infinity;
-            this.detectionModes.push({ id: "hearing", enabled: true, range });
+            this.detectionModes.hearing = { enabled: true, range };
         }
     }
 
@@ -476,7 +457,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                     whisper: this.actor?.hasPlayerOwner
                         ? []
                         : game.users.contents.flatMap((user) => (user.isGM ? user.id : [])),
-                    content: game.i18n.format("PF2E.InitiativeIsNow", { name: this.name, value: initiative }),
+                    content: _loc("PF2E.InitiativeIsNow", { name: this.name, value: initiative }),
                 },
             ]);
         }
@@ -504,7 +485,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                 if (existing) return existing;
 
                 const combat = game.user.isGM ? await EncounterPF2e.create({ active: true }, { render: false }) : null;
-                if (!combat) throw new Error(game.i18n.localize("COMBAT.NoneActive"));
+                if (!combat) throw new Error(_loc("COMBAT.NoneActive"));
                 return combat;
             })();
             combatants.push(
@@ -762,6 +743,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
     flags: TokenFlagsPF2e;
     regions: Set<RegionDocumentPF2e<NonNullable<TParent>>>;
+    get actor(): ActorPF2e<this | null> | null;
     get baseActor(): ActorPF2e<null> | null;
     get object(): TokenPF2e<this> | null;
     get sheet(): TokenConfigPF2e;

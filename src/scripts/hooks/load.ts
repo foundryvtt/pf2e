@@ -28,13 +28,12 @@ import {
     AmbientLightPF2e,
     EffectsCanvasGroupPF2e,
     LightingLayerPF2e,
-    MeasuredTemplatePF2e,
+    RegionLayerPF2e,
     RegionPF2e,
     RulerPF2e,
-    TemplateLayerPF2e,
+    TokenLayerPF2e,
     TokenPF2e,
 } from "@module/canvas/index.ts";
-import { TokenLayerPF2e } from "@module/canvas/layer/token.ts";
 import { TerrainDataPF2e } from "@module/canvas/token/movement/terrain-data.ts";
 import { TokenRulerPF2e } from "@module/canvas/token/ruler.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -46,7 +45,6 @@ import {
     AmbientLightDocumentPF2e,
     EnvironmentBehaviorType,
     EnvironmentFeatureBehaviorType,
-    MeasuredTemplateDocumentPF2e,
     RegionBehaviorPF2e,
     RegionDocumentPF2e,
     ScenePF2e,
@@ -82,10 +80,6 @@ export class Load {
         CONFIG.Item.defaultType = "action";
         CONFIG.Item.documentClass = ItemProxyPF2e;
         CONFIG.Macro.documentClass = MacroPF2e;
-        CONFIG.MeasuredTemplate.defaults.angle = 90;
-        CONFIG.MeasuredTemplate.defaults.width = 1;
-        CONFIG.MeasuredTemplate.documentClass = MeasuredTemplateDocumentPF2e;
-        CONFIG.MeasuredTemplate.objectClass = MeasuredTemplatePF2e;
 
         CONFIG.Region.documentClass = RegionDocumentPF2e;
         CONFIG.Region.objectClass = RegionPF2e;
@@ -139,7 +133,7 @@ export class Load {
         CONFIG.Canvas.groups.effects.groupClass = EffectsCanvasGroupPF2e;
         CONFIG.Canvas.groups.environment.groupClass = EnvironmentCanvasGroupPF2e;
         CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
-        CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
+        CONFIG.Canvas.layers.regions.layerClass = RegionLayerPF2e;
         CONFIG.Canvas.layers.tokens.layerClass = TokenLayerPF2e;
         CONFIG.Canvas.rulerClass = RulerPF2e;
 

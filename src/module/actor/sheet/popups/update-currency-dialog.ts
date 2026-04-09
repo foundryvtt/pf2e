@@ -36,7 +36,7 @@ class UpdateCurrencyDialog extends fa.api.HandlebarsApplicationMixin(fa.api.Appl
     mode: "add" | "remove";
 
     override get title(): string {
-        return game.i18n.localize(this.mode === "add" ? "PF2E.AddCoinsTitle" : "PF2E.RemoveCoinsTitle");
+        return _loc(this.mode === "add" ? "PF2E.AddCoinsTitle" : "PF2E.RemoveCoinsTitle");
     }
 
     protected override async _prepareContext(options: fa.ApplicationRenderOptions): Promise<UpdateCurrencyContext> {
@@ -56,9 +56,9 @@ class UpdateCurrencyDialog extends fa.api.HandlebarsApplicationMixin(fa.api.Appl
             mode: this.mode,
             denominations: denominations.map((d) => ({
                 key: d,
-                label: game.i18n.localize(CONFIG.PF2E.currencies[d]),
+                label: _loc(CONFIG.PF2E.currencies[d]),
             })),
-            actionLabel: game.i18n.localize(this.mode === "add" ? "PF2E.AddCoinsTitle" : "PF2E.RemoveCoinsTitle"),
+            actionLabel: _loc(this.mode === "add" ? "PF2E.AddCoinsTitle" : "PF2E.RemoveCoinsTitle"),
         };
     }
 

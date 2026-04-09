@@ -63,9 +63,9 @@ class PickAThingPrompt<TThing extends string | number | object> extends SvelteAp
                 const isAllowed = !!predicate.test(droppedItem.getRollOptions("item"));
                 if (!isAllowed) {
                     ui.notifications.error(
-                        game.i18n.format("PF2E.Item.ABC.InvalidDrop", {
+                        _loc("PF2E.Item.ABC.InvalidDrop", {
                             badType: droppedItem.name,
-                            goodType: game.i18n.localize(label ?? ""),
+                            goodType: _loc(label ?? ""),
                         }),
                     );
                 }

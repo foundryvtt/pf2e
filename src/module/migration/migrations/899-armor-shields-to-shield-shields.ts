@@ -140,7 +140,7 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
         const system: ShieldConversionData = source.system;
         if (category !== "shield") return;
 
-        source.img = source.img.replace(/\barmor\.svg$/, "shield.svg") as ImageFilePath;
+        source.img &&= source.img.replace(/\barmor\.svg$/, "shield.svg") as ImageFilePath;
         system.baseItem = this.#BASE_SHIELD_TYPES.has(source.system.slug ?? "") ? source.system.slug : null;
         system.traits.value = system.traits.value.map((t) => (t === "hefty-14" ? "hefty-2" : t));
         system.traits.integrated = system.traits.value.some((t) => t.startsWith("integrated"))

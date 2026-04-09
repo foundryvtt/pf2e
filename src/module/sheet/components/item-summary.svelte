@@ -49,7 +49,7 @@
             {:else if chatData.properties?.length}
                 <div class="tags">
                     {#each chatData.properties as property (property)}
-                        <span class="tag light property">{game.i18n.localize(property)}</span>
+                        <span class="tag light property">{_loc(property)}</span>
                     {/each}
                 </div>
             {/if}
@@ -58,8 +58,8 @@
             {/if}
             {#if priceString && !exclude.includes("price")}
                 <section>
-                    <div>{game.i18n.format("PF2E.Item.Physical.LevelLabel", { level: itemLevel })}</div>
-                    <div>{game.i18n.format("PF2E.Item.Physical.PriceLabel", { price: priceString })}</div>
+                    <div>{_loc("PF2E.Item.Physical.LevelLabel", { level: itemLevel })}</div>
+                    <div>{_loc("PF2E.Item.Physical.PriceLabel", { price: priceString })}</div>
                 </section>
             {/if}
         {/if}

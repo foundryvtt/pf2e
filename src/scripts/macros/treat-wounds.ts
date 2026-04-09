@@ -43,42 +43,42 @@ async function treatWounds(options: ActionDefaultOptions): Promise<void> {
         return;
     }
 
-    const medicineName = game.i18n.localize("PF2E.Skill.Medicine");
+    const medicineName = _loc("PF2E.Skill.Medicine");
     const chirurgeon = CheckFeat(actor, "chirurgeon");
     const naturalMedicine = CheckFeat(actor, "natural-medicine");
     const domIdAppend = fu.randomID(); // Attached to element id attributes for DOM uniqueness
     const riskySurgeryChecked = actor.getRollOptions(["medicine"]).includes("risky-surgery") ? " checked" : "";
     const dialog = new foundry.appv1.api.Dialog({
-        title: game.i18n.localize("PF2E.Actions.TreatWounds.Label"),
+        title: _loc("PF2E.Actions.TreatWounds.Label"),
         content: `
-<div>${game.i18n.localize("PF2E.Actions.TreatWounds.Label")}</div>
+<div>${_loc("PF2E.Actions.TreatWounds.Label")}</div>
 <hr/>
 <form>
 <div class="form-group">
-<label for="skill-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.SkillSelect")}</label>
+<label for="skill-${domIdAppend}">${_loc("PF2E.Actions.TreatWounds.SkillSelect")}</label>
 <select id="skill-${domIdAppend}"${!chirurgeon && !naturalMedicine ? " disabled" : ""}>
-  ${chirurgeon ? `<option value="crafting">${game.i18n.localize("PF2E.Skill.Crafting")}</option>` : ``}
-  ${naturalMedicine ? `<option value="nature">${game.i18n.localize("PF2E.Skill.Nature")}</option>` : ``}
+  ${chirurgeon ? `<option value="crafting">${_loc("PF2E.Skill.Crafting")}</option>` : ``}
+  ${naturalMedicine ? `<option value="nature">${_loc("PF2E.Skill.Nature")}</option>` : ``}
   <option value="medicine">${medicineName}</option>
 </select>
 </div>
 <div class="form-group">
-<label for="dc-type-${domIdAppend}">${game.i18n.format("PF2E.InlineCheck.DCWithName", { name: medicineName })}</label>
+<label for="dc-type-${domIdAppend}">${_loc("PF2E.InlineCheck.DCWithName", { name: medicineName })}</label>
 <select id="dc-type-${domIdAppend}" name="dc-type">
-  <option value="1">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Trained")}</option>
-  <option value="2">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Expert")}</option>
-  <option value="3">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Master")}</option>
-  <option value="4">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Legendary")}</option>
+  <option value="1">${_loc("PF2E.Actions.TreatWounds.DC.Trained")}</option>
+  <option value="2">${_loc("PF2E.Actions.TreatWounds.DC.Expert")}</option>
+  <option value="3">${_loc("PF2E.Actions.TreatWounds.DC.Master")}</option>
+  <option value="4">${_loc("PF2E.Actions.TreatWounds.DC.Legendary")}</option>
 </select>
 </div>
 <div class="form-group">
-<label for="modifier-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Mod")}</label>
+<label for="modifier-${domIdAppend}">${_loc("PF2E.Actions.TreatWounds.DC.Mod")}</label>
 <input id="modifier-${domIdAppend}" type="number" />
 </div>
 ${
     CheckFeat(actor, "risky-surgery")
         ? `<div class="form-group">
-<label for="risky-surgery-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.Feats.RiskySurgery")}</label>
+<label for="risky-surgery-${domIdAppend}">${_loc("PF2E.Actions.TreatWounds.Feats.RiskySurgery")}</label>
 <input type="checkbox" id="risky-surgery-${domIdAppend}"${riskySurgeryChecked} />
 </div>`
         : ``
@@ -86,7 +86,7 @@ ${
 ${
     CheckFeat(actor, "mortal-healing")
         ? `<div class="form-group">
-<label for="mortal-healing-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.Feats.MortalHealing")}</label>
+<label for="mortal-healing-${domIdAppend}">${_loc("PF2E.Actions.TreatWounds.Feats.MortalHealing")}</label>
 <input type="checkbox" id="mortal-healing-${domIdAppend}" checked />
 </div>`
         : ``
@@ -96,12 +96,12 @@ ${
         buttons: {
             yes: {
                 icon: fontAwesomeIcon("hand-holding-medical").outerHTML,
-                label: game.i18n.localize("PF2E.Actions.TreatWounds.Label"),
+                label: _loc("PF2E.Actions.TreatWounds.Label"),
                 callback: ($html) => treat(actor, $html, options.event, domIdAppend),
             },
             no: {
                 icon: fontAwesomeIcon("times").outerHTML,
-                label: game.i18n.localize("Cancel"),
+                label: _loc("Cancel"),
             },
         },
         default: "yes",
@@ -124,9 +124,9 @@ async function treat(
     const skill = actor.skills[skillSlug];
     if (!skill?.proficient) {
         const skillName = objectHasKey(CONFIG.PF2E.skills, skillSlug)
-            ? game.i18n.localize(CONFIG.PF2E.skills[skillSlug].label)
+            ? _loc(CONFIG.PF2E.skills[skillSlug].label)
             : skillSlug;
-        const message = game.i18n.format("PF2E.Actions.TreatWounds.Error", { name: actor.name, skill: skillName });
+        const message = _loc("PF2E.Actions.TreatWounds.Error", { name: actor.name, skill: skillName });
         ui.notifications.warn(message);
         return;
     }
@@ -190,7 +190,7 @@ async function treatWoundsMacroCallback({
     originalMessageId?: string;
     outcome?: DegreeOfSuccessString | null;
 }): Promise<void> {
-    const successLabel = outcome ? game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`) : "";
+    const successLabel = outcome ? _loc(`PF2E.Check.Result.Degree.Check.${outcome}`) : "";
     const magicHands = CheckFeat(actor, "magic-hands");
     const riskySurgery = !!message.flags[SYSTEM_ID].modifiers?.some((m) => m.slug === "risky-surgery" && m.enabled);
     const bonusString = bonus > 0 ? `+ ${bonus}` : "";
@@ -226,7 +226,7 @@ async function treatWoundsMacroCallback({
     if (riskySurgery) {
         ChatMessagePF2e.create({
             flags,
-            flavor: `<strong>${game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.RiskySurgery")}</strong>`,
+            flavor: `<strong>${_loc("PF2E.Actions.TreatWounds.Rolls.RiskySurgery")}</strong>`,
             rolls: [(await new DamageRoll("{1d8[slashing]}").roll()).toJSON()],
             speaker,
         });
@@ -237,8 +237,8 @@ async function treatWoundsMacroCallback({
         const healRoll = await new DamageRoll(`{(${healFormula})${formulaModifier}}`).roll();
         const rollType =
             outcome !== "criticalFailure"
-                ? game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.TreatWounds")
-                : game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.TreatWoundsCriticalFailure");
+                ? _loc("PF2E.Actions.TreatWounds.Rolls.TreatWounds")
+                : _loc("PF2E.Actions.TreatWounds.Rolls.TreatWoundsCriticalFailure");
         ChatMessagePF2e.create({
             flags,
             flavor: `<strong>${rollType}</strong> (${successLabel})`,

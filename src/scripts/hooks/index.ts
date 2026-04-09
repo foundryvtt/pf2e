@@ -17,7 +17,6 @@ import { RenderCombatTrackerConfig } from "./render-combat-tracker-config.ts";
 import { RenderDialog } from "./render-dialog.ts";
 import { RenderHUDContainer } from "./render-hud-container.ts";
 import { RenderRegionLegend } from "./render-region-legend.ts";
-import { RenderSettingsConfig } from "./render-settings-config.ts";
 import { RenderSettings } from "./render-settings.ts";
 import { RenderTokenHUD } from "./render-token-hud.ts";
 import { Setup } from "./setup.ts";
@@ -47,7 +46,6 @@ export const HooksPF2e = {
             RenderHUDContainer,
             RenderRegionLegend,
             RenderSettings,
-            RenderSettingsConfig,
             RenderTokenHUD,
             Setup,
             TargetToken,

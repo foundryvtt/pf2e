@@ -5,7 +5,7 @@ import * as R from "remeda";
 export async function editPersistent(options: ActionDefaultOptions): Promise<void> {
     const actors = [options.actors].flat().filter(R.isTruthy);
     if (actors.length === 0) {
-        ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NoTokenSelected"));
+        ui.notifications.error(_loc("PF2E.ErrorMessage.NoTokenSelected"));
         return;
     }
 

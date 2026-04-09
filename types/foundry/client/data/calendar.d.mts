@@ -9,35 +9,66 @@ export default class CalendarData<TComponents extends TimeComponents = TimeCompo
     null,
     CalendarDataSchema
 > {
+    /**
+     * {@link TimeComponents} units usable in {@link CalendarData.formatDuration}, sorted descendingly by order of
+     * magnitude
+     * @internal
+     */
+    static _DURATION_FORMAT_UNITS: Set<"year" | "month" | "day" | "hour" | "minute" | "second">;
+
     static override defineSchema(): CalendarDataSchema;
 
-    static formatTimestamp<T extends TimeComponents>(calendar: CalendarData<T>, components: T, options: object): string;
+    protected override _initialize(options?: object): void;
 
-    static formatAgo<T extends TimeComponents>(calendar: CalendarData<T>, components: T, options: object): string;
+    /* -------------------------------------------- */
+    /*  Calendar Helper Methods                     */
+    /* -------------------------------------------- */
 
     /**
-     * Expand a world time integer into an object containing the relevant time components.
-     * @param components An amount of time expressed as components
+     * Convert a set of {@link TimeComponents} into seconds.
+     * @param An amount of time expressed as components
      * @returns The cumulative time in seconds
      */
     componentsToTime(components: Partial<TComponents>): number;
 
     /**
+     * Convert a partial set {@link TimeComponents} into an integer of a provided unit.
+     * @param components An amount of time expressed as components
+     * @param unit The unit to convert into
+     * @param options.roundFn The Math function to use in rounding a remainder
+     * @returns The cumulative time in the requested units
+     */
+    componentsToUnit(
+        components: Partial<TComponents>,
+        unit: SetElement<typeof CalendarData._DURATION_FORMAT_UNITS>,
+        options?: { roundFn?: "ceil" | "floor" | "round" | "trunc" },
+    ): number;
+
+    /**
+     * Modify some start time by adding a number of seconds or components to it. The delta components may be negative.
+     * @param startTime The initial time
+     * @param deltaTime Differential components to add
+     * @returns The resulting time
+     */
+    add(startTime: number | TComponents, deltaTime: number | TComponents): TComponents;
+
+    /**
      * Compute the difference between some new time and some other time.
-     * @param endTime   A time to difference relative to the start time.
+     * @param endTime A time to difference relative to the start time.
      * @param startTime The starting time. If not provided the current world time is used.
      * @returns The time difference expressed as components
      */
-    difference(endTime: number | TComponents, startTime?: number | TComponents): TComponents;
+    difference(endTime: number | TComponents, startTime: number | TComponents): TComponents;
 
     /**
      * Format a time using one of several supported display formats.
      * @param time      The time components to format, by default the current world time.
      * @param formatter The formatter function applied to the time. If a string is provided, it must be a function
-     *                  configured in CONFIG.time.formatters. Options passed to the formatter function
+     *                  configured in CONFIG.time.formatters.
+     * @param options Options passed to the formatter function
      * @returns The formatted date and time string
      */
-    format(time?: number | TComponents, formatter?: string | TimeFormatter, options?: object): string;
+    format(time: number | TComponents, formatter?: string | TimeFormatter, options?: object): string;
 
     /**
      * Test whether a year is a leap year.
@@ -47,16 +78,58 @@ export default class CalendarData<TComponents extends TimeComponents = TimeCompo
     isLeapYear(year: number): boolean;
 
     /**
+     * Count the number of leap years which have completed prior to some current year.
+     * @param year The current year
+     * @returns The number of leap years which have occurred prior to this year
+     */
+    countLeapYears(year: number): number;
+
+    /**
      * Expand a world time integer into an object containing the relevant time components.
      * @param time A time in seconds
      * @returns The time expressed as components
      */
     timeToComponents(time?: number): TComponents;
+
+    /**
+     * Decompose a timestamp in seconds to identify the number of completed years and remaining seconds.
+     * Also returns whether the remaining seconds fall within a leap year.
+     * This method is factored out so calendars which require advanced leap year handling can override this logic.
+     */
+    protected _decomposeTimeYears(time: number): { year: number; second: number; leapYear: boolean };
+
+    /* -------------------------------------------- */
+    /*  Formatter Functions                         */
+    /* -------------------------------------------- */
+
+    /**
+     * Format time components as a YYYY-MM-DD HH:MM:SS timestamp.
+     */
+    static formatTimestamp(calendar: CalendarData, components: TimeComponents, options?: object): string;
+
+    /**
+     * Format time components as "{years}, {days}, {hours}, {minutes}, {seconds}".
+     */
+    static formatDuration(calendar: CalendarData, components: TimeComponents, options?: object): string;
+
+    /**
+     * Format time components as "{years}, {days}, {hours}, {minutes}, {seconds} ago".
+     */
+    static formatAgo(calendar: CalendarData, components: TimeComponents, options?: object): string;
+
+    /**
+     * Allow the active world calendar instance to respond to changes in the world time.
+     * This method is called and awaited before "updateWorldTime" hooks are dispatched.
+     * @param worldTime The new world time, game.time.worldTime
+     * @param deltaTime The relative change in the world time
+     * @param options Options passed through the world time update operation
+     * @param userId The user who triggered the time change
+     */
+    onUpdateWorldTime(worldTime: number, deltaTime: number, options: object, userId: string): Promise<void>;
 }
 
 export default interface CalendarData<TComponents extends TimeComponents = TimeComponents>
-    extends DataModel<null, CalendarDataSchema>,
-        fields.ModelPropsFromSchema<CalendarDataSchema> {}
+    extends DataModel<null, CalendarDataSchema>, fields.ModelPropsFromSchema<CalendarDataSchema> {}
 
 export type CalendarDataSchema = {
     /** The name of the calendar being used. */

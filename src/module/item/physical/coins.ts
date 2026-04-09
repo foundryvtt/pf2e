@@ -118,7 +118,7 @@ class Coins implements RawCoins {
         // This requires preprocessing, as large gold values contain , for their value
         const priceTag = CURRENCY_TYPES.reduce(
             (s, denomination) => {
-                const localizedDenomination = game.i18n.localize(`PF2E.CurrencyAbbreviations.${denomination}`);
+                const localizedDenomination = _loc(`PF2E.CurrencyAbbreviations.${denomination}`);
                 if (localizedDenomination === denomination) return s;
                 // This matches localized denomination if it's not followed or preceeded by an unicode letter character
                 const pattern = new RegExp(`(?!<\\p{L})${localizedDenomination}(?!\\p{L})`, "u");
@@ -154,11 +154,11 @@ class Coins implements RawCoins {
             const denomination = unit === "primary" ? "gp" : unit;
             const divider = DENOMINATION_RATES[denomination];
             const value = this.copperValue / divider;
-            const unitLabel = game.i18n.localize(`PF2E.CurrencyAbbreviations.${denomination}`);
+            const unitLabel = _loc(`PF2E.CurrencyAbbreviations.${denomination}`);
             return `${decimal ? value.toFixed(2) : value} ${unitLabel}`;
         } else if (SYSTEM_ID === "sf2e" || unit === "credits") {
             const value = Math.ceil(this.copperValue / 10);
-            return short ? String(value) : `${value} ${game.i18n.localize("PF2E.CurrencyAbbreviations.credits")}`;
+            return short ? String(value) : `${value} ${_loc("PF2E.CurrencyAbbreviations.credits")}`;
         }
 
         // Simplify to GP if normalization is enabled
@@ -167,14 +167,14 @@ class Coins implements RawCoins {
         // Return 0 in the default denomination if there's nothing
         if (CURRENCY_TYPES.every((denomination) => !coins[denomination])) {
             const zeroUnit = (unit === "raw" ? this.#givenUnit : null) ?? (SYSTEM_ID === "pf2e" ? "gp" : "credits");
-            return `0 ${game.i18n.localize(`PF2E.CurrencyAbbreviations.${zeroUnit}`)}`;
+            return `0 ${_loc(`PF2E.CurrencyAbbreviations.${zeroUnit}`)}`;
         }
 
         // Display all denomations from biggest to smallest (see Adventurer's Pack)
         const parts: string[] = [];
         for (const partialDenom of CURRENCY_TYPES) {
             const value = coins[partialDenom];
-            const unitLabel = game.i18n.localize(`PF2E.CurrencyAbbreviations.${partialDenom}`);
+            const unitLabel = _loc(`PF2E.CurrencyAbbreviations.${partialDenom}`);
             if (value) parts.push(`${value} ${unitLabel}`);
         }
 
