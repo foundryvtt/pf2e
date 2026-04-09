@@ -114,7 +114,7 @@ class HearingDetectionMode extends fc.perception.DetectionMode {
                 type: "sound",
                 mode: "any",
                 source: visionSource,
-                wallDirectionMode: foundry.canvas.geometry.PointSourcePolygon.WALL_DIRECTION_MODES.REVERSED,
+                edgeDirectionMode: CONST.EDGE_DIRECTION_MODES.REVERSED,
                 useThreshold: true,
             });
         test.loh.set(visionSource, hasLOH);

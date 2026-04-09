@@ -1,3 +1,4 @@
+import { EdgeDirectionMode } from "@common/constants.mjs";
 import { PointEffectSource } from "../sources/point-effect-source.mjs";
 import { Ray } from "./_module.mjs";
 import { CollisionResult } from "./edges/collision.mjs";
@@ -23,8 +24,8 @@ export interface PointSourcePolygonConfig {
     radius?: number;
     /** The direction of facing, required if the angle is limited */
     rotation?: number;
-    /** Customize how wall direction of one-way walls is applied */
-    wallDirectionMode?: number;
+    /** Customize how edge direction of one-way edges is applied */
+    edgeDirectionMode?: EdgeDirectionMode;
     /** Compute the polygon with threshold wall constraints applied */
     useThreshold?: boolean;
     /** Display debugging visualization and logging for the polygon */
@@ -44,24 +45,27 @@ export interface PointSourcePolygonConfig {
 type EdgeType = "wall" | "darkness" | "light" | "innerBounds" | "outerBounds";
 
 /**
- * @example
- * How modes are working:
- * - 0=no     : The edges of this type are rejected and not processed (equivalent of not having an edgeType.)
- * - 1=maybe  : The edges are processed and tested for inclusion.
- * - 2=always : The edges are automatically included.
+ *   Modes:
+ *    - Never (`0`): The edges of this type are never included.
+ *    - Maybe (`1`): The edges of this type are tested for inclusion.
+ *    - Always (`2`): The edges of this type are always included.
  */
+interface ClockwiseSweepEdgeConfig {
+    mode: 0 | 1 | 2;
+    priority: number;
+}
 
 interface ClockwiseSweepPolygonConfig extends PointSourcePolygonConfig {
     /**
-     * Optional priority when it comes to ignore edges from darkness and light sources
+     * Edges with priority less than this priority are ignored
      * @default 0
      */
     priority?: number;
     /**
-     * Edge types configuration object. This is not required by most polygons and will be inferred based on the polygon
-     * type and priority.
+     * Edge types configured as `false` is equivalent to those edges never being included.
+     * Edge types configured as `true` are included conditionally depending on the type of polygon and the type of edge.
      */
-    edgeTypes?: Record<EdgeType, { priority: number; mode: 0 | 1 | 2 }>;
+    edgeTypes?: Record<EdgeType, boolean | Partial<ClockwiseSweepEdgeConfig>>;
 }
 
 interface RayIntersection {
