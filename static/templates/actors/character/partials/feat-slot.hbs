@@ -7,6 +7,11 @@
                 <i class="fa-solid fa-message"></i>
             </a>
             <h4 class="name"><a data-action="toggle-summary">{{featSlot.feat.name}}</a></h4>
+            {{#if featSlot.feat.actionCost~}}
+                {{{actionGlyph featSlot.feat.actionCost}}}
+            {{~else if featSlot.feat.actionGlyph~}}
+                <span class="action-glyph">{{featSlot.feat.actionGlyph}}</span>
+            {{~/if}}
         </div>
         <div class="item-controls">
             {{#if @root.editable}}
@@ -44,6 +49,11 @@
                 <i class="fa-solid fa-message"></i>
             </a>
             <h4 class="name"><a data-action="toggle-summary">{{slot.feat.name}}</a></h4>
+            {{#if slot.feat.actionCost~}}
+                {{{actionGlyph slot.feat.actionCost}}}
+            {{~else if slot.feat.actionGlyph~}}
+                <span class="action-glyph">{{slot.feat.actionGlyph}}</span>
+            {{~/if}}
         </div>
         <div class="item-controls">
             {{#if @root.editable}}
