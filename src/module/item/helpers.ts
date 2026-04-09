@@ -235,7 +235,7 @@ function shapeDataFromEffectArea(
         case "cylinder":
             return { type: "circle", radius: distance, x, y };
         case "cone":
-            return { type: "cone", radius: distance, x, y };
+            return { type: "cone", angle: 90, radius: distance, x, y };
         case "cube":
         case "square":
             return { type: "rectangle", width: distance, height: distance, x, y };
@@ -245,7 +245,7 @@ function shapeDataFromEffectArea(
             const base = Object.assign(R.pick(tokenSource, ["width", "height", "x", "y", "shape"]), {
                 type: "token",
             } as const);
-            return { type: "emanation", radius: distance, base };
+            return { type: "emanation", radius: distance, base, x, y };
         }
         case "line":
             return { type: "line", length: distance, width: canvas.dimensions.distance, x, y };
