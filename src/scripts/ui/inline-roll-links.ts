@@ -50,7 +50,7 @@ export class InlineRollLinks {
                     return;
                 }
 
-                const areaLink = getLinkOrSpan("data-pf2-effect-area");
+                const areaLink = getLinkOrSpan("data-effect-area");
                 if (areaLink) {
                     this.#onClickInlineTemplate(event, areaLink);
                     return;
@@ -322,8 +322,8 @@ export class InlineRollLinks {
             console.warn(`PF2e System | Could not create region.`);
             return;
         }
-        const { actor, item, message } = resolveActorAndItemFromHTML(link);
-        if (!actor) return;
+        const { actor: actorFromHTML, item, message } = resolveActorAndItemFromHTML(link);
+        const actor = actorFromHTML ?? game.user.character;
         const area = { type: dataset.type, value: Number(dataset.distance) || 5 };
         const shape = shapeDataFromEffectArea(area, actor);
         if (!shape) return;
@@ -333,6 +333,7 @@ export class InlineRollLinks {
             color: game.user.color.toString(),
             highlightMode: "coverage",
             displayMeasurements: true,
+            visibility: CONST.REGION_VISIBILITY.ALWAYS,
         };
         const flags: { [SYSTEM_ID]: Record<string, JSONValue> } = {
             [SYSTEM_ID]: { areaShape: area.type, messageId: message?.id },

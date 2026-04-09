@@ -276,55 +276,52 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
 
         // Check for correct param notation
         if (!params.type) {
-            ui.notifications.error(_loc("PF2E.InlineTemplateErrors.TypeMissing"));
-        } else if (!params.distance) {
-            ui.notifications.error(_loc("PF2E.InlineTemplateErrors.DistanceMissing"));
+            ui.notifications.error("PF2E.InlineTemplateErrors.TypeMissing", { localize: true });
             return null;
-        } else if (!tupleHasValue(EFFECT_AREA_SHAPES, params.type)) {
-            ui.notifications.error(_loc("PF2E.InlineTemplateErrors.TypeUnsupported", { type: params.type }));
-            return null;
-        } else if (isNaN(+params.distance)) {
-            ui.notifications.error(_loc("PF2E.InlineTemplateErrors.DistanceNoNumber", { distance: params.distance }));
-            return null;
-        } else if (params.width && isNaN(+params.width)) {
-            ui.notifications.error(_loc("PF2E.InlineTemplateErrors.WidthNoNumber", { width: params.width }));
-            return null;
-        } else {
-            // If no traits are entered manually use the traits from rollOptions if available
-            params.traits ||= item?.system.traits.value?.toString() ?? "";
-            params.itemUuid ||= item?.uuid ?? "";
-
-            // If no button label is entered directly create default label
-            if (!label) {
-                label = _loc("PF2E.TemplateLabel", {
-                    size: params.distance,
-                    unit: _loc("PF2E.Foot.Label"),
-                    shape: _loc(`PF2E.Area.Shape.${params.type}`),
-                });
-            }
-
-            // Add the html elements used for the inline buttons
-            const html = document.createElement("span");
-            html.innerHTML = label;
-            html.dataset.type = params.type;
-            html.dataset.distance = params.distance;
-            if (params.traits) html.dataset.traits = params.traits;
-            if (params.type === "line") html.dataset.width = params.width;
-            if (["cone", "line"].includes(params.type)) {
-                html.ariaLabel = _loc("PF2E.Item.Spell.MeasuredTemplate.PlacementTooltip");
-                html.dataset.tooltip = "";
-                html.dataset.tooltipClass = "pf2e";
-            }
-            if (params.itemUuid) html.dataset.itemUuid = params.itemUuid;
-            return html;
         }
-        return null;
+        if (!params.distance) {
+            ui.notifications.error("PF2E.InlineTemplateErrors.DistanceMissing", { localize: true });
+            return null;
+        }
+        if (!tupleHasValue(EFFECT_AREA_SHAPES, params.type)) {
+            ui.notifications.error("PF2E.InlineTemplateErrors.TypeUnsupported", { format: { type: params.type } });
+            return null;
+        }
+        if (!Number(params.distance)) {
+            ui.notifications.error("PF2E.InlineTemplateErrors.DistanceNoNumber", {
+                format: { distance: params.distance },
+            });
+            return null;
+        }
+        if (params.width && Number.isNaN(+params.width)) {
+            ui.notifications.error("PF2E.InlineTemplateErrors.WidthNoNumber", { format: { width: params.width } });
+            return null;
+        }
+        // If no traits are entered manually use the traits from rollOptions if available
+        params.traits ||= item?.system.traits.value?.toString() ?? null;
+        params.itemUuid ||= item?.uuid ?? null;
+
+        // If no button label is entered directly create default label
+        label ||= _loc("PF2E.TemplateLabel", {
+            size: params.distance,
+            unit: _loc("PF2E.Foot.Label"),
+            shape: _loc(`PF2E.Area.Shape.${params.type}`),
+        });
+
+        // Add the html elements used for the inline buttons
+        const html = createHTMLElement("a", {
+            innerHTML: label,
+            classes: ["effect-area"],
+            dataset: { effectArea: "", ...R.pick(params, ["type", "distance", "traits", "itemUuid"]) },
+        });
+        if (params.type === "line") html.dataset.width = params.width || "1";
+        return html;
     }
 
     static #parseInlineParams(
         paramString: string,
         options: { first?: string } = {},
-    ): Record<string, string | undefined> | null {
+    ): Record<string, Maybe<string>> | null {
         const parts = splitListString(paramString, { delimiter: "|" });
         const result = parts.reduce(
             (result, part, idx) => {

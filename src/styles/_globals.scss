@@ -306,45 +306,43 @@ span[data-pf2-check] {
 /* PF2E Inline Template Custom Element       */
 /* ----------------------------------------- */
 
-span[data-pf2-effect-area] {
+a.effect-area {
     @include inline-link;
-    cursor: pointer;
-    padding-right: 0;
 
     &::before {
-        color: var(--color-text-dark-inactive);
-        font-family: "Font Awesome 6 Pro";
+        color: var(--color-text-primary);
+        font-family: var(--font-awesome);
         font-weight: 900;
         margin-right: 0.25em;
     }
 
     // EFFECT_AREA_SHAPES
 
-    &[data-pf2-effect-area="burst"]::before {
+    &[data-type="burst"]::before {
         content: "\f111";
     }
 
-    &[data-pf2-effect-area="cone"]::before {
+    &[data-type="cone"]::before {
         content: "\f104";
     }
 
-    &[data-pf2-effect-area="cube"]::before {
+    &[data-type="cube"]::before {
         content: "\f1b2";
     }
 
-    &[data-pf2-effect-area="cylinder"]::before {
+    &[data-type="cylinder"]::before {
         content: "\f1c0";
     }
 
-    &[data-pf2-effect-area="emanation"]::before {
+    &[data-type="emanation"]::before {
         content: "\f192";
     }
 
-    &[data-pf2-effect-area="line"]::before {
+    &[data-type="line"]::before {
         content: "\f7a5";
     }
 
-    &[data-pf2-effect-area="square"]::before {
+    &[data-type="square"]::before {
         content: "\f0c8";
     }
 }

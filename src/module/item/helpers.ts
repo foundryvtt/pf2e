@@ -226,7 +226,7 @@ function createEffectAreaLabel(areaData: { type: EffectAreaShape; value: number 
 
 function shapeDataFromEffectArea(
     area: { type: EffectAreaShape; value: number },
-    actor: ActorPF2e,
+    actor: Maybe<ActorPF2e>,
 ): DeepPartial<SpecificShapeSource> | null {
     const distance = (area.value / 5) * canvas.grid.size;
     const { x, y } = canvas.mousePosition;
@@ -240,7 +240,7 @@ function shapeDataFromEffectArea(
         case "square":
             return { type: "rectangle", width: distance, height: distance, x, y };
         case "emanation": {
-            const tokenSource = actor.getActiveTokens(true, true).at(0)?._source;
+            const tokenSource = actor?.getActiveTokens(true, true).at(0)?._source;
             if (!tokenSource) return null;
             const base = Object.assign(R.pick(tokenSource, ["width", "height", "x", "y", "shape"]), {
                 type: "token",
