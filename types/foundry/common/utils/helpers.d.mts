@@ -67,6 +67,36 @@ export function isDeletionKey(key: string): key is "-=";
 export function isEmpty(value: unknown): boolean;
 
 /**
+ * Object entries generator.
+ */
+export function objectEntries<K extends string, V>(obj: Record<K, V>): Generator<[K, V], void, unknown>;
+
+/**
+ * Stream object entries.
+ */
+export function iterateEntries<K extends string, V>(obj: Record<K, V>): IteratorObject<[K, V], void, unknown>;
+
+/**
+ * Object keys generator.
+ */
+export function objectKeys<K extends string>(obj: Record<K, unknown>): Generator<K, void, unknown>;
+
+/**
+ * Stream object keys.
+ */
+export function iterateKeys<K extends string>(obj: Record<K, unknown>): IteratorObject<K, void, unknown>;
+
+/**
+ * Object values generator.
+ */
+export function objectValues<V>(obj: Record<string, V>): Generator<V, void, unknown>;
+
+/**
+ * Stream object values.
+ */
+export function iterateValues<V>(obj: Record<string, V>): IteratorObject<V, void, unknown>;
+
+/**
  * Update a source object by replacing its keys and values with those from a target object.
  *
  * @param original     The initial object which should be updated with values from the target

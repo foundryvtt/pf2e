@@ -60,7 +60,7 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends fav1.api.Docu
 
         if (alliance === "default") {
             delete formData[key];
-            formData["system.details.-=alliance"] = null;
+            formData["system.details.alliance"] = _del;
         } else if (alliance === "neutral") {
             formData[key] = null;
         } else if (!setHasElement(ALLIANCES, alliance)) {

@@ -558,19 +558,17 @@ class RecordField<
         >,
     ) {
         super(options);
-
-        if (!this._isValidKeyFieldType(keyField)) {
+        if (!this.isValidKeyFieldType(keyField)) {
             throw new Error(`key field must be a StringField or a NumberField`);
         }
         this.keyField = keyField;
-
         if (!(valueField instanceof fields.DataField)) {
             throw new Error(`${this.name} must have a DataField as its contained field`);
         }
         this.valueField = valueField;
     }
 
-    protected _isValidKeyFieldType(
+    protected isValidKeyFieldType(
         keyField: unknown,
     ): keyField is
         | fields.StringField<string, string, true, false, false>
@@ -584,31 +582,28 @@ class RecordField<
         return false;
     }
 
-    protected _validateValues(
+    protected validateValues(
         values: Record<string, unknown>,
         options?: DataFieldValidationOptions,
     ): validation.DataModelValidationFailure | void {
         const failures = new validation.DataModelValidationFailure();
         for (const [key, value] of Object.entries(values)) {
-            // If this is a deletion key for a partial update, skip
-            if (key.startsWith("-=") && options?.partial) continue;
-
+            // If this is a deletion operator for a partial update, skip
+            const isForcedDeletion =
+                value === _del ||
+                (R.isPlainObject(value) &&
+                    !R.isEmpty(value) &&
+                    Object.entries(value).every(([k, v]) => k === "__$OPERATOR$__" && v === "ForcedDeletion"));
+            if (isForcedDeletion && options?.partial) continue;
             const keyFailure = this.keyField.validate(key, options);
-            if (keyFailure) {
-                failures.elements.push({ id: key, failure: keyFailure });
-            }
+            if (keyFailure) failures.elements.push({ id: key, failure: keyFailure });
             const valueFailure = this.valueField.validate(value, options);
-            if (valueFailure) {
-                failures.elements.push({ id: `${key}-value`, failure: valueFailure });
-            }
+            if (valueFailure) failures.elements.push({ id: `${key}-value`, failure: valueFailure });
         }
         if (failures.elements.length) {
-            if (failures.elements.every((f) => f.id in values)) {
-                failures.unresolved = false;
-            } else {
-                failures.unresolved = failures.elements.some((e) => e.failure.unresolved);
-            }
-
+            failures.unresolved = failures.elements.every((f) => f.id in values)
+                ? false
+                : (failures.unresolved = failures.elements.some((e) => e.failure.unresolved));
             return failures;
         }
     }
@@ -618,22 +613,22 @@ class RecordField<
         options: DataModelCleaningOptions,
         _state: DataModelUpdateState,
     ): Record<string, unknown> {
-        for (const [key, value] of Object.entries(values)) {
+        const upstreamCleaned = super._cleanType(values, options, _state);
+        if (!R.isPlainObject(upstreamCleaned)) return values;
+        for (const [key, value] of fu.iterateEntries(upstreamCleaned)) {
             // Don't attempt to clean deletion entries
-            if (value instanceof foundry.data.operators.ForcedDeletion) continue;
-            values[key] = this.valueField.clean(value, options);
+            if (value === _del) continue;
+            upstreamCleaned[key] = this.valueField.clean(value, options);
         }
-        return values;
+        return upstreamCleaned;
     }
 
     protected override _validateType(
         values: unknown,
         options?: DataFieldValidationOptions,
     ): boolean | validation.DataModelValidationFailure | void {
-        if (!R.isPlainObject(values)) {
-            return new validation.DataModelValidationFailure("must be an Object");
-        }
-        return this._validateValues(values, options);
+        super._validateType(values, options);
+        return this.validateValues(values, options);
     }
 
     override initialize(

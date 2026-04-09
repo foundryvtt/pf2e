@@ -920,7 +920,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const updates =
                 this.actor?.itemTypes.melee
                     .filter((a) => a.flags[SYSTEM_ID].linkedWeapon === this.id)
-                    .map((a) => ({ _id: a.id, [`flags.${SYSTEM_ID}.-=linkedWeapon`]: null })) ?? [];
+                    .map((a) => ({ _id: a.id, [`flags.${SYSTEM_ID}.linkedWeapon`]: _del })) ?? [];
             this.actor?.updateEmbeddedDocuments("Item", updates);
         }
     }

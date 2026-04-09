@@ -38,24 +38,18 @@ global.game = Object.freeze({
     },
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(globalThis as any).SYSTEM_ID = "pf2e";
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(global as any).Actor = MockActor;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(global as any).Item = MockItem;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(global as any).Token = MockToken;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(global as any).FormApplication = class {};
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(global as any).Roll = class {};
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(global as any).Application = class {};
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(global as any).Hooks = class {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    static on(..._args: any) {}
-};
+Object.assign(globalThis, {
+    SYSTEM_ID: "pf2e",
+    Actor: MockActor,
+    Item: MockItem,
+    Token: MockToken,
+    FormApplication: class {},
+    Roll: class {},
+    Application: class {},
+    Hooks: class {
+        static on(..._args: unknown[]) {}
+    },
+    _loc: game.i18n.localize,
+});
 
 Math.clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);

@@ -207,7 +207,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         const weapon = this.item;
         // Ensure melee usage is absent if not a combination weapon
         if (weapon.system.meleeUsage && !this.item.traits.has("combination")) {
-            formData["system.-=meleeUsage"] = null;
+            formData["system.meleeUsage"] = _del;
         }
 
         // Convert property runes to array, making sure we don't save prepared data

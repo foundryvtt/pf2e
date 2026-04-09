@@ -281,7 +281,6 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             if (anchor.dataset.action === "add-proficiency") {
                 const slug = newProficiencySelect?.value;
                 if (!slug) throw ErrorPF2e("No option selected");
-
                 const options = Object.values(this.#getProficiencyOptions())
                     .map((o) => o.options)
                     .flat(2)
@@ -408,7 +407,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         if (hasEmptyKeyOptions || hasNoKeyOptions) {
             delete formData[keyOptionsKey];
             if (this.item._source.system.subfeatures?.keyOptions) {
-                formData["system.subfeatures.-=keyOptions"] = null;
+                formData["system.subfeatures.keyOptions"] = _del;
             }
         }
 

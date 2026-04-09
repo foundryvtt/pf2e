@@ -212,35 +212,32 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         this.#effectsMap = new Map(
             Object.values(source.effects ?? {}).map((data, index): [number, AuraREEffectSource] => {
                 const updatedData = fu.deepClone(data);
-                const deletions: { [K in `-=${keyof AuraREEffectSource}`]?: null | undefined } = {};
+                const deletions: { [K in keyof AuraREEffectSource]?: typeof _del } = {};
 
                 // Clean up save data
                 if (updatedData.save) {
                     const type = updatedData.save.type ?? data.save?.type;
                     if (!type) {
-                        deletions["-=save"] = null;
+                        deletions["save"] = _del;
                     } else {
                         updatedData.save.dc ||= 10;
                     }
                 }
 
                 if (updatedData.affects !== "enemies" && updatedData.includesSelf) {
-                    deletions["-=includesSelf"] = null;
+                    deletions["includesSelf"] = _del;
                 }
-                if (updatedData.removeOnExit) {
-                    deletions["-=removeOnExit"] = null;
-                }
+                if (updatedData.removeOnExit) deletions["removeOnExit"] = _del;
                 if (updatedData.predicate) {
                     try {
                         const parsed = JSON.parse(String(updatedData.predicate));
                         updatedData.predicate = Array.isArray(parsed) ? parsed : [];
                     } catch {
-                        deletions["-=predicate"] = null;
+                        deletions["predicate"] = _del;
                     }
                 } else {
-                    deletions["-=predicate"] = null;
+                    deletions["predicate"] = _del;
                 }
-
                 return [index, fu.mergeObject(updatedData, deletions, { performDeletions: true })];
             }),
         );

@@ -933,7 +933,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             if (R.isPlainObject(price.value)) {
                 const coins = price.value;
                 for (const denomination of COIN_DENOMINATIONS) {
-                    if (coins[denomination] === 0) coins[`-=${denomination}`] = null;
+                    if (coins[denomination] === 0) coins[denomination] = _del;
                 }
             }
             if ("per" in price) price.per = Math.max(1, Math.floor(Number(price.per) || 1));
@@ -955,7 +955,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         if (hasSlot) {
             equipped.inSlot = isSlotted;
         } else if ("inSlot" in (this._source.system.equipped ?? {})) {
-            equipped["-=inSlot"] = null;
+            equipped.inSlot = _del;
         }
 
         // Remove apex data if apex trait is no longer present
@@ -965,8 +965,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             (!Array.isArray(changedTraits) || tupleHasValue(changedTraits, "apex"));
         if (!hasApexTrait && this._source.system.apex) {
             delete changed.system?.apex;
-            (changed.system satisfies object | undefined) ??= {}; // workaround of `DeepPartial` limitations
-            changed.system = fu.mergeObject(changed.system!, { "-=apex": null });
+            changed.system = fu.mergeObject((changed.system ??= {}), { apex: _del });
         }
 
         return super._preUpdate(changed, operation, user);

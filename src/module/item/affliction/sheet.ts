@@ -80,7 +80,7 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
         });
 
         htmlQuery(html, "[data-action=onset-delete]")?.addEventListener("click", () => {
-            this.item.update({ system: { "-=onset": null } });
+            this.item.update({ system: { onset: _del } });
         });
 
         htmlQuery(html, "[data-action=add-stage]")?.addEventListener("click", () => {

@@ -729,7 +729,7 @@ export class ObjectField<
     protected override _validateType(
         value: unknown,
         options?: DataFieldValidationOptions,
-    ): DataModelValidationFailure | boolean | void;
+    ): asserts value is Record<string, unknown>;
 }
 
 export class TypedObjectField<

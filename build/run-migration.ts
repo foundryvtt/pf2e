@@ -80,18 +80,15 @@ function jsonStringifyOrder(obj: object): string {
     const allKeys: Set<string> = new Set();
     const idKeys: string[] = [];
     JSON.stringify(obj, (key, value) => {
-        if (key.startsWith("-=") || key.includes(".-=")) return;
-
+        if (value === _del) return;
         if (/^[a-z0-9]{20,}$/g.test(key)) {
             idKeys.push(key);
         } else {
             allKeys.add(key);
         }
-
         return value;
     });
     const sortedKeys = Array.from(allKeys).sort().concat(idKeys);
-
     const newJson = JSON.stringify(obj, sortedKeys, 4);
     return `${newJson}\n`;
 }

@@ -1,9 +1,9 @@
 import type { ActorPF2e } from "@actor/base.ts";
+import type { ToCompendiumOptions } from "@client/_types.d.mts";
 import type { DialogV2Configuration } from "@client/applications/api/dialog.d.mts";
 import type { DocumentHTMLEmbedConfig } from "@client/applications/ux/text-editor.d.mts";
 import type { ChatMessageMode } from "@client/config.d.mts";
 import type { ItemUUID } from "@client/documents/_module.d.mts";
-import type { ToCompendiumOptions } from "@client/documents/abstract/_module.d.mts";
 import type { DropCanvasData } from "@client/helpers/hooks.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {

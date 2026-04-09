@@ -728,7 +728,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 const subtrahend = event.ctrlKey ? 10 : event.shiftKey ? 5 : 1;
                 const newCredits = Math.max(0, item.system.price.value.credits - subtrahend);
                 if (newCredits !== item.system.price.value.credits) {
-                    return item.update({ "system.price.==value": { sp: newCredits } });
+                    return item.update({ "system.price.value": _replace({ sp: newCredits }) });
                 }
                 return;
             },
@@ -748,7 +748,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 const item = await inventoryItemFromDOM(event);
                 const addend = event.ctrlKey ? 10 : event.shiftKey ? 5 : 1;
                 const newCredits = Math.max(0, item.system.price.value.credits + addend);
-                return item.update({ "system.price.==value": { sp: newCredits } });
+                return item.update({ "system.price.value": _replace({ sp: newCredits }) });
             },
             "increase-quantity": async (event) => {
                 const item = await inventoryItemFromDOM(event);

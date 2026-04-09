@@ -94,9 +94,7 @@ class TempHPRuleElement extends RuleElement<TempHPRuleSchema> {
         if (fu.getProperty(updatedActorData, "system.attributes.hp.tempsource") === this.item.id) {
             fu.mergeObject(actorUpdates, { "system.attributes.hp.temp": 0 });
             const hpData = fu.getProperty(actorUpdates, "system.attributes.hp");
-            if (R.isPlainObject(hpData)) {
-                hpData["-=tempsource"] = null;
-            }
+            if (R.isPlainObject(hpData)) hpData["tempsource"] = _del;
         }
     }
 

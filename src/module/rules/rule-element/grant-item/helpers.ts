@@ -50,7 +50,7 @@ async function processGrantDeletions(item: ItemPF2e<ActorPF2e>, pendingItems: It
 
         // Unset the grant flag and leave the granted item on the actor
         if (grantee.flags[SYSTEM_ID].grantedBy.onDelete === "detach" && !pendingItems.includes(grantee)) {
-            await grantee.update({ [`flags.${SYSTEM_ID}.-=grantedBy`]: null }, { render: false });
+            await grantee.update({ [`flags.${SYSTEM_ID}.grantedBy`]: _del }, { render: false });
         }
     }
 }

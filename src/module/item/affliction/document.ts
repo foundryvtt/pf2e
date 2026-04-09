@@ -57,7 +57,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
     override async increase(): Promise<void> {
         if (this.system.status.onset) {
-            await this.update({ system: { "-=onset": null } });
+            await this.update({ system: { onset: _del } });
         } else if (this.stage !== this.maxStage) {
             const stage = Math.min(this.maxStage, this.stage + 1);
             await this.update({ system: { stage } });

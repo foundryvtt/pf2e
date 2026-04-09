@@ -157,7 +157,6 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
         );
         const isFeatValidInSlot = this.isFeatValid(feat);
         const alreadyHasFeat = this.actor.items.has(feat.id);
-
         const changed: ItemPF2e<TActor>[] = [];
 
         // If this is a new feat, create a new feat item on the actor first
@@ -167,7 +166,7 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
             });
             changed.push(...(await this.actor.createEmbeddedDocuments("Item", [source])));
             const label = _loc(this.label);
-            ui.notifications.info(_loc("PF2E.Item.Feat.Info.Added", { item: feat.name, category: label }));
+            ui.notifications.info("PF2E.Item.Feat.Info.Added", { format: { item: feat.name, category: label } });
         }
 
         // Determine what feats we have to move around
@@ -175,7 +174,7 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
             ? existing.map((f) => ({
                   _id: f.id,
                   "system.location": null,
-                  ...("taken" in (feat._source.system.level ?? {}) ? { "system.level.-=taken": null } : {}),
+                  ...("taken" in (feat._source.system.level ?? {}) ? { "system.level.taken": _del } : {}),
               }))
             : [];
         if (alreadyHasFeat && isFeatValidInSlot) {
@@ -189,7 +188,6 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
         if (locationUpdates.length > 0) {
             changed.push(...(await this.actor.updateEmbeddedDocuments("Item", locationUpdates)));
         }
-
         return changed;
     }
 

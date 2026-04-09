@@ -172,9 +172,9 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 const baseKey = overlayData?.base ?? "system";
                 const key = anchor.dataset.id;
                 if (key) {
-                    const values = { [`${baseKey}.damage.-=${key}`]: null };
+                    const values = { [`${baseKey}.damage.${key}`]: _del };
                     if (!overlayData && this.item._source.system.heightening) {
-                        values[`${baseKey}.heightening.damage.-=${key}`] = null;
+                        values[`${baseKey}.heightening.damage.${key}`] = _del;
                     }
                     this.item.update(values);
                 }
@@ -204,7 +204,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         // Event used to delete all heightening, not just a particular one
         htmlQuery(html, "a[data-action=delete-heightening]")?.addEventListener("click", () => {
-            this.item.update({ "system.-=heightening": null });
+            this.item.update({ "system.heightening": _del });
         });
 
         // Add event handlers for heighten type overlays
@@ -217,14 +217,14 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 if (overlay.type === "heighten") {
                     const layers = this.item.getHeightenLayers();
                     if (layers.length === 1 && layers[0].level === overlay.level) {
-                        this.item.update({ "system.-=heightening": null });
+                        this.item.update({ "system.heightening": _del });
                         return;
                     }
                 }
-
                 const parts = overlay.base.split(".");
-                parts.push(`-=${parts.pop()}`);
-                this.item.update({ [parts.join(".")]: null });
+                const lastPart = parts.pop();
+                if (lastPart) parts.push(lastPart);
+                this.item.update({ [parts.join(".")]: _del });
             });
 
             // Handle adding properties to overlays
@@ -248,23 +248,19 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 const property = removeProperty.dataset.property;
                 if (!property) continue;
                 removeProperty.addEventListener("click", () => {
-                    const updates = { [`${overlay.base}.-=${property}`]: null };
-                    if (property === "damage") {
-                        updates[`${overlay.base}.-=heightening`] = null;
-                    }
+                    const updates = { [`${overlay.base}.${property}`]: _del };
+                    if (property === "damage") updates[`${overlay.base}.heightening`] = _del;
                     this.item.update(updates);
                 });
             }
 
-            const levelSelect = htmlQuery<HTMLSelectElement>(
-                overlayEditor,
-                "select[data-action=change-heighten-level]",
-            );
+            const levelSelector = "select[data-action=change-heighten-level]";
+            const levelSelect = overlayEditor.querySelector<HTMLSelectElement>(levelSelector);
             levelSelect?.addEventListener("change", () => {
                 const newLevel = Number(levelSelect.value);
                 const existingData = this.item.getHeightenLayers().find((layer) => layer.level === overlay.level);
                 this.item.update({
-                    [`system.heightening.levels.-=${overlay.level}`]: null,
+                    [`system.heightening.levels.${overlay.level}`]: _del,
                     [`system.heightening.levels.${newLevel}`]: existingData?.system ?? {},
                 });
             });

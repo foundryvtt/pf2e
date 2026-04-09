@@ -26,14 +26,12 @@ export class NPCConfig extends CreatureConfig<NPCPF2e> {
     override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const key = `flags.${SYSTEM_ID}.lootable`;
         const lootable = formData[key];
-
         if (lootable === "default") {
             delete formData[key];
-            formData[`flags.${SYSTEM_ID}.-=lootable`] = null;
+            formData[`flags.${SYSTEM_ID}.lootable`] = _del;
         } else {
             formData[key] = lootable === "lootable";
         }
-
         return super._updateObject(event, formData);
     }
 }

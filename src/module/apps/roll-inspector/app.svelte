@@ -107,7 +107,11 @@
                 <li class="modifier" class:disabled={!d.enabled} data-type="dice" data-idx={idx}>
                     <header>
                         <span class="label-slug">{d.label} ({d.slug})</span>
-                        <span class="options-note" onpointerenter={(evt) => showOptionsTooltip(evt.currentTarget, new DamageDicePF2e(d))} role="note">
+                        <span
+                            class="options-note"
+                            onpointerenter={(evt) => showOptionsTooltip(evt.currentTarget, new DamageDicePF2e(d))}
+                            role="note"
+                        >
                             <i class="fa-solid fa-circle-info" inert></i>
                         </span>
                     </header>
@@ -126,7 +130,11 @@
                 <li class="modifier" class:disabled={!m.enabled} data-type="modifier" data-idx={idx}>
                     <header>
                         <span class="label-slug">{m.label} ({m.slug})</span>
-                        <span class="options-note" onpointerenter={(evt) => showOptionsTooltip(evt.currentTarget, new Modifier(m))} role="note">
+                        <span
+                            class="options-note"
+                            onpointerenter={(evt) => showOptionsTooltip(evt.currentTarget, new Modifier(m))}
+                            role="note"
+                        >
                             <i class="fa-solid fa-circle-info" inert></i>
                         </span>
                     </header>
