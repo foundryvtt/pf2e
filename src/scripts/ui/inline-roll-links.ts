@@ -323,10 +323,13 @@ export class InlineRollLinks {
             return;
         }
         const { actor, item, message } = resolveActorAndItemFromHTML(link);
+        if (!actor) return;
         const area = { type: dataset.type, value: Number(dataset.distance) || 5 };
+        const shape = shapeDataFromEffectArea(area, actor);
+        if (!shape) return;
         const data: DeepPartial<fd.RegionSource> = {
             name: item?.name ?? _loc("PF2E.Area.Label"),
-            shapes: [shapeDataFromEffectArea(area)],
+            shapes: [shape],
             color: game.user.color.toString(),
             highlightMode: "coverage",
             displayMeasurements: true,
