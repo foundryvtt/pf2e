@@ -64,7 +64,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
     ): Promise<HTMLAnchorElement | null> {
         const anchor = await super._createInlineRoll(match, rollData, options);
         const formula = anchor?.dataset.formula;
-        const messageMode = anchor.dataset.mode ?? "public";
+        const messageMode = anchor?.dataset.mode ?? "public";
         if (!formula || !(messageMode in CONFIG.ChatMessage.modes)) return anchor;
         const roll = ((): DamageRoll | null => {
             try {
