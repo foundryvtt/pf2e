@@ -29,7 +29,45 @@ interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;
 }
 
+interface ModuleTab {
+    /** A unique tab identifier used as the data-tab attribute value */
+    tabId: string;
+    /** The display label rendered in the navigation link */
+    label: string;
+    /** Optional async callback that returns an HTML string for the tab content region */
+    renderCallback?: (app: PartySheetPF2e, element: HTMLElement, data: object) => Promise<string>;
+    /** Optional callback to attach event listeners after renderCallback populates innerHTML. Ignored if renderCallback is absent. */
+    activateListeners?: (app: PartySheetPF2e, element: HTMLElement) => void;
+}
+
+/** Options for registering a module tab with render callback integration */
+interface ModuleTabOptions {
+    /** Async callback that returns an HTML string for the tab content region */
+    renderCallback: (app: PartySheetPF2e, element: HTMLElement, data: object) => Promise<string>;
+    /** Optional callback to attach event listeners after renderCallback populates innerHTML */
+    activateListeners?: (app: PartySheetPF2e, element: HTMLElement) => void;
+}
+
 class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
+    static readonly moduleTabs: ModuleTab[] = [];
+
+    /** Register a module-provided tab on the party sheet */
+    static registerModuleTab(tabId: string, label: string, options?: ModuleTabOptions): void {
+        const builtInTabs = ["overview", "exploration", "inventory", "orphaned"];
+        if (!/^[a-z0-9-]+$/.test(tabId)) return;
+        if (builtInTabs.includes(tabId)) return;
+        if (this.moduleTabs.some((t) => t.tabId === tabId)) return;
+
+        const tab: ModuleTab = { tabId, label };
+        if (options?.renderCallback) {
+            tab.renderCallback = options.renderCallback;
+            if (options.activateListeners) {
+                tab.activateListeners = options.activateListeners;
+            }
+        }
+        this.moduleTabs.push(tab);
+    }
+
     currentSummaryView = "languages";
 
     static override get defaultOptions(): ActorSheetOptions {
@@ -125,6 +163,11 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 activities: hexplorationActivities.find((max) => max.speed >= travelSpeed)?.activities ?? 0,
             },
             orphaned: this.actor.items.filter((i) => !i.isOfType(...this.actor.allowedItemTypes)),
+            moduleTabs: PartySheetPF2e.moduleTabs.map((t) => ({
+                tabId: t.tabId,
+                label: t.label,
+                hasRenderCallback: !!t.renderCallback,
+            })),
         };
     }
 
@@ -475,18 +518,33 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         // Eventually this should cache results to compare if re-rendering
         for (const region of htmlQueryAll(element, "[data-region]")) {
             const regionId = region.dataset.region ?? "";
+
+            // Built-in region path: look up template
             const templateName = this.regionTemplates[regionId];
-            if (!templateName) continue;
+            if (templateName) {
+                const template = `systems/${SYSTEM_ID}/templates/actors/party/regions/${templateName}`;
+                const result = await fa.handlebars.renderTemplate(template, data);
 
-            const template = `systems/${SYSTEM_ID}/templates/actors/party/regions/${templateName}`;
-            const result = await fa.handlebars.renderTemplate(template, data);
+                region.innerHTML = result;
+                if (this._state !== appv1.api.Application.RENDER_STATES.RENDERING) {
+                    this.activateListeners($(region));
+                }
 
-            region.innerHTML = result;
-            if (this._state !== appv1.api.Application.RENDER_STATES.RENDERING) {
-                this.activateListeners($(region));
+                await this.#renderRegions(region, data);
+                continue;
             }
 
-            await this.#renderRegions(region, data);
+            // Module tab region path: look up render callback
+            const moduleTab = PartySheetPF2e.moduleTabs.find((t) => t.tabId === regionId && t.renderCallback);
+            if (moduleTab) {
+                try {
+                    const result = await moduleTab.renderCallback!(this, region, data);
+                    region.innerHTML = result;
+                    moduleTab.activateListeners?.(this, region);
+                } catch (error) {
+                    console.error(`PF2e System | Module tab "${regionId}" render failed:`, error);
+                }
+            }
         }
     }
 
@@ -554,6 +612,7 @@ interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
     };
     /** Unsupported items on the sheet, may occur due to disabled campaign data */
     orphaned: ItemPF2e[];
+    moduleTabs: { tabId: string; label: string; hasRenderCallback: boolean }[];
 }
 
 interface SkillData {
@@ -602,4 +661,4 @@ interface LanguageSheetData {
     actors: ActorPF2e[];
 }
 
-export { PartySheetPF2e, type PartySheetRenderOptions };
+export { PartySheetPF2e, type ModuleTab, type PartySheetRenderOptions };

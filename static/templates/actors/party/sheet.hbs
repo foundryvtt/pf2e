@@ -35,6 +35,9 @@
         {{/unless}}
         <a data-tab="exploration">{{localize "PF2E.Actor.Party.Tabs.Exploration"}}</a>
         <a data-tab="inventory">{{localize "PF2E.Actor.Party.Tabs.Stash"}}</a>
+        {{#each moduleTabs}}
+            <a data-tab="{{this.tabId}}">{{this.label}}</a>
+        {{/each}}
         {{#if orphaned}}
             <a data-tab="orphaned">{{localize "PF2E.Actor.Party.Tabs.Orphaned"}}</a>
         {{/if}}
@@ -61,6 +64,10 @@
                 {{> (resolvePath "templates/actors/partials/total-bulk.hbs")}}
             </section>
         </div>
+
+        {{#each moduleTabs}}
+            <div class="tab" data-tab="{{this.tabId}}" {{#if this.hasRenderCallback}}data-region="{{this.tabId}}"{{/if}}></div>
+        {{/each}}
 
         {{#if orphaned}}
             <div class="tab" data-tab="orphaned">
