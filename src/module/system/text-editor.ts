@@ -64,8 +64,14 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
     ): Promise<HTMLAnchorElement | null> {
         const anchor = await super._createInlineRoll(match, rollData, options);
         const formula = anchor?.dataset.formula;
-        const messageMode = anchor?.dataset.mode ?? "public";
-        if (!formula || !(messageMode in CONFIG.ChatMessage.modes)) return anchor;
+        if (!formula) return null;
+        if (anchor.dataset.tooltipText) {
+            anchor.dataset.tooltip = "";
+            anchor.ariaLabel = anchor.dataset.tooltipText;
+            delete anchor.dataset.tooltipText;
+        }
+        if (!anchor.dataset.flavor) delete anchor.dataset.flavor;
+        anchor.dataset.mode ??= "public";
         const roll = ((): DamageRoll | null => {
             try {
                 return new DamageRoll(formula);
@@ -83,7 +89,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         const label = match[4] && match[4].length > 0 ? match[4] : roll.formula;
 
         anchor.innerHTML = `${icon.outerHTML}${label}`;
-        anchor.dataset.tooltip = roll.formula;
+        anchor.ariaLabel = roll.formula;
         anchor.dataset.damageRoll = "";
 
         const isPersistent = roll.instances.length > 0 && roll.instances.every((i) => i.persistent);

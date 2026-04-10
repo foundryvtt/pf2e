@@ -181,14 +181,13 @@ table.pf2-table {
 a.content-link,
 a.inline-roll {
     line-height: 1.5em;
-    padding: 0 var(--space-4);
-
     i {
-        font-size: 0.9em;
+        font-size: 0.85em;
     }
 }
 
 a.content-link {
+    padding: 0 var(--space-4);
     // Automatically italicize spell content links
     &:has(i.fa-sparkles) {
         font-style: italic;
@@ -199,12 +198,23 @@ a.content-link {
     }
 }
 
-#tooltip a.content-link {
-    color: var(--color-text-dark-primary);
+a.inline-roll {
+    &.blindroll {
+        background-color: var(--color-blind-background, #f5eaf5);
+        border-color: var(--color-blind-border, #6b476b);
+    }
+    &.gmroll,
+    &.selfroll {
+        background-color: var(--color-whisper-background, #e8e8ef);
+        border-color: var(--color-whisper-border, #545469);
+    }
+    &.altered {
+        color: var(--color-text-dark-improved);
+    }
 }
 
-a.inline-roll.altered {
-    color: var(--color-text-dark-improved);
+#tooltip a.content-link {
+    color: var(--color-text-dark-primary);
 }
 
 /* ----------------------------------------- */

@@ -448,7 +448,7 @@ function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth = false 
         firstTerm?.faces instanceof foundry.dice.terms.NumericTerm &&
         [4, 8, 6, 10, 12].includes(firstTerm.faces.number)
     ) {
-        return fontAwesomeIcon(`dice-d${firstTerm.faces.number}`, { fixedWidth });
+        return fa.fields.createFontAwesomeIcon(`dice-d${firstTerm.faces.number}`, { fixedWidth });
     }
 
     const firstDice = roll.dice.at(0);
