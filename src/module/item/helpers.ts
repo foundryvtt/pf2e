@@ -1,10 +1,9 @@
 import type { ActorPF2e } from "@actor";
-import { SpecificShapeSource } from "@common/data/_module.mjs";
+import { shapeDataFromEffectArea } from "@module/canvas/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { RegionDocumentPF2e } from "@scene";
 import type { DamageType } from "@system/damage/types.ts";
 import { createHTMLElement, ErrorPF2e, objectHasKey, setHasElement, tupleHasValue } from "@util";
-import * as R from "remeda";
 import type { Converter } from "showdown";
 import { processSanctification } from "./ability/helpers.ts";
 import type { ItemSourcePF2e } from "./base/data/index.ts";
@@ -224,34 +223,6 @@ function createEffectAreaLabel(areaData: { type: EffectAreaShape; value: number 
     return _loc(formatString, { shape, size, unit, units });
 }
 
-function shapeDataFromEffectArea(
-    area: { type: EffectAreaShape; value: number },
-    actor: Maybe<ActorPF2e>,
-): DeepPartial<SpecificShapeSource> | null {
-    const distance = (area.value / 5) * canvas.grid.size;
-    const { x, y } = canvas.mousePosition;
-    switch (area.type) {
-        case "burst":
-        case "cylinder":
-            return { type: "circle", radius: distance, x, y };
-        case "cone":
-            return { type: "cone", angle: 90, radius: distance, x, y };
-        case "cube":
-        case "square":
-            return { type: "rectangle", width: distance, height: distance, x, y };
-        case "emanation": {
-            const tokenSource = actor?.getActiveTokens(true, true).at(0)?._source;
-            if (!tokenSource) return null;
-            const base = Object.assign(R.pick(tokenSource, ["width", "height", "x", "y", "shape"]), {
-                type: "token",
-            } as const);
-            return { type: "emanation", radius: distance, base, x, y };
-        }
-        case "line":
-            return { type: "line", length: distance, width: canvas.dimensions.distance, x, y };
-    }
-}
-
 async function placeRegionFromItem(
     area: { type: EffectAreaShape; value: number },
     { message, item }: { message?: ChatMessagePF2e; item: ItemPF2e },
@@ -293,5 +264,4 @@ export {
     placeRegionFromItem,
     reduceItemName,
     removeTrait,
-    shapeDataFromEffectArea,
 };
