@@ -130,21 +130,20 @@ class Check {
                 [
                     substitution?.effectType,
                     rollTwice === "keep-higher" ? "fortune" : rollTwice === "keep-lower" ? "misfortune" : null,
-                ].filter(R.isTruthy),
+                ].filter(R.isNonNullish),
             );
             for (const trait of fortuneMisfortune) {
                 rollOptions.add(trait);
             }
-
             if (rollOptions.has("fortune") && rollOptions.has("misfortune")) {
                 for (const sub of substitutions) {
                     // Cancel all roll substitutions and recalculate
                     rollOptions.delete(`substitute:${sub.slug}`);
                     check.calculateTotal(rollOptions);
                 }
-
                 return ["1d20", ["PF2E.TraitFortune", "PF2E.TraitMisfortune"]];
-            } else if (substitution) {
+            }
+            if (substitution) {
                 const effectType = {
                     fortune: "PF2E.TraitFortune",
                     misfortune: "PF2E.TraitMisfortune",
@@ -153,15 +152,11 @@ class Check {
                     type: _loc(effectType),
                     substitution: reduceItemName(_loc(substitution.label)),
                 });
-
                 return [substitution.value.toString(), [extraTag]];
-            } else if (context.rollTwice === "keep-lower") {
-                return ["2d20kl", ["PF2E.TraitMisfortune"]];
-            } else if (context.rollTwice === "keep-higher") {
-                return ["2d20kh", ["PF2E.TraitFortune"]];
-            } else {
-                return ["1d20", []];
             }
+            if (context.rollTwice === "keep-lower") return ["2d20kl", ["PF2E.TraitMisfortune"]];
+            if (context.rollTwice === "keep-higher") return ["2d20kh", ["PF2E.TraitFortune"]];
+            return ["1d20", []];
         })();
         extraTags.push(...tagsFromDice);
 
@@ -439,10 +434,9 @@ class Check {
     /** Reroll a rolled check given a chat message. */
     static async rerollFromMessage(message: ChatMessagePF2e, options: RerollOptions = {}): Promise<void> {
         if (!(message.isAuthor || game.user.isGM)) {
-            ui.notifications.error(_loc("PF2E.RerollMenu.ErrorCantDelete"));
+            ui.notifications.error("PF2E.RerollMenu.ErrorCantDelete", { localize: true });
             return;
         }
-
         const actor = message.actor;
         if (!actor) {
             ui.notifications.error("PF2E.RerollMenu.ErrorNoActor", { localize: true });
@@ -693,11 +687,9 @@ class Check {
         targeting,
     }: CreateResultFlavorParams): Promise<HTMLElement | null> {
         if (!degree || !self?.actor) return null;
-
         const dc = degree.dc;
         const needsDCParam = !!dc.label && Number.isInteger(dc.value) && !dc.label.includes("{dc}");
         const customLabel = needsDCParam && dc.label ? `<dc>${_loc(dc.label)}: {dc}</dc>` : (dc.label ?? null);
-
         const opposingActor = await (async (): Promise<ActorPF2e | null> => {
             if (!opposer?.actor) return null;
             if (opposer.actor instanceof ActorPF2e) return opposer.actor;
@@ -724,10 +716,8 @@ class Check {
                 return fromUuid(opposer.token) as Promise<TokenDocumentPF2e<ScenePF2e> | null>;
             })();
 
-            const canSeeTokenName = (token ?? new TokenDocumentPF2e(opposingActor?.prototypeToken.toObject() ?? {}))
-                .playersCanSeeName;
+            const canSeeTokenName = token ?? (await opposingActor?.getTokenDocument())?.playersCanSeeName;
             const canSeeName = canSeeTokenName || !game.pf2e.settings.tokens.nameVisibility;
-
             return {
                 name: token?.name ?? opposingActor?.name ?? "",
                 visible: !!canSeeName,
@@ -761,15 +751,12 @@ class Check {
             const visible = opposingActor?.hasPlayerOwner || dc.visible || game.pf2e.settings.metagame.dcs;
 
             if (typeof preadjustedDC !== "number" || circumstances.length === 0) {
-                const labelKey = _loc(
-                    opposerData
-                        ? targeting
-                            ? checkDCs.Label.WithTarget
-                            : checkDCs.Label.WithOrigin
-                        : (customLabel ?? checkDCs.Label.NoTarget),
-                );
+                const labelKey = opposerData
+                    ? targeting
+                        ? checkDCs.Label.WithTarget
+                        : checkDCs.Label.WithOrigin
+                    : (customLabel ?? checkDCs.Label.NoTarget);
                 const markup = _loc(labelKey, { dcType, dc: dc.value, opposer: opposerData?.name ?? null });
-
                 return { markup, visible };
             }
 
