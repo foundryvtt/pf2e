@@ -566,7 +566,7 @@ export class PrototypeToken<TParent extends documents.BaseActor | null> extends 
 export interface PrototypeToken<TParent extends documents.BaseActor | null>
     extends DataModel<TParent, PrototypeTokenSchema>, fields.ModelPropsFromSchema<PrototypeTokenSchema> {}
 
-type PrototypeTokenSchema = Omit<
+export type PrototypeTokenSchema = Omit<
     TokenSchema,
     "_id" | "name" | "actorId" | "delta" | "x" | "y" | "elevation" | "effects" | "overlayEffect" | "hidden"
 > & {

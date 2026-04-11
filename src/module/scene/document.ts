@@ -1,3 +1,4 @@
+import type { SceneViewOptions } from "@client/documents/_types.d.mts";
 import type { SceneUpdateOptions } from "@client/documents/scene.d.mts";
 import type {
     DatabaseDeleteOperation,
@@ -116,15 +117,16 @@ class ScenePF2e extends Scene {
         this.updateEmbeddedDocuments("Token", entries, { animation: { movementSpeed: 1.5 } });
     }, 0);
 
-    override async view(): Promise<this> {
-        await super.view();
-
-        // Reset all troop actors on scene change in case some of them need to poach rule elements from siblings
-        // This is mostly needed for drained
-        for (const token of this.tokens.filter((t) => !!t.flags[SYSTEM_ID].troop)) {
-            token.actor?.reset();
+    /**
+     * Reset all troop actors on scene change in case some of them need to poach rule elements from siblings This is
+     * mostly needed for the Drained condition.
+     */
+    override async view(options?: SceneViewOptions): Promise<this> {
+        if (this.isView) return super.view(options);
+        await super.view(options);
+        for (const token of this.tokens) {
+            if (token.flags[SYSTEM_ID].troop) token.actor?.reset();
         }
-
         return this;
     }
 

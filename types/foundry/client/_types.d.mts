@@ -13,7 +13,6 @@ import PointVisionSource from "./canvas/sources/point-vision-source.mjs";
 import {
     SceneDimensions,
     TokenDocument,
-    TokenGetCompleteMovementPathWaypoint,
     TokenMeasuredMovementWaypoint,
     TokenMovementSegmentData,
     TokenMovementWaypoint,
@@ -68,6 +67,11 @@ export interface RulerWaypoint {
      * The next waypoint, if any.
      */
     next: RulerWaypoint | null;
+}
+
+interface TokenCreateTerrainMovementPathOptions {
+    /** Constrain a preview path? Default: `false`. */
+    preview?: boolean;
 }
 
 export interface TokenFindMovementPathWaypoint {
@@ -422,10 +426,6 @@ export interface TokenFindMovementPathJob {
     cancel: () => void;
 }
 
-export interface TokenGetTerrainMovementPathWaypoint extends Omit<TokenGetCompleteMovementPathWaypoint, "terrain"> {}
-
-export interface TokenTerrainMovementWaypoint extends Omit<TokenMeasuredMovementWaypoint, "userId" | "cost"> {}
-
 export interface TokenRulerData {
     /** The waypoints that were already passed by the Token */
     passedWaypoints: TokenMeasuredMovementWaypoint[];
@@ -672,6 +672,25 @@ export interface TokenAnimationOptions {
 
     /** An on-tick callback. */
     ontick?: (elapsedMS: number, animation: CanvasAnimationData, data: TokenAnimationData) => void;
+}
+
+interface TokenPanningOptions {
+    /** The type of the transition animation. Default: `null` (no transition animation). */
+    transitionType?: string;
+    /**
+     * The duration of the pan or transition animation. Default: `250` for panning or the default duration of the
+     * given transition type.
+     */
+    duration?: number;
+    /** The speed of the panning animation in pixels per second; overrides `duration` if set.*/
+    speed?: number;
+    /** The easing function used for the panning animation. Default: `"easeInOutCosine"`. */
+    easing?: string | Function;
+    /**
+     * If false, the canvas is not panned to the token if the token is already onscreen. Otherwise the canvas is panned
+     * such that the token is in the center of the screen. Default: `false`.
+     */
+    force?: boolean;
 }
 
 export type TokenMovementActionCostFunction = (
