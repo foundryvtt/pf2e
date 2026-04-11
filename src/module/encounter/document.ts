@@ -139,7 +139,7 @@ class EncounterPF2e extends Combat {
     /** Roll initiative for PCs and NPCs using their prepared roll methods */
     override async rollInitiative(ids: string[], options: RollInitiativeOptionsPF2e = {}): Promise<this> {
         const extraRollOptions = options.extraRollOptions ?? [];
-        const messageMode = options.messageOptions?.mode ?? options.messageMode;
+        const messageMode = options.messageOptions?.messageMode ?? options.messageMode;
         if (options.secret) extraRollOptions.push("secret");
 
         const combatants = ids.flatMap((id) => this.combatants.get(id) ?? []);

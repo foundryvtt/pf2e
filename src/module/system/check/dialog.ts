@@ -2,7 +2,7 @@ import { MODIFIER_TYPES, Modifier, RawModifier, StatisticModifier } from "@actor
 import type { ApplicationV1Options } from "@client/appv1/api/application-v1.d.mts";
 import type { ChatMessageMode } from "@client/config.d.mts";
 import type { RollSubstitution } from "@module/rules/synthetics.ts";
-import { ErrorPF2e, htmlQuery, htmlQueryAll, objectHasKey, setHasElement } from "@util";
+import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
 import * as R from "remeda";
 import type { RollTwiceOption } from "../rolls.ts";
 import type { CheckCheckContext } from "./types.ts";
@@ -33,20 +33,16 @@ export class CheckModifiersDialog extends fav1.api.Application {
         const title = ((): string => {
             const maybeWithHTML = context.title?.trim() || check.slug;
             if (!maybeWithHTML.includes("<")) return maybeWithHTML.trim();
-
             const div = document.createElement("div");
             div.innerHTML = maybeWithHTML;
             div.querySelector(".action-glyph, .pf2-icon")?.remove();
-
-            return div.innerText.trim();
+            return div.textContent.trim();
         })();
 
         super({ title });
-
         this.check = check;
         this.resolve = resolve;
         this.context = context;
-
         this.#originallyEnabled = new Set(check.modifiers.filter((m) => m.enabled));
     }
 
@@ -56,7 +52,7 @@ export class CheckModifiersDialog extends fav1.api.Application {
             template: `systems/${SYSTEM_ID}/templates/chat/check-modifiers-dialog.hbs`,
             classes: ["roll-modifiers-dialog", "dice-checks", "dialog"],
             popOut: true,
-            width: 380,
+            width: 420,
             height: "auto",
         };
     }
@@ -99,14 +95,13 @@ export class CheckModifiersDialog extends fav1.api.Application {
 
     override activateListeners($html: JQuery): void {
         const html = $html[0];
-
-        htmlQuery<HTMLButtonElement>(html, "button.roll")?.addEventListener("click", () => {
+        html.addEventListener("submit", (event) => {
+            event.preventDefault();
             this.resolve(true);
             this.isResolved = true;
             this.close();
         });
-
-        for (const checkbox of htmlQueryAll<HTMLInputElement>(html, ".substitutions input[type=checkbox]")) {
+        for (const checkbox of html.querySelectorAll<HTMLInputElement>(".substitutions input[type=checkbox]")) {
             checkbox.addEventListener("click", () => {
                 const substitutions = this.context.substitutions ?? [];
                 const index = Number(checkbox.dataset.subIndex);
@@ -125,13 +120,11 @@ export class CheckModifiersDialog extends fav1.api.Application {
                     }
                 }
                 this.context.substitutions = this.#resolveSubstitutions().map((s) => R.omit(s, ["toggleable"]));
-
                 this.check.calculateTotal(this.context.options);
                 this.render();
             });
         }
-
-        for (const checkbox of htmlQueryAll<HTMLInputElement>(html, ".modifier-container input[type=checkbox]")) {
+        for (const checkbox of html.querySelectorAll<HTMLInputElement>(".modifier-container input[type=checkbox]")) {
             checkbox.addEventListener("click", () => {
                 const index = Number(checkbox.dataset.modifierIndex);
                 this.check.modifiers[index].ignored = !checkbox.checked;
@@ -140,7 +133,7 @@ export class CheckModifiersDialog extends fav1.api.Application {
             });
         }
 
-        const addModifierButton = htmlQuery<HTMLButtonElement>(html, "button.add-modifier");
+        const addModifierButton = html.querySelector("button.add-modifier");
         addModifierButton?.addEventListener("click", () => {
             const parent = addModifierButton.parentElement as HTMLDivElement;
             const value = Number(parent.querySelector<HTMLInputElement>(".add-modifier-value")?.value || 1);
@@ -167,13 +160,13 @@ export class CheckModifiersDialog extends fav1.api.Application {
             }
         });
 
-        for (const rollTwice of htmlQueryAll<HTMLInputElement>(html, ".fate input[type=radio]")) {
+        for (const rollTwice of html.querySelectorAll<HTMLInputElement>("[data-roll-twice] input[type=radio]")) {
             rollTwice.addEventListener("click", () => {
                 this.context.rollTwice = (rollTwice.value || false) as RollTwiceOption;
             });
         }
 
-        const modeInput = htmlQuery<HTMLSelectElement>(html, "select[name=messageMode]");
+        const modeInput = html.querySelector<HTMLSelectElement>("select[name=messageMode]");
         modeInput?.addEventListener("change", () => {
             const mode = modeInput.value;
             if (!objectHasKey(CONFIG.ChatMessage.modes, mode)) throw ErrorPF2e("Unexpected message-visibility mode");
@@ -181,7 +174,7 @@ export class CheckModifiersDialog extends fav1.api.Application {
         });
 
         // Toggle show dialog default
-        const toggle = htmlQuery<HTMLInputElement>(html, "input[data-action=change-show-default]");
+        const toggle = html.querySelector<HTMLInputElement>("input[data-action=change-show-default]");
         toggle?.addEventListener("click", async () => {
             await game.user.update({ [`flags.${SYSTEM_ID}.settings.showCheckDialogs`]: toggle.checked });
         });
@@ -192,12 +185,10 @@ export class CheckModifiersDialog extends fav1.api.Application {
         super.close(options);
     }
 
-    /** Overriden to add some additional first-render behavior */
+    /** Focus the submit button to allow for submission via spacebar press. */
     protected override _injectHTML($html: JQuery<HTMLElement>): void {
         super._injectHTML($html);
-
-        // Since this is an initial render, focus the roll button
-        $html[0]?.querySelector<HTMLElement>("button.roll")?.focus();
+        $html[0]?.querySelector<HTMLButtonElement>("button[type=submit]")?.focus();
     }
 }
 

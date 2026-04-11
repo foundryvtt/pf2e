@@ -284,7 +284,7 @@ export class DamagePF2e {
 
         if (context.createMessage) {
             messageData.rolls.push(...splashRolls);
-            await ChatMessagePF2e.create(messageData, { mode: context.messageMode });
+            await ChatMessagePF2e.create(messageData, { messageMode: context.messageMode });
         }
         Hooks.callAll(`pf2e.damageRoll`, roll);
         if (callback) callback(roll);

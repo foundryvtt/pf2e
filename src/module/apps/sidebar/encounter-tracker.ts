@@ -258,7 +258,7 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
         if ((action === "rollNPC" || action === "rollAll") && this.viewed) {
             event.stopPropagation();
             const args = eventToRollParams(event, { type: "check" });
-            await this.viewed[action]({ ...args, messageOptions: { mode: args.messageMode } });
+            await this.viewed[action]({ ...args, messageOptions: { messageMode: args.messageMode } });
             return;
         }
         return super._onClickAction(event, target);

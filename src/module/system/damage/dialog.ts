@@ -62,7 +62,7 @@ class DamageModifierDialog extends fav1.api.Application {
             template: `systems/${SYSTEM_ID}/templates/chat/damage/damage-modifier-dialog.hbs`,
             classes: ["roll-modifiers-dialog", "damage-dialog", "dialog"],
             popOut: true,
-            width: 440,
+            width: 420,
             height: "auto",
         };
     }
@@ -205,8 +205,8 @@ class DamageModifierDialog extends fav1.api.Application {
 
     override activateListeners($html: JQuery): void {
         const html = $html[0];
-
-        htmlQuery<HTMLButtonElement>(html, "button.roll")?.addEventListener("click", () => {
+        html.addEventListener("submit", (event) => {
+            event.preventDefault();
             this.isRolled = true;
             this.close();
         });
@@ -241,7 +241,7 @@ class DamageModifierDialog extends fav1.api.Application {
             }
         });
 
-        const addModifierButton = htmlQuery<HTMLButtonElement>(html, "button.add-modifier");
+        const addModifierButton = html.querySelector("button.add-modifier");
         addModifierButton?.addEventListener("click", () => {
             const parent = addModifierButton.parentElement as HTMLDivElement;
             const value = Number(parent.querySelector<HTMLInputElement>(".add-modifier-value")?.value || 1);
@@ -353,12 +353,10 @@ class DamageModifierDialog extends fav1.api.Application {
         super.close(options);
     }
 
-    /** Overriden to add some additional first-render behavior */
+    /** Focus the submit button to allow for submission via spacebar press. */
     protected override _injectHTML($html: JQuery<HTMLElement>): void {
         super._injectHTML($html);
-
-        // Since this is an initial render, focus the roll button
-        $html[0]?.querySelector<HTMLElement>("button.roll")?.focus();
+        $html[0]?.querySelector<HTMLButtonElement>("button[type=submit]")?.focus();
     }
 }
 

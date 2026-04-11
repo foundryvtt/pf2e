@@ -87,23 +87,30 @@
         </select>
         <button type="button" class="add-modifier">+{{localize "PF2E.Roll.Add"}}</button>
     </section>
+
     <hr />
 
-    <div class="roll-mode-panel">
-        <label class="roll-mode">
-            {{localize "CHAT.RollVisibility"}}
-            <select name="messageMode">
-                {{selectOptions messageModes selected=messageMode localize=true}}
-            </select>
-        </label>
-        <label data-tooltip="PF2E.Roll.Dialog.ShowDefaultHint">
-            {{localize "PF2E.Roll.Dialog.ShowDefault"}}
-            <input data-action="change-show-default" type="checkbox" {{checked showDamageDialogs}} />
-        </label>
+    <div class="roll-mode-panel flexcol">
+        <div class="form-group roll-mode">
+            <label for="{{appId}}-messageMode">{{localize "CHAT.RollVisibility"}}</label>
+            <div class="form-fields">
+                <select name="messageMode" id="{{appId}}-messageMode">
+                    {{selectOptions messageModes selected=messageMode localize=true}}
+                </select>
+            </div>
+        </div>
+        <div class="form-group" data-tooltip aria-label="{{localize "PF2E.Roll.Dialog.ShowDefaultHint"}}">
+            <label for="{{appId}}-showDefault">{{localize "PF2E.Roll.Dialog.ShowDefault"}}</label>
+            <div class="form-fields">
+                <input id="{{appId}}-showDefault" data-action="change-show-default" type="checkbox"
+                       {{checked showCheckDialogs}} />
+            </div>
+        </div>
     </div>
+
     <hr />
 
-    <button type="button" class="roll">{{{formula}}}</button>
+    <button type="submit">{{{formula}}}</button>
 </form>
 
 {{#*inline "modifier-row"}}
