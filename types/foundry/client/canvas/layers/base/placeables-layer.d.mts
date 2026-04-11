@@ -1,4 +1,5 @@
 import BasePlaceableHUD from "@client/applications/hud/placeable-hud.mjs";
+import { ShapeControlsHandle } from "@client/canvas/containers/_module.mjs";
 import DocumentCollection from "@client/documents/abstract/document-collection.mjs";
 import User from "@client/documents/user.mjs";
 import { ElevatedPoint, Point } from "@common/_types.mjs";
@@ -423,6 +424,7 @@ export interface PlaceableInteractionData<TObject extends PIXI.Container> {
     preview?: TObject | null;
     clones?: TObject[];
     dragHandle?: unknown;
+    handle?: ShapeControlsHandle;
     object: TObject;
     origin: Point;
     destination: Point;

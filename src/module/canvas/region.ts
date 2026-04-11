@@ -31,6 +31,9 @@ class RegionPF2e<TDocument extends RegionDocumentPF2e = RegionDocumentPF2e> exte
     /** Save the coordinates of the new drop location(s). */
     protected override async _onDragLeftDrop(event: PlaceablesLayerPointerEvent<this>): Promise<TDocument[]>;
     protected override async _onDragLeftDrop(event: PlaceablesLayerPointerEvent<this>): Promise<RegionDocument[]> {
+        const handle = event.interactionData.handle;
+        if (handle) return handle.controls._onDragDrop(event) ?? [];
+
         const clones = event.interactionData.clones ?? [];
         const updates = clones.map((clone) => {
             const shapes = clone.document.shapes.map((s) => s.toObject(false));

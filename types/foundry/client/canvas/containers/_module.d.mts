@@ -14,6 +14,7 @@ export { default as PointSourceMesh } from "./elements/point-source-mesh.mjs";
 export { default as PreciseText } from "./elements/precise-text.mjs";
 export { default as QuadMesh } from "./elements/quad-mesh.mjs";
 export { default as ResizeHandle } from "./elements/resize-handle.mjs";
+export * from "./elements/shape-controls.mjs";
 export { default as SpriteMesh } from "./elements/sprite-mesh.mjs";
 
 export { default as AutumnLeavesWeatherEffect } from "./elements/particles/leaves.mjs";
