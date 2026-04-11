@@ -20,7 +20,7 @@ import { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
 import {
     createSheetTags,
-    eventToRollMode,
+    eventToMessageMode,
     eventToRollParams,
     isControlDown,
     maintainFocusInRender,
@@ -193,20 +193,20 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
         const sections: SheetInventory["sections"] = [
             {
-                label: game.i18n.localize("PF2E.Actor.Inventory.Section.WeaponsAndShields"),
+                label: _loc("PF2E.Actor.Inventory.Section.WeaponsAndShields"),
                 types: ["weapon", "shield"],
                 items: [],
             },
-            { label: game.i18n.localize("TYPES.Item.armor"), types: ["armor"], items: [] },
-            { label: game.i18n.localize("TYPES.Item.equipment"), types: ["equipment"], items: [] },
+            { label: _loc("TYPES.Item.armor"), types: ["armor"], items: [] },
+            { label: _loc("TYPES.Item.equipment"), types: ["equipment"], items: [] },
             {
-                label: game.i18n.localize("PF2E.Item.Consumable.Plural"),
+                label: _loc("PF2E.Item.Consumable.Plural"),
                 types: ["consumable"],
                 items: [],
             },
-            { label: game.i18n.localize("TYPES.Item.ammo"), types: ["ammo"], items: [] },
-            { label: game.i18n.localize("TYPES.Item.treasure"), types: ["treasure"], items: [] },
-            { label: game.i18n.localize("PF2E.Item.Container.Plural"), types: ["backpack"], items: [] },
+            { label: _loc("TYPES.Item.ammo"), types: ["ammo"], items: [] },
+            { label: _loc("TYPES.Item.treasure"), types: ["treasure"], items: [] },
+            { label: _loc("PF2E.Item.Container.Plural"), types: ["backpack"], items: [] },
         ];
 
         for (const item of actor.inventory.contents.sort((a, b) => (a.sort || 0) - (b.sort || 0))) {
@@ -685,9 +685,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 const statisticSlug = htmlClosest(anchor, "[data-statistic]")?.dataset.statistic ?? "";
                 const statistic = this.actor.getStatistic(statisticSlug);
                 const args: StatisticRollParameters = eventToRollParams(event, { type: "check" });
-                if (anchor.dataset.secret !== undefined) {
-                    args.rollMode = game.user.isGM ? "gmroll" : "blindroll";
-                }
+                if (anchor.dataset.secret !== undefined) args.messageMode = game.user.isGM ? "gm" : "blind";
                 return statistic?.roll(args);
             },
             "roll-initiative": (_, element): Promise<InitiativeRollResult | null> | void => {
@@ -718,7 +716,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
                 const item = this.actor.items.get(itemId, { strict: true });
                 if (item.isOfType("action", "feat")) {
-                    return createUseActionMessage(item, eventToRollMode(event));
+                    return createUseActionMessage(item, eventToMessageMode(event));
                 }
             },
             // INVENTORY
@@ -730,7 +728,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 const subtrahend = event.ctrlKey ? 10 : event.shiftKey ? 5 : 1;
                 const newCredits = Math.max(0, item.system.price.value.credits - subtrahend);
                 if (newCredits !== item.system.price.value.credits) {
-                    return item.update({ "system.price.==value": { sp: newCredits } });
+                    return item.update({ "system.price.value": _replace({ sp: newCredits }) });
                 }
                 return;
             },
@@ -750,7 +748,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 const item = await inventoryItemFromDOM(event);
                 const addend = event.ctrlKey ? 10 : event.shiftKey ? 5 : 1;
                 const newCredits = Math.max(0, item.system.price.value.credits + addend);
-                return item.update({ "system.price.==value": { sp: newCredits } });
+                return item.update({ "system.price.value": _replace({ sp: newCredits }) });
             },
             "increase-quantity": async (event) => {
                 const item = await inventoryItemFromDOM(event);
@@ -779,19 +777,19 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 if (event.ctrlKey) return sellItem();
 
                 const content = document.createElement("p");
-                content.innerText = game.i18n.format("PF2E.SellItemQuestion", { item: item.name });
+                content.innerText = _loc("PF2E.SellItemQuestion", { item: item.name });
                 return new foundry.appv1.api.Dialog({
-                    title: game.i18n.localize("PF2E.SellItemConfirmHeader"),
+                    title: _loc("PF2E.SellItemConfirmHeader"),
                     content: content.outerHTML,
                     buttons: {
                         Yes: {
                             icon: fontAwesomeIcon("check").outerHTML,
-                            label: game.i18n.localize("Yes"),
+                            label: _loc("Yes"),
                             callback: sellItem,
                         },
                         cancel: {
                             icon: fontAwesomeIcon("times").outerHTML,
-                            label: game.i18n.localize("Cancel"),
+                            label: _loc("Cancel"),
                         },
                     },
                     default: "Yes",
@@ -1361,25 +1359,23 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                     if (!objectHasKey(CONFIG.PF2E.actionTypes, actionType)) {
                         throw ErrorPF2e(`Action type not recognized: ${actionType}`);
                     }
-                    const name = game.i18n.localize(`PF2E.ActionType${actionType.capitalize()}`);
+                    const name = _loc(`PF2E.ActionType${actionType.capitalize()}`);
                     return { type: itemType, name, system: { actionType: { value: actionType } } };
                 }
                 case "melee": {
-                    const name = game.i18n.localize(`PF2E.NewPlaceholders.${itemType.capitalize()}`);
+                    const name = _loc(`PF2E.NewPlaceholders.${itemType.capitalize()}`);
                     return { type: itemType, name };
                 }
                 case "lore": {
                     const name =
-                        this.actor.type === "npc"
-                            ? game.i18n.localize("PF2E.SkillLabel")
-                            : game.i18n.localize("PF2E.NewPlaceholders.Lore");
+                        this.actor.type === "npc" ? _loc("PF2E.SkillLabel") : _loc("PF2E.NewPlaceholders.Lore");
                     return { type: itemType, name };
                 }
                 default: {
                     if (!setHasElement(PHYSICAL_ITEM_TYPES, itemType)) {
                         throw ErrorPF2e(`Unsupported item type: ${itemType}`);
                     }
-                    const name = game.i18n.localize(`PF2E.NewPlaceholders.${itemType.capitalize()}`);
+                    const name = _loc(`PF2E.NewPlaceholders.${itemType.capitalize()}`);
                     return { name, type: itemType };
                 }
             }
@@ -1402,7 +1398,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         );
 
         new foundry.appv1.api.Dialog({
-            title: game.i18n.localize("PF2E.SellAllTreasureTitle"),
+            title: _loc("PF2E.SellAllTreasureTitle"),
             content,
             buttons: {
                 yes: {

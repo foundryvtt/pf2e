@@ -1,7 +1,7 @@
 import type { CharacterPF2e } from "@actor";
 import type { ImageFilePath } from "@common/constants.d.mts";
 import type { CompendiumItemUUID, ItemUUID } from "@common/documents/_module.mts";
-import type { ABCItemPF2e, DeityPF2e, HeritagePF2e, ItemPF2e } from "@item";
+import { ABCItemPF2e, DeityPF2e, HeritagePF2e, ItemPF2e } from "@item";
 import type { ItemType } from "@item/types.ts";
 import { RARITIES, Rarity } from "@module/data.ts";
 import { SvelteApplicationMixin, type SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
@@ -53,8 +53,8 @@ class ABCPicker extends SvelteApplicationMixin<
     protected root = Root;
 
     override get title(): string {
-        const type = game.i18n.localize(`TYPES.Item.${this.options.itemType}`);
-        return game.i18n.format("PF2E.Actor.Character.ABCPicker.Title", { type });
+        const type = _loc(`TYPES.Item.${this.options.itemType}`);
+        return _loc("PF2E.Actor.Character.ABCPicker.Title", { type });
     }
 
     protected override _initializeApplicationOptions(options: Partial<ABCPickerConfiguration>): ABCPickerConfiguration {
@@ -106,9 +106,9 @@ class ABCPicker extends SvelteApplicationMixin<
         };
 
         const rarities: Record<string, string> = {
-            uncommon: game.i18n.localize(CONFIG.PF2E.rarityTraits.uncommon),
-            rare: game.i18n.localize(CONFIG.PF2E.rarityTraits.rare),
-            unique: game.i18n.localize(CONFIG.PF2E.rarityTraits.unique),
+            uncommon: _loc(CONFIG.PF2E.rarityTraits.uncommon),
+            rare: _loc(CONFIG.PF2E.rarityTraits.rare),
+            unique: _loc(CONFIG.PF2E.rarityTraits.unique),
         };
 
         return items.map((item) => {
@@ -134,7 +134,7 @@ class ABCPicker extends SvelteApplicationMixin<
             actor: this.options.actor,
             foundryApp: this,
             state: {
-                prompt: game.i18n.localize(`PF2E.Actor.Character.ABCPicker.Prompt.${itemType}`),
+                prompt: _loc(`PF2E.Actor.Character.ABCPicker.Prompt.${itemType}`),
                 itemType,
                 items: await this.#gatherItems(),
             },

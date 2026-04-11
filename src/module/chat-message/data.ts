@@ -1,7 +1,7 @@
 import type { RawDamageDice, RawModifier } from "@actor/modifiers.ts";
+import type { ChatMessageMode } from "@client/config.d.mts";
 import type { ActorUUID, TokenDocumentUUID } from "@client/documents/_module.d.mts";
 import type { DocumentUUID } from "@client/utils/_module.d.mts";
-import type { RollMode } from "@common/constants.d.mts";
 import type { ChatMessageFlags } from "@common/documents/chat-message.d.mts";
 import type { SpellSource } from "@item/base/data/index.ts";
 import type { MagicTradition } from "@item/spell/types.ts";
@@ -120,7 +120,7 @@ interface SpellCastContextFlag {
     options: string[];
     outcome?: DegreeOfSuccessString;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
-    rollMode?: RollMode;
+    messageMode?: ChatMessageMode;
 }
 
 interface AreaAttackContextFlag {

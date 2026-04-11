@@ -9,10 +9,11 @@ import type { CheckModifier, Modifier, ModifierType, StatisticModifier } from "@
 import type { SettingConfig } from "@client/_types.d.mts";
 import type Hotbar from "@client/applications/ui/hotbar.d.mts";
 import type Config from "@client/config.d.mts";
+import type { ChatMessageMode } from "@client/config.d.mts";
 import type WallDocument from "@client/documents/wall.d.mts";
 import type { FoundryUI } from "@client/ui.d.mts";
 import type { CompendiumUUID } from "@client/utils/_module.d.mts";
-import type { ImageFilePath, RollMode, UserRole } from "@common/constants.d.mts";
+import type { ImageFilePath, UserRole } from "@common/constants.d.mts";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { ConditionSource } from "@item/condition/data.ts";
 import type { Coins } from "@item/physical/helpers.ts";
@@ -41,7 +42,6 @@ import type { RuleElement, RuleElements } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type {
     AmbientLightDocumentPF2e,
-    MeasuredTemplateDocumentPF2e,
     RegionBehaviorPF2e,
     RegionDocumentPF2e,
     ScenePF2e,
@@ -84,7 +84,7 @@ interface ClientSettingsPF2e extends fh.ClientSettings {
     get(scope: "core", key: "compendiumConfiguration"): Record<string, { private: boolean; locked: boolean }>;
     get(scope: "core", key: "fontSize"): number;
     get(scope: "core", key: "noCanvas"): boolean;
-    get(scope: "core", key: "rollMode"): RollMode;
+    get(scope: "core", key: "messageMode"): ChatMessageMode;
     get(scope: "core", key: "uiConfig"): { colorScheme: { applications: string; interface: string }; uiScale: number };
     get(scope: SystemId, setting: "automation.actorsDeadAtZero"): "neither" | "npcsOnly" | "pcsOnly" | "both";
     get(scope: SystemId, setting: "automation.encumbrance"): boolean;
@@ -292,7 +292,6 @@ type ConfiguredConfig = Config<
     Hotbar<MacroPF2e>,
     ItemPF2e,
     MacroPF2e,
-    MeasuredTemplateDocumentPF2e,
     RegionDocumentPF2e,
     RegionBehaviorPF2e,
     TileDocumentPF2e,
@@ -316,10 +315,6 @@ declare global {
             ruleElement: boolean;
         };
         PF2E: typeof PF2ECONFIG;
-        time: {
-            roundTime: number;
-            turnTime: number;
-        };
     }
 
     const CONFIG: ConfigPF2e;

@@ -23,7 +23,7 @@ export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellca
     }
 
     get name(): string {
-        return game.i18n.localize("PF2E.Actor.Creature.Spellcasting.Rituals");
+        return _loc("PF2E.Actor.Creature.Spellcasting.Rituals");
     }
 
     get sort(): number {
@@ -60,7 +60,7 @@ export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellca
 
     async cast(spell: SpellPF2e, options: CastOptions = {}): Promise<void> {
         if (!spell.isRitual) throw ErrorPF2e("Attempted to cast non-ritual from `RitualSpellcasting`");
-        await spell.toMessage(undefined, { rollMode: options.rollMode });
+        await spell.toMessage(undefined, { mode: options.messageMode });
     }
 
     async getSheetData(): Promise<SpellcastingSheetData> {

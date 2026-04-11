@@ -1,3 +1,4 @@
+import { ChatMessageCreateOperation } from "@client/documents/chat-message.mjs";
 import {
     DatabaseCreateCallbackOptions,
     DatabaseCreateOperation,
@@ -8,7 +9,6 @@ import {
 } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
 import EmbeddedCollection from "@common/abstract/embedded-collection.mjs";
-import { ChatMessageCreateOperation } from "@common/documents/chat-message.mjs";
 import BaseCombat from "@common/documents/combat.mjs";
 import { Actor, Combatant, TokenDocument, User } from "./_module.mjs";
 import { CombatTurnEventContext } from "./_types.mjs";

@@ -75,7 +75,7 @@
                         class="item-info icon fa-solid fa-info-circle"
                         disabled={!selectedIndex}
                         data-tooltip
-                        aria-label={game.i18n.localize(
+                        aria-label={_loc(
                             `PF2E.UI.RuleElements.ChoiceSet.ViewItem.${selectedIndex ? "Tooltip" : "Disabled"}`,
                         )}
                         onclick={() => viewItem(selectedChoice?.value)}
@@ -98,20 +98,20 @@
                     class="fa-solid fa-fw fa-info-circle"
                     inert
                     data-tooltip
-                    aria-label={game.i18n.localize("PF2E.UI.RuleElements.ChoiceSet.DragHomebrewItem")}
+                    aria-label={_loc("PF2E.UI.RuleElements.ChoiceSet.DragHomebrewItem")}
                 ></i>
-                <span>{game.i18n.localize("PF2E.UI.RuleElements.ChoiceSet.HomebrewItem")}</span>
+                <span>{_loc("PF2E.UI.RuleElements.ChoiceSet.HomebrewItem")}</span>
             </div>
         {/if}
     </section>
 
     {#if selectMenu}
         <button type="button" onclick={() => resolve(selectedChoice)}>
-            {game.i18n.localize("PF2E.UI.RuleElements.ChoiceSet.SaveLabel")}
+            {_loc("PF2E.UI.RuleElements.ChoiceSet.SaveLabel")}
         </button>
     {:else if allowNoSelection}
         <button type="button" data-action="close">
-            <span>{game.i18n.localize("PF2E.UI.RuleElements.ChoiceSet.Decline")}</span>
+            <span>{_loc("PF2E.UI.RuleElements.ChoiceSet.Decline")}</span>
         </button>
     {/if}
 </div>
@@ -128,7 +128,7 @@
                 type="button"
                 class="item-info icon fa-solid fa-info-circle"
                 data-tooltip
-                aria-label={game.i18n.localize("PF2E.UI.RuleElements.ChoiceSet.ViewItem.Tooltip")}
+                aria-label={_loc("PF2E.UI.RuleElements.ChoiceSet.ViewItem.Tooltip")}
                 onclick={() => viewItem(value)}
             ></button>
         {/if}

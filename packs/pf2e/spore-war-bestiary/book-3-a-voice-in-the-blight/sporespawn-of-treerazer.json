@@ -961,7 +961,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>60 feet. A faint, hazy green cloud surrounds the sporespawn of Treerazer, causing fungi to grow on plants in the area. A living creature in the aura must succeed at a @Check[fortitude|dc:42] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure) from the sensation of these spores taking root on their bodies. A creature that's already sickened and fails their save against the aura of spores becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round because of excessive fungal growth on their bodies.</p>"
+                    "value": "<p>60 feet. A faint, hazy green cloud surrounds the sporespawn of Treerazer, causing fungi to grow on plants in the area. A living creature in the aura must succeed at a @Check[fortitude|dc:42|options:area-effect,inflicts:sickened,inflicts:slowed] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure) from the sensation of these spores taking root on their bodies. A creature that's already sickened and fails their save against the aura of spores becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round because of excessive fungal growth on their bodies.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -974,9 +974,9 @@
                         "radius": 60,
                         "slug": "aura-of-corruption",
                         "traits": [
-                            "primal",
                             "fungus",
-                            "poison"
+                            "poison",
+                            "primal"
                         ]
                     }
                 ],

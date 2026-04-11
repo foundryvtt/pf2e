@@ -94,9 +94,7 @@ class TempHPRuleElement extends RuleElement<TempHPRuleSchema> {
         if (fu.getProperty(updatedActorData, "system.attributes.hp.tempsource") === this.item.id) {
             fu.mergeObject(actorUpdates, { "system.attributes.hp.temp": 0 });
             const hpData = fu.getProperty(actorUpdates, "system.attributes.hp");
-            if (R.isPlainObject(hpData)) {
-                hpData["-=tempsource"] = null;
-            }
+            if (R.isPlainObject(hpData)) hpData["tempsource"] = _del;
         }
     }
 
@@ -106,9 +104,9 @@ class TempHPRuleElement extends RuleElement<TempHPRuleSchema> {
             newQuantity === 1
                 ? "PF2E.Encounter.Broadcast.TempHP.SingleNew"
                 : "PF2E.Encounter.Broadcast.TempHP.PluralNew";
-        const wasAt = oldQuantity > 0 ? game.i18n.format("PF2E.Encounter.Broadcast.TempHP.WasAt", { oldQuantity }) : "";
+        const wasAt = oldQuantity > 0 ? _loc("PF2E.Encounter.Broadcast.TempHP.WasAt", { oldQuantity }) : "";
         const [actor, item] = [this.actor.name, this.item.name];
-        const content = game.i18n.format(singularOrPlural, { actor, newQuantity, wasAt, item });
+        const content = _loc(singularOrPlural, { actor, newQuantity, wasAt, item });
         const recipients = game.users.filter((u) => this.actor.testUserPermission(u, "OWNER")).map((u) => u.id);
         const speaker = ChatMessagePF2e.getSpeaker({ actor: this.actor, token: this.token });
         ChatMessagePF2e.create({ content, speaker, whisper: recipients });

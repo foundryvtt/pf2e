@@ -18,8 +18,8 @@
         });
     });
 
-    const typePlural = game.i18n.localize(`PF2E.Item.${data.itemType.capitalize()}.Plural`);
-    const searchPlaceholder = game.i18n.format("PF2E.Actor.Character.ABCPicker.SearchPlaceholder", {
+    const typePlural = _loc(`PF2E.Item.${data.itemType.capitalize()}.Plural`);
+    const searchPlaceholder = _loc("PF2E.Actor.Character.ABCPicker.SearchPlaceholder", {
         items: typePlural,
     });
 
@@ -65,14 +65,14 @@
                     type="button"
                     class="confirm icon fa-solid fa-check"
                     data-tooltip
-                    aria-label={game.i18n.localize("PF2E.Actor.Character.ABCPicker.Tooltip.ConfirmSelection")}
+                    aria-label={_loc("PF2E.Actor.Character.ABCPicker.Tooltip.ConfirmSelection")}
                     onclick={saveSelection}
                 ></button>
                 <button
                     type="button"
                     class="icon fa-solid fa-memo-pad"
                     data-tooltip
-                    aria-label={game.i18n.localize("PF2E.Actor.Character.ABCPicker.Tooltip.ViewSheet")}
+                    aria-label={_loc("PF2E.Actor.Character.ABCPicker.Tooltip.ViewSheet")}
                     onclick={viewItemSheet}
                 ></button>
             </div>

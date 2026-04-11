@@ -45,11 +45,11 @@ export class DamageTypeManager {
         collections.DAMAGE_TYPE_ICONS[slug] = data.icon?.substring(3) ?? null; // icons registered do not include the fa-
         collections.damageTypesLocalization[slug] = data.label;
 
-        const versatileLabel = game.i18n.format("PF2E.TraitVersatileX", { x: data.label });
+        const versatileLabel = _loc("PF2E.TraitVersatileX", { x: data.label });
         CONFIG.PF2E.weaponTraits[`versatile-${slug}` as WeaponTrait] = versatileLabel;
         CONFIG.PF2E.npcAttackTraits[`versatile-${slug}` as WeaponTrait] = versatileLabel;
 
-        const damageFlavor = game.i18n.localize(data.label).toLocaleLowerCase(game.i18n.lang);
+        const damageFlavor = _loc(data.label).toLocaleLowerCase(game.i18n.lang);
         collections.damageRollFlavorsLocalization[slug] = damageFlavor;
         collections.immunityTypes[slug] = damageFlavor;
         collections.weaknessTypes[slug] = damageFlavor;

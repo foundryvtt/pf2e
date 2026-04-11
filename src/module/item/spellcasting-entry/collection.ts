@@ -185,7 +185,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
                 const label =
                     groupId === "cantrips"
                         ? "PF2E.Actor.Creature.Spellcasting.Cantrips"
-                        : game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) });
+                        : _loc("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) });
                 const uses = {
                     value: rank > 0 && isFlexible ? group.value || 0 : undefined,
                     max: group.max,
@@ -247,7 +247,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
                         label:
                             groupId === "cantrips"
                                 ? "PF2E.Actor.Creature.Spellcasting.Cantrips"
-                                : game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) }),
+                                : _loc("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) }),
                         maxRank,
                         uses,
                         active,
@@ -314,7 +314,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
             .map(
                 ([rank, spells]): SpellcastingSlotGroup => ({
                     id: Number(rank) as SpellSlotGroupId,
-                    label: game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(Number(rank)) }),
+                    label: _loc("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(Number(rank)) }),
                     maxRank: 10,
                     active: spells.map((spell) => ({ spell, expended: spell.parentItem?.uses.value === 0 })),
                 }),
@@ -350,7 +350,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
             const locKey = spell.isCantrip ? "CantripToRankedSlots" : "NonCantripToCantrips";
             ui.notifications.warn(localize(locKey, { spell: spell.name }));
         } else if (warning === "invalid-spell") {
-            const type = game.i18n.format("PF2E.TraitFocus");
+            const type = _loc("PF2E.TraitFocus");
             ui.notifications.warn(localize("WrongSpellType", { type }));
         }
     }

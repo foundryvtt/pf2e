@@ -456,10 +456,10 @@ class DamageInstance extends AbstractDamageRoll {
     }
 
     override get formula(): string {
-        const typeFlavor = game.i18n.localize(CONFIG.PF2E.damageRollFlavors[this.type] ?? this.type);
+        const typeFlavor = _loc(CONFIG.PF2E.damageRollFlavors[this.type] ?? this.type);
         const damageType =
             this.persistent && this.type !== "bleed"
-                ? game.i18n.format("PF2E.Damage.RollFlavor.persistent", { damageType: typeFlavor })
+                ? _loc("PF2E.Damage.RollFlavor.persistent", { damageType: typeFlavor })
                 : this.type !== "untyped"
                   ? typeFlavor
                   : "";
@@ -572,9 +572,9 @@ class DamageInstance extends AbstractDamageRoll {
     }
 
     get typeLabel(): string {
-        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[this.type]);
+        const damageType = _loc(CONFIG.PF2E.damageTypes[this.type]);
         return this.persistent && this.type !== "bleed"
-            ? game.i18n.format("PF2E.Damage.PersistentTooltip", { damageType })
+            ? _loc("PF2E.Damage.PersistentTooltip", { damageType })
             : damageType;
     }
 

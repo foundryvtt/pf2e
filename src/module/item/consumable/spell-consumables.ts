@@ -50,7 +50,7 @@ async function createConsumableFromSpell(
 
     const nameTemplate = type === "cantripDeck5" ? "PF2E.Item.Physical.FromSpell.CantripDeck5" : data?.nameTemplate;
     consumableSource.name = nameTemplate
-        ? game.i18n.format(nameTemplate, { name: spell.name, level: rank })
+        ? _loc(nameTemplate, { name: spell.name, level: rank })
         : `${type} of ${spell.name} (Rank ${rank})`;
     const description = consumableSource.system.description.value;
 

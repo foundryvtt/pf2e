@@ -46,7 +46,7 @@ class RollNotePF2e {
                 itemId: this.rule?.item.id,
                 visibility: this.visibility,
             },
-            innerHTML: game.i18n.localize(this.text),
+            innerHTML: _loc(this.text),
         });
 
         // Remove wrapping elements, such as from item descriptions
@@ -55,7 +55,7 @@ class RollNotePF2e {
         }
 
         if (this.title) {
-            const strong = createHTMLElement("strong", { innerHTML: game.i18n.localize(this.title) });
+            const strong = createHTMLElement("strong", { innerHTML: _loc(this.title) });
             element.prepend(strong, " ");
         }
 

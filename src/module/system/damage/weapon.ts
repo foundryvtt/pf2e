@@ -493,7 +493,7 @@ class WeaponDamagePF2e {
         };
 
         return {
-            name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
+            name: `${_loc("PF2E.DamageRoll")}: ${weapon.name}`,
             materials: Array.from(materials),
             modifiers: [...damageDice, ...testedModifiers],
             damage: {

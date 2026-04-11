@@ -14,12 +14,12 @@
 
 <div class="tags paizo-style">
     {#if rarity && rarity !== "common" && rarityLabel}
-        <span class={["tag", "rarity", rarity].join(" ")}>{game.i18n.localize(rarityLabel)}</span>
+        <span class={["tag", "rarity", rarity].join(" ")}>{_loc(rarityLabel)}</span>
     {/if}
     {#each traits.filter((t) => !t.mystified) as trait (trait.value)}
         <span class="tag" data-trait={trait.value}>{trait.label}</span>
     {/each}
     {#each properties as property (property)}
-        <span class="tag light property">{game.i18n.localize(property)}</span>
+        <span class="tag light property">{_loc(property)}</span>
     {/each}
 </div>

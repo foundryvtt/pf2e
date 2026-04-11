@@ -133,8 +133,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
         return {
             itemType: null,
             showTraits: !R.isEmpty(this.validTraits),
-            sidebarTitle: game.i18n.format("PF2E.Item.SidebarSummary", {
-                type: game.i18n.localize(`TYPES.Item.${item.type}`),
+            sidebarTitle: _loc("PF2E.Item.SidebarSummary", {
+                type: _loc(`TYPES.Item.${item.type}`),
             }),
             sidebarTemplate: options.hasSidebar
                 ? `systems/${SYSTEM_ID}/templates/items/${sluggify(item.type)}-sidebar.hbs`
@@ -394,7 +394,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
                         const clipText = button.dataset.clipboard;
                         if (clipText) {
                             game.clipboard.copyPlainText(clipText);
-                            ui.notifications.info(game.i18n.format("PF2E.ClipboardNotification", { clipText }));
+                            ui.notifications.info(_loc("PF2E.ClipboardNotification", { clipText }));
                         }
                     });
                     break;
@@ -412,7 +412,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
                     button.addEventListener("click", async () => {
                         const path = `systems/${SYSTEM_ID}/templates/system/roll-options-tooltip.hbs`;
                         const content = await fa.handlebars.renderTemplate(path, {
-                            description: game.i18n.localize("PF2E.Item.Rules.Hint.RollOptions"),
+                            description: _loc("PF2E.Item.Rules.Hint.RollOptions"),
                             rollOptions: R.sortBy(this.item.getRollOptions("item").sort(), (o) => o.includes(":")),
                         });
                         game.tooltip.dismissLockedTooltips();
@@ -494,7 +494,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
                     } catch (error) {
                         if (error instanceof Error) {
                             ui.notifications.error(
-                                game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message }),
+                                _loc("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message }),
                             );
                             console.warn("Syntax error in rule element definition.", error.message, value);
                             throw error;

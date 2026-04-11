@@ -49,13 +49,13 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
             runeTypes: {
                 ...RUNE_DATA.armor,
                 property: Object.values(RUNE_DATA.armor.property)
-                    .map((p) => ({ slug: p.slug, name: game.i18n.localize(p.name) }))
+                    .map((p) => ({ slug: p.slug, name: _loc(p.name) }))
                     .sort((a, b) => a.name.localeCompare(b.name)),
             },
             grades: R.mapValues(CONFIG.PF2E.grades, (v, slug) => {
-                const label = game.i18n.localize(v);
+                const label = _loc(v);
                 const data = CONFIG.PF2E.armorImprovements[slug];
-                return game.i18n.format("PF2E.Item.Armor.GradeOption", { grade: label, ...data });
+                return _loc("PF2E.Item.Armor.GradeOption", { grade: label, ...data });
             }),
             specificMagicData,
         };

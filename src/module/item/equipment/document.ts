@@ -34,12 +34,12 @@ class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
               : (this.system.usage.value?.replace(/^worn/, "").capitalize() ?? "");
 
         const itemType = objectHasKey(identificationConfig.UnidentifiedType, slotType)
-            ? game.i18n.localize(identificationConfig.UnidentifiedType[slotType])
-            : game.i18n.localize(identificationConfig.UnidentifiedType.Object);
+            ? _loc(identificationConfig.UnidentifiedType[slotType])
+            : _loc(identificationConfig.UnidentifiedType.Object);
 
         if (typeOnly) return itemType;
 
-        return game.i18n.format(identificationConfig.UnidentifiedItem, { item: itemType });
+        return _loc(identificationConfig.UnidentifiedItem, { item: itemType });
     }
 }
 

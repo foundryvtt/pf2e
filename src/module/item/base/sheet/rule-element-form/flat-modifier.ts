@@ -38,7 +38,7 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierR
                 .filter((t) => abpEnabled || t !== "potency")
                 .sort((a, b) => (a[0] === "untyped" ? -1 : b[0] === "untyped" ? 1 : a[1].localeCompare(b[1]))),
 
-            (t) => [t, game.i18n.localize(`PF2E.ModifierType.${t}`)],
+            (t) => [t, _loc(`PF2E.ModifierType.${t}`)],
         );
         if (typeof data.rule.selector === "string") data.rule.selector = [data.rule.selector];
 

@@ -67,7 +67,7 @@
         const actors = getSelectedActors({ include: ["character", "loot", "npc", "party"], assignedFallback: true });
 
         if (actors.length === 0) {
-            ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
+            ui.notifications.error(_loc("PF2E.ErrorMessage.NoTokenSelected"));
             return;
         }
         const item = await getPhysicalItem(uuid);
@@ -79,13 +79,13 @@
 
         if (actors.length === 1 && game.user.character && actors[0] === game.user.character) {
             ui.notifications.info(
-                game.i18n.format("PF2E.CompendiumBrowser.AddedItemToCharacter", {
+                _loc("PF2E.CompendiumBrowser.AddedItemToCharacter", {
                     item: item.name,
                     character: game.user.character.name,
                 }),
             );
         } else {
-            ui.notifications.info(game.i18n.format("PF2E.CompendiumBrowser.AddedItem", { item: item.name }));
+            ui.notifications.info(_loc("PF2E.CompendiumBrowser.AddedItem", { item: item.name }));
         }
     }
 
@@ -96,7 +96,7 @@
             if (game.user.character?.isOfType("character")) {
                 actors.push(game.user.character);
             } else {
-                ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
+                ui.notifications.error(_loc("PF2E.ErrorMessage.NoTokenSelected"));
                 return;
             }
         }
@@ -114,43 +114,30 @@
 
         if (actors.length === 1) {
             if (purchaseSuccesses === 1) {
-                ui.notifications.info(
-                    game.i18n.format("PF2E.CompendiumBrowser.BoughtItemWithCharacter", {
-                        item: item.name,
-                        character: actors[0].name,
-                    }),
-                );
+                ui.notifications.info("PF2E.CompendiumBrowser.BoughtItemWithCharacter", {
+                    format: { item: item.name, character: actors[0].name },
+                });
             } else {
-                ui.notifications.warn(
-                    game.i18n.format("PF2E.CompendiumBrowser.FailedToBuyItemWithCharacter", {
-                        item: item.name,
-                        character: actors[0].name,
-                    }),
-                );
+                ui.notifications.warn("PF2E.CompendiumBrowser.FailedToBuyItemWithCharacter", {
+                    format: { item: item.name, character: actors[0].name },
+                });
             }
         } else {
             if (purchaseSuccesses === actors.length) {
-                ui.notifications.info(
-                    game.i18n.format("PF2E.CompendiumBrowser.BoughtItemWithAllCharacters", {
-                        item: item.name,
-                    }),
-                );
+                ui.notifications.info("PF2E.CompendiumBrowser.BoughtItemWithAllCharacters", {
+                    format: { item: item.name },
+                });
             } else {
-                ui.notifications.warn(
-                    game.i18n.format("PF2E.CompendiumBrowser.FailedToBuyItemWithSomeCharacters", {
-                        item: item.name,
-                    }),
-                );
+                ui.notifications.warn("PF2E.CompendiumBrowser.FailedToBuyItemWithSomeCharacters", {
+                    format: { item: item.name },
+                });
             }
         }
     }
 
     async function getPhysicalItem(uuid: string): Promise<PhysicalItemPF2e | KitPF2e> {
         const item = await fromUuid<PhysicalItemPF2e | KitPF2e>(uuid);
-        if (!item?.isOfType("physical", "kit")) {
-            throw ErrorPF2e("Unexpected failure retrieving compendium item");
-        }
-
+        if (!item?.isOfType("physical", "kit")) throw ErrorPF2e("Unexpected failure retrieving compendium item");
         return item;
     }
 </script>
@@ -167,7 +154,7 @@
         <div class="tags paizo-style">
             {#if entry.rarity !== "common"}
                 <span class="tag rarity {entry.rarity}" data-tooltip="PF2E.Rarity">
-                    {game.i18n.localize(CONFIG.PF2E.rarityTraits[entry.rarity as Rarity])}
+                    {_loc(CONFIG.PF2E.rarityTraits[entry.rarity as Rarity])}
                 </span>
             {/if}
         </div>

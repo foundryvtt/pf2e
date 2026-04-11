@@ -102,7 +102,7 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
     }
 
     override async _prepareContext(): Promise<SettingsContext> {
-        const buttons = [
+        const buttons: FormFooterButton[] = [
             { type: "submit", icon: "fa-solid fa-floppy-disk", label: "SETTINGS.Save" },
             {
                 type: "button",
@@ -118,11 +118,11 @@ export class WorldClockSettings extends fa.api.HandlebarsApplicationMixin(fa.api
             settings: game.pf2e.settings.worldClock,
             dateThemes: R.mapToObj(["AR", "IC", "AG", "AD", "CE"], (k) => [
                 k,
-                game.i18n.localize(`PF2E.SETTINGS.WorldClock.DateThemes.${k}`),
+                _loc(`PF2E.SETTINGS.WorldClock.DateThemes.${k}`),
             ]),
             timeConventions: {
-                12: game.i18n.localize("PF2E.SETTINGS.WorldClock.TimeConventions.12"),
-                24: game.i18n.localize("PF2E.SETTINGS.WorldClock.TimeConventions.24"),
+                12: _loc("PF2E.SETTINGS.WorldClock.TimeConventions.12"),
+                24: _loc("PF2E.SETTINGS.WorldClock.TimeConventions.24"),
             },
             buttons,
         };

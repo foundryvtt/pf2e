@@ -131,8 +131,8 @@ const KINGDOM_SETTLEMENT_TYPE_DATA = {
 } satisfies Record<KingdomSettlementType, KingdomSettlementTypeData>;
 
 const vacancyLabel = (role: KingdomLeadershipRole) =>
-    game.i18n.format("PF2E.Kingmaker.Kingdom.VacantRole", {
-        role: game.i18n.localize(`PF2E.Kingmaker.Kingdom.LeadershipRole.${role}`),
+    _loc("PF2E.Kingmaker.Kingdom.VacantRole", {
+        role: _loc(`PF2E.Kingmaker.Kingdom.LeadershipRole.${role}`),
     });
 
 type VacancyPenalty = {
@@ -360,6 +360,7 @@ function getKingdomCHGData(): KingdomCHGData {
 
 export {
     CONTROL_DC_BY_LEVEL,
+    getKingdomCHGData,
     KINGDOM_ABILITIES,
     KINGDOM_ABILITY_LABELS,
     KINGDOM_COMMODITIES,
@@ -367,15 +368,14 @@ export {
     KINGDOM_LEADERSHIP,
     KINGDOM_LEADERSHIP_ABILITIES,
     KINGDOM_RUIN_LABELS,
-    KINGDOM_SETTLEMENT_TYPES,
     KINGDOM_SETTLEMENT_TYPE_DATA,
     KINGDOM_SETTLEMENT_TYPE_LABELS,
+    KINGDOM_SETTLEMENT_TYPES,
     KINGDOM_SIZE_DATA,
-    KINGDOM_SKILLS,
     KINGDOM_SKILL_ABILITIES,
     KINGDOM_SKILL_LABELS,
+    KINGDOM_SKILLS,
     VACANCY_PENALTIES,
-    getKingdomCHGData,
 };
 
 export type { KingdomCHGData };

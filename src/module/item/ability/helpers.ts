@@ -107,7 +107,7 @@ function createActionRangeLabel(range: Maybe<RangeData>): string | null {
         ? ["PF2E.Action.Range.IncrementN", range.increment]
         : ["PF2E.Action.Range.MaxN", range.max];
 
-    return game.i18n.format(key, { n: value });
+    return _loc(key, { n: value });
 }
 
 /**  Add the holy/unholy trait to sanctified actions and spells if the owning actor is also holy/unholy */

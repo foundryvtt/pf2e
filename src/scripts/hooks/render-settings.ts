@@ -29,7 +29,7 @@ export const RenderSettings = {
                     label: "PF2E.SETTINGS.Sidebar.Discord",
                 },
             ].map((data): HTMLAnchorElement => {
-                const anchor = createHTMLElement("a", { children: [game.i18n.localize(data.label)] });
+                const anchor = createHTMLElement("a", { children: [_loc(data.label)] });
                 anchor.href = data.url;
                 anchor.rel = "nofollow noopener";
                 anchor.target = "_blank";
@@ -47,13 +47,13 @@ export const RenderSettings = {
             const createIcon = fa.fields.createFontAwesomeIcon;
             const licenseButton = document.createElement("button");
             licenseButton.type = "button";
-            licenseButton.append(createIcon("balance-scale"), " ", game.i18n.localize("PF2E.LegalNotice.Title"));
+            licenseButton.append(createIcon("balance-scale"), " ", _loc("PF2E.LegalNotice.Title"));
             licenseButton.addEventListener("click", () => new LegalNotice().render({ force: true }));
 
             if (SYSTEM_ID === "pf2e") {
                 const remasterButton = document.createElement("button");
                 remasterButton.type = "button";
-                remasterButton.append(createIcon("rocket"), game.i18n.localize("PF2E.SETTINGS.Sidebar.Remaster"));
+                remasterButton.append(createIcon("rocket"), _loc("PF2E.SETTINGS.Sidebar.Remaster"));
                 remasterButton.addEventListener("click", async () => {
                     const entry = await fromUuid("Compendium.pf2e.journals.JournalEntry.6L2eweJuM8W7OCf2");
                     entry?.sheet.render(true);
@@ -65,7 +65,7 @@ export const RenderSettings = {
             if (game.user.isGM) {
                 const shootButton = document.createElement("button");
                 shootButton.type = "button";
-                shootButton.append(createIcon("wrench"), game.i18n.localize("PF2E.Migrations.Troubleshooting"));
+                shootButton.append(createIcon("wrench"), _loc("PF2E.Migrations.Troubleshooting"));
                 shootButton.addEventListener("click", () => new MigrationSummary({ troubleshoot: true }).render(true));
                 pf2eSettings.append(shootButton);
             }

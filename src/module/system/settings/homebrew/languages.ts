@@ -52,7 +52,7 @@ export class LanguagesManager {
                     .map((slug) => {
                         const locKey =
                             CONFIG.PF2E.languages[slug] ?? homebrewLanguages.find((l) => l.id === slug)?.value ?? slug;
-                        return { slug, label: game.i18n.localize(locKey) };
+                        return { slug, label: _loc(locKey) };
                     })
                     .sort((a, b) => a.label.localeCompare(b.label)),
             ]),

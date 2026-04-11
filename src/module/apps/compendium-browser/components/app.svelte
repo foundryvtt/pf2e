@@ -36,7 +36,7 @@
 {/if}
 {#if !state.activeTabName}
     <div class="browser-tab" data-tooltip-class="pf2e">
-        <div class="landing-page">{game.i18n.localize("PF2E.CompendiumBrowser.Hint")}</div>
+        <div class="landing-page">{_loc("PF2E.CompendiumBrowser.Hint")}</div>
     </div>
 {:else}
     <BrowserTab bind:activeTabName={state.activeTabName} {state} />

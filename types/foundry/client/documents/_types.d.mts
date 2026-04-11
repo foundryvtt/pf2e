@@ -1,4 +1,10 @@
-import { TokenConstrainMovementPathOptions, TokenMovementActionConfig } from "@client/_types.mjs";
+import {
+    TokenConstrainMovementPathOptions,
+    TokenCreateTerrainMovementPathOptions,
+    TokenMovementActionConfig,
+    TokenPanningOptions,
+} from "@client/_types.mjs";
+import { CanvasAnimationEasingFunction } from "@client/canvas/animation/_types.mjs";
 import { TerrainData } from "@client/data/terrain-data.mjs";
 import Roll from "@client/dice/roll.mjs";
 import { ElevatedPoint, TokenPosition } from "@common/_types.mjs";
@@ -6,7 +12,7 @@ import DataModel from "@common/abstract/data.mjs";
 import { RegionMovementSegmentType, TokenShapeType } from "@common/constants.mjs";
 import { EffectDurationData } from "@common/documents/active-effect.mjs";
 import { GridMeasurePathCostFunction3D, GridOffset3D } from "@common/grid/_types.mjs";
-import { Combat, Combatant, RegionDocument, TableResult, TokenDocument, User } from "./_module.mjs";
+import { Combat, Combatant, RegionDocument, TableResult, TokenDocument, TokenSource, User } from "./_module.mjs";
 
 /**
  * The data that is planned to be imported for the adventure, categorized into new documents that will be created and
@@ -337,6 +343,20 @@ export interface SceneDimensions {
     columns: number;
 }
 
+interface SceneViewOptions {
+    /** The ID of the Level to view */
+    level?: string;
+    /** The IDs of initially controlled tokens */
+    controlledTokens?: string[];
+    /** The transition animation to used when viewing the scene */
+    transition?: {
+        /** The type of the transition animation */
+        type?: string;
+        /** The duration of the transition animation */
+        duration?: number;
+    };
+}
+
 export interface TrackedAttributesDescription {
     /**
      * A list of property path arrays to attributes with both a value and a max property.
@@ -349,70 +369,51 @@ export interface TrackedAttributesDescription {
 }
 
 export interface TokenMeasuredMovementWaypoint {
-    /**
-     * The top-left x-coordinate in pixels (integer).
-     */
+    /** The top-left x-coordinate in pixels (integer). */
     x: number;
-    /**
-     * The top-left y-coordinate in pixels (integer).
-     */
+    /** The top-left y-coordinate in pixels (integer). */
     y: number;
-    /**
-     * The elevation in grid units.
-     */
+    /** The elevation in grid units. */
     elevation: number;
-    /**
-     * The width in grid spaces (positive).
-     */
+    /** The width in grid spaces (positive). */
     width: number;
-    /**
-     * The height in grid spaces (positive).
-     */
+    /** The height in grid spaces (positive). */
     height: number;
-    /**
-     * The shape type (see {@link CONST.TOKEN_SHAPES}).
-     */
+    /** The shape type (see {@link CONST.TOKEN_SHAPES}). */
     shape: TokenShapeType;
-    /**
-     * The movement action from the previous to this waypoint.
-     */
+    /** The level ID. Default: the previous or source level ID. */
+    level: string;
+    /** The movement action from the previous to this waypoint. */
     action: string;
-    /**
-     * The terrain data from the previous to this waypoint.
-     */
+    /** The terrain data from the previous to this waypoint. */
     terrain: TerrainData | null;
-    /**
-     * Was this waypoint snapped to the grid?
-     */
+    /** Was this waypoint snapped to the grid? */
     snapped: boolean;
-    /**
-     * Was this waypoint explicitly placed by the user?
-     */
+    /** Was this waypoint explicitly placed by the user? */
     explicit: boolean;
-    /**
-     * Is this waypoint a checkpoint?
-     */
+    /** Is this waypoint a checkpoint? */
     checkpoint: boolean;
-    /**
-     * Is this waypoint intermediate?
-     */
+    /** Is this waypoint intermediate? */
     intermediate: boolean;
-    /**
-     * The ID of the user that moved the token to from the previous to this waypoint.
-     */
+    /** The ID of the user that moved the token to from the previous to this waypoint. */
     userId: string;
-    /**
-     * The ID of the movement from the previous to this waypoint.
-     */
+    /** The ID of the movement from the previous to this waypoint. */
     movementId: string;
-    /**
-     * The movement cost from the previous to this waypoint (nonnegative).
-     */
+    /** The movement cost from the previous to this waypoint (nonnegative). */
     cost: number;
 }
 
-export interface TokenMovementWaypoint
-    extends Omit<TokenMeasuredMovementWaypoint, "terrain" | "intermediate" | "userId" | "movementId" | "cost"> {}
+export interface TokenMovementWaypoint extends Omit<
+    TokenMeasuredMovementWaypoint,
+    "terrain" | "intermediate" | "userId" | "movementId" | "cost"
+> {}
+
+export interface TokenProcessedMovementWaypoint extends TokenMovementWaypoint {
+    /** The terrain data of this segment. Default: `null`. */
+    terrain: DataModel | null;
+    /** Is this waypoint intermediate? Default: `false`. */
+    intermediate: boolean;
+}
 
 export type TokenMovementSegmentData = Pick<
     TokenMeasuredMovementWaypoint,
@@ -535,8 +536,10 @@ export interface TokenGetCompleteMovementPathWaypoint {
     intermediate?: boolean;
 }
 
-export interface TokenCompleteMovementWaypoint
-    extends Omit<TokenMeasuredMovementWaypoint, "userId" | "movementId" | "cost"> {}
+export interface TokenCompleteMovementWaypoint extends Omit<
+    TokenMeasuredMovementWaypoint,
+    "userId" | "movementId" | "cost"
+> {}
 
 export interface TokenSegmentizeMovementWaypoint {
     /**
@@ -714,6 +717,88 @@ export interface TokenMovementData {
 
 export interface TokenMovementOperation extends Omit<TokenMovementData, "user" | "state" | "updateOptions"> {}
 
+export interface TokenMovementInstructionOptions {
+    id?: string;
+    method?: TokenMovementMethod;
+    autoRotate?: boolean;
+    showRuler?: boolean;
+    terrainOptions?: Omit<TokenCreateTerrainMovementPathOptions, "preview">;
+    constrainOptions?: Omit<TokenConstrainMovementPathOptions, "preview" | "history" | "measureOptions">;
+    measureOptions?: Omit<TokenMeasureMovementPathOptions, "preview">;
+    split?: boolean;
+    planned?: boolean;
+}
+
+export interface TokenMovementInstructionDestination {
+    destination: Partial<TokenSource & TokenMovementWaypoint>;
+}
+
+export interface TokenMovementInstructionWaypoints {
+    waypoints: Partial<TokenMovementWaypoint>[];
+}
+
+export type TokenMovementInstruction = (TokenMovementInstructionDestination | TokenMovementInstructionWaypoints) &
+    TokenMovementInstructionOptions;
+
+export interface TokenResizingInstruction {
+    dimensions: Partial<Omit<TokenSource & TokenMovementWaypoint, "x" | "y" | "elevation">>;
+    id?: string;
+    method?: TokenMovementMethod;
+    autoRotate?: false;
+    showRuler?: false;
+    terrainOptions?: {};
+    constrainOptions?: { ignoreWalls: true; ignoreCost: true };
+    measureOptions?: {};
+    split?: boolean;
+    planned?: boolean;
+}
+
+export interface TokenMovementOptions {
+    /** The movement ID, which must be unique. Default: auto-generated. */
+    id?: string;
+    /** The method of movement. Default: `"api"`. */
+    method?: TokenMovementMethod;
+    /**
+     * Automatically rotate the token in the direction of movement? Default:
+     * `game.settings.get("core", "tokenAutoRotate")` if `method` is `"dragging"` or `"keyboard"` otherwise `false`.
+     */
+    autoRotate?: boolean;
+    /**
+     * Show the ruler during the movement animation of the token? Default: `true` if `method` is `"dragging"` otherwise
+     * `false`.
+     */
+    showRuler?: boolean;
+    /** The terrain movement options. */
+    terrainOptions?: Omit<TokenCreateTerrainMovementPathOptions, "preview">;
+    /** The options to constrain movement. */
+    constrainOptions?: Omit<TokenConstrainMovementPathOptions, "preview" | "history" | "measureOptions">;
+    /** The options to measure movement. */
+    measureOptions?: Omit<TokenMeasureMovementPathOptions, "preview">;
+    /**
+     * Start a new subpath? Default: `false` if it's movement without history or keyboard movement that follows keyboard
+     * movement, otherwise `true`.
+     */
+    split?: boolean;
+    /** Don't start the movement yet? Default: `false`. */
+    planned?: boolean;
+    pan?: boolean | TokenPanningOptions;
+    /**
+     * Pan the canvas (with transition animation) to the destination if the token is controlled? Default: `true`.
+     */
+    animate?: boolean;
+    /** The animation options. */
+    animation?: {
+        /** The duration of the animation in milliseconds (nonnegative). */
+        duration?: number;
+        /** The base movement speed in grid size per second (positive). */
+        movementSpeed?: number;
+        /** Set the duration of non-movement properties to the animation. */
+        linkToMovement?: boolean;
+        /** The easing function of the animation of non-movement properties. Default: `undefined` (linear). */
+        easing?: CanvasAnimationEasingFunction;
+    };
+}
+
 export interface TokenMovementContinuationData {
     /** The movement ID */
     movementId: string;
@@ -755,3 +840,24 @@ export interface TokenMovementContinuationHandle {
 }
 
 export type TokenResumeMovementCallback = () => Promise<boolean>;
+
+export interface RegionSurface {
+    /** A key that uniquely identifies the surface */
+    key: string;
+    /** The region of the surface */
+    region: RegionDocument;
+    /** The elevation of the surface */
+    elevation: number;
+    /** Does the surface restrict light? */
+    light: boolean;
+    /** Does the surface restrict movement? */
+    move: boolean;
+    /** Does the surface restrict sight? */
+    sight: boolean;
+    /** Does the surface restrict sound? */
+    sound: boolean;
+    /** Does the surface cause occlusion? */
+    occlusion: boolean;
+    /** Does the surface cause exposure? */
+    exposure: boolean;
+}

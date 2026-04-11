@@ -398,31 +398,6 @@ export const DOCUMENT_LINK_TYPES: readonly [
 ];
 
 /**
- * The supported dice roll visibility modes
- * @see https://foundryvtt.com/article/dice/
- */
-export const DICE_ROLL_MODES: Readonly<{
-    /**
-     * This roll is visible to all players.
-     */
-    PUBLIC: "publicroll";
-    /**
-     * Rolls of this type are only visible to the player that rolled and any Game Master users.
-     */
-    PRIVATE: "gmroll";
-    /**
-     * A private dice roll only visible to Game Master users. The rolling player will not see the result of their own roll.
-     */
-    BLIND: "blindroll";
-    /**
-     * A private dice roll which is only visible to the user who rolled it.
-     */
-    SELF: "selfroll";
-}>;
-
-export type RollMode = (typeof DICE_ROLL_MODES)[keyof typeof DICE_ROLL_MODES];
-
-/**
  * The allowed fill types which a Drawing object may display
  * @see https://foundryvtt.com/article/drawings/
  */
@@ -1132,31 +1107,6 @@ export const USER_ROLE_NAMES: {
 export type UserRole = keyof typeof USER_ROLE_NAMES;
 
 /**
- * An enumeration of the allowed types for a MeasuredTemplate embedded document
- * @see https://foundryvtt.com/article/measurement/
- */
-export const MEASURED_TEMPLATE_TYPES: Readonly<{
-    /**
-     * Circular templates create a radius around the starting point.
-     */
-    CIRCLE: "circle";
-    /**
-     * Cones create an effect in the shape of a triangle or pizza slice from the starting point.
-     */
-    CONE: "cone";
-    /**
-     * A rectangle uses the origin point as one of the corners, treating the origin as being inside of the rectangle's area.
-     */
-    RECTANGLE: "rect";
-    /**
-     * A ray creates a single line that is one square in width and as long as you want it to be.
-     */
-    RAY: "ray";
-}>;
-
-export type MeasuredTemplateType = (typeof MEASURED_TEMPLATE_TYPES)[keyof typeof MEASURED_TEMPLATE_TYPES];
-
-/**
  * Define the recognized User capabilities which individual Users or role levels may be permitted to perform
  */
 export const USER_PERMISSIONS: Readonly<{
@@ -1309,25 +1259,82 @@ export const USER_PERMISSIONS: Readonly<{
 export type UserPermission = keyof typeof USER_PERMISSIONS;
 
 /**
- * The allowed directions of effect that a Wall can have
- * @see https://foundryvtt.com/article/walls/
+ * The edge properties which restrict the way interaction occurs with a specific edge
+ * @see {@link https://foundryvtt.com/article/walls/}
  */
-export const WALL_DIRECTIONS: Readonly<{
+export const EDGE_RESTRICTION_TYPES: readonly ["light", "darkness", "sight", "sound", "move"];
+
+export type EdgeRestrictionType = (typeof EDGE_RESTRICTION_TYPES)[number];
+
+/**
+ * The types of sensory collision which an Edge may impose
+ * @see {@link https://foundryvtt.com/article/walls/}
+ */
+export const EDGE_SENSE_TYPES: Readonly<{
     /**
-     * The wall collides from both directions.
+     * Senses do not collide with this edge.
+     */
+    NONE: 0;
+    /**
+     * Senses collide with this edge.
+     */
+    LIMITED: 10;
+    /**
+     * Senses collide with the second intersection, bypassing the first.
+     */
+    NORMAL: 20;
+    /**
+     * Senses bypass the edge within a certain proximity threshold.
+     */
+    PROXIMITY: 30;
+    /**
+     * Senses bypass the edge outside a certain proximity threshold.
+     */
+    DISTANCE: 40;
+}>;
+
+export type EdgeSenseType = (typeof EDGE_SENSE_TYPES)[keyof typeof EDGE_SENSE_TYPES];
+
+/**
+ * The allowed directions of effect that a Edge can have
+ * @see {@link https://foundryvtt.com/article/walls/}
+ */
+export const EDGE_DIRECTIONS: Readonly<{
+    /**
+     * The edge collides from both directions.
      */
     BOTH: 0;
     /**
-     * The wall collides only when a ray strikes its left side.
+     * The edge collides only when a ray strikes its left side.
      */
     LEFT: 1;
     /**
-     * The wall collides only when a ray strikes its right side.
+     * The edge collides only when a ray strikes its right side.
      */
     RIGHT: 2;
 }>;
 
-export type WallDirection = (typeof WALL_DIRECTIONS)[keyof typeof WALL_DIRECTIONS];
+export type EdgeDirection = (typeof EDGE_DIRECTIONS)[keyof typeof EDGE_DIRECTIONS];
+
+/**
+ * The possible direction modes.
+ */
+export const EDGE_DIRECTION_MODES: Readonly<{
+    /**
+     * The edge direction applies normally.
+     */
+    NORMAL: 0;
+    /**
+     * The edge direction applies reversed.
+     */
+    REVERSED: 1;
+    /**
+     * The edge blocks in both directions always.
+     */
+    BOTH: 2;
+}>;
+
+export type EdgeDirectionMode = (typeof EDGE_DIRECTION_MODES)[keyof typeof EDGE_DIRECTION_MODES];
 
 /**
  * The allowed door types which a Wall may contain
@@ -2053,6 +2060,8 @@ export const COMBAT_ANNOUNCEMENTS: readonly ["startEncounter", "nextUp", "yourTu
  */
 export const TEXTURE_DATA_FIT_MODES: readonly ["fill", "contain", "cover", "width", "height"];
 
+export type TextureDataFitMode = (typeof TEXTURE_DATA_FIT_MODES)[number];
+
 /**
  * The maximum depth to recurse to when embedding enriched text.
  */
@@ -2166,18 +2175,32 @@ export const REGION_EVENTS: Readonly<{
  */
 export const REGION_VISIBILITY: Readonly<{
     /**
-     * Only visible on the RegionLayer.
+     * Only visible on the RegionLayer to Users with Observer permissions when unlocked.
+     */
+    LAYER_UNLOCKED: 4;
+
+    /**
+     * Only visible on the RegionLayer to Users with Observer permissions.
      */
     LAYER: 0;
+
     /**
-     * Only visible to Gamemasters.
+     * Always visible to Gamemasters.
      */
     GAMEMASTER: 1;
+
     /**
-     * Visible to anyone.
+     * Always visible to Observers.
+     */
+    OBSERVER: 3;
+
+    /**
+     * Always visible to anyone.
      */
     ALWAYS: 2;
 }>;
+
+export type RegionVisibility = (typeof REGION_VISIBILITY)[keyof typeof REGION_VISIBILITY];
 
 /**
  * The types of a Region movement segment.

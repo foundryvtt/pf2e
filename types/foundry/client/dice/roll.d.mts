@@ -1,6 +1,6 @@
 import RollResolver from "@client/applications/dice/roll-resolver.mjs";
+import { ChatMessageMode } from "@client/config.mjs";
 import ChatMessage from "@client/documents/chat-message.mjs";
-import { RollMode } from "@common/constants.mjs";
 import { ChatMessageSource } from "@common/documents/chat-message.mjs";
 import { RollOptions, RollParseNode } from "./_types.mjs";
 import { DiceTerm, FunctionTerm, OperatorTerm, PoolTerm, RollTerm, RollTermData } from "./terms/_module.mjs";
@@ -425,25 +425,25 @@ export default class Roll {
      * Transform a Roll instance into a ChatMessage, displaying the roll result.
      * This function can either create the ChatMessage directly, or return the data object that will be used to create.
      *
-     * @param messageData           The data object to use when creating the message
-     * @param [options]             Additional options which modify the created message.
-     * @param [options.rollMode]    The template roll mode to use for the message from CONFIG.Dice.rollModes
-     * @param [options.create=true] Whether to automatically create the chat message, or only return the
-     *                                          prepared chatData object.
+     * @param messageData The data object to use when creating the message
+     * @param options Additional options which modify the created message.
+     * @param options.messageMode A message visibility mode to apply to the resulting message.
+     * @param options.create Whether to automatically create the chat message, or only return the prepared chatData
+     *                       object.
      * @return A promise which resolves to the created ChatMessage entity, if create is true
      *         or the Object of prepared chatData otherwise.
      */
     toMessage(
         messageData: DeepPartial<ChatMessageSource> | undefined,
-        { rollMode, create }: { rollMode?: RollMode | "roll"; create: false },
+        options?: { messageMode?: ChatMessageMode; create: false },
     ): Promise<ChatMessageSource>;
     toMessage(
         messageData?: DeepPartial<ChatMessageSource>,
-        { rollMode, create }?: { rollMode?: RollMode | "roll"; create?: true },
+        options?: { messageMode?: ChatMessageMode; create?: true },
     ): Promise<ChatMessage>;
     toMessage(
         messageData?: DeepPartial<ChatMessageSource>,
-        { rollMode, create }?: { rollMode?: RollMode | "roll"; create?: boolean },
+        options?: { messageMode?: ChatMessageMode; create?: boolean },
     ): Promise<ChatMessage | ChatMessageSource>;
 
     /* -------------------------------------------- */

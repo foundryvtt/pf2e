@@ -1,3 +1,4 @@
+import { FromCompendiumOptions, ToCompendiumOptions } from "@client/_types.mjs";
 import { CompendiumDocumentType, CompendiumUUID } from "@client/utils/helpers.mjs";
 import {
     DatabaseAction,
@@ -95,12 +96,10 @@ export default abstract class CompendiumCollection<
      */
     getDocuments(query?: Record<string, unknown>): Promise<TDocument[]>;
 
-    /**
-     * Import a Document into this Compendium Collection.
-     * @param document The existing Document you wish to import
-     * @return The imported Document instance
-     */
-    importDocument(document: TDocument): Promise<TDocument>;
+    override importDocument(
+        document: TDocument,
+        options?: ToCompendiumOptions | FromCompendiumOptions,
+    ): Promise<TDocument>;
 
     /**
      * Fully import the contents of a Compendium pack into a World folder.

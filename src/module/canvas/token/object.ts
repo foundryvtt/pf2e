@@ -661,7 +661,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             const thisIsCreature = actor.isOfType("creature");
             const name = this.document.playersCanSeeName
                 ? this.document.name
-                : game.i18n.localize(`PF2E.Token.Mystified.The${thisIsCreature ? "Creature" : "Object"}`);
+                : _loc(`PF2E.Token.Mystified.The${thisIsCreature ? "Creature" : "Object"}`);
             ui.notifications.warn("PF2E.Token.OutOfReach", { format: { token: name } });
         }
     }

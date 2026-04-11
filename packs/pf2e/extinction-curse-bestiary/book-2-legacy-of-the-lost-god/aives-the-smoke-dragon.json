@@ -532,7 +532,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Aives breathes out a cloud of poisonous smoke that he can make curl around him or cling to his weapons.</p>\n<p>Until the cloud dissipates at the start of his next turn, Aives is @UUID[Compendium.pf2e.conditionitems.Item.Concealed], his Strikes deal an extra 1d8 poison damage, and targets of his Strikes must succeed at a @Check[fortitude|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
+                    "value": "<p>Aives breathes out a cloud of poisonous smoke that he can make curl around him or cling to his weapons.</p>\n<p>Until the cloud dissipates at the start of his next turn, Aives is @UUID[Compendium.pf2e.conditionitems.Item.Concealed], his Strikes deal an extra 1d8 poison damage, and targets of his Strikes must succeed at a @Check[fortitude|dc:22|options:inflicts:sickened] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -544,6 +544,14 @@
                         "key": "RollOption",
                         "option": "smoke-exhalation",
                         "toggleable": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "smoke-exhalation"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
                     },
                     {
                         "damageType": "poison",

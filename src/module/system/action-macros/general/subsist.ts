@@ -10,7 +10,7 @@ import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 function subsist(options: SkillActionOptions): void {
     if (!options?.skill) {
-        ui.notifications.warn(game.i18n.localize("PF2E.Actions.Subsist.Warning.NoSkill"));
+        ui.notifications.warn(_loc("PF2E.Actions.Subsist.Warning.NoSkill"));
         return;
     }
     const modifiers = [
@@ -46,7 +46,7 @@ function subsist(options: SkillActionOptions): void {
 class SubsistActionVariant extends SingleCheckActionVariant {
     override async use(options: Partial<SingleCheckActionUseOptions> = {}): Promise<CheckResultCallback[]> {
         if (!options?.statistic) {
-            throw new Error(game.i18n.localize("PF2E.Actions.Subsist.Warning.NoSkill"));
+            throw new Error(_loc("PF2E.Actions.Subsist.Warning.NoSkill"));
         }
         const rollOption = `action:subsist:${options.statistic}`;
         options.rollOptions ??= [];

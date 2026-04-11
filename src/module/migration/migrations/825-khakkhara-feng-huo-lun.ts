@@ -8,7 +8,7 @@ export class Migration825KhakkharaFengHuoLun extends MigrationBase {
     static override version = 0.825;
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (source.img.endsWith("icons/equipment/weapons/khakkara.webp")) {
+        if (source.img?.endsWith("icons/equipment/weapons/khakkara.webp")) {
             source.img = source.img.replace("khakkara.webp", "khakkhara.webp") as ImageFilePath;
         }
 

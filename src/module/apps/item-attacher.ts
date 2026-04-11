@@ -21,7 +21,7 @@ class ItemAttacher extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV
 
         if (this.choices.length === 0) {
             const locKey = "PF2E.Item.Physical.Attach.NoEligibleItem";
-            const message = game.i18n.format(locKey, { attachable: this.item.name });
+            const message = _loc(locKey, { attachable: this.item.name });
             ui.notifications.warn(message);
             this.close();
         }
@@ -52,7 +52,7 @@ class ItemAttacher extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV
     choices: PhysicalItemPF2e[];
 
     override get title(): string {
-        return game.i18n.format("PF2E.Item.Physical.Attach.PromptTitle", { item: this.item.name });
+        return _loc("PF2E.Item.Physical.Attach.PromptTitle", { item: this.item.name });
     }
 
     static #onClickAttach(this: ItemAttacher): void {
@@ -65,7 +65,7 @@ class ItemAttacher extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV
     protected override _canRender(options: fa.ApplicationRenderOptions): boolean | void {
         if (this.choices.length === 0) {
             const locKey = "PF2E.Item.Physical.Attach.NoEligibleItem";
-            const message = game.i18n.format(locKey, { attachable: this.item.name });
+            const message = _loc(locKey, { attachable: this.item.name });
             ui.notifications.warn(message);
             return false;
         }
@@ -101,20 +101,20 @@ class ItemAttacher extends fa.api.HandlebarsApplicationMixin(fa.api.ApplicationV
             dc,
             label: await fa.handlebars.renderTemplate(`systems/${SYSTEM_ID}/templates/chat/action/header.hbs`, {
                 glyph: null,
-                subtitle: game.i18n.format("PF2E.ActionsCheck.x", { type: statistic.label }),
+                subtitle: _loc("PF2E.ActionsCheck.x", { type: statistic.label }),
                 title: this.title,
             }),
             extraRollNotes: [
                 new RollNotePF2e({
                     outcome: ["failure", "criticalFailure"],
                     selector: "crafting-check",
-                    text: game.i18n.format("PF2E.Item.Physical.Attach.Outcome.Failure", { attachable: this.item.name }),
+                    text: _loc("PF2E.Item.Physical.Attach.Outcome.Failure", { attachable: this.item.name }),
                     title: "PF2E.Check.Result.Degree.Check.failure",
                 }),
                 new RollNotePF2e({
                     outcome: ["success", "criticalSuccess"],
                     selector: "crafting-check",
-                    text: game.i18n.format("PF2E.Item.Physical.Attach.Outcome.Success", {
+                    text: _loc("PF2E.Item.Physical.Attach.Outcome.Success", {
                         attachable: this.item.name,
                         target: attachmentTarget.name,
                     }),

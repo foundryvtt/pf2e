@@ -146,6 +146,6 @@ export class ActorSizePF2e {
     }
 
     toString(): string {
-        return game.i18n.localize(CONFIG.PF2E.actorSizes[this.value]);
+        return _loc(CONFIG.PF2E.actorSizes[this.value]);
     }
 }

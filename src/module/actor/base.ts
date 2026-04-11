@@ -1,7 +1,7 @@
 import { ActorAlliance, ActorDimensions, ActorInstances, ApplyDamageParams, AuraData, SaveType } from "@actor/types.ts";
+import type { ToCompendiumOptions } from "@client/_types.d.mts";
 import type { DialogV2Configuration } from "@client/applications/api/dialog.d.mts";
 import type { ActorUUID } from "@client/documents/_module.d.mts";
-import type { ToCompendiumOptions } from "@client/documents/abstract/_module.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {
     DatabaseCreateOperation,
@@ -363,15 +363,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Checks if the item can be added to this actor by checking the valid item types. */
     checkItemValidity(source: PreCreate<ItemSourcePF2e>): boolean {
         if (!itemIsOfType(source, ...this.allowedItemTypes)) {
-            ui.notifications.error(
-                game.i18n.format("PF2E.Item.CannotAddType", {
-                    type: game.i18n.localize(CONFIG.Item.typeLabels[source.type] ?? source.type.titleCase()),
-                }),
-            );
-
+            ui.notifications.error("PF2E.Item.CannotAddType", {
+                format: { type: _loc(CONFIG.Item.typeLabels[source.type] ?? source.type.titleCase()) },
+            });
             return false;
         }
-
         return true;
     }
 
@@ -910,7 +906,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 rule.beforePrepareData?.();
             } catch (error) {
                 // Ensure that a failing rule element does not block actor initialization
-                const ruleName = game.i18n.localize(`PF2E.RuleElement.${rule.key}`);
+                const ruleName = _loc(`PF2E.RuleElement.${rule.key}`);
                 console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${ruleName}.`, error);
             }
         }
@@ -1148,27 +1144,22 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             actorShield && shieldBlockRequest
                 ? ((): boolean => {
                       if (actorShield.broken) {
-                          ui.notifications.warn(
-                              game.i18n.format("PF2E.Actions.RaiseAShield.ShieldIsBroken", {
-                                  actor: token.name,
-                                  shield: actorShield.name,
-                              }),
-                          );
+                          ui.notifications.warn("PF2E.Actions.RaiseAShield.ShieldIsBroken", {
+                              format: { actor: token.name, shield: actorShield.name },
+                          });
                           return false;
-                      } else if (actorShield.destroyed) {
-                          ui.notifications.warn(
-                              game.i18n.format("PF2E.Actions.RaiseAShield.ShieldIsDestroyed", {
-                                  actor: token.name,
-                                  shield: actorShield.name,
-                              }),
-                          );
+                      }
+                      if (actorShield.destroyed) {
+                          ui.notifications.warn("PF2E.Actions.RaiseAShield.ShieldIsDestroyed", {
+                              format: { actor: token.name, shield: actorShield.name },
+                          });
                           return false;
-                      } else if (!actorShield.raised) {
+                      }
+                      if (!actorShield.raised) {
                           ui.notifications.warn(localize("ShieldNotRaised", { actor: token.name }));
                           return false;
-                      } else {
-                          return true;
                       }
+                      return true;
                   })()
                 : false;
 
@@ -1214,7 +1205,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     : "PF2E.Damage.Hardness.Half";
             result.applications.push({
                 category: "reduction",
-                type: game.i18n.localize(typeLabel),
+                type: _loc(typeLabel),
                 adjustment: -1 * damageAbsorbedByActor,
             });
         }
@@ -1319,7 +1310,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const concatenated = [hpStatement, shieldStatement, thresholdStatement, deathMessage]
                 .filter(R.isTruthy)
                 .map((s) =>
-                    game.i18n.format(s, {
+                    _loc(s, {
                         actor: token.name.replace(/[<>]/g, ""),
                         hpDamage: Math.abs(damageResult.totalApplied),
                         absorbedDamage: damageAbsorbedByShield,
@@ -1529,11 +1520,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         if (!this.canUserModify(game.user, "update")) {
-            ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.CantMoveItemSource"));
+            ui.notifications.error(_loc("PF2E.ErrorMessage.CantMoveItemSource"));
             return null;
         }
         if (!targetActor.canUserModify(game.user, "update")) {
-            ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.CantMoveItemDestination"));
+            ui.notifications.error(_loc("PF2E.ErrorMessage.CantMoveItemDestination"));
             return null;
         }
 
@@ -1546,9 +1537,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             if (await targetActor.inventory.removeCoins(itemValue)) {
                 await item.actor.inventory.addCoins(itemValue);
             } else {
-                ui.notifications.warn(
-                    game.i18n.format("PF2E.loot.InsufficientFundsMessage", { buyer: targetActor.name }),
-                );
+                ui.notifications.warn(_loc("PF2E.loot.InsufficientFundsMessage", { buyer: targetActor.name }));
                 return null;
             }
         }

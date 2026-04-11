@@ -24,13 +24,13 @@ export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
 
         return {
             ...sheetData,
-            attackActions: R.mapValues(NPC_ATTACK_ACTIONS, (a) => game.i18n.localize(a)),
+            attackActions: R.mapValues(NPC_ATTACK_ACTIONS, (a) => _loc(a)),
             areaShapes: R.mapToObj(EFFECT_AREA_SHAPES, (s) => [s, `PF2E.Area.Shape.${s}`]),
             damageTypes: CONFIG.PF2E.damageTypes,
             damageCategories: damageCategoriesUnique,
             attackEffects: createSheetOptions(this.getAttackEffectOptions(), item.system.attackEffects),
             modifierOrSave: {
-                label: game.i18n.localize(`PF2E.Actor.NPC.BonusLabel.${isCheck ? "modifier" : "save"}`),
+                label: _loc(`PF2E.Actor.NPC.BonusLabel.${isCheck ? "modifier" : "save"}`),
                 value: item.system.bonus.value + (isCheck ? 0 : 10),
             },
         };

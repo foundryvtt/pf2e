@@ -199,7 +199,7 @@ function defineKingdomSchema(): KingdomSchema {
             required: true,
             nullable: false,
             blank: false,
-            initial: () => game.i18n.localize("PF2E.TraitKingdom"),
+            initial: () => _loc("PF2E.TraitKingdom"),
         }),
         img: new fields.FilePathField<ImageFilePath, ImageFilePath, true, false>({
             categories: ["IMAGE"],

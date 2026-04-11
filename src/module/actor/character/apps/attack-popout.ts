@@ -102,7 +102,7 @@ class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TAct
         if (label) {
             const title = htmlQuery(htmlClosest(html, "div.window-app"), "h4.window-title");
             if (title) {
-                title.innerHTML = game.i18n.localize(label);
+                title.innerHTML = _loc(label);
             }
         }
     }

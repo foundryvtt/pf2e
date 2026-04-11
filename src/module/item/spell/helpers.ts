@@ -4,14 +4,14 @@ import type { SpellPF2e } from "./index.ts";
 
 function createSpellRankLabel(spell: SpellPF2e, castRank?: number): string {
     const typeLabel = spell.isCantrip
-        ? game.i18n.localize("PF2E.TraitCantrip")
+        ? _loc("PF2E.TraitCantrip")
         : spell.isFocusSpell
-          ? game.i18n.localize("PF2E.TraitFocus")
+          ? _loc("PF2E.TraitFocus")
           : spell.isRitual
-            ? game.i18n.localize("PF2E.Item.Spell.Ritual.Label")
-            : game.i18n.localize("TYPES.Item.spell");
+            ? _loc("PF2E.Item.Spell.Ritual.Label")
+            : _loc("TYPES.Item.spell");
 
-    return castRank ? game.i18n.format("PF2E.ItemLevel", { type: typeLabel, level: castRank }) : typeLabel;
+    return castRank ? _loc("PF2E.ItemLevel", { type: typeLabel, level: castRank }) : typeLabel;
 }
 
 async function createDescriptionPrepend(
@@ -20,7 +20,7 @@ async function createDescriptionPrepend(
 ): Promise<string> {
     const traditions = includeTraditions
         ? spell.system.traits.traditions
-              .map((t) => game.i18n.localize(CONFIG.PF2E.magicTraditions[t]).toLocaleLowerCase(game.i18n.lang))
+              .map((t) => _loc(CONFIG.PF2E.magicTraditions[t]).toLocaleLowerCase(game.i18n.lang))
               .sort((a, b) => a.localeCompare(b, game.i18n.lang))
               .join(", ")
         : null;
@@ -29,14 +29,12 @@ async function createDescriptionPrepend(
         const defense = spell.system.defense;
         if (!defense) return null;
         const passive = defense.passive ? getPassiveDefenseLabel(defense.passive.statistic, { localize: true }) : null;
-        const partialSaveLabel = defense.save ? game.i18n.localize(CONFIG.PF2E.saves[defense.save.statistic]) : null;
+        const partialSaveLabel = defense.save ? _loc(CONFIG.PF2E.saves[defense.save.statistic]) : null;
         const save =
             partialSaveLabel && defense.save?.basic
-                ? game.i18n.format("PF2E.Item.Spell.Defense.BasicDefense", { save: partialSaveLabel })
+                ? _loc("PF2E.Item.Spell.Defense.BasicDefense", { save: partialSaveLabel })
                 : partialSaveLabel;
-        return passive && save
-            ? game.i18n.format("PF2E.ListPartsAnd.two", { first: passive, second: save })
-            : (passive ?? save);
+        return passive && save ? _loc("PF2E.ListPartsAnd.two", { first: passive, second: save }) : (passive ?? save);
     })();
 
     const durationLabel = ((): string | null => {
@@ -91,7 +89,7 @@ function getPassiveDefenseLabel(statistic: string, { localize = false } = {}): s
                 return null;
         }
     })();
-    return label && localize ? game.i18n.localize(label) : label;
+    return label && localize ? _loc(label) : label;
 }
 
 export { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel };

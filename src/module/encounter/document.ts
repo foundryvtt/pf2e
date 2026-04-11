@@ -118,16 +118,14 @@ class EncounterPF2e extends Combat {
             const actorTraits = actor.system.traits?.value ?? [];
             if (actor.type === "loot" || ["minion", "eidolon"].some((t) => actorTraits.includes(t))) {
                 const actorTypes: Record<string, string> = CONFIG.PF2E.actorTypes;
-                const type = game.i18n.localize(
+                const type = _loc(
                     actorTraits.includes("minion")
                         ? CONFIG.PF2E.creatureTraits.minion
                         : actorTraits.includes("eidolon")
                           ? CONFIG.PF2E.creatureTraits.eidolon
                           : actorTypes[actor.type],
                 );
-                ui.notifications.info(
-                    game.i18n.format("PF2E.Encounter.ExcludingFromInitiative", { type, actor: actor.name }),
-                );
+                ui.notifications.info(_loc("PF2E.Encounter.ExcludingFromInitiative", { type, actor: actor.name }));
                 return false;
             }
             return true;
@@ -141,7 +139,7 @@ class EncounterPF2e extends Combat {
     /** Roll initiative for PCs and NPCs using their prepared roll methods */
     override async rollInitiative(ids: string[], options: RollInitiativeOptionsPF2e = {}): Promise<this> {
         const extraRollOptions = options.extraRollOptions ?? [];
-        const rollMode = options.messageOptions?.rollMode ?? options.rollMode;
+        const messageMode = options.messageOptions?.mode ?? options.messageMode;
         if (options.secret) extraRollOptions.push("secret");
 
         const combatants = ids.flatMap((id) => this.combatants.get(id) ?? []);
@@ -154,7 +152,7 @@ class EncounterPF2e extends Combat {
                         combatant,
                         extraRollOptions,
                         updateTracker: false,
-                        rollMode,
+                        messageMode,
                     }) ?? null
                 );
             }),

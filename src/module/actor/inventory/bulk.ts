@@ -25,7 +25,7 @@ export class InventoryBulk {
 
     get encumberedAfterBreakdown(): string {
         const addend = this.encumberedAfterAddend;
-        const stat = game.i18n.localize(CONFIG.PF2E.abilities.str);
+        const stat = _loc(CONFIG.PF2E.abilities.str);
         return `5 + ${this.#actorStrength} (${stat})` + (addend ? ` + ${addend}` : "");
     }
 
@@ -35,7 +35,7 @@ export class InventoryBulk {
 
     get maxBreakdown(): string {
         const addend = this.maxAddend;
-        const stat = game.i18n.localize(CONFIG.PF2E.abilities.str);
+        const stat = _loc(CONFIG.PF2E.abilities.str);
         return `10 + ${this.#actorStrength} (${stat})` + (addend ? ` + ${addend}` : "");
     }
 

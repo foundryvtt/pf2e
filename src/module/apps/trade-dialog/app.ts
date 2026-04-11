@@ -9,7 +9,6 @@ import { ErrorPF2e, localizer } from "@util";
 import { traitSlugToObject } from "@util/tags.ts";
 import MiniSearch from "minisearch";
 import * as R from "remeda";
-import { CompendiumDirectoryPF2e } from "../sidebar/compendium-directory.ts";
 import Root from "./app.svelte";
 
 /** An application to facilitate trading between two creature actors */
@@ -71,7 +70,7 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
     override get title(): string {
         const trader = TradeDialog.#getObfuscatedActorName(this.#trader.actor);
-        return game.i18n.format("PF2E.TradeDialog.Title", { trader });
+        return _loc("PF2E.TradeDialog.Title", { trader });
     }
 
     /** Can the current user trade utilizing the provided trade-initiation data? */
@@ -198,7 +197,7 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             fields: ["name", "originalName"],
             idField: "id",
             processTerm: (term): string[] | null => {
-                if (term.length < 2 || CompendiumDirectoryPF2e.STOP_WORDS.has(term)) return null;
+                if (term.length < 2 || CONFIG.i18n.searchStopWords.has(term)) return null;
                 return Array.from(wordSegmenter.segment(term))
                     .map((t) =>
                         fa.ux.SearchFilter.cleanQuery(t.segment.toLocaleLowerCase(game.i18n.lang)).replace(/['"]/g, ""),
@@ -370,10 +369,10 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         const other = speakerActor === self.actor ? trader.actor : self.actor;
         const content = await fa.handlebars.renderTemplate(templates.content, {
             imgPath: itemExchanged?.img ?? `systems/${SYSTEM_ID}/icons/actions/interact/trade.webp`,
-            message: game.i18n.format(`PF2E.Actions.Interact.${annotationKey}.Description`, {
+            message: _loc(`PF2E.Actions.Interact.${annotationKey}.Description`, {
                 actor: speaker.alias,
                 other: TradeDialog.#getObfuscatedActorName(other),
-                item: itemExchanged?.name ?? game.i18n.localize("PF2E.Actions.Interact.GiveItem.AnItem"),
+                item: itemExchanged?.name ?? _loc("PF2E.Actions.Interact.GiveItem.AnItem"),
             }),
         });
         await ChatMessagePF2e.create({

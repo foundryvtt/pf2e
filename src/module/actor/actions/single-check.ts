@@ -145,9 +145,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
             .map((note) => new RollNotePF2e(note));
         const rollOptions = this.rollOptions.concat(options.rollOptions ?? []);
         const slug = options.statistic?.trim() || (Array.isArray(this.statistic) ? this.statistic[0] : this.statistic);
-        const title = this.name
-            ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
-            : game.i18n.localize(this.#action.name);
+        const title = this.name ? `${_loc(this.#action.name)} - ${_loc(this.name)}` : _loc(this.#action.name);
         const difficultyClass = Number.isNumeric(options.difficultyClass)
             ? { value: Number(options.difficultyClass) }
             : isValidDifficultyClass(options.difficultyClass)
@@ -209,7 +207,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
                 return { label: statistic.label, modifier: modifier.totalModifier, slug: args.slug };
             }
         } else {
-            const label = ActionMacroHelpers.getSimpleCheckLabel(args.slug) ?? game.i18n.localize(args.slug);
+            const label = ActionMacroHelpers.getSimpleCheckLabel(args.slug) ?? _loc(args.slug);
             return { label, slug: args.slug };
         }
         return null;

@@ -124,7 +124,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
                 const selectors = [saveType, `${attribute}-based`, "saving-throw", "all"];
                 const stat = new Statistic(this, {
                     slug: saveType,
-                    label: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
+                    label: _loc(CONFIG.PF2E.saves[saveType]),
                     domains: selectors,
                     modifiers: [new Modifier(`PF2E.MasterSavingThrow.${saveType}`, totalMod, "untyped")],
                     check: { type: "saving-throw" },

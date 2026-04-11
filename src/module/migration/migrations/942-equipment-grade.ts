@@ -36,11 +36,7 @@ export class Migration942EquipmentGrade extends MigrationBase {
                 const runes = previousProperty.map((p) => {
                     const weaponKey = `PF2E.WeaponPropertyRune.${p}.Name`;
                     const armorKey = `PF2E.ArmorPropertyRune${sluggify(p, { camel: "bactrian" })}`;
-                    return game.i18n.has(weaponKey)
-                        ? game.i18n.localize(weaponKey)
-                        : game.i18n.has(armorKey)
-                          ? game.i18n.localize(armorKey)
-                          : null;
+                    return game.i18n.has(weaponKey) ? _loc(weaponKey) : game.i18n.has(armorKey) ? _loc(armorKey) : null;
                 });
                 source.system.description.value += `<hr/>The following property runes were removed when migrating to a tech/analog weapon: ${runes.join(", ")}`;
             }

@@ -272,13 +272,13 @@ export class MigrationRunner extends MigrationRunnerBase {
     ): Promise<void> {
         const pack = compendium.metadata.id;
 
-        ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: game.system.version }));
+        ui.notifications.info("PF2E.Migrations.Starting", { format: { version: game.system.version } });
         const documents = await compendium.getDocuments();
         await compendium.documentClass.updateDocuments(
             documents.map((d) => d.toObject()),
             { diff: false, recursive: false, pack },
         );
-        ui.notifications.info(game.i18n.format("PF2E.Migrations.Finished", { version: game.system.version }));
+        ui.notifications.info("PF2E.Migrations.Finished", { format: { version: game.system.version } });
     }
 
     async runMigrations(migrations: MigrationBase[]): Promise<void> {
@@ -286,7 +286,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         /** A roughly estimated "progress max" to reach, for display in the progress bar */
         const progress = new Progress({
-            label: game.i18n.localize("PF2E.Migrations.Running"),
+            label: _loc("PF2E.Migrations.Running"),
             max:
                 game.actors.size +
                 game.items.size +
@@ -372,7 +372,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         };
         const systemVersion = game.system.version;
 
-        ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: systemVersion }));
+        ui.notifications.info("PF2E.Migrations.Starting", { format: { version: systemVersion } });
 
         const migrationsToRun = force
             ? this.migrations
@@ -392,11 +392,8 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
 
         for (const migrationPhase of migrationPhases) {
-            if (migrationPhase.length > 0) {
-                await this.runMigrations(migrationPhase);
-            }
+            if (migrationPhase.length) await this.runMigrations(migrationPhase);
         }
-
         await game.settings.set(SYSTEM_ID, "worldSchemaVersion", schemaVersion.latest);
     }
 }

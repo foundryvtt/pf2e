@@ -1,5 +1,5 @@
+import { ChatMessageMode } from "@client/config.mjs";
 import Roll, { Rolled, RollJSON } from "@client/dice/roll.mjs";
-import { DocumentConstructionContext } from "@common/_types.mjs";
 import {
     DatabaseCreateCallbackOptions,
     DatabaseCreateOperation,
@@ -7,7 +7,6 @@ import {
     DatabaseUpdateCallbackOptions,
 } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
-import { RollMode } from "@common/constants.mjs";
 import BaseChatMessage, { ChatMessageSource, ChatSpeakerData } from "@common/documents/chat-message.mjs";
 import { Actor, BaseUser, Scene, TokenDocument, User } from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
@@ -73,36 +72,34 @@ declare class ChatMessage<TUser extends User | null = User | null> extends Clien
     /**
      * Transform a provided object of ChatMessage data by applying a certain rollMode to the data object.
      * @param chatData The object of ChatMessage data prior to applying a rollMode preference
-     * @param rollMode The rollMode preference to apply to this message data
+     * @param mode The message visibility mode to apply, otherwise apply the default mode stored in client settings.
      * @returns The modified ChatMessage data with rollMode preferences applied
      */
-    static applyRollMode<TData extends DeepPartial<ChatMessageSource>>(
-        chatData: TData,
-        rollMode: RollMode | "roll",
-    ): TData;
+    static applyMode<TData extends DeepPartial<ChatMessageSource>>(chatData: TData, mode?: ChatMessageMode): TData;
 
     /**
      * Update the data of a ChatMessage instance to apply a requested rollMode
-     * @param rollMode The rollMode preference to apply to this message data
+     * @param mode The message visibility mode to apply to this message
      */
-    applyRollMode(rollMode: RollMode | "roll"): void;
+    applyMode(mode: ChatMessageMode): void;
+
+    /**
+     * Return the HTML content to display for this message when its content is not visible to the current user.
+     * Document subtype owners may override this in their system data model to customize the display.
+     */
+    protected _getHiddenContent(): string;
 
     /**
      * Attempt to determine who is the speaking character (and token) for a certain Chat Message
      * First assume that the currently controlled Token is the speaker
      *
-     * @param scene The Scene in which the speaker resides
-     * @param actor The Actor whom is speaking
-     * @param token The Token whom is speaking
-     * @param alias The name of the speaker to display
+     * @param options.scene The Scene in which the speaker resides
+     * @param options.actor The Actor whom is speaking
+     * @param options.token The Token whom is speaking
+     * @param options.alias The name of the speaker to display
      * @returns The identified speaker data
      */
-    static getSpeaker({
-        scene,
-        actor,
-        token,
-        alias,
-    }?: {
+    static getSpeaker(options?: {
         scene?: Scene | null;
         actor?: Actor | null;
         token?: TokenDocument | null;
@@ -183,12 +180,12 @@ declare namespace ChatMessage {
 
 export default ChatMessage;
 
-export interface MessageConstructionContext extends DocumentConstructionContext<null> {
-    rollMode?: RollMode | "roll";
+export interface ChatMessageCreateCallbackOptions extends DatabaseCreateCallbackOptions {
+    mode?: ChatMessageMode;
 }
 
 export interface ChatMessageCreateOperation extends DatabaseCreateOperation<null> {
-    rollMode?: RollMode | "roll";
+    mode?: ChatMessageMode;
 }
 
 export interface ChatMessageRenderData {

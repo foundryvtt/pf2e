@@ -1,3 +1,33 @@
+## 1.0.0
+
+### Bugfixes
+
+- (stwlam, Supe, In3luki) Update to support V14
+
+### Data Updates
+
+- (Ambrose) Add missing spellscasting entry and abilities to Hesper
+- (kromko) Fix Paragon Maratan Headache's level
+
+## 0.0.11
+
+### Bugfixes
+
+- (stwlam) Fix errors with token document flags during data preparation
+
+### Data Updates
+
+- (Ambrose) Correct Insect Form's Mantis damage type
+- (kromko) Fix Loosen Skin trigger
+- (kromko) Fix Rubberlimb Orocoran heritage name
+- (kromko) Fix Tactical Medkit Treat Wounds predicate
+
+## 0.0.10
+
+### Bugfixes
+
+- (stwlam) Fix issue causing stack overflow during some token data preparation
+
 ## 0.0.9
 
 ### System Improvements

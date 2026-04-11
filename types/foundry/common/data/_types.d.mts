@@ -1,13 +1,17 @@
 import { CustomFormGroup, CustomFormInput, FormSelectOption } from "@client/applications/forms/fields.mjs";
 import { DocumentUUID } from "@client/utils/_module.mjs";
+import DataModel from "@common/abstract/data.mjs";
 import { DocumentType, FileCategory, FilePath } from "@common/constants.mjs";
+import BaseUser from "@common/documents/user.mjs";
 import {
     DataField,
     DocumentFlagsField,
     DocumentStatsData,
+    GridOffsetSchema,
     MaybeSchemaProp,
     ModelPropFromDataField,
     SourceFromDataField,
+    SourceFromSchema,
 } from "./fields.mjs";
 import { DataModelValidationFailure } from "./validation-failure.mjs";
 
@@ -90,12 +94,103 @@ export interface DataFieldValidationOptions {
     /** Whether to allow replacing invalid values with valid fallbacks. */
     fallback?: boolean;
     /** The full source object being evaluated. */
-    source?: Record<string, JSONValue>;
+    source?: object;
+    /** Whether to throw a DataModelValidationFailure (true) or simply return it (false) */
+    strict?: boolean;
     /**
      * If true, invalid embedded documents will emit a warning and be placed in the invalidDocuments collection rather
      * than causing the parent to be considered invalid.
      */
     dropInvalidEmbedded?: boolean;
+    /**
+     * A specific validation phase to perform, specifying this is generally only necessary for _updateDiff workflows
+     * - "pre" occurs before recursion to child nodes
+     * - "recursive" performs recursive validation of child nodes
+     * - "post" occurs after validation of child nodes
+     */
+    phase?: "pre" | "recursive" | "post";
+    /**
+     * When validating a field, also validate its children. This can be explicitly set to false to efficiently validate
+     * the outer field without validating its contained values.
+     */
+    recursive?: boolean;
+    /** The DataModel instance the field belongs to */
+    model?: DataModel;
+}
+
+/**
+ * @param {"pre"|"recursive"|"post"} [phase]  A specific validation phase to perform, specifying this is generally
+ *                                  only necessary for _updateDiff workflows
+ *                                    - "pre" occurs before recursion to child nodes
+ *                                    - "recursive" performs recursive validation of child nodes
+ *                                    - "post" occurs after validation of child nodes
+ * @property {boolean} [recursive=true] When validating a field, also validate its children. This can be explicitly
+ *                                  set to false to efficiently validate the outer field without validating its
+ *                                  contained values.
+ * @property {DataModel} [model]    The DataModel instance the field belongs to
+ */
+
+interface DataModelCleaningOptions {
+    /** Impute types for polymorphic so that those typed fields can be later used or validated */
+    addTypes?: boolean;
+    /** Copy the provided input data to avoid mutating the provided source */
+    copy?: boolean;
+    /** Automatically expand any flattened objects encountered during cleaning */
+    expand?: boolean;
+    /** Apply model-specific data migrations */
+    migrate?: boolean;
+    /** Apply joint model-level cleaning rules */
+    model?: boolean;
+    /**
+     * Perform partial cleaning only on the subset of keys included in the input data. If partial is `false`, values
+     * for keys missing in the input data will be inputed if possible
+     */
+    partial?: boolean;
+    /** Remove keys which do not belong to the defined data schema */
+    prune?: boolean;
+    /** Remove keys corresponding with non-persisted DataFields. */
+    persisted?: boolean;
+    /**
+     * Configuration of user input sanitization steps that are applied as part of cleaning. For internal server-side
+     * use only.
+     */
+    sanitize?: boolean | DataModelSanitizationOptions;
+}
+
+interface DataModelUpdateState {
+    /** Are we in the context of a new model creation? */
+    creation?: boolean;
+    /** The DataModel instance being cleaned */
+    model?: DataModel;
+    /** Prior source data at the current node */
+    source?: unknown;
+    /** Prior source data at the nearest DataModel root being cleaned */
+    modelSource?: object;
+    /** Has source data already been expanded? */
+    expanded?: boolean;
+    /** Metadata resulting from sanitization workflows */
+    sanitization?: object;
+    /** In a Document context, records its _id */
+    documentId?: string;
+    /** In a Document context, records its base type */
+    documentType?: string;
+    /** In a ServerDocument context, records the timestamp of modification */
+    modifiedTime?: number;
+    /** In a ServerDocument context, records the user performing the operation */
+    user?: BaseUser;
+    /** Have the {@link DataModelCleaningOptions} been fully populated? */
+    cleanOptions?: boolean;
+}
+
+interface DataModelSanitizationOptions {
+    /** A file path to which sanitized assets should be persisted to disk */
+    assetPath?: string;
+    /** Skip system sanitization? */
+    skipSystem?: boolean;
+    /** The User performing an operation which requires sanitization */
+    user?: BaseUser;
+    /** Clean data out of stats? */
+    deleteStats?: boolean;
 }
 
 export interface FormGroupConfig {
@@ -301,8 +396,11 @@ export interface ObjectFieldOptions<
     THasInitial extends boolean = true,
 > extends DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial> {}
 
-interface DocumentUUIDFieldOptions<TRequired extends boolean, TNullable extends boolean, THasInitial extends boolean>
-    extends StringFieldOptions<DocumentUUID, TRequired, TNullable, THasInitial> {
+interface DocumentUUIDFieldOptions<
+    TRequired extends boolean,
+    TNullable extends boolean,
+    THasInitial extends boolean,
+> extends StringFieldOptions<DocumentUUID, TRequired, TNullable, THasInitial> {
     /** A specific document type in {@link CONST.ALL_DOCUMENT_TYPES} required by this field */
     type?: DocumentType;
     /** Does this field require (or prohibit) embedded documents? */
@@ -337,6 +435,14 @@ export interface JavaScriptFieldOptions<
 > extends StringFieldOptions<string, TRequired, TNullable, THasInitial> {
     /** Does the field allow async code? Default: false */
     async?: boolean;
+}
+
+export interface GridOffsetFieldOptions<
+    TRequired extends boolean,
+    TNullable extends boolean,
+    THasInitial extends boolean,
+> extends DataFieldOptions<SourceFromSchema<GridOffsetSchema>, TRequired, TNullable, THasInitial> {
+    dimensions: 2 | 3;
 }
 
 export interface ElementValidationFailure {

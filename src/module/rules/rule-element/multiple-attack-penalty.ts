@@ -24,7 +24,7 @@ class MultipleAttackPenaltyRuleElement extends RuleElement<MAPRuleSchema> {
 
         const value = Number(this.resolveValue(this.value)) || 0;
         if (value < 0) {
-            const label = game.i18n.format("PF2E.UI.RuleElements.MultipleAttackPenalty.Breakdown", {
+            const label = _loc("PF2E.UI.RuleElements.MultipleAttackPenalty.Breakdown", {
                 label: this.label,
             });
             const map: MAPSynthetic = { label, penalty: value, predicate: this.predicate };

@@ -9,14 +9,14 @@
 
 <div class="choices flexcol" class:empty={!data.compatible.length}>
     {#if !data.compatible.length}
-        {game.i18n.localize("PF2E.Item.Weapon.Reloader.EmptyMessage")}
+        {_loc("PF2E.Item.Weapon.Reloader.EmptyMessage")}
     {/if}
     {#each data.compatible as ammo}
         <div class="choice" class:depleted={ammo.depleted}>
             <button
                 type="button"
                 class="icon fa-solid fa-check select"
-                aria-label={game.i18n.localize("PF2E.Item.Weapon.Reloader.Reload1")}
+                aria-label={_loc("PF2E.Item.Weapon.Reloader.Reload1")}
                 data-tooltip
                 onclick={() => foundryApp.reloadWeapon(ammo.id)}
             ></button>
@@ -25,7 +25,7 @@
                     type="button"
                     class="select"
                     data-tooltip
-                    aria-label={game.i18n.localize("PF2E.Item.Weapon.Reloader.ReloadAll")}
+                    aria-label={_loc("PF2E.Item.Weapon.Reloader.ReloadAll")}
                     onclick={() => foundryApp.reloadWeapon(ammo.id, true)}
                 >
                     {@html HeavyBullets}

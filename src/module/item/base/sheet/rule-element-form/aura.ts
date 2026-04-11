@@ -45,9 +45,9 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
 
         for (const eventsElement of htmlQueryAll<HTMLTagifyTagsElement>(html, "tagify-tags.tagify-events")) {
             const whitelist = [
-                ["enter", game.i18n.localize("PF2E.RuleEditor.Aura.Effects.EventsOptions.Enter")],
-                ["turn-start", game.i18n.localize("PF2E.RuleEditor.Aura.Effects.EventsOptions.TurnStart")],
-                ["turn-end", game.i18n.localize("PF2E.RuleEditor.Aura.Effects.EventsOptions.TurnEnd")],
+                ["enter", _loc("PF2E.RuleEditor.Aura.Effects.EventsOptions.Enter")],
+                ["turn-start", _loc("PF2E.RuleEditor.Aura.Effects.EventsOptions.TurnStart")],
+                ["turn-end", _loc("PF2E.RuleEditor.Aura.Effects.EventsOptions.TurnEnd")],
             ].sort((a, b) => a[1].localeCompare(b[1], game.i18n.lang));
             tagify(eventsElement, { whitelist: R.mapToObj(whitelist, (w) => [w[0], w[1]]), enforceWhitelist: true });
         }
@@ -212,35 +212,32 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         this.#effectsMap = new Map(
             Object.values(source.effects ?? {}).map((data, index): [number, AuraREEffectSource] => {
                 const updatedData = fu.deepClone(data);
-                const deletions: { [K in `-=${keyof AuraREEffectSource}`]?: null | undefined } = {};
+                const deletions: { [K in keyof AuraREEffectSource]?: typeof _del } = {};
 
                 // Clean up save data
                 if (updatedData.save) {
                     const type = updatedData.save.type ?? data.save?.type;
                     if (!type) {
-                        deletions["-=save"] = null;
+                        deletions["save"] = _del;
                     } else {
                         updatedData.save.dc ||= 10;
                     }
                 }
 
                 if (updatedData.affects !== "enemies" && updatedData.includesSelf) {
-                    deletions["-=includesSelf"] = null;
+                    deletions["includesSelf"] = _del;
                 }
-                if (updatedData.removeOnExit) {
-                    deletions["-=removeOnExit"] = null;
-                }
+                if (updatedData.removeOnExit) deletions["removeOnExit"] = _del;
                 if (updatedData.predicate) {
                     try {
                         const parsed = JSON.parse(String(updatedData.predicate));
                         updatedData.predicate = Array.isArray(parsed) ? parsed : [];
                     } catch {
-                        deletions["-=predicate"] = null;
+                        deletions["predicate"] = _del;
                     }
                 } else {
-                    deletions["-=predicate"] = null;
+                    deletions["predicate"] = _del;
                 }
-
                 return [index, fu.mergeObject(updatedData, deletions, { performDeletions: true })];
             }),
         );

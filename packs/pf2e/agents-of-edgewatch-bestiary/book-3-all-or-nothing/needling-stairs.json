@@ -44,9 +44,7 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": [
-                        "no-map"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 24
@@ -57,6 +55,7 @@
                         "damageType": "piercing"
                     },
                     "1": {
+                        "category": "persistent",
                         "damage": "1d6",
                         "damageType": "bleed"
                     },
@@ -67,7 +66,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>No MAP applies to strikes made by poisoned needle attacks</p>"
+                    "value": "<p>No multiple attack penalty</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -77,6 +76,7 @@
                 "range": null,
                 "rules": [],
                 "slug": null,
+                "subjectToMAP": false,
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -107,36 +107,6 @@
                 },
                 "rules": [],
                 "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "pk7WhgmEvUXgGRiz",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "No MAP",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": null,
-                "description": {
-                    "value": "<p>The Poisoned Needle Strikes do not apply a MAP.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "no-map",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -178,7 +148,7 @@
         "customModifiers": {},
         "details": {
             "description": "<p>This staircase has springs in each step, which send poisoned needles shooting up through tiny holes in the wood when stepped on. Each step, 6 in total, takes up one 5-foot square.</p>",
-            "disable": "<p>@Check[thievery|dc:33|name:Disable Stair Spring|traits:action:disable-a-device] (master) on each stair to disable its spring, or deactivate the switch in area <strong>C8</strong> to deactivate the whole trap. Cutting the wire on the topmost stair (>@Check[thievery|dc:35|name:Cut Wire on Top-Most Stair|traits:action:disable-a-device] to Disable the Device) that connects the staircase to the control switch prevents the control switch from turning the trap on or off.</p>",
+            "disable": "<p>@Check[thievery|dc:33|name:Disable Stair Spring|traits:action:disable-a-device] (master) on each stair to disable its spring, or deactivate the switch in area <strong>C8</strong> to deactivate the whole trap. Cutting the wire on the topmost stair ([[/act disable-device dc=35]]) that connects the staircase to the control switch prevents the control switch from turning the trap on or off.</p>",
             "isComplex": true,
             "level": {
                 "value": 11
@@ -202,7 +172,7 @@
             },
             "will": {
                 "saveDetail": "",
-                "value": 0
+                "value": null
             }
         },
         "statusEffects": [],

@@ -32,9 +32,9 @@
     ): string[] {
         return Object.values(boostData).flatMap((boosts) => {
             if (boosts.value.length === ALL_ATTRIBUTES_COUNT) {
-                return game.i18n.localize("PF2E.AbilityFree");
+                return _loc("PF2E.AbilityFree");
             } else if (boosts.value.length > 0) {
-                return boosts.value.map((b) => game.i18n.localize(CONFIG.PF2E.abilities[b])).join(" or ");
+                return boosts.value.map((b) => _loc(CONFIG.PF2E.abilities[b])).join(" or ");
             } else {
                 return [];
             }
@@ -98,8 +98,8 @@
             boostValues[0].value.length === 2 &&
             boostValues[1].value.length === ALL_ATTRIBUTES_COUNT
         ) {
-            const choices = boostValues[0].value.map((b) => game.i18n.localize(CONFIG.PF2E.abilities[b]));
-            return game.i18n.format("PF2E.Actor.Character.AttributeBuilder.BackgroundBoostDescription", {
+            const choices = boostValues[0].value.map((b) => _loc(CONFIG.PF2E.abilities[b]));
+            return _loc("PF2E.Actor.Character.AttributeBuilder.BackgroundBoostDescription", {
                 a: choices[0],
                 b: choices[1],
             });
@@ -276,18 +276,18 @@
 
     function getLevelLabel(boosts: { level: number; minLevel: number; isApex?: boolean }): string {
         if (boosts.isApex) {
-            return game.i18n.localize("PF2E.TraitApex");
+            return _loc("PF2E.TraitApex");
         } else if (boosts.minLevel === boosts.level) {
-            return game.i18n.format("PF2E.LevelN", { level: boosts.level });
+            return _loc("PF2E.LevelN", { level: boosts.level });
         } else {
-            return game.i18n.format("PF2E.LevelRange", { minLevel: boosts.minLevel, level: boosts.level });
+            return _loc("PF2E.LevelRange", { minLevel: boosts.minLevel, level: boosts.level });
         }
     }
 
     const ancestryTooltipHtml = $derived.by(() => {
         if (!ancestryBoosts) return "";
-        const boostsHeader = game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.Boosts");
-        const flawsHeader = game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.Flaws");
+        const boostsHeader = _loc("PF2E.Actor.Character.AttributeBuilder.Boosts");
+        const flawsHeader = _loc("PF2E.Actor.Character.AttributeBuilder.Flaws");
         const boostItems = ancestryBoosts.labels.map((b) => `<li>${b}</li>`).join("");
         const flawItems = ancestryBoosts.flawLabels.map((f) => `<li>${f}</li>`).join("");
         return `<h2>${boostsHeader}</h2><ul class="boost-details">${boostItems}</ul><h2>${flawsHeader}</h2><ul class="boost-details">${flawItems}</ul>`;
@@ -296,7 +296,7 @@
     const backgroundTooltipHtml = $derived.by(() => {
         if (!backgroundBoosts) return "";
         if (backgroundBoosts.tooltip) return backgroundBoosts.tooltip;
-        const boostsHeader = game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.Boosts");
+        const boostsHeader = _loc("PF2E.Actor.Character.AttributeBuilder.Boosts");
         const boostItems = backgroundBoosts.labels
             .filter((b) => b)
             .map((b) => `<li><i class="fa-solid fa-circle"></i>${b}</li>`)
@@ -308,14 +308,14 @@
 {#snippet missingItem(typeLabel: string, helpKey: string)}
     <div class="row-heading">
         <div class="label">
-            <div class="title">{game.i18n.localize(typeLabel)}</div>
+            <div class="title">{_loc(typeLabel)}</div>
             <div class="description">
-                {game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.NotSelected")}
+                {_loc("PF2E.Actor.Character.AttributeBuilder.NotSelected")}
             </div>
         </div>
     </div>
     <div class="full-row">
-        {game.i18n.localize(helpKey)}
+        {_loc(helpKey)}
     </div>
 {/snippet}
 
@@ -324,12 +324,12 @@
         <!-- Header Row -->
         <header class="row" class:not-eligible={data.build.manual}>
             <div class="row-heading">
-                <h3>{game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.Title")}</h3>
+                <h3>{_loc("PF2E.Actor.Character.AttributeBuilder.Title")}</h3>
             </div>
             <div class="attributes">
                 {#each attributeList as attribute}
                     <div class="row-column">
-                        <h3>{game.i18n.localize(`PF2E.AbilityId.${attribute}`)}</h3>
+                        <h3>{_loc(`PF2E.AbilityId.${attribute}`)}</h3>
                     </div>
                 {/each}
             </div>
@@ -341,7 +341,7 @@
             class:not-eligible={data.build.manual}
             data-section="ancestry"
             role="group"
-            aria-label={game.i18n.format("PF2E.Actor.Character.AttributeBuilder.Aria.AncestrySection", {
+            aria-label={_loc("PF2E.Actor.Character.AttributeBuilder.Aria.AncestrySection", {
                 name: data.ancestry?.name ?? "",
             })}
         >
@@ -350,7 +350,7 @@
                     <RemainingIndicator count={ancestryBoosts.remaining} />
                     <img src={data.ancestry?.img} alt={data.ancestry?.name} loading="lazy" />
                     <div class="label">
-                        <div class="title">{game.i18n.localize("TYPES.Item.ancestry")}</div>
+                        <div class="title">{_loc("TYPES.Item.ancestry")}</div>
                         <div
                             class="description has-tooltip"
                             data-tooltip-html={ancestryTooltipHtml}
@@ -359,7 +359,7 @@
                             {data.ancestry?.name}
                         </div>
                         <label class="extra" for={`${foundryApp.id}.alternate-boosts`}>
-                            {game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.AlternateBoostsLabel")}
+                            {_loc("PF2E.Actor.Character.AttributeBuilder.AlternateBoostsLabel")}
                             <input
                                 type="checkbox"
                                 id={`${foundryApp.id}.alternate-boosts`}
@@ -400,7 +400,7 @@
             class:not-eligible={data.build.manual}
             data-section="voluntary"
             role="group"
-            aria-label={game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.VoluntaryFlaw.Title")}
+            aria-label={_loc("PF2E.Actor.Character.AttributeBuilder.VoluntaryFlaw.Title")}
         >
             {#if data.ancestry}
                 <div class="row-heading">
@@ -410,14 +410,14 @@
                             class="description has-tooltip"
                             data-tooltip="PF2E.Actor.Character.AttributeBuilder.VoluntaryFlaw.Description"
                         >
-                            {game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.VoluntaryFlaw.Title")}
+                            {_loc("PF2E.Actor.Character.AttributeBuilder.VoluntaryFlaw.Title")}
                         </div>
                         <label
                             class="extra"
                             for={`${foundryApp.id}.legacy-flaws`}
                             data-tooltip="PF2E.Actor.Character.AttributeBuilder.VoluntaryFlaw.LegacyDescription"
                         >
-                            {game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.LegacyFlaws")}
+                            {_loc("PF2E.Actor.Character.AttributeBuilder.LegacyFlaws")}
                             <i class="fa-solid fa-circle-info small" aria-hidden="true"></i>
                             <input
                                 type="checkbox"
@@ -471,7 +471,7 @@
             class:not-eligible={data.build.manual}
             data-section="background"
             role="group"
-            aria-label={game.i18n.format("PF2E.Actor.Character.AttributeBuilder.Aria.BackgroundSection", {
+            aria-label={_loc("PF2E.Actor.Character.AttributeBuilder.Aria.BackgroundSection", {
                 name: data.background?.name ?? "",
             })}
         >
@@ -484,7 +484,7 @@
                     <RemainingIndicator count={backgroundBoosts.remaining} />
                     <img src={data.background?.img} alt={data.background?.name} loading="lazy" />
                     <div class="label">
-                        <div class="title">{game.i18n.localize("TYPES.Item.background")}</div>
+                        <div class="title">{_loc("TYPES.Item.background")}</div>
                         <div class="description">{data.background?.name}</div>
                     </div>
                 </div>
@@ -516,7 +516,7 @@
             class="row"
             class:not-eligible={data.build.manual}
             role="group"
-            aria-label={game.i18n.format("PF2E.Actor.Character.AttributeBuilder.Aria.ClassSection", {
+            aria-label={_loc("PF2E.Actor.Character.AttributeBuilder.Aria.ClassSection", {
                 name: data.class?.name ?? "",
             })}
         >
@@ -524,7 +524,7 @@
                 <div class="row-heading">
                     <img src={data.class.img} alt={data.class.name} loading="lazy" />
                     <div class="label">
-                        <div class="title">{game.i18n.localize("TYPES.Item.class")}</div>
+                        <div class="title">{_loc("TYPES.Item.class")}</div>
                         <div class="description">{data.class.name}</div>
                     </div>
                 </div>
@@ -555,7 +555,7 @@
         <div class="row" class:not-eligible={data.build.manual}>
             <div class="row-heading">
                 <div class="label">
-                    <div class="title">{game.i18n.localize("PF2E.AbilityFree")}</div>
+                    <div class="title">{_loc("PF2E.AbilityFree")}</div>
                 </div>
             </div>
         </div>
@@ -568,7 +568,7 @@
                 data-section={boosts.isApex ? "apex" : undefined}
                 data-level={boosts.isApex ? undefined : boosts.level}
                 role="group"
-                aria-label={game.i18n.format("PF2E.Actor.Character.AttributeBuilder.Aria.LevelSection", {
+                aria-label={_loc("PF2E.Actor.Character.AttributeBuilder.Aria.LevelSection", {
                     level: getLevelLabel(boosts),
                 })}
             >
@@ -598,8 +598,8 @@
         <section class="row summary-row">
             <div class="row-heading">
                 <aside class="hint-container">
-                    <h3>{game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.InputMethod.Title")}</h3>
-                    <p>{game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.InputMethod.Description")}</p>
+                    <h3>{_loc("PF2E.Actor.Character.AttributeBuilder.InputMethod.Title")}</h3>
+                    <p>{_loc("PF2E.Actor.Character.AttributeBuilder.InputMethod.Description")}</p>
                     <label for={`${foundryApp.id}.manual-mode`}>
                         <input
                             type="checkbox"
@@ -608,7 +608,7 @@
                             checked={data.build.manual}
                             onchange={() => foundryApp.toggleManualMode()}
                         />
-                        {game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.InputMethod.Manual")}
+                        {_loc("PF2E.Actor.Character.AttributeBuilder.InputMethod.Manual")}
                     </label>
                 </aside>
             </div>
@@ -636,11 +636,11 @@
                         {:else}
                             <div class="value">{attrData.mod}</div>
                         {/if}
-                        <h4>{game.i18n.localize(attrData.label)}</h4>
+                        <h4>{_loc(attrData.label)}</h4>
                     </div>
                 {/each}
                 <button class="complete" type="button" data-action="close" onclick={() => foundryApp.close()}>
-                    {game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.Complete")}
+                    {_loc("PF2E.Actor.Character.AttributeBuilder.Complete")}
                 </button>
             </div>
         </section>

@@ -1,5 +1,5 @@
-import { createButtonRecord, type BoostFlawState } from "@module/apps/attribute-builder/helpers.ts";
 import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
+import { createButtonRecord, type BoostFlawState } from "@module/apps/attribute-builder/helpers.ts";
 import type { SocketMessage } from "@scripts/socket.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
@@ -36,7 +36,7 @@ class KingdomBuilder extends appv1.api.FormApplication<Kingdom> {
         return {
             ...super.defaultOptions,
             classes: ["sheet", "kingdom-builder"],
-            title: game.i18n.localize("PF2E.Kingmaker.KingdomBuilder.Title"),
+            title: _loc("PF2E.Kingmaker.KingdomBuilder.Title"),
             template: `systems/${SYSTEM_ID}/templates/actors/party/kingdom/builder.hbs`,
             width: 560,
             height: "auto",

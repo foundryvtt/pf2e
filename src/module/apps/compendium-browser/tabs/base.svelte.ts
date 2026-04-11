@@ -1,6 +1,5 @@
 import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
 import type { TableResultSource } from "@common/documents/table-result.d.mts";
-import { CompendiumDirectoryPF2e } from "@module/apps/sidebar/compendium-directory.ts";
 import { Predicate, type PredicateStatement } from "@system/predication.ts";
 import { ErrorPF2e, htmlQuery, sluggify } from "@util";
 import MiniSearch from "minisearch";
@@ -58,7 +57,7 @@ export abstract class CompendiumBrowserTab {
 
     /** The localized label for this tab */
     get label(): string {
-        return game.i18n.localize(this.tabLabel);
+        return _loc(this.tabLabel);
     }
 
     /** Whether this tab is only visible to a GM */
@@ -91,7 +90,7 @@ export abstract class CompendiumBrowserTab {
             fields: this.searchFields,
             idField: "uuid",
             processTerm: (term): string[] | null => {
-                if (term.length <= 1 || CompendiumDirectoryPF2e.STOP_WORDS.has(term)) {
+                if (term.length <= 1 || CONFIG.i18n.searchStopWords.has(term)) {
                     return null;
                 }
                 return Array.from(wordSegmenter.segment(term))
@@ -255,7 +254,7 @@ export abstract class CompendiumBrowserTab {
         { prefix, sort }: { prefix?: string; sort?: boolean } = { sort: true },
     ): CheckboxOptions {
         // Localize labels for sorting. Return localized and sorted CheckBoxOptions
-        const localized = R.mapValues(configData, (v) => game.i18n.localize(R.isObjectType(v) ? v.label : v));
+        const localized = R.mapValues(configData, (v) => _loc(R.isObjectType(v) ? v.label : v));
         return Object.entries(sort ? this.sortedConfig(localized) : localized).reduce(
             (result: CheckboxOptions, [key, label]) => ({
                 ...result,
@@ -278,7 +277,7 @@ export abstract class CompendiumBrowserTab {
     ): { value: string; label: string }[] {
         const options = Object.entries(optionsRecord).map(([value, label]) => ({
             value: prefix ? `${prefix}:${value}` : value,
-            label: game.i18n.localize(label),
+            label: _loc(label),
         }));
         if (sort) options.sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
         return options;
@@ -348,7 +347,7 @@ export abstract class CompendiumBrowserTab {
 
         if (this.results.length > this.#MAX_TABLE_SIZE) {
             ui.notifications.warn(
-                game.i18n.format("PF2E.CompendiumBrowser.RollTable.TooManyResults", {
+                _loc("PF2E.CompendiumBrowser.RollTable.TooManyResults", {
                     size: this.results.length,
                     maxSize: this.#MAX_TABLE_SIZE,
                 }),
@@ -366,7 +365,7 @@ export abstract class CompendiumBrowserTab {
                     const dialogEl = dialog.element;
                     const name =
                         htmlQuery<HTMLInputElement>(dialogEl, "input[name=name]")?.value ||
-                        game.i18n.localize("PF2E.CompendiumBrowser.Title");
+                        _loc("PF2E.CompendiumBrowser.Title");
                     const weight = Number(htmlQuery<HTMLInputElement>(dialogEl, "input[name=weight]")?.value) || 1;
                     const results = this.#getRollTableResults({ weight });
                     RollTable.create(
@@ -390,7 +389,7 @@ export abstract class CompendiumBrowserTab {
 
         if (this.results.length > this.#MAX_TABLE_SIZE) {
             ui.notifications.warn(
-                game.i18n.format("PF2E.CompendiumBrowser.RollTable.TooManyResults", {
+                _loc("PF2E.CompendiumBrowser.RollTable.TooManyResults", {
                     size: this.results.length,
                     maxSize: this.#MAX_TABLE_SIZE,
                 }),

@@ -54,7 +54,7 @@ class ShieldSheetPF2e extends PhysicalItemSheetPF2e<ShieldPF2e> {
             propertyRuneSlots,
             reinforcing: R.mapToObj(REINFORCING_RUNE_LOC_PATHS, (value, index) => [index, value]),
             weaponRunes: weaponRunes ? RUNE_DATA.weapon : null,
-            grades: R.mapValues(CONFIG.PF2E.grades, (v) => game.i18n.localize(v)),
+            grades: R.mapValues(CONFIG.PF2E.grades, (v) => _loc(v)),
         };
     }
 

@@ -1,6 +1,7 @@
-import { ChatMessageCreateOperation } from "@common/documents/chat-message.mjs";
+import { ImageFilePath } from "@common/constants.mjs";
 import { BaseCard, CardFaceData, Cards, ChatMessage } from "./_module.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";
+import { ChatMessageCreateOperation } from "./chat-message.mjs";
 
 declare const ClientBaseCard: new <TParent extends Cards | null>(
     ...args: any
@@ -18,7 +19,7 @@ export default class Card<TParent extends Cards | null> extends ClientBaseCard<T
     get currentFace(): CardFaceData | null;
 
     /** The image of the currently displayed card face or back */
-    get img(): this["img"];
+    get img(): ImageFilePath;
 
     /** A reference to the source Cards document which defines this Card. */
     get source(): Cards | null;
@@ -34,13 +35,11 @@ export default class Card<TParent extends Cards | null> extends ClientBaseCard<T
 
     /**
      * Does this Card have a next face available to flip to?
-     * @type {boolean}
      */
     get hasNextFace(): boolean;
 
     /**
      * Does this Card have a previous face available to flip to?
-     * @type {boolean}
      */
     get hasPreviousFace(): boolean;
 
@@ -87,16 +86,16 @@ export default class Card<TParent extends Cards | null> extends ClientBaseCard<T
 
     /**
      * Recall this Card to its original Cards parent.
-     * @param {object} [options={}]   Options which modify the recall operation
-     * @returns {Promise<Card>}       A reference to the recalled card belonging to its original parent
+     * @param options Options which modify the recall operation
+     * @returns A reference to the recalled card belonging to its original parent
      */
     recall(options?: Record<string, unknown>): Promise<Card<Cards | null>>;
 
     /**
      * Create a chat message which displays this Card.
-     * @param {object} [messageData={}] Additional data which becomes part of the created ChatMessageData
-     * @param {object} [options={}]     Options which modify the message creation operation
-     * @returns {Promise<ChatMessage>}  The created chat message
+     * @param messageData Additional data which becomes part of the created ChatMessageData
+     * @param options Options which modify the message creation operation
+     * @returns The created chat message
      */
     toMessage(
         messageData?: DeepPartial<foundry.documents.ChatMessageSource>,

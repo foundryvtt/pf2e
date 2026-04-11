@@ -17,7 +17,7 @@
     const itemTypeOptions = $derived(
         isCantrip
             ? { cantripDeck5: localize("CantripDeck5") }
-            : R.mapValues(CONFIG.PF2E.spellcastingItems, (c) => game.i18n.localize(c.name)),
+            : R.mapValues(CONFIG.PF2E.spellcastingItems, (c) => _loc(c.name)),
     );
     const compendiumUuids: Record<number, string | null> | null = $derived(itemTypeData?.compendiumUuids ?? null);
     const ranks = $derived(
@@ -49,14 +49,14 @@
             class="item-info icon fa-solid fa-info-circle"
             disabled={!resolvedItem}
             data-tooltip
-            aria-label={game.i18n.localize(localize(resolvedItem ? "ViewItem" : "NoValidRanks"))}
+            aria-label={_loc(localize(resolvedItem ? "ViewItem" : "NoValidRanks"))}
             onclick={() => viewItem(resolvedItem)}
         ></button>
     </div>
 </div>
 {#if type !== "cantripDeck5"}
     <div class="form-group">
-        <label for={`${foundryApp.id}.rank`}>{game.i18n.localize("PF2E.Item.Spell.Rank.Label")}</label>
+        <label for={`${foundryApp.id}.rank`}>{_loc("PF2E.Item.Spell.Rank.Label")}</label>
         <div class="form-fields">
             {#if noValidRanks}
                 {localize("NoValidRanks")}
@@ -71,12 +71,12 @@
     </div>
 {/if}
 <div class="form-group">
-    <label for={`${foundryApp.id}.mystified`}>{game.i18n.localize("PF2E.identification.Mystify")}</label>
+    <label for={`${foundryApp.id}.mystified`}>{_loc("PF2E.identification.Mystify")}</label>
     <input id={`${foundryApp.id}.mystified`} type="checkbox" name="mystified" checked={initialMystified} />
 </div>
 <button type="submit" disabled={noValidRanks}>
     <i class="fa-regular fa-floppy-disk"></i>
-    {game.i18n.localize("PF2E.CreateItemTitle")}
+    {_loc("PF2E.CreateItemTitle")}
 </button>
 
 <style lang="scss">

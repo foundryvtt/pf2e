@@ -750,7 +750,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
                 const itemType = this.generateUnidentifiedName({ typeOnly: true });
                 const caseCorrect = (noun: string) =>
                     game.i18n.lang.toLowerCase() === "de" ? noun : noun.toLowerCase();
-                return game.i18n.format("PF2E.identification.UnidentifiedDescription", { item: caseCorrect(itemType) });
+                return _loc("PF2E.identification.UnidentifiedDescription", { item: caseCorrect(itemType) });
             })();
 
         return {
@@ -764,9 +764,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         const { type, grade } = this.system.material;
         const material =
             type && grade
-                ? game.i18n.format("PF2E.Item.Weapon.MaterialAndRunes.MaterialOption", {
-                      type: game.i18n.localize(CONFIG.PF2E.preciousMaterials[type]),
-                      grade: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[grade]),
+                ? _loc("PF2E.Item.Weapon.MaterialAndRunes.MaterialOption", {
+                      type: _loc(CONFIG.PF2E.preciousMaterials[type]),
+                      grade: _loc(CONFIG.PF2E.preciousMaterialGrades[grade]),
                   })
                 : null;
         const rarity =
@@ -796,10 +796,10 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = {}): string {
-        const itemType = game.i18n.localize(`TYPES.Item.${this.type}`);
+        const itemType = _loc(`TYPES.Item.${this.type}`);
         if (typeOnly) return itemType;
 
-        return game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
+        return _loc("PF2E.identification.UnidentifiedItem", { item: itemType });
     }
 
     /** Updates this container's cache while also resolving cyclical references. Skips if already cached */
@@ -828,10 +828,8 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             if (trait.excluded) {
                 delete trait.description;
             } else if (trait.mystified) {
-                const gmNote = game.i18n.localize("PF2E.identification.TraitGMNote");
-                trait.description = trait.description
-                    ? `${gmNote}\n\n${game.i18n.localize(trait.description)}`
-                    : gmNote;
+                const gmNote = _loc("PF2E.identification.TraitGMNote");
+                trait.description = trait.description ? `${gmNote}\n\n${_loc(trait.description)}` : gmNote;
             }
         }
 
@@ -935,7 +933,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             if (R.isPlainObject(price.value)) {
                 const coins = price.value;
                 for (const denomination of COIN_DENOMINATIONS) {
-                    if (coins[denomination] === 0) coins[`-=${denomination}`] = null;
+                    if (coins[denomination] === 0) coins[denomination] = _del;
                 }
             }
             if ("per" in price) price.per = Math.max(1, Math.floor(Number(price.per) || 1));
@@ -957,7 +955,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         if (hasSlot) {
             equipped.inSlot = isSlotted;
         } else if ("inSlot" in (this._source.system.equipped ?? {})) {
-            equipped["-=inSlot"] = null;
+            equipped.inSlot = _del;
         }
 
         // Remove apex data if apex trait is no longer present
@@ -967,8 +965,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             (!Array.isArray(changedTraits) || tupleHasValue(changedTraits, "apex"));
         if (!hasApexTrait && this._source.system.apex) {
             delete changed.system?.apex;
-            (changed.system satisfies object | undefined) ??= {}; // workaround of `DeepPartial` limitations
-            changed.system = fu.mergeObject(changed.system!, { "-=apex": null });
+            changed.system = fu.mergeObject((changed.system ??= {}), { apex: _del });
         }
 
         return super._preUpdate(changed, operation, user);

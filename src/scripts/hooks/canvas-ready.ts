@@ -1,4 +1,4 @@
-import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
+import { toggleClearEffectAreaButton } from "@module/chat-message/helpers.ts";
 
 export const CanvasReady = {
     listen: (): void => {
@@ -15,11 +15,8 @@ export const CanvasReady = {
         Hooks.on("canvasReady", () => {
             // Effect Panel singleton application
             game.pf2e.effectPanel.render({ force: true });
+
             if (!canvas.scene) return;
-
-            // Accomodate hex grid play with a usable default cone angle
-            CONFIG.MeasuredTemplate.defaults.angle = canvas.grid.isHexagonal ? 60 : 90;
-
             for (const token of canvas.tokens.placeables) {
                 // Redraw effects on visible tokens
                 if (token.visible) token.renderFlags.set({ redrawEffects: true });
@@ -27,7 +24,7 @@ export const CanvasReady = {
 
             // Show clear-measured-templates buttons
             for (const message of game.messages.contents.slice((-1 * CONFIG.ChatMessage.batchSize) / 2)) {
-                toggleClearTemplatesButton(message);
+                toggleClearEffectAreaButton(message);
             }
         });
     },

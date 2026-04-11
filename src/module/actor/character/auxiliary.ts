@@ -107,8 +107,8 @@ class WeaponAuxiliaryAction {
         const actionKey = sluggify(this.action, { camel: "bactrian" });
         const purposeKey = this.fullAnnotation ? sluggify(this.fullAnnotation, { camel: "bactrian" }) : null;
         return purposeKey
-            ? game.i18n.localize(`PF2E.Actions.${actionKey}.${purposeKey}.Title`)
-            : game.i18n.localize(`PF2E.Actions.${actionKey}.ShortTitle`);
+            ? _loc(`PF2E.Actions.${actionKey}.${purposeKey}.Title`)
+            : _loc(`PF2E.Actions.${actionKey}.ShortTitle`);
     }
 
     get glyph(): string {
@@ -132,10 +132,10 @@ class WeaponAuxiliaryAction {
 
     #getModularConfigLabel(config: ModularConfig) {
         const parts: string[] = [];
-        if (config.damageType) parts.push(game.i18n.localize(CONFIG.PF2E.damageTypes[config.damageType]));
+        if (config.damageType) parts.push(_loc(CONFIG.PF2E.damageTypes[config.damageType]));
         parts.push(
             ...config.traits
-                .map((t) => game.i18n.localize(CONFIG.PF2E.weaponTraits[t]))
+                .map((t) => _loc(CONFIG.PF2E.weaponTraits[t]))
                 .sort((a, b) => a.localeCompare(b, game.i18n.lang)),
         );
         return localizeList(parts, { conjunction: "and", sort: false });
@@ -218,7 +218,7 @@ class WeaponAuxiliaryAction {
         const modularConfig = weapon.system.traits.toggles.modular?.config;
         const content = await fa.handlebars.renderTemplate(templates.content, {
             imgPath: weapon.img,
-            message: game.i18n.format(message, {
+            message: _loc(message, {
                 actor: actor.name,
                 weapon: weapon.name,
                 shield: weapon.shield?.name ?? weapon.name,

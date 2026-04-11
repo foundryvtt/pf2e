@@ -153,7 +153,7 @@ class WeaponReloader extends SvelteApplicationMixin<
         const flavor = await fa.handlebars.renderTemplate(templates.flavor, { action: flavorAction, traits });
         const content = await fa.handlebars.renderTemplate(templates.content, {
             imgPath: weapon.img,
-            message: game.i18n.format(message, { actor: actor.name, weapon: weapon.name, ammo: ammo.name }),
+            message: _loc(message, { actor: actor.name, weapon: weapon.name, ammo: ammo.name }),
         });
 
         const token = actor.getActiveTokens(false, true).shift();

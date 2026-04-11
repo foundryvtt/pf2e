@@ -9,7 +9,7 @@ export class LegalNotice extends fa.api.DialogV2 {
     override _initializeApplicationOptions(
         options: DeepPartial<fa.api.DialogV2Configuration>,
     ): fa.api.DialogV2Configuration {
-        options.content = `<p>${game.i18n.localize("PF2E.LegalNotice.Text")}</p>`;
+        options.content = `<p>${_loc("PF2E.LegalNotice.Text")}</p>`;
         return super._initializeApplicationOptions(options);
     }
 }

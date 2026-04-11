@@ -142,17 +142,17 @@ async function checkPhysicalItemSystemChange(
     const removedTrait = beforeSF2eTraits.find((t) => !newTraits.includes(t));
     const otherTrait = removedTrait === "tech" ? "analog" : "tech";
     const newTrait = newTraits.find((t) => tupleHasValue(sf2eTraits, t));
-    const otherTraitLabel = otherTrait && game.i18n.localize(CONFIG.PF2E.equipmentTraits[otherTrait]);
+    const otherTraitLabel = otherTrait && _loc(CONFIG.PF2E.equipmentTraits[otherTrait]);
 
     const showChangeButton = !becomingSF2e && wasBaseSF2e && changed.system?.traits?.value;
     const result = await foundry.applications.api.DialogV2.wait({
         window: { title: "PF2E.Item.Physical.ChangeEquipmentSystem.Title" },
         position: { width: 400 },
         modal: true,
-        content: game.i18n.format(key, {
-            type: game.i18n.localize(`TYPES.Item.${item.type}`),
-            newTrait: newTrait && game.i18n.localize(CONFIG.PF2E.equipmentTraits[newTrait]),
-            removedTrait: removedTrait && game.i18n.localize(CONFIG.PF2E.equipmentTraits[removedTrait]),
+        content: _loc(key, {
+            type: _loc(`TYPES.Item.${item.type}`),
+            newTrait: newTrait && _loc(CONFIG.PF2E.equipmentTraits[newTrait]),
+            removedTrait: removedTrait && _loc(CONFIG.PF2E.equipmentTraits[removedTrait]),
             otherTrait: otherTraitLabel,
         }),
         buttons: [
@@ -211,7 +211,7 @@ function generateItemName(item: PhysicalItemPF2e): string {
         !baseType ||
         !(baseType in baseItemDictionary) ||
         item.isSpecific ||
-        storedName !== game.i18n.localize(baseItemDictionary[baseType] ?? "")
+        storedName !== _loc(baseItemDictionary[baseType] ?? "")
     ) {
         return item.name;
     }
@@ -219,27 +219,25 @@ function generateItemName(item: PhysicalItemPF2e): string {
     const { runes, material, grade } = item.system;
     const baseLabel = baseType
         ? material.type && ["hide-armor", "steel-shield", "wooden-shield"].includes(baseType)
-            ? game.i18n.localize(`TYPES.Item.${item.type}`)
-            : game.i18n.localize(baseItemDictionary[baseType] ?? "")
+            ? _loc(`TYPES.Item.${item.type}`)
+            : _loc(baseItemDictionary[baseType] ?? "")
         : item.name;
-    const materialLabel = material.type && game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.type]);
+    const materialLabel = material.type && _loc(CONFIG.PF2E.preciousMaterials[material.type]);
 
     if (grade && !AutomaticBonusProgression.isEnabled(item.actor)) {
         const params: Record<string, string | number | null> = {
             base: baseLabel,
             material: materialLabel,
-            grade: game.i18n.localize(CONFIG.PF2E.grades[grade]),
+            grade: _loc(CONFIG.PF2E.grades[grade]),
         };
 
         const formatString = ["Grade", params.material && "Material"].filter(R.isTruthy).join("");
-        return game.i18n.format(`PF2E.Item.Physical.GeneratedName.${formatString}`, params);
+        return _loc(`PF2E.Item.Physical.GeneratedName.${formatString}`, params);
     } else {
         const potency = "potency" in runes ? runes.potency : null;
         const fundamental2 = "resilient" in runes ? runes.resilient : "striking" in runes ? runes.striking : null;
         const reinforcing =
-            "reinforcing" in runes
-                ? game.i18n.localize(REINFORCING_RUNE_LOC_PATHS[Number(runes.reinforcing)] ?? "") || null
-                : null;
+            "reinforcing" in runes ? _loc(REINFORCING_RUNE_LOC_PATHS[Number(runes.reinforcing)] ?? "") || null : null;
         const params: Record<string, string | number | null> = {
             base: baseLabel,
             material: materialLabel,
@@ -247,13 +245,12 @@ function generateItemName(item: PhysicalItemPF2e): string {
             reinforcing,
             fundamental2:
                 fundamental2 && fundamentalTwoDictionary
-                    ? game.i18n.localize(fundamentalTwoDictionary[fundamental2]?.name ?? "") || null
+                    ? _loc(fundamentalTwoDictionary[fundamental2]?.name ?? "") || null
                     : null,
         };
         if ("property" in runes && propertyDictionary) {
             for (const index of [0, 1, 2, 3] as const) {
-                params[`property${index + 1}`] =
-                    game.i18n.localize(propertyDictionary[runes.property[index]]?.name ?? "") || null;
+                params[`property${index + 1}`] = _loc(propertyDictionary[runes.property[index]]?.name ?? "") || null;
             }
         }
 
@@ -273,10 +270,10 @@ function generateItemName(item: PhysicalItemPF2e): string {
                       : null;
             const material = params.material && "Material";
             const key = [potency, reinforcing, fundamental2, properties, material].filter(R.isTruthy).join("") || null;
-            return key && game.i18n.localize(key);
+            return key && _loc(key);
         })();
 
-        return formatString ? game.i18n.format(`PF2E.Item.Physical.GeneratedName.${formatString}`, params) : item.name;
+        return formatString ? _loc(`PF2E.Item.Physical.GeneratedName.${formatString}`, params) : item.name;
     }
 }
 

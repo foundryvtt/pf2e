@@ -34,7 +34,7 @@ class SelectItemDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
     override get title(): string {
         const key = sluggify(this.#action, { camel: "bactrian" });
-        return game.i18n.localize(`PF2E.Actions.${key}.SelectItemDialog.Title`);
+        return _loc(`PF2E.Actions.${key}.SelectItemDialog.Title`);
     }
 
     protected override async _prepareContext(options: fa.ApplicationRenderOptions): Promise<SelectItemRenderContext> {

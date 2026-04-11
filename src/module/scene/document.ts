@@ -1,3 +1,4 @@
+import type { SceneViewOptions } from "@client/documents/_types.d.mts";
 import type { SceneUpdateOptions } from "@client/documents/scene.d.mts";
 import type {
     DatabaseDeleteOperation,
@@ -7,12 +8,7 @@ import type {
 } from "@common/abstract/_module.d.mts";
 import { LightLevels, SceneFlagsPF2e } from "./data.ts";
 import { checkAuras } from "./helpers.ts";
-import type {
-    AmbientLightDocumentPF2e,
-    MeasuredTemplateDocumentPF2e,
-    RegionDocumentPF2e,
-    TileDocumentPF2e,
-} from "./index.ts";
+import type { AmbientLightDocumentPF2e, RegionDocumentPF2e, TileDocumentPF2e } from "./index.ts";
 import { TokenDocumentPF2e } from "./index.ts";
 import type { SceneConfigPF2e } from "./sheet.ts";
 
@@ -121,15 +117,16 @@ class ScenePF2e extends Scene {
         this.updateEmbeddedDocuments("Token", entries, { animation: { movementSpeed: 1.5 } });
     }, 0);
 
-    override async view(): Promise<this> {
-        await super.view();
-
-        // Reset all troop actors on scene change in case some of them need to poach rule elements from siblings
-        // This is mostly needed for drained
-        for (const token of this.tokens.filter((t) => !!t.flags[SYSTEM_ID].troop)) {
-            token.actor?.reset();
+    /**
+     * Reset all troop actors on scene change in case some of them need to poach rule elements from siblings This is
+     * mostly needed for the Drained condition.
+     */
+    override async view(options?: SceneViewOptions): Promise<this> {
+        if (this.isView) return super.view(options);
+        await super.view(options);
+        for (const token of this.tokens) {
+            if (token.flags[SYSTEM_ID].troop) token.actor?.reset();
         }
-
         return this;
     }
 
@@ -204,7 +201,6 @@ interface ScenePF2e extends Scene {
 
     readonly lights: EmbeddedCollection<AmbientLightDocumentPF2e<this>>;
     readonly regions: EmbeddedCollection<RegionDocumentPF2e<this>>;
-    readonly templates: EmbeddedCollection<MeasuredTemplateDocumentPF2e<this>>;
     readonly tiles: EmbeddedCollection<TileDocumentPF2e<this>>;
     readonly tokens: EmbeddedCollection<TokenDocumentPF2e<this>>;
 

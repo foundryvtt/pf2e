@@ -180,10 +180,10 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     ): Promise<RawItemChatData> {
         const properties = [
             CONFIG.PF2E.armorCategories[this.category],
-            `${signedInteger(this.acBonus)} ${game.i18n.localize("PF2E.ArmorArmorLabel")}`,
-            `${this.system.dexCap || 0} ${game.i18n.localize("PF2E.ArmorDexLabel")}`,
-            `${this.system.checkPenalty || 0} ${game.i18n.localize("PF2E.ArmorCheckLabel")}`,
-            this.speedPenalty ? `${this.system.speedPenalty} ${game.i18n.localize("PF2E.ArmorSpeedLabel")}` : null,
+            `${signedInteger(this.acBonus)} ${_loc("PF2E.ArmorArmorLabel")}`,
+            `${this.system.dexCap || 0} ${_loc("PF2E.ArmorDexLabel")}`,
+            `${this.system.checkPenalty || 0} ${_loc("PF2E.ArmorCheckLabel")}`,
+            this.speedPenalty ? `${this.system.speedPenalty} ${_loc("PF2E.ArmorSpeedLabel")}` : null,
         ].filter(R.isTruthy);
 
         return this.processChatData(htmlOptions, {
@@ -197,9 +197,9 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         const base = this.baseType ? CONFIG.PF2E.baseArmorTypes[this.baseType] : null;
         const group = this.group ? CONFIG.PF2E.armorGroups[this.group] : null;
         const fallback = "TYPES.Item.armor";
-        const itemType = game.i18n.localize(base ?? group ?? fallback);
+        const itemType = _loc(base ?? group ?? fallback);
 
-        return typeOnly ? itemType : game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
+        return typeOnly ? itemType : _loc("PF2E.identification.UnidentifiedItem", { item: itemType });
     }
 
     /** Ensure correct shield/actual-armor usage */

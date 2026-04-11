@@ -31,7 +31,7 @@
             type="search"
             class="filter-sources"
             spellcheck="false"
-            placeholder={game.i18n.localize("PF2E.CompendiumBrowser.Filter.FilterSources")}
+            placeholder={_loc("PF2E.CompendiumBrowser.Filter.FilterSources")}
             oninput={onSearchSource}
         />
     {/if}
@@ -46,7 +46,7 @@
                     checked={option.selected}
                     onchange={(event) => onChangeCheckbox(event, { name, option })}
                 />
-                {game.i18n.localize(option.label)}
+                {_loc(option.label)}
             </label>
         {/if}
     {/each}

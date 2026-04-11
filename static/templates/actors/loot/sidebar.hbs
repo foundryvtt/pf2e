@@ -9,14 +9,15 @@
         <div class="gm-settings">
             <div class="loot-distribution" data-sidebar-buttons>
                 <button type="button" data-action="split-coins"><i class="fa-solid fa-coins"></i> {{localize "PF2E.loot.SplitCoinsLabel"}}</button>
-                <button type="button" data-action="loot-npcs"><i class="fa-solid fa-box-open"></i> {{localize "PF2E.loot.LootNPCsLabel"}}</button>
+                <button type="button" data-action="loot-npcs"><i class="fa-solid fa-backpack"></i> {{localize "PF2E.loot.LootNPCsLabel"}}</button>
                 <button type="button" data-action="send-to-party-stash" {{disabled (not hasActiveParty)}}><i class="fa-solid fa-users-viewfinder"></i> {{localize "PF2E.loot.SendToPartyStash"}}</button>
             </div>
             <div class="form-group">
                 <label for="{{document.uuid}}-hidden-when-empty">
                     <span>{{localize "PF2E.loot.HiddenWhenEmpty.Label"}}</span>
-                    <i class="fa-solid fa-circle-info" inert
-                       data-tooltip aria-label="{{localize "PF2E.loot.HiddenWhenEmpty.Hint"}}"></i>
+                    <span data-tooltip aria-label="{{localize "PF2E.loot.HiddenWhenEmpty.Hint"}}">
+                        <i class="fa-solid fa-circle-info" inert></i>
+                    </span>
                 </label>
                 <input type="checkbox" id="{{document.uuid}}-hidden-when-empty" name="system.hiddenWhenEmpty" {{checked data.hiddenWhenEmpty}} />
             </div>

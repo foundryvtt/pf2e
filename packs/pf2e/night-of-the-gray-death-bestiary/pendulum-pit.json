@@ -44,7 +44,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "no-map"
+                        "pendulum-shove"
                     ]
                 },
                 "bonus": {
@@ -57,7 +57,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>No MAP applies to strikes made by pendulum blade attacks</p>"
+                    "value": "<p>No multiple attack penalty</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -67,6 +67,7 @@
                 "range": null,
                 "rules": [],
                 "slug": null,
+                "subjectToMAP": false,
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -92,37 +93,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p>A creature hit by a pendulum blade must succeed at a @Check[reflex|dc:44] save or be moved 5 feet along the line of the pendulum's swing. This is forced movement.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tfCSRvXxmrtunFjE",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "No MAP",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": null,
-                "description": {
-                    "value": "<p>The Pendulum Blade is unaffected by Multiple Attack Penalty</p>"
+                    "value": "<p>A creature hit by a pendulum blade must succeed at a @Check[reflex|dc:44|options:forced-movement] save or be moved 5 feet along the line of the pendulum's swing. This is forced movement.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -177,15 +148,15 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 0
+                "value": null
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 0
+                "value": null
             },
             "will": {
                 "saveDetail": "",
-                "value": 0
+                "value": null
             }
         },
         "statusEffects": [],

@@ -186,7 +186,7 @@ export class Migration711HeritageItems extends MigrationBase {
         return {
             _id: fu.randomID(),
             type: "heritage",
-            img: feature.img.endsWith("/feat.svg")
+            img: feature.img?.endsWith("/feat.svg")
                 ? `systems/${SYSTEM_ID}/icons/default-icons/heritage.svg`
                 : feature.img,
             name: feature.name,
@@ -238,7 +238,7 @@ export class Migration711HeritageItems extends MigrationBase {
     override async updateItem(itemSource: ItemSourcePF2e, actorSource?: ActorSourcePF2e): Promise<void> {
         if (actorSource || !this.#isHeritageFeature(itemSource)) return;
 
-        const newSource: { type: string; img: ImageFilePath; system: object } = itemSource;
+        const newSource: { type: string; img: ImageFilePath | null; system: object } = itemSource;
         newSource.type = "heritage";
         if (itemSource.img === `systems/${SYSTEM_ID}/icons/default-icons/feat.svg`) {
             itemSource.img = `systems/${SYSTEM_ID}/icons/default-icons/heritage.svg`;

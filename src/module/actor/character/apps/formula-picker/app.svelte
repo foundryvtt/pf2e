@@ -31,17 +31,17 @@
             type="search"
             spellcheck="false"
             bind:value={queryText}
-            placeholder={game.i18n.localize("PF2E.Actor.Character.Crafting.Search")}
+            placeholder={_loc("PF2E.Actor.Character.Crafting.Search")}
         />
     </div>
     {#if !ability.isPrepared && !data.resource?.value}
-        <p class="notification warning">{game.i18n.localize("PF2E.Actor.Character.Crafting.MissingResource")}</p>
+        <p class="notification warning">{_loc("PF2E.Actor.Character.Crafting.MissingResource")}</p>
     {/if}
 </header>
 
 <section class="content">
     {#each filteredSections as section (section.level)}
-        <header>{game.i18n.format("PF2E.LevelN", { level: section.level })}</header>
+        <header>{_loc("PF2E.LevelN", { level: section.level })}</header>
         <ol class="items-list">
             {#each section.formulas as formula (formula.item.id)}
                 <li

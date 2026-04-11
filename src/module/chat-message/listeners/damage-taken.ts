@@ -11,7 +11,7 @@ export const DamageTaken = {
         const settingEnabled = game.pf2e.settings.tokens.nameVisibility;
         if (!game.user.isGM && settingEnabled && message.token && !message.token.playersCanSeeName) {
             const nameElem = htmlQuery(damageTakenCard, ".target-name");
-            if (nameElem) nameElem.innerText = game.i18n.localize("PF2E.Actor.ApplyDamage.TheTarget");
+            if (nameElem) nameElem.innerText = _loc("PF2E.Actor.ApplyDamage.TheTarget");
         }
 
         // Add IWR-application tooltip

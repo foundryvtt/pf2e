@@ -114,7 +114,7 @@ class TravelSpeedSheet extends fav1.api.FormApplication<object, TravelSpeedSheet
         const options = super.defaultOptions;
         options.id = "travel-duration";
         options.classes = ["travel-duration"];
-        options.title = game.i18n.localize("PF2E.TravelSpeed.Title");
+        options.title = _loc("PF2E.TravelSpeed.Title");
         options.template = `systems/${SYSTEM_ID}/templates/gm/travel/travel-speed-sheet.hbs`;
         options.width = "auto";
         options.submitOnChange = true;

@@ -9,7 +9,7 @@ export class IdentifyItemPopup extends appv1.api.FormApplication<PhysicalItemPF2
         return {
             ...super.defaultOptions,
             id: "identify-item",
-            title: game.i18n.localize("PF2E.identification.Identify"),
+            title: _loc("PF2E.identification.Identify"),
             template: `systems/${SYSTEM_ID}/templates/actors/identify-item.hbs`,
             width: "auto",
             classes: ["identify-popup"],

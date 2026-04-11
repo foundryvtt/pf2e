@@ -289,9 +289,7 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
 
         const ruleData = Object.entries(strikes).map(([slug, strikeData]) => ({
             key: "Strike",
-            label:
-                game.i18n.localize(strikeData.label) ??
-                `PF2E.BattleForm.Attack.${sluggify(slug, { camel: "bactrian" })}`,
+            label: _loc(strikeData.label) ?? `PF2E.BattleForm.Attack.${sluggify(slug, { camel: "bactrian" })}`,
             slug,
             predicate: strikeData.predicate ?? [],
             img: strikeData.img ?? BATTLE_FORM_DEFAULT_ICONS[slug] ?? this.item.img,

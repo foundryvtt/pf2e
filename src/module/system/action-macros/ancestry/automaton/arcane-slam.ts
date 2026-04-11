@@ -41,7 +41,7 @@ export function arcaneSlam(options: SkillActionOptions): void {
                 ActionMacroHelpers.note(selector, "PF2E.Actions.ArcaneSlam", "criticalFailure"),
             ];
             if (!target) {
-                const translated = game.i18n.localize("PF2E.Actions.ArcaneSlam.Notes.NoTarget");
+                const translated = _loc("PF2E.Actions.ArcaneSlam.Notes.NoTarget");
                 notes.unshift(
                     new RollNotePF2e({
                         selector,

@@ -49,9 +49,9 @@ export class StatusEffects {
         return (this.#conditionSummaries ??= R.mapToObj(Array.from(CONDITION_SLUGS), (s) => [
             s,
             {
-                name: game.i18n.localize(`PF2E.condition.${s}.name`),
-                rules: game.i18n.localize(`PF2E.condition.${s}.rules`),
-                summary: game.i18n.localize(`PF2E.condition.${s}.summary`),
+                name: _loc(`PF2E.condition.${s}.name`),
+                rules: _loc(`PF2E.condition.${s}.rules`),
+                summary: _loc(`PF2E.condition.${s}.summary`),
             },
         ]));
     }

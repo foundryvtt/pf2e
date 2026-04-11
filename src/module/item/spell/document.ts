@@ -3,6 +3,7 @@ import { DamageDicePF2e, Modifier } from "@actor/modifiers.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import type { AttributeString } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
+import { ChatMessageMode } from "@client/config.mjs";
 import type { Rolled } from "@client/dice/roll.d.mts";
 import type { DocumentConstructionContext } from "@common/_types.d.mts";
 import type {
@@ -10,19 +11,17 @@ import type {
     DatabaseUpdateCallbackOptions,
     DatabaseUpdateOperation,
 } from "@common/abstract/_types.d.mts";
-import type { RollMode } from "@common/constants.d.mts";
 import type { ItemUUID } from "@common/documents/_module.d.mts";
 import type { ConsumablePF2e } from "@item";
 import { ItemPF2e } from "@item";
 import { processSanctification } from "@item/ability/helpers.ts";
 import { ItemSourcePF2e, RawItemChatData } from "@item/base/data/index.ts";
 import type { ItemDescriptionData } from "@item/base/data/system.ts";
-import { createEffectAreaLabel, performLatePreparation, placeItemTemplate } from "@item/helpers.ts";
+import { createEffectAreaLabel, performLatePreparation, placeRegionFromItem } from "@item/helpers.ts";
 import { SpellSlotGroupId } from "@item/spellcasting-entry/collection.ts";
 import { spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import type { RangeData } from "@item/types.ts";
-import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e, ItemOriginFlag } from "@module/chat-message/index.ts";
 import { OneToTen, Rarity, ZeroToThree, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -34,7 +33,7 @@ import {
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
-import type { TokenDocumentPF2e } from "@scene";
+import type { RegionDocumentPF2e, TokenDocumentPF2e } from "@scene";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { DamageModifierDialog } from "@system/damage/dialog.ts";
@@ -149,12 +148,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         if (defense?.passive) {
             const label = getPassiveDefenseLabel(defense.passive.statistic);
             if (label) {
-                return { slug: defense.passive.statistic, label: game.i18n.localize(label) };
+                return { slug: defense.passive.statistic, label: _loc(label) };
             }
         } else if (defense?.save) {
-            const saveLabel = game.i18n.localize(CONFIG.PF2E.saves[defense.save.statistic]);
+            const saveLabel = _loc(CONFIG.PF2E.saves[defense.save.statistic]);
             const label = defense.save.basic
-                ? game.i18n.format("PF2E.Item.Spell.Defense.BasicDefense", { save: saveLabel })
+                ? _loc("PF2E.Item.Spell.Defense.BasicDefense", { save: saveLabel })
                 : saveLabel;
             return { slug: defense.save.statistic, label };
         }
@@ -360,7 +359,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             options: contextData.options,
             self: contextData.origin,
             target: contextData.target,
-            rollMode: params.rollMode,
+            messageMode: params.messageMode,
             traits: contextData.traits,
         };
 
@@ -550,10 +549,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             .sort((first, second) => first.level - second.level);
     }
 
-    placeTemplate(message?: ChatMessagePF2e): Promise<MeasuredTemplatePF2e> {
+    placeTemplate(message?: ChatMessagePF2e): Promise<RegionDocumentPF2e | null> {
         const area = this.system.area;
         if (!area) throw ErrorPF2e("Attempted to create template with non-area spell");
-        return placeItemTemplate(area, { item: this, message });
+        return placeRegionFromItem(area, { item: this, message });
     }
 
     override prepareBaseData(): void {
@@ -753,7 +752,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     override async toMessage(
         event?: Maybe<PointerEvent>,
-        { create = true, data, rollMode }: SpellToMessageOptions = {},
+        { create = true, data, mode }: SpellToMessageOptions = {},
     ): Promise<ChatMessagePF2e | undefined> {
         // NOTE: The parent toMessage() pulls "contextual data" from the DOM dataset.
         // Only spells/consumables currently use DOM data.
@@ -764,16 +763,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // If this is for a higher level spell, heighten it first
         const castRank = Number(castData.castRank ?? "");
         if (castRank && castRank !== this.rank) {
-            return this.loadVariant({ castRank })?.toMessage(event, { create, data, rollMode });
+            return this.loadVariant({ castRank })?.toMessage(event, { create, data, mode });
         }
-
-        const message = await super.toMessage(event, { create: false, data: castData, rollMode });
+        const message = await super.toMessage(event, { create: false, data: castData, mode });
         if (!message) return undefined;
 
         const messageSource = message.toObject();
         const flags = messageSource.flags[SYSTEM_ID];
         const spellcasting = this.spellcasting;
-
         if (spellcasting?.statistic) {
             // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
             const tradition = spellcasting.tradition ?? this.traditions.first() ?? "arcane";
@@ -793,7 +790,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                     type: "spell-cast",
                     domains: dc.domains,
                     options: [...dc.options],
-                    rollMode,
+                    messageMode: mode,
                 };
             }
         }
@@ -874,9 +871,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const saveKey = systemData.defense?.save?.basic ? "PF2E.SaveDCLabelBasic" : "PF2E.SaveDCLabel";
         const saveLabel = ((): string | null => {
             if (!(spellDC && saveType)) return null;
-            const localized = game.i18n.format(saveKey, {
+            const localized = _loc(saveKey, {
                 dc: spellDC,
-                type: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
+                type: _loc(CONFIG.PF2E.saves[saveType]),
             });
             const tempElement = createHTMLElement("div", { innerHTML: localized });
             const visibility = game.pf2e.settings.metagame.dcs ? "all" : "owner";
@@ -899,8 +896,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // Combine properties
         const area = this.area;
         const properties = [
-            heightened ? game.i18n.format("PF2E.SpellLevelBase", { level: ordinalString(baseRank) }) : null,
-            heightened ? game.i18n.format("PF2E.SpellLevelHeightened", { heightened }) : null,
+            heightened ? _loc("PF2E.SpellLevelBase", { level: ordinalString(baseRank) }) : null,
+            heightened ? _loc("PF2E.SpellLevelHeightened", { heightened }) : null,
         ].filter(R.isTruthy);
 
         const spellTraits = this.traitChatData(
@@ -1039,7 +1036,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const traits = R.unique([...this.system.traits.value, spellcasting.tradition]).filter(R.isNonNullish);
         return statistic.check.roll({
             ...eventToRollParams(event, { type: "check" }),
-            label: game.i18n.localize("PF2E.Check.Specific.Counteract"),
+            label: _loc("PF2E.Check.Specific.Counteract"),
             extraRollNotes: notes,
             traits,
         });
@@ -1208,12 +1205,12 @@ interface SpellVariantChatData {
 
 interface SpellToMessageOptions {
     create?: boolean;
-    rollMode?: RollMode;
+    mode?: ChatMessageMode;
     data?: { castRank?: number };
 }
 
 interface SpellDamageOptions {
-    rollMode?: RollMode | "roll";
+    messageMode?: ChatMessageMode;
     skipDialog?: boolean;
     target?: Maybe<TokenDocumentPF2e>;
 }

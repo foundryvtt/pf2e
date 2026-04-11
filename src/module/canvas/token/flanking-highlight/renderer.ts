@@ -16,7 +16,7 @@ class FlankingHighlightRenderer {
 
     constructor(token: TokenPF2e) {
         this.token = token;
-        this.labelText = game.i18n.localize("PF2E.Token.Flanking");
+        this.labelText = _loc("PF2E.Token.Flanking");
         this.lineColor = CONFIG.Canvas.dispositionColors.CONTROLLED;
     }
 

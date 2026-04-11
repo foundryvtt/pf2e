@@ -244,10 +244,9 @@ const ITEM_ALTERATION_HANDLERS = {
         validateForItem(item): validation.DataModelValidationFailure | void {
             if (!itemIsOfType(item, "weapon")) return;
             if (!item.system.ammo || !item.system.ammo.capacity || item.system.ammo.capacity < 1) {
-                return new validation.DataModelValidationFailure({
-                    message:
-                        "Cannot change capacity of a weapon that does not use ammo or the ammo type has no capacity",
-                });
+                return new validation.DataModelValidationFailure(
+                    "Cannot change capacity of a weapon that does not use ammo or the ammo type has no capacity",
+                );
             }
         },
         handle: function (data: AlterationApplicationData) {
@@ -321,15 +320,15 @@ const ITEM_ALTERATION_HANDLERS = {
             const valueIsFaceNumber = typeof data.value === "number" && validFaces.includes(data.value);
             if (data.mode === "override" && !valueIsFaceNumber) {
                 throw new validation.DataModelValidationError(
-                    new validation.DataModelValidationFailure({
-                        message: `value: must be 4, 6, 8, 10, or 12 if mode is "override"`,
-                    }),
+                    new validation.DataModelValidationFailure(
+                        `value: must be 4, 6, 8, 10, or 12 if mode is "override"`,
+                    ),
                 );
             } else if (tupleHasValue(["upgrade", "downgrade"], data.mode) && data.value !== null) {
                 throw new validation.DataModelValidationError(
-                    new validation.DataModelValidationFailure({
-                        message: `value: must be null or omitted if mode is "${data.mode}"`,
-                    }),
+                    new validation.DataModelValidationFailure(
+                        `value: must be null or omitted if mode is "${data.mode}"`,
+                    ),
                 );
             }
 
@@ -578,15 +577,11 @@ const ITEM_ALTERATION_HANDLERS = {
             const group = alteration.value;
             if (item.type === "armor") {
                 if (group !== null && !objectHasKey(CONFIG.PF2E.armorGroups, group)) {
-                    return new validation.DataModelValidationFailure({
-                        message: `${group} is not a valid armor group`,
-                    });
+                    return new validation.DataModelValidationFailure(`${group} is not a valid armor group`);
                 }
             } else if (item.type === "weapon") {
                 if (group !== null && !objectHasKey(CONFIG.PF2E.weaponGroups, group)) {
-                    return new validation.DataModelValidationFailure({
-                        message: `${group} is not a valid weapon group`,
-                    });
+                    return new validation.DataModelValidationFailure(`${group} is not a valid weapon group`);
                 }
 
                 const weapon = item as WeaponPF2e;
@@ -605,13 +600,13 @@ const ITEM_ALTERATION_HANDLERS = {
                 const originalIsMandatoryMelee = !originalIsMandatoryRanged && hasMeleeOnlyTraits;
 
                 if (alterIsMandatoryMelee !== originalIsMandatoryMelee) {
-                    return new validation.DataModelValidationFailure({
-                        message: `Cannot alter ${weapon.system.group} into ${group} because of melee only traits.`,
-                    });
+                    return new validation.DataModelValidationFailure(
+                        `Cannot alter ${weapon.system.group} into ${group} because of melee only traits.`,
+                    );
                 } else if (alterIsMandatoryRanged !== originalIsMandatoryRanged) {
-                    return new validation.DataModelValidationFailure({
-                        message: `Cannot alter ${weapon.system.group} into ${group} because one is ranged only.`,
-                    });
+                    return new validation.DataModelValidationFailure(
+                        `Cannot alter ${weapon.system.group} into ${group} because one is ranged only.`,
+                    );
                 }
             }
         },
@@ -707,9 +702,7 @@ const ITEM_ALTERATION_HANDLERS = {
         },
         validateForItem(item): validation.DataModelValidationFailure | void {
             if (item.system.slug !== "persistent-damage") {
-                return new validation.DataModelValidationFailure({
-                    message: "item must be a persistent damage condition",
-                });
+                return new validation.DataModelValidationFailure("item must be a persistent damage condition");
             }
         },
         handle: function (data: AlterationApplicationData) {
@@ -753,9 +746,7 @@ const ITEM_ALTERATION_HANDLERS = {
         },
         validateForItem(item): validation.DataModelValidationFailure | void {
             if (item.system.slug !== "persistent-damage") {
-                return new validation.DataModelValidationFailure({
-                    message: "item must be a persistent damage condition",
-                });
+                return new validation.DataModelValidationFailure("item must be a persistent damage condition");
             }
         },
         handle: function (data: AlterationApplicationData) {
@@ -909,7 +900,7 @@ const ITEM_ALTERATION_HANDLERS = {
         },
         handle: function (data: AlterationApplicationData) {
             if (this.isValid(data)) {
-                data.item.name = game.i18n.localize(data.alteration.value);
+                data.item.name = _loc(data.alteration.value);
             }
         },
     }),
@@ -1082,9 +1073,7 @@ const ITEM_ALTERATION_HANDLERS = {
         },
         validateForItem: (_item, alteration): validation.DataModelValidationFailure | void => {
             if (alteration.mode !== "add" && typeof alteration.value === "object") {
-                return new validation.DataModelValidationFailure({
-                    message: `cannot be an object when mode is ${alteration.mode}`,
-                });
+                return new validation.DataModelValidationFailure(`cannot be an object when mode is ${alteration.mode}`);
             }
         },
         handle: function (data: AlterationApplicationData) {

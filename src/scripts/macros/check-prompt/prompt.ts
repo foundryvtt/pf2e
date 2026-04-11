@@ -43,7 +43,7 @@ class CheckPromptDialog extends appv1.api.Application<CheckPromptDialogOptions> 
                 { navSelector: ".dc-navigation", contentSelector: ".dc-content", initial: "set-dc" },
             ],
             template: `systems/${SYSTEM_ID}/templates/gm/check-prompt.hbs`,
-            title: game.i18n.localize("PF2E.Actor.Party.CheckPrompt.Title"),
+            title: _loc("PF2E.Actor.Party.CheckPrompt.Title"),
             width: 400,
             height: "auto",
         };
@@ -74,7 +74,7 @@ class CheckPromptDialog extends appv1.api.Application<CheckPromptDialogOptions> 
             .map(([value, name]) => {
                 return {
                     value,
-                    label: `${game.i18n.localize(name)} (${signedInteger(adjustDC(0, value as DCAdjustment))})`,
+                    label: `${_loc(name)} (${signedInteger(adjustDC(0, value as DCAdjustment))})`,
                 };
             });
     }

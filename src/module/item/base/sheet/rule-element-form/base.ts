@@ -4,7 +4,6 @@ import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { RuleElements, type RuleElement, type RuleElementSource } from "@module/rules/index.ts";
 import { RuleElementSchema } from "@module/rules/rule-element/data.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
-import type { LaxSchemaField } from "@system/schema-data-fields.ts";
 import { htmlQuery, htmlQueryAll } from "@util";
 import { tagify } from "@util/tags.ts";
 import * as R from "remeda";
@@ -29,7 +28,7 @@ class RuleElementForm<
     declare index: number;
     declare rule: TSource;
     declare object: TObject;
-    declare schema: LaxSchemaField<RuleElementSchema> | null;
+    declare schema: fields.DataModelSchemaField<RuleElementSchema> | null;
     declare element: HTMLElement;
 
     /** Tab configuration data */
@@ -65,7 +64,9 @@ class RuleElementForm<
                 }) as TObject;
             })();
 
-        this.schema = this.object?.schema ?? RuleElements.all[String(this.rule.key)]?.schema ?? null;
+        this.schema = (this.object?.schema ??
+            RuleElements.all[String(this.rule.key)]?.schema ??
+            null) as fields.DataModelSchemaField<RuleElementSchema> | null;
     }
 
     get item(): ItemPF2e {
@@ -107,10 +108,8 @@ class RuleElementForm<
     async getData(): Promise<RuleElementFormSheetData<TSource, TObject>> {
         const [label, recognized] = ((): [string, boolean] => {
             const locPath = `PF2E.RuleElement.${this.rule.key}`;
-            const localized = game.i18n.localize(locPath);
-            return localized === locPath
-                ? [game.i18n.localize("PF2E.RuleElement.Unrecognized"), false]
-                : [localized, true];
+            const localized = _loc(locPath);
+            return localized === locPath ? [_loc("PF2E.RuleElement.Unrecognized"), false] : [localized, true];
         })();
         const autogenerate = (this.object?.constructor as typeof RuleElement | undefined)?.autogenForms ?? false;
         const mergedRule = fu.mergeObject(this.getInitialValue({ autogenerate }), this.rule);
@@ -205,11 +204,7 @@ class RuleElementForm<
         priorityInput?.addEventListener("change", (event) => {
             event.stopPropagation();
             const value = priorityInput.value;
-            if (value === "" || Number.isNaN(Number(value))) {
-                this.updateItem({ "-=priority": null });
-            } else {
-                this.updateItem({ priority: Number(value) });
-            }
+            this.updateItem({ priority: value === "" || Number.isNaN(Number(value)) ? _del : Number(value) });
         });
 
         if (this.tabs) {

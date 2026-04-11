@@ -2,10 +2,10 @@ import { ActorPF2e } from "@actor";
 import { Modifier } from "@actor/modifiers.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { ClientDocument } from "@client/documents/abstract/client-document.d.mts";
-import type { MeasuredTemplateType } from "@common/constants.d.mts";
 import { ItemPF2e } from "@item";
 import type { AbilityTrait } from "@item/ability/types.ts";
 import { EFFECT_AREA_SHAPES } from "@item/values.ts";
+import { shapeDataFromEffectArea } from "@module/canvas/helpers.ts";
 import { ChatMessageFlagsPF2e, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { calculateDC } from "@module/dc.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
@@ -50,7 +50,7 @@ export class InlineRollLinks {
                     return;
                 }
 
-                const areaLink = getLinkOrSpan("data-pf2-effect-area");
+                const areaLink = getLinkOrSpan("data-effect-area");
                 if (areaLink) {
                     this.#onClickInlineTemplate(event, areaLink);
                     return;
@@ -84,13 +84,13 @@ export class InlineRollLinks {
                 link.parentElement?.dataset?.pf2Checkgroup !== undefined ? "fa-comment-alt-dots" : "fa-comment-alt";
             newButton.classList.add("fa-solid", icon);
             newButton.dataset.pf2Repost = "";
-            newButton.title = game.i18n.localize("PF2E.Repost");
+            newButton.title = _loc("PF2E.Repost");
             link.appendChild(newButton);
         }
     }
 
     static #makeRepostHtml(target: HTMLElement, defaultVisibility: string): string {
-        const flavor = game.i18n.localize(target.dataset.pf2RepostFlavor ?? "");
+        const flavor = _loc(target.dataset.pf2RepostFlavor ?? "");
         const showDC = target.dataset.pf2ShowDc ?? defaultVisibility;
         return (flavor ? `<span data-visibility="${showDC}">${flavor}</span> ` : "") + `${target.outerHTML}`.trim();
     }
@@ -211,9 +211,7 @@ export class InlineRollLinks {
             return { actor, statistic: actor.getStatistic(pf2Check, { item: relatedItem }) };
         });
         if (!actorStatistics.some(({ statistic }) => !!statistic)) {
-            ui.notifications.error(
-                game.i18n.format("PF2E.ErrorMessage.MissingStatisticSelected", { statistic: pf2Check }),
-            );
+            ui.notifications.error(_loc("PF2E.ErrorMessage.MissingStatisticSelected", { statistic: pf2Check }));
             return;
         }
 
@@ -271,7 +269,7 @@ export class InlineRollLinks {
                         return {
                             label:
                                 defenseStat.dc.label ??
-                                game.i18n.format("PF2E.InlineCheck.DCWithName", { name: defenseStat.label }),
+                                _loc("PF2E.InlineCheck.DCWithName", { name: defenseStat.label }),
                             statistic: defenseStat.dc,
                             scope: "check",
                             value: defenseStat.dc.value,
@@ -306,7 +304,7 @@ export class InlineRollLinks {
                     `systems/${SYSTEM_ID}/templates/chat/action/header.hbs`,
                     {
                         glyph: getActionGlyph(item.actionCost),
-                        subtitle: game.i18n.format(subtitleLocKey, { type: statistic.label }),
+                        subtitle: _loc(subtitleLocKey, { type: statistic.label }),
                         title: item.name,
                     },
                 );
@@ -319,64 +317,38 @@ export class InlineRollLinks {
 
     static #onClickInlineTemplate(_event: PointerEvent, link: HTMLAnchorElement | HTMLSpanElement): void {
         if (!canvas.ready) return;
-
-        const templateConversion: Record<string, MeasuredTemplateType> = {
-            burst: "circle",
-            cone: "cone",
-            cube: "rect",
-            emanation: "circle",
-            line: "ray",
-            rect: "rect",
-            square: "rect",
-        } as const;
-
-        const { pf2EffectArea, pf2Distance, pf2TemplateData, pf2Traits, pf2Width } = link.dataset;
-
-        if (typeof pf2EffectArea !== "string") {
-            console.warn(`PF2e System | Could not create template'`);
+        const dataset = link.dataset;
+        if (!tupleHasValue(EFFECT_AREA_SHAPES, dataset.type)) {
+            console.warn(`PF2e System | Could not create region.`);
             return;
         }
-
-        const { actor, item, message } = resolveActorAndItemFromHTML(link);
-        const data: DeepPartial<foundry.documents.MeasuredTemplateSource> = JSON.parse(pf2TemplateData ?? "{}");
-        data.distance ||= Number(pf2Distance);
-        data.fillColor ||= game.user.color.toString();
-        data.t = templateConversion[pf2EffectArea];
-
-        switch (data.t) {
-            case "ray":
-                data.width = Number(pf2Width) || CONFIG.MeasuredTemplate.defaults.width * canvas.dimensions.distance;
-                break;
-            case "cone":
-                data.angle ||= CONFIG.MeasuredTemplate.defaults.angle;
-                break;
-            case "rect": {
-                const distance = data.distance ?? 0;
-                data.distance = Math.hypot(distance, distance);
-                data.width = distance;
-                data.direction = 45;
-                break;
-            }
-        }
-
-        const flags: { [SYSTEM_ID]: Record<string, JSONValue> } = { [SYSTEM_ID]: {} };
-
-        const normalSize = (Math.ceil(data.distance) / 5) * 5 || 5;
-        if (tupleHasValue(EFFECT_AREA_SHAPES, pf2EffectArea) && data.distance === normalSize) {
-            flags[SYSTEM_ID].areaShape = pf2EffectArea;
-        }
-        if (message) flags[SYSTEM_ID].messageId = message.id;
+        const { actor: actorFromHTML, item, message } = resolveActorAndItemFromHTML(link);
+        const actor = actorFromHTML ?? game.user.character;
+        const area = { type: dataset.type, value: Number(dataset.distance) || 5 };
+        const shape = shapeDataFromEffectArea(area, actor);
+        if (!shape) return;
+        const data: DeepPartial<fd.RegionSource> = {
+            name: item?.name ?? _loc("PF2E.Area.Label"),
+            shapes: [shape],
+            color: game.user.color.toString(),
+            highlightMode: "coverage",
+            displayMeasurements: true,
+            visibility: CONST.REGION_VISIBILITY.ALWAYS,
+        };
+        const flags: { [SYSTEM_ID]: Record<string, JSONValue> } = {
+            [SYSTEM_ID]: { areaShape: area.type, messageId: message?.id },
+        };
         if (item) {
             const origin = item.getOriginData();
             flags[SYSTEM_ID].origin = origin;
-        } else if (actor || pf2Traits) {
+        } else if (actor || dataset.traits) {
             flags[SYSTEM_ID].origin = {
                 actor: actor?.uuid ?? null,
-                traits: splitListString(pf2Traits ?? ""),
+                traits: splitListString(dataset.traits ?? ""),
             };
         }
-        if (!R.isEmpty(flags[SYSTEM_ID])) data.flags = flags;
-        canvas.templates.createPreview(data);
+        data.flags = flags;
+        canvas.regions.placeRegion(data);
     }
 
     static async #onRepostAction(target: HTMLElement): Promise<ChatMessagePF2e | undefined> {

@@ -1,4 +1,4 @@
-import { WallDirection, WallDoorState, WallDoorType, WallMovementType, WallSenseType } from "@common/constants.mjs";
+import { EdgeDirection, WallDoorState, WallDoorType, WallMovementType, WallSenseType } from "@common/constants.mjs";
 import { Document, DocumentMetadata } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
 import BaseScene from "./scene.mjs";
@@ -22,8 +22,7 @@ export default class BaseWall<TParent extends BaseScene | null> extends Document
 }
 
 export default interface BaseWall<TParent extends BaseScene | null>
-    extends Document<TParent, WallSchema>,
-        fields.ModelPropsFromSchema<WallSchema> {
+    extends Document<TParent, WallSchema>, fields.ModelPropsFromSchema<WallSchema> {
     get documentName(): WallMetadata["name"];
 }
 
@@ -52,7 +51,7 @@ type WallSchema = {
     /** The auditory restriction type of this wall */
     sound: fields.NumberField<WallSenseType, WallSenseType, true, true, true>;
     /** The direction of effect imposed by this wall */
-    dir: fields.NumberField<WallDirection, WallDirection, true, true, true>;
+    dir: fields.NumberField<EdgeDirection, EdgeDirection, true, true, true>;
     /** The type of door which this wall contains, if any */
     door: fields.NumberField<WallDoorType, WallDoorType, true, true, true>;
     /** The state of the door this wall contains, if any */

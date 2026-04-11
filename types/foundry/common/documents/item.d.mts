@@ -46,8 +46,7 @@ export default class BaseItem<TParent extends BaseActor | null = BaseActor | nul
 }
 
 export default interface BaseItem<TParent extends BaseActor | null = BaseActor | null>
-    extends abstract.Document<TParent, ItemSchema>,
-        fields.ModelPropsFromSchema<ItemSchema> {
+    extends abstract.Document<TParent, ItemSchema>, fields.ModelPropsFromSchema<ItemSchema> {
     get documentName(): ItemMetadata["name"];
 
     readonly effects: abstract.EmbeddedCollection<BaseActiveEffect<this>>;
@@ -74,7 +73,7 @@ export type ItemSchema<TType extends string = string, TSystemSource extends obje
     /** An Item subtype which configures the system data model applied */
     type: fields.StringField<TType, TType, true, false, false>;
     /** An image file path which provides the artwork for this Item */
-    img: fields.FilePathField<ImageFilePath, ImageFilePath, false, false, true>;
+    img: fields.FilePathField<ImageFilePath, ImageFilePath, false, true, true>;
     /** The system data object which is defined by the system template.json model */
     system: fields.TypeDataField<TSystemSource>;
     /** A collection of ActiveEffect embedded Documents */

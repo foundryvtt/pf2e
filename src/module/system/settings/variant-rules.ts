@@ -193,7 +193,7 @@ export class VariantRulesSettings extends fa.api.HandlebarsApplicationMixin(fa.a
             buttons: [
                 { type: "submit", icon: "fa-solid fa-floppy-disk", label: "SETTINGS.Save" },
                 { type: "reset", icon: "fa-solid fa-arrow-rotate-left", label: "PF2E.SETTINGS.ResetChanges" },
-            ],
+            ] satisfies fa.FormFooterButton[],
             rootId: this.id,
         });
     }

@@ -178,11 +178,11 @@ class ElementalBlast {
                 const penalties = calculateMAPs(modifiedItem, { domains, options });
                 return {
                     map0: signedInteger(modifier),
-                    map1: game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                    map1: _loc("PF2E.MAPAbbreviationValueLabel", {
                         value: signedInteger(modifier + penalties.map1),
                         penalty: penalties.map1,
                     }),
-                    map2: game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                    map2: _loc("PF2E.MAPAbbreviationValueLabel", {
                         value: signedInteger(modifier + penalties.map2),
                         penalty: penalties.map2,
                     }),
@@ -197,7 +197,7 @@ class ElementalBlast {
             )
                 .map((dt) => ({
                     value: dt,
-                    label: game.i18n.localize(CONFIG.PF2E.damageTypes[dt]),
+                    label: _loc(CONFIG.PF2E.damageTypes[dt]),
                     icon: DAMAGE_TYPE_ICONS[dt] ?? "",
                     selected: damageTypeSelections[blast.element] === dt,
                 }))
@@ -212,12 +212,12 @@ class ElementalBlast {
                 ? {
                       increment: infusion.range.increment,
                       max: infusion.range.increment * 6,
-                      label: game.i18n.format("PF2E.Action.Range.IncrementN", { n: infusion.range.increment }),
+                      label: _loc("PF2E.Action.Range.IncrementN", { n: infusion.range.increment }),
                   }
                 : {
                       increment: null,
                       max: maxRange,
-                      label: game.i18n.format("PF2E.Action.Range.MaxN", { n: maxRange }),
+                      label: _loc("PF2E.Action.Range.MaxN", { n: maxRange }),
                   };
 
             return {
@@ -341,7 +341,7 @@ class ElementalBlast {
         const label = await fa.handlebars.renderTemplate(`systems/${SYSTEM_ID}/templates/chat/action/header.hbs`, {
             title: item.name,
             glyph: actionCost.toString(),
-            subtitle: game.i18n.format("PF2E.ActionsCheck.x-attack-roll", { type: statistic.label }),
+            subtitle: _loc("PF2E.ActionsCheck.x-attack-roll", { type: statistic.label }),
         });
         const meleeOrRanged = params.melee ? "melee" : "ranged";
         const mapIncreases = Math.clamp(params.mapIncreases ?? 0, 0, 2) || 0;
@@ -519,7 +519,7 @@ class ElementalBlast {
         if (params.getFormula) return roll.formula;
 
         const damageTemplate: SimpleDamageTemplate = {
-            name: `${game.i18n.localize("PF2E.DamageRoll")}: ${item.name}`,
+            name: `${_loc("PF2E.DamageRoll")}: ${item.name}`,
             materials: [],
             modifiers,
             damage: { roll, breakdown: damageData.breakdown },

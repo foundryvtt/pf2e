@@ -199,8 +199,8 @@ let pluralRules: Intl.PluralRules;
 /** Returns the number in an ordinal format, like 1st, 2nd, 3rd, 4th, etc. */
 function ordinalString(value: number): string {
     pluralRules ??= new Intl.PluralRules(game.i18n.lang, { type: "ordinal" });
-    const suffix = game.i18n.localize(`PF2E.OrdinalSuffixes.${pluralRules.select(value)}`);
-    return game.i18n.format("PF2E.OrdinalNumber", { value, suffix });
+    const suffix = _loc(`PF2E.OrdinalSuffixes.${pluralRules.select(value)}`);
+    return _loc("PF2E.OrdinalNumber", { value, suffix });
 }
 
 /** Localizes a list of strings into a (possibly comma-delimited) list for the current language */
@@ -213,17 +213,14 @@ function localizeList(
 
     if (items.length === 0) return "";
     if (items.length === 1) return items[0];
-    if (items.length === 2) {
-        return game.i18n.format(`${parts}.two`, { first: items[0], second: items[1] });
-    }
-
-    let result = game.i18n.format(`${parts}.start`, { first: items[0], second: "{second}" });
+    if (items.length === 2) return _loc(`${parts}.two`, { first: items[0], second: items[1] });
+    let result = _loc(`${parts}.start`, { first: items[0], second: "{second}" });
     for (let i = 1; i <= items.length - 2; i++) {
         if (i === items.length - 2) {
-            const end = game.i18n.format(`${parts}.end`, { first: items[i], second: items[items.length - 1] });
+            const end = _loc(`${parts}.end`, { first: items[i], second: items[items.length - 1] });
             result = result.replace("{second}", end);
         } else {
-            const newSegment = game.i18n.format(`${parts}.middle`, { first: items[i], second: "{second}" });
+            const newSegment = _loc(`${parts}.middle`, { first: items[i], second: "{second}" });
             result = result.replace("{second}", newSegment);
         }
     }
@@ -279,7 +276,7 @@ function sortStringRecord(record: Record<string, string>): Record<string, string
     return Object.fromEntries(
         Object.entries(record)
             .map((entry) => {
-                entry[1] = game.i18n.localize(entry[1]);
+                entry[1] = _loc(entry[1]);
                 return entry;
             })
             .sort((a, b) => a[1].localeCompare(b[1], game.i18n.lang)),
@@ -319,9 +316,8 @@ function recursiveReplaceString(source: unknown, replace: (s: string) => string 
 }
 
 /** Create a localization function with a prefixed localization object path */
-function localizer(prefix: string): (...args: Parameters<Localization["format"]>) => string {
-    return (...[suffix, formatArgs]: Parameters<Localization["format"]>) =>
-        formatArgs ? game.i18n.format(`${prefix}.${suffix}`, formatArgs) : game.i18n.localize(`${prefix}.${suffix}`);
+function localizer(prefix: string): (...args: Parameters<Localization["localize"]>) => string {
+    return (...[suffix, formatArgs]: Parameters<Localization["localize"]>) => _loc(`${prefix}.${suffix}`, formatArgs);
 }
 
 /** Walk a localization object and recursively map the keys as localization strings starting with a given prefix */

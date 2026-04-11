@@ -162,22 +162,14 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Re-render the sheet if data preparation is called from the familiar's master */
     override reset({ actor = false } = {}): void {
-        if (actor) {
-            this._resetAndRerenderDebounced();
-        } else {
-            super.reset();
-        }
+        if (actor) this._resetAndRerenderDebounced();
+        else super.reset();
     }
 
     /** Include campaign statistics in party statistics */
     override getStatistic(slug: string): Statistic<this> | null;
     override getStatistic(slug: string): Statistic | null {
-        const statistic = super.getStatistic(slug);
-        if (statistic) return statistic;
-
-        const campaignStat = this.campaign?.getStatistic?.(slug);
-
-        return campaignStat ?? null;
+        return super.getStatistic(slug) ?? this.campaign?.getStatistic?.(slug) ?? null;
     }
 
     private _resetAndRerenderDebounced = fu.debounce(() => {

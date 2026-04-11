@@ -22,7 +22,7 @@ abstract class BaseStatistic<TActor extends ActorPF2e> {
     constructor(actor: TActor, data: BaseStatisticData) {
         this.actor = actor;
         this.slug = data.slug;
-        this.label = game.i18n.localize(data.label).trim();
+        this.label = _loc(data.label).trim();
         this.data = { ...data };
         this.domains = R.unique((data.domains ??= []));
 

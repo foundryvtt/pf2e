@@ -273,8 +273,8 @@ function renderComponentDamage(term: terms.RollTerm): HTMLElement {
     span.className = term.flavor;
     const [title, faClass] =
         term.flavor === "precision"
-            ? [game.i18n.localize("PF2E.Damage.Precision"), "crosshairs"]
-            : [game.i18n.localize("PF2E.TraitSplash"), "burst"];
+            ? [_loc("PF2E.Damage.Precision"), "crosshairs"]
+            : [_loc("PF2E.TraitSplash"), "burst"];
 
     span.title = title;
     const icon = fontAwesomeIcon(faClass);
@@ -448,7 +448,7 @@ function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth = false 
         firstTerm?.faces instanceof foundry.dice.terms.NumericTerm &&
         [4, 8, 6, 10, 12].includes(firstTerm.faces.number)
     ) {
-        return fontAwesomeIcon(`dice-d${firstTerm.faces.number}`, { fixedWidth });
+        return fa.fields.createFontAwesomeIcon(`dice-d${firstTerm.faces.number}`, { fixedWidth });
     }
 
     const firstDice = roll.dice.at(0);
@@ -466,20 +466,20 @@ function getDamageDiceValueLabel(d: DamageDicePF2e | RawDamageDice, props: { sig
     return d.diceNumber && d.dieSize
         ? `${props.sign ? "+" : ""}${d.diceNumber}${d.dieSize}`
         : d.diceNumber
-          ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", { dice: signedInteger(d.diceNumber) })
+          ? _loc("PF2E.Roll.Dialog.Damage.Dice", { dice: signedInteger(d.diceNumber) })
           : "";
 }
 
 function getDamageDiceOverrideLabel(d: DamageDicePF2e | RawDamageDice): string {
     const parts = [
-        d.override?.upgrade ? game.i18n.localize("PF2E.Roll.Dialog.Damage.DieSizeUpgrade") : null,
+        d.override?.upgrade ? _loc("PF2E.Roll.Dialog.Damage.DieSizeUpgrade") : null,
         d.override?.diceNumber || d.override?.dieSize
-            ? game.i18n.format("PF2E.Roll.Dialog.Damage.Override", {
+            ? _loc("PF2E.Roll.Dialog.Damage.Override", {
                   value:
                       d.override.diceNumber && d.override.dieSize
                           ? `${d.override.diceNumber}${d.override.dieSize}`
                           : d.override.diceNumber
-                            ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", {
+                            ? _loc("PF2E.Roll.Dialog.Damage.Dice", {
                                   dice: d.override.diceNumber,
                               })
                             : (d.override.dieSize ?? ""),
@@ -489,7 +489,7 @@ function getDamageDiceOverrideLabel(d: DamageDicePF2e | RawDamageDice): string {
 
     // If this is only a damage type override, show "Override" and let the icon sort out the meaning
     return parts.length === 0 && d.override?.damageType
-        ? game.i18n.format("PF2E.Roll.Dialog.Damage.OverrideLabel")
+        ? _loc("PF2E.Roll.Dialog.Damage.OverrideLabel")
         : parts.join(" + ");
 }
 

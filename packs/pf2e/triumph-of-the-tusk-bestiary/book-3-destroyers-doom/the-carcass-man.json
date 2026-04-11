@@ -1081,7 +1081,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>20 feet. The Carcass Man's form exudes the impulse to destroy. Upon entering the aura, creatures must attempt a @Check[will|dc:31] save. Regardless of the results, creatures are temporarily immune for 1 minute.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> Urges to attack cloud the creature's mind and if they do not deal damage to another creature on their turn, they become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the end of their next turn.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused] until the end of their next turn.</p>\n<p><strong>Critical Failure</strong> The creature is confused for 1 minute.</p>"
+                    "value": "<p>20 feet. The Carcass Man's form exudes the impulse to destroy. Upon entering the aura, creatures must attempt a @Check[will|dc:31|options:area-effect,inflicts:confused] save. Regardless of the results, creatures are temporarily immune for 1 minute.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> Urges to attack cloud the creature's mind and if they do not deal damage to another creature on their turn, they become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the end of their next turn.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused] until the end of their next turn.</p>\n<p><strong>Critical Failure</strong> The creature is confused for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1091,7 +1091,11 @@
                 "rules": [
                     {
                         "key": "Aura",
-                        "radius": 20
+                        "radius": 20,
+                        "traits": [
+                            "emotion",
+                            "mental"
+                        ]
                     }
                 ],
                 "slug": null,

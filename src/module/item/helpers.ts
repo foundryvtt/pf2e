@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
-import { MeasuredTemplateType } from "@common/constants.mjs";
-import { MeasuredTemplatePF2e } from "@module/canvas/measured-template.ts";
+import { shapeDataFromEffectArea } from "@module/canvas/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { RegionDocumentPF2e } from "@scene";
 import type { DamageType } from "@system/damage/types.ts";
 import { createHTMLElement, ErrorPF2e, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import type { Converter } from "showdown";
@@ -67,7 +67,7 @@ let mdConverter: Converter | null = null;
 
 function markdownToHTML(markdown: string): string {
     const converter = (mdConverter ??= new showdown.Converter());
-    const htmlStripped = createHTMLElement("div", { innerHTML: game.i18n.localize(markdown).trim() }).innerText;
+    const htmlStripped = createHTMLElement("div", { innerHTML: _loc(markdown).trim() }).innerText;
     // Prevent markdown converter from treating Foundry content links as markdown links
     const withSubbedBrackets = htmlStripped.replaceAll("[", "⟦").replaceAll("]", "⟧");
     const stringyHTML = converter
@@ -203,7 +203,7 @@ function _expectedValueOf(annotation: string): number {
 
 function createEffectAreaLabel(areaData: { type: EffectAreaShape; value: number }): string {
     const formatString = "PF2E.Item.Spell.Area";
-    const shape = game.i18n.localize(`PF2E.Area.Shape.${areaData.type}`);
+    const shape = _loc(`PF2E.Area.Shape.${areaData.type}`);
 
     // Handle special cases of very large areas
     const largeAreaLabel = {
@@ -212,39 +212,33 @@ function createEffectAreaLabel(areaData: { type: EffectAreaShape; value: number 
         5280: "1",
     }[areaData.value];
     if (largeAreaLabel) {
-        const size = game.i18n.localize(largeAreaLabel);
-        const unit = game.i18n.localize("PF2E.Area.Size.Mile");
-        return game.i18n.format(formatString, { shape, size, unit, units: unit });
+        const size = _loc(largeAreaLabel);
+        const unit = _loc("PF2E.Area.Size.Mile");
+        return _loc(formatString, { shape, size, unit, units: unit });
     }
 
     const size = Number(areaData.value);
-    const unit = game.i18n.localize("PF2E.Foot.Label");
-    const units = game.i18n.localize("PF2E.Foot.Plural");
-    return game.i18n.format(formatString, { shape, size, unit, units });
+    const unit = _loc("PF2E.Foot.Label");
+    const units = _loc("PF2E.Foot.Plural");
+    return _loc(formatString, { shape, size, unit, units });
 }
 
-function placeItemTemplate(
+async function placeRegionFromItem(
     area: { type: EffectAreaShape; value: number },
     { message, item }: { message?: ChatMessagePF2e; item: ItemPF2e },
-): Promise<MeasuredTemplatePF2e> {
+): Promise<RegionDocumentPF2e | null> {
     if (!canvas.ready) throw ErrorPF2e("No canvas");
-
-    const templateConversion: Record<EffectAreaShape, MeasuredTemplateType> = {
-        burst: "circle",
-        cone: "cone",
-        cube: "rect",
-        cylinder: "circle",
-        emanation: "circle",
-        line: "ray",
-        square: "rect",
-    } as const;
-
-    const templateType = templateConversion[area.type];
-
-    const templateData: DeepPartial<foundry.documents.MeasuredTemplateSource> = {
-        t: templateType,
-        distance: (Number(area.value) / 5) * canvas.dimensions.distance,
-        fillColor: game.user.color.toString(),
+    if (!item.actor) return null;
+    const shape = shapeDataFromEffectArea(area, item.actor);
+    if (!shape) return null;
+    const data: DeepPartial<fd.RegionSource> = {
+        name: item.name,
+        shapes: [shape],
+        color: game.user.color.toString(),
+        highlightMode: "coverage",
+        displayMeasurements: true,
+        ownership: { [game.user.id]: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER },
+        visibility: CONST.REGION_VISIBILITY.ALWAYS,
         flags: {
             [SYSTEM_ID]: {
                 messageId: message?.id,
@@ -258,24 +252,7 @@ function placeItemTemplate(
             },
         },
     };
-
-    switch (templateType) {
-        case "ray":
-            templateData.width = CONFIG.MeasuredTemplate.defaults.width * (canvas.dimensions?.distance ?? 1);
-            break;
-        case "cone":
-            templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
-            break;
-        case "rect": {
-            const distance = templateData.distance ?? 0;
-            templateData.distance = Math.hypot(distance, distance);
-            templateData.width = distance;
-            templateData.direction = 45;
-            break;
-        }
-    }
-
-    return canvas.templates.createPreview(templateData);
+    return canvas.regions.placeRegion(data);
 }
 
 export {
@@ -284,7 +261,7 @@ export {
     itemIsOfType,
     markdownToHTML,
     performLatePreparation,
-    placeItemTemplate,
+    placeRegionFromItem,
     reduceItemName,
     removeTrait,
 };

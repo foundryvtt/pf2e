@@ -16,8 +16,7 @@ export default class BaseJournalEntryPage<TParent extends BaseJournalEntry | nul
 }
 
 export default interface BaseJournalEntryPage<TParent extends BaseJournalEntry | null>
-    extends Document<TParent, JournalEntryPageSchema>,
-        fields.ModelPropsFromSchema<JournalEntryPageSchema> {
+    extends Document<TParent, JournalEntryPageSchema>, fields.ModelPropsFromSchema<JournalEntryPageSchema> {
     get documentName(): JournalEntryPageMetadata["name"];
 }
 

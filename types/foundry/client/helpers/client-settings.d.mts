@@ -2,8 +2,8 @@ import { SettingConfig, SettingSubmenuConfig } from "@client/_types.mjs";
 import ApplicationV2 from "@client/applications/api/application.mjs";
 import SettingsConfig from "@client/applications/settings/config.mjs";
 import Application from "@client/appv1/api/application-v1.mjs";
+import { ChatMessageMode } from "@client/config.mjs";
 import Setting from "@client/documents/setting.mjs";
-import { RollMode } from "@common/constants.mjs";
 import Collection from "@common/utils/collection.mjs";
 
 export interface ClientSettingsStorage extends Map<"client" | "world" | "user", Storage | WorldSettings> {
@@ -114,7 +114,7 @@ export default class ClientSettings {
     get(namespace: "core", key: "compendiumConfiguration"): Record<string, { private: boolean; locked: boolean }>;
     get(namespace: "core", key: "fontSize"): number;
     get(namespace: "core", key: "noCanvas"): boolean;
-    get(namespace: "core", key: "rollMode"): RollMode;
+    get(namespace: "core", key: "messageMode"): ChatMessageMode;
     get(namespace: "core", key: "uiConfig"): { colorScheme: { applications: string; interface: string } };
     get(namespace: string, key: string, options?: { document: true }): Setting;
     get(namespace: string, key: string, options?: { document?: boolean }): unknown;

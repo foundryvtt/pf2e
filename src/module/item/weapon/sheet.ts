@@ -43,8 +43,8 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         const adjustedDiceHint =
             weapon.system.damage.dice !== weapon._source.system.damage.dice
-                ? game.i18n.format(game.i18n.localize(hintText), {
-                      property: game.i18n.localize("PF2E.Item.Weapon.Damage.DiceNumber"),
+                ? _loc(_loc(hintText), {
+                      property: _loc("PF2E.Item.Weapon.Damage.DiceNumber"),
                       value: weapon.system.damage.dice,
                   })
                 : null;
@@ -61,7 +61,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         const weaponRanges = Array.from(WEAPON_RANGES).reduce(
             (ranges: Record<number, string>, range) => ({
                 ...ranges,
-                [range]: game.i18n.format("PF2E.WeaponRangeN", { range: range }),
+                [range]: _loc("PF2E.WeaponRangeN", { range: range }),
             }),
             {},
         );
@@ -84,7 +84,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             traits: [],
         };
         const meleeUsageBaseDamage = Object.entries(CONFIG.PF2E.damageDie).map(([die, label]) => ({
-            label: `1${game.i18n.localize(label)}`,
+            label: `1${_loc(label)}`,
             value: die,
         }));
 
@@ -96,8 +96,8 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             R.map(
                 ([key, data]): foundry.applications.fields.FormSelectOption => ({
                     value: key,
-                    label: game.i18n.localize(data.label),
-                    group: data.weapon ? game.i18n.localize("PF2E.Item.Ammo.Groups.WeaponSpecific") : undefined,
+                    label: _loc(data.label),
+                    group: data.weapon ? _loc("PF2E.Item.Ammo.Groups.WeaponSpecific") : undefined,
                 }),
             ),
             R.sortBy((o) => o.label),
@@ -106,8 +106,8 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         // Add dart as a hardcoded weapon as ammo. Get a full list in the future
         ammoTypes.push({
             value: "dart",
-            label: game.i18n.localize("PF2E.Weapon.Base.dart"),
-            group: game.i18n.localize("PF2E.Item.Ammo.Groups.Weapons"),
+            label: _loc("PF2E.Weapon.Base.dart"),
+            group: _loc("PF2E.Item.Ammo.Groups.Weapons"),
         });
 
         // The ammo data for the currently set ammo type. Used to determine if the weapon can have capacity
@@ -119,7 +119,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             ...sheetData,
             abpEnabled,
             adjustedDiceHint,
-            ammoTypes: [{ value: "", label: game.i18n.localize("PF2E.Item.Weapon.AnyBasicAmmo") }, ...ammoTypes],
+            ammoTypes: [{ value: "", label: _loc("PF2E.Item.Weapon.AnyBasicAmmo") }, ...ammoTypes],
             canHaveCapacity: !ammoData?.magazine,
             baseTypes: sortStringRecord(CONFIG.PF2E.baseWeaponTypes),
             categories: CONFIG.PF2E.weaponCategories,
@@ -148,13 +148,13 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             runeTypes: {
                 ...RUNE_DATA.weapon,
                 property: Object.values(RUNE_DATA.weapon.property)
-                    .map((p) => ({ slug: p.slug, name: game.i18n.localize(p.name) }))
+                    .map((p) => ({ slug: p.slug, name: _loc(p.name) }))
                     .sort((a, b) => a.name.localeCompare(b.name)),
             },
             grades: R.mapValues(CONFIG.PF2E.grades, (v, slug) => {
-                const label = game.i18n.localize(v);
+                const label = _loc(v);
                 const data = CONFIG.PF2E.weaponImprovements[slug];
-                return game.i18n.format("PF2E.Item.Weapon.GradeOption", { grade: label, ...data });
+                return _loc("PF2E.Item.Weapon.GradeOption", { grade: label, ...data });
             }),
             specificMagicData,
             weaponMAP: CONFIG.PF2E.weaponMAP,
@@ -207,7 +207,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         const weapon = this.item;
         // Ensure melee usage is absent if not a combination weapon
         if (weapon.system.meleeUsage && !this.item.traits.has("combination")) {
-            formData["system.-=meleeUsage"] = null;
+            formData["system.meleeUsage"] = _del;
         }
 
         // Convert property runes to array, making sure we don't save prepared data

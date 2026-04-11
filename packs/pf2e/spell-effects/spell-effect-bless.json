@@ -3,8 +3,25 @@
     "img": "systems/pf2e/icons/spells/bless.webp",
     "name": "Spell Effect: Bless",
     "system": {
+        "badge": {
+            "labels": [
+                "15 ft.",
+                "25 ft.",
+                "35 ft.",
+                "45 ft.",
+                "55 ft.",
+                "65 ft.",
+                "75 ft.",
+                "85 ft.",
+                "95 ft.",
+                "105 ft."
+            ],
+            "loop": false,
+            "type": "counter",
+            "value": 1
+        },
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Bless]</p>\n<p>You gain a +1 status bonus to attack rolls.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Bless]</p>\n<p>You and your allies gain a +1 status bonus to attack rolls while within the emanation. Once per round on subsequent turns, you can Sustain the spell to increase the emanation's radius by 10 feet.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,11 +33,25 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "includesSelf": false,
+                        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Bless"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "radius": "5 + @item.badge.value * 10"
+            },
             {
                 "key": "FlatModifier",
                 "selector": "attack-roll",

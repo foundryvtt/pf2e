@@ -22,7 +22,7 @@ export class PCSheetTabManager {
             delay: 250,
             interactive: true,
             theme: "crb-hover",
-            title: game.i18n.localize("PF2E.TabManageTabsLabel"),
+            title: _loc("PF2E.TabManageTabsLabel"),
             trigger: "custom",
             triggerOpen: { click: true },
             triggerClose: { originClick: true, mouseleave: true },
@@ -66,13 +66,12 @@ export class PCSheetTabManager {
                 c.readOnly = true;
             }
 
-            if (checkbox.checked) {
-                tab?.classList.remove("to-hide");
-                await this.actor.update({ [`flags.${SYSTEM_ID}.sheetTabs.-=${tabName}`]: null }, { render: false });
-            } else {
-                tab?.classList.add("to-hide");
-                await this.actor.update({ [`flags.${SYSTEM_ID}.sheetTabs.${tabName}`]: false }, { render: false });
-            }
+            const hide = !checkbox.checked;
+            tab?.classList.toggle("to-hide", hide);
+            await this.actor.update(
+                { [`flags.${SYSTEM_ID}.sheetTabs.${tabName}`]: hide ? false : _del },
+                { render: false },
+            );
 
             for (const c of checkboxes) {
                 c.readOnly = false;

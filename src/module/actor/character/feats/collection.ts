@@ -84,7 +84,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<string, Fe
                 ? {
                       id: actor.background.id,
                       level: 1,
-                      label: game.i18n.localize("PF2E.FeatBackgroundShort"),
+                      label: _loc("PF2E.FeatBackgroundShort"),
                   }
                 : null;
         this.createGroup({
@@ -191,9 +191,9 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<string, Fe
             const badGroup = this.get(groupId);
             if (badGroup) {
                 ui.notifications.warn(
-                    game.i18n.format("PF2E.Item.Feat.Warning.InvalidCategory", {
+                    _loc("PF2E.Item.Feat.Warning.InvalidCategory", {
                         item: feat.name,
-                        category: game.i18n.format(badGroup.label),
+                        category: _loc(badGroup.label),
                     }),
                 );
                 return [];

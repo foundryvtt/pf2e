@@ -12,7 +12,7 @@ const itemHasCounterBadge = (item: ItemPF2e | ItemSourcePF2e): validation.DataMo
           ? item.system.badge?.type === "counter"
           : false;
     if (!hasBadge) {
-        return new validation.DataModelValidationFailure({ message: "effect lacks a badge" });
+        return new validation.DataModelValidationFailure("effect lacks a badge");
     }
 };
 
@@ -37,7 +37,7 @@ function getNewInterval(
     newValue: string,
 ): FrequencyInterval | validation.DataModelValidationFailure {
     if (!objectHasKey(CONFIG.PF2E.frequencies, newValue)) {
-        return new validation.DataModelValidationFailure({ invalidValue: current, fallback: false });
+        return new validation.DataModelValidationFailure("", { invalidValue: current, fallback: false });
     }
     if (mode === "override") return newValue;
 
