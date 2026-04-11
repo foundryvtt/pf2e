@@ -522,12 +522,13 @@ class Check {
             );
         })();
         unevaluatedNewRoll.options.isReroll = true;
-        Hooks.callAll("pf2e.preReroll", Roll.fromJSON(oldRollJSON), unevaluatedNewRoll, resource, options.keep);
+        const optionsKeep = { keep: options.keep };
+        Hooks.callAll("pf2e.preReroll", Roll.fromJSON(oldRollJSON), unevaluatedNewRoll, resource, optionsKeep);
 
         // Evaluate the new roll and call a second hook allowing the roll to be altered
         const allowInteractive = context.rollMode !== "blindroll";
         const newRoll = await unevaluatedNewRoll.evaluate({ allowInteractive });
-        Hooks.callAll("pf2e.reroll", Roll.fromJSON(oldRollJSON), newRoll, resource, options.keep);
+        Hooks.callAll("pf2e.reroll", Roll.fromJSON(oldRollJSON), newRoll, resource, optionsKeep);
 
         // Keep the new roll by default; Old roll is discarded
         let keptRoll = newRoll;
@@ -535,8 +536,8 @@ class Check {
 
         // Check if we should keep the old roll instead.
         if (
-            (options.keep === "higher" && oldRoll.total > newRoll.total) ||
-            (options.keep === "lower" && oldRoll.total < newRoll.total)
+            (optionsKeep.keep === "higher" && oldRoll.total > newRoll.total) ||
+            (optionsKeep.keep === "lower" && oldRoll.total < newRoll.total)
         ) {
             // If so, switch the css classes and keep the old roll.
             [oldRollClass, newRollClass] = [newRollClass, oldRollClass];
