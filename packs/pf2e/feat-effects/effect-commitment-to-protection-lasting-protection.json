@@ -23,68 +23,38 @@
         },
         "rules": [
             {
+                "key": "TokenMark",
+                "slug": "commmitment-to-protection-lasting"
+            },
+            {
                 "choices": [
                     {
                         "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
-                        "value": "critical-success"
+                        "value": 2
                     },
                     {
                         "label": "PF2E.Check.Result.Degree.Check.success",
-                        "value": "success"
+                        "value": 1
                     },
                     {
                         "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
-                        "value": "critical-failure"
+                        "value": -1
                     }
                 ],
+                "flag": "lastingProtection",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
-                "rollOption": "commmitment-to-protection"
-            },
-            {
-                "key": "TokenMark",
-                "slug": "commmitment-to-protection"
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "origin:mark:commmitment-to-protection",
-                    {
-                        "or": [
-                            "commmitment-to-protection:critical-success",
-                            "commmitment-to-protection:success"
-                        ]
-                    }
+                    "origin:mark:commmitment-to-protection-lasting"
                 ],
                 "selector": [
                     "ac"
                 ],
-                "slug": "commmitment-to-protection-ac-bonus",
                 "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "AdjustModifier",
-                "mode": "upgrade",
-                "predicate": [
-                    "commmitment-to-protection:critical-success"
-                ],
-                "selector": "ac",
-                "slug": "commmitment-to-protection-ac-bonus",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "origin:mark:commmitment-to-protection",
-                    "commmitment-to-protection:critical-failure"
-                ],
-                "selector": [
-                    "ac"
-                ],
-                "slug": "commmitment-to-protection-ac-penalty",
-                "type": "circumstance",
-                "value": -1
+                "value": "{item|flags.system.rulesSelections.lastingProtection}"
             }
         ],
         "start": {
