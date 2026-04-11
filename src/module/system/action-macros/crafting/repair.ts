@@ -8,14 +8,16 @@ import { SelectItemDialog } from "./select-item.ts";
 
 async function repair(options: RepairActionOptions): Promise<void> {
     // resolve item
-    const item = options.item ?? (await (options.uuid ? fromUuid(options.uuid) : SelectItemDialog.getItem("repair")));
+    const item =
+        options.item ?? (await (options.uuid ? fromUuid<ItemPF2e>(options.uuid) : SelectItemDialog.getItem("repair")));
 
     // ensure specified item is a valid repair target
     if (!(item instanceof ItemPF2e)) {
         console.warn("PF2e System | No item selected to repair: aborting");
         return;
-    } else if (!(item instanceof PhysicalItemPF2e)) {
-        ui.notifications.warn(_loc("PF2E.Actions.Repair.Warning.NotPhysicalItem", { item: item?.name ?? "" }));
+    }
+    if (!item.isOfType("physical")) {
+        ui.notifications.warn(_loc("PF2E.Actions.Repair.Warning.NotPhysicalItem", { item: item.name ?? "" }));
         return;
     }
 
