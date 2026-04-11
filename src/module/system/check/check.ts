@@ -689,7 +689,7 @@ class Check {
         if (!degree || !self?.actor) return null;
         const dc = degree.dc;
         const needsDCParam = !!dc.label && Number.isInteger(dc.value) && !dc.label.includes("{dc}");
-        const customLabel = needsDCParam && dc.label ? `<dc>${_loc(dc.label)}: {dc}</dc>` : (dc.label ?? null);
+        const customLabel = needsDCParam && dc.label ? "PF2E.Check.DC.Label.NoTarget" : (dc.label ?? null);
         const opposingActor = await (async (): Promise<ActorPF2e | null> => {
             if (!opposer?.actor) return null;
             if (opposer.actor instanceof ActorPF2e) return opposer.actor;
@@ -756,7 +756,11 @@ class Check {
                         ? checkDCs.Label.WithTarget
                         : checkDCs.Label.WithOrigin
                     : (customLabel ?? checkDCs.Label.NoTarget);
-                const markup = _loc(labelKey, { dcType, dc: dc.value, opposer: opposerData?.name ?? null });
+                const markup = _loc(labelKey, {
+                    dcType: dc.label ? _loc(dc.label) : dcType, // Prefer custom label over generic type
+                    dc: dc.value,
+                    opposer: opposerData?.name ?? null,
+                });
                 return { markup, visible };
             }
 
