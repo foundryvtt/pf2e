@@ -97,16 +97,20 @@ export class StatusEffects {
     static #updateStatusIcons(): void {
         const iconTheme = game.settings.get(SYSTEM_ID, "statusEffectType");
         const directory = iconTheme === "default" ? "conditions" : "conditions-2";
-        CONFIG.statusEffects = Object.entries(CONFIG.PF2E.statusEffects.conditions).map(([id, name]) => ({
+        delete (CONFIG as { statusEffects?: object }).statusEffects; // Rempve the backward compatibility Proxy
+        CONFIG.statusEffects = R.mapToObj(Object.entries(CONFIG.PF2E.statusEffects.conditions), ([id, name]) => [
             id,
-            name,
-            img: `systems/${SYSTEM_ID}/icons/${directory}/${id}.webp` as const,
-        }));
-        CONFIG.statusEffects.push({
+            {
+                id,
+                name,
+                img: `systems/${SYSTEM_ID}/icons/${directory}/${id}.webp` as const,
+            },
+        ]);
+        CONFIG.statusEffects["dead"] = {
             id: "dead",
             name: "PF2E.Actor.Dead",
             img: CONFIG.controlIcons.defeated,
-        });
+        };
     }
 
     static async onRenderTokenHUD(html: HTMLElement, tokenData: PlaceableHUDContext): Promise<void> {
