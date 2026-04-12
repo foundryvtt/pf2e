@@ -10,8 +10,9 @@ declare const ClientBaseJournalEntryPage: new <TParent extends JournalEntry | nu
     ...args: any
 ) => BaseJournalEntryPage<TParent> & ClientDocument<TParent>;
 
-interface ClientBaseJournalEntryPage<TParent extends JournalEntry | null>
-    extends InstanceType<typeof ClientBaseJournalEntryPage<TParent>> {}
+interface ClientBaseJournalEntryPage<TParent extends JournalEntry | null> extends InstanceType<
+    typeof ClientBaseJournalEntryPage<TParent>
+> {}
 
 /**
  * The client-side JournalEntryPage document which extends the common BaseJournalEntryPage document model.
@@ -80,8 +81,9 @@ export default class JournalEntryPage<
     ): void;
 }
 
-export default interface JournalEntryPage<TParent extends JournalEntry | null = JournalEntry | null>
-    extends ClientBaseJournalEntryPage<TParent> {
+export default interface JournalEntryPage<
+    TParent extends JournalEntry | null = JournalEntry | null,
+> extends ClientBaseJournalEntryPage<TParent> {
     get documentName(): "JournalEntryPage";
     get sheet(): JournalPageSheet<this>;
 }

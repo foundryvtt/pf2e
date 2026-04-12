@@ -185,8 +185,9 @@ export default class Tile<
     static createPreview(data: DeepPartial<foundry.documents.TileSource>): Tile;
 }
 
-export default interface Tile<TDocument extends TileDocument<Scene | null> = TileDocument<Scene | null>>
-    extends PlaceableObject<TDocument> {
+export default interface Tile<
+    TDocument extends TileDocument<Scene | null> = TileDocument<Scene | null>,
+> extends PlaceableObject<TDocument> {
     get layer(): TilesLayer<this>;
 }
 

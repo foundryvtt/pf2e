@@ -33,8 +33,7 @@ export default class BaseCards extends abstract.Document<null, CardsSchema> {
 }
 
 export default interface BaseCards
-    extends abstract.Document<null, CardsSchema>,
-        fields.ModelPropsFromSchema<CardsSchema> {
+    extends abstract.Document<null, CardsSchema>, fields.ModelPropsFromSchema<CardsSchema> {
     get documentName(): CardsMetadata["name"];
 }
 

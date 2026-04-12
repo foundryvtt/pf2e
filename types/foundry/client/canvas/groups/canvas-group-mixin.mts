@@ -1,10 +1,14 @@
 import CanvasLayer from "../layers/base/canvas-layer.mjs";
 
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable no-unused-expressions */
+
 /**
  * A mixin which decorates any container with base canvas common properties.
  * @param {typeof PIXI.Container} ContainerClass  The parent Container class being mixed.
  * @returns A ContainerClass subclass mixed with CanvasGroupMixin features.
  */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function CanvasGroupMixin<TBase extends ConstructorOf<PIXI.Container>>(ContainerClass: TBase) {
     class CanvasGroup extends ContainerClass {
         constructor(...args: any[]) {

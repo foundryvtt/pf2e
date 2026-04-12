@@ -11,7 +11,7 @@ export const OPERATOR_IDENTIFIER: "__$OPERATOR$__";
 /**
  * A base class used for all special database operations.
  */
-export abstract class DataFieldOperator<T> {
+export abstract class DataFieldOperator {
     constructor(value: unknown);
 
     toJSON(): object;
@@ -19,7 +19,7 @@ export abstract class DataFieldOperator<T> {
     /**
      * Create a DataFieldOperator using a provided value.
      */
-    static create<U>(value: U): DataFieldOperator<U>;
+    static create<U>(value: U): DataFieldOperator;
 
     /**
      * Retrieve the inner value of the DataFieldOperator, or return the value passed if not a DataFieldOperator.
@@ -28,11 +28,8 @@ export abstract class DataFieldOperator<T> {
 
     /**
      * Assign the inner value of the DataFieldOperator.
-     * @param {DataFieldOperator} operator
-     * @param {any} value
-     * @returns {any}
      */
-    static set<U>(operator: DataFieldOperator<U>, value: U): DataFieldOperator<U>;
+    static set<U>(operator: DataFieldOperator, value: U): DataFieldOperator;
 
     /**
      * A comparison helper function that asserts whether two values are equal when one or both values may be
@@ -46,20 +43,20 @@ export abstract class DataFieldOperator<T> {
 /**
  * Force the deletion of a certain DataModel field, resetting its value back to undefined.
  */
-export class ForcedDeletion extends DataFieldOperator<undefined> {
+export class ForcedDeletion extends DataFieldOperator {
     constructor();
 }
 
 /**
  * Force the replacement of a certain DataModel field, assigning it to some explicit value without inner recursion.
  */
-export class ForcedReplacement<T> extends DataFieldOperator<T> {
-    constructor(value: T);
+export class ForcedReplacement extends DataFieldOperator {
+    constructor(value: unknown);
 
     /**
      * Create a ForcedReplacement instance that is wrapped in a Proxy so that it can be inspected.
      */
-    static create<U>(value: U): ForcedReplacement<U>;
+    static create(value: unknown): ForcedReplacement;
 }
 
 /* -------------------------------------------- */
@@ -67,4 +64,4 @@ export class ForcedReplacement<T> extends DataFieldOperator<T> {
 /**
  * Reconstruct a DataFieldOperator instance from a serialized object.
  */
-export function reconstructOperator<T>(obj: { [OPERATOR_IDENTIFIER]: string; value: T }): DataFieldOperator<T>;
+export function reconstructOperator(obj: { [OPERATOR_IDENTIFIER]: string; value: unknown }): DataFieldOperator;

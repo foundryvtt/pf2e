@@ -10,8 +10,9 @@ declare const PointEffectBaseSoundSource: {
 } & Omit<typeof BaseEffectSource, "new"> &
     typeof PointEffectSource;
 
-interface PointEffectBaseSoundSource<TObject extends AmbientSound>
-    extends InstanceType<typeof PointEffectBaseSoundSource<TObject>> {}
+interface PointEffectBaseSoundSource<TObject extends AmbientSound> extends InstanceType<
+    typeof PointEffectBaseSoundSource<TObject>
+> {}
 
 /**
  * A specialized subclass of the BaseEffectSource which describes a point-based source of sound.

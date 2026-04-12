@@ -60,8 +60,7 @@ export default class BaseActorDelta<TParent extends BaseToken | null> extends ab
 }
 
 export default interface BaseActorDelta<TParent extends BaseToken | null>
-    extends abstract.Document<TParent, ActorDeltaSchema>,
-        fields.ModelPropsFromSchema<ActorDeltaSchema> {}
+    extends abstract.Document<TParent, ActorDeltaSchema>, fields.ModelPropsFromSchema<ActorDeltaSchema> {}
 
 interface ActorDeltaMetadata extends abstract.DocumentMetadata {
     name: "ActorDelta";

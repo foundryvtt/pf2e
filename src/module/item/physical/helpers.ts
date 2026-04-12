@@ -296,8 +296,9 @@ function handleHPChange(item: PhysicalItemPF2e, changed: DeepPartial<PhysicalIte
         // Catch invalid items in the actor clone preventing other items from updating
         try {
             return actorSource ? new ActorProxyPF2e(actorSource) : null;
-        } catch {}
-        return null;
+        } catch {
+            return null;
+        }
     })();
     const itemClone = actorClone?.inventory.get(item.id, { strict: true }) ?? item.clone(changed, { keepId: true });
 

@@ -316,7 +316,7 @@ export interface TokenMovementContinuationData {
     /**
      * Resolve function of the wait promise
      */
-    resolveWaitPromise: () => {} | undefined;
+    resolveWaitPromise: () => object | undefined;
     /**
      * The promise that resolves after the update workflow
      */
@@ -327,7 +327,7 @@ export interface TokenMovementContinuationData {
     states: {
         [movementId: string]: {
             handles: Map<string | symbol, TokenMovementContinuationHandle>;
-            callbacks: Array<(continued: boolean) => void>;
+            callbacks: ((continued: boolean) => void)[];
             pending: Set<string>;
         };
     };

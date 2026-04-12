@@ -1,6 +1,5 @@
 import { Schema } from "prosemirror-model";
-import { Plugin } from "prosemirror-state";
-import { ProseMirrorCommand } from "./_types.mjs";
+import { Command, Plugin } from "prosemirror-state";
 import ProseMirrorPlugin from "./plugin.mjs";
 
 /**
@@ -23,5 +22,5 @@ export default class ProseMirrorKeyMaps extends ProseMirrorPlugin {
      * Build keyboard commands for nodes and marks present in the schema.
      * @returns An object of keyboard shortcuts to editor functions.
      */
-    buildMapping(): Record<string, ProseMirrorCommand>;
+    buildMapping(): Record<string, Command>;
 }

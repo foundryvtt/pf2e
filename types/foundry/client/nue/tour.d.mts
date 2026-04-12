@@ -141,7 +141,7 @@ export default abstract class Tour {
      */
     get id(): string;
 
-    set id(value);
+    set id(value: string);
 
     /**
      * The human-readable title for the tour.
@@ -158,7 +158,7 @@ export default abstract class Tour {
      */
     get namespace(): string;
 
-    set namespace(value);
+    set namespace(value: string);
 
     /**
      * The key the Tour is stored under in game.tours, of the form `${namespace}.${id}`

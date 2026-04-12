@@ -1,4 +1,3 @@
-import { TinyMCEEditorData } from "../../appv1/api/form-application-v1.mjs";
 import ProseMirrorEditor from "./prosemirror-editor.mjs";
 
 /**
@@ -28,7 +27,7 @@ export default class FormDataExtended extends FormData {
     /**
      * A record of TinyMCE editors which are linked to this form.
      */
-    editors: Record<string, TinyMCE.Editor | ProseMirrorEditor>;
+    editors: Record<string, ProseMirrorEditor>;
 
     /**
      * The object representation of the form data, available once processed.
@@ -60,7 +59,7 @@ export default class FormDataExtended extends FormData {
 
 interface FormDataExtendedOptions {
     /** A record of TinyMCE editor metadata objects, indexed by their update key */
-    editors: Record<string, TinyMCEEditorData>;
+    editors: Record<string, ProseMirrorEditor>;
     /** A mapping of data types for form fields */
     dtypes: string[];
     /**

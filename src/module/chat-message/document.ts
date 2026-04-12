@@ -20,7 +20,7 @@ import { CriticalHitAndFumbleCards } from "./crit-fumble-cards.ts";
 import { ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data.ts";
 import * as Listeners from "./listeners/index.ts";
 
-class ChatMessagePF2e extends ChatMessage {
+class ChatMessagePF2e extends ChatMessage<UserPF2e | null> {
     /** Set some flags/flag scopes early. */
     protected override _initializeSource(data: object, options?: DataModelConstructionContext<null>): this["_source"] {
         const source = super._initializeSource(data, options);
@@ -394,8 +394,7 @@ class ChatMessagePF2e extends ChatMessage {
     }
 }
 
-interface ChatMessagePF2e extends ChatMessage {
-    author: UserPF2e | null;
+interface ChatMessagePF2e extends ChatMessage<UserPF2e | null> {
     flags: ChatMessageFlagsPF2e;
     readonly _source: ChatMessageSourcePF2e;
     get speakerActor(): ActorPF2e | null;

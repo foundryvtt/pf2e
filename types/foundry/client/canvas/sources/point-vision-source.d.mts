@@ -14,8 +14,9 @@ declare const RenderedPointEffectSource: {
 } & Omit<typeof RenderedEffectSource, "new"> &
     typeof PointEffectSource;
 
-interface RenderedPointEffectSource<TObject extends AmbientLight | Token>
-    extends InstanceType<typeof RenderedPointEffectSource<TObject>> {}
+interface RenderedPointEffectSource<TObject extends AmbientLight | Token> extends InstanceType<
+    typeof RenderedPointEffectSource<TObject>
+> {}
 
 /** A specialized subclass of the PointSource abstraction which is used to control the rendering of vision sources. */
 export default class PointVisionSource<

@@ -22,7 +22,7 @@ export default class HTMLCodeMirrorElement extends AbstractFormInputElement<stri
      */
     get language(): CodeMirrorLanguage;
 
-    set language(value);
+    set language(value: CodeMirrorLanguage);
 
     /**
      * This element's indent attribute, which determines the number of spaces added upon pressing the TAB key. A value
@@ -30,14 +30,14 @@ export default class HTMLCodeMirrorElement extends AbstractFormInputElement<stri
      */
     get indent(): number;
 
-    set indent(value);
+    set indent(value: number);
 
     /**
      * The element's nowrap attribute, which if present disables line-wrapping
      */
     get nowrap(): boolean;
 
-    set nowrap(value);
+    set nowrap(value: boolean);
 
     protected override _toggleDisabled(disabled: boolean): void;
 

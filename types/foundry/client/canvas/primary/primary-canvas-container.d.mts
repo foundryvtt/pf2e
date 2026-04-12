@@ -15,14 +15,15 @@ export default class PrimaryCanvasContainer extends CanvasTransformMixin(PIXI.Co
      */
     get sort(): number;
 
-    set sort(value);
+    set sort(value: number);
 
     /**
      * The elevation of this container.
      */
     get elevation(): number;
 
-    set elevation(value);
+    set elevation(value: number);
+
     /**
      * To know if this container has at least one children that should render its depth.
      */

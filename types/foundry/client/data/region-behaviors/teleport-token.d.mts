@@ -18,7 +18,8 @@ export default class TeleportTokenRegionBehaviorType extends RegionBehaviorType<
 }
 
 export default interface TeleportTokenRegionBehaviorType
-    extends RegionBehaviorType<TeleportTokenRegionBehaviorTypeSchema>,
+    extends
+        RegionBehaviorType<TeleportTokenRegionBehaviorTypeSchema>,
         fields.ModelPropsFromSchema<TeleportTokenRegionBehaviorTypeSchema> {}
 
 export type TeleportTokenRegionBehaviorTypeSchema = {

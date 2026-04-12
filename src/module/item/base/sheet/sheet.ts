@@ -1,5 +1,5 @@
 import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
-import type { ProseMirrorEditor } from "@client/applications/ux/_module.d.mts";
+import type { EditorCreateOptions } from "@client/applications/ux/prosemirror-editor.d.mts";
 import type { ApplicationV1HeaderButton, AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
 import type { DataField } from "@common/data/fields.d.mts";
 import { ItemPF2e } from "@item";
@@ -37,6 +37,7 @@ import {
 import { createSortable } from "@util/destroyables.ts";
 import { tagify } from "@util/tags.ts";
 import type { Plugin } from "prosemirror-state";
+import type { EditorView } from "prosemirror-view";
 import * as R from "remeda";
 import { ItemSystemModel } from "../data/model.ts";
 import { CodeMirror } from "./codemirror.ts";
@@ -279,9 +280,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
 
     override async activateEditor(
         name: string,
-        options: { engine?: "prosemirror" | "tinymce" } = {},
-        initialContent = "",
-    ): Promise<TinyMCE.Editor | ProseMirrorEditor> {
+        options?: EditorCreateOptions,
+        initialContent?: string,
+    ): Promise<EditorView> {
         // Ensure the source description is edited rather than a prepared one
         const sourceContent =
             name === "system.description.value" ? this.item._source.system.description.value : initialContent;

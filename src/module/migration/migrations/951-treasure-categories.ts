@@ -11,7 +11,7 @@ export class Migration951TreasureCategories extends MigrationBase {
         const system: TreasureSystemSourceWithDeletion = source.system;
         if (system.category === "coin" || system.stackGroup === "coins") {
             system.category ??= "coin";
-            if ((system.publication.title = "Pathfinder Core Rulebook")) {
+            if (system.publication.title === "Pathfinder Core Rulebook") {
                 this.#setPublication(system.publication, "Pathfinder Player Core");
             }
         } else if (system.stackGroup === "gems" || system.category === "gem") {

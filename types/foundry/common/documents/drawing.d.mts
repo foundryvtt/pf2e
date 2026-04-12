@@ -35,8 +35,7 @@ export default class BaseDrawing<TParent extends BaseScene | null> extends abstr
 }
 
 export default interface BaseDrawing<TParent extends BaseScene | null>
-    extends abstract.Document<TParent, DrawingSchema>,
-        fields.ModelPropsFromSchema<DrawingSchema> {
+    extends abstract.Document<TParent, DrawingSchema>, fields.ModelPropsFromSchema<DrawingSchema> {
     get documentName(): DrawingMetadata["name"];
 }
 

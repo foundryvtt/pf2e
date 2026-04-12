@@ -20,7 +20,7 @@ export class ShapeControls<
 
     static override RENDER_FLAGS: {
         redraw: { propagate: ["refresh"] };
-        refresh: {};
+        refresh: Record<string, never>;
     };
 
     /** The shape. */
@@ -69,7 +69,7 @@ export class ShapeControls<
 
     override applyRenderFlags(): void;
 
-    /*** Refresh the visualization of these controls.  */
+    /** * Refresh the visualization of these controls.  */
     protected _refresh(): void;
 
     /** Refresh the visualization of these controls. */

@@ -56,18 +56,6 @@ export default class TokenRing {
     static tokenRingSamplerShader: typeof TokenRingSamplerShader;
 
     /**
-     * Default ring thickness in normalized space.
-     */
-    static #defaultRingThickness: number;
-
-    /**
-     * Default ring subject thickness in normalized space.
-     */
-    static #defaultSubjectThickness: number;
-
-    /* -------------------------------------------- */
-
-    /**
      * Initialize the Token Rings system, registering the batch plugin and patching PrimaryCanvasGroup#addToken.
      */
     static initialize(): void;
@@ -136,11 +124,6 @@ export default class TokenRing {
      * Reference to the token that should be animated.
      */
     get token(): Token | undefined;
-
-    /**
-     * Weak reference to the token being animated.
-     */
-    #token: WeakRef<Token>;
 
     /* -------------------------------------------- */
     /*  Rendering                                   */

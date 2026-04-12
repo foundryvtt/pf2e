@@ -16,8 +16,7 @@ declare class ServerSettings extends DataModel<null, ServerSettingsSchema> {
 }
 
 declare interface ServerSettings
-    extends DataModel<null, ServerSettingsSchema>,
-        fields.ModelPropsFromSchema<ServerSettingsSchema> {}
+    extends DataModel<null, ServerSettingsSchema>, fields.ModelPropsFromSchema<ServerSettingsSchema> {}
 
 /**
  * @property {string|null} adminPassword

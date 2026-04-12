@@ -13,9 +13,7 @@ export class Migration940WeaponExpend extends MigrationBase {
         }
 
         // If expend was already set, return
-        if (source.system.expend ?? null !== null) {
-            return;
-        }
+        if ((source.system.expend ?? null) !== null) return;
 
         // If reload is null or the weapon is thrown, it cannot have an expend, so return early
         const isThrown = source.system.traits.value.includes("thrown");

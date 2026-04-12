@@ -12,14 +12,15 @@ export default class PrimaryParticleEffect extends CanvasTransformMixin(PIXI.Con
      */
     get sort(): number;
 
-    set sort(value);
+    set sort(value: number);
 
     /**
      * The elevation of this container.
      */
     get elevation(): number;
 
-    set elevation(value);
+    set elevation(value: number);
+
     /**
      * Always false for a Primary Particle Effect.
      */

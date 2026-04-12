@@ -24,8 +24,7 @@ export default class BaseFogExploration extends Document<null, FogExplorationSch
 }
 
 export default interface BaseFogExploration
-    extends Document<null, FogExplorationSchema>,
-        fields.ModelPropsFromSchema<FogExplorationSchema> {
+    extends Document<null, FogExplorationSchema>, fields.ModelPropsFromSchema<FogExplorationSchema> {
     get documentName(): FogExplorationMetadata["name"];
 }
 

@@ -122,8 +122,7 @@ export default class DetectionMode extends DataModel<null, DetectionModeSchema> 
 }
 
 export default interface DetectionMode
-    extends DataModel<null, DetectionModeSchema>,
-        fields.ModelPropsFromSchema<DetectionModeSchema> {}
+    extends DataModel<null, DetectionModeSchema>, fields.ModelPropsFromSchema<DetectionModeSchema> {}
 
 export interface TokenDetectionMode {
     /** The id of the detection mode, a key from CONFIG.Canvas.detectionModes */

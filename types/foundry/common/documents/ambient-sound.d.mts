@@ -18,8 +18,7 @@ export default class BaseAmbientSound<TParent extends BaseScene | null> extends 
 }
 
 export default interface BaseAmbientSound<TParent extends BaseScene | null>
-    extends Document<TParent, AmbientSoundSchema>,
-        fields.ModelPropsFromSchema<AmbientSoundSchema> {
+    extends Document<TParent, AmbientSoundSchema>, fields.ModelPropsFromSchema<AmbientSoundSchema> {
     get documentName(): AmbientSoundMetadata["name"];
 }
 

@@ -12,7 +12,7 @@ export default class PolygonMesher {
      * @param poly    Closed polygon to be processed and converted to a mesh (array of points or PIXI Polygon)
      * @param options Various options : normalizing, offsetting, add depth, ...
      */
-    constructor(poly: number | PIXI.Polygon, options?: {});
+    constructor(poly: number | PIXI.Polygon, options?: object);
 
     /**
      * Polygon mesh vertices

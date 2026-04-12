@@ -144,7 +144,7 @@ export default class TokenRingConfig {
      */
     get shaderClass(): typeof PrimaryBaseSamplerShader;
 
-    set shaderClass(value);
+    set shaderClass(value: typeof PrimaryBaseSamplerShader);
 
     /**
      * Get the current localized label.

@@ -31,14 +31,14 @@ export class AlphaBlurFilterPass extends PIXI.Filter {
      */
     get quality(): number;
 
-    set quality(value);
+    set quality(value: number);
 
     /**
      * The strength of the blur filter in pixels.
      */
     get blur(): number;
 
-    set blur(value);
+    set blur(value: number);
 
     /**
      * The kernels containing the gaussian constants.
@@ -114,39 +114,40 @@ export default class AlphaBlurFilter extends PIXI.Filter {
      */
     get blur(): number;
 
-    set blur(value);
+    set blur(value: number);
 
     /**
      * The quality of blur defines the number of passes used by subsidiary filters.
      */
     get quality(): number;
 
-    set quality(value);
+    set quality(value: number);
 
     /**
      * Whether to repeat edge pixels, adding padding to the filter area.
      */
     get repeatEdgePixels(): boolean;
 
-    set repeatEdgePixels(value);
+    set repeatEdgePixels(value: boolean);
 
     /**
      * Provided for completeness with PIXI.BlurFilter
      */
     get blurX(): number;
 
-    set blurX(value);
+    set blurX(value: number);
 
     /**
      * Provided for completeness with PIXI.BlurFilter
      */
     get blurY(): number;
 
-    set blurY(value);
+    set blurY(value: number);
+
     /**
      * Provided for completeness with PIXI.BlurFilter
      */
     get blendMode(): number;
 
-    set blendMode(value);
+    set blendMode(value: number);
 }

@@ -8,7 +8,6 @@ import clipperlib from "js-angusj-clipper";
 import PixiJS from "pixi.js";
 import "showdown";
 import * as SocketIO from "socket.io-client";
-import { TinyMCE as tinymce } from "./../tinymce-stub.mjs";
 import * as globalFoundry from "./client.mjs";
 import Localization from "./helpers/localization.mjs";
 
@@ -27,7 +26,6 @@ declare global {
         export import CONST = constants;
         export import Hooks = foundry.helpers.Hooks;
         export import PIXI = PixiJS;
-        export import TinyMCE = tinymce;
         export import foundry = globalFoundry;
         export import io = SocketIO;
     }

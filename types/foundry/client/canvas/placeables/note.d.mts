@@ -62,7 +62,8 @@ export default class Note<
     protected override _canHover(user: User): boolean;
 }
 
-export default interface Note<TDocument extends NoteDocument<Scene | null> = NoteDocument<Scene | null>>
-    extends PlaceableObject<TDocument> {
+export default interface Note<
+    TDocument extends NoteDocument<Scene | null> = NoteDocument<Scene | null>,
+> extends PlaceableObject<TDocument> {
     get layer(): NotesLayer<this>;
 }

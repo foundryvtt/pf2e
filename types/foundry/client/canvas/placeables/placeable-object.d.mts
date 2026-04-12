@@ -396,8 +396,9 @@ export default abstract class PlaceableObject<
     protected _onLongPress(event: PIXI.FederatedPointerEvent, origin: PIXI.Point): void;
 }
 
-export default interface PlaceableObject<TDocument extends CanvasDocument = CanvasDocument>
-    extends RenderFlagsContainer<TDocument> {
+export default interface PlaceableObject<
+    TDocument extends CanvasDocument = CanvasDocument,
+> extends RenderFlagsContainer<TDocument> {
     hitArea: PIXI.Rectangle;
 }
 

@@ -1,5 +1,6 @@
 import { ParticleEffect } from "@client/canvas/containers/_module.mjs";
 import { WeatherShaderEffect } from "@client/canvas/rendering/shaders/_module.mjs";
+import { WeatherEffectConfiguration } from "@client/config.mjs";
 import FullCanvasObjectMixin from "../../containers/advanced/full-canvas-mixin.mjs";
 import WeatherOcclusionMaskFilter from "../../rendering/filters/weather-occlusion-mask.mjs";
 import CanvasLayer, { CanvasLayerOptions } from "../base/canvas-layer.mjs";
@@ -74,7 +75,7 @@ export default class WeatherEffects extends FullCanvasObjectMixin(CanvasLayer) {
      */
     get elevation(): number;
 
-    set elevation(value);
+    set elevation(value: number);
 
     /**
      * A key which resolves ties amongst objects at the same elevation of different layers.
@@ -88,7 +89,7 @@ export default class WeatherEffects extends FullCanvasObjectMixin(CanvasLayer) {
      */
     get sort(): number;
 
-    set sort(value);
+    set sort(value: number);
 
     /**
      * A key which resolves ties amongst objects at the same elevation within the same layer and same sort.
@@ -96,7 +97,7 @@ export default class WeatherEffects extends FullCanvasObjectMixin(CanvasLayer) {
      */
     get zIndex(): number;
 
-    set zIndex(value);
+    set zIndex(value: number);
 
     /* -------------------------------------------- */
     /*  Weather Effect Rendering                    */
@@ -114,7 +115,7 @@ export default class WeatherEffects extends FullCanvasObjectMixin(CanvasLayer) {
      * Initialize the weather container from a weather config object.
      * @param weatherEffectsConfig Weather config object (or null/undefined to clear the container).
      */
-    initializeEffects(weatherEffectsConfig?: object): void;
+    initializeEffects(weatherEffectsConfig?: WeatherEffectConfiguration): void;
 
     /**
      * Clear the weather container.

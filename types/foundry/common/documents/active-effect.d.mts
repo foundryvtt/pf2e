@@ -51,8 +51,7 @@ export default class BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseA
 }
 
 export default interface BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseActor | null> | null>
-    extends Document<TParent, ActiveEffectSchema>,
-        fields.ModelPropsFromSchema<ActiveEffectSchema> {
+    extends Document<TParent, ActiveEffectSchema>, fields.ModelPropsFromSchema<ActiveEffectSchema> {
     get documentName(): ActiveEffectMetadata["name"];
 }
 
@@ -66,7 +65,6 @@ export interface ActiveEffectMetadata extends DocumentMetadata {
 type ActiveEffectSchema = {
     _id: fields.DocumentIdField;
     name: fields.StringField<string, string, true, false, false>;
-    changes: fields.ArrayField<fields.SchemaField<EffectChangeSchema>>;
     system: fields.TypeDataField;
     type: fields.StringField<string, string, false, true, true>;
     disabled: fields.BooleanField;

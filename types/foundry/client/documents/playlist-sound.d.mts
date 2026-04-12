@@ -11,8 +11,9 @@ declare const ClientBasePlaylistSound: {
     new <TParent extends Playlist | null>(...args: any): BasePlaylistSound<TParent> & ClientDocument<TParent>;
 } & CanvasBasePlaylistSoundStatic;
 
-interface ClientBasePlaylistSound<TParent extends Playlist | null>
-    extends InstanceType<typeof ClientBasePlaylistSound<TParent>> {}
+interface ClientBasePlaylistSound<TParent extends Playlist | null> extends InstanceType<
+    typeof ClientBasePlaylistSound<TParent>
+> {}
 
 /**
  * The client-side PlaylistSound document which extends the common BasePlaylistSound model.

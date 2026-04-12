@@ -12,6 +12,7 @@ import BaseUser from "./user.mjs";
  * @param data    Initial data from which to construct the document.
  * @property data The constructed data object for the document.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default class BaseChatMessage<TUser extends BaseUser | null = BaseUser | null> extends Document<
     null,
     ChatMessageSchema

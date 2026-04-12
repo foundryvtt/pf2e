@@ -36,8 +36,7 @@ export default class TurnMarkerData extends DataModel<null, TurnMarkerDataSchema
 }
 
 export default interface TurnMarkerData
-    extends DataModel<null, TurnMarkerDataSchema>,
-        fields.ModelPropsFromSchema<TurnMarkerDataSchema> {}
+    extends DataModel<null, TurnMarkerDataSchema>, fields.ModelPropsFromSchema<TurnMarkerDataSchema> {}
 
 type TurnMarkerDataSchema = {
     id: fields.StringField;

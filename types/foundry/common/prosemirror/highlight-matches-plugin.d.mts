@@ -1,6 +1,7 @@
 import { Schema } from "prosemirror-model";
 import { EditorState, Plugin } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
+import { ProseMirrorMenuOptions } from "./_types.mjs";
 import ProseMirrorPlugin from "./plugin.mjs";
 
 /**

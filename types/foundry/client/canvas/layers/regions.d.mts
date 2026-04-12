@@ -67,7 +67,7 @@ export default class RegionLayer<TObject extends Region = Region> extends Placea
      */
     get templateMode(): boolean;
 
-    set templateMode(value);
+    set templateMode(value: boolean);
 
     /**
      * Is the palette toggle visible?

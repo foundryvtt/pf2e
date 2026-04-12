@@ -12,7 +12,8 @@ import { IterableWeakMap, IterableWeakSet } from "@common/utils/_module.mjs";
 import ActorSheet from "../appv1/sheets/actor-sheet.mjs";
 import { ActiveEffect, ActorSource, ActorUUID, BaseActor, Combat, Item, Scene, TokenDocument } from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
-import Actors from "./collections/actors.mjs";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type Actors from "./collections/actors.mjs";
 
 interface ClientBaseActorStatic extends Omit<typeof BaseActor, "new">, ClientDocumentStatic {}
 
@@ -20,8 +21,9 @@ declare const ClientBaseActor: {
     new <TParent extends TokenDocument | null>(...args: any): BaseActor<TParent> & ClientDocument<TParent>;
 } & ClientBaseActorStatic;
 
-declare interface ClientBaseActor<TParent extends TokenDocument | null>
-    extends InstanceType<typeof ClientBaseActor<TParent>> {}
+declare interface ClientBaseActor<TParent extends TokenDocument | null> extends InstanceType<
+    typeof ClientBaseActor<TParent>
+> {}
 
 /**
  * The client-side Actor document which extends the common BaseActor model.

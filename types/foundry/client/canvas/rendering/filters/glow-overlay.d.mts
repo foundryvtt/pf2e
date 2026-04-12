@@ -37,5 +37,5 @@ export default class GlowOverlayFilter extends AbstractBaseFilter {
      */
     animated: boolean;
 
-    apply(filterManager: any, input: any, output: any, clear: any): void;
+    apply(filterManager: unknown, input: unknown, output: unknown, clear: unknown): void;
 }

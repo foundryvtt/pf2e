@@ -59,8 +59,7 @@ export default class BaseAdventure extends Document<null, AdventureSchema> {
 }
 
 export default interface BaseAdventure
-    extends Document<null, AdventureSchema>,
-        fields.ModelPropsFromSchema<AdventureSchema> {
+    extends Document<null, AdventureSchema>, fields.ModelPropsFromSchema<AdventureSchema> {
     get documentName(): AdventureMetadata["name"];
 }
 

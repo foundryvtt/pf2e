@@ -35,14 +35,14 @@ export default class HTMLFilePickerElement extends AbstractFormInputElement<stri
      */
     get type(): FilePickerFileType;
 
-    set type(value);
+    set type(value: FilePickerFileType);
 
     /**
      * Prevent uploading new files as part of this element's FilePicker dialog.
      */
     get noupload(): boolean;
 
-    set noupload(value);
+    set noupload(value: boolean);
 
     protected override _buildElements(): HTMLElement[];
 

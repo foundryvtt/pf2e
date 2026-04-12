@@ -1,4 +1,4 @@
-import { EditorCreateOptions } from "@client/applications/ux/prosemirror-editor.mjs";
+import ProseMirrorEditor, { EditorCreateOptions } from "@client/applications/ux/prosemirror-editor.mjs";
 import { Plugin } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
 import Application, { AppV1RenderOptions, ApplicationV1Options } from "./application-v1.mjs";
@@ -36,7 +36,7 @@ export default abstract class FormApplication<
      * Keep track of any mce editors which may be active as part of this form
      * The values of this Array are inner-objects with references to the MCE editor and other metadata
      */
-    editors: Record<string, TinyMCEEditorData>;
+    editors: Record<string, FormApplicationEditorConfig>;
 
     // Undocumented
     _submitting?: boolean;
@@ -121,11 +121,7 @@ export default abstract class FormApplication<
      * @param options        TinyMCE initialization options passed to TextEditor.create
      * @param initialContent Initial text content for the editor area.
      */
-    activateEditor(
-        name: string,
-        options?: EditorCreateOptions,
-        initialContent?: string,
-    ): Promise<TinyMCE.Editor | EditorView>;
+    activateEditor(name: string, options?: EditorCreateOptions, initialContent?: string): Promise<EditorView>;
 
     /**
      * Handle saving the content of a specific editor by name
@@ -195,13 +191,20 @@ export interface FormApplicationOptions extends ApplicationV1Options {
     submitOnChange: boolean;
 }
 
-export interface TinyMCEEditorData {
-    active: boolean;
-    button: HTMLElement;
-    changed: boolean;
-    hasButton: boolean;
-    initial: string;
-    mce: TinyMCE.Editor | null;
-    options: Partial<TinyMCE.EditorOptions>;
+export interface FormApplicationEditorConfig {
+    options: {
+        target: HTMLElement;
+        fieldName: string;
+        save_onsavecallback: () => Promise<void>;
+        height: number;
+        engine: "prosemirror";
+        collaborate: boolean;
+    };
     target: string;
+    button: HTMLElement;
+    hasButton: boolean;
+    instance: ProseMirrorEditor | null;
+    active: boolean;
+    changed: boolean;
+    initial: unknown;
 }

@@ -7,8 +7,9 @@ declare const ClientBaseActorDelta: new <TParent extends BaseToken | null>(
     ...args: any
 ) => BaseActorDelta<TParent> & ClientDocument<TParent>;
 
-interface ClientBaseActorDelta<TParent extends BaseToken | null>
-    extends InstanceType<typeof ClientBaseActorDelta<TParent>> {}
+interface ClientBaseActorDelta<TParent extends BaseToken | null> extends InstanceType<
+    typeof ClientBaseActorDelta<TParent>
+> {}
 
 /**
  * The client-side ActorDelta embedded document which extends the common BaseActorDelta document model.

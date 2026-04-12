@@ -18,7 +18,7 @@ export default class VisibilityFilter extends AbstractBaseMaskFilter {
         hasOverlayTexture: boolean;
     };
 
-    static override create(initialUniforms?: {}, options?: {}): VisibilityFilter;
+    static override create(initialUniforms?: object, options?: object): VisibilityFilter;
 
     static override fragmentShader(options?: object): string;
 
@@ -26,9 +26,8 @@ export default class VisibilityFilter extends AbstractBaseMaskFilter {
 
     /**
      * Set the blur strength
-     * @param value blur strength
      */
-    set blur(value);
+    set blur(value: number);
 
     apply(
         filterManager: PIXI.FilterSystem,
@@ -40,7 +39,6 @@ export default class VisibilityFilter extends AbstractBaseMaskFilter {
 
     /**
      * Calculate the fog overlay sprite matrix.
-     * @param filterManager
      */
     calculateMatrix(filterManager: PIXI.FilterSystem): void;
 }

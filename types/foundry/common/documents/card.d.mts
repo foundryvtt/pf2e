@@ -38,8 +38,7 @@ export default class BaseCard<TParent extends BaseCards | null> extends Document
 }
 
 export default interface BaseCard<TParent extends BaseCards | null>
-    extends Document<TParent, CardSchema>,
-        fields.ModelPropsFromSchema<CardSchema> {
+    extends Document<TParent, CardSchema>, fields.ModelPropsFromSchema<CardSchema> {
     get documentName(): CardMetadata["name"];
 }
 

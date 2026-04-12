@@ -1,4 +1,5 @@
 import { RollOptions } from "../_types.mjs";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import RollTerm from "./term.mjs";
 
 export interface RollTermData {

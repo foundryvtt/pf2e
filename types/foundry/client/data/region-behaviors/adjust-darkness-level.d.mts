@@ -19,7 +19,8 @@ export default class AdjustDarknessLevelRegionBehaviorType extends RegionBehavio
 }
 
 export default interface AdjustDarknessLevelRegionBehaviorType
-    extends RegionBehaviorType<AdjustDarknessLevelRegionBehaviorSchema>,
+    extends
+        RegionBehaviorType<AdjustDarknessLevelRegionBehaviorSchema>,
         fields.ModelPropsFromSchema<AdjustDarknessLevelRegionBehaviorSchema> {}
 
 export type AdjustDarknessLevelRegionBehaviorSchema = {

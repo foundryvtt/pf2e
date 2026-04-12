@@ -84,8 +84,7 @@ export default class VisionMode extends DataModel<null, VisionModeSchema> {
 }
 
 export default interface VisionMode
-    extends DataModel<null, VisionModeSchema>,
-        fields.ModelPropsFromSchema<VisionModeSchema> {}
+    extends DataModel<null, VisionModeSchema>, fields.ModelPropsFromSchema<VisionModeSchema> {}
 
 export type LightingVisibility = (typeof VisionMode.LIGHTING_VISIBILITY)[keyof typeof VisionMode.LIGHTING_VISIBILITY];
 

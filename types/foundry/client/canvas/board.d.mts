@@ -13,7 +13,6 @@ import {
     PrimaryCanvasGroup,
     RenderedCanvasGroup,
 } from "./groups/_module.mjs";
-import { Ruler } from "./interaction/_module.mjs";
 import { PingOptions } from "./interaction/_types.mjs";
 import MouseInteractionManager from "./interaction/mouse-handler.mjs";
 import {
@@ -37,7 +36,6 @@ export default class Canvas<
     TToken extends Token<TokenDocument<TScene>> = Token<TokenDocument<TScene>>,
     TEffectsCanvasGroup extends EffectsCanvasGroup = EffectsCanvasGroup,
     TRegion extends Region<RegionDocument<TScene>> = Region<RegionDocument<TScene>>,
-    TRuler extends Ruler = Ruler,
 > {
     /** A flag to indicate whether a new Scene is currently being drawn. */
     loading: boolean;

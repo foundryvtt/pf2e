@@ -1,5 +1,5 @@
 import User from "@client/documents/user.mjs";
-import { DatabaseCreateOperation, DatabaseUpdateOperation, DataSchema } from "@common/abstract/_types.mjs";
+import { DatabaseCreateOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
 import {
     ApplicationClosingOptions,
@@ -12,10 +12,10 @@ import {
 import FormDataExtended from "../ux/form-data-extended.mjs";
 import ApplicationV2 from "./application.mjs";
 
-export interface DocumentSheetRenderContext extends ApplicationRenderContext {
-    document: Document;
-    source: Record<string, JSONValue | undefined>;
-    fields: DataSchema;
+export interface DocumentSheetRenderContext<TDocument extends Document = Document> extends ApplicationRenderContext {
+    document: TDocument;
+    source: TDocument["_source"];
+    fields: TDocument["schema"]["fields"];
     editable: boolean;
     user: User;
     rootId: string;

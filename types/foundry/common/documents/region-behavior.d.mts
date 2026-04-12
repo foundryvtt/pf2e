@@ -15,8 +15,7 @@ export default class BaseRegionBehavior<
 }
 
 export default interface BaseRegionBehavior<TParent extends BaseRegion | null = BaseRegion | null>
-    extends abstract.Document<TParent, RegionBehaviorSchema>,
-        fields.ModelPropsFromSchema<RegionBehaviorSchema> {
+    extends abstract.Document<TParent, RegionBehaviorSchema>, fields.ModelPropsFromSchema<RegionBehaviorSchema> {
     get documentName(): RegionBehaviorMetadata["name"];
 }
 

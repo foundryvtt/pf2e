@@ -20,8 +20,7 @@ export default class BaseWorld extends packages.BasePackage<WorldSchema> {
 }
 
 export default interface BaseWorld
-    extends packages.BasePackage<WorldSchema>,
-        fields.ModelPropsFromSchema<WorldSchema> {}
+    extends packages.BasePackage<WorldSchema>, fields.ModelPropsFromSchema<WorldSchema> {}
 
 /**
  * The data schema used to define World manifest files.

@@ -29,12 +29,6 @@ export default class AudioHelper {
     static THRESHOLD_CACHE_SIZE_BYTES: number;
 
     /**
-     * Audio Context singleton used for analysing audio levels of each stream
-     * Only created if necessary to listen to audio streams.
-     */
-    static #analyzerContext: AudioContext;
-
-    /**
      * The set of singleton Sound instances which are shared across multiple uses of the same sound path.
      */
     sounds: Map<string, WeakRef<Sound>>;
@@ -92,7 +86,7 @@ export default class AudioHelper {
      */
     get globalMute(): boolean;
 
-    set globalMute(muted);
+    set globalMute(muted: boolean);
 
     /**
      * Create a Sound instance for a given audio source URL

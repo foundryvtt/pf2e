@@ -11,8 +11,7 @@ export default class BasePlaylist extends Document<null, PlaylistSchema> {
 }
 
 export default interface BasePlaylist
-    extends Document<null, PlaylistSchema>,
-        fields.ModelPropsFromSchema<PlaylistSchema> {
+    extends Document<null, PlaylistSchema>, fields.ModelPropsFromSchema<PlaylistSchema> {
     get documentName(): PlaylistMetadata["name"];
 
     readonly sounds: EmbeddedCollection<any>;

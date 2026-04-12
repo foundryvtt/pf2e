@@ -10,8 +10,7 @@ export default class BaseJournalEntry extends Document<null, JournalEntrySchema>
 }
 
 export default interface BaseJournalEntry
-    extends Document<null, JournalEntrySchema>,
-        fields.ModelPropsFromSchema<JournalEntrySchema> {
+    extends Document<null, JournalEntrySchema>, fields.ModelPropsFromSchema<JournalEntrySchema> {
     readonly pages: EmbeddedCollection<BaseJournalEntryPage<this>>;
 
     get documentName(): JournalEntryMetadata["name"];

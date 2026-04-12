@@ -140,7 +140,7 @@ async function migrate() {
             source = JSON.parse(content);
         } catch (error) {
             if (error instanceof Error) {
-                throw Error(`File ${filePath} could not be parsed. Error: ${error.message}`);
+                throw Error(`File ${filePath} could not be parsed. Error: ${error.message}`, { cause: error });
             }
             return;
         }

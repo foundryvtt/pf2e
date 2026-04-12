@@ -7,7 +7,8 @@ export default class PauseGameRegionBehaviorType extends RegionBehaviorType<Paus
 }
 
 export default interface PauseGameRegionBehaviorType
-    extends RegionBehaviorType<PauseGameRegionBehaviorTypeSchema>,
+    extends
+        RegionBehaviorType<PauseGameRegionBehaviorTypeSchema>,
         fields.ModelPropsFromSchema<PauseGameRegionBehaviorTypeSchema> {}
 
 export type PauseGameRegionBehaviorTypeSchema = {

@@ -1,20 +1,19 @@
-/**
- * @import RegionMesh from "@client/canvas/placeables/regions/mesh.mjs";
- */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import RegionMesh from "@client/canvas/placeables/regions/mesh.mjs";
+import AbstractBaseShader from "../base-shader.mjs";
+
 /**
  * The shader used by {@link RegionMesh}.
  */
 export default class RegionShader extends AbstractBaseShader {
-    /** @override */
     static override fragmentShader: string;
-    /** @override */
+
     static override defaultUniforms: {
         canvasDimensions: number[];
         sceneDimensions: number[];
         screenDimensions: number[];
         tintAlpha: number[];
     };
-    /** @override */
-    override _preRender(mesh: any, renderer: any): void;
+
+    override _preRender(mesh: PIXI.Container, renderer: PIXI.Renderer): void;
 }
-import AbstractBaseShader from "../base-shader.mjs";

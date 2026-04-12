@@ -293,10 +293,7 @@ export interface SelectOptionsHelperOptions extends SelectInputConfig {
  * </select>
  * ```
  */
-export function selectOptions(
-    choices: object | Array<object>,
-    options: SelectOptionsHelperOptions,
-): Handlebars.SafeString;
+export function selectOptions(choices: object | object[], options: SelectOptionsHelperOptions): Handlebars.SafeString;
 
 /**
  * Convert a DataField instance into an HTML input fragment.

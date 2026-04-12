@@ -24,8 +24,7 @@ export default class DynamicRingData extends DataModel<null, DynamicRingSchema> 
 }
 
 export default interface DynamicRingData
-    extends DataModel<null, DynamicRingSchema>,
-        fields.ModelPropsFromSchema<DynamicRingSchema> {}
+    extends DataModel<null, DynamicRingSchema>, fields.ModelPropsFromSchema<DynamicRingSchema> {}
 
 type DynamicRingSchema = {
     /** The id of this Token Ring configuration. */

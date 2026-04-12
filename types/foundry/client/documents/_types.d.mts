@@ -473,7 +473,7 @@ export type TokenMovementCostFunction = GridMeasurePathCostFunction3D<TokenMovem
 
 export type TokenMovementCostAggregator = (
     /** The results of the cost function calls */
-    results: Array<DeepReadonly<{ from: GridOffset3D; to: GridOffset3D; cost: number }>>,
+    results: DeepReadonly<{ from: GridOffset3D; to: GridOffset3D; cost: number }>[],
     distance: number,
     segment: DeepReadonly<TokenMovementSegmentData>,
 ) => number;
@@ -746,9 +746,9 @@ export interface TokenResizingInstruction {
     method?: TokenMovementMethod;
     autoRotate?: false;
     showRuler?: false;
-    terrainOptions?: {};
+    terrainOptions?: object;
     constrainOptions?: { ignoreWalls: true; ignoreCost: true };
-    measureOptions?: {};
+    measureOptions?: object;
     split?: boolean;
     planned?: boolean;
 }
@@ -816,7 +816,7 @@ export interface TokenMovementContinuationData {
     waitPromise: Promise<void>;
 
     /** Resolve function of the wait promise */
-    resolveWaitPromise: () => {} | undefined;
+    resolveWaitPromise: () => object | undefined;
 
     /** The promise that resolves after the update workflow */
     postWorkflowPromise: Promise<void>;
@@ -825,7 +825,7 @@ export interface TokenMovementContinuationData {
     states: {
         [movementId: string]: {
             handles: Map<string | symbol, TokenMovementContinuationHandle>;
-            callbacks: Array<(continued: boolean) => void>;
+            callbacks: ((continued: boolean) => void)[];
             pending: Set<string>;
         };
     };

@@ -1,8 +1,7 @@
 /**
  * Pulse animation illumination shader
  */
-export class PulseIlluminationShader extends AdaptiveIlluminationShader {
-}
+export class PulseIlluminationShader extends AdaptiveIlluminationShader {}
 /**
  * Pulse animation coloration shader
  */

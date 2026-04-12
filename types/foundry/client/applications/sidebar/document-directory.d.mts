@@ -360,6 +360,7 @@ export default class DocumentDirectory<TDocument extends DirectoryMixinEntry> ex
     ): Promise<{ closestFolderId?: string; folder: Folder; sortData: object; foreign?: boolean } | void>;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default interface DocumentDirectory<TDocument extends DirectoryMixinEntry> {
     render(options?: Partial<HandlebarsRenderOptions>): Promise<this>;
 }

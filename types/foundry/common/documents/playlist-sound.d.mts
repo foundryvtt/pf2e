@@ -20,8 +20,7 @@ export default class BasePlaylistSound<TParent extends BasePlaylist | null = Bas
 }
 
 export default interface BasePlaylistSound<TParent extends BasePlaylist | null = BasePlaylist | null>
-    extends Document<TParent, PlaylistSoundSchema>,
-        fields.ModelPropsFromSchema<PlaylistSoundSchema> {
+    extends Document<TParent, PlaylistSoundSchema>, fields.ModelPropsFromSchema<PlaylistSoundSchema> {
     getDocumentName: PlaylistSoundMetadata["name"];
 }
 

@@ -7,7 +7,8 @@ export default class ToggleBehaviorRegionBehaviorType extends RegionBehaviorType
 }
 
 export default interface ToggleBehaviorRegionBehaviorType
-    extends RegionBehaviorType<ToggleBehaviorRegionBehaviorTypeSchema>,
+    extends
+        RegionBehaviorType<ToggleBehaviorRegionBehaviorTypeSchema>,
         fields.ModelPropsFromSchema<ToggleBehaviorRegionBehaviorTypeSchema> {}
 
 export type ToggleBehaviorRegionBehaviorTypeSchema = {

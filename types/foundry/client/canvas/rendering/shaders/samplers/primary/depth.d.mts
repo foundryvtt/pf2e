@@ -27,19 +27,19 @@ export default class DepthSamplerShader extends BaseSamplerShader {
         restrictsWeather: boolean;
     };
 
-    static override batchDefaultUniforms(maxTex: any): {
+    static override batchDefaultUniforms(maxTex: number): {
         screenDimensions: number[];
-        occlusionTexture: any;
+        occlusionTexture: number;
     };
 
-    static override _preRenderBatch(batchRenderer: any): void;
+    static override _preRenderBatch(batchRenderer: PIXI.BatchRenderer): void;
 
     static override _packInterleavedGeometry(
-        element: any,
-        attributeBuffer: any,
-        indexBuffer: any,
-        aIndex: any,
-        iIndex: any,
+        element: unknown,
+        attributeBuffer: unknown,
+        indexBuffer: unknown,
+        aIndex: unknown,
+        iIndex: unknown,
     ): void;
 
     static override get batchVertexShader(): string;

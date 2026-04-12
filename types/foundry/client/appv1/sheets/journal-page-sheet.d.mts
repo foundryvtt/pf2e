@@ -45,11 +45,7 @@ export class JournalPageSheet<
     /*  Text Editor Integration                     */
     /* -------------------------------------------- */
 
-    override activateEditor(
-        name: string,
-        options?: EditorCreateOptions,
-        initialContent?: string,
-    ): Promise<TinyMCE.Editor | EditorView>;
+    override activateEditor(name: string, options?: EditorCreateOptions, initialContent?: string): Promise<EditorView>;
 
     /**
      * Update the parent sheet if it is open when the server autosaves the contents of this editor.
@@ -107,9 +103,4 @@ export class JournalTextTinyMCESheet<
     override close(options?: { force?: boolean }): Promise<void>;
 
     protected override _render(force?: boolean, options?: AppV1RenderOptions): Promise<void>;
-}
-
-export interface JournalTextTinyMCESheet<TDocument extends JournalEntryPage<JournalEntry | null>>
-    extends JournalTextPageSheet<TDocument> {
-    activateEditor(name: string, options?: EditorCreateOptions, initialContent?: string): Promise<TinyMCE.Editor>;
 }

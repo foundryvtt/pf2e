@@ -23,8 +23,10 @@ export default class BaseTableResult<TParent extends documents.BaseRollTable | n
     ): boolean;
 }
 
-export default interface BaseTableResult<TParent extends documents.BaseRollTable | null>
-    extends Document<TParent, TableResultSchema> {
+export default interface BaseTableResult<TParent extends documents.BaseRollTable | null> extends Document<
+    TParent,
+    TableResultSchema
+> {
     get documentName(): TableResultMetadata["name"];
 }
 

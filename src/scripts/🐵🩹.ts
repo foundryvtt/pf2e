@@ -1,4 +1,5 @@
 import type { ProseMirrorMenu } from "@common/prosemirror/_module.d.mts";
+import type { ProseMirrorMenuItem } from "@common/prosemirror/_types.d.mts";
 import type { Mark, NodeType, ResolvedPos } from "prosemirror-model";
 import * as R from "remeda";
 

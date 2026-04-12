@@ -41,9 +41,7 @@ export const span: {
 };
 
 export const font: {
-    attrs: {
-        family: {};
-    };
+    attrs: { family: object };
     parseDOM: [{ style: "font-family"; getAttrs: (family: string) => Record<string, string> }];
     toDOM: (node: Node) => ["span", { style: `font-family: ${string}` }];
 };

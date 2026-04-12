@@ -108,7 +108,8 @@ export default class Drawing<
     protected _onDrawingTextKeydown(event: KeyboardEvent): void;
 }
 
-export default interface Drawing<TDocument extends DrawingDocument<Scene | null> = DrawingDocument<Scene | null>>
-    extends PlaceableObject<TDocument> {
+export default interface Drawing<
+    TDocument extends DrawingDocument<Scene | null> = DrawingDocument<Scene | null>,
+> extends PlaceableObject<TDocument> {
     get layer(): DrawingsLayer<this>;
 }

@@ -12,8 +12,9 @@ declare const ClientBaseCombatant: {
     new <TParent extends Combat | null>(...args: any): BaseCombatant<TParent> & ClientDocument<TParent>;
 } & ClientBaseCombatantStatic;
 
-declare interface ClientBaseCombatant<TParent extends Combat | null>
-    extends InstanceType<typeof ClientBaseCombatant<TParent>> {}
+declare interface ClientBaseCombatant<TParent extends Combat | null> extends InstanceType<
+    typeof ClientBaseCombatant<TParent>
+> {}
 
 /**
  * The client-side Combatant document which extends the common BaseCombatant model.
@@ -132,7 +133,7 @@ export default class Combatant<
 }
 
 export default interface Combatant<TParent extends Combat | null> extends ClientBaseCombatant<TParent> {
-    get sheet(): CombatantConfig;
+    get sheet(): CombatantConfig<this>;
 }
 
 export {};

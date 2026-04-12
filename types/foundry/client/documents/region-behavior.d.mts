@@ -10,8 +10,9 @@ declare const ClientBaseRegionBehavior: {
     new <TParent extends RegionDocument | null>(...args: any): BaseRegionBehavior<TParent> & ClientDocument<TParent>;
 } & CanvasBaseRegionBehaviorStatic;
 
-interface ClientBaseRegionBehavior<TParent extends RegionDocument | null>
-    extends InstanceType<typeof ClientBaseRegionBehavior<TParent>> {}
+interface ClientBaseRegionBehavior<TParent extends RegionDocument | null> extends InstanceType<
+    typeof ClientBaseRegionBehavior<TParent>
+> {}
 
 /** The client-side RegionBehavior document which extends the common BaseRegionBehavior model. */
 export default class RegionBehavior<

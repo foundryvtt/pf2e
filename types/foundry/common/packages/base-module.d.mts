@@ -20,8 +20,7 @@ export default class BaseModule extends packages.BasePackage<ModuleSchema> {
 }
 
 export default interface BaseModule
-    extends packages.BasePackage<ModuleSchema>,
-        fields.ModelPropsFromSchema<ModuleSchema> {}
+    extends packages.BasePackage<ModuleSchema>, fields.ModelPropsFromSchema<ModuleSchema> {}
 
 type ModuleSchema = packages.BasePackageSchema & {
     coreTranslation: fields.BooleanField;

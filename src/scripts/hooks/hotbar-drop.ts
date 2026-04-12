@@ -26,7 +26,6 @@ export class HotbarDrop {
             case "Item": {
                 const itemId = data.id ?? (R.isPlainObject(data.data) ? data.data._id : null);
                 const uuid = data.uuid;
-
                 const prefix =
                     typeof data.pack === "string"
                         ? `Compendium.${data.pack}`

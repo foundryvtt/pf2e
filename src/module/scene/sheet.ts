@@ -37,9 +37,9 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
     /** Prepare context data for the system tab. */
     protected override async _preparePartContext(
         partId: string,
-        context: fa.api.DocumentSheetRenderContext,
+        context: fa.api.DocumentSheetRenderContext<TDocument>,
         options: fa.api.HandlebarsRenderOptions,
-    ): Promise<fa.api.DocumentSheetRenderContext> {
+    ): Promise<fa.api.DocumentSheetRenderContext<TDocument>> {
         const partContext = await super._preparePartContext(partId, context, options);
         if (partId !== SYSTEM_ID) return partContext;
         const scene = this.document;

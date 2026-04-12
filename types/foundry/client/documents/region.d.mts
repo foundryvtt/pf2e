@@ -93,8 +93,10 @@ export interface BaseRegionEvent<TDocument extends RegionDocument = RegionDocume
     user: TUser;
 }
 
-export interface BehaviorStatusRegionEvent<TDocument extends RegionDocument = RegionDocument, TUser extends User = User>
-    extends BaseRegionEvent<TDocument, TUser> {
+export interface BehaviorStatusRegionEvent<
+    TDocument extends RegionDocument = RegionDocument,
+    TUser extends User = User,
+> extends BaseRegionEvent<TDocument, TUser> {
     name: "behaviorStatus";
     data: {
         active: boolean;
@@ -102,8 +104,10 @@ export interface BehaviorStatusRegionEvent<TDocument extends RegionDocument = Re
     };
 }
 
-export interface CombatRegionEvent<TDocument extends RegionDocument = RegionDocument, TUser extends User = User>
-    extends BaseRegionEvent<TDocument, TUser> {
+export interface CombatRegionEvent<
+    TDocument extends RegionDocument = RegionDocument,
+    TUser extends User = User,
+> extends BaseRegionEvent<TDocument, TUser> {
     name: "tokenRoundStart" | "tokenRoundEnd" | "tokenTurnStart" | "tokenTurnEnd";
     data: {
         token: SetElement<TDocument["tokens"]>;
@@ -111,16 +115,20 @@ export interface CombatRegionEvent<TDocument extends RegionDocument = RegionDocu
     };
 }
 
-export interface TokenBasicMoveRegionEvent<TDocument extends RegionDocument = RegionDocument, TUser extends User = User>
-    extends BaseRegionEvent<TDocument, TUser> {
+export interface TokenBasicMoveRegionEvent<
+    TDocument extends RegionDocument = RegionDocument,
+    TUser extends User = User,
+> extends BaseRegionEvent<TDocument, TUser> {
     name: "tokenEnter" | "tokenExit";
     data: {
         token: SetElement<TDocument["tokens"]>;
     };
 }
 
-export interface TokenMoveRegionEvent<TDocument extends RegionDocument = RegionDocument, TUser extends User = User>
-    extends BaseRegionEvent<TDocument, TUser> {
+export interface TokenMoveRegionEvent<
+    TDocument extends RegionDocument = RegionDocument,
+    TUser extends User = User,
+> extends BaseRegionEvent<TDocument, TUser> {
     name: "tokenPreMove" | "tokenMove" | "tokenMoveIn" | "tokenMoveOut";
     data: {
         destination: RegionMovementWaypoint;
@@ -132,8 +140,10 @@ export interface TokenMoveRegionEvent<TDocument extends RegionDocument = RegionD
     };
 }
 
-export interface RegionBoundaryRegionEvent<TDocument extends RegionDocument = RegionDocument, TUser extends User = User>
-    extends BaseRegionEvent<TDocument, TUser> {
+export interface RegionBoundaryRegionEvent<
+    TDocument extends RegionDocument = RegionDocument,
+    TUser extends User = User,
+> extends BaseRegionEvent<TDocument, TUser> {
     name: "regionBoundary";
     data: object;
 }
