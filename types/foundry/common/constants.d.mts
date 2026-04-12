@@ -21,56 +21,128 @@ export const WEBSITE_API_URL: "https://api.foundryvtt.com";
 export const ASCII: string;
 
 /**
- * Define the allowed ActiveEffect application modes.
- * Other arbitrary mode numbers can be used by systems and modules to identify special behaviors and are ignored
+ * Time-based units in which an ActiveEffect's duration can be expressed
  */
-export const ACTIVE_EFFECT_MODES: Readonly<{
-    /** Used to denote that the handling of the effect is programmatically provided by a system or module. */
-    CUSTOM: 0;
+export const ACTIVE_EFFECT_TIME_DURATION_UNITS: ["years", "months", "days", "hours", "minutes", "seconds"];
+
+export type EffectTimeDurationUnit = (typeof ACTIVE_EFFECT_TIME_DURATION_UNITS)[number];
+
+/**
+ * All units in which an ActiveEffect's duration can be expressed
+ */
+export const ACTIVE_EFFECT_DURATION_UNITS: [...typeof ACTIVE_EFFECT_TIME_DURATION_UNITS, "rounds", "turns"];
+
+export type EffectDurationUnit = (typeof ACTIVE_EFFECT_DURATION_UNITS)[number];
+
+/**
+ * Define the core ActiveEffect expiry events.
+ * Other events can be defined by systems and modules, with their handling also left to them.
+ */
+export const ACTIVE_EFFECT_EXPIRY_EVENTS: [
+    "combatStart",
+    "roundStart",
+    "turnStart",
+    "combatEnd",
+    "roundEnd",
+    "turnEnd",
+];
+
+export type CoreEffectExpiryEvent = (typeof ACTIVE_EFFECT_EXPIRY_EVENTS)[number];
+
+/**
+ * Define the core ActiveEffect change-application phases.
+ * Additional phases can be registered by systems and modules, with the registering package also responsible for
+ * calling `Actor#applyActiveEffects("myNewPhase")` at the desired time.
+ */
+export const ACTIVE_EFFECT_CHANGE_PHASES: ["initial", "final"];
+
+export type CoreEffectChangePhase = (typeof ACTIVE_EFFECT_CHANGE_PHASES)[number];
+
+/**
+ * Define the core ActiveEffect change types and their default priorities. Other arbitrary string types can be used by
+ * systems and modules to identify special behaviors and are ignored.
+ */
+export const ACTIVE_EFFECT_CHANGE_TYPES: {
+    /**
+     * Used to denote that the handling of the effect is programmatically provided by a system or module.
+     */
+    custom: 0;
 
     /**
      * Multiplies a numeric base value by the numeric effect value
      * @example
      * 2 (base value) * 3 (effect value) = 6 (derived value)
      */
-    MULTIPLY: 1;
+    multiply: 10;
 
     /**
-     * Adds a numeric base value to a numeric effect value, or concatenates strings
+     * Sums two values, concatenates strings, pushes onto Arrays, or adds to Sets.
      * @example
      * 2 (base value) + 3 (effect value) = 5 (derived value)
      * @example
      * "Hello" (base value) + " World" (effect value) = "Hello World"
      */
-    ADD: 2;
+    add: 20;
 
     /**
-     * Keeps the lower value of the base value and the effect value
+     * Subtracts a numeric change values from target values, splices values from Arrays, or deletes an element from Sets.
+     * @example
+     * 3 (base value) - 2 (effect value) = 1 (derived value)
+     * @example
+     * Set<"hello"|"world"> - "world" = Set<"hello">
+     */
+    subtract: 20;
+
+    /**
+     * Keeps the lower value of the base value and the effect value. The lower value of a Set is a subset.
      * @example
      * 2 (base value), 0 (effect value) = 0 (derived value)
      * @example
      * 2 (base value), 3 (effect value) = 2 (derived value)
      */
-    DOWNGRADE: 3;
+    downgrade: 30;
 
     /**
-     * Keeps the greater value of the base value and the effect value
+     * Keeps the greater value of the base value and the effect value. The higher value of a Set is a superset.
      * @example
      * 2 (base value), 4 (effect value) = 4 (derived value)
      * @example
      * 2 (base value), 1 (effect value) = 2 (derived value)
      */
-    UPGRADE: 4;
+    upgrade: 40;
 
     /**
-     * Directly replaces the base value with the effect value
+     * Directly replaces the base value with the effect value.
      * @example
      * 2 (base value), 4 (effect value) = 4 (derived value)
      */
-    OVERRIDE: 5;
-}>;
+    override: 50;
+};
 
-export type ActiveEffectChangeMode = (typeof ACTIVE_EFFECT_MODES)[keyof typeof ACTIVE_EFFECT_MODES];
+export type CoreEffectChangeType = keyof typeof ACTIVE_EFFECT_CHANGE_TYPES;
+
+/**
+ * Possible values for ActiveEffectData#showIcon: the default is CONDITIONAL, dependent on whether the ActiveEffect has
+ * a temporary duration.
+ */
+export const ACTIVE_EFFECT_SHOW_ICON: {
+    /**
+     * The icon is never shown.
+     */
+    NEVER: 0;
+
+    /**
+     * The icon is showed if the ActiveEffect has a temporary duration.
+     */
+    CONDITIONAL: 1;
+
+    /**
+     * The icon is always shown.
+     */
+    ALWAYS: 2;
+};
+
+export type EffectShowIconType = (typeof ACTIVE_EFFECT_SHOW_ICON)[keyof typeof ACTIVE_EFFECT_SHOW_ICON];
 
 /**
  * Define the string name used for the base document type when specific sub-types are not defined by the system

@@ -295,18 +295,17 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Add effect icons from effect items and rule elements */
-    override get temporaryEffects(): fd.ActiveEffect<Actor | Item>[] {
-        const fromConditions = this.conditions.map((c) => ActiveEffectPF2e.fromEffect(c));
+    override get appliedEffects(): fd.ActiveEffect<Actor | Item>[] {
+        const fromConditions = this.conditions.map((c) => ActiveEffectPF2e.fromItem(c));
         const fromEffects = this.itemTypes.effect
             .filter((e) => e.system.tokenIcon?.show && (e.isIdentified || game.user.isGM))
-            .map((e) => ActiveEffectPF2e.fromEffect(e));
+            .map((e) => ActiveEffectPF2e.fromItem(e));
         const allEffects = [
             super.temporaryEffects,
             fromConditions,
             fromEffects,
             this.synthetics.tokenEffectIcons,
         ].flat();
-
         return R.uniqueBy(allEffects, (e) => e.img);
     }
 
