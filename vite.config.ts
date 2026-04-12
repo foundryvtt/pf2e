@@ -285,7 +285,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             open: "/game",
             proxy: {
                 [`^(?!/systems/${SYSTEM_ID}/)`]: `http://localhost:${foundryPort}/`,
-                [`^/systems/${SYSTEM_ID}/lang`]: `http://localhost:${foundryPort}/`,
+                [`^/systems/${SYSTEM_ID}/(?:assets|lang)`]: `http://localhost:${foundryPort}/`,
                 "/socket.io": {
                     target: `ws://localhost:${foundryPort}`,
                     ws: true,
