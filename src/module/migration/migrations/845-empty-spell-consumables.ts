@@ -9,8 +9,12 @@ export class Migration845EmptySpellConsumables extends MigrationBase {
     override async preUpdateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type === "consumable") {
             const spell: unknown = source.system.spell;
-            if (R.isPlainObject(spell) && !["_id", "name", "type", "system"].every((p) => p in spell)) {
-                source.system.spell = null;
+            if (R.isPlainObject(spell)) {
+                if (!["_id", "name", "type", "system"].every((p) => p in spell)) {
+                    source.system.spell = null;
+                } else {
+                    spell._stats ??= R.pick(source._stats, ["systemId", "systemVersion", "coreVersion"]);
+                }
             }
         }
     }
