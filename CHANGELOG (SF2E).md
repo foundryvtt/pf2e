@@ -1,3 +1,20 @@
+## 1.0.1
+
+### Bugfixes
+
+- (In3luki) Fix detection of inline damage rolls
+- (In3luki) Fix Region shape resetting after release of shape control handles
+- (In3luki, stwlam) Fix localization of check-roll message flavor
+- (stwlam) Fix style incapability with V14 code-mirror elements in Note Rule Element form
+- (stwlam) Fix issue preventing changing viewed scene
+- (stwlam) Restore styling of inline roll links according to roll (now message) mode
+
+### Data Updates
+
+- (Ambrose) Add missing traits to Android ancestry
+- (Ambrose) Correct Fonqugon's land speed
+- (iDantar) Condense bless aura and spell effects
+
 ## 1.0.0
 
 ### Bugfixes
@@ -190,6 +207,7 @@
 ## 0.0.4
 
 ### Bugfixes
+
 - (Supe) Fix updates to nested ammo wiping the ammo type
 - (Supe) Support apex items that don't require investment
 - (Supe) Adjust bulk resizing such that smaller items on larger actors are 1/2 instead of 1/10.
@@ -197,6 +215,7 @@
 - (Tikael) Fix scaling item price by size in SF2e
 
 ### Data Updates
+
 - (Ambrose) Correct typo in Solar Shield effect's rule elements
 - (Ambrose) Remove Rare tag from Elebrian
 - (Ambrose) Update feats and class features in SF2e Iconics
