@@ -5,7 +5,7 @@ import { EFFECT_AREA_SHAPES } from "@item/values.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { damageCategoriesUnique } from "@scripts/config/damage.ts";
 import type { DamageCategoryUnique } from "@system/damage/types.ts";
-import { htmlClosest, htmlQueryAll } from "@util";
+import { htmlClosest } from "@util";
 import * as R from "remeda";
 import type { MeleePF2e } from "./index.ts";
 import { NPC_ATTACK_ACTIONS } from "./values.ts";
@@ -41,7 +41,7 @@ export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
         const html = $html[0];
 
         // Add damage partial
-        for (const button of htmlQueryAll(html, "a[data-action=add-partial]")) {
+        for (const button of html.querySelectorAll("a[data-action=add-partial]")) {
             button.addEventListener("click", () => {
                 const newKey = fu.randomID();
                 this.item.update({
@@ -51,11 +51,11 @@ export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
         }
 
         // Remove damage partial
-        for (const button of htmlQueryAll(html, "a[data-action=remove-partial]")) {
+        for (const button of html.querySelectorAll("a[data-action=remove-partial]")) {
             button.addEventListener("click", () => {
                 const partialKey = htmlClosest(button, "[data-key]")?.dataset.key;
                 if (partialKey) {
-                    this.item.update({ [`system.damageRolls.-=${partialKey}`]: null });
+                    this.item.update({ [`system.damageRolls.${partialKey}`]: _del });
                 }
             });
         }
@@ -63,9 +63,9 @@ export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Set empty-string damage categories to `null`
-        const categories = Object.keys(formData).filter((k) => /^system.damageRolls\.[a-z0-9]+\.category$/i.test(k));
-        for (const key of categories) {
-            formData[key] ||= null;
+        const categoryPattern = /^system.damageRolls\.[a-z0-9]+\.category$/i;
+        for (const key of fu.iterateKeys(formData)) {
+            if (categoryPattern.test(key)) formData[key] ||= null;
         }
 
         // Subtract 10 from the dc to get the modifier if its area/auto fire

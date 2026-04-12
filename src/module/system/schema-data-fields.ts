@@ -587,14 +587,7 @@ class RecordField<
         options?: DataFieldValidationOptions,
     ): validation.DataModelValidationFailure | void {
         const failures = new validation.DataModelValidationFailure();
-        for (const [key, value] of Object.entries(values)) {
-            // If this is a deletion operator for a partial update, skip
-            const isForcedDeletion =
-                value === _del ||
-                (R.isPlainObject(value) &&
-                    !R.isEmpty(value) &&
-                    Object.entries(value).every(([k, v]) => k === "__$OPERATOR$__" && v === "ForcedDeletion"));
-            if (isForcedDeletion && options?.partial) continue;
+        for (const [key, value] of fu.iterateEntries(values)) {
             const keyFailure = this.keyField.validate(key, options);
             if (keyFailure) failures.elements.push({ id: key, failure: keyFailure });
             const valueFailure = this.valueField.validate(value, options);
@@ -616,9 +609,8 @@ class RecordField<
         const upstreamCleaned = super._cleanType(values, options, _state);
         if (!R.isPlainObject(upstreamCleaned)) return values;
         for (const [key, value] of fu.iterateEntries(upstreamCleaned)) {
-            // Don't attempt to clean deletion entries
-            if (value === _del) continue;
-            upstreamCleaned[key] = this.valueField.clean(value, options);
+            if (value instanceof foundry.data.operators.DataFieldOperator) continue;
+            upstreamCleaned[key] = this.valueField.clean(value, options, _state);
         }
         return upstreamCleaned;
     }
