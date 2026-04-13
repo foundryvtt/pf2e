@@ -79,16 +79,13 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         actions: {
             addToRollTable: function (this: CompendiumBrowser) {
                 if (!this.activeTab) return;
-                this.toggleControls(false);
                 this.activeTab.addToRollTable();
             },
             createRollTable: function (this: CompendiumBrowser) {
                 if (!this.activeTab) return;
-                this.toggleControls(false);
                 this.activeTab.createRollTable();
             },
             openSettings: function (this: CompendiumBrowser) {
-                this.toggleControls(false);
                 new CompendiumBrowserSettingsApp().render({ force: true });
             },
         },
