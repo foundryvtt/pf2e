@@ -54,7 +54,7 @@ import type {
     StatisticDifficultyClass,
 } from "@system/statistic/index.ts";
 import { TextEditorPF2e, type RollDataPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, localizer, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
 import { Duration } from "luxon";
 import * as R from "remeda";
 import { v5 as UUIDv5 } from "uuid";
@@ -1137,7 +1137,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         notes.push(...extractedNotes);
 
         // Calculate damage to hit points and shield
-        const localize = localizer("PF2E.Actor.ApplyDamage");
+        const locPrefix = "PF2E.Actor.ApplyDamage";
         const actorShield = isDamage && this.isOfType("character", "npc") ? this.attributes.shield : null;
         const shieldBlock =
             actorShield && shieldBlockRequest
@@ -1155,7 +1155,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                           return false;
                       }
                       if (!actorShield.raised) {
-                          ui.notifications.warn(localize("ShieldNotRaised", { actor: token.name }));
+                          ui.notifications.warn(`${locPrefix}.ShieldNotRaised`, { format: { actor: token.name } });
                           return false;
                       }
                       return true;
@@ -1238,7 +1238,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             if (damageResult.totalApplied <= 0 || damageResult.updates["system.attributes.hp.value"] !== 0) {
                 return null;
             }
-
             return rollOptions.has("item:trait:death") &&
                 !this.attributes.immunities.some((i) => i.type === "death-effects")
                 ? "death-effect"
@@ -1263,7 +1262,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const deadAtZero =
                 (this.isOfType("npc") && ["npcsOnly", "both"].includes(setting)) ||
                 (this.isOfType("character") && setting === "both" && !!instantDeath);
-
             if (
                 updated?.isDead &&
                 deadAtZero &&
@@ -1275,39 +1273,59 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             }
         }
 
+        // Apply persistent damage as conditions
+        const persistentDamage = hitPoints.max
+            ? result.persistent.map((instance) => {
+                  const condition = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
+                  condition.system.persistent = {
+                      formula: instance.head.expression,
+                      damageType: instance.type,
+                      dc: 15,
+                      criticalHit: damage instanceof Roll ? damage.options.degreeOfSuccess === 3 : false,
+                  };
+                  condition.system.traits = {
+                      value: R.unique(
+                          Array.from(rollOptions).map((o) => o.replace(/^origin:action:trait:/, "")),
+                      ).filter((t): t is EffectTrait => t in CONFIG.PF2E.effectTraits),
+                      otherTags: [],
+                  };
+                  return condition;
+              })
+            : [];
+        const persistentCreated = (
+            persistentDamage.length ? await this.createEmbeddedDocuments("Item", persistentDamage) : []
+        ) as ConditionPF2e<this>[];
+
         // Send chat message
-        const hpStatement = ((): string => {
+        const hpStatement = ((): string | null => {
             if (isHealing) {
-                return hitPoints.value === hitPoints.max ? localize("AtFullHealth") : localize("HealedForN");
+                return hitPoints.value === hitPoints.max ? `${locPrefix}.AtFullHealth` : `${locPrefix}.HealedForN`;
             }
-            // This would be a nested ternary, except prettier thoroughly mangles it
-            if (isDamage && (hitPoints.max === 0 || finalDamage - damageAbsorbedByActor === 0)) {
-                return localize("TakesNoDamage");
+            if (!hitPoints.max || finalDamage - damageAbsorbedByActor === 0) {
+                return persistentCreated ? null : `${locPrefix}.TakesNoDamage`;
             }
             return damageAbsorbedByShield > 0
                 ? damageResult.totalApplied > 0
-                    ? localize("DamagedForNShield")
-                    : localize("ShieldAbsorbsAll")
-                : localize("DamagedForN");
+                    ? `${locPrefix}.DamagedForNShield`
+                    : `${locPrefix}.ShieldAbsorbsAll`
+                : `${locPrefix}.DamagedForN`;
         })();
 
         const updatedShield = this.isOfType("character", "npc") ? this.attributes.shield : null;
         const shieldStatement =
             isDamage && updatedShield && shieldDamage > 0
                 ? updatedShield.broken
-                    ? localize("ShieldDamagedForNBroken")
+                    ? `${locPrefix}.ShieldDamagedForNBroken`
                     : updatedShield.destroyed
-                      ? localize("ShieldDamagedForNDestroyed")
-                      : localize("ShieldDamagedForN")
+                      ? `${locPrefix}.ShieldDamagedForNDestroyed`
+                      : `${locPrefix}.ShieldDamagedForN`
                 : null;
-
-        const thresholdStatement = reachedThreshold ? localize("TroopThresholdReached") : null;
-
+        const thresholdStatement = reachedThreshold ? `${locPrefix}.TroopThresholdReached` : null;
         const statements = ((): string => {
             const deathMessage =
-                instantDeath && localize(`InstantDeath.${sluggify(instantDeath, { camel: "bactrian" })}`);
+                instantDeath && `${locPrefix}.InstantDeath.${sluggify(instantDeath, { camel: "bactrian" })}`;
             const concatenated = [hpStatement, shieldStatement, thresholdStatement, deathMessage]
-                .filter(R.isTruthy)
+                .filter(R.isNonNull)
                 .map((s) =>
                     _loc(s, {
                         actor: token.name.replace(/[<>]/g, ""),
@@ -1328,35 +1346,13 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             return tempElem.innerHTML;
         })();
 
-        // Apply persistent damage as conditions
-        const persistentDamage = result.persistent.map((instance) => {
-            const condition = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
-            condition.system.persistent = {
-                formula: instance.head.expression,
-                damageType: instance.type,
-                dc: 15,
-                criticalHit: damage instanceof Roll ? damage.options.degreeOfSuccess === 3 : false,
-            };
-            condition.system.traits = {
-                value: R.unique(Array.from(rollOptions).map((o) => o.replace(/^origin:action:trait:/, ""))).filter(
-                    (t): t is EffectTrait => t in CONFIG.PF2E.effectTraits,
-                ),
-                otherTags: [],
-            };
-            return condition;
-        });
-
-        const persistentCreated = (
-            persistentDamage.length > 0 ? await this.createEmbeddedDocuments("Item", persistentDamage) : []
-        ) as ConditionPF2e<this>[];
-
         const canUndoDamage = !!(damageResult.totalApplied || shieldDamage || persistentCreated.length);
         const content = await fa.handlebars.renderTemplate(
             `systems/${SYSTEM_ID}/templates/chat/damage/damage-taken.hbs`,
             {
                 breakdown,
                 statements,
-                persistent: persistentCreated.map((p) => p.system.persistent?.damage.formula).filter(R.isTruthy),
+                persistent: persistentCreated.map((p) => p.system.persistent?.damage.formula).filter(R.isDefined),
                 iwr: {
                     applications: result.applications,
                     visibility: this.hasPlayerOwner ? "all" : "gm",
@@ -1418,7 +1414,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     ? ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id)
                     : [],
         });
-
         return this;
     }
 
