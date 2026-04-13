@@ -1,18 +1,16 @@
 <li class="strike{{#if action.ready}} ready{{/if}}" {{#unless action.visible}}hidden{{/unless}} data-strike data-action-index="{{index}}">
     <div class="item-image variant-strike framed{{#if action.ready}} ready{{/if}}" data-action="strike-attack" data-variant-index="0">
         <img src="{{action.item.img}}" />
-        <i class="fa-solid fa-dice-d20"></i>
+        <i class="fa-solid fa-dice-d20" inert></i>
     </div>
     <section>
         {{#unless omitName}}
             <h4 class="name">
                 <a data-action="toggle-summary">{{action.label}}</a>
                 {{#if action.item.isTemporary}}
-                    <i
-                        class="fa-solid fa-stopwatch"
-                        data-tooltip="PF2E.TemporaryItemToolTip"
-                        data-tooltip-direction="RIGHT"
-                    ></i>
+                    <i class="fa-solid fa-stopwatch"
+                       data-tooltip aria-label="{{localize "PF2E.TemporaryItemToolTip"}}" data-tooltip-direction="RIGHT"
+                       inert></i>
                 {{/if}}
             </h4>
         {{/unless}}
@@ -28,13 +26,17 @@
             {{#each action.altUsages as |usage index|}}
                 <div class="alt-usage" data-tooltip-direction="LEFT">
                     {{#if usage.item.isThrown}}
-                        <img class="alt-usage-icon" src="{{resolvePath "icons/mdi/thrown.svg"}}" data-tooltip="{{localize "PF2E.Item.Weapon.ThrownUsage.Label"}}" />
+                        <img class="alt-usage-icon" src="{{resolvePath "icons/mdi/thrown.svg"}}"
+                             data-tooltip aria-label="{{localize "PF2E.Item.Weapon.ThrownUsage.Label"}}" />
                     {{else if (eq usage.type "auto-fire")}}
-                        <img class="alt-usage-icon" src="{{resolvePath "assets/icons/striking-balls.svg"}}" data-tooltip="{{localize "PF2E.Actions.AutoFire.Title"}}" />
+                        <img class="alt-usage-icon" src="{{resolvePath "assets/icons/striking-balls.svg"}}"
+                             data-tooltip aria-label="{{localize "PF2E.Actions.AutoFire.Title"}}" />
                     {{else if usage.item.isRanged}}
-                        <i class="alt-usage-icon fa-regular fa-bullseye-arrow" inert data-tooltip="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}"></i>
+                        <i class="alt-usage-icon fa-regular fa-bullseye-arrow" inert
+                           data-tooltip aria-label="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}"></i>
                     {{else}}
-                        <img class="alt-usage-icon" src="{{resolvePath "icons/mdi/sword.svg"}}" data-tooltip="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}" />
+                        <img class="alt-usage-icon" src="{{resolvePath "icons/mdi/sword.svg"}}"
+                             data-tooltip aria-label="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}" />
                     {{/if}}
                     {{#> attackDamage usage altUsageIndex=index}}{{/attackDamage}}
                 </div>
@@ -43,19 +45,21 @@
             {{#if action.ammunition.requiresReload}}
                 <div class="ammo">
                     {{#each action.ammunition.loaded as |ammo|}}
-                        <div class="loaded {{#if (eq ammo.id ../action.ammunition.selected.id)}}selected{{/if}}" data-item-id="{{ammo.id}}">
-                            <button type="button" class="inline-control" data-action="select-ammo" {{#if (eq ammo.id ../action.ammunition.selected.id)}}inert{{/if}}>
+                        <div class="loaded {{#if (eq ammo.id ../action.ammunition.selected.id)}}selected{{/if}}"
+                             data-item-id="{{ammo.id}}">
+                            <button type="button" class="inline-control" data-action="select-ammo"
+                                    {{#if (eq ammo.id ../action.ammunition.selected.id)}}inert{{/if}}>
                                 <img src="{{ammo.img}}" />
                                 <span class="name">{{ammo.name}}</span>
                             </button>
                             {{#if ammo.isTemporary}}
                                 <i
                                     class="fa-solid fa-stopwatch"
-                                    data-tooltip="PF2E.TemporaryItemToolTip"
+                                    data-tooltip aria-label="{{localize "PF2E.TemporaryItemToolTip"}}"
                                     data-tooltip-direction="RIGHT"
                                 ></i>
                             {{/if}}
-                            <span class="magazine" >
+                            <span class="magazine">
                                 <i class="icon"></i>
                                 <input
                                     type="text"
@@ -124,10 +128,12 @@
         </div>
         <div class="item-properties tags">
             {{#each action.traits as |trait|}}
-                <span class="tag {{trait.cssClass}}"{{#if trait.description}} data-tooltip="{{trait.description}}"{{/if}}>{{trait.label}}</span>
+                <span class="tag {{trait.cssClass}}"
+                      {{#if trait.description}} data-tooltip aria-label="{{localize trait.description}}"{{/if}}>{{trait.label}}</span>
             {{/each}}
             {{#each action.weaponTraits as |trait|}}
-                <span class="tag tag_alt {{trait.cssClass}}"{{#if trait.description}} data-tooltip="{{trait.description}}"{{/if}}>{{trait.label}}</span>
+                <span class="tag tag_alt {{trait.cssClass}}"
+                      {{#if trait.description}}data-tooltip aria-label="{{localize trait.description}}"{{/if}}>{{trait.label}}</span>
             {{/each}}
             {{#if action.item.system.reload.label}}
                 <span class="tag tag_secondary">{{action.item.system.reload.label}}</span>
@@ -146,7 +152,9 @@
         {{#each variants as |variant index|}}
             <button type="button" class="tag tag_secondary variant-strike" data-action="strike-attack" data-variant-index="{{index}}"
                 {{#if ../altUsageIndex includeZero=true}}data-alt-usage="{{../altUsageIndex}}"{{/if}}
-                {{#if (eq ../quantity 0)}} disabled data-tooltip="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}
+                {{#if (eq ../quantity 0)}}
+                    disabled data-tooltip aria-label="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"
+                {{/if}}
             >
                 {{#if (eq ../type "strike")}}
                     {{#if (eq index 0)}}
@@ -173,15 +181,13 @@
                     {{#if doubleBarrel}}
                         <button
                             type="button"
-                            class="double-barrel color physical{{#if doubleBarrel.selected}} selected{{/if}}"
+                            class="double-barrel fa-stack color physical{{#if doubleBarrel.selected}} selected{{/if}}"
                             data-action="toggle-weapon-trait"
                             data-trait="double-barrel"
-                            data-tooltip="{{localize "PF2E.TraitDoubleBarrel"}}"
+                            data-tooltip aria-label="{{localize "PF2E.TraitDoubleBarrel"}}"
                         >
-                            <span class="fa-stack fa-fw">
-                                <i class="fa-solid barrels fa-pause fa-rotate-90 fa-stack-1x icon"></i>
-                                <i class="fa-solid blast fa-explosion fa-rotate-90 fa-stack-1x icon"></i>
-                            </span>
+                            <i class="fa-solid barrels fa-pause fa-rotate-90 fa-stack-1x icon" inert></i>
+                            <i class="fa-solid blast fa-explosion fa-rotate-90 fa-stack-1x icon" inert></i>
                         </button>
 
                         {{#if versatileOptions}}<hr class="vr" />{{/if}}
@@ -196,9 +202,9 @@
                             {{#if altUsageIndex includeZero=true}}data-alt-usage="{{altUsageIndex}}"{{/if}}
                             data-action="toggle-weapon-trait"
                             data-trait="versatile"
-                            data-tooltip="{{localize option.label}}"
+                            data-tooltip aria-label="{{localize option.label}}"
                         >
-                            <i class="fa-solid fa-{{option.glyph}} fa-fw icon"></i>
+                            <i class="fa-solid fa-{{option.glyph}} fa-fw icon" inert></i>
                         </button>
                     {{/each}}
                 </div>
