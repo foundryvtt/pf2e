@@ -1,0 +1,139 @@
+{
+    "_id": "c9rhGmKft1BVT4JO",
+    "folder": "iRWSYIP6EcbtiNRs",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Skill Mastery",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Rogue:</strong> Increase your proficiency rank in one of your skills from expert to master and in another of your skills from trained to expert. You gain a skill feat associated with one of the skills you chose; you must meet all its prerequisites.</p>\n<p><strong>Investigator:</strong> Increase your proficiency rank in one of your skills from expert to master and in another of your skills from trained to expert. You gain a skill feat associated with one of the skills you chose.</p><hr /><p><strong>Special</strong> You can select this feat up to five times.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "maxTakable": 5,
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Rogue Dedication or Investigator Dedication"
+                },
+                {
+                    "value": "trained in at least one skill and expert in at least one skill"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        {
+                            "gte": [
+                                "skill:{choice|value}:rank",
+                                2
+                            ]
+                        }
+                    ]
+                },
+                "flag": "skillMaster",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SkillMastery.MasterPrompt"
+            },
+            {
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        {
+                            "gte": [
+                                "skill:{choice|value}:rank",
+                                1
+                            ]
+                        }
+                    ]
+                },
+                "flag": "skillExpert",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SkillMastery.ExpertPrompt"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.skillExpert}.rank",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.skillMaster}.rank",
+                "value": 3
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:trait:skill"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "skillMastery",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SkillFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.skillMastery}"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:investigator-dedication",
+                            "feat:rogue-dedication"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "predicate": [
+                            "feat:investigator-dedication"
+                        ],
+                        "text": "PF2E.SpecificRule.Feat.SkillMastery.Investigator"
+                    },
+                    {
+                        "predicate": [
+                            "feat:rogue-dedication"
+                        ],
+                        "text": "PF2E.SpecificRule.Feat.SkillMastery.Rogue"
+                    },
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Feat.SkillMastery.Special.Text",
+                        "title": "PF2E.SpecificRule.Feat.SkillMastery.Special.Title"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}
