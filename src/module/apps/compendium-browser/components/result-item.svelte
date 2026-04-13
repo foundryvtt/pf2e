@@ -12,7 +12,6 @@
         activeTabName: ContentTabName | "";
         entry: CompendiumBrowserIndexData;
     }
-
     const { entry, activeTabName }: ResultItemProps = $props();
 
     async function onClickButton(uuid: string, action: "buy-item" | "open-sheet" | "take-item"): Promise<void> {
