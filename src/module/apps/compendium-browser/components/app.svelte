@@ -6,8 +6,7 @@
 
     const browser = game.pf2e.compendiumBrowser;
     const tabs = $derived(browser.tabsArray.filter((t) => t.visible));
-    const props: CompendiumBrowserContext = $props();
-    const state = props.state;
+    const { state }: CompendiumBrowserContext = $props();
 
     async function onClickNav(event: PointerEvent & { currentTarget: EventTarget }): Promise<void> {
         if (!(event.target instanceof HTMLElement)) return;
