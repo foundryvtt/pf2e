@@ -10,7 +10,7 @@ import fields = foundry.data.fields;
 export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.SceneConfig<TDocument> {
     static override DEFAULT_OPTIONS: DeepPartial<fa.api.DocumentSheetConfiguration> = {
         sheetConfig: false,
-        position: { width: 650 },
+        position: { width: 660 },
         actions: {
             openAutomationSettings: SceneConfigPF2e.#onClickOpenAutomationSettings,
             openWorldClockSettings: SceneConfigPF2e.#onClickOpenWorldClockSettings,
