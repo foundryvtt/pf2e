@@ -13,7 +13,7 @@
 
 <div class="tags paizo-style">
     {#if rarity && rarity !== "common"}
-        <span class={["tag", "rarity", rarity].join(" ")}>{_loc(CONFIG.PF2E.rarityTraits[rarity])}</span>
+        <span class={`tag rarity ${rarity}`}>{_loc(CONFIG.PF2E.rarityTraits[rarity])}</span>
     {/if}
     {#each traits.filter((t) => !t.mystified) as trait (trait.value)}
         <span class="tag" data-trait={trait.value}>{trait.label}</span>
