@@ -35,7 +35,7 @@ export const ASCII: string;
  */
 export const ACTIVE_EFFECT_TIME_DURATION_UNITS: ["years", "months", "days", "hours", "minutes", "seconds"];
 
-export type ActiveEffectTimeDurationUnits = (typeof ACTIVE_EFFECT_TIME_DURATION_UNITS)[number];
+export type ActiveEffectTimeDurationUnit = (typeof ACTIVE_EFFECT_TIME_DURATION_UNITS)[number];
 
 /**
  * All units in which an ActiveEffect's duration can be expressed
@@ -57,7 +57,7 @@ export const ACTIVE_EFFECT_EXPIRY_EVENTS: [
     "turnEnd",
 ];
 
-export type ActiveEffectExpiryEvents = (typeof ACTIVE_EFFECT_EXPIRY_EVENTS)[number];
+export type ActiveEffectExpiryEvent = (typeof ACTIVE_EFFECT_EXPIRY_EVENTS)[number];
 
 /**
  * Define the core ActiveEffect change-application phases.
@@ -66,7 +66,7 @@ export type ActiveEffectExpiryEvents = (typeof ACTIVE_EFFECT_EXPIRY_EVENTS)[numb
  */
 export const ACTIVE_EFFECT_CHANGE_PHASES: ["initial", "final"];
 
-export type ActiveEffectChangePhases = (typeof ACTIVE_EFFECT_CHANGE_PHASES)[number];
+export type ActiveEffectChangePhase = (typeof ACTIVE_EFFECT_CHANGE_PHASES)[number];
 
 /**
  * Define the core ActiveEffect change types and their default priorities. Other arbitrary string types can be used by
