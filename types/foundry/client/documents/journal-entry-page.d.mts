@@ -1,6 +1,6 @@
 import Note from "@client/canvas/placeables/note.mjs";
 import { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.mjs";
-import { DocumentOwnershipLevel } from "@common/constants.mjs";
+import { DocumentOwnershipNumber } from "@common/constants.mjs";
 import { JournalPageSheet } from "../appv1/sheets/journal-page-sheet.mjs";
 import { BaseJournalEntryPage } from "./_module.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";
@@ -25,7 +25,7 @@ export default class JournalEntryPage<
     /** The table of contents for this JournalEntryPage. */
     get toc(): JournalEntryPageHeading;
 
-    override get permission(): DocumentOwnershipLevel;
+    override get permission(): DocumentOwnershipNumber;
 
     /**
      * Return a reference to the Note instance for this Journal Entry Page in the current Scene, if any.

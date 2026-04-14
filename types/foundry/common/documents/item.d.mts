@@ -1,4 +1,4 @@
-import { DocumentOwnershipLevel, DocumentOwnershipString, ImageFilePath, UserAction } from "@common/constants.mjs";
+import { DocumentOwnershipLevel, ImageFilePath, UserAction } from "@common/constants.mjs";
 import * as abstract from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseActiveEffect, BaseActor, BaseFolder, BaseUser, ItemUUID } from "./_module.mjs";
@@ -40,7 +40,7 @@ export default class BaseItem<TParent extends BaseActor | null = BaseActor | nul
 
     override testUserPermission(
         user: BaseUser,
-        permission: DocumentOwnershipString | DocumentOwnershipLevel,
+        permission: DocumentOwnershipLevel,
         { exact }?: { exact?: boolean },
     ): boolean;
 }

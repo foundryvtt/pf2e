@@ -1,9 +1,8 @@
 import { DatabaseCreateCallbackOptions } from "@common/abstract/_types.mjs";
 import {
     DocumentOwnershipLevel,
-    DocumentOwnershipString,
-    EffectDurationUnit,
-    EffectShowIconType,
+    ActiveEffectDurationUnit,
+    ActiveEffectShowIcon,
     ImageFilePath,
     UserAction,
 } from "@common/constants.mjs";
@@ -36,7 +35,7 @@ export default class BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseA
 
     override testUserPermission(
         user: BaseUser,
-        permission: DocumentOwnershipString | DocumentOwnershipLevel,
+        permission: DocumentOwnershipLevel,
         { exact }?: { exact?: boolean },
     ): boolean;
 
@@ -77,7 +76,7 @@ type ActiveEffectSchema = {
     tint: fields.ColorField;
     transfer: fields.BooleanField;
     statuses: fields.SetField<fields.StringField<string, string, true, false, false>>;
-    showIcon: fields.NumberField<EffectShowIconType, EffectShowIconType, true, false, true>;
+    showIcon: fields.NumberField<ActiveEffectShowIcon, ActiveEffectShowIcon, true, false, true>;
     flags: fields.DocumentFlagsField;
     _stats: fields.DocumentStatsField;
 };
@@ -105,7 +104,7 @@ interface EffectStartData extends fields.ModelPropsFromSchema<EffectStartSchema>
 
 type EffectDurationSchema = {
     value: fields.NumberField<number, number, true, true, true>;
-    units: fields.StringField<EffectDurationUnit, EffectDurationUnit, true, true, true>;
+    units: fields.StringField<ActiveEffectDurationUnit, ActiveEffectDurationUnit, true, true, true>;
     expiry: fields.StringField<string, string, true, true, true>;
     expired: fields.BooleanField;
 };

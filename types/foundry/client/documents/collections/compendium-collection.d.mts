@@ -6,7 +6,7 @@ import {
     DatabaseOperation,
     DatabaseUpdateOperation,
 } from "@common/abstract/_module.mjs";
-import { DocumentOwnershipLevel, DocumentOwnershipString, ImageFilePath } from "@common/constants.mjs";
+import { DocumentOwnershipLevel, ImageFilePath } from "@common/constants.mjs";
 import Collection from "@common/utils/collection.mjs";
 import { ApplicationRenderOptions } from "../../applications/_types.mjs";
 import { CompendiumDocument, User } from "../_module.mjs";
@@ -151,7 +151,7 @@ export default abstract class CompendiumCollection<
 
     testUserPermission(
         user: foundry.documents.BaseUser,
-        permission: DocumentOwnershipString | DocumentOwnershipLevel,
+        permission: DocumentOwnershipLevel,
         { exact }?: { exact?: boolean },
     ): boolean;
 

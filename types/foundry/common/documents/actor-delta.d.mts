@@ -1,4 +1,4 @@
-import { DocumentOwnershipLevel, DocumentOwnershipString, ImageFilePath, UserAction } from "@common/constants.mjs";
+import { DocumentOwnershipLevel, ImageFilePath, UserAction } from "@common/constants.mjs";
 import { DocumentConstructionContext } from "../_types.mjs";
 import * as abstract from "../abstract/_module.mjs";
 import { TombstoneDataSchema } from "../data/data.mjs";
@@ -31,7 +31,7 @@ export default class BaseActorDelta<TParent extends BaseToken | null> extends ab
 
     override testUserPermission(
         user: BaseUser,
-        permission: DocumentOwnershipString | DocumentOwnershipLevel,
+        permission: DocumentOwnershipLevel,
         { exact }?: { exact?: boolean },
     ): boolean;
 

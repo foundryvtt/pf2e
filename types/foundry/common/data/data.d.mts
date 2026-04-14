@@ -1,7 +1,6 @@
 import { DatabaseUpdateOperation, DataModelConstructionContext } from "@common/abstract/_types.mjs";
 import {
     DocumentOwnershipLevel,
-    DocumentOwnershipString,
     ImageFilePath,
     ShapeDataType,
     TileOcclusionMode,
@@ -552,7 +551,7 @@ export class PrototypeToken<TParent extends documents.BaseActor | null> extends 
      */
     testUserPermission(
         user: documents.BaseUser,
-        permission: DocumentOwnershipString | DocumentOwnershipLevel,
+        permission: DocumentOwnershipLevel,
         { exact }?: { exact?: boolean },
     ): boolean;
 

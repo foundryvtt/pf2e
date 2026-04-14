@@ -1,5 +1,5 @@
 import Roll from "@client/dice/roll.mjs";
-import { AudioFilePath, ChatMessageStyle, DocumentOwnershipLevel } from "@common/constants.mjs";
+import { AudioFilePath, ChatMessageStyle, DocumentOwnershipNumber } from "@common/constants.mjs";
 import { DocumentFlags } from "@common/data/_module.mjs";
 import { Document, DocumentMetadata } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
@@ -21,7 +21,7 @@ export default class BaseChatMessage<TUser extends BaseUser | null = BaseUser | 
 
     static override defineSchema(): ChatMessageSchema;
 
-    override getUserLevel(user: BaseUser): DocumentOwnershipLevel;
+    override getUserLevel(user: BaseUser): DocumentOwnershipNumber;
 }
 
 export default interface BaseChatMessage<TUser extends BaseUser | null>

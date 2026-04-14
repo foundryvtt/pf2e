@@ -1,5 +1,5 @@
 import {
-    DocumentOwnershipLevel,
+    DocumentOwnershipNumber,
     ImageFilePath,
     UserAction,
     UserPermission,
@@ -43,7 +43,7 @@ export default class BaseUser<TCharacter extends BaseActor<null> = BaseActor<nul
      */
     can(action: UserAction | UserPermission): boolean;
 
-    getUserLevel(user: this): DocumentOwnershipLevel;
+    getUserLevel(user: this): DocumentOwnershipNumber;
 
     /**
      * Test whether the User has at least a specific permission

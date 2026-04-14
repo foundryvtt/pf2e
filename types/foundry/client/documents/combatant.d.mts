@@ -1,7 +1,7 @@
 import CombatantConfig from "@client/applications/sheets/combatant-config.mjs";
 import { DatabaseCreateOperation, DatabaseDeleteOperation, DatabaseUpdateOperation } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
-import { DocumentOwnershipLevel } from "@common/constants.mjs";
+import { DocumentOwnershipNumber } from "@common/constants.mjs";
 import Roll, { Rolled } from "../dice/roll.mjs";
 import { BaseCombatant, BaseUser, Combat, TokenDocument, User } from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
@@ -52,7 +52,7 @@ export default class Combatant<
     /**
      * Eschew `ClientDocument`'s redirection to `Combat#permission` in favor of special ownership determination.
      */
-    override get permission(): DocumentOwnershipLevel;
+    override get permission(): DocumentOwnershipNumber;
 
     /** Is this Combatant entry currently visible in the Combat Tracker? */
     get isVisible(): boolean;

@@ -4,7 +4,7 @@ import {
     DocumentMetadata,
     EmbeddedCollection,
 } from "@common/abstract/_module.mjs";
-import { DocumentOwnershipLevel, EdgeRestrictionType, RegionVisibility } from "../constants.mjs";
+import { DocumentOwnershipNumber, EdgeRestrictionType, RegionVisibilityType } from "../constants.mjs";
 import { BaseShapeData } from "../data/data.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseRegionBehavior, BaseScene, BaseUser } from "./_module.mjs";
@@ -29,7 +29,7 @@ export default class BaseRegion<TParent extends BaseScene | null = BaseScene | n
     /*  Document Methods                            */
     /* -------------------------------------------- */
 
-    override getUserLevel(user: BaseUser): DocumentOwnershipLevel;
+    override getUserLevel(user: BaseUser): DocumentOwnershipNumber;
 
     /* -------------------------------------------- */
     /*  Database Update Operations                  */
@@ -83,7 +83,7 @@ type RegionSchema = {
     }>;
     /** A collection of embedded RegionBehavior objects */
     behaviors: fields.EmbeddedCollectionField<BaseRegionBehavior<BaseRegion>>;
-    visibility: fields.NumberField<RegionVisibility, RegionVisibility, true>;
+    visibility: fields.NumberField<RegionVisibilityType, RegionVisibilityType, true>;
     highlightMode: fields.StringField<RegionHighlightMode, RegionHighlightMode, true, false, true>;
     displayMeasurements: fields.BooleanField;
     /** Whether this region is locked or not */

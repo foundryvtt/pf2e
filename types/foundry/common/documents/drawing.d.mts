@@ -1,4 +1,4 @@
-import { DocumentOwnershipLevel, DocumentOwnershipString, DrawingFillType, ImageFilePath } from "@common/constants.mjs";
+import { DocumentOwnershipLevel, DrawingFillType, ImageFilePath } from "@common/constants.mjs";
 import * as abstract from "../abstract/_module.mjs";
 import * as data from "../data/data.mjs";
 import * as fields from "../data/fields.mjs";
@@ -29,7 +29,7 @@ export default class BaseDrawing<TParent extends BaseScene | null> extends abstr
 
     override testUserPermission(
         user: BaseUser,
-        permission: DocumentOwnershipString | DocumentOwnershipLevel,
+        permission: DocumentOwnershipLevel,
         { exact }?: { exact?: boolean },
     ): boolean;
 }

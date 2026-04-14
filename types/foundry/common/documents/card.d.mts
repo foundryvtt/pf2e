@@ -1,4 +1,4 @@
-import { DocumentOwnershipLevel, DocumentOwnershipString, ImageFilePath, VideoFilePath } from "@common/constants.mjs";
+import { DocumentOwnershipLevel, ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import Document, { DocumentMetadata } from "../abstract/document.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseCards, BaseUser } from "./_module.mjs";
@@ -32,7 +32,7 @@ export default class BaseCard<TParent extends BaseCards | null> extends Document
 
     override testUserPermission(
         user: BaseUser,
-        permission: DocumentOwnershipString | DocumentOwnershipLevel,
+        permission: DocumentOwnershipLevel,
         { exact }?: { exact?: boolean | undefined },
     ): boolean;
 }

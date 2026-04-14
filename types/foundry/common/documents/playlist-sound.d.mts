@@ -1,4 +1,4 @@
-import { AudioFilePath, DocumentOwnershipLevel, DocumentOwnershipString } from "@common/constants.mjs";
+import { AudioFilePath, DocumentOwnershipLevel } from "@common/constants.mjs";
 import { Document, DocumentMetadata } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
 import { BasePlaylist, BaseUser } from "./_module.mjs";
@@ -12,11 +12,7 @@ export default class BasePlaylistSound<TParent extends BasePlaylist | null = Bas
 
     static override defineSchema(): PlaylistSoundSchema;
 
-    testUserPermission(
-        user: BaseUser,
-        permission: DocumentOwnershipString | DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean },
-    ): boolean;
+    testUserPermission(user: BaseUser, permission: DocumentOwnershipLevel, { exact }?: { exact?: boolean }): boolean;
 }
 
 export default interface BasePlaylistSound<TParent extends BasePlaylist | null = BasePlaylist | null>
