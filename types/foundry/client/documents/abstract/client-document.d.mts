@@ -19,7 +19,7 @@ import {
     DatabaseUpdateOperation,
 } from "@common/abstract/_module.mjs";
 import Document from "@common/abstract/document.mjs";
-import { DocumentOwnershipLevel } from "@common/constants.mjs";
+import { DocumentOwnershipNumber } from "@common/constants.mjs";
 import { BaseUser } from "../_module.mjs";
 import CompendiumCollection from "../collections/compendium-collection.mjs";
 
@@ -80,7 +80,7 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
      * actor.permission; // 2
      * ```
      */
-    get permission(): DocumentOwnershipLevel;
+    get permission(): DocumentOwnershipNumber;
 
     /**
      * Lazily obtain a Application instance used to configure this Document, or null if no sheet is available.
