@@ -64,7 +64,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
     ): Promise<HTMLAnchorElement | null> {
         const anchor = await super._createInlineRoll(match, rollData, options);
         const formula = anchor?.dataset.formula;
-        if (!formula) return null;
+        if (!formula) return anchor;
         if (anchor.dataset.tooltipText) {
             anchor.dataset.tooltip = "";
             anchor.ariaLabel = anchor.dataset.tooltipText;
