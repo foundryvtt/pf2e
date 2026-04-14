@@ -30,6 +30,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         const publications = new Set<string>();
         const indexFields = [
             "img",
+            "system.defense",
             "system.level.value",
             "system.time",
             "system.traits",
@@ -91,6 +92,12 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     system.time.value = normalizedTime;
                     options.push(`time:${normalizedTime}`);
                 }
+                const defense = system.defense;
+                if (defense?.save)
+                    options.push(`defense:save:${defense.save.basic ? "basic:" : ""}${defense.save.statistic}`);
+                if (defense?.passive) options.push(`defense:passive:${defense.passive.statistic.split("-")[0]}`);
+                if (!defense && options.includes(`trait:attack`) && !options.includes("category:ritual"))
+                    options.push(`defense:passive:armor`);
 
                 spells.push({
                     name: spellData.name,
@@ -133,7 +140,25 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
             },
             { sort: false },
         );
-
+        this.filterData.checkboxes.defense.options = {
+            ...this.generateCheckboxOptions(
+                R.mapValues(CONFIG.PF2E.saves, (l) =>
+                    game.i18n.format("PF2E.CompendiumBrowser.Filter.Spells.Defense.BasicWithSave", {
+                        save: game.i18n.localize(l),
+                    }),
+                ),
+                {
+                    prefix: "save:basic",
+                },
+            ),
+            ...this.generateCheckboxOptions(CONFIG.PF2E.saves, { prefix: "save" }),
+            ...this.generateCheckboxOptions(
+                R.pick(CONFIG.PF2E.checkDCs.Specific, ["armor", "fortitude", "reflex", "will"]),
+                {
+                    prefix: "passive",
+                },
+            ),
+        };
         this.filterData.selects.timefilter.options = [...times].sort().reduce(
             (result, time) => ({
                 ...result,
@@ -164,6 +189,12 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 rank: {
                     isExpanded: true,
                     label: "PF2E.Item.Spell.Rank.Plural",
+                    options: {},
+                    selected: [],
+                },
+                defense: {
+                    isExpanded: false,
+                    label: "PF2E.Item.Spell.Defense.Label",
                     options: {},
                     selected: [],
                 },

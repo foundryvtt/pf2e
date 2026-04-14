@@ -140,6 +140,7 @@ interface HazardFilters extends BaseFilterData {
 interface SpellFilters extends BaseFilterData {
     checkboxes: {
         category: CheckboxData;
+        defense: CheckboxData;
         rank: CheckboxData;
         rarity: CheckboxData;
         traditions: CheckboxData;
