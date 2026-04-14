@@ -10,8 +10,6 @@ import { EarnIncomeDialog } from "@scripts/macros/earn-income.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
-import { fontAwesomeIcon } from "@util";
-import appv1 = foundry.appv1;
 
 /** Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43 */
 
@@ -130,16 +128,16 @@ export async function craftSpellConsumable(
         { spells: validSpells },
     );
 
-    new appv1.api.Dialog({
+    new fav1.api.Dialog({
         title: _loc("PF2E.Actions.Craft.SelectSpellDialog.Title"),
         content,
         buttons: {
             cancel: {
-                icon: fontAwesomeIcon("times").outerHTML,
-                label: _loc("Cancel"),
+                icon: fa.fields.createFontAwesomeIcon("times").outerHTML,
+                label: _loc("COMMON.Cancel"),
             },
             craft: {
-                icon: fontAwesomeIcon("hammer").outerHTML,
+                icon: fa.fields.createFontAwesomeIcon("hammer").outerHTML,
                 label: _loc("PF2E.Actions.Craft.SelectSpellDialog.CraftButtonLabel"),
                 callback: async ($dialog) => {
                     const spellId = String($dialog.find("select[name=spell]").val());

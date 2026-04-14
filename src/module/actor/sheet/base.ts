@@ -44,7 +44,6 @@ import { TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
     SORTABLE_BASE_OPTIONS,
-    fontAwesomeIcon,
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
@@ -783,13 +782,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                     content: content.outerHTML,
                     buttons: {
                         Yes: {
-                            icon: fontAwesomeIcon("check").outerHTML,
-                            label: _loc("Yes"),
+                            icon: fa.fields.createFontAwesomeIcon("check").outerHTML,
+                            label: _loc("COMMON.Yes"),
                             callback: sellItem,
                         },
                         cancel: {
-                            icon: fontAwesomeIcon("times").outerHTML,
-                            label: _loc("Cancel"),
+                            icon: fa.fields.createFontAwesomeIcon("times").outerHTML,
+                            label: _loc("COMMON.Cancel"),
                         },
                     },
                     default: "Yes",
@@ -1402,12 +1401,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             content,
             buttons: {
                 yes: {
-                    icon: fontAwesomeIcon("check").outerHTML,
+                    icon: fa.fields.createFontAwesomeIcon("check").outerHTML,
                     label: "Yes",
                     callback: async () => this.actor.inventory.sellAllTreasure(),
                 },
                 cancel: {
-                    icon: fontAwesomeIcon("times").outerHTML,
+                    icon: fa.fields.createFontAwesomeIcon("times").outerHTML,
                     label: "Cancel",
                 },
             },

@@ -10,7 +10,7 @@ import {
     type DegreeOfSuccessAdjustment,
     type DegreeOfSuccessString,
 } from "@system/degree-of-success.ts";
-import { fontAwesomeIcon, objectHasKey } from "@util";
+import { objectHasKey } from "@util";
 
 function CheckFeat(actor: ActorPF2e, slug: string): boolean {
     if (actor.items.find((i) => i.slug === slug && i.type === "feat")) {
@@ -95,13 +95,13 @@ ${
 `,
         buttons: {
             yes: {
-                icon: fontAwesomeIcon("hand-holding-medical").outerHTML,
+                icon: fa.fields.createFontAwesomeIcon("hand-holding-medical").outerHTML,
                 label: _loc("PF2E.Actions.TreatWounds.Label"),
                 callback: ($html) => treat(actor, $html, options.event, domIdAppend),
             },
             no: {
-                icon: fontAwesomeIcon("times").outerHTML,
-                label: _loc("Cancel"),
+                icon: fa.fields.createFontAwesomeIcon("times").outerHTML,
+                label: _loc("COMMON.Cancel"),
             },
         },
         default: "yes",

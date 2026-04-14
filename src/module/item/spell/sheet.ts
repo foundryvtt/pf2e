@@ -10,7 +10,6 @@ import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import {
     ErrorPF2e,
-    fontAwesomeIcon,
     getActionGlyph,
     htmlClosest,
     htmlQuery,
@@ -296,15 +295,15 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                         })}</p>`,
                         buttons: {
                             delete: {
-                                icon: fontAwesomeIcon("fa-trash").outerHTML,
+                                icon: fa.fields.createFontAwesomeIcon("trash").outerHTML,
                                 label: _loc("PF2E.DeleteShortLabel"),
                                 callback: () => {
                                     this.item.overlays.deleteOverlay(id);
                                 },
                             },
                             cancel: {
-                                icon: fontAwesomeIcon("fa-times").outerHTML,
-                                label: _loc("Cancel"),
+                                icon: fa.fields.createFontAwesomeIcon("times").outerHTML,
+                                label: _loc("COMMON.Cancel"),
                             },
                         },
                         default: "cancel",
