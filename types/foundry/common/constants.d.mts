@@ -129,7 +129,7 @@ export const ACTIVE_EFFECT_CHANGE_TYPES: Readonly<{
     override: 50;
 }>;
 
-export type ActiveEffectChangeType = (typeof ACTIVE_EFFECT_CHANGE_TYPES)[keyof typeof ACTIVE_EFFECT_CHANGE_TYPES];
+export type ActiveEffectChangeType = keyof typeof ACTIVE_EFFECT_CHANGE_TYPES;
 
 /**
  * Possible values for ActiveEffectData#showIcon: the default is CONDITIONAL, dependent on whether the ActiveEffect has
