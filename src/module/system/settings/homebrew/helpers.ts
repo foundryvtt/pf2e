@@ -219,7 +219,7 @@ function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): Migrati
                         const attacks: Record<string, unknown> = source.system.proficiencies?.attacks ?? {};
                         for (const category of deletions) {
                             if (attacks[category] && !HomebrewElements.reservedTerms.weaponCategories.has(category)) {
-                                attacks[`-=${category}`] = null;
+                                attacks[category] = _del;
                             }
                         }
                     }
@@ -231,7 +231,7 @@ function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): Migrati
                         for (const group of deletions) {
                             const key = `weapon-group-${group}`;
                             if (attacks[key] && !HomebrewElements.reservedTerms.weaponGroups.has(group)) {
-                                attacks[`-=${key}`] = null;
+                                attacks[key] = _del;
                             }
                         }
                     }
@@ -243,7 +243,7 @@ function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): Migrati
                         for (const base of deletions) {
                             const key = `weapon-base-${base}`;
                             if (attacks[key] && !HomebrewElements.reservedTerms.baseWeapons.has(base)) {
-                                attacks[`-=${key}`] = null;
+                                attacks[key] = _del;
                             }
                         }
                     }
