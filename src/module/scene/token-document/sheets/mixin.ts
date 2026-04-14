@@ -218,10 +218,12 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
                     const dimensions = this.actor.dimensions;
                     const width = Math.max(Math.round(dimensions.width / 5), 1);
                     const length = Math.max(Math.round(dimensions.length / 5), 1);
+                    const height = Math.max(Math.round(dimensions.height / 5), 1);
                     submitData["width"] = width;
                     submitData["height"] = length;
+                    submitData["depth"] = height;
                 } else {
-                    submitData["width"] = submitData["height"] = this.dimensionsFromActorSize;
+                    submitData["width"] = submitData["height"] = submitData["depth"] = this.dimensionsFromActorSize;
                 }
             }
         }
