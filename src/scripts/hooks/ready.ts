@@ -78,7 +78,7 @@ export const Ready = {
                         // without it will also not be listed in the package manager. Skip warning those without it in
                         // case they were made for private use.
                         !!m.compatibility.verified &&
-                        !fu.isNewerVersion(m.compatibility.verified, "13.351"),
+                        fu.isNewerVersion("13", m.compatibility.verified),
                 );
 
                 for (const badModule of subV11Modules) {
