@@ -1,12 +1,12 @@
+import AbstractWeatherShader from "./base-weather.mjs";
+
 /**
  * Snow shader effect.
  */
 export default class SnowShader extends AbstractWeatherShader {
-    /** @inheritdoc */
-    static defaultUniforms: {
+    static override defaultUniforms: {
         direction: number;
     };
-    /** @inheritdoc */
-    static fragmentShader: string;
+
+    static override fragmentShader: string;
 }
-import AbstractWeatherShader from "./base-weather.mjs";

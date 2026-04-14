@@ -1,5 +1,5 @@
 import { TerrainData } from "@client/data/terrain-data.mjs";
-import { ElevatedPoint, TokenDimensions, TokenPosition } from "@common/_types.mjs";
+import { ElevatedPoint } from "@common/_types.mjs";
 import Document, { DocumentMetadata } from "@common/abstract/document.mjs";
 import {
     ImageFilePath,
@@ -12,6 +12,7 @@ import { GridOffset3D } from "@common/grid/_types.mjs";
 import * as data from "../data/data.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseActorDelta, BaseScene } from "./_module.mjs";
+import { TokenDimensions, TokenPosition } from "./_types.mjs";
 
 /**
  * The Token document model.

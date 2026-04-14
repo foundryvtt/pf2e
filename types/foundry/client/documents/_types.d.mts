@@ -7,10 +7,11 @@ import {
 import { CanvasAnimationEasingFunction } from "@client/canvas/animation/_types.mjs";
 import { TerrainData } from "@client/data/terrain-data.mjs";
 import Roll from "@client/dice/roll.mjs";
-import { ElevatedPoint, TokenPosition } from "@common/_types.mjs";
+import { ElevatedPoint } from "@common/_types.mjs";
 import DataModel from "@common/abstract/data.mjs";
 import { RegionMovementSegmentType, TokenShapeType } from "@common/constants.mjs";
-import { EffectDurationData } from "@common/documents/active-effect.mjs";
+import { TokenPosition } from "@common/documents/_types.mjs";
+import { EffectChangeData, EffectDurationData } from "@common/documents/active-effect.mjs";
 import { GridMeasurePathCostFunction3D, GridOffset3D } from "@common/grid/_types.mjs";
 import { Combat, Combatant, RegionDocument, TableResult, TokenDocument, TokenSource, User } from "./_module.mjs";
 
@@ -72,6 +73,14 @@ export type AdventurePostImportCallback = (
     result: AdventureImportResult,
     options: AdventureImportOptions,
 ) => Promise<void>;
+
+export interface ActiveEffectChangeData<
+    TEffect extends ActiveEffect<any> = ActiveEffect<any>,
+> extends EffectChangeData {
+    key?: string;
+    effect?: TEffect;
+    priority: number;
+}
 
 export interface ActiveEffectDuration extends EffectDurationData {
     /**

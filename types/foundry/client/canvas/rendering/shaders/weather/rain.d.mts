@@ -1,16 +1,16 @@
+import AbstractWeatherShader from "./base-weather.mjs";
+
 /**
  * Rain shader effect.
  */
 export default class RainShader extends AbstractWeatherShader {
-    /** @inheritdoc */
-    static defaultUniforms: {
+    static override defaultUniforms: {
         opacity: number;
         intensity: number;
         strength: number;
         rotation: number;
         resolution: number[];
     };
-    /** @inheritdoc */
-    static fragmentShader: string;
+
+    static override fragmentShader: string;
 }
-import AbstractWeatherShader from "./base-weather.mjs";

@@ -1,6 +1,6 @@
 import { TokenAnimationOptions, TokenConstrainMovementPathOptions } from "@client/_module.mjs";
 import TokenConfig from "@client/applications/sheets/token/token-config.mjs";
-import { DocumentConstructionContext, ElevatedPoint, TokenDimensions, TokenPosition } from "@common/_types.mjs";
+import { DocumentConstructionContext, ElevatedPoint } from "@common/_types.mjs";
 import {
     DatabaseCreateCallbackOptions,
     DatabaseCreateOperation,
@@ -14,6 +14,7 @@ import {
 import Document from "@common/abstract/document.mjs";
 import { ImageFilePath } from "@common/constants.mjs";
 import { SchemaField } from "@common/data/fields.mjs";
+import { TokenDimensions, TokenPosition } from "@common/documents/_types.mjs";
 import { GridMeasurePathResult } from "@common/grid/_types.mjs";
 import Collection from "@common/utils/collection.mjs";
 import Token, { TokenResourceData } from "../canvas/placeables/token.mjs";
@@ -657,6 +658,30 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
         update?: { _id?: string; [key: string]: unknown } | { _id?: string; [key: string]: unknown }[],
         options?: Partial<DatabaseOperation<Document | null>>,
     ): void;
+
+    /**
+     * Refresh this TokenDocument's overrides and transmit changes, if any, to its PlaceableObject for rendering.
+     * @param phase The application phase under which changes are to be applied
+     */
+    applyActiveEffects(phase: string): void;
+
+    /**
+     * Send emulated update data to the Token PlaceableObject
+     * @param priorOverrides Overrides prior to data reinitialization
+     */
+    protected _renderActiveEffectChanges(priorOverrides: object): void;
+
+    /**
+     * Callback invoked when {@link _onRelatedUpdate} detects overrides of at least one Token dimension. Enacting such
+     * changes requires a server update and may involve nuances particular to a given system. While this method is async,
+     * it is not awaited by the caller.
+     */
+    protected _onOverrideSize(changes: Partial<TokenDimensions>): Promise<void>;
+
+    /**
+     * Get replacement data for ActiveEffect change application to this Token.
+     */
+    protected _getReplacementData(): object;
 
     /** Get an Array of attribute choices which could be tracked for Actors in the Combat Tracker */
     static getTrackedAttributes(data?: object, _path?: string[]): TrackedAttributesDescription;

@@ -20,10 +20,9 @@ declare global {
         export import Folder = foundry.documents.Folder;
         export import Item = foundry.documents.Item;
         export import JournalEntry = foundry.documents.JournalEntry;
-        // export import JournalEntryCategory = foundry.documents.JournalEntryCategory;
+        export import JournalEntryCategory = foundry.documents.JournalEntryCategory;
         export import JournalEntryPage = foundry.documents.JournalEntryPage;
         export import Macro = foundry.documents.Macro;
-        export import MeasuredTemplateDocument = foundry.documents.MeasuredTemplateDocument;
         export import NoteDocument = foundry.documents.NoteDocument;
         export import Playlist = foundry.documents.Playlist;
         export import PlaylistSound = foundry.documents.PlaylistSound;

@@ -16,7 +16,7 @@ export default abstract class AbstractBaseShader extends BaseShaderMixin(PIXI.Sh
      * The raw fragment shader used by this class.
      * A subclass of AbstractBaseShader must implement the fragmentShader static field.
      */
-    static fragmentShader: string | ((...args: unknown[]) => string);
+    static fragmentShader: string | ((mode: number) => string);
 
     /**
      * The default uniform values for the shader.

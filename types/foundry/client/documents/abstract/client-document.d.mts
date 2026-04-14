@@ -49,6 +49,18 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
     get inCompendium(): boolean;
 
     /**
+     * Is this Document persisted?
+     *
+     * A document is persisted if it has a nonnull UUID that resolves to a document with `fromUuid`.
+     * In particular, clones of persisted Documents are also persisted Documents if they have the same ID as the
+     * original.
+     *
+     * This property is false until this document and all its ancestors up to the root document have been initialized
+     * and added to their collections.
+     */
+    get persisted(): boolean;
+
+    /**
      * A boolean indicator for whether the current game User has ownership rights for this Document.
      * Different Document types may have more specialized rules for what constitutes ownership.
      */
