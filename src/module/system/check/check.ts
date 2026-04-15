@@ -451,26 +451,6 @@ class Check {
             console.warn(`${resource.label} is not a supported resource. Using it might lead to unexpected results.`);
         }
 
-        let rerollFlavor = _loc(`PF2E.RerollMenu.MessageKeep.${options.keep}`);
-        if (resource) {
-            // If the reroll costs a hero or mythic point, first check if the actor has one to spare and spend it
-            if (rerollingActor?.isOfType("character")) {
-                if (resource && resource.value > 0) {
-                    await rerollingActor.updateResource(resource.slug, resource.value - 1);
-                    rerollFlavor = _loc(`PF2E.RerollMenu.Message${sluggify(resource.slug, { camel: "bactrian" })}`);
-                } else {
-                    ui.notifications.warn("PF2E.RerollMenu.WarnNoResource", {
-                        localize: true,
-                        format: {
-                            name: rerollingActor.name,
-                            resource: resource.label,
-                        },
-                    });
-                    return;
-                }
-            }
-        }
-
         const systemFlags = fu.deepClone(message.flags[SYSTEM_ID]);
         const context = systemFlags.context;
         if (!isCheckContextFlag(context)) return;
@@ -516,6 +496,27 @@ class Check {
         const allowInteractive = context.messageMode !== "blind";
         const newRoll = await unevaluatedNewRoll.evaluate({ allowInteractive });
         Hooks.callAll("pf2e.reroll", Roll.fromJSON(oldRollJSON), newRoll, resource, hookOptions);
+
+        // Generate Flavor Text
+        let rerollFlavor = _loc(`PF2E.RerollMenu.MessageKeep.${options.keep}`);
+        if (resource) {
+            // If the reroll costs a hero or mythic point, first check if the actor has one to spare and spend it
+            if (rerollingActor?.isOfType("character")) {
+                if (resource && resource.value > 0) {
+                    await rerollingActor.updateResource(resource.slug, resource.value - 1);
+                    rerollFlavor = _loc(`PF2E.RerollMenu.Message${sluggify(resource.slug, { camel: "bactrian" })}`);
+                } else {
+                    ui.notifications.warn("PF2E.RerollMenu.WarnNoResource", {
+                        localize: true,
+                        format: {
+                            name: rerollingActor.name,
+                            resource: resource.label,
+                        },
+                    });
+                    return;
+                }
+            }
+        }
 
         // Keep the new roll by default; Old roll is discarded
         let keptRoll = newRoll;
