@@ -1,67 +1,44 @@
-#generate-check-prompt {
-    // Necessary for growing form height without re-render
-    height: auto !important;
+#check-prompt-generator {
+    .roll-options {
+        display: contents;
 
-    .dialog-content {
-        > nav a.active {
-            text-decoration: underline;
-        }
+        button {
+            --control-size: var(--font-size-24);
+            font-size: var(--font-size-14);
+            flex-basis: fit-content;
+            justify-self: start;
+            margin-right: auto;
 
-        section.check-prompt-content {
-            .form-group.secret {
-                justify-content: end;
-                text-align: right;
-            }
-
-            .roll-options {
+            i.fa-plus {
                 display: none;
             }
 
-            a.add-roll-options {
-                i.fa-plus {
-                    display: inline;
-                }
-
-                i.fa-minus {
-                    display: none;
-                }
-            }
-
-            input#check-prompt-secret,
-            input#check-prompt-basic-save {
-                margin-right: 0;
-            }
-
-            &.show-roll-options {
-                .roll-options {
-                    display: block;
-                }
-
-                a.add-roll-options {
-                    i.fa-plus {
-                        display: none;
-                    }
-
-                    i.fa-minus {
-                        display: inline;
-                    }
-                }
+            .contents {
+                display: contents;
             }
         }
 
-        select {
-            height: var(--form-field-height);
-            text-transform: capitalize;
-        }
+        &.collapsed {
+            button i.fa-plus {
+                display: inline;
+            }
 
-        tags.tagify {
-            background-color: rgba(0, 0, 0, 0.075);
-            border: 1px solid var(--color-border-light-tertiary);
-            border-radius: 3px;
+            button i.fa-minus {
+                display: none;
+            }
+
+            .contents {
+                display: none;
+            }
         }
     }
 
-    .dialog-buttons {
-        flex: 0 1 auto;
+    .preview {
+        border-top: 1px solid var(--table-header-border-color);
+        padding: var(--spacer-8) 0 0;
+
+        textarea {
+            width: 100%;
+        }
     }
 }

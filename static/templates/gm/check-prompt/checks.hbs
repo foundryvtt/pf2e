@@ -1,0 +1,61 @@
+<div class="standard-form">
+    <section class="tab active" data-group="checks" data-tab="skills">
+        <div class="form-group">
+            <div class="form-fields">
+                <input id="{{rootId}}-skills" name="skills"
+                       placeholder="{{localize "PF2E.Actor.Party.CheckPrompt.SkillsPerception"}}" />
+            </div>
+        </div>
+        <div class="form-group lores">
+            <div class="form-fields">
+                <input id="{{rootId}}-lores" name="lores"
+                       placeholder="{{localize "PF2E.Actor.Party.CheckPrompt.ChooseLores"}}" />
+            </div>
+        </div>
+        <section class="roll-options">
+            <div class="form-group">
+                <div class="form-fields">
+                    <button type="button" class="inline-control" data-action="toggleRollOptions">
+                        <i class="fa-solid fa-plus" inert></i>
+                        <i class="fa-solid fa-minus" inert></i>
+                        <span>{{localize "PF2E.ChatRollDetails.RollOptions"}}</span>
+                    </button>
+                    <label class="checkbox">
+                        {{localize "PF2E.Actor.Party.CheckPrompt.SecretCheck"}}
+                        <input name="secret" type="checkbox" />
+                    </label>
+                </div>
+            </div>
+            <div class="contents standard-form">
+                <div class="form-group">
+                    <div class="form-fields">
+                        <input name="actions" placeholder="{{localize "PF2E.ActionActionsLabel"}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-fields">
+                        <input name="traits" placeholder="{{localize "PF2E.ChatRollDetails.RollOptions"}}" />
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <section class="tab" data-group="checks" data-tab="saves">
+        <div class="form-group">
+            <div class="form-fields">
+                <input name="saves" placeholder="{{localize "PF2E.Actor.Party.CheckPrompt.ChooseSaves"}}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="{{rootId}}-basic-save">{{localize "PF2E.Item.Spell.Defense.BasicSave"}}</label>
+            <div class="form-fields">
+                <input id="{{rootId}}-basic-save" name="basic-save" type="checkbox" />
+            </div>
+        </div>
+    </section>
+
+    <section class="preview">
+        <textarea id="{{rootId}}-preview" readonly
+                  placeholder="{{localize "PF2E.Actor.Party.CheckPrompt.PreviewPlaceholder"}}"></textarea>
+    </section>
+</div>

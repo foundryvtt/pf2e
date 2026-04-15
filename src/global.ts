@@ -18,6 +18,7 @@ import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { ConditionSource } from "@item/condition/data.ts";
 import type { Coins } from "@item/physical/helpers.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { checkPrompt } from "@module/apps/check-prompt-generator.ts";
 import type {
     CompendiumBrowser,
     CompendiumBrowserSettings,
@@ -52,7 +53,6 @@ import type { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config/index.ts
 import type { DicePF2e } from "@scripts/dice.ts";
 import type {
     calculateXP,
-    checkPrompt,
     editPersistent,
     launchTravelSheet,
     perceptionForSelected,

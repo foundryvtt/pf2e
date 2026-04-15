@@ -1,7 +1,7 @@
 // Note: tags html element is tagify, and .tags is paizo tag/traits styling. They are not mutually exclusive.
 
 // Prevent affecting upstream `.tags > .tag` introduced in V12
-.tags:not(.package-overview) {
+.tags:not(.package-overview):not(.input-element-tags) {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
@@ -387,4 +387,43 @@ tagify-tags {
 // Ensure tagify text color even in dark theme
 .tagify__dropdown {
     color: var(--color-dark-1);
+}
+
+// Application V2
+
+.application {
+    .tagify {
+        --placeholder-color: var(--color-text-subtle);
+        --placeholder-color-focus: var(--color-text-subtle);
+        --tag-bg: var(--background);
+        --tag-hover: var(--color-data-border);
+        --tag-remove-bg: var(--color-data-border);
+        --tag-remove-btn-bg--hover: var(--color-border);
+        --tag-text-color: var(--color-text-secondary);
+        border-radius: 4px;
+
+        .tagify__tag__removeBtn {
+            color: var(--color-text-secondary);
+        }
+    }
+}
+
+body.theme-light .application:not(.themed),
+.themed.theme-light {
+    .tagify {
+        --tags-border-color: var(--color-dark-6);
+        background-color: rgba(0, 0, 0, 0.1);
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    }
+}
+
+body.theme-dark .application:not(.themed),
+.themed.theme-dark {
+    --visibility-gm-bg: var(--color-cool-4);
+
+    .tagify {
+        --tags-border-color: transparent;
+        --tag-remove-btn-color: unset;
+        background-color: var(--color-cool-4);
+    }
 }

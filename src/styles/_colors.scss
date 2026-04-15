@@ -130,6 +130,17 @@ body,
     --color-pf-text-adjusted-higher: #009988;
     --color-pf-text-adjusted-lower: #cc3311;
 
+    /* Fix core style bug */
+    textarea {
+        font-family: var(--font-body);
+        &:read-only {
+            color: var(--color-text-secondary);
+        }
+        &::placeholder {
+            color: var(--color-dark-4);
+        }
+    }
+
     /* Damage colors */
     .damage {
         $damage-physical: #3c3c3c;
@@ -387,10 +398,4 @@ body.theme-dark .application:not(.themed),
 .themed.theme-dark {
     --color-text-tertiary: var(--color-light-4);
     --visibility-gm-bg: var(--color-cool-4);
-    --tag-color: var(--color-text-tertiary);
-
-    .tagify {
-        --tags-border-color: var(--color-dark-6);
-        --tag-remove-btn-color: unset;
-    }
 }
