@@ -339,6 +339,15 @@ function getStrikeAttackDomains(
         "all",
     ].flat();
 
+    // Inherit some domains from any treatAs weapons to handle Hardlight Handwraps
+    const handwraps =
+        weapon.isOfType("weapon") && weapon.flags[SYSTEM_ID].handwraps
+            ? fromUuidSync(weapon.flags[SYSTEM_ID].handwraps)
+            : null;
+    if (handwraps) {
+        domains.push(`${handwraps.id}-attack`);
+    }
+
     if (typeof proficiencyRank === "number") {
         const proficiencies = ["untrained", "trained", "expert", "master", "legendary"] as const;
         domains.push(`${proficiencies[proficiencyRank]}-attack`);
@@ -401,6 +410,15 @@ function getAttackDamageDomains(
         `${action}-damage`,
         "damage",
     ].filter(R.isTruthy);
+
+    // Inherit some domains from any treatAs weapons to handle Hardlight Handwraps
+    const handwraps =
+        weapon.isOfType("weapon") && weapon.flags[SYSTEM_ID].handwraps
+            ? fromUuidSync(weapon.flags[SYSTEM_ID].handwraps)
+            : null;
+    if (handwraps) {
+        domains.push(`${handwraps.id}-damage`);
+    }
 
     if (weapon.baseType) {
         domains.push(`${weapon.baseType}-base-type-damage`);
