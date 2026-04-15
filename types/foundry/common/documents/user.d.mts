@@ -43,7 +43,7 @@ export default class BaseUser<TCharacter extends BaseActor<null> = BaseActor<nul
      */
     can(action: UserAction | UserPermission): boolean;
 
-    getUserLevel(user: this): DocumentOwnershipNumber;
+    override getUserLevel(user: this): DocumentOwnershipNumber;
 
     /**
      * Test whether the User has at least a specific permission

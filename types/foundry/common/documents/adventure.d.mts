@@ -40,7 +40,7 @@ export default class BaseAdventure extends Document<null, AdventureSchema> {
      */
     can(action: UserAction): boolean;
 
-    getUserLevel(user: documents.BaseUser): DocumentOwnershipNumber;
+    override getUserLevel(user: documents.BaseUser): DocumentOwnershipNumber;
 
     /**
      * Test whether the User has at least a specific permission
