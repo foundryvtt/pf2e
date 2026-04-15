@@ -64,6 +64,15 @@ export default abstract class DocumentCollection<TDocument extends Document> ext
     importDocument(document: Document, options: FromCompendiumOptions | ToCompendiumOptions): Promise<Document>;
 
     /**
+     * Translate a provided Document into data ready for import into this collection.
+     * @param document A source Document to be imported. The document should be safely copied.
+     * @param options Options which modify import behavior
+     * @returns Data ready for import
+     * @throws An error if the import should be disallowed
+     */
+    protected _prepareImportDocument(document: TDocument, options?: object): TDocument["_source"];
+
+    /**
      * Update all objects in this DocumentCollection with a provided transformation.
      * Conditionally filter to only apply to Entities which match a certain condition.
      * @param transformation An object of data or function to apply to all matched objects

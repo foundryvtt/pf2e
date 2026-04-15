@@ -12,7 +12,11 @@ export default class BasePlaylistSound<TParent extends BasePlaylist | null = Bas
 
     static override defineSchema(): PlaylistSoundSchema;
 
-    override testUserPermission(user: BaseUser, permission: DocumentOwnershipLevel, { exact }?: { exact?: boolean }): boolean;
+    override testUserPermission(
+        user: BaseUser,
+        permission: DocumentOwnershipLevel,
+        { exact }?: { exact?: boolean },
+    ): boolean;
 }
 
 export default interface BasePlaylistSound<TParent extends BasePlaylist | null = BasePlaylist | null>

@@ -203,7 +203,6 @@ export default abstract class Document<
      * @param user The User being tested
      * @returns A numeric permission level from CONST.DOCUMENT_OWNERSHIP_LEVELS or null
      */
-    getUserLevel(user: BaseUser): DocumentOwnershipNumber;
 
     /* -------------------------------------------- */
     /*  Database Operations                         */

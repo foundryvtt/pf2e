@@ -28,7 +28,11 @@ export default class BaseNote<TParent extends BaseScene | null> extends Document
     /*  Model Methods                               */
     /* -------------------------------------------- */
 
-    override testUserPermission(user: BaseUser, permission: DocumentOwnershipLevel, { exact }?: { exact?: boolean }): boolean;
+    override testUserPermission(
+        user: BaseUser,
+        permission: DocumentOwnershipLevel,
+        { exact }?: { exact?: boolean },
+    ): boolean;
 }
 
 export default interface BaseNote<TParent extends BaseScene | null>

@@ -5,12 +5,16 @@ import {
     DatabaseCreateOperation,
     DatabaseOperation,
     DatabaseUpdateOperation,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    Document,
 } from "@common/abstract/_module.mjs";
-import { DocumentOwnershipLevel, ImageFilePath } from "@common/constants.mjs";
+import { DocumentOwnershipLevel, DocumentOwnershipNumber, ImageFilePath } from "@common/constants.mjs";
 import Collection from "@common/utils/collection.mjs";
 import { ApplicationRenderOptions } from "../../applications/_types.mjs";
 import { CompendiumDocument, User } from "../_module.mjs";
 import DocumentCollection from "../abstract/document-collection.mjs";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import WorldCollection from "../abstract/world-collection.mjs";
 
 /**
  * A singleton Collection of Compendium-level Document objects within the Foundry Virtual Tabletop.
@@ -96,27 +100,55 @@ export default abstract class CompendiumCollection<
      */
     getDocuments(query?: Record<string, unknown>): Promise<TDocument[]>;
 
+    /**
+     * Get the ownership level that a User has for this Compendium pack.
+     * @param user The user being tested
+     * @returns The ownership level in CONST.DOCUMENT_OWNERSHIP_LEVELS
+     */
+    getUserLevel(user?: User): DocumentOwnershipNumber;
+
+    /**
+     * Test whether a certain User has a requested permission level (or greater) over the Compendium pack
+     * @param user The User being tested
+     * @param permission The permission level from DOCUMENT_OWNERSHIP_LEVELS to test
+     * @param options Additional options involved in the permission test
+     * @param options.exact Require the exact permission level requested?
+     * @returns Does the user have this permission level over the Compendium pack?
+     */
+    testUserPermission(user: User, permission: DocumentOwnershipLevel, options?: { exact?: boolean }): boolean;
+
     override importDocument(
         document: TDocument,
         options?: ToCompendiumOptions | FromCompendiumOptions,
     ): Promise<TDocument>;
 
+    protected override _prepareImportDocument(document: TDocument, options?: object): TDocument["_source"];
+
+    /**
+     * Import a Folder into this Compendium Collection.
+     * @param folder The existing Folder you wish to import
+     * @param options Additional options which modify how the data is imported.
+     * @param options.importParents Import any parent folders which are not already present in the Compendium.
+     */
+    importFolder(folder: Folder, options?: { importParents?: boolean }): Promise<void>;
+
+    /**
+     * Import an array of Folders into this Compendium Collection.
+     * @param folders The existing Folders you wish to import
+     * @param options Additional options which modify how the data is imported.
+     * @param options.importParents Import any parent folders which are not already present in the Compendium.
+     */
+    importFolders(folders: Folder[], options?: { importParents?: boolean }): Promise<void>;
+
     /**
      * Fully import the contents of a Compendium pack into a World folder.
-     * @param [folderId]   An existing Folder _id to use.
-     * @param [folderName] A new Folder name to create.
-     * @param [options]    Additional options forwarded to Document.createDocuments
+     * @param options Options which modify the import operation. Additional options are forwarded to
+     *                {@link WorldCollection#fromCompendium} and {@link Document.createDocuments}
+     * @param options.folderId An existing Folder _id to use.
+     * @param options.folderName A new Folder name to create.
      * @return The imported Documents, now existing within the World
      */
-    importAll({
-        folderId,
-        folderName,
-        options,
-    }?: {
-        folderId?: string | null;
-        folderName?: string;
-        options?: Record<string, unknown>;
-    }): Promise<TDocument[]>;
+    importAll(options?: { folderId?: string | null; folderName?: string }): Promise<TDocument[]>;
 
     /**
      * Add a Document to the index, capturing it's relevant index attributes
@@ -148,12 +180,6 @@ export default abstract class CompendiumCollection<
 
     /** Request that a Compendium pack be migrated to the latest System data template */
     migrate(options?: Record<string, unknown>): Promise<this>;
-
-    testUserPermission(
-        user: foundry.documents.BaseUser,
-        permission: DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean },
-    ): boolean;
 
     protected override _onCreateDocuments(
         documents: TDocument[],
