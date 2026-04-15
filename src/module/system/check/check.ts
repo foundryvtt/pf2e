@@ -498,7 +498,7 @@ class Check {
         Hooks.callAll("pf2e.reroll", Roll.fromJSON(oldRollJSON), newRoll, resource, hookOptions);
 
         // Generate Flavor Text
-        let rerollFlavor = _loc(`PF2E.RerollMenu.MessageKeep.${options.keep}`);
+        let rerollFlavor = _loc(`PF2E.RerollMenu.MessageKeep.${hookOptions.keep}`);
         if (resource) {
             // If the reroll costs a hero or mythic point, first check if the actor has one to spare and spend it
             if (rerollingActor?.isOfType("character")) {
