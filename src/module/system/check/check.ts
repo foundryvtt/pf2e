@@ -510,7 +510,6 @@ class Check {
         })();
         unevaluatedNewRoll.options.isReroll = true;
         const hookOptions = { keep: options.keep };
-
         Hooks.callAll("pf2e.preReroll", Roll.fromJSON(oldRollJSON), unevaluatedNewRoll, resource, hookOptions);
 
         // Evaluate the new roll and call a second hook allowing the roll to be altered
