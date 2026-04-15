@@ -1199,7 +1199,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         slug: "demolishing",
         traits: ["magical"],
     },
-    disrupting: {
+    vitalizing: {
         damage: {
             additional: [
                 {
@@ -1213,17 +1213,17 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
             notes: [
                 {
                     outcome: ["criticalSuccess"],
-                    title: "PF2E.WeaponPropertyRune.disrupting.Name",
-                    text: "PF2E.WeaponPropertyRune.disrupting.Note.criticalSuccess",
+                    title: "PF2E.WeaponPropertyRune.vitalizing.Name",
+                    text: "PF2E.WeaponPropertyRune.vitalizing.Note.criticalSuccess",
                     predicate: ["target:negative-healing"],
                 },
             ],
         },
         level: 5,
-        name: "PF2E.WeaponPropertyRune.disrupting.Name",
+        name: "PF2E.WeaponPropertyRune.vitalizing.Name",
         price: 150,
         rarity: "common",
-        slug: "disrupting",
+        slug: "vitalizing",
         traits: ["magical"],
     },
     earthbinding: {
@@ -1557,7 +1557,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         slug: "greaterDecaying",
         traits: ["acid", "magical", "void"],
     },
-    greaterDisrupting: {
+    greaterVitalizing: {
         damage: {
             additional: [
                 {
@@ -1571,17 +1571,17 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
             notes: [
                 {
                     outcome: ["criticalSuccess"],
-                    title: "PF2E.WeaponPropertyRune.greaterDisrupting.Name",
-                    text: "PF2E.WeaponPropertyRune.greaterDisrupting.Note.criticalSuccess",
+                    title: "PF2E.WeaponPropertyRune.greaterVitalizing.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterVitalizing.Note.criticalSuccess",
                     predicate: ["target:negative-healing"],
                 },
             ],
         },
         level: 14,
-        name: "PF2E.WeaponPropertyRune.greaterDisrupting.Name",
+        name: "PF2E.WeaponPropertyRune.greaterVitalizing.Name",
         price: 4300,
         rarity: "uncommon",
-        slug: "greaterDisrupting",
+        slug: "greaterVitalizing",
         traits: ["magical"],
     },
     greaterExtending: {
