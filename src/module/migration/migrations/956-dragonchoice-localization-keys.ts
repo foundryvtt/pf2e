@@ -31,4 +31,3 @@ export class Migration956DragonChoiceLocalizationKeys extends MigrationBase {
         migrate(source.system.rules);
     }
 }
-
