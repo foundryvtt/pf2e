@@ -20,6 +20,7 @@ export default interface BaseScene extends Document<null, SceneSchema>, fields.M
     get documentName(): SceneMetadata["name"];
 
     readonly drawings: EmbeddedCollection<documents.BaseDrawing<this>>;
+    readonly levels: EmbeddedCollection<documents.BaseLevel<this>>;
     readonly lights: EmbeddedCollection<documents.BaseAmbientLight<this>>;
     readonly notes: EmbeddedCollection<documents.BaseNote<this>>;
     readonly regions: EmbeddedCollection<documents.BaseRegion<this>>;

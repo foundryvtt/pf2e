@@ -32,12 +32,16 @@ class LightPerceptionMode extends fc.perception.DetectionModeLightPerception {
         });
     }
 
-    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: fc.placeables.PlaceableObject): boolean {
+    protected override _canDetect(
+        visionSource: PointVisionSourcePF2e,
+        target: fc.placeables.PlaceableObject,
+        level: fd.Level,
+    ): boolean {
         if (target instanceof fc.placeables.PlaceableObject && target.document.hidden) return false;
         if (target instanceof TokenPF2e && target.actor?.hasCondition("hidden", "undetected", "unnoticed")) {
             return false;
         }
-        return super._canDetect(visionSource, target);
+        return super._canDetect(visionSource, target, level);
     }
 }
 
@@ -107,18 +111,9 @@ class HearingDetectionMode extends fc.perception.DetectionMode {
         _target: fc.placeables.PlaceableObject,
         test: CanvasVisibilityTestPF2e,
     ): boolean {
-        test.loh ??= new Map();
-        const hasLOH =
-            test.loh.get(visionSource) ??
-            !CONFIG.Canvas.polygonBackends.sound.testCollision(visionSource.origin, test.point, {
-                type: "sound",
-                mode: "any",
-                source: visionSource,
-                edgeDirectionMode: CONST.EDGE_DIRECTION_MODES.REVERSED,
-                useThreshold: true,
-            });
-        test.loh.set(visionSource, hasLOH);
-        return hasLOH;
+        const edgeDirectionMode = CONST.EDGE_DIRECTION_MODES.REVERSED;
+        const config = { type: "sound", edgeDirectionMode, useThreshold: true } as const;
+        return !HearingDetectionMode._testCollision(visionSource, test, config);
     }
 }
 
@@ -149,11 +144,16 @@ class DetectionModeTremorPF2e extends fc.perception.DetectionModeTremor {
         return filter;
     }
 
-    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: fc.placeables.PlaceableObject): boolean {
+    protected override _canDetect(
+        visionSource: PointVisionSourcePF2e,
+        target: fc.placeables.PlaceableObject,
+        level?: fd.Level,
+    ): boolean {
         return (
             super._canDetect(visionSource, target) &&
             target instanceof TokenPF2e &&
             !target.document.hidden &&
+            level === canvas.scene?.levels.get(visionSource.object.document.level) &&
             !target.actor?.isOfType("loot") &&
             !target.actor?.hasCondition("undetected", "unnoticed")
         );

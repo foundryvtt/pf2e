@@ -417,6 +417,7 @@ export default interface Scene extends ClientBaseScene {
     readonly _source: SceneSource;
 
     readonly drawings: EmbeddedCollection<DrawingDocument<this>>;
+    readonly levels: EmbeddedCollection<Level<this>>;
     readonly lights: EmbeddedCollection<AmbientLightDocument<this>>;
     readonly notes: EmbeddedCollection<NoteDocument<this>>;
     readonly regions: EmbeddedCollection<RegionDocument<this>>;
@@ -543,6 +544,7 @@ export type SceneEmbeddedName =
     | "AmbientSound"
     | "Drawing"
     | "MeasuredTemplate"
+    | "Level"
     | "Note"
     | "Region"
     | "Tile"

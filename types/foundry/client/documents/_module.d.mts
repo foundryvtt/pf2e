@@ -21,6 +21,7 @@ import { default as FogExploration } from "./fog-exploration.mjs";
 import { default as Folder } from "./folder.mjs";
 import { default as Item } from "./item.mjs";
 import { default as JournalEntry } from "./journal-entry.mjs";
+import { default as Level } from "./level.d.mjs";
 import { default as Macro } from "./macro.mjs";
 import { default as Playlist } from "./playlist.mjs";
 import { default as RollTable } from "./roll-table.mjs";
@@ -36,6 +37,7 @@ export {
     Folder,
     Item,
     JournalEntry,
+    Level,
     Macro,
     Playlist,
     RollTable,
