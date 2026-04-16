@@ -1,3 +1,33 @@
+## 1.0.2
+
+### System Improvements
+
+- (7H3LaughingMan) Allow modification of roll-twice behavior in damage-roll hooks
+- (stwlam) Convert Check Prompt Generator to `ApplicationV2`, add raw output preview
+- (Supe) Convert Attack Proficiencies dialog to `DialogV2`
+
+### Bugfixes
+
+- (In3luki) Fix Compendium Browser header controls
+- (In3luki) Fix updating physical-item prices
+- (In3luki) Fix `TextEditorPF2e#_createInlineRoll` failing to return pre-rolled inline rolls
+- (stwlam) Fix double-barrel icon on PC sheet
+- (stwlam) Fix handling of damage changes in NPC Attack sheet
+- (stwlam) Fix localization of damage-application chat message
+- (stwlam) Have hearing detection test against region surfaces
+- (stwlam) Restore token effect icons
+
+### Data Updates
+
+- (Ambrose) Add description and spell effect to Monstrosity form
+- (Ambrose) Move Recharge Weapon to the Cantrips folder
+- (Ambrose) Remove Quick Coercion's self-grant RE
+- (kromko) Add missing Galactic Ancestries localization strings
+- (Longstrider) Fix Golarion ancestries' descriptions
+- (Longstrider) Brush up SF2e versatile heritages
+- (Longstrider) Correct Cryopike's weapon group
+- (Rigo) Fix path to cover-reduction flag in Aim's ephemeral effect
+
 ## 1.0.1
 
 ### Bugfixes

@@ -1,3 +1,33 @@
+## 8.0.2
+
+### System Improvements
+
+- (7H3LaughingMan) Allow modification of roll-twice behavior in damage-roll hooks
+- (stwlam) Convert Check Prompt Generator to `ApplicationV2`, add raw output preview
+- (Supe) Convert Attack Proficiencies dialog to `DialogV2`
+
+### Bugfixes
+
+- (In3luki) Fix Compendium Browser header controls
+- (In3luki) Fix updating physical-item prices
+- (In3luki) Fix `TextEditorPF2e#_createInlineRoll` failing to return pre-rolled inline rolls
+- (stwlam) Fix double-barrel icon on PC sheet
+- (stwlam) Fix handling of damage changes in NPC Attack sheet
+- (stwlam) Fix localization of damage-application chat message
+- (stwlam) Have hearing detection test against region surfaces
+- (stwlam) Restore token effect icons
+
+### Data Updates
+
+- (Ambrose) Add automation to Commitment to Protection feat
+- (Ambrose) Add missing defenses to The Bloodstorm actor
+- (Ambrose) Add notes to Evangelize feat
+- (Ambrose) Consolidate Evasiveness Archetype feat
+- (Ambrose) Consolidate Skill Mastery archetype feats
+- (iDantar) Automate Sanguine Tenacity's Drained mechanics
+- (iDantar) Make Arghun unique
+- (kromko) Add missing Hellfire Dispatches localization strings
+
 ## 8.0.1
 
 ### Bugfixes
