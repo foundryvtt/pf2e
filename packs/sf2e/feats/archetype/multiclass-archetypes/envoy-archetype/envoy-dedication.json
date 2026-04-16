@@ -35,6 +35,7 @@
         "uuid": "Compendium.sf2e.class-features.Item.Envoy Directives"
       },
       {
+        "adjustName": false,
         "choices": [
           {
             "label": "PF2E.Skill.Deception",
@@ -60,6 +61,15 @@
         ],
         "flag": "skill",
         "key": "ChoiceSet",
+        "predicate": [
+            {
+                "or": [
+                    "skill:deception:rank:0",
+                    "skill:diplomacy:rank:0",
+                    "skill:intimidation:rank:0"
+                ]
+            }
+        ],
         "prompt": "PF2E.SpecificRule.Prompt.Skill"
       },
       {

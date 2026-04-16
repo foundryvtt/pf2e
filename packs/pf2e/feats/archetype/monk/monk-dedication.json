@@ -66,6 +66,7 @@
                 "value": "{item|flags.system.rulesSelections.attribute}"
             },
             {
+                "adjustName": false,
                 "choices": [
                     {
                         "label": "PF2E.Skill.Acrobatics",
@@ -84,7 +85,21 @@
                 ],
                 "flag": "skill",
                 "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            "skill:acrobatics:rank:0",
+                            "skill:athletics:rank:0"
+                        ]
+                    }
+                ],
                 "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.skill}.rank",
+                "value": 1
             }
         ],
         "subfeatures": {

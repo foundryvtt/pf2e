@@ -39,6 +39,42 @@
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "predicate": [
+                            "skill:arcana:rank:0"
+                        ],
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "predicate": [
+                            "skill:nature:rank:0"
+                        ],
+                        "value": "nature"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            "skill:arcana:rank:0",
+                            "skill:nature:rank:0"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.skill}.rank",
+                "value": 1
             }
         ],
         "traits": {

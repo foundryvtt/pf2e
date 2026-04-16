@@ -49,6 +49,42 @@
                 "slug": "bright-lion-disguise",
                 "type": "circumstance",
                 "value": 4
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Deception",
+                        "predicate": [
+                            "skill:deception:rank:0"
+                        ],
+                        "value": "deception"
+                    },
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "predicate": [
+                            "skill:diplomacy:rank:0"
+                        ],
+                        "value": "diplomacy"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {       
+                        "or": [
+                            "skill:deception:rank:0",
+                            "skill:diplomacy:rank:0"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.skill}.rank",
+                "value": 1
             }
         ],
         "traits": {
