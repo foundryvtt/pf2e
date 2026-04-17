@@ -148,8 +148,7 @@ function eventToRollParams(event: Maybe<Event>, rollType: { type: "check" | "dam
 
 /** Set roll mode from a user's input: used for messages that are not actually rolls. */
 function eventToMessageMode(event: Maybe<Event>): ChatMessageMode | undefined {
-    if (!isRelevantEvent(event)) return undefined;
-    return isControlDown(event) || game.user.isGM ? undefined : "blind";
+    return isRelevantEvent(event) && isControlDown(event) ? "blind" : undefined;
 }
 
 /** Returns true if the control key is held down, handling mac */
