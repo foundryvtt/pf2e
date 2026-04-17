@@ -217,6 +217,10 @@ function createTooltipListener(
                     const bounds = target.getBoundingClientRect();
                     const maxH = window.innerHeight - actualTooltip.offsetHeight;
                     actualTooltip.style.top = `${Math.clamp(bounds.top, pad, maxH - pad)}px`;
+
+                    // Circumvent https://github.com/foundryvtt/foundryvtt/issues/14237
+                    // by keeping the global tooltip behind the locked one
+                    if (options.locked) game.tooltip.tooltip.style.top = actualTooltip.style.top;
                 }
             }
         },
