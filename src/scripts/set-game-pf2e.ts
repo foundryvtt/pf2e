@@ -8,6 +8,8 @@ import { CompendiumBrowser } from "@module/apps/compendium-browser/browser.ts";
 import { EffectsPanel } from "@module/apps/effects-panel.ts";
 import { WorldClock } from "@module/apps/world-clock/index.ts";
 import { StatusEffects } from "@module/canvas/status-effects.ts";
+import { MigrationList } from "@module/migration/index.ts";
+import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { RuleElement, RuleElements } from "@module/rules/index.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import {
@@ -74,6 +76,10 @@ export const SetGamePF2e = {
             UNTYPED: "untyped",
         } as const;
 
+        // Get world schema version from game data as settings are not initalized yet
+        const currentVersion = Number(game.data.settings.find((s) => s.key === "pf2e.worldSchemaVersion")?.value) || 0;
+        const migrationRunner = new MigrationRunner(MigrationList.constructFromVersion(currentVersion));
+
         const initSafe: Partial<(typeof game)["pf2e"]> = {
             Check: Check,
             CheckModifier,
@@ -103,7 +109,14 @@ export const SetGamePF2e = {
             },
             rollActionMacro,
             rollItemMacro,
-            system: { generateItemName, moduleArt: new ModuleArt(), remigrate, sluggify },
+            system: {
+                generateItemName,
+                migrationRunner,
+                moduleArt: new ModuleArt(),
+                remigrate,
+                sluggify,
+                worldNeedsMigration: migrationRunner.needsMigration(),
+            },
             variantRules: { AutomaticBonusProgression },
         };
         game.pf2e = fu.mergeObject(game.pf2e ?? {}, initSafe);

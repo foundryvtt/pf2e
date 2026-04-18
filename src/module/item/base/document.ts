@@ -65,6 +65,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** The item that granted this item, if any */
     declare grantedBy: ItemPF2e<ActorPF2e> | null;
 
+    declare _migrationSource?: this["_source"];
+
     static override getDefaultArtwork(itemData: foundry.documents.ItemSource): { img: ImageFilePath } {
         return { img: `systems/${SYSTEM_ID}/icons/default-icons/${itemData.type}.svg` as const };
     }
@@ -252,6 +254,22 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** A shortcut to `item.toMessage(..., { create: true })`, kept for backward compatibility */
     async toChat(event?: Event): Promise<ChatMessagePF2e | undefined> {
         return this.toMessage(event, { create: true });
+    }
+
+    protected override _initializeSource(
+        data: this["_source"],
+        options?: foundry.abstract.DataModelConstructionContext<TParent>,
+    ): this["_source"] {
+        // Record unpruned source data for world items if necessary
+        if (game.pf2e.system.worldNeedsMigration && !this.parent && !this._migrationSource) {
+            Object.defineProperty(this, "_migrationSource", {
+                value: fu.deepClone(data),
+                writable: false,
+                enumerable: false,
+            });
+            Object.seal(this._migrationSource);
+        }
+        return super._initializeSource(data, options);
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {

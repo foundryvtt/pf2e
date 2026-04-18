@@ -3,7 +3,6 @@ import { resetActors } from "@actor/helpers.ts";
 import { createFirstParty } from "@actor/party/helpers.ts";
 import { MigrationSummary } from "@module/apps/migration-summary.ts";
 import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster.ts";
-import { MigrationList } from "@module/migration/index.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
 import { activateSocketListener } from "@scripts/socket.ts";
@@ -50,8 +49,8 @@ export const Ready = {
                 await createFirstParty();
 
                 // Perform migrations, if any
-                const migrationRunner = new MigrationRunner(MigrationList.constructFromVersion(currentVersion));
-                if (migrationRunner.needsMigration()) {
+                const migrationRunner = game.pf2e.system.migrationRunner;
+                if (game.pf2e.system.worldNeedsMigration && migrationRunner) {
                     if (currentVersion && currentVersion < MigrationRunner.MINIMUM_SAFE_VERSION) {
                         ui.notifications.error(
                             `Your PF2E system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`,
@@ -61,6 +60,7 @@ export const Ready = {
                     await migrationRunner.runMigration();
                     new MigrationSummary().render(true);
                 }
+                game.pf2e.system.migrationRunner = null;
 
                 // Update the world system version
                 const previous = game.settings.get(SYSTEM_ID, "worldSystemVersion");
