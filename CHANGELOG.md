@@ -3,7 +3,6 @@
 ### Bugfixes
 
 - (stwlam) Fix field name in appearance tab of `TokenConfig`
-- (stwlam) Have hearing detection mode test surface collision
 - (stwlam) Restore overlay icon on tokens of dead actors
 - (stwlam) Restore status effects title bar
 - (Supe) Fix colors of whisper and blind inline rolls in dark mode
@@ -16,6 +15,7 @@
 - (Ambrose) Add an index to the Ancestry Journals and link to GM and Player screens
 - (Ambrose) Add inline rolls to Eagle Knight dedication
 - (Ambrose) Remove Prepared Spellcasting entry for Adult Requiem Dragon (non-spellcasting variant)
+- (Dire Weasel) Add supplemental area information to Frigid Flurry description
 
 ## 8.0.2
 

@@ -3,7 +3,6 @@
 ### Bugfixes
 
 - (stwlam) Fix field name in appearance tab of `TokenConfig`
-- (stwlam) Have hearing detection mode test surface collision
 - (stwlam) Restore overlay icon on tokens of dead actors
 - (stwlam) Restore status effects title bar
 - (Supe) Fix colors of whisper and blind inline rolls in dark mode
