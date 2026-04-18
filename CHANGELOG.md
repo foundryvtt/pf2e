@@ -3,6 +3,7 @@
 ### Bugfixes
 
 - (stwlam) Fix field name in appearance tab of `TokenConfig`
+- (stwlam) Fix show damage dialog toggle
 - (stwlam) Restore overlay icon on tokens of dead actors
 - (stwlam) Restore status effects title bar
 - (Supe) Fix colors of whisper and blind inline rolls in dark mode
