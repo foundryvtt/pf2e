@@ -138,7 +138,7 @@ class CombatantPF2e<
         return this.parent.getCombatantWithHigherInit(this, than) === this;
     }
 
-    async startTurn(): Promise<void> {
+    async onStartTurn(): Promise<void> {
         const { actor, encounter } = this;
         if (!encounter || !actor) return;
 
@@ -162,7 +162,7 @@ class CombatantPF2e<
     }
 
     /** Runs end turn events. These run per represented actor, so for troops it'll run per segment. */
-    async endTurn(options: { round: number }): Promise<void> {
+    async onEndTurn(options: { round: number }): Promise<void> {
         const round = options.round;
         const { encounter } = this;
         const thisActor = this.actor;

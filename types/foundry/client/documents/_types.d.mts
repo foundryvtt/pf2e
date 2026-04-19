@@ -121,6 +121,7 @@ export interface CombatHistoryData {
 export interface CombatTurnEventContext {
     round: number;
     turn: number;
+    /** Was skipped? */
     skipped: boolean;
 }
 
