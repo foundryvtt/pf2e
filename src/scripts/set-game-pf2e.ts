@@ -1,6 +1,7 @@
 import { Action } from "@actor/actions/index.ts";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { CheckModifier, Modifier, StatisticModifier } from "@actor/modifiers.ts";
 import { Coins, generateItemName } from "@item/physical/helpers.ts";
 import { checkPrompt } from "@module/apps/check-prompt-generator.ts";
@@ -37,6 +38,7 @@ import { ModuleArt } from "@system/module-art.ts";
 import { Predicate } from "@system/predication.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { sluggify } from "@util";
+import * as R from "remeda";
 import { EarnIncomeDialog } from "./macros/earn-income.ts";
 
 /** Expose public game.pf2e interface */
@@ -77,7 +79,25 @@ export const SetGamePF2e = {
         } as const;
 
         // Get world schema version from game data as settings are not initalized yet
-        const currentVersion = Number(game.data.settings.find((s) => s.key === "pf2e.worldSchemaVersion")?.value) || 0;
+        const currentVersion = ((): number => {
+            const storedSchemaVersion =
+                Number(game.data.settings.find((s) => s.key === "pf2e.worldSchemaVersion")?.value) || 0;
+            if (storedSchemaVersion) return storedSchemaVersion;
+            const minimumVersion = MigrationRunner.RECOMMENDED_SAFE_VERSION;
+            const actors = game.data.actors;
+            const getActorSchemaVersion = (actor: ActorSourcePF2e): number | null => {
+                const legacyValue = R.isPlainObject(actor.system.schema)
+                    ? Number(actor.system.schema.version) || null
+                    : null;
+                return Number(actor.system._migration?.version) || legacyValue;
+            };
+            return actors.length === 0
+                ? MigrationRunner.LATEST_SCHEMA_VERSION
+                : Math.max(
+                      Math.min(...new Set(actors.map((a) => getActorSchemaVersion(a) ?? minimumVersion))),
+                      minimumVersion,
+                  );
+        })();
         const migrationRunner = new MigrationRunner(MigrationList.constructFromVersion(currentVersion));
 
         const initSafe: Partial<(typeof game)["pf2e"]> = {
