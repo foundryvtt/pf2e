@@ -3,6 +3,9 @@ import { htmlClosest, htmlQuery } from "@util";
 import * as R from "remeda";
 
 abstract class SettingsMenuPF2e extends fav1.api.FormApplication {
+    /** Hide our shame. */
+    protected static override _warnedAppV1 = true;
+
     static readonly namespace: string;
 
     protected cache: Record<string, unknown> & { clear(): void } = (() => {
