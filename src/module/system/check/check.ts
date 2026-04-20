@@ -594,7 +594,10 @@ class Check {
                   const opposer = context.target?.actor === actor.uuid ? context.origin : context.target;
                   const targetFlavor = await this.#createResultFlavor({ degree, self, opposer, targeting });
                   if (targetFlavor) {
-                      htmlQuery(parsedFlavor, ".target-dc-result")?.replaceWith(targetFlavor);
+                      // when players reroll, they cannot extract the gm-visible parts of the HTML
+                      if (htmlQuery(parsedFlavor, ".target-dc-result")) {
+                          htmlQuery(parsedFlavor, ".target-dc-result")?.replaceWith(targetFlavor);
+                      } else htmlQuery(parsedFlavor, ".action")?.insertAdjacentElement("afterend", targetFlavor);
                   }
 
                   // Add mythic proficiency tag
