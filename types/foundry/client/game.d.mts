@@ -1,3 +1,4 @@
+import { ReleaseData } from "@common/config.mjs";
 import {
     Actor,
     ChatMessage,
@@ -132,16 +133,7 @@ export default class Game<
     ready: boolean;
 
     /** The Release data for this version of Foundry */
-    release: {
-        build: number;
-        channel: string;
-        download: string;
-        generation: number;
-        node_version?: number;
-        notes: string;
-        suffix?: string;
-        time: number;
-    };
+    release: ReleaseData;
 
     /* -------------------------------------------- */
     /*  World Collections                           */

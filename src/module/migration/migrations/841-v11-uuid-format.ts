@@ -1,5 +1,6 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { CompendiumDocumentType } from "@client/utils/_module.d.mts";
+import type { DocumentStatsData } from "@common/data/fields.d.mts";
 import type { ActorUUID, ItemUUID } from "@common/documents/_module.d.mts";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
@@ -70,7 +71,22 @@ export class Migration841V11UUIDFormat extends MigrationBase {
         }
     }
 
-    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+    override async updateItem(source: ItemSourcePF2e, actorSource?: ActorSourcePF2e): Promise<void> {
+        // Salvage embedded spells that somehow missed previous migrations
+        source.flags ??= {};
+        if (!source._stats) {
+            const actorStats: Partial<DocumentStatsData> = actorSource?._stats ?? {
+                systemId: "pf2e",
+                systemVersion: game.system.version,
+                coreVersion: game.release.version,
+                createdTime: null,
+            };
+            const keys: (keyof DocumentStatsData)[] = ["systemId", "systemVersion", "coreVersion", "createdTime"];
+            const sourceId = source.flags.core?.sourceId;
+            Object.assign(source, {
+                _stats: { ...R.pick(actorStats, keys), compendiumSource: sourceId },
+            });
+        }
         if (source._stats.compendiumSource) {
             source._stats.compendiumSource = this.#replaceUUID(source._stats.compendiumSource, "Item");
         }
