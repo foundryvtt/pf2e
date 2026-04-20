@@ -53,7 +53,8 @@ import type {
     RawItemChatData,
     TraitChatData,
 } from "./data/index.ts";
-import type { ItemDescriptionData, ItemTrait, TraitConfig } from "./data/system.ts";
+import { TraitConfigField } from "./data/model.ts";
+import type { ItemDescriptionData, ItemTrait } from "./data/system.ts";
 import type { ItemSheetPF2e } from "./sheet/sheet.ts";
 
 /** The basic `Item` subclass for the system */
@@ -274,7 +275,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             const validTraits = this.constructor.validTraits;
             const original = this.system.traits.value;
             this.system.traits.value = [];
-            this.system.traits.config ??= {} as TraitConfig;
+            this.system.traits.config = new TraitConfigField().clean(this.system.traits.config ?? {});
             for (const trait of original) {
                 if (!(trait in validTraits)) continue;
                 addOrUpgradeTrait(this.system.traits, trait);
