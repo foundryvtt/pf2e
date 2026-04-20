@@ -279,8 +279,8 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
         entries.push(
             {
                 name: TradeDialog.localize("Request.MenuLabel"),
-                icon: fa.fields.createFontAwesomeIcon("money-bill-transfer", { style: "regular" }).outerHTML,
-                condition: (li) => {
+                icon: "fa-regular money-bill-transfer",
+                visible: (li: HTMLElement): boolean => {
                     if (foundry.applications.instances.has("trade-dialog")) return false;
                     const actor = game.actors.get(li.dataset.entryId, { strict: true });
                     if (canvas.tokens.controlled.some((t) => t.actor === actor)) return false;
@@ -293,7 +293,7 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
                         game.actors.find((a) => a.isOwner && a.isOfType("character", "npc") && a.isAllyOf(actor));
                     return !!createTradeArgs(actor, selfActor);
                 },
-                callback: (li) => {
+                onClick: (li: HTMLElement): void => {
                     const token = canvas.tokens.controlled.length === 1 ? canvas.tokens.controlled[0] : null;
                     const selfActor = token?.actor ?? game.user.character;
                     if (!selfActor?.isOfType("character", "npc")) {
@@ -308,9 +308,9 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
             },
             {
                 name: "PF2E.Actor.Party.Sidebar.RemoveMember",
-                icon: fa.fields.createFontAwesomeIcon("eject").outerHTML,
-                condition: (li) => game.user.isGM && !!li.closest("[data-party]") && !li.closest(".folder-header"),
-                callback: (li) => {
+                icon: "fa-solid fa-eject",
+                visible: (li) => game.user.isGM && !!li.closest("[data-party]") && !li.closest(".folder-header"),
+                onClick: (li) => {
                     const actorId = li.dataset.entryId;
                     const partyId = li.closest<HTMLElement>("[data-party]")?.dataset.entryId;
                     const actor = game.actors.get(actorId ?? "");

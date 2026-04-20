@@ -39,7 +39,6 @@ import type { CheckDC } from "@system/degree-of-success.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
-    fontAwesomeIcon,
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
@@ -386,7 +385,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const data = speeds[slug];
             return {
                 slug,
-                icon: fontAwesomeIcon(speedIcons[slug]).outerHTML,
+                icon: fa.fields.createFontAwesomeIcon(speedIcons[slug]).outerHTML,
                 action: ["swim", "climb"].includes(slug) && !data?.value ? slug : null,
                 label: `PF2E.Actor.Speed.Type.${slug.capitalize()}`,
                 value: data?.value ?? null,
@@ -573,17 +572,17 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 [
                     {
                         name: "PF2E.EditItemTitle",
-                        icon: fontAwesomeIcon("edit").outerHTML,
-                        callback: (target) => {
+                        icon: "fa-solid fa-edit",
+                        onClick: (target: HTMLElement): void => {
                             const itemId = htmlClosest(target, "[data-item-id]")?.dataset.itemId;
                             const item = this.actor.items.get(itemId, { strict: true });
-                            item.sheet.render(true, { focus: true });
+                            item.sheet.render(true);
                         },
                     },
                     {
                         name: "PF2E.DeleteItemTitle",
-                        icon: fontAwesomeIcon("trash").outerHTML,
-                        callback: (target) => {
+                        icon: "fa-solid fa-trash",
+                        onClick: (target: HTMLElement): void => {
                             const itemId = htmlClosest(target, "[data-item-id]")?.dataset.itemId;
                             const item = this.actor.items.get(itemId, { strict: true });
                             this.deleteItem(item);

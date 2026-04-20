@@ -5,7 +5,7 @@ import type { CompendiumDirectoryRenderContext } from "@client/applications/side
 import type { ContextMenuEntry } from "@client/applications/ux/context-menu.d.mts";
 import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
 import type { ItemPF2e } from "@item";
-import { ErrorPF2e, fontAwesomeIcon } from "@util";
+import { ErrorPF2e } from "@util";
 import { CompendiumMigrationStatus } from "../compendium-migration-status.ts";
 
 /** Extend CompendiumDirectory to support a search bar */
@@ -46,15 +46,15 @@ export class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory
         return [
             {
                 name: "COMPENDIUM.ImportEntry",
-                icon: fontAwesomeIcon("download").outerHTML,
-                condition: (li) => {
+                icon: "fa-solid fa-download",
+                visible: (li: HTMLElement): boolean => {
                     const uuid = li.dataset.uuid;
                     if (!uuid) throw ErrorPF2e("Unexpected missing uuid");
                     const collection = game.packs.get(fromUuidSync(uuid)?.pack ?? "", { strict: true });
                     const documentClass = collection.documentClass as unknown as typeof foundry.abstract.Document;
                     return documentClass.canUserCreate(game.user);
                 },
-                callback: (li) => {
+                onClick: async (li: HTMLElement): Promise<void> => {
                     const uuid = li.dataset.uuid;
                     if (!uuid) throw ErrorPF2e("Unexpected missing uuid");
                     const packCollection = game.packs.get(fromUuidSync(uuid)?.pack ?? "", { strict: true });
@@ -63,7 +63,7 @@ export class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory
                     if (!("_id" in indexData && typeof indexData._id === "string")) {
                         throw ErrorPF2e("Unexpected missing document _id");
                     }
-                    return worldCollection.importFromCompendium(
+                    await worldCollection.importFromCompendium(
                         packCollection,
                         indexData._id,
                         {},
@@ -82,8 +82,8 @@ export class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory
         const options = super._getEntryContextOptions();
         options.push({
             name: "COMPENDIUM.MigrationStatus",
-            icon: fontAwesomeIcon("info").outerHTML,
-            condition: (li) => {
+            icon: "fa-solid fa-info",
+            visible: (li: HTMLElement): boolean => {
                 const compendium = game.packs.get(li.dataset.pack, { strict: true });
                 const actorOrItem =
                     compendium.documentClass === CONFIG.Actor.documentClass ||
@@ -91,7 +91,7 @@ export class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory
                 const isSystemCompendium = compendium.metadata.packageType === "system";
                 return game.user.isGM && actorOrItem && !isSystemCompendium;
             },
-            callback: async (li) => {
+            onClick: async (li: HTMLElement): Promise<void> => {
                 const compendium = game.packs.get(li.dataset.pack, { strict: true }) as CompendiumCollection<
                     ActorPF2e<null> | ItemPF2e<null>
                 >;

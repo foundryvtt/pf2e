@@ -14,7 +14,7 @@ import { TokenDocumentPF2e } from "@scene";
 import { Check } from "@system/check/index.ts";
 import { looksLikeDamageRoll } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { createHTMLElement, ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQuery, objectHasKey } from "@util";
+import { createHTMLElement, ErrorPF2e, htmlClosest, htmlQuery, objectHasKey } from "@util";
 import * as R from "remeda";
 
 class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
@@ -258,7 +258,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         htmlQuery(content, "[data-action=kingdomCollect]")?.replaceWith(
             createHTMLElement("div", {
                 classes: ["confirmation"],
-                children: [fontAwesomeIcon("fa-check"), "Resources Collected"],
+                children: [fa.fields.createFontAwesomeIcon("check"), "Resources Collected"],
             }),
         );
         await message.update({ content: content.innerHTML });
@@ -471,99 +471,99 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         options.push(
             {
                 name: "PF2E.ChatRollDetails.Select",
-                icon: fa.fields.createFontAwesomeIcon("face-monocle").outerHTML,
-                condition: canShowRollDetails,
-                callback: (li) => {
+                icon: "fa-solid fa-face-monocle",
+                visible: canShowRollDetails,
+                onClick: (li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     message.showDetails();
                 },
             },
             {
                 name: "PF2E.DamageButton.FullContext",
-                icon: fa.fields.createFontAwesomeIcon("heart-broken").outerHTML,
-                condition: canApplyDamage,
-                callback: (li) => {
+                icon: "fa-solid fa-heart-broken",
+                visible: canApplyDamage,
+                onClick: (li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message });
                 },
             },
             {
                 name: "PF2E.DamageButton.HalfContext",
-                icon: fa.fields.createFontAwesomeIcon("heart-broken").outerHTML,
-                condition: canApplyDamage,
-                callback: (li) => {
+                icon: "fa-solid fa-heart-broken",
+                visible: canApplyDamage,
+                onClick: (li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message, multiplier: 0.5 });
                 },
             },
             {
                 name: "PF2E.DamageButton.DoubleContext",
-                icon: fa.fields.createFontAwesomeIcon("heart-broken").outerHTML,
-                condition: canApplyDamage,
-                callback: (li) => {
+                icon: "fa-solid fa-heart-broken",
+                visible: canApplyDamage,
+                onClick: (li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message, multiplier: 2 });
                 },
             },
             {
                 name: "PF2E.DamageButton.TripleContext",
-                icon: fa.fields.createFontAwesomeIcon("heart-broken").outerHTML,
-                condition: canApplyTripleDamage,
-                callback: (li) => {
+                icon: "fa-solid fa-heart-broken",
+                visible: canApplyTripleDamage,
+                onClick: (li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message, multiplier: 3 });
                 },
             },
             {
                 name: "PF2E.DamageButton.HealingContext",
-                icon: fa.fields.createFontAwesomeIcon("heart").outerHTML,
-                condition: canApplyDamage,
-                callback: (li) => {
+                icon: "fa-solid fa-heart",
+                visible: canApplyDamage,
+                onClick: (li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message, multiplier: -1 });
                 },
             },
             {
                 name: "PF2E.RerollMenu.HeroPoint",
-                icon: fa.fields.createFontAwesomeIcon("hospital-symbol").outerHTML,
-                condition: canHeroPointReroll,
-                callback: (li) => {
+                icon: "fa-solid hospital-symbol",
+                visible: canHeroPointReroll,
+                onClick: (li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     Check.rerollFromMessage(message, { resource: "hero-points" });
                 },
             },
             {
                 name: "PF2E.RerollMenu.MythicPoint",
-                icon: fa.fields.createFontAwesomeIcon("circle-m").outerHTML,
-                condition: canMythicPointReroll,
-                callback: (li) => {
+                icon: "fa-solid fa-circle-m",
+                visible: canMythicPointReroll,
+                onClick: (li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     Check.rerollFromMessage(message, { resource: "mythic-points" });
                 },
             },
             {
                 name: "PF2E.RerollMenu.KeepNew",
-                icon: fa.fields.createFontAwesomeIcon("dice").outerHTML,
-                condition: canReroll,
-                callback: (li) => {
+                icon: "fa-solid fa-dice",
+                visible: canReroll,
+                onClick: (li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     Check.rerollFromMessage(message);
                 },
             },
             {
                 name: "PF2E.RerollMenu.KeepLower",
-                icon: fa.fields.createFontAwesomeIcon("dice-one").outerHTML,
-                condition: canReroll,
-                callback: (li) => {
+                icon: "fa-solid fa-dice-one",
+                visible: canReroll,
+                onClick: (li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     Check.rerollFromMessage(message, { keep: "lower" });
                 },
             },
             {
                 name: "PF2E.RerollMenu.KeepHigher",
-                icon: fa.fields.createFontAwesomeIcon("dice-six").outerHTML,
-                condition: canReroll,
-                callback: (li) => {
+                icon: "fa-solid dice-six",
+                visible: canReroll,
+                onClick: (li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     Check.rerollFromMessage(message, { keep: "higher" });
                 },
