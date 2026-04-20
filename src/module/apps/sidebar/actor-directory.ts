@@ -279,7 +279,7 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
         entries.push(
             {
                 name: TradeDialog.localize("Request.MenuLabel"),
-                icon: "fa-regular money-bill-transfer",
+                icon: "fa-regular fa-money-bill-transfer",
                 visible: (li: HTMLElement): boolean => {
                     if (foundry.applications.instances.has("trade-dialog")) return false;
                     const actor = game.actors.get(li.dataset.entryId, { strict: true });
