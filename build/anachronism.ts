@@ -1,6 +1,6 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { classTraits } from "@scripts/config/traits.ts";
+import { ancestryTraits, classTraits } from "@scripts/config/traits.ts";
 import { objectHasKey, recursiveReplaceString, sluggify } from "@util/misc.ts";
 import fs from "fs";
 import path from "path";
@@ -108,6 +108,15 @@ const packPairs = allPackDirs.map((dir) => {
                 // Class features and class feats for classes are also never overlaps
                 if (pf2eData.system.category === "classfeature") continue;
                 if (pf2eData.system.category === "class" && allTraits.some((t) => t in classTraits)) continue;
+
+                // If both are ancestry feats but the traits don't have overlap, we should export even if the name matches
+                // A duplicate in such scenarios won't lead to dupe feats in a character's feat search
+                const pf2eAncestryTraits = pf2eData.system.traits.value.filter((t) => t in ancestryTraits);
+                const sf2eAncestryTraits = sf2eData.system.traits.value.filter((t) => t in ancestryTraits);
+                const hasAncestryTraits = pf2eAncestryTraits.length > 0 || sf2eAncestryTraits.length > 0;
+                if (hasAncestryTraits && !R.intersection(pf2eAncestryTraits, sf2eAncestryTraits).length) {
+                    continue;
+                }
             }
 
             // Add to overlaps based on if its a name or id overlap
