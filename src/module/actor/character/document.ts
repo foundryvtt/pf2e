@@ -45,9 +45,9 @@ import type { AbilityTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ActionCost } from "@item/base/data/index.ts";
 import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
-import type { EffectAreaShape, ItemType } from "@item/types.ts";
+import type { ItemType } from "@item/types.ts";
 import type { WeaponSource } from "@item/weapon/data.ts";
-import { processTwoHandTrait } from "@item/weapon/helpers.ts";
+import { computeWeaponArea, processTwoHandTrait } from "@item/weapon/helpers.ts";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import {
     extractDegreeOfSuccessAdjustments,
@@ -1160,31 +1160,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 : [],
         });
 
-        const area = ((): { type: EffectAreaShape; value: number } => {
-            // Handle grenades
-            if (weapon.baseType === "grenade") {
-                const description = weapon.system.description.value;
-                const areaMatch = description.match(/Template\[burst\|distance:(?<distance>\d+)\]/);
-                const value = Number(areaMatch?.groups?.distance ?? 5);
-                return { type: "burst", value };
-            }
-
-            const itemRange = weapon.system.range || actor.getReach({ weapon: weapon });
-
-            // Handle automatic weapons
-            if (weapon.system.traits.value.includes("automatic")) {
-                return {
-                    type: "cone",
-                    value: Math.max(5, Math.floor(itemRange / 2) - (Math.floor(itemRange / 2) % 5)),
-                };
-            }
-
-            // Handle area weapons
-            const areaAnnotation = weapon.system.traits.config.area;
-            if (!areaAnnotation) throw ErrorPF2e(`Unable to calculate area for weapon ${weapon.uuid}`);
-            const type = areaAnnotation.type;
-            return { type, value: areaAnnotation.value || (type === "burst" ? 5 : itemRange) };
-        })();
+        const area = computeWeaponArea(weapon, action, actor.getReach({ weapon }));
 
         const actionLabel = `PF2E.Actions.${sluggify(action, { camel: "bactrian" })}.Title`;
         const weaponSlug = weapon.slug ?? sluggify(weapon.name);
