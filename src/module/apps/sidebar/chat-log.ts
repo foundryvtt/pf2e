@@ -473,7 +473,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 name: "PF2E.ChatRollDetails.Select",
                 icon: "fa-solid fa-face-monocle",
                 visible: canShowRollDetails,
-                onClick: (li: HTMLElement): void => {
+                onClick: (_e: PointerEvent, li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     message.showDetails();
                 },
@@ -482,7 +482,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 name: "PF2E.DamageButton.FullContext",
                 icon: "fa-solid fa-heart-broken",
                 visible: canApplyDamage,
-                onClick: (li: HTMLElement): void => {
+                onClick: (_e: PointerEvent, li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message });
                 },
@@ -491,7 +491,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 name: "PF2E.DamageButton.HalfContext",
                 icon: "fa-solid fa-heart-broken",
                 visible: canApplyDamage,
-                onClick: (li: HTMLElement): void => {
+                onClick: (_e: PointerEvent, li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message, multiplier: 0.5 });
                 },
@@ -500,7 +500,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 name: "PF2E.DamageButton.DoubleContext",
                 icon: "fa-solid fa-heart-broken",
                 visible: canApplyDamage,
-                onClick: (li: HTMLElement): void => {
+                onClick: (_e: PointerEvent, li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message, multiplier: 2 });
                 },
@@ -509,7 +509,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 name: "PF2E.DamageButton.TripleContext",
                 icon: "fa-solid fa-heart-broken",
                 visible: canApplyTripleDamage,
-                onClick: (li: HTMLElement): void => {
+                onClick: (_e: PointerEvent, li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message, multiplier: 3 });
                 },
@@ -518,7 +518,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 name: "PF2E.DamageButton.HealingContext",
                 icon: "fa-solid fa-heart",
                 visible: canApplyDamage,
-                onClick: (li: HTMLElement): void => {
+                onClick: (_e: PointerEvent, li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message, multiplier: -1 });
                 },
@@ -527,7 +527,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 name: "PF2E.RerollMenu.HeroPoint",
                 icon: "fa-solid hospital-symbol",
                 visible: canHeroPointReroll,
-                onClick: (li: HTMLElement): void => {
+                onClick: (_e: PointerEvent, li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     Check.rerollFromMessage(message, { resource: "hero-points" });
                 },
@@ -536,7 +536,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 name: "PF2E.RerollMenu.MythicPoint",
                 icon: "fa-solid fa-circle-m",
                 visible: canMythicPointReroll,
-                onClick: (li: HTMLElement): void => {
+                onClick: (_e: PointerEvent, li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     Check.rerollFromMessage(message, { resource: "mythic-points" });
                 },
@@ -545,7 +545,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 name: "PF2E.RerollMenu.KeepNew",
                 icon: "fa-solid fa-dice",
                 visible: canReroll,
-                onClick: (li: HTMLElement): void => {
+                onClick: (_e: PointerEvent, li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     Check.rerollFromMessage(message);
                 },
@@ -554,7 +554,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 name: "PF2E.RerollMenu.KeepLower",
                 icon: "fa-solid fa-dice-one",
                 visible: canReroll,
-                onClick: (li: HTMLElement): void => {
+                onClick: (_e: PointerEvent, li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     Check.rerollFromMessage(message, { keep: "lower" });
                 },
@@ -563,7 +563,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 name: "PF2E.RerollMenu.KeepHigher",
                 icon: "fa-solid dice-six",
                 visible: canReroll,
-                onClick: (li: HTMLElement): void => {
+                onClick: (_e: PointerEvent, li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
                     Check.rerollFromMessage(message, { keep: "higher" });
                 },

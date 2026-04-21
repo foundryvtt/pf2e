@@ -16,7 +16,7 @@ export interface ContextMenuEntry {
 }
 
 export type ContextMenuCondition = (html: HTMLElement) => boolean;
-export type ContextMenuCallback = (target: HTMLElement) => unknown;
+export type ContextMenuCallback = (event: PointerEvent, target: HTMLElement) => unknown;
 
 export interface ContextMenuOptions {
     /**

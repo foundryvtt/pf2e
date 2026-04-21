@@ -54,7 +54,7 @@ export class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory
                     const documentClass = collection.documentClass as unknown as typeof foundry.abstract.Document;
                     return documentClass.canUserCreate(game.user);
                 },
-                onClick: async (li: HTMLElement): Promise<void> => {
+                onClick: async (_e: PointerEvent, li: HTMLElement): Promise<void> => {
                     const uuid = li.dataset.uuid;
                     if (!uuid) throw ErrorPF2e("Unexpected missing uuid");
                     const packCollection = game.packs.get(fromUuidSync(uuid)?.pack ?? "", { strict: true });
@@ -91,7 +91,7 @@ export class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory
                 const isSystemCompendium = compendium.metadata.packageType === "system";
                 return game.user.isGM && actorOrItem && !isSystemCompendium;
             },
-            onClick: async (li: HTMLElement): Promise<void> => {
+            onClick: async (_e: PointerEvent, li: HTMLElement): Promise<void> => {
                 const compendium = game.packs.get(li.dataset.pack, { strict: true }) as CompendiumCollection<
                     ActorPF2e<null> | ItemPF2e<null>
                 >;

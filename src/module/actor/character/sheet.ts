@@ -573,7 +573,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     {
                         name: "PF2E.EditItemTitle",
                         icon: "fa-solid fa-edit",
-                        onClick: (target: HTMLElement): void => {
+                        onClick: (_e: PointerEvent, target: HTMLElement): void => {
                             const itemId = htmlClosest(target, "[data-item-id]")?.dataset.itemId;
                             const item = this.actor.items.get(itemId, { strict: true });
                             item.sheet.render(true);
@@ -582,7 +582,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     {
                         name: "PF2E.DeleteItemTitle",
                         icon: "fa-solid fa-trash",
-                        onClick: (target: HTMLElement): void => {
+                        onClick: (_e: PointerEvent, target: HTMLElement): void => {
                             const itemId = htmlClosest(target, "[data-item-id]")?.dataset.itemId;
                             const item = this.actor.items.get(itemId, { strict: true });
                             this.deleteItem(item);

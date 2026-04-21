@@ -20,14 +20,12 @@ export class ItemDirectoryPF2e extends fa.sidebar.tabs.ItemDirectory<ItemPF2e<nu
                 element.querySelector("span.item-level")?.remove();
             }
         }
-
         this.#appendBrowseButton();
     }
 
     /** Add `ContextMenuEntry` to attach physical items */
     protected override _getEntryContextOptions(): ContextMenuEntry[] {
         const options = super._getEntryContextOptions();
-
         options.push({
             name: "PF2E.Item.Physical.Attach.SidebarContextMenuOption",
             icon: "fa-solid fa-paperclip",
@@ -39,7 +37,7 @@ export class ItemDirectoryPF2e extends fa.sidebar.tabs.ItemDirectory<ItemPF2e<nu
                     game.items.some((i) => i !== item && i.isOwner && i.isOfType("physical") && i.acceptsSubitem(item))
                 );
             },
-            onClick: async (li: HTMLElement): Promise<void> => {
+            onClick: async (_e: PointerEvent, li: HTMLElement): Promise<void> => {
                 const item = game.items.get(li.dataset.entryId, { strict: true });
                 if (
                     item.isOwner &&
@@ -50,7 +48,6 @@ export class ItemDirectoryPF2e extends fa.sidebar.tabs.ItemDirectory<ItemPF2e<nu
                 }
             },
         });
-
         return options;
     }
 
