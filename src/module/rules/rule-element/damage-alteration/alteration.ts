@@ -106,9 +106,10 @@ class DamageAlteration {
         if (isModifier || isOverrideDice) return damage;
 
         const parent = rule.parent ?? { getRollOptions: () => [] };
-        const predicate = rule.predicate ?? new Predicate();
+        const predicate = rule.predicate;
+        rule.resolveValue?.(predicate);
         const predicatePassed =
-            predicate.length === 0 ||
+            !predicate?.length ||
             predicate.test([...options.test, ...damage.getRollOptions(), ...parent.getRollOptions("parent")]);
         if (!predicatePassed) return damage;
 

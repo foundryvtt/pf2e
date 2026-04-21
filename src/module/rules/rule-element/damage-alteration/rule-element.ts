@@ -69,24 +69,22 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
 
     override resolveValue(
         value: unknown,
-        defaultValue: null,
-        options: { resolvables: Record<string, unknown> },
+        defaultValue?: null,
+        options?: { resolvables: Record<string, unknown> },
     ): DamageAlterationValue | null;
     override resolveValue(
         value: unknown,
-        defaultValue: null,
-        options: { resolvables: Record<string, unknown> },
+        defaultValue: null = null,
+        options: { resolvables: Record<string, unknown> } = { resolvables: {} },
     ): number | string | string[] | null {
         const resolved = super.resolveValue(value, defaultValue, options);
         if (this.ignored) return null;
-        const isMalformed = !(
-            typeof resolved === "number" ||
-            typeof resolved === "string" ||
-            Array.isArray(resolved) ||
-            resolved === null
-        );
+        const isMalformed =
+            resolved !== null &&
+            typeof resolved !== "number" &&
+            typeof resolved !== "string" &&
+            !Array.isArray(resolved);
         if (isMalformed) return null;
-
         const damageTypes: Set<string> = DAMAGE_TYPES;
         const isValid = {
             "damage-type": typeof resolved === "string" && damageTypes.has(resolved),
@@ -106,7 +104,6 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
             this.failValidation(message[this.property]);
             return null;
         }
-
         return resolved;
     }
 
