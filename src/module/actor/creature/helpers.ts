@@ -152,4 +152,22 @@ function imposeEncumberedCondition(actor: CreaturePF2e): void {
     }
 }
 
-export { AttackTraitHelpers, imposeEncumberedCondition, setImmunitiesFromTraits };
+/** Returns the elite/weak adjustment for a given level */
+function getHpAdjustment(level: number, adjustment: "elite" | "weak" | null): number {
+    if (adjustment === "elite") {
+        // Elite adjustment: Increase/decrease the creature's Hit Points based on its starting level (20+ 30HP, 5~19 20HP, 2~4 15HP, 1 or lower 10HP).
+        if (level >= 20) return 30;
+        if (level <= 19 && level >= 5) return 20;
+        if (level <= 4 && level >= 2) return 15;
+        if (level <= 1) return 10;
+    } else if (adjustment === "weak") {
+        // Weak adjustment: Increase/decrease the creature's Hit Points based on its starting level (21+ -30HP, 6~20 -20HP, 3~5 -15HP, 1-2 -10HP).
+        if (level >= 21) return -30;
+        if (level <= 20 && level >= 6) return -20;
+        if (level <= 5 && level >= 3) return -15;
+        if (level === 1 || level === 2) return -10;
+    }
+    return 0;
+}
+
+export { AttackTraitHelpers, getHpAdjustment, imposeEncumberedCondition, setImmunitiesFromTraits };

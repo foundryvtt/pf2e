@@ -1,6 +1,7 @@
 import { CreaturePF2e } from "@actor";
 import type { ActorUpdateCallbackOptions, ActorUpdateOperation } from "@actor/base.ts";
 import type { Abilities } from "@actor/creature/data.ts";
+import { getHpAdjustment } from "@actor/creature/helpers.ts";
 import type { CreatureUpdateCallbackOptions } from "@actor/creature/index.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { attackFromMeleeItem, setHitPointsRollOptions } from "@actor/helpers.ts";
@@ -165,8 +166,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 test: () => true,
             });
             synthetics.modifiers.hp.push(
-                () =>
-                    new Modifier("PF2E.NPC.Adjustment.EliteLabel", this.getHpAdjustment(baseLevel, "elite"), "untyped"),
+                () => new Modifier("PF2E.NPC.Adjustment.EliteLabel", getHpAdjustment(baseLevel, "elite"), "untyped"),
             );
         } else if (this.isWeak) {
             modifierAdjustments.all.push({
@@ -175,12 +175,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 test: () => true,
             });
             synthetics.modifiers.hp.push(
-                () =>
-                    new Modifier(
-                        "PF2E.NPC.Adjustment.WeakLabel",
-                        this.getHpAdjustment(baseLevel, "weak") * -1,
-                        "untyped",
-                    ),
+                () => new Modifier("PF2E.NPC.Adjustment.WeakLabel", getHpAdjustment(baseLevel, "weak"), "untyped"),
             );
         }
         system.details.level.base = baseLevel;
@@ -497,33 +492,6 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         return notes;
     }
 
-    private getHpAdjustment(level: number, adjustment: "elite" | "weak" | null): number {
-        if (adjustment === "elite") {
-            // Elite adjustment: Increase/decrease the creature's Hit Points based on its starting level (20+ 30HP, 5~19 20HP, 2~4 15HP, 1 or lower 10HP).
-            if (level >= 20) {
-                return 30;
-            } else if (level <= 19 && level >= 5) {
-                return 20;
-            } else if (level <= 4 && level >= 2) {
-                return 15;
-            } else if (level <= 1) {
-                return 10;
-            }
-        } else if (adjustment === "weak") {
-            // Weak adjustment: Increase/decrease the creature's Hit Points based on its starting level (21+ -30HP, 6~20 -20HP, 3~5 -15HP, 1-2 -10HP).
-            if (level >= 21) {
-                return 30;
-            } else if (level <= 20 && level >= 6) {
-                return 20;
-            } else if (level <= 5 && level >= 3) {
-                return 15;
-            } else if (level === 1 || level === 2) {
-                return 10;
-            }
-        }
-        return 0;
-    }
-
     /** Make the NPC elite, weak, or normal */
     async applyAdjustment(adjustment: "elite" | "weak" | null): Promise<void> {
         const { isElite, isWeak } = this;
@@ -535,44 +503,10 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             return;
         }
 
-        const currentHPAdjustment = (() => {
-            if (isElite) {
-                return this.getHpAdjustment(this.baseLevel, "elite");
-            } else if (isWeak) {
-                return this.getHpAdjustment(this.baseLevel, "weak");
-            } else {
-                return 0;
-            }
-        })();
-        const newHPAdjustment = this.getHpAdjustment(this.baseLevel, adjustment);
+        const currentHPAdjustment = getHpAdjustment(this.baseLevel, this.system.attributes.adjustment);
+        const newHPAdjustment = getHpAdjustment(this.baseLevel, adjustment);
         const currentHP = this.system.attributes.hp.value;
-        const maxHP = this.system.attributes.hp.max;
-        const newHP = (() => {
-            if (isElite) {
-                if (adjustment === "weak") {
-                    return currentHP - currentHPAdjustment - newHPAdjustment;
-                } else if (!adjustment) {
-                    return currentHP - currentHPAdjustment;
-                }
-            } else if (isWeak) {
-                if (adjustment === "elite") {
-                    this.system.attributes.hp.max = maxHP + currentHPAdjustment + newHPAdjustment; // Set max hp to allow update of current hp > max
-                    return currentHP + currentHPAdjustment + newHPAdjustment;
-                } else if (!adjustment) {
-                    this.system.attributes.hp.max = maxHP + currentHPAdjustment;
-                    return currentHP + currentHPAdjustment;
-                }
-            } else {
-                if (adjustment === "elite") {
-                    this.system.attributes.hp.max = currentHP + newHPAdjustment;
-                    return currentHP + newHPAdjustment;
-                } else if (adjustment === "weak") {
-                    return currentHP - newHPAdjustment;
-                }
-            }
-            return currentHP;
-        })();
-
+        const newHP = currentHP - currentHPAdjustment + newHPAdjustment;
         await this.update({
             "system.attributes.hp.value": Math.max(0, newHP),
             "system.attributes.adjustment": adjustment,
@@ -612,13 +546,20 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         this.#updatePrototypeToken(changed);
 
-        // Propagate HP updates to all sibling segments as well
-        const hpUpdates = changed.system.attributes?.hp;
-        if (hpUpdates && !options.fromTroop && this.otherSegments) {
-            const damageTaken = options.damageTaken;
-            for (const actor of this.otherSegments) {
-                if (actor?.isOfType("npc")) {
-                    actor.update({ "system.attributes.hp": hpUpdates }, { fromTroop: true, damageTaken });
+        // Propagate certain actor updates to all sibling segments as well
+        if (!options.fromTroop && this.otherSegments) {
+            const update: Record<string, unknown> = {};
+            if (changed.system.attributes) {
+                const attributes = changed.system.attributes;
+                if (attributes.hp) update["system.attributes.hp"] = attributes.hp;
+                if ("adjustment" in attributes) update["system.attributes.adjustment"] = attributes.adjustment;
+            }
+            if (!R.isEmpty(update)) {
+                const damageTaken = options.damageTaken;
+                for (const actor of this.otherSegments) {
+                    if (actor?.isOfType("npc")) {
+                        actor.update(fu.deepClone(update), { fromTroop: true, damageTaken });
+                    }
                 }
             }
         }
