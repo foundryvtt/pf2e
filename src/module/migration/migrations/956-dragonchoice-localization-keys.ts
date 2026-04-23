@@ -10,14 +10,10 @@ export class Migration956DragonChoiceLocalizationKeys extends MigrationBase {
     #NEW_PREFIX = "PF2E.Dragon.";
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
-        source.system = recursiveReplaceString(source.system, (s) =>
-            s.replace(this.#OLD_PREFIX, this.#NEW_PREFIX),
-        );
+        source.system = recursiveReplaceString(source.system, (s) => s.replace(this.#OLD_PREFIX, this.#NEW_PREFIX));
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        source.system = recursiveReplaceString(source.system, (s) =>
-            s.replace(this.#OLD_PREFIX, this.#NEW_PREFIX),
-        );
+        source.system = recursiveReplaceString(source.system, (s) => s.replace(this.#OLD_PREFIX, this.#NEW_PREFIX));
     }
 }
