@@ -32,6 +32,7 @@ import { Migration951TreasureCategories } from "@module/migration/migrations/951
 import { Migration952AmmoTraitsAndOptions } from "@module/migration/migrations/952-ammo-traits-options.ts";
 import { Migration953NotStrikeDamage } from "@module/migration/migrations/953-not-strike-damage.ts";
 import { Migration954ExplicitBleedImmunity } from "@module/migration/migrations/954-explicit-bleed-immunity.ts";
+import { Migration957GnollGrippliRemaster } from "@module/migration/migrations/957-gnoll-grippli-remaster.ts";
 
 const migrations: MigrationBase[] = [
     new Migration937RemoveInvalidAuraTraits(),
@@ -49,6 +50,7 @@ const migrations: MigrationBase[] = [
     new Migration952AmmoTraitsAndOptions(),
     new Migration953NotStrikeDamage(),
     new Migration954ExplicitBleedImmunity(),
+    new Migration957GnollGrippliRemaster(),
 ];
 
 type CompendiumSource = CompendiumDocument["_source"];
