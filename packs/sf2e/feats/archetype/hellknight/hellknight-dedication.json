@@ -73,14 +73,6 @@
                 "value": "1 + @armor.system.runes.resilient"
             },
             {
-                "key": "Resistance",
-                "predicate": [
-                    "armor:slug:hellknight-plate"
-                ],
-                "type": "slashing",
-                "value": "3 + @armor.system.runes.resilient"
-            },
-            {
                 "actorFlag": "",
                 "adjustName": false,
                 "choices": [
@@ -104,20 +96,229 @@
                 "flag": "hellknightOrderDamage",
                 "key": "ChoiceSet",
                 "prompt": "SF2E.SpecificRule.Hellknight.Prompt"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Character.Proficiency.Defense.LightShort",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "defense:light:rank:0",
+                                    "defense:medium:rank:0"
+                                ]
+                            }
+                        ],
+                        "value": "light-and-medium"
+                    },
+                    {
+                        "label": "PF2E.Actor.Character.Proficiency.Defense.HeavyShort",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "defense:light:rank:0",
+                                    "defense:medium:rank:0"
+                                ]
+                            }
+                        ],
+                        "value": "heavy"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "hellknight-dedication",
+                "flag": "hellknightArmor"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.light.rank",
+                "predicate": [
+                    "hellknight-dedication:light-and-medium"
+                ],
+                "value": "max(@actor.system.proficiencies.defenses.medium.rank,ternary(gte(@actor.level,13),min(@actor.system.proficiencies.defenses.light.rank,2),1))"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.medium.rank",
+                "predicate": [
+                    "hellknight-dedication:light-and-medium"
+                ],
+                "value": "max(@actor.system.proficiencies.defenses.light.rank,ternary(gte(@actor.level,13),min(@actor.system.proficiencies.defenses.light.rank,2),1))"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.heavy.rank",
+                "predicate": [
+                    "hellknight-dedication:heavy"
+                ],
+                "value": "max(@actor.system.proficiencies.defenses.light.rank,@actor.system.proficiencies.defenses.medium.rank,ternary(gte(@actor.level,13),min(@actor.system.proficiencies.defenses.light.rank,2),1))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "hellknight-dedication:light-and-medium",
+                    "armor:group:composite"
+                ],
+                "type": "piercing",
+                "value": "2 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "hellknight-dedication:light-and-medium",
+                    "armor:group:leather"
+                ],
+                "type": "bludgeoning",
+                "value": "2 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "hellknight-dedication:light-and-medium",
+                    "armor:group:plate"
+                ],
+                "type": "slashing",
+                "value": "2 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "hellknight-dedication:heavy",
+                    "armor:group:composite"
+                ],
+                "type": "piercing",
+                "value": "3 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "hellknight-dedication:heavy",
+                    "armor:group:leather"
+                ],
+                "type": "bludgeoning",
+                "value": "3 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "hellknight-dedication:heavy",
+                    "armor:group:plate"
+                ],
+                "type": "slashing",
+                "value": "3 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "hellknight-dedication:light-and-medium",
+                    "armor:group:skeletal"
+                ],
+                "type": "precision",
+                "value": "3 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "hellknight-dedication:heavy",
+                    "armor:group:skeletal"
+                ],
+                "type": "precision",
+                "value": "5 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "hellknight-dedication:light-and-medium",
+                    "armor:group:ceramic"
+                ],
+                "type": [
+                    "acid",
+                    "cold",
+                    "electricity",
+                    "fire"
+                ],
+                "value": "2 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "hellknight-dedication:heavy",
+                    "armor:group:ceramic"
+                ],
+                "type": [
+                    "acid",
+                    "cold",
+                    "electricity",
+                    "fire"
+                ],
+                "value": "3 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "hellknight-dedication:light-and-medium",
+                    "armor:group:polymer"
+                ],
+                "type": "area-damage",
+                "value": "2 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "hellknight-dedication:heavy",
+                    "armor:group:polymer"
+                ],
+                "type": "area-damage",
+                "value": "3 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "armor:group:chain",
+                    "hellknight-dedication:light-and-medium"
+                ],
+                "type": "critical-hits",
+                "value": "5 + @armor.system.traits.config.resilient"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "armor:group:chain",
+                    "hellknight-dedication:heavy"
+                ],
+                "type": "critical-hits",
+                "value": "7 + @armor.system.traits.config.resilient"
             }
         ],
-        "subfeatures": {
-            "proficiencies": {},
-            "senses": {},
-            "suppressedFeatures": []
-        },
-        "traits": {
-            "rarity": "common",
-            "value": [
-                "archetype",
-                "dedication"
-            ]
-        }
+    "subfeatures": {
+        "proficiencies": {},
+        "senses": {},
+        "suppressedFeatures": []
     },
-    "type": "feat"
+    "traits": {
+        "rarity": "common",
+        "value": [
+            "archetype",
+            "dedication"
+        ]
+    }
+},
+"type": "feat"
 }
