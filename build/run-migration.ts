@@ -32,7 +32,6 @@ import { Migration951TreasureCategories } from "@module/migration/migrations/951
 import { Migration952AmmoTraitsAndOptions } from "@module/migration/migrations/952-ammo-traits-options.ts";
 import { Migration953NotStrikeDamage } from "@module/migration/migrations/953-not-strike-damage.ts";
 import { Migration954ExplicitBleedImmunity } from "@module/migration/migrations/954-explicit-bleed-immunity.ts";
-import { Migration956DragonChoiceLocalizationKeys } from "@module/migration/migrations/956-dragonchoice-localization-keys.ts";
 
 const migrations: MigrationBase[] = [
     new Migration937RemoveInvalidAuraTraits(),
@@ -50,7 +49,6 @@ const migrations: MigrationBase[] = [
     new Migration952AmmoTraitsAndOptions(),
     new Migration953NotStrikeDamage(),
     new Migration954ExplicitBleedImmunity(),
-    new Migration956DragonChoiceLocalizationKeys(),
 ];
 
 type CompendiumSource = CompendiumDocument["_source"];
