@@ -109,7 +109,7 @@ abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> 
             }
 
             htmlQuery(li, "[data-action=remove]")?.addEventListener("click", () => {
-                this.item.update({ [`system.items.index`]: _del });
+                this.item.update({ [`system.items.${index}`]: _del });
             });
         }
     }
