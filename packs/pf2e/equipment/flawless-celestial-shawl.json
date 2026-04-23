@@ -5,11 +5,11 @@
     "system": {
         "baseItem": null,
         "bulk": {
-            "value": 0.1
+            "value": 0
         },
         "containerId": null,
         "description": {
-            "value": "<p>Each fawless celestial shawl functions only for a specifc tennin and is the culmination of their immortal cultivation. The sash is made of celestial silken threads stronger than adamantine yet lighter than gossamer. The tennin can draw thread from the fawless celestial shawl to serve as a sterling artisan's toolkit and workshop to Craft. The sash can be used to work with precious materials of any grade. On any Crafting check the tennin attempts using the shawl, they use the outcome one degree of success better than the result of their roll.</p><hr /><p><strong>Activation—Reweave</strong> <span class=\"action-glyph\">3</span> The tennin uses the sash to Repair an item. This Repair activity loses the exploration trait.</p>"
+            "value": "<p>Each <em>flawless celestial shawl</em> functions only for a specifc tennin and is the culmination of their immortal cultivation. The sash is made of celestial silken threads stronger than adamantine yet lighter than gossamer. The tennin can draw thread from the <em>flawless celestial shawl</em> to serve as a @UUID[Compendium.pf2e.equipment-srd.Item.Artisan's Toolkit (Sterling)]{sterling artisan's toolkit} and workshop to @UUID[Compendium.pf2e.actionspf2e.Item.Craft]. The sash can be used to work with precious materials of any grade. On any Crafting check the tennin attempts using the shawl, they use the outcome one degree of success better than the result of their roll.</p><hr /><p><strong>Activation—Reweave</strong> <span class=\"action-glyph\">3</span> The tennin uses the sash to @UUID[Compendium.pf2e.actionspf2e.Item.Repair] an item. This Repair activity loses the exploration trait.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -32,7 +32,13 @@
             "title": "Pathfinder Monster Core 2"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "has-flawless-celestial-shawl",
+                "requiresEquipped": false
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "rare",

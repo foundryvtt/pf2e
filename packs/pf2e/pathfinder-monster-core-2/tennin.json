@@ -411,7 +411,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You free the target's limbs from ailments that impede mobility. Attempt to counteract an effect of your choice imposing one of these conditions on the target: @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], or @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed]. If you didn't counteract the effect, but you would have if its counteract rank were 2 lower, instead suppress the effect until the beginning of your next turn. The effect's duration doesn't elapse while it's suppressed.</p>\n<p>This spell can't counteract or suppress curses, diseases, or conditions that are part of the target's normal state.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], @UUID[Compendium.pf2e.conditionitems.Item.Slowed], and @UUID[Compendium.pf2e.conditionitems.Item.Restrained] to the list of conditions.</p>\n<p><strong>Heightened (6th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Petrified] to the list of conditions.</p>\n<p><strong>Heightened (8th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Stunned] to the list of conditions.</p>"
+                    "value": "<p>You free the target's limbs from ailments that impede mobility. Attempt to counteract an effect of your choice imposing one of these conditions on the target: @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], or @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed]. If you didn't counteract the effect, but you would have if its counteract rank were 2 lower, instead suppress the effect until the beginning of your next turn. The effect's duration doesn't elapse while it's suppressed.</p>\n<p>This spell can't counteract or suppress curses, diseases, or conditions that are part of the target's normal state.</p><hr /><p><strong>Heightened (4th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Immobilized], @UUID[Compendium.pf2e.conditionitems.Item.Slowed], and @UUID[Compendium.pf2e.conditionitems.Item.Restrained] to the list of conditions.</p>\n<p><strong>Heightened (6th)</strong> As 4th rank, plus add @UUID[Compendium.pf2e.conditionitems.Item.Petrified]</p>\n<p><strong>Heightened (8th)</strong> As 4th rank, plus add petrified and @UUID[Compendium.pf2e.conditionitems.Item.Stunned].</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1046,17 +1046,20 @@
         },
         {
             "_id": "h1o5pPeYDzmnzn9p",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.iyXC3tIX3VmjCx6G"
+            },
             "img": "icons/commodities/cloth/cloth-patterned-teal.webp",
             "name": "Flawless Celestial Shawl",
             "sort": 1400000,
             "system": {
                 "baseItem": null,
                 "bulk": {
-                    "value": 0.1
+                    "value": 0
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Each fawless celestial shawl functions only for a specifc tennin and is the culmination of their immortal cultivation. The sash is made of celestial silken threads stronger than adamantine yet lighter than gossamer. The tennin can draw thread from the fawless celestial shawl to serve as a sterling artisan's toolkit and workshop to Craft. The sash can be used to work with precious materials of any grade. On any Crafting check the tennin attempts using the shawl, they use the outcome one degree of success better than the result of their roll.</p><hr /><p><strong>Activation—Reweave</strong> <span class=\"action-glyph\">3</span> The tennin uses the sash to Repair an item. This Repair activity loses the exploration trait.</p>"
+                    "value": "<p>Each <em>flawless celestial shawl</em> functions only for a specifc tennin and is the culmination of their immortal cultivation. The sash is made of celestial silken threads stronger than adamantine yet lighter than gossamer. The tennin can draw thread from the <em>flawless celestial shawl</em> to serve as a @UUID[Compendium.pf2e.equipment-srd.Item.Artisan's Toolkit (Sterling)]{sterling artisan's toolkit} and workshop to @UUID[Compendium.pf2e.actionspf2e.Item.Craft]. The sash can be used to work with precious materials of any grade. On any Crafting check the tennin attempts using the shawl, they use the outcome one degree of success better than the result of their roll.</p><hr /><p><strong>Activation—Reweave</strong> <span class=\"action-glyph\">3</span> The tennin uses the sash to @UUID[Compendium.pf2e.actionspf2e.Item.Repair] an item. This Repair activity loses the exploration trait.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1083,9 +1086,15 @@
                     "title": "Pathfinder Monster Core 2"
                 },
                 "quantity": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "has-flawless-celestial-shawl",
+                        "requiresEquipped": false
+                    }
+                ],
                 "size": "med",
-                "slug": null,
+                "slug": "flawless-celestial-shawl",
                 "traits": {
                     "rarity": "rare",
                     "value": [
@@ -1241,14 +1250,23 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>Each tennin has a unique fawless celestial shawl. A tennin without their fawless celestial shawl can't use their fly Speed or cast divine innate spells.</p>"
+                    "value": "<p>Each tennin has a unique <em>flawless celestial shawl</em>. A tennin without their <em>flawless celestial shawl</em> can't use their fly Speed or cast divine innate spells.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "has-flawless-celestial-shawl"
+                        ],
+                        "selector": "fly",
+                        "value": 40
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -1308,7 +1326,13 @@
                 },
                 "rules": [
                     {
-                        "effects": [],
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Five Color Dance"
+                            }
+                        ],
                         "key": "Aura",
                         "radius": 30,
                         "traits": [
@@ -1340,7 +1364,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The tennin can Step into difcult terrain and can use either their land or fy Speed to Step. Also, when the tennin attempts a Performance check to [[/act perform variant=dance]]{dance}, they can Step or Stride as a free action.</p>"
+                    "value": "<p>The tennin can Step into difficult terrain and can use either their land or fly Speed to Step. Also, when the tennin attempts a Performance check to [[/act perform variant=dance]]{dance}, they can Step or Stride as a free action.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1483,14 +1507,22 @@
                         "base": 23,
                         "label": "to weave",
                         "predicate": [
-                            "to-weave"
+                            "action:craft:weave"
                         ]
                     }
                 ]
             },
             "performance": {
                 "base": 19,
-                "special": []
+                "special": [
+                    {
+                        "base": 21,
+                        "label": "to dance",
+                        "predicate": [
+                            "action:perform:dance"
+                        ]
+                    }
+                ]
             },
             "religion": {
                 "base": 19,
