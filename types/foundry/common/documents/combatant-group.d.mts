@@ -35,9 +35,9 @@ declare interface CombatantGroupMetadata extends DocumentClassMetadata {
     baseTypeAllowed: true;
 }
 
-export type CombatantGroupSchema = {
+type CombatantGroupSchema = {
     _id: fields.DocumentIdField;
-    type: fields.DocumentTypeField<string, string, true, false, true, BaseCombatantGroup>;
+    type: fields.DocumentTypeField<string, string, false, false, false, BaseCombatantGroup>;
     system: fields.TypeDataField;
     name: fields.StringField;
     img: fields.FilePathField<ImageFilePath>;
@@ -46,3 +46,5 @@ export type CombatantGroupSchema = {
     flags: fields.DocumentFlagsField;
     _stats: fields.DocumentStatsField;
 };
+
+export type CombatantGroupSource = fields.SourceFromSchema<CombatantGroupSchema>;
