@@ -1,7 +1,7 @@
 import {
     DatabaseUpdateCallbackOptions,
     Document,
-    DocumentMetadata,
+    DocumentClassMetadata,
     EmbeddedCollection,
 } from "@common/abstract/_module.mjs";
 import { DocumentOwnershipNumber, EdgeRestrictionType, RegionVisibilityType } from "../constants.mjs";
@@ -9,11 +9,20 @@ import { BaseShapeData } from "../data/data.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseRegionBehavior, BaseScene, BaseUser } from "./_module.mjs";
 
+/**
+ * The Region Document.
+ * Defines the DataSchema and common behaviors for a Region which are shared between both client and server.
+ * @category Documents
+ */
 export default class BaseRegion<TParent extends BaseScene | null = BaseScene | null> extends Document<
     TParent,
     RegionSchema
 > {
-    static override get metadata(): RegionMetadata;
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
+
+    static override get metadata(): Readonly<RegionMetadata>;
 
     static override defineSchema(): RegionSchema;
 
@@ -49,7 +58,7 @@ export default interface BaseRegion<TParent extends BaseScene | null = BaseScene
     readonly behaviors: EmbeddedCollection<BaseRegionBehavior<this>>;
 }
 
-interface RegionMetadata extends DocumentMetadata {
+interface RegionMetadata extends DocumentClassMetadata {
     name: "Region";
     collection: "regions";
     label: "DOCUMENT.Region";
@@ -61,17 +70,11 @@ interface RegionMetadata extends DocumentMetadata {
 }
 
 type RegionSchema = {
-    /** The Region _id which uniquely identifies it within its parent Scene */
     _id: fields.DocumentIdField;
-    /** The name used to describe the Region */
     name: fields.StringField<string, string, true, false, false>;
-    /** The color used to highlight the Region */
     color: fields.ColorField<true, false, false>;
-    /** The shapes that make up the Region */
     shapes: fields.ArrayField<fields.TypedSchemaField<typeof BaseShapeData.TYPES>>;
-    /** The elevation */
     elevation: fields.SchemaField<RegionElevationSchema>;
-    /** The level IDs */
     levels: fields.SceneLevelsSetField;
     restriction: fields.SchemaField<{
         enabled: fields.BooleanField;
@@ -81,15 +84,13 @@ type RegionSchema = {
     attachment: fields.SchemaField<{
         token: fields.ForeignDocumentField<string>;
     }>;
-    /** A collection of embedded RegionBehavior objects */
     behaviors: fields.EmbeddedCollectionField<BaseRegionBehavior<BaseRegion>>;
     visibility: fields.NumberField<RegionVisibilityType, RegionVisibilityType, true>;
     highlightMode: fields.StringField<RegionHighlightMode, RegionHighlightMode, true, false, true>;
     displayMeasurements: fields.BooleanField;
-    /** Whether this region is locked or not */
+    hidden: fields.BooleanField;
     locked: fields.BooleanField;
     ownership: fields.DocumentOwnershipField;
-    /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
     /** @internal */
     _shapeConstraints: fields.ArrayField<
@@ -100,12 +101,8 @@ type RegionSchema = {
 export type RegionHighlightMode = "shapes" | "coverage";
 
 type RegionElevationSchema = {
-    /** null -> -Infinity */
     bottom: fields.NumberField<number, number, true>;
-    /** null -> +Infinity */
     top: fields.NumberField<number, number, true>;
 };
 
 export type RegionSource = fields.SourceFromSchema<RegionSchema>;
-
-export {};

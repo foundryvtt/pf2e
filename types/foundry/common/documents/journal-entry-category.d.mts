@@ -1,4 +1,5 @@
-import Document, { DocumentMetadata } from "../abstract/document.mjs";
+import { DocumentClassMetadata } from "@common/abstract/_module.mjs";
+import Document from "../abstract/document.mjs";
 import * as fields from "../data/fields.mjs";
 import BaseJournalEntry from "./journal-entry.mjs";
 
@@ -8,20 +9,25 @@ import BaseJournalEntry from "./journal-entry.mjs";
  * server.
  * @category Documents
  */
-export default class BaseJournalEntryCategory<TParent extends BaseJournalEntry | null> extends Document<
-    TParent,
-    JournalEntryCategorySchema
-> {
+export default class BaseJournalEntryCategory<
+    TParent extends BaseJournalEntry | null = BaseJournalEntry | null,
+> extends Document<TParent, JournalEntryCategorySchema> {
     /* -------------------------------------------- */
     /*  Model Configuration                         */
     /* -------------------------------------------- */
 
-    static override get metadata(): JournalEntryCategoryMetadata;
+    static override get metadata(): Readonly<JournalEntryCategoryMetadata>;
 
     static override defineSchema(): JournalEntryCategorySchema;
 }
 
-interface JournalEntryCategoryMetadata extends DocumentMetadata {
+export default interface BaseJournalEntryCategory<
+    TParent extends BaseJournalEntry | null = BaseJournalEntry | null,
+> extends Document<TParent, JournalEntryCategorySchema> {
+    get documentName(): JournalEntryCategoryMetadata["name"];
+}
+
+interface JournalEntryCategoryMetadata extends DocumentClassMetadata {
     name: "JournalEntryCategory";
     collection: "categories";
     label: "DOCUMENT.JournalEntryCategory";
@@ -36,5 +42,3 @@ type JournalEntryCategorySchema = {
     flags: fields.DocumentFlagsField;
     _stats: fields.DocumentStatsField;
 };
-
-export {};

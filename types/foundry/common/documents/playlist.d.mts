@@ -1,23 +1,33 @@
-import { PlaylistMode, PlaylistSortMode } from "@common/constants.mjs";
-import { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/_module.mjs";
+import { AudioChannel, PlaylistMode, PlaylistSortMode } from "@common/constants.mjs";
+import { Document, DocumentClassMetadata, EmbeddedCollection } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseFolder, BasePlaylistSound } from "./_module.mjs";
 
-/** The Playlist document model. */
+/**
+ * The Playlist Document.
+ * Defines the DataSchema and common behaviors for a Playlist which are shared between both client and server.
+ * @category Documents
+ */
 export default class BasePlaylist extends Document<null, PlaylistSchema> {
-    static override get metadata(): PlaylistMetadata;
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
+
+    static override get metadata(): Readonly<PlaylistMetadata>;
 
     static override defineSchema(): PlaylistSchema;
+
+    static override LOCALIZATION_PREFIXES: string[];
 }
 
 export default interface BasePlaylist
     extends Document<null, PlaylistSchema>, fields.ModelPropsFromSchema<PlaylistSchema> {
     get documentName(): PlaylistMetadata["name"];
 
-    readonly sounds: EmbeddedCollection<any>;
+    readonly sounds: EmbeddedCollection<BasePlaylistSound<this>>;
 }
 
-interface PlaylistMetadata extends DocumentMetadata {
+interface PlaylistMetadata extends DocumentClassMetadata {
     name: "Playlist";
     collection: "playlists";
     indexed: true;
@@ -32,6 +42,7 @@ type PlaylistSchema = {
     name: fields.StringField<string, string, true, false, false>;
     description: fields.StringField;
     sounds: fields.EmbeddedCollectionField<BasePlaylistSound<BasePlaylist>>;
+    channel: fields.StringField<AudioChannel, AudioChannel, true>;
     mode: fields.NumberField<PlaylistMode, PlaylistMode, true>;
     playing: fields.BooleanField;
     fade: fields.NumberField;
@@ -45,5 +56,3 @@ type PlaylistSchema = {
 };
 
 export type PlaylistSource = fields.SourceFromSchema<PlaylistSchema>;
-
-export {};
