@@ -56,12 +56,22 @@
         },
         "rules": [
             {
+                "domain": "performance",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.PlayingItem",
+                "option": "playing",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
                 "value": "@item.system.runes.potency",
                 "selector": [
                     "performance"
                 ],
-                "type": "item"
+                "type": "item",
+                "predicate": [
+                    "playing"
+                ]
             }
         ],
         "runes": {
