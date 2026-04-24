@@ -1,12 +1,6 @@
 import { DocumentUUID } from "@client/utils/helpers.mjs";
 import { DocumentConstructionContext } from "@common/_types.mjs";
-import {
-    DocumentOwnershipLevel,
-    DocumentOwnershipNumber,
-    UserAction,
-    UserPermission,
-    UserRoleName,
-} from "@common/constants.mjs";
+import { DocumentOwnershipLevel, DocumentOwnershipNumber, UserAction } from "@common/constants.mjs";
 import BaseUser from "@common/documents/user.mjs";
 import { AppV1RenderOptions } from "../../client/appv1/api/application-v1.mjs";
 import { DataField, SourceFromSchema } from "../data/fields.mjs";
@@ -20,6 +14,7 @@ import {
     DatabaseUpdateOperation,
     DataModelValidationOptions,
     DataSchema,
+    DocumentClassMetadata,
 } from "./_types.mjs";
 import DatabaseBackend from "./backend.mjs";
 import DataModel from "./data.mjs";
@@ -54,7 +49,7 @@ export default abstract class Document<
     /* -------------------------------------------- */
 
     /** Default metadata which applies to each instance of this Document type. */
-    static get metadata(): DocumentMetadata;
+    static get metadata(): Readonly<DocumentClassMetadata>;
 
     /**
      * The database backend used to execute operations and handle results.
@@ -699,26 +694,6 @@ export default abstract class Document<
     ): Promise<void>;
 
     override toObject(source?: boolean): this["_source"];
-}
-
-type MetadataPermission = UserRoleName | UserPermission | ((...args: unknown[]) => boolean);
-
-export interface DocumentMetadata {
-    name: string;
-    collection: string;
-    label: string;
-    coreTypes: readonly string[];
-    embedded: Record<string, string>;
-    hasTypeData: boolean;
-    indexed: boolean;
-    compendiumIndexFields: string[];
-    permissions: {
-        view: MetadataPermission;
-        create: MetadataPermission;
-        update: MetadataPermission;
-        delete: MetadataPermission;
-    };
-    preserveOnImport: string[];
 }
 
 type _Document = Document<_Document | null>;

@@ -1,32 +1,41 @@
-import { DocumentOwnershipNumber, JournalEntryPageFormat } from "@common/constants.mjs";
-import { Document, DocumentMetadata } from "../abstract/_module.mjs";
+import { JournalEntryPageFormat } from "@common/constants.mjs";
+import { Document, DocumentClassMetadata } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
-import { BaseJournalEntry, BaseUser } from "./_module.mjs";
+import { BaseJournalEntry } from "./_module.mjs";
 
-/** The JournalEntryPage document model. */
-export default class BaseJournalEntryPage<TParent extends BaseJournalEntry | null> extends Document<
-    TParent,
-    JournalEntryPageSchema
-> {
+/**
+ * The JournalEntryPage Document.
+ * Defines the DataSchema and common behaviors for a JournalEntryPage which are shared between both client and server.
+ * @category Documents
+ */
+export default class BaseJournalEntryPage<
+    TParent extends BaseJournalEntry | null = BaseJournalEntry | null,
+> extends Document<TParent, JournalEntryPageSchema> {
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
+
     static override get metadata(): JournalEntryPageMetadata;
 
     static override defineSchema(): JournalEntryPageSchema;
 
-    override getUserLevel(user: BaseUser): DocumentOwnershipNumber;
+    static override LOCALIZATION_PREFIXES: string[];
 }
 
-export default interface BaseJournalEntryPage<TParent extends BaseJournalEntry | null>
+export default interface BaseJournalEntryPage<TParent extends BaseJournalEntry | null = BaseJournalEntry | null>
     extends Document<TParent, JournalEntryPageSchema>, fields.ModelPropsFromSchema<JournalEntryPageSchema> {
     get documentName(): JournalEntryPageMetadata["name"];
 }
 
-interface JournalEntryPageMetadata extends DocumentMetadata {
+interface JournalEntryPageMetadata extends DocumentClassMetadata {
     name: "JournalEntryPage";
     collection: "pages";
+    hasTypeData: true;
     indexed: true;
     label: "DOCUMENT.JournalEntryPage";
     labelPlural: "DOCUMENT.JournalEntryPages";
-    coreTypes: ["image", "pdf", "text", "video"];
+    coreTypes: ["text", "image", "pdf", "video"];
+    compendiumIndexFields: ["name", "type", "sort"];
 }
 
 type JournalEntryPageSchema<
@@ -35,26 +44,21 @@ type JournalEntryPageSchema<
     TSystemData extends object = TSystemSource,
 > = {
     _id: fields.DocumentIdField;
-    /** The text name of this page. */
     name: fields.StringField<string, string, true, false, false>;
-    /** The type of this page, in {@link BaseJournalEntryPage.TYPES}. */
-    type: fields.StringField<TType, TType, true, false, true>;
-    /** Data that control's the display of this page's title. */
+    type: fields.DocumentTypeField<TType, TType, true, false, true, BaseJournalEntryPage>;
+    system: fields.TypeDataField<TSystemSource, TSystemData>;
     title: fields.SchemaField<{
         show: fields.BooleanField;
         level: fields.NumberField<number, number, true, false, true>;
     }>;
-    /** Data particular to image journal entry pages. */
     image: fields.SchemaField<{
         caption: fields.StringField<string, string, false, false, false>;
     }>;
-    /** Data particular to text journal entry pages. */
     text: fields.SchemaField<{
         content: fields.HTMLField<string, string, false, false, false>;
         markdown: fields.StringField<string, string, false, false, false>;
         format: fields.NumberField<JournalEntryPageFormat>;
     }>;
-    /** Data particular to video journal entry pages. */
     video: fields.SchemaField<{
         controls: fields.BooleanField;
         loop: fields.BooleanField<boolean, boolean, false, false, false>;
@@ -64,20 +68,14 @@ type JournalEntryPageSchema<
         width: fields.NumberField<number, number, true, false, false>;
         height: fields.NumberField<number, number, false, false, false>;
     }>;
-    /** The URI of the image or other external media to be used for this page. */
     src: fields.StringField<string, string, false, true, true>;
-    /** System-specific data. */
-    system: fields.TypeDataField<TSystemSource, TSystemData>;
-    /** The numeric sort value which orders this page relative to its siblings. */
+    category: fields.DocumentIdField;
     sort: fields.IntegerSortField;
-    /** An object which configures the ownership of this page. */
     ownership: fields.DocumentOwnershipField;
-    /** An object of optional key/value flags. */
     flags: fields.DocumentFlagsField;
-    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 
 export type JournalEntryPageSource = fields.SourceFromSchema<JournalEntryPageSchema>;
 
-export type CorePageType = "image" | "pdf" | "text" | "video";
+export type CorePageType = JournalEntryPageMetadata["coreTypes"][number];

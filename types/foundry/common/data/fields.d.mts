@@ -1293,6 +1293,19 @@ export class HueField<
     protected static get _defaults(): NumberFieldOptions<number, boolean, boolean, boolean>;
 }
 
+/**
+ * A special `ForeignDocumentField` which defines the original author of a document.
+ * This can only be changed later by GM users.
+ */
+export class DocumentAuthorField<
+    TModelProp extends string | abstract.Document = abstract.Document,
+    TRequired extends boolean = true,
+    TNullable extends boolean = true,
+    THasInitial extends boolean = true,
+> extends ForeignDocumentField<TModelProp, TRequired, TNullable, THasInitial> {
+    protected static override get _defaults(): StringFieldOptions<string, boolean, boolean, boolean>;
+}
+
 /** A special `ObjectField` which captures a mapping of User IDs to Document permission levels. */
 export class DocumentOwnershipField extends ObjectField<{ [K in string]?: DocumentOwnershipNumber }> {
     protected static override get _defaults(): ObjectFieldOptions<
@@ -1627,7 +1640,7 @@ export class JavaScriptField<
 /**
  * A nullable set field used to reference a set of specific Scene Level documents.
  */
-export class SceneLevelsSetField extends SetField<DocumentIdField<string>> {
+export class SceneLevelsSetField extends SetField<DocumentIdField<string, true, false, true>> {
     /**
      * @param options Options which configure the behavior of the field
      * @param context Additional context which describes the field

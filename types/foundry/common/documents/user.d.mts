@@ -6,29 +6,36 @@ import {
     UserRole,
     UserRoleName,
 } from "@common/constants.mjs";
-import Document, { DocumentMetadata } from "../abstract/document.mjs";
+import Document from "../abstract/document.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseActor } from "./_module.mjs";
+import { DocumentClassMetadata } from "@common/abstract/_module.mjs";
 
 /**
- * The base User document, which is extended by both the server and client.
- * This base User provides shared functionality which is consistent for both sides of the application.
- * Each client who connects to a Foundry Virtual Tabletop session assumes the identity of one (and only one) User.
- *
- * @param data Initial data from which to construct the document.
- * @property   data The constructed data object for the document.
+ * The User Document.
+ * Defines the DataSchema and common behaviors for a User which are shared between both client and server.
+ * @category Documents
  */
 export default class BaseUser<TCharacter extends BaseActor<null> = BaseActor<null>> extends Document<
     null,
     UserSchema<TCharacter>
 > {
-    static override get metadata(): UserMetadata;
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
+
+    static override get metadata(): Readonly<UserMetadata>;
+
+    static override LOCALIZATION_PREFIXES: string[];
 
     static override defineSchema(): UserSchema<BaseActor<null>>;
 
-    /* ---------------------------------------- */
-    /*  Permissions                             */
-    /* ---------------------------------------- */
+    /* -------------------------------------------- */
+    /*  Model Properties                            */
+    /* -------------------------------------------- */
+
+    /** A convenience test for whether this User has the NONE role. */
+    get isBanned(): boolean;
 
     /** Test whether the User has a GAMEMASTER or ASSISTANT role in this World? */
     get isGM(): boolean;
@@ -66,7 +73,7 @@ export default interface BaseUser<TCharacter extends BaseActor<null> = BaseActor
     get documentName(): UserMetadata["name"];
 }
 
-interface UserMetadata extends DocumentMetadata {
+interface UserMetadata extends DocumentClassMetadata {
     name: "User";
     collection: "users";
     label: "DOCUMENT.User";

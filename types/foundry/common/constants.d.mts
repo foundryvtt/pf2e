@@ -826,6 +826,8 @@ export const AUDIO_CHANNELS: Readonly<{
     interface: "AUDIO.CHANNELS.INTERFACE.label";
 }>;
 
+export type AudioChannel = keyof typeof AUDIO_CHANNELS;
+
 /**
  * The allowed playback modes for an audio Playlist
  * @see https://foundryvtt.com/article/playlists/

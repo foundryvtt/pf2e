@@ -1,43 +1,31 @@
 import { DatabaseCreateCallbackOptions } from "@common/abstract/_types.mjs";
-import {
-    DocumentOwnershipLevel,
-    ActiveEffectDurationUnit,
-    ActiveEffectShowIcon,
-    ImageFilePath,
-    UserAction,
-} from "@common/constants.mjs";
-import { Document, DocumentMetadata } from "../abstract/_module.mjs";
+import { ActiveEffectDurationUnit, ActiveEffectShowIcon, ImageFilePath } from "@common/constants.mjs";
+import { Document, DocumentClassMetadata } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
-import { ActorUUID, BaseActor, BaseCombat, BaseItem, BaseUser, ItemUUID } from "./_module.mjs";
+import { ActorUUID, BaseActor, BaseCombat, BaseFolder, BaseItem, BaseUser, ItemUUID } from "./_module.mjs";
 
 /**
- * The ActiveEffect document model.
- * @param data    Initial data from which to construct the document.
- * @param context Construction context options
+ * The ActiveEffect Document.
+ * Defines the DataSchema and common behaviors for an ActiveEffect which are shared between both client and server.
+ * @category Documents
  */
-export default class BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseActor | null> | null> extends Document<
-    TParent,
-    ActiveEffectSchema
-> {
+export default class BaseActiveEffect<
+    TParent extends BaseActor | BaseItem<BaseActor | null> | null = BaseActor | BaseItem<BaseActor | null> | null,
+> extends Document<TParent, ActiveEffectSchema> {
     /* -------------------------------------------- */
     /*  Model Configuration                         */
     /* -------------------------------------------- */
 
-    static override get metadata(): ActiveEffectMetadata;
+    static override get metadata(): Readonly<ActiveEffectMetadata>;
 
     static override defineSchema(): ActiveEffectSchema;
 
-    /* -------------------------------------------- */
-    /*  Model Methods                               */
-    /* -------------------------------------------- */
+    static override LOCALIZATION_PREFIXES: string[];
 
-    override canUserModify(user: BaseUser, action: UserAction, data?: object): boolean;
+    /** The default icon used for newly created ActiveEffect documents */
+    static DEFAULT_ICON: string;
 
-    override testUserPermission(
-        user: BaseUser,
-        permission: DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean },
-    ): boolean;
+    static override canUserCreate(user: BaseUser): boolean;
 
     /* -------------------------------------------- */
     /*  Database Event Handlers                     */
@@ -50,33 +38,43 @@ export default class BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseA
     ): Promise<boolean | void>;
 }
 
-export default interface BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseActor | null> | null>
+export default interface BaseActiveEffect<
+    TParent extends BaseActor | BaseItem<BaseActor | null> | null = BaseActor | BaseItem<BaseActor | null> | null,
+>
     extends Document<TParent, ActiveEffectSchema>, fields.ModelPropsFromSchema<ActiveEffectSchema> {
     get documentName(): ActiveEffectMetadata["name"];
+
+    get folder(): BaseFolder | null;
 }
 
-export interface ActiveEffectMetadata extends DocumentMetadata {
+export interface ActiveEffectMetadata extends DocumentClassMetadata {
     name: "ActiveEffect";
     collection: "effects";
+    hasTypeData: true;
+    baseTypeAllowed: true;
+    indexed: true;
+    compendiumIndexFields: ["_id", "name", "img", "type", "sort", "folder"];
     label: "DOCUMENT.ActiveEffect";
-    isEmbedded: true;
+    labelPlural: "DOCUMENT.ActiveEffects";
 }
 
 type ActiveEffectSchema = {
     _id: fields.DocumentIdField;
     name: fields.StringField<string, string, true, false, false>;
-    system: fields.TypeDataField;
+    img: fields.FilePathField<ImageFilePath>;
     type: fields.StringField<string, string, false, true, true>;
+    system: fields.TypeDataField;
     disabled: fields.BooleanField;
     start: fields.SchemaField<EffectStartSchema, EffectStartSource, EffectStartData, true, true, true>;
     duration: fields.SchemaField<EffectDurationSchema>;
     description: fields.HTMLField;
-    img: fields.FilePathField<ImageFilePath>;
     origin: fields.DocumentUUIDField<ActorUUID | ItemUUID>;
     tint: fields.ColorField;
     transfer: fields.BooleanField;
     statuses: fields.SetField<fields.StringField<string, string, true, false, false>>;
     showIcon: fields.NumberField<ActiveEffectShowIcon, ActiveEffectShowIcon, true, false, true>;
+    folder: fields.ForeignDocumentField<BaseFolder>;
+    sort: fields.IntegerSortField;
     flags: fields.DocumentFlagsField;
     _stats: fields.DocumentStatsField;
 };

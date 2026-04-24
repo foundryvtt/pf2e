@@ -1,7 +1,8 @@
 import { ImageFilePath, TextureDataFitMode, VideoFilePath } from "@common/constants.mjs";
-import Document, { DocumentMetadata } from "../abstract/document.mjs";
+import Document from "../abstract/document.mjs";
 import * as fields from "../data/fields.mjs";
 import BaseScene from "./scene.mjs";
+import { DocumentClassMetadata } from "@common/abstract/_module.mjs";
 
 /**
  * The Level Document.
@@ -44,24 +45,27 @@ import BaseScene from "./scene.mjs";
  * ]);
  * ```
  */
-export default class BaseLevel<TParent extends BaseScene | null> extends Document<TParent, LevelSchema> {
+export default class BaseLevel<TParent extends BaseScene | null = BaseScene | null> extends Document<
+    TParent,
+    LevelSchema
+> {
     /* ---------------------------------------- */
     /*  Model Configuration                     */
     /* ---------------------------------------- */
 
-    static override metadata: LevelMetadata;
+    static override metadata: Readonly<LevelMetadata>;
 
     static override LOCALIZATION_PREFIXES: string[];
 
     static override defineSchema(): LevelSchema;
 }
 
-export default interface BaseLevel<TParent extends BaseScene | null>
+export default interface BaseLevel<TParent extends BaseScene | null = BaseScene | null>
     extends Document<TParent, LevelSchema>, fields.ModelPropsFromSchema<LevelSchema> {
     get documentName(): LevelMetadata["name"];
 }
 
-interface LevelMetadata extends DocumentMetadata {
+interface LevelMetadata extends DocumentClassMetadata {
     name: "Level";
     collection: "levels";
     label: "DOCUMENT.Level";
@@ -108,4 +112,4 @@ type LevelSchema = {
     flags: fields.DocumentFlagsField;
 };
 
-export {};
+export type LevelSource = fields.SourceFromSchema<LevelSchema>;
