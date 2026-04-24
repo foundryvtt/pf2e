@@ -42,7 +42,7 @@ interface CombatantMetadata extends DocumentClassMetadata {
 
 type CombatantSchema = {
     _id: fields.DocumentIdField;
-    // type: fields.DocumentTypeField<string, string, true, false, true, BaseCombatant>;
+    type: fields.DocumentTypeField<string, string, true, false, true, BaseCombatant>;
     system: fields.TypeDataField;
     actorId: fields.ForeignDocumentField<string>;
     tokenId: fields.ForeignDocumentField<string>;

@@ -442,6 +442,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         } else {
             await game.combat.createEmbeddedDocuments("Combatant", [
                 {
+                    type: "base",
                     tokenId: this.id,
                     initiative,
                 },
@@ -484,7 +485,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                 const existing = options?.combat ?? combatants[0]?.combat ?? game.combats.viewed;
                 if (existing) return existing;
 
-                const combat = game.user.isGM ? await EncounterPF2e.create({ active: true }, { render: false }) : null;
+                const combat = game.user.isGM
+                    ? await EncounterPF2e.create({ type: "base", active: true }, { render: false })
+                    : null;
                 if (!combat) throw new Error(_loc("COMBAT.NoneActive"));
                 return combat;
             })();
@@ -492,6 +495,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                 ...(await combat.createEmbeddedDocuments(
                     "Combatant",
                     troops.map((t) => ({
+                        type: "base",
                         sceneId: t.parent?.id,
                         hidden: t.hidden,
                         flags: {

@@ -31,7 +31,7 @@ class CombatantPF2e<
 
     /** Remove any party to be added to an encounter and instead add its members */
     static #swapPartyForMembers(
-        data: (CombatantPF2e | PreCreate<CombatantSource>)[],
+        data: (CombatantPF2e | DeepPartial<CombatantSource>)[],
         operation: Partial<DatabaseCreateOperation<EncounterPF2e | null>>,
     ): void {
         for (const datum of [...data]) {
@@ -77,6 +77,7 @@ class CombatantPF2e<
                 "Combatant",
                 [
                     {
+                        type: "base",
                         tokenId: token.id,
                         actorId: token.actor?.id,
                         sceneId: token.scene.id,
