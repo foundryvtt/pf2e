@@ -56,7 +56,7 @@ interface CombatMetadata extends DocumentClassMetadata {
 
 type CombatSchema = {
     _id: fields.DocumentIdField;
-    // type: fields.DocumentTypeField<string, string, true, false, true, BaseCombat>;
+    type: fields.DocumentTypeField<string, string, true, false, true, BaseCombat>;
     system: fields.TypeDataField;
     scene: fields.ForeignDocumentField<BaseScene>;
     groups: fields.EmbeddedCollectionField<BaseCombatantGroup<BaseCombat>>;
