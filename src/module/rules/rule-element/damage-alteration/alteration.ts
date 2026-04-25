@@ -107,7 +107,7 @@ class DamageAlteration {
 
         const parent = rule.parent ?? { getRollOptions: () => [] };
         const predicate = rule.predicate;
-        rule.resolveValue?.(predicate);
+        rule.resolveInjectedProperties?.(predicate);
         const predicatePassed =
             !predicate?.length ||
             predicate.test([...options.test, ...damage.getRollOptions(), ...parent.getRollOptions("parent")]);
@@ -142,6 +142,7 @@ class DamageAlteration {
 
 interface PartialRuleElement extends Pick<DamageAlterationRuleElement, "mode" | "property" | "slug" | "value"> {
     resolveValue?: DamageAlterationRuleElement["resolveValue"];
+    resolveInjectedProperties?: DamageAlterationRuleElement["resolveInjectedProperties"];
     ignored?: boolean;
     parent?: ItemPF2e<ActorPF2e>;
     predicate?: Predicate;
