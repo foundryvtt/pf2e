@@ -216,7 +216,11 @@ for (const contentSystem of contentSystems) {
         if (!pack) continue;
 
         const data = pack.data
-            .filter((d) => !!d._id && !(packPair.overlaps.has(d.name) || packPair.overlaps.has(d._id)))
+            .filter((d) => {
+                if (!d._id) return false;
+                const isOverlap = packPair.overlaps.has(d.name) || packPair.overlaps.has(d._id);
+                return !isOverlap && !packPair.duplicated.has(d.name);
+            })
             .map((entry) => {
                 entry = recursiveReplaceString(entry, (s) => {
                     s = s.replaceAll(`systems/${contentSystem}`, `systems/${targetSystem}`);
