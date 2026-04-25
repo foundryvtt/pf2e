@@ -308,14 +308,58 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Urnak is wielding a two-handed weapon in both hands</p>\n<hr />\n<p><strong>Effect</strong> Urnak attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] a creature within reach. On a success or critical success, Urnak deals [[/r 13]] damage of the weapon's type to the Disarmed creature. If he rolls a failure to Disarm, he gets a success instead.</p>"
+                    "value": "<p><strong>Requirements</strong> Urnak is wielding a two-handed weapon in both hands</p><hr /><p><strong>Effect</strong> Urnak attempts to [[/act disarm]] a creature within reach. On a success or critical success, Urnak deals @Damage[13[untyped]] damage of the weapon's type to the Disarmed creature. If he rolls a failure to Disarm, he gets a success instead.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "brutally-disarm",
+                        "selection": "slashing",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            },
+                            {
+                                "label": "PF2E.TraitSlashing",
+                                "value": "slashing"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "brutally-disarm"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "{item|id}-inline-damage"
+                        ],
+                        "value": "{item|flags.system.rulesSelections.brutallyDisarm}"
+                    },
+                    {
+                        "adjustment": {
+                            "failure": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "action:disarm",
+                            "brutally-disarm"
+                        ],
+                        "selector": "athletics"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
