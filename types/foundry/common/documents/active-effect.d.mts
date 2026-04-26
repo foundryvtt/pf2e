@@ -1,8 +1,8 @@
 import { DatabaseCreateCallbackOptions } from "@common/abstract/_types.mjs";
 import {
-    DocumentOwnershipLevel,
     ActiveEffectDurationUnit,
     ActiveEffectShowIcon,
+    DocumentOwnershipLevel,
     ImageFilePath,
     UserAction,
 } from "@common/constants.mjs";

@@ -28,6 +28,7 @@ export class MigrationRunnerBase {
         11: 0.841,
         12: 0.927,
         13: 0.936,
+        14: 0.955,
     };
 
     constructor(migrations: MigrationBase[] = []) {

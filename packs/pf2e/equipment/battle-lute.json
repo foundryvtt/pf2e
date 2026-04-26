@@ -54,7 +54,26 @@
         "reload": {
             "value": null
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "performance",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.PlayingItem",
+                "option": "playing",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "value": "@item.system.runes.potency",
+                "selector": [
+                    "performance"
+                ],
+                "type": "item",
+                "predicate": [
+                    "playing"
+                ]
+            }
+        ],
         "runes": {
             "potency": 0,
             "property": [],

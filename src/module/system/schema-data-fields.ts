@@ -178,19 +178,28 @@ class LaxArrayField<
     TNullable extends boolean = false,
     THasInitial extends boolean = true,
 > extends fields.ArrayField<TElementField, TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
-    protected override _validateElements(
-        value: unknown[],
-        options?: DataFieldValidationOptions,
-    ): void | validation.DataModelValidationFailure {
-        const failure = super._validateElements(value, options);
-        if (!failure) return failure;
-
-        for (const element of failure.elements) {
-            value.splice(Number(element.id), 1);
+    protected override _validateRecursive(value: unknown, options?: DataFieldValidationOptions): boolean | void {
+        try {
+            super._validateRecursive(value, options);
+        } catch (failure) {
+            if (Array.isArray(value) && failure instanceof validation.DataModelValidationFailure) {
+                const model = options?.model;
+                const messageParts =
+                    model instanceof foundry.abstract.Document && "name" in model._source
+                        ? [`${model._source.name} (${model.uuid}): element-validation failure at ${this.fieldPath}`]
+                        : null;
+                for (const elementFailure of failure.elements) {
+                    value.splice(Number(elementFailure.id), 1);
+                    elementFailure.failure.unresolved = false;
+                    elementFailure.failure.dropped = true;
+                    if (elementFailure.failure.message) messageParts?.push(`  ${elementFailure.failure.message}`);
+                }
+                failure.unresolved = false;
+                const message = messageParts?.join("\n");
+                if (message) console.warn(message);
+            }
+            throw failure;
         }
-        failure.unresolved = false;
-
-        return failure;
     }
 }
 

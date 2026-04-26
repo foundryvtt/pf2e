@@ -71,19 +71,15 @@ export abstract class DataField<
     /** The initially provided options which configure the data field */
     options: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>;
 
-    /** Is this field required to be populated? */
-    required: TRequired;
+    /**
+     * Is a value of this field written to source data? A Non-persisted value is initialized (with its initial value),
+     * and ActiveEffects can use the field for change application.
+     */
+    persisted: boolean;
 
-    /** Can this field have null values? */
-    nullable: TNullable;
-
-    /** The initial value of a field, or a function which assigns that initial value. */
-    initial: this["options"]["initial"];
-
-    /** A localizable label displayed on forms which render this field. */
-    label: string;
-
-    /** Whether this field defines part of a Document/Embedded Document hierarchy. */
+    /**
+     * Whether this field defines part of a Document/Embedded Document hierarchy.
+     */
     static hierarchical: boolean;
 
     /**
@@ -93,10 +89,32 @@ export abstract class DataField<
      */
     static recursive: boolean;
 
+    /**
+     *  Is this field required to be populated?
+     */
+    required: TRequired;
+
+    /**
+     * Can this field have null values?
+     */
+    nullable: TNullable;
+
+    /**
+     * The initial value of a field, or a function which assigns that initial value.
+     */
+    initial: this["options"]["initial"];
+
+    /**
+     * A localizable label displayed on forms which render this field.
+     */
+    label: string;
+
     /** Default parameters for this field type */
     protected static get _defaults(): DataFieldOptions<unknown, boolean, boolean, boolean>;
 
-    /** A dot-separated string representation of the field path within the parent schema. */
+    /**
+     * A dot-separated string representation of the field path within the parent schema.
+     */
     get fieldPath(): string;
 
     /**
@@ -113,24 +131,15 @@ export abstract class DataField<
     ): unknown;
 
     /**
-     * Add types of the source to the data if they are missing.
-     * @param source The source data
-     * @param changes The partial data
-     * @param options Additional options
-     * @param options.source The root data model source
-     * @param options.changes The root data model changes
-     */
-    protected _addTypes(source: object, changes: object, options?: { source?: object; changes?: object }): void;
-
-    /**
      * Recursively traverse a schema and retrieve a field specification by a given path/key
      * @param parts The field path or property key if `source` is passed as an array of strings (in reverse order)
      * @param options Additional options
      * @param options.source The source data of the field
      * @param options.type The Document type of the parent field
      * @returns The corresponding DataField definition for that field, or undefined
+     * @protected
      */
-    protected _getField(parts: string[], options?: { source?: object; type?: string }): DataField | undefined;
+    protected _getField(parts: string[], options?: { source?: object; type?: object }): DataField | undefined;
 
     /* -------------------------------------------- */
     /*  Field Cleaning                              */
@@ -142,9 +151,8 @@ export abstract class DataField<
      * For one-off cleaning of user-provided input the sanitize method should be used.
      * @param value The initial value
      * @param options Additional options for how the field is cleaned
-     * @param [options.partial] Whether to perform partial cleaning?
-     * @param [options.source]  The root data model being cleaned
-     * @returns The cast value
+     * @param _state Internal state variables which are used during recursion
+     * @returns The cleaned value
      */
     clean(
         value: unknown,
@@ -242,9 +250,10 @@ export abstract class DataField<
      * a DataModelValidationFailure instance.
      * A validator which returns true denotes that the result is certainly valid and further validations are unnecessary.
      * @param value The initial value
-     * @param [options={}]   Options which affect validation behavior
-     * @returns              Returns a DataModelValidationFailure if a validation failure
-     *                       occurred.
+     * @param options Options which affect validation behavior
+     * @returns A failure that occurred if validation is non-strict. The failure may have been resolved by fallback or
+     *          dropping invalid elements.
+     * @throws A failure error type including details of the failure if validation is performed strictly.
      */
     validate(value: unknown, options?: DataFieldValidationOptions): DataModelValidationFailure | void;
 
@@ -252,24 +261,34 @@ export abstract class DataField<
      * Special validation rules which supersede regular field validation.
      * This validator screens for certain values which are otherwise incompatible with this field like null or undefined.
      * @param value The candidate value
-     * @returns A boolean to indicate with certainty whether the value is valid.
-     *                                Otherwise, return void.
-     * @throws May throw a specific error if the value is not valid
+     * @returns A boolean to indicate with certainty whether the value is valid
+     * @throws An error with a specific reason the value is invalid
      */
     protected _validateSpecial(value: unknown): boolean | void;
 
     /**
      * A default type-specific validator that can be overridden by child classes
      * @param value The candidate value
-     * @param [options={}] Options which affect validation behavior
-     * @returns A boolean to indicate with certainty whether the value is valid, or specific DataModelValidationFailure
-     *          information, otherwise void.
-     * @throws May throw a specific error if the value is not valid
+     * @param options Options which affect validation behavior
+     * @returns A boolean to indicate with certainty whether the value is valid
+     * @throws An error with a specific reason the value is invalid
      */
     protected _validateType(
         value: unknown,
         options?: DataFieldValidationOptions,
     ): boolean | DataModelValidationFailure | void;
+
+    /**
+     * For fields which have hierarchical data structures, define how their inner fields should be validated.
+     * This method is called after _validateSpecial and _validateType. It can be assumed that those tests passed.
+     * This method should throw if any validation error occurred, even if resolved by fallback or dropping.
+     *
+     * @param value The candidate value
+     * @param options Options which affect validation behavior
+     * @returns  A boolean to indicate with certainty whether the value is valid
+     * @throws An error with a specific reason the value is invalid
+     */
+    protected _validateRecursive(value: unknown, options?: DataFieldValidationOptions): boolean | void;
 
     /**
      * Certain fields may declare joint data validation criteria.
@@ -400,12 +419,22 @@ export abstract class DataField<
     _castChangeDelta(delta: unknown): unknown;
 
     /**
-     * Apply an ADD change to this field.
-     * @param   value   The field's current value.
-     * @param   delta   The change delta.
-     * @param   model   The model instance.
-     * @param   change  The original change data.
-     * @returns         The updated value.
+     * Recursively replace data references in a string change value.
+     * @param raw
+     * @param data An object providing replacements
+     * @param options Additional options to configure the data replacement
+     * @param options.strict Throw an Error if data replacement fails
+     * @returns The expression with data references resolved
+     */
+    protected _replaceDataRefs(raw: string, data: Record<string, unknown>, options?: { strict?: boolean }): string;
+
+    /**
+     * Apply an "add" change to this field.
+     * @param value The field's current value.
+     * @param delta The change delta.
+     * @param model The model instance.
+     * @param change The original change data.
+     * @returns The updated value.
      */
     protected _applyChangeAdd(
         value: unknown,
@@ -415,12 +444,27 @@ export abstract class DataField<
     ): unknown;
 
     /**
-     * Apply a MULTIPLY change to this field.
-     * @param   value   The field's current value.
-     * @param   delta   The change delta.
-     * @param   model   The model instance.
-     * @param   change  The original change data.
-     * @returns         The updated value.
+     * Apply a "subtract" change to this field.
+     * @param value The field's current value.
+     * @param delta The change delta.
+     * @param model The model instance.
+     * @param change The original change data.
+     * @returns The updated value.
+     */
+    protected _applyChangeSubtract(
+        value: unknown,
+        delta: unknown,
+        model: abstract.DataModel,
+        change: EffectChangeData,
+    ): unknown;
+
+    /**
+     * Apply a "multiply" change to this field.
+     * @param value The field's current value.
+     * @param delta The change delta.
+     * @param model The model instance.
+     * @param change The original change data.
+     * @returns The updated value.
      */
     protected _applyChangeMultiply(
         value: unknown,
@@ -430,12 +474,12 @@ export abstract class DataField<
     ): unknown;
 
     /**
-     * Apply an OVERRIDE change to this field.
-     * @param   value   The field's current value.
-     * @param   delta   The change delta.
-     * @param   model   The model instance.
-     * @param   change  The original change data.
-     * @returns         The updated value.
+     * Apply an "override" change to this field.
+     * @param value The field's current value.
+     * @param delta The change delta.
+     * @param model The model instance.
+     * @param change The original change data.
+     * @returns The updated value.
      */
     protected _applyChangeOverride(
         value: unknown,
@@ -445,12 +489,12 @@ export abstract class DataField<
     ): unknown;
 
     /**
-     * Apply an UPGRADE change to this field.
-     * @param   value   The field's current value.
-     * @param   delta   The change delta.
-     * @param   model   The model instance.
-     * @param   change  The original change data.
-     * @returns         The updated value.
+     * Apply an "upgrade" change to this field.
+     * @param value The field's current value.
+     * @param delta The change delta.
+     * @param model The model instance.
+     * @param change The original change data.
+     * @returns The updated value.
      */
     protected _applyChangeUpgrade(
         value: unknown,
@@ -460,12 +504,12 @@ export abstract class DataField<
     ): unknown;
 
     /**
-     * Apply a DOWNGRADE change to this field.
-     * @param   value   The field's current value.
-     * @param   delta   The change delta.
-     * @param   model   The model instance.
-     * @param   change  The original change data.
-     * @returns         The updated value.
+     * Apply a "downgrade" change to this field.
+     * @param value The field's current value.
+     * @param delta The change delta.
+     * @param model The model instance.
+     * @param change The original change data.
+     * @returns The updated value.
      */
     protected _applyChangeDowngrade(
         value: unknown,
@@ -475,12 +519,12 @@ export abstract class DataField<
     ): unknown;
 
     /**
-     * Apply a CUSTOM change to this field.
-     * @param   value   The field's current value.
-     * @param   delta   The change delta.
-     * @param   model   The model instance.
-     * @param   change  The original change data.
-     * @returns         The updated value.
+     * Apply a custom change to this field.
+     * @param value The field's current value.
+     * @param delta The change delta.
+     * @param model The model instance.
+     * @param change The original change data.
+     * @returns The updated value.
      */
     protected _applyChangeCustom(
         value: unknown,
@@ -524,7 +568,19 @@ export class SchemaField<
      * @param fields The provided field definitions
      * @returns The validated schema
      */
-    protected _initialize(fields: abstract.DataSchema): abstract.DataSchema;
+    protected _initialize(fields: abstract.DataSchema): TDataSchema;
+
+    /**
+     * Extend this schema definition with additional fields.
+     * @param fields The additional fields.
+     */
+    extendFields(fields: abstract.DataSchema): void;
+
+    /**
+     * Remove fields from this schema definition.
+     * @param fields The fields to remove.
+     */
+    removeFields(fields: string[]): void;
 
     /* -------------------------------------------- */
     /*  Schema Iteration                            */
@@ -556,9 +612,23 @@ export class SchemaField<
      */
     get(fieldName: string): DataField | undefined;
 
+    /**
+     * Traverse the schema, obtaining the DataField definition for a particular field.
+     * @param pathOrKey A field path or property key if `options.source` is given. Examples: `["abilities", "strength"]`
+     *                  or `"abilities.strength"`.
+     * @param options Additional options
+     * @param options.source The source data of the field
+     * @returns The corresponding DataField definition for that field, or undefined
+     */
+    getField(pathOrKey: string[] | string, options?: { source?: object }): DataField | undefined;
+
+    protected override _getField(parts: string[], options?: { source?: object; type?: object }): DataField | undefined;
+
     /* -------------------------------------------- */
-    /*  Data Field Methods                          */
+    /*  Data Cleaning                               */
     /* -------------------------------------------- */
+
+    override getInitialValue(data?: object): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
     protected override _cast(value: unknown): object;
 
@@ -568,16 +638,81 @@ export class SchemaField<
         _state: DataModelUpdateState,
     ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
+    /* -------------------------------------------- */
+
+    /**
+     * Expand a transacted object.
+     * @param data The object.
+     * @param options Cleaning operation options.
+     * @param _state Cleaning operation state.
+     */
+    static expandObject(data: object, options: DataModelCleaningOptions, _state: DataModelUpdateState): void;
+
+    /**
+     * When iterating over the keys and values of an object, reconstruct serialized DataFieldOperator values.
+     */
+    static reconstructOperator(data: object, k: string, v: unknown): void;
+
+    /* -------------------------------------------- */
+    /*  Data Initialization                         */
+    /* -------------------------------------------- */
+
     override initialize(
         value: MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>,
         model?: abstract.DataModel,
         options?: Record<string, unknown>,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
+    override _updateDiff(
+        source: object,
+        key: string,
+        value: unknown,
+        difference: object,
+        options: abstract.DataModelUpdateOptions,
+    ): void;
+
+    override _updateCommit(
+        source: object,
+        key: string,
+        value: object,
+        diff: object,
+        options: abstract.DataModelUpdateOptions,
+    ): void;
+
+    /* -------------------------------------------- */
+    /*  Data Validation                             */
+    /* -------------------------------------------- */
+
     protected override _validateType(
         data: object,
         options?: DataFieldValidationOptions,
     ): boolean | DataModelValidationFailure | void;
+
+    protected override _validateRecursive(value: unknown, options?: DataFieldValidationOptions): boolean | void;
+
+    /**
+     * An internal helper function that attempts fallback to a valid initial value in the case of validation failure.
+     * @param field The child data field being handled
+     * @param data Data attempted for validation at the parent level
+     * @param key The key of this field being validated
+     * @param parentFailure The validation failure at the parent level
+     * @param fieldFailure The validation failure at this field level
+     * @param options Handling options
+     */
+    static _handleValidationFailure(
+        field: DataField,
+        data: object,
+        key: string,
+        parentFailure: DataModelValidationFailure,
+        fieldFailure: DataModelValidationFailure,
+        options: Partial<abstract.DataModelValidationOptions>,
+    ): void;
+
+    override _validateModel(data: TSourceProp, options?: DataFieldValidationOptions): void;
+
+    /* -------------------------------------------- */
+    /*  Field Transformations                       */
+    /* -------------------------------------------- */
 
     override toObject(value: TModelProp): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
@@ -585,6 +720,13 @@ export class SchemaField<
         fn: string | ((field: this, value?: unknown, options?: Record<string, unknown>) => unknown),
         data?: object,
         options?: Record<string, unknown>,
+    ): unknown;
+
+    protected override _applyChangeAdd(
+        value: unknown,
+        delta: unknown,
+        model: abstract.DataModel,
+        change: EffectChangeData,
     ): unknown;
 }
 
@@ -799,8 +941,6 @@ export class TypedObjectField<
         options?: Record<string, unknown>,
     ): unknown;
 
-    override _addTypes(source: object, changes: object, options?: object): void;
-
     override _getField(path: string[]): this | undefined;
 
     /**
@@ -836,6 +976,8 @@ export class ArrayField<
 
     protected static override get _defaults(): ArrayFieldOptions<unknown[], true, false, true>;
 
+    static override recursive: true;
+
     /** The data type of each element in this array */
     element: TElementField;
 
@@ -845,26 +987,11 @@ export class ArrayField<
      * @returns The validated element type
      * @throws An error if the element is not a valid type
      */
-    protected static _validateElementType(element: unknown): unknown;
+    protected static _validateElementType(element: unknown): DataField;
 
-    override _validateModel(changes: TSourceProp, options?: DataFieldValidationOptions): void;
-
-    protected override _cast(value: unknown): unknown;
-
-    protected _cleanType(value: unknown, options: DataModelCleaningOptions, _state: DataModelUpdateState): unknown;
-
-    protected override _validateType(value: unknown, options?: DataFieldValidationOptions): void;
-
-    /**
-     * Validate every element of the ArrayField
-     * @param value The array to validate
-     * @param options Validation options
-     * @returns An array of element-specific errors
-     */
-    protected _validateElements(
-        value: unknown[],
-        options?: DataFieldValidationOptions,
-    ): DataModelValidationFailure | void;
+    override getInitialValue(
+        data?: object,
+    ): ResolveNullable<ResolveRequired<TSourceProp, TRequired, THasInitial>, TNullable>;
 
     override initialize(
         value: MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>,
@@ -872,12 +999,98 @@ export class ArrayField<
         options: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
+    protected override _getField(parts: string[], options?: { source?: object; type?: object }): DataField | undefined;
+
+    /* ---------------------------------------- */
+    /*  Field Cleaning                          */
+    /* ---------------------------------------- */
+
+    protected override _cast(value: unknown): unknown;
+
+    protected _cleanType(value: unknown, options: DataModelCleaningOptions, _state: DataModelUpdateState): unknown;
+
+    /**
+     * Clean data for an individual element in the ArrayField.
+     * @param value Unclean data for the array entry
+     * @param options Options which control how data is cleaned
+     * @param _state State used during data cleaning
+     * @returns Cleaned data for the array entry
+     */
+    protected _cleanElement(value: object, options: DataModelCleaningOptions, _state: DataModelUpdateState): object;
+
+    /* ---------------------------------------- */
+    /*  Field Validation                        */
+    /* ---------------------------------------- */
+
+    protected override _validateType(value: unknown[], options?: DataFieldValidationOptions): void;
+
+    protected override _validateRecursive(value: unknown, options?: DataFieldValidationOptions): boolean | void;
+
+    override _validateModel(changes: TSourceProp, options?: DataFieldValidationOptions): void;
+
+    /**
+     * @see {@link SchemaField._handleValidationFailure}
+     * @internal
+     */
+    static _handleValidationFailure(
+        field: DataField,
+        data: object,
+        key: string,
+        parentFailure: DataModelValidationFailure,
+        fieldFailure: DataModelValidationFailure,
+        options: Partial<abstract.DataModelValidationOptions>,
+    ): void;
+
+    /* ---------------------------------------- */
+    /*  Field Updates                           */
+    /* ---------------------------------------- */
+
+    override _updateDiff(
+        source: object,
+        key: string,
+        value: unknown,
+        difference: object,
+        options: abstract.DataModelUpdateOptions,
+    ): void;
+
+    override _updateCommit(
+        source: object,
+        key: string,
+        value: object,
+        diff: object,
+        options: abstract.DataModelUpdateOptions,
+    ): void;
+
+    /* -------------------------------------------- */
+    /*  Field Transformations                       */
+    /* -------------------------------------------- */
+
     override toObject(value: TModelProp): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
     override apply(
         fn: string | ((field: this, value?: unknown, options?: Record<string, unknown>) => unknown),
         data?: object,
         options?: Record<string, unknown>,
+    ): unknown;
+
+    /* -------------------------------------------- */
+    /*  Active Effect Integration                   */
+    /* -------------------------------------------- */
+
+    override _castChangeDelta(delta: unknown): unknown;
+
+    protected override _applyChangeAdd(
+        value: unknown[],
+        delta: unknown,
+        model: abstract.DataModel,
+        change: EffectChangeData,
+    ): unknown[];
+
+    protected override _applyChangeSubtract(
+        value: unknown,
+        delta: unknown,
+        model: abstract.DataModel,
+        change: EffectChangeData,
     ): unknown;
 }
 
@@ -907,11 +1120,6 @@ export class SetField<
     TNullable extends boolean = false,
     THasInitial extends boolean = TRequired,
 > extends ArrayField<TElementField, TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
-    protected override _validateElements(
-        value: unknown[],
-        options?: DataFieldValidationOptions,
-    ): DataModelValidationFailure | void;
-
     override initialize(
         value: MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>,
         model: abstract.DataModel,
@@ -942,7 +1150,7 @@ export class DataModelSchemaField<
         context?: DataFieldContext,
     );
 
-    protected override _getField(parts: string[], options?: { source?: object; type?: string }): DataField | undefined;
+    protected override _getField(parts: string[], options?: { source?: object; type?: object }): DataField | undefined;
 
     /* ---------------------------------------- */
     /*  Field Cleaning                          */
@@ -1077,7 +1285,7 @@ export class EmbeddedCollectionField<
         context?: DataFieldContext,
     );
 
-    static override _validateElementType(element: unknown): Document;
+    static override _validateElementType(element: unknown): DataField;
 
     /** A reference to the DataModel subclass of the embedded document element */
     get model(): ConstructorOf<Document>;
@@ -1089,11 +1297,6 @@ export class EmbeddedCollectionField<
         value: unknown,
         options?: DataModelCleaningOptions,
     ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
-
-    protected override _validateElements(
-        value: unknown[],
-        options?: DataFieldValidationOptions,
-    ): DataModelValidationFailure | void;
 
     override initialize(
         _value: MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>,
@@ -1506,7 +1709,7 @@ export class TypeDataField<
     migrateSource(sourceData: Record<string, unknown>, fieldData: Record<string, unknown>): void;
 }
 
-/** A subclass of [DataField]{@link DataField} which allows to typed schemas. */
+/** A subclass of {@link DataField} which allows to typed schemas. */
 export class TypedSchemaField<
     TTypes extends Record<string, abstract.DataSchema | SchemaField | ConstructorOf<abstract.DataModel>>,
     TRequired extends boolean = true,
@@ -1535,7 +1738,7 @@ export class TypedSchemaField<
     /** The types of this field. */
     types: TTypes;
 
-    override _getField(path: string[]): this;
+    protected override _getField(path: string[]): DataField | undefined;
 
     /* -------------------------------------------- */
     /*  Data Field Methods                          */

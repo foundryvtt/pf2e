@@ -470,7 +470,9 @@ class Check {
         const unevaluatedNewRoll = ((): CheckRoll => {
             if (resource?.slug !== "mythic-points" || !actor.isOfType("character")) return oldRoll.clone();
             // Create a new CheckRoll in case of a mythic point reroll
-            const proficiencyModifier = (systemFlags.modifiers ?? []).find((m) => m.slug === "proficiency");
+            const proficiencyModifier = (systemFlags.modifiers ?? []).find(
+                (m) => m.type === "proficiency" && m.enabled,
+            );
             if (!proficiencyModifier) {
                 throw ErrorPF2e(`Failed to reroll check with a mythic point. Check is missing a proficiency modifier!`);
             }

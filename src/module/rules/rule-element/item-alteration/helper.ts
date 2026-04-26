@@ -37,7 +37,7 @@ function getNewInterval(
     newValue: string,
 ): FrequencyInterval | validation.DataModelValidationFailure {
     if (!objectHasKey(CONFIG.PF2E.frequencies, newValue)) {
-        return new validation.DataModelValidationFailure("", { invalidValue: current, fallback: false });
+        return new validation.DataModelValidationFailure("", { invalidValue: current });
     }
     if (mode === "override") return newValue;
 

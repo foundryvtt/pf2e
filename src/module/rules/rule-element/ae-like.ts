@@ -162,17 +162,15 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElement<TSchem
             } else if (isArrayAdd) {
                 return value;
             }
-
-            return new DataModelValidationFailure("", { invalidValue: value, fallback: false });
+            return new DataModelValidationFailure("", { invalidValue: value });
         };
-
         switch (mode) {
             case "multiply": {
                 if (typeof change !== "number") {
-                    return new DataModelValidationFailure("", { invalidValue: change, fallback: false });
+                    return new DataModelValidationFailure("", { invalidValue: change });
                 }
                 if (!(typeof current === "number" || current === undefined)) {
-                    return new DataModelValidationFailure("", { invalidValue: current, fallback: false });
+                    return new DataModelValidationFailure("", { invalidValue: current });
                 }
                 return Math.trunc((current ?? 0) * change);
             }
@@ -189,19 +187,19 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElement<TSchem
             }
             case "downgrade": {
                 if (typeof change !== "number") {
-                    return new DataModelValidationFailure("", { invalidValue: change, fallback: false });
+                    return new DataModelValidationFailure("", { invalidValue: change });
                 }
                 if (!(typeof current === "number" || current === undefined)) {
-                    return new DataModelValidationFailure("", { invalidValue: current, fallback: false });
+                    return new DataModelValidationFailure("", { invalidValue: current });
                 }
                 return Math.min(current ?? 0, change);
             }
             case "upgrade": {
                 if (typeof change !== "number") {
-                    return new DataModelValidationFailure("", { invalidValue: change, fallback: false });
+                    return new DataModelValidationFailure("", { invalidValue: change });
                 }
                 if (!(typeof current === "number" || current === undefined)) {
-                    return new DataModelValidationFailure("", { invalidValue: current, fallback: false });
+                    return new DataModelValidationFailure("", { invalidValue: current });
                 }
                 return Math.max(current ?? 0, change);
             }
@@ -214,10 +212,8 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElement<TSchem
                 if (merge && R.isObjectType(current) && R.isObjectType(change)) {
                     return fu.mergeObject(current, change);
                 } else if (!isOverridable) {
-                    return new DataModelValidationFailure(`${change} cannot override ${current}`, {
-                        invalidValue: change,
-                        fallback: false,
-                    });
+                    const message = `${change} cannot override ${current}`;
+                    return new DataModelValidationFailure(message, { invalidValue: change });
                 }
                 return change;
             }
