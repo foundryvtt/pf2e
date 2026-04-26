@@ -157,7 +157,10 @@
                 "mode": "add",
                 "predicate": [
                     "item:slug:contagious-idea",
-                    "item:tag:amped"
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    }
                 ],
                 "property": "description",
                 "value": [
@@ -172,7 +175,10 @@
                 "mode": "upgrade",
                 "predicate": [
                     "item:slug:daze",
-                    "item:tag:amped"
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    }
                 ],
                 "property": "dice-number",
                 "selectors": [
@@ -186,6 +192,9 @@
                 "mode": "upgrade",
                 "predicate": [
                     "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    },
                     {
                         "or": [
                             "item:slug:daze",
