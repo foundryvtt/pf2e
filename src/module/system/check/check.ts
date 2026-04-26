@@ -590,7 +590,10 @@ class Check {
 
                   // Add mythic proficiency tag
                   if (resource?.slug === "mythic-points") {
-                      const proficiencyTag = htmlQuery(parsedFlavor, "span[data-slug=proficiency]");
+                      const previousSlug =
+                          systemFlags.modifiers?.find((m) => m.type === "proficiency" && m.enabled)?.slug ??
+                          "proficiency";
+                      const proficiencyTag = htmlQuery(parsedFlavor, `span[data-slug=${previousSlug}]`);
                       if (proficiencyTag) {
                           const mythicTag = proficiencyTag.cloneNode() as HTMLElement;
                           proficiencyTag.style.textDecorationLine = "line-through";
