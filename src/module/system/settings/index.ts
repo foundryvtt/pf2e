@@ -187,7 +187,7 @@ export function registerSettings(): void {
             required: true,
             nullable: false,
             categories: ["IMAGE", "VIDEO"],
-            initial: "icons/svg/skull.svg",
+            initial: `systems/${SYSTEM_ID}/icons/other/dead.svg`,
         }),
         onChange: (choice) => {
             if (isImageOrVideoPath(choice)) {

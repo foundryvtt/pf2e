@@ -38,7 +38,7 @@ import { SpeedStatistic } from "@system/statistic/speed.ts";
 import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { CreatureMovementData, CreatureResources, CreatureSystemData, VisionLevel, VisionLevels } from "./data.ts";
-import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
+import { getHpAdjustment, imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
 import type {
     CreatureMovement,
     CreatureSpeeds,
@@ -803,11 +803,26 @@ abstract class CreaturePF2e<
 
         // Clamp hit points
         const currentHP = this.hitPoints;
+        const maxHP = (() => {
+            // If not an npc or there are no adjustment changes, return early
+            if (!this.isOfType("npc") || !changed.system.attributes || !("adjustment" in changed.system.attributes)) {
+                return currentHP.max;
+            }
+
+            // If the adjustment matches, return early
+            const newAdjustmentType = changed.system.attributes.adjustment ?? null;
+            if (this.system.attributes.adjustment === newAdjustmentType) return currentHP.max;
+
+            // Remove current adjustment and apply new adjustment
+            const currentAdjustment = getHpAdjustment(this.baseLevel, this.system.attributes.adjustment);
+            const newAdjustment = getHpAdjustment(this.baseLevel, newAdjustmentType);
+            return currentHP.max - currentAdjustment + newAdjustment;
+        })();
         const changedHP = changed.system.attributes?.hp;
         if (typeof changedHP?.value === "number") {
             changedHP.value = options.allowHPOverage
                 ? Math.max(0, changedHP.value)
-                : Math.clamp(changedHP.value, 0, Math.max(currentHP.max - currentHP.unrecoverable, 0));
+                : Math.clamp(changedHP.value, 0, Math.max(maxHP - currentHP.unrecoverable, 0));
         }
         if (changed.system.attributes?.hp?.temp !== undefined) {
             const inputValue = changed.system.attributes.hp.temp;

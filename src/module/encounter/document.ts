@@ -246,90 +246,53 @@ class EncounterPF2e extends Combat {
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
+    protected override async _onEndTurn(
+        combatant: CombatantPF2e<this>,
+        context: fd.CombatRoundEventContext,
+    ): Promise<void> {
+        if (!this.started || context.skipped) return;
+        const alreadyWent = typeof context.round === "number" && combatant.roundOfLastTurn !== context.round;
+        if (!alreadyWent) return combatant.onEndTurn({ round: context.round });
+    }
+
+    protected override async _onStartTurn(
+        combatant: CombatantPF2e<this>,
+        context: fd.CombatTurnEventContext,
+    ): Promise<void> {
+        const alreadyWent = typeof context.round === "number" && combatant.roundOfLastTurn !== context.round;
+        if (!alreadyWent) await combatant.onStartTurn();
+        for (const otherCombatant of this.combatants) {
+            if (combatant !== otherCombatant) otherCombatant.actor?.recharge({ duration: "turn" });
+        }
+    }
+
     /** Enable the initiative button on PC sheets */
     protected override _onCreate(data: this["_source"], options: DatabaseCreateCallbackOptions, userId: string): void {
         super._onCreate(data, options, userId);
-
-        const pcSheets = Object.values(ui.windows).filter(
-            (sheet): sheet is CharacterSheetPF2e<CharacterPF2e> => sheet.constructor.name === "CharacterSheetPF2e",
-        );
+        const pcSheets = fu
+            .iterateValues(ui.windows)
+            .filter((w): w is CharacterSheetPF2e<CharacterPF2e> => w.constructor.name === "CharacterSheetPF2e");
         for (const sheet of pcSheets) {
             sheet.toggleInitiativeLink();
         }
     }
 
-    /** Call onTurnStart for each rule element on the new turn's actor */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DatabaseUpdateCallbackOptions,
         userId: string,
     ): void {
         super._onUpdate(changed, options, userId);
-
+        this.resetActors();
+        game.pf2e.effectTracker.refresh();
+        game.pf2e.effectPanel.refresh();
         game.pf2e.StatusEffects.onUpdateEncounter(this);
-
-        const { combatant, previous } = this;
-        const actor = combatant?.actor;
-
-        // End early if the encounter hasn't started
-        if (!this.started) return;
-
-        const [newRound, newTurn] = [changed.round, changed.turn];
-        const isRoundChange = typeof newRound === "number";
-        const isTurnChange = typeof newTurn === "number";
-        const isNextRound = isRoundChange && (previous.round === null || newRound > previous.round);
-        const isNextTurn = isTurnChange && (previous.turn === null || newTurn > previous.turn);
-
-        // End early if rounds or turns aren't changing
-        if (!(isRoundChange || isTurnChange)) return;
-
-        // Update the combatant's data (if necessary), run any turn start events, then update the effect panel
-        Promise.resolve().then(async (): Promise<void> => {
-            // No updates necessary if this combatant has already had a turn this round
-            if (isNextRound || isNextTurn) {
-                // Only the primary updater of the previous participant's actor can end the turn
-                const previousCombatant = this.combatants.get(previous.combatantId ?? "");
-                if (game.user === previousCombatant?.actor?.primaryUpdater) {
-                    const alreadyWent = previousCombatant.flags[SYSTEM_ID].roundOfLastTurnEnd === previous.round;
-                    if (typeof previous.round === "number" && !alreadyWent) {
-                        await previousCombatant.endTurn({ round: previous.round });
-                    }
-                }
-
-                // Only the primary updater of the current particiant's actor can start the turn
-                if (game.user === actor?.primaryUpdater) {
-                    const alreadyWent = combatant?.roundOfLastTurn === this.round;
-                    if (combatant && !alreadyWent) {
-                        await combatant.startTurn();
-                    }
-                }
-
-                // Update all per turn abilities by other combatants
-                for (const otherCombatant of this.combatants) {
-                    if (combatant !== otherCombatant) {
-                        otherCombatant.actor?.recharge({ duration: "turn" });
-                    }
-                }
-            }
-
-            // Reset all participating actors' data to get updated encounter roll options
-            this.resetActors();
-
-            await game.pf2e.effectTracker.refresh();
-            game.pf2e.effectPanel.refresh();
-        });
     }
 
     /** Disable the initiative link on PC sheets if this was the only encounter */
     protected override _onDelete(options: DatabaseDeleteCallbackOptions, userId: string): void {
-        // Delete come V14: https://github.com/foundryvtt/foundryvtt/issues/13495
-        this.turn = null;
         super._onDelete(options, userId);
-
-        if (this.started) {
-            Hooks.callAll("pf2e.endTurn", this.combatant ?? null, this, userId);
-            game.pf2e.effectTracker.onEncounterEnd(this);
-        }
+        if (this.started) game.pf2e.effectTracker.onEncounterEnd(this);
 
         // Disable the initiative button if this was the only encounter
         if (!game.combat) {
@@ -347,15 +310,10 @@ class EncounterPF2e extends Combat {
         // Clear encounter-related roll options and any scene behavior that depends on it
         this.resetActors();
     }
-
-    protected override async _onEndTurn(combatant: fd.Combatant<this>): Promise<void> {
-        await super._onEndTurn(combatant);
-        await this.clearMovementHistories();
-    }
 }
 
 interface EncounterPF2e extends Combat {
-    readonly combatants: EmbeddedCollection<CombatantPF2e<this, TokenDocumentPF2e | null>>;
+    readonly combatants: EmbeddedCollection<CombatantPF2e<this>>;
 
     scene: ScenePF2e;
 

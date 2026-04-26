@@ -30,39 +30,37 @@
             "title": "Starfinder Player Core"
         },
         "rules": [
-            {
-                "key": "GrantItem",
-                "uuid": "Compendium.sf2e.class-features.Item.Envoy Directives"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.skills.deception.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.skills.diplomacy.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.skills.intimidation.rank",
-                "value": 1
-            }
+      {
+        "key": "GrantItem",
+        "uuid": "Compendium.sf2e.class-features.Item.Envoy Directives"
+      },
+      {
+        "adjustName": false,
+        "choices": [
+          {
+            "label": "PF2E.Skill.Deception",
+            "value": "deception"
+          },
+          {
+            "label": "PF2E.Skill.Diplomacy",
+            "value": "diplomacy"
+          },
+          {
+            "label": "PF2E.Skill.Intimidation",
+            "value": "intimidation"
+          }
         ],
-        "subfeatures": {
-            "proficiencies": {
-                "envoy": {
-                    "attribute": null,
-                    "rank": 1
-                }
-            },
-            "senses": {},
-            "suppressedFeatures": []
-        },
+        "flag": "skill",
+        "key": "ChoiceSet",
+        "prompt": "PF2E.SpecificRule.Prompt.Skill"
+      },
+      {
+        "key": "ActiveEffectLike",
+        "mode": "upgrade",
+        "path": "system.skills.{item|flags.system.rulesSelections.skill}.rank",
+        "value": 1
+      }
+    ],
         "traits": {
             "rarity": "common",
             "value": [

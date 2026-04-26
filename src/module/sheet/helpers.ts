@@ -148,8 +148,8 @@ function eventToRollParams(event: Maybe<Event>, rollType: { type: "check" | "dam
 
 /** Set roll mode from a user's input: used for messages that are not actually rolls. */
 function eventToMessageMode(event: Maybe<Event>): ChatMessageMode | undefined {
-    if (!isRelevantEvent(event)) return undefined;
-    return isControlDown(event) || game.user.isGM ? undefined : "blind";
+    if (!isRelevantEvent(event) || !isControlDown(event)) return undefined;
+    return game.user.isGM ? "gm" : "blind";
 }
 
 /** Returns true if the control key is held down, handling mac */
@@ -217,6 +217,10 @@ function createTooltipListener(
                     const bounds = target.getBoundingClientRect();
                     const maxH = window.innerHeight - actualTooltip.offsetHeight;
                     actualTooltip.style.top = `${Math.clamp(bounds.top, pad, maxH - pad)}px`;
+
+                    // Circumvent https://github.com/foundryvtt/foundryvtt/issues/14237
+                    // by keeping the global tooltip behind the locked one
+                    if (options.locked) game.tooltip.tooltip.style.top = actualTooltip.style.top;
                 }
             }
         },

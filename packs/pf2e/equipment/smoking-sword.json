@@ -22,7 +22,7 @@
             "die": "d8"
         },
         "description": {
-            "value": "<p>Smoke constantly belches from this <em>+1 magic longsword</em>. Any hit with this sword deals 1 extra fire damage. You can use a special action to command the blade's edges to light on fire.</p><hr /><p><strong>Activate—Stoke Flames</strong> <span class=\"action-glyph\">1</span> (concentrate)</p>\n<p>Until the end of your turn, the blade deals 1d6 extra fire damage instead of just 1. After you use this action, you can't use it again for 10 minutes.</p>"
+            "value": "<p>Smoke constantly belches from this +1 magic longsword. Any successful Strike with this sword deals 1 extra fire damage. You can use a special action to make the blade's edges light on fire.</p><hr /><p><strong>Activate—Stoke Flames</strong> <span class=\"action-glyph\">1</span> (concentrate) Until the end of your turn, the blade deals 1d6 extra fire damage instead of just 1. After you use this action, you can't use it again for 10 minutes.</p>"
         },
         "expend": null,
         "grade": null,
@@ -47,7 +47,7 @@
         "publication": {
             "license": "ORC",
             "remaster": true,
-            "title": "Pathfinder Beginner Box"
+            "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
         },
         "quantity": 1,
         "range": null,
@@ -56,17 +56,6 @@
         },
         "rules": [
             {
-                "damageType": "fire",
-                "diceNumber": 1,
-                "dieSize": "d6",
-                "key": "DamageDice",
-                "predicate": [
-                    "stoke-flames"
-                ],
-                "selector": "{item|_id}-damage"
-            },
-            {
-                "domain": "damage",
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.SmokingSword.StokeFlames",
                 "option": "stoke-flames",
@@ -74,14 +63,27 @@
             },
             {
                 "damageType": "fire",
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "predicate": [
                     {
                         "not": "stoke-flames"
                     }
                 ],
-                "selector": "{item|_id}-damage",
+                "selector": [
+                    "{item|id}-damage"
+                ],
                 "value": 1
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "stoke-flames"
+                ],
+                "selector": "{item|id}-damage"
             }
         ],
         "runes": {

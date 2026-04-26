@@ -97,9 +97,6 @@ export class PackageCompendiumPacks<TSchema extends PackageCompendiumSchema> ext
         options?: Record<string, unknown>,
     ): Set<fields.ModelPropsFromSchema<TSchema>>;
 
-    /** Extend the logic for validating the complete set of packs to ensure uniqueness. */
-    protected override _validateElements(value: unknown[], options?: Record<string, unknown>): void;
-
     /** Validate each individual compendium pack, ensuring its name and path are unique. */
     protected _validateElement(value: unknown, options?: Record<string, unknown>): void;
 }

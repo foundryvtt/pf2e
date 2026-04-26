@@ -1,0 +1,68 @@
+{
+    "_id": "HdJY04mJaRhwIkDx",
+    "img": "icons/tools/instruments/lute-gold-brown.webp",
+    "name": "Conductor's Instrument",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This item can be found in the form of any variety of handheld musical instruments. The instrument grants you a +1 item bonus to Performance checks while playing music with it. Once per day, you can use the following activity.</p><hr /><p><strong>Activate—Command Performance</strong> <span class=\"action-glyph\">2</span> (manipulate) You play a special tune on the instrument, causing it to cast a DC 17 @UUID[Compendium.pf2e.spells-srd.Item.Command] bard spell.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 60
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.PlayingItem",
+                "option": "playing-conductors-instrument",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "playing-conductors-instrument"
+                ],
+                "selector": [
+                    "performance"
+                ],
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        }
+    },
+    "type": "equipment"
+}

@@ -75,7 +75,7 @@
                 "title": "Pathfinder #178: Punks in a Powder Keg"
             },
             "reset": "<p>The lab contains enough ingredients for this hazard to last 1 minute before all materials are expended. Alternatively, the hazard resets once Slick shrinks to regular size.</p>",
-            "routine": "<p>(1 action) A random 10-foot square in Gattlebee's laboratory explodes, dealing [[/r 2d6]] damage to creatures and objects in the area (@Check[reflex|dc:18|basic|traits:alchemical,hazard,complex,environmental]). The damage type is randomly determined each round: acid, cold, electricity, fire, slashing, or sonic.</p>"
+            "routine": "<p>(1 action) A random @Template[square|distance:10] in Gattlebee's laboratory explodes, dealing 2d6 damage to creatures and objects in the area (@Check[reflex|dc:18|basic|options:area-effect|traits:alchemical,hazard,complex,environmental]). The damage type is randomly determined each round: @Damage[2d6[acid]|options:area-damage]{acid}, @Damage[2d6[cold]|options:area-damage]{cold}, @Damage[2d6[electricity]|options:area-damage]{electricity}, @Damage[2d6[fire]|options:area-damage]{fire}, @Damage[2d6[slashing]|options:area-damage]{slashing}, or @Damage[2d6[sonic]|options:area-damage]{sonic}.</p>"
         },
         "saves": {
             "fortitude": {

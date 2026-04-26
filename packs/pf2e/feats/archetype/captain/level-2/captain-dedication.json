@@ -38,29 +38,16 @@
                 "choices": [
                     {
                         "label": "PF2E.Skill.Diplomacy",
-                        "predicate": [
-                            "skill:diplomacy:rank:0"
-                        ],
                         "skill": "diplomacy"
                     },
                     {
                         "label": "PF2E.Skill.Intimidation",
-                        "predicate": [
-                            "skill:intimidation:rank:0"
-                        ],
                         "value": "intimidation"
                     }
                 ],
                 "flag": "skill",
                 "key": "ChoiceSet",
-                "predicate": [
-                    {
-                        "or": [
-                            "skill:diplomacy:rank:0",
-                            "skill:intimidation:rank:0"
-                        ]
-                    }
-                ]
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
             },
             {
                 "key": "ActiveEffectLike",
@@ -79,7 +66,8 @@
                     }
                 ],
                 "flag": "feat",
-                "key": "ChoiceSet"
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
             },
             {
                 "key": "GrantItem",

@@ -78,7 +78,7 @@ import { UpdateCurrencyDialog } from "./popups/update-currency-dialog.ts";
  * @category Actor
  */
 abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.ActorSheet<TActor, ItemPF2e> {
-    /** Ignore deprecation warning */
+    /** Hide our shame. */
     protected static override _warnedAppV1 = true;
 
     /** Index all items and subitems in this actor for searching. Indexed by UUID because subitems may share ids across different parents */

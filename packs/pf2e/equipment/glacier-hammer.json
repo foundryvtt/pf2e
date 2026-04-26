@@ -1,0 +1,119 @@
+{
+    "_id": "eWe4x49kdih5vWyG",
+    "img": "icons/weapons/hammers/hammer-double-engraved-green.webp",
+    "name": "Glacier Hammer",
+    "system": {
+        "ammo": null,
+        "baseItem": "maul",
+        "bonus": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 2
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "bludgeoning",
+            "dice": 1,
+            "die": "d12"
+        },
+        "description": {
+            "value": "<p>Frost covers the head of this <em>+1 magic maul</em>. Any hit with this maul deals 1 extra cold damage. You can use a special action to transform the frost into giant icicles.</p><hr /><p><strong>Activate—Grow Icicles</strong> <span class=\"action-glyph\">1</span> (concentrate) Until the end of your turn, the maul deals 1d6 extra cold damage instead of just 1. After you activate the glacier hammer, you can't activate it again for 10 minutes.</p>"
+        },
+        "expend": null,
+        "grade": null,
+        "group": "hammer",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 60
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": null
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.GlacierHammer.ToggleLabel",
+                "option": "grow-icicles",
+                "toggleable": true
+            },
+            {
+                "damageType": "cold",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "grow-icicles"
+                    }
+                ],
+                "selector": [
+                    "{item|id}-damage"
+                ],
+                "slug": "glacier-hammer-flat",
+                "value": 1
+            },
+            {
+                "damageType": "cold",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "grow-icicles"
+                ],
+                "selector": "{item|id}-damage"
+            }
+        ],
+        "runes": {
+            "potency": 1,
+            "property": [],
+            "striking": 0
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 1,
+                "property": [],
+                "striking": 0
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "shove"
+            ]
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        }
+    },
+    "type": "weapon"
+}

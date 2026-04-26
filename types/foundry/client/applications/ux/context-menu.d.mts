@@ -1,3 +1,5 @@
+import Document from "@common/abstract/document.mjs";
+
 export interface ContextMenuEntry {
     /** The context menu label. Can be localized. */
     name: string;
@@ -8,13 +10,13 @@ export interface ContextMenuEntry {
     /** An identifier for a group this entry belongs to. */
     group?: string;
     /** The function to call when the menu item is clicked. */
-    callback: ContextMenuCallback;
+    onClick: ContextMenuCallback;
     /** A function to call or boolean value to determine if this entry appears in the menu. */
-    condition?: ContextMenuCondition | boolean;
+    visible?: ContextMenuCondition | boolean;
 }
 
 export type ContextMenuCondition = (html: HTMLElement) => boolean;
-export type ContextMenuCallback = (target: HTMLElement) => unknown;
+export type ContextMenuCallback = (event: PointerEvent, target: HTMLElement) => unknown;
 
 export interface ContextMenuOptions {
     /**
@@ -55,12 +57,7 @@ export default class ContextMenu {
      * @param menuItems An Array of entries to display in the menu
      * @param options Additional options to configure the context menu.
      */
-    constructor(
-        container: HTMLElement | JQuery,
-        selector: string,
-        menuItems: ContextMenuEntry[],
-        options: ContextMenuOptions,
-    );
+    constructor(container: HTMLElement, selector: string, menuItems: ContextMenuEntry[], options: ContextMenuOptions);
 
     /* -------------------------------------------- */
     /*  Properties                                  */
@@ -107,6 +104,12 @@ export default class ContextMenu {
     get fixed(): boolean;
 
     /**
+     * For fixed context menus, control whether the menu is positioned relative to the target or to the mouse cursor.
+     * Non-fixed context menus are always positioned relative to the target.
+     */
+    get relative(): "target" | "cursor";
+
+    /**
      * The parent HTML element to which the context menu is attached
      */
     get target(): HTMLElement;
@@ -131,13 +134,19 @@ export default class ContextMenu {
 
     /**
      * Close the menu and remove it from the DOM.
+     * @param options.target The target element to close on.
      */
-    protected _close(): void;
+    protected _close(options?: { target?: HTMLElement }): void;
 
     /**
      * Called before the context menu begins rendering.
      */
     protected _preRender(target: HTMLElement, options?: ContextMenuRenderOptions): Promise<void>;
+
+    /**
+     * Called before the menu's entries are rendered.
+     */
+    protected _preRenderEntries(options?: ContextMenuRenderOptions): Promise<void>;
 
     /**
      * Render the Context Menu by iterating over the menuItems it contains.
@@ -151,6 +160,12 @@ export default class ContextMenu {
      * Called after the context menu has finished rendering and animating open.
      */
     protected _onRender(options?: ContextMenuRenderOptions): Promise<void>;
+
+    /**
+     * Called after the context menu has finished rendering its entries.
+     * @param menu The rendered menu.
+     */
+    protected _onRenderEntries(menu: HTMLMenuElement, options?: ContextMenuRenderOptions): Promise<void>;
 
     /**
      * Set the position of the context menu, taking into consideration whether the menu should expand upward or downward
@@ -195,6 +210,12 @@ export default class ContextMenu {
      * Global listeners which apply once only to the document.
      */
     static eventListeners(): void;
+
+    /**
+     * Bind global context menu listeners to a given document.
+     * @param document The document.
+     */
+    static activateListeners(document: Document): void;
 
     /* -------------------------------------------- */
     /*  Factory Methods                             */

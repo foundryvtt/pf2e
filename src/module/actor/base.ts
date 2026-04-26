@@ -300,12 +300,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const fromEffects = this.itemTypes.effect
             .filter((e) => e.system.tokenIcon?.show && (e.isIdentified || game.user.isGM))
             .map((e) => ActiveEffectPF2e.fromItem(e));
-        const allEffects = [
-            super.temporaryEffects,
-            fromConditions,
-            fromEffects,
-            this.synthetics.tokenEffectIcons,
-        ].flat();
+        const allEffects = [super.appliedEffects, fromConditions, fromEffects, this.synthetics.tokenEffectIcons].flat();
         return R.uniqueBy(allEffects, (e) => e.img);
     }
 
@@ -1941,8 +1936,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         // Remove the death overlay if present upon hit points being increased
-        // Skip if this is a damage taken operation though, since that already handles this
-        if (!options.damageTaken) {
+        // Skip if this is a damage-taken operation though, since that already handles this
+        if (!options.damageTaken || options.damageTaken < 0) {
             const currentHP = this.hitPoints?.value ?? 0;
             const hpChange = Number(changed.system?.attributes?.hp?.value) || 0;
             if (currentHP > 0 && hpChange > 0 && this.isDead && game.user.id === userId) {

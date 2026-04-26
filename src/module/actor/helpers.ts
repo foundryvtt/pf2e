@@ -806,8 +806,8 @@ function createDamageRollFunctions(
                 damageContext.options.add(`map:increases:${params.mapIncreases}`);
             }
 
+            // Construct damage formulas for display or roll execution
             if (params.getFormula) damageContext.skipDialog = true;
-
             const damage = item.isOfType("melee")
                 ? await WeaponDamagePF2e.fromNPCAttack({
                       attack: item,

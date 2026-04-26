@@ -1,3 +1,23 @@
+## 8.0.3
+
+### Bugfixes
+
+- (stwlam) Fix field name in appearance tab of `TokenConfig`
+- (stwlam) Fix show damage dialog toggle
+- (stwlam) Restore overlay icon on tokens of dead actors
+- (stwlam) Restore status effects title bar
+- (Supe) Fix colors of whisper and blind inline rolls in dark mode
+- (Supe) Fix empty tooltips flashing when hovering over the effect panel
+- (Supe) Fix items and actions sent by players defaulting to blind
+- (Supe) Fix styling of character language tags
+
+### Data Updates
+
+- (Ambrose) Add an index to the Ancestry Journals and link to GM and Player screens
+- (Ambrose) Add inline rolls to Eagle Knight dedication
+- (Ambrose) Remove Prepared Spellcasting entry for Adult Requiem Dragon (non-spellcasting variant)
+- (Dire Weasel) Add supplemental area information to Frigid Flurry description
+
 ## 8.0.2
 
 ### System Improvements

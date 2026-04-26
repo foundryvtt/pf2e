@@ -200,13 +200,13 @@ a.content-link {
 
 a.inline-roll {
     &.blindroll {
-        background-color: var(--color-blind-background, #f5eaf5);
-        border-color: var(--color-blind-border, #6b476b);
+        background-color: var(--color-blind-roll-background);
+        border-color: var(--color-blind-roll-border);
     }
     &.gmroll,
     &.selfroll {
-        background-color: var(--color-whisper-background, #e8e8ef);
-        border-color: var(--color-whisper-border, #545469);
+        background-color: var(--color-whisper-roll-background);
+        border-color: var(--color-whisper-roll-border);
     }
     &.altered {
         color: var(--color-text-dark-improved);
@@ -226,8 +226,8 @@ span[data-pf2-action] {
     cursor: pointer;
 
     &[data-secret] {
-        background: var(--blind-roll);
-        border-color: #720073;
+        background: var(--color-blind-roll-background);
+        border-color: var(--color-blind-roll-border);
     }
 
     &[data-pf2-glyph]::before {
@@ -302,8 +302,8 @@ span[data-pf2-check] {
     }
 
     &[data-pf2-traits*="secret"] {
-        background: var(--blind-roll);
-        border-color: #720073;
+        background: var(--color-blind-roll-background);
+        border-color: var(--color-blind-roll-border);
     }
 
     &[data-invalid] {

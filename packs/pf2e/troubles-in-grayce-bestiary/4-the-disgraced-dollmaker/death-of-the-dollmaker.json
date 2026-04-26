@@ -1,0 +1,100 @@
+{
+    "_id": "GWTWKNMaKOecTDO3",
+    "folder": "kxsS2Jcb5uaZkwvC",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "uJssBFDSnmnbJf0k",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Deathbed Ritual",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature is adjacent to the bed</p><hr /><p><strong>Effect</strong> Four ghostly candles appear around the bed—one at each corner—followed by a transparent image of a frail Thalleus reading from a tome in a wavering voice. Each living creature who can hear these words must succeed at a @Check[will|dc:23|options:area-effect,inflicts:frightened] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure). The haunt then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Death of the Dollmaker",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 12
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The death of Thalleus Jongrim—in his bed, surrounding by ritualistic implements—repeats in ghostly form.</p>",
+            "disable": "<p>@Check[occultism|dc:21] (trained) to snuff out one of four ghostly candles or @Check[religion|dc:23] (trained) three times to calm what is left of Thalleus's fractured spirit</p>",
+            "isComplex": true,
+            "level": {
+                "value": 4
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventures: Troubles in Grayce"
+            },
+            "reset": "<p>The haunt deactivates 1 minute after all living creatures have left the room. One hour after this or being Disabled, the haunt is ready to trigger again. Putting Thalleus's spirit to rest permanently destroys the haunt.</p>",
+            "routine": "<p>(1 action) The haunt recreates the moment when Thalleus dies, causing the ritual to go awry. This releases a wave of void energy, dealing @Damage[4d8[void]|options:area-damage] damage in a @Template[type:emanation|distance:10] from the bed (@Check[fortitude|dc:21|basic|options:area-effect] save). This damage is reduced by 1d8 for every ghostly candle that has been snuffed out.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

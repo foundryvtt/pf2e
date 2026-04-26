@@ -33,10 +33,32 @@
             "title": "Pathfinder Lost Omens Shining Kingdoms"
         },
         "rules": [
-            {
-                "key": "GrantItem",
-                "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
-            }
+        {
+            "key": "GrantItem",
+            "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+        },
+        {
+            "adjustName": false,
+            "choices": [
+              {
+                "label": "PF2E.Skill.Deception",
+                "value": "deception"
+              },
+              {
+                "label": "PF2E.Skill.Stealth",
+                "value": "stealth"
+              }
+            ],
+            "flag": "skill",
+            "key": "ChoiceSet",
+            "prompt": "PF2E.SpecificRule.Prompt.Skill"
+        },
+        {
+            "key": "ActiveEffectLike",
+            "mode": "upgrade",
+            "path": "system.skills.{item|flags.system.rulesSelections.skill}.rank",
+            "value": 1
+        }
         ],
         "traits": {
             "rarity": "uncommon",

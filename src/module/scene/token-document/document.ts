@@ -598,7 +598,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
-        const { actor, object, scene } = this;
+        const { actor, scene } = this;
         if (actor?.allowSynthetics === false && data.actorLink === false) {
             this._source.actorLink = true;
         }
@@ -606,7 +606,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         // Create other child tokens for troop actors. Infinite recursion is prevented by checking the flags
         const isNPC = actor?.isOfType("npc");
         const thresholds = isNPC ? actor.system.attributes.hp.thresholds : null;
-        if (scene && object && isNPC && thresholds && !this.flags[SYSTEM_ID].troop) {
+        if (scene && isNPC && thresholds && !this.flags[SYSTEM_ID].troop) {
             const troop = { id: this.actorLink ? actor.id : fu.randomID(), linked: this.actorLink };
             this._source.actorLink = false;
             this._source.flags = fu.mergeObject(this._source.flags, { [SYSTEM_ID]: { troop } });

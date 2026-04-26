@@ -49,7 +49,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
         this.options.classes.push(this.item.type);
     }
 
-    /** Ignore deprecation warning */
+    /** Hide our shame. */
     protected static override _warnedAppV1 = true;
 
     static override get defaultOptions(): ItemSheetOptions {
