@@ -5,7 +5,6 @@ import * as fields from "../data/fields.mjs";
 /**
  * The Folder Document.
  * Defines the DataSchema and common behaviors for a Folder which are shared between both client and server.
- * @category Documents
  */
 export default class BaseFolder extends Document<null, FolderSchema> {
     /* ---------------------------------------- */

@@ -6,7 +6,6 @@ import { BaseActiveEffect, BaseActor, BaseFolder, BaseUser, ItemUUID } from "./_
 /**
  * The Item Document.
  * Defines the DataSchema and common behaviors for a Item which are shared between both client and server.
- * @category Documents
  */
 export default class BaseItem<TParent extends BaseActor | null = BaseActor | null> extends abstract.Document<
     TParent,

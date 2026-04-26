@@ -6,7 +6,6 @@ import { BaseScene, BaseUser } from "./_module.mjs";
 /**
  * The FogExploration Document.
  * Defines the DataSchema and common behaviors for a FogExploration which are shared between both client and server.
- * @category Documents
  */
 export default class BaseFogExploration extends Document<null, FogExplorationSchema> {
     /* ---------------------------------------- */

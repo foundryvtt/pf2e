@@ -7,7 +7,6 @@ import { DocumentClassMetadata } from "@common/abstract/_module.mjs";
 /**
  * The Card Document.
  * Defines the DataSchema and common behaviors for a Card which are shared between both client and server.
- * @category Documents
  */
 export default class BaseCard<TParent extends BaseCards | null = BaseCards | null> extends Document<
     TParent,

@@ -13,7 +13,6 @@ import BaseScene from "./scene.mjs";
 /**
  * The Wall Document.
  * Defines the DataSchema and common behaviors for a Wall which are shared between both client and server.
- * @category Documents
  */
 export default class BaseWall<TParent extends BaseScene | null = BaseScene | null> extends Document<
     TParent,

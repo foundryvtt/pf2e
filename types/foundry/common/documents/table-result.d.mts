@@ -6,7 +6,6 @@ import * as documents from "./_module.mjs";
 /**
  * The TableResult Document.
  * Defines the DataSchema and common behaviors for a TableResult which are shared between both client and server.
- * @category Documents
  */
 export default class BaseTableResult<
     TParent extends documents.BaseRollTable | null = documents.BaseRollTable | null,

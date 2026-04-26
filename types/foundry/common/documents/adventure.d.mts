@@ -6,7 +6,6 @@ import * as documents from "./_module.mjs";
 /**
  * The Adventure Document.
  * Defines the DataSchema and common behaviors for an Adventure which are shared between both client and server.
- * @category Documents
  */
 export default class BaseAdventure extends Document<null, AdventureSchema> {
     /* -------------------------------------------- */

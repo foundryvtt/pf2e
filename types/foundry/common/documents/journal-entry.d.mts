@@ -5,7 +5,6 @@ import { BaseFolder, BaseJournalEntryCategory, BaseJournalEntryPage } from "./_m
 /**
  * The JournalEntry Document.
  * Defines the DataSchema and common behaviors for a JournalEntry which are shared between both client and server.
- * @category Documents
  */
 export default class BaseJournalEntry extends Document<null, JournalEntrySchema> {
     /* -------------------------------------------- */

@@ -10,7 +10,6 @@ import { BaseCombatant, BaseCombatantGroup, BaseScene, BaseUser } from "./_modul
 /**
  * The Combat Document.
  * Defines the DataSchema and common behaviors for a Combat which are shared between both client and server.
- * @category Documents
  */
 export default class BaseCombat extends Document<null, CombatSchema> {
     /* -------------------------------------------- */

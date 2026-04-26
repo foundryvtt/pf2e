@@ -6,7 +6,6 @@ import { BaseFolder, BaseTableResult } from "./_module.mjs";
 /**
  * The RollTable Document.
  * Defines the DataSchema and common behaviors for a RollTable which are shared between both client and server.
- * @category Documents
  */
 export default class BaseRollTable extends Document<null, RollTableSchema> {
     /* -------------------------------------------- */

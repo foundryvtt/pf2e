@@ -5,7 +5,6 @@ import BaseRegion from "./region.mjs";
 /**
  * The RegionBehavior Document.
  * Defines the DataSchema and common behaviors for a RegionBehavior which are shared between both client and server.
- * @category Documents
  */
 export default class BaseRegionBehavior<
     TParent extends BaseRegion | null = BaseRegion | null,

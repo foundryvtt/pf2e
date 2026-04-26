@@ -7,7 +7,6 @@ import { BaseScene } from "./_module.mjs";
 /**
  * The TableResult Document.
  * Defines the DataSchema and common behaviors for a TableResult which are shared between both client and server.
- * @category Documents
  */
 export default class BaseTile<TParent extends BaseScene | null = BaseScene | null> extends Document<
     TParent,

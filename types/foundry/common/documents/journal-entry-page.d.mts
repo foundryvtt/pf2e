@@ -6,7 +6,6 @@ import { BaseJournalEntry } from "./_module.mjs";
 /**
  * The JournalEntryPage Document.
  * Defines the DataSchema and common behaviors for a JournalEntryPage which are shared between both client and server.
- * @category Documents
  */
 export default class BaseJournalEntryPage<
     TParent extends BaseJournalEntry | null = BaseJournalEntry | null,

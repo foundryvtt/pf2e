@@ -7,7 +7,6 @@ import BaseJournalEntry from "./journal-entry.mjs";
  * An embedded Document that represents a category in a JournalEntry.
  * Defines the DataSchema and common behaviors for a JournalEntryCategory which are shared between both client and
  * server.
- * @category Documents
  */
 export default class BaseJournalEntryCategory<
     TParent extends BaseJournalEntry | null = BaseJournalEntry | null,

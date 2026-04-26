@@ -7,7 +7,6 @@ import BaseUser from "./user.mjs";
 /**
  * The Macro Document.
  * Defines the DataSchema and common behaviors for a Macro which are shared between both client and server.
- * @category Documents
  */
 export default class BaseMacro extends Document<null, MacroSchema> {
     /* -------------------------------------------- */

@@ -61,7 +61,7 @@ export interface DataModelUpdateOptions {
 
 export type DatabaseAction = "get" | "create" | "update" | "delete";
 
-export type DatabaseWriteAction = "create" | "update" | "delete";
+export type DatabaseWriteAction = Exclude<DatabaseAction, "get">;
 
 export interface DatabaseGetOperation<TParent extends Document | null> {
     action: "get";
@@ -180,10 +180,10 @@ export type DatabaseOperation<TParent extends Document | null> =
     | DatabaseUpdateOperation<TParent>
     | DatabaseDeleteOperation<TParent>;
 
-export type DatabaseWriteOperation<TParent extends Document | null> =
-    | DatabaseCreateOperation<TParent>
-    | DatabaseUpdateOperation<TParent>
-    | DatabaseDeleteOperation<TParent>;
+export type DatabaseWriteOperation<TParent extends Document | null> = Exclude<
+    DatabaseOperation<TParent>,
+    DatabaseGetOperation<TParent>
+>;
 
 export interface DocumentSocketRequest {
     /** The type of Document being transacted */

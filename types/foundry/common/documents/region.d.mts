@@ -12,7 +12,6 @@ import { BaseRegionBehavior, BaseScene, BaseUser } from "./_module.mjs";
 /**
  * The Region Document.
  * Defines the DataSchema and common behaviors for a Region which are shared between both client and server.
- * @category Documents
  */
 export default class BaseRegion<TParent extends BaseScene | null = BaseScene | null> extends Document<
     TParent,

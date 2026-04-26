@@ -6,7 +6,6 @@ import { BaseFolder, BasePlaylistSound } from "./_module.mjs";
 /**
  * The Playlist Document.
  * Defines the DataSchema and common behaviors for a Playlist which are shared between both client and server.
- * @category Documents
  */
 export default class BasePlaylist extends Document<null, PlaylistSchema> {
     /* -------------------------------------------- */

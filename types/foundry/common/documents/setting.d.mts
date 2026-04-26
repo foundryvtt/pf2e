@@ -5,7 +5,6 @@ import BaseUser from "./user.mjs";
 /**
  * The Setting Document.
  * Defines the DataSchema and common behaviors for a Setting which are shared between both client and server.
- * @category Documents
  */
 export default class BaseSetting extends Document<null, SettingSchema> {
     /* -------------------------------------------- */

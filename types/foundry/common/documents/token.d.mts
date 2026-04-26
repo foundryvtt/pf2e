@@ -18,7 +18,6 @@ import { DocumentClassMetadata } from "@common/abstract/_module.mjs";
 /**
  * The Token Document.
  * Defines the DataSchema and common behaviors for a Token which are shared between both client and server.
- * @category Documents
  */
 export default class BaseToken<TParent extends BaseScene | null = BaseScene | null> extends Document<
     TParent,

@@ -6,7 +6,6 @@ import BaseScene from "./scene.mjs";
 /**
  * The AmbientLight Document.
  * Defines the DataSchema and common behaviors for an AmbientLight which are shared between both client and server.
- * @category Documents
  */
 export default class BaseAmbientLight<TParent extends BaseScene | null = BaseScene | null> extends Document<
     TParent,

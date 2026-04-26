@@ -8,7 +8,6 @@ import BaseUser from "./user.mjs";
 /**
  * The ChatMessage Document.
  * Defines the DataSchema and common behaviors for a ChatMessage which are shared between both client and server.
- * @category Documents
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default class BaseChatMessage<TUser extends BaseUser | null = BaseUser | null> extends Document<

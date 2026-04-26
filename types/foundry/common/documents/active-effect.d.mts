@@ -7,7 +7,6 @@ import { ActorUUID, BaseActor, BaseCombat, BaseFolder, BaseItem, BaseUser, ItemU
 /**
  * The ActiveEffect Document.
  * Defines the DataSchema and common behaviors for an ActiveEffect which are shared between both client and server.
- * @category Documents
  */
 export default class BaseActiveEffect<
     TParent extends BaseActor | BaseItem<BaseActor | null> | null = BaseActor | BaseItem<BaseActor | null> | null,

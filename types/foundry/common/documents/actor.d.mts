@@ -14,7 +14,6 @@ import { ActorUUID, BaseActiveEffect, BaseFolder, BaseItem, BaseToken, BaseUser,
 /**
  * The Actor Document.
  * Defines the DataSchema and common behaviors for an Actor which are shared between both client and server.
- * @category Documents
  */
 export default class BaseActor<TParent extends BaseToken | null = BaseToken | null> extends Document<
     TParent,

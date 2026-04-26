@@ -11,7 +11,6 @@ import { ItemSchema } from "./item.mjs";
  * The ActorDelta Document.
  * Defines the DataSchema and common behaviors for an ActorDelta which are shared between both client and server.
  * ActorDeltas store a delta that can be applied to a particular Actor in order to produce a new Actor.
- * @category Documents
  */
 export default class BaseActorDelta<TParent extends BaseToken | null = BaseToken | null> extends abstract.Document<
     TParent,

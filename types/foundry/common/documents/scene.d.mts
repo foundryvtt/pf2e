@@ -10,7 +10,6 @@ import { GridlessGrid } from "@common/grid/gridless.mjs";
 /**
  * The Scene Document.
  * Defines the DataSchema and common behaviors for a Scene which are shared between both client and server.
- * @category Documents
  */
 export default class BaseScene extends Document<null, SceneSchema> {
     /* -------------------------------------------- */

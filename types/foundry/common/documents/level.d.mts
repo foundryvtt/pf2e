@@ -7,7 +7,6 @@ import { DocumentClassMetadata } from "@common/abstract/_module.mjs";
 /**
  * The Level Document.
  * Defines the DataSchema and common behaviors for a Level which are shared between both client and server.
- * @category Documents
  *
  * @example Create Scene Levels
  * ```js

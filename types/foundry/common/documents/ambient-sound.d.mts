@@ -6,7 +6,6 @@ import BaseScene from "./scene.mjs";
 /**
  * The AmbientSound Document.
  * Defines the DataSchema and common behaviors for an AmbientSound which are shared between both client and server.
- * @category Documents
  */
 export default class BaseAmbientSound<TParent extends BaseScene | null = BaseScene | null> extends Document<
     TParent,

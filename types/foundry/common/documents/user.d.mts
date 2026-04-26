@@ -14,7 +14,6 @@ import { DocumentClassMetadata } from "@common/abstract/_module.mjs";
 /**
  * The User Document.
  * Defines the DataSchema and common behaviors for a User which are shared between both client and server.
- * @category Documents
  */
 export default class BaseUser<TCharacter extends BaseActor<null> = BaseActor<null>> extends Document<
     null,

@@ -6,7 +6,6 @@ import BaseCombat from "./combat.mjs";
 /**
  * The Combatant Document.
  * Defines the DataSchema and common behaviors for a Combatant which are shared between both client and server.
- * @category Documents
  */
 export default class BaseCombatant<TParent extends BaseCombat | null = BaseCombat | null> extends Document<
     TParent,

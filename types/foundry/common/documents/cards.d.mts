@@ -6,7 +6,6 @@ import { BaseCard, BaseFolder } from "./_module.mjs";
 /**
  * The Cards Document.
  * Defines the DataSchema and common behaviors for a Cards Document which are shared between both client and server.
- * @category Documents
  */
 export default class BaseCards extends abstract.Document<null, CardsSchema> {
     /* -------------------------------------------- */

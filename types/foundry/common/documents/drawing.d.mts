@@ -7,7 +7,6 @@ import { BaseScene, BaseUser } from "./_module.mjs";
 /**
  * The Drawing Document.
  * Defines the DataSchema and common behaviors for a Drawing which are shared between both client and server.
- * @category Documents
  */
 export default class BaseDrawing<TParent extends BaseScene | null = BaseScene | null> extends abstract.Document<
     TParent,
