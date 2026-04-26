@@ -19,7 +19,7 @@ class LoseHitPointsRuleElement extends RuleElement<LoseHitPointsRuleSchema> {
 
     override onCreate(actorUpdates: Record<string, unknown>): void {
         if (this.ignored) return;
-        const value = Math.trunc(Math.abs(Number(this.resolveValue(this.value)) || 0));
+        const value = this.#resolveInitialHpLoss();
         const currentHP = this.actor._source.system.attributes.hp.value;
         actorUpdates["system.attributes.hp.value"] = Math.max(currentHP - value, 0);
     }
@@ -29,7 +29,7 @@ class LoseHitPointsRuleElement extends RuleElement<LoseHitPointsRuleSchema> {
 
         const { actor } = this;
         if (!this.recoverable) {
-            const value = Math.trunc(Math.abs(Number(this.resolveValue(this.value)) || 0));
+            const value = this.#resolveInitialHpLoss();
             actor.system.attributes.hp.unrecoverable += value;
         }
     }
@@ -50,6 +50,18 @@ class LoseHitPointsRuleElement extends RuleElement<LoseHitPointsRuleSchema> {
                 { render: false },
             );
         }
+    }
+
+    /** HP loss that occurs when this rule first applies to the actor (including any Drained-specific mitigation) */
+    #resolveInitialHpLoss(): number {
+        if (
+            this.item.isOfType("condition") &&
+            this.item.slug === "drained" &&
+            this.actor.getRollOptions().includes("drained-hp-effective-minus-one")
+        ) {
+            return this.actor.level * ((this.item.value ?? 1) - 1);
+        }
+        return Math.trunc(Math.abs(Number(this.resolveValue(this.value)) || 0));
     }
 }
 
