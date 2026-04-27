@@ -101,7 +101,7 @@ export class SceneDarknessAdjuster extends fa.api.ApplicationV2 {
             if (canvas.scene && thumbNumber === 1) {
                 const newValue = Number(values[1]);
                 await canvas.scene.update(
-                    { darkness: newValue },
+                    { environment: { darknessLevel: newValue } },
                     { animateDarkness: Math.round(5000 * Math.abs(canvas.scene.environment.darknessLevel - newValue)) },
                 );
             }

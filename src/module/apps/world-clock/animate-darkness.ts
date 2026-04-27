@@ -55,7 +55,7 @@ async function runAnimation(transition: DarknessTransition) {
     await canvas.effects.animateDarkness(transition.target, { duration: duration });
 
     if (game.user.isGM) {
-        await canvas.scene!.update({ darkness: transition.target });
+        await canvas.scene!.update({ environment: { darknessLevel: transition.target } });
     }
 }
 
