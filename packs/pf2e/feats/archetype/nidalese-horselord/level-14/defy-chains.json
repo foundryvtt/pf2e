@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Trigger</strong> A fiend within 15 feet of you damages you with a Strike.</p><hr /><p>You turn to face a fiend that attacked you, looking them squarely in the eyes (if it has them) and showing no fear. You increase the amount of damage you take by 4d6, and deal 4d6 spirit damage to the triggering fiend. The damage you take and deal increases to 5d6 at 18th level.</p>\n<p>In addition, if the fiend has an aura and you're in it, you can attempt an Intimidation check to counteract the aura's effect, using half your level rounded up as the counteract rank. If you succeed, the effects of the aura are suppressed until the end of the triggering fiend's next turn.</p>"
+            "value": "<p><strong>Trigger</strong> A fiend within 15 feet of you damages you with a Strike.</p><hr /><p>You turn to face a fiend that attacked you, looking them squarely in the eyes (if it has them) and showing no fear. You increase the amount of damage you take by @Damage[(ternary(gte(@actor.level,18),5,4))d6], and deal @Damage[(ternary(gte(@actor.level,18),5,4))d6[spirit]] damage to the triggering fiend. The damage you take and deal increases to 5d6 at 18th level.</p>\n<p>In addition, if the fiend has an aura and you're in it, you can attempt an @Check[intimidation] check to counteract the aura's effect, using half your level rounded up as the counteract rank. If you succeed, the effects of the aura are suppressed until the end of the triggering fiend's next turn.</p>"
         },
         "level": {
             "value": 14
