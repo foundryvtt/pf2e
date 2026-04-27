@@ -58,7 +58,7 @@ function performLatePreparation(item: ItemPF2e): void {
         alteration.applyAlteration({ singleItem: item as ItemPF2e<ActorPF2e> });
     }
 
-    if (item.isOfType("spell", "feat", "action")) {
+    if (item.isOfType("spell", "feat", "action", "melee")) {
         processSanctification(item);
     }
 }

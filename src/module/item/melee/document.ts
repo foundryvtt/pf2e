@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
+import { processSanctification } from "@item/ability/helpers.ts";
 import { ItemPF2e, type WeaponPF2e } from "@item";
 import type { RangeData } from "@item/types.ts";
 import type { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
@@ -135,6 +136,10 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         this.baseType = tupleHasValue(["claw", "fist", "jaws"], this.slug)
             ? this.slug
             : (linkedWeapon?.baseType ?? null);
+    }
+
+    override onPrepareSynthetics(this: MeleePF2e<ActorPF2e>): void {
+        processSanctification(this);
     }
 
     override prepareActorData(): void {
