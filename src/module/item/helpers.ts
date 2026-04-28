@@ -151,7 +151,9 @@ function addOrUpgradeTrait<TTrait extends ItemTrait>(
     const traitPattern = new RegExp(String.raw`${traitBase}-(\d*d?\d*)`);
     const existingTrait = value.find((t) => traitPattern.test(t));
     const existingAnnotation = existingTrait?.match(traitPattern)?.at(1);
-    const configValue = ["deadly", "fatal"].includes(traitBase) ? upgradeAnnotation : Number(upgradeAnnotation);
+    const configValue = ["boost", "deadly", "fatal"].includes(traitBase)
+        ? upgradeAnnotation
+        : Number(upgradeAnnotation);
     if (!(existingTrait && existingAnnotation)) {
         if (!value.includes(newTrait)) value.push(newTrait);
         if (config) config[traitBase] = configValue;
