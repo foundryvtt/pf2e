@@ -40,8 +40,7 @@ import { TokenConfigPF2e } from "@scene/token-document/index.ts";
 import appv1 = foundry.appv1;
 
 export function registerSheets(): void {
-    const sheetLabel = _loc("PF2E.SheetLabel");
-
+    const sheetLabel = "PF2E.SheetLabel";
     fd.collections.Scenes.registerSheet("pf2e", SceneConfigPF2e, { makeDefault: true });
     fa.apps.DocumentSheetConfig.registerSheet(TokenDocumentPF2e, "pf2e", TokenConfigPF2e, { makeDefault: true });
 
