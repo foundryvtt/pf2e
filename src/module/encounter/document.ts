@@ -251,7 +251,8 @@ class EncounterPF2e extends Combat {
         context: fd.CombatRoundEventContext,
     ): Promise<void> {
         if (!this.started || context.skipped) return;
-        const alreadyWent = typeof context.round === "number" && combatant.roundOfLastTurn !== context.round;
+        const roundOfLastTurnEnd = combatant.flags[SYSTEM_ID].roundOfLastTurnEnd;
+        const alreadyWent = typeof context.round === "number" && roundOfLastTurnEnd === context.round;
         if (!alreadyWent) return combatant.onEndTurn({ round: context.round });
     }
 
@@ -259,7 +260,7 @@ class EncounterPF2e extends Combat {
         combatant: CombatantPF2e<this>,
         context: fd.CombatTurnEventContext,
     ): Promise<void> {
-        const alreadyWent = typeof context.round === "number" && combatant.roundOfLastTurn !== context.round;
+        const alreadyWent = typeof context.round === "number" && combatant.roundOfLastTurn === context.round;
         if (!alreadyWent) await combatant.onStartTurn();
         for (const otherCombatant of this.combatants) {
             if (combatant !== otherCombatant) otherCombatant.actor?.recharge({ duration: "turn" });
