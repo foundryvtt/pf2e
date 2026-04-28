@@ -76,8 +76,8 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             const roll = await ((): Promise<Rolled<DamageRoll>> | null => {
                 try {
                     const damageRoll = new DamageRoll(formula, rollData);
-                    const rollMode = command === "roll" ? game.settings.get("core", "rollMode") : command;
-                    const allowInteractive = rollMode !== "blindroll";
+                    const messageMode = command ?? game.settings.get("core", "messageMode");
+                    const allowInteractive = messageMode !== "blind";
                     return looksLikeDamageRoll(damageRoll) ? damageRoll.evaluate({ allowInteractive }) : null;
                 } catch {
                     return null;
