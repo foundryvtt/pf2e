@@ -59,7 +59,7 @@ export default class DetectionMode extends DataModel<null, DetectionModeSchema> 
      * @param level The level the target is in
      * @returns Can the target object theoretically be detected by this vision source?
      */
-    protected _canDetect(visionSource: PointVisionSource<Token>, target: PlaceableObject, level: Level): boolean;
+    protected _canDetect(visionSource: PointVisionSource<Token>, target: object | null, level: Level): boolean;
 
     /**
      * Evaluate a single test point to confirm whether it is visible.
