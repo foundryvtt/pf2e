@@ -1841,6 +1841,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const result = await super._preUpdate(changed, options, user);
         if (result === false) return false;
 
+        // Troop token flags should only ever be actual tokens, not prototype tokens
+        // This prevents them from being copied in from the Assign Token button
+        if (changed.prototypeToken?.flags?.[SYSTEM_ID] && "troop" in changed.prototypeToken.flags[SYSTEM_ID]) {
+            delete changed.prototypeToken.flags[SYSTEM_ID].troop;
+        }
+
         const isFullReplace = !((options.diff ?? true) && (options.recursive ?? true));
         if (isFullReplace) return result;
 
