@@ -18,7 +18,7 @@ import CanvasGroupMixin from "./canvas-group-mixin.mjs";
  * - {@link hookEvents.createEffectsCanvasGroup}
  * - {@link hookEvents.lightingRefresh}
  */
-export default class EffectsCanvasGroup extends CanvasGroupMixin(PIXI.Container) {
+export default class EffectsCanvasGroup<TObject extends AmbientLight | Token> extends CanvasGroupMixin(PIXI.Container) {
     /**
      *  Whether to currently animate light sources.
      */
@@ -32,17 +32,17 @@ export default class EffectsCanvasGroup extends CanvasGroupMixin(PIXI.Container)
     /**
      * A mapping of light sources which are active within the rendered Scene.
      */
-    lightSources: Collection<string, PointLightSource<AmbientLight | Token>>;
+    lightSources: Collection<string, PointLightSource<TObject>>;
 
     /**
      * A mapping of darkness sources which are active within the rendered Scene.
      */
-    darknessSources: Collection<string, PointDarknessSource<AmbientLight>>;
+    darknessSources: Collection<string, PointDarknessSource<TObject>>;
 
     /**
      * A Collection of vision sources which are currently active within the rendered Scene.
      */
-    visionSources: Collection<string, PointVisionSource<Token>>;
+    visionSources: Collection<string, PointVisionSource<TObject>>;
 
     /**
      *  A set of vision mask filters used in visual effects group
@@ -72,7 +72,7 @@ export default class EffectsCanvasGroup extends CanvasGroupMixin(PIXI.Container)
     /**
      * Iterator for all light and darkness sources.
      */
-    allSources(): Generator<PointDarknessSource<AmbientLight> | PointLightSource<AmbientLight | Token>, void, void>;
+    allSources(): Generator<PointDarknessSource<TObject> | PointLightSource<TObject>, void, void>;
 
     protected override _createLayers(): {
         background: CanvasBackgroundAlterationEffects;
@@ -129,10 +129,7 @@ export default class EffectsCanvasGroup extends CanvasGroupMixin(PIXI.Container)
      * order to be tested.
      * @returns Is inside light?
      */
-    testInsideLight(
-        position: ElevatedPoint,
-        options?: (source: PointLightSource<AmbientLight | Token>) => boolean,
-    ): boolean;
+    testInsideLight(position: ElevatedPoint, options?: (source: PointLightSource<TObject>) => boolean): boolean;
 
     /**
      * Test whether the point is inside darkness.
@@ -141,10 +138,7 @@ export default class EffectsCanvasGroup extends CanvasGroupMixin(PIXI.Container)
      * @param options.condition Optional condition a source must satisfy in order to be tested.
      * @returns Is inside a darkness?
      */
-    testInsideDarkness(
-        position: ElevatedPoint,
-        options?: (source: PointDarknessSource<AmbientLight>) => boolean,
-    ): boolean;
+    testInsideDarkness(position: ElevatedPoint, options?: (source: PointDarknessSource<TObject>) => boolean): boolean;
 
     /**
      * Get the darkness level at the given point.
