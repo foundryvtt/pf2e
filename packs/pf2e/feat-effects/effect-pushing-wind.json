@@ -23,10 +23,18 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": [
-                    "land-speed",
-                    "fly-speed"
+                "selector": "land-speed",
+                "type": "circumstance",
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "derived-from-land"
+                    }
                 ],
+                "selector": "fly-speed",
                 "type": "circumstance",
                 "value": 5
             }
