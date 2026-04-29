@@ -6,7 +6,7 @@ import { MigrationBase } from "../base.ts";
 /** Migrate Change Shape ChoiceSet label keys to use PF2E.ChangeShape.Form.* */
 export class Migration957ChangeShapeLocalizationKeys extends MigrationBase {
     static override version = 0.957;
-    
+
     #replaceStrings<T extends object | string>(data: T): T {
         return recursiveReplaceString(data, (s) =>
             s
@@ -160,12 +160,12 @@ export class Migration957ChangeShapeLocalizationKeys extends MigrationBase {
                     /^PF2E\.NPCAbility\.ChangeShape\.Form\.WormCave$/g,
                     "PF2E.NPCAbility.ChangeShape.Form.Animal.Specific.WormCave",
                 )
-                
+
                 .replaceAll(
                     /^PF2E\.NPCAbility\.ChangeShape\.Form\.Human$/g,
                     "PF2E.NPCAbility.ChangeShape.Form.Ancestry.Human",
                 )
-                
+
                 .replaceAll(
                     /^PF2E\.NPCAbility\.ChangeShape\.Form\.Orc$/g,
                     "PF2E.NPCAbility.ChangeShape.Form.Ancestry.Orc",
@@ -199,11 +199,8 @@ export class Migration957ChangeShapeLocalizationKeys extends MigrationBase {
                     /^PF2E\.NPCAbility\.ChangeShape\.Form\.Gylou$/g,
                     "PF2E.NPCAbility.ChangeShape.Form.Devil.Gylou",
                 )
-                .replaceAll(
-                    /^PF2E\.NPCAbility\.ChangeShape\.Form\.Imp$/g,
-                    "PF2E.NPCAbility.ChangeShape.Form.Devil.Imp",
-                )
-                
+                .replaceAll(/^PF2E\.NPCAbility\.ChangeShape\.Form\.Imp$/g, "PF2E.NPCAbility.ChangeShape.Form.Devil.Imp")
+
                 .replaceAll(
                     /^PF2E\.NPCAbility\.ChangeShape\.Form\.Faydhaan$/g,
                     "PF2E.NPCAbility.ChangeShape.Form.Genie.Faydhaan",
@@ -305,7 +302,7 @@ export class Migration957ChangeShapeLocalizationKeys extends MigrationBase {
                     /^PF2E\.NPCAbility\.ChangeShape\.Form\.Morrigna$/g,
                     "PF2E.NPCAbility.ChangeShape.Form.Psychopomp.Morrigna",
                 )
-                
+
                 .replaceAll(
                     /^PF2E\.NPCAbility\.ChangeShape\.Form\.RajaKrodha$/g,
                     "PF2E.NPCAbility.ChangeShape.Form.Rakshasa.RajaKrodha",
@@ -313,9 +310,9 @@ export class Migration957ChangeShapeLocalizationKeys extends MigrationBase {
                 .replaceAll(
                     /^PF2E\.NPCAbility\.ChangeShape\.Form\.Raktavarna$/g,
                     "PF2E.NPCAbility.ChangeShape.Form.Rakshasa.Raktavarna",
-                )
-            )
-        };
+                ),
+        );
+    }
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         source.system = this.#replaceStrings(source.system);
