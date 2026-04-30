@@ -1,0 +1,170 @@
+{
+    "_id": "O96L4EmgcoL8ysrc",
+    "folder": "w1E6in5pl7MHDdUi",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "UnhL1CfDu885wjUj",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Initiation",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Any uninitiated creature enters the worship chamber</p><hr /><p><strong>Effect</strong> The trap makes a Devourer's maw Strike against the triggering creature. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "00yejQ2JKphyH0Yj",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Devourer’s Maw",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "u0sOuLj1X3psZaoA": {
+                        "damage": "2d8+9",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "qOa3vmdDP9MrMZpX",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Devastation's Truth",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Devourer's temptation manifests an intrusive vision of destruction and doom, attempting to awe all who experience it with the power of the Devourer and the inevitability of death for them and all their loved ones. All uninitiated creatures in the worship chamber must attempt a @Check[will|dc:24] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and can immediately attempt to help an affected creature as a reaction (see Disable).</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature takes @Damage[(2d8+9)[mental]] damage and is @UUID[Compendium.sf2e.conditions.Item.Fascinated] until a creature revives them. The creature is then immune to Devastation's Truth for 24 hours.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[(4d8+18)[mental]] damage, is fascinated until a creature revives them, and is @UUID[Compendium.sf2e.conditions.Item.Stupefied]{Stupefied 2} for 24 hours. The creature is then immune to Devastation's Truth for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Devourer's Temptation",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>or <em>detect magic</em></p>",
+                "value": 18
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>This swirling column of glowing red light is enchanted with the unholy magic of the Devourer. Looking into its depths shows any creature the power of true devastation, filling them with longing and despair.</p>",
+            "disable": "<p>@Check[athletics|dc:19] or @Check[medicine|dc:19] to revive an affected creature, @Check[occultism|dc:22] or @Check[performance|dc:22] to weave your own message into the projection, @Check[arcana|dc:24] or @Check[computers|dc:24] to disrupt the projections, or @Check[religion|dc:25] to invoke your deity for protection</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Tales From the Vast"
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) The trap uses Devastation's Truth to try to incapacitate all creatures in the worship chamber, then makes a Devourer's maw Strike against a creature in range that resisted the trap's effects.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap",
+                "unholy"
+            ]
+        }
+    },
+    "type": "hazard"
+}

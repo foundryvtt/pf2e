@@ -1,0 +1,331 @@
+{
+    "_id": "Bxj8boIi8TKxn9hQ",
+    "folder": "bFbCwH6VsVfx4HlL",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "6xGvbsIiPnVFOhAD",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Deathly Touch",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "iAyeguOeElpcqWTm": {
+                        "damage": "2d6+4",
+                        "damageType": "spirit"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "aoiQTFdvYT4aYBzj",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Permaburnout",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>15 feet</p>\n<p><strong>Requirements</strong> The retail phantasm is not currently possessing a creature</p><hr /><p><strong>Effect</strong> While the retail phantasm isn't possessing a creature, it resembles a glowing ball of slime emitting waves of work-related stress. All creatures that start their turns within the emanation take @Damage[1d8[spirit]] damage (@Check[will|dc:16|basic] save). On a critical failure, the creature is also @UUID[Compendium.sf2e.conditions.Item.Clumsy]{Clumsy 1} as long as it remains in the aura.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 15
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LK3St1I90ZPmv3j9",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Alien Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vbDdsrV2yN5pNuLn",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Possess Creature",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The retail phantasm attempts to possess an adjacent corporeal creature. This has the same effect as the @UUID[Compendium.sf2e.spells.Item.Possession] spell (DC 18), except the duration is [[/gmr 1d4 #hours]]{1d4 hours}, and since the retail phantasm doesn't have a physical body, it's unaffected by that restriction of the spell. If the target is an employee of the same company as the retail phantasm, the DC is 22.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PIa0c70i9D1kbTQN",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Unpaid Overtime",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The retail phantasm touches an adjacent creature, causing the weight of years of toil to overcome them at once. The creature must attempt a @Check[fortitude|dc:18] save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.sf2e.conditions.Item.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is enfeebled 1 for 24 hours and @UUID[Compendium.sf2e.conditions.Item.Fatigued].</p>\n<p><strong>Critical Failure</strong> The target is enfeebled 1 for 24 hours, fatigued, and falls @UUID[Compendium.sf2e.conditions.Item.Unconscious]. If it's still unconscious after 1 minute, it wakes up automatically.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Retail Phantasm",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 21
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 45,
+                "temp": 0,
+                "value": 45
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "spirit",
+                        "vitality"
+                    ],
+                    "type": "all-damage",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
+            "level": {
+                "value": 4
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Tales From the Vast"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 10,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 10
+            }
+        },
+        "skills": {
+            "deception": {
+                "base": 14
+            },
+            "stealth": {
+                "base": 14
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "incorporeal",
+                "spirit",
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

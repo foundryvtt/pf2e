@@ -1,0 +1,371 @@
+{
+    "_id": "pyvr9GOYkdQ1ZiAH",
+    "folder": "bFbCwH6VsVfx4HlL",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "8ULVz3k5aXtCM8E0",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Touch",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "mosaic-touch"
+                    ]
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "3MXTPTVjluYZIH2G": {
+                        "damage": "1d8+6",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "KRiPnYCxePOxNAd9",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Strange Light",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>15 feet. A mosaic soul glows with a colored light, casting dim light in the emanation.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "value": {
+                            "alpha": 0.25,
+                            "animation": {
+                                "type": "chroma"
+                            },
+                            "bright": 0,
+                            "color": "#894aa5",
+                            "dim": 15
+                        }
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "light"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CxeQ1cizJZLkX53n",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Alien Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SljsbK1S3pR47Mm0",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Disorganized Emotions",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When a mosaic soul fails a saving throw against an emotion effect, a single solid hue takes over its form, and it loses the incorporeal trait for [[/gmr 1d4 #rounds]]{1d4 rounds}. During this time, the mosaic soul can't use Swirling Colors, and its strange light aura is disabled.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tUBKQu5RqbND3xIi",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Mosaic Touch",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The soul's touch Strike unravels living targets into their components, leaving grievous wounds like acid burns. A living creature that takes Hit Point damage from the mosaic soul's touch Strike and must attempt a @Check[fortitude|dc:17] save or take @Damage[2d6[persistent,acid]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GIS3fINcWyqTDJCu",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Swirling Colors",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mosaic soul's colors shimmer and invert in terrible flashes. All other creatures within a @Template[type:emanation|distance:30] must attempt a @Check[fortitude|dc:19] save (mosaic souls are immune to this ability). The mosaic soul's strange light aura casts bright light until the start of its next turn.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Dazzled] until the end of its next turn.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.sf2e.conditions.Item.Blinded] until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> The creature is blinded until the end of its next turn and @UUID[Compendium.sf2e.conditions.Item.Fascinated] for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "light",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Mosaic Soul",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": 1
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 18
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 45,
+                "temp": 0,
+                "value": 45
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "spirit",
+                        "vitality"
+                    ],
+                    "type": "all-damage",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 25
+                    }
+                ],
+                "value": 0
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Tales From the Vast"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 9,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 9
+            }
+        },
+        "skills": {
+            "intimidation": {
+                "base": 9
+            },
+            "stealth": {
+                "base": 10
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "cosmic",
+                "incorporeal",
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

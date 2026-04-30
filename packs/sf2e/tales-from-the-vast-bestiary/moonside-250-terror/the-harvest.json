@@ -1,0 +1,497 @@
+{
+    "_id": "yAehKdf6VbisiXM6",
+    "folder": "bFbCwH6VsVfx4HlL",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "F3Mip12mPHGAQDwN",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "7ZS8ze1GheOOQNIT": {
+                        "damage": "2d10+11",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ktl1D8nmal9JsiG0",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Scissorclaws",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "W8eSZwc4Jihdf7Gl": {
+                        "damage": "2d6+8",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "yfNegxr5wvWsPD8r",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Vibrovision",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The Harvest's scanners make it excellent at pinpointing targets. It ignores the @UUID[Compendium.sf2e.conditions.Item.Concealed] condition.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MKD1MiZZ74cFLQzI",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Musical Jingle",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The Harvest plays cheerful music wherever it goes. All creatures within a @Template[type:emanation|distance:60] gain a +1 circumstance bonus to Perception checks against the Harvest. The Harvest can turn the music off as a single action; this gives it a +4 circumstance bonus to Stealth.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "aura"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hve8idhiR3dro8tj",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Alien Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SoK9dhFmSgUB0nwo",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Ceiling Drop",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The Harvest is on a ceiling or wall</p><hr /><p><strong>Effect</strong> The Harvest shrieks and drops onto creatures below it. It Leaps. Any creature within its space when it lands must succeed at a @Check[reflex|dc:26] save or take @Damage[5d6[bludgeoning]] damage. Creatures that critically fail their save are knocked @UUID[Compendium.sf2e.conditions.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FafLFj6kB3oZCEMO",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Chase Sequence",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Harvest Strides twice and Strikes at a creature. On a successful Strike, the target increases its frightened condition by 1.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack",
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yJPU6JfggONxDMKO",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Harvest Organics",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The Harvest is within reach of a dead creature</p><hr /><p><strong>Effect</strong> The Harvest strips flesh from bone with startling precision, fusing it into its body. The Harvest gains temporary Hit Points equal to double the creature's level for 1 minute; this effect is cumulative, resetting the duration each time the ability is used, and can give the Harvest up to a maximum of 30 temporary Hit Points at a time.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QoyrTAlwzSetNKQz",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Malformed Scream",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Harvest lets out a strained shriek that is equal parts malfunctioning robot and decaying windpipes. All creatures within 120 feet must make a @Check[will|dc:26] save or be @UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 2} for 1 minute (@UUID[Compendium.sf2e.conditions.Item.Frightened]{Frightened 3} on a critical failure). Creatures are then immune to Malformed Scream for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Q1o6iYzyw87a4QeG",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Moonside Cleaner",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Harvest's command to clean is always its first priority. When it sees a mess being created, it must succeed at a @Check[will|dc:23] save or spend an action cleaning.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Ll6MGrAgZgY2TeeQ",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Reconfigurable Skeleton",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Harvest can Squeeze through spaces as if it were a Small creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "The Harvest",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 3
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -2
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 27
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 45,
+                "temp": 0,
+                "value": 45
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 20
+                    }
+                ],
+                "value": 30
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "(can’t speak any languages)",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 8
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Tales From the Vast"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "vibrovision",
+            "mod": 12,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 16
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 18
+            },
+            "athletics": {
+                "base": 16
+            },
+            "intimidation": {
+                "base": 21
+            },
+            "stealth": {
+                "base": 12
+            },
+            "survival": {
+                "base": 16
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "construct"
+            ]
+        }
+    },
+    "type": "npc"
+}

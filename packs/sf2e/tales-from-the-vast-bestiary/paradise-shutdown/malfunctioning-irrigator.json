@@ -1,0 +1,217 @@
+{
+    "_id": "nRGCPmAuogfp7Ub3",
+    "folder": "w1E6in5pl7MHDdUi",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "8H1b609Mu9BVNJmv",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "System Overload",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The Guiding Intelligence activates the hazard</p><hr /><p><strong>Effect</strong> The irrigation system begins to malfunction, releasing a pulse of disrupting static. Creatures within 100 feet must attempt a @Check[fortitude|dc:18] save. On a failure, tech items in a creature's possession become @UUID[Compendium.sf2e.conditions.Item.Glitching]{Glitching 1}, and if the creature has the tech trait, they become glitching 1. Then, the irrigator rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ngu4ViQsIE35DNjF",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Spigot",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "pp7VDtsSDAiQXNgS": {
+                        "damage": "1d10+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "unwieldy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "tN1jCocTyfGdHGe4",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Zap",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "MCVjxPy6YWeSuzVG": {
+                        "damage": "1d10",
+                        "damageType": "electricity"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 100,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": false,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "0Zn1rAugwLkvIWWY",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Irrigate",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The irrigator sprays pressurized water in a @Template[type:cone|distance:20]. All creatures in the area take @Damage[(1d10+6)[bludgeoning]|options:area-damage] damage (@Check[reflex|dc:18|basic] save). On a failure, a creature is also @UUID[Compendium.sf2e.conditions.Item.Suppressed].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Malfunctioning Irrigator",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "emitsSound": "encounter",
+            "hardness": 10,
+            "hp": {
+                "details": "",
+                "max": 44,
+                "temp": 0,
+                "value": 44
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 16
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The irrigation system pumps water irregularly, flooding some fields and draining all of the water out of others. The electrical systems that keep things in check have gone haywire, resulting in arcs of electricity.</p>",
+            "disable": "<p>@Check[computers|dc:17] (trained) or Thievery (trained) to enter the correct shutdown sequence on the control panel and disable the irrigator, or @Check[crafting|dc:20] (trained) or Farming Lore (trained) to repair the irrigator</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Tales From the Vast"
+            },
+            "reset": "<p>The Guiding Intelligence can reset the trap 24 hours later.</p>",
+            "routine": "<p>(4 actions) The irrigator Irrigates as many targets as possible, then follows up with a zap or spigot Strike. The irrigator prioritizes targeting creatures attempting to disable or repair it.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 9
+            },
+            "reflex": {
+                "value": 6
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "tech"
+            ]
+        }
+    },
+    "type": "hazard"
+}

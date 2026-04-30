@@ -1,0 +1,159 @@
+{
+    "_id": "CmwfvxFCmr7Ga3Eo",
+    "folder": "w1E6in5pl7MHDdUi",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "WUtTheaJVYDaOpZQ",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Forbid Entry",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature attempts to pass through the barrier or touches it</p><hr /><p><strong>Effect</strong> The barrier shunts the creature away, making a barrier Strike against the triggering creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xV3UJpg5Gy9r1Wl3",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Barrier",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "vuPWl7VwLpyyOq2p": {
+                        "damage": "4d8+18",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": "<p>plus the target is pushed back 5 feet (10 feet on a critical hit). The barrier takes a –2 circumstance penalty to hit if the triggering creature Stepped into the barrier or was moved by a forced movement effect.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "barrier-penalty"
+                        ],
+                        "selector": [
+                            "{item|id}-attack"
+                        ],
+                        "type": "circumstance",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Repulsing Barrier",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "emitsSound": "encounter",
+            "hardness": 13,
+            "hp": {
+                "details": "",
+                "max": 54,
+                "temp": 0,
+                "value": 54
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 9
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A hardlight barrier forms an unnatural cube of glowing blue static that surrounds a computer console.</p>",
+            "disable": "<p>@Check[thievery|dc:23] (trained) to disable the barrier, @Check[computers|dc:24] (trained) to Hack the barrier, or @UUID[Compendium.sf2e.spells.Item.Dispel Magic] (4th rank; counteract DC 21) to counteract the barrier</p>",
+            "isComplex": false,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Tales From the Vast"
+            },
+            "reset": "",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 17
+            },
+            "reflex": {
+                "value": 11
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "tech",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

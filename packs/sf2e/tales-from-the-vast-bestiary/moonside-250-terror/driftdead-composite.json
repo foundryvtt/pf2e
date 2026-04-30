@@ -1,0 +1,431 @@
+{
+    "_id": "02LDFGeV0zA4sPkC",
+    "folder": "bFbCwH6VsVfx4HlL",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Ng22Yay85yhcuGaC",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "N3fkvg1FYmCxY5Wh": {
+                        "damage": "2d6+9",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "LzRkGWqqMgILoBwK",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Drift Rip",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "QDrGn4GCxq8u19Dt": {
+                        "damage": "2d12+7",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "uLBaKdUxxF3jPL4g",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
+            },
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Lifesense",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Alien Core"
+                },
+                "rules": [],
+                "slug": "lifesense",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "A8XIkE8Xp0JkPaa4",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Dead Zone",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. The area bristles with chaotic terrain torn from the Drift. The area is zero-gravity. Creatures that enter or begin their turn in the emanation take @Damage[4d6[void]] damage (@Check[fortitude|dc:22|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "occult"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Of8t0XQdHTZMxl5A",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Alien Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nLjQIKQTw32UoIJl",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Driftdead Creation",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Living humanoids killed in the Drift by a composite rise as driftdead after [[/gmr 1d4 #rounds]]{1d4 rounds}, controlled by the driftdead composite that killed it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lcziqqFB0Qgv7NoV",
+            "img": "systems/sf2e/icons/actions/TwoActions.webp",
+            "name": "Ripping Blast",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The composite's claws rip through reality in a @Template[type:cone|distance:30], dealing @Damage[2d6[slashing]|options:area-damage] damage (@Check[reflex|dc:22|basic] save). On a critical failure, creatures are also @UUID[Compendium.sf2e.conditions.Item.Drained]{Drained 1}. The composite can't use Ripping Blast again for [[/gmr 1d4 #Recharge Ripping Blast]]{1d4 rounds}</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LYmZGAPnRjbMiH0J",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Torn from the Drift",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>While outside the Drift, the composite gains the incorporeal trait, becomes immune to precision damage, and gains resistance to all damage 10 (except force, ghost killer, or spirit; double resistance vs. non-magical).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Driftdead Composite",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 21
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 140,
+                "temp": 0,
+                "value": 140
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 20
+                    }
+                ],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Tales From the Vast"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 12,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "lifesense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 11
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 14
+            },
+            "athletics": {
+                "base": 15
+            },
+            "stealth": {
+                "base": 15
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "cosmic",
+                "spirit",
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}

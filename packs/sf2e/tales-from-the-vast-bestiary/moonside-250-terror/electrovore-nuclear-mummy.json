@@ -1,0 +1,411 @@
+{
+    "_id": "8mrbCW1egVL4Jg40",
+    "folder": "bFbCwH6VsVfx4HlL",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "wYRbckV1PVTXztBV",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "siphon",
+                        "unholy-radiation"
+                    ]
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "V6nPlPyEsahxTsvP": {
+                        "damage": "1d8+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "vzkhw5FlBulHzYCd",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Ionizing Zap",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "3UameTPPIh7OEMdW": {
+                        "damage": "1d12+3",
+                        "damageType": "poison"
+                    },
+                    "vaW9usa8sQn8830i": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "poison"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "radiation"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "hGH1p666CKXTssJK",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Crumbling Form",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A nuclear mummy is ionized to the point of disintegration. Once a nuclear mummy is reduced to fewer than half its Hit Points, or upon being damaged by a critical hit, it starts falling apart, reducing its Armor Class to 15.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "Crumbling Form Damaged by Critical Hit",
+                        "option": "crumbling-form",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "crumbling-form",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "ac"
+                        ],
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8gU6KuA7pEPKq2D6",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Ionizing Presence",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>10 feet. The nuclear mummy is highly radioactive. Any living creature that starts its turn within the emanation takes @Damage[1d6[poison]] damage (@Check[fortitude|dc:17|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "radiation"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4z3MQnWazt7VmSpL",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Siphon",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When an electrovore mummy scores a critical hit with a tail Strike against a living creature wielding or wearing tech gear or a creature with the tech trait, it siphons off a portion of the target's electrical energy. This restores @Damage[5[healing]] Hit Points to the electrovore immediately, plus 1 Hit Point per minute for the next 10 minutes; the additional healing doesn't increase if the electrovore siphons multiple times.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kO7XqvrBlybf090O",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Unholy Radiation",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The nuclear mummy's touch carries a mutating radiation. An infected creature can't heal damage it takes from unholy radiation until it has been cured of the disease</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:20]</p>\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @Damage[1d6[poison]] damage (1 day)</p>\n<p><strong>Stage 3</strong> @Damage[1d6[poison]] damage (1 day)</p>\n<p><strong>Stage 4</strong> @Damage[1d6[poison]] damage (1 day)</p>\n<p><strong>Stage 5</strong> dead, rising as a nuclear zombie (using a driftdead returned's statistics)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Electrovore Nuclear Mummy",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -1
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -3
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 17
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "electricity"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 20
+                    }
+                ],
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 5
+                },
+                {
+                    "type": "vitality",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 2
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Tales From the Vast"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "darkvision",
+            "mod": 8,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 3
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 7
+            },
+            "athletics": {
+                "base": 4
+            },
+            "crafting –2": {
+                "base": null
+            },
+            "piloting –2": {
+                "base": null
+            },
+            "stealth": {
+                "base": 8
+            },
+            "survival": {
+                "base": 5
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "mindless",
+                "mummy",
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

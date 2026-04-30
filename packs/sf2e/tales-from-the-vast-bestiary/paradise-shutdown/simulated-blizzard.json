@@ -1,0 +1,98 @@
+{
+    "_id": "KtuPyrJnRwLWHupR",
+    "folder": "w1E6in5pl7MHDdUi",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "nwZ2xxOXYyZOPfzZ",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Let It Snow",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The Guiding Intelligence activates the blizzard module</p><hr /><p><strong>Effect</strong> The wind begins howling and snow swirls in every direction, creating a whiteout. The blizzard rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Simulated Blizzard",
+    "prototypeToken": {
+        "name": "Hazard"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 13
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A deluge of ice, snow, and sleet swirls with the howling wind.</p>",
+            "disable": "<p>@Check[nature|dc:18] or @Check[survival|dc:18] (trained) to find shelter; @Check[crafting|dc:20] (trained) or @Check[Engineering Lore|dc:20] (trained) to create shelter; @Check[acrobatics|dc:22] (trained), @Check[athletics|dc:22] (trained), or @Check[nature|dc:22] (trained) to quickly carry plants and animals inside</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Tales From the Vast"
+            },
+            "reset": "<p>The blizzard lasts for 10 rounds, then subsides to a snowstorm.</p>",
+            "routine": "<p>(1 action) The blizzard swirls. Creatures trapped in the blizzard are @UUID[Compendium.sf2e.conditions.Item.Blinded], @UUID[Compendium.sf2e.conditions.Item.Suppressed], and take @Damage[(2d8+7)[cold]] damage each round (@Check[fortitude|dc:18|basic] save).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,145 @@
+{
+    "_id": "7TRt5gMQR2CNofyF",
+    "folder": "bFbCwH6VsVfx4HlL",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "6AlddRQp4PZaxpZs",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Dispense Drink",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature inputs the wrong commands into the machine</p><hr /><p><strong>Effect</strong> The machine expels scalding hot liquid that deals @Damage[(1d6+10)[fire]|options:area-damage] damage to all creatures within a @Template[type:cone|distance:15] (@Check[reflex|dc:19|basic] save). It then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tx5dnsFct3nf9abq",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Cup Throw",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {},
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Malfunctioning Beverage Machine",
+    "prototypeToken": {
+        "name": "Hazard"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "emitsSound": "encounter",
+            "hardness": 10,
+            "hp": {
+                "details": "",
+                "max": 36,
+                "temp": 0,
+                "value": 36
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 17
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A beverage machine begins shuddering before spewing scalding liquid onto bystanders.</p>",
+            "disable": "<p>@Check[crafting|dc:17] or @Check[computers|dc:17] to disable the machine or @Check[athletics|dc:15] to push it over on its side</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Tales From the Vast"
+            },
+            "reset": "<p>The beverage machine runs out of liquid after 4 rounds, and cups after 6 rounds.</p>",
+            "routine": "<p>(1 action) The beverage machine continues spewing liquid in a @Template[type:cone|distance:15]. It then attempts a cup throw Strike at the nearest target.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 8
+            },
+            "reflex": {
+                "value": 5
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

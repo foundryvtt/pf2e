@@ -1,0 +1,111 @@
+{
+    "_id": "q9W9OJuFV6MZrmd9",
+    "folder": "y4Gc5S1874B1TrM8",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "1vfUhu3Z8Jtid0Rx",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Hungry Maw",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the @Template[type:cone|distance:15] area in front of the maw</p><hr /><p><strong>Effect</strong> The maw draws everything within the area of effect toward its processing mechanisms and then rolls initiative. Creatures in the affected area must attempt a @Check[reflex|dc:26] save. Any creature that starts its turn within the maw itself takes @Damage[(1d10+9)[bludgeoning],(1d10+9)[piercing],(1d10+9)[slashing]|options:area-damage]{1d10+9 bludgeoning damage, 1d10+9 piercing damage, and 1d10+9 slashing} damage. A creature that dies within the maw is destroyed completely, along with all of their gear.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is dragged 5 feet toward the intake maw.</p>\n<p><strong>Failure</strong> The creature is dragged 10 feet toward the maw and knocked @UUID[Compendium.sf2e.conditions.Item.Prone].</p>\n<p><strong>Critical Failure</strong> The creature is dragged 20 feet and pulled into the maw, knocked prone, and takes @Damage[(2d10+9)[bludgeoning]|options:area-damage] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Intake Maw",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "emitsSound": "encounter",
+            "hardness": 16,
+            "hp": {
+                "details": "",
+                "max": 64,
+                "temp": 0,
+                "value": 64
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 13
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "orichalcum",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>A rotating 20-foot aperture full of blades, grinders, and mashers attempts to suck anything within a @Template[type:cone|distance:15] area in front of it into its processors.</p>",
+            "disable": "<p>@Check[crafting|dc:24] (expert) to carefully disassemble the maw's parts, @Check[athletics|dc:28] to stop the blades, or @Check[thievery|dc:26] (expert) to trip the mechanisms; two successes are required to disable the intake maw</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Tales From the Vast"
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) The trap turns its @Template[type:cone|distance:15] 45 degrees.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 19
+            },
+            "reflex": {
+                "value": 13
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

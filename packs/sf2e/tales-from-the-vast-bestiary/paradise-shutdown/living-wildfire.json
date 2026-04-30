@@ -1,0 +1,321 @@
+{
+    "_id": "nnoHSZvglRmCABii",
+    "folder": "w1E6in5pl7MHDdUi",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "MPrXrKYGEC1ii3rK",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Tendril",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "Y6Q2idbsUYQ7Ndea": {
+                        "category": "persistent",
+                        "damage": "2d4",
+                        "damageType": "fire"
+                    },
+                    "hdtf4bLqPcVHqfAo": {
+                        "damage": "2d6+6",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "CN0IP3zH6Ytsjal3",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Fire Mote",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "B45mTCnIuRfQRj1k": {
+                        "damage": "2d6+3",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ZsnJSqUhkjudCgAY",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Smoke Vision",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The living wildfire ignores the @UUID[Compendium.sf2e.conditions.Item.Concealed] condition from smoke.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zHvlTVD2S9FQrrrh",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Explosion",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When the living wildfire dies, it explodes, dealing @Damage[3d6[fire]|options:area-damage] damage to each creature in a @Template[type:emanation|distance:10] (@Check[reflex|dc:19|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0EuhFTZ0UzfMD1VB",
+            "img": "systems/sf2e/icons/actions/OneAction.webp",
+            "name": "Spreading Flames",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The living wildfire's last action was a Strike that dealt fire damage</p><hr /><p><strong>Effect</strong> The fire flares, dealing @Damage[3d6[fire]] damage to each creature adjacent to that target with a @Check[reflex|dc:19|basic] save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Living Wildfire",
+    "prototypeToken": {
+        "name": "NPC"
+    },
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -2
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 22
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "explosion",
+                "max": 80,
+                "temp": 0,
+                "value": 80
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 50
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 5
+                },
+                {
+                    "type": "water",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 5
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Tales From the Vast"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "smoke vision",
+            "mod": 10,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 10
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 13
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "elemental",
+                "fire"
+            ]
+        }
+    },
+    "type": "npc"
+}
