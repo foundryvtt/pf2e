@@ -208,6 +208,7 @@ const UNCOMMON_SF_LANGUAGES = [
     "brenneri",
     "chthonian",
     "copaxi",
+    "coshyco",
     "daemonic",
     "diabolic",
     "dwarven",
