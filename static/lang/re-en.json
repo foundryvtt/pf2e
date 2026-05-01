@@ -1532,7 +1532,7 @@
             },
             "Sangrist": {
                 "BloodVigor": {
-                    "FastHealing":{
+                    "FastHealing": {
                         "Details": "While adjacent to a creature taking persistent bleed damage",
                         "Toggle": "Blood Vigor — Fast Healing"
                     }
@@ -3901,6 +3901,9 @@
                 "RockRunner": {
                     "Note": "When you use the Acrobatics skill to Balance on narrow surfaces or uneven ground made of stone or earth, you aren't off-guard, and when you roll a success at one of these Acrobatics checks, you get a critical success instead."
                 },
+                "SpacewyrmSlayer": {
+                    "Label": "Spacewyrm Slayer (Dragon)"
+                },
                 "SparkFist": {
                     "Note": "Each time you succeed on a fist Strike, you take @Damage[(1+@weapon.system.runes.striking)[fire]]{fire damage}."
                 },
@@ -3965,6 +3968,14 @@
                 },
                 "Woodcraft": {
                     "Note": "When in a forest or jungle environment, if you roll a critical failure on a Survival skill check to Sense Direction, Subsist, or Cover Tracks, you get a failure instead, and if you roll a success, you get a critical success instead."
+                }
+            },
+            "EntuColony": {
+                "EntuSporeCaps": {
+                    "Note": "You deal @Damage[(ternary(gte(@actor.level,17),5,ternary(gte(@actor.level,13),4,ternary(gte(@actor.level,9),3,2))))[poison]] to any creature that has you grabbed or an adjacent creature that hits you with an attack."
+                },
+                "MyceliumArmor": {
+                    "RollOptionLabel": "Mycelium Armor — Extra poison damage"
                 }
             },
             "EnvenomCompanion": {
@@ -4740,6 +4751,15 @@
             "FollowTheExpert": {
                 "Prompt": "Select expert's proficiency in skill."
             },
+            "Formian": {
+                "Mageslayer": {
+                    "MageslayerClaw": "Mageslayer Claw",
+                    "Note": {
+                        "Title": "Mageslayer",
+                        "Text": "A creature you Strike with your mageslayer claw must attempt a @Check[will|against:class-spell] save against the higher of your class DC or spell DC. On a failure, the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} for 1 minute (or @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 2} on a critical failure)."
+                    }
+                }
+            },
             "FortificationLikeEffect": {
                 "Fortification": "If your armor has a fortification or greater fortification rune, you roll only one flat check.",
                 "Fourteen": "Each time you're critically hit, attempt a @Check[flat|dc:14|showDC:all]. On a success, it becomes a normal hit.",
@@ -4767,6 +4787,11 @@
                     "SaveNote": "When you roll a success on a save against an emotion or fear effect, you get a critical success instead."
                 },
                 "Resistance": "Ganzi Resistance"
+            },
+            "GapTouched": {
+                "GlitchShot": {
+                    "Addendum": "You can use Glitching Memory at a range of 60 feet."
+                }
             },
             "GeneralTraining": {
                 "Prompt": "Select a 1st-level general feat."
@@ -4800,6 +4825,9 @@
                     "Swamp": "Affected foes take @Damage[(max(1,floor(@item.level/2)))[persistent,poison]] damage with a @Check[fortitude|basic] save.",
                     "Underground": "For 1 round, you gain darkvision as well as imprecise tremorsense out to 15 feet."
                 }
+            },
+            "Gfolian": {
+                "FlameBelch": "FlameBelch"
             },
             "GhostScarfLit": "Ghost Scarf is shedding light",
             "Ghoul": {
@@ -4866,6 +4894,10 @@
                 },
                 "ScaldingSpit": {
                     "BoilingSpit": "Boiling Spit"
+                },
+                "TankmeatGoblin": {
+                    "Doomed": "Tankmeat Goblin (Doomed)",
+                    "Wounded": "Tankmeat Goblin (Wounded)"
                 },
                 "TorchGoblin": {
                     "Note": "As long as you are suffering persistent fire damage, all your melee attacks against adjacent creatures deal an additional @Damage[1[fire]]{1 fire damage} per weapon damage die."
@@ -5070,6 +5102,14 @@
                     "MagmaSpikeCriticalSpecialization": "Instead of the normal critical specialization effect, the target takes @Damage[1d6[persistent,fire]] damage; you gain a bonus on this persistent damage equal to your item bonus to attack rolls on unarmed attacks."
                 }
             },
+            "Ijtikri": {
+                "AllGrabberStance": {
+                    "LashingLimb": "Lashing Limb"
+                },
+                "SacrificialShell": {
+                    "RollOptionLabel": "Sacrificial Shell — Block Damage"
+                }
+            },
             "ImpeccableFlow": {
                 "RollOptionLabel": "Impeccable Flow — You critically failed any check.",
                 "Note": "If you critically fail any check while under the effects of this spell, the bonus ends and you instead have a -1 status penalty to all checks for the remaining duration."
@@ -5186,6 +5226,11 @@
                 }
             },
             "ItemStrike": "{item} Strike",
+            "Izalgun": {
+                "IntimidatingAthlete": {
+                    "Note": "You can attempt an [[/act demoralize skill=athletics]]{Athletics} or Intimidation check to [[/act demoralize]] one creature within 30 feet."
+                }
+            },
             "Jotunborn": {
                 "IivlarsBoundaryBreak": {
                     "DescriptionAddendum": "When you Sustain this spell, increase the distance you teleport to 15 feet."
@@ -5332,6 +5377,9 @@
             "Lashunta": {
                 "AscendantPsychic": {
                     "TelepathyRange": "Increase the range of your limited telepathy to 120 feet."
+                },
+                "Glowsilk": {
+                    "LabelFungus": "Glowsilk Lashunta (fungus)"
                 }
             },
             "LepidstadtSurgeon": {
@@ -5381,6 +5429,11 @@
                 },
                 "Prompt": "Select a crowd size."
             },
+            "Madrosarai": {
+                "ScorchingLifeblood": {
+                    "Note": "Any adjacent creature that touches you, deals piercing or slashing damage to you, or hits you with a melee unarmed attack takes @Damage[3d6[fire]] damage."
+                }
+            },
             "MagicalExperiment": {
                 "EnhancedSenses": "Enhanced Senses",
                 "ResistantSkin": "Resistant Skin",
@@ -5422,6 +5475,11 @@
                 },
                 "ToweringTrunk": "Towering Trunk",
                 "UnyieldingWill": "Unyielding Will"
+            },
+            "Maraquoi": {
+                "DiveBomb": {
+                    "Note": "Your target is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} to this attack."
+                }
             },
             "MarkForDeath": {
                 "DeceiveMark": "To use Deception to Feint your Mark",
@@ -5808,6 +5866,13 @@
                     "Unknown": "The Unknown"
                 }
             },
+            "Orocoran": {
+                "PlentifulBile": {
+                    "CoatInBile": "Coat in Bile",
+                    "Slitherskin": "Slitherskin",
+                    "SpewAcidicBile": "Spew Acidic Bile"
+                }
+            },
             "Organsight": {
                 "Organs": "Organsight (Organs)",
                 "Skin": "Organsight (Skin)",
@@ -5829,6 +5894,11 @@
             },
             "PathfinderAgentDedication": {
                 "ThoroughReports": "Thorough Reports"
+            },
+            "Pahtra": {
+                "Oozebonded": {
+                    "LabelEscape": "Oozebonded Pahtra (Escape)"
+                }
             },
             "PlayingItem": "Playing {item}",
             "PFS": {
@@ -6169,6 +6239,21 @@
                     "Note": "When you Sense Direction, you get a result one degree of success better than you rolled."
                 }
             },
+            "Raxilite": {
+                "FloralShifter": {
+                    "Flowering": "Flowering",
+                    "Seeding": "Seeding"
+                },
+                "Inheritor": {
+                    "Prompt": "Choose a field.",
+                    "Bioengineer": "Bioengineer",
+                    "Daredevil": "Daredevil",
+                    "Emissary": "Emissary",
+                    "Interstellar Pilot": "Interstellar Pilot",
+                    "Physician": "Physician",
+                    "Software Architect": "Software Architect"
+                }
+            },
             "RelicGift": {
                 "DivineRetribution": {
                     "CriticalSuccess": "If the target is evil, it is also @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} until the start of your next turn on a critical hit.",
@@ -6305,6 +6390,11 @@
                     "Prompt": "Select a Thassilonian school",
                     "Sloth": "Sloth",
                     "Wrath": "Wrath"
+                }
+            },
+            "Ryphorian": {
+                "BondedTandemFeint": {
+                    "Note": "The target is also @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} to melee and ranged attacks that you or your bonded partner attempt against it until the end of your next turn."
                 }
             },
             "SaveCriticalFailureToFailure": {
@@ -7277,6 +7367,11 @@
                 }
             },
             "TrinityGeodeLabel": "Trinity Geode",
+            "Trox": {
+                "FortifiedTrox": {
+                    "ChitinousPlates": "Chitinous Plates"
+                }
+            },
             "TwinnedDefense": {
                 "Prompt": "Are you wielding a parry weapon?"
             },
@@ -7316,6 +7411,11 @@
                 "UntamedClaws": "Untamed Claws",
                 "UntamedJaws": "Untamed Jaws",
                 "Wings": "Wings"
+            },
+            "Urog": {
+                "CrystalCarapace": {
+                    "Shell": "Shell"
+                }
             },
             "UrsineAvenger": {
                 "GreatBear": {
@@ -8110,6 +8210,10 @@
                 }
             },
             "Kasatha": {
+                "IgnoreRadiation": {
+                    "Poison": "Ignore Radiation (Poison)",
+                    "Radiation": "Ignore Radiation (Radiation)"
+                },
                 "WeaponFamiliarity": {
                     "AdvancedWeapons": "Advanced Kasathan Weapons",
                     "MartialWeapons": "Martial Kasathan Weapons"
@@ -8505,6 +8609,14 @@
                     "DebrisZone": "Debris Zone becomes greater difficult terrain.",
                     "RadiantZone": "The zone overlap forces creatures to attempt another saving throw.",
                     "TwistedDarkZone": "Twisted Dark Zone ignores the temporary immunity of creatures that previously critically succeeded at the save for 1 round."
+                }
+            },
+            "XenometricAndroid": {
+                "HomebrewedCore": {
+                    "Prompt": "Choose one of the following",
+                    "Larger": "One size larger",
+                    "Smaller": "One size smaller",
+                    "AdditionalLimbs": "Additional pair of limbs"
                 }
             }
         }
