@@ -61,7 +61,7 @@ jobs:
       - name: Zip JSON Assets
         working-directory: ./json-assets
         run: |
-          cp -r ../static/lang/ ./
+          cp -r ../dist/${{ inputs.system }}/lang/ ./
           zip -r ./json-assets.zip ./*
 
       - name: Create Version Release
