@@ -254,3 +254,4 @@ export { Migration953NotStrikeDamage } from "./953-not-strike-damage.ts";
 export { Migration954ExplicitBleedImmunity } from "./954-explicit-bleed-immunity.ts";
 export { Migration955HazardNullSaves } from "./955-hazard-null-saves.ts";
 export { Migration956DragonChoiceLocalizationKeys } from "./956-dragonchoice-localization-keys.ts";
+export { Migration957SF2eAnachronismImages } from "./957-sf2e-anachronism-images.ts";
