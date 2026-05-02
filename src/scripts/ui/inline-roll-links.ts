@@ -51,10 +51,7 @@ export class InlineRollLinks {
                 }
 
                 const areaLink = getLinkOrSpan("data-effect-area");
-                if (areaLink) {
-                    this.#onClickInlineTemplate(event, areaLink);
-                    return;
-                }
+                if (areaLink) this.#onClickInlineTemplate(event, areaLink);
             },
             { passive: true },
         );
@@ -80,9 +77,8 @@ export class InlineRollLinks {
             if (foundryDoc && !foundryDoc.isOwner) continue;
 
             const newButton = document.createElement("i");
-            const icon =
-                link.parentElement?.dataset?.pf2Checkgroup !== undefined ? "fa-comment-alt-dots" : "fa-comment-alt";
-            newButton.classList.add("fa-solid", icon);
+            const icon = link.parentElement?.dataset?.pf2Checkgroup !== undefined ? "fa-comment-dots" : "fa-comment";
+            newButton.classList.add("fa-solid", icon, "repost");
             newButton.dataset.pf2Repost = "";
             newButton.title = _loc("PF2E.Repost");
             link.appendChild(newButton);

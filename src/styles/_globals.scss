@@ -116,11 +116,11 @@ table.pf2-table {
         background-color: var(--color-pf-primary-dark);
         color: var(--text-light);
         font-weight: bold;
-        padding: var(--space-8) var(--space-4);
+        padding: var(--spacer-8) var(--spacer-4);
     }
 
     td {
-        padding: var(--space-4);
+        padding: var(--spacer-4);
     }
 
     &.remaster {
@@ -168,26 +168,28 @@ table.pf2-table {
     border: 1px solid var(--content-link-border-color);
     box-sizing: border-box;
     color: var(--content-link-text-color);
-    padding: 0 var(--space-4);
+    padding: 0 var(--spacer-4);
     white-space: nowrap;
     word-break: break-all;
 
-    > i.icon {
-        color: var(var(--color-text-dark-inactive));
-        margin-right: var(--space-4);
+    i {
+        color: var(--content-link-icon-color);
+        margin-right: var(--spacer-4);
     }
 }
 
 a.content-link,
-a.inline-roll {
+a.effect-area,
+a.inline-roll,
+a.inline-check {
     line-height: 1.5em;
     i {
-        font-size: 0.85em;
+        font-size: 0.9em;
     }
 }
 
 a.content-link {
-    padding: 0 var(--space-4);
+    padding: 0 var(--spacer-4);
     // Automatically italicize spell content links
     &:has(i.fa-sparkles) {
         font-style: italic;
@@ -232,7 +234,7 @@ span[data-pf2-action] {
 
     &[data-pf2-glyph]::before {
         font-family: "Pathfinder2eActions", sans-serif;
-        margin-right: var(--space-2);
+        margin-right: var(--spacer-2);
         color: var(--color-text-dark-inactive);
     }
 
@@ -246,7 +248,7 @@ span[data-pf2-action] {
         background-size: var(--font-size-15) var(--font-size-15);
         opacity: 0.4;
         margin-bottom: calc(-1 * var(--space-3));
-        margin-right: var(--space-2);
+        margin-right: var(--spacer-2);
         content: "";
     }
 
@@ -283,8 +285,12 @@ a.inline-check,
 span[data-pf2-check] {
     @include inline-link;
 
-    &:has([data-pf2-repost]) {
+    &.with-repost {
         padding-right: 0;
+
+        i.repost {
+            margin-right: var(--spacer-2);
+        }
     }
 
     &:hover {
@@ -295,15 +301,19 @@ span[data-pf2-check] {
         text-shadow: 0 0 8px var(--color-shadow-primary);
     }
 
-    > i.icon {
+    i {
         &:has(+ span.label > :first-child:is([data-visibility="gm"])) {
-            margin-right: 0.25em;
+            margin-right: var(--spacer-4);
         }
     }
 
     &[data-pf2-traits*="secret"] {
         background: var(--color-blind-roll-background);
         border-color: var(--color-blind-roll-border);
+        [data-visibility="gm"] {
+            background: none;
+            outline: none;
+        }
     }
 
     &[data-invalid] {
@@ -318,42 +328,27 @@ span[data-pf2-check] {
 
 a.effect-area {
     @include inline-link;
+    display: inline;
 
-    &::before {
-        color: var(--color-text-primary);
-        font-family: var(--font-awesome);
-        font-weight: 900;
-        margin-right: 0.25em;
+    i {
+        margin-right: var(--spacer-2);
+        position: relative;
     }
 
-    // EFFECT_AREA_SHAPES
-
-    &[data-type="burst"]::before {
-        content: "\f111";
+    &[data-type="cone"] i {
+        position: relative;
+        &::before {
+            top: calc(-1 * var(--spacer-12) + 1px);
+            left: 1px;
+            width: 1ch;
+            height: 1ch;
+            font-size: var(--font-size-24);
+            position: absolute;
+        }
     }
 
-    &[data-type="cone"]::before {
-        content: "\f104";
-    }
-
-    &[data-type="cube"]::before {
-        content: "\f1b2";
-    }
-
-    &[data-type="cylinder"]::before {
-        content: "\f1c0";
-    }
-
-    &[data-type="emanation"]::before {
-        content: "\f192";
-    }
-
-    &[data-type="line"]::before {
-        content: "\f7a5";
-    }
-
-    &[data-type="square"]::before {
-        content: "\f0c8";
+    &[data-type="cylinder"] i {
+        --fa-secondary-opacity: 1;
     }
 }
 
@@ -361,17 +356,15 @@ a.effect-area {
 /* PF2E Inline Repost Element                */
 /* ----------------------------------------- */
 
-i[data-pf2-repost] {
+i.repost {
     @include quick-transition;
-    color: var(--color-text-subtle);
     border-left: 1px solid var(--content-link-border-color);
-    padding: var(--space-2);
-    margin-left: var(--space-2);
+    padding: 0 0 0 var(--spacer-2);
+    margin: 0 0 0 var(--spacer-2);
     text-shadow: none;
 
     &:hover {
-        color: var(--color-text-selection);
-        text-shadow: 0 0 2px var(--color-text-emphatic);
+        color: var(--color-text-primary);
     }
 }
 
@@ -390,7 +383,7 @@ i[data-pf2-repost] {
 
     &.message-sender {
         align-self: center;
-        margin-bottom: var(--space-4);
+        margin-bottom: var(--spacer-4);
         max-width: fit-content;
     }
 
@@ -439,7 +432,7 @@ a[href]:hover {
     li[data-action="pf2e"] {
         li {
             height: 1.9rem;
-            margin-bottom: var(--space-2);
+            margin-bottom: var(--spacer-2);
         }
 
         li[data-action="pf2e-action-glyph"] {
@@ -472,12 +465,12 @@ a[href]:hover {
 #tooltip.pf2e,
 aside.locked-tooltip.pf2e {
     @include corner-boxes;
-    padding: var(--space-4) 0;
+    padding: var(--spacer-4) 0;
     text-align: left;
 
     ul {
-        margin: var(--space-2);
-        padding-right: var(--space-4);
+        margin: var(--spacer-2);
+        padding-right: var(--spacer-4);
     }
 
     h1,
