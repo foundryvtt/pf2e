@@ -53,9 +53,10 @@ class BaseSpeedRuleElement extends RuleElement<BaseSpeedRuleSchema> {
                 if (!Number.isInteger(value)) this.failValidation("Failed to resolve value");
                 return null;
             }
-            // Whether this speed is derived from the creature's land speed
-            const derivedFromLand =
-                type !== "land" && typeof this.value === "string" && this.value.includes("movement.speeds.land.value");
+            const landTotal = this.actor.system.movement?.speeds?.land?.value ?? 0;
+            // Whether this speed is derived from the land speed.
+            // If choices are between constant and land speed, only true if land speed was chosen.
+            const derivedFromLand = type !== "land" && typeof this.value === "string" && this.value.includes("movement.speeds.land.value") && value === landTotal;
             return { type: type, value, source: this.getReducedLabel(), derivedFromLand };
         };
     }

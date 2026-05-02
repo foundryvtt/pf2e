@@ -748,7 +748,7 @@ abstract class CreaturePF2e<
                     domain["derived-from-land"] = true;
                 }
                 const statistic = selected.derivedFromLand
-                    ? landSpeed.extend({ type, base: selected.value, source: selected.source })
+                    ? landSpeed.extend({ type, base: selected.value, source: selected.source, derivedFromLand: true })
                     : new SpeedStatistic(this, {
                           type,
                           base: selected.value,

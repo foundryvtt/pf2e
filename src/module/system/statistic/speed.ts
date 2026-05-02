@@ -4,7 +4,7 @@ import { MovementType } from "@actor/types.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { ErrorPF2e, localizer } from "@util";
 import { BaseStatistic } from "./base.ts";
-import { BaseStatisticData, BaseStatisticTraceData } from "./data.ts";
+import { BaseStatisticData, BaseStatisticTraceData, StatisticData } from "./data.ts";
 
 class SpeedStatistic<TActor extends ActorPF2e, TType extends MovementType | "travel"> extends BaseStatistic<TActor> {
     constructor(actor: TActor, options: SpeedStatisticData<TType>) {
@@ -28,6 +28,15 @@ class SpeedStatistic<TActor extends ActorPF2e, TType extends MovementType | "tra
         }
         const syntheticModifiers = extractModifiers(actor.synthetics, domains, { test: this.rollOptions });
         this.modifiers = [...syntheticModifiers, ...additionalModifiers];
+    }
+
+    /** Roll options for this speed, including {@link SpeedStatisticData.derivedFromLand} when applicable. */
+    override createRollOptions(domains = this.domains): Set<string> {
+        const set = super.createRollOptions(domains);
+        if ((this.data as StatisticData & { derivedFromLand?: boolean }).derivedFromLand) {
+            set.add("derived-from-land");
+        }
+        return set;
     }
 
     /** The movement type for this statistic */
@@ -64,8 +73,15 @@ class SpeedStatistic<TActor extends ActorPF2e, TType extends MovementType | "tra
 
     /** Derive a travel speed from this statistic. */
     extend<TType extends MovementType | "travel">(options: ExtendParams<TType>): SpeedStatistic<TActor, TType> {
-        const { type, base = this.value, modifiers = [], source = this.source } = options;
-        return new SpeedStatistic(this.actor, { type, base, modifiers, domains: [`${type}-speed`], source });
+        const { type, base = this.value, modifiers = [], source = this.source, derivedFromLand } = options;
+        return new SpeedStatistic(this.actor, {
+            type,
+            base,
+            modifiers,
+            domains: [`${type}-speed`],
+            source,
+            derivedFromLand,
+        });
     }
 
     override getTraceData(): TType extends "land"
@@ -97,6 +113,8 @@ interface SpeedStatisticData<TType extends MovementType | "travel"> extends Omit
     base?: number;
     /** A feature, ancestry, effect, etc. from which this speed originated */
     source?: string | null;
+    /** Is this speed based from land; used to prevent double-application of modifiers. */
+    derivedFromLand?: boolean;
 }
 
 interface SpeedStatisticTraceData<
@@ -115,7 +133,7 @@ interface LandSpeedStatisticTraceData extends SpeedStatisticTraceData<"land"> {
 
 interface ExtendParams<TType extends MovementType | "travel"> extends Pick<
     SpeedStatisticData<TType>,
-    "type" | "base" | "modifiers" | "source"
+    "type" | "base" | "modifiers" | "source" | "derivedFromLand"
 > {}
 
 export { SpeedStatistic };

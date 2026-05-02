@@ -1,5 +1,6 @@
 import { DeferredValueParams, MODIFIER_TYPES, Modifier, ModifierType } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
+import { MOVEMENT_TYPES } from "@actor/values.ts";
 import { damageCategoriesUnique } from "@scripts/config/damage.ts";
 import { DamageCategoryUnique } from "@system/damage/types.ts";
 import {
@@ -129,6 +130,21 @@ class FlatModifierRuleElement extends RuleElement<FlatModifierSchema> {
             if (selector === "null") continue;
 
             const construct = (options: DeferredValueParams = {}): Modifier | null => {
+                // If same rule affects land- and another speed: omit non-land modifier when base is land-derived.
+                const testRollOptions = options.test ?? [];
+                const derivedFromLand = Array.isArray(testRollOptions)
+                    ? testRollOptions.includes("derived-from-land")
+                    : testRollOptions.has("derived-from-land");
+                if (
+                    selectors.includes("land-speed") &&
+                    selector !== "land-speed" &&
+                    selector.endsWith("-speed") &&
+                    MOVEMENT_TYPES.includes(selector.replace(/-speed$/, "") as never) &&
+                    derivedFromLand
+                ) {
+                    return null;
+                }
+
                 const resolvedValue = Number(this.resolveValue(this.value, 0, options)) || 0;
                 if (this.ignored) return null;
 
