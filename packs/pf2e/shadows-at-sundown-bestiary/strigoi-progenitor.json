@@ -3416,7 +3416,52 @@
                     "remaster": true,
                     "title": "Pathfinder Adventure Path #215: To Blot Out the Sun"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    "item:magical",
+                                    {
+                                        "or": [
+                                            "damage:material:dawnsilver",
+                                            "damage:material:silver"
+                                        ]
+                                    },
+                                    {
+                                        "or": [
+                                            "item:type:melee",
+                                            "item:type:weapon"
+                                        ]
+                                    },
+                                    {
+                                        "not": "item:category:unarmed"
+                                    }
+                                ],
+                                "label": "PF2E.IWR.Custom.MagicalSilverWeapons"
+                            },
+                            {
+                                "definition": [
+                                    "item:magical",
+                                    "item:weapons-shedding-bright-light",
+                                    {
+                                        "or": [
+                                            "item:type:melee",
+                                            "item:type:weapon"
+                                        ]
+                                    },
+                                    {
+                                        "not": "item:category:unarmed"
+                                    }
+                                ],
+                                "label": "PF2E.IWR.Custom.MagicalWeaponsBrightLight"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "type": "physical",
+                        "value": 15
+                    }
+                ],
                 "slug": "vampire-strigoi-strigoi-weaknesses",
                 "traits": {
                     "value": []
