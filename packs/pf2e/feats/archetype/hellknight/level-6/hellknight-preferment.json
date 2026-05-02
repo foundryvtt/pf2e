@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You've forged your body to be able to stand toe-to-toe with a devil, and your mind has been shaped by the strictures of the Measure and the Chain. You've become a true Hellknight. You gain expert proficiency rank in Intimidation (or in another skill in which you're trained of your choice, if you were already an expert in Intimidation). You gain the armor specialization effects of Hellknight breastplate, Hellknight half plate, and Hellknight plate, and your resistance from that armor specialization is 1 higher than normal. In addition, you gain a +1 circumstance bonus to Intimidation checks while wearing any Hellknight armor.</p><hr /><p><strong>Special</strong> You can't take both this feat and Hellknight-Errant or Hellknight Signifer Preferment.</p>"
+            "value": "<p>You've forged your body to be able to stand toe-to-toe with a devil, and your mind has been shaped by the strictures of the Measure and the Chain. You've become a true Hellknight. You gain expert proficiency rank in Intimidation (or in another skill in which you're trained of your choice, if you were already an expert in Intimidation). You gain the armor specialization effects of Hellknight breastplate, Hellknight half plate, and Hellknight plate, and your resistance from that armor specialization is 1 higher than normal. In addition, you gain a +1 circumstance bonus to Intimidation checks while wearing any Hellknight armor.</p><hr /><p><strong>Special</strong> You can't take both this feat and @UUID[Compendium.pf2e.feats-srd.Item.Hellknight-Errant] or @UUID[Compendium.pf2e.feats-srd.Item.Hellknight Signifer Preferment].</p>"
         },
         "level": {
             "value": 6
@@ -62,6 +62,27 @@
                 "selector": "intimidation",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "armor:slug:hellknight-plate",
+                            "armor:slug:hellknight-half-plate"
+                        ]
+                    }
+                ],
+                "type": "slashing",
+                "value": "3 + @armor.system.runes.potency"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:slug:hellknight-breastplate"
+                ],
+                "type": "slashing",
+                "value": "2 + @armor.system.runes.potency"
             }
         ],
         "traits": {

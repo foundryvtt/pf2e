@@ -2,27 +2,31 @@ import type { CanvasVisibilityTest } from "@client/_types.d.mts";
 import type { TokenDetectionMode } from "@client/canvas/perception/detection-mode.d.mts";
 import { TokenPF2e } from "../token/object.ts";
 
-const darkvision = new fc.perception.VisionMode({
-    id: "darkvision",
-    label: "VISION.ModeDarkvision",
-    canvas: {
-        shader: fc.rendering.shaders.ColorAdjustmentsSamplerShader,
-        uniforms: { enable: true, contrast: 0, saturation: -1, brightness: 0 },
-    },
-    lighting: {
-        levels: {
-            // from core-bundled darkvision mode: maybe restore?
-            // [VisionMode.LIGHTING_LEVELS.DIM]: VisionMode.LIGHTING_LEVELS.BRIGHT,
-        },
-        background: { visibility: fc.perception.VisionMode.LIGHTING_VISIBILITY.REQUIRED },
-    },
-    vision: {
-        darkness: { adaptive: true },
-        defaults: { attenuation: 0, contrast: 0, saturation: -1, brightness: 0 },
-    },
-});
+class DarkvisionMode extends fc.perception.VisionMode {
+    constructor() {
+        super({
+            id: "darkvision",
+            label: "VISION.ModeDarkvision",
+            canvas: {
+                shader: fc.rendering.shaders.ColorAdjustmentsSamplerShader,
+                uniforms: { contrast: 0, saturation: -1, brightness: 0 },
+            },
+            lighting: {
+                levels: {
+                    // from core-bundled darkvision mode: maybe restore?
+                    // [VisionMode.LIGHTING_LEVELS.DIM]: VisionMode.LIGHTING_LEVELS.BRIGHT,
+                },
+                background: { visibility: fc.perception.VisionMode.LIGHTING_VISIBILITY.REQUIRED },
+            },
+            vision: {
+                darkness: { adaptive: true },
+                defaults: { attenuation: 0, contrast: 0, saturation: -1, brightness: 0 },
+            },
+        });
+    }
+}
 
-class LightPerceptionMode extends fc.perception.DetectionModeLightPerception {
+class LightDetectionMode extends fc.perception.DetectionModeLightPerception {
     constructor() {
         super({
             id: "lightPerception",
@@ -34,12 +38,14 @@ class LightPerceptionMode extends fc.perception.DetectionModeLightPerception {
 
     protected override _canDetect(
         visionSource: PointVisionSourcePF2e,
-        target: fc.placeables.PlaceableObject,
+        target: object | null,
         level: fd.Level,
     ): boolean {
-        if (target instanceof fc.placeables.PlaceableObject && target.document.hidden) return false;
-        if (target instanceof TokenPF2e && target.actor?.hasCondition("hidden", "undetected", "unnoticed")) {
-            return false;
+        if (target instanceof fc.placeables.PlaceableObject) {
+            const document = target.document;
+            if (document.hidden || document.actor?.hasCondition("hidden", "undetected", "unnoticed")) {
+                return false;
+            }
         }
         return super._canDetect(visionSource, target, level);
     }
@@ -55,10 +61,12 @@ class VisionDetectionMode extends fc.perception.DetectionModeDarkvision {
         });
     }
 
-    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: fc.placeables.PlaceableObject): boolean {
-        if (target instanceof fc.placeables.PlaceableObject && target.document.hidden) return false;
-        if (target instanceof TokenPF2e && target.actor?.hasCondition("hidden", "undetected", "unnoticed")) {
-            return false;
+    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: object | null): boolean {
+        if (target instanceof fc.placeables.PlaceableObject) {
+            const document = target.document;
+            if (document.hidden || document.actor?.hasCondition("hidden", "undetected", "unnoticed")) {
+                return false;
+            }
         }
         return super._canDetect(visionSource, target);
     }
@@ -80,7 +88,7 @@ class HearingDetectionMode extends fc.perception.DetectionMode {
         return filter;
     }
 
-    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: fc.placeables.PlaceableObject): boolean {
+    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: object | null): boolean {
         // Not if the target isn't a token
         if (!(target instanceof TokenPF2e)) return false;
 
@@ -161,9 +169,9 @@ class DetectionModeTremorPF2e extends fc.perception.DetectionModeTremor {
 }
 
 function setPerceptionModes(): void {
-    CONFIG.Canvas.visionModes.darkvision = darkvision;
+    CONFIG.Canvas.visionModes.darkvision = new DarkvisionMode();
     CONFIG.Canvas.detectionModes.basicSight = new VisionDetectionMode();
-    CONFIG.Canvas.detectionModes.lightPerception = new LightPerceptionMode();
+    CONFIG.Canvas.detectionModes.lightPerception = new LightDetectionMode();
     CONFIG.Canvas.detectionModes.hearing = new HearingDetectionMode();
     CONFIG.Canvas.detectionModes.feelTremor = new DetectionModeTremorPF2e();
 }

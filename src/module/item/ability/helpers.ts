@@ -1,6 +1,6 @@
 import type { ClientDocument } from "@client/documents/abstract/_module.d.mts";
 import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
-import type { AbilityItemPF2e, FeatPF2e, SpellPF2e } from "@item";
+import type { AbilityItemPF2e, FeatPF2e, MeleePF2e, SpellPF2e } from "@item";
 import { ItemPF2e } from "@item";
 import { ActionCost, FrequencySource } from "@item/base/data/system.ts";
 import type { FeatSheetPF2e } from "@item/feat/sheet.ts";
@@ -110,8 +110,8 @@ function createActionRangeLabel(range: Maybe<RangeData>): string | null {
     return _loc(key, { n: value });
 }
 
-/**  Add the holy/unholy trait to sanctified actions and spells if the owning actor is also holy/unholy */
-function processSanctification(item: AbilityItemPF2e | FeatPF2e | SpellPF2e): void {
+/**  Add the holy/unholy trait to sanctified actions, spells, and attacks if the owning actor is also holy/unholy */
+function processSanctification(item: AbilityItemPF2e | FeatPF2e | MeleePF2e | SpellPF2e): void {
     const itemTraits: { value: string[] } = item.system.traits;
     if (!itemTraits.value.includes("sanctified")) return;
 

@@ -77,12 +77,13 @@ export class Migration774UnpersistCraftingEntries extends MigrationBase {
     }
 
     generatePredicateFromRequiredTraits(requiredTraits: PhysicalItemTrait[][]): OldRawPredicate {
-        if (requiredTraits.length === 1)
+        if (requiredTraits.length === 1) {
             return {
                 all: requiredTraits[0].map((trait) => {
                     return `item:trait:${trait}`;
                 }),
             };
+        }
         return {
             any: requiredTraits.map((traits) => {
                 return {

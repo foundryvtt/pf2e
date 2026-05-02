@@ -22,6 +22,22 @@
                 "key": "BaseSpeed",
                 "selector": "swim",
                 "value": 20
+            },
+            {
+                "key": "RollOption",
+                "toggleable": true,
+                "option": "liquid-surface",
+                "value": false,
+                "label": "SF2E.SpecificRule.Bantrid.HollowOrb.RollOptionLabel"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "swim",
+                "value": "max(@actor.system.movement.speeds.land.value,20)",
+                "predicate": [
+                    "liquid-surface"
+                ],
+                "slug": "liquid-surface-speed"
             }
         ],
         "traits": {

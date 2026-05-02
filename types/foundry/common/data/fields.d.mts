@@ -42,7 +42,7 @@ import { DataModelValidationFailure } from "./validation-failure.mjs";
  *                           field name, and candidate value.
  */
 export abstract class DataField<
-    TSourceProp extends JSONValue = JSONValue,
+    TSourceProp = JSONValue,
     TModelProp = TSourceProp,
     TRequired extends boolean = boolean,
     TNullable extends boolean = boolean,

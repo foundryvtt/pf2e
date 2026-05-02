@@ -10,7 +10,7 @@
             "value": "1d8"
         },
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Saoc Astrology]</p>\n<p>You gain the selected circumstance bonus or penalty to skill checks.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Saoc Astrology]</p>\n<p>You gain a circumstance bonus or penalty to skill checks.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -28,11 +28,29 @@
         },
         "rules": [
             {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "feat:heir-of-the-saoc"
+                    }
+                ],
                 "removeAfterRoll": true,
                 "selector": "skill-check",
                 "type": "circumstance",
                 "value": "ternary(gte(@item.badge.value,6),2,ternary(gte(@item.badge.value,3),1,ternary(eq(@item.badge.value,2),0,-1)))"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "feat:heir-of-the-saoc"
+                ],
+                "removeAfterRoll": true,
+                "selector": "skill-check",
+                "slug": "heir-of-the-saoc-bonus",
+                "type": "circumstance",
+                "value": "ternary(gte(@item.badge.value,3),ceil(@item.badge.value/2),-1)"
             }
         ],
         "start": {

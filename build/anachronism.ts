@@ -181,8 +181,13 @@ for (const contentSystem of contentSystems) {
         const pair = packPairsById[normalizedPackId];
         if (!pair) return null;
 
-        const entryInTargetSystem = pair.get(targetSystem, docNameOrId);
+        // Pull the entry in the target and content systems, prioritizing target system variants
+        // Note that in the case of duplicates, sf2e does not contain the item, so we may need to fetch from pf2e
+        // This is only important for the target system, since we want to redirect content to target if it exists
         const entryInContentSystem = pair.get(contentSystem, docNameOrId);
+        const entryInTargetSystem =
+            pair.get(targetSystem, docNameOrId) ??
+            (entryInContentSystem && pair.duplicated.has(entryInContentSystem.name) ? entryInContentSystem : null);
         const id = entryInTargetSystem?._id ?? entryInContentSystem?._id;
         const name = entryInTargetSystem?.name ?? entryInContentSystem?.name;
         if (!name || !id) return null;
@@ -326,8 +331,9 @@ for (const contentSystem of contentSystems) {
         ...R.clone(mainManifest),
         packs: contentPacks.map(({ id, dirName }) => {
             const original = contentSystemManifest.packs.find((p) => (compendiumRemap[p.name] ?? p.name) === id);
-            if (!original)
+            if (!original) {
                 throw PackError(`Failed to pack data in manifest for ${id} in content system ${contentSystem}`);
+            }
             return {
                 ...original,
                 name: compendiumRemap[original.name] ?? original.name,

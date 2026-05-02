@@ -1,95 +1,48 @@
 <script lang="ts">
     import Svelecte from "svelecte";
     type SvelecteParams = Parameters<Required<Svelecte>["$set"]>[0];
+
     let { value = $bindable(), ...props }: SvelecteParams = $props();
+    const className = $derived(((props.class ?? "") + " pf2e").trim());
+    const positionResolver = $derived(props.positionResolver ?? popoverPositionResolver);
 
-    // Track the detached dropdown node and its theme source for syncing
-    let dropdownNode: HTMLElement | null = $state(null);
-    let themeSource: HTMLElement | null = $state(null);
+    // Promotes dropdown to top layer to escape clipping from ancestor backdrop-filter.
+    function popoverPositionResolver(dropdown: HTMLElement) {
+        dropdown.popover = "manual";
 
-    // Sync theme classes from the theme source to the dropdown
-    function syncTheme(node: HTMLElement, source: HTMLElement) {
-        const theme = [...source.classList].find((c) => c.startsWith("theme-"));
-        // Remove any existing theme classes
-        for (const cls of [...node.classList]) {
-            if (cls.startsWith("theme-")) {
-                node.classList.remove(cls);
-            }
-        }
-        // Add current theme
-        if (theme) {
-            node.classList.add("themed", theme);
-        } else {
-            node.classList.remove("themed");
-        }
-    }
-
-    // Watch for theme changes on the theme source and sync to dropdown
-    $effect(() => {
-        if (!dropdownNode || !themeSource) return;
-
-        syncTheme(dropdownNode, themeSource);
-
-        const observer = new MutationObserver(() => syncTheme(dropdownNode!, themeSource!));
-        observer.observe(themeSource, { attributes: true, attributeFilter: ["class"] });
-
-        return () => observer.disconnect();
-    });
-
-    // Svelecte position resolver that puts it on the body
-    function popoutPositionResolver(node: HTMLElement) {
-        // Find the closest themed ancestor before detaching, or fall back to body
-        themeSource = node.closest<HTMLElement>(".themed") ?? document.body;
-
-        node.classList.add("detached", "pf2e");
-        dropdownNode = node;
-
-        let destroyed = false;
-        const selectElement = node.parentElement;
-
-        function positionElement() {
-            if (destroyed) return; // end the request animation loop if destroyed
-
-            if (selectElement && node.classList.contains("is-open")) {
-                const bounds = selectElement.getBoundingClientRect();
-                node.style.left = `${bounds.left}px`;
-                node.style.top = `${bounds.bottom}px`;
-                node.style.minWidth = `${bounds.width}px`;
-            }
-
-            requestAnimationFrame(positionElement);
-        }
-
-        document.body.appendChild(node);
-        positionElement();
+        const observer = new MutationObserver(() => {
+            const shouldOpen = dropdown.classList.contains("is-open");
+            const isOpen = dropdown.matches(":popover-open");
+            if (shouldOpen && !isOpen) dropdown.showPopover();
+            else if (!shouldOpen && isOpen) dropdown.hidePopover();
+        });
+        observer.observe(dropdown, { attributes: true, attributeFilter: ["class"] });
 
         return {
-            destroy: () => {
-                destroyed = false;
-                dropdownNode = null;
-                themeSource = null;
-                selectElement?.appendChild(node);
-            },
+            destroy: () => observer.disconnect(),
         };
     }
-
-    const positionResolver = $derived(props.positionResolver ?? popoutPositionResolver);
-    const className = $derived(((props.class ?? "") + " pf2e").trim());
 </script>
 
-<Svelecte {...props} bind:value class={className} {positionResolver} />
+<div class="svelecte-pf2e">
+    <Svelecte {...props} bind:value class={className} {positionResolver} />
+</div>
 
-<style>
-    :global {
-        .svelecte.pf2e,
-        .sv_dropdown.pf2e {
+<style lang="scss">
+    .svelecte-pf2e {
+        anchor-scope: --svelecte-anchor;
+        width: 100%;
+
+        :global(.svelecte.pf2e) {
+            anchor-name: --svelecte-anchor;
+
             /* Inaccessible foundry css vars */
             --button-text-color: light-dark(var(--color-dark-1), var(--color-light-3));
             --input-background-color: light-dark(rgba(0, 0, 0, 0.1), var(--color-cool-4));
             --input-border-color: light-dark(var(--color-dark-6), transparent);
-            --input-height: 2rem;
 
-            /** Svelecte Colors */
+            /** Svelecte Variables */
+            --sv-color: var(--color-text-primary);
             --sv-item-btn-color: var(--color-text-trait);
             --sv-item-btn-color-hover: var(--color-text-trait);
             --sv-control-bg: var(--input-background-color);
@@ -100,14 +53,11 @@
             --sv-dropdown-bg: light-dark(white, var(--color-cool-4));
             --sv-dropdown-active-bg: light-dark(rgba(0, 0, 0, 0.1), var(--color-text-selection-bg));
             --sv-border: 1px solid var(--input-border-color);
-
             --sv-selection-multi-wrap-padding: 0.15em;
             --sv-selection-gap: 0.2em;
             --sv-min-height: var(--input-height);
 
-            color: var(--color-text-primary);
-
-            .sv-input--text {
+            :global(.sv-input--text) {
                 width: auto;
                 height: unset;
                 line-height: unset;
@@ -126,17 +76,21 @@
                 }
             }
 
+            :global(.sv_dropdown) {
+                position: fixed;
+                position-anchor: --svelecte-anchor;
+                min-width: anchor-size(width);
+                inset: unset;
+                top: anchor(bottom);
+                left: anchor(left);
+            }
+
             /** Undo foundry overrides */
-            button {
+            :global(button) {
                 height: unset;
                 min-height: unset;
                 border-radius: unset;
             }
-        }
-
-        body > .sv_dropdown.pf2e.detached {
-            min-width: 0;
-            z-index: 5000 !important;
         }
     }
 </style>

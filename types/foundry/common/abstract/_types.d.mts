@@ -2,7 +2,7 @@ import { DocumentUUID } from "@client/utils/helpers.mjs";
 import { DataField } from "@common/data/fields.mjs";
 import { DataModel, Document } from "./_module.mjs";
 
-export type DataSchema = { [K in string]: DataField<JSONValue, unknown> };
+export type DataSchema = { [K in string]: DataField<unknown, unknown> };
 
 export interface DataModelValidationOptions {
     /** Validate each individual field */

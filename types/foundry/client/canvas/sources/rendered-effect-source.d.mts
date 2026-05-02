@@ -6,6 +6,8 @@ import type BaseEffectSource from "./base-effect-source.mjs";
 import type { BaseEffectSourceData } from "./base-effect-source.mjs";
 
 interface RenderedEffectSourceData extends BaseEffectSourceData {
+    /** An animation configuration for the source */
+    animation: object;
     /** A color applied to the rendered effect */
     color: number | null;
     /** An integer seed to synchronize (or de-synchronize) animations */
@@ -57,6 +59,7 @@ interface RenderedEffectSourceLayer {
  */
 export default abstract class RenderedEffectSource<
     TObject extends PlaceableObject | null,
+    TData extends RenderedEffectSourceData = RenderedEffectSourceData,
 > extends BaseEffectSource<TObject> {
     /** Keys of the data object which require shaders to be re-initialized. */
     static _initializeShaderKeys: string[];
@@ -80,7 +83,7 @@ export default abstract class RenderedEffectSource<
     animation: RenderedPointSourceAnimationConfig;
 
     /** The object of data which configures how the source is rendered */
-    data: RenderedEffectSourceData;
+    data: TData;
 
     /** Track the status of rendering layers */
     layers: Record<"background" | "coloration" | "illumination", RenderedEffectSourceLayer>;
@@ -114,9 +117,7 @@ export default abstract class RenderedEffectSource<
     /*  Rendered Source Initialization              */
     /* -------------------------------------------- */
 
-    protected override _initialize(data: Partial<BaseEffectSourceData>): void;
-
-    /* -------------------------------------------- */
+    protected override _initialize(data: Partial<TData>): void;
 
     /**
      * Decide whether to render soft edges with a blur.

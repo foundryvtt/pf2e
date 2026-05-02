@@ -177,8 +177,9 @@ export async function rollActionMacro({
         style: CONST.CHAT_MESSAGE_STYLES.OTHER,
     };
     const messageMode = game.settings.get("core", "messageMode");
-    if (["gm", "blind"].includes(messageMode))
+    if (["gm", "blind"].includes(messageMode)) {
         chatData.whisper = ChatMessage.getWhisperRecipients("GM").map((u) => u.id);
+    }
     if (messageMode === "blind") chatData.blind = true;
 
     return ChatMessagePF2e.create(chatData);

@@ -7,8 +7,8 @@ import { MigrationBase } from "../base.ts";
  * Remap ancestry trait slugs `gnoll`/`grippli` to `kholo`/`tripkee` on trait lists and in embedded trait-related
  * strings (localization keys, rule predicates, exact slug tokens).
  */
-export class Migration957GnollGrippliRemaster extends MigrationBase {
-    static override version = 0.957;
+export class Migration958GnollGrippliRemaster extends MigrationBase {
+    static override version = 0.958;
 
     #replaceStrings<T extends object | string>(data: T): T {
         return recursiveReplaceString(data, (s) =>

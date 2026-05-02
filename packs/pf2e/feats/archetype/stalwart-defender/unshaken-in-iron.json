@@ -149,6 +149,36 @@
                 ],
                 "type": "precision",
                 "value": "5 + @armor.system.runes.potency"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:medium",
+                    "armor:group:chain",
+                    {
+                        "gte": [
+                            "defense:medium:rank",
+                            1
+                        ]
+                    }
+                ],
+                "type":"critical-hits",
+                "value": "4 + @armor.system.runes.potency"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:category:heavy",
+                    "armor:group:chain",
+                    {
+                        "gte": [
+                            "defense:heavy:rank",
+                            1
+                        ]
+                    }
+                ],
+                "type":"critical-hits",
+                "value": "6 + @armor.system.runes.potency"
             }
         ],
         "traits": {

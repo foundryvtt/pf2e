@@ -1,4 +1,5 @@
 import Color from "@common/utils/color.mjs";
+import GlobalLightSource from "../sources/global-light-source.mjs";
 import CanvasGroupMixin from "./canvas-group-mixin.mjs";
 
 /**
@@ -6,6 +7,12 @@ import CanvasGroupMixin from "./canvas-group-mixin.mjs";
  */
 export default class EnvironmentCanvasGroup extends CanvasGroupMixin(PIXI.Container) {
     static override groupName: "environment";
+
+    static override tearDownChildren: false;
+
+    override eventMode: "static";
+
+    globalLightSource: GlobalLightSource;
 
     /**
      * Colors exposed by the manager.

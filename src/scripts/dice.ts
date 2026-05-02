@@ -79,14 +79,17 @@ class DicePF2e {
 
             // Don't include situational bonuses unless they are defined
             if ($form) data.itemBonus = $form.find("[name=itemBonus]").val();
-            if ((!data.itemBonus || data.itemBonus === 0) && rollParts.indexOf("@itemBonus") !== -1)
+            if ((!data.itemBonus || data.itemBonus === 0) && rollParts.indexOf("@itemBonus") !== -1) {
                 rollParts.splice(rollParts.indexOf("@itemBonus"), 1);
+            }
             if ($form) data.statusBonus = $form.find("[name=statusBonus]").val();
-            if ((!data.statusBonus || data.statusBonus === 0) && rollParts.indexOf("@statusBonus") !== -1)
+            if ((!data.statusBonus || data.statusBonus === 0) && rollParts.indexOf("@statusBonus") !== -1) {
                 rollParts.splice(rollParts.indexOf("@statusBonus"), 1);
+            }
             if ($form) data.circumstanceBonus = $form.find("[name=circumstanceBonus]").val();
-            if (!data.circumstanceBonus && rollParts.indexOf("@circumstanceBonus") !== -1)
+            if (!data.circumstanceBonus && rollParts.indexOf("@circumstanceBonus") !== -1) {
                 rollParts.splice(rollParts.indexOf("@circumstanceBonus"), 1);
+            }
             // Execute the roll and send it to chat
             const roll = await new Roll(rollParts.join("+"), data).roll();
             const origin = item ? { uuid: item.uuid, type: item.type } : null;
