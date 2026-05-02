@@ -20,8 +20,8 @@ import * as R from "remeda";
 const inlineSelector = ["action", "check", "effect-area"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
 export class InlineRollLinks {
-    static activatePF2eListeners(): void {
-        document.addEventListener(
+    static activatePF2eListeners(windowDoc: Document = document): void {
+        windowDoc.addEventListener(
             "click",
             (event) => {
                 const getLinkOrSpan = (attr: string) =>

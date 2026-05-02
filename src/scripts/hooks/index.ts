@@ -11,6 +11,7 @@ import { I18nInit } from "./i18n-init.ts";
 import { Init } from "./init.ts";
 import { LightingRefresh } from "./lighting-refresh.ts";
 import { Load } from "./load.ts";
+import { OpenDetachedWindow } from "./open-detached-window.ts";
 import { Ready } from "./ready.ts";
 import { RenderChatPopout } from "./render-chat-popout.ts";
 import { RenderCombatTrackerConfig } from "./render-combat-tracker-config.ts";
@@ -39,6 +40,7 @@ export const HooksPF2e = {
             I18nInit,
             Init,
             LightingRefresh,
+            OpenDetachedWindow,
             Ready,
             RenderChatPopout,
             RenderCombatTrackerConfig,
