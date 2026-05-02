@@ -94,9 +94,10 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         chatData.rolls = rolls.map((r) => JSON.stringify(r.toJSON()));
         chatData.sound ??= CONFIG.sounds.dice;
         chatData.content = rolls.reduce((t, r) => t + r.total, 0).toString();
+        const messageMode = command.replace(/roll$/, "");
         const operation = {
-            messageMode: objectHasKey(CONFIG.ChatMessage.modes, command)
-                ? command
+            messageMode: objectHasKey(CONFIG.ChatMessage.modes, messageMode)
+                ? messageMode
                 : game.settings.get("core", "messageMode"),
         };
         return ChatMessagePF2e.create(chatData, operation);
