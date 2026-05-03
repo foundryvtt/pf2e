@@ -1,3 +1,61 @@
+## 8.1.0
+
+### System Improvements
+
+- (stwlam) Have darkness lights work like darkness regions when controlling a token with darkvision
+- (Supe) Add strike buttons to chat log upon creating Quick Alchemy bombs
+
+### Bugfixes
+
+- (Dantar) Fix precision immunity crit damage miscalculation
+- (Dantar) Apply holy/unholy to sanctified NPC attacks
+- (jfn4th) Fix updating scene darkness via darkness adjuster tool
+- (oWave) Fix feat delete on ABCSheet silently failing
+- (Rigo) Use modifier type to find proficiency modifier in mythic rerolls
+- (stwlam) Add system roll-link listeners to detached windows
+- (stwlam) Fix setting message mode for slash command damage rolls, checks with the "secret" trait
+- (stwlam) Fix issue causing feats and class features with no-longer-valid traits to throw errors
+- (Supe) Fix tag strikethrough when rerolling untrained improvisation using mythic proficiency
+- (Supe) Fix troop creation in unviewed scenes
+- (Supe) Propagate elite/weak updates to all troop siblings
+- (Supe) Prevent troop token flags from being saved to prototype tokens
+
+### Data Updates
+
+- (Ambrose) Add missing Attribute Boost to the Beginner Box Merisiel
+- (Ambrose) Add missing grant for Additional Lore to Halfling Lore feat
+- (Ambrose) Condense Adapt Self Spell Effects
+- (Ambrose) Remove action cost from Improvised Pummel
+- (Ambrose) Remove malformed skill entry from Bikkhasura
+- (Ambrose) Update Dwarven Gods deity stat block descriptions to use published sources instead of the Pathfinder Wiki
+- (Ambrose) Update Sea Dragon's Liquify Resistance automation to match Draconic Codex update
+- (Dantar) Add draconic benefactors from draconic codex to dragon disciple choices
+- (Dantar) Add GM notes for Hellbreakers relics
+- (Dantar) Make Ageless Patience always apply on nat 1
+- (Dantar) Make Alternate Amps replace base ones for Silent Whisper and Parallel Breakthrough
+- (Dantar) Make Reinforced Chassis use medium armor proficiency
+- (Dantar) Make Taunt affect class DC
+- (Dantar) Migrate Kholo/Tripkee traits and related strings
+- (digitalshadowhawk) Automate Battle Lute item bonus to performance checks
+- (Dire Weasel) Add automation for Heir of the Saoc
+- (Dire Weasel) Add automation for Urnak Lostwind's Brutally Disarm
+- (Dire Weasel) Add inline typed damage rolls to Volatile Reagents
+- (Dire Weasel) Add missing frequences to Feed on Fear
+- (Dire Weasel) Add roll options to inline saving throw for Paralysis NPC ability
+- (Dire Weasel) Fix range of Wild Winds stance's Wind Crash Strike
+- (Dire Weasel) Fix water trait predicate for Elemental Assault effect
+- (Dire Weasel) Unify damage for Kithangian's Rasping Tongues
+- (kromko) Add slugs to Living Weapons's Strikes
+- (Longstrider) Fix multiclass dedications proficiencies
+- (Longstrider) Lightly brush up Swashbuckler
+- (Razytos) Remove malformed skill entry from Garadasura
+- (Rigo) Add effect for Ferrous Butterfly's A Thousand Cuts slashing weakness
+- (Rigo) Support inline damage from Notes with Energized Spark
+- (TroelsL) Fix malformed skills in Sovereign Dragons
+- (TroelsL) Remove badly formatted Spear Frog skills
+- (TroelsL) Remove malformed skill from Risen Runelord Envy
+- (TroelsL) Update Divine Living Rune initiative statistic
+
 ## 8.0.3
 
 ### Bugfixes
@@ -44,8 +102,8 @@
 - (Ambrose) Add notes to Evangelize feat
 - (Ambrose) Consolidate Evasiveness Archetype feat
 - (Ambrose) Consolidate Skill Mastery archetype feats
-- (iDantar) Automate Sanguine Tenacity's Drained mechanics
-- (iDantar) Make Arghun unique
+- (Dantar) Automate Sanguine Tenacity's Drained mechanics
+- (Dantar) Make Arghun unique
 - (kromko) Add missing Hellfire Dispatches localization strings
 
 ## 8.0.1
@@ -62,7 +120,7 @@
 ### Data Updates
 
 - (Ambrose) Correct Shadow Maze's Disorient action type to reaction
-- (iDantar) Align the implementation of Bless spell effect with Benediction
+- (Dantar) Align the implementation of Bless spell effect with Benediction
 
 ## 8.0.0
 
@@ -73,5 +131,5 @@
 ### Data Updates
 
 - (Ambrose) Add notes RE to Disturbing Knowledge feat
-- (iDantar) Fix Ammunition RE applying to Combination Weapons
+- (Dantar) Fix Ammunition RE applying to Combination Weapons
 - (Tikael) Remove trailing semicolon from ritual costs
