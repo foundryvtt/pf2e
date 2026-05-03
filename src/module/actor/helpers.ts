@@ -540,23 +540,24 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         });
     };
 
-    const labels = [`${_loc("PF2E.WeaponStrikeLabel")} ${signedInteger(strike.totalModifier)}`];
+    const labels = [{ penalty: 0, label: `${_loc("PF2E.WeaponStrikeLabel")} ${signedInteger(strike.totalModifier)}` }];
     if (item.system.subjectToMAP) {
         labels.push(
             ...(["map1", "map2"] as const).map((prop) => {
                 const penalty = createMAPenalty(prop);
                 penalty.applyAdjustments({ rollOptions: baseOptions });
                 const penaltyValue = penalty.ignored ? 0 : penalty.value;
-                return _loc("PF2E.MAPAbbreviationValueLabel", {
+                const label = _loc("PF2E.MAPAbbreviationValueLabel", {
                     value: signedInteger(strike.totalModifier + penaltyValue),
                     penalty: penaltyValue,
                 });
+                return { penalty: penaltyValue, label };
             }),
         );
     }
     const penalties = item.system.subjectToMAP ? [null, ...(["map1", "map2"] as const).map(createMAPenalty)] : [null];
     strike.variants = penalties.map((map, mapIncreases) => ({
-        label: labels[mapIncreases],
+        ...labels[mapIncreases],
         roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
             params.options ??= [];
             // Always add all weapon traits as options

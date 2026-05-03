@@ -1,3 +1,32 @@
+## 1.1.0
+
+### System Improvements
+
+- (stwlam) Have darkness lights work like darkness regions when controlling a token with darkvision
+
+### Bugfixes
+
+- (Dantar) Apply holy/unholy to sanctified NPC attacks
+- (Dantar) Fix precision immunity crit damage miscalculation
+- (jfn4th) Fix updating scene darkness via darkness adjuster tool
+- (oWave) Fix feat delete on ABCSheet silently failing
+- (Rigo) Use modifier type to find proficiency modifier in mythic rerolls
+- (stwlam) Add system roll-link listeners to detached windows
+- (stwlam) Fix setting message mode for slash command damage rolls, checks with the "secret" trait
+- (Supe) Avoid coercing boost to number in trait config
+- (Supe) Fix tag strikethrough when rerolling untrained improvisation using mythic proficiency
+- (Supe) Fix troop creation in unviewed scenes
+- (Supe) Prevent troop token flags from being saved to prototype tokens
+- (Supe) Propagate elite/weak updates to all troop siblings
+
+### Data Updates
+
+- (Ambrose) Add missing languages to select Galactic Ancestries ancestries
+- (Ambrose) Add Society Boons from Scenario #1-15
+- (Rigo) Fix Note selectors in Solar Weapon effects
+- (Rigo) Suppress volley trait penalty with Sniper operative specialization
+- (Tikael) Fix nodocite hunter level
+
 ## 1.0.3
 
 ### Bugfixes

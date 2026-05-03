@@ -1504,14 +1504,17 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         ];
 
         action.variants = ([0, 1, 2] as const).map((mapIncreases) => ({
-            get label(): string {
+            get penalty(): number {
                 const penalty = createMAPenalty(initialMAPs, mapIncreases);
                 adjustModifiers([penalty].filter(R.isTruthy), initialRollOptions);
-
+                return penalty?.value ?? 0;
+            },
+            get label(): string {
+                const penalty = this.penalty;
                 return penalty
                     ? _loc("PF2E.MAPAbbreviationValueLabel", {
-                          value: signedInteger(action.totalModifier + penalty.value),
-                          penalty: penalty.value,
+                          value: signedInteger(action.totalModifier + penalty),
+                          penalty,
                       })
                     : signedInteger(action.totalModifier);
             },

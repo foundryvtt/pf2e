@@ -38,10 +38,9 @@ class WeaponDamagePF2e {
         actor,
         context,
     }: NPCStrikeCalculateParams): Promise<WeaponDamageTemplate | null> {
-        const baseDamage = attack.baseDamage;
         const secondaryInstances = Object.values(attack.system.damageRolls)
             .map(this.npcDamageToWeaponDamage)
-            .filter((d) => !R.isDeepEqual(d, baseDamage));
+            .filter((d) => !fu.equals(d, attack.baseDamage));
 
         // Collect damage dice and modifiers from secondary damage instances
         const damageDice: DamageDicePF2e[] = [];
@@ -70,9 +69,10 @@ class WeaponDamagePF2e {
                 );
             }
             if (instance.modifier) {
+                const slug = modifiers.length === 0 ? "base" : `base-${modifiers.length}`;
                 modifiers.push(
                     new Modifier({
-                        slug: "base",
+                        slug,
                         label: labelFromCategory[instance.category ?? "null"],
                         modifier: instance.modifier,
                         damageType,
@@ -81,7 +81,6 @@ class WeaponDamagePF2e {
                 );
             }
         }
-
         return WeaponDamagePF2e.calculate({
             weapon: attack,
             actor,

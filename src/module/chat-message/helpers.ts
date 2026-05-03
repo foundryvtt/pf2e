@@ -60,6 +60,7 @@ async function createUseActionMessage(
         craftedItem: craftedItem?.toAnchor({ attrs: { draggable: "true" } }).outerHTML,
         withoutResources: craftedItem && !consumeResources,
         activate: craftedItem?.type === "consumable" && craftedItem.system.usage.type === "held" ? craftedItem : null,
+        strike: craftedItem?.isOfType("weapon") ? actor.system.actions?.find((a) => a.item === craftedItem) : null,
     });
     const flags: { [SYSTEM_ID]: ChatMessageFlagsPF2e[SystemId] } = { [SYSTEM_ID]: {} };
     if (item.system.selfEffect) {

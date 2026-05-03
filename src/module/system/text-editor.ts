@@ -17,7 +17,6 @@ import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { USER_VISIBILITIES, UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import {
     createHTMLElement,
-    fontAwesomeIcon,
     getActionGlyph,
     htmlClosest,
     localizer,
@@ -275,7 +274,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         return result;
     }
 
-    /** Create inline template button from @template command */
+    /** Create an inline template button from a `@Template` command. */
     static #createTemplateRegion(paramString: string, label?: string, item?: ItemPF2e | null): HTMLSpanElement | null {
         // Get parameters from data
         const params = this.#parseInlineParams(paramString, { first: "type" });
@@ -316,8 +315,31 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         });
 
         // Add the html elements used for the inline buttons
+        const iconClass = (() => {
+            switch (params.type) {
+                case "burst":
+                    return "fa-solid fa-circle";
+                case "cone":
+                    return "fa-solid fa-circle-quarter fa-flip-horizontal";
+                case "cube":
+                    return "fa-solid fa-square";
+                case "cylinder":
+                    return "fa-duotone fa-database";
+                case "emanation":
+                    return "fa-solid fa-dot-circle";
+                case "line":
+                    return "fa-solid fa-horizontal-rule";
+                case "square":
+                    return "fa-solid fa-square";
+                default:
+                    return "fa-solid fa-question";
+            }
+        })();
+        const icon = document.createElement("i");
+        icon.className = iconClass;
+        icon.inert = true;
         const html = createHTMLElement("a", {
-            innerHTML: label,
+            children: [icon, label],
             classes: ["effect-area"],
             dataset: { effectArea: "", ...R.pick(params, ["type", "distance", "traits", "itemUuid"]) },
         });
@@ -606,31 +628,27 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         const icon = ((): HTMLElement => {
             switch (params.type) {
                 case "fortitude":
-                    return fontAwesomeIcon("heart-pulse");
+                    return fa.fields.createFontAwesomeIcon("heart-pulse");
                 case "reflex":
-                    return fontAwesomeIcon("person-running");
+                    return fa.fields.createFontAwesomeIcon("person-running");
                 case "will":
-                    return fontAwesomeIcon("brain");
+                    return fa.fields.createFontAwesomeIcon("brain");
                 case "perception":
-                    return fontAwesomeIcon("eye");
+                    return fa.fields.createFontAwesomeIcon("eye");
                 default:
-                    return fontAwesomeIcon("dice-d20");
+                    return fa.fields.createFontAwesomeIcon("dice-d20");
             }
         })();
-        icon.classList.add("icon");
 
+        // Set the label
         const name = _loc(params.name ?? item?.name ?? params.type);
         const localize = localizer("PF2E.InlineCheck");
-
-        // Get the label
         const label = (() => {
             if (inlineLabel) return _loc(inlineLabel);
-
             if (tupleHasValue(SAVE_TYPES, params.type)) {
                 const saveName = _loc(CONFIG.PF2E.saves[params.type]);
                 return params.basic ? localize("BasicWithSave", { save: saveName }) : saveName;
             }
-
             return (
                 ActionMacroHelpers.getSimpleCheckLabel(params.type) ??
                 params.type
@@ -641,7 +659,6 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
                     .join(" ")
             );
         })();
-
         const createLabel = (content: string): HTMLSpanElement =>
             createHTMLElement("span", { classes: ["label"], innerHTML: content });
 
@@ -662,19 +679,15 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
                 rollerRole: params.rollerRole,
             },
         });
-
         if (params.against && params.dc) {
             anchor.dataset.tooltip = localize("Invalid", { message: localize("Errors.DCAndDefense") });
             anchor.dataset.invalid = "";
         }
+        if (item?.uuid) anchor.dataset.itemUuid = item.uuid;
 
-        if (item?.uuid) {
-            anchor.dataset.itemUuid = item.uuid;
-        }
-
+        // Let the inline roll function handle level base DCs
+        // Don't save the result if we are matching a statistic
         if ((params.type && params.dc) || (params.rollerRole === "target" && params.against)) {
-            // Let the inline roll function handle level base DCs
-            // Don't save the result if we are matching a statistic
             const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC({ name, params, item, actor });
             if (!params.against) anchor.dataset.pf2Dc = checkDC;
 

@@ -288,12 +288,17 @@ function isSystemDamageTerm(term: terms.RollTerm): term is ArithmeticExpression 
     return term instanceof ArithmeticExpression || term instanceof Grouping;
 }
 
-function deepFindTerms(term: terms.RollTerm, { flavor }: { flavor: string }): terms.RollTerm[] {
+function deepFindTerms(
+    term: terms.RollTerm,
+    { flavor, multiplier = 1 }: { flavor: string; multiplier?: number },
+): [terms.RollTerm, number][] {
+    const nestedMultiplier =
+        multiplier !== 1 ? multiplier : term instanceof ArithmeticExpression ? Number(term.options.crit) || 1 : 1;
     const childTerms =
         term instanceof Grouping ? [term.term] : term instanceof ArithmeticExpression ? term.operands : [];
     return [
-        term.flavor.split(",").includes(flavor) ? [term] : [],
-        childTerms.map((t) => deepFindTerms(t, { flavor })).flat(),
+        term.flavor.split(",").includes(flavor) ? [[term, nestedMultiplier] satisfies [terms.RollTerm, number]] : [],
+        childTerms.map((t) => deepFindTerms(t, { flavor, multiplier: nestedMultiplier })).flat(),
     ].flat();
 }
 

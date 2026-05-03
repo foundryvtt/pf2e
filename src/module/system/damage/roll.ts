@@ -599,15 +599,9 @@ class DamageInstance extends AbstractDamageRoll {
     }
 
     componentTotal(component: "precision" | "splash"): number {
-        if (!this._evaluated) {
-            throw ErrorPF2e("Component totals may only be accessed from an evaluated damage instance");
-        }
-
-        const terms = deepFindTerms(this.head, { flavor: component });
-        const rawTotal = terms.reduce((total, t) => total + (Number(t.total) || 0), 0);
-        const critMultiplier = Number(this.head.options.crit) || 1;
-
-        return rawTotal * critMultiplier;
+        if (!this._evaluated) throw ErrorPF2e("Component totals may only be accessed from evaluated damage instances");
+        const matches = deepFindTerms(this.head, { flavor: component });
+        return matches.reduce((total, [term, multiplier]) => total + (Number(term.total) || 0) * multiplier, 0);
     }
 
     /**

@@ -29,6 +29,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             recoverPersistentDamage: ChatLogPF2e.#onClickRecoverPersistent,
             setAsInitiative: ChatLogPF2e.#onClickSetAsInitiative,
             shieldBlock: ChatLogPF2e.#onClickShieldBlock,
+            strike: ChatLogPF2e.#onClickStrike,
         } satisfies Record<string, fa.ApplicationClickAction>,
     };
 
@@ -94,9 +95,10 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         chatData.rolls = rolls.map((r) => JSON.stringify(r.toJSON()));
         chatData.sound ??= CONFIG.sounds.dice;
         chatData.content = rolls.reduce((t, r) => t + r.total, 0).toString();
+        const messageMode = command.replace(/roll$/, "");
         const operation = {
-            messageMode: objectHasKey(CONFIG.ChatMessage.modes, command)
-                ? command
+            messageMode: objectHasKey(CONFIG.ChatMessage.modes, messageMode)
+                ? messageMode
                 : game.settings.get("core", "messageMode"),
         };
         return ChatMessagePF2e.create(chatData, operation);
@@ -431,6 +433,20 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             const scale = Math.max(1, canvas.stage.scale.x);
             canvas.animatePan({ ...token.center, scale, duration: 1000 });
         }
+    }
+
+    static async #onClickStrike(this: ChatLogPF2e | ChatPopout, event: PointerEvent): Promise<void> {
+        const { itemUuid, attackSlug } = htmlClosest(event.target, "[data-item-uuid]")?.dataset ?? {};
+        const variantIndex = Number(htmlClosest(event.target, "button")?.dataset.variantIndex ?? 0);
+        const item = await fromUuid<ItemPF2e>(itemUuid ?? "");
+        const actor = item?.actor;
+        const strike = actor?.system.actions?.find((a) => a.slug === attackSlug && a.item.uuid === itemUuid);
+        if (!item || !strike || (item.isOfType("physical") && item.quantity === 0)) {
+            ui.notifications.warn("PF2E.Item.Activation.Warning.ItemDoesNotExist", { localize: true });
+            return;
+        }
+
+        strike.variants[variantIndex].roll({ event });
     }
 
     protected override _getEntryContextOptions(): ContextMenuEntry[] {
