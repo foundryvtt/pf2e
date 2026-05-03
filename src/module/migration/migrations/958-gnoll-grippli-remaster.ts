@@ -44,7 +44,7 @@ export class Migration958GnollGrippliRemaster extends MigrationBase {
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         source.system = this.#replaceStrings(source.system);
-        if (source.flags) source.flags[SYSTEM_ID] &&= this.#replaceStrings(source.flags[SYSTEM_ID]);
+        source.flags[SYSTEM_ID] &&= this.#replaceStrings(source.flags[SYSTEM_ID]);
         source.system.traits?.value?.sort();
     }
 

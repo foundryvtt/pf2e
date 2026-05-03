@@ -152,7 +152,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             } catch (error) {
                 // Output the error, since this means a migration threw it
                 if (error instanceof Error) {
-                    console.error(`Error thrown while migrating ${actor.uuid}: ${error.message}`, error);
+                    console.error(`Error thrown while migrating ${actor.uuid}: `, error);
                 }
                 return null;
             }
