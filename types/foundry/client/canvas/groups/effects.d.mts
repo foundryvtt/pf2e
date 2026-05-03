@@ -18,7 +18,9 @@ import CanvasGroupMixin from "./canvas-group-mixin.mjs";
  * - {@link hookEvents.createEffectsCanvasGroup}
  * - {@link hookEvents.lightingRefresh}
  */
-export default class EffectsCanvasGroup<TObject extends AmbientLight | Token> extends CanvasGroupMixin(PIXI.Container) {
+export default class EffectsCanvasGroup<
+    TObject extends AmbientLight | Token = AmbientLight | Token,
+> extends CanvasGroupMixin(PIXI.Container) {
     /**
      *  Whether to currently animate light sources.
      */

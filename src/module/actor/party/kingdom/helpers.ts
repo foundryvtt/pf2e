@@ -40,9 +40,9 @@ async function importDocuments(actor: ActorPF2e, items: ItemPF2e[], skipDialog: 
 
             const data = R.pick(incoming, ["name", "img", "system"]);
             const diff = fu.diffObject(d.toObject(true), data);
-            return R.isEmpty(diff) ? null : { _id: d.id, ...diff };
+            return R.isEmpty(diff) ? null : { ...diff, _id: d.id };
         })
-        .filter(R.isTruthy);
+        .filter(R.isNonNull);
 
     // Exit out early if there's nothing to add or update
     if (!updateData.length && !createData.length) {
