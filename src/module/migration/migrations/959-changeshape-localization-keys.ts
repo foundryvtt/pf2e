@@ -4,8 +4,8 @@ import { recursiveReplaceString } from "@util";
 import { MigrationBase } from "../base.ts";
 
 /** Migrate Change Shape ChoiceSet label keys to use PF2E.ChangeShape.Form.* */
-export class Migration957ChangeShapeLocalizationKeys extends MigrationBase {
-    static override version = 0.957;
+export class Migration959ChangeShapeLocalizationKeys extends MigrationBase {
+    static override version = 0.959;
 
     #replaceStrings<T extends object | string>(data: T): T {
         return recursiveReplaceString(data, (s) =>
