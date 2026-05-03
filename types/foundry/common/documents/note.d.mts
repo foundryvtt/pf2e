@@ -1,25 +1,26 @@
-import { DocumentOwnershipLevel, ImageFilePath, TextAnchorPoint } from "@common/constants.mjs";
-import { Document, DocumentMetadata, MetadataPermission } from "../abstract/_module.mjs";
+import { ImageFilePath, TextAnchorPoint } from "@common/constants.mjs";
+import { Document, DocumentClassMetadata } from "../abstract/_module.mjs";
 import * as data from "../data/data.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseScene, BaseUser } from "./_module.mjs";
 
 /**
- * The Document definition for a Note.
+ * The Note Document.
  * Defines the DataSchema and common behaviors for a Note which are shared between both client and server.
- * @memberof documents
- *
- * @param data    Initial data from which to construct the Note
- * @param context Construction context options
  */
-export default class BaseNote<TParent extends BaseScene | null> extends Document<TParent, NoteSchema> {
+export default class BaseNote<TParent extends BaseScene | null = BaseScene | null> extends Document<
+    TParent,
+    NoteSchema
+> {
     /* -------------------------------------------- */
     /*  Model Configuration                         */
     /* -------------------------------------------- */
 
-    static override get metadata(): NoteMetadata;
+    static override get metadata(): Readonly<NoteMetadata>;
 
     static override defineSchema(): NoteSchema;
+
+    static override LOCALIZATION_PREFIXES: string[];
 
     /** The default icon used for newly created Note documents. */
     static DEFAULT_ICON: ImageFilePath;
@@ -28,34 +29,28 @@ export default class BaseNote<TParent extends BaseScene | null> extends Document
     /*  Model Methods                               */
     /* -------------------------------------------- */
 
-    override testUserPermission(
-        user: BaseUser,
-        permission: DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean },
-    ): boolean;
+    static override canUserCreate(user: BaseUser): boolean;
+
+    override getUserLevel(user: BaseUser): CONST.DocumentOwnershipNumber;
 }
 
-export default interface BaseNote<TParent extends BaseScene | null>
+export default interface BaseNote<TParent extends BaseScene | null = BaseScene | null>
     extends Document<TParent, NoteSchema>, fields.ModelPropsFromSchema<NoteSchema> {
     get documentName(): NoteMetadata["name"];
 }
 
-interface NoteMetadata extends DocumentMetadata {
+interface NoteMetadata extends DocumentClassMetadata {
     name: "Note";
     collection: "notes";
     label: "DOCUMENT.Note";
     labelPlural: "DOCUMENT.Notes";
-    permissions: {
-        view: MetadataPermission;
-        create: "NOTE_CREATE";
-        update: MetadataPermission;
-        delete: MetadataPermission;
-    };
 }
 
 type NoteSchema = {
-    /** The _id which uniquely identifies this BaseNote embedded document */
+    /** The _id which uniquely identifies this Note document */
     _id: fields.DocumentIdField;
+    /** The user who created this Note */
+    author: fields.DocumentAuthorField<BaseUser>;
     /** The _id of a JournalEntry document which this Note represents */
     entryId: fields.ForeignDocumentField<string>;
     /** The _id of a specific JournalEntryPage document which this Note represents */
@@ -64,6 +59,14 @@ type NoteSchema = {
     x: fields.NumberField<number, number, true, false, true>;
     /** The y-coordinate position of the center of the note icon */
     y: fields.NumberField<number, number, true, false, true>;
+    /** The elevation of the note icon */
+    elevation: fields.NumberField<number, number, true, false, true>;
+    /** An array of Levels that this Note is on */
+    levels: fields.SceneLevelsSetField;
+    /** The numeric sort value which orders this Note relative to its siblings */
+    sort: fields.NumberField<number, number, true, false, true>;
+    /** Is this Note currently locked? */
+    locked: fields.BooleanField;
     /** An image icon used to represent this note */
     texture: data.TextureData;
     /** The pixel size of the map note icon */

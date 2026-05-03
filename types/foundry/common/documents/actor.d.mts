@@ -4,7 +4,7 @@ import {
     DatabaseCreateCallbackOptions,
     DatabaseUpdateCallbackOptions,
     Document,
-    DocumentMetadata,
+    DocumentClassMetadata,
     EmbeddedCollection,
 } from "../abstract/_module.mjs";
 import * as data from "../data/data.mjs";
@@ -12,12 +12,8 @@ import * as fields from "../data/fields.mjs";
 import { ActorUUID, BaseActiveEffect, BaseFolder, BaseItem, BaseToken, BaseUser, ItemSource } from "./_module.mjs";
 
 /**
- * The Document definition for an Actor.
+ * The Actor Document.
  * Defines the DataSchema and common behaviors for an Actor which are shared between both client and server.
- * @memberof documents
- *
- * @param data    Initial data from which to construct the Actor
- * @param context Construction context options
  */
 export default class BaseActor<TParent extends BaseToken | null = BaseToken | null> extends Document<
     TParent,
@@ -27,7 +23,7 @@ export default class BaseActor<TParent extends BaseToken | null = BaseToken | nu
     /*  Model Configuration                         */
     /* -------------------------------------------- */
 
-    static override get metadata(): ActorMetadata;
+    static override get metadata(): Readonly<ActorMetadata>;
 
     static override defineSchema(): ActorSchema;
 
@@ -79,12 +75,14 @@ export default interface BaseActor<TParent extends BaseToken | null = BaseToken 
     get folder(): BaseFolder | null;
 }
 
-export interface ActorMetadata extends DocumentMetadata {
+export interface ActorMetadata extends DocumentClassMetadata {
     name: "Actor";
     collection: "actors";
     indexed: true;
     compendiumIndexFields: ["_id", "name", "img", "type", "sort", "folder"];
     embedded: { ActiveEffect: "effects"; Item: "items" };
+    hasTypeData: true;
+    baseTypeAllowed: false;
     label: "DOCUMENT.Actor";
     labelPlural: "DOCUMENT.Actors";
 }
@@ -98,19 +96,19 @@ type ActorSchema<
     _id: fields.DocumentIdField;
     /** The name of this Actor */
     name: fields.StringField<string, string, true, false, false>;
-    /** An Actor subtype which configures the system data model applied */
-    type: fields.StringField<TType, TType, true, false, false>;
     /** An image file path which provides the artwork for this Actor */
     img: fields.FilePathField<ImageFilePath, ImageFilePath, false, false, true>;
-    /** The system data object which is defined by the system template.json model */
+    /** An Actor subtype which configures the system data model applied */
+    type: fields.DocumentTypeField<TType, TType, true, false, true, BaseActor>;
+    /** They system data object which is defined by the system data model */
     system: fields.TypeDataField<TSystemSource>;
     /** Default Token settings which are used for Tokens created from this Actor */
     prototypeToken: fields.EmbeddedDataField<data.PrototypeToken<BaseActor>>;
-    /** A Collection of Item embedded Documents */
+    /** An EmbeddedCollection of Item documents */
     items: fields.EmbeddedCollectionField<BaseItem<BaseActor<BaseToken | null>>, TItemSource[]>;
-    /** A Collection of ActiveEffect embedded Documents */
+    /** An EmbeddedCollection of ActiveEffect documents */
     effects: fields.EmbeddedCollectionField<BaseActiveEffect<BaseActor<BaseToken | null>>>;
-    /** The _id of a Folder which contains this Actor */
+    /** The Folder which contains this Actor */
     folder: fields.ForeignDocumentField<BaseFolder>;
     /** The numeric sort value which orders this Actor relative to its siblings */
     sort: fields.IntegerSortField;
@@ -118,7 +116,7 @@ type ActorSchema<
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object of creation and access information. */
+    /** An object containing document metadata */
     _stats: fields.DocumentStatsField<ActorUUID>;
 };
 

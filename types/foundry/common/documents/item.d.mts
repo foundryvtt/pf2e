@@ -1,15 +1,11 @@
-import { DocumentOwnershipLevel, ImageFilePath, UserAction } from "@common/constants.mjs";
+import { ImageFilePath } from "@common/constants.mjs";
 import * as abstract from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseActiveEffect, BaseActor, BaseFolder, BaseUser, ItemUUID } from "./_module.mjs";
 
 /**
- * The Document definition for an Item.
- * Defines the DataSchema and common behaviors for an Item which are shared between both client and server.
- * @memberof documents
- *
- * @param data    Initial data from which to construct the Item
- * @param context Construction context options
+ * The Item Document.
+ * Defines the DataSchema and common behaviors for a Item which are shared between both client and server.
  */
 export default class BaseItem<TParent extends BaseActor | null = BaseActor | null> extends abstract.Document<
     TParent,
@@ -19,7 +15,7 @@ export default class BaseItem<TParent extends BaseActor | null = BaseActor | nul
     /*  Model Configuration                         */
     /* -------------------------------------------- */
 
-    static override get metadata(): ItemMetadata;
+    static override get metadata(): Readonly<ItemMetadata>;
 
     static override defineSchema(): ItemSchema;
 
@@ -28,21 +24,14 @@ export default class BaseItem<TParent extends BaseActor | null = BaseActor | nul
 
     /**
      * Determine default artwork based on the provided item data.
-     * @param The source item data.
+     * @param itemData The source item data.
      * @returns Candidate item image.
      */
     static getDefaultArtwork(itemData: ItemSource): { img: ImageFilePath };
 
-    /** The allowed set of Item types which may exist. */
-    static get TYPES(): string[];
+    override getUserLevel(user: BaseUser): CONST.DocumentOwnershipNumber;
 
-    override canUserModify(user: BaseUser, action: UserAction, data?: Record<string, unknown>): boolean;
-
-    override testUserPermission(
-        user: BaseUser,
-        permission: DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean },
-    ): boolean;
+    static override canUserCreate(user: BaseUser): boolean;
 }
 
 export default interface BaseItem<TParent extends BaseActor | null = BaseActor | null>
@@ -52,17 +41,16 @@ export default interface BaseItem<TParent extends BaseActor | null = BaseActor |
     readonly effects: abstract.EmbeddedCollection<BaseActiveEffect<this>>;
 }
 
-interface ItemMetadata extends abstract.DocumentMetadata {
+interface ItemMetadata extends abstract.DocumentClassMetadata {
     name: "Item";
     collection: "items";
+    hasTypeData: true;
+    baseTypeAllowed: false;
     indexed: true;
     compendiumIndexFields: ["_id", "name", "img", "type", "sort", "folder"];
     embedded: { ActiveEffect: "effects" };
     label: "DOCUMENT.Item";
     labelPlural: "DOCUMENT.Items";
-    permissions: Omit<abstract.DocumentMetadata["permissions"], "create"> & {
-        create: "ITEM_CREATE";
-    };
 }
 
 export type ItemSchema<TType extends string = string, TSystemSource extends object = object> = {
@@ -71,22 +59,22 @@ export type ItemSchema<TType extends string = string, TSystemSource extends obje
     /** The name of this Item */
     name: fields.StringField<string, string, true, false, false>;
     /** An Item subtype which configures the system data model applied */
-    type: fields.StringField<TType, TType, true, false, false>;
+    type: fields.DocumentTypeField<TType, TType, true, false, true, BaseItem>;
     /** An image file path which provides the artwork for this Item */
     img: fields.FilePathField<ImageFilePath, ImageFilePath, false, true, true>;
-    /** The system data object which is defined by the system template.json model */
+    /** They system data object which is defined by the system data model */
     system: fields.TypeDataField<TSystemSource>;
-    /** A collection of ActiveEffect embedded Documents */
+    /** An EmbeddedCollection of ActiveEffect documents */
     effects: fields.EmbeddedCollectionField<BaseActiveEffect<BaseItem<BaseActor | null>>>;
-    /** The _id of a Folder which contains this Item */
+    /** The Folder which contains this Item */
     folder: fields.ForeignDocumentField<BaseFolder>;
     /** The numeric sort value which orders this Item relative to its siblings */
     sort: fields.IntegerSortField;
-    /** An object which configures ownership of this Item */
+    /** An object which configures ownership of this Actor */
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object of creation and access information */
+    /** An object containing document metadata */
     _stats: fields.DocumentStatsField<ItemUUID>;
 };
 

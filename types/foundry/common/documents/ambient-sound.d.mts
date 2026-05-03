@@ -1,28 +1,39 @@
 import { AudioFilePath } from "@common/constants.mjs";
-import { Document, DocumentMetadata } from "../abstract/_module.mjs";
+import { Document, DocumentClassMetadata } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
 import BaseScene from "./scene.mjs";
 
 /**
- * The Document definition for an AmbientSound.
+ * The AmbientSound Document.
  * Defines the DataSchema and common behaviors for an AmbientSound which are shared between both client and server.
- * @memberof documents
- *
- * @param data    Initial data from which to construct the AmbientSound
- * @param context Construction context options
  */
-export default class BaseAmbientSound<TParent extends BaseScene | null> extends Document<TParent, AmbientSoundSchema> {
-    static override get metadata(): AmbientSoundMetadata;
+export default class BaseAmbientSound<TParent extends BaseScene | null = BaseScene | null> extends Document<
+    TParent,
+    AmbientSoundSchema
+> {
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
+
+    static override get metadata(): Readonly<AmbientSoundMetadata>;
 
     static defineSchema(): AmbientSoundSchema;
+
+    static override LOCALIZATION_PREFIXES: string[];
+
+    /* -------------------------------------------- */
+    /*  Document Methods                            */
+    /* -------------------------------------------- */
+
+    override getUserLevel(user: foundry.documents.BaseUser): CONST.DocumentOwnershipNumber;
 }
 
-export default interface BaseAmbientSound<TParent extends BaseScene | null>
+export default interface BaseAmbientSound<TParent extends BaseScene | null = BaseScene | null>
     extends Document<TParent, AmbientSoundSchema>, fields.ModelPropsFromSchema<AmbientSoundSchema> {
     get documentName(): AmbientSoundMetadata["name"];
 }
 
-interface AmbientSoundMetadata extends DocumentMetadata {
+interface AmbientSoundMetadata extends DocumentClassMetadata {
     name: "AmbientSound";
     collection: "sounds";
     label: "DOCUMENT.AmbientSound";
@@ -30,42 +41,53 @@ interface AmbientSoundMetadata extends DocumentMetadata {
     isEmbedded: true;
 }
 
-/**
- * @typedef {Object} AmbientSoundData
+type OneToTen = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
- * @property {{min: number, max: number}} darkness  A darkness range (min and max) for which the source should be active
- * @property {object} [flags]             An object of optional key/value flags
- */
 type AmbientSoundSchema = {
     /** The _id which uniquely identifies this AmbientSound document */
     _id: fields.DocumentIdField;
-    /** The x-coordinate position of the origin of the sound. */
+    /** The name of this AmbientSound */
+    name: fields.StringField;
+    /** The x-coordinate position of the origin of this AmbientSound */
     x: fields.NumberField<number, number, true, false, true>;
-    /** The y-coordinate position of the origin of the sound. */
+    /** The y-coordinate position of the origin of this AmbientSound */
     y: fields.NumberField<number, number, true, false, true>;
-    /** The radius of the emitted sound. */
+    /** The elevation of the origin of this AmbientSound  */
+    elevation: fields.NumberField<number, number, true, false, true>;
+    /** An array of Levels that this AmbientSound is on */
+    levels: fields.SceneLevelsSetField;
+    /** The radius of the emitted sound */
     radius: fields.NumberField<number, number, true, false, true>;
-    /** The audio file path that is played by this sound */
+    /** The audio file path that is played by this AmbientSound */
     path: fields.FilePathField<AudioFilePath>;
     /** Does this sound loop? */
     repeat: fields.BooleanField;
     /** The audio volume of the sound, from 0 to 1 */
     volume: fields.AlphaField;
-    /** Whether or not this sound source is constrained by Walls. */
+    /** Whether or not this AmbientSound is constrained by walls */
     walls: fields.BooleanField;
-    /**
-     * Whether to adjust the volume of the sound heard by the listener based on how close the listener is to the center
-     * of the sound source.
-     */
+    /** Whether to adjust the volume of the sound heard by the listener based on how close the listener is to the center of the sound source */
     easing: fields.BooleanField;
-    /** Is the sound source currently hidden? */
+    /** Is this AmbientSound currently hidden? */
     hidden: fields.BooleanField;
-    /** A darkness range (min and max) for which the source should be active */
+    /** Is this AmbientSound currently locked? */
+    locked: fields.BooleanField;
+    /** A darknes range (min and max) for which the source should be active */
     darkness: fields.SchemaField<{
         min: fields.AlphaField;
         max: fields.AlphaField;
     }>;
-    /** A darkness range (min and max) for which the source should be active */
+    effects: fields.SchemaField<{
+        base: fields.SchemaField<{
+            type: fields.StringField;
+            intensity: fields.NumberField<OneToTen, OneToTen, true, false, true>;
+        }>;
+        muffled: fields.SchemaField<{
+            type: fields.StringField;
+            intensity: fields.NumberField<OneToTen, OneToTen, true, false, true>;
+        }>;
+    }>;
+    /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
 };
 

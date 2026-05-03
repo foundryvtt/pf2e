@@ -1,10 +1,24 @@
-import { DatabaseUpdateCallbackOptions, Document, DocumentMetadata, EmbeddedCollection } from "../abstract/_module.mjs";
+import {
+    DatabaseUpdateCallbackOptions,
+    Document,
+    DocumentClassMetadata,
+    EmbeddedCollection,
+} from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
-import { BaseCombatant, BaseScene, BaseUser } from "./_module.mjs";
+import { BaseCombatant, BaseCombatantGroup, BaseScene, BaseUser } from "./_module.mjs";
 
-/** The Combat document model. */
+/**
+ * The Combat Document.
+ * Defines the DataSchema and common behaviors for a Combat which are shared between both client and server.
+ */
 export default class BaseCombat extends Document<null, CombatSchema> {
-    static override get metadata(): CombatMetadata;
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
+
+    static override get metadata(): Readonly<CombatMetadata>;
+
+    static override LOCALIZATION_PREFIXES: string[];
 
     static override defineSchema(): CombatSchema;
 
@@ -20,39 +34,49 @@ export default class BaseCombat extends Document<null, CombatSchema> {
 }
 
 export default interface BaseCombat extends Document<null, CombatSchema>, fields.ModelPropsFromSchema<CombatSchema> {
-    readonly combatants: EmbeddedCollection<BaseCombatant<this>>;
-
     get documentName(): CombatMetadata["name"];
+
+    readonly combatants: EmbeddedCollection<BaseCombatant<this>>;
+    readonly groups: EmbeddedCollection<BaseCombatantGroup<this>>;
 }
 
-interface CombatMetadata extends DocumentMetadata {
+interface CombatMetadata extends DocumentClassMetadata {
     name: "Combat";
     collection: "combats";
     label: "DOCUMENT.Combat";
+    labelPlural: "DOCUMENT.Combats";
     embedded: {
         Combatant: "combatants";
+        CombatantGroup: "groups";
     };
-    isPrimary: true;
+    hasTypeData: true;
+    baseTypeAllowed: true;
 }
 
 type CombatSchema = {
-    /** The _id which uniquely identifies this Combat document */
+    /** The _id which uniquely identifies this Combate document */
     _id: fields.DocumentIdField;
-    /** The _id of a Scene within which this Combat occurs */
+    /** An Combate subtype which configures the system data model applied */
+    type: fields.DocumentTypeField<string, string, false, false, false, BaseCombat>;
+    /** They system data object which is defined by the system data model */
+    system: fields.TypeDataField;
+    /** The Scene within which this Combat occurs */
     scene: fields.ForeignDocumentField<BaseScene>;
-    /** A Collection of Combatant embedded Documents */
+    /** An EmbeddedCollection of CombatantGroup documents */
+    groups: fields.EmbeddedCollectionField<BaseCombatantGroup<BaseCombat>>;
+    /** An EmbeddedCollection of Combatant documents */
     combatants: fields.EmbeddedCollectionField<BaseCombatant<BaseCombat>>;
     /** Is the Combat encounter currently active? */
     active: fields.BooleanField;
     /** The current round of the Combat encounter */
     round: fields.NumberField<number, number, true, false, true>;
-    /** The current turn in the Combat round */
+    /** The current turn of the Combat encounter */
     turn: fields.NumberField<number, number, true, true, true>;
-    /** The current sort order of this Combat relative to others in the same Scene */
+    /** The numeric sort value which orders this Combat relative to its siblings */
     sort: fields.IntegerSortField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object of creation and access information */
+    /** An object containing document metadata */
     _stats: fields.DocumentStatsField;
 };
 

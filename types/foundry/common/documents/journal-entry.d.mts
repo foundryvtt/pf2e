@@ -1,35 +1,42 @@
-import { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/_module.mjs";
+import { Document, DocumentClassMetadata, EmbeddedCollection } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
-import { BaseFolder, BaseJournalEntryPage } from "./_module.mjs";
+import { BaseFolder, BaseJournalEntryCategory, BaseJournalEntryPage } from "./_module.mjs";
 
-/** The JournalEntry document model. */
+/**
+ * The JournalEntry Document.
+ * Defines the DataSchema and common behaviors for a JournalEntry which are shared between both client and server.
+ */
 export default class BaseJournalEntry extends Document<null, JournalEntrySchema> {
-    static override get metadata(): JournalEntryMetadata;
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
+
+    static override get metadata(): Readonly<JournalEntryMetadata>;
 
     static override defineSchema(): JournalEntrySchema;
+
+    static override LOCALIZATION_PREFIXES: string[];
 }
 
 export default interface BaseJournalEntry
     extends Document<null, JournalEntrySchema>, fields.ModelPropsFromSchema<JournalEntrySchema> {
-    readonly pages: EmbeddedCollection<BaseJournalEntryPage<this>>;
-
     get documentName(): JournalEntryMetadata["name"];
+
+    readonly pages: EmbeddedCollection<BaseJournalEntryPage<this>>;
+    readonly categories: EmbeddedCollection<BaseJournalEntryCategory<this>>;
 }
 
-interface JournalEntryMetadata extends DocumentMetadata {
+interface JournalEntryMetadata extends DocumentClassMetadata {
     name: "JournalEntry";
     collection: "journal";
     indexed: true;
-    compendiumIndexFields: ["_id", "name", "sort"];
+    compendiumIndexFields: ["_id", "name", "sort", "folder"];
     embedded: {
+        JournalEntryCategory: "categories";
         JournalEntryPage: "pages";
     };
     label: "DOCUMENT.JournalEntry";
     labelPlural: "DOCUMENT.JournalEntries";
-    isPrimary: true;
-    permissions: Omit<DocumentMetadata["permissions"], "create"> & {
-        create: "JOURNAL_CREATE";
-    };
 }
 
 type JournalEntrySchema = {
@@ -37,17 +44,19 @@ type JournalEntrySchema = {
     _id: fields.DocumentIdField;
     /** The name of this JournalEntry */
     name: fields.StringField<string, string, true, false, false>;
-    /** The pages contained within this JournalEntry document */
+    /** An EmbeddedCollection of JournalEntryPage documents */
     pages: fields.EmbeddedCollectionField<BaseJournalEntryPage<BaseJournalEntry>>;
-    /** The _id of a Folder which contains this JournalEntry */
+    /** The Folder which contains this JournalEntry */
     folder: fields.ForeignDocumentField<BaseFolder>;
+    /** An EmbeddedCollection of JournalEntryCategory documents */
+    categories: fields.EmbeddedCollectionField<BaseJournalEntryCategory<BaseJournalEntry>>;
     /** The numeric sort value which orders this JournalEntry relative to its siblings */
     sort: fields.IntegerSortField;
     /** An object which configures ownership of this JournalEntry */
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object of creation and access information */
+    /** An object containing document metadata */
     _stats: fields.DocumentStatsField;
 };
 

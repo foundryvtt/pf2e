@@ -1,35 +1,25 @@
-import { DocumentOwnershipLevel, ImageFilePath, VideoFilePath } from "@common/constants.mjs";
+import { ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import * as abstract from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
-import { BaseCard, BaseFolder, BaseUser } from "./_module.mjs";
+import { BaseCard, BaseFolder } from "./_module.mjs";
 
 /**
- * The Document definition for Cards.
- * Defines the DataSchema and common behaviors for Cards which are shared between both client and server.
- * @memberof documents
- *
- * @param data    Initial data from which to construct the Cards
- * @param context Construction context options
+ * The Cards Document.
+ * Defines the DataSchema and common behaviors for a Cards Document which are shared between both client and server.
  */
 export default class BaseCards extends abstract.Document<null, CardsSchema> {
     /* -------------------------------------------- */
     /*  Model Configuration                         */
     /* -------------------------------------------- */
 
-    static override get metadata(): CardsMetadata;
+    static override get metadata(): Readonly<CardsMetadata>;
 
     static override defineSchema(): CardsSchema;
 
+    static override LOCALIZATION_PREFIXES: string[];
+
     /** The default icon used for a cards stack that does not have a custom image set */
     static DEFAULT_ICON: ImageFilePath | VideoFilePath;
-
-    static get TYPES(): string[];
-
-    override testUserPermission(
-        user: BaseUser,
-        permission: DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean },
-    ): boolean;
 }
 
 export default interface BaseCards
@@ -37,37 +27,32 @@ export default interface BaseCards
     get documentName(): CardsMetadata["name"];
 }
 
-interface CardsMetadata extends abstract.DocumentMetadata {
+interface CardsMetadata extends abstract.DocumentClassMetadata {
     name: "Cards";
     collection: "cards";
     indexed: true;
     compendiumIndexFields: ["_id", "name", "description", "img", "type", "sort", "folder"];
     embedded: { Card: "cards" };
+    hasTypeData: true;
     label: "DOCUMENT.Cards";
     labelPlural: "DOCUMENT.CardsPlural";
-    permissions: {
-        view: abstract.MetadataPermission;
-        create: "CARDS_CREATE";
-        update: abstract.MetadataPermission;
-        delete: abstract.MetadataPermission;
-    };
     coreTypes: ["deck", "hand", "pile"];
 }
 
 type CardsSchema = {
-    /** The _id which uniquely identifies this stack of Cards document */
+    /** The _id which uniquely identifies this stack of cards */
     _id: fields.DocumentIdField;
-    /** The text name of this stack */
+    /** The name of this stack of cards */
     name: fields.StringField<string, string, true, false, false>;
-    /** The type of this stack, in BaseCards.metadata.types */
-    type: fields.StringField<CardsType, CardsType, true, false, true>;
-    /** A text description of this stack */
+    /** The subtype which configures the system data model applied */
+    type: fields.DocumentTypeField<CardsType, CardsType, true, false, true, BaseCards>;
+    /** The descript of this stack of cards */
     description: fields.HTMLField;
-    /** An image or video which is used to represent the stack of cards */
+    /** An image or video which is used to represent this stack of cards */
     img: fields.FilePathField<ImageFilePath | VideoFilePath>;
-    /** Game system data which is defined by the system template.json model */
+    /** They system data object which is defined by the system data model */
     system: fields.TypeDataField;
-    /** A collection of Card documents which currently belong to this stack */
+    /** An EmbeddedCollection of Card documents which currently belong to this stack of cards */
     cards: fields.EmbeddedCollectionField<BaseCard<BaseCards>>;
     /** The visible width of this stack */
     width: fields.NumberField;
@@ -77,15 +62,15 @@ type CardsSchema = {
     rotation: fields.AngleField;
     /** Whether or not to publicly display the number of cards in this stack */
     displayCount: fields.BooleanField;
-    /** The _id of a Folder which contains this document */
+    /** The Folder which contains this stack of cards */
     folder: fields.ForeignDocumentField<BaseFolder>;
-    /** The sort order of this stack relative to others in its parent collection */
+    /** The numeric sort valute which orders this stack of cards relative to its siblings */
     sort: fields.IntegerSortField;
-    /** An object which configures user permissions to this stack */
+    /** An object which configures ownership of this stack of cards */
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object of creation and access information */
+    /** An object containing document metadata */
     _stats: fields.DocumentStatsField;
 };
 

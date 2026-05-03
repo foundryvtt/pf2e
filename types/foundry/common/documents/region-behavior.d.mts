@@ -9,9 +9,19 @@ import BaseRegion from "./region.mjs";
 export default class BaseRegionBehavior<
     TParent extends BaseRegion | null = BaseRegion | null,
 > extends abstract.Document<TParent, RegionBehaviorSchema> {
-    static override get metadata(): RegionBehaviorMetadata;
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
+
+    static override get metadata(): Readonly<RegionBehaviorMetadata>;
 
     static override defineSchema(): RegionBehaviorSchema;
+
+    static override LOCALIZATION_PREFIXES: string[];
+
+    static override canUserCreate(user: foundry.documents.BaseUser): boolean;
+
+    override getUserLevel(user: foundry.documents.BaseUser): CONST.DocumentOwnershipNumber;
 }
 
 export default interface BaseRegionBehavior<TParent extends BaseRegion | null = BaseRegion | null>
@@ -19,15 +29,20 @@ export default interface BaseRegionBehavior<TParent extends BaseRegion | null = 
     get documentName(): RegionBehaviorMetadata["name"];
 }
 
-interface RegionBehaviorMetadata extends abstract.DocumentMetadata {
+interface RegionBehaviorMetadata extends abstract.DocumentClassMetadata {
     name: "RegionBehavior";
     collection: "behaviors";
     label: "DOCUMENT.RegionBehavior";
     labelPlural: "DOCUMENT.RegionBehaviors";
     coreTypes: [
         "adjustDarknessLevel",
+        "applyActiveEffect",
+        "changeLevel",
+        "defineSurface",
+        "displayScrollingText",
         "executeMacro",
         "executeScript",
+        "modifyMovementCost",
         "pauseGame",
         "suppressWeather",
         "teleportToken",
@@ -38,19 +53,19 @@ interface RegionBehaviorMetadata extends abstract.DocumentMetadata {
 }
 
 type RegionBehaviorSchema<TType extends string = string, TSystemData extends object = object> = {
-    /** The _id which uniquely identifies this RegionBehavior document */
+    /** The _id which uniquely identifies this  RegionBehavior document */
     _id: fields.DocumentIdField;
-    /** The name used to describe the RegionBehavior */
+    /** The name of this RegionBehavior */
     name: fields.StringField<string, string, true, false, true>;
-    /** A RegionBehavior subtype which configures the system data model applied */
+    /** An RegionBehavior subtype which configures the system data model applied */
     type: fields.DocumentTypeField<TType>;
-    /** The system data object which is defined by the system template.json model */
+    /** They system data object which is defined by the system data model */
     system: fields.TypeDataField<TSystemData>;
-    /** Is the RegionBehavior currently disabled? */
+    /** IS the RegionBehavior currently disabled? */
     disabled: fields.BooleanField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object of creation and access information */
+    /** An object containing document metadata */
     _stats: fields.DocumentStatsField;
 };
 

@@ -1,65 +1,57 @@
-import { DocumentOwnershipLevel, ImageFilePath, VideoFilePath } from "@common/constants.mjs";
-import Document, { DocumentMetadata } from "../abstract/document.mjs";
+import { ImageFilePath, VideoFilePath } from "@common/constants.mjs";
+import Document from "../abstract/document.mjs";
 import * as fields from "../data/fields.mjs";
-import { BaseCards, BaseUser } from "./_module.mjs";
+import { BaseCards } from "./_module.mjs";
+import { DocumentClassMetadata } from "@common/abstract/_module.mjs";
 
 /**
- * The Document definition for a Card.
+ * The Card Document.
  * Defines the DataSchema and common behaviors for a Card which are shared between both client and server.
- * @memberof documents
- *
- * @param data    Initial data from which to construct the Card
- * @param context Construction context options
  */
-export default class BaseCard<TParent extends BaseCards | null> extends Document<TParent, CardSchema> {
+export default class BaseCard<TParent extends BaseCards | null = BaseCards | null> extends Document<
+    TParent,
+    CardSchema
+> {
     /* -------------------------------------------- */
     /*  Model Configuration                         */
     /* -------------------------------------------- */
 
-    static override get metadata(): CardMetadata;
+    static override get metadata(): Readonly<CardMetadata>;
 
     static override defineSchema(): CardSchema;
 
     /** The default icon used for a Card face that does not have a custom image set */
     static DEFAULT_ICON: ImageFilePath | VideoFilePath;
 
-    /** The allowed set of Card types which may exist */
-    static get TYPES(): string[];
-
-    /* -------------------------------------------- */
-    /*  Model Methods                               */
-    /* -------------------------------------------- */
-
-    override testUserPermission(
-        user: BaseUser,
-        permission: DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean | undefined },
-    ): boolean;
+    static override LOCALIZATION_PREFIXES: string[];
 }
 
-export default interface BaseCard<TParent extends BaseCards | null>
+export default interface BaseCard<TParent extends BaseCards | null = BaseCards | null>
     extends Document<TParent, CardSchema>, fields.ModelPropsFromSchema<CardSchema> {
     get documentName(): CardMetadata["name"];
 }
 
-interface CardMetadata extends DocumentMetadata {
+interface CardMetadata extends DocumentClassMetadata {
     name: "Card";
     collection: "cards";
+    hasTypeData: true;
+    baseTypeAllowed: true;
     indexed: true;
     label: "DOCUMENT.Card";
-    labelPlural: "DOCUMENT.Cards";
+    labelPlural: "DOCUMENT.CardPlural";
+    compendiumIndexFields: ["name", "type", "suit", "sort"];
 }
 
 type CardSchema = {
     /** The _id which uniquely identifies this Card document */
     _id: fields.DocumentIdField;
-    /** The text name of this card */
+    /** The name of this Card */
     name: fields.StringField<string, string, true, false, false>;
-    /** A text description of this card which applies to all faces */
+    /** The description of this card which applies to all faces */
     description: fields.HTMLField;
-    /** A category of card (for example, a suit) to which this card belongs */
-    type: fields.StringField<string, string, true, false, false>;
-    /** Game system data which is defined by the system template.json model */
+    /** An Card subtype which configures the system data model applied */
+    type: fields.DocumentTypeField<string, string, true, false, true, BaseCard>;
+    /** They system data object which is defined by the system data model */
     system: fields.TypeDataField;
     /** An optional suit designation which is used by default sorting */
     suit: fields.StringField<string, string, true>;
@@ -81,18 +73,17 @@ type CardSchema = {
     height: fields.NumberField;
     /** The angle of rotation of this card */
     rotation: fields.AngleField;
-    /** The sort order of this card relative to others in the same stack */
+    /** The numeric sort valute which orders this Card relative to its siblings */
     sort: fields.IntegerSortField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
+    /** An object containing document metadata */
+    _stats: fields.DocumentStatsField;
 };
 
 type CardFaceSchema = {
-    /** A name for this card face */
     name: fields.StringField<string, string, false, false, true>;
-    /** Displayed text that belongs to this face */
     text: fields.HTMLField;
-    /** A displayed image or video file which depicts the face */
     img: fields.FilePathField<ImageFilePath | VideoFilePath>;
 };
 

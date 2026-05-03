@@ -1,6 +1,6 @@
 import { TerrainData } from "@client/data/terrain-data.mjs";
 import { ElevatedPoint } from "@common/_types.mjs";
-import Document, { DocumentMetadata } from "@common/abstract/document.mjs";
+import Document from "@common/abstract/document.mjs";
 import {
     ImageFilePath,
     TokenDisplayMode,
@@ -13,30 +13,30 @@ import * as data from "../data/data.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseActorDelta, BaseScene } from "./_module.mjs";
 import { TokenDimensions, TokenPosition } from "./_types.mjs";
+import { DocumentClassMetadata } from "@common/abstract/_module.mjs";
 
 /**
- * The Token document model.
- * @param data Initial data from which to construct the document.
- * @property data The constructed data object for the document.
+ * The Token Document.
+ * Defines the DataSchema and common behaviors for a Token which are shared between both client and server.
  */
 export default class BaseToken<TParent extends BaseScene | null = BaseScene | null> extends Document<
     TParent,
     TokenSchema
 > {
-    static override get metadata(): TokenMetadata;
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
+
+    static override get metadata(): Readonly<TokenMetadata>;
 
     static override defineSchema(): TokenSchema;
 
     static override LOCALIZATION_PREFIXES: string[];
 
-    /**
-     * The fields of the data model for which changes count as a movement action.
-     */
+    /** The fields of the data model for which changes count as a movement action. */
     static readonly MOVEMENT_FIELDS: ["x", "y", "elevation", "width", "height", "shape"];
 
-    /**
-     * Are the given positions equal?
-     */
+    /** Are the given positions equal? */
     static arePositionsEqual(position1: TokenPosition, position2: TokenPosition): boolean;
 
     /** The default icon used for newly created Token documents */
@@ -76,6 +76,14 @@ export default class BaseToken<TParent extends BaseScene | null = BaseScene | nu
      * @returns The width and height in pixels
      */
     getSize(data?: { width?: number; height?: number }): { width: number; height: number };
+
+    /* -------------------------------------------- */
+    /*  Document Methods                            */
+    /* -------------------------------------------- */
+
+    override getUserLevel(user: foundry.documents.BaseUser): CONST.DocumentOwnershipNumber;
+
+    override toObject(source?: boolean): this["_source"];
 }
 
 export default interface BaseToken<TParent extends BaseScene | null = BaseScene | null>
@@ -84,7 +92,7 @@ export default interface BaseToken<TParent extends BaseScene | null = BaseScene 
     light: data.LightData<this>;
 }
 
-interface TokenMetadata extends DocumentMetadata {
+interface TokenMetadata extends DocumentClassMetadata {
     name: "Token";
     collection: "tokens";
     label: "DOCUMENT.Token";
@@ -96,9 +104,9 @@ interface TokenMetadata extends DocumentMetadata {
 }
 
 type TokenSchema = {
-    /** The Token _id which uniquely identifies it within its parent Scene */
+    /** The id which uniquely identifies this Token document */
     _id: fields.DocumentIdField;
-    /** The name used to describe the Token */
+    /** The name of this Token */
     name: fields.StringField<string, string, true>;
     /** The display mode of the Token nameplate, from CONST.TOKEN_DISPLAY_MODES */
     displayName: fields.NumberField<TokenDisplayMode, TokenDisplayMode, true, false, true>;
@@ -106,10 +114,7 @@ type TokenSchema = {
     actorId: fields.ForeignDocumentField<string>;
     /** Does this Token uniquely represent a singular Actor, or is it one of many? */
     actorLink: fields.BooleanField;
-    /**
-     * The ActorDelta embedded document which stores the differences between this token and the base actor it
-     * represents.
-     */
+    /** The ActorDelta embedded document which stores the differences between this token and the base actor it represents. */
     delta: ActorDeltaField;
     /** The x-coordinate of the top-left corner of the Token */
     x: fields.NumberField<number, number, true, false, true>;
@@ -121,12 +126,17 @@ type TokenSchema = {
     width: fields.NumberField<number, number, true, false, true>;
     /** The height of the Token in grid units */
     height: fields.NumberField<number, number, true, false, true>;
+    /** The depth of the Token in grid units */
     depth: fields.NumberField<number, number, true, false, true>;
+    /** The shape of the Token, form CONST.TOKEN_SHAPES */
     shape: fields.NumberField<TokenShapeType, TokenShapeType, false, true, true>;
+    /** The _id of the Level that this Token is on */
     level: fields.DocumentIdField<string, true, false, true>;
     /** The token's texture on the canvas. */
     texture: data.TextureData;
+    /** The numeric sort value which orders this Token relative to its siblings */
     sort: fields.NumberField<number, number, true, false, true>;
+    /** Is the Token currently locked? */
     locked: fields.BooleanField;
     /** Prevent the Token image from visually rotating? */
     lockRotation: fields.BooleanField;
@@ -185,6 +195,7 @@ type TokenSchema = {
     occludable: fields.SchemaField<{
         radius: fields.NumberField<number, number, false, false>;
     }>;
+    /** Data related to the dynamic token ring of this Token */
     ring: fields.SchemaField<{
         enabled: fields.BooleanField;
         colors: fields.SchemaField<{
@@ -197,12 +208,14 @@ type TokenSchema = {
             texture: fields.FilePathField<ImageFilePath>;
         }>;
     }>;
+    /** Data related to the turn marker of this Token */
     turnMarker: fields.SchemaField<{
         mode: fields.NumberField<number, number, true, true, true>;
         animation: fields.StringField<string, string, true, true, true>;
         src: fields.FilePathField<ImageFilePath | VideoFilePath>;
         disposition: fields.BooleanField;
     }>;
+    /** The current type of movement that this Token is using */
     movementAction: fields.StringField<string, string, true, true, true>;
     /** @internal */
     _movementHistory: fields.ArrayField<
@@ -221,6 +234,7 @@ type TokenSchema = {
             checkpoint: fields.BooleanField<boolean, boolean, true, false, false>;
             intermediate: fields.BooleanField<boolean, boolean, true, false, false>;
             userId: fields.ForeignDocumentField<string, true, true, false>;
+            movementId: fields.StringField<string, string, true, false, false>;
             subpathId: fields.StringField<string, string, true, false, false>;
             cost: fields.NumberField<number, number, true, true, false>;
         }>
@@ -233,6 +247,9 @@ type TokenSchema = {
 
 export type TokenSource = fields.SourceFromSchema<TokenSchema>;
 
+/**
+ * A special subclass of EmbeddedDocumentField which allows construction of the ActorDelta to be lazily evaluated.
+ */
 export class ActorDeltaField extends fields.EmbeddedDocumentField<Document> {
     override initialize(
         value: fields.MaybeSchemaProp<object, true, true, true>,

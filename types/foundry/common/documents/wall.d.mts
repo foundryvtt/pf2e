@@ -1,32 +1,49 @@
-import { EdgeDirection, EdgeSenseType, WallDoorState, WallDoorType, WallMovementType } from "@common/constants.mjs";
-import { Document, DocumentMetadata } from "../abstract/_module.mjs";
+import {
+    EdgeDirection,
+    EdgeSenseType,
+    ImageFilePath,
+    WallDoorState,
+    WallDoorType,
+    WallMovementType,
+} from "@common/constants.mjs";
+import { Document, DocumentClassMetadata } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
 import BaseScene from "./scene.mjs";
 
 /**
- * The Document definition for a Wall.
+ * The Wall Document.
  * Defines the DataSchema and common behaviors for a Wall which are shared between both client and server.
- * @memberof documents
- *
- * @param data    Initial data from which to construct the Wall
- * @param context Construction context options
  */
-export default class BaseWall<TParent extends BaseScene | null> extends Document<TParent, WallSchema> {
+export default class BaseWall<TParent extends BaseScene | null = BaseScene | null> extends Document<
+    TParent,
+    WallSchema
+> {
     /* -------------------------------------------- */
     /*  Model Configuration                         */
     /* -------------------------------------------- */
 
-    static override get metadata(): WallMetadata;
+    static override get metadata(): Readonly<WallMetadata>;
 
     static override defineSchema(): WallSchema;
+
+    static LOCALIZATION_PREFIXES: string[];
+
+    /** Colors for each category of wall. */
+    static CATEGORY_COLORS: Record<string, Color>;
+
+    /* -------------------------------------------- */
+    /*  Document Methods                            */
+    /* -------------------------------------------- */
+
+    override getUserLevel(user: foundry.documents.BaseUser): CONST.DocumentOwnershipNumber;
 }
 
-export default interface BaseWall<TParent extends BaseScene | null>
+export default interface BaseWall<TParent extends BaseScene | null = BaseScene | null>
     extends Document<TParent, WallSchema>, fields.ModelPropsFromSchema<WallSchema> {
     get documentName(): WallMetadata["name"];
 }
 
-interface WallMetadata extends DocumentMetadata {
+interface WallMetadata extends DocumentClassMetadata {
     name: "Wall";
     collection: "walls";
     label: "DOCUMENT.Wall";
@@ -34,14 +51,16 @@ interface WallMetadata extends DocumentMetadata {
 }
 
 type WallSchema = {
-    /** The _id which uniquely identifies the embedded Wall document */
+    /** The _id which uniquely identifies this Wall document */
     _id: fields.DocumentIdField;
-    /** The wall coordinates, a length-4 array of finite numbers [x0,y0,x1,y1] */
+    /** The wall coordinates, a length-4 array of finite numbers [x0, y0, x1, y1] */
     c: fields.ArrayField<
         fields.NumberField<number, number, true, false, true>,
         [number, number, number, number],
         [number, number, number, number]
     >;
+    /** An array of Levels that this Wall is on */
+    levels: fields.SceneLevelsSetField;
     /** The illumination restriction type of this wall */
     light: fields.NumberField<EdgeSenseType, EdgeSenseType, true, true, true>;
     /** The movement restriction type of this wall */
@@ -56,22 +75,31 @@ type WallSchema = {
     door: fields.NumberField<WallDoorType, WallDoorType, true, true, true>;
     /** The state of the door this wall contains, if any */
     ds: fields.NumberField<WallDoorState, WallDoorState, true, true, true>;
+    /** The sound that this door makes when opened/closed */
     doorSound: fields.StringField<string, string, false, false, false>;
     /** Configuration of threshold data for this wall */
-    threshold: fields.SchemaField<WallThresholdSchema>;
+    threshold: fields.SchemaField<{
+        /** Minimum distance from a light source for which this wall blocks light */
+        light: fields.NumberField<number, number, true, true, true>;
+        /** Minimum distance from a vision source for which this wall blocks vision */
+        sight: fields.NumberField<number, number, true, true, true>;
+        /** Minimum distance from a sound source for which this wall blocks sound */
+        sound: fields.NumberField<number, number, true, true, true>;
+        /** Whether to attenuate the source radius when passing through the wall */
+        attenuation: fields.BooleanField;
+    }>;
+    /** Configuration of animation data for this wall */
+    animation: fields.SchemaField<{
+        direction: fields.NumberField<-1 | 1, -1 | 1, false, false, true>;
+        double: fields.BooleanField;
+        duration: fields.NumberField;
+        flip: fields.BooleanField;
+        strength: fields.NumberField;
+        texture: fields.FilePathField<ImageFilePath, ImageFilePath>;
+        type: fields.StringField<string, string, true, true, true>;
+    }>;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-};
-
-type WallThresholdSchema = {
-    /** Minimum distance from a light source for which this wall blocks light */
-    light: fields.NumberField<number, number, true, true, true>;
-    /** Minimum distance from a vision source for which this wall blocks vision */
-    sight: fields.NumberField<number, number, true, true, true>;
-    /** Minimum distance from a sound source for which this wall blocks sound */
-    sound: fields.NumberField<number, number, true, true, true>;
-    /** Whether to attenuate the source radius when passing through the wall */
-    attenuation: fields.BooleanField;
 };
 
 export type WallSource = fields.SourceFromSchema<WallSchema>;
