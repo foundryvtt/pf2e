@@ -40,11 +40,8 @@
                 "adjustName": false,
                 "choices": [
                     {
-
                         "label": "PF2E.SpecificRule.MartialProficiency.HellknightBreastplate",
-
                         "predicate": [
-
                             {
                                 "or": [
                                     "defense:light:rank:0",
@@ -67,31 +64,31 @@
                         "value": "hellknight-plates"
                     }
                 ],
+                "flag": "hellknightDedication",
                 "key": "ChoiceSet",
-                "rollOption": "armigers-protection",
-                "flag": "hellknightDedication"
+                "rollOption": "armigers-protection"
             },
             {
                 "definition": [
                     "item:slug:hellknight-breastplate"
                 ],
                 "key": "MartialProficiency",
+                "kind": "defense",
                 "label": "PF2E.SpecificRule.MartialProficiency.HellknightBreastplate",
-                "slug": "hellknight-breastplate-proficiency",
-                "value": "max(@actor.system.proficiencies.defenses.light.rank,ternary(gte(@actor.level,13),min(@actor.system.proficiencies.defenses.unarmored.rank,2),1))",
                 "predicate": [
                     "armigers-protection:hellknight-breastplate"
                 ],
-                "kind": "defense"
+                "slug": "hellknight-breastplate-proficiency",
+                "value": "max(@actor.system.proficiencies.defenses.light.rank,ternary(gte(@actor.level,13),min(@actor.system.proficiencies.defenses.unarmored.rank,2),1))"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.proficiencies.defenses.light.rank",
-                "value": "max(@actor.system.proficiencies.defenses.medium.rank,ternary(gte(@actor.level,13),min(@actor.system.proficiencies.defenses.unarmored.rank,2),1))",
                 "predicate": [
                     "armigers-protection:hellknight-breastplate"
-                ]
+                ],
+                "value": "max(@actor.system.proficiencies.defenses.medium.rank,ternary(gte(@actor.level,13),min(@actor.system.proficiencies.defenses.unarmored.rank,2),1))"
             },
             {
                 "definition": [
@@ -103,13 +100,13 @@
                     }
                 ],
                 "key": "MartialProficiency",
+                "kind": "defense",
                 "label": "PF2E.SpecificRule.MartialProficiency.HellknightPlates",
-                "slug": "hellknight-plate-proficiency",
-                "value": "max(@actor.system.proficiencies.defenses.light.rank,@actor.system.proficiencies.defenses.medium.rank,ternary(gte(@actor.level,13),min(@actor.system.proficiencies.defenses.unarmored.rank,2),1))",
                 "predicate": [
                     "armigers-protection:hellknight-plates"
                 ],
-                "kind": "defense"
+                "slug": "hellknight-plate-proficiency",
+                "value": "max(@actor.system.proficiencies.defenses.light.rank,@actor.system.proficiencies.defenses.medium.rank,ternary(gte(@actor.level,13),min(@actor.system.proficiencies.defenses.unarmored.rank,2),1))"
             }
         ],
         "subfeatures": {
