@@ -86,13 +86,11 @@ type ActiveEffectSchema = {
     statuses: fields.SetField<fields.StringField<string, string, true, false, false>>;
     /** Should this ActiveEffect's image be prominently displayed as an icon alongside Tokens, Combatants, etc.? Defaults to a CONDITIONAL (1). */
     showIcon: fields.NumberField<ActiveEffectShowIcon, ActiveEffectShowIcon, true, false, true>;
-    /** The _id of a Folder which contains this ActiveEffect */
     folder: fields.ForeignDocumentField<BaseFolder>;
     /** The sort value. Defaults to 0. */
     sort: fields.IntegerSortField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 
@@ -130,7 +128,6 @@ type EffectStartSchema = {
 
 export type EffectStartSource = fields.SourceFromSchema<EffectStartSchema>;
 interface EffectStartData extends fields.ModelPropsFromSchema<EffectStartSchema> {
-    /** The world time when the Effect first started */
     value: number;
 }
 

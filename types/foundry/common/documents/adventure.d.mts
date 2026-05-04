@@ -73,7 +73,6 @@ type AdventureSchema = {
     playlists: fields.SetField<fields.EmbeddedDataField<documents.BasePlaylist>>;
     /** An array of included Folder documents */
     folders: fields.SetField<fields.EmbeddedDataField<documents.BaseFolder>>;
-    /** The _id of a Folder which contains this Adventure */
     folder: fields.ForeignDocumentField<documents.BaseFolder>;
     /** The sort order of this adventure relative to its siblings */
     sort: fields.IntegerSortField;

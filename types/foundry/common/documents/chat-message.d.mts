@@ -51,7 +51,6 @@ declare type ChatMessageSchema = {
     system: fields.TypeDataField;
     /** The message style from CONST.CHAT_MESSAGE_STYLES */
     style: fields.NumberField<ChatMessageStyle, ChatMessageStyle, true, true, true>;
-    /** The _id of the User document who generated this message */
     author: fields.ForeignDocumentField<BaseUser, true, false, true>;
     /** The timestamp at which point this message was generated */
     timestamp: fields.NumberField<number, number, true, false, true>;

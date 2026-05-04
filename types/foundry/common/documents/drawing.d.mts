@@ -61,7 +61,6 @@ type DrawingSchema = {
     y: fields.NumberField<number, number, true, false, true>;
     /** The elevation of the drawing */
     elevation: fields.NumberField<number, number, true, false, true>;
-    /** The level IDs */
     levels: fields.SceneLevelsSetField;
     /** The z-index of this drawing relative to other siblings */
     sort: fields.NumberField<number, number, true, false, true>;
@@ -97,7 +96,6 @@ type DrawingSchema = {
     hidden: fields.BooleanField;
     /** Is the drawing currently locked? */
     locked: fields.BooleanField;
-    /** Is the drawing rendered in the interface group? */
     interface: fields.BooleanField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;

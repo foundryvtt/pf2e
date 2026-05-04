@@ -47,7 +47,6 @@ type FogExplorationSchema = {
     user: fields.ForeignDocumentField<BaseUser>;
     /** The _id of the Scene document to which this fog applies */
     scene: fields.ForeignDocumentField<BaseScene>;
-    /** The _id of the Level document to which this fog applies */
     level: fields.DocumentIdField<string, true, true, true>;
     /** The base64 image/jpeg of the explored fog polygon */
     explored: fields.FilePathField<ImageFilePath, ImageFilePath, true>;
@@ -57,7 +56,6 @@ type FogExplorationSchema = {
     timestamp: fields.NumberField<number, number, false, true, true>;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 

@@ -100,7 +100,7 @@ type ActorSchema<
     img: fields.FilePathField<ImageFilePath, ImageFilePath, false, false, true>;
     /** An Actor subtype which configures the system data model applied */
     type: fields.DocumentTypeField<TType, TType, true, false, true, BaseActor>;
-    /** Data for an Actor subtype, defined by a System or Modulel */
+    /** Data for an Actor subtype, defined by a System or Module */
     system: fields.TypeDataField<TSystemSource>;
     /** Default Token settings which are used for Tokens created from this Actor */
     prototypeToken: fields.EmbeddedDataField<data.PrototypeToken<BaseActor>>;

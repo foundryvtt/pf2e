@@ -77,7 +77,6 @@ type CardSchema = {
     sort: fields.IntegerSortField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 

@@ -50,7 +50,6 @@ type CombatantSchema = {
     actorId: fields.ForeignDocumentField<string>;
     /** The _id of a Token associated with this Combatant */
     tokenId: fields.ForeignDocumentField<string>;
-    /** The _id of a Scene associated with this Combatant */
     sceneId: fields.ForeignDocumentField<string>;
     /** A customized name which replaces the name of the Token in the tracker */
     name: fields.StringField<string, string, false, false, true>;
@@ -64,7 +63,7 @@ type CombatantSchema = {
     defeated: fields.BooleanField;
     /** An optional group this Combatant belongs to. */
     group: fields.DocumentIdField;
-    /** he round this Combatant joined Combat (i.e., was created). A Combatant created before the Combat starts is considered to have joined in round 1. */
+    /** The round this Combatant joined Combat (i.e., was created). A Combatant created before the Combat starts is considered to have joined in round 1. */
     roundJoined: fields.NumberField<number, number, true, false, true>;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;

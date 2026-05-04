@@ -54,7 +54,6 @@ type AmbientSoundSchema = {
     y: fields.NumberField<number, number, true, false, true>;
     /** The elevation */
     elevation: fields.NumberField<number, number, true, false, true>;
-    /** The level IDs */
     levels: fields.SceneLevelsSetField;
     /** The radius of the emitted sound. */
     radius: fields.NumberField<number, number, true, false, true>;
@@ -70,7 +69,6 @@ type AmbientSoundSchema = {
     easing: fields.BooleanField;
     /** Is the sound source currently hidden? False by default. */
     hidden: fields.BooleanField;
-    /** Is the sound source currently locked? */
     locked: fields.BooleanField;
     /** A darkness range (min and max) for which the source should be active */
     darkness: fields.SchemaField<{
@@ -80,11 +78,15 @@ type AmbientSoundSchema = {
     /** Special effects to apply to the sound */
     effects: fields.SchemaField<{
         base: fields.SchemaField<{
+            /** The type of effect in CONFIG.soundEffects */
             type: fields.StringField;
+            /** The intensity of the effect on the scale of [1, 10] */
             intensity: fields.NumberField<OneToTen, OneToTen, true, false, true>;
         }>;
         muffled: fields.SchemaField<{
+            /** The type of effect in CONFIG.soundEffects */
             type: fields.StringField;
+            /** The intensity of the effect on the scale of [1, 10] */
             intensity: fields.NumberField<OneToTen, OneToTen, true, false, true>;
         }>;
     }>;

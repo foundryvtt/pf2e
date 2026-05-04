@@ -138,7 +138,6 @@ type SceneSchema = {
     drawings: fields.EmbeddedCollectionField<documents.BaseDrawing<BaseScene>>;
     /** A collection of embedded Token objects. */
     tokens: fields.EmbeddedCollectionField<documents.BaseToken<BaseScene>>;
-    /** A collection of embedded Level objects */
     levels: fields.EmbeddedCollectionField<documents.BaseLevel<BaseScene>>;
     /** A collection of embedded AmbientLight object */
     lights: fields.EmbeddedCollectionField<documents.BaseAmbientLight<BaseScene>>;
@@ -166,9 +165,9 @@ type SceneSchema = {
     weather: fields.StringField;
 
     // Permissions
-    /** The _id of a Folder which contains this Scene */
+    /** The _id of a Folder which contains this Actor */
     folder: fields.ForeignDocumentField<documents.BaseFolder>;
-    /** The numeric sort value which orders this Scene relative to its siblings */
+    /** The numeric sort value which orders this Actor relative to its siblings */
     sort: fields.IntegerSortField;
     /** An object which configures ownership of this Scene */
     ownership: fields.DocumentOwnershipField;
@@ -248,10 +247,15 @@ type EnvironmentSchema = {
 };
 
 type EnvironmentDataSchema = {
+    /** The normalized hue angle. */
     hue: fields.HueField;
+    /** The intensity of the tinting (0 = no tinting). */
     intensity: fields.AlphaField;
+    /** The luminosity. */
     luminosity: fields.NumberField<number, number, true>;
+    /** The saturation. */
     saturation: fields.NumberField<number, number, true>;
+    /** The strength of the shadows. */
     shadows: fields.NumberField<number, number, true>;
 };
 

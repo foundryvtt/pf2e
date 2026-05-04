@@ -58,7 +58,6 @@ type TileSchema = {
     y: fields.NumberField<number, number, true, false, true>;
     /** The elevation of the tile */
     elevation: fields.NumberField<number, number, true, false, true>;
-    /** The level IDs */
     levels: fields.SceneLevelsSetField;
     /** The z-index ordering of this tile relative to its siblings */
     sort: fields.NumberField<number, number, true, false, true>;

@@ -51,7 +51,6 @@ export type AmbientLightSchema = {
     y: fields.NumberField<number, number, true, false, true>;
     /** The elevation */
     elevation: fields.NumberField<number, number, true, false, true>;
-    /** The level IDs */
     levels: fields.SceneLevelsSetField;
     /** The angle of rotation for the tile between 0 and 360 */
     rotation: fields.AngleField;
@@ -63,7 +62,6 @@ export type AmbientLightSchema = {
     config: fields.EmbeddedDataField<data.LightData<BaseAmbientLight<BaseScene | null>>>;
     /** Is the light source currently hidden? */
     hidden: fields.BooleanField;
-    /** Is the light source currently locked? */
     locked: fields.BooleanField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
