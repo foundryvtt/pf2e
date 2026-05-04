@@ -186,7 +186,7 @@ class RuleElementForm<
      */
     async updateItem(updates: Partial<TSource> | Record<string, JSONValue>): Promise<void> {
         const rules: Record<string, JSONValue>[] = this.item.toObject().system.rules;
-        const result = fu.mergeObject(this.rule, updates, { performDeletions: true });
+        const result = fu.mergeObject(this.rule, updates, { applyOperators: true });
         if (this.schema) cleanDataUsingSchema(this.schema.fields, result);
         rules[this.index] = result;
         await this.item.update({ [`system.rules`]: rules });

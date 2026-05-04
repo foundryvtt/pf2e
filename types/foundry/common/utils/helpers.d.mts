@@ -324,10 +324,9 @@ export function iterateValues<V>(obj: Record<string, V>): IteratorObject<V, void
 /**
  * Update a source object by replacing its keys and values with those from a target object.
  *
- * @param original     The initial object which should be updated with values from the target
- * @param [other={}]   A new object whose values should replace those in the source
- * @param [options={}] Additional options which configure the merge
- * @param [_d=0]       A privately used parameter to track recursion depth.
+ * @param original The initial object which should be updated with values from the target
+ * @param other A new object whose values should replace those in the source
+ * @param options Additional options which configure the merge
  * @returns The original source object including updated, inserted, or overwritten records.
  *
  * @example Control how new keys and values are added
@@ -352,7 +351,12 @@ export function iterateValues<V>(obj: Record<string, V>): IteratorObject<V, void
  *
  * @example Deleting an existing object key
  * ```js
- * mergeObject({k1: "v1", k2: "v2"}, {"-=k1": null}, {performDeletions: true});   // {k2: "v2"}
+ * mergeObject({k1: "v1", k2: "v2"}, {"k1": new ForcedDeletion()}, {applyOperators: true});   // {k2: "v2"}
+ * ```
+ *
+ * @example Explicitly replacing an inner object key
+ * ```js
+ * mergeObject({k1: {i1: "v1"}}, {"k1": ForcedReplacement.create({i2: "v2"})}, {applyOperators: true}); // {k1: {i2: "v2"}}
  * ```
  */
 export function mergeObject<T extends object, U extends object = T>(
@@ -364,8 +368,8 @@ export function mergeObject<T extends object, U extends object = T>(
 
 export interface MergeObjectOptions {
     /**
-     * Control whether to insert new top-level objects into the resulting structure which do not previously exist
-     * in the original object.
+     * Control whether to insert new top-level objects into the resulting structure which do not previously exist in the
+     * original object.
      */
     insertKeys?: boolean;
 
@@ -400,9 +404,16 @@ export interface MergeObjectOptions {
     enforceTypes?: boolean;
 
     /**
-     * Control whether to perform deletions on the original object if deletion keys are present in the other object.
+     * Control whether to apply the effects of DataFieldOperator values
+     * (if true) or retain those operators (if false) in the resulting
+     * merged object.
      */
-    performDeletions?: boolean;
+    applyOperators?: boolean;
+
+    /**
+     * A privately used parameter to track recursion depth.
+     */
+    _d?: number;
 }
 
 /**

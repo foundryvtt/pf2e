@@ -157,33 +157,33 @@ async function migrate() {
 
                 if (isActorData(source)) {
                     const update = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
-                    update.items = update.items.map((i) => fu.mergeObject({}, i, { performDeletions: true }));
+                    update.items = update.items.map((i) => fu.mergeObject({}, i, { applyOperators: true }));
                     pruneDefaults(source);
                     pruneDefaults(update);
 
-                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
+                    return fu.mergeObject(source, update, { inplace: false, applyOperators: true });
                 } else if (isItemData(source)) {
                     source.system.slug = sluggify(source.name);
                     const update = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
                     pruneDefaults(source);
                     pruneDefaults(update);
 
-                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
+                    return fu.mergeObject(source, update, { inplace: false, applyOperators: true });
                 } else if (isJournalEntryData(source)) {
                     const update = await migrationRunner.getUpdatedJournalEntry(source, migrationRunner.migrations);
                     pruneDefaults(source);
                     pruneDefaults(update);
-                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
+                    return fu.mergeObject(source, update, { inplace: false, applyOperators: true });
                 } else if (isMacroData(source)) {
                     const update = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
                     pruneDefaults(source);
                     pruneDefaults(update);
-                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
+                    return fu.mergeObject(source, update, { inplace: false, applyOperators: true });
                 } else if (isTableData(source)) {
                     const update = await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
                     pruneDefaults(source);
                     pruneDefaults(update);
-                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
+                    return fu.mergeObject(source, update, { inplace: false, applyOperators: true });
                 } else {
                     pruneDefaults(source);
                     return source;

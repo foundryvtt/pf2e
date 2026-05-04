@@ -238,7 +238,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
                 } else {
                     deletions["predicate"] = _del;
                 }
-                return [index, fu.mergeObject(updatedData, deletions, { performDeletions: true })];
+                return [index, fu.mergeObject(updatedData, deletions, { applyOperators: true })];
             }),
         );
 

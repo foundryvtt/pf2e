@@ -155,7 +155,7 @@ function mergeObject(
         recursive = true,
         inplace = true,
         enforceTypes = false,
-        performDeletions = false,
+        applyOperators = false,
     } = {},
     _d = 0,
 ): object {
@@ -163,7 +163,7 @@ function mergeObject(
     if (!(original instanceof Object) || !(other instanceof Object)) {
         throw new Error("One of original or other are not Objects!");
     }
-    const options = { insertKeys, insertValues, overwrite, recursive, inplace, enforceTypes, performDeletions };
+    const options = { insertKeys, insertValues, overwrite, recursive, inplace, enforceTypes, applyOperators };
 
     // Special handling at depth 0
     if (_d === 0) {
@@ -198,18 +198,18 @@ function _mergeInsert(
     {
         insertKeys,
         insertValues,
-        performDeletions,
-    }: { insertKeys?: boolean; insertValues?: boolean; performDeletions?: boolean } = {},
+        applyOperators,
+    }: { insertKeys?: boolean; insertValues?: boolean; applyOperators?: boolean } = {},
     _d: number,
 ): object | void {
     // Force replace a specific key
-    if (performDeletions && k.startsWith("==")) {
+    if (applyOperators && k.startsWith("==")) {
         (original as Record<string, unknown>)[k.slice(2)] = applySpecialKeys(v);
         return;
     }
 
     // Delete a specific key
-    if (performDeletions && k.startsWith("-=")) {
+    if (applyOperators && k.startsWith("-=")) {
         if (v !== null) {
             throw new Error(
                 "Removing a key using the -= deletion syntax requires the value of that" +
@@ -227,7 +227,7 @@ function _mergeInsert(
         (original as Record<string, unknown>)[k] = mergeObject({}, v, {
             insertKeys: true,
             inplace: true,
-            performDeletions,
+            applyOperators,
         });
         return;
     }
@@ -241,14 +241,7 @@ function _mergeUpdate(
     original: object,
     k: string,
     v: unknown,
-    {
-        insertKeys,
-        insertValues,
-        enforceTypes,
-        overwrite,
-        recursive,
-        performDeletions,
-    }: Partial<MergeObjectOptions> = {},
+    { insertKeys, insertValues, enforceTypes, overwrite, recursive, applyOperators }: Partial<MergeObjectOptions> = {},
     _d: number,
 ): object | void {
     const x = (original as Record<string, unknown>)[k];
@@ -265,7 +258,7 @@ function _mergeUpdate(
                 insertValues,
                 overwrite,
                 enforceTypes,
-                performDeletions,
+                applyOperators,
                 inplace: true,
             },
             _d,
