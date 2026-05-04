@@ -571,7 +571,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 ".detail-item-control",
                 [
                     {
-                        name: "PF2E.EditItemTitle",
+                        label: "PF2E.EditItemTitle",
                         icon: "fa-solid fa-edit",
                         onClick: (_e: PointerEvent, target: HTMLElement): void => {
                             const itemId = htmlClosest(target, "[data-item-id]")?.dataset.itemId;
@@ -580,7 +580,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                         },
                     },
                     {
-                        name: "PF2E.DeleteItemTitle",
+                        label: "PF2E.DeleteItemTitle",
                         icon: "fa-solid fa-trash",
                         onClick: (_e: PointerEvent, target: HTMLElement): void => {
                             const itemId = htmlClosest(target, "[data-item-id]")?.dataset.itemId;
@@ -613,7 +613,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // ACTIONS
         const actionsPanel = htmlQuery(html, ".tab[data-tab=actions]");
-
         for (const strikeElem of htmlQueryAll(actionsPanel, "ol[data-strikes] > li")) {
             // Auxiliary actions
             const auxActionButtons = htmlQueryAll<HTMLButtonElement>(

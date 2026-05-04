@@ -1,17 +1,34 @@
 import Document from "@common/abstract/document.mjs";
 
 export interface ContextMenuEntry {
-    /** The context menu label. Can be localized. */
-    name: string;
-    /** A string containing an HTML icon element for the menu item. */
+    /**
+     * The context menu label. Can be localized.
+     */
+    label: string;
+
+    /**
+     * A string containing a className. A full HTML element may also be provided.
+     */
     icon?: string;
-    /** Additional CSS classes to apply to this menu item. */
+
+    /**
+     * Additional CSS classes to apply to this menu item.
+     */
     classes?: string;
-    /** An identifier for a group this entry belongs to. */
+
+    /**
+     * An identifier for a group this entry belongs to.
+     */
     group?: string;
-    /** The function to call when the menu item is clicked. */
+
+    /**
+     * The function to call when the menu item is clicked.
+     */
     onClick: ContextMenuCallback;
-    /** A function to call or boolean value to determine if this entry appears in the menu. */
+
+    /**
+     * A function to call or boolean value to determine if this entry appears in the menu.
+     */
     visible?: ContextMenuCondition | boolean;
 }
 

@@ -486,7 +486,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
         const options = super._getEntryContextOptions();
         options.push(
             {
-                name: "PF2E.ChatRollDetails.Select",
+                label: "PF2E.ChatRollDetails.Select",
                 icon: "fa-solid fa-face-monocle",
                 visible: canShowRollDetails,
                 onClick: (_e: PointerEvent, li: HTMLElement): void => {
@@ -495,7 +495,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 },
             },
             {
-                name: "PF2E.DamageButton.FullContext",
+                label: "PF2E.DamageButton.FullContext",
                 icon: "fa-solid fa-heart-broken",
                 visible: canApplyDamage,
                 onClick: (_e: PointerEvent, li: HTMLElement): void => {
@@ -504,7 +504,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 },
             },
             {
-                name: "PF2E.DamageButton.HalfContext",
+                label: "PF2E.DamageButton.HalfContext",
                 icon: "fa-solid fa-heart-broken",
                 visible: canApplyDamage,
                 onClick: (_e: PointerEvent, li: HTMLElement): void => {
@@ -513,7 +513,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 },
             },
             {
-                name: "PF2E.DamageButton.DoubleContext",
+                label: "PF2E.DamageButton.DoubleContext",
                 icon: "fa-solid fa-heart-broken",
                 visible: canApplyDamage,
                 onClick: (_e: PointerEvent, li: HTMLElement): void => {
@@ -522,7 +522,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 },
             },
             {
-                name: "PF2E.DamageButton.TripleContext",
+                label: "PF2E.DamageButton.TripleContext",
                 icon: "fa-solid fa-heart-broken",
                 visible: canApplyTripleDamage,
                 onClick: (_e: PointerEvent, li: HTMLElement): void => {
@@ -531,7 +531,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 },
             },
             {
-                name: "PF2E.DamageButton.HealingContext",
+                label: "PF2E.DamageButton.HealingContext",
                 icon: "fa-solid fa-heart",
                 visible: canApplyDamage,
                 onClick: (_e: PointerEvent, li: HTMLElement): void => {
@@ -540,7 +540,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 },
             },
             {
-                name: "PF2E.RerollMenu.HeroPoint",
+                label: "PF2E.RerollMenu.HeroPoint",
                 icon: "fa-solid hospital-symbol",
                 visible: canHeroPointReroll,
                 onClick: (_e: PointerEvent, li: HTMLElement): void => {
@@ -549,7 +549,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 },
             },
             {
-                name: "PF2E.RerollMenu.MythicPoint",
+                label: "PF2E.RerollMenu.MythicPoint",
                 icon: "fa-solid fa-circle-m",
                 visible: canMythicPointReroll,
                 onClick: (_e: PointerEvent, li: HTMLElement): void => {
@@ -558,7 +558,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 },
             },
             {
-                name: "PF2E.RerollMenu.KeepNew",
+                label: "PF2E.RerollMenu.KeepNew",
                 icon: "fa-solid fa-dice",
                 visible: canReroll,
                 onClick: (_e: PointerEvent, li: HTMLElement): void => {
@@ -567,7 +567,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 },
             },
             {
-                name: "PF2E.RerollMenu.KeepLower",
+                label: "PF2E.RerollMenu.KeepLower",
                 icon: "fa-solid fa-dice-one",
                 visible: canReroll,
                 onClick: (_e: PointerEvent, li: HTMLElement): void => {
@@ -576,7 +576,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
                 },
             },
             {
-                name: "PF2E.RerollMenu.KeepHigher",
+                label: "PF2E.RerollMenu.KeepHigher",
                 icon: "fa-solid dice-six",
                 visible: canReroll,
                 onClick: (_e: PointerEvent, li: HTMLElement): void => {

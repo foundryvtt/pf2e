@@ -27,7 +27,7 @@ export class ItemDirectoryPF2e extends fa.sidebar.tabs.ItemDirectory<ItemPF2e<nu
     protected override _getEntryContextOptions(): ContextMenuEntry[] {
         const options = super._getEntryContextOptions();
         options.push({
-            name: "PF2E.Item.Physical.Attach.SidebarContextMenuOption",
+            label: "PF2E.Item.Physical.Attach.SidebarContextMenuOption",
             icon: "fa-solid fa-paperclip",
             visible: (li: HTMLElement): boolean => {
                 const item = game.items.get(li.dataset.entryId, { strict: true });

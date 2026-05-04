@@ -278,7 +278,7 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
         };
         entries.push(
             {
-                name: TradeDialog.localize("Request.MenuLabel"),
+                label: TradeDialog.localize("Request.MenuLabel"),
                 icon: "fa-regular fa-money-bill-transfer",
                 visible: (li: HTMLElement): boolean => {
                     if (foundry.applications.instances.has("trade-dialog")) return false;
@@ -307,7 +307,7 @@ class ActorDirectoryPF2e extends fa.sidebar.tabs.ActorDirectory<ActorPF2e<null>>
                 },
             },
             {
-                name: "PF2E.Actor.Party.Sidebar.RemoveMember",
+                label: "PF2E.Actor.Party.Sidebar.RemoveMember",
                 icon: "fa-solid fa-eject",
                 visible: (li: HTMLElement): boolean =>
                     game.user.isGM && !!li.closest("[data-party]") && !li.closest(".folder-header"),

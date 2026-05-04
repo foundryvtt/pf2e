@@ -45,7 +45,7 @@ export class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory
     #getDocumentMatchContextEntries(): ContextMenuEntry[] {
         return [
             {
-                name: "COMPENDIUM.ImportEntry",
+                label: "COMPENDIUM.ImportEntry",
                 icon: "fa-solid fa-download",
                 visible: (li: HTMLElement): boolean => {
                     const uuid = li.dataset.uuid;
@@ -81,7 +81,7 @@ export class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory
     protected override _getEntryContextOptions(): ContextMenuEntry[] {
         const options = super._getEntryContextOptions();
         options.push({
-            name: "COMPENDIUM.MigrationStatus",
+            label: "COMPENDIUM.MigrationStatus",
             icon: "fa-solid fa-info",
             visible: (li: HTMLElement): boolean => {
                 const compendium = game.packs.get(li.dataset.pack, { strict: true });
