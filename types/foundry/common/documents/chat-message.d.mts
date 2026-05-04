@@ -45,7 +45,7 @@ interface ChatMessageMetadata extends DocumentClassMetadata {
 declare type ChatMessageSchema = {
     /** The _id which uniquely identifies this ChatMessage document */
     _id: fields.DocumentIdField;
-    /** An ChatMEssage subtype which configures the system data model applied */
+    /** An ChatMessage subtype which configures the system data model applied */
     type: fields.DocumentTypeField<string, string, true, false, true, BaseChatMessage>;
     /** They system data object which is defined by the system data model */
     system: fields.TypeDataField;
@@ -59,7 +59,7 @@ declare type ChatMessageSchema = {
     flavor: fields.HTMLField;
     /** The HTML content of this chat message */
     content: fields.HTMLField;
-    /** A ChatSpeakData object which describes the origin of the ChatMessage */
+    /** A ChatSpeakerData object which describes the origin of the ChatMessage */
     speaker: fields.SchemaField<ChatSpeakerSchema>;
     /** An array of User _id values to whome this message is privately whispered */
     whisper: fields.ArrayField<fields.ForeignDocumentField<string>>;
