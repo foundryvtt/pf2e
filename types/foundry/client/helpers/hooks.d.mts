@@ -155,7 +155,7 @@ export default class Hooks {
     static on(...args: HookParamsUpdate<Scene, "Scene">): number;
     static on(...args: HookParamsUpdateWorldTime): number;
     static on(...args: HookParamsGetProseMirrorMenuDropDowns): number;
-    static on(...args: HookParameters<string, any[]>): number;
+    static on(...args: HookParameters<string, unknown[]>): number;
 
     /**
      * Register a callback handler for an event which is only triggered once the first time the event occurs.
@@ -200,7 +200,7 @@ export default class Hooks {
     static once(...args: HookParamsUpdate<Scene, "Scene">): number;
     static once(...args: HookParamsUpdateWorldTime): number;
     static once(...args: HookParamsI18nInit): number;
-    static once(...args: HookParameters<string, any[]>): number;
+    static once(...args: HookParameters<string, unknown[]>): number;
 
     /**
      * Unregister a callback handler for a particular hook event
