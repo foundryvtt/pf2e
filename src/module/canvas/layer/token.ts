@@ -22,12 +22,14 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends fc.layers.TokenLayer<TOb
             this.hover.control();
             return;
         }
-
         return super._onClickLeft(event);
     }
 
     /** Reimplementation to avoid warning for troop tokens unless it is the last segment of the troop  */
     protected override async _confirmDeleteKey(documents: TObject["document"][]): Promise<boolean> {
+        if (!documents.some((d) => d.actor?.isOfType("npc") && d.actor.system.traits.value.includes("troop"))) {
+            return super._confirmDeleteKey(documents);
+        }
         const warnings = [];
         if (documents.some((t) => t.attachments.regions.size)) warnings.push("TOKEN.DeleteAttachedRegionWarning");
         const tokens = new Set(documents);
