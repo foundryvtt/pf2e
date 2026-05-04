@@ -96,7 +96,17 @@ type HookParamsGetProseMirrorMenuDropDowns = HookParameters<
     [foundry.prosemirror.ProseMirrorMenu, Record<string, ProseMirrorDropDownConfig>]
 >;
 
+export interface HookedFunction {
+    hook: string;
+    id: number;
+    fn: HookCallback<unknown[]>;
+    once: boolean;
+}
+
 export default class Hooks {
+    /** A mapping of hook events which have functions registered to them. */
+    static get events(): Record<string, HookedFunction[]>;
+
     /**
      * Register a callback handler which should be triggered when a hook is triggered.
      *
@@ -133,7 +143,6 @@ export default class Hooks {
     static on(...args: HookParamsRender<SettingsConfig, "SettingsConfig">): number;
     static on(...args: HookParamsRender<TokenHUD, "TokenHUD", PlaceableHUDContext>): number;
     static on(...args: HookParamsRenderChatMessageHTML): number;
-
     static on(
         ...args: HookParamsRender<JournalPageSheet<JournalEntryPage<JournalEntry | null>>, "JournalPageSheet">
     ): number;
@@ -146,7 +155,7 @@ export default class Hooks {
     static on(...args: HookParamsUpdate<Scene, "Scene">): number;
     static on(...args: HookParamsUpdateWorldTime): number;
     static on(...args: HookParamsGetProseMirrorMenuDropDowns): number;
-    static on(...args: HookParameters<string, unknown[]>): number;
+    static on(...args: HookParameters<string, any[]>): number;
 
     /**
      * Register a callback handler for an event which is only triggered once the first time the event occurs.
@@ -191,7 +200,7 @@ export default class Hooks {
     static once(...args: HookParamsUpdate<Scene, "Scene">): number;
     static once(...args: HookParamsUpdateWorldTime): number;
     static once(...args: HookParamsI18nInit): number;
-    static once(...args: HookParameters<string, unknown[]>): number;
+    static once(...args: HookParameters<string, any[]>): number;
 
     /**
      * Unregister a callback handler for a particular hook event
