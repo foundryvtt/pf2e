@@ -5,6 +5,7 @@ import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
 import type { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import type { AbilityViewData, InventoryItem } from "@actor/sheet/data-types.ts";
 import { condenseSenses, createAbilityViewData } from "@actor/sheet/helpers.ts";
+import { scaleDimensionsToClientFont } from "@module/sheet/helpers.ts";
 import type { AttributeString, SaveType, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
@@ -88,8 +89,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.classes = [...options.classes, "character"];
-        options.width = 750;
-        options.height = 750;
+        const sized = scaleDimensionsToClientFont(750, 750);
+        options.width = sized.width;
+        options.height = sized.height;
         options.scrollY.push(".tab[data-tab=spellcasting] > [data-panels]", ".tab.active .tab-content");
         options.dragDrop.push({ dragSelector: "ol[data-strikes] > li, ol[data-elemental-blasts] > li" });
         options.tabs = [

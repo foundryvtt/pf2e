@@ -7,7 +7,13 @@ import { CampaignFeaturePF2e, ItemPF2e, ItemProxyPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { AdjustedValue, eventToRollParams, getAdjustedValue, getAdjustment } from "@module/sheet/helpers.ts";
+import {
+    AdjustedValue,
+    eventToRollParams,
+    getAdjustedValue,
+    getAdjustment,
+    scaleDimensionsToClientFont,
+} from "@module/sheet/helpers.ts";
 import { kingmakerTraits } from "@scripts/config/traits.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
@@ -23,11 +29,12 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
 
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
+        const sized = scaleDimensionsToClientFont(750, 625);
         return {
             ...options,
             classes: [...options.classes, "army"],
-            width: 750,
-            height: 625,
+            width: sized.width,
+            height: sized.height,
             template: `systems/${SYSTEM_ID}/templates/actors/army/sheet.hbs`,
             scrollY: [".sheet-body"],
         };

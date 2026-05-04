@@ -1,7 +1,7 @@
 import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
-import { createNPCAttackTraitsAndTags } from "@module/sheet/helpers.ts";
+import { createNPCAttackTraitsAndTags, scaleDimensionsToClientFont } from "@module/sheet/helpers.ts";
 import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlClosest, htmlQuery } from "@util/dom.ts";
@@ -12,12 +12,13 @@ import { HazardActionSheetData, HazardAttackSheedData, HazardSaveSheetData, Haza
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
+        const sized = scaleDimensionsToClientFont(710, 680);
         return {
             ...options,
             classes: [...options.classes, "hazard"],
             scrollY: ["section.content"],
-            width: 710,
-            height: 680,
+            width: sized.width,
+            height: sized.height,
             template: `systems/${SYSTEM_ID}/templates/actors/hazard/sheet.hbs`,
         };
     }

@@ -15,7 +15,12 @@ import { Bulk, Coins } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import type { ZeroToFour } from "@module/data.ts";
-import { SheetOptions, createSheetTags, eventToRollParams } from "@module/sheet/helpers.ts";
+import {
+    SheetOptions,
+    createSheetTags,
+    eventToRollParams,
+    scaleDimensionsToClientFont,
+} from "@module/sheet/helpers.ts";
 import type { SocketMessage } from "@scripts/socket.ts";
 import type { SettingsMenuOptions } from "@system/settings/menu.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
@@ -35,11 +40,12 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
 
+        const sized = scaleDimensionsToClientFont(720, 720);
         return {
             ...options,
             classes: [...options.classes, "party"],
-            width: 720,
-            height: 720,
+            width: sized.width,
+            height: sized.height,
             template: `systems/${SYSTEM_ID}/templates/actors/party/sheet.hbs`,
             scrollY: [...options.scrollY, ".tab.active", ".tab.active .content", ".sidebar"],
             tabs: [

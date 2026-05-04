@@ -5,7 +5,7 @@ import type { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import type { AbilityViewData } from "@actor/sheet/data-types.ts";
 import { createAbilityViewData } from "@actor/sheet/helpers.ts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
-import { eventToRollParams } from "@module/sheet/helpers.ts";
+import { eventToRollParams, scaleDimensionsToClientFont } from "@module/sheet/helpers.ts";
 import type { StatisticTraceData } from "@system/statistic/index.ts";
 import * as R from "remeda";
 import type { FamiliarPF2e } from "./document.ts";
@@ -19,11 +19,12 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
 
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
+        const sized = scaleDimensionsToClientFont(650, 680);
         return {
             ...options,
             classes: [...options.classes, "familiar"],
-            width: 650,
-            height: 680,
+            width: sized.width,
+            height: sized.height,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "attributes" }],
             template: `systems/${SYSTEM_ID}/templates/actors/familiar/sheet.hbs`,
         };

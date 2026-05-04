@@ -5,7 +5,7 @@ import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import type { ImageFilePath } from "@common/constants.d.mts";
 import { ItemPF2e } from "@item";
-import { AdjustedValue, getActionIcon, getAdjustedValue } from "@module/sheet/helpers.ts";
+import { AdjustedValue, getActionIcon, getAdjustedValue, scaleDimensionsToClientFont } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import { ActorSheetPF2e } from "../sheet/base.ts";
 import type { VehicleSystemSchema } from "./data.ts";
@@ -13,11 +13,12 @@ import type { VehicleSystemSchema } from "./data.ts";
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
+        const sized = scaleDimensionsToClientFont(670, 520);
         return {
             ...options,
             classes: [...options.classes, "vehicle"],
-            width: 670,
-            height: 520,
+            width: sized.width,
+            height: sized.height,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "details" }],
             template: `systems/${SYSTEM_ID}/templates/actors/vehicle/sheet.hbs`,
         };

@@ -21,6 +21,7 @@ import {
     eventToRollParams,
     getAdjustedValue,
     getAdjustment,
+    scaleDimensionsToClientFont,
 } from "@module/sheet/helpers.ts";
 import type { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
@@ -95,11 +96,12 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
 
+        const sized = scaleDimensionsToClientFont(750, 630);
         return {
             ...options,
             classes: [...options.classes, "kingdom"],
-            width: 750,
-            height: 630,
+            width: sized.width,
+            height: sized.height,
             template: `systems/${SYSTEM_ID}/templates/actors/party/kingdom/sheet.hbs`,
             scrollY: [...options.scrollY, ".tab.active", ".tab.active .content", ".sidebar"],
             tabs: [

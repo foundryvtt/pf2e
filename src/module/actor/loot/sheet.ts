@@ -7,6 +7,7 @@ import type BaseActor from "@common/documents/actor.d.mts";
 import type { ActorSchema } from "@common/documents/actor.d.mts";
 import type { PhysicalItemPF2e } from "@item";
 import { TextEditorPF2e } from "@system/text-editor.ts";
+import { scaleDimensionsToClientFont } from "@module/sheet/helpers.ts";
 import { htmlClosest, htmlQuery } from "@util";
 import { ActorSheetPF2e } from "../sheet/base.ts";
 import { DistributeCoinsDialog } from "../sheet/popups/distribute-coins-dialog.ts";
@@ -17,12 +18,13 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
 
+        const sized = scaleDimensionsToClientFont(650, 680);
         return {
             ...options,
             editable: true,
             classes: [...options.classes, "loot"],
-            width: 650,
-            height: 680,
+            width: sized.width,
+            height: sized.height,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "inventory" }],
         };
     }

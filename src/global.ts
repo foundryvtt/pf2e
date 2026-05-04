@@ -85,7 +85,14 @@ interface ClientSettingsPF2e extends fh.ClientSettings {
     get(scope: "core", key: "fontSize"): number;
     get(scope: "core", key: "noCanvas"): boolean;
     get(scope: "core", key: "messageMode"): ChatMessageMode;
-    get(scope: "core", key: "uiConfig"): { colorScheme: { applications: string; interface: string }; uiScale: number };
+    get(
+        scope: "core",
+        key: "uiConfig",
+    ): {
+        colorScheme: { applications: string; interface: string };
+        uiScale: number;
+        fontScale?: number;
+    };
     get(scope: SystemId, setting: "automation.actorsDeadAtZero"): "neither" | "npcsOnly" | "pcsOnly" | "both";
     get(scope: SystemId, setting: "automation.encumbrance"): boolean;
     get(scope: SystemId, setting: "automation.flankingDetection"): boolean;

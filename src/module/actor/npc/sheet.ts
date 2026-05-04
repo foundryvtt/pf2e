@@ -5,6 +5,7 @@ import { Modifier } from "@actor/modifiers.ts";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { createAbilityViewData } from "@actor/sheet/helpers.ts";
+import { scaleDimensionsToClientFont } from "@module/sheet/helpers.ts";
 import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
@@ -147,10 +148,11 @@ class NPCSheetPF2e extends AbstractNPCSheet {
         const options = super.defaultOptions;
         options.scrollY.push(".inventory-list", ".tab:not(.inventory)");
 
+        const sized = scaleDimensionsToClientFont(650, 680);
         return {
             ...options,
-            width: 650,
-            height: 680,
+            width: sized.width,
+            height: sized.height,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "main" }],
         };
     }
@@ -511,10 +513,11 @@ class SimpleNPCSheet extends AbstractNPCSheet {
         const options = super.defaultOptions;
         options.classes.push("simple");
 
+        const sized = scaleDimensionsToClientFont(650, 420);
         return {
             ...options,
-            width: 650,
-            height: 420,
+            width: sized.width,
+            height: sized.height,
             scrollY: [".sheet-body"],
             template: `systems/${SYSTEM_ID}/templates/actors/npc/simple-sheet.hbs`,
         };

@@ -14,6 +14,68 @@ import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 
 /** Prepare form options on an item or actor sheet */
+function resolveClientSettingDefault(defaultField: unknown): unknown {
+    return typeof defaultField === "function" ? defaultField() : defaultField;
+}
+
+/** When font is below default, raw linear ratio shrinks sheet windows too aggressively; exponent in (0,1) eases that. */
+const SHEET_WINDOW_FONT_SHRINK_EXPONENT = 0.58;
+
+/**
+ * Map linear font/baseline ratio to sheet dimension scale. Ratios ≥ 1 stay linear (matches large-font feel);
+ * ratios below 1 are curved so windows do not shrink as fast as the font setting.
+ */
+function sheetWindowScaleFromLinearFontRatio(linear: number): number {
+    const clamped = Math.clamp(linear, 0.5, 3);
+    const eased = clamped < 1 ? clamped ** SHEET_WINDOW_FONT_SHRINK_EXPONENT : clamped;
+    return Math.clamp(eased, 0.5, 3);
+}
+
+/**
+ * Ratio of the client's current interface font size to the core setting default (1 at defaults).
+ * Prefers `core.uiConfig.fontScale` when that setting's schema includes it; otherwise `core.fontSize`.
+ */
+function getClientInterfaceDimensionScale(): number {
+    if (!game?.settings) return 1;
+    const registrations = game.settings.settings;
+
+    const uiRegistration = registrations.get("core.uiConfig");
+    const baselineUi = uiRegistration
+        ? (resolveClientSettingDefault(uiRegistration.default) as { fontScale?: number } | null)
+        : null;
+    const uiDefinesFontScale =
+        !!baselineUi &&
+        typeof baselineUi === "object" &&
+        "fontScale" in baselineUi &&
+        typeof baselineUi.fontScale === "number";
+
+    if (uiRegistration && uiDefinesFontScale) {
+        const uiConfig = game.settings.get("core", "uiConfig") as { fontScale?: number } | null | undefined;
+        const baselineScale = baselineUi.fontScale!;
+        const currentScale = typeof uiConfig?.fontScale === "number" ? uiConfig.fontScale : baselineScale;
+        if (baselineScale > 0) {
+            return sheetWindowScaleFromLinearFontRatio(currentScale / baselineScale);
+        }
+    }
+
+    const fontSizeRegistration = registrations.get("core.fontSize");
+    if (fontSizeRegistration) {
+        const current = game.settings.get("core", "fontSize");
+        const baseline = resolveClientSettingDefault(fontSizeRegistration.default);
+        if (typeof current === "number" && typeof baseline === "number" && baseline > 0) {
+            return sheetWindowScaleFromLinearFontRatio(current / baseline);
+        }
+    }
+
+    return 1;
+}
+
+/** Scale pixel dimensions for actor sheets so layout tracks the user's Foundry font size. */
+function scaleDimensionsToClientFont(width: number, height: number): { width: number; height: number } {
+    const scale = getClientInterfaceDimensionScale();
+    return { width: Math.round(width * scale), height: Math.round(height * scale) };
+}
+
 function createSheetOptions(
     options: Record<string, string | { label: string }>,
     selections: SheetSelections = [],
@@ -379,6 +441,7 @@ export {
     getItemFromDragEvent,
     isControlDown,
     maintainFocusInRender,
+    scaleDimensionsToClientFont,
     sendItemToChat,
 };
 export type { AdjustedValue, BasePhysicalItemViewData, NPCAttackTraitOrTag, SheetOption, SheetOptions, TagifyEntry };
