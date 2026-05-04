@@ -45,8 +45,21 @@
             },
             {
                 "key": "LoseHitPoints",
+                "predicate": [
+                    {
+                        "not": "drained-hp-effective-minus-one"
+                    }
+                ],
                 "reevaluateOnUpdate": true,
                 "value": "max(1,@actor.level) * @item.badge.value"
+            },
+            {
+                "key": "LoseHitPoints",
+                "predicate": [
+                    "drained-hp-effective-minus-one"
+                ],
+                "reevaluateOnUpdate": true,
+                "value": "max(1,@actor.level) * max(0,@item.badge.value - 1)"
             }
         ],
         "traits": {
