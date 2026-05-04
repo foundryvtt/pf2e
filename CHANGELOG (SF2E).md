@@ -1,3 +1,14 @@
+## 1.1.1
+
+### Bugfixes
+
+- (stwlam) Restore close button to attack popout
+- (Supe) Fix migration failure on certain embedded spells in consumables
+
+### Data Updates
+
+- (kromko) Fix reposition link in Magnetic Orb Bantrid's description
+
 ## 1.1.0
 
 ### System Improvements

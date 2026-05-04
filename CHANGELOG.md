@@ -1,3 +1,16 @@
+## 8.1.1
+
+### Bugfixes
+
+- (stwlam) Restore close button to attack popout
+- (Supe) Fix migration failure on certain embedded spells in scrolls and wands
+
+### Data Updates
+
+- (Ambrose) Extract Noise from Rollable Tables and Deity Boons and Curses
+- (SpartanCPA) Correct Attack Bonus for Young Wish Dragon
+- (SpartanCPA) Cleanup and Reorganize labels involved in ChangeShape REs
+
 ## 8.1.0
 
 ### System Improvements
