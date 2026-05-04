@@ -81,10 +81,7 @@ class SpellOverlayCollection extends Collection<string, SpellOverlay> {
 
     async deleteOverlay(overlayId: string): Promise<void> {
         this.verifyOverlayId(overlayId);
-
-        await this.spell.update({
-            [`system.overlays.-=${overlayId}`]: null,
-        });
+        await this.spell.update({ [`system.overlays.${overlayId}`]: _del });
         this.delete(overlayId);
     }
 
