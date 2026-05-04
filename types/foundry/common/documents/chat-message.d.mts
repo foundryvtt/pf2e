@@ -45,13 +45,13 @@ interface ChatMessageMetadata extends DocumentClassMetadata {
 declare type ChatMessageSchema = {
     /** The _id which uniquely identifies this ChatMessage document */
     _id: fields.DocumentIdField;
-    /** An ChatMessage subtype which configures the system data model applied */
+    /** The type of this chat message, in BaseChatMessage.metadata.types */
     type: fields.DocumentTypeField<string, string, true, false, true, BaseChatMessage>;
-    /** They system data object which is defined by the system data model */
+    /** Data for a ChatMessage subtype, defined by a System or Module */
     system: fields.TypeDataField;
     /** The message style from CONST.CHAT_MESSAGE_STYLES */
     style: fields.NumberField<ChatMessageStyle, ChatMessageStyle, true, true, true>;
-    /** The User Document who generated this message */
+    /** The _id of the User document who generated this message */
     author: fields.ForeignDocumentField<BaseUser, true, false, true>;
     /** The timestamp at which point this message was generated */
     timestamp: fields.NumberField<number, number, true, false, true>;
@@ -61,19 +61,19 @@ declare type ChatMessageSchema = {
     content: fields.HTMLField;
     /** A ChatSpeakerData object which describes the origin of the ChatMessage */
     speaker: fields.SchemaField<ChatSpeakerSchema>;
-    /** An array of User _id values to whome this message is privately whispered */
+    /** An array of User _id values to whom this message is privately whispered */
     whisper: fields.ArrayField<fields.ForeignDocumentField<string>>;
     /** Is this message sent blindly where the creating User cannot see it? */
     blind: fields.BooleanField;
     /** Serialized content of any Roll instances attached to the ChatMessage */
     rolls: fields.ArrayField<fields.JSONField<Roll, true>>;
-    /** The audio file path which plays when this message is received */
+    /** The URL of an audio file which plays when this message is received */
     sound: fields.FilePathField<AudioFilePath>;
-    /** IS this message syled as an emote? */
+    /** Is this message styled as an emote? */
     emote: fields.BooleanField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 
@@ -88,11 +88,11 @@ export type ChatMessageFlags = DocumentFlags & {
 declare type ChatSpeakerSchema = {
     /** The _id of the Scene where this message was created */
     scene: fields.ForeignDocumentField<string>;
-    /** The _id of Actor who generated this message */
+    /** The _id of the Actor who generated this message */
     actor: fields.ForeignDocumentField<string>;
-    /** The _id of Token who generated this message */
+    /** The _id of the Token who generated this message */
     token: fields.ForeignDocumentField<string>;
-    /** An overriden alias name used instead of the Actor or Token name */
+    /** An overridden alias name used instead of the Actor or Token name */
     alias: fields.StringField<string, string, false, false, true>;
 };
 

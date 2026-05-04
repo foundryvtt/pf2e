@@ -47,9 +47,9 @@ interface NoteMetadata extends DocumentClassMetadata {
 }
 
 type NoteSchema = {
-    /** The _id which uniquely identifies this Note document */
+    /** The _id which uniquely identifies this BaseNote embedded document */
     _id: fields.DocumentIdField;
-    /** The user who created this Note */
+    /** The _id of a User document which created this Note */
     author: fields.DocumentAuthorField<BaseUser>;
     /** The _id of a JournalEntry document which this Note represents */
     entryId: fields.ForeignDocumentField<string>;
@@ -59,11 +59,11 @@ type NoteSchema = {
     x: fields.NumberField<number, number, true, false, true>;
     /** The y-coordinate position of the center of the note icon */
     y: fields.NumberField<number, number, true, false, true>;
-    /** The elevation of the note icon */
+    /** The elevation */
     elevation: fields.NumberField<number, number, true, false, true>;
-    /** An array of Levels that this Note is on */
+    /** The level IDs */
     levels: fields.SceneLevelsSetField;
-    /** The numeric sort value which orders this Note relative to its siblings */
+    /** The sort order */
     sort: fields.NumberField<number, number, true, false, true>;
     /** Is this Note currently locked? */
     locked: fields.BooleanField;

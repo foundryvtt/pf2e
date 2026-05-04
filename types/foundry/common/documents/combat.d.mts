@@ -54,29 +54,29 @@ interface CombatMetadata extends DocumentClassMetadata {
 }
 
 type CombatSchema = {
-    /** The _id which uniquely identifies this Combate document */
+    /** The _id which uniquely identifies this Combat document */
     _id: fields.DocumentIdField;
-    /** An Combate subtype which configures the system data model applied */
+    /** The type of this Combat. */
     type: fields.DocumentTypeField<string, string, false, false, false, BaseCombat>;
-    /** They system data object which is defined by the system data model */
+    /** Game system data which is defined by system data models. */
     system: fields.TypeDataField;
-    /** The Scene within which this Combat occurs */
+    /** The _id of a Scene within which this Combat occurs */
     scene: fields.ForeignDocumentField<BaseScene>;
-    /** An EmbeddedCollection of CombatantGroup documents */
+    /** A Collection of Documents that represent a grouping of individual Combatants. */
     groups: fields.EmbeddedCollectionField<BaseCombatantGroup<BaseCombat>>;
-    /** An EmbeddedCollection of Combatant documents */
+    /** A Collection of Combatant embedded Documents */
     combatants: fields.EmbeddedCollectionField<BaseCombatant<BaseCombat>>;
     /** Is the Combat encounter currently active? */
     active: fields.BooleanField;
     /** The current round of the Combat encounter */
     round: fields.NumberField<number, number, true, false, true>;
-    /** The current turn of the Combat encounter */
+    /** The current turn in the Combat round */
     turn: fields.NumberField<number, number, true, true, true>;
-    /** The numeric sort value which orders this Combat relative to its siblings */
+    /** The current sort order of this Combat relative to others in the same Scene */
     sort: fields.IntegerSortField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 

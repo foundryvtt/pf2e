@@ -53,19 +53,19 @@ interface RegionBehaviorMetadata extends abstract.DocumentClassMetadata {
 }
 
 type RegionBehaviorSchema<TType extends string = string, TSystemData extends object = object> = {
-    /** The _id which uniquely identifies this  RegionBehavior document */
+    /** The _id which uniquely identifies this RegionBehavior document */
     _id: fields.DocumentIdField;
-    /** The name of this RegionBehavior */
+    /** The name used to describe the RegionBehavior */
     name: fields.StringField<string, string, true, false, true>;
     /** An RegionBehavior subtype which configures the system data model applied */
     type: fields.DocumentTypeField<TType>;
-    /** They system data object which is defined by the system data model */
+    /** Data for a RegionBehavior subtype, defined by a System or Module */
     system: fields.TypeDataField<TSystemData>;
-    /** IS the RegionBehavior currently disabled? */
+    /** Is the RegionBehavior currently disabled? */
     disabled: fields.BooleanField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 

@@ -80,31 +80,31 @@ interface UserMetadata extends DocumentClassMetadata {
 }
 
 type UserSchema<TActor extends BaseActor<null>> = {
-    /** The _id which uniquely identifies this User document */
+    /** The _id which uniquely identifies this User document. */
     _id: fields.DocumentIdField;
-    /** The name of this User */
+    /** The user's name. */
     name: fields.StringField<string, string, true, false, false>;
-    /** What role is assigned to this User, taken from CONST.USER_ROLE_NAMES */
+    /** The user's role, see CONST.USER_ROLES. */
     role: fields.NumberField<UserRole, UserRole, true, false, true>;
-    /** The hashed password associated with this User */
+    /** The user's password. Available only on the Server side for security. */
     password: fields.StringField<string, string, true, false, true>;
-    /** The salt used to hash the password for this USer */
+    /** The user's password salt. Available only on the Server side for security. */
     passwordSalt: fields.StringField<string>;
-    /** An image file path used as the avatar for this User */
+    /** The user's avatar image. */
     avatar: fields.FilePathField<ImageFilePath>;
-    /** The Actor that is currently set as this User's character */
+    /** A linked Actor document that is this user's impersonated character. */
     character: fields.ForeignDocumentField<TActor>;
-    /** The color assigned to this User, used for various thing to indicate which user is doing something */
+    /** A color to represent this user. */
     color: fields.ColorField<true, false, true>;
-    /** The pronouns of this User */
+    /** The user's personal pronouns. */
     pronouns: fields.StringField<string, string, true, false, true>;
-    /** A record linking macros to hotbar slots for this User */
+    /** A mapping of hotbar slot number to Macro id for the user. */
     hotbar: fields.ObjectField<Record<number, string>>;
-    /** What permissions this User has, or doesn't have */
+    /** The user's individual permission configuration, see CONST.USER_PERMISSIONS. */
     permissions: fields.ObjectField<Record<string, boolean>>;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 

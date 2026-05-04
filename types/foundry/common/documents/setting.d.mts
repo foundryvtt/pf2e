@@ -32,13 +32,13 @@ interface SettingMetadata extends DocumentClassMetadata {
 type SettingSchema = {
     /** The _id which uniquely identifies this Setting document */
     _id: fields.DocumentIdField;
-    /** The key of this stored setting*/
+    /** The setting key, a composite of {scope}.{name} */
     key: fields.StringField<string, string, true>;
-    /** The value of this stored setting */
+    /** The setting value, which is serialized to JSON */
     value: fields.JSONField<NonNullable<JSONValue>, true, true, false>;
-    /** The _id of the User that this setting is for, only used for user scoped settings */
+    /** The ID of the user this Setting belongs to, if user-scoped. */
     user: fields.ForeignDocumentField<string>;
-    /** An object containing document metadata */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 

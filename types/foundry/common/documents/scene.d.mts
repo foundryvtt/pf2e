@@ -77,7 +77,7 @@ export interface SceneMetadata extends DocumentClassMetadata {
 type SceneSchema = {
     /** The _id which uniquely identifies this Scene document */
     _id: fields.DocumentIdField;
-    /** The name of this Scene */
+    /** The name of this scene */
     name: fields.StringField<string, string, true, false, false>;
 
     // Navigation
@@ -91,7 +91,7 @@ type SceneSchema = {
     navName: fields.HTMLField;
 
     // Canvas Dimensions
-    /** An image or video file that provides the background texture for the scene. */
+    /** A thumbnail image which depicts the scene at lower resolution */
     thumb: fields.FilePathField<ImageFilePath>;
     /** The width of the scene canvas, normally the width of the background media */
     width: fields.NumberField;
@@ -99,9 +99,9 @@ type SceneSchema = {
     height: fields.NumberField;
     /** The proportion of canvas padding applied around the outside of the scene dimensions to provide additional buffer space */
     padding: fields.NumberField<number, number, true, false, true>;
-    /** How much the background is shifted by in the x-coordinates */
+    /** The shift of the scene rect in x-direction (pixels) */
     shiftX: fields.NumberField<number, number, true, true, true>;
-    /** How much the background is shifted by in the y-coordinates */
+    /** The shift of the scene rect in y-direction (pixels) */
     shiftY: fields.NumberField<number, number, true, true, true>;
     /** The initial view coordinates for the scene */
     initial: fields.SchemaField<{
@@ -109,7 +109,6 @@ type SceneSchema = {
         y: fields.NumberField<number, number, false, true, false>;
         scale: fields.NumberField<number, number, false, true, false>;
     }>;
-    /** The initial level for the scene */
     initialLevel: fields.DocumentIdField<documents.BaseLevel<BaseScene>>;
 
     // Grid Configuration
@@ -119,15 +118,15 @@ type SceneSchema = {
     // Vision and Lighting Configuration
     /** Do Tokens require vision in order to see the Scene environment? */
     tokenVision: fields.BooleanField;
-    /** Fog configuration for the scene */
+    /** Fog-exploration settings and other data */
     fog: fields.SchemaField<FogSchema>;
 
     // Environment Configuration
-    /** Environment configuration for the scene */
+    /** The environment data applied to the Scene. */
     environment: fields.SchemaField<EnvironmentSchema>;
 
     // Transition Configuration
-    /** Data related to the transition to/from the scene */
+    /** The transition animation */
     transition: fields.SchemaField<{
         type: fields.StringField<string, string, true, true, true>;
         duration: fields.NumberField<number, number, true, false, true>;
@@ -135,39 +134,39 @@ type SceneSchema = {
     }>;
 
     // Embedded Collections
-    /** An EmbeddedCollection of Drawing documents */
+    /** A collection of embedded Drawing objects. */
     drawings: fields.EmbeddedCollectionField<documents.BaseDrawing<BaseScene>>;
-    /** An EmbeddedCollection of Token documents */
+    /** A collection of embedded Token objects. */
     tokens: fields.EmbeddedCollectionField<documents.BaseToken<BaseScene>>;
-    /** An EmbeddedCollection of Level documents */
+    /** A collection of embedded Level objects */
     levels: fields.EmbeddedCollectionField<documents.BaseLevel<BaseScene>>;
-    /** An EmbeddedCollection of AmbientLight documents */
+    /** A collection of embedded AmbientLight object */
     lights: fields.EmbeddedCollectionField<documents.BaseAmbientLight<BaseScene>>;
-    /** An EmbeddedCollection of Note documents */
+    /** A collection of embedded Note objects. */
     notes: fields.EmbeddedCollectionField<documents.BaseNote<BaseScene>>;
-    /** An EmbeddedCollection of AmbientSound documents */
+    /** A collection of embedded AmbientSound objects. */
     sounds: fields.EmbeddedCollectionField<documents.BaseAmbientSound<BaseScene>>;
-    /** An EmbeddedCollection of Region documents */
+    /** A collection of embedded Region objects. */
     regions: fields.EmbeddedCollectionField<documents.BaseRegion<BaseScene>>;
-    /** An EmbeddedCollection of Tile documents */
+    /** A collection of embedded Tile objects. */
     tiles: fields.EmbeddedCollectionField<documents.BaseTile<BaseScene>>;
-    /** An EmbeddedCollection of Wall documents */
+    /** A collection of embedded Wall objects */
     walls: fields.EmbeddedCollectionField<documents.BaseWall<BaseScene>>;
 
     // Linked Documents
     /** A linked Playlist document which should begin automatically playing when this Scene becomes active. */
     playlist: fields.ForeignDocumentField<documents.BasePlaylist>;
-    /** The _id of the PlaylistSound document from the selected playlist that will begin automatically playing when this Scene becomes active */
+    /** A linked PlaylistSound document from the selected playlist that will begin automatically playing when this Scene becomes active */
     playlistSound: fields.ForeignDocumentField<string>;
     /** A JournalEntry document which provides narrative details about this Scene */
     journal: fields.ForeignDocumentField<documents.BaseJournalEntry>;
-    /** The _id of the JournalEntryPage from the selected journal which provides narrative details about this Scene */
+    /** A JournalEntry document which provides narrative details about this Scene */
     journalEntryPage: fields.ForeignDocumentField<string>;
     /** A named weather effect which should be rendered in this Scene. */
     weather: fields.StringField;
 
     // Permissions
-    /** The Folder which contains this Scene */
+    /** The _id of a Folder which contains this Scene */
     folder: fields.ForeignDocumentField<documents.BaseFolder>;
     /** The numeric sort value which orders this Scene relative to its siblings */
     sort: fields.IntegerSortField;
@@ -175,7 +174,7 @@ type SceneSchema = {
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 
@@ -199,31 +198,52 @@ type GridDataSchema = {
 };
 
 type FogSchema = {
+    /** Fog exploration mode configured for this Scene. */
     mode: fields.NumberField<FogExplorationMode, FogExplorationMode, true, false, true>;
+    /** The timestamp at which fog of war was last reset for this Scene. */
     reset: fields.NumberField;
+    /** Fog-exploration coloration data */
     colors: fields.SchemaField<{
+        /** A color tint applied to explored regions of fog of war */
         explored: fields.ColorField;
+        /** A color tint applied to unexplored regions of fog of war */
         unexplored: fields.ColorField;
     }>;
 };
 
 type EnvironmentSchema = {
+    /** The ambient darkness level in this Scene, where 0 represents midday (maximum illumination) and 1 represents midnight (maximum darkness) */
     darknessLevel: fields.AlphaField;
+    /** The darkness level lock state. */
     darknessLock: fields.BooleanField;
+    /** The global light data configuration. */
     globalLight: fields.SchemaField<{
+        /** Is the global light enabled? */
         enabled: fields.BooleanField;
+        /** An opacity for the emitted light, if any */
         alpha: data.LightDataSchema["alpha"];
+        /** Is the global light in bright mode? */
         bright: fields.BooleanField;
+        /** A tint color for the emitted light, if any */
         color: data.LightDataSchema["color"];
+        /** The coloration technique applied in the shader */
         coloration: data.LightDataSchema["coloration"];
+        /** The luminosity applied in the shader */
         luminosity: data.LightDataSchema["luminosity"];
+        /** The amount of color saturation this light applies to the background texture */
         saturation: data.LightDataSchema["saturation"];
+        /** The amount of contrast this light applies to the background texture */
         contrast: data.LightDataSchema["contrast"];
+        /** The depth of shadows this light applies to the background texture */
         shadows: data.LightDataSchema["shadows"];
+        /** A darkness range (min and max) for which the source should be active */
         darkness: data.LightDataSchema["darkness"];
     }>;
+    /** If cycling between base and dark is activated. */
     cycle: fields.BooleanField;
+    /** The base (darkness level 0) ambience lighting data. */
     base: fields.SchemaField<EnvironmentDataSchema>;
+    /** The dark (darkness level 1) ambience lighting data. */
     dark: fields.SchemaField<EnvironmentDataSchema>;
 };
 

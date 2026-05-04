@@ -40,11 +40,11 @@ interface CombatantMetadata extends DocumentClassMetadata {
 }
 
 type CombatantSchema = {
-    /** The _id which uniquely identifies this Combatant document */
+    /** The _id which uniquely identifies this Combatant embedded document */
     _id: fields.DocumentIdField;
-    /** A Combatant subtype which configures the system data model applied */
+    /** The type of this Combatant. */
     type: fields.DocumentTypeField<string, string, false, false, false, BaseCombatant>;
-    /** They system data object which is defined by the system data model */
+    /** Game system data which is defined by system data models. */
     system: fields.TypeDataField;
     /** The _id of an Actor associated with this Combatant */
     actorId: fields.ForeignDocumentField<string>;
@@ -52,23 +52,23 @@ type CombatantSchema = {
     tokenId: fields.ForeignDocumentField<string>;
     /** The _id of a Scene associated with this Combatant */
     sceneId: fields.ForeignDocumentField<string>;
-    /** A customized name which replaces the name of the Actor/Token in the tracker */
+    /** A customized name which replaces the name of the Token in the tracker */
     name: fields.StringField<string, string, false, false, true>;
-    /** A customized image which replaced the Token image in the tracker */
+    /** A customized image which replaces the Token image in the tracker */
     img: fields.FilePathField<ImageFilePath>;
     /** The initiative score for the Combatant which determines its turn order */
     initiative: fields.NumberField;
-    /** Is the Combatant currently hidden? */
+    /** Is this Combatant currently hidden? */
     hidden: fields.BooleanField;
     /** Has this Combatant been defeated? */
     defeated: fields.BooleanField;
-    /** The _id of the CombatantGroup that this Combatant is associated with */
+    /** An optional group this Combatant belongs to. */
     group: fields.DocumentIdField;
-    /** The rounder that this Combatant joined initiative */
+    /** he round this Combatant joined Combat (i.e., was created). A Combatant created before the Combat starts is considered to have joined in round 1. */
     roundJoined: fields.NumberField<number, number, true, false, true>;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information. */
     _stats: fields.DocumentStatsField;
 };
 

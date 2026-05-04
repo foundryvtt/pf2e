@@ -62,19 +62,19 @@ export type ItemSchema<TType extends string = string, TSystemSource extends obje
     type: fields.DocumentTypeField<TType, TType, true, false, true, BaseItem>;
     /** An image file path which provides the artwork for this Item */
     img: fields.FilePathField<ImageFilePath, ImageFilePath, false, true, true>;
-    /** They system data object which is defined by the system data model */
+    /** Data for an Item subtype, defined by a System or Module */
     system: fields.TypeDataField<TSystemSource>;
-    /** An EmbeddedCollection of ActiveEffect documents */
+    /** A collection of ActiveEffect embedded Documents */
     effects: fields.EmbeddedCollectionField<BaseActiveEffect<BaseItem<BaseActor | null>>>;
-    /** The Folder which contains this Item */
+    /** The _id of a Folder which contains this Item */
     folder: fields.ForeignDocumentField<BaseFolder>;
     /** The numeric sort value which orders this Item relative to its siblings */
     sort: fields.IntegerSortField;
-    /** An object which configures ownership of this Actor */
+    /** An object which configures ownership of this Item */
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField<ItemUUID>;
 };
 

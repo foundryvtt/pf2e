@@ -46,37 +46,38 @@ type OneToTen = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 type AmbientSoundSchema = {
     /** The _id which uniquely identifies this AmbientSound document */
     _id: fields.DocumentIdField;
-    /** The name of this AmbientSound */
+    /** An optional name. */
     name: fields.StringField;
-    /** The x-coordinate position of the origin of this AmbientSound */
+    /** The x-coordinate position of the origin of the sound. */
     x: fields.NumberField<number, number, true, false, true>;
-    /** The y-coordinate position of the origin of this AmbientSound */
+    /** The y-coordinate position of the origin of the sound. */
     y: fields.NumberField<number, number, true, false, true>;
-    /** The elevation of the origin of this AmbientSound  */
+    /** The elevation */
     elevation: fields.NumberField<number, number, true, false, true>;
-    /** An array of Levels that this AmbientSound is on */
+    /** The level IDs */
     levels: fields.SceneLevelsSetField;
-    /** The radius of the emitted sound */
+    /** The radius of the emitted sound. */
     radius: fields.NumberField<number, number, true, false, true>;
-    /** The audio file path that is played by this AmbientSound */
+    /** The audio file path that is played by this sound */
     path: fields.FilePathField<AudioFilePath>;
     /** Does this sound loop? */
     repeat: fields.BooleanField;
     /** The audio volume of the sound, from 0 to 1 */
     volume: fields.AlphaField;
-    /** Whether or not this AmbientSound is constrained by walls */
+    /** Whether or not this sound source is constrained by Walls and surfaces. True by default. */
     walls: fields.BooleanField;
-    /** Whether to adjust the volume of the sound heard by the listener based on how close the listener is to the center of the sound source */
+    /** Whether to adjust the volume of the sound heard by the listener based on how close the listener is to the center of the sound source. True by default. */
     easing: fields.BooleanField;
-    /** Is this AmbientSound currently hidden? */
+    /** Is the sound source currently hidden? False by default. */
     hidden: fields.BooleanField;
-    /** Is this AmbientSound currently locked? */
+    /** Is the sound source currently locked? */
     locked: fields.BooleanField;
-    /** A darknes range (min and max) for which the source should be active */
+    /** A darkness range (min and max) for which the source should be active */
     darkness: fields.SchemaField<{
         min: fields.AlphaField;
         max: fields.AlphaField;
     }>;
+    /** Special effects to apply to the sound */
     effects: fields.SchemaField<{
         base: fields.SchemaField<{
             type: fields.StringField;

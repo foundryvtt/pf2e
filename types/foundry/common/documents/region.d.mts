@@ -69,41 +69,36 @@ interface RegionMetadata extends DocumentClassMetadata {
 }
 
 type RegionSchema = {
-    /** The _id which uniquely identifies this Region document */
+    /** The Region _id which uniquely identifies it within its parent Scene */
     _id: fields.DocumentIdField;
-    /** The name of this Region */
+    /** The name used to describe the Region */
     name: fields.StringField<string, string, true, false, false>;
     /** The color used to highlight the Region */
     color: fields.ColorField<true, false, false>;
     /** The shapes that make up the Region */
     shapes: fields.ArrayField<fields.TypedSchemaField<typeof BaseShapeData.TYPES>>;
-    /** The elevation of this Region */
+    /** The elevation */
     elevation: fields.SchemaField<RegionElevationSchema>;
-    /** An array of Levels that this Region is on */
+    /** The level IDs */
     levels: fields.SceneLevelsSetField;
-    /** Data related to if this Region is restricted by walls */
     restriction: fields.SchemaField<{
         enabled: fields.BooleanField;
         type: fields.StringField<EdgeRestrictionType, EdgeRestrictionType, true, false, true>;
         priority: fields.NumberField<number, number, true, false, true>;
     }>;
-    /** Data related to which Token this Region is attached to */
     attachment: fields.SchemaField<{
         token: fields.ForeignDocumentField<string>;
     }>;
-    /** An EmbeddedCollection of RegionBehavior documents */
+    /** A collection of embedded RegionBehavior objects */
     behaviors: fields.EmbeddedCollectionField<BaseRegionBehavior<BaseRegion>>;
-    /** When is this Region visible, see CONST.REGION_VISIBILITY */
+    /** The region visibility*/
     visibility: fields.NumberField<RegionVisibilityType, RegionVisibilityType, true>;
-    /** Are the true shapes of this Region highlighted, or are the grid spaces fully in the Region highlighted */
     highlightMode: fields.StringField<RegionHighlightMode, RegionHighlightMode, true, false, true>;
-    /** Are the measurements of this Region visible? */
     displayMeasurements: fields.BooleanField;
-    /** Is this Region currently hidden? */
     hidden: fields.BooleanField;
-    /** Is this Region currently locked? */
+    /** Whether this region is locked or not */
     locked: fields.BooleanField;
-    /** An object which configures ownership of this Actor */
+    /** An object which configures ownership of this Playlist */
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;

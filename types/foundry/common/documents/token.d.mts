@@ -104,9 +104,9 @@ interface TokenMetadata extends DocumentClassMetadata {
 }
 
 type TokenSchema = {
-    /** The id which uniquely identifies this Token document */
+    /** The Token _id which uniquely identifies it within its parent Scene */
     _id: fields.DocumentIdField;
-    /** The name of this Token */
+    /** The name used to describe the Token */
     name: fields.StringField<string, string, true>;
     /** The display mode of the Token nameplate, from CONST.TOKEN_DISPLAY_MODES */
     displayName: fields.NumberField<TokenDisplayMode, TokenDisplayMode, true, false, true>;
@@ -128,15 +128,15 @@ type TokenSchema = {
     height: fields.NumberField<number, number, true, false, true>;
     /** The depth of the Token in grid units */
     depth: fields.NumberField<number, number, true, false, true>;
-    /** The shape of the Token, form CONST.TOKEN_SHAPES */
+    /** The shape of the Token */
     shape: fields.NumberField<TokenShapeType, TokenShapeType, false, true, true>;
-    /** The _id of the Level that this Token is on */
+    /** The level ID */
     level: fields.DocumentIdField<string, true, false, true>;
     /** The token's texture on the canvas. */
     texture: data.TextureData;
-    /** The numeric sort value which orders this Token relative to its siblings */
+    /** The sort order */
     sort: fields.NumberField<number, number, true, false, true>;
-    /** Is the Token currently locked? */
+    /** Is the Token currently locked? A locked token cannot be moved or rotated via standard keyboard or mouse interaction. */
     locked: fields.BooleanField;
     /** Prevent the Token image from visually rotating? */
     lockRotation: fields.BooleanField;
@@ -166,7 +166,7 @@ type TokenSchema = {
     sight: fields.SchemaField<{
         /** Should vision computation and rendering be active for this Token? */
         enabled: fields.BooleanField;
-        /** How far in distance units the Token can see without the aid of a light source */
+        /** How far in distance units the Token can see without the aid of a light source. If null, the sight range is unlimited. */
         range: fields.NumberField<number, number, true, true, true>;
         /** An angle at which the Token can see relative to their direction of facing */
         angle: fields.AngleField;
@@ -183,39 +183,49 @@ type TokenSchema = {
         /** An advanced customization for contrast within the visible area */
         contrast: fields.NumberField<number, number, true, false>;
     }>;
-    /** An array of detection modes which are available to this Token */
+    /** A record of detection modes which are available to this Token */
     detectionModes: fields.TypedObjectField<
         fields.SchemaField<{
-            /** Whether or not this detection mode is presently enabled */
+            /** Whether or not this detection mode is presently enabled. */
             enabled: fields.BooleanField;
-            /** The maximum range in distance units at which this mode can detect targets */
+            /**
+             * The maximum range in distance units at which this mode
+             * can detect targets. If null, which is only possible for modes in the document source, the detection range is
+             * unlimited. On document preparation null is converted to Infinity.
+             */
             range: fields.NumberField<number, number, true, true, true>;
         }>
     >;
+    /** Configuration of occlusion options */
     occludable: fields.SchemaField<{
+        /** Occlusion radius. */
         radius: fields.NumberField<number, number, false, false>;
     }>;
-    /** Data related to the dynamic token ring of this Token */
+    /** Configuration of the Dynamic Token Ring */
     ring: fields.SchemaField<{
+        /** Dynamic Token ring is enabled? */
         enabled: fields.BooleanField;
         colors: fields.SchemaField<{
+            /** Color of the ring. */
             ring: fields.ColorField;
+            /** Color of the background (behind the token, inside the ring). */
             background: fields.ColorField;
         }>;
+        /** Numerical bitmask to toggle effects. Default: 0x01 */
         effects: fields.NumberField<number, number, true, false, true>;
         subject: fields.SchemaField<{
+            /** Scale of the subject texture. */
             scale: fields.NumberField;
+            /** Path of the subject texture. */
             texture: fields.FilePathField<ImageFilePath>;
         }>;
     }>;
-    /** Data related to the turn marker of this Token */
     turnMarker: fields.SchemaField<{
         mode: fields.NumberField<number, number, true, true, true>;
         animation: fields.StringField<string, string, true, true, true>;
         src: fields.FilePathField<ImageFilePath | VideoFilePath>;
         disposition: fields.BooleanField;
     }>;
-    /** The current type of movement that this Token is using */
     movementAction: fields.StringField<string, string, true, true, true>;
     /** @internal */
     _movementHistory: fields.ArrayField<

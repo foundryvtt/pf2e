@@ -42,9 +42,9 @@ interface TileMetadata extends DocumentClassMetadata {
 }
 
 type TileSchema = {
-    /** The _id which uniquely identifies this Tile document */
+    /** The _id which uniquely identifies this Tile embedded document */
     _id: fields.DocumentIdField;
-    /** The name of this Tile */
+    /** An optional name. */
     name: fields.StringField;
     /** An image or video texture which this tile displays. */
     texture: TextureData;
@@ -52,14 +52,16 @@ type TileSchema = {
     width: fields.NumberField<number, number, true, false, true>;
     /** The pixel height of the tile */
     height: fields.NumberField<number, number, true, false, true>;
-    /** The x-coordinate position of the top-left corner of the tile */
+    /** The x-coordinate of the origin of the tile */
     x: fields.NumberField<number, number, true, false, true>;
-    /** The y-coordinate position of the top-left corner of the tile */
+    /** The y-coordinate of the origin of the tile */
     y: fields.NumberField<number, number, true, false, true>;
-    /** The elevation that this tile is on */
+    /** The elevation of the tile */
     elevation: fields.NumberField<number, number, true, false, true>;
-    /** An array of Levels that this tile is on */
+    /** The level IDs */
     levels: fields.SceneLevelsSetField;
+    /** The z-index ordering of this tile relative to its siblings */
+    sort: fields.NumberField<number, number, true, false, true>;
     /** The angle of rotation for the tile between 0 and 360 */
     rotation: fields.AngleField;
     /** The tile opacity */
@@ -68,9 +70,11 @@ type TileSchema = {
     hidden: fields.BooleanField;
     /** Is the tile currently locked? */
     locked: fields.BooleanField;
-    /** The tile's restriction settings */
+    /** The tile's restrictions settings */
     restrictions: fields.SchemaField<{
+        /** Should we restricts light? */
         light: fields.BooleanField;
+        /** Should we restricts weather? */
         weather: fields.BooleanField;
     }>;
     /** The tile's occlusion settings */
@@ -89,6 +93,7 @@ type TileSchema = {
         /** The volume level of any audio that the video file contains */
         volume: fields.AlphaField;
     }>;
+    /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
 };
 

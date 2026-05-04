@@ -104,11 +104,11 @@ type ActorSchema<
     system: fields.TypeDataField<TSystemSource>;
     /** Default Token settings which are used for Tokens created from this Actor */
     prototypeToken: fields.EmbeddedDataField<data.PrototypeToken<BaseActor>>;
-    /** An EmbeddedCollection of Item documents */
+    /** A Collection of Item embedded Documents */
     items: fields.EmbeddedCollectionField<BaseItem<BaseActor<BaseToken | null>>, TItemSource[]>;
-    /** An EmbeddedCollection of ActiveEffect documents */
+    /** A Collection of ActiveEffect embedded Documents */
     effects: fields.EmbeddedCollectionField<BaseActiveEffect<BaseActor<BaseToken | null>>>;
-    /** The Folder which contains this Actor */
+    /** The _id of a Folder which contains this Actor */
     folder: fields.ForeignDocumentField<BaseFolder>;
     /** The numeric sort value which orders this Actor relative to its siblings */
     sort: fields.IntegerSortField;
@@ -116,7 +116,7 @@ type ActorSchema<
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField<ActorUUID>;
 };
 

@@ -40,19 +40,19 @@ interface CardsMetadata extends abstract.DocumentClassMetadata {
 }
 
 type CardsSchema = {
-    /** The _id which uniquely identifies this stack of cards */
+    /** The _id which uniquely identifies this stack of Cards document */
     _id: fields.DocumentIdField;
-    /** The name of this stack of cards */
+    /** The text name of this stack */
     name: fields.StringField<string, string, true, false, false>;
-    /** The subtype which configures the system data model applied */
+    /** The type of this stack, in BaseCards.metadata.types */
     type: fields.DocumentTypeField<CardsType, CardsType, true, false, true, BaseCards>;
-    /** The descript of this stack of cards */
+    /** A text description of this stack */
     description: fields.HTMLField;
-    /** An image or video which is used to represent this stack of cards */
+    /** An image or video which is used to represent the stack of cards */
     img: fields.FilePathField<ImageFilePath | VideoFilePath>;
-    /** They system data object which is defined by the system data model */
+    /** Data for a Cards subtype, defined by a System or Module */
     system: fields.TypeDataField;
-    /** An EmbeddedCollection of Card documents which currently belong to this stack of cards */
+    /** A collection of Card documents which currently belong to this stack */
     cards: fields.EmbeddedCollectionField<BaseCard<BaseCards>>;
     /** The visible width of this stack */
     width: fields.NumberField;
@@ -62,15 +62,15 @@ type CardsSchema = {
     rotation: fields.AngleField;
     /** Whether or not to publicly display the number of cards in this stack */
     displayCount: fields.BooleanField;
-    /** The Folder which contains this stack of cards */
+    /** The _id of a Folder which contains this document */
     folder: fields.ForeignDocumentField<BaseFolder>;
-    /** The numeric sort valute which orders this stack of cards relative to its siblings */
+    /** The sort order of this stack relative to others in its parent collection */
     sort: fields.IntegerSortField;
-    /** An object which configures ownership of this stack of cards */
+    /** An object which configures ownership of this Cards */
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 

@@ -35,14 +35,14 @@ interface JournalEntryCategoryMetadata extends DocumentClassMetadata {
 }
 
 type JournalEntryCategorySchema = {
-    /** The _id which uniquely identifies this JournalEntryCategory document */
+    /** The _id which uniquely identifies this JournalEntryCategory document. */
     _id: fields.DocumentIdField;
-    /** The name of this JournalEntryCategory */
+    /** The name of this JournalEntryCategory. */
     name: fields.StringField<string, string, true, false, true>;
-    /** The numeric sort value which orders this JournalEntryCategory relative to its siblings */
+    /** The numeric sort value which orders this category relative to other categories. */
     sort: fields.IntegerSortField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information. */
     _stats: fields.DocumentStatsField;
 };

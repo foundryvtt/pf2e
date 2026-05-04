@@ -69,16 +69,24 @@ interface ActorDeltaMetadata extends abstract.DocumentClassMetadata {
 type ActorDeltaSchema = {
     /** The _id which uniquely identifies this ActorDelta document */
     _id: fields.DocumentIdField;
+    /** The name override, if any. */
     name: fields.StringField<string, string, false, true, true>;
+    /** The type override, if any. */
     type: fields.StringField<string, string, false, true, true>;
+    /** The image override, if any. */
     img: fields.FilePathField<ImageFilePath, ImageFilePath, false, true, true>;
+    /** The system data model override. */
     system: fields.ObjectField<object, object, true, true, true>;
+    /** An array of embedded item data overrides. */
     items: fields.EmbeddedCollectionDeltaField<
         BaseItem<BaseActor>,
         (fields.DocumentSourceFromSchema<ItemSchema, true> | fields.SourceFromSchema<TombstoneDataSchema>)[]
     >;
+    /** An array of embedded active effect data overrides. */
     effects: fields.EmbeddedCollectionDeltaField<BaseActiveEffect<BaseActor>>;
+    /** Ownership overrides. */
     ownership: fields.DocumentOwnershipField;
+    /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
 };
 

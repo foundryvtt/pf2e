@@ -73,34 +73,27 @@ interface LevelMetadata extends DocumentClassMetadata {
 }
 
 type LevelSchema = {
-    /** The _id which uniquely identifies this Level document */
     _id: fields.DocumentIdField;
-    /** The name of this Level */
     name: fields.StringField<string, string, true, false, false>;
-    /** Data related to the elevation range of this Level */
     elevation: fields.SchemaField<{
         bottom: fields.NumberField<number, number, true, true, true>; // Treat null as -Infinity
         top: fields.NumberField<number, number, true, true, true>; // Treat null as +Infinity
     }>;
-    /** Data related to the background of this Level */
     background: fields.SchemaField<{
         color: fields.ColorField<false, false, true>;
         src: fields.FilePathField<ImageFilePath | VideoFilePath, ImageFilePath | VideoFilePath, true, true, true>;
         tint: fields.ColorField<true, false, true>;
         alphaThreshold: fields.AlphaField;
     }>;
-    /** Data related to the foreground of this Level */
     foreground: fields.SchemaField<{
         src: fields.FilePathField<ImageFilePath | VideoFilePath, ImageFilePath | VideoFilePath, true, true, true>;
         tint: fields.ColorField<true, false, true>;
         alphaThreshold: fields.AlphaField;
     }>;
-    /** Data related to the fog settings of this Level */
     fog: fields.SchemaField<{
         src: fields.FilePathField<ImageFilePath | VideoFilePath, ImageFilePath | VideoFilePath, true, true, true>;
         tint: fields.ColorField<true, false, true>;
     }>;
-    /** Data related to the positioning of textures for this Level */
     textures: fields.SchemaField<{
         anchorX: fields.NumberField<number, number, true, false, true>;
         anchorY: fields.NumberField<number, number, true, false, true>;
@@ -111,13 +104,10 @@ type LevelSchema = {
         scaleY: fields.NumberField<number, number, true, false, true>;
         rotation: fields.AngleField;
     }>;
-    /** Data related to the visibility of this Level */
     visibility: fields.SchemaField<{
         levels: fields.SceneLevelsSetField;
     }>;
-    /** The numeric sort value which orders this Level relative to its siblings */
     sort: fields.IntegerSortField;
-    /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
 };
 

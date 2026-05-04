@@ -39,13 +39,15 @@ interface PlaylistSoundMetadata extends DocumentClassMetadata {
 type PlaylistSoundSchema = {
     /** The _id which uniquely identifies this PlaylistSound document */
     _id: fields.DocumentIdField;
-    /** The name of this PlaylistSound */
+    /** The name of this sound */
     name: fields.StringField<string, string, true, false, false>;
-    /** The description of this PlaylistSound */
+    /** The description of this sound */
     description: fields.StringField;
-    /** The audio file path that is played by this PlaylistSound */
+    /** The audio file path that is played by this sound */
     path: fields.FilePathField<AudioFilePath>;
-    /** IS this PlaylistSound currently playing? */
+    /** A channel in CONST.AUDIO_CHANNELS where this sound is played */
+    channel: fields.StringField<string, string, true, false, true>;
+    /** Is this sound currently playing? */
     playing: fields.BooleanField;
     /** The time in seconds at which playback was paused */
     pausedTime: fields.NumberField;
@@ -55,7 +57,7 @@ type PlaylistSoundSchema = {
     volume: fields.AlphaField;
     /** A duration in milliseconds to fade volume transition */
     fade: fields.NumberField;
-    /** The numeric sort value which orders this PlaylistSound relative to its siblings */
+    /** The sort order of the PlaylistSound relative to others in the same collection */
     sort: fields.IntegerSortField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;

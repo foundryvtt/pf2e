@@ -65,7 +65,7 @@ type MacroSchema = {
     name: fields.StringField<string, string, true, false, false>;
     /** A Macro subtype from CONST.MACRO_TYPES */
     type: fields.DocumentTypeField<MacroType, MacroType, true, false, true, BaseMacro>;
-    /** The User who created this Macro */
+    /** The _id of a User document which created this Macro */
     author: fields.ForeignDocumentField<BaseUser>;
     /** An image file path which provides the thumbnail artwork for this Macro */
     img: fields.FilePathField<ImageFilePath>;
@@ -73,7 +73,7 @@ type MacroSchema = {
     scope: fields.StringField<MacroScope, MacroScope, true, false, true>;
     /** The string content of the macro command */
     command: fields.StringField<string, string, true, false, true>;
-    /** The Folder which contains this Macro */
+    /** The _id of a Folder which contains this Macro */
     folder: fields.ForeignDocumentField<BaseFolder>;
     /** The numeric sort value which orders this Macro relative to its siblings */
     sort: fields.IntegerSortField;
@@ -81,7 +81,7 @@ type MacroSchema = {
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 

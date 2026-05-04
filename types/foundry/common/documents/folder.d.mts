@@ -48,17 +48,17 @@ type FolderSchema = {
     type: fields.DocumentTypeField<FolderDocumentType, FolderDocumentType, true, false, true, BaseFolder>;
     /** An HTML description of the contents of this folder */
     description: fields.StringField<string, string, false, false, true>;
-    /** The Folder which contains this Folder */
+    /** The _id of a parent Folder which contains this Folder */
     folder: fields.ForeignDocumentField<BaseFolder>;
     /** The sorting mode used to organize documents within this Folder, in ["a", "m"] */
     sorting: fields.StringField<FolderSortingMode, FolderSortingMode, true, false, true>;
-    /** The numeric sort value which orders this Actor relative to its siblings */
+    /** The numeric sort value which orders this Folder relative to its siblings */
     sort: fields.IntegerSortField;
     /** A color string used for the background color of this Folder */
     color: fields.ColorField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 

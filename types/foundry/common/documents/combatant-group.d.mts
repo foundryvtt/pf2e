@@ -35,23 +35,23 @@ declare interface CombatantGroupMetadata extends DocumentClassMetadata {
 }
 
 type CombatantGroupSchema = {
-    /** The _id which uniquely identifies this CombatantGroup document */
+    /** The _id which uniquely identifies this CombatantGroup embedded document. */
     _id: fields.DocumentIdField;
-    /** An CombatantGroup subtype which configures the system data model applied */
+    /** The type of this CombatantGroup. */
     type: fields.DocumentTypeField<string, string, false, false, false, BaseCombatantGroup>;
-    /** They system data object which is defined by the system data model */
+    /** Game system data which is defined by system data models. */
     system: fields.TypeDataField;
-    /** The name of this CombatantGroup */
+    /** A customized name which replaces the inferred group name. */
     name: fields.StringField;
-    /** The image file path which provides the artwork for this CombatantGroup */
+    /** A customized image which replaces the inferred group image. */
     img: fields.FilePathField<ImageFilePath>;
-    /** The initiative score for the CombatantGRoup which determins its turn order */
+    /** The initiative value that will be used for all group members. */
     initiative: fields.NumberField<number, number, true>;
-    /** An object which configures ownership of this CombatantGroup */
+    /** An object which configures ownership of this group. */
     ownership: fields.DocumentOwnershipField;
-    /** An object of optional key/value flags */
+    /** An object of optional key/value flags. */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information. */
     _stats: fields.DocumentStatsField;
 };
 

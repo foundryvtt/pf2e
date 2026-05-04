@@ -37,17 +37,14 @@ interface TableResultMetadata extends DocumentClassMetadata {
 }
 
 type TableResultSchema = {
-    /** The _id which uniquely identifies this TableResult document */
+    /** The _id which uniquely identifies this TableResult embedded document */
     _id: fields.DocumentIdField;
     /** A result subtype from CONST.TABLE_RESULT_TYPES */
     type: fields.DocumentTypeField<TableResultType>;
-    /** The name of this TableResult */
     name: fields.StringField<string, string, true, false, true>;
-    /** An image file path that represent this TableResult */
+    /** An image file url that represents the table result */
     img: fields.FilePathField<ImageFilePath>;
-    /** The descrioption of this TableResult */
     description: fields.HTMLField;
-    /** The UUID that this TableResult is linked to, used for "document" types */
     documentUuid: fields.DocumentUUIDField<foundry.utils.DocumentUUID, false, true, false>;
     /** The probabilistic weight of this result relative to other results */
     weight: fields.NumberField<number, number, true, false, true>;
@@ -57,7 +54,7 @@ type TableResultSchema = {
     drawn: fields.BooleanField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 

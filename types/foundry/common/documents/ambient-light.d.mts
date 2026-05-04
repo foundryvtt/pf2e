@@ -43,30 +43,32 @@ interface AmbientLightMetadata extends DocumentClassMetadata {
 export type AmbientLightSchema = {
     /** The _id which uniquely identifies this AmbientLight document */
     _id: fields.DocumentIdField;
-    /** The name of this AmbientLight */
+    /** An optional name. */
     name: fields.StringField;
-    /** The x-coordinate position of the origin of this AmbientLight */
+    /** The x-coordinate position of the origin of the light */
     x: fields.NumberField<number, number, true, false, true>;
-    /** The y-coordinate position of the origin of this AmbientLight */
+    /** The y-coordinate position of the origin of the light */
     y: fields.NumberField<number, number, true, false, true>;
-    /** The elevation of this AmbientLight  */
+    /** The elevation */
     elevation: fields.NumberField<number, number, true, false, true>;
-    /** An array of Levels that this AmbientLight is on */
+    /** The level IDs */
     levels: fields.SceneLevelsSetField;
-    /** The angle of rotation of this AmbientLight between 0 and 360 */
+    /** The angle of rotation for the tile between 0 and 360 */
     rotation: fields.AngleField;
-    /** Whether or not this AmbientLight is constrained by walls */
+    /** Whether or not this light source is constrained by Walls and surfaces */
     walls: fields.BooleanField;
-    /** Whether or not this AmbientLight provides a source of vision */
+    /** Whether or not this light source provides a source of vision */
     vision: fields.BooleanField;
     /** Light configuration data */
     config: fields.EmbeddedDataField<data.LightData<BaseAmbientLight<BaseScene | null>>>;
-    /** Is this AmbientLight currently hidden? */
+    /** Is the light source currently hidden? */
     hidden: fields.BooleanField;
-    /** Is this AmbientLight currently locked? */
+    /** Is the light source currently locked? */
     locked: fields.BooleanField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
 };
 
 export type AmbientLightSource = fields.SourceFromSchema<AmbientLightSchema>;
+
+export {};

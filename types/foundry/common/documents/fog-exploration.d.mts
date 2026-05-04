@@ -43,21 +43,21 @@ interface FogExplorationMetadata extends DocumentClassMetadata {
 type FogExplorationSchema = {
     /** The _id which uniquely identifies this FogExploration document */
     _id: fields.DocumentIdField;
-    /** The User document which this FogExploration applies to */
+    /** The _id of the User document to which this fog applies */
     user: fields.ForeignDocumentField<BaseUser>;
-    /** The Scene document which this FogExploration applies to */
+    /** The _id of the Scene document to which this fog applies */
     scene: fields.ForeignDocumentField<BaseScene>;
-    /** The _id of the Level to which this FogExploration applies to */
+    /** The level ID */
     level: fields.DocumentIdField<string, true, true, true>;
-    /** The base64 png image ofthe explored fog polygon */
+    /** The base64 image/jpeg of the explored fog polygon */
     explored: fields.FilePathField<ImageFilePath, ImageFilePath, true>;
-    /** The object of scene positions which have been explored at a certain vision radius */
+    /** Optional custom exploration data */
     positions: fields.ObjectField<object>;
     /** The timestamp at which this fog exploration was last updated */
     timestamp: fields.NumberField<number, number, false, true, true>;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 

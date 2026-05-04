@@ -45,13 +45,13 @@ interface CardMetadata extends DocumentClassMetadata {
 type CardSchema = {
     /** The _id which uniquely identifies this Card document */
     _id: fields.DocumentIdField;
-    /** The name of this Card */
+    /** The text name of this card */
     name: fields.StringField<string, string, true, false, false>;
-    /** The description of this card which applies to all faces */
+    /** A text description of this card which applies to all faces */
     description: fields.HTMLField;
-    /** An Card subtype which configures the system data model applied */
+    /** A category of card (for example, a suit) to which this card belongs */
     type: fields.DocumentTypeField<string, string, true, false, true, BaseCard>;
-    /** They system data object which is defined by the system data model */
+    /** Data for a Card subtype, defined by a System or Module */
     system: fields.TypeDataField;
     /** An optional suit designation which is used by default sorting */
     suit: fields.StringField<string, string, true>;
@@ -73,17 +73,20 @@ type CardSchema = {
     height: fields.NumberField;
     /** The angle of rotation of this card */
     rotation: fields.AngleField;
-    /** The numeric sort valute which orders this Card relative to its siblings */
+    /** The sort order of this card relative to others in the same stack */
     sort: fields.IntegerSortField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 
 type CardFaceSchema = {
+    /** A name for this card face */
     name: fields.StringField<string, string, false, false, true>;
+    /** Displayed text that belongs to this face */
     text: fields.HTMLField;
+    /** A displayed image or video file which depicts the face */
     img: fields.FilePathField<ImageFilePath | VideoFilePath>;
 };
 

@@ -51,15 +51,15 @@ interface WallMetadata extends DocumentClassMetadata {
 }
 
 type WallSchema = {
-    /** The _id which uniquely identifies this Wall document */
+    /** The _id which uniquely identifies the embedded Wall document */
     _id: fields.DocumentIdField;
-    /** The wall coordinates, a length-4 array of finite numbers [x0, y0, x1, y1] */
+    /** The wall coordinates, a length-4 array of finite numbers [x0,y0,x1,y1] */
     c: fields.ArrayField<
         fields.NumberField<number, number, true, false, true>,
         [number, number, number, number],
         [number, number, number, number]
     >;
-    /** An array of Levels that this Wall is on */
+    /** The level IDs */
     levels: fields.SceneLevelsSetField;
     /** The illumination restriction type of this wall */
     light: fields.NumberField<EdgeSenseType, EdgeSenseType, true, true, true>;
@@ -75,20 +75,19 @@ type WallSchema = {
     door: fields.NumberField<WallDoorType, WallDoorType, true, true, true>;
     /** The state of the door this wall contains, if any */
     ds: fields.NumberField<WallDoorState, WallDoorState, true, true, true>;
-    /** The sound that this door makes when opened/closed */
+    /** The type of door sound to play, if any */
     doorSound: fields.StringField<string, string, false, false, false>;
     /** Configuration of threshold data for this wall */
     threshold: fields.SchemaField<{
-        /** Minimum distance from a light source for which this wall blocks light */
+        /** Minimum distance in grid units from a light source for which this wall blocks light and darkness */
         light: fields.NumberField<number, number, true, true, true>;
-        /** Minimum distance from a vision source for which this wall blocks vision */
+        /** Minimum distance in grid units from a vision source for which this wall blocks vision */
         sight: fields.NumberField<number, number, true, true, true>;
-        /** Minimum distance from a sound source for which this wall blocks sound */
+        /** Minimum distance in grid units from a sound source for which this wall blocks sound */
         sound: fields.NumberField<number, number, true, true, true>;
         /** Whether to attenuate the source radius when passing through the wall */
         attenuation: fields.BooleanField;
     }>;
-    /** Configuration of animation data for this wall */
     animation: fields.SchemaField<{
         direction: fields.NumberField<-1 | 1, -1 | 1, false, false, true>;
         double: fields.BooleanField;

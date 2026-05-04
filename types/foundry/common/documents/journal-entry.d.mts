@@ -44,11 +44,11 @@ type JournalEntrySchema = {
     _id: fields.DocumentIdField;
     /** The name of this JournalEntry */
     name: fields.StringField<string, string, true, false, false>;
-    /** An EmbeddedCollection of JournalEntryPage documents */
+    /** The pages contained within this JournalEntry document */
     pages: fields.EmbeddedCollectionField<BaseJournalEntryPage<BaseJournalEntry>>;
-    /** The Folder which contains this JournalEntry */
+    /** The _id of a Folder which contains this JournalEntry */
     folder: fields.ForeignDocumentField<BaseFolder>;
-    /** An EmbeddedCollection of JournalEntryCategory documents */
+    /** The categories contained within this JournalEntry. */
     categories: fields.EmbeddedCollectionField<BaseJournalEntryCategory<BaseJournalEntry>>;
     /** The numeric sort value which orders this JournalEntry relative to its siblings */
     sort: fields.IntegerSortField;
@@ -56,7 +56,7 @@ type JournalEntrySchema = {
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 

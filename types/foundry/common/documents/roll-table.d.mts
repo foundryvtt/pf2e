@@ -48,15 +48,15 @@ type RollTableSchema = {
     img: fields.FilePathField<ImageFilePath>;
     /** The HTML text description for this RollTable document */
     description: fields.HTMLField;
-    /** An EmbeddedCollection of TableResult documents */
+    /** A Collection of TableResult embedded documents which belong to this RollTable */
     results: fields.EmbeddedCollectionField<BaseTableResult<BaseRollTable>>;
-    /** The Roll formulate which determines the results chosen from this RollTable */
+    /** The Roll formula which determines the results chosen from the table */
     formula: fields.StringField<string>;
     /** Are results from this table drawn with replacement? */
     replacement: fields.BooleanField;
     /** Is the Roll result used to draw from this RollTable displayed in chat? */
     displayRoll: fields.BooleanField;
-    /** The Folder which contains this RollTable */
+    /** The _id of a Folder which contains this RollTable */
     folder: fields.ForeignDocumentField<BaseFolder>;
     /** The numeric sort value which orders this RollTable relative to its siblings */
     sort: fields.IntegerSortField;
@@ -64,7 +64,7 @@ type RollTableSchema = {
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
-    /** An object containing document metadata */
+    /** An object of creation and access information */
     _stats: fields.DocumentStatsField;
 };
 

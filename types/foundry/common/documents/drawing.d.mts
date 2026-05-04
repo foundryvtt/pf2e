@@ -47,11 +47,11 @@ interface DrawingMetadata extends abstract.DocumentClassMetadata {
 }
 
 type DrawingSchema = {
-    /** The _id which uniquely identifies this Drawing document */
+    /** The _id which uniquely identifies this BaseDrawing embedded document */
     _id: fields.DocumentIdField;
-    /** The name of this Drawing */
+    /** An optional name. */
     name: fields.StringField;
-    /** The user who created this drawing */
+    /** The _id of the user who created the drawing */
     author: fields.ForeignDocumentField<BaseUser, true, false, true>;
     /** The geometric shape of the drawing */
     shape: fields.EmbeddedDataField<data.ShapeData<BaseDrawing<BaseScene | null>>>;
@@ -59,29 +59,29 @@ type DrawingSchema = {
     x: fields.NumberField<number, number, true, false, true>;
     /** The y-coordinate position of the top-left corner of the drawn shape */
     y: fields.NumberField<number, number, true, false, true>;
-    /** The elevation of the drawn shape */
+    /** The elevation of the drawing */
     elevation: fields.NumberField<number, number, true, false, true>;
-    /** Any array of Levels that this Drawing is on */
+    /** The level IDs */
     levels: fields.SceneLevelsSetField;
-    /** The numeric sort value which orders this Actor relative to its siblings */
+    /** The z-index of this drawing relative to other siblings */
     sort: fields.NumberField<number, number, true, false, true>;
     /** The angle of rotation for the drawing figure */
     rotation: fields.AngleField;
-    /** An amoutn of  bezier smoothing applied, between 0 and 1 */
+    /** An amount of bezier smoothing applied, between 0 and 1 */
     bezierFactor: fields.AlphaField;
-    /** The fill type of the drawing shapw, a value from CONST.DRAWING_FILL_TYPES */
+    /** The fill type of the drawing shape, a value from CONST.DRAWING_FILL_TYPES */
     fillType: fields.NumberField<DrawingFillType, DrawingFillType, true, true, true>;
-    /** An optional color string which to fill the drawing geometry */
+    /** An optional color string with which to fill the drawing geometry */
     fillColor: fields.ColorField;
-    /** The opacity of hte fill applied to the drawing geometery */
+    /** The opacity of the fill applied to the drawing geometry */
     fillAlpha: fields.AlphaField;
-    /** The width in pixels of the boundary lines of the drawing geometery */
+    /** The width in pixels of the boundary lines of the drawing geometry */
     strokeWidth: fields.NumberField;
-    /** The color of the boundary lines of the drawing geometery */
+    /** The color of the boundary lines of the drawing geometry */
     strokeColor: fields.ColorField;
-    /** The opacity of the boundary lines of the drawing geometery */
+    /** The opacity of the boundary lines of the drawing geometry */
     strokeAlpha: fields.AlphaField;
-    /** The path to a tiling image texture used to file the drawing geometery */
+    /** The path to a tiling image texture used to fill the drawing geometry */
     texture: fields.FilePathField<ImageFilePath>;
     /** Optional text which is displayed overtop of the drawing */
     text: fields.StringField;
@@ -97,9 +97,9 @@ type DrawingSchema = {
     hidden: fields.BooleanField;
     /** Is the drawing currently locked? */
     locked: fields.BooleanField;
-    /** IS the drawing rendered in the interface group? */
+    /** Is the drawing rendered in the interface group? */
     interface: fields.BooleanField;
-    /** An object containing document metadata */
+    /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
 };
 
