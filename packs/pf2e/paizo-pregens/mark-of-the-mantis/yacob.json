@@ -61,8 +61,8 @@
             "flags": {
                 "pf2e": {
                     "itemGrants": {
-                        "fleet": {
-                            "id": "ZiBXwVdutuN5yrxT",
+                        "versatileHuman": {
+                            "id": "417f975a166142b3",
                             "onDelete": "detach"
                         }
                     }
@@ -101,9 +101,8 @@
                         "selection": "Compendium.pf2e.feats-srd.Item.Fleet"
                     },
                     {
-                        "flag": "fleet",
                         "key": "GrantItem",
-                        "uuid": "{item|flags.system.rulesSelections.versatileHeritage}"
+                        "uuid": "Compendium.pf2e.ancestryfeatures.Item.Versatile Human"
                     }
                 ],
                 "slug": "versatile-heritage",
@@ -115,6 +114,65 @@
             "type": "heritage"
         },
         {
+            "_id": "417f975a166142b3",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.ancestryfeatures.Item.Versatile Human"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "tA6oUjx7S3C2PND2",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "fleet": {
+                            "id": "ZiBXwVdutuN5yrxT",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/environment/people/group.webp",
+            "name": "Versatile Human",
+            "sort": 0,
+            "type": "feat",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestryfeature",
+                "description": {
+                    "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
+                },
+                "level": {
+                    "value": 0
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [
+                    {
+                        "key": "GrantItem",
+                        "uuid": "{actor|heritage.flags.pf2e.rulesSelections.versatileHeritage}"
+                    }
+                ],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human"
+                    ]
+                }
+            }
+        },
+        {
             "_id": "ZiBXwVdutuN5yrxT",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.feats-srd.Item.Ux73dmoF8KnavyUD"
@@ -122,7 +180,7 @@
             "flags": {
                 "pf2e": {
                     "grantedBy": {
-                        "id": "tA6oUjx7S3C2PND2",
+                        "id": "417f975a166142b3",
                         "onDelete": "cascade"
                     }
                 }
@@ -934,7 +992,7 @@
         {
             "_id": "x7fpRKQTSRtqWNn9",
             "_stats": {
-                "compendiumSource": "Compendium.pf2e.feats-srd.Item.x9wxQ61HNkAVbDHr"
+                "compendiumSource": "Compendium.pf2e.feats-srd.Item.Weapon Proficiency"
             },
             "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Weapon Proficiency",

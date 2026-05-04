@@ -84,8 +84,8 @@
             "flags": {
                 "sf2e": {
                     "itemGrants": {
-                        "featherStep": {
-                            "id": "ujGwwDeuXGCbdNzL",
+                        "versatileHuman": {
+                            "id": "3e173bfaa98b60b1",
                             "onDelete": "detach"
                         }
                     }
@@ -125,9 +125,8 @@
                         "selection": "Compendium.sf2e.feats.Item.Feather Step"
                     },
                     {
-                        "flag": "featherStep",
                         "key": "GrantItem",
-                        "uuid": "{item|flags.system.rulesSelections.versatileHeritage}"
+                        "uuid": "Compendium.sf2e.ancestry-features.Item.Versatile Human"
                     }
                 ],
                 "slug": "versatile-human",
@@ -139,11 +138,70 @@
             "type": "heritage"
         },
         {
-            "_id": "ujGwwDeuXGCbdNzL",
+            "_id": "3e173bfaa98b60b1",
+            "_stats": {
+                "compendiumSource": "Compendium.sf2e.ancestry-features.Item.Versatile Human"
+            },
             "flags": {
                 "sf2e": {
                     "grantedBy": {
                         "id": "2NlQMFoZqchM2z2B",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "featherStep": {
+                            "id": "ujGwwDeuXGCbdNzL",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/sf2e/icons/default-icons/heritage.svg",
+            "name": "Versatile Human",
+            "sort": 0,
+            "type": "feat",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestryfeature",
+                "description": {
+                    "value": "<p>Humans were the most common ancestry on Golarion before that world disappeared, and they've since spread to the stars thanks to their versatility. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
+                },
+                "level": {
+                    "value": 0
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Starfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "GrantItem",
+                        "uuid": "{actor|heritage.flags.sf2e.rulesSelections.versatileHeritage}"
+                    }
+                ],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human"
+                    ]
+                }
+            }
+        },
+        {
+            "_id": "ujGwwDeuXGCbdNzL",
+            "flags": {
+                "sf2e": {
+                    "grantedBy": {
+                        "id": "3e173bfaa98b60b1",
                         "onDelete": "cascade"
                     }
                 }

@@ -90,8 +90,8 @@
             "flags": {
                 "pf2e": {
                     "itemGrants": {
-                        "arcaneSense": {
-                            "id": "aZ7VvWl1aMVWGMrM",
+                        "versatileHuman": {
+                            "id": "006d2558d52bd0a8",
                             "onDelete": "detach"
                         }
                     }
@@ -131,9 +131,8 @@
                         "selection": "Compendium.pf2e.feats-srd.Item.Arcane Sense"
                     },
                     {
-                        "flag": "arcaneSense",
                         "key": "GrantItem",
-                        "uuid": "{item|flags.system.rulesSelections.versatileHeritage}"
+                        "uuid": "Compendium.pf2e.ancestryfeatures.Item.Versatile Human"
                     }
                 ],
                 "slug": "versatile-human",
@@ -145,6 +144,65 @@
             "type": "heritage"
         },
         {
+            "_id": "006d2558d52bd0a8",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.ancestryfeatures.Item.Versatile Human"
+            },
+            "flags": {
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "4zqR9AApDpqIWD9Q",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "arcaneSense": {
+                            "id": "aZ7VvWl1aMVWGMrM",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/environment/people/group.webp",
+            "name": "Versatile Human",
+            "sort": 0,
+            "type": "feat",
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestryfeature",
+                "description": {
+                    "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
+                },
+                "level": {
+                    "value": 0
+                },
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "GrantItem",
+                        "uuid": "{actor|heritage.flags.pf2e.rulesSelections.versatileHeritage}"
+                    }
+                ],
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human"
+                    ]
+                }
+            }
+        },
+        {
             "_id": "aZ7VvWl1aMVWGMrM",
             "_stats": {
                 "compendiumSource": "Compendium.pf2e.feats-srd.Item.blMeVamjGz4ODWxq"
@@ -152,7 +210,7 @@
             "flags": {
                 "pf2e": {
                     "grantedBy": {
-                        "id": "4zqR9AApDpqIWD9Q",
+                        "id": "006d2558d52bd0a8",
                         "onDelete": "cascade"
                     }
                 }

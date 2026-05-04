@@ -1,16 +1,24 @@
 {
-    "_id": "hFBwsVcSnNCJoimo",
-    "folder": "O7DVLyyF05fGfpdo",
+    "_id": "w6VTlHmnGnrTrnF1",
+    "folder": "zT8vQmN7HuMnFldr",
     "img": "icons/environment/people/group.webp",
     "name": "Versatile Human",
     "system": {
-        "ancestry": {
-            "name": "Human",
-            "slug": "human",
-            "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+        "actionType": {
+            "value": "passive"
         },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestryfeature",
         "description": {
             "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
+        },
+        "level": {
+            "value": 0
+        },
+        "prerequisites": {
+            "value": []
         },
         "publication": {
             "license": "ORC",
@@ -19,27 +27,16 @@
         },
         "rules": [
             {
-                "adjustName": false,
-                "choices": {
-                    "filter": [
-                        "item:level:1",
-                        "item:trait:general"
-                    ],
-                    "itemType": "feat"
-                },
-                "flag": "versatileHeritage",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt"
-            },
-            {
                 "key": "GrantItem",
-                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Versatile Human"
+                "uuid": "{actor|heritage.flags.pf2e.rulesSelections.versatileHeritage}"
             }
         ],
         "traits": {
             "rarity": "common",
-            "value": []
+            "value": [
+                "human"
+            ]
         }
     },
-    "type": "heritage"
+    "type": "feat"
 }
