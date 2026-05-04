@@ -291,7 +291,21 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "absorb-shock",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "absorb-shock"
+                        ],
+                        "type": "bludgeoning",
+                        "value": "2"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -313,14 +327,75 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The coshyco villager rearranges their skeleton to adapt to their circumstances. They choose between squat, lanky, or flexible. If they take on the squat shape, they gain a +2 circumstance bonus to Athletics checks to [[/act force-open]]. If they choose lanky, they gain a +2 circumstance bonus to Acrobatics checks to Squeeze. If they choose flexible, their reach increases to 10 feet with held melee weapons.</p>"
+                    "value": "<p>Yorun rearranges their skeleton to adapt to their circumstances. They choose between squat, lanky, or flexible. If they take on the squat shape, they gain a +2 circumstance bonus to Athletics checks to [[/act force-open]]. If they choose lanky, they gain a +2 circumstance bonus to Acrobatics checks to [[/act squeeze]]. If they choose flexible, their reach increases to 10 feet with held melee weapons.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "adjust-shape",
+                        "selection": "squat",
+                        "suboptions": [
+                            {
+                                "label": "Squat",
+                                "value": "squat"
+                            },
+                            {
+                                "label": "Lanky",
+                                "value": "lanky"
+                            },
+                            {
+                                "label": "Flexible",
+                                "value": "flexible"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "adjust-shape:squat",
+                            "action:force-open"
+                        ],
+                        "selector": [
+                            "athletics"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "adjust-shape:lanky",
+                            "action:squeeze"
+                        ],
+                        "selector": [
+                            "acrobatics"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "adjust-shape:flexible",
+                            "item:type:melee",
+                            {
+                                "not": "item:thrown"
+                            }
+                        ],
+                        "property": "traits",
+                        "value": "reach-10"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
