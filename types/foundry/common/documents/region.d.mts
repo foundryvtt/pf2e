@@ -98,7 +98,7 @@ type RegionSchema = {
     hidden: fields.BooleanField;
     /** Whether this region is locked or not */
     locked: fields.BooleanField;
-    /** An object which configures ownership of this Playlist */
+    /** An object which configures ownership of this Region */
     ownership: fields.DocumentOwnershipField;
     /** An object of optional key/value flags */
     flags: fields.DocumentFlagsField;
