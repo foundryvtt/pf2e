@@ -4,7 +4,10 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "S3UbnqRRcnn1Jbmp",
+            "_id": "26Kgmj3aBBPD7tJx",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.ewQZ0VeL38v3qFnN"
+            },
             "img": "icons/equipment/chest/breastplate-layered-leather-studded-brown.webp",
             "name": "Studded Leather Armor",
             "sort": 100000,
@@ -70,64 +73,10 @@
             "type": "armor"
         },
         {
-            "_id": "wh3xNTBFNNs0L2PV",
-            "img": "icons/commodities/treasure/brooch-jeweled-green.webp",
-            "name": "Religious Symbol (Wooden)",
-            "sort": 200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "religious-symbol-wooden",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
             "_id": "fjZc2tqzo5wboCNx",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "action": "strike",
                 "area": null,
@@ -172,7 +121,7 @@
             "_id": "UXMpegXgDFumQ7kR",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Greater Darkvision",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -201,7 +150,7 @@
             "_id": "hCwxsYrYChQQOhLP",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Fast Healing 10",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -236,7 +185,7 @@
             "_id": "tLOrZubd2t1vodQ4",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Coffin Restoration",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -265,10 +214,14 @@
             "type": "action"
         },
         {
-            "_id": "jTPiUcXPtiMhrrcE",
+            "_id": "ll3OJw1hn3ppKTO3",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.AzvCvgx9SUAB2blo"
+            },
+            "folder": "Pycs65tqRMBiiARd",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Domain of Dusk",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -278,7 +231,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per minute</p><hr /><p><strong>Effect</strong> With a wave of their hand, the strigoi calls forth vile ruination from the surrounding shadows, causing coils of darkness and shadowy bats, rats, and wolves to lash out at living targets in a @Template[type:emanation|distance:30]. Living creatures in this area take @Damage[1d6[void]|options:area-damage] damage + 1d6 void damage per 2 levels possessed by the strigoi with a @Check[fortitude|dc:|basic|options:area-effect] save against the DC of the strigoi's level. A creature that fails this save is also @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] by the darkness for 1 round (or @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round and then dazzled for 1 round on a critical failure).</p>"
+                    "value": "<p><strong>Frequency</strong> once per minute</p><hr /><p><strong>Effect</strong> With a wave of their hand, the strigoi calls forth vile ruination from the surrounding shadows, causing coils of darkness and shadowy bats, rats, and wolves to lash out at living targets in a @Template[type:emanation|distance:30]. Living creatures in this area take @Damage[floor(1 + @actor.level/2)d6[void]|options:area-damage] damage with a @Check[fortitude|dc:31|basic|options:area-effect] save against the DC of the strigoi's level. A creature that fails this save is also @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] by the darkness for 1 round (or @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round and then dazzled for 1 round on a critical failure).</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -290,7 +243,7 @@
                     "title": "Pathfinder Adventure Path #215: To Blot Out the Sun"
                 },
                 "rules": [],
-                "slug": "vampire-strigoi-domain-of-dusk",
+                "slug": "vampire-strigoi-progenitor-domain-of-dusk",
                 "traits": {
                     "value": [
                         "divine",
@@ -301,10 +254,14 @@
             "type": "action"
         },
         {
-            "_id": "DgrHRQSVPvwvmbNB",
+            "_id": "Fg2MLZEJJCdIaKAT",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.R5VgwNbwc3QbqVXC"
+            },
+            "folder": "Pycs65tqRMBiiARd",
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Shadow Escape",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -313,14 +270,13 @@
                     "value": null
                 },
                 "category": "defensive",
-                "deathNote": true,
                 "description": {
                     "value": "<p><strong>Trigger</strong> The strigoi is reduced to 0 HP</p>\n<hr />\n<p><strong>Effect</strong> The strigoi uses Shadow Form. It can take move actions to move toward its coffin even though it's at 0 HP. While at 0 HP in this form, the strigoi is unaffected by further damage. Once the strigoi reaches its coffin, or if it hasn't done so within 2 hours, it automatically returns to its physical form, @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Adventure: Shadows at Sundown"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Adventure Path #215: To Blot Out the Sun"
                 },
                 "rules": [],
                 "slug": "vampire-strigoi-progenitor-shadow-escape",
@@ -331,10 +287,14 @@
             "type": "action"
         },
         {
-            "_id": "xYMEN3kfGAaLgbsU",
+            "_id": "GKWKVoSlXzhxionK",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.eQLGYrJhu787pEwc"
+            },
+            "folder": "Pycs65tqRMBiiARd",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Shadow Form",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -347,9 +307,9 @@
                     "value": "<p>The strigoi reverts to pure shadow and absorbs its body and its gear into the darkness, or it shifts back to its physical form. In shadow form, the strigoi gains a climb Speed equal to its land Speed and can move through any gap that isn't airtight. However, it can only move along solid surfaces that aren't highly reflective, not liquid or mirrored surfaces. If the surface it's on is destroyed, the strigoi returns to physical form and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. The strigoi loses fast healing while in shadow form but can remain in shadow form indefinitely.</p>\n<p>A strigoi that is exposed to sunlight while in shadow form becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} and must attempt a @Check[flat|dc:16] at the end of each of its turns. If it fails this flat check, it is destroyed, the shadow vanishing with a blood-curdling wail.</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Adventure: Shadows at Sundown"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Adventure Path #215: To Blot Out the Sun"
                 },
                 "rules": [],
                 "slug": "vampire-strigoi-shadow-form",
@@ -367,7 +327,7 @@
             "_id": "c0ANnD74wARRjHiD",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Strigoi Weaknesses",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -441,7 +401,7 @@
             "_id": "vFlYJdySuAhicXMk",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -477,7 +437,7 @@
             "_id": "o8WobYB2H5s1BYho",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Create Servitor",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -509,7 +469,7 @@
             "_id": "tddsy5Ng0iM3EqZx",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Dominate",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -543,7 +503,7 @@
             "_id": "oUowrBkgg74TlRMs",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Drink Essence",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -553,7 +513,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Restrained], @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or willing creature is within the strigoi's reach</p>\n<hr />\n<p><strong>Effect</strong> The strigoi progenitor sinks their fangs into the targeted creature to drink its blood and draw out its vital essence. This requires an @Check[athletics|defense:fortitude] check against the creature's Fortitude DC if the creature is grabbed and is automatic for any of the other conditions. The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}, and the strigoi regains @Damage[18[healing]] HP, gaining any excess HP as temporary Hit Points. Drinking Essence from a creature that's already drained or stupefied doesn't restore any HP, but increases either the creature's drained condition value or its stupefied condition value by 1 (whichever value is lesser is increased; if both values are equal, then the strigoi chooses which condition to increase the value of).</p>\n<p>A victim's drained condition decreases by 1 per week. A blood transfusion, which requires a successful @Check[medicine|dc:20] check and sufficient blood or a blood donor, reduces the drained value by 1 after 10 minutes.</p>\n<p>A victim's stupefied condition decreases by 1 per day after performing daily preparations. If the daily preparations are done in full sunlight, the stupefied condition is removed entirely.</p>"
+                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Restrained], @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or willing creature is within the strigoi's reach</p><hr /><p><strong>Effect</strong> The strigoi progenitor sinks their fangs into the targeted creature to drink its blood and draw out its vital essence. This requires an @Check[athletics|defense:fortitude] check against the creature's Fortitude DC if the creature is grabbed and is automatic for any of the other conditions. The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}, and the strigoi regains @Damage[18[healing]] HP, gaining any excess HP as temporary Hit Points. Drinking Essence from a creature that's already drained or stupefied doesn't restore any HP, but increases either the creature's drained condition value or its stupefied condition value by 1 (whichever value is lesser is increased; if both values are equal, then the strigoi chooses which condition to increase the value of).</p>\n<p>A victim's drained condition decreases by 1 per week. A blood transfusion, which requires a successful @Check[medicine|dc:20] check and sufficient blood or a blood donor, reduces the drained value by 1 after 10 minutes.</p>\n<p>A victim's stupefied condition decreases by 1 per day after performing daily preparations. If the daily preparations are done in full sunlight, the stupefied condition is removed entirely.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -574,7 +534,7 @@
             "_id": "FuYEZjBTElBUIc4q",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -603,7 +563,7 @@
             "_id": "37EVCGPfSFZ6mKY9",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thassilon Lore",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
