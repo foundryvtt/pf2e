@@ -1,7 +1,7 @@
 import type { ApplicationV1HeaderButton } from "@client/appv1/api/application-v1.d.mts";
 import type { ActorSheetOptions } from "@client/appv1/sheets/actor-sheet.d.mts";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
-import { ErrorPF2e, htmlClosest, htmlQuery } from "@util";
+import { ErrorPF2e } from "@util";
 import type { CharacterAttack } from "../data.ts";
 import type { CharacterPF2e } from "../document.ts";
 import type { ElementalBlastConfig } from "../elemental-blast.ts";
@@ -39,7 +39,7 @@ class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TAct
         };
     }
 
-    get label(): string | null {
+    get #label(): string | null {
         if (this.type === "blast") {
             return this.#blasts.at(0)?.label ?? null;
         }
@@ -98,18 +98,17 @@ class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TAct
         const html = $html[0];
 
         // The label is only available after `getData` so the title has to be set here
-        const { label } = this;
+        const label = this.#label;
         if (label) {
-            const title = htmlQuery(htmlClosest(html, "div.window-app"), "h4.window-title");
-            if (title) {
-                title.innerHTML = _loc(label);
-            }
+            const titleEl = html.closest("div.window-app")?.querySelector("h4");
+            const uuidAnchor = titleEl?.querySelector("a");
+            if (titleEl && uuidAnchor) titleEl.replaceChildren(_loc(label), uuidAnchor);
         }
     }
 
+    /**  Remove all buttons except the Close button. */
     protected override _getHeaderButtons(): ApplicationV1HeaderButton[] {
-        // Remove all buttons except the close button. `Close` is a core translation key
-        return super._getHeaderButtons().filter((b) => b.label === "Close");
+        return super._getHeaderButtons().filter((b) => b.class === "close");
     }
 }
 
