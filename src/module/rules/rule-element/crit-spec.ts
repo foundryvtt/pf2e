@@ -175,6 +175,7 @@ class CritSpecRuleElement extends RuleElement<CritSpecRuleSchema> {
                 return [dice, bonus ?? []].flat();
             }
             case "pick":
+            case "sniper":
                 return weapon.baseDamage.die
                     ? [
                           new Modifier({
