@@ -294,16 +294,12 @@ for (const contentSystem of contentSystems) {
                 const contentPack = pair[contentSystem];
                 const targetPack = pair[targetSystem];
                 if (!contentPack || !targetPack) return result;
-                for (const overlap of pair.overlaps) {
+                for (const overlap of new Set([...pair.overlaps, ...pair.duplicated])) {
                     const docType = pair.documentName;
-                    const originId = (
-                        contentPack.data.find((d) => d.name === overlap) ??
-                        targetPack.data.find((d) => d.name === overlap)
-                    )?._id;
-                    const targetId = (
-                        targetPack.data.find((d) => d.name === overlap) ??
-                        contentPack.data.find((d) => d.name === overlap)
-                    )?._id;
+                    const contentEntry = contentPack.data.find((d) => d.name === overlap || d._id === overlap);
+                    const targetEntry = targetPack.data.find((d) => d.name === overlap || d._id === overlap);
+                    const originId = (contentEntry ?? targetEntry)?._id;
+                    const targetId = (targetEntry ?? contentEntry)?._id;
                     const originUUID = `Compendium.${contentSystem}.${contentPack.id}.${docType}.${originId}`;
                     const targetUUID = `Compendium.${targetSystem}.${targetPack.id}.${docType}.${targetId}`;
                     result[originUUID] = targetUUID;
