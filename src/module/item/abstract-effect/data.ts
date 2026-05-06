@@ -192,8 +192,8 @@ type EffectBadgeCounterSchema = {
     type: fields.StringField<"counter", "counter", true, false>;
     labels: fields.ArrayField<fields.StringField<string, string, true, false>, string[], string[], false, true, true>;
     value: fields.NumberField<number, number, true, false, true>;
-    min: fields.NumberField<number, number, false, true>;
-    max: fields.NumberField<number, number, false, true>;
+    min: fields.NumberField<number, number, true, true, true>;
+    max: fields.NumberField<number, number, true, true, true>;
     loop: fields.BooleanField<boolean, boolean, false, false>;
 };
 
