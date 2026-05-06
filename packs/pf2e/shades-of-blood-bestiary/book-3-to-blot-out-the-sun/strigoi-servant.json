@@ -710,7 +710,47 @@
                     "remaster": true,
                     "title": "Pathfinder Adventure Path #215: To Blot Out the Sun"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    {
+                                        "or": [
+                                            "damage:material:dawnsilver",
+                                            "damage:material:silver"
+                                        ]
+                                    },
+                                    {
+                                        "or": [
+                                            "item:type:melee",
+                                            "item:type:weapon"
+                                        ]
+                                    },
+                                    {
+                                        "not": "item:category:unarmed"
+                                    }
+                                ],
+                                "label": "PF2E.Damage.IWR.Type.silver"
+                            },
+                            {
+                                "definition": [
+                                    "item:weapons-shedding-bright-light",
+                                    {
+                                        "or": [
+                                            "item:type:melee",
+                                            "item:type:weapon"
+                                        ]
+                                    }
+                                ],
+                                "label": "PF2E.IWR.Custom.StrikesCreatureSheddingBrightLight"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "type": "physical",
+                        "value": 10
+                    }
+                ],
                 "slug": "vampire-strigoi-strigoi-weaknesses",
                 "traits": {
                     "value": []
@@ -924,17 +964,7 @@
                     "type": "sleep"
                 }
             ],
-            "resistances": [
-                {
-                    "doubleVs": [],
-                    "exceptions": [
-                        "silver",
-                        "strikes-creature-shedding-bright-light"
-                    ],
-                    "type": "physical",
-                    "value": 10
-                }
-            ],
+            "resistances": [],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
