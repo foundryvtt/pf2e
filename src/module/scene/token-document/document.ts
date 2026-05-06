@@ -707,6 +707,11 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const updates = Array.isArray(update) ? update : [update];
         this.simulateUpdate(updates[0]);
 
+        // Core's bar refresh only diffs {value, max}, so a temp-HP-only change won't trigger a redraw on its own.
+        if (this.scene.isView && updates.some((u) => u && fu.hasProperty(u, "system.attributes.hp.temp"))) {
+            this.object?.renderFlags.set({ refreshBars: true });
+        }
+
         // Follow up any actor (or descendant document thereof) modification with a size synchronization
         const actor = this.actor;
         if (!actor?.isOwner) return;
