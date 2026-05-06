@@ -247,6 +247,9 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<string, Fe
                 if (granter?.isOfType("feat") && granter.grants.includes(feat) && isNested) {
                     continue;
                 }
+                if (granter?.isOfType("heritage") && isNested) {
+                    continue;
+                }
             }
 
             // Find the group then assign the feat
