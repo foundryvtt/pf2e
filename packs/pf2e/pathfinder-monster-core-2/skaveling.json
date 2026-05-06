@@ -88,7 +88,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A skaveling can use its hearing as a precise sense at the listed range</p>"
+                    "value": "<p>A skaveling can use their hearing as a precise sense at the listed range.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -117,7 +117,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The skaveling unleashes a horrifying screech that chills the very bones of those close enough to feel it. The screech can be heard for miles, but each creature in a @Template[emanation|distance:20] must also attempt a @Check[will|dc:22] save.</p>\n<p>The skaveling can't use Bone-Chilling Screech again for [[/gmr 1d4 #Recharge Bone-Chilling Screech]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Bone- Chilling Screech for 24 hours.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} by fear.</p>"
+                    "value": "<p>The skaveling unleashes a horrifying screech that chills the very bones of those close enough to feel it. The screech can be heard for miles, but each creature in a @Template[emanation|distance:20] must also attempt a @Check[will|dc:22|options:area-effect,inflicts:frightened,inflicts:stunned] save.</p>\n<p>The skaveling can't use Bone-Chilling Screech again for [[/gmr 1d4 #Recharge Bone-Chilling Screech]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Bone-Chilling Screech for 24 hours.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is frightened 2 and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} by fear.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -152,7 +152,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The skaveling is adjacent to the corpse of a creature that died within the last hour</p><hr /><p><strong>Effect</strong> The skaveling devours a chunk of the corpse and regains 1d6 Hit Points plus 1d6 for every 2 levels the skaveling has. They can regain Hit Points from any given corpse only once.</p>"
+                    "value": "<p><strong>Requirements</strong> The skaveling is adjacent to the corpse of a creature that died within the last hour</p><hr /><p><strong>Effect</strong> The skaveling devours a chunk of the corpse and regains 1d6 Hit Points plus 1d6 for every 2 levels the skaveling has (@Damage[(1+(max(0,floor(@actor.level/2))))d6[healing]]). They can regain Hit Points from any given corpse only once.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -183,7 +183,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The skaveling deals damage to a frightened creature with a fangs Strike</p><hr /><p><strong>Effect</strong> The skaveling draws power from the fear infusing a creature's flesh. The frightened creature must attempt a @Check[fortitude|dc:22] saving throw.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes a –5-foot status penalty to its Speed, and the skaveling gains a +5-foot status bonus to their Speeds until the end of their next turn.</p>\n<p><strong>Failure</strong> The creature takes a –10-foot status penalty to its Speed, and the skaveling gains a +10-foot status bonus to their Speeds until the end of their next turn.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}, and the skaveling can immediately Fly, Step, or Stride as a free action; this movement doesn't trigger reactions.</p>"
+                    "value": "<p><strong>Trigger</strong> The skaveling deals damage to a @UUID[Compendium.pf2e.conditionitems.Item.Frightened] creature with a fangs Strike</p><hr /><p><strong>Effect</strong> The skaveling draws power from the fear infusing a creature's flesh. The frightened creature must attempt a @Check[fortitude|dc:22|options:inflicts:slowed] saving throw.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes a –5-foot status penalty to its Speed, and the skaveling gains a +5-foot status bonus to their Speeds until the end of their next turn.</p>\n<p><strong>Failure</strong> The creature takes a –10-foot status penalty to its Speed, and the skaveling gains a +10-foot status bonus to their Speeds until the end of their next turn.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}, and the skaveling can immediately Fly, Step, or Stride as a free action; this movement doesn't trigger reactions.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Feast on Fear]</p>"
                 },
                 "publication": {
                     "license": "OGL",

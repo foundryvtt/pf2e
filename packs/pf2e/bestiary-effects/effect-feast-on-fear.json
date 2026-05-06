@@ -1,0 +1,75 @@
+{
+    "_id": "pHm2UtSN3U82rJPt",
+    "img": "icons/magic/death/projectile-skull-fire-purple.webp",
+    "name": "Effect: Feast on Fear",
+    "system": {
+        "description": {
+            "value": "<p>If you are the origin, you gain a status bonus to your Speeds. Otherwise, you take a status penalty to your Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": 5
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": 10
+                    }
+                ],
+                "flag": "feastOnFear",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": "land-speed",
+                "slug": "feast-on-fear-penalty",
+                "type": "status",
+                "value": "-@item.flags.system.rulesSelections.feastOnFear"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "selector": "all-speeds",
+                "slug": "feast-on-fear-bonus",
+                "type": "status",
+                "value": "@item.flags.system.rulesSelections.feastOnFear"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
