@@ -42,7 +42,7 @@ interface ActorDimensions {
     height: number;
 }
 
-type SkillSlug = SetElement<typeof CORE_SKILL_SLUGS>;
+type SkillSlug = SetElement<typeof CORE_SKILL_SLUGS> | "computers" | "piloting";
 
 type ActorAlliance = "party" | "opposition" | null;
 

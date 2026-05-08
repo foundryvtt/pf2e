@@ -538,7 +538,12 @@ const ammoTypes = {
     },
 } satisfies Record<string, BaseAmmoTypeData>;
 
-const skills: Record<SkillSlug, { label: string; attribute: AttributeString }> = {
+type SkillsConfig = Record<
+    Exclude<SkillSlug, "computers" | "piloting">,
+    { label: string; attribute: AttributeString }
+> & { [K in "computers" | "piloting"]?: { label: string; attribute: AttributeString } };
+
+const skills: SkillsConfig = {
     acrobatics: { label: "PF2E.Skill.Acrobatics", attribute: "dex" },
     arcana: { label: "PF2E.Skill.Arcana", attribute: "int" },
     athletics: { label: "PF2E.Skill.Athletics", attribute: "str" },

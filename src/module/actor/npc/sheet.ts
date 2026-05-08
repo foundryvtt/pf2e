@@ -195,7 +195,9 @@ class NPCSheetPF2e extends AbstractNPCSheet {
         sheetData.identificationDCs = ((): NPCIdentificationSheetData => {
             const data = actor.identificationDCs;
             const skills =
-                data.skills.length > 0 ? localizeList(data.skills.map((s) => _loc(CONFIG.PF2E.skills[s].label))) : null;
+                data.skills.length > 0
+                    ? localizeList(data.skills.map((s) => _loc(CONFIG.PF2E.skills[s]?.label ?? s)))
+                    : null;
             return {
                 standard: skills
                     ? _loc("PF2E.Actor.NPC.Identification.Skills.Label", {

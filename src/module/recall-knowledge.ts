@@ -61,6 +61,10 @@ function creatureIdentificationDCs(creature: NPCPF2e, { pwol = false }: DCOption
     const dc = calculateDC(level, { pwol });
 
     const traits = creature.system.traits.value;
+
+    if ("computers" in CONFIG.PF2E.skills && !identifySkills.has("robot")) {
+        identifySkills.set("robot", ["computers", "crafting"]);
+    }
     const skills = Array.from(new Set(traits.flatMap((t) => identifySkills.get(t) ?? [])));
 
     return {
