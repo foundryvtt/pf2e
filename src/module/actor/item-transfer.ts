@@ -214,7 +214,7 @@ export class ItemTransfer implements ItemTransferData {
                     ItemTransfer.#tokenName(sourceActor),
                     localize("DepositSubtitle"),
                     [
-                        localize("DepositMessage"),
+                        "PF2E.loot.DepositMessage",
                         {
                             depositor: ItemTransfer.#tokenName(sourceActor),
                             container: ItemTransfer.#tokenName(targetActor),
@@ -227,7 +227,7 @@ export class ItemTransfer implements ItemTransferData {
                     ItemTransfer.#tokenName(sourceActor),
                     localize("GiveSubtitle"),
                     [
-                        localize("GiveMessage"),
+                        "PF2E.loot.GiveMessage",
                         {
                             giver: ItemTransfer.#tokenName(sourceActor),
                             recipient: ItemTransfer.#tokenName(targetActor),
@@ -240,7 +240,7 @@ export class ItemTransfer implements ItemTransferData {
                     ItemTransfer.#tokenName(sourceActor),
                     localize("PlantSubtitle"),
                     [
-                        localize("PlantMessage"),
+                        "PF2E.loot.PlantMessage",
                         { planter: ItemTransfer.#tokenName(sourceActor), corpse: ItemTransfer.#tokenName(targetActor) },
                     ],
                 ];
@@ -250,7 +250,7 @@ export class ItemTransfer implements ItemTransferData {
                     ItemTransfer.#tokenName(targetActor),
                     localize("TakeSubtitle"),
                     [
-                        localize("TakeMessage"),
+                        "PF2E.loot.TakeMessage",
                         {
                             taker: ItemTransfer.#tokenName(targetActor),
                             container: ItemTransfer.#tokenName(sourceActor),
@@ -263,7 +263,7 @@ export class ItemTransfer implements ItemTransferData {
                     ItemTransfer.#tokenName(targetActor),
                     localize("LootSubtitle"),
                     [
-                        localize("LootMessage"),
+                        "PF2E.loot.LootMessage",
                         { looter: ItemTransfer.#tokenName(targetActor), corpse: ItemTransfer.#tokenName(sourceActor) },
                     ],
                 ];
@@ -273,7 +273,7 @@ export class ItemTransfer implements ItemTransferData {
                     requester.character?.name ?? requester.name,
                     localize("TransferSubtitle"),
                     [
-                        localize("TransferMessage"),
+                        "PF2E.loot.TransferMessage",
                         {
                             transferrer: requester.character?.name ?? requester.name,
                             fromContainer: ItemTransfer.#tokenName(sourceActor),
@@ -287,7 +287,7 @@ export class ItemTransfer implements ItemTransferData {
                     requester.character?.name ?? requester.name,
                     localize("GiveSubtitle"),
                     [
-                        localize("GiveMessage"),
+                        "PF2E.loot.GiveMessage",
                         {
                             seller: requester.character?.name ?? requester.name,
                             buyer: ItemTransfer.#tokenName(targetActor),
@@ -300,7 +300,7 @@ export class ItemTransfer implements ItemTransferData {
                     ItemTransfer.#tokenName(sourceActor),
                     localize("SellSubtitle"),
                     [
-                        localize("SellMessage"),
+                        "PF2E.loot.SellMessage",
                         { seller: ItemTransfer.#tokenName(sourceActor), buyer: ItemTransfer.#tokenName(targetActor) },
                     ],
                 ];
@@ -310,7 +310,7 @@ export class ItemTransfer implements ItemTransferData {
                     requester.character?.name ?? requester.name,
                     localize("SellSubtitle"),
                     [
-                        localize("SellMessage"),
+                        "PF2E.loot.SellMessage",
                         {
                             seller: ItemTransfer.#tokenName(sourceActor),
                             buyer: requester.character?.name ?? requester.name,
