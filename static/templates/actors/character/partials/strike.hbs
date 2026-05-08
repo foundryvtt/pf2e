@@ -143,6 +143,11 @@
             {{else if action.item.system.range}}
                 <span class="tag tag_secondary">{{localize "PF2E.Action.Range.IncrementN" n=action.item.system.range}}</span>
             {{/if}}
+            {{#if action.item.system.expend includeZero=true}}
+                {{#if (or (eq systemId "sf2e") (ne action.item.system.expend 1))}}
+                    <span class="tag tag_secondary">{{localize "PF2E.Item.Weapon.ExpendN" n=action.item.system.expend}}</span>
+                {{/if}}
+            {{/if}}
         </div>
     </div>
 </li>

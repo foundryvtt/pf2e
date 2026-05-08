@@ -559,15 +559,19 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     ): Promise<RawItemChatData> {
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
         const chatData = await super.getChatData();
-        const rangeLabel = createActionRangeLabel(this.range);
-        const properties = [CONFIG.PF2E.weaponCategories[this.category], this.system.reload.label, rangeLabel].filter(
-            R.isTruthy,
-        );
-
+        const expendLabel =
+            typeof this.system.expend === "number" && (this.system.expend !== 1 || SYSTEM_ID === "sf2e")
+                ? _loc("PF2E.Item.Weapon.ExpendN", { n: this.system.expend })
+                : null;
         return this.processChatData(htmlOptions, {
             ...chatData,
             traits,
-            properties,
+            properties: [
+                CONFIG.PF2E.weaponCategories[this.category],
+                this.system.reload.label,
+                createActionRangeLabel(this.range),
+                expendLabel,
+            ].filter(R.isTruthy),
         });
     }
 
