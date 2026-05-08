@@ -223,10 +223,6 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
                         updatedData.save.dc ||= 10;
                     }
                 }
-
-                if (updatedData.affects !== "enemies" && updatedData.includesSelf) {
-                    deletions["includesSelf"] = _del;
-                }
                 if (updatedData.removeOnExit) deletions["removeOnExit"] = _del;
                 if (updatedData.predicate) {
                     try {
@@ -247,8 +243,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
 
     #deleteEffect(id?: string): void {
         const index = Number(id);
-        if (Number.isNaN(index)) return;
-        if (this.#effectsMap.delete(index)) {
+        if (Number.isInteger(index) && this.#effectsMap.delete(index)) {
             this.updateItem({ effects: this.effectsArray });
         }
     }
