@@ -80,6 +80,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         // Clear the detection filter
         this.detectionFilter = null;
 
+        if (this.isPreview) return true;
+        if (this._preview?._previewType === "config") return false;
+        if (this.controlled) return true;
+        if (this.layer.active && this.document.visible && ui.placeables?.isEntryVisible(this) === false) return false;
+
         // Only GM users can see hidden tokens
         if (this.document.hidden && !game.user.isGM) return false;
 
@@ -89,7 +94,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         // Otherwise, test visibility against current sight polygons
         if (canvas.effects.visionSources.get(this.sourceId)?.active) return true;
         const tolerance = Math.floor(0.35 * Math.min(this.w, this.h));
-        return canvas.visibility.testVisibility(this.center, { tolerance, object: this });
+        return canvas.visibility.testVisibility(this.document.getVisibilityTestPoints(), { tolerance, object: this });
     }
 
     /** A reference to an animation that is currently in progress for this Token, if any */
@@ -583,8 +588,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         }
     }
 
-    protected override _destroy(): void {
-        super._destroy();
+    protected override _destroy(options?: boolean | PIXI.IDestroyOptions): void {
+        super._destroy(options);
         this.auras.destroy();
         this.flankingHighlight.destroy();
     }
@@ -625,16 +630,16 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     protected override _onHoverIn(
-        event: PIXI.FederatedPointerEvent,
-        options?: { hoverOutOthers?: boolean },
+        event: PointerEvent,
+        options?: { hoverOutOthers?: boolean; updateLegend?: boolean },
     ): boolean | void {
         this.renderFlags.set({ refreshDistanceLabel: true });
         return super._onHoverIn(event, options);
     }
 
-    protected override _onHoverOut(event: PIXI.FederatedPointerEvent): boolean | void {
+    protected override _onHoverOut(event: PointerEvent, options?: { updateLegend?: boolean }): boolean | void {
         this.renderFlags.set({ refreshDistanceLabel: true });
-        return super._onHoverOut(event);
+        return super._onHoverOut(event, options);
     }
 
     /** Require that a loot actor or dead creature is in reach for a player to view its sheet. */

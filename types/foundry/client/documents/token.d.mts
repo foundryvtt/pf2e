@@ -1,6 +1,6 @@
 import { TokenAnimationOptions, TokenConstrainMovementPathOptions } from "@client/_module.mjs";
 import TokenConfig from "@client/applications/sheets/token/token-config.mjs";
-import { DocumentConstructionContext, ElevatedPoint } from "@common/_types.mjs";
+import { DocumentConstructionContext, ElevatedPoint, Point } from "@common/_types.mjs";
 import {
     DatabaseCreateCallbackOptions,
     DatabaseCreateOperation,
@@ -551,7 +551,79 @@ export default class TokenDocument<TParent extends Scene | null = Scene | null> 
      * @param data The position and dimensions. Defaults to the values of the document source.
      * @returns Is inside the Region?
      */
-    testInsideRegion(region: RegionDocument, data?: Partial<ElevatedPoint & TokenDimensions>): boolean;
+    testInsideRegion(region: RegionDocument, data?: Partial<TokenPosition>): boolean;
+
+    /**
+     * Get the movement origin of this Token. This point is used to test collision with walls and surfaces.
+     * @param data The position and dimensions
+     * @returns The movement origin
+     */
+    getMovementOrigin(data?: Partial<TokenPosition>): ElevatedPoint;
+
+    /**
+     * Get the origin of the light source of this Token. The default implementation returns the movement origin.
+     * @param data The position and dimensions
+     * @returns The vision origin
+     */
+    getLightOrigin(data?: Partial<TokenPosition>): ElevatedPoint;
+
+    /**
+     * Get the origin of the vision source of this Token. The default implementation returns the movement origin.
+     * @param data The position and dimensions
+     * @returns The light origin
+     */
+    getVisionOrigin(data?: Partial<TokenPosition>): ElevatedPoint;
+
+    /**
+     * Get the origin of the sound source of this Token. The default implementation returns the movement origin.
+     * @param data The position and dimensions
+     * @returns The light origin
+     */
+    getSoundOrigin(data?: Partial<TokenPosition>): ElevatedPoint;
+
+    /**
+     * Get the listener position of this Token. The default implementation returns the movement origin.
+     * @param data The position and dimensions
+     * @returns The listener position
+     */
+    getListenerPosition(data?: Partial<TokenPosition>): ElevatedPoint;
+
+    /**
+     * Get the points that are used to test region containment/segmentation (unless overridden)
+     * for this Token. The test points are within the shape of the Token.
+     *
+     * Implementations of this function must use the prepared position and dimensions of this Token.
+     * @param data The position and dimensions. Defaults to the values of the prepared document, not the document
+     *             source.
+     * @returns The test points.
+     */
+    getContainmentTestPoints(data?: Partial<TokenPosition>): Point[];
+
+    /**
+     * Get the points that are used to test visibility for this Token. The test points are within the shape of the Token.
+     * Implementations of this function must use the prepared position and dimensions of this Token.
+     * @param data The position and dimensions. Defaults to the values of the prepared document, not the document source.
+     * @returns The test points.
+     */
+    getVisibilityTestPoints(data?: Partial<TokenPosition>): ElevatedPoint[];
+
+    /**
+     * Get the points that are used to test occlusion for this Token. The test points are within the shape of the Token.
+     * Implementations of this function must use the prepared position and dimensions of this Token.
+     * @param data The position and dimensions. Defaults to the values of the prepared document, not the document
+     *             source.
+     * @returns The test points.
+     */
+    getOcclusionTestPoints(data?: Partial<Omit<TokenPosition, "elevation" | "depth">>): Point[];
+
+    /**
+     * Constrain the test points by walls and surfaces. The passed array of test points are modified in place.
+     * If all points are discarded, the movement origin is added to the array of test points.
+     * @param points The test points, which are modified in place.
+     * @param data The position and dimensions. Defaults to the values of the prepared document, not the document
+     *             source.
+     */
+    protected _constrainTestPoints(points?: Point[], data?: Partial<TokenPosition>): void;
 
     /**
      * Split the Token movement path through the Region into its segments.
