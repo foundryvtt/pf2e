@@ -167,12 +167,10 @@ export class ItemTransfer implements ItemTransferData {
         if (!item) {
             if (this.mode !== "purchase") throw ErrorPF2e("Unexpected item-transfer failure");
 
-            const message = localize("InsufficientFundsMessage");
             // The buyer didn't have enough funds! No transaction.
-
             const content = await fa.handlebars.renderTemplate(this.#templatePaths.content, {
                 imgPath: targetActor.img,
-                message: _loc(message, { buyer: targetActor.name }),
+                message: localize("InsufficientFundsMessage", { buyer: targetActor.name }),
             });
 
             const flavor = await this.#messageFlavor(sourceActor, targetActor, localize("BuySubtitle"));
