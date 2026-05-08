@@ -1,6 +1,6 @@
 import "./global.ts";
 
-import { LANGUAGES_BY_RARITY_PF2E, LANGUAGES_BY_RARITY_SF2E } from "@actor/creature/values.ts";
+import { LANGUAGES_BY_RARITY } from "@actor/creature/values.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { ancestryTraits, classTraits } from "@scripts/config/traits.ts";
@@ -326,9 +326,7 @@ for (const contentSystem of contentSystems) {
     // Create Manifest. The PF2e anachronism manifest needs data from the actual pf2e system manifest
     const contentSystemManifest = contentSystem === "pf2e" ? pf2eManifest : sf2eManifest;
     const mainManifest = contentSystem === "pf2e" ? pf2eAnachronismManifest : sf2eAnachronismManifest;
-    const targetSystemLanguages = R.values(
-        targetSystem === "pf2e" ? LANGUAGES_BY_RARITY_PF2E : LANGUAGES_BY_RARITY_SF2E,
-    ).flat();
+    const targetSystemLanguages = R.values(LANGUAGES_BY_RARITY[targetSystem]).flat();
     const outputManifest = R.mergeDeep(R.clone(mainManifest), {
         packs: contentPacks.map(({ id, dirName }) => {
             const original = contentSystemManifest.packs.find((p) => (compendiumRemap[p.name] ?? p.name) === id);
@@ -356,7 +354,7 @@ for (const contentSystem of contentSystems) {
                 "pf2e-homebrew": {
                     languages: {
                         ...R.pipe(
-                            contentSystem === "pf2e" ? LANGUAGES_BY_RARITY_PF2E : LANGUAGES_BY_RARITY_SF2E,
+                            LANGUAGES_BY_RARITY[contentSystem],
                             R.values(),
                             R.flat(),
                             R.filter((l) => !targetSystemLanguages.includes(l)),

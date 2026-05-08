@@ -19,10 +19,10 @@ type CreatureType = keyof typeof CONFIG.PF2E.creatureTypes;
 
 type Language =
     | "common"
-    | (typeof LANGUAGES_BY_RARITY.common)[number]
-    | (typeof LANGUAGES_BY_RARITY.uncommon)[number]
-    | (typeof LANGUAGES_BY_RARITY.rare)[number]
-    | (typeof LANGUAGES_BY_RARITY.secret)[number];
+    | (typeof LANGUAGES_BY_RARITY)[SystemId]["common"][number]
+    | (typeof LANGUAGES_BY_RARITY)[SystemId]["uncommon"][number]
+    | (typeof LANGUAGES_BY_RARITY)[SystemId]["rare"][number]
+    | (typeof LANGUAGES_BY_RARITY)[SystemId]["secret"][number];
 type Attitude = keyof typeof CONFIG.PF2E.attitude;
 
 type ModeOfBeing = "living" | "undead" | "construct" | "object";
