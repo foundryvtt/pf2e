@@ -73,30 +73,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return offsets.sort((a, b) => a.j - b.j).sort((a, b) => a.i - b.i);
     }
 
-    /**
-     * Is this Token visible to the user? Increase center-to-center point tolerance to be more compliant with 2e rules.
-     */
-    override get isVisible(): boolean {
-        // Clear the detection filter
-        this.detectionFilter = null;
-
-        if (this.isPreview) return true;
-        if (this._preview?._previewType === "config") return false;
-        if (this.controlled) return true;
-        if (this.layer.active && this.document.visible && ui.placeables?.isEntryVisible(this) === false) return false;
-
-        // Only GM users can see hidden tokens
-        if (this.document.hidden && !game.user.isGM) return false;
-
-        // Some tokens are always visible
-        if (!canvas.visibility.tokenVision || this.controlled) return true;
-
-        // Otherwise, test visibility against current sight polygons
-        if (canvas.effects.visionSources.get(this.sourceId)?.active) return true;
-        const tolerance = Math.floor(0.35 * Math.min(this.w, this.h));
-        return canvas.visibility.testVisibility(this.document.getVisibilityTestPoints(), { tolerance, object: this });
-    }
-
     /** A reference to an animation that is currently in progress for this Token, if any */
     get animation(): Promise<void> | null {
         return (
