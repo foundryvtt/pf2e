@@ -1027,9 +1027,10 @@ const ItemProxyPF2e = new Proxy(ItemPF2e, {
                 : source?.type === "consumable" && (source.system?.category as string | undefined) === "ammo"
                   ? "ammo"
                   : source?.type;
-        const ItemClass: typeof ItemPF2e = CONFIG.PF2E.Item.documentClasses[type];
+        const ItemClass: typeof ItemPF2e =
+            (source?.type as string | undefined) === "base" ? ItemPF2e : CONFIG.PF2E.Item.documentClasses[type];
         if (!ItemClass) {
-            throw ErrorPF2e(`Item type ${type} does not exist and item module sub-types are not supported`);
+            throw ErrorPF2e(`Item type ${type} does not exist, and item module subtypes are not supported`);
         }
         return new ItemClass(...args);
     },
