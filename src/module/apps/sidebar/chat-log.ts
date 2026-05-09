@@ -541,7 +541,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             },
             {
                 label: "PF2E.RerollMenu.HeroPoint",
-                icon: "fa-solid hospital-symbol",
+                icon: "fa-solid fa-circle-h",
                 visible: canHeroPointReroll,
                 onClick: (_e: PointerEvent, li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });
@@ -577,7 +577,7 @@ class ChatLogPF2e extends fa.sidebar.tabs.ChatLog {
             },
             {
                 label: "PF2E.RerollMenu.KeepHigher",
-                icon: "fa-solid dice-six",
+                icon: "fa-solid fa-dice-six",
                 visible: canReroll,
                 onClick: (_e: PointerEvent, li: HTMLElement): void => {
                     const message = game.messages.get(li.dataset.messageId, { strict: true });

@@ -189,7 +189,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const headerResource = this.actor.getResource(resources.mythicPoints.max > 0 ? "mythic-points" : "hero-points");
         sheetData.headerResource = {
             ...headerResource,
-            icon: headerResource?.slug === "mythic-points" ? "fa-circle-m" : "fa-hospital-symbol",
+            icon: headerResource?.slug === "mythic-points" ? "fa-circle-m" : "fa-circle-h",
         };
 
         // Indicate whether the PC has all attribute boosts allocated

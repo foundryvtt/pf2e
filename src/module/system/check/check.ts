@@ -560,9 +560,9 @@ class Check {
 
         const rerollIcon = fontAwesomeIcon(
             resource?.slug === "hero-points"
-                ? "hospital-symbol"
+                ? "fa-circle-h"
                 : resource?.slug === "mythic-points"
-                  ? "circle-m"
+                  ? "fa-circle-m"
                   : "dice",
         );
         rerollIcon.classList.add("reroll-indicator");
