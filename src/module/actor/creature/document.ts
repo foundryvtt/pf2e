@@ -39,6 +39,7 @@ import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@u
 import * as R from "remeda";
 import { CreatureMovementData, CreatureResources, CreatureSystemData, VisionLevel, VisionLevels } from "./data.ts";
 import { getHpAdjustment, imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
+import { CreatureSaves } from "./saves.ts";
 import type {
     CreatureMovement,
     CreatureSpeeds,
@@ -57,12 +58,15 @@ abstract class CreaturePF2e<
     declare spellcasting: ActorSpellcasting<this>;
 
     declare parties: Set<PartyPF2e>;
+
     /** A creature always has an AC */
     declare armorClass: StatisticDifficultyClass<ArmorStatistic>;
+
     /** Skill checks for the creature, built during data prep */
     declare skills: Record<string, Statistic<this>>;
+
     /** Saving throw rolls for the creature, built during data prep */
-    declare saves: Record<SaveType, Statistic>;
+    declare saves: CreatureSaves;
 
     declare perception: PerceptionStatistic;
 

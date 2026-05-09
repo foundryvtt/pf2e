@@ -1,10 +1,9 @@
 import { CreaturePF2e, type CharacterPF2e } from "@actor";
 import type { ActorPF2e } from "@actor/base.ts";
-import type { CreatureSaves } from "@actor/creature/data.ts";
 import type { CreatureUpdateCallbackOptions } from "@actor/creature/index.ts";
+import { CreatureSaves } from "@actor/creature/saves.ts";
 import { createEncounterRollOptions, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { Modifier, applyStackingRules } from "@actor/modifiers.ts";
-import type { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { DatabaseDeleteCallbackOptions } from "@common/abstract/_types.d.mts";
 import type { ActorUUID } from "@common/documents/_module.d.mts";
@@ -115,29 +114,23 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         system.attributes.ac = fu.mergeObject(statistic.getTraceData(), { attribute: statistic.attribute ?? "dex" });
 
         // Saving Throws
-        this.saves = SAVE_TYPES.reduce(
-            (partialSaves, saveType) => {
-                const save = master?.saves[saveType];
-                const source = save?.modifiers.filter((m) => !["status", "circumstance"].includes(m.type)) ?? [];
-                const totalMod = applyStackingRules(source);
-                const attribute = CONFIG.PF2E.savingThrowDefaultAttributes[saveType];
-                const selectors = [saveType, `${attribute}-based`, "saving-throw", "all"];
-                const stat = new Statistic(this, {
-                    slug: saveType,
-                    label: _loc(CONFIG.PF2E.saves[saveType]),
-                    domains: selectors,
-                    modifiers: [new Modifier(`PF2E.MasterSavingThrow.${saveType}`, totalMod, "untyped")],
-                    check: { type: "saving-throw" },
-                });
-
-                return { ...partialSaves, [saveType]: stat };
-            },
-            {} as Record<SaveType, Statistic>,
-        );
-        system.saves = SAVE_TYPES.reduce(
-            (partial, saveType) => ({ ...partial, [saveType]: this.saves[saveType].getTraceData() }),
-            {} as CreatureSaves,
-        );
+        const saves = R.mapToObj(SAVE_TYPES, (saveType) => {
+            const save = master?.saves[saveType];
+            const source = save?.modifiers.filter((m) => !["status", "circumstance"].includes(m.type)) ?? [];
+            const totalMod = applyStackingRules(source);
+            const attribute = CONFIG.PF2E.savingThrowDefaultAttributes[saveType];
+            const selectors = [saveType, `${attribute}-based`, "saving-throw", "all"];
+            const statistic = new Statistic(this, {
+                slug: saveType,
+                label: _loc(CONFIG.PF2E.saves[saveType]),
+                domains: selectors,
+                modifiers: [new Modifier(`PF2E.MasterSavingThrow.${saveType}`, totalMod, "untyped")],
+                check: { type: "saving-throw" },
+            });
+            return [saveType, statistic];
+        });
+        this.saves = new CreatureSaves(saves);
+        system.saves = R.mapToObj(SAVE_TYPES, (t) => [t, this.saves[t].getTraceData()]);
 
         // Attack
         const masterLevel = game.pf2e.settings.variants.pwol.enabled ? 0 : level;

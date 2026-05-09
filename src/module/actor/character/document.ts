@@ -1,5 +1,6 @@
 import { CreaturePF2e, type FamiliarPF2e } from "@actor";
 import { Abilities } from "@actor/creature/data.ts";
+import { CreatureSaves } from "@actor/creature/saves.ts";
 import { CreatureUpdateCallbackOptions, ResourceData } from "@actor/creature/types.ts";
 import { ALLIANCES, SAVING_THROW_ATTRIBUTES } from "@actor/creature/values.ts";
 import { StrikeData } from "@actor/data/base.ts";
@@ -769,8 +770,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     private prepareSaves(): void {
         const wornArmor = this.wornArmor;
-
-        this.saves = R.mapToObj(SAVE_TYPES, (saveType) => {
+        const saves = R.mapToObj(SAVE_TYPES, (saveType) => {
             const save = this.system.saves[saveType];
             const saveName = _loc(CONFIG.PF2E.saves[saveType]);
             const modifiers: Modifier[] = [];
@@ -833,6 +833,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
             return [saveType, statistic];
         });
+        this.saves = new CreatureSaves(saves);
     }
 
     private prepareSkills() {

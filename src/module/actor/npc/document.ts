@@ -3,11 +3,12 @@ import type { ActorUpdateCallbackOptions, ActorUpdateOperation } from "@actor/ba
 import type { Abilities } from "@actor/creature/data.ts";
 import { getHpAdjustment } from "@actor/creature/helpers.ts";
 import type { CreatureUpdateCallbackOptions } from "@actor/creature/index.ts";
+import { CreatureSaves } from "@actor/creature/saves.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { attackFromMeleeItem, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { Modifier, StatisticModifier } from "@actor/modifiers.ts";
-import type { MovementType, SaveType } from "@actor/types.ts";
+import type { MovementType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { UserAction } from "@common/constants.d.mts";
 import type { ItemPF2e, MeleePF2e } from "@item";
@@ -301,16 +302,12 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
     private prepareSaves(): void {
         const system = this.system;
         const modifierAdjustments = this.synthetics.modifierAdjustments;
-
-        // Saving Throws
-        const saves: Partial<Record<SaveType, Statistic>> = {};
-        for (const saveType of SAVE_TYPES) {
+        const saves = R.mapToObj(SAVE_TYPES, (saveType) => {
             const save = system.saves[saveType];
             const saveName = _loc(CONFIG.PF2E.saves[saveType]);
             const base = save.value;
             const attribute = save.attribute;
             const domains = [saveType, `${attribute}-based`, "saving-throw", "all"];
-
             const statistic = new Statistic(this, {
                 slug: saveType,
                 label: saveName,
@@ -327,13 +324,11 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     type: "saving-throw",
                 },
             });
-
-            saves[saveType] = statistic;
-            fu.mergeObject(this.system.saves[saveType], statistic.getTraceData());
+            fu.mergeObject(system.saves[saveType], statistic.getTraceData());
             system.saves[saveType].base = base;
-        }
-
-        this.saves = saves as Record<SaveType, Statistic>;
+            return [saveType, statistic];
+        });
+        this.saves = new CreatureSaves(saves);
     }
 
     private prepareSkills() {
