@@ -1,3 +1,6 @@
+import "./global.ts";
+
+import { LANGUAGES_BY_RARITY } from "@actor/creature/values.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { ancestryTraits, classTraits } from "@scripts/config/traits.ts";
@@ -7,18 +10,18 @@ import path from "path";
 import * as R from "remeda";
 import url from "url";
 import yargs, { Argv } from "yargs";
-import pf2eAnachronismManifest from "../module.pf2e-anachronism.json" with { type: "json" };
-import sf2eAnachronismManifest from "../module.sf2e-anachronism.json" with { type: "json" };
-import langEn from "../static/lang/en.json" with { type: "json" };
-import pf2eManifest from "../system.pf2e.json" with { type: "json" };
-import sf2eManifest from "../system.sf2e.json" with { type: "json" };
-import duplicates from "./duplicates.json" with { type: "json" };
-import { CompendiumPack, isItemSource } from "./lib/compendium-pack.ts";
-import { PackError } from "./lib/helpers.ts";
-import { LevelDatabase } from "./lib/level-database.ts";
-import { PackEntry } from "./lib/types.ts";
-import pf2eRedirects from "./uuid-redirects/pf2e.json" with { type: "json" };
-import sf2eRedirects from "./uuid-redirects/sf2e.json" with { type: "json" };
+import pf2eAnachronismManifest from "../../module.pf2e-anachronism.json" with { type: "json" };
+import sf2eAnachronismManifest from "../../module.sf2e-anachronism.json" with { type: "json" };
+import langEn from "../../static/lang/en.json" with { type: "json" };
+import pf2eManifest from "../../system.pf2e.json" with { type: "json" };
+import sf2eManifest from "../../system.sf2e.json" with { type: "json" };
+import duplicates from "../duplicates.json" with { type: "json" };
+import { CompendiumPack, isItemSource } from "../lib/compendium-pack.ts";
+import { PackError } from "../lib/helpers.ts";
+import { LevelDatabase } from "../lib/level-database.ts";
+import { PackEntry } from "../lib/types.ts";
+import pf2eRedirects from "../uuid-redirects/pf2e.json" with { type: "json" };
+import sf2eRedirects from "../uuid-redirects/sf2e.json" with { type: "json" };
 
 type ModuleId = `${SystemId}-anachronism`;
 const argv = yargs(process.argv.slice(2)) as Argv<{ module: ModuleId | "both"; json: boolean }>;
@@ -36,8 +39,8 @@ const args = argv
     .parseSync();
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
-const logsDir = path.join(__dirname, "logs");
-const distDir = path.resolve(__dirname, "..", "dist");
+const logsDir = path.join(__dirname, "../logs");
+const distDir = path.resolve(__dirname, "../..", "dist");
 const contentSystems: SystemId[] =
     args.module === "both" ? (["pf2e", "sf2e"] as const) : [args.module === "pf2e-anachronism" ? "pf2e" : "sf2e"];
 console.log(`Building Modules: ${contentSystems.map((c) => `${c}-anachronism`)}`);
@@ -51,8 +54,8 @@ for (const [from, to] of Object.entries(UUID_REDIRECTS)) {
 `;
 
 console.log("Starting build, loading compendiums for both systems");
-const pf2eInDir = path.join(__dirname, "../packs/pf2e");
-const sf2eInDir = path.join(__dirname, "../packs/sf2e");
+const pf2eInDir = path.join(__dirname, "../../packs/pf2e");
+const sf2eInDir = path.join(__dirname, "../../packs/sf2e");
 const pf2ePacks = fs
     .readdirSync(pf2eInDir)
     .map((p) => CompendiumPack.loadJSON(path.join(pf2eInDir, p), { systemId: "pf2e" }));
@@ -323,8 +326,8 @@ for (const contentSystem of contentSystems) {
     // Create Manifest. The PF2e anachronism manifest needs data from the actual pf2e system manifest
     const contentSystemManifest = contentSystem === "pf2e" ? pf2eManifest : sf2eManifest;
     const mainManifest = contentSystem === "pf2e" ? pf2eAnachronismManifest : sf2eAnachronismManifest;
-    const outputManifest = {
-        ...R.clone(mainManifest),
+    const targetSystemLanguages = R.values(LANGUAGES_BY_RARITY[targetSystem]).flat();
+    const outputManifest = R.mergeDeep(R.clone(mainManifest), {
         packs: contentPacks.map(({ id, dirName }) => {
             const original = contentSystemManifest.packs.find((p) => (compendiumRemap[p.name] ?? p.name) === id);
             if (!original) {
@@ -346,7 +349,22 @@ for (const contentSystem of contentSystems) {
                 folders: recursiveReplaceString(contentSystemManifest.packFolders, (s) => compendiumRemap[s] ?? s),
             },
         ],
-    };
+        flags: {
+            [`${contentSystem}-anachronism`]: {
+                "pf2e-homebrew": {
+                    languages: {
+                        ...R.pipe(
+                            LANGUAGES_BY_RARITY[contentSystem],
+                            R.values(),
+                            R.flat(),
+                            R.filter((l) => !targetSystemLanguages.includes(l)),
+                            R.mapToObj((l) => [l, `PF2E.Actor.Creature.Language.${l}`]),
+                        ),
+                    },
+                },
+            },
+        },
+    });
     await fs.promises.writeFile(path.join(outDir, "module.json"), JSON.stringify(outputManifest, null, 4));
     console.log(`Manifest created for ${contentSystem}-anachronism`);
 

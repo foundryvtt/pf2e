@@ -124,7 +124,7 @@ async function treat(
     const skill = actor.skills[skillSlug];
     if (!skill?.proficient) {
         const skillName = objectHasKey(CONFIG.PF2E.skills, skillSlug)
-            ? _loc(CONFIG.PF2E.skills[skillSlug].label)
+            ? _loc(CONFIG.PF2E.skills[skillSlug]?.label ?? skillSlug)
             : skillSlug;
         const message = _loc("PF2E.Actions.TreatWounds.Error", { name: actor.name, skill: skillName });
         ui.notifications.warn(message);

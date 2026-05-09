@@ -43,7 +43,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         const adjustedDiceHint =
             weapon.system.damage.dice !== weapon._source.system.damage.dice
-                ? _loc(_loc(hintText), {
+                ? _loc(hintText, {
                       property: _loc("PF2E.Item.Weapon.Damage.DiceNumber"),
                       value: weapon.system.damage.dice,
                   })

@@ -1,4 +1,3 @@
-import type { SkillSlug } from "@actor/types.ts";
 import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
 import type { ItemUUID } from "@client/documents/_module.d.mts";
 import type { ImageFilePath } from "@common/constants.d.mts";
@@ -22,7 +21,6 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
 
     override async getData(options?: Partial<ItemSheetOptions>): Promise<DeitySheetData> {
         const sheetData = await super.getData(options);
-
         const spellEntries = Object.entries(sheetData.data.spells);
         const spells = (await UUIDUtils.fromUUIDs(Object.values(sheetData.data.spells)))
             .filter((i): i is SpellPF2e => i instanceof SpellPF2e)
@@ -31,7 +29,6 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
                 return { uuid: spell.uuid, level, name: spell.name, img: spell.img };
             })
             .sort((spellA, spellB) => spellA.level - spellB.level);
-
         const sanctifications = [
             { value: "null", label: "PF2E.Item.Deity.Sanctification.None" },
             ...DEITY_SANCTIFICATIONS.map((value) => {
@@ -43,7 +40,6 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
                 };
             }),
         ];
-
         return {
             ...sheetData,
             categories: [
@@ -159,7 +155,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
 interface DeitySheetData extends ItemSheetDataPF2e<DeityPF2e> {
     categories: FormSelectOption[];
     sanctifications: FormSelectOption[];
-    skills: Record<SkillSlug, string>;
+    skills: Record<string, string>;
     divineFonts: SheetOptions;
     spells: SpellBrief[];
 }

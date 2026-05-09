@@ -1,3 +1,34 @@
+## 8.1.2
+
+### System Improvements
+
+- (stwlam) Add "robot" trait to creature identification
+
+### Bugfixes
+
+- (jfn4th) Refresh token bars on Temp HP updates.
+- (kromko) Fix item transfer message localization
+- (steve148) Update changelog link in foundry to the new one
+- (stwlam) Fix aura rule forms not updating includeSelf
+- (stwlam) Fix tokens being visible when partially clipping through a wall
+- (Supe) Fix errors migrating certain old effects with invalid badge min/max fields
+- (Supe) Fix issues attack rolls using item spellcasting features such as kinetic activation
+- (Supe) Remove invalid expend and unprepare buttons from flexible spellcasting
+
+## Data Updates
+
+- (Ambrose) Add effect to Moon Hag's Ride the Moonbeams ability
+- (Ambrose) Correct Essence Overflow's damage formula
+- (Ambrose) Localize Overhand Smash Notes text for Volodmyra
+- (Ambrose) Update Ardent Armirger text and prerequisites to match Hellfire dispatches
+- (Dire Weasel) Add automation to Spirit of Vigil
+- (Dire Weasel) Brush up automation for No Stranger to Death
+- (kromko) Fix Opportune Trickster's description formatting
+- (kromko) Remove Ghoul Fever and Paralysis from Skaveling
+- (rectulo) Fix description for Devastation Cavalry Brigade
+- (rectulo) Fix formatting in Ort Mob description
+- (rectulo) Revise Starstone Aspirant archetype details in journals
+
 ## 8.1.1
 
 ### Bugfixes

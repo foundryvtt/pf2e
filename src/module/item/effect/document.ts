@@ -150,34 +150,31 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             if (duration.value === -1) duration.value = 1;
         }
 
-        // Run all badge change checks. As of V12, incoming data is not diffed, so we check the merged result
-        if (changed.system?.badge) {
+        // Run all badge change checks. Handle that it may be a partial diff and that there may be operators
+        const ForcedDeletion = foundry.data.operators.ForcedDeletion;
+        if (changed.system?.badge && !(changed.system.badge instanceof ForcedDeletion)) {
             const badgeSource = this._source.system.badge;
-            const badgeChange = fu.mergeObject(changed.system.badge, badgeSource ?? {}, { overwrite: false });
-            if (badgeChange.type === "counter") {
-                // Clamp to the counter value, or delete if decremented to 0
-                badgeChange.labels ??= null;
-                const [minValue, maxValue] = badgeChange.labels
-                    ? [1, Math.min(badgeChange.labels.length, badgeChange.max ?? Infinity)]
-                    : [badgeChange.min ?? 1, badgeChange.max ?? Infinity];
+            changed.system.badge = fu.mergeObject(changed.system.badge, badgeSource ?? {}, { overwrite: false });
 
-                // Delete the item if it goes below the minimum value, but only if it is embedded
-                if (typeof badgeChange.value === "number" && badgeChange.value < minValue && this.actor) {
+            // Clamp to the counter value, or delete if decremented below minimum
+            if (changed.system.badge.type === "counter") {
+                if (changed.system.badge.labels && !(changed.system.badge.labels instanceof ForcedDeletion)) {
+                    changed.system.badge.min = null;
+                    changed.system.badge.max = null;
+                } else {
+                    changed.system.badge.loop = false;
+                }
+
+                const badgeWithoutOperators = fu.applyDataOperators(changed.system.badge);
+                const minValue = badgeWithoutOperators.min ?? 1;
+                const maxValue = badgeWithoutOperators.labels?.length ?? badgeWithoutOperators.max ?? Infinity;
+                const currentValue = badgeWithoutOperators.value;
+                if (this.actor && typeof currentValue === "number" && currentValue < minValue) {
                     await this.actor.deleteEmbeddedDocuments("Item", [this.id]);
                     return false;
                 }
 
-                badgeChange.value = Math.clamp(badgeChange.value ?? 0, minValue, maxValue);
-            }
-
-            // Delete certain counter props under certain conditions.
-            if (badgeChange.type === "counter") {
-                if (badgeChange.labels) {
-                    badgeChange.min = null;
-                    badgeChange.max = null;
-                } else {
-                    badgeChange.loop = false;
-                }
+                changed.system.badge.value = Math.clamp(currentValue ?? 0, minValue, maxValue);
             }
         }
 

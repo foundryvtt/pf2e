@@ -25,7 +25,6 @@ import { TradeDialog } from "@module/apps/trade-dialog/app.ts";
 import { DoorControlPF2e } from "@module/canvas/door-control.ts";
 import { EnvironmentCanvasGroupPF2e } from "@module/canvas/group/environment.ts";
 import {
-    AmbientLightPF2e,
     EffectsCanvasGroupPF2e,
     LightingLayerPF2e,
     RegionLayerPF2e,
@@ -43,13 +42,11 @@ import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { MacroPF2e } from "@module/macro.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import {
-    AmbientLightDocumentPF2e,
     EnvironmentBehaviorType,
     EnvironmentFeatureBehaviorType,
     RegionBehaviorPF2e,
     RegionDocumentPF2e,
     ScenePF2e,
-    TileDocumentPF2e,
     TokenDocumentPF2e,
 } from "@scene/index.ts";
 import { DifficultTerrainBehaviorType } from "@scene/region-behavior/difficult-terrain.ts";
@@ -73,15 +70,12 @@ export class Load {
         CONFIG.Actor.collection = ActorsPF2e;
         CONFIG.Actor.defaultType = "character";
         CONFIG.Actor.documentClass = ActorProxyPF2e;
-        CONFIG.AmbientLight.documentClass = AmbientLightDocumentPF2e;
-        CONFIG.AmbientLight.objectClass = AmbientLightPF2e;
         CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
         CONFIG.Combat.documentClass = EncounterPF2e;
         CONFIG.Combatant.documentClass = CombatantPF2e;
         CONFIG.Item.defaultType = "action";
         CONFIG.Item.documentClass = ItemProxyPF2e;
         CONFIG.Macro.documentClass = MacroPF2e;
-
         CONFIG.Region.documentClass = RegionDocumentPF2e;
         CONFIG.Region.objectClass = RegionPF2e;
         CONFIG.RegionBehavior.dataModels.environment = EnvironmentBehaviorType;
@@ -92,10 +86,7 @@ export class Load {
         CONFIG.RegionBehavior.typeIcons.environmentFeature = "fa-solid fa-wind";
         CONFIG.RegionBehavior.typeLabels.environment = "PF2E.Region.Environment.Label";
         CONFIG.RegionBehavior.typeLabels.environmentFeature = "PF2E.Region.EnvironmentFeature.Label";
-
         CONFIG.Scene.documentClass = ScenePF2e;
-        CONFIG.Tile.documentClass = TileDocumentPF2e;
-
         CONFIG.Token.documentClass = TokenDocumentPF2e;
         CONFIG.Token.movement.TerrainData = TerrainDataPF2e;
         CONFIG.Token.objectClass = TokenPF2e;

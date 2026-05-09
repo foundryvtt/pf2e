@@ -1,6 +1,9 @@
-import type { AmbientLightPF2e, TokenPF2e } from "../index.ts";
+import type { ScenePF2e } from "@scene/document.ts";
+import type { TokenPF2e } from "../token/object.ts";
 
-class EffectsCanvasGroupPF2e extends fc.groups.EffectsCanvasGroup<TokenPF2e | AmbientLightPF2e> {
+class EffectsCanvasGroupPF2e extends fc.groups.EffectsCanvasGroup<
+    TokenPF2e | fc.placeables.AmbientLight<fd.AmbientLightDocument<ScenePF2e>>
+> {
     static #colorFilter = new PIXI.ColorMatrixFilter();
 
     /** (De)saturate darkness lights if a vision source has darkvision. */

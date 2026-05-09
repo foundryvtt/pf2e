@@ -63,7 +63,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
                     ? _loc("PF2E.PriceLabel")
                     : _loc("PF2E.PriceLabel").toLocaleLowerCase(game.i18n.lang);
             return basePrice !== derivedPrice
-                ? _loc(_loc("PF2E.Item.Weapon.FromMaterialAndRunes"), {
+                ? _loc("PF2E.Item.Weapon.FromMaterialAndRunes", {
                       property: priceLabel,
                       value: item.price.value.toString(),
                   })

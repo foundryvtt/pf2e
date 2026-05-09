@@ -37,7 +37,7 @@ class SpecialStatisticRuleElement extends RuleElement<SpecialStatisticSchema> {
             type: new fields.StringField({
                 required: true,
                 choices: ["simple", "check", "attack-roll"],
-                initial: "check",
+                initial: (d) => (d.itemCasting ? "attack-roll" : "check"),
             }),
             extends: new fields.StringField({ required: true, nullable: true, initial: null }),
             attribute: new fields.StringField({
@@ -93,7 +93,7 @@ class SpecialStatisticRuleElement extends RuleElement<SpecialStatisticSchema> {
                   })
                 : { mod: [], check: [], dc: [] };
 
-        const data: Required<Omit<StatisticData, "filter" | "lore" | "proficient" | "rank" | "rollOptions">> = {
+        const data = {
             slug: this.slug,
             label,
             attribute: this.attribute ?? extendedFrom?.attribute ?? null,
@@ -101,26 +101,32 @@ class SpecialStatisticRuleElement extends RuleElement<SpecialStatisticSchema> {
             modifiers: modCheckDC.mod,
             check: { type: checkType, domains: checkDomains, modifiers: modCheckDC.check },
             dc: { domains: [`${this.slug}-dc`], modifiers: modCheckDC.dc },
-        };
+        } satisfies StatisticData;
+        if (this.itemCasting) {
+            data.domains.push("spell-attack-dc");
+            data.check.domains.push("spell-attack", "spell-attack-roll");
+            data.dc.domains.push("spell-dc");
+            const tradition = this.itemCasting.tradition;
+            if (tradition) {
+                data.check.domains.push(`${tradition}-spell-attack`);
+                data.dc.domains.push(`${tradition}-spell-dc`);
+            }
+        }
 
         const statistic = extendedFrom?.extend(data) ?? new Statistic(actor, data);
-        if (statistic) {
-            actor.synthetics.statistics.set(this.slug, statistic);
-            if (this.itemCasting) {
-                actor.spellcasting.set(
-                    this.slug,
-                    new ItemSpellcasting({
-                        id: this.slug,
-                        name: this.label,
-                        actor,
-                        statistic,
-                        castPredicate: this.itemCasting.predicate,
-                        tradition: this.itemCasting.tradition,
-                    }),
-                );
-            }
-        } else {
-            this.failValidation(`Unable to find statistic ${this.extends} to extend from`);
+        actor.synthetics.statistics.set(this.slug, statistic);
+        if (this.itemCasting) {
+            actor.spellcasting.set(
+                this.slug,
+                new ItemSpellcasting({
+                    id: this.slug,
+                    name: this.label,
+                    actor,
+                    statistic,
+                    castPredicate: this.itemCasting.predicate,
+                    tradition: this.itemCasting.tradition,
+                }),
+            );
         }
     }
 }

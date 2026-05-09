@@ -1,3 +1,28 @@
+## 1.1.2
+
+### System Improvements
+
+- (stwlam) Add "robot" trait to creature identification
+
+### Bugfixes
+
+- (jfn4th) Refresh token bars on Temp HP updates.
+- (kromko) Fix item transfer message localization
+- (steve148) Update changelog link in foundry to the new one
+- (stwlam) Fix aura rule forms not updating includeSelf
+- (stwlam) Fix tokens being visible when partially clipping through a wall
+- (Supe) Fix errors migrating certain old effects with invalid badge min/max fields
+- (Supe) Fix issues attack rolls using item spellcasting features such as kinetic activation
+- (Supe) Remove invalid expend and unprepare buttons from flexible spellcasting
+
+### Data Updates
+
+- (Ambrose) Add missing ryphorian trait description
+- (Ambrose) Correct Flash Grenade item descriptions
+- (Ambrose) Add Tales from the Vast content
+- (kromko) Add missing localization strings
+- (steve148) Add sniper weapon crit specialization
+
 ## 1.1.1
 
 ### Bugfixes

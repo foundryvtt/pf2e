@@ -41,14 +41,7 @@ import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import type { MacroPF2e } from "@module/macro.ts";
 import type { RuleElement, RuleElements } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
-import type {
-    AmbientLightDocumentPF2e,
-    RegionBehaviorPF2e,
-    RegionDocumentPF2e,
-    ScenePF2e,
-    TileDocumentPF2e,
-    TokenDocumentPF2e,
-} from "@scene";
+import type { RegionBehaviorPF2e, RegionDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from "@scene";
 import type { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config/index.ts";
 import type { DicePF2e } from "@scripts/dice.ts";
 import type {
@@ -279,7 +272,7 @@ interface GamePF2e extends Game<
 }
 
 type ConfiguredConfig = Config<
-    AmbientLightDocumentPF2e<ScenePF2e | null>,
+    AmbientLightDocument<ScenePF2e | null>,
     ActiveEffectPF2e<ActorPF2e | ItemPF2e | null>,
     ActorPF2e,
     ActorDelta<TokenDocumentPF2e>,
@@ -294,7 +287,7 @@ type ConfiguredConfig = Config<
     MacroPF2e,
     RegionDocumentPF2e,
     RegionBehaviorPF2e,
-    TileDocumentPF2e,
+    fd.TileDocument<ScenePF2e | null>,
     TokenDocumentPF2e,
     WallDocument<ScenePF2e | null>,
     ScenePF2e,

@@ -8,7 +8,7 @@ import type {
 } from "@common/abstract/_module.d.mts";
 import { LightLevels, SceneFlagsPF2e } from "./data.ts";
 import { checkAuras } from "./helpers.ts";
-import type { AmbientLightDocumentPF2e, RegionDocumentPF2e, TileDocumentPF2e } from "./index.ts";
+import type { RegionDocumentPF2e } from "./index.ts";
 import { TokenDocumentPF2e } from "./index.ts";
 import type { SceneConfigPF2e } from "./sheet.ts";
 
@@ -199,9 +199,7 @@ interface ScenePF2e extends Scene {
     /** Check for auras containing newly-placed or moved tokens (added as a debounced method) */
     checkAuras(): void;
 
-    readonly lights: EmbeddedCollection<AmbientLightDocumentPF2e<this>>;
     readonly regions: EmbeddedCollection<RegionDocumentPF2e<this>>;
-    readonly tiles: EmbeddedCollection<TileDocumentPF2e<this>>;
     readonly tokens: EmbeddedCollection<TokenDocumentPF2e<this>>;
 
     get sheet(): SceneConfigPF2e<this>;

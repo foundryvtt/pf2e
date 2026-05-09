@@ -182,29 +182,30 @@
 
                             <div class="item-controls">
                                 {{#if @root.editable}}
-                                    {{#if entry.isPrepared}}
-                                        {{#unless (eq group.id "cantrips")}}
-                                            <a
-                                                data-action="toggle-slot-expended"
-                                                data-tooltip="{{#if slot.expended}}PF2E.RestoreSpellTitle{{else}}PF2E.ExpendSpellTitle{{/if}}"
-                                            ><i class="fa-solid fa-fw fa-{{#if slot.expended}}plus{{else}}minus{{/if}}-square"></i></a>
-                                        {{/unless}}
+                                    {{#if (and entry.isSpontaneous (ne group.id "cantrips"))}}
                                         <a
-                                            data-action="unprepare-spell"
-                                            data-tooltip="PF2E.UnprepareItemTitle"
-                                        ><i class="fa-solid fa-fw fa-trash"></i></a>
-                                    {{else if (ne entry.category "items")}}
-                                        {{#if (and entry.isSpontaneous (ne group.id "cantrips"))}}
-                                            <a
-                                                data-action="toggle-signature-spell"
-                                                data-tooltip="PF2E.ToggleSignatureSpellTitle"
-                                            ><i class="fa-{{#if slot.signature}}solid{{else}}regular{{/if}} fa-fw fa-star"></i></a>
-                                        {{/if}}
-                                        {{#unless slot.virtual}}
-                                            <a data-action="edit-item" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
-                                            <a data-action="delete-item" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
-                                        {{/unless}}
+                                            data-action="toggle-signature-spell"
+                                            data-tooltip="PF2E.ToggleSignatureSpellTitle"
+                                        ><i class="fa-{{#if slot.signature}}solid{{else}}regular{{/if}} fa-fw fa-star" inert></i></a>
                                     {{/if}}
+
+                                    {{#unless slot.virtual}}
+                                        {{#if entry.isPrepared}}
+                                            {{#unless (eq group.id "cantrips")}}
+                                                <a
+                                                    data-action="toggle-slot-expended"
+                                                    data-tooltip="{{#if slot.expended}}PF2E.RestoreSpellTitle{{else}}PF2E.ExpendSpellTitle{{/if}}"
+                                                ><i class="fa-solid fa-fw fa-{{#if slot.expended}}plus{{else}}minus{{/if}}-square" inert></i></a>
+                                            {{/unless}}
+                                            <a
+                                                data-action="unprepare-spell"
+                                                data-tooltip="PF2E.UnprepareItemTitle"
+                                            ><i class="fa-solid fa-fw fa-trash"></i></a>
+                                        {{else if (ne entry.category "items")}}
+                                            <a data-action="edit-item" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit" inert></i></a>
+                                            <a data-action="delete-item" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash" inert></i></a>
+                                        {{/if}}
+                                    {{/unless}}
                                 {{/if}}
                             </div>
                             <div class="item-summary" hidden></div>

@@ -75,11 +75,12 @@
             </select>
 
             <label>{{localize ../fields.effects.element.fields.removeOnExit.label}}</label>
-            <input type="checkbox" name="system.rules.{{../index}}.effects.{{eid}}.removeOnExit" {{checked (ne effect.removeOnExit false)}}/>
+            <input type="checkbox" name="system.rules.{{../index}}.effects.{{eid}}.removeOnExit" {{checked (ne effect.removeOnExit false)}} />
 
             <label>{{localize ../fields.effects.element.fields.includesSelf.label}}</label>
             <div class="checkbox">
-                <input type="checkbox" name="system.rules.{{../index}}.effects.{{eid}}.includesSelf" {{checked (ne effect.includesSelf false)}}/>
+                <input type="checkbox" name="system.rules.{{../index}}.effects.{{eid}}.includesSelf"
+                       {{checked (coalesce effect.includesSelf (ne effect.affects "enemies"))}} />
             </div>
         </div>
 
