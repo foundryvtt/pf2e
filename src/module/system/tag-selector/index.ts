@@ -12,6 +12,7 @@ const SELECTABLE_TAG_FIELDS = [
     "materialDamageEffects",
     "otherArmorTags",
     "otherConsumableTags",
+    "otherEquipmentTags",
     "otherWeaponTags",
     "senses",
     "skills",
