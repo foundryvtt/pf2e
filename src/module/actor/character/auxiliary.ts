@@ -161,8 +161,11 @@ class WeaponAuxiliaryAction {
             });
             if (!updated) return;
         } else if (this.annotation === "boost") {
-            const alreadyBoosted = actor.itemTypes.effect.some((e) => e.slug === "effect-boost");
-            if (alreadyBoosted) return;
+            const isBoosted = actor.itemTypes.effect.some(
+                (e) => e.slug === "effect-boost" && e.flags.sf2e.grantedBy?.id === weapon.id,
+            );
+            // No op if the weapon is already boosted
+            if (isBoosted) return;
             const effect = await fromUuid(`Compendium.${SYSTEM_ID}.equipment-effects.Item.YVm3rVSAYxoSrOvb`);
             if (effect instanceof EffectPF2e) {
                 const data = { ...effect.toObject(), _id: null };

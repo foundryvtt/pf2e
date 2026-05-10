@@ -359,17 +359,22 @@ class WeaponDamagePF2e {
             modifiers.push(modifier);
         }
 
-        // Boost trait, ignore invalid boost traits
-        for (const trait of weaponTraits.filter((t) => t.startsWith("boost-1d"))) {
-            if (!weapon.isOfType("weapon")) continue;
-            const dieSize = trait.substring(trait.indexOf("-") + 2) as DamageDieSize;
+        // Boost trait
+        if (weapon.system.traits.config.boost) {
+            const boostConfig = weapon.system.traits.config.boost;
+            const slug = `boost-${boostConfig}`;
+
+            const dieSize = boostConfig.substring(boostConfig.indexOf("d")) as DamageDieSize;
+            const baseNumber = Number(/(\d)d\d{1,2}$/.exec(boostConfig)?.at(1)) || 1;
+            const diceNumber = strikingDice > 0 ? baseNumber + strikingDice : baseNumber;
+
             const isBoosted = options.has(`item:${weapon.id}:boosted`) || options.has("item:weapon:boosted");
             damageDice.push(
                 new DamageDicePF2e({
                     selector: `${weapon.id}-damage`,
-                    slug: trait,
-                    label: traitLabels[trait],
-                    diceNumber: weapon.system.damage.dice,
+                    slug,
+                    label: traitLabels[slug],
+                    diceNumber: diceNumber,
                     dieSize,
                     critical: false,
                     enabled: isBoosted,
