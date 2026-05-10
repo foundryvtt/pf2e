@@ -34,6 +34,10 @@
                     {
                         "label": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfSmiting.Label",
                         "value": "smiting"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfSpace.Label",
+                        "value": "space"
                     }
                 ],
                 "flag": "rune",
@@ -124,6 +128,18 @@
                 "text": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfSmiting.Text",
                 "title": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfSmiting.Label",
                 "visibility": "owner"
+            },
+            {
+                "definition": [
+                    "item:slug:{item|flags.system.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "invoke-rune:space"
+                ],
+                "property": "weapon-traits",
+                "value": "reach-60"
             }
         ],
         "start": {
