@@ -1,36 +1,36 @@
 import type { SceneControlTool } from "@client/applications/ui/scene-controls.d.mts";
 import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster.ts";
-import applications = foundry.applications;
+import * as R from "remeda";
 
 /** Insert system tool buttons to the control bar */
 export const GetSceneControlButtons = {
     listen: (): void => {
         Hooks.on("getSceneControlButtons", (controls) => {
-            // World Clock
-            const tokenTools = controls.tokens?.tools;
-            if (tokenTools) {
-                const settings = game.pf2e.settings.worldClock;
-                tokenTools.worldClock = {
-                    name: "worldClock",
-                    title: "CONTROLS.WorldClock",
-                    icon: "fa-solid fa-clock",
-                    order: Object.keys(tokenTools).length,
-                    button: true,
-                    visible: settings.showClockButton && (game.user.isGM || settings.playersCanView),
-                    onChange: () => {
-                        if (game.pf2e.worldClock.rendered) {
-                            game.pf2e.worldClock.close();
-                        } else {
-                            game.pf2e.worldClock.render({ force: true });
-                        }
-                    },
-                };
+            // Region Shapes
+            const coneTool = controls.regions.tools.cone;
+            if ("shapeData" in coneTool && R.isPlainObject(coneTool.shapeData)) {
+                coneTool.shapeData.angle = 90;
             }
 
+            // World Clock
+            const clockSettings = game.pf2e.settings.worldClock;
+            controls.tokens.tools.worldClock = {
+                name: "worldClock",
+                title: "CONTROLS.WorldClock",
+                icon: "fa-solid fa-clock",
+                order: Object.keys(controls.tokens.tools).length,
+                button: true,
+                visible: clockSettings.showClockButton && (game.user.isGM || clockSettings.playersCanView),
+                onChange: () => {
+                    if (game.pf2e.worldClock.rendered) game.pf2e.worldClock.close();
+                    else game.pf2e.worldClock.render({ force: true });
+                },
+            };
+
             const lightingControls = controls.lighting;
-            const lightingTools = lightingControls?.tools;
-            const dayTool = lightingTools?.day;
-            if (!(lightingControls && lightingTools && dayTool)) return;
+            const lightingTools = lightingControls.tools;
+            const dayTool = lightingTools.day;
+            if (!dayTool) return;
 
             // Indicate GM vision is on
             lightingControls.icon =
@@ -38,6 +38,7 @@ export const GetSceneControlButtons = {
                     ? "fa-solid fa-lightbulb-cfl-on gm-vision"
                     : "fa-solid fa-lightbulb";
 
+            // Scene darkness adjuster
             const adjusterTool: SceneControlTool = {
                 name: "darknessAdjuster",
                 title: "CONTROLS.AdjustSceneDarkness",
@@ -48,22 +49,18 @@ export const GetSceneControlButtons = {
                 active: false,
                 onChange: (): void => {
                     const adjuster = SceneDarknessAdjuster.instance;
-                    if (adjuster.rendered) {
-                        adjuster.close();
-                    } else {
-                        adjuster.render({ force: true });
-                    }
+                    if (adjuster.rendered) adjuster.close();
+                    else adjuster.render({ force: true });
                 },
             };
 
-            // GM Vision
+            // GM vision
             const gmVisionTool = ((): SceneControlTool => {
                 const binding = game.keybindings.actions.get(`${SYSTEM_ID}.gmVision`)?.editable?.[0];
                 const gmVisionLabel = _loc("PF2E.Keybinding.GMVision.Label");
-                const bindingLabel = binding ? applications.sidebar.apps.ControlsConfig.humanizeBinding(binding) : "";
+                const bindingLabel = binding ? fa.sidebar.apps.ControlsConfig.humanizeBinding(binding) : "";
                 const gmVisionIcon = (active = game.pf2e.settings.gmVision): string =>
                     active ? "fa-solid fa-lightbulb-cfl-on" : "fa-solid fa-lightbulb-cfl";
-
                 return {
                     name: "gmVision",
                     title: `${gmVisionLabel} [${bindingLabel}]`,

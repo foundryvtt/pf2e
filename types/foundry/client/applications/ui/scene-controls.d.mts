@@ -67,6 +67,8 @@ interface SceneControlsRenderOptions extends HandlebarsRenderOptions {
     toggles?: Record<string, boolean>;
 }
 
+type ControlsKey = "regions" | "drawings" | "tiles" | "walls" | "tokens" | "sounds" | "lighting" | "notes";
+
 /** The data structure provided to the {@link SceneControl#onChange} callback. */
 interface SceneControlsActivationChange {
     event: Event;
@@ -87,7 +89,7 @@ export default class SceneControls extends HandlebarsApplicationMixin(
     static override PARTS: Record<string, HandlebarsTemplatePart>;
 
     /** Prepared data of available controls. */
-    get controls(): Record<string, SceneControl>;
+    get controls(): Record<ControlsKey, SceneControl> & Record<string, SceneControl | undefined>;
 
     /** The currently active control layer. */
     get control(): SceneControl | null;
