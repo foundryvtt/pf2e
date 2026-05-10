@@ -1,0 +1,47 @@
+{
+    "_id": "YVm3rVSAYxoSrOvb",
+    "img": "systems/sf2e/icons/abilities/blue-battery.webp",
+    "name": "Effect: Boost",
+    "system": {
+        "description": {
+            "value": "<p>The weapon is currently boosted.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Player Core"
+        },
+        "rules": [
+            {
+                "critical": false,
+                "diceNumber": "@weapon.system.damage.dice",
+                "dieSize": "d10",
+                "key": "DamageDice",
+                "selector": [
+                    "strike-damage"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

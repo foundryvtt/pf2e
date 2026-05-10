@@ -16,7 +16,7 @@ const args = argv
                 describe: "The FVTT for which to extract packs",
                 type: "string",
                 choices: ["pf2e", "sf2e"],
-                default: "pf2e",
+                default: "sf2e",
             })
             .option("disablePresort", {
                 describe: "Turn off data item presorting",

@@ -9,11 +9,12 @@ import { getActionGlyph, localizeList, sluggify } from "@util";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 import { CharacterPF2e } from "./document.ts";
+import type { DamageDiceRuleElement } from "@module/rules/rule-element/damage-dice.ts";
 
 interface AuxiliaryInteractParams {
     weapon: WeaponPF2e<CharacterPF2e>;
     action: "interact";
-    annotation: "draw" | "grip" | "modular" | "pick-up" | "retrieve" | "sheathe";
+    annotation: "draw" | "grip" | "modular" | "pick-up" | "retrieve" | "sheathe" | "boost";
     hands?: ZeroToTwo;
 }
 
@@ -85,6 +86,8 @@ class WeaponAuxiliaryAction {
                     return [1, null, annotation];
                 case "drop":
                     return [0, "dropped", annotation];
+                case "boost":
+                    return [1, null, annotation];
                 case "tower-shield": {
                     const cost = this.action === "take-cover" ? 1 : 0;
                     return [cost, null, null];
@@ -157,6 +160,21 @@ class WeaponAuxiliaryAction {
                 selected: Number(selection),
             });
             if (!updated) return;
+        } else if (this.annotation === "boost") {
+            const alreadyBoosted = actor.itemTypes.effect.some((e) => e.slug === "effect-boost");
+            if (alreadyBoosted) return;
+            const effect = await fromUuid(`Compendium.${SYSTEM_ID}.equipment-effects.Item.YVm3rVSAYxoSrOvb`);
+            if (effect instanceof EffectPF2e) {
+                const data = { ...effect.toObject(), _id: null };
+                data.flags[SYSTEM_ID] = { grantedBy: { id: weapon.id, onDelete: "cascade" } };
+                data.system.description.value += `\n@UUID[Actor.${actor.id}.Item.${weapon.id}]{${weapon.name}}`;
+                const rule = data.system.rules.find((r) => r.key === "DamageDice") as DamageDiceRuleElement;
+                const boostTrait = weapon.system.traits.value.find((t) => t.startsWith("boost-"));
+                // The die size is encoded in the boost trait, e.g. "boost-1d8"
+                rule.dieSize = boostTrait?.substring(7) || null;
+                rule.selector = [`${weapon.id}-damage`];
+                await actor.createEmbeddedDocuments("Item", [data]);
+            }
         } else if (this.action === "raise-a-shield") {
             // Apply Effect: Raise a Shield
             const alreadyRaised = actor.itemTypes.effect.some((e) => e.slug === "raise-a-shield");
