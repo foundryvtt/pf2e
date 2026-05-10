@@ -42,16 +42,14 @@
                 "rollOption": "invoke-rune"
             },
             {
-                "choices": [
-                    {
-                        "label": "PF2E.Weapon.Base.greatsword",
-                        "value": "greatsword"
-                    },
-                    {
-                        "label": "PF2E.Weapon.Base.longspear",
-                        "value": "longspear"
-                    }
-                ],
+                "choices": {
+                    "attacks": true,
+                    "predicate": [
+                        {
+                            "not": "item:category:unarmed"
+                        }
+                    ]
+                },
                 "flag": "weapon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
@@ -75,8 +73,7 @@
                     "item:slug:{item|flags.system.rulesSelections.weapon}",
                     {
                         "or": [
-                            "item:slug:greatsword",
-                            "item:slug:rock"
+                            "item:slug:greatsword"
                         ]
                     }
                 ],
