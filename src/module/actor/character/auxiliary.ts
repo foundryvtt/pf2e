@@ -9,7 +9,7 @@ import { getActionGlyph, localizeList, sluggify } from "@util";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 import { CharacterPF2e } from "./document.ts";
-import type { DamageDiceRuleElement } from "@module/rules/rule-element/damage-dice.ts";
+import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-option/rule-element.ts";
 
 interface AuxiliaryInteractParams {
     weapon: WeaponPF2e<CharacterPF2e>;
@@ -167,12 +167,15 @@ class WeaponAuxiliaryAction {
             if (effect instanceof EffectPF2e) {
                 const data = { ...effect.toObject(), _id: null };
                 data.flags[SYSTEM_ID] = { grantedBy: { id: weapon.id, onDelete: "cascade" } };
+                // Change rule to affect the specific weapon.
+                data.system.rules = [
+                    {
+                        key: "RollOption",
+                        domain: `${weapon.id}-damage`,
+                        option: `item:${weapon.id}:boosted`,
+                    } as RollOptionRuleElement,
+                ];
                 data.system.description.value += `\n@UUID[Actor.${actor.id}.Item.${weapon.id}]{${weapon.name}}`;
-                const rule = data.system.rules.find((r) => r.key === "DamageDice") as DamageDiceRuleElement;
-                const boostTrait = weapon.system.traits.value.find((t) => t.startsWith("boost-"));
-                // The die size is encoded in the boost trait, e.g. "boost-1d8"
-                rule.dieSize = boostTrait?.substring(7) || null;
-                rule.selector = [`${weapon.id}-damage`];
                 await actor.createEmbeddedDocuments("Item", [data]);
             }
         } else if (this.action === "raise-a-shield") {

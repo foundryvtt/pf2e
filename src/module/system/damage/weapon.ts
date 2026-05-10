@@ -359,6 +359,24 @@ class WeaponDamagePF2e {
             modifiers.push(modifier);
         }
 
+        // Boost trait, ignore invalid boost traits
+        for (const trait of weaponTraits.filter((t) => t.startsWith("boost-1d"))) {
+            if (!weapon.isOfType("weapon")) continue;
+            const dieSize = trait.substring(trait.indexOf("-") + 2) as DamageDieSize;
+            const isBoosted = options.has(`item:${weapon.id}:boosted`) || options.has("item:weapon:boosted");
+            damageDice.push(
+                new DamageDicePF2e({
+                    selector: `${weapon.id}-damage`,
+                    slug: trait,
+                    label: traitLabels[trait],
+                    diceNumber: weapon.system.damage.dice,
+                    dieSize,
+                    critical: false,
+                    enabled: isBoosted,
+                }),
+            );
+        }
+
         // Add roll notes to the context
         const runeNotes = propertyRunes.flatMap((r) => {
             const data = RUNE_DATA.weapon.property[r].damage?.notes ?? [];

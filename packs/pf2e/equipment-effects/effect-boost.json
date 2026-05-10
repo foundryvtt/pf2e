@@ -1,6 +1,6 @@
 {
     "_id": "YVm3rVSAYxoSrOvb",
-    "img": "systems/sf2e/icons/abilities/blue-battery.webp",
+    "img": "systems/pf2e/icons/abilities/blue-battery.webp",
     "name": "Effect: Boost",
     "system": {
         "description": {
@@ -23,13 +23,9 @@
         },
         "rules": [
             {
-                "critical": false,
-                "diceNumber": "@weapon.system.damage.dice",
-                "dieSize": "d10",
-                "key": "DamageDice",
-                "selector": [
-                    "strike-damage"
-                ]
+                "key": "RollOption",
+                "domain": "strike-damage",
+                "option": "item:weapon:boosted"
             }
         ],
         "start": {
