@@ -317,13 +317,14 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         if (actor.heritage && ancestryFeatures) {
             const alreadyPresent = ancestryFeatures.feats.some((f) => f.feat?.id === actor.heritage?.id);
             if (!alreadyPresent) {
-                ancestryFeatures.feats.unshift({
+                const heritageRow: FeatSlot<HeritagePF2e<TActor>> = {
                     id: "heritage",
                     label: null,
                     level: null,
                     feat: actor.heritage,
                     children: this.#getNestedSlots(actor.heritage),
-                } as never);
+                };
+                ancestryFeatures.feats.unshift(heritageRow as FeatGroup<TActor>["feats"][number]);
             }
         }
         sheetData.feats = featGroups;
