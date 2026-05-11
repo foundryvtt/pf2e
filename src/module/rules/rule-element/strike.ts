@@ -181,8 +181,7 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
 
     /** Exclude other strikes if this rule element specifies that its strike replaces all others */
     override afterPrepareData(): void {
-        if (this.ignored || !this.actor.isOfType("character")) return;
-
+        if (this.ignored || !this.actor.isOfType("character") || !this.test()) return;
         if (this.replaceAll) {
             const systemData = this.actor.system;
             systemData.actions = systemData.actions
