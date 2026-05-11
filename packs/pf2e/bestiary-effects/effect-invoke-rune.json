@@ -25,18 +25,45 @@
                 "choices": [
                     {
                         "label": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfDestruction.Label",
+                        "predicate": [
+                            {
+                                "not": "czaresia-invoke-rune"
+                            }
+                        ],
                         "value": "destruction"
                     },
                     {
                         "label": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfFlames.Label",
+                        "predicate": [
+                            {
+                                "not": "czaresia-invoke-rune"
+                            }
+                        ],
                         "value": "flames"
                     },
                     {
+                        "label": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfPride.Label",
+                        "predicate": [
+                            "czaresia-invoke-rune"
+                        ],
+                        "value": "pride"
+                    },
+                    {
                         "label": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfSmiting.Label",
+                        "predicate": [
+                            {
+                                "not": "czaresia-invoke-rune"
+                            }
+                        ],
                         "value": "smiting"
                     },
                     {
                         "label": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfSpace.Label",
+                        "predicate": [
+                            {
+                                "not": "czaresia-invoke-rune"
+                            }
+                        ],
                         "value": "space"
                     }
                 ],
@@ -140,6 +167,20 @@
                 ],
                 "property": "weapon-traits",
                 "value": "reach-60"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "invoke-rune:pride"
+                ],
+                "selector": "{item|flags.system.rulesSelections.weapon}-attack",
+                "text": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfPride.Text",
+                "title": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfPride.Label",
+                "visibility": "owner"
             }
         ],
         "start": {
