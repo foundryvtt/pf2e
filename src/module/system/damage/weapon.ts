@@ -368,7 +368,6 @@ class WeaponDamagePF2e {
             const baseNumber = Number(/(\d)d\d{1,2}$/.exec(boostConfig)?.at(1)) || 1;
             const diceNumber = strikingDice > 0 ? baseNumber + strikingDice : baseNumber;
 
-            const isBoosted = options.has(`item:boosted:${weapon.id}`);
             damageDice.push(
                 new DamageDicePF2e({
                     selector: `${weapon.id}-damage`,
@@ -377,7 +376,7 @@ class WeaponDamagePF2e {
                     diceNumber: diceNumber,
                     dieSize,
                     critical: false,
-                    enabled: isBoosted,
+                    enabled: options.has(`item:boosted:${weapon.id}`),
                 }),
             );
         }

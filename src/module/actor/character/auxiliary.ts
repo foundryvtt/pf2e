@@ -162,7 +162,7 @@ class WeaponAuxiliaryAction {
             if (!updated) return;
         } else if (this.annotation === "boost") {
             const isBoosted = actor.itemTypes.effect.some(
-                (e) => e.slug === "effect-boost" && e.flags.sf2e.grantedBy?.id === weapon.id,
+                (e) => e.slug === "effect-boost" && e.flags[SYSTEM_ID].grantedBy?.id === weapon.id,
             );
             // No op if the weapon is already boosted
             if (isBoosted) return;

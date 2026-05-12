@@ -26,23 +26,23 @@
                 "choices": {
                     "ownedItems": true,
                     "predicate": [
-                    {
-                        "or": [
                         {
-                            "and": [
-                            "self:type:npc",
-                            "item:type:melee"
+                            "or": [
+                                {
+                                    "and": [
+                                        "self:type:npc",
+                                        "item:type:melee"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "self:type:character",
+                                        "item:type:weapon"
+                                    ]
+                                }
                             ]
                         },
-                        {
-                            "and": [
-                            "self:type:character",
-                            "item:type:weapon"
-                            ]
-                        }
-                        ]
-                    },
-                    "item:trait:boost"
+                        "item:trait:boost"
                     ],
                     "types": [
                         "melee",
