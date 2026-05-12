@@ -23,9 +23,44 @@
         },
         "rules": [
             {
-                "key": "RollOption",
-                "domain": "strike-damage",
-                "option": "item:weapon:boosted"
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                    {
+                        "or": [
+                        {
+                            "and": [
+                            "self:type:npc",
+                            "item:type:melee"
+                            ]
+                        },
+                        {
+                            "and": [
+                            "self:type:character",
+                            "item:type:weapon"
+                            ]
+                        }
+                        ]
+                    },
+                    "item:trait:boost"
+                    ],
+                    "types": [
+                        "melee",
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "rollOption": "item:boosted",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:npc",
+                            "self:type:character"
+                        ]
+                    }
+                ]
             }
         ],
         "start": {

@@ -9,7 +9,7 @@ import { getActionGlyph, localizeList, sluggify } from "@util";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 import { CharacterPF2e } from "./document.ts";
-import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-option/rule-element.ts";
+import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
 
 interface AuxiliaryInteractParams {
     weapon: WeaponPF2e<CharacterPF2e>;
@@ -171,13 +171,7 @@ class WeaponAuxiliaryAction {
                 const data = { ...effect.toObject(), _id: null };
                 data.flags[SYSTEM_ID] = { grantedBy: { id: weapon.id, onDelete: "cascade" } };
                 // Change rule to affect the specific weapon.
-                data.system.rules = [
-                    {
-                        key: "RollOption",
-                        domain: `${weapon.id}-damage`,
-                        option: `item:${weapon.id}:boosted`,
-                    } as RollOptionRuleElement,
-                ];
+                (data.system.rules[0] as ChoiceSetSource).selection = weapon.id;
                 data.system.description.value += `\n@UUID[Actor.${actor.id}.Item.${weapon.id}]{${weapon.name}}`;
                 await actor.createEmbeddedDocuments("Item", [data]);
             }
