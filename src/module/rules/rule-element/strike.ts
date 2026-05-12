@@ -174,7 +174,10 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
     }
 
     override beforePrepareData(): void {
-        if (!this.test()) return;
+        if (!this.test()) {
+            this.ignored = true;
+            return;
+        }
         const slug = this.slug ?? sluggify(this.label);
         this.actor.synthetics.strikes[slug] = (unarmedRunes) => this.#constructWeapon({ slug, unarmedRunes });
     }
