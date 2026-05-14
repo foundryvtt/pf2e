@@ -2,7 +2,7 @@ import type { NPCPF2e } from "@actor";
 import { CreatureSheetPF2e, type CreatureSheetData } from "@actor/creature/sheet.ts";
 import { applyActorGroupUpdate } from "@actor/helpers.ts";
 import { Modifier } from "@actor/modifiers.ts";
-import { NPCSkillsEditor } from "@actor/npc/skills-editor.ts";
+import { NPCSkillsEditor } from "@actor/npc/skills-editor/app.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup.ts";
@@ -135,7 +135,9 @@ abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
         };
 
         handlers["edit-skills"] = () => {
-            new NPCSkillsEditor(this.actor).render(true);
+            // Reuse an existing editor.
+            const existing = Object.values(this.actor.apps).find((a) => a instanceof NPCSkillsEditor);
+            return (existing ?? new NPCSkillsEditor({ actor: this.actor })).render({ force: true });
         };
 
         return handlers;

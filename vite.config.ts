@@ -1,6 +1,6 @@
 import type { CompendiumUUID } from "@client/utils/helpers.d.mts";
 import type { ConditionSource } from "@item/base/data/index.ts";
-import { svelte as sveltePlugin } from "@sveltejs/vite-plugin-svelte";
+import { svelte as sveltePlugin, vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { execSync } from "child_process";
 import esbuild from "esbuild";
 import fs from "fs-extra";
@@ -79,7 +79,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     const plugins = [
         checker({ typescript: true }),
         sveltePlugin({
-            preprocess: command === "serve" ? hmrPreprocess : undefined,
+            preprocess: command === "serve" ? [vitePreprocess(), hmrPreprocess] : vitePreprocess(),
         }),
     ];
     const packUUIDPattern = /Compendium\.pf2e\.[^\]]+/g;
@@ -297,8 +297,13 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             devSourcemap: buildMode === "development",
             preprocessorOptions: {
                 scss: {
-                    additionalData: (existing: string) => {
-                        return SYSTEM_ID === "sf2e" ? `${existing}\n@import "sf2e/index";` : existing;
+                    additionalData: (source: string, filename: string) => {
+                        // `sf2e/index` is system-specific styling, layered into the main stylesheet
+                        // entry only. Svelte components are system-agnostic and theme themselves
+                        // through CSS custom properties, so they never need it (and their <style> is
+                        // scoped, which would rewrite its selectors anyway).
+                        if (SYSTEM_ID !== "sf2e" || filename?.includes(".svelte")) return source;
+                        return `${source}\n@import "sf2e/index";`;
                     },
                 },
             },
