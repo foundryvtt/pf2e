@@ -37,9 +37,12 @@
         "quantity": 1,
         "rules": [
             {
-                "itemId": "{item|_id}",
+                "itemType": "weapon",
                 "key": "ItemAlteration",
                 "mode": "add",
+                "predicate": [
+                    "item:ammo:id:{item|_id}"
+                ],
                 "property": "traits",
                 "value": "deadly-d8"
             },
@@ -51,7 +54,7 @@
                         "not": "item:ranged-usage:trait:combination"
                     }
                 ],
-                "selector": "{item|id}-damage"
+                "selector": "{item|_id}-damage"
             },
             {
                 "key": "FlatModifier",
