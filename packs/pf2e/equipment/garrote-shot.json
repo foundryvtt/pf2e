@@ -42,7 +42,12 @@
                 "diceNumber": 2,
                 "dieSize": "d12",
                 "key": "DamageDice",
-                "selector": "{item|id}-ranged-damage"
+                "predicate": [
+                    {
+                        "not": "item:ranged-usage:trait:combination"
+                    }
+                ],
+                "selector": "{item|id}-damage"
             }
         ],
         "size": "med",

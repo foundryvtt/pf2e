@@ -40,14 +40,24 @@
                 "damageCategory": "persistent",
                 "damageType": "acid",
                 "key": "FlatModifier",
-                "selector": "{item|id}-ranged-damage",
+                "predicate": [
+                    {
+                        "not": "item:ranged-usage:trait:combination"
+                    }
+                ],
+                "selector": "{item|id}-damage",
                 "value": 1
             },
             {
                 "damageCategory": "splash",
                 "damageType": "acid",
                 "key": "FlatModifier",
-                "selector": "{item|id}-ranged-damage",
+                "predicate": [
+                    {
+                        "not": "item:ranged-usage:trait:combination"
+                    }
+                ],
+                "selector": "{item|id}-damage",
                 "value": 1
             }
         ],

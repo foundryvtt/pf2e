@@ -42,11 +42,21 @@
                 "override": {
                     "damageType": "acid"
                 },
-                "selector": "{item|id}-ranged-damage"
+                "predicate": [
+                    {
+                        "not": "item:ranged-usage:trait:combination"
+                    }
+                ],
+                "selector": "{item|id}-damage"
             },
             {
                 "key": "Note",
-                "selector": "{item|id}-ranged-damage",
+                "predicate": [
+                    {
+                        "not": "item:ranged-usage:trait:combination"
+                    }
+                ],
+                "selector": "{item|id}-damage",
                 "text": "PF2E.AmmunitionNotes.OozeAmmunition.Greater.Text",
                 "title": "PF2E.AmmunitionNotes.OozeAmmunition.Greater.Title"
             },
@@ -55,7 +65,12 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "selector": "{item|id}-ranged-damage",
+                "predicate": [
+                    {
+                        "not": "item:ranged-usage:trait:combination"
+                    }
+                ],
+                "selector": "{item|id}-damage",
                 "text": "PF2E.AmmunitionNotes.OozeAmmunition.CriticalHitText",
                 "title": "PF2E.AmmunitionNotes.OozeAmmunition.Greater.Title"
             }

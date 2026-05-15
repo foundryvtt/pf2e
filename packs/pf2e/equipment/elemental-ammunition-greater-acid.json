@@ -42,13 +42,23 @@
                 "diceNumber": 3,
                 "dieSize": "d4",
                 "key": "DamageDice",
-                "selector": "{item|id}-ranged-damage"
+                "predicate": [
+                    {
+                        "not": "item:ranged-usage:trait:combination"
+                    }
+                ],
+                "selector": "{item|id}-damage"
             },
             {
                 "damageCategory": "splash",
                 "damageType": "acid",
                 "key": "FlatModifier",
-                "selector": "{item|id}-ranged-damage",
+                "predicate": [
+                    {
+                        "not": "item:ranged-usage:trait:combination"
+                    }
+                ],
+                "selector": "{item|id}-damage",
                 "value": 3
             }
         ],

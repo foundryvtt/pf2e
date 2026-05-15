@@ -43,7 +43,12 @@
                 "outcome": [
                     "success"
                 ],
-                "selector": "{item|id}-ranged-damage",
+                "predicate": [
+                    {
+                        "not": "item:ranged-usage:trait:combination"
+                    }
+                ],
+                "selector": "{item|id}-damage",
                 "text": "PF2E.AmmunitionNotes.AntlerArrow.Text",
                 "title": "PF2E.AmmunitionNotes.AntlerArrow.Title"
             },
@@ -52,7 +57,12 @@
                 "outcome": [
                     "success"
                 ],
-                "selector": "{item|id}-ranged-damage",
+                "predicate": [
+                    {
+                        "not": "item:ranged-usage:trait:combination"
+                    }
+                ],
+                "selector": "{item|id}-damage",
                 "text": "PF2E.Item.Weapon.CriticalSpecialization.bow",
                 "title": "PF2E.Actor.Creature.CriticalSpecialization"
             },
@@ -64,9 +74,12 @@
                 "predicate": [
                     {
                         "not": "critical-specialization"
+                    },
+                    {
+                        "not": "item:ranged-usage:trait:combination"
                     }
                 ],
-                "selector": "{item|id}-ranged-damage",
+                "selector": "{item|id}-damage",
                 "text": "PF2E.AmmunitionNotes.AntlerArrow.Text",
                 "title": "PF2E.AmmunitionNotes.AntlerArrow.Title"
             },
@@ -78,9 +91,12 @@
                 "predicate": [
                     {
                         "not": "critical-specialization"
+                    },
+                    {
+                        "not": "item:ranged-usage:trait:combination"
                     }
                 ],
-                "selector": "{item|id}-ranged-damage",
+                "selector": "{item|id}-damage",
                 "text": "PF2E.Item.Weapon.CriticalSpecialization.bow",
                 "title": "PF2E.Actor.Creature.CriticalSpecialization"
             },
@@ -90,9 +106,12 @@
                     "criticalSuccess"
                 ],
                 "predicate": [
-                    "critical-specialization"
+                    "critical-specialization",
+                    {
+                        "not": "item:ranged-usage:trait:combination"
+                    }
                 ],
-                "selector": "{item|id}-ranged-damage",
+                "selector": "{item|id}-damage",
                 "text": "PF2E.AmmunitionNotes.AntlerArrow.CriticalText",
                 "title": "PF2E.AmmunitionNotes.AntlerArrow.Title"
             }

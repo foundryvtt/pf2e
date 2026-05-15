@@ -46,7 +46,12 @@
             {
                 "diceNumber": 4,
                 "key": "DamageDice",
-                "selector": "{item|id}-ranged-damage"
+                "predicate": [
+                    {
+                        "not": "item:ranged-usage:trait:combination"
+                    }
+                ],
+                "selector": "{item|id}-damage"
             },
             {
                 "key": "FlatModifier",
