@@ -71,7 +71,7 @@ import {
 } from "./data.ts";
 import type { CharacterPF2e } from "./document.ts";
 import { ElementalBlast, ElementalBlastConfig } from "./elemental-blast.ts";
-import type { FeatBrowserFilterProps, FeatGroup, FeatSlot } from "./feats/index.ts";
+import type { FeatBrowserFilterProps, FeatGroup } from "./feats/index.ts";
 import { getItemProficiencyRank } from "./helpers.ts";
 import { PCSheetTabManager } from "./tab-manager.ts";
 import { CHARACTER_SHEET_TABS } from "./values.ts";
@@ -84,28 +84,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     /** Non-persisted tweaks to formula data */
     #formulaQuantities: Record<string, number> = {};
-
-    /** Nested feat rows for sheet UI from `flags.pf2e.itemGrants` (same rules as `FeatGroup.#getChildSlots`). */
-    #getNestedSlots(granter: ItemPF2e): FeatSlot<FeatPF2e<TActor>>[] {
-        const itemGrants = (granter.flags?.[SYSTEM_ID]?.itemGrants ?? {}) as Record<
-            string,
-            { id?: string; nested?: boolean }
-        >;
-
-        return Object.values(itemGrants)
-            .filter((g) => (g?.nested ?? null) !== false)
-            .map((g) => (typeof g?.id === "string" && g.id.length > 0 ? (this.actor.items.get(g.id) ?? null) : null))
-            .filter((i): i is FeatPF2e<TActor> => !!i && i.isOfType("feat"))
-            .map(
-                (grant): FeatSlot<FeatPF2e<TActor>> => ({
-                    id: grant.id,
-                    label: null,
-                    level: null,
-                    feat: grant,
-                    children: this.#getNestedSlots(grant),
-                }),
-            );
-    }
 
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
@@ -311,23 +289,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.hasStamina = game.pf2e.settings.variants.stamina;
         sheetData.actions = this.#prepareAbilities();
 
-        const featGroups: FeatGroup[] = [...actor.feats, actor.feats.bonus];
-        const ancestryFeatures = featGroups.find((g) => g.id === "ancestryfeature");
-        // Add the heritage to the ancestry features if it is not already present
-        if (actor.heritage && ancestryFeatures) {
-            const alreadyPresent = ancestryFeatures.feats.some((f) => f.feat?.id === actor.heritage?.id);
-            if (!alreadyPresent) {
-                const heritageRow: FeatSlot<HeritagePF2e<TActor>> = {
-                    id: "heritage",
-                    label: null,
-                    level: null,
-                    feat: actor.heritage,
-                    children: this.#getNestedSlots(actor.heritage),
-                };
-                ancestryFeatures.feats.unshift(heritageRow as FeatGroup<TActor>["feats"][number]);
-            }
-        }
-        sheetData.feats = featGroups;
+        sheetData.feats = [...actor.feats, actor.feats.bonus];
 
         sheetData.crafting = await this.#prepareCrafting();
 

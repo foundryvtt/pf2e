@@ -121,21 +121,36 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
         return true;
     }
 
-    #getChildSlots(feat: Maybe<ItemPF2e>): FeatSlot<FeatPF2e<ActorPF2e> | HeritagePF2e<ActorPF2e>>[] {
-        if (!feat?.isOfType("feat")) return [];
-        const grantsById = R.mapKeys(feat.flags[SYSTEM_ID].itemGrants, (_, g) => g.id);
+    #getChildSlots(granter: Maybe<ItemPF2e>): FeatSlot<FeatPF2e<TActor> | HeritagePF2e<TActor>>[] {
+        if (!granter) return [];
+        const rawGrants = granter.flags[SYSTEM_ID]?.itemGrants ?? {};
+        const grantsById = R.mapKeys(rawGrants, (_, g) => g.id) as Record<string, { nested?: boolean }>;
 
-        return feat.grants
-            .filter((g) => grantsById[g.id]?.nested !== false)
-            .map((grant): FeatSlot<FeatPF2e<ActorPF2e> | HeritagePF2e<ActorPF2e>> => {
-                return {
-                    id: grant.id,
-                    label: null,
-                    level: grant.system.level?.taken ?? null,
-                    feat: grant,
-                    children: this.#getChildSlots(grant),
-                };
-            });
+        const grants: (FeatPF2e<TActor> | HeritagePF2e<TActor>)[] = [];
+        const grantIds = granter.isOfType("feat")
+            ? granter.grants.map((g) => g.id)
+            : granter.isOfType("heritage")
+              ? Object.values(rawGrants)
+                    .filter(
+                        (g) => R.isPlainObject(g) && (g.nested ?? null) !== false && typeof g.id === "string",
+                    )
+                    .map((g) => g.id)
+              : [];
+
+        for (const grantId of grantIds) {
+            if (grantsById[grantId]?.nested === false) continue;
+            const item = this.actor.items.get(grantId);
+            if (item?.isOfType("feat")) grants.push(item);
+            else if (item?.isOfType("heritage")) grants.push(item);
+        }
+
+        return grants.map((grant): FeatSlot<FeatPF2e<TActor> | HeritagePF2e<TActor>> => ({
+            id: grant.id,
+            label: null,
+            level: grant.isOfType("feat") ? (grant.system.level?.taken ?? null) : null,
+            feat: grant,
+            children: this.#getChildSlots(grant),
+        }));
     }
 
     /** Returns true if this feat is a valid type for the group */

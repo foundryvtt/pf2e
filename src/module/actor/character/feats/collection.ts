@@ -1,9 +1,9 @@
 import type { CharacterPF2e } from "@actor";
-import type { FeatPF2e, ItemPF2e } from "@item";
+import type { FeatPF2e, HeritagePF2e, ItemPF2e } from "@item";
 import { sluggify } from "@util";
 import * as R from "remeda";
 import { FeatGroup } from "./group.ts";
-import { FeatGroupData, FeatSlotData } from "./types.ts";
+import type { FeatGroupData, FeatSlot, FeatSlotData } from "./types.ts";
 
 class CharacterFeats<TActor extends CharacterPF2e> extends Collection<string, FeatGroup<TActor>> {
     /** Feats belonging no actual group ("bonus feats" in rules text) */
@@ -262,6 +262,58 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<string, Fe
         for (const group of this) {
             group.postProcess();
         }
+
+        this.#prependHeritageToAncestryFeatures();
+    }
+
+    #nestedGrantSlotsFromItemGrants(granter: ItemPF2e<TActor>): FeatSlot<FeatPF2e<TActor>>[] {
+        const rawGrants = granter.flags[SYSTEM_ID]?.itemGrants ?? {};
+        const grantsById = R.mapKeys(rawGrants, (_, g) => g.id) as Record<string, { nested?: boolean }>;
+
+        const grantFeats: FeatPF2e<TActor>[] = granter.isOfType("feat")
+            ? granter.grants.filter(
+                  (g): g is FeatPF2e<TActor> => g.isOfType("feat") && grantsById[g.id]?.nested !== false,
+              )
+            : Object.values(rawGrants)
+                  .filter((g) => R.isPlainObject(g) && (g.nested ?? null) !== false && typeof g.id === "string")
+                  .map((g) => this.actor.items.get(g.id))
+                  .filter((i): i is FeatPF2e<TActor> => !!i && i.isOfType("feat"));
+
+        return grantFeats.map(
+            (grant): FeatSlot<FeatPF2e<TActor>> => ({
+                id: grant.id,
+                label: null,
+                level: null,
+                feat: grant,
+                children: this.#nestedGrantSlotsFromItemGrants(grant),
+            }),
+        );
+    }
+
+    #prependHeritageToAncestryFeatures(): void {
+        const group = this.get("ancestryfeature");
+        if (!group) return;
+
+        const isGrantedByFeat = (heritage: HeritagePF2e<TActor>): boolean =>
+            heritage.grantedBy?.isOfType("feat") ?? false;
+
+        const primary = this.actor.heritage;
+        const others = this.actor.itemTypes.heritage
+            .filter((h) => !primary || h.id !== primary.id)
+            .filter((h) => !isGrantedByFeat(h))
+            .sort((a, b) => a.sort - b.sort);
+
+        const heritageSlots = [primary, ...others].filter(R.isTruthy).map((heritage) => {
+            const slot: FeatSlot<HeritagePF2e<TActor>> = {
+                id: heritage.id,
+                label: null,
+                level: null,
+                feat: heritage,
+                children: this.#nestedGrantSlotsFromItemGrants(heritage),
+            };
+            return slot as FeatGroup<TActor>["feats"][number];
+        });
+        group.feats.unshift(...heritageSlots);
     }
 }
 
