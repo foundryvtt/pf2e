@@ -131,9 +131,7 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
             ? granter.grants.map((g) => g.id)
             : granter.isOfType("heritage")
               ? Object.values(rawGrants)
-                    .filter(
-                        (g) => R.isPlainObject(g) && (g.nested ?? null) !== false && typeof g.id === "string",
-                    )
+                    .filter((g) => R.isPlainObject(g) && (g.nested ?? null) !== false && typeof g.id === "string")
                     .map((g) => g.id)
               : [];
 
@@ -144,13 +142,15 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
             else if (item?.isOfType("heritage")) grants.push(item);
         }
 
-        return grants.map((grant): FeatSlot<FeatPF2e<TActor> | HeritagePF2e<TActor>> => ({
-            id: grant.id,
-            label: null,
-            level: grant.isOfType("feat") ? (grant.system.level?.taken ?? null) : null,
-            feat: grant,
-            children: this.#getChildSlots(grant),
-        }));
+        return grants.map(
+            (grant): FeatSlot<FeatPF2e<TActor> | HeritagePF2e<TActor>> => ({
+                id: grant.id,
+                label: null,
+                level: grant.isOfType("feat") ? (grant.system.level?.taken ?? null) : null,
+                feat: grant,
+                children: this.#getChildSlots(grant),
+            }),
+        );
     }
 
     /** Returns true if this feat is a valid type for the group */

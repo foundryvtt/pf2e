@@ -288,7 +288,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.pf2e.settings.variants.stamina;
         sheetData.actions = this.#prepareAbilities();
-
         sheetData.feats = [...actor.feats, actor.feats.bonus];
 
         sheetData.crafting = await this.#prepareCrafting();
