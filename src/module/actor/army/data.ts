@@ -33,8 +33,8 @@ class ArmySystemData extends ActorSystemModel<ArmyPF2e, ArmySystemSchema> {
                     required: true,
                     nullable: false,
                     integer: true,
-                    initial: (d: DeepPartial<ArmySystemSource>) =>
-                        getLevelDefault(ARMY_STATS.ac, d.details?.level?.value),
+                    initial: (d?: DeepPartial<ArmySystemSource>) =>
+                        getLevelDefault(ARMY_STATS.ac, d?.details?.level?.value),
                 }),
                 potency: new fields.NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
             }),
@@ -62,8 +62,8 @@ class ArmySystemData extends ActorSystemModel<ArmyPF2e, ArmySystemSchema> {
                 required: true,
                 nullable: false,
                 integer: true,
-                initial: (d: DeepPartial<ArmySystemSource>) =>
-                    getLevelDefault(ARMY_STATS.scouting, d.details?.level?.value),
+                initial: (d?: DeepPartial<ArmySystemSource>) =>
+                    getLevelDefault(ARMY_STATS.scouting, d?.details?.level?.value),
             }),
             recruitmentDC: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 15 }),
             saves: new fields.SchemaField({
@@ -71,15 +71,15 @@ class ArmySystemData extends ActorSystemModel<ArmyPF2e, ArmySystemSchema> {
                     required: true,
                     nullable: false,
                     integer: true,
-                    initial: (d: DeepPartial<ArmySystemSource>) =>
-                        getLevelDefault(ARMY_STATS.strongSave, d.details?.level?.value),
+                    initial: (d?: DeepPartial<ArmySystemSource>) =>
+                        getLevelDefault(ARMY_STATS.strongSave, d?.details?.level?.value),
                 }),
                 morale: new fields.NumberField({
                     required: true,
                     nullable: false,
                     integer: true,
-                    initial: (d: DeepPartial<ArmySystemSource>) =>
-                        getLevelDefault(ARMY_STATS.weakSave, d.details?.level?.value),
+                    initial: (d?: DeepPartial<ArmySystemSource>) =>
+                        getLevelDefault(ARMY_STATS.weakSave, d?.details?.level?.value),
                 }),
             }),
             weapons: new fields.SchemaField({
