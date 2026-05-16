@@ -41,24 +41,14 @@
                 "diceNumber": 2,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": [
-                    {
-                        "not": "item:ranged-usage:trait:combination"
-                    }
-                ],
-                "selector": "{item|_id}-damage"
+                "selector": "{item|id}-ranged-damage"
             },
             {
                 "key": "Note",
                 "outcome": [
                     "success"
                 ],
-                "predicate": [
-                    {
-                        "not": "item:ranged-usage:trait:combination"
-                    }
-                ],
-                "selector": "{item|_id}-damage",
+                "selector": "{item|id}-ranged-damage",
                 "text": "PF2E.SpecificRule.Equipment.RhinoShot.Success",
                 "title": "PF2E.SpecificRule.Equipment.RhinoShot.Label"
             },
@@ -67,12 +57,7 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "predicate": [
-                    {
-                        "not": "item:ranged-usage:trait:combination"
-                    }
-                ],
-                "selector": "{item|_id}-damage",
+                "selector": "{item|id}-ranged-damage",
                 "text": "PF2E.SpecificRule.Equipment.RhinoShot.CriticalSuccess",
                 "title": "PF2E.SpecificRule.Equipment.RhinoShot.Label"
             }

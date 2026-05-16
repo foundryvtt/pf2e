@@ -391,6 +391,7 @@ function getAttackDamageDomains(
     const unarmedOrWeapon = traits.includes("unarmed") ? "unarmed" : "weapon";
     const domains = [
         `${weapon.id}-damage`,
+        `${weapon.id}-${meleeOrRanged}-damage`,
         `${slug}-damage`,
         `${meleeOrRanged}-${action}-damage`,
         `${meleeOrRanged}-damage`,
