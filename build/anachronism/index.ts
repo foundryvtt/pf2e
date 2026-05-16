@@ -4,6 +4,7 @@ import { LANGUAGES_BY_RARITY } from "@actor/creature/values.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { ancestryTraits, classTraits } from "@scripts/config/traits.ts";
+import { SPELL_CONSUMABLES_BY_SYSTEM } from "@scripts/config/spell-consumables.ts";
 import { objectHasKey, recursiveReplaceString, sluggify } from "@util/misc.ts";
 import fs from "fs";
 import path from "path";
@@ -48,9 +49,13 @@ console.log(`Building Modules: ${contentSystems.map((c) => `${c}-anachronism`)}`
 /** Root module file contents of anachronism. This should be moved to a file somewhere. */
 const moduleSourceContents = String.raw`
 import UUID_REDIRECTS from "./uuid-redirects.json" with { type: "json" };
+import SPELL_CONSUMABLES from "./spell-consumables.json" with { type: "json" };
 for (const [from, to] of Object.entries(UUID_REDIRECTS)) {
     CONFIG.compendium.uuidRedirects[from] = to;
 }
+Hooks.once("init", () => {
+    Object.assign(CONFIG.PF2E.spellcastingItems, SPELL_CONSUMABLES);
+});
 `;
 
 console.log("Starting build, loading compendiums for both systems");
@@ -320,6 +325,14 @@ for (const contentSystem of contentSystems) {
     await fs.promises.writeFile(
         path.join(outDir, "uuid-redirects.json"),
         JSON.stringify(uuidRedirects, null, 4),
+        "utf8",
+    );
+
+    // Expose the bundled spell consumable items via CONFIG.PF2E.spellcastingItems so users can craft from spells.
+    const spellConsumables = recursiveReplaceString(SPELL_CONSUMABLES_BY_SYSTEM[contentSystem], remapUuid);
+    await fs.promises.writeFile(
+        path.join(outDir, "spell-consumables.json"),
+        JSON.stringify(spellConsumables, null, 4),
         "utf8",
     );
 
