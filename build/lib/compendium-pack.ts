@@ -3,6 +3,7 @@ import type { CompendiumActorUUID, CompendiumItemUUID, ItemUUID } from "@client/
 import type { CompendiumDocumentType } from "@client/utils/_module.d.mts";
 import type { ImageFilePath } from "@common/constants.d.mts";
 import type { DocumentStatsData, DocumentStatsSchema, SourceFromSchema } from "@common/data/fields.d.mts";
+import type { JournalEntrySource } from "@common/documents/journal-entry.d.mts";
 import type { ItemSourcePF2e, MeleeSource } from "@item/base/data/index.ts";
 import { FEAT_OR_FEATURE_CATEGORIES } from "@item/feat/values.ts";
 import { itemIsOfType } from "@item/helpers.ts";
@@ -390,8 +391,14 @@ class CompendiumPack {
             if (remap) CompendiumPack.convertUUIDs(docSource, { to: "ids", map: CompendiumPack.#namesToIds.Item });
             docSource._stats.compendiumSource = this.#sourceIdOf(docSource._id ?? "", { docType: "Item" });
         } else if ("pages" in docSource) {
-            for (const page of docSource.pages) {
+            const journal = docSource as JournalEntrySource;
+            for (const page of journal.pages) {
                 page._stats = { ...partialStats };
+            }
+            if (Array.isArray(journal.categories)) {
+                for (const category of journal.categories) {
+                    if (R.isPlainObject(category)) category._stats = { ...partialStats };
+                }
             }
         }
 
