@@ -12,6 +12,7 @@ import type { AbilityTrait, ActionCategory } from "@item/ability/types.ts";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import type { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellcastingItemCreator } from "@item/consumable/apps/spellcasting-item-creator/app.ts";
+import { spellConsumableCategoriesFor } from "@item/consumable/spell-consumables.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { Coins, sizeItemForActor, transferCredits } from "@item/physical/helpers.ts";
@@ -1206,6 +1207,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             if (item.isRitual) {
                 return this._onDropItemCreate(item.clone().toObject());
             } else if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
+                // Skip if the current system has no spell-consumable category that fits this spell
+                if (Object.keys(spellConsumableCategoriesFor(item)).length === 0) return [];
                 new SpellcastingItemCreator({ actor, spell: item, mystified }).render({ force: true });
                 return [item];
             } else {

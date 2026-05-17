@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { CANTRIP_DECK_UUID } from "@item/consumable/spell-consumables.ts";
+    import { spellConsumableCategoriesFor } from "@item/consumable/spell-consumables.ts";
     import { localizer, objectHasKey, ordinalString } from "@util";
     import { UUIDUtils } from "@util/uuid.ts";
     import * as R from "remeda";
@@ -14,11 +14,7 @@
     const itemTypeData = $derived(
         objectHasKey(CONFIG.PF2E.spellcastingItems, type) ? CONFIG.PF2E.spellcastingItems[type] : null,
     );
-    const itemTypeOptions = $derived(
-        isCantrip
-            ? { cantripDeck5: localize("CantripDeck5") }
-            : R.mapValues(CONFIG.PF2E.spellcastingItems, (c) => _loc(c.name)),
-    );
+    const itemTypeOptions = $derived(R.mapValues(spellConsumableCategoriesFor({ isCantrip }), (c) => _loc(c.name)));
     const compendiumUuids: Record<number, string | null> | null = $derived(itemTypeData?.compendiumUuids ?? null);
     const ranks = $derived(
         Object.keys(compendiumUuids ?? {})
@@ -26,7 +22,7 @@
             .filter((r) => r >= minimumRank && !!compendiumUuids?.[r]),
     );
     const noValidRanks = $derived(!isCantrip && ranks.length === 0);
-    const resolvedItem = $derived(type === "cantripDeck5" ? CANTRIP_DECK_UUID : compendiumUuids?.[Number(rank)]);
+    const resolvedItem = $derived(itemTypeData?.cantripsOnly ? compendiumUuids?.[1] : compendiumUuids?.[Number(rank)]);
 
     async function viewItem(selection: unknown) {
         if (!UUIDUtils.isItemUUID(selection)) return;
@@ -54,7 +50,7 @@
         ></button>
     </div>
 </div>
-{#if type !== "cantripDeck5"}
+{#if !itemTypeData?.cantripsOnly}
     <div class="form-group">
         <label for={`${foundryApp.id}.rank`}>{_loc("PF2E.Item.Spell.Rank.Label")}</label>
         <div class="form-fields">

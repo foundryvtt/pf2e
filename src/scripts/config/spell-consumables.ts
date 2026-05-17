@@ -6,11 +6,14 @@ interface SpellConsumableCategory {
     name: string;
     nameTemplate: string;
     compendiumUuids: SpellRankUuids;
+    /** If true, only offered when the spell is a cantrip, and the spell isn't embedded into the created item. */
+    cantripsOnly?: boolean;
 }
 
 type Pf2eSpellConsumables = {
     scroll: SpellConsumableCategory;
     wand: SpellConsumableCategory;
+    cantripDeck5: SpellConsumableCategory;
 };
 type Sf2eSpellConsumables = {
     "spell-gem": SpellConsumableCategory;
@@ -57,6 +60,23 @@ const SPELL_CONSUMABLES_BY_SYSTEM: Record<SystemId, SpellConsumableEntries> = {
                 9: "Compendium.pf2e.equipment-srd.Item.Fgv722039TVM5JTc",
                 10: null,
             },
+        },
+        cantripDeck5: {
+            name: "PF2E.SpellcastingItemCreator.CantripDeck5",
+            nameTemplate: "PF2E.Item.Physical.FromSpell.CantripDeck5",
+            compendiumUuids: {
+                1: "Compendium.pf2e.equipment-srd.Item.tLa4bewBhyqzi6Ow",
+                2: null,
+                3: null,
+                4: null,
+                5: null,
+                6: null,
+                7: null,
+                8: null,
+                9: null,
+                10: null,
+            },
+            cantripsOnly: true,
         },
     },
     sf2e: {
