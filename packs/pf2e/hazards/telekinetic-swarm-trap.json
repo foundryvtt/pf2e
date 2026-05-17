@@ -65,7 +65,39 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "PF2E.HazardAbility.TelekineticSwarmTrap.ObjectsDamage.Label",
+                        "option": "objects-damage",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.HazardAbility.TelekineticSwarmTrap.ObjectsDamage.Two",
+                                "value": "2"
+                            },
+                            {
+                                "label": "PF2E.HazardAbility.TelekineticSwarmTrap.ObjectsDamage.Three",
+                                "value": "3"
+                            },
+                            {
+                                "label": "PF2E.HazardAbility.TelekineticSwarmTrap.ObjectsDamage.Four",
+                                "value": "4"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "upgrade",
+                        "property": "dice-number",
+                        "selectors": [
+                            "{item|id}-damage"
+                        ],
+                        "value": "@item.flags.system.rulesSelections.objectsDamage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -123,7 +155,7 @@
             },
             "will": {
                 "saveDetail": "",
-                "value": 0
+                "value": null
             }
         },
         "statusEffects": [],
@@ -134,7 +166,8 @@
             },
             "value": [
                 "magical",
-                "mechanical"
+                "mechanical",
+                "trap"
             ]
         }
     },
