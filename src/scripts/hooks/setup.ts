@@ -20,12 +20,17 @@ export const Setup = {
 
             // Forced panning is intrinsically annoying: change default to false
             game.settings.settings.get("core.chatBubblesPan").default = false;
+
             // Skipping defeated combatants is broadly desirable
             game.settings.settings.get("core.combatTrackerConfig").default.skipDefeated = true;
+
             // Bronze ring is more pf2e-y
-            game.settings.settings.get("core.dynamicTokenRing").default = "coreBronze";
+            const defaultRing = SYSTEM_ID === "pf2e" ? "coreBronze" : "coreSteel";
+            game.settings.settings.get("core.dynamicTokenRing").default = defaultRing;
+
             // Use grid fit mode to allow for informative small-size scaling
             game.settings.settings.get("core.dynamicTokenRingFitMode").default = "grid";
+
             // PF2E has no directional facing rules, and top-down tokens are rare
             game.settings.settings.get("core.tokenAutoRotate").default = false;
         });
