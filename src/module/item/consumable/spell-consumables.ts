@@ -4,6 +4,8 @@ import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { traditionSkills } from "@item/spellcasting-entry/trick.ts";
 import { DCOptions, calculateDC } from "@module/dc.ts";
+import type { OneToTen } from "@module/data.ts";
+import type { SpellRankUuids } from "@scripts/config/spell-consumables.ts";
 import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
 import * as R from "remeda";
 
@@ -25,14 +27,14 @@ async function createConsumableFromSpell(
         rank = spell.baseRank,
         mystified = false,
     }: {
-        type: string;
-        rank?: number;
+        type: SpellConsumableItemType;
+        rank?: OneToTen;
         mystified?: boolean;
     },
 ): Promise<ConsumableSource> {
     const data = objectHasKey(CONFIG.PF2E.spellcastingItems, type) ? CONFIG.PF2E.spellcastingItems[type] : null;
-    const uuids: Record<number, string | null | undefined> = data?.compendiumUuids ?? [];
-    const uuid = uuids?.[rank] ?? (type === "cantripDeck5" ? CANTRIP_DECK_UUID : null);
+    const uuids: Partial<SpellRankUuids> = data?.compendiumUuids ?? {};
+    const uuid = uuids[rank] ?? (type === "cantripDeck5" ? CANTRIP_DECK_UUID : null);
     const consumable = uuid ? await fromUuid<ItemPF2e>(uuid) : null;
     if (!consumable?.isOfType("consumable")) {
         throw ErrorPF2e("Failed to retrieve consumable item");

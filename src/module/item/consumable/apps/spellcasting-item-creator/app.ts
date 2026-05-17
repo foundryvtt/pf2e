@@ -1,7 +1,9 @@
 import { ActorPF2e } from "@actor";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { SpellPF2e } from "@item/spell/document.ts";
+import type { OneToTen } from "@module/data.ts";
 import { SvelteApplicationMixin, SvelteApplicationRenderContext } from "@module/sheet/mixin.svelte.ts";
+import { ErrorPF2e, objectHasKey } from "@util";
 import Root from "./app.svelte";
 import fapi = foundry.applications.api;
 
@@ -62,9 +64,15 @@ class SpellcastingItemCreator extends SvelteApplicationMixin(fapi.ApplicationV2)
         _form: HTMLFormElement,
         formData: fa.ux.FormDataExtended,
     ) {
+        const type = String(formData.object.type);
+        if (!objectHasKey(CONFIG.PF2E.spellcastingItems, type)) {
+            throw ErrorPF2e(`Invalid spell consumable type: ${type}`);
+        }
+        const rawRank = Number(formData.object.rank);
+        const rank = rawRank.between(1, 10) ? (rawRank as OneToTen) : undefined;
         const item = await createConsumableFromSpell(this.#spell, {
-            type: String(formData.object.type),
-            rank: Number(formData.object.rank),
+            type,
+            rank,
             mystified: !!formData.object.mystified,
         });
         this.#actor.inventory.add(item, { stack: true });

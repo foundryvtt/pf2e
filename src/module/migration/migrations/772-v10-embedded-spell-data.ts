@@ -1,5 +1,6 @@
 import { ItemSourcePF2e, SpellSource } from "@item/base/data/index.ts";
 import { SpellSystemSource } from "@item/spell/data.ts";
+import type { OneToTen } from "@module/data.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Push back embedded spell property one object-nesting level */
@@ -13,13 +14,21 @@ export class Migration772V10EmbeddedSpellData extends MigrationBase {
                 source.system.spell = embeddedSpell.data;
                 source.system.spell.system = embeddedSpell.data.data;
                 source.system.spell.system.location.heightenedLevel =
-                    Number(embeddedSpell.data.heightenedLevel) || source.system.spell.system.level.value;
+                    (Math.clamp(
+                        Number(embeddedSpell.data.heightenedLevel) || source.system.spell.system.level.value,
+                        1,
+                        10,
+                    ) as OneToTen) || undefined;
                 embeddedSpell.data["-=data"] = null;
                 delete embeddedSpell.data.data;
             } else if (embeddedSpell.data?.system) {
                 source.system.spell = embeddedSpell.data;
                 source.system.spell.system.location.heightenedLevel =
-                    Number(embeddedSpell.data.heightenedLevel) || source.system.spell.system.level.value;
+                    (Math.clamp(
+                        Number(embeddedSpell.data.heightenedLevel) || source.system.spell.system.level.value,
+                        1,
+                        10,
+                    ) as OneToTen) || undefined;
             } else if (embeddedSpell.data === null) {
                 source.system.spell = null;
             }

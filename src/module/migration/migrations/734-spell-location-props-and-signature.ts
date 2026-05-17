@@ -48,7 +48,10 @@ export class Migration734SpellLocationPropsAndSignature extends MigrationBase {
             if (data.heightenedLevel || data.autoHeightenLevel) {
                 // These fields should only exist if there's an actor
                 if (actor) {
-                    data.location.heightenedLevel = data.heightenedLevel?.value ?? undefined;
+                    const heightenedLevel = data.heightenedLevel?.value;
+                    data.location.heightenedLevel = heightenedLevel
+                        ? (Math.clamp(heightenedLevel, 1, 10) as OneToTen)
+                        : undefined;
                     data.location.autoHeightenLevel = data.autoHeightenLevel?.value ?? undefined;
                 }
 
