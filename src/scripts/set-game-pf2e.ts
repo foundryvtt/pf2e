@@ -4,7 +4,7 @@ import { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import { CheckModifier, Modifier, StatisticModifier } from "@actor/modifiers.ts";
 import { Coins, generateItemName } from "@item/physical/helpers.ts";
 import { checkPrompt } from "@module/apps/check-prompt-generator.ts";
-import { CompendiumBrowser } from "@module/apps/compendium-browser/browser.ts";
+import { CompendiumBrowser } from "@module/apps/compendium-browser/browser.svelte.ts";
 import { EffectsPanel } from "@module/apps/effects-panel.ts";
 import { WorldClock } from "@module/apps/world-clock/index.ts";
 import { StatusEffects } from "@module/canvas/status-effects.ts";

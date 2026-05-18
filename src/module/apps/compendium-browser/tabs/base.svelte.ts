@@ -4,7 +4,7 @@ import { Predicate, type PredicateStatement } from "@system/predication.ts";
 import { ErrorPF2e, htmlQuery, sluggify } from "@util";
 import MiniSearch from "minisearch";
 import * as R from "remeda";
-import { CompendiumBrowser, CompendiumBrowserOpenTabOptions } from "../browser.ts";
+import { CompendiumBrowser, CompendiumBrowserOpenTabOptions } from "../browser.svelte.ts";
 import { BrowserTabs, ContentTabName } from "../data.ts";
 import type {
     BrowserFilter,

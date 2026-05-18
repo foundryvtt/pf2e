@@ -21,7 +21,7 @@ import { KitSystemData } from "@item/kit/data.ts";
 import { MeleeSystemData } from "@item/melee/data.ts";
 import { TreasureSystemData } from "@item/treasure/data.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
-import { TradeDialog } from "@module/apps/trade-dialog/app.ts";
+import { TradeDialog } from "@module/apps/trade-dialog/app.svelte.ts";
 import { DoorControlPF2e } from "@module/canvas/door-control.ts";
 import { EnvironmentCanvasGroupPF2e } from "@module/canvas/group/environment.ts";
 import {

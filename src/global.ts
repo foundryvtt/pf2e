@@ -23,7 +23,7 @@ import type {
     CompendiumBrowser,
     CompendiumBrowserSettings,
     CompendiumBrowserSources,
-} from "@module/apps/compendium-browser/browser.ts";
+} from "@module/apps/compendium-browser/browser.svelte.ts";
 import type { EffectsPanel } from "@module/apps/effects-panel.ts";
 import type {
     ActorDirectoryPF2e,

@@ -18,9 +18,11 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     /** The amount of rendered result items for initial loading and per load operation */
     static RESULT_LIMIT = 100;
 
-    declare protected $state: CompendiumBrowserState;
+    protected root = App;
 
-    root = App;
+    /** Live UI state. openTab and other external callers mutate it. */
+    activeTabName: ContentTabName | "" = $state("");
+    resultList: HTMLUListElement = $state(document.createElement("ul"));
 
     activeTab: BrowserTab;
     dataTabsList = ["action", "bestiary", "campaignFeature", "equipment", "feat", "hazard", "spell"] as const;
@@ -118,12 +120,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
     }
 
     protected override async _prepareContext(_options: fa.ApplicationRenderOptions): Promise<CompendiumBrowserContext> {
-        return {
-            state: {
-                activeTabName: "",
-                resultList: document.createElement("ul"), // This is required to make the value bindable
-            },
-        };
+        return { foundryApp: this };
     }
 
     #setVisibleTabs(visible?: ContentTabName[]): void {
@@ -138,7 +135,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
 
     resetListElement(): void {
         untrack(() => (this.activeTab.resultLimit = CompendiumBrowser.RESULT_LIMIT));
-        this.$state.resultList?.scrollTo({ top: 0, behavior: "instant" });
+        this.resultList?.scrollTo({ top: 0, behavior: "instant" });
     }
 
     async openTab(tabName: TabName, options?: CompendiumBrowserOpenTabOptions): Promise<void> {
@@ -177,7 +174,7 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         } else {
             this.#setVisibleTabs();
         }
-        this.$state.activeTabName = tabName;
+        this.activeTabName = tabName;
 
         this.bringToFront();
     }
@@ -327,19 +324,12 @@ class CompendiumBrowser extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 await tab.init(true);
             }
         }
-        this.$state.activeTabName = "";
+        this.activeTabName = "";
     }
 }
 
 interface CompendiumBrowserContext extends SvelteApplicationRenderContext {
-    state: CompendiumBrowserState;
-}
-
-interface CompendiumBrowserState {
-    /** Changing this will trigger a tab rerender. An empty string will show the landing page */
-    activeTabName: ContentTabName | "";
-    /** The result list HTML element */
-    resultList: HTMLUListElement;
+    foundryApp: CompendiumBrowser;
 }
 
 type CompendiumBrowserSettings = TabData<Record<string, PackInfo | undefined>>;
@@ -367,5 +357,4 @@ export type {
     CompendiumBrowserOpenTabOptions,
     CompendiumBrowserSettings,
     CompendiumBrowserSources,
-    CompendiumBrowserState,
 };

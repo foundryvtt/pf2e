@@ -2,7 +2,7 @@ import type { CompendiumDocument } from "@client/documents/_module.d.mts";
 import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
 import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
 import { localizer, sluggify } from "@util";
-import type { CompendiumBrowserSources } from "./browser.ts";
+import type { CompendiumBrowserSources } from "./browser.svelte.ts";
 
 class PackLoader {
     loadedSources: string[] = [];

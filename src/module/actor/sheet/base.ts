@@ -17,7 +17,7 @@ import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { Coins, sizeItemForActor, transferCredits } from "@item/physical/helpers.ts";
 import { COIN_DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
-import { TradeDialog } from "@module/apps/trade-dialog/app.ts";
+import { TradeDialog } from "@module/apps/trade-dialog/app.svelte.ts";
 import { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
 import {

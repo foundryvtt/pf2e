@@ -31,10 +31,16 @@ interface ABCItemRef {
     hidden: boolean;
 }
 
+interface ABCPickerState {
+    prompt: string;
+    itemType: AhBCDType;
+    items: ABCItemRef[];
+}
+
 interface ABCPickerContext extends SvelteApplicationRenderContext {
     actor: CharacterPF2e;
     foundryApp: ABCPicker;
-    state: { prompt: string; itemType: AhBCDType; items: ABCItemRef[] };
+    state: ABCPickerState;
 }
 
 /** A `Compendium`-like application for presenting A(H)BCD options for a character */
@@ -142,4 +148,5 @@ class ABCPicker extends SvelteApplicationMixin<
     }
 }
 
-export { ABCPicker, type ABCPickerContext };
+export { ABCPicker };
+export type { ABCPickerContext, ABCPickerState };
