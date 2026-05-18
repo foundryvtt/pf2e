@@ -89,10 +89,7 @@ class ArmorSpecializationRuleElement extends RuleElement<ArmorSpecializationRule
     }
 
     #getPotencyBonus(armor: ArmorPF2e): number {
-        const formula =
-            SYSTEM_ID === "sf2e"
-                ? "@armor.system.traits.config.resilient"
-                : "@armor.system.runes.potency";
+        const formula = SYSTEM_ID === "sf2e" ? "@armor.system.traits.config.resilient" : "@armor.system.runes.potency";
         return Math.floor(Number(this.resolveValue(formula, 0, { resolvables: { armor } })));
     }
 }
