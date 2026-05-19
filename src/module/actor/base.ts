@@ -1297,7 +1297,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 return hitPoints.value === hitPoints.max ? `${locPrefix}.AtFullHealth` : `${locPrefix}.HealedForN`;
             }
             if (!hitPoints.max || finalDamage - damageAbsorbedByActor === 0) {
-                return persistentCreated ? null : `${locPrefix}.TakesNoDamage`;
+                return `${locPrefix}.TakesNoDamage`;
             }
             return damageAbsorbedByShield > 0
                 ? damageResult.totalApplied > 0
