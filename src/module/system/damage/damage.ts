@@ -273,10 +273,11 @@ export class DamagePF2e {
                 .filter((s) => s.total > 0);
             const rolls: RollJSON[] = [];
             for (const splash of splashInstances) {
-                const formula = `(${splash.total}[splash])[${splash.damageType}]`;
-                const roll = await new DamageRoll(formula).evaluate();
-                roll.options.splashOnly = true;
-                rolls.push(roll.toJSON());
+                const flavor = [splash.damageType, ...roll.materials].join(",");
+                const formula = `(${splash.total}[splash])[${flavor}]`;
+                const splashRoll = await new DamageRoll(formula).evaluate();
+                splashRoll.options.splashOnly = true;
+                rolls.push(splashRoll.toJSON());
             }
 
             return rolls;
