@@ -235,7 +235,7 @@
             }
 
             .sub-list .header {
-                border-bottom: 1px solid var(--color-underline-header);
+                border-bottom: 1px solid var(--color-scrollbar);
                 font-size: var(--font-size-18);
             }
         }
