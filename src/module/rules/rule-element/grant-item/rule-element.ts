@@ -267,9 +267,19 @@ class GrantItemRuleElement extends RuleElement<GrantItemSchema> {
         return noAction;
     }
 
-    /** Add an in-memory-only condition to the actor */
+    /**
+     * Add an in-memory-only condition to the actor.
+     * Predicated grants are deferred to `beforePrepareData` so predicates can use roll options and actor
+     * data that are not available until after the apply-AEs phase (e.g. skill ranks on PCs).
+     */
     override onApplyActiveEffects(): void {
-        if (!this.invalid) {
+        if (!this.invalid && this.inMemoryOnly && this.predicate.length === 0) {
+            this.#createInMemoryCondition();
+        }
+    }
+
+    override beforePrepareData(): void {
+        if (!this.invalid && this.inMemoryOnly && this.predicate.length > 0) {
             this.#createInMemoryCondition();
         }
     }
