@@ -1291,13 +1291,23 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             persistentDamage.length ? await this.createEmbeddedDocuments("Item", persistentDamage) : []
         ) as ConditionPF2e<this>[];
 
+        const persistentDamages = result.persistent
+            .map((instance) =>
+                instance.type === "bleed"
+                    ? `${instance.head.expression} bleed`
+                    : `${instance.head.expression} persistent ${instance.type} damage`,
+            )
+            .join(", ");
+        const persistentOnly =
+            persistentCreated.length > 0 && (!hitPoints.max || finalDamage - damageAbsorbedByActor === 0);
+
         // Send chat message
         const hpStatement = ((): string | null => {
             if (isHealing) {
                 return hitPoints.value === hitPoints.max ? `${locPrefix}.AtFullHealth` : `${locPrefix}.HealedForN`;
             }
             if (!hitPoints.max || finalDamage - damageAbsorbedByActor === 0) {
-                return persistentCreated.length ? `${locPrefix}.StartsTakingDamage` : `${locPrefix}.TakesNoDamage`;
+                return persistentOnly ? `${locPrefix}.StartsTakingDamage` : `${locPrefix}.TakesNoDamage`;
             }
             return damageAbsorbedByShield > 0
                 ? damageResult.totalApplied > 0
@@ -1324,6 +1334,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 .map((s) =>
                     _loc(s, {
                         actor: token.name.replace(/[<>]/g, ""),
+                        persistentDamages: persistentDamages,
                         hpDamage: Math.abs(damageResult.totalApplied),
                         absorbedDamage: damageAbsorbedByShield,
                         shieldDamage,
@@ -1347,7 +1358,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             {
                 breakdown,
                 statements,
-                persistent: persistentCreated.map((p) => p.system.persistent?.damage.formula).filter(R.isDefined),
+                persistent: persistentOnly
+                    ? []
+                    : persistentCreated.map((p) => p.system.persistent?.damage.formula).filter(R.isDefined),
                 iwr: {
                     applications: result.applications,
                     visibility: this.hasPlayerOwner ? "all" : "gm",
