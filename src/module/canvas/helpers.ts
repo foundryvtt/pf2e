@@ -202,6 +202,10 @@ function shapeDataFromEffectArea(
         }
         case "line":
             return { type: "line", length: distance, width: canvas.dimensions.size, x, y };
+        case "ring": {
+            const width = Math.floor(canvas.dimensions.size * 0.5);
+            return { type: "ring", radius: distance, innerWidth: width, outerWidth: width, x, y };
+        }
     }
 }
 

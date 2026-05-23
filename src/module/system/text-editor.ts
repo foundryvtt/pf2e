@@ -318,7 +318,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         const iconClass = (() => {
             switch (params.type) {
                 case "burst":
-                    return "fa-solid fa-circle";
+                    return "fa-solid fa-burst";
                 case "cone":
                     return "fa-solid fa-circle-quarter fa-flip-horizontal";
                 case "cube":
@@ -326,9 +326,11 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
                 case "cylinder":
                     return "fa-duotone fa-database";
                 case "emanation":
-                    return "fa-solid fa-dot-circle";
+                    return "fa-solid fa-circle";
                 case "line":
                     return "fa-solid fa-horizontal-rule";
+                case "ring":
+                    return "fa-solid fa-dot-circle";
                 case "square":
                     return "fa-solid fa-square";
                 default:
