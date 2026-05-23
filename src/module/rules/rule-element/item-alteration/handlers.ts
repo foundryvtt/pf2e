@@ -1100,6 +1100,16 @@ const ITEM_ALTERATION_HANDLERS = {
                 if (data.alteration.mode === "add") {
                     addOrUpgradeTrait(data.item.system.traits, newValue);
 
+                    // Only adjust range on the primary weapon usage. Thrown alt-usage clones from
+                    // `toThrownUsage` are late-prepped with the same id and must keep their range.
+                    if (data.item instanceof WeaponPF2e && !data.item.altUsageType) {
+                        if (resolvedTrait === "thrown") {
+                            data.item.system.range ??= 10;
+                        } else if (/^thrown-\d{1,3}$/.test(resolvedTrait)) {
+                            data.item.system.range = null;
+                        }
+                    }
+
                     // Add specific hardcoded handling for modular. Assume BPS if no value given
                     // todo: add support for modular configs in the annotation property.
                     if (data.item instanceof Item && data.item.isOfType("weapon", "melee") && newValue === "modular") {
