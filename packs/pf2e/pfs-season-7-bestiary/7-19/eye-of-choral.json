@@ -433,7 +433,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "strike-attack-roll",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -455,7 +466,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Eye breathes a blast of flame that deals @Damage[7d6[fire]|options:area-damage] damage in a @Template[type:cone|distance:40] (@Check[reflex|dc:23|basic] save). Creatures that critically fail their save catch fire, taking @Damage[1d6[persistent,fire]|options:area-damage] damage. The area then fills with black smoke for 1 minute. This has the effects of mist, except it fills the cone's area. The Eye can't use Pyre Breath again for [[/gmr 1d4 #Recharge Pyre Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The Eye breathes a blast of flame that deals @Damage[7d6[fire]|options:area-damage] damage in a @Template[type:cone|distance:40] (@Check[reflex|dc:23|basic|options:area-effect] save). Creatures that critically fail their save catch fire, taking @Damage[1d6[persistent,fire]|options:area-damage] damage. The area then fills with black smoke for 1 minute. This has the effects of mist, except it fills the cone's area. The Eye can't use Pyre Breath again for [[/gmr 1d4 #Recharge Pyre Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
