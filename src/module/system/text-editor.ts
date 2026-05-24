@@ -464,7 +464,13 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         // statistic
         const statistic = (params["statistic"] || params["stat"] || params["skill"])?.trim();
 
-        if ((dc && showDC) || statistic) {
+        // "false" or "never" to never show
+        const showStatisticOverride = (params["show-statistic"] || params["show-stat"] || params["show-skill"])
+            ?.trim()
+            .toLowerCase();
+        const showStatistic = statistic && !(showStatisticOverride === "false" || showStatisticOverride === "never");
+
+        if ((dc && showDC) || showStatistic) {
             element.appendChild(document.createTextNode(" "));
 
             const details = document.createElement("span");
@@ -472,7 +478,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
                 if (!Number.isNumeric(dc)) {
                     // (Statistic vs Defense DC)
                     const defense = _loc(`PF2E.Check.DC.Specific.${dc}`);
-                    const text = statistic
+                    const text = showStatistic
                         ? _loc("PF2E.InlineAction.Check.StatisticVsDefense", {
                               defense,
                               statistic: ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic,
@@ -485,7 +491,9 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
                         dataset: { visibility },
                         children: [_loc("PF2E.InlineAction.Check.DC", { dc })],
                     });
-                    const end = statistic ? ` ${ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic})` : ")";
+                    const end = showStatistic
+                        ? ` ${ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic})`
+                        : ")";
                     details.append("(", span, end);
                 } else {
                     // <span data-visibility="...">(DC #)</span>
@@ -493,7 +501,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
                     details.innerText = `(${_loc("PF2E.InlineAction.Check.DC", { dc })})`;
                 }
             } else {
-                // (Statistic)
+                // (showStatistic)
                 const text = ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic;
                 details.innerText = `(${text})`;
             }
