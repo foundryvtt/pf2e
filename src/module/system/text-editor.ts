@@ -439,6 +439,7 @@ class TextEditorPF2e extends foundry.applications.ux.TextEditor {
         };
         for (const [alias, value] of Object.entries(params)) {
             const key = aliases[alias] ?? alias;
+            if (["show-statistic", "show-stat", "show-skill"].includes(key)) continue;
             const attribute = sluggify(`pf2-${key}`, { camel: "dromedary" });
             element.dataset[attribute] = value;
         }
