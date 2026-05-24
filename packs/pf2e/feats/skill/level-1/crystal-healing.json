@@ -12,7 +12,7 @@
         },
         "category": "skill",
         "description": {
-            "value": "<p>You know how to stimulate a body's natural healing abilities through the application of resonant crystals. Doing so requires you to use at least two semiprecious stones with a total value of 5 gp or more in place of a healer's toolkit, which allows you to attempt to [[/act treat-disease]] or [[/act treat-poison]] using Occultism rather than Medicine.</p>\n<p>If you're an expert in Occultism and you use gems whose total value equals or exceeds 50 gp, you gain a +1 item bonus to your Occultism check. If you're a master and the gems' value equals or exceeds 700 gp, the item bonus increases to +2; if you're legendary in Occultism and the gems' value equals or exceeds 15,000 gp, the item bonus increases to +3.</p>"
+            "value": "<p>You know how to stimulate a body's natural healing abilities through the application of resonant crystals. Doing so requires you to use at least two semiprecious stones with a total value of 5 gp or more in place of a healer's toolkit, which allows you to attempt to [[/act treat-disease skill=occultism]] or [[/act treat-poison skill=occultism]] using Occultism rather than Medicine.</p>\n<p>If you're an expert in Occultism and you use gems whose total value equals or exceeds 50 gp, you gain a +1 item bonus to your Occultism check. If you're a master and the gems' value equals or exceeds 700 gp, the item bonus increases to +2; if you're legendary in Occultism and the gems' value equals or exceeds 15,000 gp, the item bonus increases to +3.</p>"
         },
         "level": {
             "value": 1
@@ -29,7 +29,67 @@
             "remaster": true,
             "title": "Pathfinder Dark Archive (Remastered)"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "crystal-healing",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:occultism:rank",
+                            2
+                        ]
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusOne",
+                        "value": "1"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusTwo",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:occultism:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "2"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusThree",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:occultism:rank",
+                                    4
+                                ]
+                            }
+                        ],
+                        "value": "3"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "crystal-healing",
+                    {
+                        "or": [
+                            "action:treat-disease",
+                            "action:treat-poison"
+                        ]
+                    }
+                ],
+                "selector": "occultism",
+                "type": "item",
+                "value": "{item|flags.system.rulesSelections.crystalHealing}"
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [
