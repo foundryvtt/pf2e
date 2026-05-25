@@ -3,10 +3,13 @@
     "img": "icons/weapons/thrown/grenade-round.webp",
     "name": "Spellsap Grenade (Greater)",
     "system": {
-        "ammo": null,
-        "baseItem": null,
+        "ammo": {
+            "baseType": null,
+            "builtIn": false
+        },
+        "baseItem": "alchemical-bomb",
         "bonus": {
-            "value": 0
+            "value": 3
         },
         "bonusDamage": {
             "value": 0
@@ -14,19 +17,19 @@
         "bulk": {
             "value": 0.1
         },
-        "category": "simple",
+        "category": "martial",
         "containerId": null,
         "damage": {
             "damageType": "slashing",
-            "dice": 1,
-            "die": "d6"
+            "dice": 4,
+            "die": "d4"
         },
         "description": {
-            "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Strike</p>\n<hr />\n<p>The mixture of reagents, liquid djezet, and solid metal shrapnel inside this grenade explodes on contact with air. A <em>spellsap grenade</em> deals@Damage[4d4[slashing]] damage and @Damage[4[splash]] damage. You gain a +3 item bonus to attack rolls. On a hit against a prepared or spontaneous spellcaster, the target must succeed at a @Check[will|dc:38] or lose one prepared spell or one spontaneous spell slot. The spell is randomly selected from among the caster's highest three spell ranks (and then from among the spells prepared in that rank, for a prepared spellcaster).</p>"
+            "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Strike</p><hr /><p>The mixture of reagents, liquid djezet, and solid metal shrapnel inside this grenade explodes on contact with air. A <em>spellsap grenade</em> deals 4d4 slashing damage and 4 slashing splash damage. You gain a +3 item bonus to attack rolls. On a hit against a prepared or spontaneous spellcaster, the target must succeed at a @Check[will|dc:38|showDC:all] saving throw or lose one prepared spell or one spontaneous spell slot. The spell is randomly selected from among the caster's highest three spell ranks (and then from among the spells prepared in that rank, for a prepared spellcaster).</p>"
         },
-        "expend": null,
+        "expend": 1,
         "grade": null,
-        "group": null,
+        "group": "bomb",
         "hardness": 0,
         "hp": {
             "max": 0,
@@ -50,9 +53,9 @@
             "title": "Pathfinder Rage of Elements"
         },
         "quantity": 1,
-        "range": null,
+        "range": 20,
         "reload": {
-            "value": null
+            "value": "-"
         },
         "rules": [],
         "runes": {
@@ -62,7 +65,7 @@
         },
         "size": "med",
         "splashDamage": {
-            "value": 0
+            "value": 4
         },
         "traits": {
             "rarity": "rare",
@@ -73,6 +76,7 @@
             ]
         },
         "usage": {
+            "canBeAmmo": false,
             "value": "held-in-one-hand"
         }
     },
