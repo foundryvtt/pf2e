@@ -144,7 +144,7 @@
                 aria-label={self.accepted ? localize("Acceptance.Rescind") : localize("Acceptance.Accept")}
                 onclick={toggleAccepted}
             >
-                <i class="fa-solid fa-{self.accepted ? 'check' : 'xmark'}"></i>
+                <i class="fa-solid fa-check"></i>
             </button>
         </header>
         <div class="flexrow search">
