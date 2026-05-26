@@ -25,60 +25,49 @@
             {
                 "choices": [
                     {
-                        "label": "Bat",
+                        "label": "PF2E.BattleForm.AerialForm.Bat",
                         "value": "bat"
                     },
                     {
-                        "label": "Bird",
+                        "label": "PF2E.BattleForm.AerialForm.Bird",
                         "value": "bird"
                     },
                     {
-                        "label": "Pterosaur",
+                        "label": "PF2E.BattleForm.AerialForm.Pterosaur",
                         "predicate": [
+                            {
+                                "not": "self:effect:untamed-form"
+                            }
+                        ],
+                        "value": "pterosaur"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.AerialForm.Pterosaur",
+                        "predicate": [
+                            "self:effect:untamed-form",
                             "feat:ferocious-shape"
                         ],
                         "value": "pterosaur"
                     },
                     {
-                        "label": "Wasp",
+                        "label": "PF2E.BattleForm.AerialForm.Wasp",
                         "predicate": [
+                            {
+                                "not": "self:effect:untamed-form"
+                            }
+                        ],
+                        "value": "wasp"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.AerialForm.Wasp",
+                        "predicate": [
+                            "self:effect:untamed-form",
                             "feat:insect-shape"
                         ],
                         "value": "wasp"
                     }
                 ],
                 "key": "ChoiceSet",
-                "predicate": [
-                    "feat:untamed-form"
-                ],
-                "prompt": "PF2E.SpecificRule.Prompt.Form",
-                "rollOption": "aerial-form-untamed"
-            },
-            {
-                "choices": [
-                    {
-                        "label": "Bat",
-                        "value": "bat"
-                    },
-                    {
-                        "label": "Bird",
-                        "value": "bird"
-                    },
-                    {
-                        "label": "Pterosaur",
-                        "value": "pterosaur"
-                    },
-                    {
-                        "label": "Wasp",
-                        "value": "wasp"
-                    }
-                ],
-                "key": "ChoiceSet",
-                "predicate": [
-                    {
-                        "not": "feat:untamed-form"
-                    }
-                ],
                 "prompt": "PF2E.SpecificRule.Prompt.Form",
                 "rollOption": "aerial-form"
             },
