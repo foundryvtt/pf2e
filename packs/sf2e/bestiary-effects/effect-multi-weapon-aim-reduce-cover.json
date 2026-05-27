@@ -1,0 +1,52 @@
+{
+    "_id": "cRv8Hd1LmNp4QsWt",
+    "img": "systems/sf2e/icons/abilities/orange-target-sign.webp",
+    "name": "Effect: Multi-Weapon Aim (Reduce Cover)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.bestiary-effects.Item.Effect: Multi-Weapon Aim] via Ephemeral Effect</p>\n<p>Your circumstance bonus from cover is reduced.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "subtract",
+                "selector": "ac",
+                "slug": "cover",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "selector": "ac",
+                "slug": "cover",
+                "value": 0
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
