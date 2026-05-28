@@ -4,7 +4,7 @@
     "name": "Effect: Multi-Weapon Aim",
     "system": {
         "description": {
-            "value": "<p>Granted by Multi-Weapon Aim</p>\n<p>Your ranged Strikes against your mark using any ranged weapon that doesn't have the area trait deal an additional 2d4 precision damage and reduce the circumstance bonus to AC your mark gains from cover by 1.</p>"
+            "value": "<p>Your ranged Strikes against your mark using any ranged weapon that doesn't have the area trait deal an additional 2d4 precision damage and reduce the circumstance bonus to AC your mark gains from cover by 1.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -17,9 +17,9 @@
             "value": 5
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": ""
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Society Scenario #1-24: Final Gambit: Part One"
         },
         "rules": [
             {
@@ -33,23 +33,23 @@
                 "key": "DamageDice",
                 "predicate": [
                     "target:mark:multi-weapon-aim",
-                    "item:ranged",
                     {
                         "not": "item:trait:area"
                     }
                 ],
-                "selector": "strike-damage"
+                "selector": "ranged-strike-damage"
             },
             {
                 "key": "EphemeralEffect",
                 "predicate": [
-                    "self:mark:multi-weapon-aim",
-                    "item:ranged",
+                    "target:mark:multi-weapon-aim",
                     {
                         "not": "item:trait:area"
                     }
                 ],
-                "selectors": "strike-attack-roll",
+                "selectors": [
+                    "ranged-strike-attack-roll"
+                ]
                 "uuid": "Compendium.sf2e.bestiary-effects.Item.Effect: Multi-Weapon Aim (Reduce Cover)"
             }
         ],
