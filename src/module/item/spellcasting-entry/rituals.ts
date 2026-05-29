@@ -60,6 +60,7 @@ export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellca
 
     async cast(spell: SpellPF2e, options: CastOptions = {}): Promise<void> {
         if (!spell.isRitual) throw ErrorPF2e("Attempted to cast non-ritual from `RitualSpellcasting`");
+        Hooks.callAll("pf2e.castSpell", spell, this, { ...options, castRank: spell.rank });
         await spell.toMessage(undefined, { mode: options.messageMode });
     }
 

@@ -264,6 +264,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         if (message && valid) {
             spell.system.location.value ??= this.id;
             const castRank = spell.computeCastRank(rank);
+            Hooks.callAll("pf2e.castSpell", spell, this, { ...options, castRank });
             await spell.toMessage(null, { mode: options.messageMode, data: { castRank } });
         }
     }

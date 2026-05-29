@@ -143,6 +143,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
         if (message === false) return;
 
         spell = spell.loadVariant({ entryId: this.id }) ?? spell;
+        Hooks.callAll("pf2e.castSpell", spell, this, { ...options, castRank });
         await spell.toMessage(null, { mode: messageMode, data: { castRank } });
     }
 
