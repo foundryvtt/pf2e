@@ -230,6 +230,9 @@ export default class RegionLayer<TObject extends Region = Region> extends Placea
 
     protected override _onDragLeftMove(event: PlaceablesLayerPointerEvent<TObject>): void;
 
+    /** Update the drag preview. Called when the shape has changed. */
+    protected _updateDragPreview(event: PlaceablesLayerPointerEvent<TObject>): void;
+
     protected override _onDragLeftDrop(event: PlaceablesLayerPointerEvent<TObject>): void;
 
     protected override _onDragLeftCancel(event: PlaceablesLayerPointerEvent<TObject>): void;
