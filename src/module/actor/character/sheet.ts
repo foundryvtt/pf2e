@@ -557,7 +557,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const toggleButton = htmlQuery(html, ":scope > .search > .advanced-toggle");
         if (!toggleButton) return;
         const f = this.#spellFilters;
-        const count = f.ranks.size + f.traditions.size + f.actionCosts.size + f.saves.size + f.damageTypes.size + f.concentration.size;
+        const count =
+            f.ranks.size +
+            f.traditions.size +
+            f.actionCosts.size +
+            f.saves.size +
+            f.damageTypes.size +
+            f.concentration.size;
         toggleButton.classList.toggle("has-active", count > 0);
         toggleButton.dataset.activeCount = String(count);
         if (count > 0) {
