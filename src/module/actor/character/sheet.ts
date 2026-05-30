@@ -107,14 +107,14 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         actionCosts: Set<string>;
         saves: Set<string>;
         damageTypes: Set<string>;
-        concentration: Set<"yes" | "no">;
+        sustained: Set<"yes" | "no">;
     } = {
         ranks: new Set(),
         traditions: new Set(),
         actionCosts: new Set(),
         saves: new Set(),
         damageTypes: new Set(),
-        concentration: new Set(),
+        sustained: new Set(),
     };
 
     static override get defaultOptions(): ActorSheetOptions {
@@ -539,11 +539,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 const types = new Set(Object.values(spell?.system.damage ?? {}).map((d) => d.type));
                 if (![...filters.damageTypes].some((t) => types.has(t as never))) hide = true;
             }
-            if (!hide && filters.concentration.size > 0) {
+            if (!hide && filters.sustained.size > 0) {
                 const spell = spellsById[itemId];
                 const sustained = !!spell?.system.duration?.sustained;
                 const bucket = sustained ? "yes" : "no";
-                if (!filters.concentration.has(bucket)) hide = true;
+                if (!filters.sustained.has(bucket)) hide = true;
             }
 
             row.hidden = hide;
@@ -563,7 +563,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             f.actionCosts.size +
             f.saves.size +
             f.damageTypes.size +
-            f.concentration.size;
+            f.sustained.size;
         toggleButton.classList.toggle("has-active", count > 0);
         toggleButton.dataset.activeCount = String(count);
         if (count > 0) {
@@ -1001,10 +1001,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 } else if (dim === "damageType") {
                     if (checkbox.checked) this.#spellFilters.damageTypes.add(checkbox.value);
                     else this.#spellFilters.damageTypes.delete(checkbox.value);
-                } else if (dim === "concentration") {
+                } else if (dim === "sustained") {
                     const v = checkbox.value as "yes" | "no";
-                    if (checkbox.checked) this.#spellFilters.concentration.add(v);
-                    else this.#spellFilters.concentration.delete(v);
+                    if (checkbox.checked) this.#spellFilters.sustained.add(v);
+                    else this.#spellFilters.sustained.delete(v);
                 }
                 this.#applySpellFilter(tab);
             });
@@ -1017,7 +1017,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             this.#spellFilters.actionCosts.clear();
             this.#spellFilters.saves.clear();
             this.#spellFilters.damageTypes.clear();
-            this.#spellFilters.concentration.clear();
+            this.#spellFilters.sustained.clear();
             for (const cb of htmlQueryAll<HTMLInputElement>(filtersSection, "input[type=checkbox][data-filter]")) {
                 cb.checked = false;
             }
