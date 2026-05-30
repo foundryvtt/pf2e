@@ -5,6 +5,10 @@
         <a data-tab="activations" data-group="spell-collections">{{localize "PF2E.Actor.Character.Spellcasting.Tab.Activations"}}</a>
     </nav>
 
+    <div class="search">
+        <input type="search" spellcheck="false" placeholder="{{localize "PF2E.Actor.Character.Spellcasting.Search"}}" />
+    </div>
+
     <div class="spell-collections" data-panels>
         {{#if toggles.spellcasting}}{{> (resolvePath "templates/actors/partials/toggles.hbs") toggles=toggles.spellcasting}}{{/if}}
 
