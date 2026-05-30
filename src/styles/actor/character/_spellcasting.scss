@@ -10,8 +10,9 @@
     > .search {
         align-items: center;
         display: flex;
-        position: relative;
+        gap: var(--space-4);
         padding: var(--space-10) var(--space-8) 0;
+        position: relative;
 
         &::before {
             content: "\f002";
@@ -22,7 +23,7 @@
             left: 1rem;
         }
 
-        input {
+        input[type="search"] {
             border: 1px solid var(--color-pf-alternate);
             background-color: rgba(28, 28, 28, 0.1);
             padding-left: 1.75rem;
@@ -35,17 +36,108 @@
         a.toggle-slot-headers {
             color: var(--color-pf-alternate);
             flex: 0 0 auto;
-            margin-left: var(--space-6);
 
             &:hover,
             &.active {
                 color: var(--color-pf-primary);
             }
         }
+
+        button.advanced-toggle {
+            background: none;
+            border: 1px solid var(--color-pf-alternate);
+            border-radius: var(--space-2);
+            height: 1.625rem;
+            width: 1.625rem;
+            padding: 0;
+            cursor: pointer;
+            color: var(--input-text-color);
+            position: relative;
+
+            &.active {
+                background-color: var(--color-pf-alternate);
+                color: var(--color-light-1);
+            }
+
+            &.has-active::after {
+                content: attr(data-active-count);
+                position: absolute;
+                top: -0.35rem;
+                right: -0.35rem;
+                background: var(--color-warning);
+                color: var(--color-light-1);
+                border-radius: 50%;
+                min-width: 1rem;
+                height: 1rem;
+                font-size: var(--font-size-10);
+                font-weight: 700;
+                line-height: 1rem;
+                padding: 0 var(--space-2);
+                text-align: center;
+            }
+        }
     }
 
     &.hide-slot-headers .header-row {
         display: none;
+    }
+
+    > .spell-filters {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: var(--space-6) var(--space-12);
+        padding: var(--space-6) var(--space-8);
+        border-bottom: 1px solid var(--color-pf-alternate);
+
+        .filter-group {
+            min-width: 0;
+
+            h4 {
+                margin: 0 0 var(--space-2);
+                font: 600 var(--font-size-12) var(--sans-serif);
+                text-transform: uppercase;
+                color: var(--color-text-dark-2);
+            }
+
+            .chips {
+                display: flex;
+                flex-wrap: wrap;
+                gap: var(--space-4);
+            }
+
+            label.chip {
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: var(--space-2);
+                border: 1px solid var(--color-pf-alternate);
+                border-radius: var(--space-2);
+                padding: var(--space-2) var(--space-6);
+                font-size: var(--font-size-12);
+                background-color: rgba(28, 28, 28, 0.05);
+                user-select: none;
+
+                input[type="checkbox"] {
+                    display: none;
+                }
+
+                &:has(input:checked) {
+                    background-color: var(--color-pf-alternate);
+                    color: var(--color-light-1);
+                }
+            }
+        }
+
+        button.clear-filters {
+            grid-column: 1 / -1;
+            justify-self: end;
+            background: none;
+            border: 1px solid var(--color-pf-alternate);
+            border-radius: var(--space-2);
+            padding: var(--space-2) var(--space-6);
+            cursor: pointer;
+            font-size: var(--font-size-12);
+        }
     }
 
     .spell-collections {
