@@ -822,31 +822,19 @@
                 "dieSize": "d4",
                 "key": "DamageDice",
                 "predicate": [
-                    "insect-form:centipede"
+                    {
+                        "or": [
+                            "insect-form:centipede",
+                            "insect-form:scorpion",
+                            "insect-form:spider"
+                        ]
+                    }
                 ],
-                "selector": "mandibles-damage"
-            },
-            {
-                "category": "persistent",
-                "damageType": "poison",
-                "diceNumber": "ternary(gte(@item.level, 5), 2, 1)",
-                "dieSize": "d4",
-                "key": "DamageDice",
-                "predicate": [
-                    "insect-form:scorpion"
-                ],
-                "selector": "stinger-damage"
-            },
-            {
-                "category": "persistent",
-                "damageType": "poison",
-                "diceNumber": "ternary(gte(@item.level, 5), 2, 1)",
-                "dieSize": "d4",
-                "key": "DamageDice",
-                "predicate": [
-                    "insect-form:spider"
-                ],
-                "selector": "fangs-damage"
+                "selector": [
+                    "mandibles-damage",
+                    "stinger-damage",
+                    "fangs-damage"
+                ]
             },
             {
                 "key": "Note",
