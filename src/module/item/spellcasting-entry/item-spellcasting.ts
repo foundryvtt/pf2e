@@ -87,6 +87,7 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Sp
     }
 
     async cast(spell: SpellPF2e, options: CastOptions = {}): Promise<void> {
+        if (Hooks.call("pf2e.preCastSpell", spell, this, options) === false) return;
         const message = options.message ?? true;
         if (message && this.canCast(spell, { origin: spell.parentItem })) {
             spell.system.location.value = this.id;

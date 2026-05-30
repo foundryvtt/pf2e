@@ -257,6 +257,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
 
     /** Cast the given spell as if it was part of this spellcasting entry. */
     async cast(spell: SpellPF2e<ActorPF2e>, options: CastOptions = {}): Promise<void> {
+        if (Hooks.call("pf2e.preCastSpell", spell, this, options) === false) return;
         const consume = options.consume ?? true;
         const message = options.message ?? true;
         const rank = options.rank ?? spell.rank;

@@ -138,6 +138,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
     }
 
     async cast(spell: SpellPF2e, options: CastOptions = {}): Promise<void> {
+        if (Hooks.call("pf2e.preCastSpell", spell, this, options) === false) return;
         const { messageMode, message } = options;
         const castRank = spell.computeCastRank(spell.rank);
         if (message === false) return;
