@@ -11,10 +11,8 @@ export class Migration900ClassSpellcastingProficiency extends MigrationBase {
     /** Remove persisted spellcasting proficiency */
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type === "character" && source.system.proficiencies) {
-            const proficiencies: { attacks?: object; "-=spellcasting"?: null } = source.system.proficiencies;
-            if ("spellcasting" in proficiencies) {
-                proficiencies["-=spellcasting"] = null;
-            }
+            const proficiencies = source.system.proficiencies;
+            if ("spellcasting" in proficiencies) proficiencies.spellcasting = _del;
         }
     }
 

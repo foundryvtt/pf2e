@@ -20,13 +20,10 @@ export class Migration909RefineConsumableData extends MigrationBase {
         if (source.type !== "consumable") return;
 
         const system: MaybeWithOldSystemData = source.system;
-
         const autoDestroy = R.isPlainObject(system.autoDestroy)
             ? !!system.autoDestroy.value
             : (system.uses?.autoDestroy ?? true);
-        if ("autoDestroy" in system) {
-            system["-=autoDestroy"] = null;
-        }
+        if ("autoDestroy" in system) system.autoDestroy = _del;
 
         if ("charges" in system) {
             if (R.isPlainObject(system.charges)) {
@@ -38,7 +35,7 @@ export class Migration909RefineConsumableData extends MigrationBase {
                     system.uses.max = 1;
                 }
             }
-            system["-=charges"] = null;
+            system.charges = _del;
         }
 
         if ("consumableType" in system) {
@@ -46,7 +43,7 @@ export class Migration909RefineConsumableData extends MigrationBase {
                 const category = system.consumableType.value === "tool" ? "toolkit" : system.consumableType.value;
                 system.category = setHasElement(CONSUMABLE_CATEGORIES, category) ? category : "other";
             }
-            system["-=consumableType"] = null;
+            system.consumableType = null;
         }
         // Data correction
         if (system.slug === "fang-snare") system.category = "snare";
@@ -65,7 +62,7 @@ export class Migration909RefineConsumableData extends MigrationBase {
                         : "healing";
                 system.damage = formula === null || type === null ? null : { formula, kind, type };
             }
-            system["-=consume"] = null;
+            system.consume = _del;
         }
         if (!DAMAGE_OR_HEALING_CONSUMABLE_CATEGORIES.has(system.category)) {
             system.damage = null;
@@ -83,10 +80,6 @@ export class Migration909RefineConsumableData extends MigrationBase {
     }
 }
 
-type MaybeWithOldSystemData = Omit<ConsumableSystemSource, "autoDestroy"> & {
+interface MaybeWithOldSystemData extends ConsumableSystemSource {
     autoDestroy?: unknown;
-    "-=autoDestroy"?: null;
-    "-=charges"?: null;
-    "-=consumableType"?: null;
-    "-=consume"?: null;
-};
+}

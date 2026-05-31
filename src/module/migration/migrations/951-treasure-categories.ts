@@ -1,3 +1,4 @@
+import type { ForcedDeletion } from "@common/data/operators.d.mts";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { TreasureSystemSource } from "@item/treasure/data.ts";
 import type { PublicationData } from "@module/data.ts";
@@ -22,8 +23,7 @@ export class Migration951TreasureCategories extends MigrationBase {
         if (system.category && system.publication.title === "Pathfinder Gamemastery Guide") {
             this.#setPublication(system.publication, "Pathfinder GM Core");
         }
-        delete system.stackGroup;
-        source["==system"] = system;
+        system.stackGroup = _del;
     }
 
     #setPublication(data: PublicationData, title: string): void {
@@ -34,6 +34,5 @@ export class Migration951TreasureCategories extends MigrationBase {
 }
 
 interface TreasureSystemSourceWithDeletion extends TreasureSystemSource {
-    stackGroup?: "coins" | "gems" | null;
-    "-=stackGroup"?: null;
+    stackGroup?: "coins" | "gems" | ForcedDeletion | null;
 }
