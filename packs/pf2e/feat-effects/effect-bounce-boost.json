@@ -1,0 +1,78 @@
+{
+    "_id": "HBec3M2J94NSG2u5",
+    "img": "icons/skills/movement/feet-winged-boots-glowing-yellow.webp",
+    "name": "Effect: Bounce Boost",
+    "system": {
+        "description": {
+            "value": "<p>Granted by Bounce Boost</p>\n<p>You gain a circumstance bonus to your Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.High Jump] or @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump].</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens High Seas"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusOne",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusTwo",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusThree",
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusFour",
+                        "value": 4
+                    }
+                ],
+                "flag": "bounceBoostBonus",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Bonus"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:long-jump",
+                            "action:high-jump"
+                        ]
+                    }
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": [
+                    "athletics"
+                ],
+                "type": "circumstance",
+                "value": "@item.flags.system.rulesSelections.bounceBoostBonus"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

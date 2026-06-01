@@ -1,0 +1,62 @@
+{
+    "_id": "3tddWriePr7etTOt",
+    "folder": "lrT110KEd7OZkvZm",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Marine Marauder Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're as skilled in combat underwater as on land. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Underwater Marauder] skill feat, and when you roll a success on an Athletics check to Swim, you get a critical success instead. In addition, checks to [[/act escape]] or [[/act force-open]] nets you use are attempted against your class DC instead of the listed DC, and you can keep hold of a target you've grappled with a net with one hand.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Athletics"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens High Seas"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Underwater Marauder"
+            },
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:swim"
+                ],
+                "selector": "athletics"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

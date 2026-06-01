@@ -1,0 +1,478 @@
+{
+    "_id": "hvVtk1sj7OfC9V70",
+    "folder": "o6n8yJFMzdxYV8W2",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "endqPMuPs3QTDwMx",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WmAvzjxSfB496bC3",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Amass Refuse",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The flotsam terror is not discorporated and is adjacent to nautical debris</p><hr /><p><strong>Effect</strong> The flotsam terror rejuvenates by assimilating additional pieces of wreckage into itself. It restores its wreckage armor, regaining its Hardness and restoring its AC to 21.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "amass-refuse",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MCCbXKNuBD1wK83Y",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Debris Whorl",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The flotsam terror is discorporated</p><hr /><p><strong>Effect</strong> Each enemy in the flotsam terror's space takes @Damage[3d6[slashing]] damage (@Check[reflex|dc:21|basic] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "D7NK3RZga4ivJWfC",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Discorporate",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The flotsam terror is in water</p><hr /><p><strong>Effect</strong> The rubbish and detritus of the flotsam terror's tangled body breaks apart into a swarming mass of broken bones and debris. While discorporated, the flotsam terror occupies a 10-foot space; gains the swarm trait; gains immunity to @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Prone], and @UUID[Compendium.pf2e.conditionitems.Item.Restrained]; loses its land Speed; and can no longer make Strikes. A discorporated flotsam terror can Dismiss this ability to reconstitute, choosing an unoccupied square of its discorporated form to reconstitute in.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "discorporate",
+                        "toggleable": true
+                    },
+                    {
+                        "add": [
+                            "swarm"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            "discorporate"
+                        ]
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "discorporate"
+                        ],
+                        "value": "large"
+                    },
+                    {
+                        "attackModifier": 12,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 6
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.NPCAbility.FlotsamTerror.Attacks.FlotsamLabel",
+                        "predicate": [
+                            {
+                                "not": "discorporate"
+                            }
+                        ],
+                        "slug": "flotsam",
+                        "traits": [
+                            "thrown-30"
+                        ]
+                    },
+                    {
+                        "attackModifier": 13,
+                        "damage": {
+                            "base": {
+                                "damageType": "slashing",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 6
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.NPCAbility.FlotsamTerror.Attacks.SharpEdgeLabel",
+                        "predicate": [
+                            {
+                                "not": "discorporate"
+                            }
+                        ],
+                        "slug": "sharp-edge",
+                        "traits": [
+                            "versatile-p"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "J1MIG2JWVsA483Vg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Discorporation Vulnerability",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>While discorporated, the flotsam terror gains weakness 5 to area damage and splash damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            "discorporate"
+                        ],
+                        "type": "splash-damage",
+                        "value": 5
+                    },
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            "discorporate"
+                        ],
+                        "type": "area-damage",
+                        "value": 5
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yckjzfHmIPMVDbbp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wreckage Armor",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When not discorporated, a flotsam terror has an outer shell of seaweed and nautical debris. This shell has Hardness from the amalgamation of objects. Once a flotsam terror is reduced to fewer than half its Hit Points, its wreckage armor breaks, removing the Hardness and reducing its Armor Class to 17.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hardness.value",
+                        "phase": "afterDerived",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "amass-refuse",
+                                    {
+                                        "gte": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 5
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "hp-percent",
+                                    50
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "ac"
+                        ],
+                        "slug": "wreckage-armor-penalty",
+                        "value": -4
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "override",
+                        "predicate": [
+                            "amass-refuse"
+                        ],
+                        "selector": "ac",
+                        "slug": "wreckage-armor-penalty",
+                        "value": 0
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Flotsam Terror",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 3
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 1
+            },
+            "int": {
+                "mod": -2
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "(17 when broken), wreckage armor",
+                "value": 21
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 54,
+                "temp": 0,
+                "value": 54
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 35
+                    }
+                ],
+                "value": 15
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "vitality",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "Plus any one language it knew while alive cant speak any language",
+                "value": [
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 4
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>When the sea is vicious and its currents churn with malevolence, waves can crash upon the sides of ships, turning wooden hulls into splinters. These violent shipwrecks leave the souls of hundreds of sailors trapped within the flotsam and bodily carnage, all of which coalesce into the forms of dozens of vicious undead horrors, each fated to haunt the depths forevermore. Also known as sailor's bane or jetsam swarms, flotsam terrors drift along the waves, indistinguishable from harmless debris and seaweed as they search endlessly for ships they can tear down to the same bitter end they faced.</p>\n<p>While they are most commonly formed in the deadly aftermath of a great shipwreck, where the raw materials necessary for their creation are plentiful, flotsam terrors have also been known to rise after other traumatic events at sea. Failed mutinies, pirate attacks upon innocent travelers, or even the souls of those who suffered the slow and painful death of being stranded at sea can all find themselves trapped in the form of a violent amalgamation of debris. Regardless of the tragedy that led to their creation, a flotsam terror stalks the seas hungry for revenge on an unjust world, seeking other sufferers whose wrongful deaths will lead them to join in the undead's bloody and endless crusade across the sea.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Lost Omens High Seas"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 11,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 13
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 12,
+                "special": []
+            },
+            "stealth": {
+                "base": 7,
+                "special": [
+                    {
+                        "base": 11,
+                        "label": "in water"
+                    }
+                ]
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

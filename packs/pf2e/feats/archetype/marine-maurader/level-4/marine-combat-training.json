@@ -1,0 +1,78 @@
+{
+    "_id": "hNuEmaUjFGOjrhGv",
+    "folder": "mmxHwcQUGqZ1Is0w",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Marine Combat Training",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You're skilled with weapons that can be easily handled underwater. You have familiarity with @UUID[Compendium.pf2e.equipment-srd.Item.Harpoon]{harpoons} and @UUID[Compendium.pf2e.equipment-srd.Item.Trident]{tridents}, treating them as simple weapons for the purposes of proficiency. Additionally, you don't halve the range increment of harpoons and spear weapons when throwing them underwater.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Marine Marauder Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens High Seas"
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:base:harpoon",
+                            "item:base:trident"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MarineCombat",
+                "sameAs": "simple",
+                "slug": "marine-combat"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:base:harpoon",
+                            "item:base:trident"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

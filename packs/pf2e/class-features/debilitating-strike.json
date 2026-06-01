@@ -63,6 +63,13 @@
                         "value": "enfeebled"
                     },
                     {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.Frightened.Label",
+                        "predicate": [
+                            "feat:heartless-debilitations"
+                        ],
+                        "value": "frightened"
+                    },
+                    {
                         "label": "PF2E.SpecificRule.Rogue.Debilitation.OffGuard.Label",
                         "predicate": [
                             "feat:precise-debilitations"
@@ -126,6 +133,13 @@
                             "feat:vicious-debilitations"
                         ],
                         "value": "weakness"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.WeaknessHeartless.Label",
+                        "predicate": [
+                            "feat:heartless-debilitations"
+                        ],
+                        "value": "weakness-hearless"
                     }
                 ],
                 "toggleable": true
@@ -258,6 +272,30 @@
                 ],
                 "selector": "strike-damage",
                 "text": "<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Trigger]</p>\n<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Weakness.Note]</p>",
+                "title": "PF2E.SpecificRule.Rogue.Debilitation.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "debilitation:weakness-heartless",
+                    "target:condition:off-guard"
+                ],
+                "selector": [
+                    "strike-damage"
+                ],
+                "text": "<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Trigger]</p>\n<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.WeaknessHeartless.Note]</p>",
+                "title": "PF2E.SpecificRule.Rogue.Debilitation.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "debilitation:frightened",
+                    "target:condition:off-guard"
+                ],
+                "selector": [
+                    "strike-damage"
+                ],
+                "text": "<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Trigger]</p>\n<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Frightened.Note]</p>",
                 "title": "PF2E.SpecificRule.Rogue.Debilitation.Title"
             }
         ],

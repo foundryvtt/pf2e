@@ -32,7 +32,13 @@
             },
             {
                 "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "not": "feat:sanguine-evasion"
+                    }
+                ],
                 "selector": "fly",
+                "slug": "vapor-form-fly-speed",
                 "value": 10
             },
             {
@@ -42,6 +48,15 @@
                 ],
                 "selector": "ac",
                 "suppress": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "feat:sanguine-evasion"
+                ],
+                "selector": "fly",
+                "slug": "sanguine-evasion-fly-speed",
+                "value": "@actor.system.movement.speeds.land.value"
             }
         ],
         "start": {

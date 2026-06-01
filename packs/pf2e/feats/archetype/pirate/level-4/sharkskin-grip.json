@@ -1,0 +1,91 @@
+{
+    "_id": "YhnzFJpIxcYb3Va3",
+    "folder": "BvtJEHGr27YbxX72",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Sharkskin Grip",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You served on nephilim pirate Ila \"Sharkskin\" Clare's ship, the Scorched Shark, and have adopted xir practice of embellishing clothing and armor with sharkskin. As long as you're wearing your clothing, you gain a +1 item bonus to unarmed attack rolls, Acrobatics checks, and Reflex saves and DCs to Escape, [[/act grab-an-edge]], or avoid falling @UUID[Compendium.pf2e.conditionitems.Item.Prone]. In addition, when you successfully [[/act grapple]] a creature, you deal slashing damage equal to your fist damage dice to that creature as you abrade their skin.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Pirate Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens High Seas"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:escape"
+                ],
+                "selector": [
+                    "athletics",
+                    "acrobatics",
+                    "basic-unarmed-attack-roll"
+                ],
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grab-an-edge",
+                            "inflicts:prone"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "reflex"
+                ],
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:grapple"
+                ],
+                "selector": [
+                    "skill-check"
+                ],
+                "text": "When you successfully [[/act grapple]] a creature, you deal slashing damage equal to your fist damage dice to that creature as you abrade their skin.",
+                "title": "{item|name}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

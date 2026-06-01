@@ -1,0 +1,66 @@
+{
+    "_id": "H51pp5uZGykILFyw",
+    "img": "icons/equipment/head/helm-barbute-rounded-purple.webp",
+    "name": "Gaze of the Mantis",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>These glasses have faceted red lenses like those of a mantis and are popular as a less ostentatious alternative to a full mask. While wearing the gaze of the mantis, your field of view increases to give you better awareness of your surroundings. You gain a +2 item bonus to visual Perception checks and cannot be flanked.</p>\n<p><strong>Activate—Target Sense</strong> <span class=\"action-glyph\">1</span></p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> You're a Red Mantis assassin</p><hr /><p><strong>Effect</strong> You learn the distance to and direction of all creatures that have a Red Mantis contract on them within 10 miles. If one of these creatures is within 100 feet, you also know any afflictions, conditions, and spells affecting them. This awareness lasts for 1 hour.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 11
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 1400
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens High Seas"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "perception"
+                ],
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.offGuardable",
+                "value": "@actor.level"
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worneyepiece"
+        }
+    },
+    "type": "equipment"
+}
