@@ -1,0 +1,100 @@
+{
+    "_id": "Xb3gdPpa5tkWuKuO",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "amRXmSqX5Ar9pCPc",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Menacing Laughter",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature who doesn't worship Asmodeus enters the room</p><hr /><p><strong>Effect</strong> The booming voice of Asmodeus laughs cruelly at nonbelievers who would dare enter his highest temple on Golarion. Each creature who doesn't worship Asmodeus within 100 feet must attempt a @Check[will|dc:48|traits:auditory,emotion,fear,mental] save. The hazard then rolls initiative as Asmodeus' face appears in the middle of the vestry.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as they're frightened.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Visage of Asmodeus",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master) to find the face-projecting rune</p>",
+                "value": 35
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A looming illusory image of the face of Asmodeus appears within the room, eyes glinting with malice at any who refuse to worship him.</p>",
+            "disable": "<p>@Check[thievery|dc:50] (master) to disrupt the rune projecting Asmodeus's face or @Check[religion|dc:48] (master) to refute the Asmodean faith; four total successes are required to disable the hazard</p>",
+            "isComplex": true,
+            "level": {
+                "value": 21
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "<p>The trap deactivates 1 round after all creatures who don't worship Asmodeus either leave the room or are dead. It resets 1 round after that.</p>",
+            "routine": "<p>(1 action; mental, visual) The illusory face of Asmodeus gazes at one creature in the area who doesn't worship Asmodeus. His eyes glint with diabolic power as that creature is overwhelmed by visions of the enormity of Hell. That creature must attempt a @Check[will|dc:44|traits:mental,visual] saving throw. The hazard tends to target creatures who are attempting to disable the hazard. Taking damage from this hazard doesn't grant a flat check to end the @UUID[Compendium.pf2e.conditionitems.Item.Confused] condition.</p><hr><p><strong>Critical Success</strong> The creature is unaffected.</p><p><strong>Success</strong> The creature takes @Damage[5d8[mental]] damage.</p><p><strong>Failure</strong> The creature takes @Damage[10d8[mental]] damage and is confused for 1 round.</p><p><strong>Critical Failure</strong> The creature takes @Damage[20d8[mental]] damage and is confused for 1 minute.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

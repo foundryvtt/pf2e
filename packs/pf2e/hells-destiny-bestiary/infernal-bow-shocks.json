@@ -1,0 +1,126 @@
+{
+    "_id": "1LyVXZVSwLSfzZy4",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "IsEAxuQop2iKiEMc",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shock Wave",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Encounter <strong>E3</strong> begins</p><hr /><p><strong>Effect</strong> A randomly chosen PC is targeted at the center of a @Template[type:burst|distance:20] of acrid-smelling (but invisible) fumes. The hazard unleashes Flaming Fumes on the same target as Shock Wave. A creature must succeed at a Perception check against the hazard's Stealth DC to visually detect the fumes. The infernal bow shocks then roll initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "whAJ3dFiMBMvvjWr",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Flaming Fumes",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A @Template[type:burst|distance:20] of acridsmelling fumes ignites in gouts of hellfire. All creatures in the area take 7d6 fire and @Damage[7d6[spirit]|options:area-damage] damage with a @Check[reflex|dc:38|basic] save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Infernal Bow Shocks",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 28
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Wave after wave of Hellish power ripples out from the pentagram surrounding the Inferno Gate, bathing all of the battling armies around it in its dark energies. Some are slain on the spot, while others fall into cracks that open beneath them in the earth, and still others are consumed by ignited gasses.</p>",
+            "disable": "<p>@Check[Devil Lore|dc:34] or @Check[HellLore|dc:34] to give the proper incantations and invoke the name of Visperthul to ward off the magical defenses from the Inferno Gate; @Check[arcana|dc:38] (expert), @Check[nature|dc:38] (expert), @Check[occultism|dc:38] (expert), or @Check[religion|dc:38] (expert) to erect a magical barrier to shield against the power emanating from the gate; @Check[survival|dc:43] to use the natural terrain as a shield to survive the onslaught of magical energies; @Check[will|dc:48] save to simply push back against the Hellish storm surge and refute them; or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (9th rank; counteract DC 34) to blast the bow shock with magic to stem its flow; three successes are required to dissipate the hazard's energies.</p><p>The first time a PC successfully uses Devil Lore or Hell Lore against this hazard, all PCs gain a +2 status bonus to their saving throws against the hazard's effects.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 17
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "",
+            "routine": "<p>(2 actions) The infernal bow shocks release a different effect each round for 3 rounds, centered on a randomly-chosen PC each time and never the same PC twice in a row (though creatures standing near each other might just be unlucky). In the first round, it unleashes Flaming Fumes. In the second round, it uses an 8th-rank whispers of the void spell (DC 38), and in the third round, it emulates the effect of an earthquake spell (DC 38), with each of the three piles of tower rubble collapsing as though they were shoddy structures. Notably, no fissures extend into the former inner bailey of Fort Arego (area <strong>E4</strong>, as outlined by the remaining rectangular battlements). The hazard concludes for the PCs when it's disabled, or when the third round ends.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "unholy"
+            ]
+        }
+    },
+    "type": "hazard"
+}

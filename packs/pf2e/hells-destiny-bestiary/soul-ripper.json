@@ -1,0 +1,102 @@
+{
+    "_id": "9Ylr8U7jkobM8S8P",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "dqS4I3NlynggZWVV",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Devil's Due",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Oourax dies</p><hr /><p><strong>Effect</strong> Oourax's soul rises from her body. The haunt rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Soul-Ripper",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 23
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Two hosts of shadowy spirits emerge from Hell to rip Oourax's soul in two, damaging all those who stand in their path.</p>",
+            "disable": "<p>@Check[diplomacy|dc:33] or @Check[deception|dc:33] to convince the spirits to ignore you, or @Check[occultism|dc:30] or @Check[religion|dc:30] to weaken the haunt; four successes are required to disable it. After 5 rounds, Oourax's soul is sundered and the haunt ends.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) Oourax's soul attempts to flee, moving 20 feet in a random direction. Her soul is pursued by two hosts of devilish spirits. Large or smaller creatures (or troops composed of Large or smaller creatures) within a @Template[type:emanation|distance:20] of Oourax's soul are trampled by the spirits (@Damage[(2d10+13)[spirit]|options:area-damage] damage with a @Check[reflex|dc:28|basic] save).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

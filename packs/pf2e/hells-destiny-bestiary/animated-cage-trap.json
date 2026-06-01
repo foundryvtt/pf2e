@@ -1,0 +1,206 @@
+{
+    "_id": "sLjk4Jq4KW0R1U4t",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "2mdOAM2NECYuJ88a",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Capturing Chain",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature that isn't a member of the inquisition or an authorized ally comes within 15 feet of the cage</p><hr /><p><strong>Effect</strong> The trap makes a chain Strike against the triggering creature. If the trap damages and successfully grapples the target with Improved Grab, the trap pulls the target 5 feet closer (or into the cage if the Strike was a critical hit). The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rdUrbyW9jdHAWQwk",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Chain",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "uNsUEN9HHp7r5Iji": {
+                        "damage": "4d8+20",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical",
+                        "reach-15"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "zjiXgcNbQfZrUDjG",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Damage[(3d8+20)[bludgeoning]], @Check[fortitude|dc:45|basic]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "constrict",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "C6GdMIg7p2bK6Eum",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Animated Cage Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 42
+            },
+            "emitsSound": "encounter",
+            "hardness": 35,
+            "hp": {
+                "details": "",
+                "max": 130,
+                "temp": 0,
+                "value": 130
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p><span class=\"fontstyle0\">(master)</span> <br style=\" font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; \"></p>",
+                "value": 38
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A spiky iron cage pulls in a victim with animated chains before slamming shut and locking tight.</p>",
+            "disable": "<p>@Check[thievery|dc:45] (master) to Pick the Lock, @Check[athletics|dc:48] (master) to break the lock or bend the bars; five total successes are required to disable the trap</p>",
+            "isComplex": true,
+            "level": {
+                "value": 20
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "<p>The trap deactivates 1 minute after there are no longer any potential prisoners in the room and then activates 1 round after that.</p>",
+            "routine": "<p>(3 actions) As 1 action, the trap makes a chain Strike against a target in its reach; its Athletics modifier for Improved Grab is +36. The trap can have any number of creatures @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by its chains. If the trap has any creatures grabbed or restrained, it attempts to pull them closer as 1 action with an Athletics check against the creature's Fortitude DC; on a success, it pulls the creature 5 feet closer (10 feet on a critical success). A Large or smaller creature can be pulled inside the cage, after which the cage door slams shut. The cage can only contain one creature, and that creature is restrained while inside ([[/act escape dc=50]]). As 1 action, the trap can Constrict the creature inside the cage with more chains.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 39
+            },
+            "reflex": {
+                "value": 30
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

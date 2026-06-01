@@ -1,0 +1,100 @@
+{
+    "_id": "wGkBavWYsKLmr1Xa",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "3zCYkfeUWFsHLVco",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Rising Tide of Screams",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature comes within 15 feet of the arch</p><hr /><p><strong>Effect</strong> The sounds of screams from the damned intensify as the arch begins to glow with planar energy. Each living creature within 60 feet of the arch must attempt a @Check[will|dc:48] saving throw. The haunt then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and can't reduce its frightened condition below 1 for the haunt's duration.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4} and can't reduce its frightened condition below 2 for the duration of the haunt.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Wave of Damned Souls",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 43
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A torrent of souls pulled from Hell pours through an archway, inflicting their personal suffering on all they touch.</p>",
+            "disable": "<p>@Check[occultism|dc:50] (master) or @Check[religion|dc:50] (master) to quell the souls' suffering; these checks must be attempted while adjacent to the arch, and four total successes are required to disable the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 21
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "<p>After 1 minute, the wave of souls dries up, and the haunt deactivates. Over the course of 1 hour, planar energy rebuilds in the area, and the haunt resets.</p>",
+            "routine": "<p>(1 action; divine, void) A seemingly endless flow of damned spirits emerges from the arch and washes down the street. Each creature within a @Template[type:line|distance:240] from the arch down the street takes @Damage[(4d10+24)[void]|options:area-damage] damage with a @Check[fortitude|dc:44|traits:divine,void] save. This line affects everyone within 20 feet of the ground.</p><hr><p><strong>Critical Success</strong> The creature is unaffected.</p><p><strong>Success</strong> The creature takes half damage.</p><p><strong>Failure</strong> The creature takes full damage and increases its doomed value by 1.</p><p><strong>Critical Failure</strong> The creature takes double damage and increases its doomed value by 2.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

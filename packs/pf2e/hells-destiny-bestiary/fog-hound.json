@@ -1,0 +1,330 @@
+{
+    "_id": "15TyWlbDQWNjMKeL",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Id4tvbdVJaXtgOOu",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "w86wko81eugvxt0gtybg": {
+                        "damage": "2d8+6",
+                        "damageType": "piercing"
+                    },
+                    "h03yyoe6w8wocqmy6tvl": {
+                        "damage": "2d6",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": "jaws",
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical",
+                        "unarmed",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "1hjabmTtR1jzUEh9",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Hellish Revenge",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The greater hell hound is critically hit by any Strike</p>\n<hr />\n<p><strong>Effect</strong> The greater hell hound's Hellfire Breath recharges. They can immediately use it as part of this reaction.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RvQYDfnJFzrjxYPr",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fog Born",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The fog hound's breathe fog and are composed of mist. Their jaws Strike and Hellfire Breath deal cold damage instead of fire damage and have the cold trait.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "escewXwusyFQw1t9",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Hellfire Breath",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hell hound breathes flames that deal @Damage[10d6[cold]|options:area-damage] damage to all creatures in a @Template[cone|distance:15] (@Check[reflex|dc:28|basic|options:area-effect] save.)</p>\n<p>The hell hound can't use Hellfire Breath again for [[/gmr 1d4 #Recharge Hellfire Breath]]{1d4 rounds}. If the greater hell hound would take cold damage or be targeted by a cold effect, their Hellfire Breath recharges.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "cold",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DXOTK3gZgiPc9AVG",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Pack Attack",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The greater hell hound's Strikes deal 1d8 extra damage to creatures within the reach of at least two of their allies.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "pack-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "pack-attack"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Fog Hound",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -2
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 28
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 150,
+                "temp": 0,
+                "value": 150
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "cold"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 40
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "Variant greater hell hound",
+            "languages": {
+                "details": "(Can't Speak Any Language)",
+                "value": [
+                    "diabolic"
+                ]
+            },
+            "level": {
+                "value": 9
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Believed to be bred by the Kings of Hell themselves within vast kennels, greater hell hounds are the favored guards and hunting hounds of powerful fiends and, rarely, mortals who worship them and have earned their favor.</p>\n<hr />\n<p>Hell hounds are fiendish, extraplanar canines hailing from the Pit that can hunt down quarry and breathe supernatural gouts of flame. They are temperamental and quick to exhibit aggressive behavior.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 19,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 120,
+                    "type": "scent"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 16
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 18
+            },
+            "athletics": {
+                "base": 19
+            },
+            "stealth": {
+                "base": 18
+            },
+            "survival": {
+                "base": 20,
+                "special": [
+                    {
+                        "base": 22,
+                        "label": "to Track",
+                        "predicate": [
+                            "action:track"
+                        ]
+                    }
+                ]
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "beast",
+                "fiend",
+                "fire",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -1,0 +1,107 @@
+{
+    "_id": "drXfjjf6b4ehNulU",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "R6tY2x8RzUBqGVt8",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Find Freedom in the Song",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Zefiro becomes @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]</p><hr /><p><strong>Effect</strong> The Bellflower chant swells from the assembled crowd. All grabbed, restrained, or @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] creatures can attempt to Escape as a free action. The Bellflower chant then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "linguistic",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Bellflower Chant",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 54,
+                "temp": 0,
+                "value": 54
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 0
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A chorus of Bellflower Network agents and allies chant about freedom from tyranny.</p>",
+            "disable": "<p>@Check[performance|dc:21] (trained) to join the chant, or @Check[society|dc:25] to identify the Bellflower agents' tactics</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The Bellflower chant continues their song. All non–Bellflower Network creatures in area A must attempt a @Check[will|dc:26] save. On a failure, the target is offguard until the end of its next turn.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 17
+            },
+            "reflex": {
+                "value": 11
+            },
+            "will": {
+                "value": 18
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "auditory",
+                "environmental",
+                "humanoid",
+                "linguistic"
+            ]
+        }
+    },
+    "type": "hazard"
+}
