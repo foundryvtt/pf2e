@@ -1,4 +1,5 @@
 import type { DamageType } from "@module/system/damage/types.ts";
+import * as R from "remeda";
 
 interface ColorsetOptions {
     name: string;
@@ -412,12 +413,10 @@ export const DiceSoNiceReady = {
                 spirit: "spirit",
             };
             dice3d.addDamageTypeDefaults?.(
-                Object.fromEntries(
-                    Object.entries(damageTypeThemes).map(([type, colorset]) => [
-                        type,
-                        { colorset, label: game.i18n.localize(CONFIG.PF2E.damageTypes[type as DamageType]) },
-                    ]),
-                ),
+                R.mapValues(damageTypeThemes, (colorset, type) => ({
+                    colorset,
+                    label: game.i18n.localize(CONFIG.PF2E.damageTypes[type as DamageType]),
+                })),
             );
         });
     },
