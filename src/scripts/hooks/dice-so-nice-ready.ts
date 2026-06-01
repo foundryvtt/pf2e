@@ -1,4 +1,3 @@
-import type { DamageType } from "@module/system/damage/types.ts";
 import * as R from "remeda";
 
 interface ColorsetOptions {
