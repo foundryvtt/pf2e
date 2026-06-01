@@ -1,6 +1,6 @@
 import { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
-import { BaseFolder, BaseJournalEntryPage } from "./_module.mjs";
+import { BaseFolder, BaseJournalEntryCategory, BaseJournalEntryPage } from "./_module.mjs";
 
 /** The JournalEntry document model. */
 export default class BaseJournalEntry extends Document<null, JournalEntrySchema> {
@@ -12,6 +12,7 @@ export default class BaseJournalEntry extends Document<null, JournalEntrySchema>
 export default interface BaseJournalEntry
     extends Document<null, JournalEntrySchema>, fields.ModelPropsFromSchema<JournalEntrySchema> {
     readonly pages: EmbeddedCollection<BaseJournalEntryPage<this>>;
+    readonly categories: EmbeddedCollection<BaseJournalEntryCategory<this>>;
 
     get documentName(): JournalEntryMetadata["name"];
 }
@@ -23,6 +24,7 @@ interface JournalEntryMetadata extends DocumentMetadata {
     compendiumIndexFields: ["_id", "name", "sort"];
     embedded: {
         JournalEntryPage: "pages";
+        JournalEntryCategory: "categories";
     };
     label: "DOCUMENT.JournalEntry";
     labelPlural: "DOCUMENT.JournalEntries";
@@ -39,6 +41,8 @@ type JournalEntrySchema = {
     name: fields.StringField<string, string, true, false, false>;
     /** The pages contained within this JournalEntry document */
     pages: fields.EmbeddedCollectionField<BaseJournalEntryPage<BaseJournalEntry>>;
+    /** The categories contained within this JournalEntry document */
+    categories: fields.EmbeddedCollectionField<BaseJournalEntryCategory<BaseJournalEntry>>;
     /** The _id of a Folder which contains this JournalEntry */
     folder: fields.ForeignDocumentField<BaseFolder>;
     /** The numeric sort value which orders this JournalEntry relative to its siblings */
