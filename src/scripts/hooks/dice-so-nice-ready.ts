@@ -404,18 +404,18 @@ export const DiceSoNiceReady = {
 
             // suggest a default Dice So Nice theme for damage types whose name doesn't already match one of its
             // built-in colorsets. The GM can still override any of these in the module's damage-type config.
-            const damageTypeThemes: Partial<Record<DamageType, string>> = {
+            const damageTypeThemes = {
                 electricity: "lightning",
                 mental: "psychic",
                 sonic: "thunder",
                 vitality: "radiant",
                 void: "necrotic",
                 spirit: "spirit",
-            };
+            } as const;
             dice3d.addDamageTypeDefaults?.(
                 R.mapValues(damageTypeThemes, (colorset, type) => ({
                     colorset,
-                    label: game.i18n.localize(CONFIG.PF2E.damageTypes[type as DamageType]),
+                    label: game.i18n.localize(CONFIG.PF2E.damageTypes[type]),
                 })),
             );
         });
