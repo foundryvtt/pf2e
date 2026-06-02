@@ -9,6 +9,7 @@
 
 ### Bugfixes
 
+- (iDantar) Add {item|id}-{meleeOrRanged}-damage domain to attacks, to enable ammunition rules
 - (iDantar) Hide ActorsDeadAtZero setting from players
 - (In3luki) Restore missing radio buttons in shield block dialog
 - (In3luki) Restore missing reroll icons in chat context menu
@@ -24,7 +25,6 @@
 
 - (Ambrose) Add action macros to Deceptive Tactics
 - (Ambrose) Add area-damage options to Rainbow Fumarole's inline damage
-- (Ambrose) Add categories to select PF2e Journals
 - (Ambrose) Add effect for Belt of Long Life
 - (Ambrose) Add Initiative note to the Hellbreaker Dedication
 - (Ambrose) Add link to confused status to Shoggoth's Maddening Cacophany and remove DC explanation note on Constrict
@@ -51,7 +51,6 @@
 - (Dire Weasel) Standardize inline action for Embrace
 - (Dire Weasel) Tidy description of Malefic Mirror and some inline actions
 - (Dire Weasel) Update some equipment to grant conditions
-- (iDantar) Add {item|id}-{meleeOrRanged}-damage domain to attacks, to enable ammunition rules
 - (iDantar) Add a separate effect for redcap brigade
 - (iDantar) Add Arcane tradition to Retrocognition and its references
 - (iDantar) Add missing `replaceAll: true` for Talon and Claw stance effects
@@ -63,6 +62,7 @@
 - (kromko) Clean up whitespace around inline buttons; Fix Spellsap Grenades data
 - (kromko) Fix Fire and Water Wisps' Resonance description
 - (kromko) Fix formatting of Flawless Celestial Shawl and Smoking Sword
+- (kromko) Fix invalid language keys
 - (kromko) Fix Skill Mastery overwriting all feat descriptions
 - (kromko) Remove duplicate dedication from Provocator Archetype journal page
 - (kromko) Remove remnants of pre-remaster activation from Greater Screech Shooter
@@ -89,7 +89,6 @@
 
 - (kromko) Remove Catfolk feat Expanded Luck and redirect it to Lucky Break
 - (Noisyink) Avoid duplicate feat group slots in custom campaigns slots
-- (Rigo) Use ranks instead of rank for spell rank Choice Sets
 - (stwlam) Remove migrations for foundry versions up to and including 10
 - (stwlam) Support retrieval of highest and lowest save from creatures
 
@@ -101,7 +100,6 @@
 
 ### Bugfixes
 
-- (kromko) Fix invalid language keys
 - (jfn4th) Refresh token bars on Temp HP updates.
 - (kromko) Fix item transfer message localization
 - (steve148) Update changelog link in foundry to the new one

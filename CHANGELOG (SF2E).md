@@ -34,7 +34,6 @@
 - (Longstrider) Set augmentations' Bulk to 0
 - (Noisyink) Add toggleable Glitching Failure roll option
 - (Rigo) Fix bad id on Burrowing Charge
-- (Rigo) Use ranks instead of rank for spell rank Choice Sets
 
 ### Under the Hood
 
