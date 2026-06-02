@@ -55,7 +55,7 @@
 - (iDantar) Add a separate effect for redcap brigade
 - (iDantar) Add Arcane tradition to Retrocognition and its references
 - (iDantar) Add missing `replaceAll: true` for Talon and Claw stance effects
-- (iDantar) Allow the didactic strike application to attack spells
+- (iDantar) Allow didactic strike to affect attack spell damage
 - (iDantar) Fix greater Endless Quiver material choices
 - (iDantar) Implement rules for Hellknight Mobility feat
 - (iDantar) Update dawnsilver-tree and shield-pistol rounds
@@ -66,16 +66,16 @@
 - (kromko) Fix Skill Mastery overwriting all feat descriptions
 - (kromko) Remove duplicate dedication from Provocator Archetype journal page
 - (kromko) Remove remnants of pre-remaster activation from Greater Screech Shooter
-- (rectulo) Add description text for the grandmaster
-- (rectulo) Add forgotten text in black belt NPC
-- (rectulo) Add missing text in cultist description
-- (rectulo) add teleportation trait in retrieval prism
-- (rectulo) Change damage type from bludgeoning to slashing in storm hag
-- (rectulo) Fix a typo in a dwarf battalion ability
-- (rectulo) Fix a typo in Spell repertoire
-- (rectulo) Fix description in Gathered lore and Precise discipline
-- (rectulo) Fix fiend caller description
-- (rectulo) Fix typo in spell name for tumbleweed leshy courier
+- (rectulo) Add description text for Grandmaster NPC
+- (rectulo) Add forgotten text in Black Belt NPC
+- (rectulo) Add missing text in Cultist description
+- (rectulo) Add teleportation trait to Retrieval Prism
+- (rectulo) Change damage type from bludgeoning to slashing in Storm Hag's Cutting Gale
+- (rectulo) Fix a typo in a Dwarf Battalion ability
+- (rectulo) Fix a typo in Spell Repertoire feature
+- (rectulo) Fix description in Gathered Lore and Precise Discipline features
+- (rectulo) Fix Fiend Caller description
+- (rectulo) Fix typo in spell name for Tumbleweed Leshy Courier
 - (rectulo) Revise description for Retrieval Prism (Greater)
 - (Rigo) Make Crossbow Crack Shot's bonus damage and backstabber upgrade mutually exclusive
 - (SpartanCPA) Add RuleElement for Seugathi Guard's Magic Item Mastery feature

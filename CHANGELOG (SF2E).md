@@ -29,7 +29,7 @@
 - (Geliogabalus) Fix missing Tool Rat statistics
 - (iDantar) Make Izalguun Large
 - (kromko) Add missing SF physical item compendiumSources; remove non-compendium compendiumSources
-- (kromko) Clean up whitespace around inline buttons; Fix Spellsap Grenades data
+- (kromko) Clean up whitespace around inline buttons
 - (kromko) Fix invalid language keys
 - (Longstrider) Set augmentations' Bulk to 0
 - (Noisyink) Add toggleable Glitching Failure roll option
