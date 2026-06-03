@@ -87,7 +87,10 @@ class AuraRuleElement extends RuleElement<AuraSchema> {
             includesSelf: new fields.BooleanField({
                 required: true,
                 nullable: false,
-                initial: (d) => d.affects !== "enemies",
+                initial: (modelSource) => {
+                    if (!Array.isArray(modelSource.effects)) return false;
+                    return modelSource.effects.every((e) => e.affects !== "enemies");
+                },
                 label: "PF2E.RuleEditor.Aura.Effects.IncludesSelf",
             }),
             alterations: new StrictArrayField(new fields.EmbeddedDataField(ItemAlteration)),
