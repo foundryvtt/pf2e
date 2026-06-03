@@ -260,6 +260,7 @@
         flex: 1 0 100%;
         flex-direction: row;
         justify-content: center;
+        min-width: 0;
     }
 
     .panel {
@@ -267,11 +268,13 @@
         flex: 1 0 calc(50% - var(--scroll-margin));
         gap: var(--space-8);
         height: 100%;
+        min-width: 0;
 
         header {
             align-items: center;
             border-bottom: 1px solid var(--color-border);
             flex-wrap: nowrap;
+            gap: var(--space-12);
             height: calc(4rem + var(--space-4));
             justify-content: space-between;
             padding: 0 var(--scroll-margin);
@@ -285,8 +288,16 @@
 
             .name {
                 align-items: center;
+                min-width: 0;
                 text-align: center;
                 white-space: nowrap;
+
+                .actor,
+                .user {
+                    max-width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
 
                 .actor {
                     font-family: var(--serif);
@@ -307,7 +318,7 @@
                 height: 2rem;
                 margin-right: 1.5rem;
                 text-align: center;
-                width: 0;
+                min-width: 0;
 
                 &.accepted {
                     > i {
@@ -326,7 +337,7 @@
             padding-right: 0;
             margin-right: var(--scroll-margin);
             &::placeholder {
-                font-family: var(--fa6);
+                font-family: var(--font-awesome);
                 font-weight: 900;
                 padding-left: 0.25em;
             }
