@@ -73,7 +73,7 @@ class PartyClownCar {
             return {
                 _id: token._id ?? "",
                 ...(square
-                    ? { ...R.pick(square, ["x", "y"]), elevation: car.elevation, level: car.level }
+                    ? { ...R.pick(square, ["x", "y"]), ...R.pick(car, ["elevation", "level"]) }
                     : carPosition),
             };
         });
