@@ -72,9 +72,7 @@ class PartyClownCar {
             );
             return {
                 _id: token._id ?? "",
-                ...(square
-                    ? { ...R.pick(square, ["x", "y"]), ...R.pick(car, ["elevation", "level"]) }
-                    : carPosition),
+                ...(square ? { ...R.pick(square, ["x", "y"]), ...R.pick(car, ["elevation", "level"]) } : carPosition),
             };
         });
         await this.scene.updateEmbeddedDocuments("Token", placementData);
