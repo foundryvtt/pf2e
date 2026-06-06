@@ -411,10 +411,14 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         })();
 
         const self = this.actor;
-        const domains = this.domains;
+        const item = args.item ?? null;
+        const domains = [...this.domains];
+        if (item?.isOfType("spell") && domains.includes("spell-attack-roll")) {
+            if (item.isMelee) domains.push("melee-attack-roll");
+            else if (item.isRanged) domains.push("ranged-attack-roll");
+        }
         const selfToken = args.token ?? self.getActiveTokens(true, true).shift() ?? null;
         const selfIsTarget = self === args.target || (!args.target && this.type === "saving-throw");
-        const item = args.item ?? null;
         const targetToken = selfIsTarget
             ? selfToken
             : (args.target?.getActiveTokens(true, true)?.find((t) => t.actor?.isOfType("army", "creature", "hazard")) ??
@@ -609,7 +613,12 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         }
 
         const clonedStatistic = selfIsTarget ? rollContext.target?.statistic : rollContext.origin?.statistic;
-        const modifiers = clonedStatistic?.check.modifiers ?? this.modifiers;
+        const spellAttackDomains = domains.filter((d) => !this.domains.includes(d));
+        const spellAttackModifiers =
+            spellAttackDomains.length > 0
+                ? extractModifiers(selfActor.synthetics, spellAttackDomains, { test: [...options] })
+                : [];
+        const modifiers = [...(clonedStatistic?.check.modifiers ?? this.modifiers), ...spellAttackModifiers];
         const check = new CheckModifier(this.parent.slug, { modifiers }, extraModifiers);
         const roll = await Check.roll(check, context, null, args.callback);
 
