@@ -13,11 +13,7 @@ declare const CanvasBaseWall: {
 
 interface CanvasBaseWall<TParent extends Scene | null> extends InstanceType<typeof CanvasBaseWall<TParent>> {}
 
-export default class WallDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseWall<TParent> {}
-
-export default interface WallDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseWall<TParent> {
-    get object(): Wall<this> | null;
-
+export default class WallDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseWall<TParent> {
     /**
      * The Edge instance which represents this Wall.
      * The Edge is re-created when data for the Wall changes.
@@ -48,6 +44,10 @@ export default interface WallDocument<TParent extends Scene | null = Scene | nul
         priorLevels?: string[] | Set<string>;
         changedTypes?: Set<EdgeRestrictionType>;
     }): void;
+}
+
+export default interface WallDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseWall<TParent> {
+    get object(): Wall<this> | null;
 }
 
 export {};
