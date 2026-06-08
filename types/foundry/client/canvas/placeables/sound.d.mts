@@ -79,8 +79,8 @@ export default class AmbientSound<
 
     /**
      * Compute the field-of-vision for an object, determining its effective line-of-sight and field-of-vision polygons
-     * @param [options] Options which modify how the audio source is updated
-     * @param [options.deleted] Indicate that this SoundSource has been deleted.
+     * @param options Options which modify how the audio source is updated
+     * @param options.deleted Indicate that this SoundSource has been deleted.
      */
     initializeSoundSource(options?: { deleted?: false }): void;
 
