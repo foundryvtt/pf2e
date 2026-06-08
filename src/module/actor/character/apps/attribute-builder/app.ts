@@ -61,8 +61,8 @@ class AttributeBuilder extends SvelteApplicationMixin<
 
     protected override _configureRenderOptions(options: DeepPartial<AttributeBuilderRenderOptions>): void {
         super._configureRenderOptions(options);
-        const actor = options.actor;
-        if (actor && actor !== this.#actor) {
+        const actor = options.actor ?? this.#actor;
+        if (actor !== this.#actor) {
             delete this.#actor.apps[this.id];
             this.#actor = actor;
             // Registration with the actor on first render is handled by `_onFirstRender`
