@@ -1,0 +1,401 @@
+{
+    "_id": "nIs0ovRqqu91DVWC",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "xkcBx1GTRTSrsQMx",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Gust",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "7MoBOYABg6Uxf6jb": {
+                        "damage": "3d8+13",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "reach-20"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "9HAqyppwho3hrtbu",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "vSRdrNHFzQlVCaEu": {
+                        "damage": "1d8",
+                        "damageType": "sonic"
+                    },
+                    "wFSgPnOdKcjKlZK5": {
+                        "damage": "3d8+13",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "finesse",
+                        "reach-20",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "iwNvIdGalOkt9hIK",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Oathsense",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The oath howler can hear profanities—anything from foul language to someone casting an unholy spell that lacks the subtle trait—uttered within 1 mile, after which they can detect the speaker as a vague sense for 1 minute (or as an imprecise sense within 100 feet). The oath howler can understand profanities in any language, including several words that precede and follow the profanity for context, and thereafter can mimic and repeat those profanities.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Y0OZ4lDvw7ahpjZa",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Status to All Saves vs. Auditory and Sonic",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "auditory",
+                                    "sonic"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "saving-throw"
+                        ],
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wGJi5YUatY8RTrDN",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Rebuking Smoke",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet damages the oath howler</p><hr /><p><strong>Effect</strong> The oath howler's wound belches foul smoke onto the triggering creature, who must attempt a @Check[fortitude|dc:30] save. The creature is then immune to that oath howler's Rebuking Smoke for 1 minute.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Failure</strong> The creature is dazzled for 1 round and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature is sickened 1 and @UUID[Compendium.pf2e.conditionitems.Item.Blinded] until the sickened condition ends.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "air"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BM3e2F4u21A4JXkI",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Storm of Blasphemies",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The oath howler roars in a @Template[type:cone|distance:30], shouting dozens of pejoratives in as many languages. Creatures in the area take @Damage[10d8[sonic]|options:area-damage] damage (@Check[fortitude|dc:33|basic] save). Creatures that critically fail also take @Damage[2d8[persistent,sonic]|options:area-damage] damage and are @UUID[Compendium.pf2e.conditionitems.Item.Deafened] until the persistent damage ends.</p>\n<p>The oath howler can't use this ability again for [[/gmr 1d4 #Recharge this ability]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "sonic",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wxCVxU8SusYzyYwJ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Swiftness",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The oath howler's movement doesn't trigger reactions.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Oath Howler",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 8
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": 1
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 34
+            },
+            "allSaves": {
+                "value": "+2 status to all saves vs. auditory and sonic"
+            },
+            "hp": {
+                "details": "",
+                "max": 235,
+                "temp": 0,
+                "value": 235
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "sonic",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "details": "swiftness",
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 50
+                    }
+                ],
+                "value": 35
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "spirit",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "oathsense",
+                "value": [
+                    "sussuran"
+                ]
+            },
+            "level": {
+                "value": 13
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Sometimes the wind catches a profane oath as it's uttered, carrying it far away before the blasphemy can form a tortured eddy that repeats the curse again and again. Such winds eventually tie themselves in a knot and take on a sinister intelligence.</p>\n<p>The unholy negotiations Abrogail I held with Hell deep in the Whisperwood spun off an untold number of oath howlers, most of whom haunt that forest and its skies to this day. Oath howlers delight in other creatures' profanities. A potential victim can distract the elementals indefinitely so long as the speaker varies their languages, insults, and intonation. If done artfully, a creature might sandwich a request between pejoratives and so earn an oath howler's morbid cooperation—at least so long as they continue encouraging the elemental with fresh profane oaths.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "oathsense",
+            "mod": 26,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 23
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 27
+            },
+            "intimidation": {
+                "base": 27
+            },
+            "occultism": {
+                "base": 19
+            },
+            "performance": {
+                "base": 25
+            },
+            "stealth": {
+                "base": 23
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "air",
+                "elemental",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

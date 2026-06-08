@@ -1,0 +1,53 @@
+{
+    "_id": "8hznLlJ0wBazTw8n",
+    "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
+    "name": "Effect: Spinning Shield",
+    "system": {
+        "description": {
+            "value": "<p>Rayhnne spins her flails rapidly in all directions, giving her a +2 circumstance bonus to her AC and Reflex saves until the start of her next turn. If she uses Reactive Strike while this ability is active, she adds 1d10 to her damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hell's Destiny"
+        },
+        "rules": [
+            {
+                "diceNumber": 1,
+                "dieSize": "d10",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac",
+                    "reflex"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

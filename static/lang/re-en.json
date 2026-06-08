@@ -101,6 +101,14 @@
                 },
                 "GugSqueezeNote": "Your multiple joints allow you to fit through tight spaces as if you were a Medium creature."
             },
+            "AerialForm": {
+                "ChoiceSet": {
+                    "Bat": "Bat",
+                    "Bird": "Bird",
+                    "Pterosaur": "Pterosaur",
+                    "Wasp": "Wasp"
+                }
+            },
             "AngelForm": {
                 "ChoiceSet": {
                     "Balisse": "Balisse",
@@ -251,7 +259,15 @@
                 "Prompt": "Select a fey."
             },
             "InsectForm": {
-                "SpiderWebNote": "A successful Web attack entangles the target for 1 round, but deals no damage"
+                "ChoiceSet": {
+                    "Ant": "Ant",
+                    "Beetle": "Beetle",
+                    "Centipede": "Centipede",
+                    "Mantis": "Mantis",
+                    "Scorpion": "Scorpion",
+                    "Spider": "Spider"
+                },
+                "SpiderWebNote": "@UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilizes} the target for 1 round or until it [[/act escape]]{Escapes}."
             },
             "MonstrosityForm": {
                 "ChoiceSet": {
@@ -1430,6 +1446,11 @@
                 },
                 "VanishingEscape": {
                     "Name": "Vanishing Escape"
+            "CultistOfTorment": {
+                "AmplifyTorment": {
+                    "Label": "Target's HP is:",
+                    "UnderFull": "Less than 100%",
+                    "UnderHalf": "Less than 50%"
                 }
             },
             "CustomArmor": {
@@ -2456,6 +2477,11 @@
                         "CriticalSuccess": "On a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 2}.",
                         "Success": "On a hit, the target is @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 1}."
                     }
+                }
+            },
+            "PureLegionSquad": {
+                "CloakOfPurity": {
+                    "Label": "Commander can cast Divine spells"
                 }
             },
             "Pyrkaion": {
@@ -4764,6 +4790,44 @@
                 "Major": "Charm of {damageType} Resistance (Major)",
                 "Standard": "Charm of {damageType} Resistance"
             },
+            "ChelaxianScion": {
+                "NobleHouse": {
+                    "Charthagnion": {
+                        "Label": "Charthagnion",
+                        "WeaponFamiliarity": "Charthagnion Weapon Familiarity"
+                    },
+                    "Elliendo": {
+                        "Label": "Elliendo",
+                        "WeaponFamiliarity": "Elliendo Weapon Familiarity"
+                    },
+                    "Henderthane": {
+                        "Label": "Henderthane",
+                        "WeaponFamiliarity": "Henderthane Weapon Familiarity"
+                    },
+                    "Jeggare": {
+                        "Label": "Jeggare",
+                        "WeaponFamiliarity": "Jeggare Weapon Familiarity"
+                    },
+                    "Leroung": {
+                        "Label": "Leroung",
+                        "WeaponFamiliarity": "Leroung Weapon Familiarity"
+                    },
+                    "Narikopolus": {
+                        "Label": "Narikopolus",
+                        "WeaponFamiliarity": "Narikopolus Weapon Familiarity"
+                    },
+                    "Prompt": "Choose a Noble House.",
+                    "Sarini": {
+                        "Label": "Sarini",
+                        "WeaponFamiliarity": "Sarini Weapon Familiarity"
+                    },
+                    "Thrune": {
+                        "Label": "Thrune",
+                        "WeaponFamiliarity": "Thrune Weapon Familiarity"
+                    }
+                },
+                "RollOptionLabel": "Target is a Chelaxian citizen or devil"
+            },
             "ChromaticArmor": {
                 "Acid": "Orange (Acid)",
                 "Electricity": "Yellow (Electricity)",
@@ -4790,6 +4854,9 @@
                         "Description": "Spiritual energy reinforces your body, making you more resilient. Your proficiency rank for Fortitude saves increases to expert."
                     },
                     "bard": {
+                        "Description": "Your physique has grown hardy in your adventures. Your proficiency rank for Fortitude saves increases to expert."
+                    },
+                    "commander": {
                         "Description": "Your physique has grown hardy in your adventures. Your proficiency rank for Fortitude saves increases to expert."
                     },
                     "druid": {
@@ -5802,7 +5869,7 @@
                     "HunkerDownLabel": "Trusty Helmet — Hunker Down"
                 },
                 "UnholyPlate": {
-                    "Note": "On a critical hit with the horns, the target must succeed at a @Check[fortitude|dc:30] or become @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{Drained 1} (or @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{Drained 2} on a critical failure)."
+                    "Note": "On a critical hit with the horns, the target must succeed at a @Check[fortitude|dc:30|showDC:all|options:inflicts:drained] or become @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{Drained 1} (or @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{Drained 2} on a critical failure)."
                 },
                 "UnholyWater": {
                     "Note": "Can damage only creatures with the holy trait."
@@ -6550,6 +6617,11 @@
             },
             "Harrowing": {
                 "RerollLabel": "Rerolling roll using the Harrowing result"
+            },
+            "Hellbreaker": {
+                "Dedication": {
+                    "InitiativeNote": "When you roll initiative, you can attempt a [[/act recall-knowledge skill=devil-lore]], [[/act recall-knowledge skill=hellknight-lore]], or [[/act recall-knowledge skill=society]] check to @UUID[Compendium.pf2e.actionspf2e.Item.1OagaWtBpVXExToo]{Recall Knowledge} about one enemy you can see as a free action, if that skill would be applicable."
+                }
             },
             "Hellknight": {
                 "RevealBeasts": {

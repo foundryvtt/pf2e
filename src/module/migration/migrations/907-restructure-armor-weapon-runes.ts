@@ -1,8 +1,7 @@
-import { ArmorSystemSource } from "@item/armor/data.ts";
+import { ArmorSource, ArmorSystemSource } from "@item/armor/data.ts";
 import { ARMOR_PROPERTY_RUNE_TYPES } from "@item/armor/values.ts";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { WeaponSystemSource } from "@item/weapon/data.ts";
+import { WeaponSource, WeaponSystemSource } from "@item/weapon/data.ts";
 import { WEAPON_PROPERTY_RUNE_TYPES } from "@item/weapon/values.ts";
 import { OneToThree } from "@module/data.ts";
 import { ErrorPF2e, setHasElement, tupleHasValue } from "@util";
@@ -38,15 +37,13 @@ export class Migration907RestructureArmorWeaponRunes extends MigrationBase {
     #cleanupSpecificData(system: ArmorSystemSource | WeaponSystemSource): void {
         const specificData: unknown = system.specific;
         if (R.isPlainObject(specificData)) {
-            if ("price" in specificData) {
-                specificData["-=price"] = null;
-            }
+            if ("price" in specificData) specificData.price = _del;
             if (specificData.value === true) {
-                specificData["-=value"] = null;
+                specificData.value = _del;
                 specificData.runes = fu.deepClone(system.runes);
                 if (R.isPlainObject(specificData.material) && "precious" in specificData.material) {
-                    specificData.material["-=precious"] = null;
-                    specificData.material = fu.mergeObject(specificData.material, fu.deepClone(system.material));
+                    specificData.material.precious = _del;
+                    specificData.material = fu.mergeObject(specificData.material, system.material);
                 } else {
                     specificData.material = fu.deepClone(system.material);
                 }
@@ -56,13 +53,13 @@ export class Migration907RestructureArmorWeaponRunes extends MigrationBase {
         }
     }
 
-    #getRuneValue(system: unknown, key: OldRunePropertyKey): unknown {
+    #getRuneValue(system: unknown, key: string): unknown {
         if (!R.isPlainObject(system)) throw ErrorPF2e("Unexpected system data");
         const runeObject = system[key];
         return R.isPlainObject(runeObject) ? runeObject.value : null;
     }
 
-    override async updateItem(source: MaybeWithRuneDeletions): Promise<void> {
+    override async updateItem(source: ArmorSource | WeaponSource): Promise<void> {
         if (itemIsOfType(source, "armor", "weapon")) {
             if (source.type === "armor") {
                 source.system.runes ??= { potency: 0, resilient: 0, property: [] };
@@ -110,23 +107,9 @@ export class Migration907RestructureArmorWeaponRunes extends MigrationBase {
             this.#cleanupSpecificData(source.system);
         }
 
-        for (const deletion of this.#RUNE_DELETIONS) {
-            if (deletion in source.system) source.system[`-=${deletion}`] = null;
+        const withOldRunes = source.system as object as Record<string, unknown>;
+        for (const key of this.#RUNE_DELETIONS) {
+            if (key in withOldRunes) withOldRunes[key] = _del;
         }
     }
 }
-
-type OldRunePropertyKey =
-    | "potencyRune"
-    | "resiliencyRune"
-    | "strikingRune"
-    | "propertyRune1"
-    | "propertyRune2"
-    | "propertyRune3"
-    | "propertyRune4";
-
-type MaybeWithRuneDeletions = ItemSourcePF2e & {
-    system: {
-        [K in `-=${OldRunePropertyKey}`]?: null;
-    };
-};

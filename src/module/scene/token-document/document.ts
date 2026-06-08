@@ -319,8 +319,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (tokenOverrides.texture) {
             this.texture.src = tokenOverrides.texture.src;
             if ("scaleX" in tokenOverrides.texture) {
-                this.texture.scaleX = tokenOverrides.texture.scaleX;
-                this.texture.scaleY = tokenOverrides.texture.scaleY;
+                const mirrorX = Math.sign(this.texture.scaleX);
+                const mirrorY = Math.sign(this.texture.scaleY);
+                this.texture.scaleX = mirrorX * Math.abs(tokenOverrides.texture.scaleX);
+                this.texture.scaleY = mirrorY * Math.abs(tokenOverrides.texture.scaleY);
                 this.flags[SYSTEM_ID].autoscale = false;
             }
             this.texture.tint = tokenOverrides.texture.tint ?? this.texture.tint;

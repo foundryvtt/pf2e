@@ -1,0 +1,189 @@
+{
+    "_id": "iYTuTmT8gg2DyJqI",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "vsvZ0dXcQ85072ji",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Gaze of Barbatos",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature enters the portal tunnel</p><hr /><p><strong>Effect</strong> As the PCs begin to pierce planar boundaries, they feel they've caught the attention of the archdevil Barbatos, ruler of Avernus. Each creature in the tunnel must attempt a @Check[will|dc:45|traits:divine,emotion,fear,fire,mental,unholy] save. The hazard then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round and @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute and @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3} for 1 minute and @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "fire",
+                        "mental",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "c7N2CyqHKmVFGmjs",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Vortex Bolt",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 41
+                },
+                "damageRolls": {
+                    "RfDRpJBgkkKB6m3F": {
+                        "damage": "4d10+22",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": "<p>acid, cold, fire, or electricity; the damage is chosen randomly, and the Strike gains the appropriate trait; no multiple attack penalty</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "vortex-bolt",
+                        "selection": "acid",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "{item|flags.system.rulesSelections.vortexBolt}"
+                        },
+                        "selector": "{item|id}-damage"
+                    },
+                    {
+                        "itemType": "melee",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:slug:vortex-bolt"
+                        ],
+                        "property": "traits",
+                        "value": "{item|flags.system.rulesSelections.vortexBolt}"
+                    }
+                ],
+                "slug": null,
+                "subjectToMAP": false,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "divine",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Avernal Vortex",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(legendary)</p>",
+                "value": 42
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The edges of the extraplanar tunnel seem to writhe with malevolence, as if preventing unwanted souls from passing through.</p>",
+            "disable": "<p>@Check[arcana|dc:50] (master) or @Check[religion|dc:50] (master) to allow the group to traverse along the portal tunnel; six total successes are required to complete the journey; a PC who succeeds at a @Check[acrobatics|dc:48], @Check[athletics|dc:48], or @Check[survival|dc:48] check as a 2-action activity grants themselves a +2 circumstance bonus to AC and saves against the hazard's routine for 1 round (on a critical success, they can also grant this bonus to one other PC)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 22
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "<p>Once the PCs pass through the portal tunnel and arrive in Hell, the Avernal vortex ends and doesn't reset.</p>",
+            "routine": "<p>(1 action; divine) The Avernal vortex churns across the portal tunnel, stopping the PCs from reaching their ultimate destination. In the first round, the vortex takes an action to attempt to dispel all beneficial spells on all creatures in the tunnel, scouring them with Hellfire. The vortex has a counteract modifier of [[/r 1d20+43 #Counteract]]{+43} and a counteract rank of 10, and rolls separately for each spell. On a success, the target creature takes @Damage[4d6[fire]] damage with a @Check[fortitude|dc:45|basic] save (this has the divine, fire, and unholy traits).</p><p>In the second round, the vortex attempts to instill a dread of tumbling forever through the tunnel to those within it; each creature takes @Damage[6d6[persistent,mental]] damage with a @Check[will|dc:45|basic] save (this is an emotion and mental effect). Once a creature ends its persistent mental damage (or if they avoided the persistent damage), they can reach and escape the tunnel.</p><p>In all subsequent rounds, the vortex releases bolts of acid, cold, fire, and electricity. It makes one vortex bolt Strike against each creature in the tunnel.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

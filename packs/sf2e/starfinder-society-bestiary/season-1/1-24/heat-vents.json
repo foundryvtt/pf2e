@@ -1,0 +1,97 @@
+{
+    "_id": "6C2gf4u5PhsYb7LL",
+    "folder": "w3Ym1wQJd2pTlca2",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "oug8Rx3IdenmImtQ",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Heat Up!",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Gremmik Integrated rolls initiative</p><hr /><p><strong>Effect</strong> The vents heat up, releasing a puff of steam from each of the four 10-foot square vents. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Heat Vents",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Gremmik Integrated blasts the four 10-foot square grates with steam from underneath, using the water that cools the servers.</p>",
+            "disable": "<p>@Check[crafting|dc:18] or @Check[engineering-lore|dc:18] to cover the vents or @Check[thievery|dc:20] to Disable the mechanics; four total successes are required as each grate must be disabled. Once a grate is disabled, it no longer deals damage.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": ""
+            },
+            "reset": "",
+            "routine": "<p>All creatures in or above the four 10-foot square vents are dealt @Damage[4d4[fire]|options:area-damage] damage (@Check[reflex|dc:20|basic|options:area-effect] save)</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "tech",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

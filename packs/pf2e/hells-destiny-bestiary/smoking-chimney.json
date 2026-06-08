@@ -1,0 +1,98 @@
+{
+    "_id": "pHpGaU9ce9KYRyvH",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "70ZRtMfhbNARSdY6",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Choking Smoke",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature other than Ivirno enters area <strong>A6</strong></p><hr /><p><strong>Effect</strong> Smoke fills the room, concealing all creatures within area <strong>A6</strong>. All creatures in the area other than Ivirno take @Damage[11d6[poison]] damage (@Check[fortitude|dc:43|basic] save), then the smoking chimney rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "inhaled",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Smoking Chimney",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 0
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Smoke billows out from the chimney and fills the room.</p>",
+            "disable": "<p>@Check[athletics|dc:40] (expert) to pull the blockage from the chimney, @Check[thievery|dc:46] (master) to clear the chimney by removing a crucial object and cause everything to fall out, or create water (or similar effect) to extinguish the fire</p>",
+            "isComplex": true,
+            "level": {
+                "value": 17
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "<p>The smoking chimney resets when 10 Bulk of objects are placed in it.</p>",
+            "routine": "<p>(1 action; inhaled, poison) The smoking chimney billows out smoke. If the door from area <strong>A6</strong> is open, the smoke expands 5 feet into the corridor. All creatures in the smoke take @Damage[11d6[poison]] damage (@Check[fortitude|dc:43|basic|traits:inhaled,poison] save). On a failure, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} for 1 round.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "poison"
+            ]
+        }
+    },
+    "type": "hazard"
+}

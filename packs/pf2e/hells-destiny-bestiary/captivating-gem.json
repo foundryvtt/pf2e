@@ -1,0 +1,180 @@
+{
+    "_id": "9jKbThj49BiOMLXl",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "J7pVet18kaNlooGl",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Freezing Light",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The captivating gem shines intense light on a living creature, freezing it in place. The target must attempt a @Check[fortitude|dc:40] Save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} and takes @Damage[2d12[force]] damage.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round and takes @Damage[4d12[force]] damage.</p>\n<p><strong>Critical Failure</strong> The target is paralyzed for 1 round and takes @Damage[8d12[force]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "force",
+                        "nonlethal",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IHHvjJx8e1Ox5iOe",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Glint",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Any living creature approaches within 10 feet of the gem</p><hr /><p><strong>Effect</strong> The captivating gem targets the triggering creature with a facet flare Strike and then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "zTo5Q6qvHu1ev0Lh",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Facet Flare",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "XKH2yuvBGIKx6AbE": {
+                        "damage": "3d12+17",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": "<p>The target must succeed at a @Check[fortitude|dc:40] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": null,
+                    "max": 30
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "nonlethal"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Captivating Gem",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 34
+            },
+            "emitsSound": "encounter",
+            "hardness": 25,
+            "hp": {
+                "details": "",
+                "max": 90,
+                "temp": 0,
+                "value": 90
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 30
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The floating gem flares with inner radiance, sending out beams of light to captivate and drain the vitality from all who approach.</p>",
+            "disable": "<p>@Check[arcana|dc:35] (expert), @Check[occultism|dc:35] (expert), or @Check[religion|dc:35] (expert) to unravel the magical matrix within the gem, @Check[crafting|dc:40] or @Check[thievery|dc:40] check to unbalance the crystal's alignment, or a @Check[athletics|dc:43] check to damage one of the gem's facets and change its geometry; two successes are required to disable the hazard</p>",
+            "isComplex": true,
+            "level": {
+                "value": 15
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) The captivating gem attempts uses all three of its actions to incapacitate creatures. It targets the closest creature with its Freezing Light ability, then a different creature with its facet flare Strike. If a creature has already been @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] by Freezing Light, it chooses a different target for that ability.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 23
+            },
+            "reflex": {
+                "value": 29
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

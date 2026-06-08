@@ -20,7 +20,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
         if (source.type === "character" || source.type === "npc") {
             const attributes: OldAttributesSource = source.system.attributes;
             if ("initiative" in attributes) {
-                attributes["-=initiative"] = null;
+                attributes.initiative = _del;
                 if (
                     R.isPlainObject(attributes.initiative) &&
                     "statistic" in attributes.initiative &&
@@ -33,11 +33,11 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
 
         if (source.type === "character") {
             const attributes: OldAttributesSource = source.system.attributes;
-            if ("perception" in attributes) attributes["-=perception"] = null;
+            if ("perception" in attributes) attributes.perception = _del;
 
             const traits: unknown = source.system.traits;
             if (R.isPlainObject(traits) && "senses" in traits) {
-                traits["-=senses"] = null;
+                traits.senses = _del;
             }
             this.#createCustomChangesFeat(source);
         } else if (source.type === "npc") {
@@ -45,19 +45,18 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
             if ("perception" in attributes) {
                 const mod = R.isPlainObject(attributes.perception) ? Number(attributes.perception.value) || 0 : 0;
                 source.system.perception.mod = mod;
-                attributes["-=perception"] = null;
+                attributes.perception = _del;
             }
             const traits: OldTraitsSource = source.system.traits;
             if ("senses" in traits) {
                 this.#convertNPCSenses(source.system);
-                traits["-=senses"] = null;
+                traits.senses = _del;
             }
         }
 
         // Remove some stray cruft
-        if (R.isPlainObject(source.system.traits) && "attitude" in source.system.traits) {
-            const traits: object & { "-=attitude"?: null } = source.system.traits;
-            traits["-=attitude"] = null;
+        if (source.system.traits && "attitude" in source.system.traits) {
+            source.system.traits.attitude = _del;
         }
     }
 
@@ -288,14 +287,11 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
 
 interface OldAttributesSource {
     hp?: object;
-    perception?: { value?: number };
-    "-=perception"?: null;
+    perception?: object;
     initiative?: unknown;
-    "-=initiative"?: null;
 }
 
 interface OldTraitsSource {
     value: string[];
     senses?: unknown;
-    "-=senses"?: null;
 }

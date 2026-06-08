@@ -48,11 +48,13 @@ export class Migration927ClassBackgroundBattleFormSkillLongform extends Migratio
         const system: BackgroundSystemSourceMaybeOld = source.system;
         const mapping: Record<string, SkillSlug | undefined> = SKILL_DICTIONARY;
         system.trainedSkills.value = system.trainedSkills.value.map((s) => mapping[s] ?? s);
+
+        // Move lores and convert to array. Lore entry may not exist in source data
         if ("trainedLore" in system) {
-            // Move lores and convert to array. Lore entry may not exist in source data
-            const lores = system.trainedLore ? system.trainedLore.split(",").map((s) => s.trim()) : [];
+            const loresString = String(system.trainedLore ?? "").trim();
+            const lores = loresString ? loresString.split(",").map((s) => s.trim()) : [];
             system.trainedSkills.lore = system.trainedSkills.lore?.length ? system.trainedSkills.lore : lores;
-            system["-=trainedLore"] = null;
+            system.trainedLore = _del;
         }
     }
 }
@@ -87,8 +89,7 @@ interface ClassSystemSourceMaybeOld extends Omit<ClassSystemSource, "trainedSkil
 }
 
 interface BackgroundSystemSourceMaybeOld extends Omit<BackgroundSystemSource, "trainedSkills"> {
-    trainedLore?: string;
-    "-=trainedLore"?: null;
+    trainedLore?: unknown;
     trainedSkills: {
         value: (SkillAbbreviation | SkillSlug)[];
         lore: string[];

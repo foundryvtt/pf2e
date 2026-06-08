@@ -1,0 +1,54 @@
+{
+    "_id": "Ahn0Nqsus9vyPiN9",
+    "img": "icons/skills/melee/swords-parry-block-yellow.webp",
+    "name": "Effect: Paracountess's Parry",
+    "system": {
+        "description": {
+            "value": "<p>Vorrea raises the wide hilt of her cutlass in a defensive posture, surrounded by arcane energies to defend herself. She gains a +2 circumstance bonus to her AC and resistance 5 to physical damage (except silver) until the start of her next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Hell's Destiny"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "exceptions": [
+                    "silver"
+                ],
+                "key": "Resistance",
+                "type": "physical",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

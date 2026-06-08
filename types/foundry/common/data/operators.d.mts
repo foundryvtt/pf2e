@@ -11,15 +11,15 @@ export const OPERATOR_IDENTIFIER: "__$OPERATOR$__";
 /**
  * A base class used for all special database operations.
  */
-export abstract class DataFieldOperator {
-    constructor(value: unknown);
+export abstract class DataFieldOperator<T = unknown> {
+    constructor(value: T);
 
     toJSON(): object;
 
     /**
      * Create a DataFieldOperator using a provided value.
      */
-    static create<U>(value: U): DataFieldOperator;
+    static create<U>(value: U): DataFieldOperator<U>;
 
     /**
      * Retrieve the inner value of the DataFieldOperator, or return the value passed if not a DataFieldOperator.
@@ -29,7 +29,7 @@ export abstract class DataFieldOperator {
     /**
      * Assign the inner value of the DataFieldOperator.
      */
-    static set<U>(operator: DataFieldOperator, value: U): DataFieldOperator;
+    static set<U>(operator: DataFieldOperator<U>, value: U): DataFieldOperator<U>;
 
     /**
      * A comparison helper function that asserts whether two values are equal when one or both values may be
@@ -43,20 +43,20 @@ export abstract class DataFieldOperator {
 /**
  * Force the deletion of a certain DataModel field, resetting its value back to undefined.
  */
-export class ForcedDeletion extends DataFieldOperator {
+export class ForcedDeletion extends DataFieldOperator<undefined> {
     constructor();
 }
 
 /**
  * Force the replacement of a certain DataModel field, assigning it to some explicit value without inner recursion.
  */
-export class ForcedReplacement extends DataFieldOperator {
-    constructor(value: unknown);
+export class ForcedReplacement<T = unknown> extends DataFieldOperator {
+    constructor(value: T);
 
     /**
      * Create a ForcedReplacement instance that is wrapped in a Proxy so that it can be inspected.
      */
-    static create(value: unknown): ForcedReplacement;
+    static create<U>(value: U): ForcedReplacement<U>;
 }
 
 /* -------------------------------------------- */

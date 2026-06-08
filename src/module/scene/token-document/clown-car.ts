@@ -5,6 +5,8 @@ import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e } from "@util";
 import * as R from "remeda";
 
+const CAR_POSITION_FIELDS = ["x", "y", "elevation", "level"] as const;
+
 /** A helper class to manage a party token's loaded/unloaded state */
 class PartyClownCar {
     party: PartyPF2e;
@@ -39,7 +41,7 @@ class PartyClownCar {
     /** Retrieve all party-member tokens, animating their movement before finally deleting them. */
     async #retrieve(): Promise<void> {
         const tokens = this.memberTokens;
-        const updates = tokens.map((t) => ({ _id: t.id, ...R.pick(this.token, ["x", "y"]) }));
+        const updates = tokens.map((t) => ({ _id: t.id, ...R.pick(this.token, CAR_POSITION_FIELDS) }));
         await this.scene.updateEmbeddedDocuments("Token", updates);
         await Promise.all(
             tokens.map(async (token) => {
@@ -55,12 +57,11 @@ class PartyClownCar {
         const placeable = car.object;
         if (!placeable) return;
 
+        const carPosition = R.pick(car, CAR_POSITION_FIELDS);
         const newTokens = (
-            await Promise.all(
-                this.party.members.map((m) => m.getTokenDocument({ x: car.x, y: car.y, actorLink: true })),
-            )
+            await Promise.all(this.party.members.map((m) => m.getTokenDocument({ ...carPosition, actorLink: true })))
         )
-            .map((t) => ({ ...t.toObject(), x: car.x, y: car.y }))
+            .map((t) => ({ ...t.toObject(), ...carPosition }))
             .sort((a, b) => b.width - a.width);
         const createdTokens = await this.scene.createEmbeddedDocuments("Token", newTokens);
         const freeSpaces = this.#getDepositSpaces();
@@ -69,7 +70,10 @@ class PartyClownCar {
             const square = freeSpaces.findSplice(
                 (s) => Math.abs(s.x - token.x) >= widthPixels && Math.abs(s.y - token.y) >= widthPixels,
             );
-            return { _id: token._id ?? "", ...R.pick(square ?? car, ["x", "y"]) };
+            return {
+                _id: token._id ?? "",
+                ...(square ? { ...R.pick(square, ["x", "y"]), ...R.pick(car, ["elevation", "level"]) } : carPosition),
+            };
         });
         await this.scene.updateEmbeddedDocuments("Token", placementData);
     }

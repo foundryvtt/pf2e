@@ -1,0 +1,303 @@
+{
+    "_id": "eLpxaSwzmoUqNrfY",
+    "folder": "sN2Kq5LgFEum77Zn",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Aristocratic Arms",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Through consistent (and often punishing) practice, you've learned how to use your house's preferred weapons. You have familiarity with either one martial weapon of your choice; two simple or martial weapons of your choice from your house's preferred weapons list; or one advanced weapon of your choice from your house's preferred weapons list. For the purpose of proficiency, treat any of these selections that are martial weapons as simple weapons and any that are advanced weapons as martial weapons. If you're at least an expert in one of the selected weapons, you get the critical specialization effect of that weapon when you get a critical hit with it.</p>\n<p><strong>Charthagnion:</strong> Weapons with the disarm or parry trait</p>\n<p><strong>Elliendo:</strong> Brawling weapons and knives</p>\n<p><strong>Henderthane:</strong> Hammers and picks</p>\n<p><strong>Jeggare:</strong> One-handed swords</p>\n<p><strong>Leroung:</strong> Clubs and shields</p>\n<p><strong>Narikopolus:</strong> Bows</p>\n<p><strong>Sarini:</strong> Flails</p>\n<p><strong>Thrune:</strong> Clubs and crossbows</p>\n<p>In addition, you gain the @UUID[Compendium.pf2e.actionspf2e.Item.For My House!] action.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Chelaxian Scion Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #223: Hell's Destiny"
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:trait:disarm",
+                            "item:trait:parry"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.ChelaxianScion.NobleHouse.Charthagnion.WeaponFamiliarity",
+                "predicate": [
+                    "chelaxian-noble-house:charthagnion"
+                ],
+                "sameAs": "simple",
+                "slug": "charthagnion-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "chelaxian-noble-house:charthagnion",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:disarm",
+                            "item:trait:parry"
+                        ]
+                    }
+                ]
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:group:brawling",
+                            "item:group:knife"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.ChelaxianScion.NobleHouse.Elliendo.WeaponFamiliarity",
+                "predicate": [
+                    "chelaxian-noble-house:elliendo"
+                ],
+                "sameAs": "simple",
+                "slug": "elliendo-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "chelaxian-noble-house:elliendo",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:group:brawling",
+                            "item:group:knife"
+                        ]
+                    }
+                ]
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:group:hammer",
+                            "item:group:pick"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.ChelaxianScion.NobleHouse.Henderthane.WeaponFamiliarity",
+                "predicate": [
+                    "chelaxian-noble-house:henderthane"
+                ],
+                "sameAs": "simple",
+                "slug": "henderthane-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "chelaxian-noble-house:henderthane",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:group:hammer",
+                            "item:group:pick"
+                        ]
+                    }
+                ]
+            },
+            {
+                "definition": [
+                    "item:group:sword",
+                    "item:usage:hands:1"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.ChelaxianScion.NobleHouse.Jeggare.WeaponFamiliarity",
+                "predicate": [
+                    "chelaxian-noble-house:jeggare"
+                ],
+                "sameAs": "simple",
+                "slug": "jeggare-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "chelaxian-noble-house:jeggare",
+                    "item:group:sword",
+                    "item:usage:hands:1",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    }
+                ]
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:group:club",
+                            "item:type:shield"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.ChelaxianScion.NobleHouse.Leroung.WeaponFamiliarity",
+                "predicate": [
+                    "chelaxian-noble-house:leroung"
+                ],
+                "sameAs": "simple",
+                "slug": "leroung-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "chelaxian-noble-house:leroung",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:group:club",
+                            "item:type:shield"
+                        ]
+                    }
+                ]
+            },
+            {
+                "definition": [
+                    "item:group:bow"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.ChelaxianScion.NobleHouse.Narikopolus.WeaponFamiliarity",
+                "predicate": [
+                    "chelaxian-noble-house:narikopolus"
+                ],
+                "sameAs": "simple",
+                "slug": "narikopolus-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "chelaxian-noble-house:narikopolus",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    },
+                    "item:group:bow"
+                ]
+            },
+            {
+                "definition": [
+                    "item:group:flail"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.ChelaxianScion.NobleHouse.Sarini.WeaponFamiliarity",
+                "predicate": [
+                    "chelaxian-noble-house:sarini"
+                ],
+                "sameAs": "simple",
+                "slug": "sarini-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "chelaxian-noble-house:sarini",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    },
+                    "item:group:flail"
+                ]
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:group:club",
+                            "item:group:crossbow"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.ChelaxianScion.NobleHouse.Thrune.WeaponFamiliarity",
+                "predicate": [
+                    "chelaxian-noble-house:thrune"
+                ],
+                "sameAs": "simple",
+                "slug": "thrune-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "chelaxian-noble-house:thrune",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:group:club",
+                            "item:group:crossbow"
+                        ]
+                    }
+                ]
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.For My House!"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

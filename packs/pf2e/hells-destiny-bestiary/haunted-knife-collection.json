@@ -1,0 +1,188 @@
+{
+    "_id": "e88iXPCqk0Zb31b8",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "gBNC8HgdTGjrUpSd",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "10,000 Stabs",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature touches one of the crates</p><hr /><p><strong>Effect</strong> A cloud of knives rises from the boxes in a 10-foot radius around the touched crate and stabs all creatures in its area, dealing @Damage[10d4[slashing]] damage (@Check[reflex|dc:34|basic] save). The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HXtETEQrdg3Hloug",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Speed",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Fly 15 feet</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XAXtJwtX96jvyWdE",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dagger",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "kyMxQPy4iGdmNZKJ": {
+                        "damage": "10d4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical",
+                        "versatile-p"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Haunted Knife Collection",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 31
+            },
+            "emitsSound": "encounter",
+            "hardness": 10,
+            "hp": {
+                "details": "",
+                "max": 80,
+                "temp": 0,
+                "value": 80
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master) or @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</p>",
+                "value": 23
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 10
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>Crates of knives and daggers shine with ill intent.</p>",
+            "disable": "<p>@Check[religion|dc:26] (master) to exorcise the spirits, @Check[crafting|dc:33] (expert) to damage the knives, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (5th rank; counteract DC 29) to counteract the crate</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "<p>The spirits in the hazard reactivate after 10 minutes.</p>",
+            "routine": "<p>(3 actions) The knife collection identifies targets. It first moves to have as many living creatures in its space as possible within a single Fly action, then attempts dagger Strikes against living creatures in its space.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 18
+            },
+            "reflex": {
+                "value": 24
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

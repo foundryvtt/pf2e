@@ -827,10 +827,12 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         };
 
         handlers["edit-attribute-boosts"] = () => {
+            // Reuse an existing attribute builder if one is open: constructing a second instance with the same
+            // element ID would detach the open builder's element without closing it, breaking its render state.
+            const existing = foundry.applications.instances.get("attribute-builder");
             const builder =
-                Object.values(this.actor.apps).find((a) => a instanceof AttributeBuilder) ??
-                new AttributeBuilder({ actor: this.actor });
-            return builder.render({ force: true });
+                existing instanceof AttributeBuilder ? existing : new AttributeBuilder({ actor: this.actor });
+            return builder.render({ force: true, actor: this.actor });
         };
 
         handlers["select-apex-attribute"] = (event) => {

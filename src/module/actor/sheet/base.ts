@@ -1118,11 +1118,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
 
             const baseConditionSource = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
             const conditions = roll.instances.map((i) =>
-                fu.mergeObject(baseConditionSource, {
-                    system: {
-                        persistent: { formula: i.head.expression, damageType: i.type, dc: 15 },
+                fu.mergeObject(
+                    baseConditionSource,
+                    {
+                        system: {
+                            persistent: { formula: i.head.expression, damageType: i.type, dc: 15 },
+                        },
                     },
-                }),
+                    { inplace: false },
+                ),
             );
             await this.actor.createEmbeddedDocuments("Item", conditions);
         } else {

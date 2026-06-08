@@ -1,0 +1,111 @@
+{
+    "_id": "U6rhukKZTA3TLWvf",
+    "folder": "H7g1HDbC8egjVO61",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Chelaxian Scion Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Access</strong> You're an aristocrat or honored retainer from a Chelaxian noble house.</p><hr /><p>A noble house has invested in your training, imparting special techniques the family has honed over generations. You gain @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] as a skill feat, choosing from among Cheliax Lore, Devil Lore, Hell Lore, or a Lore associated with your house. In addition, you gain a +1 circumstance bonus to Deception checks, Diplomacy checks, Intimidation checks, and your Will DC against Chelaxian citizens and devils.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #223: Hell's Destiny"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.ChelaxianScion.RollOptionLabel",
+                "option": "chelaxian-scion",
+                "toggleable": true
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "chelaxian-scion",
+                            "target:trait:devil"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "deception",
+                    "intimidation",
+                    "will-dc"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.ChelaxianScion.NobleHouse.Charthagnion.Label",
+                        "value": "charthagnion"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChelaxianScion.NobleHouse.Elliendo.Label",
+                        "value": "elliendo"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChelaxianScion.NobleHouse.Henderthane.Label",
+                        "value": "henderthane"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChelaxianScion.NobleHouse.Jeggare.Label",
+                        "value": "jeggare"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChelaxianScion.NobleHouse.Leroung.Label",
+                        "value": "leroung"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChelaxianScion.NobleHouse.Narikopolus.Label",
+                        "value": "narikopolus"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChelaxianScion.NobleHouse.Sarini.Label",
+                        "value": "sarini"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ChelaxianScion.NobleHouse.Thrune.Label",
+                        "value": "thrune"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.ChelaxianScion.NobleHouse.Prompt",
+                "rollOption": "chelaxian-noble-house"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}
