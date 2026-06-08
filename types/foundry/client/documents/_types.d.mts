@@ -851,6 +851,8 @@ export interface TokenMovementContinuationHandle {
 
 export type TokenResumeMovementCallback = () => Promise<boolean>;
 
+export type WallCategory = "door" | "ethereal" | "invisible" | "normal" | "secret" | "terrain" | "window" | "blank";
+
 export interface RegionSurface {
     /** A key that uniquely identifies the surface */
     key: string;

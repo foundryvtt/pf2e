@@ -253,6 +253,7 @@ export class EmanationShapeData extends BaseShapeData<EmanationShapeDataSchema> 
 export interface EmanationShapeData
     extends BaseShapeData<EmanationShapeDataSchema>, fields.ModelPropsFromSchema<EmanationShapeDataSchema> {
     readonly _source: Omit<fields.SourceFromSchema<EmanationShapeDataSchema>, "type"> & { type: "emanation" };
+    readonly type: "emanation";
 }
 
 type EmanationShapeDataSchema = BaseShapeDataSchema & {
@@ -284,6 +285,7 @@ export class ConeShapeData extends BaseShapeData<ConeShapeDataSchema> {
 export interface ConeShapeData
     extends BaseShapeData<ConeShapeDataSchema>, fields.ModelPropsFromSchema<ConeShapeDataSchema> {
     readonly _source: Omit<fields.SourceFromSchema<ConeShapeDataSchema>, "type"> & { type: "cone" };
+    readonly type: "cone";
 }
 
 type ConeShapeDataSchema = BaseShapeDataSchema & {
@@ -350,6 +352,7 @@ export class LineShapeData extends BaseShapeData<LineShapeDataSchema> {
 export interface LineShapeData
     extends BaseShapeData<LineShapeDataSchema>, fields.ModelPropsFromSchema<LineShapeDataSchema> {
     readonly _source: Omit<fields.SourceFromSchema<LineShapeDataSchema>, "type"> & { type: "line" };
+    readonly type: "line";
 }
 
 type LineShapeDataSchema = BaseShapeDataSchema & {
@@ -403,6 +406,7 @@ export class TokenShapeData extends BaseShapeData<TokenShapeDataSchema> {
 export interface TokenShapeData
     extends BaseShapeData<TokenShapeDataSchema>, fields.ModelPropsFromSchema<TokenShapeDataSchema> {
     readonly _source: Omit<fields.SourceFromSchema<TokenShapeDataSchema>, "type"> & { type: "token" };
+    readonly type: "token";
 }
 
 type TokenShapeDataSchema = BaseShapeDataSchema & {
@@ -436,6 +440,7 @@ export class GridShapeData extends BaseShapeData<GridShapeDataSchema> {
 export interface GridShapeData
     extends BaseShapeData<GridShapeDataSchema>, fields.ModelPropsFromSchema<GridShapeDataSchema> {
     readonly _source: Omit<fields.SourceFromSchema<GridShapeDataSchema>, "type"> & { type: "grid" };
+    readonly type: "grid";
 }
 
 type GridShapeDataSchema = BaseShapeDataSchema & {

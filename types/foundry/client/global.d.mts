@@ -15,6 +15,12 @@ declare module "pixi.js" {
     export import LegacyGraphics = PixiJS.Graphics;
     export import smooth = PixiGraphicsSmooth;
     export import particles = PixiParticles;
+    enum UPDATE_PRIORITY {
+        PERCEPTION = 2,
+        PRIMARY = 3,
+        INTERFACE = 22,
+        OBJECTS = 23,
+    }
 }
 
 declare global {

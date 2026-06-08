@@ -15,6 +15,7 @@ export default class AmbientSoundDocument<TParent extends Scene | null> extends 
 
 export default interface AmbientSoundDocument<TParent extends Scene | null> extends CanvasBaseAmbientSound<TParent> {
     readonly _object: AmbientSound<this> | null;
+    get object(): AmbientSound<this> | null;
 }
 
 export {};
