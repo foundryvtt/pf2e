@@ -1,0 +1,107 @@
+{
+    "_id": "rj7GmKFnHbT48hmA",
+    "folder": "Fm5p6wB8119OY5cS",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Curse-Marked",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "int",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You're not cursed now (unless you carry a curse from a different source, such as the oracle class), but you were at some point in the past. This could have been brought on by a cursed magic item, could have been the result of a botched adventure, or might have been brought upon you by some sort of supernatural force. Whatever the case, while you've since recovered from that curse, it's left an invisible mark upon your soul—a mark that functions almost like scar tissue. Your experience has also left you with a lifelong fascination about curses, and you've spent countless hours squirrelled away in libraries throughout the land researching curses, reading stories about those who endured curses, and examining the various complex ways one who becomes cursed can escape that fate. It was during one of these marathon study sessions you first met Florin Kindler, who had come to the same library as you to research a curse you've long been interested in—the curse of Bastardhall. Through this shared interest you've built something akin to a strong professional relationship that could even have grown into actual friendship. You were one of the first she contacted for assistance when she finally made the decision to mount an expedition to the notorious ruin.</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You are trained in the Occultism skill and the Library Lore skill. As long as you are not cursed yourself (barring a class-based curse, such as that granted by the oracle), you gain a +2 circumstance bonus on checks made to counteract curses, on saving throws to resist curses, and on any skill check to disable a hazard capable of inflicting a curse. If you are cursed, you instead gain a –2 circumstance penalty to these rolls.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Bastion of Blasphemies Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.BastionOfBlasphemies.Background.CurseMarked.ToggleLabel",
+                "option": "curse-marked:cursed",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:curse"
+                ],
+                "selector": [
+                    "counteract-check",
+                    "saving-throw"
+                ],
+                "slug": "curse-marked",
+                "tags": [
+                    "curse-marked"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "origin:trait:curse",
+                            "item:trait:curse"
+                        ]
+                    },
+                    "disable-hazard"
+                ],
+                "selector": [
+                    "skill-check"
+                ],
+                "slug": "curse-marked-skill",
+                "tags": [
+                    "curse-marked"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "downgrade",
+                "predicate": [
+                    "curse-marked:cursed",
+                    "bonus:tag:curse-marked"
+                ],
+                "selectors": [
+                    "counteract-check",
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "value": -2
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Library Lore"
+            ],
+            "value": [
+                "occultism"
+            ]
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": []
+        }
+    },
+    "type": "background"
+}
