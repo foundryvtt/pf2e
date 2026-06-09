@@ -28,8 +28,24 @@
             padding-left: 1.75rem;
             height: 1.625rem;
             line-height: 1.625rem;
-            width: 100%;
+            flex: 1;
+            min-width: 0;
         }
+
+        a.toggle-slot-headers {
+            color: var(--color-pf-alternate);
+            flex: 0 0 auto;
+            margin-left: var(--space-6);
+
+            &:hover,
+            &.active {
+                color: var(--color-pf-primary);
+            }
+        }
+    }
+
+    &.hide-slot-headers .header-row {
+        display: none;
     }
 
     .spell-collections {

@@ -285,6 +285,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.hasNormalSpellcasting = sheetData.spellCollectionGroups["known-spells"].some(
             (s) => s.usesSpellProficiency,
         );
+        sheetData.hideSpellSlotHeaders = !!game.settings.get(SYSTEM_ID, "spellcasting.hideSlotHeaders");
 
         // ensure saves are displayed in the following order:
         sheetData.data.saves = {
@@ -847,6 +848,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         handlers["rest"] = async (event) => {
             return game.pf2e.actions.restForTheNight({ event, actors: this.actor });
+        };
+
+        // SPELLCASTING
+
+        handlers["toggle-slot-headers"] = () => {
+            const current = game.settings.get(SYSTEM_ID, "spellcasting.hideSlotHeaders");
+            return game.settings.set(SYSTEM_ID, "spellcasting.hideSlotHeaders", !current);
         };
 
         // MAIN TAB
@@ -1688,6 +1696,8 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     showPFSTab: boolean;
     spellCollectionGroups: Record<SpellcastingTabSlug, SpellcastingSheetData[]>;
     hasNormalSpellcasting: boolean;
+    /** Whether the user has collapsed the spell slot rank headers on the spellcasting tab */
+    hideSpellSlotHeaders: boolean;
     tabVisibility: CharacterSheetTabVisibility;
     actions: {
         encounter: Record<"action" | "reaction" | "free", { label: string; actions: CharacterAbilityViewData[] }>;
