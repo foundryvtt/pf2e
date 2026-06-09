@@ -950,11 +950,17 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         context.extraRollOptions = R.unique(["action:cast-a-spell", ...(context.extraRollOptions ?? [])]);
 
+        const extraDomains = [
+            this.isMelee ? "melee-attack-roll" : null,
+            this.isRanged ? "ranged-attack-roll" : null,
+        ].filter(R.isNonNullish);
+
         return statistic.check.roll({
             ...eventToRollParams(event, { type: "check" }),
             ...context,
             action: "cast-a-spell",
             item: this,
+            extraDomains,
             traits: R.unique([...this.system.traits.value, tradition]).filter(R.isNonNullish),
             attackNumber,
             dc: { slug: this.system.defense?.passive?.statistic ?? "ac" },

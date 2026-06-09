@@ -411,14 +411,10 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         })();
 
         const self = this.actor;
-        const item = args.item ?? null;
-        const domains = [...this.domains];
-        if (item?.isOfType("spell") && domains.includes("spell-attack-roll")) {
-            if (item.isMelee) domains.push("melee-attack-roll");
-            else if (item.isRanged) domains.push("ranged-attack-roll");
-        }
+        const domains = [...this.domains, ...(args.extraDomains ?? [])];
         const selfToken = args.token ?? self.getActiveTokens(true, true).shift() ?? null;
         const selfIsTarget = self === args.target || (!args.target && this.type === "saving-throw");
+        const item = args.item ?? null;
         const targetToken = selfIsTarget
             ? selfToken
             : (args.target?.getActiveTokens(true, true)?.find((t) => t.actor?.isOfType("army", "creature", "hazard")) ??
@@ -613,12 +609,11 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         }
 
         const clonedStatistic = selfIsTarget ? rollContext.target?.statistic : rollContext.origin?.statistic;
-        const spellAttackDomains = domains.filter((d) => !this.domains.includes(d));
-        const spellAttackModifiers =
-            spellAttackDomains.length > 0
-                ? extractModifiers(selfActor.synthetics, spellAttackDomains, { test: [...options] })
+        const extraDomainModifiers =
+            (args.extraDomains?.length ?? 0) > 0
+                ? extractModifiers(selfActor.synthetics, args.extraDomains ?? [], { test: [...options] })
                 : [];
-        const modifiers = [...(clonedStatistic?.check.modifiers ?? this.modifiers), ...spellAttackModifiers];
+        const modifiers = [...(clonedStatistic?.check.modifiers ?? this.modifiers), ...extraDomainModifiers];
         const check = new CheckModifier(this.parent.slug, { modifiers }, extraModifiers);
         const roll = await Check.roll(check, context, null, args.callback);
 
@@ -670,6 +665,8 @@ interface StatisticRollParameters {
     extraRollNotes?: (RollNotePF2e | RollNoteSource)[];
     /** Any additional options that should be used in the roll. */
     extraRollOptions?: string[];
+    /** Additional domains that should be used in the roll. */
+    extraDomains?: string[];
     /** Additional modifiers */
     modifiers?: Modifier[];
     /** The originating item of this attack, if any */
