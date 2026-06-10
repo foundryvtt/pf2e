@@ -400,7 +400,12 @@ class NPCSheetPF2e extends AbstractNPCSheet {
         };
 
         handlers["open-recall-breakdown"] = () => {
-            return new RecallKnowledgePopup({ identificationData: this.actor.identificationDCs }).render(true);
+            // Reuse an existing popup if one is open: constructing a second instance with the same element ID
+            // would detach the open popup's element without closing it, breaking its render state.
+            const actor = this.actor;
+            const existing = foundry.applications.instances.get("recall-knowledge-breakdown");
+            const popup = existing instanceof RecallKnowledgePopup ? existing : new RecallKnowledgePopup({ actor });
+            return popup.render({ force: true, actor });
         };
 
         handlers["roll-attribute"] = (event, anchor) => {

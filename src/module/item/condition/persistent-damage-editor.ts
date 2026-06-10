@@ -10,8 +10,13 @@ interface PersistentDamageEditorConfiguration extends fa.ApplicationConfiguratio
     selectedItemId: string | null;
 }
 
+interface PersistentDamageEditorRenderOptions extends fa.api.HandlebarsRenderOptions {
+    /** The id of a persistent damage condition on which this application should focus its editing */
+    selectedItemId?: string;
+}
+
 class PersistentDamageEditor extends fa.api.HandlebarsApplicationMixin<
-    AbstractConstructorOf<fa.api.ApplicationV2> & {
+    AbstractConstructorOf<fa.api.ApplicationV2<fa.ApplicationConfiguration, PersistentDamageEditorRenderOptions>> & {
         DEFAULT_OPTIONS: DeepPartial<PersistentDamageEditorConfiguration>;
     }
 >(fa.api.ApplicationV2) {
@@ -20,7 +25,6 @@ class PersistentDamageEditor extends fa.api.HandlebarsApplicationMixin<
         tag: "form",
         window: { icon: "fa-solid fa-droplet", contentClasses: ["standard-form"] },
         position: { width: 420 },
-        selectedItemId: null,
         actions: {
             add: PersistentDamageEditor.#onClickAdd,
             delete: PersistentDamageEditor.#onClickDelete,
@@ -37,12 +41,16 @@ class PersistentDamageEditor extends fa.api.HandlebarsApplicationMixin<
 
     declare options: PersistentDamageEditorConfiguration;
 
-    get #actor(): ActorPF2e {
-        return this.options.actor;
+    /** The id of the persistent damage condition currently focused for editing. Switchable via render options */
+    #selectedItemId: string | null;
+
+    constructor(options: DeepPartial<PersistentDamageEditorConfiguration> & { actor: ActorPF2e }) {
+        super(options);
+        this.#selectedItemId = options.selectedItemId ?? null;
     }
 
-    get #selectedItemId(): string | null {
-        return this.options.selectedItemId;
+    get #actor(): ActorPF2e {
+        return this.options.actor;
     }
 
     protected override _initializeApplicationOptions(
@@ -51,6 +59,23 @@ class PersistentDamageEditor extends fa.api.HandlebarsApplicationMixin<
         const initialized = super._initializeApplicationOptions(options) as PersistentDamageEditorConfiguration;
         initialized.uniqueId = `persistent-damage-editor-${initialized.actor.uuid}`;
         return initialized;
+    }
+
+    protected override _canRender(options: fa.ApplicationRenderOptions): boolean | void {
+        // Hand off to an already-open editor for this actor, forwarding any requested selection
+        const existing = foundry.applications.instances.get(this.id);
+        if (existing instanceof PersistentDamageEditor && existing !== this) {
+            existing.render({ selectedItemId: this.#selectedItemId ?? undefined });
+            if (existing.minimized) existing.maximize();
+            else existing.bringToFront();
+            return false;
+        }
+        return super._canRender(options);
+    }
+
+    protected override _configureRenderOptions(options: DeepPartial<PersistentDamageEditorRenderOptions>): void {
+        super._configureRenderOptions(options);
+        if (options.selectedItemId !== undefined) this.#selectedItemId = options.selectedItemId;
     }
 
     protected override async _onFirstRender(
