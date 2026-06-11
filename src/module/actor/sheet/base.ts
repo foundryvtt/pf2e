@@ -17,6 +17,7 @@ import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { Coins, sizeItemForActor, transferCredits } from "@item/physical/helpers.ts";
 import { COIN_DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import { TradeDialog } from "@module/apps/trade-dialog/app.ts";
 import { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
 import { createUseActionMessage } from "@module/chat-message/helpers.ts";
 import {
@@ -1315,6 +1316,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
             throw ErrorPF2e("Unexpected missing actor(s)");
         }
 
+        // If the recipient can't simply be given the item, attempt a trade instead
+        if (await this.#attemptTrade(event, item, recipient)) return;
+
         const containerId = htmlClosest(event.target, "[data-is-container]")?.dataset.itemId?.trim();
         const stackable = !!recipient.inventory.findStackableItem(item._source, { containerId });
         const mode = sourceActor.isOfType("loot") && sourceActor.isMerchant ? "purchase" : "move";
@@ -1344,6 +1348,42 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 result.mode === "purchase",
             );
         }
+    }
+
+    /**
+     * Determine whether a dropped item can be used for trading and initiate a trade if so.
+     * @returns whether a trade initiation request was sent
+     */
+    async #attemptTrade(event: DragEvent, item: PhysicalItemPF2e, recipient: ActorPF2e): Promise<boolean> {
+        if (game.user.isGM || recipient.isLootableBy(game.user)) return false;
+        const selfActor = item.actor;
+        if (!selfActor?.isOfType("character", "npc")) return false;
+        const traderUser = game.users
+            .filter((u) => u.active && !u.isSelf && recipient.testUserPermission(u, "OWNER"))
+            .sort((a, b) => Number(a.isGM) - Number(b.isGM))[0];
+
+        // Check reach separately: if a trade would be possible except for it being out of reach, proceed no
+        // further in item-drop workflow
+        const args = {
+            self: { actor: selfActor, item, gift: event.shiftKey },
+            trader: { user: traderUser, actor: recipient },
+        };
+        if (!TradeDialog.canTrade(args)) return false;
+        const checkReach = game.pf2e.settings.automation.reachEnforcement.has("merchants");
+        if (checkReach) {
+            const traderTokens = recipient.getActiveTokens(true, false);
+            const selfReach = selfActor.system.attributes.reach.manipulate;
+            const traderReach = args.trader.actor.system.attributes.reach.manipulate;
+            const inReach = selfActor.getActiveTokens(true, false).some((selfToken) =>
+                traderTokens.some((traderToken) => {
+                    const distance = selfToken.distanceTo(traderToken);
+                    return selfReach >= distance && traderReach >= distance;
+                }),
+            );
+            if (!inReach) return true;
+        }
+        TradeDialog.requestTrade(args);
+        return true;
     }
 
     /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */

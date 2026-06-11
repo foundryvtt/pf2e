@@ -78,11 +78,9 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         if (TradeDialog.#userTrading) return false;
         const { self, trader } = args;
         const traderActor = trader.actor;
-        if (!traderActor?.isOfType("creature") || !trader.user?.active || trader.user.isSelf) return false;
+        if (!traderActor?.isOfType("character", "npc") || !trader.user?.active || trader.user.isSelf) return false;
         if (!self.actor?.isOwner || !self.actor.isOfType("character", "npc")) return false;
-        if (!self.actor.testUserPermission(game.user, "OWNER")) return false;
-        if (self.actor.uuid === traderActor?.uuid) return false;
-        if (!self.actor.isOfType("character", "npc")) return false;
+        if (self.actor.uuid === traderActor.uuid) return false;
         if (!self.actor.isAllyOf(traderActor) && traderActor.alliance !== null) return false;
         if (self.gift && !self.item) return false;
         if (self.item) {
@@ -132,7 +130,9 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         const traderName = TradeDialog.#getObfuscatedActorName(trader.actor);
         ui.notifications.info(TradeDialog.localize("Request.Requesting", { trader: traderName }));
         try {
-            const response = await trader.user.query(`${SYSTEM_ID}.trade`, queryData, { timeout: 30_000 });
+            // The receiving side auto-declines after 30 seconds: the sender's extra 5 are a buffer in case the
+            // request/response are slow to send/arrive.
+            const response = await trader.user.query(`${SYSTEM_ID}.trade`, queryData, { timeout: 35_000 });
             if (!response) throw ErrorPF2e("No response from other side.");
             if (response.ok) {
                 const dialog = new TradeDialog({ self: { ...self, gift: giftQuantity, initiator: true }, trader });
@@ -142,10 +142,36 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 TradeDialog.#userTrading = false;
             }
         } catch {
-            const message = TradeDialog.localize("Request.Timeout", { user: trader.user.name });
+            const message = TradeDialog.localize("Request.Expired.Initiator", { user: trader.user.name });
             ui.notifications.error(message, { console: false });
             TradeDialog.#userTrading = false;
         }
+    }
+
+    /**
+     * Present a confirmation dialog for a trade request, auto dismissing it if left unanswered for too long.
+     * @returns `true` or `false` according to the user's answer, `null` if the request expired
+     */
+    static async #confirmRequest(options: Parameters<(typeof fa.api.DialogV2)["confirm"]>[0]): Promise<boolean | null> {
+        const id = "trade-request-prompt";
+        const confirmation: Promise<boolean | null> = fa.api.DialogV2.confirm({ ...options, id, rejectClose: false });
+        const expiry = new Promise<"expired">((resolve) => {
+            setTimeout(() => resolve("expired"), 30_000);
+        });
+        const result = await Promise.race([confirmation, expiry]);
+        if (result === "expired") {
+            await foundry.applications.instances.get(id)?.close();
+            return null;
+        }
+        return !!result;
+    }
+
+    static #notifyRequestExpired(initiatorName: string, initiatorUser: UserPF2e): void {
+        const message = TradeDialog.localize("Request.Expired.Receiver", {
+            trader: initiatorName,
+            user: initiatorUser.name,
+        });
+        ui.notifications.warn(message, { console: false });
     }
 
     static #validateConstructorParams(data: MaybeValidConstructorParams): asserts data is ConstructorParams {
@@ -447,7 +473,7 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         if (args.trader.item && args.trader.gift) {
             const { user, item, gift: quantity } = args.trader;
             const title = TradeDialog.localize("Gift.Prompt.Title", { trader: initiatorName });
-            const ok = await fa.api.DialogV2.confirm({
+            const ok = await TradeDialog.#confirmRequest({
                 window: { icon: "fa-solid fa-gift", title },
                 content: TradeDialog.localize("Gift.Prompt.Content", {
                     trader: initiatorName,
@@ -463,14 +489,21 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 return { ok };
             }
             dialog.close({ aborted: true });
+            if (ok === null) {
+                TradeDialog.#notifyRequestExpired(initiatorName, user);
+                return {
+                    ok: false,
+                    message: TradeDialog.localize("Request.Expired.Initiator", { user: game.user.name }),
+                };
+            }
             const selfName = TradeDialog.#getObfuscatedActorName(args.self.actor, args.trader.user);
-            return { ok, message: TradeDialog.localize("Gift.Declined", { trader: selfName, user: user.name }) };
+            return { ok: false, message: TradeDialog.localize("Gift.Declined", { trader: selfName, user: user.name }) };
         }
 
         // Confirm with user before initiating
         const windowIcon = TradeDialog.DEFAULT_OPTIONS.window.icon;
         const title = TradeDialog.localize("Request.Prompt.Title", { trader: initiatorName });
-        const ok = await fa.api.DialogV2.confirm({
+        const ok = await TradeDialog.#confirmRequest({
             window: { icon: windowIcon, title },
             content: TradeDialog.localize("Request.Prompt.Content", {
                 trader: initiatorName,
@@ -483,10 +516,14 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
             await dialog.render({ force: true });
             return { ok };
         }
+        dialog.close({ aborted: true });
+        if (ok === null) {
+            TradeDialog.#notifyRequestExpired(initiatorName, args.trader.user);
+            return { ok: false, message: TradeDialog.localize("Request.Expired.Initiator", { user: game.user.name }) };
+        }
         const selfName = TradeDialog.#getObfuscatedActorName(args.self.actor, args.trader.user);
         const message = TradeDialog.localize("Request.Declined", { trader: selfName, user: game.user.name });
-        dialog.close({ aborted: true });
-        return { ok, message };
+        return { ok: false, message };
     }
 
     /** Handle a trade-update query from another user. */
