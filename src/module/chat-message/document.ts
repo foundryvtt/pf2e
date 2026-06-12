@@ -382,17 +382,10 @@ class ChatMessagePF2e extends ChatMessage<UserPF2e | null> {
         options: ChatMessageCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
-        const pf2e = data.flags?.[SYSTEM_ID];
+        const system = data.flags?.[SYSTEM_ID];
         if (
             options.chatBubble === undefined &&
-            (data.rolls?.length ||
-                data.flavor ||
-                data.style === CONST.CHAT_MESSAGE_STYLES.OTHER ||
-                pf2e?.origin ||
-                pf2e?.context ||
-                pf2e?.casting ||
-                pf2e?.modifiers?.length ||
-                pf2e?.dice?.length)
+            (data.rolls?.length || data.flavor || (system && Object.keys(system).length > 0))
         ) {
             options.chatBubble = false;
         }
