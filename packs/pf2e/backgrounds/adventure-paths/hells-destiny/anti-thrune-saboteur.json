@@ -1,0 +1,81 @@
+{
+    "_id": "0tVUXurNRQEyXKfs",
+    "folder": "9j7ichlok4ybsJh4",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Anti-Thrune Saboteur",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "dex"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>House Thrune has cast its tyrannical shadow over Cheliax for over 80 years, and you long to topple the dynasty and free southwest Avistan from its grip. You might be a spy for Andoran or another active combatant in the ongoing war, or perhaps you're a rebellious soul who grew up under Thrune's thumb and dreams of a better future. Whatever the case, you're a versed saboteur ready to destroy Cheliax's armies from behind enemy lines.</p>\n<p>Choose two attribute boosts. One must be to <strong>Dexterity</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in either Deception or Thievery, as well as either the Cheliax Lore or Engineering Lore skill. If you chose Deception, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Lengthy Diversion] skill feat. If you chose Thievery, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Dirty Trick] skill feat.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Hell's Destiny Player's Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Deception",
+                        "value": {
+                            "feat": "Compendium.pf2e.feats-srd.Item.Lengthy Diversion",
+                            "slug": "deception"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Thievery",
+                        "value": {
+                            "feat": "Compendium.pf2e.feats-srd.Item.Dirty Trick",
+                            "slug": "thievery"
+                        }
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.system.rulesSelections.skill.feat}"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Cheliax Lore",
+                "Engineering Lore"
+            ],
+            "value": []
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}
