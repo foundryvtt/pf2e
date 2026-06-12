@@ -377,6 +377,28 @@ class ChatMessagePF2e extends ChatMessage<UserPF2e | null> {
         if (canvas.ready) this.token?.object?.emitHoverOut(nativeEvent);
     }
 
+    protected override async _preCreate(
+        data: DeepPartial<this["_source"]>,
+        options: ChatMessageCreateCallbackOptions,
+        user: fd.BaseUser,
+    ): Promise<boolean | void> {
+        const pf2e = data.flags?.[SYSTEM_ID];
+        if (
+            options.chatBubble === undefined &&
+            (data.rolls?.length ||
+                data.flavor ||
+                data.style === CONST.CHAT_MESSAGE_STYLES.OTHER ||
+                pf2e?.origin ||
+                pf2e?.context ||
+                pf2e?.casting ||
+                pf2e?.modifiers?.length ||
+                pf2e?.dice?.length)
+        ) {
+            options.chatBubble = false;
+        }
+        return super._preCreate(data, options, user);
+    }
+
     protected override _onCreate(
         data: this["_source"],
         options: ChatMessageCreateCallbackOptions & { restForTheNight?: boolean },

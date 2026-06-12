@@ -181,10 +181,14 @@ declare namespace ChatMessage {
 export default ChatMessage;
 
 export interface ChatMessageCreateCallbackOptions extends DatabaseCreateCallbackOptions {
+    /** Whether to display a chat bubble over the speaking token */
+    chatBubble?: boolean;
     messageMode?: ChatMessageMode;
 }
 
 export interface ChatMessageCreateOperation extends DatabaseCreateOperation<null> {
+    /** Whether to display a chat bubble over the speaking token */
+    chatBubble?: boolean;
     messageMode?: ChatMessageMode;
 }
 
