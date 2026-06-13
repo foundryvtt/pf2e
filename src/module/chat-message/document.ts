@@ -382,11 +382,7 @@ class ChatMessagePF2e extends ChatMessage<UserPF2e | null> {
         options: ChatMessageCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
-        const system = data.flags?.[SYSTEM_ID];
-        if (
-            options.chatBubble === undefined &&
-            (data.rolls?.length || data.flavor || (system && Object.keys(system).length > 0))
-        ) {
+        if (options.chatBubble === undefined && (data.rolls?.length || data.flags?.[SYSTEM_ID])) {
             options.chatBubble = false;
         }
         return super._preCreate(data, options, user);

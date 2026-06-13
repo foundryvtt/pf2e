@@ -195,21 +195,24 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             "system.resources.potions.value": newPotions,
         });
 
-        await ChatMessagePF2e.create({
-            speaker: ChatMessagePF2e.getSpeaker({ actor: this as ArmyPF2e, token: this.token }),
-            flavor: createHTMLElement("div", {
-                children: [
-                    createHTMLElement("strong", {
-                        children: [_loc("PF2E.Kingmaker.Army.Potions.UsedPotionHeader")],
-                    }),
-                    document.createElement("hr"),
-                ],
-            }).outerHTML,
-            content: createHTMLElement("p", {
-                children: [_loc("PF2E.Kingmaker.Army.Potions.UsedPotionContent")],
-            }).outerHTML,
-            style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
-        });
+        await ChatMessagePF2e.create(
+            {
+                speaker: ChatMessagePF2e.getSpeaker({ actor: this as ArmyPF2e, token: this.token }),
+                flavor: createHTMLElement("div", {
+                    children: [
+                        createHTMLElement("strong", {
+                            children: [_loc("PF2E.Kingmaker.Army.Potions.UsedPotionHeader")],
+                        }),
+                        document.createElement("hr"),
+                    ],
+                }).outerHTML,
+                content: createHTMLElement("p", {
+                    children: [_loc("PF2E.Kingmaker.Army.Potions.UsedPotionContent")],
+                }).outerHTML,
+                style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
+            },
+            { chatBubble: false },
+        );
     }
 
     prepareArmyStrike(type: "melee" | "ranged"): ArmyStrike | null {
