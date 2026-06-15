@@ -179,7 +179,6 @@ export class ItemTransfer implements ItemTransferData {
                 {
                     author: requester.id,
                     speaker: { alias: ItemTransfer.#tokenName(targetActor) },
-                    style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
                     flavor,
                     content,
                 },
@@ -338,7 +337,6 @@ export class ItemTransfer implements ItemTransferData {
             {
                 author: requester.id,
                 speaker: { alias: speaker },
-                style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
                 flavor: await this.#messageFlavor(sourceActor, targetActor, subtitle),
                 content,
             },

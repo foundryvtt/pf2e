@@ -209,7 +209,6 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                 content: createHTMLElement("p", {
                     children: [_loc("PF2E.Kingmaker.Army.Potions.UsedPotionContent")],
                 }).outerHTML,
-                style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
             },
             { chatBubble: false },
         );

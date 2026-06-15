@@ -380,7 +380,6 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 speaker,
                 flavor,
                 content,
-                style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
                 author: speakerActor === self.actor ? game.user.id : this.#trader.user.id,
             },
             { chatBubble: false },

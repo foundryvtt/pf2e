@@ -162,7 +162,6 @@ class WeaponReloader extends SvelteApplicationMixin<
                 content,
                 speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
                 flavor,
-                style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
             },
             { chatBubble: false },
         );

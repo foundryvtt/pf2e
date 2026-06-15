@@ -75,7 +75,6 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
 
         await ChatMessagePF2e.create(
             {
-                style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
                 speaker,
                 flavor,
                 content,
