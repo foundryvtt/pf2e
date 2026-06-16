@@ -73,13 +73,11 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
             action: { title: localize(`${actionType}Title`), glyph },
         });
 
-        await ChatMessagePF2e.create(
-            {
-                speaker,
-                flavor,
-                content,
-            },
-            { chatBubble: false },
-        );
+        await ChatMessagePF2e.create({
+            style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
+            speaker,
+            flavor,
+            content,
+        });
     }
 }

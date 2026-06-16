@@ -375,15 +375,13 @@ class TradeDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 item: itemExchanged?.name ?? _loc("PF2E.Actions.Interact.GiveItem.AnItem"),
             }),
         });
-        await ChatMessagePF2e.create(
-            {
-                speaker,
-                flavor,
-                content,
-                author: speakerActor === self.actor ? game.user.id : this.#trader.user.id,
-            },
-            { chatBubble: false },
-        );
+        await ChatMessagePF2e.create({
+            speaker,
+            flavor,
+            content,
+            style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
+            author: speakerActor === self.actor ? game.user.id : this.#trader.user.id,
+        });
     }
 
     override async close(options: TradeDialogClosingOptions = {}): Promise<this> {

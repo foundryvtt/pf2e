@@ -73,9 +73,7 @@ class SimpleActionVariant extends BaseActionVariant {
                 speaker: ChatMessage.getSpeaker({ actor }),
             };
             const message =
-                (options.message?.create ?? true)
-                    ? await ChatMessagePF2e.create(data, { chatBubble: false })
-                    : new ChatMessagePF2e(data);
+                (options.message?.create ?? true) ? await ChatMessagePF2e.create(data) : new ChatMessagePF2e(data);
             const item =
                 effect && actor.isOwner
                     ? ((await actor.createEmbeddedDocuments("Item", [effect.toObject()]))[0] as EffectPF2e)

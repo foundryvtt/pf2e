@@ -175,15 +175,13 @@ export class ItemTransfer implements ItemTransferData {
 
             const flavor = await this.#messageFlavor(sourceActor, targetActor, localize("BuySubtitle"));
 
-            await ChatMessagePF2e.create(
-                {
-                    author: requester.id,
-                    speaker: { alias: ItemTransfer.#tokenName(targetActor) },
-                    flavor,
-                    content,
-                },
-                { chatBubble: false },
-            );
+            await ChatMessagePF2e.create({
+                author: requester.id,
+                speaker: { alias: ItemTransfer.#tokenName(targetActor) },
+                style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
+                flavor,
+                content,
+            });
             return;
         }
 
@@ -333,15 +331,13 @@ export class ItemTransfer implements ItemTransferData {
             message: _loc(...formatArgs).replace(/\b1 × /, ""),
         });
 
-        await ChatMessagePF2e.create(
-            {
-                author: requester.id,
-                speaker: { alias: speaker },
-                flavor: await this.#messageFlavor(sourceActor, targetActor, subtitle),
-                content,
-            },
-            { chatBubble: false },
-        );
+        await ChatMessagePF2e.create({
+            author: requester.id,
+            speaker: { alias: speaker },
+            style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
+            flavor: await this.#messageFlavor(sourceActor, targetActor, subtitle),
+            content,
+        });
     }
 
     async #messageFlavor(sourceActor: ActorPF2e, targetActor: ActorPF2e, subtitle: string): Promise<string> {

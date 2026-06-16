@@ -206,7 +206,7 @@ class CheckPromptGenerator extends fa.api.HandlebarsApplicationMixin(fa.api.Appl
         const content = checks.map((c) => `<p>${c}</p>`).join("\n");
         const titleEl = this.element.querySelector<HTMLInputElement>("input[name=title]");
         const flavor = titleEl?.value ? `<h4 class="action"><strong>${titleEl.value}</strong></h4><hr>` : "";
-        await ChatMessagePF2e.create({ author: game.user.id, flavor, content }, { chatBubble: false });
+        await ChatMessagePF2e.create({ author: game.user.id, flavor, content });
     }
 
     /** Generate a `@Check` string from form submission data. */

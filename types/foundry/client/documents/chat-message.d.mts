@@ -187,8 +187,6 @@ export interface ChatMessageCreateCallbackOptions extends DatabaseCreateCallback
 }
 
 export interface ChatMessageCreateOperation extends DatabaseCreateOperation<null> {
-    /** Whether to display a chat bubble over the speaking token */
-    chatBubble?: boolean;
     messageMode?: ChatMessageMode;
 }
 

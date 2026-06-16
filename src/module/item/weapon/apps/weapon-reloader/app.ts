@@ -157,14 +157,12 @@ class WeaponReloader extends SvelteApplicationMixin<
         });
 
         const token = actor.getActiveTokens(false, true).shift();
-        await ChatMessagePF2e.create(
-            {
-                content,
-                speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
-                flavor,
-            },
-            { chatBubble: false },
-        );
+        await ChatMessagePF2e.create({
+            content,
+            speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
+            flavor,
+            style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
+        });
     }
 
     protected override _prePosition(position: fa.ApplicationPosition): void {
