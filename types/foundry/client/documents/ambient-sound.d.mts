@@ -1,4 +1,5 @@
 import AmbientSound from "@client/canvas/placeables/sound.mjs";
+import { CircleShapeData } from "@client/data/shapes.mjs";
 import { BaseAmbientSound } from "./_module.mjs";
 import { CanvasDocument } from "./abstract/canvas-document.mjs";
 import Scene from "./scene.mjs";
@@ -11,7 +12,10 @@ interface CanvasBaseAmbientSound<TParent extends Scene | null> extends InstanceT
     typeof CanvasBaseAmbientSound<TParent>
 > {}
 
-export default class AmbientSoundDocument<TParent extends Scene | null> extends CanvasBaseAmbientSound<TParent> {}
+export default class AmbientSoundDocument<TParent extends Scene | null> extends CanvasBaseAmbientSound<TParent> {
+    /** The circle shape of this AmbientSound document. */
+    shape: CircleShapeData;
+}
 
 export default interface AmbientSoundDocument<TParent extends Scene | null> extends CanvasBaseAmbientSound<TParent> {
     readonly _object: AmbientSound<this> | null;

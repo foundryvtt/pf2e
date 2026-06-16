@@ -1,0 +1,33 @@
+<section class="standard-form scrollable">
+    {{#if hint}}
+        <p class="hint">{{localize hint}}</p>
+    {{/if}}
+    {{#each fields as |outer|}}
+        {{#if outer.fieldset}}
+            <fieldset>
+                <legend>{{localize outer.legend}}</legend>
+                {{#each outer.fields as |f|}}
+                {{formField f.field value=f.value localize=true model=../../model}}
+                {{/each}}
+            </fieldset>
+        {{else}}
+            {{formField outer.field value=outer.value localize=true model=../model}}
+        {{/if}}
+    {{/each}}
+    <fieldset>
+        <legend>
+            {{localize "PF2E.Region.RotateArea.FIELDS.positions.label"}}
+            <a class="control icon fa-solid fa-plus fa-fw" data-action="addPosition" data-tooltip
+                aria-label="{{localize 'PF2E.Region.RotateArea.Action.AddPosition'}}"></a>
+        </legend>
+        {{#each positions}}
+            <div class="flexrow position" data-index="{{@index}}">
+                {{formField fields.angle name=(concat "system.positions." @index ".angle") value=data.angle}}
+                <a class="control icon fa-solid fa-arrows-rotate fa-fw" data-action="rotateToPosition" data-tooltip
+                    aria-label="{{localize 'PF2E.Region.RotateArea.Action.RotateToPosition'}}"></a>
+                <a class="control icon fa-solid fa-trash fa-fw" data-action="deletePosition" data-tooltip
+                    aria-label="{{localize 'PF2E.Region.RotateArea.Action.DeletePosition'}}"></a>
+            </div>
+        {{/each}}
+    </fieldset>
+</section>

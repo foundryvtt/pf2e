@@ -1,3 +1,4 @@
+import { ClientShapeData } from "@client/data/shapes.mjs";
 import {
     DatabaseUpdateCallbackOptions,
     Document,
@@ -43,10 +44,13 @@ export default class BaseRegion<TParent extends BaseScene | null = BaseScene | n
 }
 
 export default interface BaseRegion<TParent extends BaseScene | null = BaseScene | null>
-    extends Document<TParent, RegionSchema>, fields.ModelPropsFromSchema<RegionSchema> {
+    extends Document<TParent, RegionSchema>, Omit<fields.ModelPropsFromSchema<RegionSchema>, "shapes"> {
     get documentName(): RegionMetadata["name"];
 
     readonly behaviors: EmbeddedCollection<BaseRegionBehavior<this>>;
+
+    /** The shapes that make up the Region */
+    shapes: ClientShapeData[];
 }
 
 interface RegionMetadata extends DocumentMetadata {

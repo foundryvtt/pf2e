@@ -32,13 +32,13 @@ export default abstract class RegionBehaviorType<
     events: fields.ModelPropFromDataField<EventsField>;
 
     /** A convenience reference to the RegionBehavior which contains this behavior sub-type. */
-    get behavior(): RegionBehavior | null;
+    get behavior(): TParent;
 
     /** A convenience reference to the RegionDocument which contains this behavior sub-type. */
-    get region(): RegionBehavior["region"];
+    get region(): NonNullable<TParent>["region"];
 
     /** A convenience reference to the Scene which contains this behavior sub-type. */
-    get scene(): RegionBehavior["scene"];
+    get scene(): NonNullable<TParent>["scene"];
 
     /**
      * Handle the Region event.

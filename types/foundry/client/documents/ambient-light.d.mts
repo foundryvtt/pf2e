@@ -1,4 +1,5 @@
 import AmbientLight from "@client/canvas/placeables/light.mjs";
+import { CircleShapeData, ConeShapeData } from "@client/data/shapes.mjs";
 import { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.mjs";
 import { BaseAmbientLight } from "./_module.mjs";
 import { CanvasDocument, CanvasDocumentStatic } from "./abstract/canvas-document.mjs";
@@ -21,6 +22,9 @@ export default class AmbientLightDocument<TParent extends Scene | null> extends 
 
     /** Is this ambient light source global in nature? */
     get isGlobal(): boolean;
+
+    /** The circle or cone shape of this AmbientLight document. */
+    shape: CircleShapeData | ConeShapeData;
 
     /* -------------------------------------------- */
     /*  Event Handlers                              */

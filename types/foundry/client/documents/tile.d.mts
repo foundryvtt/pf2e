@@ -1,3 +1,4 @@
+import { RectangleShapeData } from "@client/data/shapes.mjs";
 import Tile from "../canvas/placeables/tile.mjs";
 import { BaseTile } from "./_module.mjs";
 import { CanvasDocument, CanvasDocumentStatic } from "./abstract/canvas-document.mjs";
@@ -12,6 +13,9 @@ declare const CanvasBaseTile: {
 interface CanvasBaseTile<TParent extends Scene | null> extends InstanceType<typeof CanvasBaseTile<TParent>> {}
 
 export default class TileDocument<TParent extends Scene | null> extends CanvasBaseTile<TParent> {
+    /** The rectangle shape of this Tile document. */
+    shape: RectangleShapeData;
+
     override prepareDerivedData(): void;
 }
 

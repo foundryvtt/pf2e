@@ -50,6 +50,7 @@ import {
     TokenDocumentPF2e,
 } from "@scene/index.ts";
 import { DifficultTerrainBehaviorType } from "@scene/region-behavior/difficult-terrain.ts";
+import { RotateAreaBehaviorType } from "@scene/region-behavior/rotate-area/behavior.ts";
 import { PrototypeTokenConfigPF2e } from "@scene/token-document/index.ts";
 import { monkeyPatchFoundry } from "@scripts/🐵🩹.ts";
 import { CheckRoll, StrikeAttackRoll } from "@system/check/roll.ts";
@@ -81,11 +82,11 @@ export class Load {
         CONFIG.RegionBehavior.dataModels.environment = EnvironmentBehaviorType;
         CONFIG.RegionBehavior.dataModels.environmentFeature = EnvironmentFeatureBehaviorType;
         CONFIG.RegionBehavior.dataModels.modifyMovementCost = DifficultTerrainBehaviorType;
+        CONFIG.RegionBehavior.dataModels["system.rotateArea"] = RotateAreaBehaviorType;
         CONFIG.RegionBehavior.documentClass = RegionBehaviorPF2e;
         CONFIG.RegionBehavior.typeIcons.environment = "fa-solid fa-mountain-sun";
         CONFIG.RegionBehavior.typeIcons.environmentFeature = "fa-solid fa-wind";
-        CONFIG.RegionBehavior.typeLabels.environment = "PF2E.Region.Environment.Label";
-        CONFIG.RegionBehavior.typeLabels.environmentFeature = "PF2E.Region.EnvironmentFeature.Label";
+        CONFIG.RegionBehavior.typeIcons["system.rotateArea"] = "fa-solid fa-arrows-spin";
         CONFIG.Scene.documentClass = ScenePF2e;
         CONFIG.Token.documentClass = TokenDocumentPF2e;
         CONFIG.Token.movement.TerrainData = TerrainDataPF2e;

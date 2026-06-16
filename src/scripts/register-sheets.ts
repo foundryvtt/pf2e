@@ -34,6 +34,7 @@ import { SpellSheetPF2e } from "@item/spell/sheet.ts";
 import { TreasureSheetPF2e } from "@item/treasure/sheet.ts";
 import { WeaponSheetPF2e } from "@item/weapon/sheet.ts";
 import { UserConfigPF2e } from "@module/user/sheet.ts";
+import { RotateAreaConfig } from "@scene/region-behavior/rotate-area/config.ts";
 import { SceneConfigPF2e } from "@scene/sheet.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { TokenConfigPF2e } from "@scene/token-document/index.ts";
@@ -173,5 +174,13 @@ export function registerSheets(): void {
     fd.collections.Users.registerSheet("pf2e", UserConfigPF2e, {
         makeDefault: true,
         label: () => _loc("SHEETS.DefaultDocumentSheet", { document: _loc("DOCUMENT.User") }),
+    });
+
+    // Region Behaviors
+    fa.apps.DocumentSheetConfig.unregisterSheet(RegionBehavior, "core", fa.sheets.RegionBehaviorConfig, {
+        types: ["system.rotateArea"],
+    });
+    fa.apps.DocumentSheetConfig.registerSheet(RegionBehavior, "pf2e", RotateAreaConfig, {
+        types: ["system.rotateArea"],
     });
 }

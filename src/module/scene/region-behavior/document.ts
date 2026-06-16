@@ -27,4 +27,11 @@ class RegionBehaviorPF2e<
     }
 }
 
+interface RegionBehaviorPF2e<
+    TParent extends RegionDocumentPF2e | null = RegionDocumentPF2e | null,
+    TSystem extends foundry.data.regionBehaviors.RegionBehaviorType = foundry.data.regionBehaviors.RegionBehaviorType,
+> extends RegionBehavior<TParent> {
+    system: TSystem;
+}
+
 export { RegionBehaviorPF2e };

@@ -61,6 +61,8 @@ export interface DatabaseGetOperation<TParent extends Document | null> {
     action: "get";
     /** A query object which identifies the set of Documents retrieved */
     query: Record<string, unknown>;
+    /** The Document name */
+    documentName?: string;
     /** Get requests are never broadcast */
     broadcast?: false;
     /** Return indices only instead of full Document records */
@@ -78,7 +80,9 @@ export interface DatabaseGetOperation<TParent extends Document | null> {
 export interface DatabaseCreateOperation<TParent extends Document | null> {
     action: "create";
     /** Whether the database operation is broadcast to other connected clients */
-    broadcast: boolean;
+    broadcast?: boolean;
+    /** The Document name */
+    documentName?: string;
     /** An array of data objects from which to create Documents */
     data: object[];
     /** Retain the _id values of provided data instead of generating new ids */
@@ -109,7 +113,9 @@ export interface DatabaseCreateCallbackOptions extends Omit<
 export interface DatabaseUpdateOperation<TParent extends Document | null> {
     action: "update";
     /** Whether the database operation is broadcast to other connected clients */
-    broadcast: boolean;
+    broadcast?: boolean;
+    /** The Document name */
+    documentName?: string;
     /**
      * An array of data objects used to update existing Documents.
      * Each update object must contain the _id of the target Document
@@ -134,6 +140,8 @@ export interface DatabaseUpdateOperation<TParent extends Document | null> {
     pack?: string | null;
     /** A parent Document UUID provided when the parent instance is unavailable */
     parentUuid?: DocumentUUID;
+    animate?: boolean;
+    constrainOptions?: { ignoreWalls?: boolean; ignoreCost?: boolean };
 }
 
 export interface DatabaseUpdateCallbackOptions extends Omit<
@@ -144,7 +152,9 @@ export interface DatabaseUpdateCallbackOptions extends Omit<
 export interface DatabaseDeleteOperation<TParent extends Document | null> {
     action: "delete";
     /** Whether the database operation is broadcast to other connected clients */
-    broadcast: boolean;
+    broadcast?: boolean;
+    /** The Document name */
+    documentName?: string;
     /** An array of Document ids which should be deleted */
     ids: string[];
     /** Delete all documents in the Collection, regardless of _id */
@@ -175,6 +185,8 @@ export type DatabaseOperation<TParent extends Document | null> =
     | DatabaseCreateOperation<TParent>
     | DatabaseUpdateOperation<TParent>
     | DatabaseDeleteOperation<TParent>;
+
+export type DatabaseWriteOperation = Exclude<DatabaseOperation<Document | null>, DatabaseGetOperation<Document | null>>;
 
 export interface DocumentSocketRequest {
     /** The type of Document being transacted */

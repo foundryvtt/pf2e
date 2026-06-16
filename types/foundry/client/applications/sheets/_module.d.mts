@@ -1,4 +1,5 @@
 export { default as ItemSheetV2 } from "./item-sheet.mjs";
+export { default as RegionBehaviorConfig } from "./region-behavior-config.mjs";
 export * from "./scene-config.mjs";
 export { default as SceneConfig } from "./scene-config.mjs";
 export { default as TokenApplicationMixin } from "./token/mixin.mts";

@@ -3679,6 +3679,81 @@
                         "None": "None"
                     }
                 }
+            },
+            "RotateArea": {
+                "Action": {
+                    "AddPosition": "Add Position",
+                    "DeletePosition": "Delete Position",
+                    "RotateToPosition": "Rotate to Position"
+                },
+                "DirectionMode": {
+                    "cw": "Clockwise",
+                    "ccw": "Counter Clockwise",
+                    "long": "Longest",
+                    "short": "Shortest"
+                },
+                "FIELDS": {
+                    "directionMode": {
+                        "label": "Direction Mode",
+                        "hint": "How the rotation direction is decided when moving to the next position."
+                    },
+                    "lights": {
+                        "ids": {
+                            "label": "Lights"
+                        }
+                    },
+                    "notes": {
+                        "ids": {
+                            "label": "Notes"
+                        }
+                    },
+                    "positions": {
+                        "label": "Positions",
+                        "element": {
+                            "angle": {
+                                "label": "Angle"
+                            }
+                        }
+                    },
+                    "regions": {
+                        "ids": {
+                            "label": "Regions"
+                        }
+                    },
+                    "sounds": {
+                        "ids": {
+                            "label": "Ambient Sounds"
+                        }
+                    },
+                    "tiles": {
+                        "ids": {
+                            "label": "Tiles"
+                        }
+                    },
+                    "time": {
+                        "mode": {
+                            "label": "Speed Mode",
+                            "hint": "How the rotation speed is determined from the rotation time, either the same regardless of the distance moved (fixed) or dependant on the distance rotated (variable)."
+                        },
+                        "value": {
+                            "label": "Rotation Time",
+                            "hint": "Time in miliseconds to rotate to the next position (in fixed mode) or to rotate 90˚ (in variable mode)."
+                        }
+                    },
+                    "walls": {
+                        "ids": {
+                            "label": "Walls"
+                        },
+                        "link": {
+                            "label": "Link Walls",
+                            "hint": "Rotate any wall segments attached to the ones specified."
+                        }
+                    }
+                },
+                "SpeedMode": {
+                    "fixed": "Fixed (total rotation time)",
+                    "variable": "Variable (time to rotate 90˚)"
+                }
             }
         },
         "RemoveCoinsByValueLabel": "Remove by value",
@@ -7298,7 +7373,10 @@
             "weapon": "Weapon"
         },
         "RegionBehavior": {
-            "modifyMovementCost": "Difficult Terrain"
+            "environment": "Environment",
+            "environmentFeature": "Environment Feature",
+            "modifyMovementCost": "Difficult Terrain",
+            "system.rotateArea": "Rotate Area"
         }
     }
 }
