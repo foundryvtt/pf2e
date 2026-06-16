@@ -23,6 +23,7 @@ import type { ItemOriginFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
+import { Migration901ReorganizeBulkData } from "@module/migration/migrations/901-reorganize-bulk-data.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { RuleElement, RuleElementOptions, RuleElementSource, RuleElements } from "@module/rules/index.ts";
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
@@ -820,6 +821,34 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         return super.deleteDocuments(ids, operation);
+    }
+
+    /**
+     * Temporary migration to allow certain data models to work despite more recent migrations.
+     * It works by manually running specific non-async migrations and applying the special keys.
+     * @todo complete data models and create new migration framework
+     * @todo check if converting the -= to _del in migration 901 and such will cause this to have issues
+     */
+    static override migrateData<T extends foundry.abstract.DataModel>(
+        this: ConstructorOf<T>,
+        source: Record<string, unknown>,
+    ): Record<string, unknown> {
+        const itemType = String(source.type);
+        const hasTypeDataModel = itemType in CONFIG.Item.dataModels;
+        if (!hasTypeDataModel) return super.migrateData(source);
+
+        const itemSource = source as ItemSourcePF2e;
+        const legacyVersion = R.isPlainObject(itemSource.system.schema)
+            ? Number(itemSource.system.schema.version) || null
+            : null;
+        const version = Number(itemSource.system._migration?.version) || legacyVersion;
+        if (version && version < 0.901 && itemIsOfType(itemSource, "physical")) {
+            const migration = new Migration901ReorganizeBulkData();
+            migration.updateItem(itemSource);
+            source = fu.applySpecialKeys(source);
+        }
+
+        return super.migrateData(source);
     }
 
     /* -------------------------------------------- */
