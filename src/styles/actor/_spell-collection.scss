@@ -93,6 +93,19 @@ ol.spell-list {
                 height: unset;
                 text-align: center;
                 width: 2em;
+
+                &:focus {
+                    background: var(--tertiary);
+                    border-color: var(--alt-dark);
+                    box-shadow: none;
+                    color: var(--color-text-dark-input);
+                    outline: none;
+
+                    &::selection {
+                        background: var(--primary);
+                        color: var(--text-light);
+                    }
+                }
             }
 
             .spell-slots-increment-reset {
