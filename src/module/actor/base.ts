@@ -1294,7 +1294,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const persistentDamages = game.i18n.getListFormatter({ style: "long", type: "conjunction" }).format(
             result.persistent.map((instance) => {
                 const formula = instance.head.expression;
-                const damageType = _loc(CONFIG.PF2E.damageTypes[instance.type]);
+                const damageType = _loc(CONFIG.PF2E.damageRollFlavors[instance.type]);
                 return instance.type === "bleed"
                     ? _loc(`${locPrefix}.PersistentEntry.bleed`, { formula, damageType })
                     : _loc(`${locPrefix}.PersistentEntry.default`, { formula, damageType });
