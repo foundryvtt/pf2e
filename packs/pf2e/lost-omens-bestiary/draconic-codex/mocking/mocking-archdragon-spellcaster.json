@@ -189,8 +189,8 @@
                 },
                 "slug": null,
                 "spelldc": {
-                    "dc": 38,
-                    "value": 30
+                    "dc": 42,
+                    "value": 34
                 },
                 "tradition": {
                     "value": "occult"
@@ -2749,7 +2749,8 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "reach-10"
+                        "reach-10",
+                        "unarmed"
                     ]
                 }
             },
@@ -2789,7 +2790,8 @@
                 "traits": {
                     "value": [
                         "agile",
-                        "magical"
+                        "magical",
+                        "unarmed"
                     ]
                 }
             },
@@ -2831,7 +2833,8 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "reach-15"
+                        "reach-15",
+                        "unarmed"
                     ]
                 }
             },
@@ -2875,7 +2878,8 @@
                     "value": [
                         "acid",
                         "magical",
-                        "propulsive"
+                        "propulsive",
+                        "unarmed"
                     ]
                 }
             },
@@ -2934,7 +2938,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>90 feet. A creature who enters or begins its turn in the area must attempt a @Check[will|dc:42|options:area-effect] save. Regardless of the result of the saving throw, the creature is temporarily immune to the graceless domain aura for 1 minute. The dragon can exclude creatures from this aura.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> For 1 round, the first time the creature rolls an Athletics, Acrobatics, or Performance skill check, it must roll twice and take the worse result.</p>\n<p><strong>Failure</strong> For 1 minute, the first time each round the creature rolls an Athletics, Acrobatics, or Performance skill check, it must roll twice and take the worse result.</p>\n<p><strong>Critical Failure</strong> For 1 minute, every time the creature rolls an Athletics, Acrobatics, or Performance skill check, it must roll twice and take the worse result.</p>"
+                    "value": "<p>90 feet. A creature who enters or begins its turn in the area must attempt a @Check[will|dc:42|options:area-effect] save. Regardless of the result of the saving throw, the creature is temporarily immune to the graceless domain aura for 1 minute. The dragon can exclude creatures from this aura.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> For 1 round, the first time the creature rolls an Athletics, Acrobatics, or Performance skill check, it must roll twice and take the worse result.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Graceless Domain (Success)]</p>\n<p><strong>Failure</strong> For 1 minute, the first time each round the creature rolls an Athletics, Acrobatics, or Performance skill check, it must roll twice and take the worse result.</p>\n<p><strong>Critical Failure</strong> For 1 minute, every time the creature rolls an Athletics, Acrobatics, or Performance skill check, it must roll twice and take the worse result.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Graceless Domain]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3013,7 +3017,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The dragon surrounds a creature within 90 feet with cacophonous laughter, deafening it for 1 round and causing @Damage[10d4[persistent,mental]] damage unless it succeeds on a @Check[will|dc:42] save.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The dragon surrounds a creature within 90 feet with cacophonous laughter, @UUID[Compendium.pf2e.conditionitems.Item.Deafened]{Deafening} it for 1 round and causing @Damage[10d4[persistent,mental]] damage unless it succeeds on a @Check[will|dc:42|options:damaging-effect,inflicts:deafened,inflicts:persistent-damage] save.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -3051,7 +3055,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon unleashes their breath in one of two ways. The dragon can't use Hilarious Exhalation again for [[/gmr 1d4 #Recharge Hilarious Exhalation]]{1d4 rounds}.</p><ul><li>Laughing Gas (emotion, mental) The dragon breaths a cloud of mood-altering gas in a @Template[type:cone|distance:30]. This has the effect of @UUID[Compendium.pf2e.spells-srd.Item.Laughing Fit] (@Check[will|dc:42|traits:emotion,mental]) with a duration of 1 round.</li><li><p>Slippery Puddle The dragon expels a glob of viscous goo at a solid surface at a range of 60 feet. This creates a @Template[type:burst|distance:15] with the area effect of @UUID[Compendium.pf2e.spells-srd.Item.Grease] (@Check[reflex|dc:42]).</p>\n</li></ul>"
+                    "value": "<p>The dragon unleashes their breath in one of two ways. The dragon can't use Hilarious Exhalation again for [[/gmr 1d4 #Recharge Hilarious Exhalation]]{1d4 rounds}.</p><ul><li><p><strong>Laughing Gas</strong> (emotion, mental) The dragon breaths a cloud of mood-altering gas in a @Template[cone|distance:30]. This has the effect of @UUID[Compendium.pf2e.spells-srd.Item.Laughing Fit] (@Check[will|dc:42|options:area-effect|traits:emotion,mental]) with a duration of 1 round.</p></li><li><p><strong>Slippery Puddle</strong> The dragon expels a glob of viscous goo at a solid surface at a range of 60 feet. This creates a @Template[burst|distance:15] with the area effect of @UUID[Compendium.pf2e.spells-srd.Item.Grease] (@Check[reflex|dc:42|options:area-effect]).</p></li></ul>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3151,7 +3155,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon can [[/act demoralize]] targets within 90 feet. Targets become immune to the mocking dragon's attempts to Demoralize them for 1 minute after each attempt.</p>\n<p>Creatures Demoralized by the ancient mocking dragon are @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} while they are frightened.</p>"
+                    "value": "<p>The dragon can [[/act demoralize]] targets within 90 feet. Targets become immune to the mocking dragon's attempts to Demoralize them for 1 minute after each attempt.</p>\n<p>Creatures Demoralized by the mocking archdragon are @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} while they are @UUID[Compendium.pf2e.conditionitems.Item.Frightened].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3257,7 +3261,7 @@
                 "value": 45
             },
             "allSaves": {
-                "value": ""
+                "value": "+2 status to all saves vs. occult"
             },
             "hp": {
                 "details": "",
@@ -3289,7 +3293,7 @@
         "details": {
             "blurb": "",
             "languages": {
-                "details": "Plus six additional languages",
+                "details": "plus six additional languages",
                 "value": [
                     "common",
                     "draconic"
@@ -3299,7 +3303,7 @@
                 "value": 20
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>Wily pranksters and enthusiastic show-offs, mocking dragons amuse their friends and humiliate their foes using trickery, satire, and bombast to disgrace the powerful and lift the spirits of the oppressed. Among the most likely of dragons to interact closely with humanoids, mocking dragons often settle in or near communities where they can easily find targets for their wiles. Mocking dragons are inveterate entertainers, though they're more likely to recite satirical poems or witty quips than compose ballads. Experts in disguise, mocking dragons sometimes change their form to better spy on interesting people, ferret out embarrassing information, or execute elaborate ruses. More serious dragons often view mocking dragons as feckless showboaters, but beneath their jovial exterior, mocking dragons harbor a burning desire to fight injustice. They're easily recruited into campaigns against tyrants, and younger dragons often work to remove gang leaders or landlords that oppress working folk.</p>\n<p>Considering their shape-changing abilities, it's difficult to anticipate the guise that a mocking dragon might take. Unless trying hard to avoid attention, a dragon's animal and beast forms have whimsical details that indicate they're more than they seem, like a black mask on a fox or strangely colored plumage on a goose. Mocking dragons also love to employ their ability to shock the unwary by speaking to them in the guise of a dog or squirrel.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
