@@ -1025,7 +1025,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 w.isInvested,
         );
         const unarmedRunes: WeaponRuneSource = handwraps
-            ? R.pick(fu.deepClone(handwraps.system.runes), ["potency", "striking", "property"])
+            ? R.pick(handwraps.system.runes, ["potency", "striking", "property"])
             : { potency: 0, striking: 0, property: [] };
 
         // Add a basic unarmed strike
