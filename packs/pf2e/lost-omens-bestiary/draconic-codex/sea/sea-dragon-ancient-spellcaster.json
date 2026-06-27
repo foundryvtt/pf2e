@@ -207,7 +207,7 @@
                 "spelldc": {
                     "dc": 38,
                     "mod": 0,
-                    "value": 30
+                    "value": 0
                 },
                 "tradition": {
                     "value": "arcane"
@@ -1651,7 +1651,7 @@
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.5esP2GVzvxWsMgaX"
             },
             "img": "systems/pf2e/icons/spells/endure-elements.webp",
-            "name": "Environmental Endurance (self only)",
+            "name": "Environmental Endurance (Self Only)",
             "sort": 2400000,
             "system": {
                 "area": null,
@@ -1922,7 +1922,7 @@
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.Seaah9amXg70RKw2"
             },
             "img": "icons/magic/water/wave-water-blue.webp",
-            "name": "Water Walk (constant)",
+            "name": "Water Walk (Constant)",
             "sort": 2800000,
             "system": {
                 "area": null,
@@ -2060,7 +2060,7 @@
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.WzLKjSw6hsBhuklC"
             },
             "img": "systems/pf2e/icons/spells/create-water.webp",
-            "name": "Create Water (at will)",
+            "name": "Create Water (At Will)",
             "sort": 3000000,
             "system": {
                 "area": null,
@@ -2746,7 +2746,8 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "reach-25"
+                        "reach-25",
+                        "unarmed"
                     ]
                 }
             },
@@ -2879,7 +2880,20 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:trait:earth",
+                            "item:type:spell",
+                            "self:effect:liquefy"
+                        ],
+                        "selector": "damage-received",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -2908,7 +2922,14 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.fedByMetalAC",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -2989,21 +3010,16 @@
                 },
                 "rules": [
                     {
-                        "key": "RollOption",
-                        "option": "liquefy",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "liquefy"
-                        ],
-                        "type": [
-                            "fire"
-                        ],
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.liquefyResistance",
                         "value": 20
                     }
                 ],
+                "selfEffect": {
+                    "name": "Effect: Liquefy",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Liquefy"
+                },
                 "slug": null,
                 "traits": {
                     "value": [
@@ -3028,7 +3044,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>60 feet. Water in the aura that's also in the same body of water as the dragon is difficult terrain for Swimming creatures which don't have the water trait.</p>"
+                    "value": "<p>40 feet. Water in the aura that's also in the same body of water as the dragon is difficult terrain for Swimming creatures who don't have the water trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3038,7 +3054,7 @@
                 "rules": [
                     {
                         "key": "Aura",
-                        "radius": 60,
+                        "radius": 40,
                         "slug": "vortex",
                         "traits": [
                             "water"
@@ -3133,7 +3149,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A living creature that takes damage from the sea dragon's jaws Strike must succeed at a @Check[fortitude|dc:38] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} as a surge of excess water floods its body.</p>"
+                    "value": "<p>A living creature that takes damage from the sea dragon's jaws Strike must succeed at a @Check[fortitude|dc:38|options:inflicts:sickened] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} as a surge of excess water floods its body.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3164,7 +3180,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> The dragon slams their body down, sending a towering wave outward. This wave deals @Damage[10d12[bludgeoning]|options:area-damage] damage in a @Template[type:emanation|distance:90]. Each creature in the area must attempt a @Check[reflex|dc:38] save. Structures and unattended objects in the area take full damage with no saving throw.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage but is pushed 30 feet from the dragon.</p>\n<p><strong>Success</strong> The creature takes half damage and is pushed 60 feet from the dragon.</p>\n<p><strong>Failure</strong> The creature takes full damage, is pushed 120 feet from the dragon, and falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> As failure, but double damage.</p>"
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> The dragon slams their body down, sending a towering wave outward. This wave deals @Damage[10d12[bludgeoning]|options:area-damage] damage in a @Template[emanation|distance:90]. Each creature in the area must attempt a @Check[reflex|dc:38|options:area-effect,damaging-effect,forced-movement] save. Structures and unattended objects in the area take full damage with no saving throw.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage but is pushed 30 feet from the dragon.</p>\n<p><strong>Success</strong> The creature takes half damage and is pushed 60 feet from the dragon.</p>\n<p><strong>Failure</strong> The creature takes full damage, is pushed 120 feet from the dragon, and falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> As failure, but double damage.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -3217,7 +3233,7 @@
         "attributes": {
             "ac": {
                 "details": "fed by metal",
-                "value": 41
+                "value": 39
             },
             "allSaves": {
                 "value": "+1 status to all saves vs. magic"
@@ -3258,7 +3274,6 @@
                 "value": [
                     "common",
                     "draconic",
-                    "elven",
                     "empyrean",
                     "sussuran",
                     "thalassic"

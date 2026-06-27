@@ -1353,7 +1353,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Creatures that have the water trait and that are in the area when you Cast the Spell must attempt a Fortitude save, with the effects of the @UUID[Compendium.pf2e.spells-srd.Item.Slow] spell.</p>\n<p><strong>Area</strong> 50 feet long by 50 feet wide</p>"
+                    "value": "<p><strong>Area</strong> 50 feet long by 50 feet wide</p><hr /><p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Creatures that have the water trait and that are in the area when you Cast the Spell must attempt a Fortitude save, with the effects of the @UUID[Compendium.pf2e.spells-srd.Item.Slow] spell.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1535,7 +1535,7 @@
             },
             "folder": "iDjm2cXyRAe4VZ35",
             "img": "systems/pf2e/icons/spells/tongues.webp",
-            "name": "Truespeech (constant)",
+            "name": "Truespeech (Constant)",
             "sort": 2100000,
             "system": {
                 "area": null,
@@ -2080,7 +2080,7 @@
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.5esP2GVzvxWsMgaX"
             },
             "img": "systems/pf2e/icons/spells/endure-elements.webp",
-            "name": "Environmental Endurance (self only)",
+            "name": "Environmental Endurance (Self Only)",
             "sort": 2900000,
             "system": {
                 "area": null,
@@ -2351,7 +2351,7 @@
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.Seaah9amXg70RKw2"
             },
             "img": "icons/magic/water/wave-water-blue.webp",
-            "name": "Water Walk (constant)",
+            "name": "Water Walk (Constant)",
             "sort": 3300000,
             "system": {
                 "area": null,
@@ -2489,7 +2489,7 @@
                 "compendiumSource": "Compendium.pf2e.spells-srd.Item.WzLKjSw6hsBhuklC"
             },
             "img": "systems/pf2e/icons/spells/create-water.webp",
-            "name": "Create Water (at will)",
+            "name": "Create Water (At Will)",
             "sort": 3500000,
             "system": {
                 "area": null,
@@ -3066,11 +3066,11 @@
                     ]
                 },
                 "bonus": {
-                    "value": 34
+                    "value": 37
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "3d12+16",
+                        "damage": "4d12+18",
                         "damageType": "piercing"
                     }
                 },
@@ -3088,7 +3088,7 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "reach-20",
+                        "reach-25",
                         "unarmed"
                     ]
                 }
@@ -3109,11 +3109,11 @@
                     ]
                 },
                 "bonus": {
-                    "value": 34
+                    "value": 37
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "3d10+16",
+                        "damage": "4d10+18",
                         "damageType": "slashing"
                     }
                 },
@@ -3132,7 +3132,7 @@
                     "value": [
                         "agile",
                         "magical",
-                        "reach-15",
+                        "reach-20",
                         "unarmed"
                     ]
                 }
@@ -3153,11 +3153,11 @@
                     ]
                 },
                 "bonus": {
-                    "value": 34
+                    "value": 37
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "3d10+16",
+                        "damage": "4d10+18",
                         "damageType": "bludgeoning"
                     }
                 },
@@ -3175,7 +3175,8 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "reach-25"
+                        "reach-30",
+                        "unarmed"
                     ]
                 }
             },
@@ -3251,7 +3252,7 @@
                 "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status to All Saves vs. Magic",
+            "name": "+2 Status to All Saves vs. Magic",
             "sort": 4800000,
             "system": {
                 "actionType": {
@@ -3277,7 +3278,7 @@
                         ],
                         "selector": "saving-throw",
                         "type": "status",
-                        "value": 1
+                        "value": 2
                     }
                 ],
                 "slug": "1-status-to-all-saves-vs-magic",
@@ -3308,7 +3309,20 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:trait:earth",
+                            "item:type:spell",
+                            "self:effect:liquefy"
+                        ],
+                        "selector": "damage-received",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -3337,7 +3351,14 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.fedByMetalAC",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -3418,21 +3439,16 @@
                 },
                 "rules": [
                     {
-                        "key": "RollOption",
-                        "option": "liquefy",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "liquefy"
-                        ],
-                        "type": [
-                            "fire"
-                        ],
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.system.liquefyResistance",
                         "value": 25
                     }
                 ],
+                "selfEffect": {
+                    "name": "Effect: Liquefy",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Liquefy"
+                },
                 "slug": null,
                 "traits": {
                     "value": [
@@ -3457,7 +3473,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>60 feet. Water in the aura that's also in the same body of water as the dragon is difficult terrain for Swimming creatures which don't have the water trait.</p>"
+                    "value": "<p>40 feet. Water in the aura that's also in the same body of water as the dragon is difficult terrain for Swimming creatures who don't have the water trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3467,7 +3483,7 @@
                 "rules": [
                     {
                         "key": "Aura",
-                        "radius": 60,
+                        "radius": 40,
                         "slug": "vortex",
                         "traits": [
                             "water"
@@ -3562,7 +3578,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A living creature that takes damage from the sea dragon's jaws Strike must succeed at a @Check[fortitude|dc:38] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} as a surge of excess water floods its body.</p>"
+                    "value": "<p>A living creature that takes damage from the sea dragon's jaws Strike must succeed at a @Check[fortitude|dc:42|options:inflicts:sickened] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} as a surge of excess water floods its body.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3593,7 +3609,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> The dragon slams their body down, sending a towering wave outward. This wave deals @Damage[11d12[bludgeoning]|options:area-damage] damage in a @Template[type:emanation|distance:90]. Each creature in the area must attempt a @Check[reflex|dc:42] save. Structures and unattended objects in the area take full damage with no saving throw.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage but is pushed 30 feet from the dragon.</p>\n<p><strong>Success</strong> The creature takes half damage and is pushed 60 feet from the dragon.</p>\n<p><strong>Failure</strong> The creature takes full damage, is pushed 120 feet from the dragon, and falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> As failure, but double damage.</p>"
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p><strong>Effect</strong> The dragon slams their body down, sending a towering wave outward. This wave deals @Damage[11d12[bludgeoning]|options:area-damage] damage in a @Template[emanation|distance:90]. Each creature in the area must attempt a @Check[reflex|dc:42|options:area-effect,damaging-effect,forced-movement] save. Structures and unattended objects in the area take full damage with no saving throw.</p><hr /><p><strong>Critical Success</strong> The creature takes no damage but is pushed 30 feet from the dragon.</p>\n<p><strong>Success</strong> The creature takes half damage and is pushed 60 feet from the dragon.</p>\n<p><strong>Failure</strong> The creature takes full damage, is pushed 120 feet from the dragon, and falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> As failure, but double damage.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -3631,7 +3647,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The dragon Flies up to half its Fly speed. All creatures the dragon passes within 10 feet of must attempt a @Check[fortitude|dc:42] save or be blown 120 feet up in the air and then fall, taking fall damage as appropriate. Creatures already airborne add their current height to the distance fallen.</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The dragon Flies up to half its Fly speed. All creatures the dragon passes within 10 feet of must attempt a @Check[fortitude|dc:42|options:forced-movement] save or be blown 120 feet up in the air and then fall, taking fall damage as appropriate. Creatures already airborne add their current height to the distance fallen.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -3686,7 +3702,7 @@
                 "value": 44
             },
             "allSaves": {
-                "value": "+1 status to all saves vs. magic"
+                "value": "+2 status to all saves vs. magic"
             },
             "hp": {
                 "details": "",

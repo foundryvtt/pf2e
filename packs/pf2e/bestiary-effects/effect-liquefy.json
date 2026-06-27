@@ -1,17 +1,18 @@
 {
-    "_id": "OMJnZspk5YHai8yn",
-    "img": "icons/commodities/leather/scales-white.webp",
-    "name": "Effect: Fed by Metal",
+    "_id": "hhkmOtzPa3S9yyqq",
+    "img": "icons/magic/water/waves-water-blue.webp",
+    "name": "Effect: Liquefy",
     "system": {
         "description": {
-            "value": "<p>You gain an item bonus to AC.</p>"
+            "value": "<p>You gain fire resistance.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": "turn-end",
             "sustained": false,
             "unit": "rounds",
             "value": 1
         },
+        "fromSpell": false,
         "level": {
             "value": 1
         },
@@ -22,10 +23,9 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "selector": "ac",
-                "type": "item",
-                "value": "@item.origin.flags.system.fedByMetalAC"
+                "key": "Resistance",
+                "type": "fire",
+                "value": "@item.origin.flags.system.liquefyResistance"
             }
         ],
         "start": {
@@ -36,7 +36,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },
