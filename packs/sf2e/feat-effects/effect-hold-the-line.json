@@ -1,0 +1,57 @@
+{
+    "_id": "rb5747jApJjOApkA",
+    "img": "icons/magic/defensive/shield-barrier-deflect-teal.webp",
+    "name": "Effect: Hold the Line",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Hold the Line]</p>\n<p>You gain 5 foot status bonus to your Speed and a +1 status bonus to your first attack.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "land-speed"
+                ],
+                "type": "status",
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "hold-the-line"
+                ],
+                "selector": [
+                    "attack"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

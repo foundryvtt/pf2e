@@ -1,0 +1,69 @@
+{
+    "_id": "UpPdTgFylu6MpQ9e",
+    "folder": "P4WCbP2x8v0wZVWI",
+    "img": "systems/sf2e/icons/default-icons/feats-sf2e.webp",
+    "name": "Peril Delver",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You know how to spot trouble. When using the @UUID[Compendium.sf2e.actions.Item.Scout] exploration activity, you gain a +2 circumstance bonus to your initiative roll instead of +1, but your allies still only receive a +1.</p><hr /><p><strong>Special</strong> If you have Incredible Initiative, you instead gain a +3 circumstance bonus to your initiative when using the Scout exploration activity.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Ghost Courier Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Absalom Station"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "not": "feat:incredible-initiative"
+                    }
+                ],
+                "selector": "initiative",
+                "slug": "scouting-bonus",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "feat:incredible-initiative"
+                ],
+                "selector": "initiative",
+                "slug": "scouting-bonus",
+                "value": 3
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}
