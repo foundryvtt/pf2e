@@ -197,6 +197,9 @@ export class EffectsPanel extends fa.api.HandlebarsApplicationMixin(fa.api.Appli
                 }).firstElementChild;
                 if (!(content instanceof HTMLElement)) return null;
 
+                // Provide item context so inline damage rolls can resolve the actor and item
+                content.dataset.itemUuid = effect.uuid;
+
                 content.querySelector("[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
                     if (effect.isOfType("condition")) {
                         effect.rollRecovery();

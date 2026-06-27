@@ -1,9 +1,11 @@
 <script lang="ts">
     import ItemTraits from "@module/sheet/components/item-traits.svelte";
+    import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { ReloadWeaponContext } from "./app.ts";
     import ItemSummary from "@module/sheet/components/item-summary.svelte";
     import HeavyBullets from "../../../../../../static/assets/icons/heavy-bullets.svg?raw";
-    const { state: data, foundryApp }: ReloadWeaponContext = $props();
+    const { foundryApp, getState }: ReloadWeaponContext & SvelteAppProps<ReloadWeaponContext> = $props();
+    const data = $derived(getState());
     const openStates: Record<string, boolean> = $state({});
 </script>
 

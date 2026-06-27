@@ -1,0 +1,374 @@
+{
+    "_id": "MqxmPgEcerebMwut",
+    "folder": "OGc8zntOuiWqXCx9",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "sK8GE0B9tAo1BOLU",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Mirror's Edge",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "69hd6K5CjRnBgUQz": {
+                        "damage": "2d8+6",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "versatile-p"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "R0A7ktDQkB7g9roR",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Focused Reflection",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "dazzling-reflection"
+                    ]
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "FuhyPNckoFANFuZ5": {
+                        "damage": "2d6+2",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "light"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "fzBwBZEB8PPBVoTj",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Scatter Light",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The facet guardian is damaged by an attack with the light trait or a weapon from the laser group</p><hr /><p><strong>Effect</strong> The facet guardian reflexively positions its facets to scatter the light in all directions. It gains resistance 5 to the triggering damage and creatures adjacent to the facet guardian take damage equal to the amount of damage resisted this way (@Check[reflex|dc:18|basic]).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "scatter-light",
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            {
+                                "or": [
+                                    "item:trait:light",
+                                    "item:group:laser"
+                                ]
+                            }
+                        ],
+                        "key": "Resistance",
+                        "predicate": [
+                            "scatter-light"
+                        ],
+                        "type": "custom",
+                        "value": 5
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iLSbvA4ySWv2JmxZ",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Dazzling Reflection",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the facet guardian critically succeeds on a focused reflection Strike, the target must attempt a @Check[fortitude|dc:18] save or be @UUID[Compendium.sf2e.conditions.Item.Dazzled] for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jERkiSsIUnQegewH",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Edge Skate",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The facet guardian dashes forward quickly, sliding on the knife-edge of one of its facets. It moves up to its Speed and makes one mirror's edge Strike against any number of creatures it passes adjacent to during its movement. These attacks contribute to the facet guardian's multiple attack penalty, but the penalty does not increase until all attacks are complete.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "sptNG7yVCKDcGuCA",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Flat-Pack",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The facet guardian quickly unfolds for storage against a flat surface or refolds itself into humanoid shape. The surface must be flat and large enough to contain the guardian in its unfolded state, at least 5 feet by 10 feet, though it can be oriented in any direction. When in unfolded form, the facet guardian cannot take any action except Flat-Pack to refold, and its Deception DC to Impersonate an inanimate mural increase to DC 22.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Facet Guardian",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 1
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 21
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 58,
+                "temp": 0,
+                "value": 58
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 35
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "exceptions": [],
+                    "type": "sonic",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 4
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Starfinder Society Scenario #1-26: Final Gambit: Part Two"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 8,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 10
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 11
+            },
+            "athletics": {
+                "base": 10
+            },
+            "deception": {
+                "base": 8
+            },
+            "stealth": {
+                "base": 11
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "construct"
+            ]
+        }
+    },
+    "type": "npc"
+}

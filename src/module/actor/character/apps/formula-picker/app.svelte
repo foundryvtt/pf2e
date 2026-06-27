@@ -1,11 +1,21 @@
 <script lang="ts">
+    import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { FormulaPickerContext } from "./app.ts";
     import ItemSummary from "@module/sheet/components/item-summary.svelte";
     import ItemTraits from "@module/sheet/components/item-traits.svelte";
     import HoverIconButton from "@module/sheet/components/hover-icon-button.svelte";
     import { sendItemToChat } from "@module/sheet/helpers.ts";
 
-    const { state: data, actor, ability, mode, searchEngine, onSelect, onDeselect }: FormulaPickerContext = $props();
+    const {
+        actor,
+        ability,
+        mode,
+        searchEngine,
+        onSelect,
+        onDeselect,
+        getState,
+    }: FormulaPickerContext & SvelteAppProps<FormulaPickerContext> = $props();
+    const data = $derived(getState());
     const openStates: Record<string, boolean> = $state({});
     let queryText = $state("");
 

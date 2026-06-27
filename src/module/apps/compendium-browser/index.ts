@@ -1,1 +1,1 @@
-export { CompendiumBrowser } from "./browser.ts";
+export { CompendiumBrowser } from "./browser.svelte.ts";

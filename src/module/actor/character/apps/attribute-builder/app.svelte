@@ -6,14 +6,11 @@
     import RemainingIndicator from "@module/apps/attribute-builder/components/remaining-indicator.svelte";
     import { tupleHasValue } from "@util";
     import * as R from "remeda";
-    import { AttributeBuilder, type AttributeBuilderState } from "./app.ts";
+    import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
+    import { AttributeBuilder, type AttributeBuilderContext, type AttributeBuilderState } from "./app.ts";
 
-    interface Props {
-        foundryApp: AttributeBuilder;
-        state: AttributeBuilderState;
-    }
-
-    const { foundryApp, state: data }: Props = $props();
+    const { foundryApp, getState }: AttributeBuilderContext & SvelteAppProps<AttributeBuilderContext> = $props();
+    const data = $derived(getState());
 
     const attributeList = [...ATTRIBUTE_ABBREVIATIONS] as const;
 

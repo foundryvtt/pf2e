@@ -1,0 +1,49 @@
+{
+    "_id": "l2hTQ0IxgF2F64C8",
+    "img": "icons/magic/air/air-wave-gust-blue.webp",
+    "name": "Effect: Ten Day's Breath",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ten Day's Breath]</p>\n<p>You gain a +3 status bonus to saves against inhaled effects.</p>\n<p><em>Adjust duration if using a Mythic Point.</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 15
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #220: Crypt of Runes"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:inhaled"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

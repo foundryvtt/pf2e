@@ -20,7 +20,7 @@ If you have any suggestions or feedback, please contact us on Discord in the #pf
 
 - Any Pathfinder Second Edition information used with permission granted by the license agreement between Paizo. Inc and Foundry Gaming LLC
 - Game system information and mechanics are licensed under the Open Game License (OPEN GAME LICENSE Version 1.0a).
-- License information for the art used in this project is included in the ./packs/ folder alongside the JSON of where it is referenced.
+- License information for the art used in this project is in [./static/licenses/](./static/licenses/) alongside other project licenses; release builds include them in `licenses/`.
 
 **Virtual Table Top Platform Licenses:**
 

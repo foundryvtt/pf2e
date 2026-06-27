@@ -1,9 +1,11 @@
 <script lang="ts">
     import { ErrorPF2e } from "@util";
     import type { MouseEventHandler } from "svelte/elements";
+    import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { ABCPickerContext } from "./app.ts";
 
-    const { actor, foundryApp, state: data }: ABCPickerContext = $props();
+    const { actor, foundryApp, getState }: ABCPickerContext & SvelteAppProps<ABCPickerContext> = $props();
+    const data = $derived(getState());
     let searchQuery = $state("");
     const filteredItems = $derived.by(() => {
         const query = searchQuery.trim();
@@ -18,10 +20,8 @@
         });
     });
 
-    const typePlural = _loc(`PF2E.Item.${data.itemType.capitalize()}.Plural`);
-    const searchPlaceholder = _loc("PF2E.Actor.Character.ABCPicker.SearchPlaceholder", {
-        items: typePlural,
-    });
+    const typePlural = $derived(_loc(`PF2E.Item.${data.itemType.capitalize()}.Plural`));
+    const searchPlaceholder = $derived(_loc("PF2E.Actor.Character.ABCPicker.SearchPlaceholder", { items: typePlural }));
 
     /** Open an item sheet to show additional details. */
     const viewItemSheet: MouseEventHandler<HTMLButtonElement> = async (event): Promise<void> => {

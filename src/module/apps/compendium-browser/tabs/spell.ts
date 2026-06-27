@@ -1,7 +1,7 @@
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { getActionGlyph, ordinalString, sluggify } from "@util";
 import * as R from "remeda";
-import { CompendiumBrowser } from "../browser.ts";
+import { CompendiumBrowser } from "../browser.svelte.ts";
 import type { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.svelte.ts";
 import type { CompendiumBrowserIndexData, SpellFilters } from "./data.ts";

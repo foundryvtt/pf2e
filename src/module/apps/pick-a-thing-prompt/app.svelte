@@ -1,5 +1,6 @@
 <script lang="ts">
     import SvelectePf2e from "@module/sheet/components/svelecte-pf2e.svelte";
+    import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { PickableThing, PickAThingRenderContext } from "./app.ts";
     import { UUIDUtils } from "@util/uuid.ts";
     import { ItemPF2e } from "@item";
@@ -7,7 +8,13 @@
     import { sluggify } from "@util/misc.ts";
     import * as R from "remeda";
 
-    const { state: data, updateSelection, resolve, testAllowedDrop }: PickAThingRenderContext = $props();
+    const {
+        getState,
+        updateSelection,
+        resolve,
+        testAllowedDrop,
+    }: PickAThingRenderContext & SvelteAppProps<PickAThingRenderContext> = $props();
+    const data = $derived(getState());
     const { containsItems, selectMenu, allowNoSelection, includeDropZone } = $derived(data);
     let droppedOption: PickableThing | null = $state(null);
 

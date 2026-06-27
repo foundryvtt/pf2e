@@ -12,7 +12,7 @@
         },
         "category": "defensive",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> A creature hits you with a Strike from a weapon that deals energy damage</p><hr /><p><strong>Effect</strong> Your shell emits a burst of light to blind your assailants. All adjacent creatures and the creature that hit you must attempt a Fortitude save against the higher of your class DC or spell DC. On a failure, a creature is @UUID[Compendium.sf2e.conditions.Item.Dazzled] for 1 round. On a critical failure, a creature is instead @UUID[Compendium.sf2e.conditions.Item.Blinded] for 1 round, then dazzled for 1 round.</p>"
+            "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> A creature hits you with a Strike from a weapon that deals energy damage</p><hr /><p><strong>Effect</strong> Your shell emits a burst of light to blind your assailants. All adjacent creatures and the creature that hit you must attempt a @Check[fortitude|against:class-spell|options:inflicts:blinded,inflicts:dazzled] save against the higher of your class DC or spell DC. On a failure, a creature is @UUID[Compendium.sf2e.conditions.Item.Dazzled] for 1 round. On a critical failure, a creature is instead @UUID[Compendium.sf2e.conditions.Item.Blinded] for 1 round, then dazzled for 1 round.</p>"
         },
         "frequency": {
             "max": 1,
