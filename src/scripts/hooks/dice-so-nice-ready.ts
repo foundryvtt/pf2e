@@ -1,3 +1,5 @@
+import * as R from "remeda";
+
 interface ColorsetOptions {
     name: string;
     description: string;
@@ -5,8 +7,10 @@ interface ColorsetOptions {
     texture: string;
     material: string;
     foreground: string;
+    background?: string;
     outline: string;
     edge: string;
+    textureComposite?: string;
     visibility?: "visible" | "hidden";
 }
 
@@ -18,6 +22,8 @@ interface Dice3D {
     ): void;
     addTexture(textureId: string, options: { name: string; composite: string; source: string }): Promise<void>;
     addColorset(options: ColorsetOptions, mode?: "default" | "preferred"): void;
+    // optional: only present in Dice So Nice versions >= 6.2.5
+    addDamageTypeDefaults?(mapping: Record<string, { colorset?: string; preset?: string; label?: string }>): void;
 }
 
 const isDice3D = (obj: unknown): obj is Dice3D =>
@@ -378,6 +384,39 @@ export const DiceSoNiceReady = {
                         visibility: "hidden",
                     });
                 });
+
+            // DAMAGE TYPE THEMES
+
+            // spirit damage
+            dice3d.addColorset({
+                name: "spirit",
+                description: game.i18n.localize(CONFIG.PF2E.damageTypes.spirit),
+                category: "Pathfinder 2e",
+                foreground: "#ffffff",
+                background: "#0aa996",
+                outline: "black",
+                edge: "#0aa996",
+                texture: "skulls",
+                material: "plastic",
+                textureComposite: "soft-light",
+            });
+
+            // suggest a default Dice So Nice theme for damage types whose name doesn't already match one of its
+            // built-in colorsets. The GM can still override any of these in the module's damage-type config.
+            const damageTypeThemes = {
+                electricity: "lightning",
+                mental: "psychic",
+                sonic: "thunder",
+                vitality: "radiant",
+                void: "necrotic",
+                spirit: "spirit",
+            } as const;
+            dice3d.addDamageTypeDefaults?.(
+                R.mapValues(damageTypeThemes, (colorset, type) => ({
+                    colorset,
+                    label: game.i18n.localize(CONFIG.PF2E.damageTypes[type]),
+                })),
+            );
         });
     },
 };

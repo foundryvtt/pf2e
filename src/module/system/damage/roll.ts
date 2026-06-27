@@ -43,6 +43,15 @@ abstract class AbstractDamageRoll extends Roll {
 
     /** The theoretically highest total of this roll */
     abstract get maximumValue(): number;
+
+    /**
+     * Tell the Dice So Nice module where to read this roll's damage type, so its dice use the matching
+     * appearance preset. DSN reads the `type` property per roll scope: on a `DamageRoll` it is `undefined`
+     * (the pool has no single type), and on each `DamageInstance` it resolves to that instance's damage type.
+     */
+    getDSNProperties(): { damageType: string } {
+        return { damageType: "type" };
+    }
 }
 
 class DamageRoll extends AbstractDamageRoll {

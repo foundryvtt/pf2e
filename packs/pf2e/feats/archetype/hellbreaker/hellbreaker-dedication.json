@@ -12,7 +12,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Access</strong> You're a member of the Hellbreakers league.</p><hr /><p>By joining the League, you've taken on the responsibilities of a Hellbreaker. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] general feat for both Devil Lore and Hellknight Lore. If you were already trained in one or both of those Lore skills, you also become trained in a Lore skill of your choice.</p>\n<p>When you roll initiative, you can attempt a Devil Lore, Hellknight Lore, or Society check to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] about one enemy you can see as a free action, if that skill would be applicable. The GM is the final arbiter of whether or not one of those skills would be appropriate to Recall Knowledge about the enemy.</p>"
+            "value": "<p><strong>Access</strong> You're a member of the Hellbreakers league.</p><hr /><p>By joining the League, you've taken on the responsibilities of a Hellbreaker. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] general feat for both Devil Lore and Hellknight Lore. If you were already trained in one or both of those Lore skills, you also become trained in a Lore skill of your choice.</p>\n<p>When you roll initiative, you can attempt a [[/act recall-knowledge skill=devil-lore]], [[/act recall-knowledge skill=hellknight-lore]], or [[/act recall-knowledge skill=society]] check to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] about one enemy you can see as a free action, if that skill would be applicable. The GM is the final arbiter of whether or not one of those skills would be appropriate to Recall Knowledge about the enemy.</p>"
         },
         "level": {
             "value": 2
@@ -33,6 +33,14 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+            },
+            {
+                "key": "Note",
+                "selector": [
+                    "initiative"
+                ],
+                "text": "PF2E.SpecificRule.Hellbreaker.Dedication.InitiativeNote",
+                "title": "{item|name}"
             }
         ],
         "subfeatures": {

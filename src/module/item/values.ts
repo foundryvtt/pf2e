@@ -29,6 +29,6 @@ const ITEM_TYPES = [
     "weapon",
 ] as const;
 
-const EFFECT_AREA_SHAPES = ["burst", "cone", "cube", "cylinder", "emanation", "line", "square"] as const;
+const EFFECT_AREA_SHAPES = ["burst", "cone", "cube", "cylinder", "emanation", "line", "ring", "square"] as const;
 
 export { EFFECT_AREA_SHAPES, ITEM_TYPES, PC_ITEM_TYPES };

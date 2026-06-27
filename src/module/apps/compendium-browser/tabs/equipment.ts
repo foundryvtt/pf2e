@@ -2,7 +2,7 @@ import { Coins } from "@item/physical/helpers.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import * as R from "remeda";
-import { CompendiumBrowser } from "../browser.ts";
+import { CompendiumBrowser } from "../browser.svelte.ts";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.svelte.ts";
 import { CompendiumBrowserIndexData, EquipmentFilters, RangesInputData } from "./data.ts";

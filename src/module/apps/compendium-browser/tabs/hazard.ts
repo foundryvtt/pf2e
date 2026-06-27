@@ -1,4 +1,4 @@
-import { CompendiumBrowser } from "../browser.ts";
+import { CompendiumBrowser } from "../browser.svelte.ts";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.svelte.ts";
 import { CompendiumBrowserIndexData, HazardFilters } from "./data.ts";

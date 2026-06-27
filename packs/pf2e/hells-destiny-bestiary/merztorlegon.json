@@ -1,0 +1,572 @@
+{
+    "_id": "TsjXoxA1F21dpVfN",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "4jsI3WlmLpKGtgw6",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "BQzyWPVoUYiGr0sx": {
+                        "damage": "4d8+17",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "deadly-2d8",
+                        "magical",
+                        "reach-20",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "mpz2h3tIqcUv0Cez",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Siege Hammer",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "improved-knockdown",
+                        "improved-push"
+                    ]
+                },
+                "bonus": {
+                    "value": 36
+                },
+                "damageRolls": {
+                    "OuOASJnflShEg2JI": {
+                        "damage": "4d12+17",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": "<p>Improved Knockdown or Improved Push</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "deadly-2d12",
+                        "magical",
+                        "reach-20",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Fnkhz5iGsH4sDTp5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gdQnHnEZ0Ez9f6XL",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uVyahTHlBtfsdxjt",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Arrow Volley",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The vordines fire projectiles, dealing @Damage[7d8[piercing]|options:area-damage] damage to creatures in a @Template[type:burst|distance:10] within 200 feet (@Check[reflex|dc:38|basic] save).</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0FAz0uBOmKHv8Osa",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Besieging Fury",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A merztorlegon and their crew can [[/act demoralize]] creatures at a range of 120 feet and don't take a penalty for not sharing a language with the target.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HtWDc7NVcwvkTHeP",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Shoulder Ballista",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A shoulder ballista is an extension of the merztorlegon's body, functioning as a siege weapon that shares the demon's space, can't be targeted, and ceases to function after the merztorlegon's death. Either the merztorlegon or their siege crew can Aim or Load the ballista, but only the crew can Launch it.</p>\n<p><strong>Aim</strong> <span class=\"action-glyph\">1</span> 80 feet, minimum distance 30 feet</p>\n<p><strong>Load</strong> <span class=\"action-glyph\">1</span> (manipulate) 1 time</p>\n<p><strong>Launch</strong> <span class=\"action-glyph\">1</span> (attack, magical, manipulate, range increment 120 feet, unholy) 8d12 piercing, single target, @Check[reflex|dc:41]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AelR3XQzsc9Brz6e",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Siege Crew",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Several vordines inhabit the siege tower and are an extension of the merztorlegon, use the devil's skill modifiers, and can't be targeted individually. On the siege devil's turn, the crew can take 2 actions that can be used only to launch an Arrow Volley; [[/act demoralize]]; or to Aim, Load, or Launch the devil's shoulder ballista. Once the merztorlegon is reduced to half their maximum Hit Points, the siege crew is injured and takes only 1 action per turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1ExfVEDmSjYf6o9H",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sunder Structures",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A merztorlegon's melee Strikes deal an additional @Damage[3d12[untyped]] damage to items and structures.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7IdpTl5O5Dni5LVO",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Troop Transport",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The merztorlegon gathers a willing adjacent troop into their siege tower or shunts a stored troop into an adjacent space. The devil can store only one troop at a time, during which time the troop can't take actions, can't be targeted by effects, can be transported by the devil's translocate spell, and increases the damage dealt by Arrow Volley by 2d8. If the merztorlegon is defeated, any stored troop immediately reappears in or adjacent to the siege devil's space.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uQHr9UVOXIWFqzYX",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Knockdown",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedKnockdown]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "improved-knockdown",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mRZamZ5gLNSo4Z52",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Push",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedPush]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "improved-push",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1ka43tn680Vnu3VR",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Warfare Lore",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 37
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Merztorlegon",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 10
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": 4
+            },
+            "str": {
+                "mod": 11
+            },
+            "wis": {
+                "mod": 6
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 42
+            },
+            "allSaves": {
+                "value": "+1 status to all saves vs. magic"
+            },
+            "hp": {
+                "details": "",
+                "max": 440,
+                "temp": 0,
+                "value": 440
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "fire"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "silver"
+                    ],
+                    "type": "physical",
+                    "value": 20
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "poison",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "holy",
+                    "value": 20
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision",
+                    "value": 20
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 19
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Merztorlegons are walking siege engines, their bodies bristling with ballistae and siege towers bolted to their shoulders. Their frontal armor leaves their back less defended, forcing Hell's commanders to support these juggernauts with infantry that can shield them from flanking strikes.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "greater darkvision",
+            "mod": 30,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 36
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 28
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 32
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 40
+            },
+            "intimidation": {
+                "base": 35
+            },
+            "religion": {
+                "base": 27
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "devil",
+                "fiend",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

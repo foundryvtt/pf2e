@@ -276,7 +276,7 @@ class WeaponDamagePF2e {
             damageDice.push(
                 new DamageDicePF2e({
                     selector: `${weapon.id}-damage`,
-                    slug,
+                    slug, // todo: simplify to just "deadly" and then migrate
                     label: traitLabels[slug],
                     diceNumber,
                     dieSize: (/-\d?(d\d{1,2})$/.exec(slug)?.at(1) ?? baseDamage.die) as DamageDieSize,
@@ -291,7 +291,7 @@ class WeaponDamagePF2e {
             damageDice.push(
                 new DamageDicePF2e({
                     selector: `${weapon.id}-damage`,
-                    slug: trait,
+                    slug: trait, // todo: simplify to just "fatal" and then migrate
                     label: traitLabels[trait],
                     diceNumber: 1,
                     dieSize,
@@ -357,6 +357,25 @@ class WeaponDamagePF2e {
                 damageCategory: "persistent",
             });
             modifiers.push(modifier);
+        }
+
+        // Boost trait
+        if (weapon.system.traits.config.boost) {
+            const boostConfig = weapon.system.traits.config.boost;
+            const dieSize = boostConfig.substring(boostConfig.indexOf("d")) as DamageDieSize;
+            const baseNumber = Number(/(\d)d\d{1,2}$/.exec(boostConfig)?.at(1)) || 1;
+            const diceNumber = strikingDice > 0 ? baseNumber + strikingDice : baseNumber;
+            damageDice.push(
+                new DamageDicePF2e({
+                    selector: `${weapon.id}-damage`,
+                    slug: "boost",
+                    label: traitLabels[`boost-${boostConfig}`],
+                    diceNumber: diceNumber,
+                    dieSize,
+                    critical: false,
+                    enabled: options.has(`item:boosted:${weapon.id}`),
+                }),
+            );
         }
 
         // Add roll notes to the context

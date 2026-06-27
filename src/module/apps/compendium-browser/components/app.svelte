@@ -1,12 +1,10 @@
 <script lang="ts">
     import { tupleHasValue } from "@util";
     import BrowserTab from "./browser-tab.svelte";
-    import type { CompendiumBrowserContext } from "../browser.ts";
     import type { MouseEventHandler } from "svelte/elements";
 
     const browser = game.pf2e.compendiumBrowser;
     const tabs = $derived(browser.tabsArray.filter((t) => t.visible));
-    const { state }: CompendiumBrowserContext = $props();
 
     async function onClickNav(event: PointerEvent & { currentTarget: EventTarget }): Promise<void> {
         if (!(event.target instanceof HTMLElement)) return;
@@ -14,7 +12,7 @@
         if (tupleHasValue(browser.dataTabsList, clickedTab)) {
             browser.activeTab = browser.tabs[clickedTab];
             await browser.activeTab.init();
-            state.activeTabName = clickedTab;
+            browser.activeTabName = clickedTab;
         }
     }
 </script>
@@ -25,7 +23,7 @@
             <button
                 type="button"
                 onclick={onClickNav as MouseEventHandler<EventTarget>}
-                class:active={state.activeTabName === tab.tabName}
+                class:active={browser.activeTabName === tab.tabName}
                 data-tab-name={tab.tabName}
             >
                 {tab.label}
@@ -33,12 +31,12 @@
         {/each}
     </nav>
 {/if}
-{#if !state.activeTabName}
+{#if !browser.activeTabName}
     <div class="browser-tab" data-tooltip-class="pf2e">
         <div class="landing-page">{_loc("PF2E.CompendiumBrowser.Hint")}</div>
     </div>
 {:else}
-    <BrowserTab bind:activeTabName={state.activeTabName} {state} />
+    <BrowserTab />
 {/if}
 
 <style lang="scss">

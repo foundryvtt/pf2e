@@ -209,8 +209,9 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             "crafting",
             "society",
             "medicine",
-        ] as const;
-
+            "computers",
+            "piloting",
+        ].filter((s) => s in CONFIG.PF2E.skills);
         const loreSkills = new Set(
             members
                 .flatMap((m) => Object.values(m.skills))

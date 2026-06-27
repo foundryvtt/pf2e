@@ -1,0 +1,135 @@
+{
+    "_id": "p0nC3A0P8frgeJOD",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "nQ2RNhBHHBg9sBwh",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Wobbling Waves",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Any Medium or larger non-ofalth creature takes a move action inside area <strong>E7</strong></p><hr /><p><strong>Effect</strong> The feedback flow makes a flowing trash Strike against the triggering creature and then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "l8u0Sv5hNmyYOgZ2",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Flowing Trash",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 26
+                },
+                "damageRolls": {
+                    "AhuGArYTrzdeDibI": {
+                        "damage": "3d10+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Feedback Flow",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 30
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The fetid material in this pit sloshes around in a disgusting feedback loop, filled with large pieces of solid trash that risk bludgeoning creatures inside it to death!</p>",
+            "disable": "<p>@Check[acrobatics|dc:27] or @Check[thievery|dc:27] (trained) to move without causing a wave of filth, or @Check[athletics|dc:30] or @Check[crafting|dc:30] (trained) to stabilize the trash heap and prevent it from flowing; three successes are required to fully stabilize and disable the hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 12
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "",
+            "routine": "<p>(1 to 3 actions) The feedback flow hazard uses up to 3 actions to make flowing trash Strikes against living creatures that take move actions inside the refuse pit (area <strong>E7</strong>) but can only target an individual creature once per round. The ofalths, used to living in this pit, don't trigger these attacks. Additionally, any non-ofalth creature that ends its turn inside the refuse pit must attempt a @Check[fortitude|dc:36] save.</p><hr><p><strong>Critical Success</strong> The creature is unaffected.</p><p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} until the end of its next turn, then is immune to this effect for 1 minute.</p><p><strong>Failure</strong> The creature is sickened 1.</p><p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "water",
+                "disease"
+            ]
+        }
+    },
+    "type": "hazard"
+}

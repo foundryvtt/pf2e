@@ -25,15 +25,46 @@
                 "choices": [
                     {
                         "label": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfDestruction.Label",
+                        "predicate": [
+                            {
+                                "not": "invoke-rune-pride"
+                            }
+                        ],
                         "value": "destruction"
                     },
                     {
                         "label": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfFlames.Label",
+                        "predicate": [
+                            {
+                                "not": "invoke-rune-pride"
+                            }
+                        ],
                         "value": "flames"
                     },
                     {
+                        "label": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfPride.Label",
+                        "predicate": [
+                            "invoke-rune-pride"
+                        ],
+                        "value": "pride"
+                    },
+                    {
                         "label": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfSmiting.Label",
+                        "predicate": [
+                            {
+                                "not": "invoke-rune-pride"
+                            }
+                        ],
                         "value": "smiting"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfSpace.Label",
+                        "predicate": [
+                            {
+                                "not": "invoke-rune-pride"
+                            }
+                        ],
+                        "value": "space"
                     }
                 ],
                 "flag": "rune",
@@ -42,20 +73,14 @@
                 "rollOption": "invoke-rune"
             },
             {
-                "choices": [
-                    {
-                        "label": "PF2E.Weapon.Base.greatsword",
-                        "value": "greatsword"
-                    },
-                    {
-                        "label": "PF2E.Weapon.Base.longspear",
-                        "value": "longspear"
-                    },
-                    {
-                        "label": "PF2E.BattleForm.Attack.Rock",
-                        "value": "rock"
-                    }
-                ],
+                "choices": {
+                    "attacks": true,
+                    "predicate": [
+                        {
+                            "not": "item:category:unarmed"
+                        }
+                    ]
+                },
                 "flag": "weapon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
@@ -79,8 +104,7 @@
                     "item:slug:{item|flags.system.rulesSelections.weapon}",
                     {
                         "or": [
-                            "item:slug:greatsword",
-                            "item:slug:rock"
+                            "item:slug:greatsword"
                         ]
                     }
                 ],
@@ -130,6 +154,32 @@
                 "selector": "{item|flags.system.rulesSelections.weapon}-attack",
                 "text": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfSmiting.Text",
                 "title": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfSmiting.Label",
+                "visibility": "owner"
+            },
+            {
+                "definition": [
+                    "item:slug:{item|flags.system.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "invoke-rune:space"
+                ],
+                "property": "weapon-traits",
+                "value": "reach-60"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "invoke-rune:pride"
+                ],
+                "selector": "{item|flags.system.rulesSelections.weapon}-attack",
+                "text": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfPride.Text",
+                "title": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfPride.Label",
                 "visibility": "owner"
             }
         ],

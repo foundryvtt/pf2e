@@ -28,9 +28,7 @@ class SelectItemDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         },
     };
 
-    override root = Root;
-
-    declare protected $state: SelectItemState;
+    protected root = Root;
 
     override get title(): string {
         const key = sluggify(this.#action, { camel: "bactrian" });
@@ -80,4 +78,4 @@ interface SelectItemRenderContext extends SvelteApplicationRenderContext {
 }
 
 export { SelectItemDialog };
-export type { ItemAction, SelectItemRenderContext };
+export type { ItemAction, SelectItemRenderContext, SelectItemState };

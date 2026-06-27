@@ -98,11 +98,10 @@ export class Migration950AmmoConsumableToAmmoAmmo extends MigrationBase {
 
     #updateConsumable(source: ConsumableToAmmoSource) {
         const category: string = source.system.category;
-        const stackGroup = source.system.stackGroup;
-
+        const stackGroup = String(source.system.stackGroup ?? "");
         if (category !== "ammo") {
             // No matter what happens, delete the stack group
-            if ("stackGroup" in source.system) source.system["-=stackGroup"] = null;
+            if ("stackGroup" in source.system) source.system.stackGroup = _del;
             return;
         }
 
@@ -155,7 +154,7 @@ export class Migration950AmmoConsumableToAmmoAmmo extends MigrationBase {
             system.baseItem = "battery";
         } else if (slug === "projectile-ammo") {
             system.baseItem = "projectile-ammo";
-        } else if (stackGroup && stackGroup in AMMO_STACK_TO_CATEGORY) {
+        } else if (objectHasKey(AMMO_STACK_TO_CATEGORY, stackGroup)) {
             system.baseItem = AMMO_STACK_TO_CATEGORY[stackGroup];
         } else {
             // At this point we lack sufficient information to get a good result, but we must find a base type
@@ -167,14 +166,11 @@ export class Migration950AmmoConsumableToAmmoAmmo extends MigrationBase {
         source.type = "ammo";
         if ("game" in globalThis) {
             // Assign to both system and ==system. Future migrations can write to system and it "should" be fine, they're the same reference
-            source.system = system as ConsumableSystemSource;
-            source["==system"] = system;
+            source.system = _replace(system) as object as ConsumableSystemSource;
         } else {
             const systemUpdate: Record<string, unknown> = system;
             for (const key of originalKeys) {
-                if (!(key in system)) {
-                    systemUpdate[`-=${key}`] = null;
-                }
+                if (!(key in system)) systemUpdate[key] = _del;
             }
             source.system = systemUpdate as unknown as ConsumableSystemSource;
         }
@@ -419,9 +415,5 @@ type AmmoStackGroup =
 
 interface ConsumableToAmmoSource extends Omit<ConsumableSource, "type"> {
     type: "consumable" | "ammo";
-    "==system"?: DeepPartial<AmmoSystemSource>;
-    system: ConsumableSystemSource & {
-        stackGroup?: AmmoStackGroup | null;
-        "-=stackGroup"?: null;
-    };
+    system: ConsumableSystemSource & { stackGroup?: unknown };
 }

@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { FormulaPicker } from "@actor/character/apps/formula-picker/app.ts";
 import type { ChatMessageMode } from "@client/config.d.mts";
-import { AbilityItemPF2e, FeatPF2e } from "@item";
+import type { AbilityItemPF2e, FeatPF2e, ItemPF2e } from "@item";
 import { extractEphemeralEffects } from "@module/rules/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { ErrorPF2e, getActionGlyph, htmlQuery, htmlQueryAll, tupleHasValue } from "@util";
@@ -53,9 +53,12 @@ async function createUseActionMessage(
         traits: item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
     });
 
+    // The `getChatData` overrides can't be called on a union, so call it through the base type.
+    const baseItem: ItemPF2e<ActorPF2e> = item;
+    const data = await baseItem.getChatData();
     const content = await fa.handlebars.renderTemplate(`systems/${SYSTEM_ID}/templates/chat/action/collapsed.hbs`, {
         actor: item.actor,
-        description: item.description,
+        data,
         selfEffect: !!item.system.selfEffect,
         craftedItem: craftedItem?.toAnchor({ attrs: { draggable: "true" } }).outerHTML,
         withoutResources: craftedItem && !consumeResources,

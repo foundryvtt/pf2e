@@ -9,7 +9,7 @@ export class Migration919WeaponToggleStructure extends MigrationBase {
     #updateToggle(toggle: Maybe<TraitToggleWithDeletion>): void {
         if (R.isPlainObject(toggle) && "selection" in toggle) {
             toggle.selected = toggle.selection ?? null;
-            toggle["-=selection"] = null;
+            toggle.selection = _del;
         }
     }
 
@@ -27,5 +27,4 @@ export class Migration919WeaponToggleStructure extends MigrationBase {
 interface TraitToggleWithDeletion {
     selected: unknown;
     selection?: unknown;
-    "-=selection"?: null;
 }

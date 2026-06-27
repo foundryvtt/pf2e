@@ -11,8 +11,15 @@ interface AttributeBuilderConfiguration extends fa.ApplicationConfiguration {
     actor: CharacterPF2e;
 }
 
+interface AttributeBuilderRenderOptions extends fa.ApplicationRenderOptions {
+    /** A character to which this application should switch its focus */
+    actor?: CharacterPF2e;
+}
+
 class AttributeBuilder extends SvelteApplicationMixin<
-    AbstractConstructorOf<fa.api.ApplicationV2> & { DEFAULT_OPTIONS: DeepPartial<AttributeBuilderConfiguration> }
+    AbstractConstructorOf<fa.api.ApplicationV2<fa.ApplicationConfiguration, AttributeBuilderRenderOptions>> & {
+        DEFAULT_OPTIONS: DeepPartial<AttributeBuilderConfiguration>;
+    }
 >(fa.api.ApplicationV2) {
     /** Number of attributes in the game (str, dex, con, int, wis, cha) */
     static ALL_ATTRIBUTES_COUNT = 6;
@@ -39,8 +46,12 @@ class AttributeBuilder extends SvelteApplicationMixin<
 
     protected root = Root;
 
-    get #actor(): CharacterPF2e {
-        return this.options.actor;
+    /** The character whose attributes are being built. Switchable via render options */
+    #actor: CharacterPF2e;
+
+    constructor(options: DeepPartial<AttributeBuilderConfiguration> & { actor: CharacterPF2e }) {
+        super(options);
+        this.#actor = options.actor;
     }
 
     /** Re-evaluate ABP status on each access rather than caching at construction to avoid need for page reload */
@@ -48,16 +59,27 @@ class AttributeBuilder extends SvelteApplicationMixin<
         return game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(this.#actor);
     }
 
+    protected override _configureRenderOptions(options: DeepPartial<AttributeBuilderRenderOptions>): void {
+        super._configureRenderOptions(options);
+        const actor = options.actor ?? this.#actor;
+        if (actor !== this.#actor) {
+            delete this.#actor.apps[this.id];
+            this.#actor = actor;
+            // Registration with the actor on first render is handled by `_onFirstRender`
+            if (!options.isFirstRender) actor.apps[this.id] = this;
+        }
+    }
+
     protected override async _onFirstRender(
         context: AttributeBuilderContext,
         options: fa.ApplicationRenderOptions,
     ): Promise<void> {
         await super._onFirstRender(context, options);
-        this.options.actor.apps[this.id] = this;
+        this.#actor.apps[this.id] = this;
     }
 
     protected override _tearDown(options: fa.ApplicationClosingOptions): void {
-        delete this.options.actor.apps[this.id];
+        delete this.#actor.apps[this.id];
         super._tearDown(options);
     }
 

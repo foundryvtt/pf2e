@@ -22,7 +22,7 @@
             "die": "d4"
         },
         "description": {
-            "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Strike</p>\n<hr />\n<p>This bomb is made of volatile fluids that rapidly expand and harden when exposed to air. A boulder seed grants a +3 item bonus to attack rolls and deals 4d4 bludgeoning damage and 4 bludgeoning splash damage, according to the bomb's type. When activated, the bomb fills a 5-foot cube with hardened foam, it creates a boulder as hard as stone (Hardness 10, HP 40) that pushes Large or smaller targets. On a critical hit, the target also falls @UUID[Compendium.pf2e.conditionitems.Item.Prone]. The splash zone fills with rubble, creating difficult terrain. The \"boulder\" the bomb creates fails all saving throws and loses 1 Hardness per round, disintegrating into fine powder when the boulder's Hardness is reduced to 0. At that time, the difficult terrain the bomb created also disappears.</p>"
+            "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Strike</p>\n<hr />\n<p>This bomb is made of volatile fluids that rapidly expand and harden when exposed to air. A greater boulder seed grants a +3 item bonus to attack rolls and deals 4d4 bludgeoning damage and 4 bludgeoning splash damage. When activated, the bomb fills a @Template[cube|distance:5] with hardened foam, which creates a boulder as hard as stone (Hardness 10, HP 40) that pushes the primary target of Large size or smaller occupying that space 5 feet away from you. On a critical hit, the target also falls @UUID[Compendium.pf2e.conditionitems.Item.Prone]. The splash zone fills with rubble, creating difficult terrain. The \"boulder\" the bomb creates fails all saving throws and loses 1 Hardness per round, disintegrating into fine powder when the boulder's Hardness is reduced to 0. At that time, the difficult terrain the bomb created also disappears.</p>"
         },
         "expend": 1,
         "grade": null,
@@ -54,7 +54,17 @@
         "reload": {
             "value": "-"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|_id}-attack",
+                "text": "PF2E.BombNotes.BoulderSeed.criticalSuccess",
+                "title": "{item|name}"
+            }
+        ],
         "runes": {
             "potency": 0,
             "property": [],

@@ -10,6 +10,7 @@ import { EarnIncomeDialog } from "@scripts/macros/earn-income.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
+import { tupleHasValue } from "@util";
 
 /** Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43 */
 
@@ -112,7 +113,7 @@ export async function craftSpellConsumable(
     actor: ActorPF2e,
 ): Promise<void> {
     const consumableType = item.category;
-    if (!["scroll", "wand", "spell-gem"].includes(consumableType)) return;
+    if (!tupleHasValue(["scroll", "wand", "spell-gem"] as const, consumableType)) return;
     const rank = (consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2)) as OneToTen;
     const validSpells = actor.itemTypes.spell
         .filter((s) => s.baseRank <= rank && !s.isCantrip && !s.isFocusSpell && !s.isRitual)

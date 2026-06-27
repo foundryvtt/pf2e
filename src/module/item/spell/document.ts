@@ -514,7 +514,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             // Set the spell as heightened if necessary (either up or down)
             const currentRank = source.system.location.heightenedLevel ?? source.system.level.value;
             if (castRank && castRank !== currentRank) {
-                source.system.location.heightenedLevel = castRank;
+                source.system.location.heightenedLevel = Math.clamp(castRank, 1, 10) as OneToTen;
             }
 
             source._id = this.id;

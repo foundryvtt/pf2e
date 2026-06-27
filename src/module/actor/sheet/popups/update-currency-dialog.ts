@@ -16,7 +16,7 @@ class UpdateCurrencyDialog extends fa.api.HandlebarsApplicationMixin(fa.api.Appl
         id: "update-currency",
         tag: "form",
         window: {
-            icon: "fa-solid fa-currency",
+            icon: "fa-solid fa-coins",
             contentClasses: ["standard-form"],
         },
         position: {

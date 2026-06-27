@@ -36,7 +36,7 @@ class WeaponReloader extends SvelteApplicationMixin<
 
     declare options: WeaponReloaderConfiguration;
 
-    override root = Root;
+    protected root = Root;
 
     #closeSignal = new AbortController();
 
@@ -202,13 +202,15 @@ class WeaponReloader extends SvelteApplicationMixin<
     }
 }
 
+interface ReloadWeaponState {
+    loaded: ValueAndMax;
+    weapon: BasePhysicalItemViewData;
+    compatible: AmmoChoiceViewData[];
+}
+
 interface ReloadWeaponContext extends SvelteApplicationRenderContext {
     foundryApp: WeaponReloader;
-    state: {
-        loaded: ValueAndMax;
-        weapon: BasePhysicalItemViewData;
-        compatible: AmmoChoiceViewData[];
-    };
+    state: ReloadWeaponState;
 }
 
 interface AmmoChoiceViewData extends BasePhysicalItemViewData {
@@ -218,4 +220,4 @@ interface AmmoChoiceViewData extends BasePhysicalItemViewData {
 }
 
 export { WeaponReloader };
-export type { ReloadWeaponContext };
+export type { ReloadWeaponContext, ReloadWeaponState };

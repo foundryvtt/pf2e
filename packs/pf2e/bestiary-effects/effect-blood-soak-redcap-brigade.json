@@ -1,0 +1,78 @@
+{
+    "_id": "mR8kN3pQ7vW2xBcF",
+    "img": "icons/skills/wounds/blood-cells-red.webp",
+    "name": "Effect: Blood Soak (Redcap Brigade)",
+    "system": {
+        "description": {
+            "value": "<p>The redcap brigade gains a status bonus to damage rolls for 1 minute. The bonus is +2 if they spend one action on Bloody Reaping, +6 if they spend two actions, or +8 if they spend 3 actions. They gain a +4 status bonus to damage rolls with Bowl Over and Stomp.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Battlecry!"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "bloody-reaping-one"
+                ],
+                "selector": "inline-damage",
+                "slug": "bloody-reaping-one-action-bonus",
+                "value": 2
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "bloody-reaping-two"
+                ],
+                "selector": "inline-damage",
+                "slug": "bloody-reaping-two-action-bonus",
+                "value": 6
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "bloody-reaping-three"
+                ],
+                "selector": "inline-damage",
+                "slug": "bloody-reaping-three-action-bonus",
+                "value": 8
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "bowl-ower-and-stomp"
+                ],
+                "selector": "inline-damage",
+                "slug": "bowl-ower-and-stomp-bonus",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

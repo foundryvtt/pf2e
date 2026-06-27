@@ -1,3 +1,97 @@
+## 8.2.0
+
+### System Improvements
+
+- (Dire Weasel) Add support for ring templates
+- (Geliogabalus) Add weapon boost automation
+- (JiDW) Improve Dice So Nice integration with Damage Type
+- (stwlam) Set cone angle to 90 when created from scene controls
+
+### Bugfixes
+
+- (iDantar) Add {item|id}-{meleeOrRanged}-damage domain to attacks, to enable ammunition rules
+- (iDantar) Hide ActorsDeadAtZero setting from players
+- (In3luki) Restore missing radio buttons in shield block dialog
+- (In3luki) Restore missing reroll icons in chat context menu
+- (jfn4th) Fix hiding roll opposer names
+- (Noisyink) Fix DOM helpers returning null cross-window in PopOut!
+- (Noisyink) Preserve token mirror state when applying TokenImage scale override
+- (stwlam) Allow "base" actor and item subtypes to construct
+- (stwlam) Set `ignored` if predicate fails in `StrikeRuleElement#beforePrepareData`
+- (Supe) Fix icon of add/remove currency dialog
+- (Supe) Fix tags in dark mode formula picker
+
+### Data Updates
+
+- (Ambrose) Add action macros to Deceptive Tactics
+- (Ambrose) Add area-damage options to Rainbow Fumarole's inline damage
+- (Ambrose) Add effect for Belt of Long Life
+- (Ambrose) Add Initiative note to the Hellbreaker Dedication
+- (Ambrose) Add link to confused status to Shoggoth's Maddening Cacophany and remove DC explanation note on Constrict
+- (Ambrose) Add note RE to Fracture Timeline
+- (Ambrose) Condense spell effects for several battleforms
+- (Ambrose) Correct action cost of Rally Point
+- (Ambrose) Correct Asp of Grief data entry errors
+- (Ambrose) Correct inline check for Lassoing Lash
+- (Ambrose) Correct Nosferatu Malefactor's fang damage type
+- (Ambrose) Correct rollOptions for Invoke Rune's Pride effect
+- (Ambrose) Correct typo in Explosive Arrival flags
+- (Ambrose) Remove Detect Alignment cantrip and update Strigoi creature abilities to match Remaster update
+- (Ambrose) Update action cost of Mask of Mercy per Treasure Vault Remaster update
+- (Ambrose) Update Invoke Rune effect to match Monster Core update
+- (Ambrose) Update localization for Aerial Form to match existing localizations
+- (Ambrose) Update Propulsive Leap's damage syntax
+- (Ambrose) Update Wyrm on The Wing tattoo to match Remaster updates
+- (Dire Weasel) Add automation to Crystal Healing
+- (Dire Weasel) Add effect for Feast on Fear, Gentle Breeze, and Shark Tooth Charm
+- (Dire Weasel) Add increased damage automation to Telekinetic Swarm Trap
+- (Dire Weasel) Add some links to Soulsight
+- (Dire Weasel) Fix bonus type for Vengeful Wrath
+- (Dire Weasel) Fix save for Eclipse Burst
+- (Dire Weasel) Standardize inline action for Embrace
+- (Dire Weasel) Tidy description of Malefic Mirror and some inline actions
+- (Dire Weasel) Update some equipment to grant conditions
+- (iDantar) Add a separate effect for redcap brigade
+- (iDantar) Add Arcane tradition to Retrocognition and its references
+- (iDantar) Add missing `replaceAll: true` for Talon and Claw stance effects
+- (iDantar) Allow didactic strike to affect attack spell damage
+- (iDantar) Fix greater Endless Quiver material choices
+- (iDantar) Implement rules for Hellknight Mobility feat
+- (iDantar) Update dawnsilver-tree and shield-pistol rounds
+- (kromko) Add some missing compendium sources for physical items
+- (kromko) Clean up whitespace around inline buttons; Fix Spellsap Grenades data
+- (kromko) Fix Fire and Water Wisps' Resonance description
+- (kromko) Fix formatting of Flawless Celestial Shawl and Smoking Sword
+- (kromko) Fix invalid language keys
+- (kromko) Fix Skill Mastery overwriting all feat descriptions
+- (kromko) Remove duplicate dedication from Provocator Archetype journal page
+- (kromko) Remove remnants of pre-remaster activation from Greater Screech Shooter
+- (rectulo) Add description text for Grandmaster NPC
+- (rectulo) Add forgotten text in Black Belt NPC
+- (rectulo) Add missing text in Cultist description
+- (rectulo) Add teleportation trait to Retrieval Prism
+- (rectulo) Change damage type from bludgeoning to slashing in Storm Hag's Cutting Gale
+- (rectulo) Fix a typo in a Dwarf Battalion ability
+- (rectulo) Fix a typo in Spell Repertoire feature
+- (rectulo) Fix description in Gathered Lore and Precise Discipline features
+- (rectulo) Fix Fiend Caller description
+- (rectulo) Fix typo in spell name for Tumbleweed Leshy Courier
+- (rectulo) Revise description for Retrieval Prism (Greater)
+- (Rigo) Make Crossbow Crack Shot's bonus damage and backstabber upgrade mutually exclusive
+- (SpartanCPA) Add RuleElement for Seugathi Guard's Magic Item Mastery feature
+- (stwlam) Update icon for Elixir of Gender Transformation
+- (Tikael) Add missing localization for Commander Fortitude Expertise
+- (Tikael) Fix action cost of Start the Festival
+- (TroelsL) Fix 2 NPCs in Outlaws with malformed resources JSON
+- (YellowAfterlife) Fix Spirit Thresher's damage type
+
+### Under the Hood
+
+- (kromko) Remove Catfolk feat Expanded Luck and redirect it to Lucky Break
+- (Noisyink) Avoid duplicate feat group slots in custom campaigns slots
+- (stwlam) Remove migrations for foundry versions up to and including 10
+- (stwlam) Support retrieval of highest and lowest save from creatures
+
 ## 8.1.2
 
 ### System Improvements

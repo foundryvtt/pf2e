@@ -4,18 +4,19 @@ import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { traditionSkills } from "@item/spellcasting-entry/trick.ts";
 import { DCOptions, calculateDC } from "@module/dc.ts";
+import type { OneToTen } from "@module/data.ts";
 import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
 import * as R from "remeda";
 
-const CANTRIP_DECK_UUID = "Compendium.pf2e.equipment-srd.Item.tLa4bewBhyqzi6Ow";
-
-type SpellConsumableItemType = "cantripDeck5" | keyof ConfigPF2e["PF2E"]["spellcastingItems"];
+type SpellConsumableItemType = keyof ConfigPF2e["PF2E"]["spellcastingItems"];
 
 function isSpellConsumableUUID(itemId: string): boolean {
-    return (
-        itemId === CANTRIP_DECK_UUID ||
-        Object.values(CONFIG.PF2E.spellcastingItems).some((c) => Object.values(c.compendiumUuids).includes(itemId))
-    );
+    return Object.values(CONFIG.PF2E.spellcastingItems).some((c) => Object.values(c.compendiumUuids).includes(itemId));
+}
+
+/** Spell consumable categories available for this kind of spell in the current system. */
+function spellConsumableCategoriesFor(spell: { isCantrip: boolean }): Partial<typeof CONFIG.PF2E.spellcastingItems> {
+    return R.pickBy(CONFIG.PF2E.spellcastingItems, (c) => !!c?.cantripsOnly === spell.isCantrip);
 }
 
 async function createConsumableFromSpell(
@@ -25,14 +26,13 @@ async function createConsumableFromSpell(
         rank = spell.baseRank,
         mystified = false,
     }: {
-        type: string;
-        rank?: number;
+        type: SpellConsumableItemType;
+        rank?: OneToTen;
         mystified?: boolean;
     },
 ): Promise<ConsumableSource> {
     const data = objectHasKey(CONFIG.PF2E.spellcastingItems, type) ? CONFIG.PF2E.spellcastingItems[type] : null;
-    const uuids: Record<number, string | null | undefined> = data?.compendiumUuids ?? [];
-    const uuid = uuids?.[rank] ?? (type === "cantripDeck5" ? CANTRIP_DECK_UUID : null);
+    const uuid = data?.compendiumUuids[rank] ?? null;
     const consumable = uuid ? await fromUuid<ItemPF2e>(uuid) : null;
     if (!consumable?.isOfType("consumable")) {
         throw ErrorPF2e("Failed to retrieve consumable item");
@@ -48,9 +48,8 @@ async function createConsumableFromSpell(
     }
     traits.value.sort();
 
-    const nameTemplate = type === "cantripDeck5" ? "PF2E.Item.Physical.FromSpell.CantripDeck5" : data?.nameTemplate;
-    consumableSource.name = nameTemplate
-        ? _loc(nameTemplate, { name: spell.name, level: rank })
+    consumableSource.name = data?.nameTemplate
+        ? _loc(data.nameTemplate, { name: spell.name, level: rank })
         : `${type} of ${spell.name} (Rank ${rank})`;
     const description = consumableSource.system.description.value;
 
@@ -66,8 +65,8 @@ async function createConsumableFromSpell(
         return containerElement.innerHTML;
     })();
 
-    // Cantrip deck casts at level 1
-    if (type !== "cantripDeck5") {
+    // Cantrip-only categories (e.g. cantrip deck) aren't single-spell consumables — skip embedding.
+    if (!data?.cantripsOnly) {
         consumableSource.system.spell = fu.mergeObject(
             spell._source,
             { _id: fu.randomID(), system: { location: { value: null, heightenedLevel: rank } } },
@@ -104,5 +103,10 @@ function calculateTrickMagicItemCheckDC(
     return Object.fromEntries(skills);
 }
 
-export { CANTRIP_DECK_UUID, calculateTrickMagicItemCheckDC, createConsumableFromSpell, isSpellConsumableUUID };
+export {
+    calculateTrickMagicItemCheckDC,
+    createConsumableFromSpell,
+    isSpellConsumableUUID,
+    spellConsumableCategoriesFor,
+};
 export type { SpellConsumableItemType, TrickMagicItemDifficultyData };

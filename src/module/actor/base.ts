@@ -1941,6 +1941,20 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             }
         }
 
+        // Recalculate encounter metrics if this actor's level, adjustment, or alliance changed
+        const detailsChanged = changed.system?.details ?? {};
+        const attributesChanged = changed.system?.attributes ?? {};
+        if (
+            game.combats.size > 0 &&
+            ("level" in detailsChanged || "alliance" in detailsChanged || "adjustment" in attributesChanged)
+        ) {
+            const encounters = game.combats.filter((c) => c.combatants.some((combatant) => combatant.actor === this));
+            for (const encounter of encounters) {
+                encounter.metrics = encounter.analyze();
+            }
+            if (encounters.length > 0) ui.combat.render({ parts: ["metrics"] });
+        }
+
         // Remove the death overlay if present upon hit points being increased
         // Skip if this is a damage-taken operation though, since that already handles this
         if (!options.damageTaken || options.damageTaken < 0) {

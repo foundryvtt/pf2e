@@ -1,0 +1,100 @@
+{
+    "_id": "h4LZXcxxSYQo0nDH",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "fw71ikv7BzjizVLR",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Storm Surge",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The storm builds for at least 10 minutes</p><hr /><p><strong>Effect</strong> The ship pitches dangerously atop the waves. The hazard rolls initiative and performs its routine as a free action.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Storm-Tossed Sea",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 200,
+                "temp": 0,
+                "value": 200
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 29
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A relentless storm assails the ship, battering those on board who don't secure themselves.</p>",
+            "disable": "<p>@Check[athletics|dc:29], Crafting, or Sailing Lore to securely lash one's self to the ship. Creatures tied to the ship are immune to the hazard's routine but are @UUID[Compendium.pf2e.conditionitems.Item.Immobilized].</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The storm tosses the ship in a random direction (roll 1d8 to determine). All creatures on the ship that aren't lashed to it are moved 10 feet in that direction and must attempt a @Check[reflex|dc:30] save or Sailing Lore check as the waves pummel them.</p><hr><p><strong>Critical Success</strong> The creature takes no damage and can avoid being moved 10 feet if it wishes.</p><p><strong>Success</strong> The creature takes no damage.</p><p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] and takes @Damage[(1d12+15)[bludgeoning]] damage.</p><p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Prone] and takes @Damage[(2d12+15)[bludgeoning]] damage.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 0
+            },
+            "reflex": {
+                "value": 0
+            },
+            "will": {
+                "value": 0
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

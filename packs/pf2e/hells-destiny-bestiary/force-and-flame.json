@@ -1,0 +1,136 @@
+{
+    "_id": "vjfC6CxewN3VABbp",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "nbsquFPqHSsccMkn",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Force Whip",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "D92lxoZU3rE4DcG3": {
+                        "damage": "4d10+22",
+                        "damageType": "force"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": false,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Bbhy38dRXcwoCRUX",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Blinding Alarm",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature tries to open the crate without removing the runes</p><hr /><p><strong>Effect</strong> The four runes become active with a flash of red light. Each creature in a @Template[type:emanation|distance:30] must attempt a @Check[reflex|dc:42] save. The trap then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is slightly dazed by the flash, taking a –2 circumstance penalty to their initiative.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round and takes a –2 circumstance penalty to their initiative.</p>\n<p><strong>Critical Failure</strong> The target is blinded for 1 minute and takes a –4 circumstance penalty to their initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Force and Flame",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 38
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Four invisible runes on a large crate conjure jets of flame and whips of force when someone tries to open the container.</p>",
+            "disable": "<p>@Check[thievery|dc:45] (master) to erase each rune, @Check[arcana|dc:48] (master) to channel energy from one rune into another, destroying both, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (8th rank; counteract DC 45) to counteract each rune; a PC can choose to disable a fire rune or a force rune (or choose randomly)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 20
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "<p>The runes deactivate after 1 minute, but if at least one rune remains, the trap reactivates 1 round after that.</p>",
+            "routine": "<p>(4 actions) The trap has 1 fewer action for each rune that's been disabled or destroyed; whether that rune was a fire rune or a force rune affects the actions the trap can take. On the trap's initiative, the two fire runes each blast @Template[type:cone|distance:30]s of flame as an action in opposite directions that deal @Damage[12d6[fire]|options:area-damage] damage (@Check[reflex|dc:44|basic] save). Then the two force runes each make a force whip Strike as an action against different targets.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

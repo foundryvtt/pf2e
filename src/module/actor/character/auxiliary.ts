@@ -9,11 +9,12 @@ import { getActionGlyph, localizeList, sluggify } from "@util";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 import { CharacterPF2e } from "./document.ts";
+import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
 
 interface AuxiliaryInteractParams {
     weapon: WeaponPF2e<CharacterPF2e>;
     action: "interact";
-    annotation: "draw" | "grip" | "modular" | "pick-up" | "retrieve" | "sheathe";
+    annotation: "draw" | "grip" | "modular" | "pick-up" | "retrieve" | "sheathe" | "boost";
     hands?: ZeroToTwo;
 }
 
@@ -85,6 +86,8 @@ class WeaponAuxiliaryAction {
                     return [1, null, annotation];
                 case "drop":
                     return [0, "dropped", annotation];
+                case "boost":
+                    return [1, null, annotation];
                 case "tower-shield": {
                     const cost = this.action === "take-cover" ? 1 : 0;
                     return [cost, null, null];
@@ -157,6 +160,21 @@ class WeaponAuxiliaryAction {
                 selected: Number(selection),
             });
             if (!updated) return;
+        } else if (this.annotation === "boost") {
+            const isBoosted = actor.itemTypes.effect.some(
+                (e) => e.slug === "effect-boost" && e.flags[SYSTEM_ID].grantedBy?.id === weapon.id,
+            );
+            // No op if the weapon is already boosted
+            if (isBoosted) return;
+            const effect = await fromUuid(`Compendium.${SYSTEM_ID}.equipment-effects.Item.YVm3rVSAYxoSrOvb`);
+            if (effect instanceof EffectPF2e) {
+                const data = { ...effect.toObject(), _id: null };
+                data.flags[SYSTEM_ID] = { grantedBy: { id: weapon.id, onDelete: "cascade" } };
+                // Change rule to affect the specific weapon.
+                (data.system.rules[0] as ChoiceSetSource).selection = weapon.id;
+                data.system.description.value += `\n@UUID[Actor.${actor.id}.Item.${weapon.id}]{${weapon.name}}`;
+                await actor.createEmbeddedDocuments("Item", [data]);
+            }
         } else if (this.action === "raise-a-shield") {
             // Apply Effect: Raise a Shield
             const alreadyRaised = actor.itemTypes.effect.some((e) => e.slug === "raise-a-shield");

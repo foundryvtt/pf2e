@@ -1,0 +1,103 @@
+{
+    "_id": "zYZqILp0HYcLM4gr",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "lEMwKndsKVUXL35C",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Let the Sparks Fly",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A non-dottari creature takes damage</p><hr /><p><strong>Effect</strong> Thin Wisps fire off a series of fireworks as they rappel from the eaves on scarves. All creatures in area A must attempt a @Check[fortitude|dc:24] save. On a failure, the target is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] and @UUID[Compendium.pf2e.conditionitems.Item.Deafened] until the end of its next turn (or @UUID[Compendium.pf2e.conditionitems.Item.Blinded] and deafened on a critical failure). The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Thin Wisps Fireworks Show",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 56,
+                "temp": 0,
+                "value": 56
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 15
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Fashionable performers and revolutionaries rappel from the surrounding buildings on scarves.</p>",
+            "disable": "<p>@Check[acrobatics|dc:21] to turn away from the explosions, or @Check[crafting|dc:25] to identify the exact moment the fireworks will explode</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "",
+            "routine": "<p>(1 action; visual) The Thin Wisps continue to launch fireworks until the dottari excruciator divisions are defeated. Each round, all creatures must succeed at a @Check[fortitude|dc:24|traits:visual] save or be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] and @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round (or @UUID[Compendium.pf2e.conditionitems.Item.Blinded] and deafened for 1 round on a critical failure).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 17
+            },
+            "reflex": {
+                "value": 18
+            },
+            "will": {
+                "value": 11
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "humanoid"
+            ]
+        }
+    },
+    "type": "hazard"
+}

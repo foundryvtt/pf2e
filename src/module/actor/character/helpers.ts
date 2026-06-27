@@ -247,6 +247,12 @@ function getWeaponAuxiliaryActions(weapon: WeaponPF2e<CharacterPF2e>): WeaponAux
                     }
                 }
 
+                if (weapon.system.traits.config.boost) {
+                    auxiliaryActions.push(
+                        new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "boost" }),
+                    );
+                }
+
                 if (weapon.handsHeld === 2) {
                     auxiliaryActions.push(
                         new WeaponAuxiliaryAction({ weapon, action: "release", annotation: "grip", hands: 1 }),

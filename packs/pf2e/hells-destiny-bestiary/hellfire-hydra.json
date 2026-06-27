@@ -1,0 +1,515 @@
+{
+    "_id": "TB2tEOhonITJWcM0",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "n0QS5rAKY0ZY7PHw",
+            "img": "systems/pf2e/icons/spells/summon-animal.webp",
+            "name": "Effect: Hellfire Hydra Heads",
+            "sort": 100000,
+            "system": {
+                "badge": {
+                    "labels": null,
+                    "loop": false,
+                    "max": null,
+                    "min": null,
+                    "type": "counter",
+                    "value": 5
+                },
+                "description": {
+                    "value": "<p>The number of heads the hellfire hydra currently has.</p>"
+                },
+                "duration": {
+                    "expiry": null,
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "fromSpell": false,
+                "level": {
+                    "value": 19
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Adventure Path: Hell's Destiny"
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": "@item.system.badge.value * 5"
+                    }
+                ],
+                "slug": "effect-hydra-heads",
+                "start": {
+                    "initiative": null,
+                    "value": 0
+                },
+                "tokenIcon": {
+                    "show": false
+                },
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "effect"
+        },
+        {
+            "_id": "mR3eF2J1v3dvsvn7",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fiery Fangs",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 34
+                },
+                "damageRolls": {
+                    "hqt0z5z07gTrueCz": {
+                        "category": "persistent",
+                        "damage": "2d8",
+                        "damageType": "fire"
+                    },
+                    "huQyrN0CD29Ckxvk": {
+                        "damage": "2d10+14",
+                        "damageType": "piercing"
+                    },
+                    "tQKBS4cLkPXZ9HSG": {
+                        "damage": "2d10",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "reach-10",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "1Kn4bOqRAwlByCBN",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Smoke Vision",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The hellfire hydra ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from smoke.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UIF8DxY3Dk0NoIiv",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "All-Around Vision",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AllAroundVision]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.flanking.flankable",
+                        "value": false
+                    }
+                ],
+                "slug": "all-around-vision",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pRi7gYr2YwTJuHxE",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hellfire Regeneration",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>The hellfire hydra has regeneration equal to 5 × the number of heads it has. If a hellfire hydra's body is missing any heads and the remaining stumps haven't been snuffed out, the hydra attempts a @Check[fortitude|dc:42] save after it regains Hit Points from regeneration. On a success, one non-snuffed stump regrows two heads; on a critical success, two nonsnuffed stumps regrow into two heads each. The hellfire hydra can never grow more than 10 heads. The hellfire hydra's regeneration only fully deactivates if all its heads are destroyed and all stumps are snuffed out, at which point it dies.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "regeneration",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8x2IcnPppFO2sxj1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Head Regrowth",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A hellfire hydra has five heads. A creature can attempt to sever one of the hydra's heads by specifically targeting it and dealing damage equal to the head's Hit Points. A head that isn't completely severed returns to full Hit Points at the end of any creature's turn.</p>\n<p>A hellfire hydra can regrow a severed head using hellfire regeneration. A creature can prevent this regrowth by dealing damage to the stump with a cold or water effect, snuffing out its flames. Single-target cold or water effects need to be targeted at a specific stump, but effects that deal splash damage or affect areas covering the hellfire hydra's whole space snuff out all stumps if they deal damage and have the cold or water trait. If the attack that destroys a head deals any damage with the cold or water trait, the stump is snuffed out instantly. If all five heads are snuffed out, the hydra dies.</p><hr /><p><strong>Hydra Head</strong></p><ul><li><p><strong>Hit Points</strong> 50</p></li><li><p><strong>Immunities</strong> Area Damage</p></li><li><p><strong>Weaknesses</strong> Cold 15, Holy 10, Water 10</p></li></ul><p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Hellfire Hydra Heads]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "G19fmy4N3CMCCkXz",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Reactive Heads",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A hellfire hydra gains an extra reaction per round for each of its heads beyond the first, which it can use only to make Reactive Strikes. It can't use more than 1 reaction on the same triggering action, even if a creature leaves several squares within its reach, and the hydra must use a different head for each Reactive Strike it makes. Whenever one of the hellfire hydra's heads is destroyed, the hydra loses 1 of its extra reactions per round.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xWvCfGqRPgYUTPDf",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike (See Reactive Heads)",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Sg2CLUHmCA28tjCu",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unholy Heat",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>10 feet, @Damage[9d6[fire]] damage, @Check[reflex|dc:38|basic] save</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "traits": [
+                            "fire",
+                            "unholy"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "fire",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1BwV9TFJ4LsBz1jc",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Conflagration of Jaws",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hellfire hydra slams each of its heads into the ground, where they explode before quickly reforming. The hellfire hydra creates a number of @Template[type:burst|distance:5]s within 10 feet equal to its current number of heads. These bursts can't overlap. Each creature in a burst takes @Damage[6d6[fire]|options:area-damage] damage (@Check[reflex|dc:40|basic] save). This counts as a number of attacks equal to the number of heads the hellfire hydra has toward the hydra's multiple attack penalty.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "attack",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Hellfire Hydra",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 10
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "all-around vision",
+                "value": 42
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "hellfire regeneration",
+                "max": 350,
+                "temp": 0,
+                "value": 350
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "fire"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "sleep"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "cold",
+                    "value": 20
+                },
+                {
+                    "exceptions": [],
+                    "type": "holy",
+                    "value": 15
+                },
+                {
+                    "exceptions": [],
+                    "type": "water",
+                    "value": 15
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "diabolic",
+                    "pyric"
+                ]
+            },
+            "level": {
+                "value": 19
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "smoke vision",
+            "mod": 33,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 32
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 35
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 30
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 37
+            },
+            "athletics": {
+                "base": 33
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "elemental",
+                "fire",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

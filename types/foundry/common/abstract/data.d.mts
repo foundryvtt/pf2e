@@ -1,3 +1,4 @@
+import { DataModelUpdateState } from "@common/data/_types.mjs";
 import * as fields from "../data/fields.mjs";
 import {
     DataModelConstructionContext,
@@ -170,6 +171,46 @@ export default abstract class DataModel<
      * @throws An error if the requested data model changes were invalid
      */
     updateSource(changes?: Record<string, unknown>, options?: DataModelUpdateOptions): DeepPartial<this["_source"]>;
+
+    /**
+     * Prepare the state object that is transacted through an updateSource operation.
+     * @param changes New values which should be applied to the data model
+     * @param options Options which determine how the new data is merged
+     * @param _state Data model update state
+     */
+    protected _preUpdateSource(changes: object, options: DataModelUpdateOptions, _state: DataModelUpdateState): void;
+
+    /**
+     * Perform the first step of the DataModel#_updateSource workflow which applies changes to a copy of model source
+     * data and records the resulting diff.
+     * @param copy A mutable copy of model source data
+     * @param changes New values which should be applied to the data model
+     * @param options Options which determine how the new data is merged
+     * @param _state Data cleaning state
+     * @returns The resulting difference applied to source data
+     * @throws {DataModelValidationFailure} A failure if the proposed change is invalid
+     * @protected
+     */
+    protected _updateDiff(
+        copy: object,
+        changes: object,
+        options: DataModelUpdateOptions,
+        _state: DataModelUpdateState,
+    ): object;
+
+    /**
+     * Perform the second step of the DataModel#_updateSource workflow which applies the prepared diff to the model.
+     * @param copy The prepared copy of source data with changes applied
+     * @param diff  The differential changes that were applied to source
+     * @param options Options which determine how the new data is merged
+     * @param _state Data cleaning state which might include instructions for final commit
+     */
+    protected _updateCommit(
+        copy: object,
+        diff: object,
+        options: DataModelUpdateOptions,
+        _state: DataModelUpdateState,
+    ): void;
 
     /* ---------------------------------------- */
     /*  Serialization and Storage               */

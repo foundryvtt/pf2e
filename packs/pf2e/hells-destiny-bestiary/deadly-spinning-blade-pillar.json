@@ -1,0 +1,200 @@
+{
+    "_id": "8YPAJOxXyl1YNCGu",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "NHxV07O4bvbHsS9C",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Descending Pillar",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature steps on one of the marked trigger plates</p><hr /><p><strong>Effect</strong> The pillar descends from the ceiling at the marked grid intersection and makes a spinning blade Strike against one adjacent creature (if any). The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jWyA5EeNcbi6vJa5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Speed",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>10 feet</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "u9ilWVcqqyfn9ByO",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spinning Blade",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 35
+                },
+                "damageRolls": {
+                    "QSjXgVrJ0CR1jW4I": {
+                        "damage": "3d12+20",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": false,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ACIM9a0tJHbORLiJ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Panel Statistics",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Panel Hardness</strong> 15;</p>\n<p><strong>Panel HP</strong> 40 (BT 20)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Deadly Spinning Blade Pillar",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 42
+            },
+            "emitsSound": "encounter",
+            "hardness": 30,
+            "hp": {
+                "details": "",
+                "max": 120,
+                "temp": 0,
+                "value": 120
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(master) or DC 48 (master) to find the control panel</p>",
+                "value": 35
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A spinning metal pole covered in deadly blades is hidden in the ceiling, connected to several trigger plates around the room and a hidden control panel built into the bed frame.</p>",
+            "disable": "<p>@Check[thievery|dc:39] (master) three times on a pillar, or @Check[thievery|dc:37] (master) twice on the control panel deactivates the whole trap. Breaking the control panel prevents anyone from disabling the trap using the control panel and prevents the trap from deactivating automatically (see Reset below)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 18
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "<p>The trap deactivates and resets after 1 minute.</p>",
+            "routine": "<p>(3 actions) The trap uses its first action to make a spinning blade Strike against each adjacent creature. Its second action is to move in a random direction (roll 1d4 to determine the direction), and its third action to make a spinning blade Strike against each adjacent creature.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 33
+            },
+            "reflex": {
+                "value": 27
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

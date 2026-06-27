@@ -32,9 +32,9 @@ export class Migration915MoveLanguages extends Migration914MovePerceptionSenses 
 
             if (source.type === "character" && "traits" in system) {
                 this.#deduplicateWildsong(source);
-                system["-=traits"] = null;
+                system.traits = _del;
             } else if (R.isPlainObject(system.traits) && "languages" in system.traits) {
-                system.traits["-=languages"] = null;
+                system.traits.languages = _del;
             }
         }
     }
@@ -80,6 +80,5 @@ export class Migration915MoveLanguages extends Migration914MovePerceptionSenses 
 
 interface WithMisplacedLanguages {
     details: { languages: { value: string[]; details?: string } };
-    traits?: { value?: unknown; languages?: unknown; "-=languages"?: null };
-    "-=traits"?: null;
+    traits?: object;
 }

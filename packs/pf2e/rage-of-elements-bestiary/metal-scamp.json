@@ -163,21 +163,27 @@
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FastHealing]</p>"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
                 },
                 "rules": [
                     {
-                        "details": "while Touching Metal",
+                        "details": "PF2E.NPCAbility.Scamp.FastHealing.MetalLabel",
                         "key": "FastHealing",
-                        "type": "fast-healing",
+                        "predicate": [
+                            "fast-healing"
+                        ],
                         "value": 2
+                    },
+                    {
+                        "key": "RollOption",
+                        "option": "fast-healing",
+                        "toggleable": true
                     }
                 ],
                 "slug": "fast-healing",
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },

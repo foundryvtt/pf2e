@@ -19,7 +19,7 @@ class RollInspector extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         },
     };
 
-    protected override root = Root;
+    protected root = Root;
 
     message: ChatMessagePF2e;
 
@@ -70,4 +70,4 @@ interface RollInspectorState {
 }
 
 export { RollInspector };
-export type { RollInspectorContext };
+export type { RollInspectorContext, RollInspectorState };

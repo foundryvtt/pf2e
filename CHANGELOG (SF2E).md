@@ -1,3 +1,46 @@
+## 1.2.0
+
+### System Improvements
+
+- (Dire Weasel) Add support for ring templates
+- (Geliogabalus) Add weapon boost automation
+- (JiDW) Improve Dice So Nice integration with Damage Type
+- (stwlam) Set cone angle to 90 when created from scene controls
+- (stwlam) Set default token ring to steel
+- (Supe) Add expend tag to weapon description and strikes
+
+### Bugfixes
+
+- (iDantar) Hide ActorsDeadAtZero setting from players
+- (In3luki) Restore missing radio buttons in shield block dialog
+- (In3luki) Restore missing reroll icons in chat context menu
+- (jfn4th) Fix hiding roll opposer names
+- (Noisyink) Fix DOM helpers returning null cross-window in PopOut!
+- (Noisyink) Preserve token mirror state when applying TokenImage scale override
+- (stwlam) Allow "base" actor and item subtypes to construct
+- (stwlam) Set `ignored` if predicate fails in `StrikeRuleElement#beforePrepareData`
+- (Supe) Fix icon of add/remove currency dialog
+- (Supe) Fix tags in dark mode formula picker
+- (Supe) Include piloting/computers in RK skills list in party sheet
+
+### Data Updates
+
+- (Ambrose) Add localization to Coshyco's Adjust Shape ability
+- (Geliogabalus) Fix missing Tool Rat statistics
+- (iDantar) Make Izalguun Large
+- (kromko) Add missing SF physical item compendiumSources; remove non-compendium compendiumSources
+- (kromko) Clean up whitespace around inline buttons
+- (kromko) Fix invalid language keys
+- (Longstrider) Set augmentations' Bulk to 0
+- (Noisyink) Add toggleable Glitching Failure roll option
+- (Rigo) Fix bad id on Burrowing Charge
+
+### Under the Hood
+
+- (Noisyink) Avoid duplicate feat group slots in custom campaigns slots
+- (stwlam) Remove migrations for foundry versions up to and including 10
+- (stwlam) Support retrieval of highest and lowest save from creatures
+
 ## 1.1.2
 
 ### System Improvements

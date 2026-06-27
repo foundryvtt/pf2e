@@ -117,6 +117,11 @@ class ItemTransferDialog extends fa.api.DialogV2<ItemTransferConfiguration> {
         options: fa.api.HandlebarsRenderOptions,
     ): Promise<void> {
         await super._onRender(context, options);
+        // DialogV2 never attaches a change listener to its form, so wire one up manually to drive `_onChangeForm`.
+        this.element.querySelector("form")?.addEventListener("change", (event) => {
+            const formConfig = this.options.form;
+            if (formConfig) this._onChangeForm(formConfig, event);
+        });
         this.#renderPurchasePrice();
     }
 
@@ -131,7 +136,8 @@ class ItemTransferDialog extends fa.api.DialogV2<ItemTransferConfiguration> {
     #renderPurchasePrice(): void {
         const { mode, item } = this.options;
         if (mode !== "purchase") return;
-        const quantityInput = this.element.querySelector<fa.elements.HTMLRangePickerElement>("input[name=quantity]");
+        const quantityInput =
+            this.element.querySelector<fa.elements.HTMLRangePickerElement>("range-picker[name=quantity]");
         const purchaseButton = this.element.querySelector("button[data-action=purchase]");
         if (!quantityInput || !purchaseButton) return;
         const quantity = Math.clamp(Number(quantityInput.value) || 1, 1, item.quantity);

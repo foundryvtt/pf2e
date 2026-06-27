@@ -1,0 +1,151 @@
+{
+    "_id": "IryraFxLl7NZ0Ghj",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "6hH2Szg5WkaDyKLS",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Stop, Burglar",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature other than Zefiro opens the Museum's gates</p><hr /><p><strong>Effect</strong> Cathilia shouts at the triggering creature. The target must succeed at a @Check[will|dc:27] save or have their action disrupted, and then Cathilia's meddling rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "linguistic",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0kTxOL5jkheyz13L",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Hellknight's Orders",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 0
+                },
+                "damageRolls": {
+                    "8rxcVN3ijakvjViu": {
+                        "damage": "2d12+5",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": null,
+                    "max": 120
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "auditory",
+                        "linguistic",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Cathilia's Meddling",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 58,
+                "temp": 0,
+                "value": 58
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 0
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A Hellknight on horseback shouts commands, beseeching all to return to order.</p>",
+            "disable": "<p>@Check[Hellknight Lore|dc:21] (trained) to convince the Hellknight that she's adding to chaos, or @Check[diplomacy|dc:25] to request she stop yelling</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "",
+            "routine": "<p>(3 actions) Cathilia uses her Hellknight's Orders Strike on creatures engaged in open fighting in area <strong>A2</strong>. She randomly chooses between targets in the likely case that there are multiple combatants.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 17
+            },
+            "reflex": {
+                "value": 11
+            },
+            "will": {
+                "value": 18
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "humanoid"
+            ]
+        }
+    },
+    "type": "hazard"
+}

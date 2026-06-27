@@ -1,5 +1,5 @@
 import * as R from "remeda";
-import { CompendiumBrowser } from "../browser.ts";
+import { CompendiumBrowser } from "../browser.svelte.ts";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowserTab } from "./base.svelte.ts";
 import { CompendiumBrowserIndexData, FeatFilters } from "./data.ts";

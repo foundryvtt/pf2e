@@ -21,6 +21,13 @@
         },
         "rules": [
             {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "name",
+                "value": "PF2E.NPCAbility.Cryptid.PowerSurge.Name"
+            },
+            {
                 "diceNumber": "match(when(lte(@actor.level, 8), 1), when(btwn(@actor.level, 9, 14), 2), when(btwn(@actor.level, 5, 17), 3), when(gte(@actor.level, 18), 4))",
                 "dieSize": "d6",
                 "key": "DamageDice",
