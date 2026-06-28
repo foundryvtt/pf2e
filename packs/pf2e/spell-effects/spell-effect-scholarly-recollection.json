@@ -35,7 +35,10 @@
                 "keep": "higher",
                 "key": "RollTwice",
                 "predicate": [
-                    "action:recall-knowledge"
+                    "action:recall-knowledge",
+                    {
+                        "not": "proficiency:untrained"
+                    }
                 ],
                 "removeAfterRoll": true,
                 "selector": "skill-check"
