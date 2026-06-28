@@ -1,35 +1,44 @@
 <script lang="ts">
     import { ErrorPF2e } from "@util";
-    import type { TradeQueryData, TradeDialogRenderContext, TradeItemData } from "./app.ts";
+    import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
+    import type { TradeDialogRenderContext, TradeQueryData, TradeItemData } from "./app.svelte.ts";
 
-    const { state: data, foundryApp: dialog, traderUser, searchEngine, localize }: TradeDialogRenderContext = $props();
-    const { self, trader } = data;
-    const portraitAlt = {
-        self: localize("ImgAlt.Actor", { actor: self.actor.name, user: localize("You") }),
-        trader: localize("ImgAlt.Actor", { actor: trader.actor.name, user: traderUser.name }),
-    };
+    const {
+        foundryApp: dialog,
+        traderUser,
+        searchEngine,
+        localize,
+        getState,
+    }: TradeDialogRenderContext & SvelteAppProps<TradeDialogRenderContext> = $props();
+    const data = $derived(getState());
+    const selfActor = $derived(data.selfActor);
+    const traderActor = $derived(data.traderActor);
+    const portraitAlt = $derived({
+        self: localize("ImgAlt.Actor", { actor: selfActor.name, user: localize("You") }),
+        trader: localize("ImgAlt.Actor", { actor: traderActor.name, user: traderUser.name }),
+    });
 
     // Item lists and summaries
     const listFormatter = game.i18n.getListFormatter({ style: "narrow" });
-    const selfItems = $derived(
-        self.items
+    const selfItemsVisible = $derived(
+        dialog.selfItems
             .filter((i) => i.matchScore > 0)
             .sort((a, b) => b.matchScore - a.matchScore || a.name.localeCompare(b.name, game.i18n.lang)),
     );
     const withQuantity = (i: { quantity: number; marked: number; name: string }) =>
         i.quantity > 1 ? `${i.marked}x ${i.name}` : i.name;
     const itemsToSend = $derived.by(() => {
-        const list = listFormatter.format(selfItems.filter((i) => i.marked > 0).map((i) => withQuantity(i)));
+        const list = listFormatter.format(selfItemsVisible.filter((i) => i.marked > 0).map((i) => withQuantity(i)));
         return list.length > 0 ? localize("Sending", { list }) : "";
     });
 
-    const traderItems = $derived(
-        trader.items
+    const traderItemsVisible = $derived(
+        dialog.traderItems
             .filter((i) => i.visible || i.marked)
             .sort((a, b) => Number(b.marked > 0) - Number(a.marked > 0) || a.name.localeCompare(b.name)),
     );
     const itemsToReceive = $derived.by(() => {
-        const list = listFormatter.format(traderItems.filter((i) => i.marked > 0).map((i) => withQuantity(i)));
+        const list = listFormatter.format(traderItemsVisible.filter((i) => i.marked > 0).map((i) => withQuantity(i)));
         return list.length > 0 ? localize("Receiving", { list }) : "";
     });
 
@@ -47,15 +56,15 @@
     }
 
     function toggleAccepted(): void {
-        self.accepted = !self.accepted;
+        dialog.selfAccepted = !dialog.selfAccepted;
         const marked = Object.fromEntries(
-            self.items
+            dialog.selfItems
                 .values()
                 .filter((i) => i.marked > 0)
                 .map((i) => [i.id, i.marked]),
         );
-        if (self.accepted && trader.accepted) dialog.close({ success: true });
-        sendQuery({ action: "update", marked, accepted: self.accepted });
+        if (dialog.selfAccepted && dialog.traderAccepted) dialog.close({ success: true });
+        sendQuery({ action: "update", marked, accepted: dialog.selfAccepted });
     }
 
     function search(event: Event): void {
@@ -63,7 +72,7 @@
         const searchText = event.target.value.trim();
         const results = new Map(searchEngine.search(searchText).map((r) => [r.id, r.score]));
         const fallbackScore = results.size > 0 ? 0 : 1;
-        for (const item of self.items) {
+        for (const item of dialog.selfItems) {
             item.matchScore = results.get(item.id) ?? fallbackScore;
         }
     }
@@ -78,7 +87,7 @@
         }
     }
 
-    function focusQuantityInput(event: PointerEvent & { currentTarget: HTMLSpanElement }): void {
+    function focusQuantityInput(event: PointerEvent & { currentTarget: HTMLDivElement }): void {
         const input = event.currentTarget.querySelector("input");
         input?.focus();
     }
@@ -97,7 +106,7 @@
         if (quantity !== item.marked) {
             item.marked = quantity;
             const newMarks = Object.fromEntries(
-                self.items
+                dialog.selfItems
                     .values()
                     .filter((i) => i.marked > 0)
                     .map((i) => [i.id, i.marked]),
@@ -117,7 +126,7 @@
         const multiplier = event[ctrlKey] && event.shiftKey ? 50 : event[ctrlKey] ? 10 : event.shiftKey ? 5 : 1;
         item.marked = Math.clamp(item.marked + Number(button.value) * multiplier, 0, item.quantity);
         const newMarks = Object.fromEntries(
-            self.items
+            dialog.selfItems
                 .values()
                 .filter((i) => i.marked > 0)
                 .map((i) => [i.id, i.marked]),
@@ -130,39 +139,44 @@
 <div class="content standard-form" data-tooltip-class="pf2e">
     <section class="panel self flexcol">
         <header class="flexrow">
-            <img src={self.actor.img} alt={portraitAlt.self} />
+            <img src={selfActor.img} alt={portraitAlt.self} />
             <div class="name flexcol">
-                <span class="actor">{self.actor.name}</span>
+                <span class="actor">{selfActor.name}</span>
                 <span class="user">({localize("You")})</span>
             </div>
             <button
                 type="button"
                 id="{dialog.id}-self-accepted"
                 class="toggle-accepted"
-                class:accepted={self.accepted}
+                class:accepted={dialog.selfAccepted}
                 data-tooltip
-                aria-label={self.accepted ? localize("Acceptance.Rescind") : localize("Acceptance.Accept")}
+                aria-label={dialog.selfAccepted ? localize("Acceptance.Rescind") : localize("Acceptance.Accept")}
                 onclick={toggleAccepted}
             >
-                <i class="fa-solid fa-check"></i>
+                <i class="fa-solid fa-{dialog.selfAccepted ? 'check' : 'xmark'}"></i>
             </button>
         </header>
         <div class="flexrow search">
             <input type="search" id="{dialog.id}-search" placeholder="&#xf002;" aria-label="Search" oninput={search} />
         </div>
         <ul class="flexcol scrollable">
-            {#each selfItems as item (item.id)}
+            {#each selfItemsVisible as item (item.id)}
                 <li class="flexrow" class:marked={item.marked}>
                     <img src={item.img} alt={localize("ImgAlt.Item", { item: item.name })} />
                     <span class="name">{item.name}</span>
-                    <span class="quantity flexrow" role="button" onpointerup={focusQuantityInput}>
+                    <div
+                        class="quantity flexrow"
+                        role="group"
+                        aria-label={localize("Quantity.Label", { item: item.name })}
+                        onpointerup={focusQuantityInput}
+                    >
                         <button
                             type="button"
                             id="{dialog.id}-{item.id}-decrement"
                             class="icon fa-solid fa-left"
                             value="-1"
                             tabindex="-1"
-                            disabled={item.marked === 0 || trader.accepted}
+                            disabled={item.marked === 0 || dialog.traderAccepted}
                             onclick={(e) => updateTradeQuantity(item, e)}
                             aria-label={localize("Quantity.Decrement", { item: item.name })}
                         ></button>
@@ -189,11 +203,11 @@
                             class="icon fa-solid fa-right"
                             value="1"
                             tabindex="-1"
-                            disabled={item.marked === item.quantity || trader.accepted}
+                            disabled={item.marked === item.quantity || dialog.traderAccepted}
                             onclick={(e) => updateTradeQuantity(item, e)}
                             aria-label={localize("Quantity.Increment", { item: item.name })}
                         ></button>
-                    </span>
+                    </div>
                 </li>
             {/each}
         </ul>
@@ -206,20 +220,22 @@
         <header class="flexrow">
             <div
                 class="toggle-accepted"
-                class:accepted={trader.accepted}
+                class:accepted={dialog.traderAccepted}
                 data-tooltip
-                aria-label={localize(`Acceptance.${trader.accepted ? "" : "Not"}Accepted`, { user: traderUser.name })}
+                aria-label={localize(`Acceptance.${dialog.traderAccepted ? "" : "Not"}Accepted`, {
+                    user: traderUser.name,
+                })}
             >
-                <i class="fa-solid fa-{trader.accepted ? 'check accepted' : 'xmark'}"></i>
+                <i class="fa-solid fa-{dialog.traderAccepted ? 'check accepted' : 'xmark'}"></i>
             </div>
             <div class="name flexcol">
-                <span class="actor">{trader.actor.name}</span>
+                <span class="actor">{traderActor.name}</span>
                 <span class="user">({traderUser.name})</span>
             </div>
-            <img src={trader.actor.img} alt={portraitAlt.trader} />
+            <img src={traderActor.img} alt={portraitAlt.trader} />
         </header>
         <ul class="scrollable" tabindex="-1">
-            {#each traderItems as item (item.id)}
+            {#each traderItemsVisible as item (item.id)}
                 {#if item.visible}
                     <li class="flexrow" class:marked={item.marked > 0} data-item-id={item.id}>
                         <img src={item.img} alt={localize("ImgAlt.Item", { item: item.name })} />

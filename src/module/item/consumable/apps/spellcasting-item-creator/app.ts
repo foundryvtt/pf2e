@@ -26,7 +26,7 @@ class SpellcastingItemCreator extends SvelteApplicationMixin(fapi.ApplicationV2)
         },
     };
 
-    override root = Root;
+    protected root = Root;
 
     #actor: ActorPF2e;
 
@@ -87,15 +87,17 @@ interface CreateSpellConsumableConfiguration extends DeepPartial<fa.ApplicationC
     mystified?: boolean;
 }
 
+interface CreateSpellConsumableState {
+    name: string;
+    isCantrip: boolean;
+    minimumRank: number;
+    initialMystified: boolean;
+}
+
 interface CreateSpellConsumableContext extends SvelteApplicationRenderContext {
     foundryApp: SpellcastingItemCreator;
-    state: {
-        name: string;
-        isCantrip: boolean;
-        minimumRank: number;
-        initialMystified: boolean;
-    };
+    state: CreateSpellConsumableState;
 }
 
 export { SpellcastingItemCreator };
-export type { CreateSpellConsumableContext };
+export type { CreateSpellConsumableContext, CreateSpellConsumableState };

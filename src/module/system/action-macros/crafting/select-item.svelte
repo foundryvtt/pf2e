@@ -1,10 +1,12 @@
 <script lang="ts">
     import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
     import { ItemPF2e, type PhysicalItemPF2e } from "@item";
+    import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { SelectItemRenderContext } from "./select-item.ts";
     import { sluggify } from "@util";
 
-    const { state: data, resolve }: SelectItemRenderContext = $props();
+    const { resolve, getState }: SelectItemRenderContext & SvelteAppProps<SelectItemRenderContext> = $props();
+    const data = $derived(getState());
 
     let selection: PhysicalItemPF2e | null = $state(null);
 

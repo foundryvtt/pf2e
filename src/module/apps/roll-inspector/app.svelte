@@ -1,12 +1,14 @@
 <script lang="ts">
     import { DamageDicePF2e, Modifier } from "@actor/modifiers.ts";
+    import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { RollInspectorContext } from "./app.ts";
     import * as R from "remeda";
     import { createHTMLElement, signedInteger } from "@util";
     import { getDamageDiceOverrideLabel, getDamageDiceValueLabel } from "@system/damage/helpers.ts";
 
     const localize = game.i18n.localize.bind(game.i18n);
-    const { state: data }: RollInspectorContext = $props();
+    const { getState }: SvelteAppProps<RollInspectorContext> = $props();
+    const data = $derived(getState());
     let searchTerm = $state("");
 
     const context = $derived(data.context);

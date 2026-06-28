@@ -1,12 +1,12 @@
 {
-    "_id": "9CqhC4cNKMKVcmw5",
-    "folder": "bFbCwH6VsVfx4HlL",
+    "_id": "MqxmPgEcerebMwut",
+    "folder": "OGc8zntOuiWqXCx9",
     "img": "systems/sf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Zu4xHucFBVG7rKAC",
+            "_id": "sK8GE0B9tAo1BOLU",
             "img": "systems/sf2e/icons/default-icons/melee.svg",
-            "name": "Stylets",
+            "name": "Mirror's Edge",
             "sort": 100000,
             "system": {
                 "action": "strike",
@@ -15,52 +15,11 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 12
+                    "value": 13
                 },
                 "damageRolls": {
-                    "8mQXol0lvnvXSojM": {
-                        "damage": "2d8+5",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": null,
-                "rules": [],
-                "slug": null,
-                "subjectToMAP": true,
-                "traits": {
-                    "config": {},
-                    "value": []
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "tcvvflXyXvHyrk1w",
-            "img": "systems/sf2e/icons/default-icons/melee.svg",
-            "name": "Claws",
-            "sort": 200000,
-            "system": {
-                "action": "strike",
-                "area": null,
-                "attackEffects": {
-                    "value": [
-                        "grab"
-                    ]
-                },
-                "bonus": {
-                    "value": 14
-                },
-                "damageRolls": {
-                    "r9EQOJQXHBRG34f3": {
-                        "damage": "2d6+5",
+                    "69hd6K5CjRnBgUQz": {
+                        "damage": "2d8+6",
                         "damageType": "slashing"
                     }
                 },
@@ -79,34 +38,102 @@
                 "traits": {
                     "config": {},
                     "value": [
-                        "agile"
+                        "versatile-p"
                     ]
                 }
             },
             "type": "melee"
         },
         {
-            "_id": "3VtyVlmJHyFroKRq",
-            "img": "systems/sf2e/icons/actions/Passive.webp",
-            "name": "Eyespots",
-            "sort": 300000,
+            "_id": "R0A7ktDQkB7g9roR",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Focused Reflection",
+            "sort": 200000,
             "system": {
-                "actionType": {
-                    "value": "passive"
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "dazzling-reflection"
+                    ]
                 },
-                "actions": {
-                    "value": null
+                "bonus": {
+                    "value": 12
                 },
-                "category": "interaction",
+                "damageRolls": {
+                    "FuhyPNckoFANFuZ5": {
+                        "damage": "2d6+2",
+                        "damageType": "fire"
+                    }
+                },
                 "description": {
-                    "value": "<p>A star tardigrade can't see anything beyond 30 feet</p>"
+                    "value": ""
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
                 "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "light"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "fzBwBZEB8PPBVoTj",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Scatter Light",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The facet guardian is damaged by an attack with the light trait or a weapon from the laser group</p><hr /><p><strong>Effect</strong> The facet guardian reflexively positions its facets to scatter the light in all directions. It gains resistance 5 to the triggering damage and creatures adjacent to the facet guardian take damage equal to the amount of damage resisted this way (@Check[reflex|dc:18|basic]).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "scatter-light",
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            {
+                                "or": [
+                                    "item:trait:light",
+                                    "item:group:laser"
+                                ]
+                            }
+                        ],
+                        "key": "Resistance",
+                        "predicate": [
+                            "scatter-light"
+                        ],
+                        "type": "custom",
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -115,9 +142,9 @@
             "type": "action"
         },
         {
-            "_id": "C2J5mAlu5re5TiBg",
-            "img": "systems/sf2e/icons/actions/Passive.webp",
-            "name": "Mauler",
+            "_id": "iLSbvA4ySWv2JmxZ",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Dazzling Reflection",
             "sort": 400000,
             "system": {
                 "actionType": {
@@ -126,9 +153,9 @@
                 "actions": {
                     "value": null
                 },
-                "category": "interaction",
+                "category": "offensive",
                 "description": {
-                    "value": "<p>The star tardigrade gains a +2 circumstance bonus to damage rolls against creatures it has @UUID[Compendium.sf2e.conditions.Item.Grabbed].</p>"
+                    "value": "<p>When the facet guardian critically succeeds on a focused reflection Strike, the target must attempt a @Check[fortitude|dc:18] save or be @UUID[Compendium.sf2e.conditions.Item.Dazzled] for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -144,43 +171,10 @@
             "type": "action"
         },
         {
-            "_id": "LVo9EEyHCphzYUN2",
-            "img": "systems/sf2e/icons/actions/FreeAction.webp",
-            "name": "Tun State",
+            "_id": "jERkiSsIUnQegewH",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Edge Skate",
             "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The tardigrade would be reduced to 0 Hit Points or die due to starvation, suffocation, or similar environmental causes</p>\n<p><strong>Frequency</strong> once per week</p>\n<p><strong>Requirements</strong> The tardigrade isn't already in Tun State</p><hr /><p><strong>Effect</strong> The tardigrade doesn't die but instead remains at 1 Hit Point and curls into a dry ball, called a tun. While in this state, the tardigrade is @UUID[Compendium.sf2e.conditions.Item.Unconscious]; doesn't need to eat, drink, or breathe; and increases its resistance to 20. It remains in Tun State indefinitely until covered in significant amounts of water, at which point it begins to rehydrate, gaining regeneration 5. The regeneration persists until the star tardigrade reaches maximum Hit Points. The tardigrade then exits its Tun State.</p>"
-                },
-                "frequency": {
-                    "max": 1,
-                    "per": "P1W"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "kQTRURVG6slDbRPQ",
-            "img": "systems/sf2e/icons/actions/TwoActions.webp",
-            "name": "Waterbear Hug",
-            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -190,7 +184,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The star tardigrade lunges at its prey. It Leaps up to 30 feet, attempting to Grab up to three creatures in its path.</p>"
+                    "value": "<p>The facet guardian dashes forward quickly, sliding on the knife-edge of one of its facets. It moves up to its Speed and makes one mirror's edge Strike against any number of creatures it passes adjacent to during its movement. These attacks contribute to the facet guardian's multiple attack penalty, but the penalty does not increase until all attacks are complete.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -200,19 +194,18 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "value": []
+                    "value": [
+                        "move"
+                    ]
                 }
             },
             "type": "action"
         },
         {
-            "_id": "RQL8JXjZ2mrbWTc7",
-            "_stats": {
-                "compendiumSource": "Compendium.sf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-            },
-            "img": "systems/sf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 700000,
+            "_id": "sptNG7yVCKDcGuCA",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Flat-Pack",
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -222,82 +215,102 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                    "value": "<p>The facet guardian quickly unfolds for storage against a flat surface or refolds itself into humanoid shape. The surface must be flat and large enough to contain the guardian in its unfolded state, at least 5 feet by 10 feet, though it can be oriented in any direction. When in unfolded form, the facet guardian cannot take any action except Flat-Pack to refold, and its Deception DC to Impersonate an inanimate mural increase to DC 22.</p>"
                 },
                 "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Starfinder Alien Core"
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "grab",
+                "slug": null,
                 "traits": {
-                    "value": []
+                    "value": [
+                        "manipulate"
+                    ]
                 }
             },
             "type": "action"
         }
     ],
-    "name": "Juvenile Star Tardigrade",
+    "name": "Facet Guardian",
     "system": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": 2
             },
             "con": {
-                "mod": 4
-            },
-            "dex": {
-                "mod": 0
-            },
-            "int": {
                 "mod": 1
             },
-            "str": {
+            "dex": {
                 "mod": 5
             },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": 4
+            },
             "wis": {
-                "mod": -1
+                "mod": 2
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 20
+                "value": 21
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 45,
+                "max": 58,
                 "temp": 0,
-                "value": 45
+                "value": 58
             },
             "resistances": [
                 {
-                    "type": "all-damage",
-                    "value": 7
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 5
                 }
             ],
             "speed": {
-                "otherSpeeds": [
-                    {
-                        "type": "fly",
-                        "value": 20
-                    }
-                ],
-                "value": 20
-            }
+                "otherSpeeds": [],
+                "value": 35
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "exceptions": [],
+                    "type": "sonic",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "blurb": "",
             "languages": {
                 "details": "",
-                "value": [
-                    "aklo",
-                    "common"
-                ]
+                "value": []
             },
             "level": {
                 "value": 4
@@ -307,7 +320,7 @@
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Tales From the Vast"
+                "title": "Starfinder Society Scenario #1-26: Final Gambit: Part Two"
             }
         },
         "initiative": {
@@ -315,39 +328,36 @@
         },
         "perception": {
             "details": "",
-            "mod": 10,
-            "senses": [
-                {
-                    "acuity": "imprecise",
-                    "range": 30,
-                    "type": "tremorsense"
-                }
-            ]
+            "mod": 8,
+            "senses": []
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 13
+                "value": 8
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 6
+                "value": 13
             },
             "will": {
                 "saveDetail": "",
-                "value": 8
+                "value": 10
             }
         },
         "skills": {
-            "athletics": {
-                "base": 12
+            "acrobatics": {
+                "base": 11
             },
-            "stealth": {
+            "athletics": {
                 "base": 10
             },
-            "survival": {
-                "base": 12
+            "deception": {
+                "base": 8
+            },
+            "stealth": {
+                "base": 11
             }
         },
         "traits": {
@@ -356,9 +366,7 @@
                 "value": "med"
             },
             "value": [
-                "amphibious",
-                "animal",
-                "cosmic"
+                "construct"
             ]
         }
     },

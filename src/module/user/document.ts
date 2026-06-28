@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type UserTargets from "@client/canvas/placeables/tokens/targets.d.mts";
 import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
-import type { TradeQueryData, TradeQueryResponse } from "@module/apps/trade-dialog/app.ts";
+import type { TradeQueryData, TradeQueryResponse } from "@module/apps/trade-dialog/app.svelte.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import * as R from "remeda";

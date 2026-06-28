@@ -3,10 +3,13 @@
     import { localizer, objectHasKey, ordinalString } from "@util";
     import { UUIDUtils } from "@util/uuid.ts";
     import * as R from "remeda";
+    import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { CreateSpellConsumableContext } from "./app.ts";
     const localize = localizer("PF2E.SpellcastingItemCreator");
 
-    const { foundryApp, state: data }: CreateSpellConsumableContext = $props();
+    const { foundryApp, getState }: CreateSpellConsumableContext & SvelteAppProps<CreateSpellConsumableContext> =
+        $props();
+    const data = $derived(getState());
     const { name, isCantrip, minimumRank, initialMystified } = $derived(data);
     let type = $state();
     let rank = $state();
