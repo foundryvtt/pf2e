@@ -384,18 +384,25 @@
         {
             "_id": "RyHBOdCwWj6Y72gj",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "New Attack",
+            "name": "Claw",
             "sort": 700000,
             "system": {
                 "action": "strike",
                 "area": null,
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "ochiastis-venom"
+                    ]
                 },
                 "bonus": {
-                    "value": 0
+                    "value": 30
                 },
-                "damageRolls": {},
+                "damageRolls": {
+                    "fiQr2Rm8tHuZSPip": {
+                        "damage": "3d8+12",
+                        "damageType": "slashing"
+                    }
+                },
                 "description": {
                     "value": ""
                 },
@@ -410,7 +417,10 @@
                 "subjectToMAP": true,
                 "traits": {
                     "config": {},
-                    "value": []
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
                 }
             },
             "type": "melee"
@@ -418,7 +428,7 @@
         {
             "_id": "zAQuVl0U4ZjuqnHM",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "New Attack",
+            "name": "Quill",
             "sort": 800000,
             "system": {
                 "action": "strike",
@@ -427,9 +437,19 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 0
+                    "value": 30
                 },
-                "damageRolls": {},
+                "damageRolls": {
+                    "FuCIYNv7PRdcwwAX": {
+                        "category": "persistent",
+                        "damage": "1d8",
+                        "damageType": "bleed"
+                    },
+                    "NvprLiwUQoJ5T9O5": {
+                        "damage": "3d6+10",
+                        "damageType": "piercing"
+                    }
+                },
                 "description": {
                     "value": ""
                 },
@@ -438,13 +458,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "range": null,
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
                 "rules": [],
                 "slug": null,
                 "subjectToMAP": true,
                 "traits": {
                     "config": {},
-                    "value": []
+                    "value": [
+                        "propulsive"
+                    ]
                 }
             },
             "type": "melee"

@@ -239,16 +239,83 @@
             "type": "action"
         },
         {
+            "_id": "VoZhZuWJaKv9Ui86",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Circumstance Bonus vs Emotion Effects",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "emotion"
+                        ],
+                        "selector": [
+                            "saving-throw"
+                        ],
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "0D4kGS92Zg1v6STo",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Monster Lore",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
                     "value": 29
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "fzL59zKdLTnjUqIl",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Warfare Lore",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 25
                 },
                 "proficient": {
                     "value": 0
@@ -293,7 +360,7 @@
                 "value": 37
             },
             "allSaves": {
-                "value": ""
+                "value": "+1 circumstance vs. emotion effects"
             },
             "hp": {
                 "details": "",
@@ -305,7 +372,19 @@
                 "details": "troop movement",
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 15
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "blurb": "",
@@ -367,7 +446,7 @@
         "traits": {
             "rarity": "uncommon",
             "size": {
-                "value": "med"
+                "value": "grg"
             },
             "value": [
                 "human",

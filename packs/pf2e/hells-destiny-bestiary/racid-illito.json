@@ -759,7 +759,7 @@
                 "containerId": null,
                 "damage": null,
                 "description": {
-                    "value": "<p>Properly harvested and preserved, the poison from a wyvern's sting is effective and direct.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:26]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[3d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d8[poison]] damage (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[3d10[poison]] damage (1 round)</p>"
+                    "value": "<p>Properly harvested and preserved, the poison from a wyvern's sting is effective and direct.</p><hr /><p><strong>Activate</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:26]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[3d6[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d8[poison]] damage (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[3d10[poison]] damage (1 round)</p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -1112,10 +1112,49 @@
             "type": "melee"
         },
         {
+            "_id": "2Xc5MV6CZD7yil6R",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Potent Poisoner",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Poisons Racid applies use their own saving throw DC or 30, whichever is higher.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "upgrade",
+                        "predicate": [
+                            "item:trait:poison"
+                        ],
+                        "selector": "inline-dc",
+                        "value": 20
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "ZKreuyaAcCSXH1kh",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Alchemical Formulas",
-            "sort": 1600000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1144,7 +1183,7 @@
             "_id": "ShwdaCqGgsL7wUO1",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Drip Poison",
-            "sort": 1700000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -1187,7 +1226,7 @@
             "_id": "6LAIvgaxUzspnI11",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Pinpoint Poisoner",
-            "sort": 1800000,
+            "sort": 1900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1216,7 +1255,7 @@
             "_id": "E6D0fFxtGscq83PO",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Quick Alchemy",
-            "sort": 1900000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1245,7 +1284,7 @@
             "_id": "jOxrd5iBw9my34Z9",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Quick Poison",
-            "sort": 2000000,
+            "sort": 2100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1274,7 +1313,7 @@
             "_id": "vHBwMBEjg3PETQEN",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Toxic Splash",
-            "sort": 2100000,
+            "sort": 2200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1336,6 +1375,14 @@
                 "temp": 0,
                 "value": 190
             },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "poison",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
