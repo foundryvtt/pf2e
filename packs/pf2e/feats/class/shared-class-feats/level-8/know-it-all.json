@@ -47,27 +47,25 @@
                 "itemId": "{item|id}",
                 "key": "ItemAlteration",
                 "mode": "override",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:bard",
+                            "class:thaumaturge"
+                        ]
+                    }
+                ],
                 "property": "description",
                 "value": [
                     {
                         "predicate": [
-                            {
-                                "or": [
-                                    "class:bard",
-                                    "feat:bard-dedication"
-                                ]
-                            }
+                            "class:bard"
                         ],
                         "text": "PF2E.SpecificRule.Feat.KnowItAll.Bard"
                     },
                     {
                         "predicate": [
-                            {
-                                "or": [
-                                    "class:thaumaturge",
-                                    "feat:thaumaturge-dedication"
-                                ]
-                            }
+                            "class:thaumaturge"
                         ],
                         "text": "PF2E.SpecificRule.Feat.KnowItAll.Thaumaturge"
                     }
