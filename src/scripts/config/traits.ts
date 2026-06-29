@@ -928,7 +928,7 @@ const actionTraits = {
     ...spellTraits,
     ...weaponActionTraits,
     "certain-kill": "PF2E.TraitCertainKill",
-    "skirmish": "PF2E.TraitSkirmish",
+    skirmish: "PF2E.TraitSkirmish",
     summon: "PF2E.TraitSummon",
 };
 
