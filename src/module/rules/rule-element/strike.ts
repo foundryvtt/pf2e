@@ -12,6 +12,7 @@ import type {
     WeaponRangeIncrement,
     WeaponTrait,
 } from "@item/weapon/types.ts";
+import type { OneToTwo } from "@module/data.ts";
 import type { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import { objectHasKey, sluggify } from "@util";
 import { RuleElement, RuleElementOptions } from "./base.ts";
@@ -88,6 +89,12 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
                 },
                 { required: true, nullable: false, initial: { modular: null, versatile: null } },
             ),
+            handsHeld: new fields.NumberField({
+                required: false,
+                nullable: false,
+                choices: [1, 2],
+                initial: 1,
+            }),
             otherTags: new fields.ArrayField(
                 new fields.StringField({ required: true, blank: false, choices: CONFIG.PF2E.otherWeaponTags }),
                 { required: false, nullable: false, initial: [] },
@@ -279,7 +286,7 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
                 usage: { value: "held-in-one-hand" },
                 equipped: {
                     carryType: "held",
-                    handsHeld: 1,
+                    handsHeld: this.handsHeld,
                 },
                 graspingAppendage: this.graspingAppendage,
             },
@@ -292,14 +299,24 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
         return weapon;
     }
 
-    /** Toggle the modular or versatile trait of this strike's weapon */
-    async toggleTrait({ trait, selected }: UpdateToggleParams): Promise<void> {
+    /** Persist changes to this rule element's own source on the parent item */
+    async #persistSource(changes: Partial<StrikeSource>): Promise<void> {
         const ruleSources = fu.deepClone(this.item._source.system.rules);
         const rule: StrikeSource | undefined = ruleSources.at(this.sourceIndex ?? NaN);
         if (rule?.key === "Strike") {
-            rule.traitToggles = { ...this.traitToggles, [trait]: selected };
+            Object.assign(rule, changes);
             await this.item.update({ "system.rules": ruleSources });
         }
+    }
+
+    /** Toggle the modular or versatile trait of this strike's weapon */
+    async toggleTrait({ trait, selected }: UpdateToggleParams): Promise<void> {
+        await this.#persistSource({ traitToggles: { ...this.traitToggles, [trait]: selected } });
+    }
+
+    /** Toggle whether this strike's weapon is wielded in one or two hands */
+    async toggleGrip(handsHeld: OneToTwo): Promise<void> {
+        await this.#persistSource({ handsHeld });
     }
 }
 
@@ -332,6 +349,8 @@ type StrikeSchema = RuleElementSchema & {
         false,
         true
     >;
+    /** Whether this strike's weapon is currently wielded in one or two hands */
+    handsHeld: fields.NumberField<OneToTwo, OneToTwo, false, false, true>;
     otherTags: fields.ArrayField<
         fields.StringField<OtherWeaponTag, OtherWeaponTag, true, false, false>,
         OtherWeaponTag[],
@@ -402,6 +421,7 @@ interface StrikeSource extends RuleElementSource {
     range?: unknown;
     traits?: unknown;
     traitToggles?: unknown;
+    handsHeld?: unknown;
     replaceAll?: unknown;
     replaceBasicUnarmed?: unknown;
     battleForm?: unknown;

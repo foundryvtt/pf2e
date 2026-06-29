@@ -40,6 +40,7 @@ interface TraitsWithRarity<T extends string> {
 
 /** Literal numeric types */
 type ZeroToTwo = 0 | 1 | 2;
+type OneToTwo = Exclude<ZeroToTwo, 0>;
 type ZeroToThree = ZeroToTwo | 3; // +1!
 type OneToThree = Exclude<ZeroToThree, 0>;
 type TwoToThree = Exclude<OneToThree, 1>;
@@ -162,6 +163,7 @@ export type {
     OneToSix,
     OneToTen,
     OneToThree,
+    OneToTwo,
     PublicationData,
     Rarity,
     Size,

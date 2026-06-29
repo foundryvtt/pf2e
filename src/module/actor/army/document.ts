@@ -10,6 +10,7 @@ import type { CampaignFeaturePF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { ItemType } from "@item/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import type { OneToTwo } from "@module/data.ts";
 import { extractDamageDice, extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
@@ -327,7 +328,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             type: "strike",
             glyph: "A",
             variants: [0, 1, 2].map((idx) => {
-                const mapModifier = idx === 0 ? null : createMapModifier(`map${idx as 1 | 2}`);
+                const mapModifier = idx === 0 ? null : createMapModifier(`map${idx as OneToTwo}`);
                 const penalty = mapModifier?.modifier ?? 0;
                 return {
                     label:
