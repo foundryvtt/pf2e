@@ -64,9 +64,9 @@
     <hr />
 
     <section class="add-entry-row add-modifier-panel">
-        <input type="text" class="add-modifier-name" placeholder={{localize "PF2E.Roll.Dialog.Damage.Label"}}>
-        <input type="number" class="add-modifier-value" placeholder="+1">
-        <select class="add-modifier-type">
+        <input type="text" class="add-modifier-name" placeholder={{localize "PF2E.Roll.Dialog.Damage.Label"}} aria-label="{{localize "PF2E.Roll.Dialog.ModifierName"}}">
+        <input type="text" class="add-modifier-value" placeholder="1" aria-label="{{localize "PF2E.Roll.Dialog.ModifierValue"}}">
+        <select class="add-modifier-type" aria-label="{{localize "PF2E.Roll.Dialog.ModifierType"}}">
             <option value="circumstance">{{localize "PF2E.ModifierType.circumstance"}}</option>
             <option value="item">{{localize "PF2E.ModifierType.item"}}</option>
             <option value="status">{{localize "PF2E.ModifierType.status"}}</option>
@@ -74,13 +74,13 @@
             <option value="ability">{{localize "PF2E.ModifierType.ability"}}</option>
             <option value="proficiency">{{localize "PF2E.ModifierType.proficiency"}}</option>
         </select>
-        <select class="add-modifier-category">
+        <select class="add-modifier-category" aria-label="{{localize "PF2E.Roll.Dialog.ModifierDamageCategory"}}">
             <option value=""></option>
             {{#each damageSubtypes as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
             {{/each}}
         </select>
-        <select class="add-modifier-damage-type">
+        <select class="add-modifier-damage-type" aria-label="{{localize "PF2E.Roll.Dialog.ModifierDamageType"}}">
             {{#each damageTypes as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
             {{/each}}
