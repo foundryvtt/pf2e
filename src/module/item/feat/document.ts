@@ -193,8 +193,6 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const acuityValues = { precise: 2, imprecise: 1, vague: 0 };
 
         for (const [type, data] of R.entries(subfeatures.senses)) {
-            if (senseData.some((s) => s.type === type)) continue;
-
             if (type === "darkvision" && data.special && Object.values(data.special).includes(true)) {
                 const ancestry = actor.ancestry;
                 if (ancestry?.system.vision === "darkvision") continue;

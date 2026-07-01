@@ -1,0 +1,47 @@
+{
+    "_id": "iG3d3Bma7knjUWjw",
+    "img": "icons/magic/control/orb-web-hold.webp",
+    "name": "Effect: Eldritch Interference (Critical Failure)",
+    "system": {
+        "description": {
+            "value": "<p><strong>Critical Failure</strong> When you Cast a Spell that either deals damage or restores Hit Points, you take a status penalty to the spell's damage or healing equal to the spell's rank.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "spell-damage",
+                    "spell-healing"
+                ],
+                "type": "status",
+                "value": "-@spell.rank"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

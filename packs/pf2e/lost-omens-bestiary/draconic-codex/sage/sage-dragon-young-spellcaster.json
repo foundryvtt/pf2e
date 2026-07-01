@@ -1953,7 +1953,8 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "reach-10"
+                        "reach-10",
+                        "unarmed"
                     ]
                 }
             },
@@ -1993,7 +1994,8 @@
                 "traits": {
                     "value": [
                         "agile",
-                        "magical"
+                        "magical",
+                        "unarmed"
                     ]
                 }
             },
@@ -2033,7 +2035,8 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "reach-15"
+                        "reach-15",
+                        "unarmed"
                     ]
                 }
             },
@@ -2076,7 +2079,8 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "mental"
+                        "mental",
+                        "unarmed"
                     ]
                 }
             },
@@ -2143,6 +2147,10 @@
                     "title": ""
                 },
                 "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Divert Essence",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Divert Essence"
+                },
                 "slug": null,
                 "traits": {
                     "value": [
@@ -2166,7 +2174,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>90 feet, @Check[will|dc:25].</p>\n<p>Overlapping fields near the dragon make spellcasting unpredictable. A creature that enters or begins its turn in the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this dragon's eldritch interference for 1 minute.</p><hr /><p><strong>Critical Success</strong> For 1 round, when the creature Casts a Spell that either deals damage or restores Hit Points, they gain a status bonus to the spell's damage or healing equal to the spell's rank.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> For 1 round, when the creature Casts a Spell that either deals damage or restores Hit Points, they take a status penalty to the spell's damage or healing equal to the spell's rank.</p>\n<p><strong>Critical Failure</strong> As failure, but the effect lasts 1 minute.</p>"
+                    "value": "<p>90 feet, @Check[will|dc:25|options:area-effect].</p>\n<p>Overlapping fields near the dragon make spellcasting unpredictable. A creature that enters or begins its turn in the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this dragon's eldritch interference for 1 minute.</p><hr /><p><strong>Critical Success</strong> For 1 round, when the creature Casts a Spell that either deals damage or restores Hit Points, they gain a status bonus to the spell's damage or healing equal to the spell's rank.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Eldritch Interference (Critical Success)]</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> For 1 round, when the creature Casts a Spell that either deals damage or restores Hit Points, they take a status penalty to the spell's damage or healing equal to the spell's rank.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Eldritch Interference (Failure)]</p>\n<p><strong>Critical Failure</strong> As failure, but the effect lasts 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Eldritch Interference (Critical Failure)]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2214,7 +2222,21 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "attribute": "int",
+                        "baseModifier": {
+                            "check": 20,
+                            "dc": 28
+                        },
+                        "itemCasting": {
+                            "tradition": "occult"
+                        },
+                        "key": "SpecialStatistic",
+                        "slug": "mystic-facility",
+                        "type": "attack-roll"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -2236,7 +2258,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon exclaims hidden truths that only they have been able to understand, dealing @Damage[10d6[mental]|options:area-damage] damage in a @Template[type:cone|distance:30] (@Check[will|dc:28|basic] save). On a critical failure, creatures are also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. The dragon can't use Overwhelming Proclamation again for [[/gmr 1d4 #Recharge Overwhelming Proclamation]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon exclaims hidden truths that only they have been able to understand, dealing @Damage[10d6[mental]|options:area-damage] damage in a @Template[type:cone|distance:30] (@Check[will|dc:28|basic|options:area-effect,inflicts:stunned] save). On a critical failure, creatures are also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. The dragon can't use Overwhelming Proclamation again for [[/gmr 1d4 #Recharge Overwhelming Proclamation]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2341,7 +2363,7 @@
                 "value": 28
             },
             "allSaves": {
-                "value": ""
+                "value": "2 status to all saves vs. spells"
             },
             "hp": {
                 "details": "",
@@ -2370,7 +2392,7 @@
         "details": {
             "blurb": "",
             "languages": {
-                "details": "And five additional languages",
+                "details": "and five additional languages",
                 "value": [
                     "common",
                     "draconic"

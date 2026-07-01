@@ -1331,11 +1331,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
         const result = await ItemTransferDialog.wait({ item, recipient, lockStack: !stackable, mode });
         if (!result) return;
 
-        // If we're transferring all the credits, transfer the one credstick instead
+        // If we're transferring all credits and it is not a basic credstick, transfer the item instead
         const [resultMode, quantity] =
-            result.mode === "credits" && result.quantity >= item.system.price.value.credits
+            result.mode === "credits" &&
+            item.system.slug !== "credstick" &&
+            result.quantity >= item.system.price.value.credits
                 ? ["move", 1]
                 : [result.mode, result.quantity];
+
+        // Perform the transfer (handling credits or items)
         if (resultMode === "credits") {
             transferCredits({ targetActor: recipient, item, quantity });
         } else if (result) {
@@ -1345,7 +1349,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends fav1.sheets.Acto
                 quantity,
                 containerId,
                 result.newStack,
-                result.mode === "purchase",
+                resultMode === "purchase",
             );
         }
     }

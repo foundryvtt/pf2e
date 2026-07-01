@@ -928,6 +928,7 @@ const actionTraits = {
     ...spellTraits,
     ...weaponActionTraits,
     "certain-kill": "PF2E.TraitCertainKill",
+    skirmish: "PF2E.TraitSkirmish",
     summon: "PF2E.TraitSummon",
 };
 
@@ -1765,6 +1766,7 @@ const traitDescriptions = {
     skeleton: "PF2E.TraitDescriptionSkeleton",
     skelm: "PF2E.TraitDescriptionSkelm",
     skill: "PF2E.TraitDescriptionSkill",
+    skirmish: "PF2E.TraitDescriptionSkirmish",
     skulk: "PF2E.TraitDescriptionSkulk",
     sleep: "PF2E.TraitDescriptionSleep",
     snare: "PF2E.TraitDescriptionSnare",
