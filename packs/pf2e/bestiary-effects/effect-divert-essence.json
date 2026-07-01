@@ -1,0 +1,52 @@
+{
+    "_id": "u7WExsKZepTe1VkP",
+    "img": "icons/magic/defensive/shield-hex-red.webp",
+    "name": "Effect: Divert Essence",
+    "system": {
+        "description": {
+            "value": "<p>You gain resistance to damage from spells equal to the triggering spell's rank.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "ranks"
+                },
+                "flag": "rank",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Rank"
+            },
+            {
+                "key": "Resistance",
+                "type": "spells",
+                "value": "@item.flags.system.rulesSelections.rank"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
