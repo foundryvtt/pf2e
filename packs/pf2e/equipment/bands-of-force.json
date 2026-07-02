@@ -65,7 +65,10 @@
                 "predicate": [
                     "bands-of-force",
                     {
-                        "not": "modifier:slug:bands-of-force"
+                        "or": [
+                            "bonus:type:proficiency",
+                            "modifier:type:ability"
+                        ]
                     }
                 ],
                 "selector": "athletics",
