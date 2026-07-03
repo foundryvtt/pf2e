@@ -492,9 +492,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     const attackSlug = item.slug ?? sluggify(item.name);
     const statistic = new StatisticModifier(attackSlug, modifiers, initialRollOptions);
 
-    const actionTraits: AbilityTrait[] = (
-        ["attack", item.baseType === "alchemical-bomb" ? "manipulate" : null] as const
-    ).filter(R.isTruthy);
+    const actionTraits: AbilityTrait[] = ["attack"];
     const strikeAdjustments = [
         actor.synthetics.strikeAdjustments,
         getPropertyRuneStrikeAdjustments(item.system.runes.property),
