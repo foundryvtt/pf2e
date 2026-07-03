@@ -58,6 +58,7 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
+import type { StrikeAdjustment } from "@module/rules/synthetics.ts";
 import { eventToRollParams } from "@module/sheet/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { Check, CheckCheckContext, CheckRoll } from "@system/check/index.ts";
@@ -462,7 +463,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         super.prepareDataFromItems();
-        this.prepareBuildData();
+        this.#prepareBuildData();
     }
 
     /** Determine hands free from held items. */
@@ -572,8 +573,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             setHitPointsRollOptions(this);
         }
 
-        this.prepareFeats();
-        this.prepareSaves();
+        this.#prepareFeats();
+        this.#prepareSaves();
         this.prepareMartialProficiencies();
 
         // Perception
@@ -592,13 +593,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         });
 
         // Skills
-        this.prepareSkills();
+        this.#prepareSkills();
 
         // Class DC
         this.classDC = null;
         this.classDCs = {};
         for (const [slug, classDC] of Object.entries(system.proficiencies.classDCs)) {
-            const statistic = this.prepareClassDC(slug, classDC);
+            const statistic = this.#prepareClassDC(slug, classDC);
             system.proficiencies.classDCs[slug] = fu.mergeObject(classDC, statistic.getTraceData({ value: "dc" }));
             this.classDCs[slug] = statistic;
             if (classDC.primary) {
@@ -611,7 +612,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         // Armor Class
-        const armorStatistic = this.createArmorStatistic();
+        const armorStatistic = this.#createArmorStatistic();
         this.armorClass = armorStatistic.dc;
         system.attributes.ac = fu.mergeObject(armorStatistic.getTraceData(), {
             attribute: armorStatistic.attribute ?? "dex",
@@ -641,7 +642,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
     }
 
-    private prepareBuildData(): void {
+    #prepareBuildData(): void {
         const build = this.system.build;
 
         if (!build.attributes.manual) {
@@ -725,7 +726,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         rollOptionsAll[`hands-free:but-really:${handsReallyFree}`] = true;
     }
 
-    private createArmorStatistic(): ArmorStatistic {
+    #createArmorStatistic(): ArmorStatistic {
         const { synthetics, wornArmor } = this;
 
         // Upgrade light barding proficiency to trained if this PC is somehow an animal
@@ -768,7 +769,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return new ArmorStatistic(this, { rank, attribute, modifiers: [attributeModifier] });
     }
 
-    private prepareSaves(): void {
+    #prepareSaves(): void {
         const wornArmor = this.wornArmor;
         const saves = R.mapToObj(SAVE_TYPES, (saveType) => {
             const save = this.system.saves[saveType];
@@ -836,7 +837,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         this.saves = new CreatureSaves(saves);
     }
 
-    private prepareSkills() {
+    #prepareSkills() {
         const { synthetics, system, wornArmor } = this;
 
         this.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([skillSlug, { label, attribute }]) => {
@@ -963,7 +964,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         super.prepareMovementData([armorPenalty, shieldPenalty, hinderingPenalty].filter(R.isNonNull));
     }
 
-    private prepareFeats(): void {
+    #prepareFeats(): void {
         this.pfsBoons = [];
         this.divineIntercessions = [];
         this.feats = new CharacterFeats(this);
@@ -987,10 +988,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
     }
 
-    private prepareClassDC(
-        slug: string,
-        classDC: Pick<ClassDCData, "label" | "attribute" | "rank" | "primary">,
-    ): Statistic {
+    #prepareClassDC(slug: string, classDC: Pick<ClassDCData, "label" | "attribute" | "rank" | "primary">): Statistic {
         /** @todo migrate to attribute */
         if ("ability" in classDC && setHasElement(ATTRIBUTE_ABBREVIATIONS, classDC.ability)) {
             classDC.attribute = classDC.ability;
@@ -1098,8 +1096,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const attacks = weapons
             .map((w) =>
                 w.baseType === "grenade" || w.system.traits.config.area
-                    ? this.prepareAreaAttack(w, { handsReallyFree, ammos })
-                    : this.prepareStrike(w, { handsReallyFree, ammos }),
+                    ? this.#prepareAreaAttack(w, { handsReallyFree, ammos })
+                    : this.#prepareStrike(w, { handsReallyFree, ammos }),
             )
             .sort((a, b) =>
                 a.label
@@ -1114,13 +1112,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Create alt usages for each strike, based on traits and such
         for (const attack of attacks) {
             const weapon = attack.item;
-            attack.altUsages.push(...weapon.getAltUsages().map((w) => this.prepareStrike(w, { handsReallyFree })));
+            attack.altUsages.push(...weapon.getAltUsages().map((w) => this.#prepareStrike(w, { handsReallyFree })));
             if (attack.type === "area-fire" && weapon.baseType !== "grenade") {
-                // If this was an area fire, add the normal strike as a secondary usage at the front
-                attack.altUsages.unshift(this.prepareStrike(weapon, { handsReallyFree }));
+                // If this was an area fire, add the normal strike as a secondary usage at the front. Clone from
+                // source so strike adjustments aren't applied a second time to the already-adjusted primary weapon.
+                attack.altUsages.unshift(this.#prepareStrike(weapon.clone({}, { keepId: true }), { handsReallyFree }));
             } else if (weapon.system.traits.value.includes("automatic")) {
-                // If this is an automatic weapon, add the area usage at the very end
-                attack.altUsages.push(this.prepareAreaAttack(weapon, { handsReallyFree }));
+                // If this is an automatic weapon, add the area usage at the very end (source clone, as above)
+                attack.altUsages.push(this.#prepareAreaAttack(weapon.clone({}, { keepId: true }), { handsReallyFree }));
             }
         }
 
@@ -1137,11 +1136,26 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return attacks;
     }
 
-    private prepareAreaAttack(
+    /** Collect the strike adjustments (synthetic and property-rune) applicable to a weapon */
+    #getStrikeAdjustments(weapon: WeaponPF2e<CharacterPF2e>): StrikeAdjustment[] {
+        return [
+            this.synthetics.strikeAdjustments,
+            getPropertyRuneStrikeAdjustments(weapon.system.runes.property),
+        ].flat();
+    }
+
+    #prepareAreaAttack(
         weapon: WeaponPF2e<CharacterPF2e>,
         { handsReallyFree, ammos = [] }: PrepareAttackOptions,
     ): CharacterAreaAttack {
         const actor = weapon.actor;
+
+        // Apply strike adjustments affecting the weapon
+        const strikeAdjustments = this.#getStrikeAdjustments(weapon);
+        for (const adjustment of strikeAdjustments) {
+            adjustment.adjustWeapon?.(weapon);
+        }
+
         const isAutomatic = weapon.system.traits.value.includes("automatic");
         const action = isAutomatic ? "auto-fire" : "area-fire";
 
@@ -1175,7 +1189,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const itemRange = weapon.system.range || actor.getReach({ weapon: weapon });
 
             // Handle automatic weapons
-            if (weapon.system.traits.value.includes("automatic")) {
+            if (isAutomatic) {
                 return {
                     type: "cone",
                     value: Math.max(5, Math.floor(itemRange / 2) - (Math.floor(itemRange / 2) % 5)),
@@ -1211,6 +1225,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const hiddenCauseUnarmed = weapon.slug === "basic-unarmed" && !this.flags[SYSTEM_ID].showBasicUnarmed;
         const handsAvailable = !weapon.system.graspingAppendage || handsReallyFree > 0;
 
+        const actionTraits: AbilityTrait[] = ["attack"];
+        for (const adjustment of strikeAdjustments) {
+            adjustment.adjustTraits?.(weapon, actionTraits);
+        }
+
         return {
             slug: weaponSlug,
             type: action,
@@ -1232,7 +1251,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             item: weapon,
             statistic,
             handsAvailable,
-            traits: ["attack"].map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
+            traits: actionTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
             weaponTraits: weapon.system.traits.value
                 .map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits))
                 .sort((a, b) => a.label.localeCompare(b.label)),
@@ -1268,7 +1287,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     /** Prepare a strike action from a weapon */
-    private prepareStrike(
+    #prepareStrike(
         weapon: WeaponPF2e<CharacterPF2e>,
         { handsReallyFree, ammos = [] }: PrepareAttackOptions,
     ): CharacterStrike {
@@ -1276,10 +1295,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const modifiers: Modifier[] = [];
 
         // Apply strike adjustments affecting the weapon
-        const strikeAdjustments = [
-            synthetics.strikeAdjustments,
-            getPropertyRuneStrikeAdjustments(weapon.system.runes.property),
-        ].flat();
+        const strikeAdjustments = this.#getStrikeAdjustments(weapon);
         for (const adjustment of strikeAdjustments) {
             adjustment.adjustWeapon?.(weapon);
         }
