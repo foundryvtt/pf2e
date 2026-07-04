@@ -885,7 +885,14 @@ async function createAreaAttackMessage({
         areaLabel: createEffectAreaLabel(area),
         saveBreakdown: dc.breakdown,
     });
-    const context: AreaAttackContextFlag = { type: action, area, identifier, domains: dc.domains, options };
+    const context: AreaAttackContextFlag = {
+        type: action,
+        area,
+        identifier,
+        domains: dc.domains,
+        options,
+        dc: R.pick(dc, ["value", "label"]),
+    };
     const flags = { [SYSTEM_ID]: { context, origin: item.getOriginData() } };
     await ChatMessagePF2e.create({ flavor, content, speaker, flags });
 }
