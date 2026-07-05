@@ -379,7 +379,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                   (config.hr === false ? "" : "<hr>")
                 : "",
             config.trailingLink === false
-                ? this.description.replace(/<p>@UUID\[[^\]]+\](?:\{[^}]+\})<\/p>$/, "")
+                ? this.description.replace(/<p>@UUID\[[^\]]+\](?:\{[^}]+\})?<\/p>$/, "")
                 : this.description,
             publication,
         ].join("");
