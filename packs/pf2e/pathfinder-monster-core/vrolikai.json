@@ -1072,7 +1072,51 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "focused-flames",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.Vrolikai.FocusedFlames.One",
+                                "value": "0"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Vrolikai.FocusedFlames.Two",
+                                "value": "2"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Vrolikai.FocusedFlames.Three",
+                                "value": "4"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Vrolikai.FocusedFlames.Four",
+                                "value": "6"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "critical": false,
+                        "diceNumber": "{item|flags.system.rulesSelections.focusedFlames}",
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "black-flame-knife-damage"
+                    },
+                    {
+                        "category": "persistent",
+                        "critical": false,
+                        "damageType": "void",
+                        "diceNumber": 4,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "check:outcome:critical-success",
+                            "focused-flames"
+                        ],
+                        "selector": "black-flame-knife-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
