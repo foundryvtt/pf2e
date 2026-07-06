@@ -1,3 +1,41 @@
+## 1.3.0
+
+### Bugfixes
+
+- (Chromatic Penguin) Accept a leading "+" in modifier dialog inputs on Firefox
+- (Chromatic Penguin) Apply roll options to inline damage rolled from effect tooltips
+- (Chromatic Penguin) Fix attribute builder breaking after opening it for a second character
+- (Chromatic Penguin) Fix background color on dragged equipment
+- (Chromatic Penguin) Fix Cursebound being unusable in SF2e
+- (Chromatic Penguin) Fix runes added to handwraps via item alterations not applying to unarmed strikes
+- (Chromatic Penguin) Fix senses granted via Details not upgrading
+- (Chromatic Penguin) Fix stale and clobbered state in Svelte applications
+- (Chromatic Penguin) Fix total price not updating on item transfer dialogs
+- (Chromatic Penguin) Fix two-handed grip toggle on Strike rule elements
+- (Chromatic Penguin) Improve trade initiation: party-sheet member drops, request expiry with alerts on both sides, prevent sending to familiars
+- (Chromatic Penguin) Improve visual accessibility of spell slot number input
+- (Chromatic Penguin) Include origin item roll options in effects dragged from a sheet
+- (Chromatic Penguin) Match self-applied effect card body to the standard action card
+- (Chromatic Penguin) Recalculate encounter threat/XP when a combatant's level or alliance changes
+- (Chromatic Penguin) Remove manipulate trait from alchemical bomb strikes
+- (Chromatic Penguin) Truncate long names, fix broken search icon in Trade Dialog
+- (Chromatic Penguin) Snapshot area fire save DC in chat message context
+- (Dantar) Add back TakesNoDamage text on applyDamage card
+- (Dantar) Apply each persistent damage from dragged formula
+- (Dantar) Make clown car respect elevation and levels
+- (Dantar) Prevent chat bubbles if message isn't in the in-character style
+- (kromko) Fix not being able to remove spells from deities
+- (Noisyink) Use check icon for trade accept button in unaccepted state
+- (stwlam) Prevent some some fields in the Aura RE form from resetting their values
+- (Supe) Fix issues with transferring credits
+
+### Data Updates
+
+- (kromko) Add prerequisite to Folded Paradoxes feat
+- (kromko) Change Stellar Rush to give bonus to all speeds
+- (Longstrider) Add SF2e ancestries and versatile heritages trait descriptions
+- (Longstrider) Add Sunburst Garland (SFS 1-10) and fix item effects levels
+
 ## 1.2.0
 
 ### System Improvements
@@ -14,7 +52,7 @@
 - (iDantar) Hide ActorsDeadAtZero setting from players
 - (In3luki) Restore missing radio buttons in shield block dialog
 - (In3luki) Restore missing reroll icons in chat context menu
-- (jfn4th) Fix hiding roll opposer names
+- (Chromatic Penguin) Fix hiding roll opposer names
 - (Noisyink) Fix DOM helpers returning null cross-window in PopOut!
 - (Noisyink) Preserve token mirror state when applying TokenImage scale override
 - (stwlam) Allow "base" actor and item subtypes to construct
@@ -49,7 +87,7 @@
 
 ### Bugfixes
 
-- (jfn4th) Refresh token bars on Temp HP updates.
+- (Chromatic Penguin) Refresh token bars on Temp HP updates.
 - (kromko) Fix item transfer message localization
 - (steve148) Update changelog link in foundry to the new one
 - (stwlam) Fix aura rule forms not updating includeSelf
@@ -87,7 +125,7 @@
 
 - (Dantar) Apply holy/unholy to sanctified NPC attacks
 - (Dantar) Fix precision immunity crit damage miscalculation
-- (jfn4th) Fix updating scene darkness via darkness adjuster tool
+- (Chromatic Penguin) Fix updating scene darkness via darkness adjuster tool
 - (oWave) Fix feat delete on ABCSheet silently failing
 - (Rigo) Use modifier type to find proficiency modifier in mythic rerolls
 - (stwlam) Add system roll-link listeners to detached windows
@@ -394,14 +432,14 @@
 
 ## 0.0.3
 
-- (jfn4th) Fix attribute builder not opening in SF2e
+- (Chromatic Penguin) Fix attribute builder not opening in SF2e
 
 ## 0.0.2
 
 ### System Improvements
 
 - (Mecha Maya, Supe) Add support for modular and add config to SF2e weapons
-- (jfn4th) Update attribute builder to appv2
+- (Chromatic Penguin) Update attribute builder to appv2
 - (stwlam) Add system banner
 - (Supe) Add piloting actions for /act syntax
 
