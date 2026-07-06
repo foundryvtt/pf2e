@@ -645,25 +645,30 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 weapon?.update({ system: { selectedAmmoId: ammo?.id ?? null } });
             });
 
-            const ammoQuantity = strikeElem.querySelector<HTMLInputElement>("input[data-action=change-ammo-quantity]");
-            ammoQuantity?.addEventListener("blur", (event) => {
-                event.stopPropagation();
-                const weapon = this.getAttackActionFromDOM(ammoQuantity)?.item;
-                if (!weapon) return;
+            // Change Ammo quantity
+            const ammoQuantityInputs = strikeElem.querySelectorAll<HTMLInputElement>(
+                "input[data-action=change-ammo-quantity]",
+            );
+            for (const input of ammoQuantityInputs) {
+                input?.addEventListener("blur", (event) => {
+                    event.stopPropagation();
+                    const weapon = this.getAttackActionFromDOM(input)?.item;
+                    if (!weapon) return;
 
-                const itemId = htmlClosest(ammoQuantity, "[data-item-id]")?.dataset.itemId;
-                const item = weapon.subitems.get(itemId, { strict: true });
-                if (!item.isOfType("ammo", "weapon")) return;
+                    const itemId = htmlClosest(input, "[data-item-id]")?.dataset.itemId;
+                    const item = weapon.subitems.get(itemId, { strict: true });
+                    if (!item.isOfType("ammo", "weapon")) return;
 
-                const value = Math.max(0, Number(ammoQuantity.value));
-                if (value === 0 && !(item.isOfType("ammo") && item.isMagazine && !item.system.uses.autoDestroy)) {
-                    item.delete();
-                } else if (item.isOfType("ammo") && item.isMagazine) {
-                    item.update({ "system.uses.value": value });
-                } else {
-                    item.update({ "system.quantity": value });
-                }
-            });
+                    const value = Math.max(0, Number(input.value));
+                    if (value === 0 && !(item.isOfType("ammo") && item.isMagazine && !item.system.uses.autoDestroy)) {
+                        item.delete();
+                    } else if (item.isOfType("ammo") && item.isMagazine) {
+                        item.update({ "system.uses.value": value });
+                    } else {
+                        item.update({ "system.quantity": value });
+                    }
+                });
+            }
         }
 
         // Handle adding and inputting custom user submitted modifiers
