@@ -352,10 +352,12 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             trailingLink?: boolean;
         },
     ): string {
+        // Add header with Item link and feat level
         const header = config.header
             ? `<h2>@UUID[${this.uuid}] <span style="float:right">${_loc("PF2E.Item.Feat.LevelN", { level: this.level })}</span></h2>`
             : "";
 
+        // Non-common rarity followed by alphabetically ordered traits
         const traits = config.traits
             ? this.system.traits.value
                   .map((t) => _loc(CONFIG.PF2E.featTraits[t]))
@@ -367,22 +369,30 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                           : "",
                   )
             : "";
+
         const prerequisites = this.system.prerequisites?.value?.map((item) => item.value).join(", ") ?? "";
+
+        // For dedication feats, remove the journal link at the end
+        const description =
+            config.trailingLink === false
+                ? this.description.replace(/<p>@UUID\[[^\]]+\](?:\{[^}]+\})?<\/p>$/, "")
+                : this.description;
+
+        // Right-aligned publication label
         const publication = config.publication
             ? `<p><span style="float:right"><em>${_loc("PF2E.Item.Feat.PublicationSource", { publication: this.system.publication.title })}</em></span></p>`
             : "";
-        return [
-            header,
-            traits ? `<ul class="tags paizo-style">${traits}</ul>` : "",
-            prerequisites
+
+        return (
+            header +
+            (traits ? `<ul class="tags paizo-style">${traits}</ul>` : "") +
+            (prerequisites
                 ? `<p><strong>${_loc("PF2E.FeatPrereqLabel")}</strong> ${prerequisites}</p>` +
                   (config.hr === false ? "" : "<hr>")
-                : "",
-            config.trailingLink === false
-                ? this.description.replace(/<p>@UUID\[[^\]]+\](?:\{[^}]+\})?<\/p>$/, "")
-                : this.description,
-            publication,
-        ].join("");
+                : "") +
+            description +
+            publication
+        );
     }
 
     /* -------------------------------------------- */
