@@ -223,7 +223,13 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
         const acOverride = Number(this.resolveValue(overrides.armorClass.modifier, armorClass.value)) || 0;
         if (!acOverride) return;
 
-        if (overrides.armorClass.ownIfHigher && armorClass.value > acOverride) return;
+        const useForm = this.#useFormModifier({
+            form: acOverride,
+            own: armorClass.value,
+            modifiers: armorClass.modifiers,
+            ownIfHigher: overrides.armorClass.ownIfHigher,
+        });
+        if (!useForm) return;
 
         this.#suppressModifiers(armorClass);
         const newModifier = (Number(this.resolveValue(overrides.armorClass.modifier)) || 0) - 10;
@@ -261,9 +267,13 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
 
             const currentSkill = actor.skills[key];
             const newModifier = Number(this.resolveValue(newSkill.modifier)) || 0;
-            if (currentSkill.mod > newModifier && newSkill.ownIfHigher) {
-                continue;
-            }
+            const useForm = this.#useFormModifier({
+                form: newModifier,
+                own: currentSkill.mod,
+                modifiers: currentSkill.check.modifiers,
+                ownIfHigher: newSkill.ownIfHigher,
+            });
+            if (!useForm) continue;
 
             const baseMod = new Modifier({
                 label: this.modifierLabel,
@@ -339,13 +349,14 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
         for (const action of strikeActions) {
             const strike = strikes[action.slug ?? ""];
             if (!strike || action.type !== "strike") continue;
-            const addend = action.modifiers
-                .filter((m) => m.enabled && this.#filterModifier(m))
-                .reduce((sum, m) => sum + m.modifier, 0);
-            const formModifier = Number(this.resolveValue(strike.modifier)) + addend;
-            if (!this.ownUnarmed && (formModifier >= action.totalModifier || !strike.ownIfHigher)) {
-                // The battle form's static attack-roll modifier is >= the character's unarmed attack modifier:
-                // replace inapplicable attack-roll modifiers with the battle form's
+            const useForm = this.#useFormModifier({
+                form: Number(this.resolveValue(strike.modifier)),
+                own: action.totalModifier,
+                modifiers: action.modifiers,
+                ownIfHigher: !!strike.ownIfHigher,
+            });
+            if (!this.ownUnarmed && useForm) {
+                // Replace inapplicable attack-roll modifiers with the battle form's
                 this.#suppressModifiers(action);
                 this.#suppressNotes(
                     Object.entries(synthetics.rollNotes).flatMap(([key, note]) => (/\bdamage\b/.test(key) ? note : [])),
@@ -407,6 +418,22 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
         if (modifier.slug === "battle-form") return true;
         if (modifier.type === "ability") return false;
         return ["status", "circumstance"].includes(modifier.type) || modifier.modifier < 0;
+    }
+
+    /**
+     * Whether the battle form's fixed modifier should replace the actor's own statistic: modifiers that apply on
+     * top of the form's modifier (status penalties, etc.) count on both sides of the comparison.
+     */
+    #useFormModifier(args: {
+        form: number;
+        own: number;
+        modifiers: readonly Modifier[];
+        ownIfHigher: boolean;
+    }): boolean {
+        const shared = args.modifiers
+            .filter((m) => m.enabled && this.#filterModifier(m))
+            .reduce((sum, m) => sum + m.modifier, 0);
+        return !args.ownIfHigher || args.form + shared >= args.own;
     }
 
     #suppressNotes(notes: RollNotePF2e[]): void {
