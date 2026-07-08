@@ -1,0 +1,31 @@
+<div class="standard-form">
+    <section class="tab active" data-group="dc" data-tab="static">
+        <div class="form-group dc">
+            <label for="{{rootId}}-static-dc">{{localize "PF2E.Actor.Party.CheckPrompt.DCTabs.static"}}</label>
+            <div class="form-fields">
+                <input type="number" id="{{rootId}}-static-dc" name="static-dc" />
+            </div>
+        </div>
+    </section>
+    <section class="tab" data-group="dc" data-tab="simple">
+        <div class="form-group">
+            <label for="{{rootId}}-simple-dc">{{localize "PF2E.Actor.Party.CheckPrompt.DCTabs.simple"}}</label>
+            <select id="{{rootId}}-simple-dc" name="simple-dc">
+                {{selectOptions proficiencyRanks blank=""}}
+            </select>
+        </div>
+    </section>
+    <section class="tab" data-group="dc" data-tab="level">
+        <div class="form-group">
+            <label for="{{rootId}}-level-dc">{{localize "PF2E.LevelLabel"}}</label>
+            <range-picker id="{{rootId}}-level-dc" name="level-dc" min="1" max="25" step="1"
+                          value="{{partyLevel}}"></range-picker>
+        </div>
+    </section>
+    <div class="form-group">
+        <label for="{{rootId}}-adjust-difficulty">{{localize "PF2E.Actor.Party.CheckPrompt.AdjustDifficulty"}}</label>
+        <select id="{{rootId}}-adjust-difficulty" name="adjust-difficulty">
+            {{selectOptions dcAdjustments blank=""}}
+        </select>
+    </div>
+</div>

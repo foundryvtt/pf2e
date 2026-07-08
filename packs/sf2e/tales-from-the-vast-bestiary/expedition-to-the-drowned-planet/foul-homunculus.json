@@ -1,0 +1,232 @@
+{
+    "_id": "HJmS7ip59MCtwZyQ",
+    "folder": "DtjcKtX7IVwAk1UX",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "ICjSF2djJxtdnASi",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "homunculus-poison"
+                    ]
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "49yt97hqjo70bke63nxy": {
+                        "damage": "1d4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "finesse",
+                        "magical",
+                        "reach-0",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "WLKYWXEiwmc9uCr5",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Master Link",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A homunculus can't speak, but it is telepathically linked to its creator. It can share information back and forth, including its master's knowledge and everything the homunculus hears. The range of this link is 1,500 feet. The homunculus typically has a similar attitude to its creator and is utterly faithful.</p>\n<p>If the homunculus is destroyed, the master takes @Damage[2d10[mental]] damage. If the master is slain, the homunculus becomes mindless, claims its current location as its lair, and instinctively attacks anyone who comes near.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WhTbPOtlxlYvCpJ6",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Homunculus Poison",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A homunculus has one dose of poison in a reservoir in its head. It can refill this poison from its reserves with an Interact action</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:15]</p><hr /><p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] and @UUID[Compendium.sf2e.conditions.Item.Enfeebled]{Enfeebled 1} (1 round).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "homunculus-poison",
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Foul Homunculus",
+    "prototypeToken": {
+        "name": "Homunculus"
+    },
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": -1
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 17
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 17,
+                "temp": 0,
+                "value": 17
+            },
+            "immunities": [],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 40
+                    }
+                ],
+                "value": 15
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "(Can't Speak Any Language), Master Link",
+                "value": [
+                    "common"
+                ]
+            },
+            "level": {
+                "value": 0
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Tales From the Vast"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 3,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 2
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 3
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 5
+            },
+            "stealth": {
+                "base": 5
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "tiny"
+            },
+            "value": [
+                "construct",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

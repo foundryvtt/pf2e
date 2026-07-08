@@ -1,0 +1,69 @@
+{
+    "_id": "SlwgsFXscR49tRio",
+    "folder": "FsGb7HbVVo5GPYYC",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Halyard Strike",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> A rope is within your reach, or you have a rope or grappling weapon in your hand.</p><hr /><p>You've learned to fight confidently while swinging from a line. You take hold of a nearby rope, throw a rope from your hand, or fire a grappling weapon at a solid surface, and then swing up to twice your Speed. You can make a Strike using a one-handed weapon or unarmed attack at any point during this movement. If you critically fail on this Strike, your movement ends at the point you attempted the Strike.</p><hr /><p><strong>Special</strong> If you have @UUID[Compendium.pf2e.feats-srd.Item.Pirate Dedication] and you boarded or disembarked from a boat or similar vehicle during this movement, the Strike deals one additional weapon damage die.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens High Seas"
+        },
+        "rules": [
+            {
+                "domain": "damage",
+                "key": "RollOption",
+                "option": "halyard-strike",
+                "predicate": [
+                    "feat:pirate-dedication"
+                ],
+                "toggleable": true
+            },
+            {
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "predicate": [
+                    "halyard-strike",
+                    {
+                        "or": [
+                            "item:usage:hands:1",
+                            "item:trait:unarmed"
+                        ]
+                    }
+                ],
+                "selector": "melee-strike-damage"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "fighter",
+                "flourish",
+                "gunslinger",
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

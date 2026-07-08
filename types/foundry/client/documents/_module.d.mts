@@ -21,6 +21,7 @@ import { default as FogExploration } from "./fog-exploration.mjs";
 import { default as Folder } from "./folder.mjs";
 import { default as Item } from "./item.mjs";
 import { default as JournalEntry } from "./journal-entry.mjs";
+import { default as Level } from "./level.d.mjs";
 import { default as Macro } from "./macro.mjs";
 import { default as Playlist } from "./playlist.mjs";
 import { default as RollTable } from "./roll-table.mjs";
@@ -36,6 +37,7 @@ export {
     Folder,
     Item,
     JournalEntry,
+    Level,
     Macro,
     Playlist,
     RollTable,
@@ -49,7 +51,7 @@ export { default as ActorDelta } from "./actor-delta.mjs";
 export { default as Card } from "./card.mjs";
 export { default as CombatantGroup } from "./combatant-group.mjs";
 export { default as Combatant } from "./combatant.mjs";
-// export { default as JournalEntryCategory } from "./journal-entry-category.mjs";
+export { default as JournalEntryCategory } from "./journal-entry-category.mjs";
 export { default as JournalEntryPage } from "./journal-entry-page.mjs";
 export { default as PlaylistSound } from "./playlist-sound.mjs";
 export { default as RegionBehavior } from "./region-behavior.mjs";
@@ -59,7 +61,6 @@ export { default as TableResult } from "./table-result.mjs";
 export { default as AmbientLightDocument } from "./ambient-light.mjs";
 export { default as AmbientSoundDocument } from "./ambient-sound.mjs";
 export { default as DrawingDocument } from "./drawing.mjs";
-export { default as MeasuredTemplateDocument } from "./measured-template.mjs";
 export { default as NoteDocument } from "./note.mjs";
 export { default as RegionDocument } from "./region.mjs";
 export { default as TileDocument } from "./tile.mjs";

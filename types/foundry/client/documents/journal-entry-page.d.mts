@@ -1,6 +1,6 @@
 import Note from "@client/canvas/placeables/note.mjs";
 import { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.mjs";
-import { DocumentOwnershipLevel } from "@common/constants.mjs";
+import { DocumentOwnershipNumber } from "@common/constants.mjs";
 import { JournalPageSheet } from "../appv1/sheets/journal-page-sheet.mjs";
 import { BaseJournalEntryPage } from "./_module.mjs";
 import { ClientDocument } from "./abstract/client-document.mjs";
@@ -10,8 +10,9 @@ declare const ClientBaseJournalEntryPage: new <TParent extends JournalEntry | nu
     ...args: any
 ) => BaseJournalEntryPage<TParent> & ClientDocument<TParent>;
 
-interface ClientBaseJournalEntryPage<TParent extends JournalEntry | null>
-    extends InstanceType<typeof ClientBaseJournalEntryPage<TParent>> {}
+interface ClientBaseJournalEntryPage<TParent extends JournalEntry | null> extends InstanceType<
+    typeof ClientBaseJournalEntryPage<TParent>
+> {}
 
 /**
  * The client-side JournalEntryPage document which extends the common BaseJournalEntryPage document model.
@@ -24,7 +25,7 @@ export default class JournalEntryPage<
     /** The table of contents for this JournalEntryPage. */
     get toc(): JournalEntryPageHeading;
 
-    override get permission(): DocumentOwnershipLevel;
+    override get permission(): DocumentOwnershipNumber;
 
     /**
      * Return a reference to the Note instance for this Journal Entry Page in the current Scene, if any.
@@ -80,8 +81,9 @@ export default class JournalEntryPage<
     ): void;
 }
 
-export default interface JournalEntryPage<TParent extends JournalEntry | null = JournalEntry | null>
-    extends ClientBaseJournalEntryPage<TParent> {
+export default interface JournalEntryPage<
+    TParent extends JournalEntry | null = JournalEntry | null,
+> extends ClientBaseJournalEntryPage<TParent> {
     get documentName(): "JournalEntryPage";
     get sheet(): JournalPageSheet<this>;
 }

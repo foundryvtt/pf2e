@@ -14,9 +14,8 @@
 
             .item-summary {
                 @include journal-styling;
-                a,
-                span[data-pf2-effect-area] {
-                    color: var(--color-text-dark-primary);
+                a {
+                    color: var(--content-link-text-color);
                 }
             }
 
@@ -89,6 +88,7 @@
                                 justify-self: center;
                                 position: relative;
                                 top: calc(-1 * var(--space-1));
+                                appearance: auto;
                             }
                         }
                     }
@@ -297,6 +297,7 @@
                     ul {
                         li {
                             display: flex;
+                            align-items: center;
 
                             label {
                                 color: var(--color-pf-tertiary);
@@ -306,6 +307,11 @@
                             input {
                                 display: flex;
                                 min-width: 2em;
+                                padding-bottom: var(--space-4);
+
+                                // todo: figure out why these are set. Is it just for modifiers? Or are there others?
+                                border: unset;
+                                width: unset;
                             }
                         }
                     }

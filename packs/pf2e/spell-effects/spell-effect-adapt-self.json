@@ -1,0 +1,68 @@
+{
+    "_id": "kTFIq6FOziSP2D3e",
+    "img": "icons/creatures/magical/spirit-undead-ghost-purple.webp",
+    "name": "Spell Effect: Adapt Self",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Adapt Self]</p>\n<p>You gain one of the following options:</p><ul><li><p>A Swim Speed equal to half your Speed.</p></li><li><p>Darkvision</p></li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Divine Mysteries"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Darkvision",
+                        "value": "darkvision"
+                    },
+                    {
+                        "label": "PF2E.Actions.Swim.Modifier.SwimSpeed",
+                        "value": "swim"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Benefit",
+                "rollOption": "adapt-self"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "adapt-self:swim"
+                ],
+                "selector": "swim",
+                "value": "round(@actor.system.movement.speeds.land.value/2)"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "adapt-self:darkvision"
+                ],
+                "selector": "darkvision"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

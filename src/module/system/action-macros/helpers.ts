@@ -64,7 +64,7 @@ class ActionMacroHelpers {
                     stat,
                     subtitle: game.i18n.has(subtitle)
                         ? subtitle
-                        : game.i18n.format("PF2E.ActionsCheck.x", { type: actor.skills?.[stat]?.label ?? null }),
+                        : _loc("PF2E.ActionsCheck.x", { type: actor.skills?.[stat]?.label ?? null }),
                 };
             }
         }
@@ -114,7 +114,7 @@ class ActionMacroHelpers {
         const outcomes = visible ? [outcome] : [];
         return new RollNotePF2e({
             selector,
-            text: game.i18n.localize(translationKey ?? `${translationPrefix}.Notes.${outcome}`),
+            text: _loc(translationKey ?? `${translationPrefix}.Notes.${outcome}`),
             outcome: outcomes,
         });
     }
@@ -122,7 +122,7 @@ class ActionMacroHelpers {
     static outcomesNote(selector: string, translationKey: string, outcomes: DegreeOfSuccessString[]): RollNotePF2e {
         const visible = game.pf2e.settings.metagame.results;
         const visibleOutcomes = visible ? outcomes : [];
-        return new RollNotePF2e({ selector, text: game.i18n.localize(translationKey), outcome: visibleOutcomes });
+        return new RollNotePF2e({ selector, text: _loc(translationKey), outcome: visibleOutcomes });
     }
 
     static async simpleRollActionCheck<TItem extends ItemPF2e<ActorPF2e>>(
@@ -137,7 +137,7 @@ class ActionMacroHelpers {
         } else {
             rollers.push(...getSelectedActors({ exclude: ["loot", "party"], assignedFallback: true }));
         }
-        if (rollers.length === 0) throw new Error(game.i18n.localize("PF2E.ActionsWarning.NoActor"));
+        if (rollers.length === 0) throw new Error(_loc("PF2E.ActionsWarning.NoActor"));
         const targetData = options.target?.() ?? this.target();
 
         for (const actor of rollers) {
@@ -268,7 +268,7 @@ class ActionMacroHelpers {
                 }
             } catch (cce) {
                 if (cce instanceof CheckContextError) {
-                    const message = game.i18n.format("PF2E.ActionsWarning.NoStatistic", {
+                    const message = _loc("PF2E.ActionsWarning.NoStatistic", {
                         id: cce.actor.id,
                         name: cce.actor.name,
                         statistic: cce.slug,
@@ -347,18 +347,18 @@ class ActionMacroHelpers {
     static getSimpleCheckLabel(slug: string): string | null {
         switch (slug) {
             case "flat":
-                return game.i18n.localize("PF2E.FlatCheck");
+                return _loc("PF2E.FlatCheck");
             case "perception":
-                return game.i18n.localize("PF2E.PerceptionLabel");
+                return _loc("PF2E.PerceptionLabel");
             case "unarmed":
-                return game.i18n.localize("PF2E.TraitUnarmed");
+                return _loc("PF2E.TraitUnarmed");
             case "lore":
-                return game.i18n.localize("PF2E.SkillLore");
+                return _loc("PF2E.SkillLore");
             default: {
                 const saves: Record<string, string> = CONFIG.PF2E.saves;
                 const skills: Record<string, { label: string }> = CONFIG.PF2E.skills;
                 const label = saves[slug] ?? skills[slug]?.label;
-                return label ? game.i18n.localize(label) : null;
+                return label ? _loc(label) : null;
             }
         }
     }

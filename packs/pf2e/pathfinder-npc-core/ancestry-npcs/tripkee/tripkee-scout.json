@@ -170,9 +170,9 @@
                     "value": [
                         "agile",
                         "finesse",
-                        "grippli",
                         "sweep",
-                        "thrown-10"
+                        "thrown-10",
+                        "tripkee"
                     ]
                 },
                 "usage": {
@@ -309,9 +309,6 @@
         },
         {
             "_id": "uWQEoEtw0H2vDjiP",
-            "_stats": {
-                "compendiumSource": "Actor.99gkMoyUFUpsBvl4.Item.uWQEoEtw0H2vDjiP"
-            },
             "flags": {
                 "pf2e": {
                     "linkedWeapon": "aIK07v9hQtV3e5O0"
@@ -355,9 +352,6 @@
         },
         {
             "_id": "AAIfRUXvoDpK5QH1",
-            "_stats": {
-                "compendiumSource": "Actor.99gkMoyUFUpsBvl4.Item.AAIfRUXvoDpK5QH1"
-            },
             "flags": {
                 "pf2e": {
                     "linkedWeapon": "AVXdmkbQSrKIZEoe"
@@ -527,14 +521,25 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The scout is wielding a net in two hands</p><hr /><p><strong>Effect</strong> The scout makes a ranged Strike (with a [[/r 1d20+9 #Hurl Net]]{+9} modifier) against a Medium or smaller creature within 20 feet. On a hit, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] and takes a –10-foot circumstance penalty to its Speeds. On a critical hit, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] instead. The DC to [[/act escape dc=16]]{Escape} the net is 16. A creature adjacent to the target can Interact with the net to remove it.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Hurl Net]</p>"
+                    "value": "<p><strong>Requirements</strong> The scout is wielding a net in two hands</p><hr /><p><strong>Effect</strong> The scout makes a ranged Strike (with a @Check[hurl-net|against:ac]{+9} modifier) against a Medium or smaller creature within 20 feet. On a hit, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] and takes a –10-foot circumstance penalty to its Speeds. On a critical hit, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] instead. The DC to [[/act escape dc=16]] the net is 16. A creature adjacent to the target can Interact with the net to remove it.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Hurl Net]</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "SpecialStatistic",
+                        "slug": "hurl-net",
+                        "type": "attack-roll"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "hurl-net-attack-roll",
+                        "value": 9
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -595,7 +600,7 @@
             "languages": {
                 "details": "",
                 "value": [
-                    "grippli",
+                    "tripkee",
                     "common"
                 ]
             },
@@ -673,8 +678,8 @@
                 "value": "sm"
             },
             "value": [
-                "grippli",
-                "humanoid"
+                "humanoid",
+                "tripkee"
             ]
         }
     },

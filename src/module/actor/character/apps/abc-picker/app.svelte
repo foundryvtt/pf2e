@@ -1,9 +1,11 @@
 <script lang="ts">
     import { ErrorPF2e } from "@util";
     import type { MouseEventHandler } from "svelte/elements";
+    import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { ABCPickerContext } from "./app.ts";
 
-    const { actor, foundryApp, state: data }: ABCPickerContext = $props();
+    const { actor, foundryApp, getState }: ABCPickerContext & SvelteAppProps<ABCPickerContext> = $props();
+    const data = $derived(getState());
     let searchQuery = $state("");
     const filteredItems = $derived.by(() => {
         const query = searchQuery.trim();
@@ -18,10 +20,8 @@
         });
     });
 
-    const typePlural = game.i18n.localize(`PF2E.Item.${data.itemType.capitalize()}.Plural`);
-    const searchPlaceholder = game.i18n.format("PF2E.Actor.Character.ABCPicker.SearchPlaceholder", {
-        items: typePlural,
-    });
+    const typePlural = $derived(_loc(`PF2E.Item.${data.itemType.capitalize()}.Plural`));
+    const searchPlaceholder = $derived(_loc("PF2E.Actor.Character.ABCPicker.SearchPlaceholder", { items: typePlural }));
 
     /** Open an item sheet to show additional details. */
     const viewItemSheet: MouseEventHandler<HTMLButtonElement> = async (event): Promise<void> => {
@@ -65,14 +65,14 @@
                     type="button"
                     class="confirm icon fa-solid fa-check"
                     data-tooltip
-                    aria-label={game.i18n.localize("PF2E.Actor.Character.ABCPicker.Tooltip.ConfirmSelection")}
+                    aria-label={_loc("PF2E.Actor.Character.ABCPicker.Tooltip.ConfirmSelection")}
                     onclick={saveSelection}
                 ></button>
                 <button
                     type="button"
                     class="icon fa-solid fa-memo-pad"
                     data-tooltip
-                    aria-label={game.i18n.localize("PF2E.Actor.Character.ABCPicker.Tooltip.ViewSheet")}
+                    aria-label={_loc("PF2E.Actor.Character.ABCPicker.Tooltip.ViewSheet")}
                     onclick={viewItemSheet}
                 ></button>
             </div>

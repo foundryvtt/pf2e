@@ -105,7 +105,7 @@ class WeaponTraitToggles {
         const current = this[property]?.selected;
         if (current === selected) return false;
 
-        const item = actor.items.get(weapon.id);
+        const item = weapon.realItem;
         if (item?.isOfType("weapon") && item === weapon) {
             const value = property === "doubleBarrel" ? !!selected : selected;
             await item.update({ [`system.traits.toggles.${property}.selected`]: value });
@@ -113,8 +113,11 @@ class WeaponTraitToggles {
             item.update({ [`system.meleeUsage.traitToggles.${trait}`]: selected });
         } else if (trait === "versatile" && item?.isOfType("shield")) {
             item.update({ "system.traits.integrated.versatile.selected": selected });
-        } else if (trait !== "double-barrel") {
-            weapon.rule?.toggleTrait(options);
+        } else if (trait !== "double-barrel" && weapon.rule) {
+            await weapon.rule.toggleTrait(options);
+        } else {
+            console.warn(`PF2e System | Unable to resolve an update target for ${weapon.name}'s ${trait} toggle`);
+            return false;
         }
 
         return true;

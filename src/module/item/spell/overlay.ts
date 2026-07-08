@@ -67,43 +67,21 @@ class SpellOverlayCollection extends Collection<string, SpellOverlay> {
         // Diff data and only save the difference
         const variantSource = R.omit(variantSpell.toObject(), ["_stats"]);
         const originSource = R.omit(this.spell.toObject(), ["_stats"]);
-        const difference = fu.diffObject<DeepPartial<SpellSource> & { overlayType: string }>(
-            originSource,
-            variantSource,
-        );
-
+        type SpellDiff = { overlayType: string; system?: { description?: object } };
+        const difference = fu.diffObject(originSource, variantSource) as SpellDiff;
         if (Object.keys(difference).length === 0) return variantSpell;
 
         // Always remove the spell description if it makes it this far
         delete difference.system?.description;
-        // Restore overlayType
         difference.overlayType = "override";
-
-        // Delete old entry to ensure clean data
-        await this.spell.update(
-            {
-                [`system.overlays.-=${variantId}`]: null,
-            },
-            { render: false },
-        );
-        // Save new diff object
-        await this.spell.update({
-            [`system.overlays.${variantId}`]: difference,
-        });
-
-        if (variantSpell.sheet.rendered) {
-            variantSpell.sheet.render(true);
-        }
-
+        await this.spell.update({ [`system.overlays.${variantId}`]: _replace(difference) });
+        variantSpell.render();
         return variantSpell;
     }
 
     async deleteOverlay(overlayId: string): Promise<void> {
         this.verifyOverlayId(overlayId);
-
-        await this.spell.update({
-            [`system.overlays.-=${overlayId}`]: null,
-        });
+        await this.spell.update({ [`system.overlays.${overlayId}`]: _del });
         this.delete(overlayId);
     }
 

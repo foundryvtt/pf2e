@@ -1,6 +1,8 @@
 import { CanvasVisibilityTest, CanvasVisibilityTestConfiguration } from "@client/_module.mjs";
+import Level from "@client/documents/level.mjs";
 import DataModel from "@common/abstract/data.mjs";
-import * as fields from "../../../common/data/fields.mjs";
+import * as fields from "@common/data/fields.mjs";
+import { PointSourcePolygon, PointSourcePolygonConfig } from "../geometry/_module.mjs";
 import { PlaceableObject, Token } from "../placeables/_module.mjs";
 import PointVisionSource from "../sources/point-vision-source.mjs";
 
@@ -30,7 +32,7 @@ export default class DetectionMode extends DataModel<null, DetectionModeSchema> 
     };
 
     /** The identifier of the basic sight detection mode. */
-    static BASIC_MODE_ID: string;
+    static get BASIC_MODE_ID(): "basicSight";
 
     /* -------------------------------------------- */
     /*  Visibility Testing                          */
@@ -46,17 +48,18 @@ export default class DetectionMode extends DataModel<null, DetectionModeSchema> 
     testVisibility(
         visionSource: PointVisionSource<Token>,
         mode: TokenDetectionMode,
-        config?: CanvasVisibilityTestConfiguration,
+        config: CanvasVisibilityTestConfiguration,
     ): boolean;
 
     /**
      * Can this VisionSource theoretically detect a certain object based on its properties?
      * This check should not consider the relative positions of either object, only their state.
      * @param visionSource The vision source being tested
-     * @param target       The target object being tested
+     * @param target The target object being tested
+     * @param level The level the target is in
      * @returns Can the target object theoretically be detected by this vision source?
      */
-    protected _canDetect(visionSource: PointVisionSource<Token>, target: PlaceableObject): boolean;
+    protected _canDetect(visionSource: PointVisionSource<Token>, target: object | null, level: Level): boolean;
 
     /**
      * Evaluate a single test point to confirm whether it is visible.
@@ -91,12 +94,41 @@ export default class DetectionMode extends DataModel<null, DetectionModeSchema> 
     ): boolean;
 
     /**
+     * Test for LOS collision.
+     * For both the segment in the viewed level and in the target level, a ray is cast with the given configuration.
+     * @param visionSource The vision source
+     * @param test The test
+     * @param config The configuration
+     * @returns True if there's a collision or the point is not in the vision angle, otherwise false
+     */
+    protected static _testCollision(
+        visionSource: PointVisionSource<Token>,
+        test: Omit<CanvasVisibilityTest, "los">,
+        config?: Partial<Omit<PointSourcePolygonConfig, "source" | "level">>,
+    ): boolean;
+
+    /**
+     * Test for LOS collision.
+     * For the segment of the ray in the viewed level, `los` is tested.
+     * For the segment of the ray in the target level, a ray is cast with the configuration of `los`.
+     * @param visionSource The vision source
+     * @param test The test
+     * @param los The LOS polygon
+     * @returns True if there's a collision or the point is not in the vision angle, otherwise false
+     */
+    protected static _testCollision(
+        visionSource: PointVisionSource<Token>,
+        test: Pick<CanvasVisibilityTest, "point" | "los">,
+        los: PointSourcePolygon,
+    ): boolean;
+
+    /**
      * Test whether the target is within the vision angle.
-     * @param {VisionSource} visionSource       The vision source being tested
-     * @param {TokenDetectionMode} mode         The detection mode configuration
-     * @param {PlaceableObject} target          The target object being tested
-     * @param {CanvasVisibilityTest} test       The test case being evaluated
-     * @returns                       Is the point within the vision angle?
+     * @param visionSource The vision source being tested
+     * @param mode The detection mode configuration
+     * @param target The target object being tested
+     * @param test The test case being evaluated
+     * @returns Is the point within the vision angle?
      */
     protected _testAngle(
         visionSource: PointVisionSource<Token>,
@@ -122,8 +154,7 @@ export default class DetectionMode extends DataModel<null, DetectionModeSchema> 
 }
 
 export default interface DetectionMode
-    extends DataModel<null, DetectionModeSchema>,
-        fields.ModelPropsFromSchema<DetectionModeSchema> {}
+    extends DataModel<null, DetectionModeSchema>, fields.ModelPropsFromSchema<DetectionModeSchema> {}
 
 export interface TokenDetectionMode {
     /** The id of the detection mode, a key from CONFIG.Canvas.detectionModes */
@@ -144,5 +175,5 @@ export type DetectionModeSchema = {
     tokenConfig: fields.BooleanField;
     walls: fields.BooleanField;
     angle: fields.BooleanField;
-    type: fields.NumberField;
+    type: fields.NumberField<DetectionType, DetectionType>;
 };

@@ -25,7 +25,7 @@ class TokenEffectIconRuleElement extends RuleElement<TokenEffectIconSchema> {
             return this.failValidation("value: must resolve to an image file path");
         }
         this.actor.synthetics.tokenEffectIcons.push(
-            ActiveEffectPF2e.fromEffect(
+            ActiveEffectPF2e.fromItem(
                 new EffectPF2e(
                     {
                         type: "effect",

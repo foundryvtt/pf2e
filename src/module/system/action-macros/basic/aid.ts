@@ -9,7 +9,7 @@ import { CheckResultCallback } from "@system/action-macros/types.ts";
 class AidActionVariant extends SingleCheckActionVariant {
     override async use(options: Partial<SingleCheckActionUseOptions>): Promise<CheckResultCallback[]> {
         if (!options?.statistic) {
-            throw new Error(game.i18n.localize("PF2E.Actions.Aid.Warning.NoStatistic"));
+            throw new Error(_loc("PF2E.Actions.Aid.Warning.NoStatistic"));
         }
         const rollOption = `action:aid:${options.statistic}`;
         options.rollOptions ??= [];

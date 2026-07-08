@@ -1,16 +1,14 @@
-import { TokenShape } from "@client/canvas/placeables/token.mjs";
 import { DataModelConstructionContext } from "./abstract/_types.mjs";
 import Document from "./abstract/document.mjs";
-import * as CONST from "./constants.mjs";
-import { GridOffset2D } from "./grid/_types.mjs";
 import Color from "./utils/color.mjs";
 
 /* ----------------------------------------- */
 /*  Data Model                               */
 /* ----------------------------------------- */
 
-export interface DocumentConstructionContext<TParent extends Document | null>
-    extends DataModelConstructionContext<TParent> {
+export interface DocumentConstructionContext<
+    TParent extends Document | null,
+> extends DataModelConstructionContext<TParent> {
     /** The compendium collection ID which contains this Document, if any */
     pack?: string | null;
 }
@@ -27,8 +25,8 @@ type Builtin = Date | Function | Uint8Array | string | number | boolean | symbol
 type DeepReadonly<T> = {
     readonly [K in keyof T]: T[K] extends undefined | null | boolean | number | string | symbol | bigint | Function
         ? T[K]
-        : T[K] extends Array<infer V>
-          ? ReadonlyArray<DeepReadonly<V>>
+        : T[K] extends (infer V)[]
+          ? readonly DeepReadonly<V>[]
           : T[K] extends Map<infer K, infer V>
             ? ReadonlyMap<DeepReadonly<K>, DeepReadonly<V>>
             : T[K] extends Set<infer V>
@@ -112,42 +110,4 @@ export interface SocketResponse {
     userId?: string;
     /** Data returned as a result of the request */
     result: Record<string, unknown>[];
-}
-
-/* ----------------------------------------- */
-/*  Token Typedefs                           */
-/* ----------------------------------------- */
-
-interface TokenPosition extends ElevatedPoint {
-    /** The width in grid spaces (positive). */
-    width: number;
-    /** The height in grid spaces (positive). */
-    height: number;
-    /** The shape type (see {@link CONST.TOKEN_SHAPES}). */
-    shape: TokenShape;
-}
-
-type TokenDimensions = Pick<TokenPosition, "width" | "height" | "shape">;
-
-interface TokenHexagonalOffsetsData {
-    /** The occupied offsets in an even grid in the 0th row/column */
-    even: GridOffset2D[];
-    /** The occupied offsets in an odd grid in the 0th row/column */
-    odd: GridOffset2D[];
-    /** The anchor in normalized coordiantes */
-    anchor: Point;
-}
-
-/**
- * The hexagonal shape of a Token.
- */
-interface TokenHexagonalShapeData {
-    /** The occupied offsets in even/odd rows/columns */
-    offsets: { even: GridOffset2D[]; odd: GridOffset2D[] };
-    /** The points in normalized coordinates */
-    points: number[];
-    /** The center of the shape in normalized coordiantes */
-    center: Point;
-    /** The snapping anchor in normalized coordiantes, i.e. the top-left grid hex center in the snapped position */
-    anchor: Point;
 }

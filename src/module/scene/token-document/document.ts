@@ -24,7 +24,7 @@ import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import { ScenePF2e } from "../document.ts";
 import { TokenAura } from "./aura/index.ts";
-import type { DetectionModeEntry, TokenFlagsPF2e, WithTroopFlags } from "./data.ts";
+import type { TokenFlagsPF2e, WithTroopFlags } from "./data.ts";
 import type { TokenConfigPF2e } from "./sheets/token-config.ts";
 
 class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
@@ -34,16 +34,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** The most recently used animation for later use when a token override is reverted. */
     #lastAnimation: TokenAnimationOptions | null = null;
-
-    /** Prevent eager construction of synthetic actors */
-    override get actor(): ActorPF2e<this | null> | null {
-        if (game.ready || this.actorLink || this.scene?.isView || this.hasConstructedActor || super.inCombat) {
-            return super.actor as ActorPF2e<this | null> | null;
-        }
-        return Array.isArray(this._source.delta?.items) && this._source.delta.items.some((i) => i.type === "effect")
-            ? (super.actor as ActorPF2e<this | null> | null)
-            : null;
-    }
 
     /** Returns the combatant representing this token or this token's troop */
     override get combatant(): CombatantPF2e<EncounterPF2e, this> | null {
@@ -64,11 +54,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return this.actorLink && this.actor?.isOfType("party")
             ? this.actor.members.every((a) => game.combat?.getCombatantsByActor(a).length)
             : super.inCombat;
-    }
-
-    /** This should be in Foundry core, but ... */
-    get scene(): TParent {
-        return this.parent;
     }
 
     /** Returns the other segments of a troop that exists in the current scene, or null if this token doesn't belong to a troop */
@@ -313,8 +298,8 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
-        super.prepareBaseData();
         const flags = fu.mergeObject(this.flags, { [SYSTEM_ID]: {} });
+        super.prepareBaseData();
         const actor = this.actor;
         if (!actor) return;
         TokenDocumentPF2e.assignDefaultImage(this);
@@ -334,8 +319,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (tokenOverrides.texture) {
             this.texture.src = tokenOverrides.texture.src;
             if ("scaleX" in tokenOverrides.texture) {
-                this.texture.scaleX = tokenOverrides.texture.scaleX;
-                this.texture.scaleY = tokenOverrides.texture.scaleY;
+                const mirrorX = Math.sign(this.texture.scaleX);
+                const mirrorY = Math.sign(this.texture.scaleY);
+                this.texture.scaleX = mirrorX * Math.abs(tokenOverrides.texture.scaleX);
+                this.texture.scaleY = mirrorY * Math.abs(tokenOverrides.texture.scaleY);
                 this.flags[SYSTEM_ID].autoscale = false;
             }
             this.texture.tint = tokenOverrides.texture.tint ?? this.texture.tint;
@@ -379,9 +366,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         // Reset detection modes if using rules-based vision
         const hasVision = actor.perception.hasVision;
-        const lightPerception: DetectionModeEntry = { id: "lightPerception", enabled: hasVision, range: Infinity };
-        const basicSight: DetectionModeEntry = { id: "basicSight", enabled: hasVision, range: 0 };
-        this.detectionModes = [lightPerception, basicSight];
+        const lightPerception = { enabled: hasVision, range: Infinity };
+        const basicSight = { enabled: hasVision, range: 0 };
+        this.detectionModes = { lightPerception, basicSight };
 
         // Reset sight defaults and set vision mode.
         // Unlike detection modes, there can only be one, and it decides how the player is currently seeing.
@@ -400,26 +387,22 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         // Update basic sight and adjust saturation based on darkvision or light levels
         if (visionMode === "darkvision") {
             this.sight.range = basicSight.range = Infinity;
-
             if (actor.isOfType("character") && actor.flags[SYSTEM_ID].colorDarkvision) {
                 this.sight.saturation = 1;
             } else if (!game.user.settings.monochromeDarkvision) {
                 this.sight.saturation = 0;
             }
         }
-
         if (actor.perception.senses.has("see-invisibility")) {
-            this.detectionModes.push({ id: "seeInvisibility", enabled: true, range: Infinity });
+            this.detectionModes.seeInvisibility = { enabled: true, range: Infinity };
         }
-
         const tremorsense = actor.perception.senses.get("tremorsense");
         if (tremorsense) {
-            this.detectionModes.push({ id: "feelTremor", enabled: true, range: tremorsense.range });
+            this.detectionModes.feelTremor = { enabled: true, range: tremorsense.range };
         }
-
         if (!actor.hasCondition("deafened")) {
             const range = scene?.flags[SYSTEM_ID].hearingRange ?? Infinity;
-            this.detectionModes.push({ id: "hearing", enabled: true, range });
+            this.detectionModes.hearing = { enabled: true, range };
         }
     }
 
@@ -476,7 +459,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                     whisper: this.actor?.hasPlayerOwner
                         ? []
                         : game.users.contents.flatMap((user) => (user.isGM ? user.id : [])),
-                    content: game.i18n.format("PF2E.InitiativeIsNow", { name: this.name, value: initiative }),
+                    content: _loc("PF2E.InitiativeIsNow", { name: this.name, value: initiative }),
                 },
             ]);
         }
@@ -504,7 +487,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                 if (existing) return existing;
 
                 const combat = game.user.isGM ? await EncounterPF2e.create({ active: true }, { render: false }) : null;
-                if (!combat) throw new Error(game.i18n.localize("COMBAT.NoneActive"));
+                if (!combat) throw new Error(_loc("COMBAT.NoneActive"));
                 return combat;
             })();
             combatants.push(
@@ -585,7 +568,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         this.reset();
         const postUpdate = this.toObject(false);
         const postUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
-        const tokenChanges = fu.diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
+        const tokenChanges = fu.diffObject(preUpdate, postUpdate);
         if (!this.actorLink && this.autoscale && fu.hasProperty(updates, "system.traits.size")) {
             tokenChanges.texture = fu.mergeObject(tokenChanges, R.pick(this.texture, ["scaleX", "scaleY"]));
         }
@@ -617,7 +600,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         options: DatabaseCreateCallbackOptions,
         user: fd.BaseUser,
     ): Promise<boolean | void> {
-        const { actor, object, scene } = this;
+        const { actor, scene } = this;
         if (actor?.allowSynthetics === false && data.actorLink === false) {
             this._source.actorLink = true;
         }
@@ -625,7 +608,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         // Create other child tokens for troop actors. Infinite recursion is prevented by checking the flags
         const isNPC = actor?.isOfType("npc");
         const thresholds = isNPC ? actor.system.attributes.hp.thresholds : null;
-        if (scene && object && isNPC && thresholds && !this.flags[SYSTEM_ID].troop) {
+        if (scene && isNPC && thresholds && !this.flags[SYSTEM_ID].troop) {
             const troop = { id: this.actorLink ? actor.id : fu.randomID(), linked: this.actorLink };
             this._source.actorLink = false;
             this._source.flags = fu.mergeObject(this._source.flags, { [SYSTEM_ID]: { troop } });
@@ -726,6 +709,11 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const updates = Array.isArray(update) ? update : [update];
         this.simulateUpdate(updates[0]);
 
+        // Core's bar refresh only diffs {value, max}, so a temp-HP-only change won't trigger a redraw on its own.
+        if (this.scene.isView && updates.some((u) => u && fu.hasProperty(u, "system.attributes.hp.temp"))) {
+            this.object?.renderFlags.set({ refreshBars: true });
+        }
+
         // Follow up any actor (or descendant document thereof) modification with a size synchronization
         const actor = this.actor;
         if (!actor?.isOwner) return;
@@ -762,6 +750,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
     flags: TokenFlagsPF2e;
     regions: Set<RegionDocumentPF2e<NonNullable<TParent>>>;
+    get actor(): ActorPF2e<this | null> | null;
     get baseActor(): ActorPF2e<null> | null;
     get object(): TokenPF2e<this> | null;
     get sheet(): TokenConfigPF2e;

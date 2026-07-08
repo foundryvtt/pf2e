@@ -217,8 +217,8 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
                             ...gear,
                             level: gear.level ?? (gear.ranks?.length ? `${gear.ranks[0].level}+` : null),
                             traits: gear.traits.map((t) => ({
-                                label: game.i18n.localize(kingmakerTraits[t] ?? actionTraits[t] ?? t),
-                                description: game.i18n.localize(descriptions[t] ?? ""),
+                                label: _loc(kingmakerTraits[t] ?? actionTraits[t] ?? t),
+                                description: _loc(descriptions[t] ?? ""),
                             })),
                         },
                     ),

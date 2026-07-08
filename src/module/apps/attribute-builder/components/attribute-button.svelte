@@ -22,30 +22,30 @@
 
     const label = $derived.by(() => {
         if (type === "flaw") {
-            return game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.Flaw");
+            return _loc("PF2E.Actor.Character.AttributeBuilder.Flaw");
         } else if (type === "key") {
-            return game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.KeyIcon");
+            return _loc("PF2E.Actor.Character.AttributeBuilder.KeyIcon");
         } else if (button.partial) {
-            return game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.Partial");
+            return _loc("PF2E.Actor.Character.AttributeBuilder.Partial");
         } else if (type === "apex") {
-            return game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.Increase");
+            return _loc("PF2E.Actor.Character.AttributeBuilder.Increase");
         } else {
-            return game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.Boost");
+            return _loc("PF2E.Actor.Character.AttributeBuilder.Boost");
         }
     });
 
     const attrName = $derived(
         setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)
-            ? game.i18n.localize(CONFIG.PF2E.abilities[attribute])
-            : game.i18n.localize(`PF2E.Kingmaker.Abilities.${attribute}`),
+            ? _loc(CONFIG.PF2E.abilities[attribute])
+            : _loc(`PF2E.Kingmaker.Abilities.${attribute}`),
     );
 
     function buildAriaLabel(buttonState: BuilderButton, isSecond = false): string {
-        const action = isSecond ? game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.DoubleFlaw") : label;
+        const action = isSecond ? _loc("PF2E.Actor.Character.AttributeBuilder.DoubleFlaw") : label;
         const parts = [action, attrName];
 
         if (buttonState.locked) {
-            parts.push(`(${game.i18n.localize("PF2E.Actor.Character.AttributeBuilder.Locked")})`);
+            parts.push(`(${_loc("PF2E.Actor.Character.AttributeBuilder.Locked")})`);
         }
 
         return parts.join(" ");

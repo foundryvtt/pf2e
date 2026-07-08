@@ -9,7 +9,7 @@ import type { CreaturePF2e } from "./document.ts";
 abstract class CreatureConfig<TActor extends CreaturePF2e> extends fav1.api.DocumentSheet<TActor> {
     override get title(): string {
         const namespace = this.actor.isOfType("character") ? "Character" : "NPC";
-        return game.i18n.localize(`PF2E.Actor.${namespace}.Configure.Title`);
+        return _loc(`PF2E.Actor.${namespace}.Configure.Title`);
     }
 
     override get template(): string {
@@ -34,12 +34,12 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends fav1.api.Docu
         const source: BaseCreatureSource<CreatureActorType, CreatureSystemSource> = actor._source;
         const alliance =
             source.system.details?.alliance === null ? "neutral" : (source.system.details?.alliance ?? "default");
-        const defaultValue = game.i18n.localize(
+        const defaultValue = _loc(
             actor.hasPlayerOwner ? "PF2E.Actor.Creature.Alliance.Party" : "PF2E.Actor.Creature.Alliance.Opposition",
         );
 
         const allianceOptions = {
-            default: game.i18n.format("PF2E.Actor.Creature.Alliance.Default", { alliance: defaultValue }),
+            default: _loc("PF2E.Actor.Creature.Alliance.Default", { alliance: defaultValue }),
             opposition: "PF2E.Actor.Creature.Alliance.Opposition",
             party: "PF2E.Actor.Creature.Alliance.Party",
             neutral: "PF2E.Actor.Creature.Alliance.Neutral",
@@ -60,7 +60,7 @@ abstract class CreatureConfig<TActor extends CreaturePF2e> extends fav1.api.Docu
 
         if (alliance === "default") {
             delete formData[key];
-            formData["system.details.-=alliance"] = null;
+            formData["system.details.alliance"] = _del;
         } else if (alliance === "neutral") {
             formData[key] = null;
         } else if (!setHasElement(ALLIANCES, alliance)) {

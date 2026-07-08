@@ -43,6 +43,15 @@ abstract class AbstractDamageRoll extends Roll {
 
     /** The theoretically highest total of this roll */
     abstract get maximumValue(): number;
+
+    /**
+     * Tell the Dice So Nice module where to read this roll's damage type, so its dice use the matching
+     * appearance preset. DSN reads the `type` property per roll scope: on a `DamageRoll` it is `undefined`
+     * (the pool has no single type), and on each `DamageInstance` it resolves to that instance's damage type.
+     */
+    getDSNProperties(): { damageType: string } {
+        return { damageType: "type" };
+    }
 }
 
 class DamageRoll extends AbstractDamageRoll {
@@ -456,10 +465,10 @@ class DamageInstance extends AbstractDamageRoll {
     }
 
     override get formula(): string {
-        const typeFlavor = game.i18n.localize(CONFIG.PF2E.damageRollFlavors[this.type] ?? this.type);
+        const typeFlavor = _loc(CONFIG.PF2E.damageRollFlavors[this.type] ?? this.type);
         const damageType =
             this.persistent && this.type !== "bleed"
-                ? game.i18n.format("PF2E.Damage.RollFlavor.persistent", { damageType: typeFlavor })
+                ? _loc("PF2E.Damage.RollFlavor.persistent", { damageType: typeFlavor })
                 : this.type !== "untyped"
                   ? typeFlavor
                   : "";
@@ -572,9 +581,9 @@ class DamageInstance extends AbstractDamageRoll {
     }
 
     get typeLabel(): string {
-        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[this.type]);
+        const damageType = _loc(CONFIG.PF2E.damageTypes[this.type]);
         return this.persistent && this.type !== "bleed"
-            ? game.i18n.format("PF2E.Damage.PersistentTooltip", { damageType })
+            ? _loc("PF2E.Damage.PersistentTooltip", { damageType })
             : damageType;
     }
 
@@ -599,15 +608,9 @@ class DamageInstance extends AbstractDamageRoll {
     }
 
     componentTotal(component: "precision" | "splash"): number {
-        if (!this._evaluated) {
-            throw ErrorPF2e("Component totals may only be accessed from an evaluated damage instance");
-        }
-
-        const terms = deepFindTerms(this.head, { flavor: component });
-        const rawTotal = terms.reduce((total, t) => total + (Number(t.total) || 0), 0);
-        const critMultiplier = Number(this.head.options.crit) || 1;
-
-        return rawTotal * critMultiplier;
+        if (!this._evaluated) throw ErrorPF2e("Component totals may only be accessed from evaluated damage instances");
+        const matches = deepFindTerms(this.head, { flavor: component });
+        return matches.reduce((total, [term, multiplier]) => total + (Number(term.total) || 0) * multiplier, 0);
     }
 
     /**

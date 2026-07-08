@@ -1,3 +1,4 @@
+import type { MergeObjectOptions } from "@common/utils/helpers.d.mts";
 import * as R from "remeda";
 
 /**
@@ -10,28 +11,32 @@ import * as R from "remeda";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function deepClone<T>(original: T): T extends Set<any> | Map<any, any> | Collection<string, any> ? never : T {
     // Simple types
-    if (typeof original !== "object" || original === null)
+    if (typeof original !== "object" || original === null) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return original as T extends Set<any> | Map<any, any> | Collection<string, any> ? never : T;
+    }
 
     // Arrays
-    if (original instanceof Array)
+    if (original instanceof Array) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return original.map(deepClone) as unknown as T extends Set<any> | Map<any, any> | Collection<string, any>
             ? never
             : T;
+    }
 
     // Dates
-    if (original instanceof Date)
+    if (original instanceof Date) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return new Date(original) as unknown as T extends Set<any> | Map<any, any> | Collection<string, any>
             ? never
             : T;
+    }
 
     // Unsupported advanced objects
-    if ((original as { constructor: unknown }).constructor !== Object)
+    if ((original as { constructor: unknown }).constructor !== Object) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return original as T extends Set<any> | Map<any, any> | Collection<string, any> ? never : T;
+    }
 
     // Other objects
     const clone: Record<string, unknown> = {};
@@ -150,7 +155,7 @@ function mergeObject(
         recursive = true,
         inplace = true,
         enforceTypes = false,
-        performDeletions = false,
+        applyOperators = false,
     } = {},
     _d = 0,
 ): object {
@@ -158,7 +163,7 @@ function mergeObject(
     if (!(original instanceof Object) || !(other instanceof Object)) {
         throw new Error("One of original or other are not Objects!");
     }
-    const options = { insertKeys, insertValues, overwrite, recursive, inplace, enforceTypes, performDeletions };
+    const options = { insertKeys, insertValues, overwrite, recursive, inplace, enforceTypes, applyOperators };
 
     // Special handling at depth 0
     if (_d === 0) {
@@ -168,8 +173,12 @@ function mergeObject(
             if (inplace) {
                 Object.keys(original).forEach((k) => delete (original as Record<string, unknown>)[k]);
                 Object.assign(original, expanded);
-            } else original = expanded;
-        } else if (!inplace) original = deepClone(original);
+            } else {
+                original = expanded;
+            }
+        } else if (!inplace) {
+            original = deepClone(original);
+        }
     }
 
     // Iterate over the other object
@@ -189,23 +198,24 @@ function _mergeInsert(
     {
         insertKeys,
         insertValues,
-        performDeletions,
-    }: { insertKeys?: boolean; insertValues?: boolean; performDeletions?: boolean } = {},
+        applyOperators,
+    }: { insertKeys?: boolean; insertValues?: boolean; applyOperators?: boolean } = {},
     _d: number,
 ): object | void {
     // Force replace a specific key
-    if (performDeletions && k.startsWith("==")) {
+    if (applyOperators && k.startsWith("==")) {
         (original as Record<string, unknown>)[k.slice(2)] = applySpecialKeys(v);
         return;
     }
 
     // Delete a specific key
-    if (performDeletions && k.startsWith("-=")) {
-        if (v !== null)
+    if (applyOperators && k.startsWith("-=")) {
+        if (v !== null) {
             throw new Error(
                 "Removing a key using the -= deletion syntax requires the value of that" +
                     " deletion key to be null, for example {-=key: null}",
             );
+        }
         delete (original as Record<string, unknown>)[k.slice(2)];
         return;
     }
@@ -217,7 +227,7 @@ function _mergeInsert(
         (original as Record<string, unknown>)[k] = mergeObject({}, v, {
             insertKeys: true,
             inplace: true,
-            performDeletions,
+            applyOperators,
         });
         return;
     }
@@ -231,14 +241,7 @@ function _mergeUpdate(
     original: object,
     k: string,
     v: unknown,
-    {
-        insertKeys,
-        insertValues,
-        enforceTypes,
-        overwrite,
-        recursive,
-        performDeletions,
-    }: Partial<MergeObjectOptions> = {},
+    { insertKeys, insertValues, enforceTypes, overwrite, recursive, applyOperators }: Partial<MergeObjectOptions> = {},
     _d: number,
 ): object | void {
     const x = (original as Record<string, unknown>)[k];
@@ -255,7 +258,7 @@ function _mergeUpdate(
                 insertValues,
                 overwrite,
                 enforceTypes,
-                performDeletions,
+                applyOperators,
                 inplace: true,
             },
             _d,
@@ -286,11 +289,12 @@ function applySpecialKeys(obj: unknown): unknown {
         const v = obj[key];
         if (isDeletionKey(key)) {
             if (key[0] === "-") {
-                if (v !== null)
+                if (v !== null) {
                     throw new Error(
                         "Removing a key using the -= deletion syntax requires the value of that" +
                             " deletion key to be null, for example {-=key: null}",
                     );
+                }
                 delete clone[key.substring(2)];
                 continue;
             }
@@ -339,8 +343,9 @@ function _arrayEquals(arr: unknown[], other: unknown): boolean {
         const t0 = getType(v0);
         const t1 = getType(v1);
         if (t0 !== t1) return false;
-        if ((v0 as Maybe<{ equals?: unknown }>)?.equals instanceof Function)
+        if ((v0 as Maybe<{ equals?: unknown }>)?.equals instanceof Function) {
             return (v0 as { equals: (arg: unknown) => boolean }).equals(v1);
+        }
         if (t0 === "Object") return objectsEqual(v0 as object, v1);
         return v0 === v1;
     });

@@ -40,7 +40,7 @@ class FormulaPicker extends SvelteApplicationMixin<
 
     declare options: FormulaPickerConfiguration;
 
-    override root = Root;
+    protected root = Root;
 
     #resolve?: (value: PhysicalItemPF2e | null) => void;
 
@@ -93,16 +93,16 @@ class FormulaPicker extends SvelteApplicationMixin<
 
         const prompt =
             mode === "prepare"
-                ? game.i18n.format("PF2E.Actor.Character.Crafting.PrepareHint", {
+                ? _loc("PF2E.Actor.Character.Crafting.PrepareHint", {
                       remaining: sheetData.remainingSlots,
                   })
                 : resource
-                  ? game.i18n.format("PF2E.Actor.Character.Crafting.Action.Hint", {
+                  ? _loc("PF2E.Actor.Character.Crafting.Action.Hint", {
                         resource: resource.label,
                         value: resource.value,
                         max: resource.max,
                     })
-                  : game.i18n.localize("PF2E.Actor.Character.Crafting.Action.HintResourceless");
+                  : _loc("PF2E.Actor.Character.Crafting.Action.HintResourceless");
 
         return {
             foundryApp: this,
@@ -159,19 +159,22 @@ class FormulaPicker extends SvelteApplicationMixin<
     }
 }
 
+interface FormulaPickerState {
+    name: string;
+    resource: ResourceData | null;
+    prompt: string;
+    sections: FormulaSection[];
+}
+
 interface FormulaPickerContext extends SvelteApplicationRenderContext {
+    foundryApp: FormulaPicker;
     actor: ActorPF2e;
     ability: CraftingAbility;
     mode: "craft" | "prepare";
     onSelect: (uuid: ItemUUID) => void;
     onDeselect: (uuid: ItemUUID) => void;
     searchEngine: MiniSearch<Pick<PhysicalItemPF2e, "id" | "name">>;
-    state: {
-        name: string;
-        resource: ResourceData | null;
-        prompt: string;
-        sections: FormulaSection[];
-    };
+    state: FormulaPickerState;
 }
 
 interface FormulaSection {
@@ -196,4 +199,4 @@ interface FormulaViewData {
 }
 
 export { FormulaPicker };
-export type { FormulaPickerContext };
+export type { FormulaPickerContext, FormulaPickerState };

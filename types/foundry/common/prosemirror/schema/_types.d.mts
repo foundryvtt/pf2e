@@ -1,7 +1,7 @@
 export interface AllowedAttributeConfiguration {
     /** The set of exactly-matching attribute names. */
     attrs: Set<string>;
-    /**A list of wildcard allowed prefixes for attributes. */
+    /** A list of wildcard allowed prefixes for attributes. */
     wildcards: string[];
 }
 

@@ -22,17 +22,17 @@ export class DamagePF2e {
         const outcome = context.outcome ?? null;
         context.createMessage ??= true;
 
-        // Change default roll mode to blind GM roll if the "secret" option is specified
+        // Change default message-visibility mode to gm or blind if the "secret" option is specified
         if (context.options.has("secret")) context.secret = true;
-        if (context.secret) context.rollMode ??= game.user.isGM ? "gmroll" : "blindroll";
-        context.rollMode = objectHasKey(CONFIG.Dice.rollModes, context.rollMode)
-            ? context.rollMode
-            : game.settings.get("core", "rollMode");
+        if (context.secret) context.messageMode ??= game.user.isGM ? "gm" : "blind";
+        context.messageMode = objectHasKey(CONFIG.ChatMessage.modes, context.messageMode)
+            ? context.messageMode
+            : game.settings.get("core", "messageMode");
 
         const subtitle = outcome
             ? context.sourceType === "attack"
-                ? game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`)
-                : game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`)
+                ? _loc(`PF2E.Check.Result.Degree.Attack.${outcome}`)
+                : _loc(`PF2E.Check.Result.Degree.Check.${outcome}`)
             : null;
         let flavor = data.name.startsWith("<h4")
             ? data.name
@@ -158,12 +158,12 @@ export class DamagePF2e {
         // Create the damage roll and evaluate. If already created, evalute the one we've been given instead
         const roll = await (() => {
             const damage = data.damage;
-            const allowInteractive = context.rollMode !== "blindroll";
+            const allowInteractive = context.messageMode !== "blind";
             if (damage.roll) return damage.roll.evaluate({ allowInteractive });
 
             const formula = fu.deepClone(damage.formula[outcome ?? "success"]);
             if (!formula) {
-                ui.notifications.error(game.i18n.format("PF2E.UI.noDamageInfoForOutcome", { outcome }));
+                ui.notifications.error(_loc("PF2E.UI.noDamageInfoForOutcome", { outcome }));
                 return null;
             }
 
@@ -240,7 +240,7 @@ export class DamagePF2e {
             mapIncreases: context.mapIncreases,
             notes: notes.map((n) => n.toObject()),
             secret: context.secret ?? false,
-            rollMode: context.rollMode,
+            messageMode: context.messageMode,
             traits: context.traits ?? [],
             skipDialog: context.skipDialog ?? !game.user.settings.showDamageDialogs,
             outcome,
@@ -284,12 +284,10 @@ export class DamagePF2e {
 
         if (context.createMessage) {
             messageData.rolls.push(...splashRolls);
-            await ChatMessagePF2e.create(messageData, { rollMode: context.rollMode });
+            await ChatMessagePF2e.create(messageData, { messageMode: context.messageMode });
         }
-
         Hooks.callAll(`pf2e.damageRoll`, roll);
         if (callback) callback(roll);
-
         return roll;
     }
 }

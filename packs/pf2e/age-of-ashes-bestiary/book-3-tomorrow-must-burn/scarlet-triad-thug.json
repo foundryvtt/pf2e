@@ -571,14 +571,25 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The thug has manacles in hand and is next to a creature.</p>\n<hr />\n<p><strong>Effect</strong> The thug attempts to bind the creature's wrists or ankles with the manacles. The thug must succeed at an attack roll with a [[/r 1d20+18 #Manacles]]{+18} modifier against the target's AC.</p>"
+                    "value": "<p><strong>Requirements</strong> The thug has manacles in hand and is next to a creature.</p>\n<hr />\n<p><strong>Effect</strong> The thug attempts to bind the creature's wrists or ankles with the manacles. The thug must succeed at an attack roll with a @Check[efficient-capture|against:ac]{+18} modifier against the target's AC.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "SpecialStatistic",
+                        "slug": "efficient-capture",
+                        "type": "attack-roll"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "efficient-capture-attack-roll",
+                        "value": 18
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

@@ -98,10 +98,9 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
         // In case this was copied from an actor, clear any active frequency value
         if (!this.parent) {
             if (this._source.system.frequency) {
-                this.updateSource({ "system.frequency.-=value": null });
+                this.updateSource({ "system.frequency.value": _del });
             }
         }
-
         return super._preCreate(data, options, user);
     }
 

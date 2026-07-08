@@ -9,5 +9,5 @@ import DetectionMode from "../detection-mode.mjs";
 export default class DetectionModeTremor extends DetectionMode {
     static override getDetectionFilter(): OutlineOverlayFilter;
 
-    protected override _canDetect(visionSource: PointVisionSource<Token>, target: PlaceableObject): boolean;
+    protected _canDetect(visionSource: PointVisionSource<Token>, target: PlaceableObject): boolean;
 }

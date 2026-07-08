@@ -1,4 +1,5 @@
 <template>
+    {{#if user.isGM}}
     <div class="form-group">
         <label>{{localize "PF2E.SETTINGS.DeathIcon.Name"}}</label>
         <div class="form-fields">
@@ -15,4 +16,5 @@
         </div>
         <p class="hint">{{localize "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Hint"}}</p>
     </div>
+    {{/if}}
 </template>

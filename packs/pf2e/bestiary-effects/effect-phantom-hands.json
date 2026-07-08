@@ -1,0 +1,93 @@
+{
+    "_id": "aBtlxHM9ChGywyrH",
+    "img": "icons/magic/death/hand-withered-gray.webp",
+    "name": "Effect: Phantom Hands",
+    "system": {
+        "description": {
+            "value": "<p>You take a –2 status penalty to your initiative</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventures: Troubles in Grayce"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "phantom-hands"
+            },
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": [
+                    "phantom-hands:success"
+                ],
+                "selector": [
+                    "initiative"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "or": [
+                            "phantom-hands:critical-failure",
+                            "phantom-hands:failure"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized"
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    "phantom-hands:critical-failure",
+                    "action:escape"
+                ],
+                "selector": [
+                    "skill-check",
+                    "unarmed-attack-roll"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

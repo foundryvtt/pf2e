@@ -33,7 +33,7 @@ export const I18nInit = {
                             const locPath = RuleClass.LOCALIZATION_PREFIXES.map(
                                 (p) => `${p}.FIELDS.${key}.choices.${choice}`,
                             ).find((t) => game.i18n.has(t));
-                            return locPath ? [choice, game.i18n.localize(locPath)] : [choice, choice];
+                            return locPath ? [choice, _loc(locPath)] : [choice, choice];
                         });
                     }
                 }

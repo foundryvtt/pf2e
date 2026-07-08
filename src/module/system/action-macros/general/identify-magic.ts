@@ -13,7 +13,7 @@ class IdentifyMagicActionVariant extends SingleCheckActionVariant {
         options: Partial<SingleCheckActionUseOptions> & { statistic: string },
     ): Promise<CheckResultCallback[]> {
         if (!options?.statistic) {
-            return Promise.reject(game.i18n.localize(`${PREFIX}.Warning.NoStatistic`));
+            return Promise.reject(_loc(`${PREFIX}.Warning.NoStatistic`));
         }
         const rollOption = `action:identify-magic:${options.statistic}`;
         options.rollOptions ??= [];

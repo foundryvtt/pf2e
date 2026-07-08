@@ -38,6 +38,34 @@
                 "mode": "add",
                 "path": "flags.system.hellknightArchetype.featCount",
                 "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "armor:category:heavy",
+                    {
+                        "gte": [
+                            "attribute:str:mod",
+                            "armor:strength"
+                        ]
+                    }
+                ],
+                "selector": "land-speed",
+                "slug": "armor-speed-penalty",
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "armor:category:heavy",
+                    "feat:unburdened-iron",
+                    "self:ancestry:dwarf"
+                ],
+                "selector": "land-speed",
+                "slug": "hellknight-mobility",
+                "type": "untyped",
+                "value": 5
             }
         ],
         "traits": {

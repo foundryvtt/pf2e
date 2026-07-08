@@ -1,10 +1,10 @@
 {
     "_id": "f8HuM5Ar6SSHNHBx",
-    "img": "systems/pf2e/icons/spells/electric-arc.webp",
+    "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
     "name": "Effect: Elemental Field",
     "system": {
         "description": {
-            "value": ""
+            "value": "<p>You take a –1 status penalty to saves against electricity spells.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -24,7 +24,8 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "electricity"
+                    "item:trait:electricity",
+                    "item:type:spell"
                 ],
                 "selector": "saving-throw",
                 "type": "status",

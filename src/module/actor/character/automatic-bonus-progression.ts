@@ -97,7 +97,7 @@ class AutomaticBonusProgression {
 
             if (attack > 0) {
                 const potency: PotencySynthetic = {
-                    label: game.i18n.localize("PF2E.AutomaticBonusProgression.attackPotency"),
+                    label: _loc("PF2E.AutomaticBonusProgression.attackPotency"),
                     type: "potency",
                     bonus: attack,
                     predicate: new Predicate(),

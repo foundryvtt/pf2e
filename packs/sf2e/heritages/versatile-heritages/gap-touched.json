@@ -6,7 +6,7 @@
     "system": {
         "ancestry": null,
         "description": {
-            "value": "<p>While the Gap is often used as a reference to the moment in which Golarion disappeared and the universe collectively forgot all memories associated with the now lost planet, the term more accurately refers to the unknown period of history that culminated in that event, of which most memories and records are scrambled or otherwise lost. Gap-touched individuals possess an innate connection to this period of time and the phenomenon that severed it from everyone's memories. Whether they have some unknown connection to the truth or were permanently changed upon understanding this universally censored secret, these individuals are fated to live as enigmas defined by an amnesiac existence.</p>"
+            "value": "<p>The Gap has subsumed some part of you and left you with weird powers and jarring existential issues, while giving you a unique ability to perceive the history obscured by the Gap. You gain the Gap-touched trait, in addition to the traits from your ancestry. You can choose from Gap-touched feats and feats from your ancestry whenever you gain an ancestry feat. You gain the @UUID[Compendium.sf2e.feats.Item.Additional Lore] general feat for Gap Lore. You gain a +1 circumstance bonus to saving throws against mental effects.</p>"
         },
         "publication": {
             "license": "ORC",
@@ -34,11 +34,28 @@
                     ],
                     "value": "mental"
                 }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:mental"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.sf2e.feats.Item.Additional Lore"
             }
         ],
         "traits": {
             "rarity": "common",
-            "value": []
+            "value": [
+                "gap-touched"
+            ]
         }
     },
     "type": "heritage"

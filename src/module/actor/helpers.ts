@@ -391,6 +391,7 @@ function getAttackDamageDomains(
     const unarmedOrWeapon = traits.includes("unarmed") ? "unarmed" : "weapon";
     const domains = [
         `${weapon.id}-damage`,
+        `${weapon.id}-${meleeOrRanged}-damage`,
         `${slug}-damage`,
         `${meleeOrRanged}-${action}-damage`,
         `${meleeOrRanged}-damage`,
@@ -491,9 +492,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     const attackSlug = item.slug ?? sluggify(item.name);
     const statistic = new StatisticModifier(attackSlug, modifiers, initialRollOptions);
 
-    const actionTraits: AbilityTrait[] = (
-        ["attack", item.baseType === "alchemical-bomb" ? "manipulate" : null] as const
-    ).filter(R.isTruthy);
+    const actionTraits: AbilityTrait[] = ["attack"];
     const strikeAdjustments = [
         actor.synthetics.strikeAdjustments,
         getPropertyRuneStrikeAdjustments(item.system.runes.property),
@@ -540,23 +539,24 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         });
     };
 
-    const labels = [`${game.i18n.localize("PF2E.WeaponStrikeLabel")} ${signedInteger(strike.totalModifier)}`];
+    const labels = [{ penalty: 0, label: `${_loc("PF2E.WeaponStrikeLabel")} ${signedInteger(strike.totalModifier)}` }];
     if (item.system.subjectToMAP) {
         labels.push(
             ...(["map1", "map2"] as const).map((prop) => {
                 const penalty = createMAPenalty(prop);
                 penalty.applyAdjustments({ rollOptions: baseOptions });
                 const penaltyValue = penalty.ignored ? 0 : penalty.value;
-                return game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                const label = _loc("PF2E.MAPAbbreviationValueLabel", {
                     value: signedInteger(strike.totalModifier + penaltyValue),
                     penalty: penaltyValue,
                 });
+                return { penalty: penaltyValue, label };
             }),
         );
     }
     const penalties = item.system.subjectToMAP ? [null, ...(["map1", "map2"] as const).map(createMAPenalty)] : [null];
     strike.variants = penalties.map((map, mapIncreases) => ({
-        label: labels[mapIncreases],
+        ...labels[mapIncreases],
         roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
             params.options ??= [];
             // Always add all weapon traits as options
@@ -580,10 +580,9 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 }
             }
 
-            const title = game.i18n.format(
-                item.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
-                { weapon: item.name },
-            );
+            const title = _loc(item.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel", {
+                weapon: item.name,
+            });
 
             const attackEffects = actor.isOfType("npc") ? await actor.getAttackEffects(item) : [];
             const notes = [attackEffects, extractNotes(context.origin.actor.synthetics.rollNotes, domains)].flat();
@@ -715,8 +714,8 @@ function areaFireFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCAreaAttack {
         ].flat(),
         variants: [
             {
-                label: game.i18n.format("PF2E.ActionWithDC", {
-                    label: game.i18n.localize(NPC_ATTACK_ACTIONS[action]),
+                label: _loc("PF2E.ActionWithDC", {
+                    label: _loc(NPC_ATTACK_ACTIONS[action]),
                     dc: statistic.dc.value,
                 }),
                 roll: () => {
@@ -807,8 +806,8 @@ function createDamageRollFunctions(
                 damageContext.options.add(`map:increases:${params.mapIncreases}`);
             }
 
+            // Construct damage formulas for display or roll execution
             if (params.getFormula) damageContext.skipDialog = true;
-
             const damage = item.isOfType("melee")
                 ? await WeaponDamagePF2e.fromNPCAttack({
                       attack: item,
@@ -863,8 +862,8 @@ async function createAreaAttackMessage({
     const dc = statistic.dc;
 
     const key = sluggify(action, { camel: "bactrian" });
-    const title = game.i18n.localize(`PF2E.Actions.${key}.Title`);
-    const description = game.i18n.localize(`PF2E.Actions.${key}.Description`);
+    const title = _loc(`PF2E.Actions.${key}.Title`);
+    const description = _loc(`PF2E.Actions.${key}.Description`);
 
     const token = actor.getActiveTokens(false, true).shift();
     const speaker = ChatMessagePF2e.getSpeaker({ actor, token });
@@ -877,14 +876,21 @@ async function createAreaAttackMessage({
     const content = await fa.handlebars.renderTemplate(`systems/${SYSTEM_ID}/templates/chat/action/area-fire.hbs`, {
         actor,
         description,
-        saveLabel: game.i18n.format("PF2E.SaveDCLabelBasic", {
+        saveLabel: _loc("PF2E.SaveDCLabelBasic", {
             dc: dc.value,
-            type: game.i18n.localize(CONFIG.PF2E.saves.reflex),
+            type: _loc(CONFIG.PF2E.saves.reflex),
         }),
         areaLabel: createEffectAreaLabel(area),
         saveBreakdown: dc.breakdown,
     });
-    const context: AreaAttackContextFlag = { type: action, area, identifier, domains: dc.domains, options };
+    const context: AreaAttackContextFlag = {
+        type: action,
+        area,
+        identifier,
+        domains: dc.domains,
+        options,
+        dc: R.pick(dc, ["value", "label"]),
+    };
     const flags = { [SYSTEM_ID]: { context, origin: item.getOriginData() } };
     await ChatMessagePF2e.create({ flavor, content, speaker, flags });
 }

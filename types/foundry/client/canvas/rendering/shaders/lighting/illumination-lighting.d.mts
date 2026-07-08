@@ -1,3 +1,5 @@
+import AdaptiveLightingShader from "./base-lighting.mjs";
+
 /**
  * The default coloration shader used by standard rendering and animations.
  * A fragment shader which creates a solid light source.
@@ -5,12 +7,11 @@
 export default class AdaptiveIlluminationShader extends AdaptiveLightingShader {
     /**
      * Memory allocations for the Adaptive Illumination Shader
-     * @type {string}
      */
     static SHADER_HEADER: string;
-    /** @override */
+
     static override fragmentShader: string;
-    /** @inheritDoc */
+
     static defaultUniforms: {
         technique: number;
         shadows: number;
@@ -42,10 +43,9 @@ export default class AdaptiveIlluminationShader extends AdaptiveLightingShader {
         globalLight: boolean;
         globalLightThresholds: number[];
     };
+
     /**
      * Flag whether the illumination shader is currently required.
-     * @type {boolean}
      */
     get isRequired(): boolean;
 }
-import AdaptiveLightingShader from "./base-lighting.mjs";

@@ -6,8 +6,9 @@ declare const ClientBaseCombatantGroup: new <TParent extends Combat | null>(
     ...args: any
 ) => BaseCombatantGroup<TParent> & ClientDocument<TParent>;
 
-interface ClientBaseCombatantGroup<TParent extends Combat | null>
-    extends InstanceType<typeof ClientBaseCombatantGroup<TParent>> {}
+interface ClientBaseCombatantGroup<TParent extends Combat | null> extends InstanceType<
+    typeof ClientBaseCombatantGroup<TParent>
+> {}
 
 /**
  * The client-side CombatantGroup document which extends the common BaseCombatantGroup model.

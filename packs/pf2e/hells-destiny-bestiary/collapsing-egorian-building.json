@@ -1,0 +1,94 @@
+{
+    "_id": "cLP9GGeO3ZxC96OA",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "YB86AkHGHASNucdK",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shake to Pieces",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The Hellfire tornado moves adjacent to the building</p><hr /><p><strong>Effect</strong> The building trembles. The floors of the building and the streets within 30 feet of the building become difficult terrain; creatures on this difficult terrain take a –2 circumstance penalty to attack rolls, AC, and skill checks. The hazard rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Collapsing Egorian Building",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert) to notice cracks forming in the walls of the structure</p>",
+                "value": 35
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Tremors from the changing landscape could cause a building to collapse.</p>",
+            "disable": "<p>@Check[athletics|dc:45] (master), @Check[crafting|dc:45] (master), or @Check[engineering-lore|dc:45] (master) to brace the structure against collapse until the end of the creature's next turn. The DC of the flat check for this round (see Routine) decreases by 4 on a success (or by 8 on a critical success). Decreasing the flat check DC to 0 stabilizes the structure, ending this hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 18
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "<p>The building becomes susceptible to Shake to Pieces again [[/gmr 1d4 #rounds]]{1d4 rounds} after it's stabilized.</p>",
+            "routine": "<p>(1 action) The GM rolls a @Check[flat|dc:11], decreasing the DC as noted above. If the check fails, dust and debris fall within the building and 30 feet around it, providing concealment for 1 round and dealing @Damage[10d6[bludgeoning]] damage to 1d4 randomly chosen targets in the area (@Check[reflex|dc:40|basic] save); a target that critically fails this save is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. If the flat check critically fails, the effect is the same, but damage from the debris increases to 16d6, it affects 2d4 randomly chosen targets, and a creature that critically fails its save is knocked prone and @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the rubble ([[/act escape dc=40]], [[/act force-open dc=44]]).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

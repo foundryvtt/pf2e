@@ -1,10 +1,12 @@
 <script lang="ts">
     import type { DropCanvasItemData } from "@module/canvas/drop-canvas-data.ts";
     import { ItemPF2e, type PhysicalItemPF2e } from "@item";
+    import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { SelectItemRenderContext } from "./select-item.ts";
     import { sluggify } from "@util";
 
-    const { state: data, resolve }: SelectItemRenderContext = $props();
+    const { resolve, getState }: SelectItemRenderContext & SvelteAppProps<SelectItemRenderContext> = $props();
+    const data = $derived(getState());
 
     let selection: PhysicalItemPF2e | null = $state(null);
 
@@ -22,20 +24,18 @@
         const droppedItem = dropData?.type === "Item" ? await ItemPF2e.fromDropData(dropData) : null;
 
         if (!(droppedItem instanceof ItemPF2e)) {
-            ui.notifications.error(game.i18n.localize(`PF2E.Actions.${actionKey}.Error.ItemReferenceMismatch`));
+            ui.notifications.error(_loc(`PF2E.Actions.${actionKey}.Error.ItemReferenceMismatch`));
             return;
         }
 
         if (!droppedItem.isOfType("physical")) {
             const itemName = droppedItem.name ?? "";
-            ui.notifications.warn(
-                game.i18n.format(`PF2E.Actions.${actionKey}.Warning.NotPhysicalItem`, { item: itemName }),
-            );
+            ui.notifications.warn(_loc(`PF2E.Actions.${actionKey}.Warning.NotPhysicalItem`, { item: itemName }));
             return;
         }
 
         if (data.action === "repair" && !(droppedItem.isEmbedded && droppedItem.isOwner)) {
-            ui.notifications.error(game.i18n.localize("DOCUMENT.UsePermissionWarn"));
+            ui.notifications.error(_loc("DOCUMENT.UsePermissionWarn"));
             return;
         }
 
@@ -50,17 +50,17 @@
             <span>{selection.name}</span>
         {:else}
             <img src={placeholderIcon} class="item-icon" alt="" />
-            <span>{game.i18n.localize(`PF2E.Actions.${actionKey}.SelectItemDialog.DropItemZoneLabel`)}</span>
+            <span>{_loc(`PF2E.Actions.${actionKey}.SelectItemDialog.DropItemZoneLabel`)}</span>
         {/if}
     </section>
     <section class="button-panel">
         <button type="button" onclick={() => resolve(selection)} disabled={!selection}>
             <i class="fa-solid fa-fw fa-hammer"></i>
-            {game.i18n.localize(`PF2E.Actions.${actionKey}.SelectItemDialog.${actionKey}ButtonLabel`)}
+            {_loc(`PF2E.Actions.${actionKey}.SelectItemDialog.${actionKey}ButtonLabel`)}
         </button>
         <button type="button" onclick={() => resolve(null)}>
             <i class="fa-solid fa-fw fa-times"></i>
-            {game.i18n.localize(`PF2E.Actions.${actionKey}.SelectItemDialog.CancelButtonLabel`)}
+            {_loc(`PF2E.Actions.${actionKey}.SelectItemDialog.CancelButtonLabel`)}
         </button>
     </section>
 </article>

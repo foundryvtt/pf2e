@@ -1,37 +1,26 @@
 /** A class responsible for recording information about a validation failure. */
 export class DataModelValidationFailure {
-    /**
-     * @param [invalidValue]   The value that failed validation for this field.
-     * @param [fallback]       The value it was replaced by, if any.
-     * @param [dropped]        Whether the value was dropped from some parent collection.
-     * @param [message]        The validation error message.
-     * @param [unresolved]     Whether this failure was unresolved
-     */
-    constructor({
-        invalidValue,
-        fallback,
-        dropped,
-        message,
-        unresolved,
-    }?: {
-        invalidValue?: unknown;
-        fallback?: boolean;
-        dropped?: boolean;
-        message?: string;
-        unresolved?: boolean;
-    });
+    constructor(
+        message?: string,
+        options?: {
+            invalidValue?: unknown;
+            fallbackValue?: unknown;
+            fieldPath?: string;
+            dropped?: boolean;
+            unresolved?: boolean;
+        } & ErrorOptions,
+    );
 
     /** The value that failed validation for this field. */
     invalidValue: unknown;
 
     /** The value it was replaced by, if any. */
-    fallback: unknown;
+    fallbackValue: unknown;
+
+    fieldPath: string | undefined;
 
     /** Whether the value was dropped from some parent collection. */
     dropped: boolean;
-
-    /** The validation error message. */
-    message?: string;
 
     /** If this field contains other fields that are validated as part of its validation, their results are recorded here. */
     fields: Record<string, DataModelValidationFailure>;
@@ -43,28 +32,107 @@ export class DataModelValidationFailure {
     elements: ElementValidationFailure[];
 
     /**
+     * If this field contains a list of elements that are validated as part of its validation, their results are
+     * recorded here.
+     */
+    joint: string | undefined;
+
+    /** The error message. */
+    message: string;
+
+    options: ErrorOptions;
+
+    /**
      * Record whether a validation failure is unresolved.
      * This reports as true if validation for this field or any hierarchically contained field is unresolved.
      * A failure is unresolved if the value was invalid and there was no valid fallback value available.
      */
     unresolved: boolean;
 
-    /** Return this validation failure as an Error object. */
+    /**
+     * Whether this failure contains other sub-failures.
+     */
+    get empty(): boolean;
+
+    /**
+     * Return this validation failure as an Error instance.
+     */
     asError(): DataModelValidationError;
 
-    /** Whether this failure contains other sub-failures. */
-    isEmpty(): boolean;
+    /**
+     * Copy the data of this DataModeValidationFailure to another one.
+     * @param {DataModelValidationFailure} failure
+     */
+    copyTo(failure: DataModelValidationFailure): void;
+
+    /**
+     * Retrieve the leaf node failure that caused this, or a specific sub-failure via a path.
+     * @param key The property key to the failure.
+     *
+     * @example Retrieving a failure.
+     * ```js
+     * const changes = {
+     *   "foo.bar": "validValue",
+     *   "foo.baz": "invalidValue"
+     * };
+     * try {
+     *   doc.validate(expandObject(changes));
+     * } catch ( err ) {
+     *   const failure = err.getFailure("foo.baz");
+     *   console.log(failure.invalidValue); // "invalidValue"
+     * }
+     * ```
+     */
+    getFailure(key?: string): DataModelValidationFailure | null;
+
+    /**
+     * Retrieve a flattened object of all the properties that failed validation as part of this error.
+     *
+     * @example Removing invalid changes from an update delta.
+     * ```js
+     * const changes = {
+     *   "foo.bar": "validValue",
+     *   "foo.baz": "invalidValue"
+     * };
+     * try {
+     *   doc.validate(expandObject(changes));
+     * } catch ( err ) {
+     *   const failures = err.getAllFailures();
+     *   if ( failures ) {
+     *     for ( const prop in failures ) delete changes[prop];
+     *     doc.validate(expandObject(changes));
+     *   }
+     * }
+     * ```
+     */
+    getAllFailures(): Record<string, DataModelValidationFailure>;
 
     /** Return the base properties of this failure, omitting any nested failures. */
     toObject(): {
         invalidValue: unknown;
-        fallback: unknown;
+        fallbackValue: unknown;
         dropped: boolean;
         message: string;
     };
 
-    /** Represent the DataModelValidationFailure as a string. */
+    /* -------------------------------------------- */
+    /*  Formatting Helpers                          */
+    /* -------------------------------------------- */
+
+    /**
+     * Represent the DataModelValidationFailure as a string.
+     */
     toString(): string;
+
+    /**
+     * Log the validation error as a table.
+     */
+    logAsTable(): void;
+
+    /**
+     * Generate a nested tree view of the error as an HTML string.
+     */
+    asHTML(): string;
 }
 
 interface ElementValidationFailure {
@@ -126,9 +194,13 @@ export class DataModelValidationError extends Error {
      */
     getAllFailures(): Record<string, DataModelValidationFailure>;
 
-    /** Log the validation error as a table. */
+    /**
+     * Log the validation error as a table.
+     */
     logAsTable(): void;
 
-    /** Generate a nested tree view of the error as an HTML string. */
+    /**
+     * Generate a nested tree view of the error as an HTML string.
+     */
     asHTML(): string;
 }

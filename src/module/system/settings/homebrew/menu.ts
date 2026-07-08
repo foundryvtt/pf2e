@@ -142,9 +142,9 @@ class HomebrewElements extends SettingsMenuPF2e {
                 type: LanguageSettings,
                 default: {
                     common: DEFAULT_COMMON_LANGUAGE,
-                    uncommon: [...LANGUAGES_BY_RARITY.uncommon],
-                    rare: [...LANGUAGES_BY_RARITY.rare],
-                    secret: [...LANGUAGES_BY_RARITY.secret],
+                    uncommon: [...LANGUAGES_BY_RARITY[SYSTEM_ID].uncommon],
+                    rare: [...LANGUAGES_BY_RARITY[SYSTEM_ID].rare],
+                    secret: [...LANGUAGES_BY_RARITY[SYSTEM_ID].secret],
                     unavailable: [],
                 },
                 onChange: (value) => {

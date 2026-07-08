@@ -21,20 +21,19 @@ import { KitSystemData } from "@item/kit/data.ts";
 import { MeleeSystemData } from "@item/melee/data.ts";
 import { TreasureSystemData } from "@item/treasure/data.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
-import { TradeDialog } from "@module/apps/trade-dialog/app.ts";
+import { TradeDialog } from "@module/apps/trade-dialog/app.svelte.ts";
 import { DoorControlPF2e } from "@module/canvas/door-control.ts";
 import { EnvironmentCanvasGroupPF2e } from "@module/canvas/group/environment.ts";
 import {
-    AmbientLightPF2e,
     EffectsCanvasGroupPF2e,
     LightingLayerPF2e,
-    MeasuredTemplatePF2e,
+    RegionLayerPF2e,
     RegionPF2e,
     RulerPF2e,
-    TemplateLayerPF2e,
+    TokenLayerPF2e,
     TokenPF2e,
 } from "@module/canvas/index.ts";
-import { TokenLayerPF2e } from "@module/canvas/layer/token.ts";
+import { PointVisionSourcePF2e } from "@module/canvas/perception/vision-source.ts";
 import { TerrainDataPF2e } from "@module/canvas/token/movement/terrain-data.ts";
 import { TokenRulerPF2e } from "@module/canvas/token/ruler.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -43,14 +42,11 @@ import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { MacroPF2e } from "@module/macro.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import {
-    AmbientLightDocumentPF2e,
     EnvironmentBehaviorType,
     EnvironmentFeatureBehaviorType,
-    MeasuredTemplateDocumentPF2e,
     RegionBehaviorPF2e,
     RegionDocumentPF2e,
     ScenePF2e,
-    TileDocumentPF2e,
     TokenDocumentPF2e,
 } from "@scene/index.ts";
 import { DifficultTerrainBehaviorType } from "@scene/region-behavior/difficult-terrain.ts";
@@ -74,19 +70,12 @@ export class Load {
         CONFIG.Actor.collection = ActorsPF2e;
         CONFIG.Actor.defaultType = "character";
         CONFIG.Actor.documentClass = ActorProxyPF2e;
-        CONFIG.AmbientLight.documentClass = AmbientLightDocumentPF2e;
-        CONFIG.AmbientLight.objectClass = AmbientLightPF2e;
         CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
         CONFIG.Combat.documentClass = EncounterPF2e;
         CONFIG.Combatant.documentClass = CombatantPF2e;
         CONFIG.Item.defaultType = "action";
         CONFIG.Item.documentClass = ItemProxyPF2e;
         CONFIG.Macro.documentClass = MacroPF2e;
-        CONFIG.MeasuredTemplate.defaults.angle = 90;
-        CONFIG.MeasuredTemplate.defaults.width = 1;
-        CONFIG.MeasuredTemplate.documentClass = MeasuredTemplateDocumentPF2e;
-        CONFIG.MeasuredTemplate.objectClass = MeasuredTemplatePF2e;
-
         CONFIG.Region.documentClass = RegionDocumentPF2e;
         CONFIG.Region.objectClass = RegionPF2e;
         CONFIG.RegionBehavior.dataModels.environment = EnvironmentBehaviorType;
@@ -97,10 +86,7 @@ export class Load {
         CONFIG.RegionBehavior.typeIcons.environmentFeature = "fa-solid fa-wind";
         CONFIG.RegionBehavior.typeLabels.environment = "PF2E.Region.Environment.Label";
         CONFIG.RegionBehavior.typeLabels.environmentFeature = "PF2E.Region.EnvironmentFeature.Label";
-
         CONFIG.Scene.documentClass = ScenePF2e;
-        CONFIG.Tile.documentClass = TileDocumentPF2e;
-
         CONFIG.Token.documentClass = TokenDocumentPF2e;
         CONFIG.Token.movement.TerrainData = TerrainDataPF2e;
         CONFIG.Token.objectClass = TokenPF2e;
@@ -139,9 +125,10 @@ export class Load {
         CONFIG.Canvas.groups.effects.groupClass = EffectsCanvasGroupPF2e;
         CONFIG.Canvas.groups.environment.groupClass = EnvironmentCanvasGroupPF2e;
         CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
-        CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
+        CONFIG.Canvas.layers.regions.layerClass = RegionLayerPF2e;
         CONFIG.Canvas.layers.tokens.layerClass = TokenLayerPF2e;
         CONFIG.Canvas.rulerClass = RulerPF2e;
+        CONFIG.Canvas.visionSourceClass = PointVisionSourcePF2e;
 
         CONFIG.Dice.rolls.push(CheckRoll, StrikeAttackRoll, DamageRoll, DamageInstance);
         for (const TermCls of [ArithmeticExpression, Grouping, InstancePool, IntermediateDie]) {

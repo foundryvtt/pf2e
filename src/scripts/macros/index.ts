@@ -1,4 +1,3 @@
-export { checkPrompt } from "./check-prompt/index.ts";
 export { editPersistent } from "./edit-persistent.ts";
 export { encouragingWords } from "./encouraging-words.ts";
 export { rollActionMacro, rollItemMacro } from "./hotbar.ts";

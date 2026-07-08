@@ -187,6 +187,15 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         );
     }
 
+    /**
+     * The actor-owned item backing this weapon. This may be the weapon itself, its subitem entry if attached to
+     * another item, the original of a clone (alt usages, shield-generated weapons), or the granting item in the
+     * case of a synthetic weapon from a rule element.
+     */
+    get realItem(): ItemPF2e | null {
+        return this.parentItem?.subitems.get(this.id) ?? this.actor?.items.get(this.id) ?? null;
+    }
+
     get ammo(): AmmoPF2e<TParent> | WeaponPF2e<TParent> | null {
         if (!this.system.ammo) return null; // omit if this usage doesn't support ammo
 
@@ -354,7 +363,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
         const reloadValue = (this.system.reload.value ||= null);
         this.system.reload.label = reloadValue
-            ? game.i18n.format("PF2E.Item.Weapon.Reload.LabelN", {
+            ? _loc("PF2E.Item.Weapon.Reload.LabelN", {
                   value: CONFIG.PF2E.weaponReload[reloadValue],
               })
             : null;
@@ -402,7 +411,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         this.system.traits.toggles = new WeaponTraitToggles(this);
 
         // Force a weapon to be melee if it isn't "mandatory ranged" and has a thrown-N trait
-        const mandatoryMelee = !mandatoryRanged && traits.value.some((t) => /^thrown-{1,3}$/.test(t));
+        const mandatoryMelee = !mandatoryRanged && traits.value.some((t) => /^thrown-\d{1,3}$/.test(t));
         if (mandatoryMelee) this.system.range = null;
 
         // Final sweep: remove any non-sensical trait that may throw off later automation
@@ -559,15 +568,19 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     ): Promise<RawItemChatData> {
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
         const chatData = await super.getChatData();
-        const rangeLabel = createActionRangeLabel(this.range);
-        const properties = [CONFIG.PF2E.weaponCategories[this.category], this.system.reload.label, rangeLabel].filter(
-            R.isTruthy,
-        );
-
+        const expendLabel =
+            typeof this.system.expend === "number" && (this.system.expend !== 1 || SYSTEM_ID === "sf2e")
+                ? _loc("PF2E.Item.Weapon.ExpendN", { n: this.system.expend })
+                : null;
         return this.processChatData(htmlOptions, {
             ...chatData,
             traits,
-            properties,
+            properties: [
+                CONFIG.PF2E.weaponCategories[this.category],
+                this.system.reload.label,
+                createActionRangeLabel(this.range),
+                expendLabel,
+            ].filter(R.isTruthy),
         });
     }
 
@@ -582,9 +595,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const baseShieldTypes: Record<string, string | undefined> = CONFIG.PF2E.baseShieldTypes;
         const base = this.baseType ? (baseWeaponTypes[this.baseType] ?? baseShieldTypes[this.baseType] ?? null) : null;
         const group = this.group ? CONFIG.PF2E.weaponGroups[this.group] : null;
-        const itemType = game.i18n.localize(base ?? group ?? "TYPES.Item.weapon");
+        const itemType = _loc(base ?? group ?? "TYPES.Item.weapon");
 
-        return typeOnly ? itemType : game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
+        return typeOnly ? itemType : _loc("PF2E.identification.UnidentifiedItem", { item: itemType });
     }
 
     /**
@@ -920,7 +933,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const updates =
                 this.actor?.itemTypes.melee
                     .filter((a) => a.flags[SYSTEM_ID].linkedWeapon === this.id)
-                    .map((a) => ({ _id: a.id, [`flags.${SYSTEM_ID}.-=linkedWeapon`]: null })) ?? [];
+                    .map((a) => ({ _id: a.id, [`flags.${SYSTEM_ID}.linkedWeapon`]: _del })) ?? [];
             this.actor?.updateEmbeddedDocuments("Item", updates);
         }
     }

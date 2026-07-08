@@ -113,14 +113,6 @@
                     "tyuzt95zhvdfb06uadpw": {
                         "damage": "1d12+9",
                         "damageType": "slashing"
-                    },
-                    "mq6lzbondtqh0k4qjcji": {
-                        "damage": "2d6",
-                        "damageType": "void"
-                    },
-                    "fgmrdwjorb6klds07t9t": {
-                        "damage": "3d6",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -326,14 +318,29 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragonscarred dead's weapon is magically scorched by a dragon's breath. When wielded by the dragonscarred dead who carried it in life, the sword deals an extra @Damage[2d6[void]] damage and @Damage[3d6[fire]] damage. In the hands of any other creature, it is merely a broken greatsword.</p>"
+                    "value": "<p>The dragonscarred dead's weapon is magically scorched by a dragon's breath. When wielded by the dragonscarred dead who carried it in life, the sword deals an extra 2d6 void damage and 3d6 fire damage. In the hands of any other creature, it is merely a broken greatsword.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "void",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "breath-seared-greatsword-damage"
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "breath-seared-greatsword-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -356,7 +363,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragonscarred dead focuses its boundless frustration in a gaze targeting one creature it can see within 30 feet. That creature must attempt a @Check[will|dc:30] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is stunned for [[/gmr 1d4 #rounds]]{1d4 rounds} and is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued].</p>"
+                    "value": "<p>The dragonscarred dead focuses its boundless frustration in a gaze targeting one creature it can see within 30 feet. That creature must attempt a @Check[will|dc:30|options:inflicts:stunned,inflicts:fatigued] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned] for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is stunned for [[/gmr 1d4 #rounds]]{1d4 rounds} and is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued].</p>"
                 },
                 "publication": {
                     "license": "OGL",

@@ -68,8 +68,7 @@ export default class BaseActor<TParent extends BaseToken | null = BaseToken | nu
 }
 
 export default interface BaseActor<TParent extends BaseToken | null = BaseToken | null>
-    extends Document<TParent, ActorSchema>,
-        fields.ModelPropsFromSchema<ActorSchema> {
+    extends Document<TParent, ActorSchema>, fields.ModelPropsFromSchema<ActorSchema> {
     readonly items: EmbeddedCollection<BaseItem<this>>;
     readonly effects: EmbeddedCollection<BaseActiveEffect<this>>;
 

@@ -121,11 +121,11 @@ export class Migration923KineticistRestructure extends MigrationBase {
                 );
             }
 
-            const elementLabel = game.i18n.localize(CONFIG.PF2E.elementTraits[element as ElementTrait]);
+            const elementLabel = _loc(CONFIG.PF2E.elementTraits[element as ElementTrait]);
 
             // Process what happens if the element forks
             if (threshold.choice === "fork") {
-                thresholdItem.name = game.i18n.format("PF2E.SpecificRule.Kineticist.KineticGate.ForkThePath.Rename", {
+                thresholdItem.name = _loc("PF2E.SpecificRule.Kineticist.KineticGate.ForkThePath.Rename", {
                     elementFork: elementLabel,
                 });
 
@@ -156,10 +156,9 @@ export class Migration923KineticistRestructure extends MigrationBase {
 
             // Process what happens if we selected a gate junction
             if (threshold.choice === "expand") {
-                thresholdItem.name = game.i18n.format(
-                    "PF2E.SpecificRule.Kineticist.KineticGate.ExpandThePortal.Rename",
-                    { elementOne: elementLabel },
-                );
+                thresholdItem.name = _loc("PF2E.SpecificRule.Kineticist.KineticGate.ExpandThePortal.Rename", {
+                    elementOne: elementLabel,
+                });
                 this.#setChoice(thresholdItem, "elementOne", element);
 
                 const gateJunctionFeat = await this.#loadFeatSource(this.#gateJunctionFeat);
@@ -169,7 +168,7 @@ export class Migration923KineticistRestructure extends MigrationBase {
                     this.#setChoice(gateJunctionFeat, "junction", threshold.junction);
 
                     if (objectHasKey(JUNCTION_LABELS, threshold.junction)) {
-                        const label = game.i18n.localize(JUNCTION_LABELS[threshold.junction]);
+                        const label = _loc(JUNCTION_LABELS[threshold.junction]);
                         gateJunctionFeat.name += ` (${label})`;
                     }
                 }

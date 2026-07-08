@@ -37,7 +37,7 @@ interface SpellSystemSource extends ItemSystemSource {
     location: {
         value: string | null;
         signature?: boolean;
-        heightenedLevel?: number;
+        heightenedLevel?: OneToTen;
 
         /** The level to heighten this spell to if it's a cantrip or focus spell */
         autoHeightenLevel?: OneToTen | null;

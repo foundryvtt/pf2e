@@ -1,4 +1,3 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import {
     SingleCheckAction,
     SingleCheckActionUseOptions,
@@ -6,10 +5,11 @@ import {
     SingleCheckActionVariantData,
 } from "@actor/actions/index.ts";
 import { CheckResultCallback } from "@system/action-macros/types.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 function decipherWriting(options: SkillActionOptions): void {
     if (!options?.skill) {
-        ui.notifications.warn(game.i18n.localize("PF2E.Actions.DecipherWriting.Warning.NoSkill"));
+        ui.notifications.warn(_loc("PF2E.Actions.DecipherWriting.Warning.NoSkill"));
         return;
     }
     const { skill: slug } = options;
@@ -41,7 +41,7 @@ class DecipherWritingActionVariant extends SingleCheckActionVariant {
         options: Partial<SingleCheckActionUseOptions> & { statistic: string },
     ): Promise<CheckResultCallback[]> {
         if (!options?.statistic) {
-            throw new Error(game.i18n.localize("PF2E.Actions.DecipherWriting.Warning.NoSkill"));
+            throw new Error(_loc("PF2E.Actions.DecipherWriting.Warning.NoSkill"));
         }
         const rollOption = `action:decipher-writing:${options.statistic}`;
         options.rollOptions ??= [];
@@ -84,4 +84,4 @@ class DecipherWritingAction extends SingleCheckAction {
 
 const action = new DecipherWritingAction();
 
-export { decipherWriting as legacy, action };
+export { action, decipherWriting as legacy };

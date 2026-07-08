@@ -77,13 +77,13 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     ): Promise<RawItemChatData> {
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);
         const [category, isUsableItemType] = this.isIdentified
-            ? [game.i18n.localize(CONFIG.PF2E.consumableCategories[this.category]), true]
+            ? [_loc(CONFIG.PF2E.consumableCategories[this.category]), true]
             : [
                   this.generateUnidentifiedName({ typeOnly: true }),
                   !["other", "scroll", "spell-gem", "talisman", "toolkit", "wand"].includes(this.category),
               ];
 
-        const usesLabel = game.i18n.localize("PF2E.Item.Consumable.Uses.Label");
+        const usesLabel = _loc("PF2E.Item.Consumable.Uses.Label");
         const fromFormula = !!rollOptions.fromFormula;
 
         return this.processChatData(htmlOptions, {
@@ -101,7 +101,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             this.traits.has("inhaled") || this.traits.has("contact")
                 ? "PF2E.identification.UnidentifiedType.Substance"
                 : "PF2E.identification.UnidentifiedType.Liquid";
-        const itemType = game.i18n.localize(
+        const itemType = _loc(
             ["drug", "elixir", "mutagen", "oil", "poison", "potion"].includes(this.category)
                 ? liquidOrSubstance()
                 : ["scroll", "snare"].includes(this.category)
@@ -111,7 +111,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
         if (typeOnly) return itemType;
 
-        return game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
+        return _loc("PF2E.identification.UnidentifiedItem", { item: itemType });
     }
 
     override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
@@ -138,7 +138,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 new TrickMagicItemPopup(this);
             } else {
                 const formatParams = { actor: actor.name, spell: this.name };
-                const message = game.i18n.format("PF2E.LackCastConsumableCapability", formatParams);
+                const message = _loc("PF2E.LackCastConsumableCapability", formatParams);
                 ui.notifications.warn(message);
                 return;
             }
@@ -146,7 +146,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             // Announce consumption of other types
             const exhausted = uses.max >= thisMany && uses.value === thisMany;
             const key = exhausted && uses.max > 1 ? "UseExhausted" : uses.max > thisMany ? "UseMulti" : "UseSingle";
-            const content = game.i18n.format(`PF2E.ConsumableMessage.${key}`, {
+            const content = _loc(`PF2E.ConsumableMessage.${key}`, {
                 name: this.name,
                 current: uses.value - thisMany,
             });

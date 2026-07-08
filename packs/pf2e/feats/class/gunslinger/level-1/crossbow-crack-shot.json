@@ -27,7 +27,6 @@
         },
         "rules": [
             {
-                "domain": "damage",
                 "key": "RollOption",
                 "option": "crossbow-crack-shot",
                 "toggleable": true
@@ -36,7 +35,13 @@
                 "damageCategory": "precision",
                 "key": "FlatModifier",
                 "predicate": [
-                    "crossbow-crack-shot"
+                    "crossbow-crack-shot",
+                    {
+                        "nand": [
+                            "item:trait:backstabber",
+                            "target:condition:off-guard"
+                        ]
+                    }
                 ],
                 "selector": "crossbow-weapon-group-damage",
                 "slug": "crossbow-crack-shot-bonus",
@@ -65,6 +70,7 @@
             },
             {
                 "damageCategory": "precision",
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "label": "PF2E.TraitBackstabber",
                 "predicate": [

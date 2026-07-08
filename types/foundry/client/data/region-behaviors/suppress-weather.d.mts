@@ -8,7 +8,8 @@ export default class SuppressWeatherRegionBehaviorType extends RegionBehaviorTyp
 }
 
 export default interface SuppressWeatherRegionBehaviorType
-    extends RegionBehaviorType<SuppressWeatherRegionBehaviorTypeSchema>,
+    extends
+        RegionBehaviorType<SuppressWeatherRegionBehaviorTypeSchema>,
         fields.ModelPropsFromSchema<SuppressWeatherRegionBehaviorTypeSchema> {}
 
 export type SuppressWeatherRegionBehaviorTypeSchema = DataSchema;

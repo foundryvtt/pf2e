@@ -2439,7 +2439,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The dragon's armor glows with a golden light. The dragon gains a +2 status bonus to AC and resistance 15 to acid, cold, electricity, fire, and sonic damage. Each enemy in a @Template[type:emanation|distance:20] must succeed at a @Check[fortitude|dc:36] save or be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled]. All these effects last until the end of the dragon's next turn.</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The dragon's armor glows with a golden light. The dragon gains a +2 status bonus to AC and resistance 15 to acid, cold, electricity, fire, and sonic damage. Each enemy in a @Template[emanation|distance:20] must succeed at a @Check[fortitude|dc:36|options:area-effect,inflicts:dazzled] save or be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled]. All these effects last until the end of the dragon's next turn.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -2489,7 +2489,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@Damage[(3d10+8)[bludgeoning]], @Check[fortitude|dc:36|basic]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
+                    "value": "<p>@Damage[(3d10+8)[bludgeoning]], @Check[fortitude|dc:36|basic|options:inflicts:unconscious]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -2542,9 +2542,6 @@
         },
         {
             "_id": "gVysuocf31WAu1OM",
-            "_stats": {
-                "compendiumSource": "Actor.fHnpW5gLQ63Bakts.Item.gVysuocf31WAu1OM"
-            },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Sovereign's Rebuke",
             "sort": 4200000,
@@ -2719,9 +2716,6 @@
             "diplomacy": {
                 "base": 32,
                 "special": []
-            },
-            "effect": {
-                "base": null
             },
             "intimidation": {
                 "base": 30,

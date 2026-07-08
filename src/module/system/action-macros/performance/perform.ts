@@ -19,7 +19,7 @@ type PerformVariant = keyof typeof PERFORM_VARIANT_TRAITS;
 function perform(options: { variant: PerformVariant } & SkillActionOptions): void {
     const traits = PERFORM_VARIANT_TRAITS[options?.variant ?? ""];
     if (!traits) {
-        const msg = game.i18n.format(`${PREFIX}.Warning.UnknownVariant`, { variant: options.variant });
+        const msg = _loc(`${PREFIX}.Warning.UnknownVariant`, { variant: options.variant });
         ui.notifications.warn(msg);
         return;
     }
@@ -31,7 +31,7 @@ function perform(options: { variant: PerformVariant } & SkillActionOptions): voi
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         actionGlyph: options.glyph ?? "1",
-        title: `${game.i18n.localize(mainTitle)} - ${game.i18n.localize(subtitle)}`,
+        title: `${_loc(mainTitle)} - ${_loc(subtitle)}`,
         checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["concentrate", ...traits].sort(),
         event: options.event,

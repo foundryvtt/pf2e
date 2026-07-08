@@ -7,13 +7,15 @@ declare const CanvasBaseAmbientSound: new <TParent extends Scene | null>(
     ...args: any
 ) => BaseAmbientSound<TParent> & CanvasDocument<TParent>;
 
-interface CanvasBaseAmbientSound<TParent extends Scene | null>
-    extends InstanceType<typeof CanvasBaseAmbientSound<TParent>> {}
+interface CanvasBaseAmbientSound<TParent extends Scene | null> extends InstanceType<
+    typeof CanvasBaseAmbientSound<TParent>
+> {}
 
 export default class AmbientSoundDocument<TParent extends Scene | null> extends CanvasBaseAmbientSound<TParent> {}
 
 export default interface AmbientSoundDocument<TParent extends Scene | null> extends CanvasBaseAmbientSound<TParent> {
     readonly _object: AmbientSound<this> | null;
+    get object(): AmbientSound<this> | null;
 }
 
 export {};

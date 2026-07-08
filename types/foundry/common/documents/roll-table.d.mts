@@ -21,8 +21,7 @@ export default class BaseRollTable extends Document<null, RollTableSchema> {
 }
 
 export default interface BaseRollTable
-    extends Document<null, RollTableSchema>,
-        fields.ModelPropsFromSchema<RollTableSchema> {
+    extends Document<null, RollTableSchema>, fields.ModelPropsFromSchema<RollTableSchema> {
     /** A reference to the Collection of TableResult instances in this document, indexed by _id. */
     readonly results: EmbeddedCollection<BaseTableResult<this>>;
 

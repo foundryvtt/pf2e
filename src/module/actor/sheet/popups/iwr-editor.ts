@@ -43,9 +43,9 @@ class IWREditor<TActor extends ActorPF2e> extends appv1.api.DocumentSheet<TActor
     }
 
     override get title(): string {
-        return game.i18n.format("PF2E.Actor.IWREditor.Title", {
+        return _loc("PF2E.Actor.IWREditor.Title", {
             actor: this.actor.name,
-            category: game.i18n.localize(this.categoryLabel),
+            category: _loc(this.categoryLabel),
         });
     }
 

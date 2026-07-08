@@ -17,7 +17,7 @@ class AmmoSheetPF2e extends PhysicalItemSheetPF2e<AmmoPF2e> {
             R.entries(),
             R.map(([key, data]) => ({
                 value: key,
-                label: game.i18n.localize(data.label),
+                label: _loc(data.label),
                 group: data.weapon ? "Specific Weapon" : undefined,
             })),
             R.sortBy((o) => o.label),

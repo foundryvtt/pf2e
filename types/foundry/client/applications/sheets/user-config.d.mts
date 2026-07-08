@@ -26,6 +26,5 @@ export default interface UserConfig<TDocument extends User> {
 
 export interface UserConfigRenderContext<TUser extends User> extends DocumentSheetRenderContext {
     user: TUser;
-    source: TUser["_source"];
     characterWidget: (...args: unknown[]) => HTMLDivElement;
 }

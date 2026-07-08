@@ -124,7 +124,8 @@ export default class Sound extends EventEmitter {
      */
     get volume(): number | undefined;
 
-    set volume(value);
+    set volume(value: number);
+
     /**
      * The time in seconds at which playback was started.
      */
@@ -150,7 +151,7 @@ export default class Sound extends EventEmitter {
      */
     get loop(): boolean;
 
-    set loop(value);
+    set loop(value: boolean);
 
     /**
      * An internal reference to some object which is managing this Sound instance.

@@ -17,7 +17,7 @@ export default class BiquadFilterEffect extends BiquadFilterNode {
      */
     get intensity(): number;
 
-    set intensity(intensity);
+    set intensity(intensity: number);
 
     /**
      * Update the state of the effect node given the active flag and numeric intensity.

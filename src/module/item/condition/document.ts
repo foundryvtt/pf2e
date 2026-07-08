@@ -91,7 +91,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             .sort((a, b) => a.localeCompare(b, game.i18n.lang))
             .join(", ");
 
-        return list ? game.i18n.format("PF2E.EffectPanel.AppliedBy", { "condition-list": list }) : null;
+        return list ? _loc("PF2E.EffectPanel.AppliedBy", { "condition-list": list }) : null;
     }
 
     /**
@@ -144,14 +144,11 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
                     traits: traits.map((t) => traitSlugToObject(t, CONFIG.PF2E.effectTraits)),
                 });
             })();
-            await roll.toMessage(
-                {
-                    flags: { [SYSTEM_ID]: { origin: { uuid: this.uuid } } },
-                    flavor,
-                    speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
-                },
-                { rollMode: "roll" },
-            );
+            await roll.toMessage({
+                flags: { [SYSTEM_ID]: { origin: { uuid: this.uuid } } },
+                flavor,
+                speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
+            });
         }
     }
 
@@ -163,7 +160,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             const { dc, damageType } = this.system.persistent;
             const result = await new Statistic(this.actor, {
                 slug: "pd-recovery",
-                label: game.i18n.format("PF2E.Item.Condition.PersistentDamage.Chat.RecoverLabel", {
+                label: _loc("PF2E.Item.Condition.PersistentDamage.Chat.RecoverLabel", {
                     name: this.name,
                 }),
                 check: { type: "flat-check" },
@@ -208,9 +205,9 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             const shortFormula = headTerm instanceof Grouping ? headTerm.term.expression : headTerm?.expression;
 
             this.name = shortFormula
-                ? game.i18n.format(localizationKey, {
+                ? _loc(localizationKey, {
                       formula: shortFormula,
-                      damageType: game.i18n.localize(CONFIG.PF2E.damageRollFlavors[damageType] ?? damageType),
+                      damageType: _loc(CONFIG.PF2E.damageRollFlavors[damageType] ?? damageType),
                       dc,
                   })
                 : this.name;

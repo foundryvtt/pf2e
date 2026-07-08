@@ -1,3 +1,4 @@
+import { DataModelUpdateState } from "@common/data/_types.mjs";
 import * as fields from "../data/fields.mjs";
 import {
     DataModelConstructionContext,
@@ -30,7 +31,7 @@ export default abstract class DataModel<
     readonly parent: TParent;
 
     /** The defined and cached Data Schema for all instances of this DataModel. */
-    static _schema: fields.SchemaField<DataSchema> | undefined;
+    static _schema: fields.DataModelSchemaField | undefined;
 
     /** Configure the data model instance before validation and initialization workflows are performed. */
     protected _configure(): void;
@@ -46,11 +47,11 @@ export default abstract class DataModel<
     static defineSchema(): DataSchema;
 
     /** Define the data schema for documents of this type. */
-    static get schema(): fields.SchemaField<DataSchema>;
+    static get schema(): fields.DataModelSchemaField;
 
     /** Define the data schema for this document instance. */
     // PROJECT NOTE: this must be overloaded in an interface merge declaration
-    get schema(): fields.SchemaField<TSchema>;
+    get schema(): fields.DataModelSchemaField<TSchema>;
 
     /** Is the current state of this DataModel invalid? */
     get invalid(): boolean;
@@ -170,6 +171,46 @@ export default abstract class DataModel<
      * @throws An error if the requested data model changes were invalid
      */
     updateSource(changes?: Record<string, unknown>, options?: DataModelUpdateOptions): DeepPartial<this["_source"]>;
+
+    /**
+     * Prepare the state object that is transacted through an updateSource operation.
+     * @param changes New values which should be applied to the data model
+     * @param options Options which determine how the new data is merged
+     * @param _state Data model update state
+     */
+    protected _preUpdateSource(changes: object, options: DataModelUpdateOptions, _state: DataModelUpdateState): void;
+
+    /**
+     * Perform the first step of the DataModel#_updateSource workflow which applies changes to a copy of model source
+     * data and records the resulting diff.
+     * @param copy A mutable copy of model source data
+     * @param changes New values which should be applied to the data model
+     * @param options Options which determine how the new data is merged
+     * @param _state Data cleaning state
+     * @returns The resulting difference applied to source data
+     * @throws {DataModelValidationFailure} A failure if the proposed change is invalid
+     * @protected
+     */
+    protected _updateDiff(
+        copy: object,
+        changes: object,
+        options: DataModelUpdateOptions,
+        _state: DataModelUpdateState,
+    ): object;
+
+    /**
+     * Perform the second step of the DataModel#_updateSource workflow which applies the prepared diff to the model.
+     * @param copy The prepared copy of source data with changes applied
+     * @param diff  The differential changes that were applied to source
+     * @param options Options which determine how the new data is merged
+     * @param _state Data cleaning state which might include instructions for final commit
+     */
+    protected _updateCommit(
+        copy: object,
+        diff: object,
+        options: DataModelUpdateOptions,
+        _state: DataModelUpdateState,
+    ): void;
 
     /* ---------------------------------------- */
     /*  Serialization and Storage               */

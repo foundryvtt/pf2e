@@ -11,7 +11,6 @@ export interface ProseMirrorHistory {
 }
 
 export interface EditorCreateOptions {
-    engine?: "tinymce" | "prosemirror";
     /** A string to uniquely identify this ProseMirror instance. Ignored for a collaborative editor. */
     uuid?: string;
     /** A Document whose content is being edited. Required for collaborative editing and relative

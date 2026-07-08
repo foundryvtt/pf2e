@@ -87,8 +87,8 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
                     const control = htmlQuery<HTMLInputElement>(this.element, "input[name=actorLink]");
                     if (control && control.checked) {
                         control.disabled = true;
-                        const typeLocalization = game.i18n.localize(`TYPES.Actor.${this.actor.type}`);
-                        control.dataset.tooltip = game.i18n.format("PF2E.Token.ActorLinkForced", {
+                        const typeLocalization = _loc(`TYPES.Actor.${this.actor.type}`);
+                        control.dataset.tooltip = _loc("PF2E.Token.ActorLinkForced", {
                             type: typeLocalization,
                         });
                     }
@@ -104,10 +104,10 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
             if (!formGroup) return;
 
             const label = formGroup.querySelector("label");
-            if (label) label.innerText = game.i18n.localize("PF2E.Token.SecretDisposition.Label");
+            if (label) label.innerText = _loc("PF2E.Token.SecretDisposition.Label");
             const pEl = document.createElement("p");
             pEl.className = "hint";
-            pEl.innerText = game.i18n.localize("PF2E.Token.SecretDisposition.Hint");
+            pEl.innerText = _loc("PF2E.Token.SecretDisposition.Hint");
             formGroup.append(pEl);
             const checkbox = document.createElement("input");
             checkbox.type = "checkbox";
@@ -159,7 +159,7 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
             const managedBy = createHTMLElement("button", {
                 classes: ["inline-control", "icon", "fa-solid", "fa-robot"],
                 dataset: { action: "openAutomationSettings", tooltip: true },
-                aria: { label: game.i18n.localize("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy") },
+                aria: { label: _loc("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy") },
             });
             managedBy.type = "button";
             managedBy.disabled = !game.user.isGM;
@@ -218,10 +218,12 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
                     const dimensions = this.actor.dimensions;
                     const width = Math.max(Math.round(dimensions.width / 5), 1);
                     const length = Math.max(Math.round(dimensions.length / 5), 1);
+                    const height = Math.max(Math.round(dimensions.height / 5), 1);
                     submitData["width"] = width;
                     submitData["height"] = length;
+                    submitData["depth"] = height;
                 } else {
-                    submitData["width"] = submitData["height"] = this.dimensionsFromActorSize;
+                    submitData["width"] = submitData["height"] = submitData["depth"] = this.dimensionsFromActorSize;
                 }
             }
         }

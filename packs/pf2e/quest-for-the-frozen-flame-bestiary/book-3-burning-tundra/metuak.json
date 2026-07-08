@@ -634,7 +634,6 @@
                         "evil",
                         "magical",
                         "sweep",
-                        "thrown-10",
                         "unholy"
                     ]
                 }
@@ -642,10 +641,51 @@
             "type": "melee"
         },
         {
+            "_id": "IJvDQ4eDErLOjR7C",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 to All Saves vs. Magic",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "j2duexj816c1b0r7",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Attack of Opportunity",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -675,7 +715,7 @@
             "_id": "kgeefwa7biin6616",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Dual Deny Advantage",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -692,7 +732,12 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "type": "off-guard"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -705,7 +750,7 @@
             "_id": "fao0gebzp7f3sf01",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Axe Master",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -722,7 +767,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:group:axe"
+                        ]
+                    },
+                    {
+                        "definition": [
+                            "item:slug:hatchet"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "grievous"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -735,7 +796,7 @@
             "_id": "8pnzjy6kvncbd15u",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Dual Soul",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -745,7 +806,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A demon named Xeleria is bound to Metuak's soul. Though the two entities share one body and are a single creature for the purpose of both targeted and area effects, Metuak and Xeleria each have 120 Hit Points. Damage to each is tracked separately. Xeleria's HP is reduced by force, good, and vitality damage, and any damage from a cold iron weapon, a weapon with a <em>ghost touch</em> rune, and any damage originating from the <em>Primordial Flame</em>. All other damage reduces Metuak's HP.Metuak and Xeleria must both be reduced to 0 HP for Metuak to die and Xeleria to be destroyed. If, at the beginning of Metuak's turn, either Metuak or Xeleria has been reduced to 0 HP but the other hasn't, Metuak and Xeleria each regain 15 HP.</p>"
+                    "value": "<p>A demon named Xeleria is bound to Metuak's soul. Though the two entities share one body and are a single creature for the purpose of both targeted and area effects, Metuak and Xeleria each have 120 Hit Points. Damage to each is tracked separately. Xeleria's HP is reduced by force, good, and vitality damage, and any damage from a cold iron weapon, a weapon with a <em>ghost touch</em> rune, and any damage originating from the <em>Primordial Flame</em>. All other damage reduces Metuak's HP.</p>\n<p>Metuak and Xeleria must both be reduced to 0 HP for Metuak to die and Xeleria to be destroyed. If, at the beginning of Metuak's turn, either Metuak or Xeleria has been reduced to 0 HP but the other hasn't, Metuak and Xeleria each regain @Damage[15[healing]] HP.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -765,7 +826,7 @@
             "_id": "fwq5lb65bbgin86o",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Shadow Blend",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -798,7 +859,7 @@
             "_id": "3b11d4g60r156uk7",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Soul Swipe",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -828,7 +889,7 @@
             "_id": "uw378c511blkggfl",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Terrifying Howl",
-            "sort": 1600000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -838,7 +899,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Metuak unleashes a terrifying howl, attempting to Demoralize each creature within 30 feet. These creatures are then immune to Terrifying Howl for 1 minute.</p>"
+                    "value": "<p>Metuak unleashes a terrifying howl, attempting to [[/act demoralize options=area-effect]] each creature within @Template[emanation|distance:30]{30 feet}. These creatures are then immune to Terrifying Howl for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -885,10 +946,10 @@
                 "value": 33
             },
             "allSaves": {
-                "value": ""
+                "value": "+1 to all saves vs. magic"
             },
             "hp": {
-                "details": "",
+                "details": "(dual soul; 120 each for Metuak and Xeleria)",
                 "max": 240,
                 "temp": 0,
                 "value": 240
@@ -917,6 +978,7 @@
                     ],
                     "exceptions": [
                         "force",
+                        "ghost-touch",
                         "vitality"
                     ],
                     "type": "all-damage",
@@ -952,9 +1014,9 @@
             ]
         },
         "details": {
-            "blurb": "",
+            "blurb": "Male demon-possessed human hero",
             "languages": {
-                "details": "",
+                "details": "telepathy 100 feet",
                 "value": [
                     "chthonian",
                     "common",

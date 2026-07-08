@@ -1,11 +1,12 @@
 import { DamageDicePF2e, MODIFIER_TYPES, Modifier, applyStackingRules } from "@actor/modifiers.ts";
-import type { RollMode } from "@common/constants.d.mts";
+import type { ChatMessageMode } from "@client/config.d.mts";
 import { DEGREE_OF_SUCCESS, DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import {
     ErrorPF2e,
     fontAwesomeIcon,
     htmlQuery,
     htmlQueryAll,
+    objectHasKey,
     setHasElement,
     sluggify,
     sortStringRecord,
@@ -61,15 +62,13 @@ class DamageModifierDialog extends fav1.api.Application {
             template: `systems/${SYSTEM_ID}/templates/chat/damage/damage-modifier-dialog.hbs`,
             classes: ["roll-modifiers-dialog", "damage-dialog", "dialog"],
             popOut: true,
-            width: 440,
+            width: 420,
             height: "auto",
         };
     }
 
     override get title(): string {
-        return this.isCritical
-            ? game.i18n.localize("PF2E.Roll.Dialog.Damage.TitleCritical")
-            : game.i18n.localize("PF2E.Roll.Dialog.Damage.Title");
+        return this.isCritical ? _loc("PF2E.Roll.Dialog.Damage.TitleCritical") : _loc("PF2E.Roll.Dialog.Damage.Title");
     }
 
     get isCritical(): boolean {
@@ -102,16 +101,16 @@ class DamageModifierDialog extends fav1.api.Application {
 
     #getTypeLabel(damageType: DamageType | null, category: DamageCategoryUnique | null): string | null {
         if (category === "precision") {
-            return game.i18n.localize("PF2E.Damage.Precision");
+            return _loc("PF2E.Damage.Precision");
         }
         if (!damageType) return null;
-        const typeLabel = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType]);
+        const typeLabel = _loc(CONFIG.PF2E.damageTypes[damageType]);
 
         switch (category) {
             case "persistent":
-                return game.i18n.format("PF2E.Damage.PersistentTooltip", { damageType: typeLabel });
+                return _loc("PF2E.Damage.PersistentTooltip", { damageType: typeLabel });
             case "splash":
-                return game.i18n.format("PF2E.Roll.Dialog.Damage.Splash", { damageType: typeLabel });
+                return _loc("PF2E.Roll.Dialog.Damage.Splash", { damageType: typeLabel });
             default:
                 return typeLabel;
         }
@@ -197,8 +196,8 @@ class DamageModifierDialog extends fav1.api.Application {
             isCritical: this.isCritical,
             damageTypes: sortStringRecord(CONFIG.PF2E.damageTypes),
             damageSubtypes: sortStringRecord(R.pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE)),
-            rollModes: CONFIG.Dice.rollModes,
-            rollMode: this.context?.rollMode ?? game.settings.get("core", "rollMode"),
+            messageModes: CONFIG.ChatMessage.modes,
+            messageMode: this.context?.messageMode ?? game.settings.get("core", "messageMode"),
             showDamageDialogs: game.user.settings.showDamageDialogs,
             formula: formulaTemplate,
         };
@@ -206,8 +205,8 @@ class DamageModifierDialog extends fav1.api.Application {
 
     override activateListeners($html: JQuery): void {
         const html = $html[0];
-
-        htmlQuery<HTMLButtonElement>(html, "button.roll")?.addEventListener("click", () => {
+        html.addEventListener("submit", (event) => {
+            event.preventDefault();
             this.isRolled = true;
             this.close();
         });
@@ -242,10 +241,23 @@ class DamageModifierDialog extends fav1.api.Application {
             }
         });
 
-        const addModifierButton = htmlQuery<HTMLButtonElement>(html, "button.add-modifier");
+        // Restrict manual entry to a signed integer: a leading +/- followed by digits.
+        const modifierValueInput = html.querySelector<HTMLInputElement>(".add-modifier-value");
+        modifierValueInput?.addEventListener("beforeinput", (event) => {
+            if (!(event instanceof InputEvent) || event.data === null) return;
+            const input = event.currentTarget as HTMLInputElement;
+            const newValue =
+                input.value.slice(0, input.selectionStart ?? 0) +
+                event.data +
+                input.value.slice(input.selectionEnd ?? input.value.length);
+            if (!/^[+-]?\d*$/.test(newValue)) event.preventDefault();
+        });
+
+        const addModifierButton = html.querySelector("button.add-modifier");
         addModifierButton?.addEventListener("click", () => {
             const parent = addModifierButton.parentElement as HTMLDivElement;
-            const value = Number(parent.querySelector<HTMLInputElement>(".add-modifier-value")?.value || 1);
+            const valueInput = parent.querySelector<HTMLInputElement>(".add-modifier-value");
+            const value = Number(valueInput?.value || 1);
             const type = String(parent.querySelector<HTMLSelectElement>(".add-modifier-type")?.value);
             const damageType = (parent.querySelector<HTMLSelectElement>(".add-modifier-damage-type")?.value ??
                 null) as DamageType;
@@ -265,7 +277,7 @@ class DamageModifierDialog extends fav1.api.Application {
 
             const label =
                 String(parent.querySelector<HTMLInputElement>(".add-modifier-name")?.value).trim() ||
-                game.i18n.localize(value < 0 ? `PF2E.PenaltyLabel.${type}` : `PF2E.BonusLabel.${type}`);
+                _loc(value < 0 ? `PF2E.PenaltyLabel.${type}` : `PF2E.BonusLabel.${type}`);
 
             if (errors.length > 0) {
                 ui.notifications.error(errors.join(" "));
@@ -305,7 +317,7 @@ class DamageModifierDialog extends fav1.api.Application {
             }
             const label =
                 String(parent.querySelector<HTMLInputElement>(".add-dice-name")?.value).trim() ||
-                game.i18n.format("PF2E.Roll.Dialog.Damage.ExtraDice");
+                _loc("PF2E.Roll.Dialog.Damage.ExtraDice");
             const slug = sluggify(`${label}-${type}`);
             this.formulaData.dice.push(
                 new DamageDicePF2e({
@@ -321,13 +333,11 @@ class DamageModifierDialog extends fav1.api.Application {
             this.render();
         });
 
-        const rollModeInput = htmlQuery<HTMLSelectElement>(html, "select[name=rollmode]");
-        rollModeInput?.addEventListener("change", () => {
-            const rollMode = rollModeInput.value;
-            if (!tupleHasValue(Object.values(CONST.DICE_ROLL_MODES), rollMode)) {
-                throw ErrorPF2e("Unexpected roll mode");
-            }
-            this.context.rollMode = rollMode;
+        const modeInputInput = htmlQuery<HTMLSelectElement>(html, "select[name=messageMode]");
+        modeInputInput?.addEventListener("change", () => {
+            const mode = modeInputInput.value;
+            if (!objectHasKey(CONFIG.ChatMessage.modes, mode)) throw ErrorPF2e("Unexpected message-visibility mode");
+            this.context.messageMode = mode;
         });
 
         // Toggle show dialog default
@@ -356,12 +366,10 @@ class DamageModifierDialog extends fav1.api.Application {
         super.close(options);
     }
 
-    /** Overriden to add some additional first-render behavior */
+    /** Focus the submit button to allow for submission via spacebar press. */
     protected override _injectHTML($html: JQuery<HTMLElement>): void {
         super._injectHTML($html);
-
-        // Since this is an initial render, focus the roll button
-        $html[0]?.querySelector<HTMLElement>("button.roll")?.focus();
+        $html[0]?.querySelector<HTMLButtonElement>("button[type=submit]")?.focus();
     }
 }
 
@@ -401,8 +409,8 @@ interface DamageDialogData {
     isCritical: boolean;
     damageTypes: typeof CONFIG.PF2E.damageTypes;
     damageSubtypes: Pick<ConfigPF2e["PF2E"]["damageCategories"], DamageCategoryUnique>;
-    rollModes: Record<RollMode, string>;
-    rollMode: RollMode | "roll" | undefined;
+    messageModes: Record<ChatMessageMode, { label: string }>;
+    messageMode: ChatMessageMode;
     showDamageDialogs: boolean;
     formula: string;
 }

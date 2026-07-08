@@ -42,8 +42,8 @@ function coerceToSpellGroupId(value: unknown): SpellSlotGroupId | null {
 /** Returns the label for a rank header, such as "1st Rank" */
 function getSpellRankLabel(group: "cantrips" | number): string {
     return group === 0 || group === "cantrips"
-        ? game.i18n.localize("PF2E.Actor.Creature.Spellcasting.Cantrips")
-        : game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(group) });
+        ? _loc("PF2E.Actor.Creature.Spellcasting.Cantrips")
+        : _loc("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(group) });
 }
 
 export { coerceToSpellGroupId, createCounteractStatistic, getSpellRankLabel, spellSlotGroupIdToNumber };

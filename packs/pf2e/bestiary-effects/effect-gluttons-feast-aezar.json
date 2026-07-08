@@ -1,0 +1,49 @@
+{
+    "_id": "LWFDNwi3iJuf476A",
+    "img": "icons/consumables/meat/hock-leg-stylized.webp",
+    "name": "Effect: Glutton's Feast (Aezar)",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "labels": null,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "(@actor.flags.system.gluttonsFeast)d6"
+        },
+        "description": {
+            "value": "<p>You gain temporary Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventures: Troubles in Grayce"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

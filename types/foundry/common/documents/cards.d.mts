@@ -1,4 +1,4 @@
-import { DocumentOwnershipLevel, DocumentOwnershipString, ImageFilePath, VideoFilePath } from "@common/constants.mjs";
+import { DocumentOwnershipLevel, ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import * as abstract from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseCard, BaseFolder, BaseUser } from "./_module.mjs";
@@ -27,14 +27,13 @@ export default class BaseCards extends abstract.Document<null, CardsSchema> {
 
     override testUserPermission(
         user: BaseUser,
-        permission: DocumentOwnershipString | DocumentOwnershipLevel,
+        permission: DocumentOwnershipLevel,
         { exact }?: { exact?: boolean },
     ): boolean;
 }
 
 export default interface BaseCards
-    extends abstract.Document<null, CardsSchema>,
-        fields.ModelPropsFromSchema<CardsSchema> {
+    extends abstract.Document<null, CardsSchema>, fields.ModelPropsFromSchema<CardsSchema> {
     get documentName(): CardsMetadata["name"];
 }
 

@@ -61,7 +61,7 @@ export default class User extends ClientBaseUser {
      */
     get lastActivityTime(): number;
 
-    set lastActivityTime(timestamp);
+    set lastActivityTime(timestamp: number);
 
     override prepareDerivedData(): void;
 

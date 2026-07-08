@@ -1,0 +1,192 @@
+{
+    "_id": "P1qqKvHeBahnY6dd",
+    "folder": "bFbCwH6VsVfx4HlL",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Q2fClyrmWA6IbGRP",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Awaken",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature tries to remove any items from area <strong>B15</strong></p><hr /><p><strong>Effect</strong> The door to the room locks, and the mannequins all lurch toward the triggering creature, Striding up to 15 feet, then roll initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ApKOc4SfPmKQBUwI",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Mannequin Fist",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "foB4QrB3H9vVcbsv": {
+                        "damage": "1d8+7",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Ubj4L8cxHEFFjdnZ",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Flung Trinket",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 16
+                },
+                "damageRolls": {
+                    "E5MFXhbeZFmDepcP": {
+                        "damage": "1d4+7",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 30,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Missy Moon Mannequins",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 20
+            },
+            "emitsSound": "encounter",
+            "hardness": 5,
+            "hp": {
+                "details": "(per mannequin)",
+                "max": 25,
+                "temp": 0,
+                "value": 25
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 12
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>Three Missy Moon mannequins spring to life, animated by a supernatural force.</p>",
+            "disable": "<p>@Check[thievery|dc:18] (trained) three times to unlock the doors or @Check[religion|dc:22] (trained) to exorcise a spirit from one mannequin</p>",
+            "isComplex": true,
+            "level": {
+                "value": 4
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Tales From the Vast"
+            },
+            "reset": "<p>The mannequins freeze in place as soon as there is no life within the room, resetting the haunt.</p>",
+            "routine": "<p>(9 actions) Each of the mannequins uses three of the haunt's actions on each turn, and the haunt loses three actions each turn for every disabled or destroyed mannequin. Each mannequin uses its first action to Stride up to 15 feet and spends its remaining two actions making mannequin fist or flung trinket Strikes. Each mannequin has its own separate multiple attack penalty.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 9
+            },
+            "reflex": {
+                "value": 15
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

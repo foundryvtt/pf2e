@@ -1,29 +1,26 @@
 // @ts-check
 
 import json from "@eslint/json";
-import ts from "@typescript-eslint/eslint-plugin";
-import jest from "eslint-plugin-jest";
+import js from "@eslint/js";
+import { defineConfig } from "eslint/config";
 import prettier from "eslint-plugin-prettier";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-export default tseslint.config(
+export default defineConfig(
     { ignores: ["dist/**/*", "packs/**/*", "static/lib/**/*", "*.mjs"] },
-    { plugins: { jest, prettier, json, "@typescript-eslint": ts } },
+    { plugins: { prettier, json } },
     {
-        files: ["**/*.ts"],
+        files: ["**/*.ts", "**/*.mts"],
+        extends: [js.configs.recommended, tseslint.configs.recommended],
         languageOptions: {
-            globals: {
-                ...globals.browser,
-                ...jest.environments.globals.globals,
-            },
-            ecmaVersion: 2023,
+            globals: globals.browser,
+            ecmaVersion: 2024,
             sourceType: "module",
-            parser: tseslint.parser,
             parserOptions: { project: "./tsconfig.json" },
         },
         rules: {
-            ...ts.configs["recommended"].rules,
+            curly: ["error", "multi-line", "consistent"],
             eqeqeq: "error",
             "prettier/prettier": "error",
             "no-console": "off",
@@ -51,6 +48,17 @@ export default tseslint.config(
                     varsIgnorePattern: "^_[A-Z]", // Use only with type parameters
                 },
             ],
+        },
+    },
+    {
+        files: ["types/foundry/**/*.mts"],
+        languageOptions: {
+            ecmaVersion: 2024,
+            parserOptions: { project: "types/foundry/tsconfig.json" },
+        },
+        rules: {
+            "@typescript-eslint/no-explicit-any": "off",
+            "@typescript-eslint/no-unsafe-function-type": "off",
         },
     },
     {

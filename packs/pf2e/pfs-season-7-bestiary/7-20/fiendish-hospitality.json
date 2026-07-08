@@ -1,0 +1,184 @@
+{
+    "_id": "dj5BdvEr3zt2XCJ8",
+    "folder": "Mx4faYWHJrMFlPmk",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "tKJccmRPwKztcY9i",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Ordered Escort",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A non-devil triggers or disables the slamming door hazard</p><hr /><p><strong>Effect</strong> The statue takes on the visage of a handmaiden devil as a wave of unholy energy washes over the courtyard. Each creature in the courtyard must succeed at a @Check[will|dc:17|options:area-effect,inflicts:slowed] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as it remains in the courtyard. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "mental",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EeQXWpYeKCuoKeTA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Handmaiden's Command",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The statue emits a supernaturally compelling command. Each creature in the courtyard must make a @Check[will|dc:17|options:area-effect,forced-movement] save, with results below.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is pulled 5 feet toward the statue.</p>\n<p><strong>Critical Failure</strong> The creature is pulled 5 feet toward the statue and must spend the first action on its next turn making a Step toward the statue.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "divine",
+                        "mental",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IEUouhR5KKH1BzG0",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Stony Tentacle",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "EIcMZ4Vd47HtOmRR": {
+                        "damage": "1d6+3",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "reach-15"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Fiendish Hospitality",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "emitsSound": "encounter",
+            "hardness": 5,
+            "hp": {
+                "details": "",
+                "max": 24,
+                "temp": 0,
+                "value": 24
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 7
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A haunting voice from the statue of a woman in servant's garb calls out to those in sight, welcoming them to stay. The statue then changes to the image of a gylou devil.</p>",
+            "disable": "<p>@Check[religion|dc:14] (trained) to disrupt the unholy energy projecting from the statue, @Check[athletics|dc:17] to knock the statue off balance Three total successes using either skill disables the hazard.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #7-20: The Strings of Hell"
+            },
+            "reset": "<p>The statue returns to its human visage once no creatures are in the courtyard and it resets after [[/gmr 1d4+1]] rounds. Until it resets, a creature can destroy the statue with a @Check[athletics|dc:16] check, permanently disabling the hazard.</p>",
+            "routine": "<p>(two actions) For its first action, the statue uses handmaiden's command. With its second action, it makes a stony tentacle Strike at the closest target within range; if there are no targets, the trap instead uses handmaiden's command again.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 10
+            },
+            "reflex": {
+                "value": 4
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

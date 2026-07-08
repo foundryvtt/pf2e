@@ -9,19 +9,21 @@ import type { CheckModifier, Modifier, ModifierType, StatisticModifier } from "@
 import type { SettingConfig } from "@client/_types.d.mts";
 import type Hotbar from "@client/applications/ui/hotbar.d.mts";
 import type Config from "@client/config.d.mts";
+import type { ChatMessageMode } from "@client/config.d.mts";
 import type WallDocument from "@client/documents/wall.d.mts";
 import type { FoundryUI } from "@client/ui.d.mts";
 import type { CompendiumUUID } from "@client/utils/_module.d.mts";
-import type { ImageFilePath, RollMode, UserRole } from "@common/constants.d.mts";
+import type { ImageFilePath, UserRole } from "@common/constants.d.mts";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { ConditionSource } from "@item/condition/data.ts";
 import type { Coins } from "@item/physical/helpers.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { checkPrompt } from "@module/apps/check-prompt-generator.ts";
 import type {
     CompendiumBrowser,
     CompendiumBrowserSettings,
     CompendiumBrowserSources,
-} from "@module/apps/compendium-browser/browser.ts";
+} from "@module/apps/compendium-browser/browser.svelte.ts";
 import type { EffectsPanel } from "@module/apps/effects-panel.ts";
 import type {
     ActorDirectoryPF2e,
@@ -39,20 +41,11 @@ import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import type { MacroPF2e } from "@module/macro.ts";
 import type { RuleElement, RuleElements } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
-import type {
-    AmbientLightDocumentPF2e,
-    MeasuredTemplateDocumentPF2e,
-    RegionBehaviorPF2e,
-    RegionDocumentPF2e,
-    ScenePF2e,
-    TileDocumentPF2e,
-    TokenDocumentPF2e,
-} from "@scene";
+import type { RegionBehaviorPF2e, RegionDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from "@scene";
 import type { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config/index.ts";
 import type { DicePF2e } from "@scripts/dice.ts";
 import type {
     calculateXP,
-    checkPrompt,
     editPersistent,
     launchTravelSheet,
     perceptionForSelected,
@@ -84,7 +77,7 @@ interface ClientSettingsPF2e extends fh.ClientSettings {
     get(scope: "core", key: "compendiumConfiguration"): Record<string, { private: boolean; locked: boolean }>;
     get(scope: "core", key: "fontSize"): number;
     get(scope: "core", key: "noCanvas"): boolean;
-    get(scope: "core", key: "rollMode"): RollMode;
+    get(scope: "core", key: "messageMode"): ChatMessageMode;
     get(scope: "core", key: "uiConfig"): { colorScheme: { applications: string; interface: string }; uiScale: number };
     get(scope: SystemId, setting: "automation.actorsDeadAtZero"): "neither" | "npcsOnly" | "pcsOnly" | "both";
     get(scope: SystemId, setting: "automation.encumbrance"): boolean;
@@ -279,7 +272,7 @@ interface GamePF2e extends Game<
 }
 
 type ConfiguredConfig = Config<
-    AmbientLightDocumentPF2e<ScenePF2e | null>,
+    AmbientLightDocument<ScenePF2e | null>,
     ActiveEffectPF2e<ActorPF2e | ItemPF2e | null>,
     ActorPF2e,
     ActorDelta<TokenDocumentPF2e>,
@@ -292,10 +285,9 @@ type ConfiguredConfig = Config<
     Hotbar<MacroPF2e>,
     ItemPF2e,
     MacroPF2e,
-    MeasuredTemplateDocumentPF2e,
     RegionDocumentPF2e,
     RegionBehaviorPF2e,
-    TileDocumentPF2e,
+    fd.TileDocument<ScenePF2e | null>,
     TokenDocumentPF2e,
     WallDocument<ScenePF2e | null>,
     ScenePF2e,
@@ -316,10 +308,6 @@ declare global {
             ruleElement: boolean;
         };
         PF2E: typeof PF2ECONFIG;
-        time: {
-            roundTime: number;
-            turnTime: number;
-        };
     }
 
     const CONFIG: ConfigPF2e;

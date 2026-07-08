@@ -1,12 +1,14 @@
 <script lang="ts">
     import { DamageDicePF2e, Modifier } from "@actor/modifiers.ts";
+    import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { RollInspectorContext } from "./app.ts";
     import * as R from "remeda";
     import { createHTMLElement, signedInteger } from "@util";
     import { getDamageDiceOverrideLabel, getDamageDiceValueLabel } from "@system/damage/helpers.ts";
 
     const localize = game.i18n.localize.bind(game.i18n);
-    const { state: data }: RollInspectorContext = $props();
+    const { getState }: SvelteAppProps<RollInspectorContext> = $props();
+    const data = $derived(getState());
     let searchTerm = $state("");
 
     const context = $derived(data.context);
@@ -24,15 +26,13 @@
     });
 
     function getCriticalLabel(critical: boolean | null | undefined) {
-        return typeof critical === "boolean"
-            ? game.i18n.localize(`PF2E.RuleEditor.General.CriticalBehavior.${critical}`)
-            : null;
+        return typeof critical === "boolean" ? _loc(`PF2E.RuleEditor.General.CriticalBehavior.${critical}`) : null;
     }
 
     /** Shows the roll options for a specific modifier */
     async function showOptionsTooltip(element: HTMLElement, object: Modifier | DamageDicePF2e) {
         const rollOptions = R.sortBy(object.getRollOptions().sort(), (o) => o.includes(":"));
-        const description = game.i18n.localize("PF2E.ChatRollDetails.DiceRollOptionsHint");
+        const description = _loc("PF2E.ChatRollDetails.DiceRollOptionsHint");
         const content = await fa.handlebars.renderTemplate(
             `systems/${SYSTEM_ID}/templates/system/roll-options-tooltip.hbs`,
             { description, rollOptions },
@@ -91,7 +91,7 @@
             {/if}
         </header>
 
-        <ul class="modifier-list">
+        <ul class="modifier-list scrollable">
             {#if context.type === "flat-check"}
                 <li class="empty">
                     {localize("PF2E.ChatRollDetails.FlatCheckNoModifiers")}
@@ -109,10 +109,13 @@
                 <li class="modifier" class:disabled={!d.enabled} data-type="dice" data-idx={idx}>
                     <header>
                         <span class="label-slug">{d.label} ({d.slug})</span>
-                        <i
-                            class="fa-solid fa-circle-info"
+                        <span
+                            class="options-note"
                             onpointerenter={(evt) => showOptionsTooltip(evt.currentTarget, new DamageDicePF2e(d))}
-                        ></i>
+                            role="note"
+                        >
+                            <i class="fa-solid fa-circle-info" inert></i>
+                        </span>
                     </header>
                     <div>
                         <span>
@@ -129,10 +132,13 @@
                 <li class="modifier" class:disabled={!m.enabled} data-type="modifier" data-idx={idx}>
                     <header>
                         <span class="label-slug">{m.label} ({m.slug})</span>
-                        <i
-                            class="fa-solid fa-circle-info"
+                        <span
+                            class="options-note"
                             onpointerenter={(evt) => showOptionsTooltip(evt.currentTarget, new Modifier(m))}
-                        ></i>
+                            role="note"
+                        >
+                            <i class="fa-solid fa-circle-info" inert></i>
+                        </span>
                     </header>
                     <div>
                         <span>
@@ -238,8 +244,6 @@
     }
 
     .modifiers {
-        grid-area: "modifiers";
-
         ul {
             li {
                 display: block;
@@ -258,7 +262,7 @@
                     gap: var(--space-4);
                     margin-bottom: 0.25em;
 
-                    i {
+                    .options-note {
                         margin-left: auto;
                         padding-left: var(--space-4);
                     }

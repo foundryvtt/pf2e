@@ -46,7 +46,7 @@
             },
             {
                 "adjustment": {
-                    "criticalFailure": "one-degree-better"
+                    "all": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
@@ -60,6 +60,23 @@
                     }
                 ],
                 "selector": "skill-check"
+            },
+            {
+                "adjustment": {
+                    "all": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "ageless-patience",
+                    "check:total:natural:1",
+                    {
+                        "gte": [
+                            "check:total:delta",
+                            -9
+                        ]
+                    }
+                ],
+                "selector": "perception"
             },
             {
                 "key": "Note",

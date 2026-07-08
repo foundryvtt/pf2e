@@ -9,7 +9,6 @@ export { default as Note } from "./note.mjs";
 export { default as PlaceableObject } from "./placeable-object.mjs";
 export { default as Region } from "./region.mjs";
 export { default as AmbientSound } from "./sound.mjs";
-export { default as MeasuredTemplate } from "./template.mjs";
 export { default as Tile } from "./tile.mjs";
 export { default as Token } from "./token.mjs";
 export { default as Wall } from "./wall.mjs";

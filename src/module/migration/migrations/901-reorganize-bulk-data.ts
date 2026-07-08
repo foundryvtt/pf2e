@@ -1,6 +1,5 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { PhysicalSystemSource } from "@item/physical/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
@@ -13,18 +12,18 @@ export class Migration901ReorganizeBulkData extends MigrationBase {
         this.#migrateRules(source);
         if (!itemIsOfType(source, "physical")) return;
 
-        const system: MaybeWithOldBulkData = source.system;
+        const system = source.system;
         system.bulk ??= { value: 0 };
 
         if ("equippedBulk" in system) {
             if (["armor", "backpack"].includes(source.type)) {
                 system.bulk.value = this.#bulkStringToNumber(system.equippedBulk);
             }
-            system["-=equippedBulk"] = null;
+            system.equippedBulk = _del;
 
             // Special case: fix data errors
-            if (system.slug === "sack") {
-                system.usage = { value: "held-in-one-hand" };
+            if (source.type === "backpack" && source.system.slug === "sack") {
+                source.system.usage = { value: "held-in-one-hand" };
                 system.bulk.value = 0.1;
             } else if (/bag-of-(?:devouring|holding|weasels)|spacious-pouch/.test(system.slug ?? "")) {
                 system.bulk.value = 1;
@@ -42,7 +41,7 @@ export class Migration901ReorganizeBulkData extends MigrationBase {
             } else if (source.type !== "armor") {
                 source.system.bulk.value = this.#bulkStringToNumber(system.weight);
             }
-            system["-=weight"] = null;
+            system.weight = _del;
         }
 
         if ("bulkCapacity" in system) {
@@ -51,7 +50,7 @@ export class Migration901ReorganizeBulkData extends MigrationBase {
                     ? Math.floor(Math.abs(Number(system.bulkCapacity.value))) || 0
                     : 0;
             }
-            system["-=bulkCapacity"] = null;
+            system.bulkCapacity = _del;
         }
 
         if ("negateBulk" in system) {
@@ -60,7 +59,7 @@ export class Migration901ReorganizeBulkData extends MigrationBase {
                     ? Math.floor(Math.abs(Number(system.negateBulk.value))) || 0
                     : 0;
             }
-            system["-=negateBulk"] = null;
+            system.negateBulk = _del;
         }
     }
 
@@ -109,11 +108,4 @@ type DefinitelyItemAlteration = RuleElementSource & {
     predicate: JSONValue[];
     itemType?: string;
     property: string;
-};
-
-type MaybeWithOldBulkData = PhysicalSystemSource & {
-    "-=equippedBulk"?: null;
-    "-=weight"?: null;
-    "-=bulkCapacity"?: null;
-    "-=negateBulk"?: unknown;
 };

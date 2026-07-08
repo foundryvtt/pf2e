@@ -66,7 +66,7 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
 
         const localize = localizer("PF2E.Encounter.Metrics");
         const threat = ((): { label: string; tooltip: string } => {
-            const label = game.i18n.localize(`PF2E.Encounter.Budget.Threats.${metrics.threat}`);
+            const label = _loc(`PF2E.Encounter.Budget.Threats.${metrics.threat}`);
             const tempContainer = createHTMLElement("div", { innerHTML: localize("Threat", { threat: label }) });
             TextEditorPF2e.convertXMLNode(tempContainer, "threat", { classes: ["value", metrics.threat] });
             const tooltip = localize("Budget", metrics.budget);
@@ -176,7 +176,7 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
                         targetButton.classList.replace("fa-solid", "fa-duotone");
                         targetButton.classList.replace("fa-signal-stream", "fa-location-crosshairs");
                         targetButton.dataset.action = "toggleTarget";
-                        targetButton.ariaLabel = game.i18n.localize("COMBAT.ToggleTargeting");
+                        targetButton.ariaLabel = _loc("COMBAT.ToggleTargeting");
                         button.before(targetButton);
                     }
                 }
@@ -195,7 +195,7 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
                 if (game.user.isGM && combatant.actor && combatant.actor.alliance !== "party") {
                     const isActive = combatant.playersCanSeeName;
                     const controlButton = nameVisibilityButton.cloneNode(true) as HTMLButtonElement;
-                    controlButton.ariaLabel = game.i18n.localize(`PF2E.Encounter.${isActive ? "Hide" : "Reveal"}Name`);
+                    controlButton.ariaLabel = _loc(`PF2E.Encounter.${isActive ? "Hide" : "Reveal"}Name`);
                     controlButton.classList.toggle("active", isActive);
                     row.querySelector(".combatant-controls button[data-action=toggleHidden]")?.after(controlButton);
                     row.classList.toggle("hidden-name", !isActive);
@@ -231,7 +231,7 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
             const targetingSection = htmlQuery(combatantRow, ".users-targeting");
             if (targetingSection) {
                 targetingSection.innerHTML = userIndicators.map((i) => i.outerHTML).join("");
-                targetingSection.dataset.tooltip = game.i18n.format("COMBAT.TargetedBy", {
+                targetingSection.dataset.tooltip = _loc("COMBAT.TargetedBy", {
                     list: localizeList(
                         usersTargetting.map((u) => u.name),
                         { conjunction: "and" },
@@ -258,7 +258,7 @@ export class EncounterTracker<TEncounter extends EncounterPF2e | null> extends t
         if ((action === "rollNPC" || action === "rollAll") && this.viewed) {
             event.stopPropagation();
             const args = eventToRollParams(event, { type: "check" });
-            await this.viewed[action]({ ...args, messageOptions: { rollMode: args.rollMode } });
+            await this.viewed[action]({ ...args, messageOptions: { messageMode: args.messageMode } });
             return;
         }
         return super._onClickAction(event, target);

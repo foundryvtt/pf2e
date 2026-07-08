@@ -17,7 +17,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature touches the orb or attempts to disable the haunt</p><hr /><p><strong>Effect</strong> A destructive fury fills the minds of all living creatures in the area, who must succeed at a @Check[will|dc:32] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure) for 1 minute. The haunt then rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature touches the orb or attempts to disable the haunt</p><hr /><p><strong>Effect</strong> A destructive fury fills the minds of all living creatures in the area, who must succeed at a @Check[will|dc:32|options:inflicts:stupefied] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure) for 1 minute. The haunt then rolls initiative.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -78,14 +78,32 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The locus is sustained by the power of Tar-Baphon. The orb regains 10 Hit Points at the beginning of every round and is repaired by void damage.</p>"
+                    "value": "<p>The locus is sustained by the power of Tar-Baphon. The orb regains @Damage[10[healing]] Hit Points at the beginning of every round and is repaired by void damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "object-immunities"
+                        ]
+                    },
+                    {
+                        "exceptions": [
+                            "healing"
+                        ],
+                        "key": "Immunity",
+                        "priority": 110,
+                        "type": [
+                            "object-immunities"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -112,7 +130,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>no multiple attack penalty</p>"
+                    "value": "<p>No multiple attack penalty</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -122,6 +140,7 @@
                 "range": null,
                 "rules": [],
                 "slug": null,
+                "subjectToMAP": false,
                 "traits": {
                     "value": []
                 }
@@ -202,7 +221,7 @@
                 "title": "Pathfinder #209: Destroyer's Doom"
             },
             "reset": "<p>The haunt deactivates 1 minute after all living creatures leave the area. After 1 hour, the haunt reactivates.</p>",
-            "routine": "<p>(1 action; mental) The destructive impulses grow stronger. Affected creatures must attempt a @Check[will|dc:32|traits:mental] save; creatures who fail or critically fail can't attempt to disable the haunt that turn.</p><hr><p><strong>Critical Success</strong> The creature is unaffected and temporarily immune for 1 minute.</p><p><strong>Success</strong> The creature is unaffected this round.</p><p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round, targeting both creatures and objects.</p><p><strong>Critical Failure</strong> As failure but the confusion lasts for 1 minute.</p>"
+            "routine": "<p>(1 action; mental) The destructive impulses grow stronger. Affected creatures must attempt a @Check[will|dc:32|options:inflicts:confused|traits:mental] save; creatures who fail or critically fail can't attempt to disable the haunt that turn.</p><hr><p><strong>Critical Success</strong> The creature is unaffected and temporarily immune for 1 minute.</p><p><strong>Success</strong> The creature is unaffected this round.</p><p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round, targeting both creatures and objects.</p><p><strong>Critical Failure</strong> As failure but the confusion lasts for 1 minute.</p>"
         },
         "saves": {
             "fortitude": {
@@ -215,7 +234,7 @@
             },
             "will": {
                 "saveDetail": "",
-                "value": 0
+                "value": null
             }
         },
         "statusEffects": [],

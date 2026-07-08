@@ -1,11 +1,11 @@
 import type { ActorPF2e } from "@actor";
 import type { AttackAction, StrikeData } from "@actor/data/base.ts";
 import type { Rolled } from "@client/dice/roll.d.mts";
-import type { DataModelConstructionContext } from "@common/abstract/_module.d.mts";
 import type {
     ChatMessageCreateCallbackOptions,
     ChatMessageCreateOperation,
-} from "@common/documents/chat-message.d.mts";
+} from "@client/documents/chat-message.d.mts";
+import type { DataModelConstructionContext } from "@common/abstract/_module.d.mts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { RollInspector } from "@module/apps/roll-inspector/app.ts";
 import type { UserPF2e } from "@module/user/index.ts";
@@ -20,7 +20,7 @@ import { CriticalHitAndFumbleCards } from "./crit-fumble-cards.ts";
 import { ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data.ts";
 import * as Listeners from "./listeners/index.ts";
 
-class ChatMessagePF2e extends ChatMessage {
+class ChatMessagePF2e extends ChatMessage<UserPF2e | null> {
     /** Set some flags/flag scopes early. */
     protected override _initializeSource(data: object, options?: DataModelConstructionContext<null>): this["_source"] {
         const source = super._initializeSource(data, options);
@@ -358,7 +358,7 @@ class ChatMessagePF2e extends ChatMessage {
             dataset: { action: "setAsInitiative", tooltip: true },
         });
         button.type = "button";
-        button.ariaLabel = game.i18n.format("PF2E.Check.SetAsInitiative", { actor: this.token.name });
+        button.ariaLabel = _loc("PF2E.Check.SetAsInitiative", { actor: this.token.name });
         const selector = this.isReroll ? ".reroll-second .dice-total" : ".dice-total";
         html.querySelector(selector)?.appendChild(button);
     }
@@ -375,6 +375,15 @@ class ChatMessagePF2e extends ChatMessage {
     /** Remove the token highlight */
     #onHoverOut(nativeEvent: PointerEvent): void {
         if (canvas.ready) this.token?.object?.emitHoverOut(nativeEvent);
+    }
+
+    protected override _preCreate(
+        data: DeepPartial<this["_source"]>,
+        options: ChatMessageCreateCallbackOptions,
+        user: UserPF2e,
+    ): Promise<boolean | void> {
+        options.chatBubble ??= this.style === CONST.CHAT_MESSAGE_STYLES.IC;
+        return super._preCreate(data, options, user);
     }
 
     protected override _onCreate(
@@ -394,8 +403,7 @@ class ChatMessagePF2e extends ChatMessage {
     }
 }
 
-interface ChatMessagePF2e extends ChatMessage {
-    author: UserPF2e | null;
+interface ChatMessagePF2e extends ChatMessage<UserPF2e | null> {
     flags: ChatMessageFlagsPF2e;
     readonly _source: ChatMessageSourcePF2e;
     get speakerActor(): ActorPF2e | null;

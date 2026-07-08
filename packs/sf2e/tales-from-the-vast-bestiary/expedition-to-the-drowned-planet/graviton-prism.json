@@ -1,0 +1,105 @@
+{
+    "_id": "zfWzxaQJA4d7vM8k",
+    "folder": "DtjcKtX7IVwAk1UX",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "U4F1r2YJ4DAJQOW1",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Gravitational Whirl",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature or object enters the area marked on the map</p><hr /><p><strong>Effect</strong> The graviton prism increases the velocity of its rotation, dealing @Damage[1d12[bludgeoning]] damage. All creatures within 5 feet of the graviton prism must attempt a @Check[reflex|dc:17|basic] save. On a failure, creatures are additionally pushed 5 feet away from the gravitational prism (10 feet on a critical failure). The graviton prism then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Graviton Prism",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 13
+            },
+            "emitsSound": "encounter",
+            "hardness": 7,
+            "hp": {
+                "details": "",
+                "max": 24,
+                "temp": 0,
+                "value": 24
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 4
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The prism rotates rapidly, causing water to spin alongside it.</p>",
+            "disable": "<p>@Check[thievery|dc:17] to jam the rotating mechanism, or DC 19 to pull the graviton prism out of rotation</p>",
+            "isComplex": true,
+            "level": {
+                "value": 1
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Tales From the Vast"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The graviton prism hums as it continues to increase the rate at which it spins. All creatures within a @Template[type:emanation|distance:10] of the prism must attempt a @Check[fortitude|dc:17|basic] save. On a failure, a target is pushed back 5 feet (10 feet on a critical failure). Each subsequent time the graviton prism attempts its routine, the emanation increases by 5 feet (maximum of 25 feet).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 10
+            },
+            "reflex": {
+                "value": 4
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,4 +1,6 @@
-export class ProseMirrorDropDown {
+import { ProseMirrorMenuItem } from "./_types.mjs";
+
+export default class ProseMirrorDropDown {
     /** The default title for this drop-down.  */
     title: string;
 

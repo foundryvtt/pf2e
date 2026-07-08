@@ -13,7 +13,7 @@ export class Migration924JiuHuanDoa extends MigrationBase {
 
     #jiuHuanDao = {
         slug: "jiu-huan-dao",
-        name: "game" in globalThis ? game.i18n.localize(CONFIG.PF2E.baseWeaponTypes["jiu-huan-dao"]) : "Jiu Huan Dao",
+        name: "game" in globalThis ? _loc(CONFIG.PF2E.baseWeaponTypes["jiu-huan-dao"]) : "Jiu Huan Dao",
     };
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {

@@ -169,7 +169,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>10 feet. When a slime puppeteer takes fire damage, they form a layer of pungent slime on their skin that remains until washed away. While the layer is present, creatures adjacent to the slime puppeteer must attempt a @Check[fortitude|dc:24] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. A creature that succeeds at its save is immune to the puppeteer's sweat for 1 minute.</p>"
+                    "value": "<p>10 feet. When a slime puppeteer takes fire damage, they form a layer of pungent slime on their skin that remains until washed away. While the layer is present, creatures adjacent to the slime puppeteer must attempt a @Check[fortitude|dc:24|options:area-effect,inflicts:sickened] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. A creature that succeeds at its save is immune to the puppeteer's sweat for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -178,12 +178,33 @@
                 },
                 "rules": [
                     {
+                        "key": "RollOption",
+                        "option": "stinky-sweat",
+                        "toggleable": true
+                    },
+                    {
                         "key": "Aura",
+                        "predicate": [
+                            "stinky-sweat"
+                        ],
                         "radius": 10,
                         "slug": "stinky-sweat",
                         "traits": [
-                            "air"
+                            "olfactory"
                         ]
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:damage:type:fire",
+                            {
+                                "not": "stinky-sweat"
+                            }
+                        ],
+                        "selector": "damage-received",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": "stinky-sweat",

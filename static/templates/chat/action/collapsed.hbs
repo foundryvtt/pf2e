@@ -2,8 +2,22 @@
     <div class="notification warning">{{localize "PF2E.Item.Ability.CraftedItem.CraftedWithoutResources"}}</div>
 {{/if}}
 
-<div class="description" data-auto-collapse>
-    {{{description}}}
+<div class="pf2e chat-card action-card">
+    <div class="card-content" data-auto-collapse>
+        {{{data.description.value}}}
+    </div>
+
+    {{#if data.properties}}
+        <footer class="card-footer">
+            {{#each data.properties}}
+                <span>{{localize this}}</span>
+            {{/each}}
+        </footer>
+    {{else if data.levelLabel}}
+        <footer class="card-footer">
+            <span>{{data.levelLabel}}</span>
+        </footer>
+    {{/if}}
 </div>
 
 {{#if (or selfEffect craftedItem activate)}}
@@ -22,6 +36,23 @@
             <button type="button" data-action="activate" data-uuid="{{activate.uuid}}" data-visibility="owner">
                 {{localize "PF2E.Item.Activation.Activate"}}
             </button>
+        {{/if}}
+        {{#if strike}}
+            <div class="attack-buttons" data-item-uuid="{{strike.item.uuid}}" data-attack-slug="{{strike.slug}}">
+                {{#each strike.variants as |variant index|}}
+                    <button type="button" data-action="strike" data-variant-index="{{index}}" data-visibility="owner">
+                        {{#if (eq index 0)}}
+                            <span>
+                                <span class="name">{{localize "PF2E.WeaponStrikeLabel"}}</span>
+                                <span class="action-glyph">{{@root.strike.glyph}}</span>
+                                {{variant.label}}
+                            </span>
+                        {{else}}
+                            {{localize "PF2E.MAPAbbreviationLabel" penalty=variant.penalty}}
+                        {{/if}}
+                    </button>
+                {{/each}}
+            </div>
         {{/if}}
     </div>
 {{/if}}

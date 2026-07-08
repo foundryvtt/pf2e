@@ -21,8 +21,7 @@ export default class BaseSystem extends packages.BasePackage<SystemSchema> {
 }
 
 export default interface BaseSystem
-    extends packages.BasePackage<SystemSchema>,
-        fields.ModelPropsFromSchema<SystemSchema> {
+    extends packages.BasePackage<SystemSchema>, fields.ModelPropsFromSchema<SystemSchema> {
     version: string;
 }
 

@@ -2,7 +2,7 @@ import { PointSourcePolygon, PointSourcePolygonConfig } from "../geometry/_modul
 import VisionMode from "../perception/vision-mode.mjs";
 import { AmbientLight, Token } from "../placeables/_module.mjs";
 import { AdaptiveLightingShader, AdaptiveVisionShader } from "../rendering/shaders/_module.mjs";
-import { PointEffectSource } from "./point-effect-source.mjs";
+import { PointEffectSource, PointEffectSourceData } from "./point-effect-source.mjs";
 import RenderedEffectSource, {
     RenderedEffectLayerConfig,
     RenderedEffectSourceData,
@@ -10,17 +10,39 @@ import RenderedEffectSource, {
 } from "./rendered-effect-source.mjs";
 
 declare const RenderedPointEffectSource: {
-    new <TObject extends AmbientLight | Token>(...args: any): RenderedEffectSource<TObject> & PointEffectSource;
+    new <TObject extends AmbientLight | Token, TData extends RenderedEffectSourceData>(
+        ...args: any
+    ): RenderedEffectSource<TObject, TData> & PointEffectSource;
 } & Omit<typeof RenderedEffectSource, "new"> &
     typeof PointEffectSource;
 
-interface RenderedPointEffectSource<TObject extends AmbientLight | Token>
-    extends InstanceType<typeof RenderedPointEffectSource<TObject>> {}
+interface RenderedPointEffectSource<
+    TObject extends AmbientLight | Token,
+    TData extends RenderedEffectSourceData,
+> extends InstanceType<typeof RenderedPointEffectSource<TObject, TData>> {}
+
+export interface VisionSourceData extends RenderedEffectSourceData, PointEffectSourceData {
+    /** The amount of contrast */
+    contrast: number;
+    /** Strength of the attenuation between bright, dim, and dark */
+    attenuation: number;
+    /** The amount of color saturation */
+    saturation: number;
+    /** The vision brightness. */
+    brightness: number;
+    /** The vision mode. */
+    visionMode: string;
+    /** The range of light perception. */
+    lightRadius: number;
+    /** Is this vision source blinded? */
+    blinded: boolean;
+}
 
 /** A specialized subclass of the PointSource abstraction which is used to control the rendering of vision sources. */
-export default class PointVisionSource<
-    TObject extends AmbientLight | Token,
-> extends RenderedPointEffectSource<TObject> {
+export default class PointVisionSource<TObject extends AmbientLight | Token> extends RenderedPointEffectSource<
+    TObject,
+    VisionSourceData
+> {
     static sourceType: "sight";
 
     static override _initializeShaderKeys: string[];
@@ -140,19 +162,4 @@ export default class PointVisionSource<
      * @param vmUniforms The targeted layer.
      */
     protected _updateVisionModeUniforms(shader: AdaptiveVisionShader, vmUniforms: unknown[]): void;
-}
-
-export interface VisionSourceData extends RenderedEffectSourceData {
-    /** The amount of contrast */
-    contrast: number;
-    /** Strength of the attenuation between bright, dim, and dark */
-    attenuation: number;
-    /** The amount of color saturation */
-    saturation: number;
-    /** The vision brightness. */
-    brightness: number;
-    /** The vision mode. */
-    visionMode: string;
-    /** Is this vision source blinded? */
-    blinded: boolean;
 }

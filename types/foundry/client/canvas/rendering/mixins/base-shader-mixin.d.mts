@@ -8,7 +8,7 @@ export default function BaseShaderMixin<TShader extends typeof PIXI.Filter | typ
 ): {
     new (
         program: PIXI.Program,
-        uniforms?: PIXI.utils.Dict<any>,
+        uniforms?: PIXI.utils.Dict<unknown>,
     ): {
         program: PIXI.Program;
         uniformGroup: PIXI.UniformGroup;
@@ -16,7 +16,7 @@ export default function BaseShaderMixin<TShader extends typeof PIXI.Filter | typ
         disposeRunner: PIXI.Runner;
         checkUniformExists(name: string, group: PIXI.UniformGroup): boolean;
         destroy(): void;
-        readonly uniforms: PIXI.utils.Dict<any>;
+        readonly uniforms: PIXI.utils.Dict<unknown>;
     } & InstanceType<TShader>;
 
     /**

@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import type Application from "@client/appv1/api/application-v1.d.mts";
+import { ChatMessageMode } from "@client/config.mjs";
 import type { TooltipDirection } from "@client/helpers/interaction/tooltip-manager.d.mts";
-import type { RollMode } from "@common/constants.d.mts";
 import type { ImageFilePath } from "@common/constants.mjs";
 import type { ItemUUID } from "@common/documents/_module.d.mts";
 import { ItemPF2e, ItemProxyPF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
@@ -25,7 +25,7 @@ function createSheetOptions(
         const isSelected = selectionList.includes(key);
         if (isSelected || !selected) {
             compiledOptions[key] = {
-                label: game.i18n.localize(R.isObjectType(value) ? value.label : value),
+                label: _loc(R.isObjectType(value) ? value.label : value),
                 value: stringKey,
                 selected: isSelected,
             };
@@ -51,7 +51,7 @@ function createTagifyTraits(traits: Iterable<string>, { sourceTraits, record }: 
     const hiddenTraits = sourceSet.filter((t) => !traitSlugs.has(t));
     return [...traitSlugs, ...hiddenTraits]
         .map((slug) => {
-            const label = game.i18n.localize(record?.[slug] ?? slug);
+            const label = _loc(record?.[slug] ?? slug);
             const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
             const tooltip = traitDescriptions[slug];
             return {
@@ -130,7 +130,7 @@ async function getItemFromDragEvent(event: DragEvent): Promise<ItemPF2e | null> 
 }
 
 /** Returns statistic dialog roll parameters based on held keys */
-type ParamsFromEvent = { skipDialog: boolean; rollMode?: RollMode | "roll" };
+type ParamsFromEvent = { skipDialog: boolean; messageMode?: ChatMessageMode };
 
 function isRelevantEvent(event: Maybe<Event>): event is PointerEvent | TouchEvent | KeyboardEvent | WheelEvent {
     return !!event && "ctrlKey" in event && "metaKey" in event && "shiftKey" in event;
@@ -141,19 +141,15 @@ function eventToRollParams(event: Maybe<Event>, rollType: { type: "check" | "dam
     const key = rollType.type === "check" ? "showCheckDialogs" : "showDamageDialogs";
     const skipDefault = !game.user.settings[key];
     if (!isRelevantEvent(event)) return { skipDialog: skipDefault };
-
     const params: ParamsFromEvent = { skipDialog: event.shiftKey ? !skipDefault : skipDefault };
-    if (event.ctrlKey || event.metaKey) {
-        params.rollMode = game.user.isGM ? "gmroll" : "blindroll";
-    }
-
+    if (event.ctrlKey || event.metaKey) params.messageMode = game.user.isGM ? "gm" : "blind";
     return params;
 }
 
 /** Set roll mode from a user's input: used for messages that are not actually rolls. */
-function eventToRollMode(event: Maybe<Event>): RollMode | "roll" {
-    if (!isRelevantEvent(event)) return "roll";
-    return isControlDown(event) ? (game.user.isGM ? "gmroll" : "blindroll") : "roll";
+function eventToMessageMode(event: Maybe<Event>): ChatMessageMode | undefined {
+    if (!isRelevantEvent(event) || !isControlDown(event)) return undefined;
+    return game.user.isGM ? "gm" : "blind";
 }
 
 /** Returns true if the control key is held down, handling mac */
@@ -221,6 +217,10 @@ function createTooltipListener(
                     const bounds = target.getBoundingClientRect();
                     const maxH = window.innerHeight - actualTooltip.offsetHeight;
                     actualTooltip.style.top = `${Math.clamp(bounds.top, pad, maxH - pad)}px`;
+
+                    // Circumvent https://github.com/foundryvtt/foundryvtt/issues/14237
+                    // by keeping the global tooltip behind the locked one
+                    if (options.locked) game.tooltip.tooltip.style.top = actualTooltip.style.top;
                 }
             }
         },
@@ -241,16 +241,16 @@ function createNPCAttackTraitsAndTags(item: MeleePF2e): NPCAttackTraitOrTag[] {
     // Include range data with traits.
     const range = item.range;
     if (range && !item.system.traits.config?.thrown) {
-        const description = game.i18n.localize("PF2E.TraitDescriptionRange");
+        const description = _loc("PF2E.TraitDescriptionRange");
         if (range.increment) {
             tags.push({
-                label: game.i18n.format("PF2E.Item.NPCAttack.Tags.RangeIncrementN", {
+                label: _loc("PF2E.Item.NPCAttack.Tags.RangeIncrementN", {
                     n: range.increment,
                 }),
                 description,
             });
         } else if (range.max) {
-            const label = game.i18n.format("PF2E.Item.NPCAttack.Tags.RangeN", { n: range.max });
+            const label = _loc("PF2E.Item.NPCAttack.Tags.RangeN", { n: range.max });
             tags.push({ label, description });
         }
     }
@@ -277,7 +277,7 @@ function createNPCAttackTraitsAndTags(item: MeleePF2e): NPCAttackTraitOrTag[] {
         })();
         const minShownMagazine = SYSTEM_ID === "pf2e" ? 2 : 1;
         if (magazine > minShownMagazine) {
-            const label = game.i18n.format("PF2E.Item.NPCAttack.Tags.MagN", { n: magazine });
+            const label = _loc("PF2E.Item.NPCAttack.Tags.MagN", { n: magazine });
             tags.push({ label });
         }
     }
@@ -370,7 +370,7 @@ export {
     createSheetTags,
     createTagifyTraits,
     createTooltipListener,
-    eventToRollMode,
+    eventToMessageMode,
     eventToRollParams,
     getActionIcon,
     getAdjustedValue,

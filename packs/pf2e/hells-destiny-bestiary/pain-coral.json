@@ -1,0 +1,133 @@
+{
+    "_id": "fU3X0eLyWPaGMkK1",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ii7jgSUOOH3Lxh6H",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Surge of Pain",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature takes damage within area <strong>D4</strong></p><hr /><p><strong>Effect</strong> The brain coral casts @UUID[Compendium.pf2e.spells-srd.Item.Spirit Link] on Xendra. The hazard rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JBhRqx34WLeqIc6q",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Share the Sadism",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet of the coral takes persistent mental damage</p><hr /><p><strong>Effect</strong> The coral grants an equal number of temporary Hit Points to a different creature within 30 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Pain Coral",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 34
+            },
+            "emitsSound": "encounter",
+            "hardness": 22,
+            "hp": {
+                "details": "",
+                "max": 90,
+                "temp": 0,
+                "value": 90
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 37
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Haunted coral transfers pain between creatures.</p>",
+            "disable": "<p>@Check[nature|dc:33] or @Check[occultism|dc:37] or @Check[thievery|dc:37] to pinpoint and disable key synaptic nerves throughout the coral, @Check[religion|dc:37] to quell the coral's tortured memories; each success reduces the coral's number of actions per turn by 1, and the hazard is disabled when after four successes.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 13
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Hell's Destiny"
+            },
+            "reset": "<p>The coral diffuses and resets after 1 minute.</p>",
+            "routine": "<p>(4 actions) The coral casts @UUID[Compendium.pf2e.spells-srd.Item.Phantom Pain] as a 6th-rank spell on a target (DC 33), targeting creatures that aren't already taking persistent mental damage.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 26
+            },
+            "reflex": {
+                "value": 20
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt",
+                "mental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

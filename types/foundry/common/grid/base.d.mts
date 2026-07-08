@@ -1,5 +1,5 @@
 import { GridType, MovementDirection } from "@common/constants.mjs";
-import { Color } from "pixi.js";
+import Color from "@common/utils/color.mjs";
 import { ElevatedPoint, Point, Rectangle } from "../_types.mjs";
 import {
     GridConfiguration,

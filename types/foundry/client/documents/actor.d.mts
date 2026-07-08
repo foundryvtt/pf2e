@@ -10,9 +10,20 @@ import Document from "@common/abstract/document.mjs";
 import { ImageFilePath, VideoFilePath } from "@common/constants.mjs";
 import { IterableWeakMap, IterableWeakSet } from "@common/utils/_module.mjs";
 import ActorSheet from "../appv1/sheets/actor-sheet.mjs";
-import { ActiveEffect, ActorSource, ActorUUID, BaseActor, Combat, Item, Scene, TokenDocument } from "./_module.mjs";
+import {
+    ActiveEffect,
+    ActiveEffectChangeData,
+    ActorSource,
+    ActorUUID,
+    BaseActor,
+    Combat,
+    Item,
+    Scene,
+    TokenDocument,
+} from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
-import Actors from "./collections/actors.mjs";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type Actors from "./collections/actors.mjs";
 
 interface ClientBaseActorStatic extends Omit<typeof BaseActor, "new">, ClientDocumentStatic {}
 
@@ -20,8 +31,9 @@ declare const ClientBaseActor: {
     new <TParent extends TokenDocument | null>(...args: any): BaseActor<TParent> & ClientDocument<TParent>;
 } & ClientBaseActorStatic;
 
-declare interface ClientBaseActor<TParent extends TokenDocument | null>
-    extends InstanceType<typeof ClientBaseActor<TParent>> {}
+declare interface ClientBaseActor<TParent extends TokenDocument | null> extends InstanceType<
+    typeof ClientBaseActor<TParent>
+> {}
 
 /**
  * The client-side Actor document which extends the common BaseActor model.
@@ -55,6 +67,11 @@ declare class Actor<TParent extends TokenDocument | null = TokenDocument | null>
 
     /** The statuses that are applied to this actor by active effects */
     statuses: Set<string>;
+
+    /**
+     * ActiveEffect changes to be applied to Tokens instead of Actors, with each key being a phase
+     */
+    tokenActiveEffectChanges: Record<string, ActiveEffectChangeData[]>;
 
     /* -------------------------------------------- */
     /*  Properties                                  */
@@ -91,8 +108,11 @@ declare class Actor<TParent extends TokenDocument | null = TokenDocument | null>
     /*  Methods                                     */
     /* -------------------------------------------- */
 
-    /** Apply any transformations to the Actor data which are caused by ActiveEffects. */
-    applyActiveEffects(): void;
+    /**
+     * Apply any transformations to the Actor data which are caused by ActiveEffects.
+     * @param phase The application phase under which changes are to be applied.
+     */
+    applyActiveEffects(phase: string): void;
 
     /**
          * Retrieve an Array of active tokens which represent this Actor in the current canvas Scene.

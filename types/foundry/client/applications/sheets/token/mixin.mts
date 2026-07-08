@@ -15,9 +15,13 @@ import HandlebarsApplicationMixin, {
     HandlebarsTemplatePart,
 } from "../../api/handlebars-application.mjs";
 
+/* eslint-disable no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+
 /**
  * A mixin for UI shared between TokenDocument and PrototypeToken sheets
  */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function TokenApplicationMixin<
     TBase extends AbstractConstructorOf<ApplicationV2> & {
         DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration>;

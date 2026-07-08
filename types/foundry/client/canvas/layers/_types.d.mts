@@ -1,8 +1,9 @@
 import Sound from "@client/audio/sound.mjs";
-import { ElevatedPoint } from "@common/_types.mjs";
+import { ElevatedPoint, Point } from "@common/_types.mjs";
+import { DatabaseCreateOperation } from "@common/abstract/_types.mjs";
+import { BaseShapeData } from "@common/data/_module.mjs";
 import { SpriteMesh } from "../containers/_module.mjs";
-import PlaceableObject from "../placeables/placeable-object.mjs";
-import AmbientSound from "../placeables/sound.mjs";
+import { AmbientSound, PlaceableObject, Region } from "../placeables/_module.mjs";
 import PointSoundSource from "../sources/point-sound-source.mjs";
 import { CanvasLayerOptions } from "./base/canvas-layer.mjs";
 
@@ -86,4 +87,102 @@ export interface CanvasVisionContainer extends PIXI.Container {
     sight: CanvasVisionContainerSight;
     /** Areas visible because of FOV of vision sources. */
     darkness: CanvasVisionContainerDarkness;
+}
+
+interface RegionPlacementOptions<TRegion extends Region> {
+    /**
+     * Create the Region? If false, the preview document is returned. Default: `true`. Non-GMs cannot create Regions
+     * while the game is paused.
+     */
+    create?: boolean;
+
+    /** Optional creation options. By default the creation option `controlObject` is true. */
+    createOptions?: Partial<Omit<DatabaseCreateOperation<null>, "parent">>;
+
+    /** Allow rotation of the Region? Default: `true`. */
+    allowRotation?: boolean;
+
+    /** Create/return an empty Region if all shapes are skipped? Default: `false`. */
+    allowEmpty?: boolean;
+
+    /**
+     * Attach the Region to Tokens? If true, the initial elevation range passed in `data` is relative to the attached
+     * Token. Default: `false`.
+     */
+    attachToToken?: boolean;
+
+    /**
+     * Called when the pointer is moved and after starting the placement of the next shape on confirm and skip. This
+     * callback replaces the default behavior if false is returned. If false is returned, the callback should modify
+     * the passed `shape` and may additionally modify `preview.document` and set the render flags on `preview`
+     * corresponding to the applied changes.
+     */
+    onMove?: (args: {
+        event: PIXI.FederatedPointerEvent;
+        preview: TRegion;
+        document: TRegion["document"];
+        regionIndex: number;
+        regionCount: number;
+        shape: BaseShapeData;
+        shapeIndex: number;
+        shapeCount: number;
+        position: Point;
+        snap: boolean;
+    }) => boolean | void;
+
+    /**
+     * Called when the mouse wheel is scrolled. This callback replaces the default behavior if false is returned.
+     * If false is returned, the callback should modify the `shape` and may additionally modify `preview.document`
+     * and set the render flags on `preview` corresponding to the applied changes.
+     */
+    onRotate?: (args: {
+        event: WheelEvent;
+        preview: TRegion;
+        document: TRegion["document"];
+        regionIndex: number;
+        regionCount: number;
+        shape: BaseShapeData;
+        shapeIndex: number;
+        shapeCount: number;
+        precise: boolean;
+    }) => boolean | void;
+
+    /** Called when the Region shape that is placed has changed. */
+    onChange?: (args: {
+        preview: TRegion;
+        document: TRegion["document"];
+        regionIndex: number;
+        regionCount: number;
+        shape: BaseShapeData;
+        shapeIndex: number;
+        shapeCount: number;
+    }) => void;
+
+    /**
+     * Called before the confirmation (left-click) of a shape placement. This callback may return false to prevent the
+     * placement of the Region shape and display a warning.
+     */
+    preConfirm?: (args: {
+        event: PIXI.FederatedEvent;
+        document: TRegion["document"];
+        regionIndex: number;
+        regionCount: number;
+        shape: BaseShapeData;
+        shapeIndex: number;
+        shapeCount: number;
+    }) => boolean | void;
+
+    /**
+     * Called before skipping (right-click) of a shape placement. This callback may return false to prevent skipping of
+     * the Region shape and display a warning.
+     */
+    preSkip?: (args: {
+        event: PIXI.FederatedEvent;
+        document: TRegion["document"];
+        regionIndex: number;
+        regionCount: number;
+        shape: BaseShapeData;
+        shapeIndex: number;
+        shapeCount: number;
+    }) => boolean | void;
 }

@@ -52,7 +52,7 @@ class SimpleActionVariant extends BaseActionVariant {
             actors.push(...getSelectedActors({ exclude: ["loot", "party"], assignedFallback: true }));
         }
         if (actors.length === 0) {
-            throw new Error(game.i18n.localize("PF2E.ActionsWarning.NoActor"));
+            throw new Error(_loc("PF2E.ActionsWarning.NoActor"));
         }
 
         const traitLabels: Record<string, string | undefined> = CONFIG.PF2E.actionTraits;
@@ -63,9 +63,7 @@ class SimpleActionVariant extends BaseActionVariant {
             slug: trait,
         }));
         const effect = options?.effect === false ? undefined : await toEffectItem(options?.effect ?? this.effect);
-        const name = this.name
-            ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
-            : game.i18n.localize(this.#action.name);
+        const name = this.name ? `${_loc(this.#action.name)} - ${_loc(this.name)}` : _loc(this.#action.name);
         const templatePath = `systems/${SYSTEM_ID}/templates/actors/actions/simple/chat-message-flavor.hbs`;
         const flavor = await fa.handlebars.renderTemplate(templatePath, { effect, glyph: this.glyph, name, traits });
         const results: SimpleActionResult[] = [];

@@ -129,7 +129,9 @@ class CompendiumPack {
                         : isItemSource(docSource)
                           ? imagePathsFromItemSystemData(docSource)
                           : [],
-                ].flat();
+                ]
+                    .flat()
+                    .filter(R.isNonNull);
                 const documentName = docSource.name;
                 for (const imgPath of imgPaths) {
                     if (imgPath.startsWith("data:image")) {

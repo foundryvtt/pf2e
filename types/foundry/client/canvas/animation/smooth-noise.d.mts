@@ -16,14 +16,14 @@ export default class SmoothNoise {
      */
     get amplitude(): number[];
 
-    set amplitude(amplitude);
+    set amplitude(amplitude: number[]);
 
     /**
      * Scale factor of the random indices
      */
     get scale(): number[];
 
-    set scale(scale);
+    set scale(scale: number[]);
 
     /**
      * Generate the noise value corresponding to a provided numeric x value.

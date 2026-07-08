@@ -22,15 +22,15 @@ export default class ColorAdjustmentsSamplerShader extends BaseSamplerShader {
 
     set linkedToDarknessLevel(link: boolean);
 
-    get contrast(): any;
+    get contrast(): number;
 
-    set contrast(contrast: any);
+    set contrast(contrast: number);
 
-    get exposure(): any;
+    get exposure(): number;
 
-    set exposure(exposure: any);
+    set exposure(exposure: number);
 
-    get saturation(): any;
+    get saturation(): number;
 
-    set saturation(saturation: any);
+    set saturation(saturation: number);
 }

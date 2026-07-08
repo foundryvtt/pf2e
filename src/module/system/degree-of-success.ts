@@ -52,7 +52,7 @@ class DegreeOfSuccess {
             : this.unadjusted;
         this.key = DEGREE_OF_SUCCESS_STRINGS[this.value];
         this.slug = sluggify(this.key);
-        this.label = game.i18n.localize(`PF2E.Check.Result.Degree.Check.${this.key}`);
+        this.label = _loc(`PF2E.Check.Result.Degree.Check.${this.key}`);
     }
 
     static readonly CRITICAL_FAILURE = 0;

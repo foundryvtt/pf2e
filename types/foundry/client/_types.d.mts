@@ -1,6 +1,7 @@
-import { DeepReadonly, ElevatedPoint, Point, SocketRequest, SocketResponse, TokenPosition } from "@common/_types.mjs";
+import { DeepReadonly, ElevatedPoint, Point, SocketRequest, SocketResponse } from "@common/_types.mjs";
 import { DataModel } from "@common/abstract/_module.mjs";
 import { DataField } from "@common/data/fields.mjs";
+import { TokenPosition } from "@common/documents/_types.mjs";
 import { GridMeasurePathResultWaypoint, GridOffset3D } from "@common/grid/_types.mjs";
 import { DocumentHTMLEmbedConfig } from "./applications/ux/text-editor.mjs";
 import { AVSettingsData } from "./av/settings.mjs";
@@ -13,7 +14,6 @@ import PointVisionSource from "./canvas/sources/point-vision-source.mjs";
 import {
     SceneDimensions,
     TokenDocument,
-    TokenGetCompleteMovementPathWaypoint,
     TokenMeasuredMovementWaypoint,
     TokenMovementSegmentData,
     TokenMovementWaypoint,
@@ -68,6 +68,11 @@ export interface RulerWaypoint {
      * The next waypoint, if any.
      */
     next: RulerWaypoint | null;
+}
+
+interface TokenCreateTerrainMovementPathOptions {
+    /** Constrain a preview path? Default: `false`. */
+    preview?: boolean;
 }
 
 export interface TokenFindMovementPathWaypoint {
@@ -312,7 +317,7 @@ export interface TokenMovementContinuationData {
     /**
      * Resolve function of the wait promise
      */
-    resolveWaitPromise: () => {} | undefined;
+    resolveWaitPromise: () => object | undefined;
     /**
      * The promise that resolves after the update workflow
      */
@@ -323,7 +328,7 @@ export interface TokenMovementContinuationData {
     states: {
         [movementId: string]: {
             handles: Map<string | symbol, TokenMovementContinuationHandle>;
-            callbacks: Array<(continued: boolean) => void>;
+            callbacks: ((continued: boolean) => void)[];
             pending: Set<string>;
         };
     };
@@ -373,8 +378,10 @@ export interface TokenConstrainMovementPathOptions {
     history?: boolean | DeepReadonly<TokenMeasuredMovementWaypoint[]>;
 }
 
-interface TokenConstrainedMovementWaypoint
-    extends Omit<TokenMeasuredMovementWaypoint, "userId" | "movementId" | "cost"> {}
+interface TokenConstrainedMovementWaypoint extends Omit<
+    TokenMeasuredMovementWaypoint,
+    "userId" | "movementId" | "cost"
+> {}
 
 export interface TokenFindMovementPathOptions {
     /**
@@ -419,10 +426,6 @@ export interface TokenFindMovementPathJob {
      */
     cancel: () => void;
 }
-
-export interface TokenGetTerrainMovementPathWaypoint extends Omit<TokenGetCompleteMovementPathWaypoint, "terrain"> {}
-
-export interface TokenTerrainMovementWaypoint extends Omit<TokenMeasuredMovementWaypoint, "userId" | "cost"> {}
 
 export interface TokenRulerData {
     /** The waypoints that were already passed by the Token */
@@ -672,6 +675,25 @@ export interface TokenAnimationOptions {
     ontick?: (elapsedMS: number, animation: CanvasAnimationData, data: TokenAnimationData) => void;
 }
 
+interface TokenPanningOptions {
+    /** The type of the transition animation. Default: `null` (no transition animation). */
+    transitionType?: string;
+    /**
+     * The duration of the pan or transition animation. Default: `250` for panning or the default duration of the
+     * given transition type.
+     */
+    duration?: number;
+    /** The speed of the panning animation in pixels per second; overrides `duration` if set.*/
+    speed?: number;
+    /** The easing function used for the panning animation. Default: `"easeInOutCosine"`. */
+    easing?: string | Function;
+    /**
+     * If false, the canvas is not panned to the token if the token is already onscreen. Otherwise the canvas is panned
+     * such that the token is in the center of the screen. Default: `false`.
+     */
+    force?: boolean;
+}
+
 export type TokenMovementActionCostFunction = (
     baseCost: number,
     from: Readonly<GridOffset3D>,
@@ -913,15 +935,35 @@ export type SearchableField = DataField | { [K in string]: SearchableField };
 export interface FromCompendiumOptions {
     /** Clear the currently assigned folder. */
     clearFolder?: boolean;
-
+    /** Clear fields which store Document state. */
+    clearState?: boolean;
     /** Clear the current sort order. */
     clearSort?: boolean;
-
     /** Clear Document ownership. */
     clearOwnership?: boolean;
-
     /** Retain the Document ID from the source Compendium. */
     keepId?: boolean;
+    /** In cases where necessary, prompt the user with a confirmation dialog */
+    dialog?: boolean;
+}
+
+export interface ToCompendiumOptions {
+    /** Clear the flags object */
+    clearFlags?: boolean;
+    /** Clear any prior source information */
+    clearSource?: boolean;
+    /** Clear the currently assigned sort order */
+    clearSort?: boolean;
+    /** Clear the currently assigned folder */
+    clearFolder?: boolean;
+    /** Clear document ownership */
+    clearOwnership?: boolean;
+    /** Clear fields which store document state */
+    clearState?: boolean;
+    /** Retain the current Document id */
+    keepId?: boolean;
+    /** In cases where necessary, prompt the user with a confirmation dialog */
+    dialog?: boolean;
 }
 
 export interface RollTableHTMLEmbedConfig extends DocumentHTMLEmbedConfig {

@@ -24,7 +24,7 @@ class PickAThingPrompt<TThing extends string | number | object> extends SvelteAp
         },
     };
 
-    override root = Root;
+    protected root = Root;
 
     #resolve?: (value: PickableThing<TThing> | null) => void;
 
@@ -63,9 +63,9 @@ class PickAThingPrompt<TThing extends string | number | object> extends SvelteAp
                 const isAllowed = !!predicate.test(droppedItem.getRollOptions("item"));
                 if (!isAllowed) {
                     ui.notifications.error(
-                        game.i18n.format("PF2E.Item.ABC.InvalidDrop", {
+                        _loc("PF2E.Item.ABC.InvalidDrop", {
                             badType: droppedItem.name,
-                            goodType: game.i18n.localize(label ?? ""),
+                            goodType: _loc(label ?? ""),
                         }),
                     );
                 }
@@ -122,21 +122,24 @@ interface PickableThing<T extends string | number | object = string | number | o
     group?: string;
 }
 
+interface PickAThingState<T extends string | number | object = string | number | object> {
+    prompt: string;
+    includeDropZone: boolean;
+    allowNoSelection: boolean;
+    selectMenu: boolean;
+    containsItems: boolean;
+    choices: PickableThing<T>[];
+}
+
 interface PickAThingRenderContext<
     T extends string | number | object = string | number | object,
 > extends SvelteApplicationRenderContext {
+    foundryApp: PickAThingPrompt<T>;
     updateSelection: (option: PickableThing<T> | null) => void;
     resolve: (option: PickableThing<T> | null) => void;
     testAllowedDrop: (option: ItemPF2e) => boolean;
-    state: {
-        prompt: string;
-        includeDropZone: boolean;
-        allowNoSelection: boolean;
-        selectMenu: boolean;
-        containsItems: boolean;
-        choices: PickableThing<T>[];
-    };
+    state: PickAThingState<T>;
 }
 
 export { PickAThingPrompt };
-export type { PickableThing, PickAThingRenderContext };
+export type { PickableThing, PickAThingRenderContext, PickAThingState };

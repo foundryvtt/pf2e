@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { AttributeString } from "@actor/types.ts";
-import type { RollMode } from "@common/constants.d.mts";
+import type { ChatMessageMode } from "@client/config.d.mts";
 import type { PhysicalItemPF2e } from "@item/physical/index.ts";
 import type { SpellPF2e } from "@item/spell/document.ts";
 import type { MagicTradition } from "@item/spell/types.ts";
@@ -59,7 +59,7 @@ interface CastOptions {
     rank?: OneToTen;
     consume?: boolean;
     message?: boolean;
-    rollMode?: RollMode;
+    messageMode?: ChatMessageMode;
 }
 
 type UnusedProperties = "actor" | "spells" | "getSheetData" | "cast" | "canCast";

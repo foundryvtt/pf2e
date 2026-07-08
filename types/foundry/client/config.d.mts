@@ -1,8 +1,8 @@
 import { DataSchema, Document, TypeDataModel } from "@common/abstract/_module.mjs";
-import { AudioFilePath, ImageFilePath, RollMode } from "@common/constants.mjs";
+import { AudioFilePath, ImageFilePath } from "@common/constants.mjs";
 import { DocumentConstructionContext } from "../common/_types.mjs";
 import { ActiveEffectSource } from "../common/documents/active-effect.mjs";
-import { applications, dice, documents, TokenMovementActionConfig } from "./_module.mjs";
+import { applications, data, dice, documents, TokenMovementActionConfig } from "./_module.mjs";
 import DocumentSheetV2 from "./applications/api/document-sheet.mjs";
 import CameraViews from "./applications/apps/av/cameras.mjs";
 import HTMLEnrichedContentElement from "./applications/elements/enriched-content.mjs";
@@ -36,6 +36,7 @@ import {
     AdaptiveBackgroundShader,
     AdaptiveColorationShader,
     AdaptiveIlluminationShader,
+    GridShader,
     WeatherShaderEffect,
 } from "./canvas/rendering/shaders/_module.mjs";
 import type {
@@ -140,12 +141,20 @@ interface WallDoorAnimationConfig {
 }
 
 export interface PartialTokenMovementActionConfig
-    extends Pick<TokenMovementActionConfig, "label" | "icon" | "order">,
+    extends
+        Pick<TokenMovementActionConfig, "label" | "icon" | "order">,
         Partial<Omit<TokenMovementActionConfig, "label" | "icon" | "order">> {}
 
 export interface RollFunction {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (...args: any[]): boolean | number | string | null | Promise<boolean | number | string | null>;
+}
+
+export type ChatMessageMode = "public" | "gm" | "blind" | "self" | "ic";
+
+interface GridStyleConfig {
+    label: string;
+    shaderClass: typeof GridShader;
+    shaderOptions: { style: number };
 }
 
 export default interface Config<
@@ -162,7 +171,6 @@ export default interface Config<
     THotbar extends Hotbar<TMacro>,
     TItem extends documents.Item<TActor | null>,
     TMacro extends documents.Macro,
-    TMeasuredTemplateDocument extends documents.MeasuredTemplateDocument<TScene | null>,
     TRegionDocument extends documents.RegionDocument<TScene | null>,
     TRegionBehavior extends documents.RegionBehavior<TRegionDocument | null>,
     TTileDocument extends documents.TileDocument<TScene | null>,
@@ -184,11 +192,6 @@ export default interface Config<
         avclient: boolean;
         mouseInteraction: boolean;
         time: boolean;
-    };
-
-    time: {
-        roundTime: number;
-        turnTime: number;
     };
 
     compendium: {
@@ -264,6 +267,21 @@ export default interface Config<
     /** Configuration for the ChatMessage document */
     ChatMessage: {
         batchSize: number;
+        /**
+         * Supported chat message visibility modes.
+         */
+        modes: {
+            /** Out-of-character messages visible to all players. */
+            public: { label: string; icon: string };
+            /** Messages visible between gamemasters and the sending user. */
+            gm: { label: string; icon: string };
+            /** Messages visible only to gamemasters and not to the sending user. */
+            blind: { label: string; icon: string };
+            /** Messages visible only to the sending user. */
+            self: { label: string; icon: string };
+            /** In-character messages visible to all players. */
+            ic: { label: string; icon: string };
+        };
         collection: typeof collections.Messages;
         documentClass: {
             new (data: PreCreate<TChatMessage["_source"]>, context?: DocumentConstructionContext<null>): TChatMessage;
@@ -310,7 +328,7 @@ export default interface Config<
             formula: ((combatant: TCombat["turns"][number]) => string) | null;
             decimals: number;
         };
-        settings: foundry.data.CombatConfiguration;
+        settings: data.CombatConfiguration;
     };
 
     /** Configuration for the JournalEntry entity */
@@ -416,32 +434,17 @@ export default interface Config<
         typeLabels: Record<string, string>;
     };
 
-    /** Configuration for the MeasuredTemplate embedded document type and its representation on the game Canvas */
-    MeasuredTemplate: {
-        defaults: {
-            angle: number;
-            width: number;
-        };
-        types: {
-            circle: string;
-            cone: string;
-            rect: string;
-            ray: string;
-        };
-        documentClass: ConstructorOf<TMeasuredTemplateDocument>;
-        objectClass: ConstructorOf<NonNullable<TMeasuredTemplateDocument["object"]>>;
-    };
-
     /** Configuration for the Region embedded document type and its representation on the game Canvas  */
     Region: {
         documentClass: ConstructorOf<TRegionDocument>;
         objectClass: ConstructorOf<TRegionDocument["object"]>;
+        layerClass: ConstructorOf<layers.RegionLayer>;
     };
 
     /** Configuration for the RegionBehavior embedded document type */
     RegionBehavior: {
         documentClass: ConstructorOf<TRegionBehavior>;
-        dataModels: Record<string, ConstructorOf<foundry.data.regionBehaviors.RegionBehaviorType>>;
+        dataModels: Record<string, ConstructorOf<data.regionBehaviors.RegionBehaviorType>>;
         typeIcons: Record<string, string>;
         typeLabels: Record<string, string>;
     };
@@ -461,7 +464,7 @@ export default interface Config<
         hudClass: ConstructorOf<applications.hud.TokenHUD>;
         rulerClass: ConstructorOf<placeables.tokens.TokenRuler<NonNullable<TTokenDocument["object"]>>>;
         movement: {
-            TerrainData: typeof foundry.data.TerrainData;
+            TerrainData: typeof data.TerrainData;
             /** The movement cost aggregator. */
             costAggregator: TokenMovementCostAggregator;
             /** The default movement animation speed in grid spaces per second. */
@@ -508,7 +511,6 @@ export default interface Config<
         darknessSourceClass: typeof PointDarknessSource;
         lightSourceClass: typeof PointLightSource;
         globalLightSourceClass: typeof GlobalLightSource;
-        rulerClass: typeof Ruler;
         visionSourceClass: ConstructorOf<PointVisionSource<NonNullable<TTokenDocument["object"]>>>;
         soundSourceClass: typeof PointSoundSource;
         groups: {
@@ -550,13 +552,13 @@ export default interface Config<
                 group: "effects";
                 layerClass: ConstructorOf<NonNullable<TWallDocument["object"]>["layer"]>;
             };
-            templates: {
-                group: "primary";
-                layerClass: ConstructorOf<NonNullable<TMeasuredTemplateDocument["object"]>["layer"]>;
-            };
             notes: {
                 group: "interface";
                 layerClass: typeof layers.NotesLayer;
+            };
+            regions: {
+                group: "interface";
+                layerClass: ConstructorOf<layers.RegionLayer>;
             };
             tokens: {
                 group: "primary";
@@ -592,8 +594,19 @@ export default interface Config<
             sound: typeof ClockwiseSweepPolygon;
             move: typeof ClockwiseSweepPolygon;
         };
+        rulerClass: typeof Ruler;
         dragSpeedModifier: number;
         maxZoom: number;
+        minZoom: number;
+        gridStyles: {
+            solidLines: GridStyleConfig;
+            dashedLines: GridStyleConfig;
+            dottedLines: GridStyleConfig;
+            squarePoints: GridStyleConfig;
+            diamondPoints: GridStyleConfig;
+            roundPoints: GridStyleConfig;
+        };
+
         objectBorderThickness: number;
         lightAnimations: Record<string, LightSourceAnimationConfig>;
 
@@ -673,7 +686,6 @@ export default interface Config<
     /** Configuration for dice rolling behaviors in the Foundry VTT client */
     Dice: {
         types: (typeof dice.terms.Die | typeof dice.terms.DiceTerm)[];
-        rollModes: Record<RollMode, string>;
         rolls: ConstructorOf<dice.Roll>[];
         termTypes: Record<string, ConstructorOf<dice.terms.RollTerm> & { fromData(data: object): dice.terms.RollTerm }>;
         terms: {
@@ -703,7 +715,7 @@ export default interface Config<
     defaultFontFamily: string;
 
     /** An array of status effect icons which can be applied to Tokens */
-    statusEffects: StatusEffectConfig[];
+    statusEffects: Record<string, StatusEffectConfig>;
 
     /** A mapping of status effect IDs which provide some additional mechanical integration. */
     specialStatusEffects: {
@@ -727,6 +739,68 @@ export default interface Config<
         [key: string]: string;
     };
 
+    /**
+     * Localization constants.
+     */
+    i18n: {
+        /**
+         * In operations involving the document index, search prefixes must have at least this many characters to avoid
+         * too large a search space. Languages that have hundreds or thousands of characters will typically have very
+         * shallow search trees, so it should be safe to lower this number in those cases.
+         */
+        searchMinimumCharacterLength: number;
+        /**
+         * Stop words used in Document and other textual searches
+         */
+        searchStopWords: Set<string>;
+    };
+
+    /* -------------------------------------------- */
+    /*  Timekeeping                                 */
+    /* -------------------------------------------- */
+
+    time: {
+        /**
+         * The Calendar configuration used for in-world timekeeping.
+         */
+        worldCalendarConfig: data.CalendarConfig;
+
+        /**
+         * The CalendarData subclass is used for in-world timekeeping.
+         */
+        worldCalendarClass: data.CalendarData;
+
+        /**
+         * The Calendar configuration used for IRL timekeeping.
+         */
+        earthCalendarConfig: data.CalendarConfig;
+
+        /**
+         * The CalendarData subclass is used for IRL timekeeping.
+         */
+        earthCalendarClass: data.CalendarData;
+
+        /**
+         * The number of seconds that automatically elapse at the end of a Combat turn.
+         */
+        turnTime: number;
+
+        /**
+         * The number of seconds that automatically elapse at the end of a Combat round.
+         */
+        roundTime: number;
+
+        /**
+         * Formatting functions used to display time data as strings.
+         */
+        formatters: {
+            timestamp: typeof data.CalendarData.formatTimestamp;
+            duration: typeof data.CalendarData.formatDuration;
+            ago: typeof data.CalendarData.formatAgo;
+            [key: string]: data.TimeFormatter;
+        };
+    };
+
     /** Maximum canvas zoom scale */
     maxCanvasZoom: number;
 
@@ -741,10 +815,6 @@ export default interface Config<
     /* -------------------------------------------- */
     /*  Integrations                                */
     /* -------------------------------------------- */
-
-    /** Default configuration options for TinyMCE editors */
-    // See https://www.tiny.cloud/docs/configure/content-appearance/
-    TinyMCE: TinyMCE.EditorOptions;
 
     ui: {
         actors: ConstructorOf<foundry.applications.sidebar.tabs.ActorDirectory<documents.Actor<null>>>;

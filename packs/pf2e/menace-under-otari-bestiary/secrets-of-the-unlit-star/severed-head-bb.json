@@ -1,0 +1,240 @@
+{
+    "_id": "7c0XJLfVKw8EMmKy",
+    "folder": "hM2SOUWscHgvAMED",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "jBnvJizQVNlbpByJ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 6
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d4+1",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "KjLaF8NJBaPjsRAz",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Gnash",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the severed head succeeds at its jaws Strike, it can use this action immediately after to make a second jaws Strike at the same target as it violently shakes itself, trying to rip away a mouthful of flesh. On a success, the target takes an additional 1d4 slashing damage and 1 persistent bleed damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "gnash",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "slashing",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "gnash"
+                        ],
+                        "selector": "jaws-damage"
+                    },
+                    {
+                        "damageType": "bleed",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "gnash"
+                        ],
+                        "selector": "jaws-damage",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Severed Head (BB)",
+    "prototypeToken": {
+        "name": "Severed Head"
+    },
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 1
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 15
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 7,
+                "temp": 0,
+                "value": 7
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "void"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 25
+                    }
+                ],
+                "value": 15
+            },
+            "weaknesses": [
+                {
+                    "type": "vitality",
+                    "value": 1
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": -1
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Severed heads are the reanimated heads of decapitation victims. These mindless undead fly through the air or roll around to attack their prey. In addition to attacking the living like other undead, severed heads can sometimes be drawn to things important to them in life. Scholars argue that this is likely due to particularly powerful thoughts that can break through momentarily in what's left of a severed head's mind. Unfortunately, their mindless state prevents them from recognizing their goal, and they remain violent even after encountering what they seek.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 6,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 4
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 6,
+                "special": []
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "tiny"
+            },
+            "value": [
+                "mindless",
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -994,7 +994,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>30 feet. The soft sound of whispering fills the area, and those in the area hear their own voice whispering among the voices. A creature that enters the area or begins their turn in the area must attempt a @Check[will|dc:38] save. On a failure, they become distracted by the conviction that their own voice is whispering out their secrets, and the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of their next turn.</p>"
+                    "value": "<p>30 feet. The soft sound of whispering fills the area, and those in the area hear their own voice whispering among the voices. A creature that enters the area or begins their turn in the area must attempt a @Check[will|dc:38|options:area-effect,inflicts:off-guard] save. On a failure, they become distracted by the conviction that their own voice is whispering out their secrets, and the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of their next turn.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1004,7 +1004,11 @@
                 "rules": [
                     {
                         "key": "Aura",
-                        "radius": 30
+                        "radius": 30,
+                        "traits": [
+                            "mental",
+                            "occult"
+                        ]
                     }
                 ],
                 "slug": null,

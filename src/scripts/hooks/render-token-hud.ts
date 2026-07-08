@@ -31,7 +31,7 @@ export class RenderTokenHUD {
         const button = createHTMLElement("button", {
             classes: ["control-icon", "clown-car"],
             dataset: { tooltip: "" },
-            aria: { label: game.i18n.localize(`PF2E.Actor.Party.ClownCar.${willRetrieve ? "Retrieve" : "Deposit"}`) },
+            aria: { label: _loc(`PF2E.Actor.Party.ClownCar.${willRetrieve ? "Retrieve" : "Deposit"}`) },
             children: [img],
         });
         button.type = "button";
@@ -43,7 +43,7 @@ export class RenderTokenHUD {
                 const switchToDeposit = img.className === "retrieve";
                 img.className = switchToDeposit ? "deposit" : "retrieve";
                 const locPath = `PF2E.Actor.Party.ClownCar.${switchToDeposit ? "Deposit" : "Retrieve"}`;
-                button.ariaLabel = game.i18n.localize(locPath);
+                button.ariaLabel = _loc(locPath);
             } finally {
                 button.disabled = false;
             }

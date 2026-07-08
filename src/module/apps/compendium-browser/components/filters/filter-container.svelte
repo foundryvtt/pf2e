@@ -13,6 +13,8 @@
         label: string;
     }
     const props: Props = $props();
+    // The prop only provides the initial value; this component controls isExpanded after that.
+    // svelte-ignore state_referenced_locally
     let isExpanded = $state(props.isExpanded);
 </script>
 
@@ -27,14 +29,14 @@
                 aria-expanded={isExpanded}
             >
                 <i class="fa-solid fa-fw {isExpanded ? 'fa-chevron-down' : 'fa-chevron-up'}"></i>
-                <span>{game.i18n.localize(props.label)}</span>
+                <span>{_loc(props.label)}</span>
             </button>
         {:else}
-            {game.i18n.localize(props.label)}
+            {_loc(props.label)}
         {/if}
         {#if props.clearButton?.options.visible}
             <button type="button" class="clear-filter" onclick={() => props.clearButton?.clear()}>
-                {game.i18n.localize("PF2E.CompendiumBrowser.Filter.ClearFilter")}
+                {_loc("PF2E.CompendiumBrowser.Filter.ClearFilter")}
             </button>
         {/if}
     </legend>

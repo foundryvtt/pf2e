@@ -21,8 +21,7 @@ export default class BaseCombatantGroup<TParent extends BaseCombat | null = Base
 }
 
 export default interface BaseCombatantGroup<TParent extends BaseCombat | null = BaseCombat | null>
-    extends Document<TParent, CombatantGroupSchema>,
-        fields.ModelPropsFromSchema<CombatantGroupSchema> {}
+    extends Document<TParent, CombatantGroupSchema>, fields.ModelPropsFromSchema<CombatantGroupSchema> {}
 
 declare interface CombatantGroupMetadata extends DocumentMetadata {
     name: "CombatantGroup";

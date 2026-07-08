@@ -1,5 +1,5 @@
 import type { FormSelectOption } from "@client/applications/forms/fields.d.mts";
-import type { ProseMirrorEditor } from "@client/applications/ux/_module.d.mts";
+import type { EditorCreateOptions } from "@client/applications/ux/prosemirror-editor.d.mts";
 import type { ApplicationV1HeaderButton, AppV1RenderOptions } from "@client/appv1/api/application-v1.d.mts";
 import type { DataField } from "@common/data/fields.d.mts";
 import { ItemPF2e } from "@item";
@@ -37,6 +37,7 @@ import {
 import { createSortable } from "@util/destroyables.ts";
 import { tagify } from "@util/tags.ts";
 import type { Plugin } from "prosemirror-state";
+import type { EditorView } from "prosemirror-view";
 import * as R from "remeda";
 import { ItemSystemModel } from "../data/model.ts";
 import { CodeMirror } from "./codemirror.ts";
@@ -48,7 +49,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
         this.options.classes.push(this.item.type);
     }
 
-    /** Ignore deprecation warning */
+    /** Hide our shame. */
     protected static override _warnedAppV1 = true;
 
     static override get defaultOptions(): ItemSheetOptions {
@@ -133,8 +134,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
         return {
             itemType: null,
             showTraits: !R.isEmpty(this.validTraits),
-            sidebarTitle: game.i18n.format("PF2E.Item.SidebarSummary", {
-                type: game.i18n.localize(`TYPES.Item.${item.type}`),
+            sidebarTitle: _loc("PF2E.Item.SidebarSummary", {
+                type: _loc(`TYPES.Item.${item.type}`),
             }),
             sidebarTemplate: options.hasSidebar
                 ? `systems/${SYSTEM_ID}/templates/items/${sluggify(item.type)}-sidebar.hbs`
@@ -279,9 +280,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
 
     override async activateEditor(
         name: string,
-        options: { engine?: "prosemirror" | "tinymce" } = {},
-        initialContent = "",
-    ): Promise<TinyMCE.Editor | ProseMirrorEditor> {
+        options?: EditorCreateOptions,
+        initialContent?: string,
+    ): Promise<EditorView> {
         // Ensure the source description is edited rather than a prepared one
         const sourceContent =
             name === "system.description.value" ? this.item._source.system.description.value : initialContent;
@@ -394,7 +395,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
                         const clipText = button.dataset.clipboard;
                         if (clipText) {
                             game.clipboard.copyPlainText(clipText);
-                            ui.notifications.info(game.i18n.format("PF2E.ClipboardNotification", { clipText }));
+                            ui.notifications.info(_loc("PF2E.ClipboardNotification", { clipText }));
                         }
                     });
                     break;
@@ -412,7 +413,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
                     button.addEventListener("click", async () => {
                         const path = `systems/${SYSTEM_ID}/templates/system/roll-options-tooltip.hbs`;
                         const content = await fa.handlebars.renderTemplate(path, {
-                            description: game.i18n.localize("PF2E.Item.Rules.Hint.RollOptions"),
+                            description: _loc("PF2E.Item.Rules.Hint.RollOptions"),
                             rollOptions: R.sortBy(this.item.getRollOptions("item").sort(), (o) => o.includes(":")),
                         });
                         game.tooltip.dismissLockedTooltips();
@@ -494,7 +495,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends fav1.sheets.ItemSheet<TItem,
                     } catch (error) {
                         if (error instanceof Error) {
                             ui.notifications.error(
-                                game.i18n.format("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message }),
+                                _loc("PF2E.ErrorMessage.RuleElementSyntax", { message: error.message }),
                             );
                             console.warn("Syntax error in rule element definition.", error.message, value);
                             throw error;

@@ -25,7 +25,6 @@ export { default as LightingLayer } from "./lighting.mjs";
 export { default as NotesLayer } from "./notes.mjs";
 export { default as RegionLayer } from "./regions.mjs";
 export { default as SoundsLayer } from "./sounds.mjs";
-export { default as TemplateLayer } from "./templates.mjs";
 export { default as TilesLayer } from "./tiles.mjs";
 export { default as TokenLayer } from "./tokens.mjs";
 export { default as WallsLayer } from "./walls.mjs";

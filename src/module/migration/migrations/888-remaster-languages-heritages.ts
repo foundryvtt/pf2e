@@ -21,7 +21,6 @@ export class Migration888RemasterLanguagesHeritages extends MigrationBase {
         aasimar: "nephilim",
         "half-elf": "aiuvarin",
         "half-orc": "dromaar",
-        gnoll: "gnoll", // Keep this one for now despite the language change
         ifrit: "naari",
         tiefling: "nephilim",
     };

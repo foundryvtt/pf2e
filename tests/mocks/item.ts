@@ -52,13 +52,13 @@ export class MockItem {
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         return updates.flatMap((update) => {
             const item = game.items.find((item) => item.id === update._id);
-            if (item) fu.mergeObject(item._source, update, { performDeletions: true });
+            if (item) fu.mergeObject(item._source, update, { applyOperators: true });
             return item ?? [];
         });
     }
 
     update(changes: object): void {
-        fu.mergeObject(this._source, changes, { performDeletions: true });
+        fu.mergeObject(this._source, changes, { applyOperators: true });
     }
 
     toObject(): ItemSourcePF2e {

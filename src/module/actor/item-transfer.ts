@@ -54,9 +54,7 @@ export class ItemTransfer implements ItemTransferData {
             const loot = [source, target].find((a) => a?.isLootableBy(game.user) && !a.isOwner);
 
             if (!loot) throw ErrorPF2e("Unexpected missing actor");
-            ui.notifications.error(
-                game.i18n.format("PF2E.loot.GMSupervisionError", { loot: ItemTransfer.#tokenName(loot) }),
-            );
+            ui.notifications.error(_loc("PF2E.loot.GMSupervisionError", { loot: ItemTransfer.#tokenName(loot) }));
             return;
         }
 
@@ -125,7 +123,7 @@ export class ItemTransfer implements ItemTransferData {
     static #tokenName(document: ActorPF2e | User): string {
         if ("items" in document) {
             // Use a special moniker for party actors
-            if (document.isOfType("party")) return game.i18n.localize("PF2E.loot.PartyStash");
+            if (document.isOfType("party")) return _loc("PF2E.loot.PartyStash");
 
             // check to see if the token name can be seen
             const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
@@ -135,7 +133,7 @@ export class ItemTransfer implements ItemTransferData {
             // hide name if the token's name is not visible and the token is an NPC
             if (document.token) {
                 return !canSeeName && document.isOfType("npc")
-                    ? game.i18n.localize("PF2E.loot.LootUnknownNPCMessage")
+                    ? _loc("PF2E.loot.LootUnknownNPCMessage")
                     : document.token.name;
             }
 
@@ -169,12 +167,10 @@ export class ItemTransfer implements ItemTransferData {
         if (!item) {
             if (this.mode !== "purchase") throw ErrorPF2e("Unexpected item-transfer failure");
 
-            const message = localize("InsufficientFundsMessage");
             // The buyer didn't have enough funds! No transaction.
-
             const content = await fa.handlebars.renderTemplate(this.#templatePaths.content, {
                 imgPath: targetActor.img,
-                message: game.i18n.format(message, { buyer: targetActor.name }),
+                message: localize("InsufficientFundsMessage", { buyer: targetActor.name }),
             });
 
             const flavor = await this.#messageFlavor(sourceActor, targetActor, localize("BuySubtitle"));
@@ -190,7 +186,7 @@ export class ItemTransfer implements ItemTransferData {
         }
 
         // Exhaustive pattern match to determine speaker and item-transfer parties
-        type PatternMatch = [speaker: string, subtitle: string, formatArgs: Parameters<Localization["format"]>];
+        type PatternMatch = [speaker: string, subtitle: string, formatArgs: Parameters<Localization["localize"]>];
 
         const [speaker, subtitle, formatArgs] = ((): PatternMatch => {
             const isMerchant = (actor: ActorPF2e) => actor.isOfType("loot") && actor.isMerchant;
@@ -216,7 +212,7 @@ export class ItemTransfer implements ItemTransferData {
                     ItemTransfer.#tokenName(sourceActor),
                     localize("DepositSubtitle"),
                     [
-                        localize("DepositMessage"),
+                        "PF2E.loot.DepositMessage",
                         {
                             depositor: ItemTransfer.#tokenName(sourceActor),
                             container: ItemTransfer.#tokenName(targetActor),
@@ -229,7 +225,7 @@ export class ItemTransfer implements ItemTransferData {
                     ItemTransfer.#tokenName(sourceActor),
                     localize("GiveSubtitle"),
                     [
-                        localize("GiveMessage"),
+                        "PF2E.loot.GiveMessage",
                         {
                             giver: ItemTransfer.#tokenName(sourceActor),
                             recipient: ItemTransfer.#tokenName(targetActor),
@@ -242,7 +238,7 @@ export class ItemTransfer implements ItemTransferData {
                     ItemTransfer.#tokenName(sourceActor),
                     localize("PlantSubtitle"),
                     [
-                        localize("PlantMessage"),
+                        "PF2E.loot.PlantMessage",
                         { planter: ItemTransfer.#tokenName(sourceActor), corpse: ItemTransfer.#tokenName(targetActor) },
                     ],
                 ];
@@ -252,7 +248,7 @@ export class ItemTransfer implements ItemTransferData {
                     ItemTransfer.#tokenName(targetActor),
                     localize("TakeSubtitle"),
                     [
-                        localize("TakeMessage"),
+                        "PF2E.loot.TakeMessage",
                         {
                             taker: ItemTransfer.#tokenName(targetActor),
                             container: ItemTransfer.#tokenName(sourceActor),
@@ -265,7 +261,7 @@ export class ItemTransfer implements ItemTransferData {
                     ItemTransfer.#tokenName(targetActor),
                     localize("LootSubtitle"),
                     [
-                        localize("LootMessage"),
+                        "PF2E.loot.LootMessage",
                         { looter: ItemTransfer.#tokenName(targetActor), corpse: ItemTransfer.#tokenName(sourceActor) },
                     ],
                 ];
@@ -275,7 +271,7 @@ export class ItemTransfer implements ItemTransferData {
                     requester.character?.name ?? requester.name,
                     localize("TransferSubtitle"),
                     [
-                        localize("TransferMessage"),
+                        "PF2E.loot.TransferMessage",
                         {
                             transferrer: requester.character?.name ?? requester.name,
                             fromContainer: ItemTransfer.#tokenName(sourceActor),
@@ -289,7 +285,7 @@ export class ItemTransfer implements ItemTransferData {
                     requester.character?.name ?? requester.name,
                     localize("GiveSubtitle"),
                     [
-                        localize("GiveMessage"),
+                        "PF2E.loot.GiveMessage",
                         {
                             seller: requester.character?.name ?? requester.name,
                             buyer: ItemTransfer.#tokenName(targetActor),
@@ -302,7 +298,7 @@ export class ItemTransfer implements ItemTransferData {
                     ItemTransfer.#tokenName(sourceActor),
                     localize("SellSubtitle"),
                     [
-                        localize("SellMessage"),
+                        "PF2E.loot.SellMessage",
                         { seller: ItemTransfer.#tokenName(sourceActor), buyer: ItemTransfer.#tokenName(targetActor) },
                     ],
                 ];
@@ -312,7 +308,7 @@ export class ItemTransfer implements ItemTransferData {
                     requester.character?.name ?? requester.name,
                     localize("SellSubtitle"),
                     [
-                        localize("SellMessage"),
+                        "PF2E.loot.SellMessage",
                         {
                             seller: ItemTransfer.#tokenName(sourceActor),
                             buyer: requester.character?.name ?? requester.name,
@@ -332,16 +328,14 @@ export class ItemTransfer implements ItemTransferData {
         // Don't bother showing quantity if it's only 1:
         const content = await fa.handlebars.renderTemplate(this.#templatePaths.content, {
             imgPath: item.img,
-            message: game.i18n.format(...formatArgs).replace(/\b1 × /, ""),
+            message: _loc(...formatArgs).replace(/\b1 × /, ""),
         });
-
-        const flavor = await this.#messageFlavor(sourceActor, targetActor, subtitle);
 
         await ChatMessagePF2e.create({
             author: requester.id,
             speaker: { alias: speaker },
             style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
-            flavor,
+            flavor: await this.#messageFlavor(sourceActor, targetActor, subtitle),
             content,
         });
     }

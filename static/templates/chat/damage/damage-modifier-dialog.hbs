@@ -64,9 +64,9 @@
     <hr />
 
     <section class="add-entry-row add-modifier-panel">
-        <input type="text" class="add-modifier-name" placeholder={{localize "PF2E.Roll.Dialog.Damage.Label"}}>
-        <input type="number" class="add-modifier-value" placeholder="+1">
-        <select class="add-modifier-type">
+        <input type="text" class="add-modifier-name" placeholder={{localize "PF2E.Roll.Dialog.Damage.Label"}} aria-label="{{localize "PF2E.Roll.Dialog.ModifierName"}}">
+        <input type="text" class="add-modifier-value" placeholder="1" aria-label="{{localize "PF2E.Roll.Dialog.ModifierValue"}}">
+        <select class="add-modifier-type" aria-label="{{localize "PF2E.Roll.Dialog.ModifierType"}}">
             <option value="circumstance">{{localize "PF2E.ModifierType.circumstance"}}</option>
             <option value="item">{{localize "PF2E.ModifierType.item"}}</option>
             <option value="status">{{localize "PF2E.ModifierType.status"}}</option>
@@ -74,36 +74,43 @@
             <option value="ability">{{localize "PF2E.ModifierType.ability"}}</option>
             <option value="proficiency">{{localize "PF2E.ModifierType.proficiency"}}</option>
         </select>
-        <select class="add-modifier-category">
+        <select class="add-modifier-category" aria-label="{{localize "PF2E.Roll.Dialog.ModifierDamageCategory"}}">
             <option value=""></option>
             {{#each damageSubtypes as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
             {{/each}}
         </select>
-        <select class="add-modifier-damage-type">
+        <select class="add-modifier-damage-type" aria-label="{{localize "PF2E.Roll.Dialog.ModifierDamageType"}}">
             {{#each damageTypes as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
             {{/each}}
         </select>
         <button type="button" class="add-modifier">+{{localize "PF2E.Roll.Add"}}</button>
     </section>
+
     <hr />
 
-    <div class="roll-mode-panel">
-        <label class="roll-mode">
-            {{localize "PF2E.RollModeLabel"}}
-            <select name="rollmode">
-                {{selectOptions rollModes selected=rollMode localize=true}}
-            </select>
-        </label>
-        <label data-tooltip="PF2E.Roll.Dialog.ShowDefaultHint">
-            {{localize "PF2E.Roll.Dialog.ShowDefault"}}
-            <input data-action="change-show-default" type="checkbox" {{checked showDamageDialogs}} />
-        </label>
+    <div class="roll-mode-panel flexcol">
+        <div class="form-group roll-mode">
+            <label for="{{appId}}-messageMode">{{localize "CHAT.RollVisibility"}}</label>
+            <div class="form-fields">
+                <select name="messageMode" id="{{appId}}-messageMode">
+                    {{selectOptions messageModes selected=messageMode localize=true}}
+                </select>
+            </div>
+        </div>
+        <div class="form-group" data-tooltip aria-label="{{localize "PF2E.Roll.Dialog.ShowDefaultHint"}}">
+            <label for="{{appId}}-showDefault">{{localize "PF2E.Roll.Dialog.ShowDefault"}}</label>
+            <div class="form-fields">
+                <input id="{{appId}}-showDefault" data-action="change-show-default" type="checkbox"
+                       {{checked showDamageDialogs}} />
+            </div>
+        </div>
     </div>
+
     <hr />
 
-    <button type="button" class="roll">{{{formula}}}</button>
+    <button type="submit">{{{formula}}}</button>
 </form>
 
 {{#*inline "modifier-row"}}

@@ -1,7 +1,6 @@
 import Document from "@common/abstract/document.mjs";
 import { DOMOutputSpec, Mark, MarkType, Node, NodeType } from "prosemirror-model";
-import { EditorState } from "prosemirror-state";
-import { EditorView } from "prosemirror-view";
+import { Command } from "prosemirror-state";
 
 interface ProseMirrorContentLinkOptions {
     /** The parent document housing this editor. */
@@ -35,7 +34,7 @@ interface ProseMirrorMenuItem {
     /** The node to wrap the selected text in. */
     node?: NodeType;
     /** An object of attributes for the node or mark. */
-    attrs?: object;
+    attrs?: Record<string, unknown>;
     /**
      * Entries with the same group number will be grouped together in the drop-down. Lower-numbered groups appear higher
      * in the list.
@@ -47,7 +46,7 @@ interface ProseMirrorMenuItem {
      */
     priority?: number;
     /** The command to run when the menu item is clicked. */
-    cmd?: ProseMirrorCommand;
+    cmd?: Command;
     /** Whether the current item is active under the given selection or cursor. */
     active?: boolean;
 }
@@ -68,8 +67,7 @@ interface ProseMirrorDropDownConfig {
     entries: ProseMirrorDropDownEntry[];
 }
 
-export type ProseMirrorCommand = (state: EditorState, dispatch: Function, view: EditorView) => boolean;
-export type MenuToggleBlockWrapCommand = (node: NodeType, attrs?: object) => ProseMirrorCommand;
+export type MenuToggleBlockWrapCommand = (node: NodeType, attrs?: object) => Command;
 export type ProseMirrorNodeOutput = (node: Node) => DOMOutputSpec;
 export type ProseMirrorMarkOutput = (mark: Mark, inline: boolean) => DOMOutputSpec;
 export type ProseMirrorSliceTransformer = (node: Node) => Node | void;

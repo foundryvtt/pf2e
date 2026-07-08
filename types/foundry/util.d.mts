@@ -14,8 +14,8 @@ declare global {
     type DeepReadonly<T> = {
         readonly [K in keyof T]: T[K] extends undefined | null | boolean | number | string | symbol | bigint | Function
             ? T[K]
-            : T[K] extends Array<infer V>
-              ? ReadonlyArray<DeepReadonly<V>>
+            : T[K] extends (infer V)[]
+              ? readonly DeepReadonly<V>[]
               : T[K] extends Map<infer K_1, infer V>
                 ? ReadonlyMap<DeepReadonly<K_1>, DeepReadonly<V>>
                 : T[K] extends Set<infer V_1>
@@ -24,15 +24,9 @@ declare global {
     };
 
     type CollectionValue<T> = T extends Collection<string, infer U> ? U : never;
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type AbstractConstructorOf<T> = abstract new (...args: any[]) => T;
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type ConstructorOf<T> = new (...args: any[]) => T;
-
     type DocumentConstructorOf<T extends foundry.abstract.Document> = {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         new (...args: any[]): T;
         updateDocuments(updates?: object[], operation?: Partial<DatabaseUpdateOperation<T["parent"]>>): Promise<T[]>;
     };

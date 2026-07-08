@@ -212,6 +212,7 @@ export default class ActiveEffect<
     protected _displayScrollingStatus(enabled: boolean): void;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default interface ActiveEffect<TParent extends Actor | Item | null = Actor | Item | null> {
     readonly _source: ActiveEffectSource;
     duration: PreparedEffectDurationData;

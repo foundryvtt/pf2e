@@ -264,7 +264,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         if (message && valid) {
             spell.system.location.value ??= this.id;
             const castRank = spell.computeCastRank(rank);
-            await spell.toMessage(null, { rollMode: options.rollMode, data: { castRank } });
+            await spell.toMessage(null, { mode: options.messageMode, data: { castRank } });
         }
     }
 
@@ -285,12 +285,12 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
                 await actor.update({ "system.resources.focus.value": currentPoints - fpCost });
                 return true;
             } else {
-                ui.notifications.warn(game.i18n.localize("PF2E.Focus.NotEnoughFocusPointsError"));
+                ui.notifications.warn(_loc("PF2E.Focus.NotEnoughFocusPointsError"));
                 return false;
             }
         }
 
-        const rankLabel = game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) });
+        const rankLabel = _loc("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) });
         const slotKey = rank.between(1, 10) ? (`slot${rank}` as `slot${OneToTen}`) : "slot0";
         if (this.system.slots === null || !this.spells) {
             return false;
@@ -312,7 +312,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
                 throw ErrorPF2e("Slot not given for prepared spell, and no alternative slot was found");
             }
             if (slots[resolvedIndex].expended) {
-                ui.notifications.warn(game.i18n.format("PF2E.SpellSlotExpendedError", { spell: spell.name }));
+                ui.notifications.warn(_loc("PF2E.SpellSlotExpendedError", { spell: spell.name }));
                 return false;
             }
 
@@ -325,7 +325,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         if (this.isInnate) {
             const remainingUses = spell.system.location.uses?.value || 0;
             if (remainingUses <= 0) {
-                ui.notifications.warn(game.i18n.format("PF2E.SpellSlotExpendedError", { spell: spell.name }));
+                ui.notifications.warn(_loc("PF2E.SpellSlotExpendedError", { spell: spell.name }));
                 return false;
             }
             await spell.update({ "system.location.uses.value": remainingUses - 1 });
@@ -338,7 +338,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             return true;
         } else {
             const rank = game.i18n.lang === "de" ? rankLabel : rankLabel.toLocaleLowerCase(game.i18n.lang);
-            ui.notifications.warn(game.i18n.format("PF2E.SpellSlotNotEnoughError", { spell: spell.name, rank }));
+            ui.notifications.warn(_loc("PF2E.SpellSlotNotEnoughError", { spell: spell.name, rank }));
             return false;
         }
     }

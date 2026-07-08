@@ -1,7 +1,7 @@
 import AbstractBaseShader from "@client/canvas/rendering/shaders/base-shader.mjs";
+import { ShaderField } from "@client/data/fields.mjs";
 import DataModel from "@common/abstract/data.mjs";
 import * as fields from "@common/data/fields.mjs";
-import { ShaderField } from "../../perception/vision-mode.mjs";
 
 /**
  * The turn marker animation data.
@@ -36,8 +36,7 @@ export default class TurnMarkerData extends DataModel<null, TurnMarkerDataSchema
 }
 
 export default interface TurnMarkerData
-    extends DataModel<null, TurnMarkerDataSchema>,
-        fields.ModelPropsFromSchema<TurnMarkerDataSchema> {}
+    extends DataModel<null, TurnMarkerDataSchema>, fields.ModelPropsFromSchema<TurnMarkerDataSchema> {}
 
 type TurnMarkerDataSchema = {
     id: fields.StringField;

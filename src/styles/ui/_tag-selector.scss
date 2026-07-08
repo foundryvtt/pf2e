@@ -23,11 +23,18 @@
         display: flex;
         gap: 0.5rem;
 
-        input[type="search"] {
-            &::placeholder {
-                font-family: var(--fa6);
-                font-weight: 900;
-                padding-left: 0.25em;
+        &.search:has(input[type="search"]) {
+            position: relative;
+            &::before {
+                content: "\f002";
+                color: var(--input-text-color);
+                font-family: var(--font-awesome);
+                font-weight: bold;
+                position: absolute;
+                left: 0.5rem;
+            }
+            input[type="search"] {
+                padding-left: 1.75rem;
             }
         }
     }

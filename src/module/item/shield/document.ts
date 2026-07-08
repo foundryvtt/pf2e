@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { DatabaseUpdateCallbackOptions } from "@common/abstract/_types.d.mts";
 import { ItemProxyPF2e, type WeaponPF2e } from "@item";
 import type { RawItemChatData } from "@item/base/data/index.ts";
+import { performLatePreparation } from "@item/helpers.ts";
 import {
     PhysicalItemPF2e,
     RUNE_DATA,
@@ -18,7 +19,6 @@ import * as R from "remeda";
 import type { IntegratedWeaponData, ShieldSource, ShieldSystemData } from "./data.ts";
 import { setActorShieldData } from "./helpers.ts";
 import type { BaseShieldType, ShieldTrait } from "./types.ts";
-import { performLatePreparation } from "@item/helpers.ts";
 
 type BaseWeaponData = Pick<WeaponSource, "_id" | "type" | "name" | "img"> & {
     system: Partial<WeaponSystemSource> & { traits: WeaponTraitsSource };
@@ -211,8 +211,8 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         htmlOptions: EnrichmentOptionsPF2e = {},
     ): Promise<RawItemChatData> {
         const properties = [
-            `${signedInteger(this.acBonus)} ${game.i18n.localize("PF2E.ArmorArmorLabel")}`,
-            this.speedPenalty ? `${this.system.speedPenalty} ${game.i18n.localize("PF2E.ArmorSpeedLabel")}` : null,
+            `${signedInteger(this.acBonus)} ${_loc("PF2E.ArmorArmorLabel")}`,
+            this.speedPenalty ? `${this.system.speedPenalty} ${_loc("PF2E.ArmorSpeedLabel")}` : null,
         ].filter(R.isTruthy);
 
         return this.processChatData(htmlOptions, {
@@ -225,9 +225,9 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const base = this.baseType ? CONFIG.PF2E.baseShieldTypes[this.baseType] : null;
         const fallback = "TYPES.Item.shield";
-        const itemType = game.i18n.localize(base ?? fallback);
+        const itemType = _loc(base ?? fallback);
 
-        return typeOnly ? itemType : game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
+        return typeOnly ? itemType : _loc("PF2E.identification.UnidentifiedItem", { item: itemType });
     }
 
     /** Build the data for an integrated weapon from this shield */

@@ -25,9 +25,9 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
     override async getData(): Promise<VehicleSheetData> {
         const actions: ActionsSheetData = {
-            action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
-            reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
-            free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
+            action: { label: _loc("PF2E.ActionsActionsHeader"), actions: [] },
+            reaction: { label: _loc("PF2E.ActionsReactionsHeader"), actions: [] },
+            free: { label: _loc("PF2E.ActionsFreeActionsHeader"), actions: [] },
         };
 
         const actor = this.actor;

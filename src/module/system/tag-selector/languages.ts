@@ -62,10 +62,7 @@ class LanguageSelector extends TagSelectorBasic<ActorPF2e | ItemPF2e> {
         const choices = R.mapValues(selectedAtTop, (data, key): ChoiceData => {
             const slug = key as Language;
             const rarityLocKeys = { ...CONFIG.PF2E.rarityTraits, secret: "PF2E.TraitSecret" };
-            const tags = R.mapToObj(LANGUAGE_RARITIES, (r) => [
-                r,
-                { slug: r, label: game.i18n.localize(rarityLocKeys[r]) },
-            ]);
+            const tags = R.mapToObj(LANGUAGE_RARITIES, (r) => [r, { slug: r, label: _loc(rarityLocKeys[r]) }]);
 
             // Disable checkboxes for manually-added languages granted by items so that they'll be cleared on save
             if (
@@ -80,11 +77,9 @@ class LanguageSelector extends TagSelectorBasic<ActorPF2e | ItemPF2e> {
             const rarity = ((): { slug: string; label: string } => {
                 if (slug === "common") {
                     if (languagesByRarity.commonLanguage) {
-                        const commonLanguage = game.i18n.localize(
-                            CONFIG.PF2E.languages[languagesByRarity.commonLanguage],
-                        );
+                        const commonLanguage = _loc(CONFIG.PF2E.languages[languagesByRarity.commonLanguage]);
                         const locKey = "PF2E.Actor.Creature.Language.CommonLanguage";
-                        data.label = game.i18n.format(locKey, { language: commonLanguage });
+                        data.label = _loc(locKey, { language: commonLanguage });
                     }
                     return tags.common;
                 }

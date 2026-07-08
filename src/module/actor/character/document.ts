@@ -1,5 +1,6 @@
 import { CreaturePF2e, type FamiliarPF2e } from "@actor";
 import { Abilities } from "@actor/creature/data.ts";
+import { CreatureSaves } from "@actor/creature/saves.ts";
 import { CreatureUpdateCallbackOptions, ResourceData } from "@actor/creature/types.ts";
 import { ALLIANCES, SAVING_THROW_ATTRIBUTES } from "@actor/creature/values.ts";
 import { StrikeData } from "@actor/data/base.ts";
@@ -46,7 +47,7 @@ import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ActionCost } from "@item/base/data/index.ts";
 import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import type { EffectAreaShape, ItemType } from "@item/types.ts";
-import type { WeaponSource } from "@item/weapon/data.ts";
+import type { WeaponRuneSource, WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import {
@@ -769,10 +770,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     private prepareSaves(): void {
         const wornArmor = this.wornArmor;
-
-        this.saves = R.mapToObj(SAVE_TYPES, (saveType) => {
+        const saves = R.mapToObj(SAVE_TYPES, (saveType) => {
             const save = this.system.saves[saveType];
-            const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
+            const saveName = _loc(CONFIG.PF2E.saves[saveType]);
             const modifiers: Modifier[] = [];
             const selectors = [saveType, `${save.attribute}-based`, "saving-throw", "all"];
 
@@ -833,6 +833,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
             return [saveType, statistic];
         });
+        this.saves = new CreatureSaves(saves);
     }
 
     private prepareSkills() {
@@ -1023,14 +1024,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 w.isEquipped &&
                 w.isInvested,
         );
-        const unarmedRunes = fu.deepClone(handwraps?._source.system.runes) ?? { potency: 0, striking: 0, property: [] };
+        const unarmedRunes: WeaponRuneSource = handwraps
+            ? R.pick(handwraps.system.runes, ["potency", "striking", "property"])
+            : { potency: 0, striking: 0, property: [] };
 
         // Add a basic unarmed strike
         const basicUnarmed = includeBasicUnarmed
             ? ((): WeaponPF2e<this> => {
                   const source: PreCreate<WeaponSource> = {
                       _id: "xxPF2ExUNARMEDxx",
-                      name: game.i18n.localize("PF2E.WeaponTypeUnarmed"),
+                      name: _loc("PF2E.WeaponTypeUnarmed"),
                       type: "weapon",
                       img: "icons/skills/melee/unarmed-punch-fist.webp",
                       system: {
@@ -1217,8 +1220,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             glyph: getActionGlyph(actionCost),
             description:
                 action === "area-fire"
-                    ? game.i18n.localize("PF2E.Actions.AreaFire.Description")
-                    : game.i18n.localize("PF2E.Actions.AutoFire.Description"),
+                    ? _loc("PF2E.Actions.AreaFire.Description")
+                    : _loc("PF2E.Actions.AutoFire.Description"),
             ready:
                 (weapon.isEquipped && handsAvailable) ||
                 (weapon.isThrown && weapon.reload === "0" && weapon.isWorn && handsReallyFree > 0),
@@ -1235,8 +1238,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 .sort((a, b) => a.label.localeCompare(b.label)),
             variants: [
                 {
-                    label: game.i18n.format("PF2E.ActionWithDC", {
-                        label: game.i18n.localize(actionLabel),
+                    label: _loc("PF2E.ActionWithDC", {
+                        label: _loc(actionLabel),
                         dc: statistic.dc.value,
                     }),
                     roll: () => {
@@ -1413,12 +1416,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const handsAvailable = !weapon.system.graspingAppendage || handsReallyFree > 0;
 
-        const actionTraits: AbilityTrait[] = [
-            "attack" as const,
-            // CRB p. 544: "Due to the complexity involved in preparing bombs, Strikes to throw alchemical bombs gain
-            // the manipulate trait."
-            weapon.baseType === "alchemical-bomb" ? ("manipulate" as const) : [],
-        ].flat();
+        const actionTraits: AbilityTrait[] = ["attack"];
         for (const adjustment of strikeAdjustments) {
             adjustment.adjustTraits?.(weapon, actionTraits);
         }
@@ -1504,14 +1502,17 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         ];
 
         action.variants = ([0, 1, 2] as const).map((mapIncreases) => ({
-            get label(): string {
+            get penalty(): number {
                 const penalty = createMAPenalty(initialMAPs, mapIncreases);
                 adjustModifiers([penalty].filter(R.isTruthy), initialRollOptions);
-
+                return penalty?.value ?? 0;
+            },
+            get label(): string {
+                const penalty = this.penalty;
                 return penalty
-                    ? game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-                          value: signedInteger(action.totalModifier + penalty.value),
-                          penalty: penalty.value,
+                    ? _loc("PF2E.MAPAbbreviationValueLabel", {
+                          value: signedInteger(action.totalModifier + penalty),
+                          penalty,
                       })
                     : signedInteger(action.totalModifier);
             },
@@ -1529,7 +1530,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                 if (params.consumeAmmo && expend > ammoRemaining) {
                     const message = ammoRemaining ? "PF2E.Strike.Ranged.InsufficientAmmo" : "PF2E.Strike.Ranged.NoAmmo";
-                    ui.notifications.warn(game.i18n.format(message, { weapon: weapon.name, actor: this.name }));
+                    ui.notifications.warn(_loc(message, { weapon: weapon.name, actor: this.name }));
                     return null;
                 }
                 const targetToken = params.getFormula
@@ -1584,7 +1585,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     extractDegreeOfSuccessAdjustments(context.origin.actor.synthetics, context.domains),
                 ].flat();
 
-                const title = game.i18n.format(
+                const title = _loc(
                     weapon.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
                     { weapon: weapon.name },
                 );
@@ -1735,14 +1736,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         const description = [
-            createHTMLElement("p", { children: [game.i18n.localize(flavor.description)] }).outerHTML,
+            createHTMLElement("p", { children: [_loc(flavor.description)] }).outerHTML,
             createHTMLElement("hr").outerHTML,
             createHTMLElement("dl", {
                 children: [
-                    createHTMLElement("dt", { innerHTML: game.i18n.localize("PF2E.CritSuccess") }),
-                    createHTMLElement("dd", { children: [game.i18n.localize(flavor.criticalSuccess)] }),
-                    createHTMLElement("dt", { innerHTML: game.i18n.localize("PF2E.Success") }),
-                    createHTMLElement("dd", { children: [game.i18n.localize(flavor.success)] }),
+                    createHTMLElement("dt", { innerHTML: _loc("PF2E.CritSuccess") }),
+                    createHTMLElement("dd", { children: [_loc(flavor.criticalSuccess)] }),
+                    createHTMLElement("dt", { innerHTML: _loc("PF2E.Success") }),
+                    createHTMLElement("dd", { children: [_loc(flavor.success)] }),
                 ],
             }).outerHTML,
         ].join("");
@@ -1754,7 +1755,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (!ammo) {
             return true;
         } else if (ammo.quantity < 1) {
-            ui.notifications.warn(game.i18n.localize("PF2E.ErrorMessage.NotEnoughAmmo"));
+            ui.notifications.warn(_loc("PF2E.ErrorMessage.NotEnoughAmmo"));
             return false;
         } else {
             const existingCallback = params.callback;

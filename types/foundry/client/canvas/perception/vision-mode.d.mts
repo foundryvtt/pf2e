@@ -1,11 +1,8 @@
-import DataModel from "@common/abstract/data.mjs";
-import * as fields from "@common/data/fields.mjs";
+import { DataModel, DataModelConstructionContext } from "@common/abstract/_module.mjs";
+import { LightingLevel } from "@common/constants.mjs";
 import Token from "../placeables/token.mjs";
 import PointVisionSource from "../sources/point-vision-source.mjs";
-
-export class ShaderField extends fields.DataField {
-    override _cast(value: unknown): unknown;
-}
+import fields = foundry.data.fields;
 
 /**
  * A Vision Mode which can be selected for use by a Token.
@@ -17,7 +14,7 @@ export default class VisionMode extends DataModel<null, VisionModeSchema> {
      * @param data      Data which fulfills the model defined by the VisionMode schema.
      * @param [options] Additional options passed to the DataModel constructor.
      */
-    constructor(data?: object, options?: { animated?: boolean });
+    constructor(data?: DeepPartial<VisionModeSource>, options?: VisionModeConstructionContext);
 
     static override defineSchema(): VisionModeSchema;
 
@@ -43,7 +40,9 @@ export default class VisionMode extends DataModel<null, VisionModeSchema> {
         REQUIRED: 2;
     };
 
-    /** A flag for whether this vision source is animated */
+    /**
+     * A flag for whether this vision source is animated
+     */
     animated: boolean;
 
     /**
@@ -54,13 +53,13 @@ export default class VisionMode extends DataModel<null, VisionModeSchema> {
 
     /**
      * Special activation handling that could be implemented by VisionMode subclasses
-     * @param source   Activate this VisionMode for a specific source
+     * @param source Activate this VisionMode for a specific source
      */
-    _activate(source: PointVisionSource<Token>): void;
+    protected _activate(source: PointVisionSource<Token>): void;
 
     /**
      * Special deactivation handling that could be implemented by VisionMode subclasses
-     * @param source   Deactivate this VisionMode for a specific source
+     * @param source Deactivate this VisionMode for a specific source
      */
     protected _deactivate(source: PointVisionSource<Token>): void;
 
@@ -84,13 +83,16 @@ export default class VisionMode extends DataModel<null, VisionModeSchema> {
 }
 
 export default interface VisionMode
-    extends DataModel<null, VisionModeSchema>,
-        fields.ModelPropsFromSchema<VisionModeSchema> {}
+    extends DataModel<null, VisionModeSchema>, fields.ModelPropsFromSchema<VisionModeSchema> {}
+
+export interface VisionModeConstructionContext extends DataModelConstructionContext<null> {
+    animated?: boolean;
+}
 
 export type LightingVisibility = (typeof VisionMode.LIGHTING_VISIBILITY)[keyof typeof VisionMode.LIGHTING_VISIBILITY];
 
 export type ShaderSchema = fields.SchemaField<{
-    shader: ShaderField;
+    shader: fields.ShaderField;
     uniforms: fields.ObjectField<object>;
 }>;
 
@@ -105,7 +107,7 @@ export type VisionModeSchema = {
     label: fields.StringField;
     tokenConfig: fields.BooleanField;
     canvas: fields.SchemaField<{
-        shader: ShaderField;
+        shader: fields.ShaderField;
         uniforms: fields.ObjectField<object>;
     }>;
     lighting: fields.SchemaField<{
@@ -113,7 +115,7 @@ export type VisionModeSchema = {
         coloration: LightingSchema;
         illumination: LightingSchema;
         darkness: LightingSchema;
-        levels: fields.ObjectField<object>;
+        levels: fields.ObjectField<Record<LightingLevel, LightingLevel>>;
         multipliers: fields.ObjectField<object>;
     }>;
     vision: fields.SchemaField<{
@@ -133,3 +135,5 @@ export type VisionModeSchema = {
         preferred: fields.BooleanField;
     }>;
 };
+
+export type VisionModeSource = fields.SourceFromSchema<VisionModeSchema>;

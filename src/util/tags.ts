@@ -16,7 +16,7 @@ function traitSlugToObject(
     // in use, which can include what are normally NPC-only traits
     const traitObject: TraitViewData = {
         name: trait,
-        label: game.i18n.localize(dictionary[trait] ?? trait),
+        label: _loc(dictionary[trait] ?? trait),
         description: null,
     };
     if (objectHasKey(descriptions, trait)) {
@@ -32,7 +32,7 @@ function transformWhitelist(whitelist: WhitelistData) {
         : Object.entries(whitelist)
               .map(([key, locPath]) => ({
                   id: key,
-                  value: game.i18n.localize(typeof locPath === "string" ? locPath : locPath.label),
+                  value: _loc(typeof locPath === "string" ? locPath : locPath.label),
               }))
               .sort((a, b) => a.value.localeCompare(b.value, game.i18n.lang));
 }

@@ -28,13 +28,11 @@ class SelectItemDialog extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         },
     };
 
-    override root = Root;
-
-    declare protected $state: SelectItemState;
+    protected root = Root;
 
     override get title(): string {
         const key = sluggify(this.#action, { camel: "bactrian" });
-        return game.i18n.localize(`PF2E.Actions.${key}.SelectItemDialog.Title`);
+        return _loc(`PF2E.Actions.${key}.SelectItemDialog.Title`);
     }
 
     protected override async _prepareContext(options: fa.ApplicationRenderOptions): Promise<SelectItemRenderContext> {
@@ -80,4 +78,4 @@ interface SelectItemRenderContext extends SvelteApplicationRenderContext {
 }
 
 export { SelectItemDialog };
-export type { ItemAction, SelectItemRenderContext };
+export type { ItemAction, SelectItemRenderContext, SelectItemState };

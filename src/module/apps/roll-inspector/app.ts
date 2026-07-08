@@ -19,7 +19,7 @@ class RollInspector extends SvelteApplicationMixin(fa.api.ApplicationV2) {
         },
     };
 
-    protected override root = Root;
+    protected root = Root;
 
     message: ChatMessagePF2e;
 
@@ -47,7 +47,7 @@ class RollInspector extends SvelteApplicationMixin(fa.api.ApplicationV2) {
                 rollOptions,
                 contextualOptions: Object.entries(contextualOptions ?? {})
                     .map(([key, value]) => ({
-                        header: game.i18n.localize(`PF2E.ChatRollDetails.ContextualOptions.${key}`),
+                        header: _loc(`PF2E.ChatRollDetails.ContextualOptions.${key}`),
                         options: value ?? [],
                     }))
                     .filter((o) => !!o.options.length),
@@ -70,4 +70,4 @@ interface RollInspectorState {
 }
 
 export { RollInspector };
-export type { RollInspectorContext };
+export type { RollInspectorContext, RollInspectorState };

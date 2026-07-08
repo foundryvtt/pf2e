@@ -20,8 +20,8 @@ export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
 
         return {
             ...(await super.getData(options)),
-            itemType: game.i18n.localize("PF2E.LevelLabel"),
-            badgeType: badge ? game.i18n.localize(`PF2E.Item.Effect.Badge.Type.${badge.type}`) : "",
+            itemType: _loc("PF2E.LevelLabel"),
+            badgeType: badge ? _loc(`PF2E.Item.Effect.Badge.Type.${badge.type}`) : "",
             expiryOptions: [
                 { value: "turn-start", label: "PF2E.Item.Effect.Expiry.StartOfTurn" },
                 { value: "turn-end", label: "PF2E.Item.Effect.Expiry.EndOfTurn" },

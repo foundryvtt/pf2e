@@ -1,22 +1,24 @@
 <script lang="ts">
     import ItemTraits from "@module/sheet/components/item-traits.svelte";
+    import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { ReloadWeaponContext } from "./app.ts";
     import ItemSummary from "@module/sheet/components/item-summary.svelte";
     import HeavyBullets from "../../../../../../static/assets/icons/heavy-bullets.svg?raw";
-    const { state: data, foundryApp }: ReloadWeaponContext = $props();
+    const { foundryApp, getState }: ReloadWeaponContext & SvelteAppProps<ReloadWeaponContext> = $props();
+    const data = $derived(getState());
     const openStates: Record<string, boolean> = $state({});
 </script>
 
 <div class="choices flexcol" class:empty={!data.compatible.length}>
     {#if !data.compatible.length}
-        {game.i18n.localize("PF2E.Item.Weapon.Reloader.EmptyMessage")}
+        {_loc("PF2E.Item.Weapon.Reloader.EmptyMessage")}
     {/if}
     {#each data.compatible as ammo}
         <div class="choice" class:depleted={ammo.depleted}>
             <button
                 type="button"
                 class="icon fa-solid fa-check select"
-                aria-label={game.i18n.localize("PF2E.Item.Weapon.Reloader.Reload1")}
+                aria-label={_loc("PF2E.Item.Weapon.Reloader.Reload1")}
                 data-tooltip
                 onclick={() => foundryApp.reloadWeapon(ammo.id)}
             ></button>
@@ -25,7 +27,7 @@
                     type="button"
                     class="select"
                     data-tooltip
-                    aria-label={game.i18n.localize("PF2E.Item.Weapon.Reloader.ReloadAll")}
+                    aria-label={_loc("PF2E.Item.Weapon.Reloader.ReloadAll")}
                     onclick={() => foundryApp.reloadWeapon(ammo.id, true)}
                 >
                     {@html HeavyBullets}

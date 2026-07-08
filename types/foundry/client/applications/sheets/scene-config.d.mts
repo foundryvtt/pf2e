@@ -17,13 +17,15 @@ export default class SceneConfig<TDocument extends Scene> extends HandlebarsAppl
 
     static override TABS: Record<string, ApplicationTabsConfiguration>;
 
-    protected override _prepareContext(options: HandlebarsRenderOptions): Promise<DocumentSheetRenderContext>;
+    protected override _prepareContext(
+        options: HandlebarsRenderOptions,
+    ): Promise<DocumentSheetRenderContext<TDocument>>;
 
     protected override _preparePartContext(
         partId: string,
-        context: DocumentSheetRenderContext,
+        context: DocumentSheetRenderContext<TDocument>,
         options: HandlebarsRenderOptions,
-    ): Promise<DocumentSheetRenderContext>;
+    ): Promise<DocumentSheetRenderContext<TDocument>>;
 
     override changeTab(
         tab: string,

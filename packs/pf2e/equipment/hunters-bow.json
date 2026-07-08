@@ -26,7 +26,7 @@
             "die": "d6"
         },
         "description": {
-            "value": "<p>Stealthy hunters and rogues can use this <em>+1 magic shortbow</em> to attack from hiding. If you use this bow to Strike a target that can't see you and you get a critical hit, the target takes an extra 1d6 damage (this is in addition to sneak attack damage if you're a rogue).</p>"
+            "value": "<p>Stealthy hunters can use this +1 magic shortbow to attack from hiding. If you use this bow to Strike a target that can't see you and you get a critical hit, the target takes an extra 1d6 damage.</p>"
         },
         "expend": 1,
         "grade": null,
@@ -51,7 +51,7 @@
         "publication": {
             "license": "ORC",
             "remaster": true,
-            "title": "Pathfinder Beginner Box"
+            "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
         },
         "quantity": 1,
         "range": 60,
@@ -60,6 +60,12 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.HuntersBow.ToggleLabel",
+                "option": "hunters-bow-extra-dice",
+                "toggleable": true
+            },
+            {
                 "critical": true,
                 "diceNumber": 1,
                 "dieSize": "d6",
@@ -67,6 +73,7 @@
                 "predicate": [
                     {
                         "or": [
+                            "hunters-bow-extra-dice",
                             "self:condition:hidden",
                             "self:condition:undetected",
                             "self:condition:unnoticed",
@@ -74,7 +81,7 @@
                         ]
                     }
                 ],
-                "selector": "{item|_id}-damage"
+                "selector": "{item|id}-damage"
             }
         ],
         "runes": {

@@ -139,5 +139,5 @@ export default class BaseSamplerShader extends AbstractBaseShader {
 
     set paused(paused: boolean);
 
-    protected override _preRender(mesh: any, renderer: any): void;
+    protected override _preRender(mesh: PIXI.DisplayObject, renderer: PIXI.Renderer): void;
 }

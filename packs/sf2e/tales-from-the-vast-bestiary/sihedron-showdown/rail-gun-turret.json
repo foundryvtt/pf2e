@@ -1,0 +1,147 @@
+{
+    "_id": "F2umEZocwH3eet6N",
+    "folder": "y4Gc5S1874B1TrM8",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ppO7eFRqoIYxjmwr",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Rail Gun",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "Ls42LsYVtEKoef2b": {
+                        "damage": "2d10+13",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": 60,
+                    "max": null
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": false,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "4Zn2ie5onvOLWXH2",
+            "img": "systems/sf2e/icons/actions/Reaction.webp",
+            "name": "Open Fire",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves within 60 feet of the turret</p><hr /><p><strong>Effect</strong> The turret makes a rail gun Strike against the creature. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Rail Gun Turret",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 25
+            },
+            "emitsSound": "encounter",
+            "hardness": 16,
+            "hp": {
+                "details": "",
+                "max": 66,
+                "temp": 0,
+                "value": 66
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 23
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A mechanized turret pops up on intruders when they enter into range.</p>",
+            "disable": "<p>@Check[computers|dc:30] (trained) to reprogram the turret, or @Check[crafting|dc:23] (trained) to jam the sensor</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Tales From the Vast"
+            },
+            "reset": "<p>The trap resets after 1 minute.</p>",
+            "routine": "<p>(3 actions) The trap makes a rail gun Strike against up to three creatures in range, or multiple Strikes against one creature in range if it has no additional targets.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 20
+            },
+            "reflex": {
+                "value": 15
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

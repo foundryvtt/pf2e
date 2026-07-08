@@ -71,14 +71,11 @@ function processDamageCategoryStacking(
 ): { modifiers: Modifier[]; dice: DamageDicePF2e[] } {
     const dice = options.dice;
     const groupedModifiers = R.groupBy(options.modifiers, (m) => (m.category === "persistent" ? "persistent" : "main"));
-
     const modifiers = [
         ...new StatisticModifier("damage", groupedModifiers.main ?? [], options.test).modifiers,
         ...new StatisticModifier("persistent", groupedModifiers.persistent ?? [], options.test).modifiers,
     ];
-
     const allPersistent = base.length > 0 && base.every((b) => b.category === "persistent");
-
     return {
         modifiers: allPersistent ? modifiers.filter((m) => m.category === "persistent") : modifiers,
         dice: allPersistent ? dice.filter((d) => d.category === "persistent") : dice,

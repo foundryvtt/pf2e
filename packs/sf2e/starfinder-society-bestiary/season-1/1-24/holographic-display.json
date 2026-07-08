@@ -1,0 +1,97 @@
+{
+    "_id": "FP7Al575O1l4n8Fw",
+    "folder": "w3Ym1wQJd2pTlca2",
+    "img": "systems/sf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "OUQOc0oDzvr1oLWx",
+            "img": "systems/sf2e/icons/default-icons/action.svg",
+            "name": "Flicker and Flash",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Gremmik Integrated rolls initiative</p><hr /><p><strong>Effect</strong> The holograms flicker wildly and increase in brightness. The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Holographic Display",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 10
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Gremmik Integrated uses the holographic display from the center platform to distract and confuse one PC</p>",
+            "disable": "<p>@Check[computers|dc:18] to reprogram the display or @Check[thievery|dc:20] to turn it off entirely; three total successes are required.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 3
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": ""
+            },
+            "reset": "",
+            "routine": "<p>The holographic display targets one creature within 20 feet of the platform, quickly displaying and changing graphs, logos, and videos. The creature must attempt a @Check[will|dc:20|options:inflicts:off-guard,inflicts:dazzled] save, with the following results.</p><hr><p><strong>Critical Success</strong> The creature is unaffected by the holographic display and is immune to its effects.</p><p><strong>Success</strong> The creature is unaffected by the holographic display.</p><p><strong>Failure</strong> The creature is distracted by the holographic display and is @UUID[Compendium.sf2e.conditions.Item.Off-Guard] for one round.</p><p><strong>Critical Failure</strong> The creature is fully invested in the information being displayed and is off-guard and @UUID[Compendium.sf2e.conditions.Item.Dazzled] for one round.</p><hr><p>Note: A DC for this ability was not provided by Paizo. A value of 20 has been used following the hazard building rules.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "mechanical",
+                "tech",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

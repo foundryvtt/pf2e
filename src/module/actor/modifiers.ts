@@ -170,7 +170,7 @@ class Modifier implements RawModifier {
               }
             : args[0];
 
-        this.label = game.i18n.localize(params.label ?? params.name);
+        this.label = _loc(params.label ?? params.name);
         this.slug = sluggify(params.slug ?? this.label);
 
         this.#originalValue = this.modifier = params.modifier;
@@ -252,7 +252,7 @@ class Modifier implements RawModifier {
         this.modifier = resolvedAdjustment.value;
 
         if (resolvedAdjustment.relabel) {
-            this.label = game.i18n.localize(resolvedAdjustment.relabel);
+            this.label = _loc(resolvedAdjustment.relabel);
         }
 
         // If applicable, change the damage type of this modifier, using only the final adjustment found
@@ -717,7 +717,7 @@ class DamageDicePF2e {
             throw ErrorPF2e("`selector` is mandatory");
         }
 
-        this.label = game.i18n.localize(params.label ?? "");
+        this.label = _loc(params.label ?? "");
         this.slug = sluggify(params.slug ?? this.label);
         if (!this.slug) {
             throw ErrorPF2e("A DiceModifier must have a slug");

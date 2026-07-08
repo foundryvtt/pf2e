@@ -14,7 +14,7 @@ import AbstractSidebarTab from "../sidebar-tab.mjs";
  * @mixes HandlebarsApplication
  */
 export default class CombatTracker<TCombat extends Combat | null = Combat | null> extends HandlebarsApplicationMixin(
-    AbstractSidebarTab,
+    AbstractSidebarTab<ApplicationConfiguration, HandlebarsRenderOptions>,
 ) {
     static override DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration>;
 
@@ -36,7 +36,7 @@ export default class CombatTracker<TCombat extends Combat | null = Combat | null
      */
     get viewed(): TCombat;
 
-    set viewed(combat);
+    set viewed(combat: TCombat);
 
     /* -------------------------------------------- */
     /*  Rendering                                   */

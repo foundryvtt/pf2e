@@ -18,7 +18,7 @@ export class Migration938RenameBroochesAndThroned extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        source.img = this.#maybeReplace(source.img);
+        source.img &&= this.#maybeReplace(source.img);
         source.system.rules = source.system.rules.map((r) => recursiveReplaceString(r, (s) => this.#maybeReplace(s)));
 
         if (source.type === "kit") {

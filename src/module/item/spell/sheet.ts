@@ -10,7 +10,6 @@ import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import {
     ErrorPF2e,
-    fontAwesomeIcon,
     getActionGlyph,
     htmlClosest,
     htmlQuery,
@@ -113,7 +112,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             materials: CONFIG.PF2E.materialDamageEffects,
             heightenIntervals: R.range(1, 5).map((i) => ({
                 value: `${i}`,
-                label: game.i18n.format("PF2E.SpellScalingInterval.Selection", { interval: i }),
+                label: _loc("PF2E.SpellScalingInterval.Selection", { interval: i }),
             })),
             heightenOverlays: this.#prepareHeighteningLevels(),
             canHeighten: this.isEditable && this.getAvailableHeightenLevels().length > 0,
@@ -129,7 +128,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
     override get title(): string {
         return this.item.isVariant
-            ? game.i18n.format("PF2E.Item.Spell.Variants.SheetTitle", { originalName: this.item.original?.name ?? "" })
+            ? _loc("PF2E.Item.Spell.Variants.SheetTitle", { originalName: this.item.original?.name ?? "" })
             : super.title;
     }
 
@@ -172,9 +171,9 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 const baseKey = overlayData?.base ?? "system";
                 const key = anchor.dataset.id;
                 if (key) {
-                    const values = { [`${baseKey}.damage.-=${key}`]: null };
+                    const values = { [`${baseKey}.damage.${key}`]: _del };
                     if (!overlayData && this.item._source.system.heightening) {
-                        values[`${baseKey}.heightening.damage.-=${key}`] = null;
+                        values[`${baseKey}.heightening.damage.${key}`] = _del;
                     }
                     this.item.update(values);
                 }
@@ -204,7 +203,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         // Event used to delete all heightening, not just a particular one
         htmlQuery(html, "a[data-action=delete-heightening]")?.addEventListener("click", () => {
-            this.item.update({ "system.-=heightening": null });
+            this.item.update({ "system.heightening": _del });
         });
 
         // Add event handlers for heighten type overlays
@@ -217,14 +216,14 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 if (overlay.type === "heighten") {
                     const layers = this.item.getHeightenLayers();
                     if (layers.length === 1 && layers[0].level === overlay.level) {
-                        this.item.update({ "system.-=heightening": null });
+                        this.item.update({ "system.heightening": _del });
                         return;
                     }
                 }
-
                 const parts = overlay.base.split(".");
-                parts.push(`-=${parts.pop()}`);
-                this.item.update({ [parts.join(".")]: null });
+                const lastPart = parts.pop();
+                if (lastPart) parts.push(lastPart);
+                this.item.update({ [parts.join(".")]: _del });
             });
 
             // Handle adding properties to overlays
@@ -248,23 +247,19 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 const property = removeProperty.dataset.property;
                 if (!property) continue;
                 removeProperty.addEventListener("click", () => {
-                    const updates = { [`${overlay.base}.-=${property}`]: null };
-                    if (property === "damage") {
-                        updates[`${overlay.base}.-=heightening`] = null;
-                    }
+                    const updates = { [`${overlay.base}.${property}`]: _del };
+                    if (property === "damage") updates[`${overlay.base}.heightening`] = _del;
                     this.item.update(updates);
                 });
             }
 
-            const levelSelect = htmlQuery<HTMLSelectElement>(
-                overlayEditor,
-                "select[data-action=change-heighten-level]",
-            );
+            const levelSelector = "select[data-action=change-heighten-level]";
+            const levelSelect = overlayEditor.querySelector<HTMLSelectElement>(levelSelector);
             levelSelect?.addEventListener("change", () => {
                 const newLevel = Number(levelSelect.value);
                 const existingData = this.item.getHeightenLayers().find((layer) => layer.level === overlay.level);
                 this.item.update({
-                    [`system.heightening.levels.-=${overlay.level}`]: null,
+                    [`system.heightening.levels.${overlay.level}`]: _del,
                     [`system.heightening.levels.${newLevel}`]: existingData?.system ?? {},
                 });
             });
@@ -294,21 +289,21 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                         );
                     }
                     new foundry.appv1.api.Dialog({
-                        title: game.i18n.localize("PF2E.Item.Spell.Variants.DeleteDialogTitle"),
-                        content: `<p>${game.i18n.format("PF2E.Item.Spell.Variants.DeleteDialogText", {
+                        title: _loc("PF2E.Item.Spell.Variants.DeleteDialogTitle"),
+                        content: `<p>${_loc("PF2E.Item.Spell.Variants.DeleteDialogText", {
                             variantName: variant.name,
                         })}</p>`,
                         buttons: {
                             delete: {
-                                icon: fontAwesomeIcon("fa-trash").outerHTML,
-                                label: game.i18n.localize("PF2E.DeleteShortLabel"),
+                                icon: fa.fields.createFontAwesomeIcon("trash").outerHTML,
+                                label: _loc("PF2E.DeleteShortLabel"),
                                 callback: () => {
                                     this.item.overlays.deleteOverlay(id);
                                 },
                             },
                             cancel: {
-                                icon: fontAwesomeIcon("fa-times").outerHTML,
-                                label: game.i18n.localize("Cancel"),
+                                icon: fa.fields.createFontAwesomeIcon("times").outerHTML,
+                                label: _loc("COMMON.Cancel"),
                             },
                         },
                         default: "cancel",
@@ -482,7 +477,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 missing,
                 heightenLevels: availableLevels.map((l) => ({
                     value: `${l}`,
-                    label: game.i18n.format("PF2E.SpellScalingOverlay.Selection", { level: ordinalString(l) }),
+                    label: _loc("PF2E.SpellScalingOverlay.Selection", { level: ordinalString(l) }),
                 })),
                 traits: layer.system.traits?.value
                     ? createTagifyTraits(layer.system.traits.value, { record: CONFIG.PF2E.spellTraits })

@@ -333,14 +333,71 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>While a creature is taking persistent mental damage from the ioton, the ioton takes the shape of a creature familiar to the target, such as an acquaintance, pet, or common animal, though the appearance is imperfect and grants no benefit to Impersonate an individual.</p>\n<p>While transformed, the ioton loses its incorporeal trait, immunities, and resistances, but it gains an unarmed melee Strike with a +6 attack modifier that deals @Damage[(1d8+2)[bludgeoning]] damage. The ioton immediately returns to its original form once no creature is taking persistent mental damage from it.</p>"
+                    "value": "<p>While a creature is taking persistent mental damage from the ioton, the ioton takes the shape of a creature familiar to the target, such as an acquaintance, pet, or common animal, though the appearance is imperfect and grants no benefit to @UUID[Compendium.pf2e.actionspf2e.Item.Impersonate] an individual.</p>\n<p>While transformed, the ioton loses its incorporeal trait, immunities, and resistances, but it gains an unarmed melee Strike with a +6 attack modifier that deals 1d8+2 bludgeoning damage. The ioton immediately returns to its original form once no creature is taking persistent mental damage from it.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "leech-thought",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "ActorTraits",
+                        "predicate": [
+                            "leech-thought"
+                        ],
+                        "remove": [
+                            "incorporeal"
+                        ]
+                    },
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "predicate": [
+                            "leech-thought"
+                        ],
+                        "type": [
+                            "disease",
+                            "poison",
+                            "precision"
+                        ]
+                    },
+                    {
+                        "key": "Resistance",
+                        "mode": "remove",
+                        "predicate": [
+                            "leech-thought"
+                        ],
+                        "type": [
+                            "all-damage"
+                        ],
+                        "value": 0
+                    },
+                    {
+                        "attackModifier": 6,
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d8",
+                                "modifier": 4
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.WeaponStrikeLabel",
+                        "predicate": [
+                            "leech-thought"
+                        ],
+                        "traits": [
+                            "unarmed"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

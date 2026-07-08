@@ -11,8 +11,7 @@ export default class BaseCombatant<TParent extends BaseCombat | null> extends Do
 }
 
 export default interface BaseCombatant<TParent extends BaseCombat | null>
-    extends Document<TParent, CombatantSchema>,
-        fields.ModelPropsFromSchema<CombatantSchema> {
+    extends Document<TParent, CombatantSchema>, fields.ModelPropsFromSchema<CombatantSchema> {
     get documentName(): CombatantMetadata["name"];
 }
 

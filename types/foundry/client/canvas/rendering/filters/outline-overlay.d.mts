@@ -31,7 +31,7 @@ export default class OutlineOverlayFilter extends AbstractBaseFilter {
      */
     get thickness(): number;
 
-    set thickness(value);
+    set thickness(value: number);
 
     apply(
         filterManager: PIXI.FilterSystem,

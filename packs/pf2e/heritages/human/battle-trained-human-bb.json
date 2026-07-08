@@ -10,12 +10,12 @@
             "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
         },
         "description": {
-            "value": "<p>Your family has trained in battle for generations, granting you advantages in a fight. You are trained in all martial weapons..</p>\n<p>In addition, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Diehard] feat.</p>\n<p><em>Note: This heritage is from the Beginner Box and features non-standard heritage features</em></p>"
+            "value": "<p>Your family has trained for battle for generations, granting you advantages against your enemies. You gain a +1 bonus to initiative rolls. In addition, you gain the @UUID[Compendium.pf2e.feats-srd.Item.Diehard] feat.</p>\n<p><em>Note: This heritage is from the Beginner Box and features non-standard heritage features</em></p>"
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Beginner Box"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Beginner Box: Secrets of the Unlit Star"
         },
         "rules": [
             {
@@ -23,9 +23,11 @@
                 "uuid": "Compendium.pf2e.feats-srd.Item.Diehard"
             },
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.martial.rank",
+                "key": "FlatModifier",
+                "selector": [
+                    "initiative"
+                ],
+                "type": "circumstance",
                 "value": 1
             }
         ],

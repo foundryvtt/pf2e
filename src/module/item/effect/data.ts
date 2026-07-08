@@ -144,8 +144,8 @@ class EffectBadgeField extends fields.TypedSchemaField<
                 counter: new fields.SchemaField({
                     type: new fields.StringField({ choices: ["counter"], required: true }),
                     labels: createLabelsField(),
-                    min: new fields.NumberField({ required: false, nullable: true, integer: true }),
-                    max: new fields.NumberField({ required: false, nullable: true, integer: true }),
+                    min: new fields.NumberField({ required: true, nullable: true, integer: true, initial: null }),
+                    max: new fields.NumberField({ required: true, nullable: true, integer: true, initial: null }),
                     value: new fields.NumberField({ required: true, nullable: false }),
                     loop: new fields.BooleanField({ required: false, nullable: false }),
                 }),

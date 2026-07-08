@@ -84,9 +84,7 @@ abstract class BaseActionVariant implements ActionVariant {
 
     async toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined> {
         const description = this.description || this.#action.description;
-        const name = this.name
-            ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
-            : game.i18n.localize(this.#action.name);
+        const name = this.name ? `${_loc(this.#action.name)} - ${_loc(this.name)}` : _loc(this.#action.name);
         const sampleTasks = this.#action.sampleTasks ? labelSampleTasks(this.#action.sampleTasks) : undefined;
         const traitLabels: Record<string, string | undefined> = CONFIG.PF2E.actionTraits;
         const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
@@ -167,22 +165,18 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
     protected getDefaultVariant(options?: { variant?: string }): TAction {
         const variants = this.variants;
         if (options?.variant && !variants.size) {
-            throw game.i18n.format("PF2E.ActionsWarning.Variants.None", {
-                action: game.i18n.localize(this.name),
-                variant: options.variant,
-            });
+            throw Error(
+                _loc("PF2E.ActionsWarning.Variants.None", { action: _loc(this.name), variant: options.variant }),
+            );
         }
         if (!options?.variant && variants.size > 1) {
-            throw game.i18n.format("PF2E.ActionsWarning.Variants.Multiple", {
-                action: game.i18n.localize(this.name),
-            });
+            throw Error(_loc("PF2E.ActionsWarning.Variants.Multiple", { action: _loc(this.name) }));
         }
         const variant = variants.get(options?.variant ?? "");
         if (options?.variant && !variant) {
-            throw game.i18n.format("PF2E.ActionsWarning.Variants.Nonexistent", {
-                action: game.i18n.localize(this.name),
-                variant: options.variant,
-            });
+            throw Error(
+                _loc("PF2E.ActionsWarning.Variants.Nonexistent", { action: _loc(this.name), variant: options.variant }),
+            );
         }
         return variant ?? this.toActionVariant();
     }

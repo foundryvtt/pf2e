@@ -38,7 +38,7 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends a
     }
 
     override get title(): string {
-        return game.i18n.localize(this.options.title || "PF2E.TraitsLabel");
+        return _loc(this.options.title || "PF2E.TraitsLabel");
     }
 
     protected abstract get configTypes(): readonly SelectableTagField[];

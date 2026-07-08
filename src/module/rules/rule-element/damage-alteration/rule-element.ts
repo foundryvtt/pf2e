@@ -33,7 +33,9 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
                 initial: null,
                 validate: (value, options): boolean | DataModelValidationFailure => {
                     if (typeof value === "string" && /^\{\w+\|.+\}$/.test(value)) return true;
-                    switch (options.source?.property) {
+                    const source = options.source ?? options.model?._source;
+                    if (!R.isPlainObject(source)) throw Error("unexpected missing source object");
+                    switch (source?.property) {
                         case "damage-type":
                             if (!setHasElement(DAMAGE_TYPES, value)) {
                                 throw Error("must be a damage type or resolvable to one");
@@ -43,7 +45,7 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
                             if (typeof value === "string" && /|@.+\..+/.test(value)) return true;
                             const faces = Number(value);
                             if (!Number.isInteger(faces)) throw Error("must be an integer or resolvable to one");
-                            if (options.source?.mode === "override" && !tupleHasValue(DAMAGE_DICE_FACES, faces)) {
+                            if (source?.mode === "override" && !tupleHasValue(DAMAGE_DICE_FACES, faces)) {
                                 const listFormatter = game.i18n.getListFormatter({ type: "disjunction" });
                                 const list = listFormatter.format(DAMAGE_DICE_FACES.map((f) => f.toString()));
                                 throw Error(`must override dice faces to ${list}`);
@@ -67,24 +69,22 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
 
     override resolveValue(
         value: unknown,
-        defaultValue: null,
-        options: { resolvables: Record<string, unknown> },
+        defaultValue?: null,
+        options?: { resolvables: Record<string, unknown> },
     ): DamageAlterationValue | null;
     override resolveValue(
         value: unknown,
-        defaultValue: null,
-        options: { resolvables: Record<string, unknown> },
+        defaultValue: null = null,
+        options: { resolvables: Record<string, unknown> } = { resolvables: {} },
     ): number | string | string[] | null {
         const resolved = super.resolveValue(value, defaultValue, options);
         if (this.ignored) return null;
-        const isMalformed = !(
-            typeof resolved === "number" ||
-            typeof resolved === "string" ||
-            Array.isArray(resolved) ||
-            resolved === null
-        );
+        const isMalformed =
+            resolved !== null &&
+            typeof resolved !== "number" &&
+            typeof resolved !== "string" &&
+            !Array.isArray(resolved);
         if (isMalformed) return null;
-
         const damageTypes: Set<string> = DAMAGE_TYPES;
         const isValid = {
             "damage-type": typeof resolved === "string" && damageTypes.has(resolved),
@@ -94,7 +94,6 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
                 (typeof resolved === "string" && resolved === sluggify(resolved)) ||
                 (Array.isArray(resolved) && resolved.every((t) => typeof t === "string" && t === sluggify(t))),
         };
-
         if (!isValid[this.property]) {
             const message = {
                 "damage-type": `value: must be a damage type (resolved to ${resolved})`,
@@ -105,7 +104,6 @@ class DamageAlterationRuleElement extends RuleElement<DamageAlterationSchema> {
             this.failValidation(message[this.property]);
             return null;
         }
-
         return resolved;
     }
 

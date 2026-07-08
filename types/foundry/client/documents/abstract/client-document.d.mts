@@ -1,3 +1,4 @@
+import { ToCompendiumOptions } from "@client/_types.mjs";
 import ApplicationV2 from "@client/applications/api/application.mjs";
 import HTMLDocumentEmbedElement from "@client/applications/elements/document-embed.mjs";
 import {
@@ -18,7 +19,7 @@ import {
     DatabaseUpdateOperation,
 } from "@common/abstract/_module.mjs";
 import Document from "@common/abstract/document.mjs";
-import { DocumentOwnershipLevel } from "@common/constants.mjs";
+import { DocumentOwnershipNumber } from "@common/constants.mjs";
 import { BaseUser } from "../_module.mjs";
 import CompendiumCollection from "../collections/compendium-collection.mjs";
 
@@ -46,6 +47,18 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
      * Is this document in a compendium? A stricter check than Document#inCompendium.
      */
     get inCompendium(): boolean;
+
+    /**
+     * Is this Document persisted?
+     *
+     * A document is persisted if it has a nonnull UUID that resolves to a document with `fromUuid`.
+     * In particular, clones of persisted Documents are also persisted Documents if they have the same ID as the
+     * original.
+     *
+     * This property is false until this document and all its ancestors up to the root document have been initialized
+     * and added to their collections.
+     */
+    get persisted(): boolean;
 
     /**
      * A boolean indicator for whether the current game User has ownership rights for this Document.
@@ -79,7 +92,7 @@ export class ClientDocument<TParent extends Document | null = Document | null> e
      * actor.permission; // 2
      * ```
      */
-    get permission(): DocumentOwnershipLevel;
+    get permission(): DocumentOwnershipNumber;
 
     /**
      * Lazily obtain a Application instance used to configure this Document, or null if no sheet is available.
@@ -551,21 +564,4 @@ export interface ClientDocumentStatic {
     ): Promise<T | null>;
 
     fromDropData<T extends ClientDocument>(this: ConstructorOf<T>, data: object, options?: object): Promise<T | null>;
-}
-
-export interface ToCompendiumOptions {
-    /** Clear the currently assigned sort order */
-    clearSort?: boolean;
-    /** Clear the currently assigned folder */
-    clearFolder?: boolean;
-    /** Clear the flags object */
-    clearFlags?: boolean;
-    /** Clear any prior source information */
-    clearSource?: boolean;
-    /** Clear document ownership */
-    clearOwnership?: boolean;
-    /** Clear fields which store document state */
-    clearState?: boolean;
-    /** Retain the current Document id */
-    keepId?: boolean;
 }

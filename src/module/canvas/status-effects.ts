@@ -49,9 +49,9 @@ export class StatusEffects {
         return (this.#conditionSummaries ??= R.mapToObj(Array.from(CONDITION_SLUGS), (s) => [
             s,
             {
-                name: game.i18n.localize(`PF2E.condition.${s}.name`),
-                rules: game.i18n.localize(`PF2E.condition.${s}.rules`),
-                summary: game.i18n.localize(`PF2E.condition.${s}.summary`),
+                name: _loc(`PF2E.condition.${s}.name`),
+                rules: _loc(`PF2E.condition.${s}.rules`),
+                summary: _loc(`PF2E.condition.${s}.summary`),
             },
         ]));
     }
@@ -97,16 +97,20 @@ export class StatusEffects {
     static #updateStatusIcons(): void {
         const iconTheme = game.settings.get(SYSTEM_ID, "statusEffectType");
         const directory = iconTheme === "default" ? "conditions" : "conditions-2";
-        CONFIG.statusEffects = Object.entries(CONFIG.PF2E.statusEffects.conditions).map(([id, name]) => ({
+        delete (CONFIG as { statusEffects?: object }).statusEffects; // Remove the backward compatibility Proxy
+        CONFIG.statusEffects = R.mapToObj(Object.entries(CONFIG.PF2E.statusEffects.conditions), ([id, name]) => [
             id,
-            name,
-            img: `systems/${SYSTEM_ID}/icons/${directory}/${id}.webp` as const,
-        }));
-        CONFIG.statusEffects.push({
+            {
+                id,
+                name,
+                img: `systems/${SYSTEM_ID}/icons/${directory}/${id}.webp` as const,
+            },
+        ]);
+        CONFIG.statusEffects["dead"] = {
             id: "dead",
             name: "PF2E.Actor.Dead",
             img: CONFIG.controlIcons.defeated,
-        });
+        };
     }
 
     static async onRenderTokenHUD(html: HTMLElement, tokenData: PlaceableHUDContext): Promise<void> {
@@ -120,7 +124,7 @@ export class StatusEffects {
 
         const titleBar = document.createElement("div");
         titleBar.className = "title-bar";
-        iconGrid.append(titleBar);
+        iconGrid.prepend(titleBar);
 
         const statusIcons = iconGrid.querySelectorAll<HTMLImageElement>(".effect-control");
         const deathIcon = game.settings.get(SYSTEM_ID, "deathIcon");
@@ -135,6 +139,11 @@ export class StatusEffects {
                 children: [newImg],
             });
             delete anchor.dataset.action;
+            if (anchor.dataset.tooltipText) {
+                anchor.ariaLabel = anchor.dataset.tooltipText;
+                anchor.dataset.tooltip = "";
+                delete anchor.dataset.tooltipText;
+            }
             icon.replaceWith(anchor);
 
             const slug = anchor.dataset.statusId ?? "";
@@ -187,11 +196,9 @@ export class StatusEffects {
             this.#lastCombatantToken = null;
             return;
         }
-
-        const { combatant } = encounter;
+        const combatant = encounter.combatant;
         const token = combatant?.token;
         if (!(combatant && token)) return;
-
         if (token.id !== this.#lastCombatantToken && typeof combatant.initiative === "number" && !combatant.defeated) {
             this.#lastCombatantToken = token.id;
             this.#createChatMessage(token, combatant.hidden);
@@ -201,8 +208,8 @@ export class StatusEffects {
     /** Show the Status Effect name and summary on mouseover of the token HUD */
     static #showStatusLabel(control: HTMLElement): void {
         const titleBar = control.closest(".status-effects")?.querySelector<HTMLElement>(".title-bar");
-        if (titleBar && control.title) {
-            titleBar.innerText = control.title;
+        if (titleBar && control.ariaLabel) {
+            titleBar.textContent = control.ariaLabel;
             titleBar.classList.toggle("active");
         }
     }
@@ -262,7 +269,7 @@ export class StatusEffects {
     }
 
     static async #toggleStatus(token: TokenPF2e, control: HTMLElement, event: PointerEvent): Promise<void> {
-        const { actor } = token;
+        const actor = token.actor;
         if (!actor) return;
 
         const slug = control.dataset.statusId ?? "";

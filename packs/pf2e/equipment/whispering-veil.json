@@ -1,0 +1,68 @@
+{
+    "_id": "cXXclq5ejIieBONp",
+    "img": "icons/equipment/head/mask-hood-camo.webp",
+    "name": "Whispering Veil",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>Carved concentric circles surround the eye and ear holes on this dark wooden mask, which lets you hear the whispers that fill the Mordant Spire. The barely audible susurrus that fills your ears advises you of peril, granting you a +1 item bonus to Perception checks for initiative and to [[/act seek]], @UUID[Compendium.pf2e.actionspf2e.Item.Search], or [[/act sense-motive]] against things that intend harm to you, at the GM's discretion, such as hostile creatures and haunts. If you tie a foe's initiative roll, you go first.</p>\n<p><strong>Activate—Spire Power</strong> <span class=\"action-glyph\">f</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You are about to attempt a check that your mythic calling would allow you to spend a Mythic Point on</p><hr /><p><strong>Effect</strong> You draw on the power of the Mordant Spire. You gain 1 Mythic Point, which you can spend to attempt the check. If you don't spend this point by the end of this turn, it is lost. You do not regain a Mythic Point if you critically succeed on the check, even if it's the first time you did so that day, but still do so on the subsequent critical success, as usual.</p>\n<p><strong>Activate—Unforeseen Alert</strong> <span class=\"action-glyph\">f</span></p>\n<p><strong>Requirements</strong> A creature or hazard you aren't aware of targets you or includes you in an area effect, and you aren't @UUID[Compendium.pf2e.conditionitems.Item.Deafened]</p><hr /><p><strong>Effect</strong> The whispers warn you of the impending danger. You immediately gain a reaction that you can use only to respond to the triggering action or effect.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 13
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {}
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens High Seas"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "check:type:initiative",
+                            "action:seek",
+                            "action:sense-motive"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "perception"
+                ],
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "invested",
+                "magical",
+                "mythic"
+            ]
+        },
+        "usage": {
+            "value": "wornmask"
+        }
+    },
+    "type": "equipment"
+}

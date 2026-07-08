@@ -9,11 +9,12 @@ import { getActionGlyph, localizeList, sluggify } from "@util";
 import { traitSlugToObject } from "@util/tags.ts";
 import * as R from "remeda";
 import { CharacterPF2e } from "./document.ts";
+import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
 
 interface AuxiliaryInteractParams {
     weapon: WeaponPF2e<CharacterPF2e>;
     action: "interact";
-    annotation: "draw" | "grip" | "modular" | "pick-up" | "retrieve" | "sheathe";
+    annotation: "draw" | "grip" | "modular" | "pick-up" | "retrieve" | "sheathe" | "boost";
     hands?: ZeroToTwo;
 }
 
@@ -85,6 +86,8 @@ class WeaponAuxiliaryAction {
                     return [1, null, annotation];
                 case "drop":
                     return [0, "dropped", annotation];
+                case "boost":
+                    return [1, null, annotation];
                 case "tower-shield": {
                     const cost = this.action === "take-cover" ? 1 : 0;
                     return [cost, null, null];
@@ -107,8 +110,8 @@ class WeaponAuxiliaryAction {
         const actionKey = sluggify(this.action, { camel: "bactrian" });
         const purposeKey = this.fullAnnotation ? sluggify(this.fullAnnotation, { camel: "bactrian" }) : null;
         return purposeKey
-            ? game.i18n.localize(`PF2E.Actions.${actionKey}.${purposeKey}.Title`)
-            : game.i18n.localize(`PF2E.Actions.${actionKey}.ShortTitle`);
+            ? _loc(`PF2E.Actions.${actionKey}.${purposeKey}.Title`)
+            : _loc(`PF2E.Actions.${actionKey}.ShortTitle`);
     }
 
     get glyph(): string {
@@ -132,10 +135,10 @@ class WeaponAuxiliaryAction {
 
     #getModularConfigLabel(config: ModularConfig) {
         const parts: string[] = [];
-        if (config.damageType) parts.push(game.i18n.localize(CONFIG.PF2E.damageTypes[config.damageType]));
+        if (config.damageType) parts.push(_loc(CONFIG.PF2E.damageTypes[config.damageType]));
         parts.push(
             ...config.traits
-                .map((t) => game.i18n.localize(CONFIG.PF2E.weaponTraits[t]))
+                .map((t) => _loc(CONFIG.PF2E.weaponTraits[t]))
                 .sort((a, b) => a.localeCompare(b, game.i18n.lang)),
         );
         return localizeList(parts, { conjunction: "and", sort: false });
@@ -149,7 +152,11 @@ class WeaponAuxiliaryAction {
         const { actor, weapon } = this;
         const COVER_UUID = `Compendium.${SYSTEM_ID}.other-effects.Item.I9lfZUiCwMiGogVi`;
 
-        if (this.carryType) {
+        if (this.annotation === "grip" && weapon.rule) {
+            // Synthetic strikes (from a Strike rule element) aren't real items, so their grip can't be
+            // changed via carry type. Persist the change to the rule element instead
+            await weapon.rule.toggleGrip(this.hands === 2 ? 2 : 1);
+        } else if (this.carryType) {
             await actor.changeCarryType(this.weapon, { carryType: this.carryType, handsHeld: this.hands ?? 0 });
         } else if (selection && this.annotation === "modular" && selection) {
             const updated = await weapon.system.traits.toggles.update({
@@ -157,6 +164,21 @@ class WeaponAuxiliaryAction {
                 selected: Number(selection),
             });
             if (!updated) return;
+        } else if (this.annotation === "boost") {
+            const isBoosted = actor.itemTypes.effect.some(
+                (e) => e.slug === "effect-boost" && e.flags[SYSTEM_ID].grantedBy?.id === weapon.id,
+            );
+            // No op if the weapon is already boosted
+            if (isBoosted) return;
+            const effect = await fromUuid(`Compendium.${SYSTEM_ID}.equipment-effects.Item.YVm3rVSAYxoSrOvb`);
+            if (effect instanceof EffectPF2e) {
+                const data = { ...effect.toObject(), _id: null };
+                data.flags[SYSTEM_ID] = { grantedBy: { id: weapon.id, onDelete: "cascade" } };
+                // Change rule to affect the specific weapon.
+                (data.system.rules[0] as ChoiceSetSource).selection = weapon.id;
+                data.system.description.value += `\n@UUID[Actor.${actor.id}.Item.${weapon.id}]{${weapon.name}}`;
+                await actor.createEmbeddedDocuments("Item", [data]);
+            }
         } else if (this.action === "raise-a-shield") {
             // Apply Effect: Raise a Shield
             const alreadyRaised = actor.itemTypes.effect.some((e) => e.slug === "raise-a-shield");
@@ -218,7 +240,7 @@ class WeaponAuxiliaryAction {
         const modularConfig = weapon.system.traits.toggles.modular?.config;
         const content = await fa.handlebars.renderTemplate(templates.content, {
             imgPath: weapon.img,
-            message: game.i18n.format(message, {
+            message: _loc(message, {
                 actor: actor.name,
                 weapon: weapon.name,
                 shield: weapon.shield?.name ?? weapon.name,

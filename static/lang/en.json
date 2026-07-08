@@ -30,7 +30,12 @@
     },
     "DOCUMENT": {
         "Combat": "Encounter",
-        "Combats": "Encounters"
+        "Combats": "Encounters",
+        "FIELDS": {
+            "z": {
+                "label": "Z"
+            }
+        }
     },
     "PF2E": {
         "AbilityBoost": "Attribute Boost",
@@ -133,6 +138,11 @@
                 "ShieldDamagedForNBroken": "Their shield also takes {shieldDamage} damage, breaking it.",
                 "ShieldDamagedForNDestroyed": "Their shield also takes {shieldDamage} damage, destroying it.",
                 "ShieldNotRaised": "{actor} has not raised their shield.",
+                "PersistentEntry": {
+                    "bleed": "{formula} {damageType}",
+                    "default": "{formula} persistent {damageType} damage"
+                },
+                "StartsTakingDamage": "<actor>{actor}</actor> starts taking {persistentDamages}.",
                 "TakesNoDamage": "<actor>{actor}</actor> takes no damage.",
                 "TheTarget": "The target",
                 "TroopThresholdReached": "The troop has reached their next threshold ({segments} segments remaining)."
@@ -322,6 +332,7 @@
                 },
                 "CriticalSpecialization": "Critical Specialization",
                 "Language": {
+                    "acsie": "Acsie",
                     "aballonian": "Aballonian",
                     "adlet": "Adlet",
                     "aishmayar": "Aishmayar",
@@ -347,6 +358,7 @@
                     "common": "Common",
                     "CommonLanguage": "Common ({language})",
                     "copaxi": "Copaxi",
+                    "coshyco": "Coshyco",
                     "cyclops": "Cyclops",
                     "daemonic": "Daemonic",
                     "destrachan": "Destrachan",
@@ -377,7 +389,7 @@
                     "goblin": "Goblin",
                     "goloma": "Goloma",
                     "grioth": "Grioth",
-                    "grippli": "Tripkee",
+                    "tripkee": "Tripkee",
                     "halfling": "Halfling",
                     "hallit": "Hallit",
                     "hwan": "Hwan",
@@ -703,17 +715,19 @@
                 "BlankSlate": "This party doesn't have any members. Drag a creature from the actor sidebar to get started.",
                 "CheckPrompt": {
                     "AdjustDifficulty": "Adjust Difficulty",
-                    "ChooseLores": "Choose Lores",
-                    "ChooseSaves": "Choose Saves",
-                    "ChooseSkills": "Choose Skills/Perception",
-                    "LevelDC": "Level-Based DC",
-                    "Post": "Generate Prompt",
+                    "ChooseLores": "Lore Skills",
+                    "ChooseSaves": "Saving Throws",
+                    "DCTabs": {
+                        "level": "Level-Based DC",
+                        "simple": "Simple DC",
+                        "static": "Static DC"
+                    },
+                    "PreviewPlaceholder": "Raw Output",
                     "PromptTitle": "Prompt Title",
                     "SecretCheck": "Secret Check",
-                    "SetDC": "Set DC",
-                    "SimpleDC": "Simple DC",
                     "SkillsPerception": "Skills/Perception",
-                    "Title": "Generate Check Prompt",
+                    "Submit": "Generate Prompt",
+                    "Title": "Check Prompt Generator",
                     "TitleShort": "Check Prompt"
                 },
                 "Coin": "Coin",
@@ -821,6 +835,7 @@
                 "cylinder": "cylinder",
                 "emanation": "emanation",
                 "line": "line",
+                "ring": "ring",
                 "square": "square"
             },
             "Size": {
@@ -1666,7 +1681,7 @@
             "NotEnoughCoins": "Insufficient Coins",
             "MissingStatisticSelected": "Missing statistic {statistic} on selected actors.",
             "RuleElementSyntax": "Syntax error in rule element definition: {message}",
-            "SubV9Module": "{module} is unmaintained and may introduce stability issues to your game.",
+            "ModuleTooOld": "{module} is unmaintained and may introduce stability issues to your game.",
             "WeaponNoDamage": "This weapon deals no damage.",
             "WeaponQuantityZero": "You have no more of these weapons equipped."
         },
@@ -2958,7 +2973,7 @@
                 "MeasuredTemplate": {
                     "Clear": "Clear Placed Templates",
                     "Place": "Place {area}",
-                    "PlacementTooltip": "<strong>Left-click</strong> to lock the position on the canvas and enable rotation. Click again to place.<br><strong>Right-click</strong> to unlock or cancel.<br>Hold <strong>Shift</strong> to place directly without rotation.<br>Hold <strong>Ctrl</strong> to disable grid snapping while rotating."
+                    "PlacementTooltip": "Left-click to lock the position on the canvas and enable rotation. Click again to place. Right-click to unlock or cancel. Hold Shift to place directly without rotation. Hold Ctrl to disable grid snapping while rotating."
                 },
                 "Plural": "Spells",
                 "Rank": {
@@ -3058,6 +3073,7 @@
                 "Damage": {
                     "DiceNumber": "Dice Number"
                 },
+                "ExpendN": "Expend {n}",
                 "Forceful": {
                     "Second": "Forceful 2nd Attack",
                     "Third": "Forceful 3rd+ Attack"
@@ -3726,6 +3742,11 @@
                     "TitleCritical": "Critical Damage Roll",
                     "Title": "Damage Roll"
                 },
+                "ModifierDamageCategory": "Damage Category",
+                "ModifierDamageType": "Damage Type",
+                "ModifierName": "Modifier Name",
+                "ModifierType": "Modifier Type",
+                "ModifierValue": "Modifier Value",
                 "ShowDefault": "Always Show Dialog",
                 "ShowDefaultHint": "If enabled, this dialog is always shown unless you hold Shift. If disabled, you can open this dialog by holding Shift."
             },
@@ -3743,7 +3764,6 @@
             "UntypedPenalty": "Untyped (penalty)"
         },
         "RollBonusPlaceholder": "e.g. +3 or +1d4",
-        "RollModeLabel": "Roll Mode",
         "RollTable": {
             "Plural": "Rollable Tables"
         },
@@ -4401,13 +4421,16 @@
             "Receiving": "Receiving: {list}",
             "Request": {
                 "Declined": "{trader} ({user}) has declined your request to trade.",
+                "Expired": {
+                    "Initiator": "There was no response from {user} to your trade request after 30 seconds.",
+                    "Receiver": "You did not respond to the trade request from {trader} ({user}) after 30 seconds."
+                },
                 "Requesting": "Requesting to trade with {trader} ...",
                 "Prompt": {
                     "Content": "{trader} ({user}) would like to trade with {self}.",
                     "Title": "Trade with {trader}?"
                 },
-                "MenuLabel": "Request Trade",
-                "Timeout": "There was no response from {user} to your trade request after 30 seconds."
+                "MenuLabel": "Request Trade"
             },
             "Sending": "Sending: {list}",
             "Success": {
@@ -4631,6 +4654,7 @@
         "TraitContract": "Contract",
         "TraitCopaxi": "Copaxi",
         "TraitCorpsefolk": "Corpsefolk",
+        "TraitCoshyco": "Coshyco",
         "TraitCosmic": "Cosmic",
         "TraitCouatl": "Coatl",
         "TraitCriticalBrawling": "Critical (Brawling)",
@@ -4730,6 +4754,7 @@
         "TraitDescriptionAzata": "This family of celestials is native to Elysium. They are typically holy and have darkvision and a weakness to cold iron and unholy.",
         "TraitDescriptionBackstabber": "When you hit an off-guard creature, this weapon deals 1 precision damage in addition to its normal damage. The precision damage increases to 2 if the weapon is a +3 weapon.",
         "TraitDescriptionBackswing": "You can use the momentum from a missed attack with this weapon to lead into your next attack. After missing with this weapon on your turn, you gain a +1 circumstance bonus to your next attack with this weapon before the end of your turn.",
+        "TraitDescriptionBantrid": "A creature with this trait is a member of the bantrid ancestry. These small, anosmatic aberrations have a column-like body mounted on an organic rolling foot-orb and have trouble remaining stationary. An ability with this trait can be used or selected only by bantrids.",
         "TraitDescriptionBarbarian": "This indicates abilities from the barbarian class.",
         "TraitDescriptionBard": "This indicates abilities from the bard class.",
         "TraitDescriptionBarding": "You can purchase special armor for animals, called barding. All animals have a trained proficiency rank in light barding, and combat-trained animals are trained in heavy barding. Barding uses the same rules as armor except for the following. The Price and Bulk of barding depend on the animal's size. Unlike for a suit of armor, barding's Strength entry is listed as a modifier, not a score. Barding can't be etched with magic runes, though special magical barding might be available.",
@@ -4740,11 +4765,13 @@
         "TraitDescriptionBoggard": "Boggards are frog-like humanoids. They typically have darkvision.",
         "TraitDescriptionBomb": "An alchemical bomb combines volatile alchemical components that explode when the bomb hits a creature or object. Most alchemical bombs deal damage, though some produce other effects.",
         "TraitDescriptionBoost": "You can boost this weapon with an Interact action to add an additional damage die of the listed size to the next damaging attack you make with the weapon until the end of your next turn. The damage from this trait increases to 2 dice for advanced-grade and superior-grade weapons, 3 dice for elite-grade and ultimate-grade weapons, and 4 dice for paragon-grade weapons. On a critical hit, roll these after doubling the weapon's damage. Multiple boosts have no effect.",
+        "TraitDescriptionBorai": "A creature with this trait has the borai versatile heritage. An ability with this trait can be used or selected only by borai.",
         "TraitDescriptionBottledBreath": "Bottles of breath are enchanted bottles of cloud and mist, first developed by the denizens of the Plane of Air. You can Activate an item with the bottled breath trait as you inhale it or cause another creature to inhale it.",
         "TraitDescriptionBrace": "A brace weapon is effective at damaging moving opponents. When you Ready to Strike an opponent that moves within your reach, until the start of your next turn Strikes with the brace weapon deal an additional 2 precision damage for each weapon damage die it has.",
         "TraitDescriptionBrandish": "The brandish trait indicates an ability that involves you waving or otherwise actively displaying your banner. To use an ability that has the brandish trait, you must be holding your banner in one hand or wielding a weapon it is attached to. Since you have to be actively signaling with your banner to direct your squadmates while using a tactic with the brandish trait, you cannot use free actions or reactions granted as part of a brandish tactic unless specifically noted otherwise.",
         "TraitDescriptionBravado": "Actions with this trait can grant panache, depending on the result of the check involved. If you succeed at the check on a bravado action, you gain panache, and if you fail (but not critically fail) the check, you gain panache but only until the end of your next turn. These effects can be applied even if the action had no other effect due to a failure or a creature's immunity.",
         "TraitDescriptionBreakdown": "This weapon can be taken apart into multiple small pieces. While broken down, the weapon is treated as small object with light bulk. Breaking down or reassembling a breakdown weapon is a 3-action activity, which has the manipulate trait and requires two hands.",
+        "TraitDescriptionBrenneri": "A creature with this trait is a member of the brenneri ancestry. They are friendly otter-like humanoids who can swim and hold their breath for long periods. An ability with this trait can be used or selected only by brenneris",
         "TraitDescriptionBrutal": "A ranged attack with this trait uses its Strength modifier instead of Dexterity on the attack roll.",
         "TraitDescriptionBugbear": "A creature with this trait is a furry, stealthy goblinoid. Bugbears tend to have darkvision.",
         "TraitDescriptionBulwark": "The armor covers you so completely that it provides benefits against some damaging effects. On Reflex saves to avoid a damaging effect, such as a fireball, you add a +3 modifier instead of your Dexterity modifier.",
@@ -4791,11 +4818,13 @@
         "TraitDescriptionContact": "A contact poison is activated by applying it to an item or directly onto a living creature's skin. The first creature to touch the affected item must attempt a saving throw against the poison; if the poison is applied directly, the creature must attempt a saving throw immediately when the poison touches its skin. Contact poisons are infeasible to apply to a creature via a weapon attack due to the logistics of delivering them without poisoning yourself. Typically, the onset time of a contact poison is 1 minute.",
         "TraitDescriptionContingency": "Spells with this trait grant you an action during the spell's effects, typically a reaction with a special trigger. They typically have a long duration, such as 24 hours. You can have only one spell with the contingency trait, or one contingency spell, active at a time. If you cast another spell with the contingency trait or contingency, the newer casting supersedes the older.",
         "TraitDescriptionContract": "A contract is a type of item that magically establishes an agreement between multiple parties and typically grants magical benefits.",
+        "TraitDescriptionCopaxi": "A creature with this trait is a member of the copaxi ancestry. They are a colony of genetically identical polyps with a humanoid form and coral-like exoskeleton who can manipulate gravity. An ability with this trait can be used or selected only by copaxis.",
+        "TraitDescriptionCorpsefolk": "A creature with this trait has the corpsefolk versatile heritage. An ability with this trait can be used or selected only by corpsefolk.",
         "TraitDescriptionCosmic": "Creatures with this trait can survive in the harsh vacuum of space and the vast distances between planets and stars. They don't breathe while in space or in a vacuum. Creatures with this trait can use their fly Speed to Fly normally in a vacuum or zero gravity environment. Unless the creature possesses a bespoke ability (such as No Breath), they remain susceptible to effects that require breathing while in normal atmosphere.",
         "TraitDescriptionCritical": "This weapon uses the critical weapon specialization of the listed weapon type rather than its own.",
         "TraitDescriptionCriticalFusion": "Critical fusion is a new trait for combination weapons that grants you two additional options for the critical specialization effect when using the combination weapon's melee version to make a melee attack while the firearm is loaded. If you choose to use one of them, they replace the melee usage's normal critical specialization effect. First, you can discharge the firearm to create a loud bang and concussion, using the critical specialization effect for firearms instead of the melee weapon group's critical specialization effect. Second, you can choose to discharge the firearm to increase the critical hit's momentum or shoot the foe as you attack them in melee, dealing 2 additional damage per weapon damage die. Both of these options discharge the firearm, which typically means you have to reload it before firing it again.",
         "TraitDescriptionCurse": "A curse is an effect that places some long-term affliction on a creature. Curses are always magical and are typically the result of a spell or trap. Effects with this trait can be removed only by effects that specifically target curses.",
-        "TraitDescriptionCursebound": "Spells with this trait increase the severity of your oracular curse when cast. Usually, only revelation spells have this trait. You can't cast a cursebound spell if you don't have an oracular curse. A cursebound ability that allows a defense uses your spell attack modifier or spell DC unless noted otherwise.",
+        "TraitDescriptionCursebound": "Abilities with this trait tighten your oracular curse's grasp on your soul in exchange for divine insights, giving you the cursebound condition (see below). When you use a cursebound ability, you become cursebound 1, or if you were already cursebound, you increase the value of your cursebound condition by 1. As cursebound abilities are directly linked to your oracular curse, you can't use a cursebound ability if you don't have an oracular curse or if you are already at your maximum cursebound value. You can't mitigate or bypass the drawbacks of any cursebound ability with spells or other effects, and the effects of any cursebound ability end when you Refocus and remove the cursebound condition. A cursebound ability that allows a defense uses your spell attack modifier or spell DC unless noted otherwise.",
         "TraitDescriptionCursed": "An item with this trait is cursed to cause trouble for its owner. A curse isn't detected when the item is identified, though a critical success reveals both the presence and exact nature of the curse. Cursed items can't be discarded once they've been triggered or invested the first time. The item can be removed only if the curse is removed.",
         "TraitDescriptionCycle": "Actions with the cycle trait change your current stellar attunement to its opposite state. When you take such an action with this trait, you benefit from the additional effect of your current attunement if the action had the attuned trait, but once you complete the action, your attunement changes to its counterpart (so graviton-attuned if you were photon-attuned before taking the action, or vice versa).",
         "TraitDescriptionDaemon": "A family of fiends spawned on the desolate plane of Abaddon, most daemons are irredeemably unholy. They typically have darkvision and weakness to holy.",
@@ -4837,6 +4866,7 @@
         "TraitDescriptionElixir": "Elixirs are alchemical liquids that are used by drinking them.",
         "TraitDescriptionEmotion": "This effect alters a creature's emotions. Effects with this trait always have the mental trait as well. Creatures with special training or that have mechanical or artificial intelligence are immune to emotion effects.",
         "TraitDescriptionEntrench": "You can position yourself in the armor or reposition its articulated pieces to better protect against some attacks. If you're trained in this armor, while wearing it you can spend a single action to gain a +1 circumstance bonus to AC against a certain type of attack until the start of your next turn. The entrench trait lists the type of attack this bonus applies against, typically entrench melee or entrench ranged.",
+        "TraitDescriptionEntu": "A creature with this trait is a member of the entu colony ancestry. They are telepathic fungal colonies that feed on emotion and imbue intelligence into willing hosts. An ability with this trait can be used or selected only by entu colonies.",
         "TraitDescriptionEnvironmental": "A hazard with this trait is something dangerous that's part of the natural world, such as quicksand or harmful mold.",
         "TraitDescriptionEsoterica": "The esoterica trait is present in many thaumaturge feats and class features that incorporate the various talismans, supernatural trinkets, and other objects you carry with you. Abilities that have the esoterica trait require you to be in possession of your esoterica to use them. Normally, you're assumed to always have your esoterica with you, but in some rare circumstances, you might either not have them on hand or have your gear stripped from you.",
         "TraitDescriptionEthereal": "Ethereal creatures are natives of the Ethereal Plane. They can survive the basic environmental effects of the Ethereal Plane.",
@@ -4865,24 +4895,27 @@
         "TraitDescriptionFocus": "Focus spells are a special type of spell attained directly from a branch of study, from a deity, or from another specific source. You can learn focus spells only through special class features or feats, rather than choosing them from a spell list. Furthermore, you cast focus spells using a special pool of Focus Points—you can't prepare a focus spell in a spell slot or use your spell slots to cast focus spells; similarly, you can't spend your Focus Points to cast spells that aren't focus spells.",
         "TraitDescriptionFocused": "An item with this trait can give you an additional Focus Point. This focus point is separate from your focus pool and doesn't count toward the cap on your focus pool. You can gain this benefit only if you have a focus pool, and there might be restrictions on how the point can be used. You can't gain more than 1 Focus Point per day from focused items.",
         "TraitDescriptionFoldaway": "<p>This shield can collapse into a smaller form attached to a gauntlet for stability and easy travel. You can use an Interact action to deploy or stow the shield. While it's deployed, you can Raise the Shield as long as you have that hand free or are holding an object of light Bulk that's not a weapon in that hand. The shield impedes the use of your hand while it's deployed. Though you can still hold items in that hand, you can't wield weapons in that hand, operate anything that takes two hands, or attack with the gauntlet.</p><p>A foldaway shield must be attached to a gauntlet for stability. It can be affixed to an item with 10 minutes of work and a successful DC 10 Crafting check; this includes the time needed to remove the shield from a previous gauntlet, if necessary. If the gauntlet is destroyed, the foldaway shield can usually be salvaged. The collapsible nature of the shield makes it impossible to affix an attached weapon to it.</p>",
+        "TraitDescriptionFonqugon": "A creature with this trait is a member of the fonqugon ancestry. They are multi-brained oozes who value intelligence and environmental stewardship. An ability with this trait can be used or selected only by fonqugons.",
         "TraitDescriptionForce": "Effects with this trait deal force damage or create objects made of pure magical force.",
         "TraitDescriptionForceful": "This weapon becomes more dangerous as you build momentum. When you attack with it more than once on your turn, the second attack gains a circumstance bonus to damage equal to the number of weapon damage dice, and each subsequent attack gains a circumstance bonus to damage equal to double the number of weapon damage dice.",
+        "TraitDescriptionFormian": "A creature with this trait is a member of the formian ancestry. They are ant-like creatures from hive mind colonies who experience a “Call” to set out as individual beings. An ability with this trait can be used or selected only by formians.",
         "TraitDescriptionFortune": "A fortune effect beneficially alters how you roll your dice. You can never have more than one fortune effect alter a single roll. If multiple fortune effects would apply, you have to pick which to use. If a fortune effect and a misfortune effect would apply to the same roll, the two cancel each other out, and you roll normally.",
         "TraitDescriptionFreeHand": "This weapon doesn't take up your hand, usually because it is built into your armor. A free-hand weapon can't be Disarmed. You can use the hand covered by your free-hand weapon to wield other items, perform manipulate actions, and so on. You can't attack with a free-hand weapon if you're wielding anything in that hand or otherwise using that hand. When you're not wielding anything and not otherwise using the hand, you can use abilities that require you to have a hand free as well as those that require you to be wielding a weapon in that hand. Each of your hands can have only one free-hand weapon on it.",
         "TraitDescriptionFulu": "Fulus are small paper charms that can be affixed to a suit of armor, a shield, a weapon, a creature, or even a structure. Some fulus are composed of multiple such charms, taking effect only once all have been affixed. Normal fulus have effects immediately once affixed, while fulu talismans have an effect only once activated. Once a fulu has been activated, it lasts for the given duration and then burns out. Unless otherwise noted, fulus expire one year after being created, reverting to mundane paper. All fulus have the fulu and consumable traits. Fulus also have a tradition trait—either arcane, divine, occult or primal—determined by the magical tradition of its creator. For example, a fulu created by a priest would have the divine trait, whereas a witch who dabbles in fate might create a fulu with the occult trait. Some fulus also have the talisman trait, if they work similarly to talismans (such as being affixed to a suit of armor, a shield, or a weapon. Each fulu's stat block indicates the type of item or creature it can be affixed to. Affixing or removing a fulu requires using the Affix a Fulu activity, or the Affix a Talisman action instead if the fulu is also a talisman.",
         "TraitDescriptionFungus": "Fungal creatures have the fungus trait. They are distinct from normal fungi.",
         "TraitDescriptionGadget": "Gadgets are consumable technological inventions with innovative uses.",
         "TraitDescriptionGanzi": "A planar scion descended from a chaotic being of the Maelstrom, such as a protean.",
+        "TraitDescriptionGapTouched": "A creature with this trait is a member of the gap-touched versatile heritage. They are creatures with a strong connection to the Gap. An ability with this trait can be used or selected only by gap-touched.",
         "TraitDescriptionGeneral": "A type of feat that any character can select, regardless of ancestry and class, as long as they meet the prerequisites. You can select a feat with this trait when your class grants a general feat.",
         "TraitDescriptionGenie": "The diverse families of genies hold positions of prominence on the elemental planes. They have powerful magical abilities.",
         "TraitDescriptionGeniekin": "An umbrella term for planar scions descended from beings from the Elemental Planes.",
+        "TraitDescriptionGfolian": "A creature with this trait is a member of the g'folian ancestry. They are fire-breathing intelligent beasts known for a deep appreciation of philosophy. An ability with this trait can be used or selected only by g'folians.",
         "TraitDescriptionGhoran": "An intelligent plant ancestry that maintain long lives by rejuvenating themselves from seeds.",
         "TraitDescriptionGhost": "Lost souls that haunt the world as incorporeal undead are called ghosts.",
         "TraitDescriptionGhoul": "Ghouls are vile undead creatures that feast on flesh.",
         "TraitDescriptionGhul": "Greedy and gluttonous undead originally formed from genie.",
         "TraitDescriptionGiant": "Giants are massive humanoid creatures.",
         "TraitDescriptionGirtablilu": "Girtablilus have humanoid upper bodies and the lower bodies of massive scorpions.",
-        "TraitDescriptionGnoll": "Kholos are humanoids that resemble hyenas.",
         "TraitDescriptionGnome": "A creature with this trait is a member of the gnome ancestry. Gnomes are small people skilled at magic who seek out new experiences and usually have low-light vision. An ability with this trait can be used or selected only by gnomes. A weapon with this trait is created and used by gnomes.",
         "TraitDescriptionGoblin": "A creature with this trait is a small, frantic goblinoid. Goblins tend to have darkvision. An ability with this trait can be used or chosen only by goblins. A weapon with this trait is created and used by goblins.",
         "TraitDescriptionGoloma": "Insular humanoids that bear countless eyes.",
@@ -4892,7 +4925,6 @@
         "TraitDescriptionGrenade": "Weapons with this trait can be thrown as a single action using the Area Fire action as though it had the area (burst) trait.",
         "TraitDescriptionGrimoire": "Spellbooks are useful tools for any magic user to write down incantations and runes of power, but where most spellbooks are nothing more than ink on parchment, grimoires have absorbed the magic of the spells within—magic that knowledgeable spellcasters can use to augment their spells.",
         "TraitDescriptionGrioth": "A grioth is a batlike alien that wields occult powers and can exist in the dark vacuum of space. They have darkvision and echolocation.",
-        "TraitDescriptionGrippli": "Tripkees are a family of froglike humanoids.",
         "TraitDescriptionGunslinger": "This indicates abilities from the gunslinger class.",
         "TraitDescriptionHag": "These malevolent spellcasters form covens.",
         "TraitDescriptionHalfling": "A creature with this trait is a member of the halfling ancestry. These small people are friendly wanderers considered to be lucky. An ability with this trait can be used or selected only by halflings. A weapon with this trait is created and used by halflings.",
@@ -4910,6 +4942,7 @@
         "TraitDescriptionHuman": "A creature with this trait is a member of the human ancestry. Humans are a diverse array of people known for their adaptability. An ability with this trait can be used or selected only by humans.",
         "TraitDescriptionHumanoid": "Humanoid creatures reason and act much like humans. They typically stand upright and have two arms and two legs.",
         "TraitDescriptionIfrit": "A type of geniekin descended from a being from the Plane of Fire.",
+        "TraitDescriptionIjtikri": "A creature with this trait is a member of the ijtikri ancestry. They are air-breathing squid-like aberrations with an oblong hardened head and numerous tentacular arms. An ability with this trait can be used or selected only by ijtikris.",
         "TraitDescriptionIkon": "An item with the ikon trait is a special item provided or created by an exemplar's divinity that is so tied to that exemplar that it can serve as a sacred vessel for their might. You gain three ikons at first level. Each ikon has a passive immanence ability and an activated transcendence ability. A feat with the ikon trait imbues one of your ikons with further capabilities. Whenever you gain a feat with the ikon trait, choose which of your ikons gains that ability; if you have multiple ikons that meet the feat's usage requirements, you can take the feat multiple times to apply its effects to another one of your ikons. These feats list what ikon they can be imbued into, and any number of them can be imbued into a single ikon.",
         "TraitDescriptionIllusion": "Effects and magic items with this trait involve false sensory stimuli.",
         "TraitDescriptionImpulse": "The primary magical actions kineticists use are called impulses. You can use an impulse only if your kinetic aura is active and channeling that element, and only if you have a hand free to shape the elemental flow. The impulse trait means the action has the concentrate trait unless another ability changes this. If an impulse allows you to choose an element, you can choose any element you're channeling, and the impulse gains that element's trait.",
@@ -4930,6 +4963,7 @@
         "TraitDescriptionInventor": "This indicates abilities from the inventor class.",
         "TraitDescriptionInvested": "A character can invest only 10 magical items that have the invested trait. None of the magical effects of the item apply if the character hasn't invested it, nor can it be activated, though the character still gains any normal benefits from wearing the physical item (like a hat keeping rain off their head).",
         "TraitDescriptionInvestigator": "This indicates abilities from the investigator class.",
+        "TraitDescriptionIzalguun": "A creature with this trait is a member of the izalguun ancestry. They are large, six-limbed isolationist humanoids capable of adopting a bipedal or quadrupedal stance. An ability with this trait can be used or selected only by izalguuns.",
         "TraitDescriptionJousting": "The weapon is suited for mounted combat with a harness or similar means. When mounted, if you moved at least 10 feet on the action before your attack, add a circumstance bonus to damage for that attack equal to the number of damage dice for the weapon. In addition, while mounted, you can wield the weapon in one hand, changing the damage die to the listed value.",
         "TraitDescriptionKami": "Kami are spirits of the Material Plane that bond with a specific object or place.",
         "TraitDescriptionKashrishi": "A stout ancestry bearing distinctive crystal horns and inherent psychic abilities.",
@@ -4942,18 +4976,21 @@
         "TraitDescriptionLaminar": "The armor is made up of layered sections, so when it breaks, it isn't as much of a problem. The status penalty to AC if this armor is broken is –1 for broken medium armor, –2 for broken heavy armor, or no penalty for broken light armor.",
         "TraitDescriptionLaunching": "A mechanism within this shield can shoot projectiles, causing the shield to also function as a ranged weapon. The trait lists the type of weapon, such as \"launching dart.\" Striking with the launcher requires the same number of hands as normal, except that the hand holding the shield counts toward this total, so a one-handed ranged weapon would require only one hand. Reloading takes the normal number of Interact actions, to a minimum of 1 action, and you can't use the hand holding your shield to reload.",
         "TraitDescriptionLeshy": "A creature with this trait is a member of the leshy ancestry. These small plant or fungus creatures are humanoid in form.",
+        "TraitDescriptionLFAN": "Feats with the LFAN trait represent optional functional improvements to a raxilite's LFAN.",
         "TraitDescriptionLight": "Light effects overcome non-magical darkness in the area, and can counteract magical darkness. You must usually target darkness magic with your light magic directly to counteract the darkness, but some light spells automatically attempt to counteract darkness.",
         "TraitDescriptionLineage": "A feat with this trait indicates a character's descendance from a particular type of creature. You can have only one lineage feat. You can select a lineage feat only at 1st level, and you can't retrain into or out of these feats.",
         "TraitDescriptionLinguistic": "An effect with this trait depends on language comprehension. A linguistic effect that targets a creature works only if the target understands the language you are using.",
         "TraitDescriptionLitany": "Litanies are special devotion spells, typically used by champions and requiring a single action, that usually give temporary immunity to further litanies.",
         "TraitDescriptionLizardfolk": "Lizardfolk are a family of reptilian humanoids. These reptilian humanoids, also known as iruxi, are extremely adaptable and patient.",
         "TraitDescriptionLozenge": "You Activate an alchemical lozenge by putting it in your mouth. It stays there, slowly dissolving and releasing its ingredients over time. You can bite a lozenge for a secondary effect. The action this takes is noted in the item. As soon as this secondary effect is over, the lozenge is used up and its benefits for you end. You can drink elixirs, potions, and beverages with a lozenge in your mouth, but you can't benefit from more than one lozenge at a time. If you have two lozenges in your mouth at the same time, both become inert. You can also spit out a lozenge as a single action to end its effect and make it inert. A lozenge dissolves due to its alchemical ingredients, so it typically still works even if you don't have saliva.",
+        "TraitDescriptionMadrosarai": "A creature with this trait is a member of the madrosarai ancestry. They are humanoids known for calm temperaments, vibrant coloration, and a strong connection with magic. An ability with this trait can be used or selected only by madrosarais.",
         "TraitDescriptionMaftet": "Maftets have humanoid upper bodies, leonine lower bodies, and hawk-like wings.",
         "TraitDescriptionMagical": "Something with the magical trait is imbued with magical energies not tied to a specific tradition of magic. Some items or effects are closely tied to a particular tradition of magic. In these cases, the item has the arcane, divine, occult, or primal trait instead of the magical trait. Any of these traits indicate that the item is magical.",
         "TraitDescriptionMagitech": "Magitech augmentations are a combination of cybernetic and magical components, containing elements such as mystically charged crystals, starmetal alloys, and rune-engraved microchips. Magitech augmentations are magical, but they can't be dispelled unless the effect or attack specifies that it affects augmentations.",
         "TraitDescriptionMagus": "This indicates abilities from the magus class.",
         "TraitDescriptionManifestation": "Feats with this trait enhance or alter your solar manifestations (flare, nimbus, and weapon), or allow you to create a new type of solar manifestation.",
         "TraitDescriptionManipulate": "You must physically manipulate an item or make gestures to use an action with this trait. Creatures without a suitable appendage can't perform actions with this trait. Manipulate actions often trigger reactions.",
+        "TraitDescriptionMaraquoi": "A creature with this trait is a member of the maraquoi ancestry. They are tailed simian humanoids with seven reproductive sexes who cherish family, deeply mourn the dead, and detect sound through their skin. An ability with this trait can be used or selected only by maraquois.",
         "TraitDescriptionMechanical": "A hazard with this trait is a constructed physical object.",
         "TraitDescriptionMental": "A mental effect can alter the target's mind. It has no effect on an object or a mindless creature.",
         "TraitDescriptionMerfolk": "These aquatic humanoids have an upper body similar to a human and a lower body similar to a fish.",
@@ -4974,6 +5011,7 @@
         "TraitDescriptionMortic": "Mortics are living humanoids with close ties to undeath. They have darkvision, negative healing, and vulnerabilities to sacred ground, and they can become undead by holding their breath.",
         "TraitDescriptionMounted": "Mounted siege weapons take up a certain size and space, and typically have statistics to allow them to be attacked. They're used for large-scale warfare.",
         "TraitDescriptionMove": "An action with this trait involves moving from one space to another.",
+        "TraitDescriptionMoyishuu": "A creature with this trait is a member of the moyishuu ancestry. They are insightful fey with colorful skin and crystalline hair who can sense, emulate, and harness emotions. An ability with this trait can be used or selected only by moyishuus.",
         "TraitDescriptionMulticlass": "Archetypes with the multiclass trait represent diversifying your training into another class's specialties. You can't select a multiclass archetype's dedication feat if you are a member of the class of the same name.",
         "TraitDescriptionMummy": "A mummy is an undead creature created from a preserved corpse.",
         "TraitDescriptionMunavri": "Amicable humanoids living in the Darklands, munavris have powerful telekinetic and psychic abilities.",
@@ -4987,6 +5025,7 @@
         "TraitDescriptionNoisy": "This armor is loud and likely to alert others to your presence when you're using the Avoid Notice exploration activity. The armor's check penalty applies to Stealth checks even if you meet the required Strength score.",
         "TraitDescriptionNone": "This trait has no description.",
         "TraitDescriptionNonlethal": "Attacks with this weapon are nonlethal, and are used to knock creatures unconscious instead of kill them. You can use a nonlethal weapon to make a lethal attack with a -2 circumstance penalty.",
+        "TraitDescriptionNovian": "A creature with this trait is a member of the novian ancestry. They are tiny floating suns born from the death of a star who emit powerful gravitational fields. An ability with this trait can be used or selected only by novians.",
         "TraitDescriptionNymph": "This family of beautiful fey creatures has strong ties to natural locations.",
         "TraitDescriptionOath": "Oaths add an additional tenet to your code. You can usually have only one feat with this trait.",
         "TraitDescriptionOccult": "This magic comes from the occult tradition, calling upon bizarre and ephemeral mysteries. Anything with this trait is magical. A creature with this trait is primarily constituted of or has a strong connection to occult magic.",
@@ -4997,6 +5036,8 @@
         "TraitDescriptionOracle": "This indicates abilities from the oracle class.",
         "TraitDescriptionOrc": "A creature with this trait is a member of the orc ancestry. These green-skinned people tend to have darkvision. A weapon with this trait is a weapon which orcs craft and use.",
         "TraitDescriptionOread": "A type of geniekin descended from a being from the Plane of Earth.",
+        "TraitDescriptionOrocoran": "A creature with this trait is a member of the orocoran ancestry. They are spindly aberrations mutated by the eldritch fluids of Aucturn who yearn for a new identity. An ability with this trait can be used or selected only by orocorans.",
+        "TraitDescriptionOsharu": "A creature with this trait is a member of the osharu ancestry. They are sluglike humanoids that can swim and excrete sticky slime. They spend their lives amassing knowledge. An ability with this trait can be used or selected only by osharus.",
         "TraitDescriptionOverflow": "Powerful impulses temporarily overdraw the energy of your kinetic gate. When you use an impulse that has the overflow trait, your kinetic aura deactivates until you revitalize it (typically with Channel Elements). Extinguishing your element this severely is taxing, and consequently, you can use only one overflow impulse per round, even if you reactivate your kinetic gate.",
         "TraitDescriptionPaaridar": "A paaridar is a humanoid who has gained physical aspects and abilities of a powerful beast through corrupted magical rituals.",
         "TraitDescriptionPalinthanos": "When a cosmic event like Godsrain disturbs all that exists, the River of Souls sometimes flows backward for a brief moment, literally, from the shockwave. Unwilling and confused souls that are forced back far enough can have the agonizing experience of enduring death in reversed time. Some of these souls manage to re-enter the river once the flow returns to normal, but those who are stranded on the metaphorical shores of the living can become palinthanos: powerful undead born from their reversed demise who struggle futilely until their predestined banishment back to the River.",
@@ -5024,6 +5065,7 @@
         "TraitDescriptionPrediction": "Effects with this trait determine what is likely to happen in the near future. Most predictions are divinations.",
         "TraitDescriptionPress": "Actions with this trait allow you to follow up earlier attacks. An action with the press trait can be used only if you are currently affected by a multiple attack penalty. You can't use a press action when it's not your turn, even if you use the Ready activity. Some actions with the press trait also grant an effect on a failure. The effects that are added on a failure don't apply on a critical failure. If your press action succeeds, you can choose to apply the failure effect instead. (For example, you may wish to do this when an attack deals no damage due to resistance.)",
         "TraitDescriptionPrimal": "This magic comes from the primal tradition, connecting to the natural world and instinct. Anything with this trait is magical. A creature with this trait is primarily constituted of or has a strong connection to primal magic.",
+        "TraitDescriptionPrismeni": "A creature with this trait has the prismeni versatile heritage. An ability with this trait can be used or selected only by prismeni.",
         "TraitDescriptionProcessed": "An alchemical consumable with the processed trait can be created with Quick Alchemy but is too complex to create in a single action.",
         "TraitDescriptionProfessional": "A weapon with this trait can be used as a tool for the listed skill. Add the weapon's item bonus to attack rolls as an item bonus to skill checks using the listed skill. For purposes of proficiency, you can choose to treat this martial weapon as a simple weapon or this advanced weapon as a martial weapon, up to your proficiency with the listed skill.",
         "TraitDescriptionPropulsive": "You add half your Strength modifier (if positive) to damage rolls with a propulsive ranged weapon. If you have a negative Strength modifier, you add your full Strength modifier instead.",
@@ -5041,6 +5083,7 @@
         "TraitDescriptionRanger": "This indicates abilities from the ranger class.",
         "TraitDescriptionRare": "This rarity indicates that a rules element is very difficult to find in the game world. A rare feat, spell, item or the like is available to players only if the GM decides to include it in the game, typically through discovery during play. Creatures with this trait are rare. They typically can't be summoned. The DC of Recall Knowledge checks related to these creatures is increased by 5.",
         "TraitDescriptionRatfolk": "A creature with this trait is a member of the ratfolk ancestry. Ratfolk are humanoids who resemble rats.",
+        "TraitDescriptionRaxilite": "A creature with this trait is a member of the raxilite ancestry. They are tiny, gentle, sapient plants who use biotechnological grafts called LFAN. An ability with this trait can be used or selected only by raxilites.",
         "TraitDescriptionRazing": "Razing weapons are particularly good at damaging objects, structures, and vehicles. Whenever you deal damage to an object (including shields and animated objects), structure, or vehicle with a razing weapon, the object takes an amount of additional damage equal to double the number of weapon damage dice.",
         "TraitDescriptionReach": "Natural attacks with this trait can be used to attack creatures up to the listed distance away instead of only adjacent creatures. Weapons with this trait are long and can be used to attack creatures up to 10 feet away instead of only adjacent creatures. For creatures that already have reach with the limb or limbs that wield the weapon, the weapon increases their reach by 5 feet.",
         "TraitDescriptionReckless": "Actions with the reckless trait run the risk of the pilot losing control of a vehicle. When performing a reckless action, the pilot must first attempt an appropriate piloting check to keep control of the vehicle.",
@@ -5055,6 +5098,7 @@
         "TraitDescriptionRetractable": "This shield can collapse into a smaller form attached to an armguard, gauntlet, glove, or jewelry for ease of travel and to free up hands. You can use an Interact action to deploy or retract the shield. You can't Raise a Shield if the shield is retracted. While the shield is deployed, it has the compact trait.",
         "TraitDescriptionRevelation": "Effects with this trait see things as they truly are.",
         "TraitDescriptionRogue": "This indicates abilities from the rogue class.",
+        "TraitDescriptionRyphorian": "A creature with this trait is a member of the ryphorian ancestry. They are trimorphic elf-like humanoids with exceptional hearing whose appearance changes with the seasons. An ability with this trait can be used or selected only by ryphorians.",
         "TraitDescriptionSaggorak": "Ancient dwarven blacksmiths in Saggorak designed a series of spectacularly powerful runes. Only someone with legendary proficiency in Crafting, or a well-versed dwarven crafter from the city of Kovlar, can apply, transfer, or remove a rune with the Saggorak trait. Because of their considerable power, all Saggorak runes take up two property rune slots, and consequently they can be applied only to armor and weapons with at least a +2 potency rune.",
         "TraitDescriptionSahkil": "Sahkils are fiends that delight in spreading fear and unease among mortal creatures. They typically have darkvision, immunity to fear, and weakness to good.",
         "TraitDescriptionSamsaran": "Blue-skinned people native to Zi Ha, who reincarnate upon death and recall pieces of their past lives.",
@@ -5077,6 +5121,7 @@
         "TraitDescriptionSkeleton": "This undead is made by animating a dead creature's skeleton with void energy. An ability with this trait can be used or selected only by skeletons.",
         "TraitDescriptionSkelm": "These creatures are monstrous, wrathful misanthropes who seek to control others through anger and spite.",
         "TraitDescriptionSkill": "A general feat with the skill trait improves your skills and their actions or gives you new actions for a skill. A feat with this trait can be selected when a class grants a skill feat or general feat. Archetype feats with the skill trait can be selected in place of a skill feat if you have that archetype's dedication feat.",
+        "TraitDescriptionSkirmish": "This trait indicates abilities that can be used only during skirmish encounters.",
         "TraitDescriptionSkulk": "Skulks are a family of humanoids whose skin can shift coloration to aid in stealth.",
         "TraitDescriptionSleep": "This effect can cause a creature to fall asleep or get drowsy.",
         "TraitDescriptionSnare": "Traps typically made by rangers, snares follow special rules that allow them to be constructed quickly and used on the battlefield.",
@@ -5113,13 +5158,14 @@
         "TraitDescriptionTactic": "Tactics are special abilities that involve you signaling your allies to perform predetermined maneuvers. To use a tactic ability, you must have one or more willing allies you have instructed beforehand during your daily preparations, called squadmates. Your squadmates must also be able to perceive your signal, either when you speak or shout it (in which case the tactic action gains the auditory trait), or by physically signaling them, typically by waving your banner (in which case it gains the visual trait). While you can use multiple tactic actions in a round, a character cannot respond to more than one tactic per round, regardless of source. You can't Ready a tactic. Tactics often grant actions or abilities that can be used as a free action; these can be used outside the squadmate's turn just like reactions.",
         "TraitDescriptionTalisman": "A talisman is a small object affixed to armor, a shield, or a weapon (called the affixed item). You must be wielding or wearing an item to activate a talisman attached to it. Once activated, a talisman burns out permanently.",
         "TraitDescriptionTalos": "Taloses are planar scions descended from zuhras.",
+        "TraitDescriptionTalphi": "A creature with this trait is a member of the talphi ancestry. They are small, mole-like humanoids known for their exceptional digging skills and use of glowing paints and dyes. An ability with this trait can be used or selected only by talphis.",
         "TraitDescriptionTandem": "Actions with this trait involve you and your eidolon acting in concert. You can't use a tandem action if either you or your eidolon can't act, if you haven't Manifested your Eidolon, or if you've Manifested your Eidolon in a way where it isn't a separate entity (such as with the Meld into Eidolon feat). Tandem actions often let both you and your eidolon take separate actions, but these must be actions taken separately by you and your eidolon; you can't use a tandem action to take another tandem action.",
         "TraitDescriptionTane": "The Tane are powerful creatures created eons ago by the Eldest of the First World. All of the Tane treat whatever plane they happen to be on as their home plane.",
         "TraitDescriptionTanggal": "This family of cannibalistic aberrations consists of various humanoid-shaped creatures that can separate their body into two pieces while hunting.",
         "TraitDescriptionTattoo": "A tattoo is a type of item that is drawn or cut into a creature's skin and usually takes the form of images or symbols.",
         "TraitDescriptionTea": "<p>Magic tea is a type of potion. It activates when you drink it, which uses it up. Magic tea has the potion and tea traits. When you craft a dose of magic tea, the raw materials you supply are in the form of unusual and costly tea leaves. The process of crafting magic tea includes infusing the leaves with magical reagents, purifying the water, and steeping the tea in the water, resulting in what's essentially a particularly delicious-tasting potion. You can activate magic tea with an Interact action as you drink it or feed it to another creature, as if it were a potion. You can also activate magic tea with a 10-minute activity that requires sterling tea ware (these artisan's tools can be shared by up to four people who take this activity simultaneously) to prepare the tea and then consume it or present it to someone during a short tea ceremony, after which the magic tea's effects begin; activating magic tea in this way enhances its effect, as detailed in each entry's Tea Ceremony.</p><p>Once you drink a dose of magic tea, you're temporarily immune to that particular type of magic tea for 24 hours.</p>",
         "TraitDescriptionTearing": "This weapon is edged with curved teeth that leave bleeding wounds. When you hit a creature with this weapon, it deals an additional 1 persistent bleed damage. This increases to 2 persistent bleed damage if the weapon has a greater striking rune.",
-        "TraitDescriptionTech": "<p>Equipment with the tech trait rely on electricity and may gain the glitching condition. Some creatures and hazards also have the tech trait, such as artificial intelligence, robots, and turrets.</p>\n<p>Armor with the tech trait incorporate electronics, computer systems, integrated power sources, and a comm unit.</p>\n<p>Shields with the tech trait incorporate electronics, computer systems, and integrated power sources.<p>\n</p>Weapons with the tech trait incorporate electronics, computer systems, and power sources. Usually the weapons rely on integrated power sources (such as melee weapons that don't have the powered trait), while others drain batteries with each attack.</p>\n<p>Cybernetic augmentations are technological, not magical, though they aren't subject to any effect or attack that targets technology unless it specifies that it affects cybernetics.<p>",
+        "TraitDescriptionTech": "<p>Equipment with the tech trait rely on electricity and may gain the glitching condition. Some creatures and hazards also have the tech trait, such as artificial intelligence, robots, and turrets.</p>\n<p>Armor with the tech trait incorporate electronics, computer systems, integrated power sources, and a comm unit.</p>\n<p>Shields with the tech trait incorporate electronics, computer systems, and integrated power sources.<p>\n</p>Weapons with the tech trait incorporate electronics, computer systems, and power sources. Usually the weapons rely on integrated power sources (such as melee weapons that don't have the powered trait), while others drain batteries with each attack.</p>\n<p>Cybernetic augmentations are technological, not magical, though they aren't subject to any effect or attack that targets technology unless it specifies that it affects cybernetics.</p>",
         "TraitDescriptionTelepathy": "A creature with telepathy can communicate mentally with creatures. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.",
         "TraitDescriptionTeleportation": "Teleportation effects allow you to instantaneously move from one point in space to another. Teleportation does not usually trigger reactions based on movement.",
         "TraitDescriptionTengu": "A creature with this trait is a member of the tengu ancestry. Tengus are humanoids who resemble crows. An ability with this trait can be used or selected only by tengus. An item with this trait is created and used by tengus.",
@@ -5135,8 +5181,10 @@
         "TraitDescriptionTransfer": "These actions reduce Hit Points from your vitality network. You must have Hit Points in your vitality network equal to or greater than the transfer cost to use these actions. If you can't pay the cost, the action is disrupted.",
         "TraitDescriptionTrap": "A hazard or item with this trait is constructed to hinder interlopers.",
         "TraitDescriptionTrip": "You can use this weapon to Trip with the Athletics skill even if you don't have a free hand. This uses the weapon's reach (if different from your own) and adds the weapon's item bonus to attack rolls as an item bonus to the Athletics check. If you critically fail a check to Trip using the weapon, you can drop the weapon to take the effects of a failure instead of a critical failure.",
+        "TraitDescriptionTripkee": "Tripkees are a family of froglike humanoids.",
         "TraitDescriptionTroll": "Trolls are giant, brutish creatures and are well known for transforming into inanimate materials.",
         "TraitDescriptionTroop": "A troop is an organized collection of component creatures, typically Small or Medium in size, working as a cohesive whole. Over the course of enough attacks and downed comrades, troops shrink in size. A troop typically has the troop defenses and troop movement abilities, and most troops have weaknesses to area damage and splash damage. Because they consist of multiple discrete creatures, they can't be summoned.",
+        "TraitDescriptionTrox": "A creature with this trait is a member of the trox ancestry. They are large and sturdy arthropodal humanoids with multiple vestigial arms and a fearsome appearance that contrasts their peaceful spirituality. An ability with this trait can be used or selected only by troxes.",
         "TraitDescriptionTrueName": "Certain spells, feats, and items have the true name trait. This trait means they require you to know a creature's true name to use them.",
         "TraitDescriptionTwin": "These weapons are used as a pair, complementing each other. When you attack with a twin weapon, you add a circumstance bonus to the damage roll equal to the weapon's number of damage dice if you have previously attacked with a different weapon of the same type this turn. The weapons must be of the same type to benefit from this trait, but they don't need to have the same runes.",
         "TraitDescriptionTwoHand": "This weapon can be wielded with two hands. Doing so changes its weapon damage die to the indicated value. This change applies to all the weapon's damage dice, such as those from striking runes.",
@@ -5150,6 +5198,7 @@
         "TraitDescriptionUnwieldy": "Weapons with this trait are large and awkward, can't be fired without cooling down first, or are otherwise difficult to use with repeated attacks. You can't use an unwieldy weapon more than once per round and can't use it to Strike as part of a reaction, such as Reactive Strike.",
         "TraitDescriptionUpgrade": "Weapons can be customized with upgrades, which include technological weapon modifications and weapon fusions. This indicates how many upgrades the weapon can utilize.",
         "TraitDescriptionUrdefhan": "Urdefhans are humanoids who have pacts with daemons, have transparent skin, and drink blood.",
+        "TraitDescriptionUrog": "A creature with this trait is a member of the urog ancestry. They are exacting, semiconductive, silicon-based telepathic beasts who seek perfection through learning and understanding. An ability with this trait can be used or selected only by urogs.",
         "TraitDescriptionVampire": "Undead creatures who thirst for blood, vampires are notoriously versatile and hard to destroy.",
         "TraitDescriptionVanara": "An inquisitive ancestry with primate-like features and prehensile tails.",
         "TraitDescriptionVehicular": "A vehicular weapon is attached to a vehicle or worn by a mount and can typically only be wielded by the driver of the vehicle or the mount's primary rider. The driver or rider can control a vehicular weapon with the same hands they use to steer the vehicle or guide the mount. A vehicular weapon can be Disarmed by knocking the controls (typically reins for a mount or a steering device for a vehicle) out of the wielder's hands.",
@@ -5175,8 +5224,10 @@
         "TraitDescriptionWitch": "This indicates abilities from the witch class.",
         "TraitDescriptionWizard": "This indicates abilities from the wizard class.",
         "TraitDescriptionWood": "Effects with the wood trait conjure or manipulate wood. Those that manipulate wood have no effect in an area without wood. Creatures with this trait consist primarily of wood or have a connection to magical wood.",
+        "TraitDescriptionWorlanisi": "A creature with this trait is a member of the worlanisi ancestry. They are small, incredibly lucky, four-armed telepaths with bright blue skin. An ability with this trait can be used or selected only by worlanisis.",
         "TraitDescriptionWraith": "A wraith is an incorporeal undead creature infused with void energy and driven by a hatred of all life.",
         "TraitDescriptionWyrwood": "A wyrwood is a small, sapient living construct crafted of wood and powered with an aeon stone or a similar magical stone.",
+        "TraitDescriptionXenometricAndroid": "A creature with this trait is a member of the xenometric android versatile heritage. These artificially constructed beings are made to resemble a particular species. An ability with this trait can be used or selected only by xenometric androids.",
         "TraitDescriptionXulgath": "These subterranean reptilian creatures tend to have darkvision and smell awful.",
         "TraitDescriptionZombie": "These undead are mindless rotting corpses that hunger for living flesh.",
         "TraitDescriptionZone": "These actions apply an additional effect to your quantum field. You may apply the effects of a zone only to a quantum field that doesn't have a zone effect.",
@@ -5301,7 +5352,6 @@
         "TraitGiant": "Giant",
         "TraitGigas": "Gigas",
         "TraitGirtablilu": "Girtablilu",
-        "TraitGnoll": "Kholo",
         "TraitGnome": "Gnome",
         "TraitGoblin": "Goblin",
         "TraitGolem": "Golem",
@@ -5314,7 +5364,6 @@
         "TraitGrenade": "Grenade",
         "TraitGrimoire": "Grimoire",
         "TraitGrioth": "Grioth",
-        "TraitGrippli": "Tripkee",
         "TraitGuardian": "Guardian",
         "TraitGunslinger": "Gunslinger",
         "TraitHag": "Hag",
@@ -5396,6 +5445,7 @@
         "TraitKasatha": "Kasatha",
         "TraitKashrishi": "Kashrishi",
         "TraitKhizar": "Khizar",
+        "TraitKholo": "Kholo",
         "TraitKickback": "Kickback",
         "TraitKineticist": "Kineticist",
         "TraitKingdom": "Kingdom",
@@ -5408,6 +5458,7 @@
         "TraitLashunta": "Lashunta",
         "TraitLaunching": "Launching",
         "TraitLeshy": "Leshy",
+        "TraitLFAN": "LFAN",
         "TraitLight": "Light",
         "TraitLilu": "Lilu",
         "TraitLineage": "Lineage",
@@ -5603,6 +5654,7 @@
         "TraitSkeleton": "Skeleton",
         "TraitSkelm": "Skelm",
         "TraitSkill": "Skill",
+        "TraitSkirmish": "Skirmish",
         "TraitSkittermander": "Skittermander",
         "TraitSkulk": "Skulk",
         "TraitSlashing": "Slashing",
@@ -5691,6 +5743,7 @@
         "TraitTraversal": "Traversal",
         "TraitTrial": "Trial",
         "TraitTrip": "Trip",
+        "TraitTripkee": "Tripkee",
         "TraitTroll": "Troll",
         "TraitTroop": "Troop",
         "TraitTrox": "Trox",
@@ -6390,7 +6443,10 @@
                 "Name": "Animated"
             },
             "decaying": {
-                "Name": "Decaying"
+                "Name": "Decaying",
+                "Note": {
+                    "criticalSuccess": "On a critical hit, the target takes 2d4 persistent void damage; if the target has a shield raised, the shield takes the same amount of persistent damage (its wielder rolls the flat check to see if the persistent damage ends, or the GM rolls if the shield is no longer in someone's possession). Unlike normal void damage, the void damage from a decaying rune damages objects, constructs, and the like by eroding them away."
+                }
             },
             "deathdrinking": {
                 "Name": "Deathdrinking"

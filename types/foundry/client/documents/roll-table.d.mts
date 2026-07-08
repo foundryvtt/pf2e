@@ -1,12 +1,12 @@
 import DocumentSheetV2 from "@client/applications/api/document-sheet.mjs";
+import { ChatMessageMode } from "@client/config.mjs";
 import { DatabaseCreateOperation, DatabaseDeleteOperation } from "@common/abstract/_types.mjs";
 import Document from "@common/abstract/document.mjs";
 import EmbeddedCollection from "@common/abstract/embedded-collection.mjs";
-import { RollMode } from "@common/constants.mjs";
-import { ChatMessageCreateOperation } from "@common/documents/chat-message.mjs";
 import Roll from "../dice/roll.mjs";
 import { BaseRollTable, ChatMessage, Folder, RollTableSource, TableResult } from "./_module.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./abstract/client-document.mjs";
+import { ChatMessageCreateOperation } from "./chat-message.mjs";
 import CompendiumCollection from "./collections/compendium-collection.mjs";
 
 type BaseRollTableStatic = typeof BaseRollTable;
@@ -55,46 +55,35 @@ export default class RollTable extends ClientBaseRollTable {
 
     /**
      * Draw a result from the RollTable based on the table formula or a provided Roll instance
-     * @param [options={}]               Optional arguments which customize the draw behavior
-     * @param [options.roll]             An existing Roll instance to use for drawing from the table
-     * @param [options.recursive=true]   Allow drawing recursively from inner RollTable results
-     * @param [options.results]          One or more table results which have been drawn
-     * @param [options.displayChat=true] Whether to automatically display the results in chat
-     * @param [options.rollMode]         The chat roll mode to use when displaying the result
+     * @param options Optional arguments which customize the draw behavior
+     * @param options.roll An existing Roll instance to use for drawing from the table
+     * @param options.recursive Allow drawing recursively from inner RollTable results
+     * @param options.results One or more table results which have been drawn
+     * @param options.displayChat Whether to automatically display the results in chat
+     * @param options.messageMode The chat roll mode to use when displaying the result
      * @returns A Promise which resolves to an object containing the executed roll and the produced results
      */
-    draw({
-        roll,
-        recursive,
-        results,
-        displayChat,
-        rollMode,
-    }?: {
+    draw(options?: {
         roll?: Roll | null;
         recursive?: boolean;
         results?: TableResult<RollTable>[];
         displayChat?: boolean;
-        rollMode?: RollMode | "roll" | null;
+        messageMode?: ChatMessageMode;
     }): Promise<RollTableDraw<this>>;
 
     /**
      * Draw multiple results from a RollTable, constructing a final synthetic Roll as a dice pool of inner rolls.
      * @param number       The number of results to draw
-     * @param [options={}] Optional arguments which customize the draw
-     * @param [options.roll]             An optional pre-configured Roll instance which defines the dice roll to use
-     * @param [options.recursive=true]   Allow drawing recursively from inner RollTable results
-     * @param [options.displayChat=true] Automatically display the drawn results in chat? Default is true
-     * @param [options.rollMode]         Customize the roll mode used to display the drawn results
+     * @param options Optional arguments which customize the draw
+     * @param options.roll An optional pre-configured Roll instance which defines the dice roll to use
+     * @param options.recursive Allow drawing recursively from inner RollTable results
+     * @param options.displayChat=true] Automatically display the drawn results in chat? Default is true
+     * @param options.messageMode A chat message visibility mode to apply to the resulting message
      * @returns The drawn results
      */
     drawMany(
         number: number,
-        {
-            roll,
-            recursive,
-            displayChat,
-            rollMode,
-        }?: { roll?: Roll | null; recursive?: boolean; displayChat?: boolean; rollMode?: RollMode | null },
+        options?: { roll?: Roll | null; recursive?: boolean; displayChat?: boolean; messageMode?: ChatMessageMode },
     ): Promise<RollTableDraw<this>>;
 
     /** Normalize the probabilities of rolling each item in the RollTable based on their assigned weights */

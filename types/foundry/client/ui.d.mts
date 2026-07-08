@@ -5,9 +5,9 @@
 
 import * as applications from "./applications/_module.mjs";
 import * as appv1 from "./appv1/_module.mjs";
+import PlaceableObject from "./canvas/placeables/placeable-object.mjs";
 import Macro from "./documents/macro.mjs";
 
-/* eslint-disable prefer-const */
 export let activeWindow: appv1.api.Application | applications.api.ApplicationV2 | null;
 
 export const actors: applications.sidebar.tabs.ActorDirectory;
@@ -76,6 +76,7 @@ export interface FoundryUI<
     nav: applications.ui.SceneNavigation;
     notifications: applications.ui.Notifications;
     pause: applications.ui.GamePause;
+    placeables: { isEntryVisible(object: PlaceableObject): boolean };
     players: applications.ui.Players;
     playlists: applications.sidebar.tabs.PlaylistDirectory;
     scenes: applications.sidebar.tabs.SceneDirectory;

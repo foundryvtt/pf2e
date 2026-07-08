@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You reduce a creature to 0 Hit Points.</p><hr /><p>You effortlessly enter a state of flow in combat. When you use Battle Focus and each time you reduce a hostile creature to 0 Hit Points in the next minute, you regain @Damage[@actor.level[healing]] Hit Points equal to your level. If you're wounded, you can reduce the wounded condition by 1 instead of regaining Hit Points.</p>"
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You reduce a creature to 0 Hit Points.</p><hr /><p>You effortlessly enter a state of flow in combat. When you use Battle Focus and each time you reduce a hostile creature to 0 Hit Points in the next minute, you regain @Damage[@actor.level[healing]] Hit Points equal to your level. If you're @UUID[Compendium.sf2e.conditions.Item.Wounded], you can reduce the wounded condition by 1 instead of regaining Hit Points.</p>"
         },
         "frequency": {
             "max": 1,
@@ -30,6 +30,10 @@
             "title": "Starfinder Galactic Ancestries"
         },
         "rules": [],
+        "selfEffect": {
+            "name": "Effect: Battle Focus",
+            "uuid": "Compendium.sf2e.feat-effects.Item.Effect: Battle Focus"
+        },
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

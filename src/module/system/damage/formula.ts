@@ -90,7 +90,7 @@ function createDamageFormula(
     }
 
     // Sometimes a weapon may add base damage as bonus modifiers or dice. We need to auto-generate these
-    const BONUS_BASE_LABELS = ["PF2E.ConditionTypePersistent"].map((l) => game.i18n.localize(l));
+    const BONUS_BASE_LABELS = ["PF2E.ConditionTypePersistent"].map((l) => _loc(l));
 
     // Test that a damage modifier or dice partial is compatible with the prior check result
     const outcomeMatches = (m: { critical: boolean | null }): boolean => critical || m.critical !== true;
@@ -222,7 +222,7 @@ function instancesFromTypeMap(
                         p.label === null && (p.modifier || p.dice?.number || partials.every((pp) => pp.label === null)),
                 );
                 if (leadingTerms.length) {
-                    const append = c === "splash" ? ` ${game.i18n.localize("PF2E.TraitSplash")}` : "";
+                    const append = c === "splash" ? ` ${_loc("PF2E.TraitSplash")}` : "";
                     const label = createSimpleFormula(leadingTerms) + append;
                     breakdownDamage.unshift({ ...leadingTerms[0], label });
                 }
@@ -239,10 +239,10 @@ function instancesFromTypeMap(
             // Gather label values and assign a damage type string to the first label in the list
             const damageTypeLabel =
                 breakdownDamage[0].category === "persistent"
-                    ? game.i18n.format("PF2E.Damage.PersistentTooltip", {
-                          damageType: game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType),
+                    ? _loc("PF2E.Damage.PersistentTooltip", {
+                          damageType: _loc(CONFIG.PF2E.damageTypes[damageType] ?? damageType),
                       })
-                    : game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
+                    : _loc(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
             const labelParts = breakdownDamage.map((d) => d.label);
             labelParts[0] = `${labelParts[0].replace(/^\s+\+/, "")} ${damageTypeLabel}`;
 

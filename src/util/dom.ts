@@ -89,7 +89,7 @@ function htmlQuery<K extends keyof HTMLElementTagNameMap>(
 function htmlQuery(parent: MaybeHTML, selectors: string): HTMLElement | null;
 function htmlQuery<E extends HTMLElement = HTMLElement>(parent: MaybeHTML, selectors: string): E | null;
 function htmlQuery(parent: MaybeHTML, selectors: string): HTMLElement | null {
-    if (!(parent instanceof Element || parent instanceof Document)) return null;
+    if (!parent || !("querySelector" in parent)) return null;
     return parent.querySelector<HTMLElement>(selectors);
 }
 
@@ -100,7 +100,7 @@ function htmlQueryAll<K extends keyof HTMLElementTagNameMap>(
 function htmlQueryAll(parent: MaybeHTML, selectors: string): HTMLElement[];
 function htmlQueryAll<E extends HTMLElement = HTMLElement>(parent: MaybeHTML, selectors: string): E[];
 function htmlQueryAll(parent: MaybeHTML, selectors: string): HTMLElement[] {
-    if (!(parent instanceof Element || parent instanceof Document)) return [];
+    if (!parent || !("querySelectorAll" in parent)) return [];
     return Array.from(parent.querySelectorAll<HTMLElement>(selectors));
 }
 
@@ -111,7 +111,7 @@ function htmlClosest<K extends keyof HTMLElementTagNameMap>(
 function htmlClosest(child: MaybeHTML, selectors: string): HTMLElement | null;
 function htmlClosest<E extends HTMLElement = HTMLElement>(parent: MaybeHTML, selectors: string): E | null;
 function htmlClosest(child: MaybeHTML, selectors: string): HTMLElement | null {
-    if (!(child instanceof Element)) return null;
+    if (!child || !("closest" in child)) return null;
     return child.closest<HTMLElement>(selectors);
 }
 

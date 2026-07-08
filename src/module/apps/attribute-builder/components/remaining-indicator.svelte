@@ -9,7 +9,7 @@
 {#if count}
     <div class="remaining extra" aria-live="polite" aria-atomic="true">
         <span class="sr-only">
-            {game.i18n.format("PF2E.Actor.Character.AttributeBuilder.Aria.Remaining", { count })}
+            {_loc("PF2E.Actor.Character.AttributeBuilder.Aria.Remaining", { count })}
         </span>
         <span aria-hidden="true">{count}</span>
     </div>

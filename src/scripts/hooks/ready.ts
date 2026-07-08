@@ -32,19 +32,6 @@ export const Ready = {
             console.log("PF2e System | Starting Pathfinder 2nd Edition System");
             console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
 
-            // Enforce certain grid settings. These should be handled by our defaults, but a user may have changed them.
-            // Changing a setting to the default still triggers onChange, and in V12.322 can trigger console errors
-            // The actual manipulation of the setting is locked down by the renderSettingsConfig hook.
-            const defaultGridSettings = {
-                gridTemplates: false,
-                coneTemplateType: "round",
-            };
-            for (const [key, value] of Object.entries(defaultGridSettings)) {
-                if (game.settings.get("core", key) !== value) {
-                    game.settings.set("core", key, value);
-                }
-            }
-
             // Some of game.pf2e must wait until the ready phase
             SetGamePF2e.onReady();
 
@@ -82,9 +69,6 @@ export const Ready = {
                     await game.settings.set(SYSTEM_ID, "worldSystemVersion", current);
                 }
 
-                // These modules claim compatibility with V11 but are abandoned
-                const abandonedModules = new Set(["pf2e-rules-based-npc-vision"]);
-
                 // Nag the GM for running unmaintained modules
                 const subV11Modules = game.modules.filter(
                     (m) =>
@@ -94,11 +78,11 @@ export const Ready = {
                         // without it will also not be listed in the package manager. Skip warning those without it in
                         // case they were made for private use.
                         !!m.compatibility.verified &&
-                        (abandonedModules.has(m.id) || !fu.isNewerVersion(m.compatibility.verified, "10.312")),
+                        fu.isNewerVersion("13", m.compatibility.verified),
                 );
 
                 for (const badModule of subV11Modules) {
-                    const message = game.i18n.format("PF2E.ErrorMessage.SubV9Module", { module: badModule.title });
+                    const message = _loc("PF2E.ErrorMessage.ModuleTooOld", { module: badModule.title });
                     ui.notifications.warn(message);
                 }
             });
@@ -120,16 +104,6 @@ export const Ready = {
                 CONFIG.Canvas.darknessColor = CONFIG.PF2E.Canvas.darkness.gmVision;
                 canvas.environment.initialize();
             }
-
-            game.pf2e.system.moduleArt.refresh().then(() => {
-                if (game.modules.get("babele")?.active && game.i18n.lang !== "en") {
-                    Hooks.once("babele.ready", () => {
-                        ui.compendium.compileSearchIndex();
-                    });
-                } else {
-                    ui.compendium.compileSearchIndex();
-                }
-            });
 
             // Now that all game data is available, Determine what actors we need to reprepare.
             // Add actors currently in an encounter, then in a party, then all familiars, then parties, then in terrains

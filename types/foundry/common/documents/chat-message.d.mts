@@ -1,6 +1,5 @@
 import Roll from "@client/dice/roll.mjs";
-import { DatabaseCreateCallbackOptions, DatabaseCreateOperation } from "@common/abstract/_types.mjs";
-import { AudioFilePath, ChatMessageStyle, DocumentOwnershipLevel, RollMode } from "@common/constants.mjs";
+import { AudioFilePath, ChatMessageStyle, DocumentOwnershipNumber } from "@common/constants.mjs";
 import { DocumentFlags } from "@common/data/_module.mjs";
 import { Document, DocumentMetadata } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
@@ -13,6 +12,7 @@ import BaseUser from "./user.mjs";
  * @param data    Initial data from which to construct the document.
  * @property data The constructed data object for the document.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default class BaseChatMessage<TUser extends BaseUser | null = BaseUser | null> extends Document<
     null,
     ChatMessageSchema
@@ -21,12 +21,11 @@ export default class BaseChatMessage<TUser extends BaseUser | null = BaseUser | 
 
     static override defineSchema(): ChatMessageSchema;
 
-    override getUserLevel(user: BaseUser): DocumentOwnershipLevel;
+    override getUserLevel(user: BaseUser): DocumentOwnershipNumber;
 }
 
 export default interface BaseChatMessage<TUser extends BaseUser | null>
-    extends Document<null, ChatMessageSchema>,
-        Omit<fields.ModelPropsFromSchema<ChatMessageSchema>, "author"> {
+    extends Document<null, ChatMessageSchema>, Omit<fields.ModelPropsFromSchema<ChatMessageSchema>, "author"> {
     get documentName(): ChatMessageMetadata["name"];
 
     author: TUser;
@@ -94,14 +93,6 @@ interface ChatMessageMetadata extends DocumentMetadata {
     label: "DOCUMENT.ChatMessage";
     labelPlural: "DOCUMENT.ChatMessages";
     isPrimary: true;
-}
-
-export interface ChatMessageCreateOperation extends DatabaseCreateOperation<null> {
-    rollMode?: RollMode | "roll";
-}
-
-export interface ChatMessageCreateCallbackOptions extends DatabaseCreateCallbackOptions {
-    rollMode?: RollMode | "roll";
 }
 
 export type ChatMessageSource = fields.SourceFromSchema<ChatMessageSchema>;

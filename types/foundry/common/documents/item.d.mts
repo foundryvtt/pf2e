@@ -1,4 +1,4 @@
-import { DocumentOwnershipLevel, DocumentOwnershipString, ImageFilePath, UserAction } from "@common/constants.mjs";
+import { DocumentOwnershipLevel, ImageFilePath, UserAction } from "@common/constants.mjs";
 import * as abstract from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
 import { BaseActiveEffect, BaseActor, BaseFolder, BaseUser, ItemUUID } from "./_module.mjs";
@@ -40,14 +40,13 @@ export default class BaseItem<TParent extends BaseActor | null = BaseActor | nul
 
     override testUserPermission(
         user: BaseUser,
-        permission: DocumentOwnershipString | DocumentOwnershipLevel,
+        permission: DocumentOwnershipLevel,
         { exact }?: { exact?: boolean },
     ): boolean;
 }
 
 export default interface BaseItem<TParent extends BaseActor | null = BaseActor | null>
-    extends abstract.Document<TParent, ItemSchema>,
-        fields.ModelPropsFromSchema<ItemSchema> {
+    extends abstract.Document<TParent, ItemSchema>, fields.ModelPropsFromSchema<ItemSchema> {
     get documentName(): ItemMetadata["name"];
 
     readonly effects: abstract.EmbeddedCollection<BaseActiveEffect<this>>;
@@ -74,7 +73,7 @@ export type ItemSchema<TType extends string = string, TSystemSource extends obje
     /** An Item subtype which configures the system data model applied */
     type: fields.StringField<TType, TType, true, false, false>;
     /** An image file path which provides the artwork for this Item */
-    img: fields.FilePathField<ImageFilePath, ImageFilePath, false, false, true>;
+    img: fields.FilePathField<ImageFilePath, ImageFilePath, false, true, true>;
     /** The system data object which is defined by the system template.json model */
     system: fields.TypeDataField<TSystemSource>;
     /** A collection of ActiveEffect embedded Documents */

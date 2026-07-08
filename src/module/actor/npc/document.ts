@@ -1,12 +1,14 @@
 import { CreaturePF2e } from "@actor";
 import type { ActorUpdateCallbackOptions, ActorUpdateOperation } from "@actor/base.ts";
 import type { Abilities } from "@actor/creature/data.ts";
+import { getHpAdjustment } from "@actor/creature/helpers.ts";
 import type { CreatureUpdateCallbackOptions } from "@actor/creature/index.ts";
+import { CreatureSaves } from "@actor/creature/saves.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { attackFromMeleeItem, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { Modifier, StatisticModifier } from "@actor/modifiers.ts";
-import type { MovementType, SaveType } from "@actor/types.ts";
+import type { MovementType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { UserAction } from "@common/constants.d.mts";
 import type { ItemPF2e, MeleePF2e } from "@item";
@@ -165,8 +167,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 test: () => true,
             });
             synthetics.modifiers.hp.push(
-                () =>
-                    new Modifier("PF2E.NPC.Adjustment.EliteLabel", this.getHpAdjustment(baseLevel, "elite"), "untyped"),
+                () => new Modifier("PF2E.NPC.Adjustment.EliteLabel", getHpAdjustment(baseLevel, "elite"), "untyped"),
             );
         } else if (this.isWeak) {
             modifierAdjustments.all.push({
@@ -175,12 +176,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 test: () => true,
             });
             synthetics.modifiers.hp.push(
-                () =>
-                    new Modifier(
-                        "PF2E.NPC.Adjustment.WeakLabel",
-                        this.getHpAdjustment(baseLevel, "weak") * -1,
-                        "untyped",
-                    ),
+                () => new Modifier("PF2E.NPC.Adjustment.WeakLabel", getHpAdjustment(baseLevel, "weak"), "untyped"),
             );
         }
         system.details.level.base = baseLevel;
@@ -213,7 +209,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             stat.max = stat.max + stat.totalModifier;
             stat.value = Math.min(stat.value, stat.max); // Make sure the current HP isn't higher than the max HP
             stat.breakdown = [
-                game.i18n.format("PF2E.MaxHitPointsBaseLabel", { base }),
+                _loc("PF2E.MaxHitPointsBaseLabel", { base }),
                 ...stat.modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${signedInteger(m.modifier)}`),
             ].join(", ");
             system.attributes.hp = stat;
@@ -306,16 +302,12 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
     private prepareSaves(): void {
         const system = this.system;
         const modifierAdjustments = this.synthetics.modifierAdjustments;
-
-        // Saving Throws
-        const saves: Partial<Record<SaveType, Statistic>> = {};
-        for (const saveType of SAVE_TYPES) {
+        const saves = R.mapToObj(SAVE_TYPES, (saveType) => {
             const save = system.saves[saveType];
-            const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
+            const saveName = _loc(CONFIG.PF2E.saves[saveType]);
             const base = save.value;
             const attribute = save.attribute;
             const domains = [saveType, `${attribute}-based`, "saving-throw", "all"];
-
             const statistic = new Statistic(this, {
                 slug: saveType,
                 label: saveName,
@@ -332,13 +324,11 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     type: "saving-throw",
                 },
             });
-
-            saves[saveType] = statistic;
-            fu.mergeObject(this.system.saves[saveType], statistic.getTraceData());
+            fu.mergeObject(system.saves[saveType], statistic.getTraceData());
             system.saves[saveType].base = base;
-        }
-
-        this.saves = saves as Record<SaveType, Statistic>;
+            return [saveType, statistic];
+        });
+        this.saves = new CreatureSaves(saves);
     }
 
     private prepareSkills() {
@@ -454,10 +444,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 const button = createHTMLElement("button", { dataset: { action: "consume", item: item.id } });
                 button.style.width = "auto";
                 button.style.lineHeight = "14px";
-                button.innerHTML = game.i18n.localize("PF2E.Item.Consumable.Uses.Use");
-                return `${item.name} - ${game.i18n.localize("TYPES.Item.consumable")} (${item.quantity}) ${
-                    button.outerHTML
-                }`;
+                button.innerHTML = _loc("PF2E.Item.Consumable.Uses.Use");
+                return `${item.name} - ${_loc("TYPES.Item.consumable")} (${item.quantity}) ${button.outerHTML}`;
             }
             return item.name;
         };
@@ -499,33 +487,6 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         return notes;
     }
 
-    private getHpAdjustment(level: number, adjustment: "elite" | "weak" | null): number {
-        if (adjustment === "elite") {
-            // Elite adjustment: Increase/decrease the creature's Hit Points based on its starting level (20+ 30HP, 5~19 20HP, 2~4 15HP, 1 or lower 10HP).
-            if (level >= 20) {
-                return 30;
-            } else if (level <= 19 && level >= 5) {
-                return 20;
-            } else if (level <= 4 && level >= 2) {
-                return 15;
-            } else if (level <= 1) {
-                return 10;
-            }
-        } else if (adjustment === "weak") {
-            // Weak adjustment: Increase/decrease the creature's Hit Points based on its starting level (21+ -30HP, 6~20 -20HP, 3~5 -15HP, 1-2 -10HP).
-            if (level >= 21) {
-                return 30;
-            } else if (level <= 20 && level >= 6) {
-                return 20;
-            } else if (level <= 5 && level >= 3) {
-                return 15;
-            } else if (level === 1 || level === 2) {
-                return 10;
-            }
-        }
-        return 0;
-    }
-
     /** Make the NPC elite, weak, or normal */
     async applyAdjustment(adjustment: "elite" | "weak" | null): Promise<void> {
         const { isElite, isWeak } = this;
@@ -537,44 +498,10 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             return;
         }
 
-        const currentHPAdjustment = (() => {
-            if (isElite) {
-                return this.getHpAdjustment(this.baseLevel, "elite");
-            } else if (isWeak) {
-                return this.getHpAdjustment(this.baseLevel, "weak");
-            } else {
-                return 0;
-            }
-        })();
-        const newHPAdjustment = this.getHpAdjustment(this.baseLevel, adjustment);
+        const currentHPAdjustment = getHpAdjustment(this.baseLevel, this.system.attributes.adjustment);
+        const newHPAdjustment = getHpAdjustment(this.baseLevel, adjustment);
         const currentHP = this.system.attributes.hp.value;
-        const maxHP = this.system.attributes.hp.max;
-        const newHP = (() => {
-            if (isElite) {
-                if (adjustment === "weak") {
-                    return currentHP - currentHPAdjustment - newHPAdjustment;
-                } else if (!adjustment) {
-                    return currentHP - currentHPAdjustment;
-                }
-            } else if (isWeak) {
-                if (adjustment === "elite") {
-                    this.system.attributes.hp.max = maxHP + currentHPAdjustment + newHPAdjustment; // Set max hp to allow update of current hp > max
-                    return currentHP + currentHPAdjustment + newHPAdjustment;
-                } else if (!adjustment) {
-                    this.system.attributes.hp.max = maxHP + currentHPAdjustment;
-                    return currentHP + currentHPAdjustment;
-                }
-            } else {
-                if (adjustment === "elite") {
-                    this.system.attributes.hp.max = currentHP + newHPAdjustment;
-                    return currentHP + newHPAdjustment;
-                } else if (adjustment === "weak") {
-                    return currentHP - newHPAdjustment;
-                }
-            }
-            return currentHP;
-        })();
-
+        const newHP = currentHP - currentHPAdjustment + newHPAdjustment;
         await this.update({
             "system.attributes.hp.value": Math.max(0, newHP),
             "system.attributes.adjustment": adjustment,
@@ -614,24 +541,28 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         this.#updatePrototypeToken(changed);
 
-        // Propagate HP updates to all sibling segments as well
-        const hpUpdates = changed.system.attributes?.hp;
-        if (hpUpdates && !options.fromTroop && this.otherSegments) {
-            const damageTaken = options.damageTaken;
-            for (const actor of this.otherSegments) {
-                if (actor?.isOfType("npc")) {
-                    actor.update({ "system.attributes.hp": hpUpdates }, { fromTroop: true, damageTaken });
+        // Propagate certain actor updates to all sibling segments as well
+        if (!options.fromTroop && this.otherSegments) {
+            const update: Record<string, unknown> = {};
+            if (changed.system.attributes) {
+                const attributes = changed.system.attributes;
+                if (attributes.hp) update["system.attributes.hp"] = attributes.hp;
+                if ("adjustment" in attributes) update["system.attributes.adjustment"] = attributes.adjustment;
+            }
+            if (!R.isEmpty(update)) {
+                const damageTaken = options.damageTaken;
+                for (const actor of this.otherSegments) {
+                    if (actor?.isOfType("npc")) {
+                        actor.update(fu.deepClone(update), { fromTroop: true, damageTaken });
+                    }
                 }
             }
         }
 
         if (changed.system.skills) {
-            for (const [key, skill] of Object.entries(changed.system.skills)) {
-                if (key.startsWith("-=") || !skill) continue;
-
-                if (skill.note === "") {
-                    delete skill.note;
-                    fu.mergeObject(skill, { "-=note": null });
+            for (const skill of Object.values(changed.system.skills)) {
+                if (skill?.note === "") {
+                    fu.mergeObject(skill, { note: _del });
                 }
             }
         }

@@ -193,8 +193,6 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const acuityValues = { precise: 2, imprecise: 1, vague: 0 };
 
         for (const [type, data] of R.entries(subfeatures.senses)) {
-            if (senseData.some((s) => s.type === type)) continue;
-
             if (type === "darkvision" && data.special && Object.values(data.special).includes(true)) {
                 const ancestry = actor.ancestry;
                 if (ancestry?.system.vision === "darkvision") continue;
@@ -313,8 +311,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 ? this.system.traits.value.filter((t) => t === classSlug || !(t in CONFIG.PF2E.classTraits))
                 : this.system.traits.value;
         const traits = this.traitChatData(CONFIG.PF2E.featTraits, traitSlugs);
-        const levelLabel =
-            this.isFeat && this.level > 0 ? game.i18n.format("PF2E.Item.Feat.LevelN", { level: this.level }) : null;
+        const levelLabel = this.isFeat && this.level > 0 ? _loc("PF2E.Item.Feat.LevelN", { level: this.level }) : null;
         const rarity =
             this.rarity === "common"
                 ? null
@@ -350,7 +347,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const list = this.system.prerequisites?.value?.map((item) => item.value).join(", ") ?? "";
         return (
             (list
-                ? `<p><strong>${game.i18n.localize("PF2E.FeatPrereqLabel")}</strong> ${list}</p>` +
+                ? `<p><strong>${_loc("PF2E.FeatPrereqLabel")}</strong> ${list}</p>` +
                   (config.hr === false ? "" : "<hr>")
                 : "") + this.description
         );
@@ -429,7 +426,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         if (this.onlyLevel1 && this.actor.level > 1) {
             const formatParams = { ...actorItemNames, actorLevel: this.actor.level };
-            const warning = game.i18n.format("PF2E.Item.Feat.Warning.TakenAfterLevel1", formatParams);
+            const warning = _loc("PF2E.Item.Feat.Warning.TakenAfterLevel1", formatParams);
             ui.notifications.warn(warning);
         }
 
@@ -440,10 +437,10 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const timesTaken = this.actor.itemTypes.feat.filter((f) => f.slug === slug).length;
         const { maxTakable } = this;
         if (maxTakable === 1 && timesTaken > 1) {
-            ui.notifications.warn(game.i18n.format("PF2E.Item.Feat.Warning.TakenMoreThanOnce", actorItemNames));
+            ui.notifications.warn(_loc("PF2E.Item.Feat.Warning.TakenMoreThanOnce", actorItemNames));
         } else if (timesTaken > maxTakable) {
             const formatParams = { ...actorItemNames, maxTakable, timesTaken };
-            ui.notifications.warn(game.i18n.format("PF2E.Item.Feat.Warning.TakenMoreThanMax", formatParams));
+            ui.notifications.warn(_loc("PF2E.Item.Feat.Warning.TakenMoreThanMax", formatParams));
         }
     }
 }

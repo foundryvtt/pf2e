@@ -53,7 +53,7 @@
     creatable={false}
     selection={traitSelection}
     onChange={onChangeTraits}
-    placeholder={game.i18n.localize("PF2E.SelectLabel")}
+    placeholder={_loc("PF2E.SelectLabel")}
     value={traits.selected.map((t) => t.value)}
 />
 <div class="filter-conjunction">
@@ -65,7 +65,7 @@
             checked={traits.conjunction === "and"}
             onchange={onChangeConjunction}
         />
-        {game.i18n.localize("PF2E.CompendiumBrowser.Filter.Conjunction.AndLabel")}
+        {_loc("PF2E.CompendiumBrowser.Filter.Conjunction.AndLabel")}
     </label>
     <label class="checkbox">
         <input
@@ -75,7 +75,7 @@
             checked={traits.conjunction === "or"}
             onchange={onChangeConjunction}
         />
-        {game.i18n.localize("PF2E.CompendiumBrowser.Filter.Conjunction.OrLabel")}
+        {_loc("PF2E.CompendiumBrowser.Filter.Conjunction.OrLabel")}
     </label>
 </div>
 

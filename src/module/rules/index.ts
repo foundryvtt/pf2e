@@ -1,6 +1,4 @@
-import { LaxSchemaField } from "@system/schema-data-fields.ts";
-import { RuleElement } from "./rule-element/base.ts";
-
+import type { DataModelSchemaField } from "@common/data/fields.d.mts";
 import { ActorTraitsRuleElement } from "./rule-element/actor-traits.ts";
 import { AdjustDegreeOfSuccessRuleElement } from "./rule-element/adjust-degree-of-success.ts";
 import { AdjustModifierRuleElement } from "./rule-element/adjust-modifier.ts";
@@ -8,6 +6,7 @@ import { AdjustStrikeRuleElement } from "./rule-element/adjust-strike.ts";
 import { AELikeRuleElement } from "./rule-element/ae-like.ts";
 import { AuraRuleElement } from "./rule-element/aura.ts";
 import { BaseSpeedRuleElement } from "./rule-element/base-speed.ts";
+import { RuleElement } from "./rule-element/base.ts";
 import { BattleFormRuleElement } from "./rule-element/battle-form/rule-element.ts";
 import { ChoiceSetRuleElement } from "./rule-element/choice-set/rule-element.ts";
 import { CraftingAbilityRuleElement } from "./rule-element/crafting-ability.ts";
@@ -20,7 +19,7 @@ import { EphemeralEffectRuleElement } from "./rule-element/ephemeral-effect.ts";
 import { FastHealingRuleElement } from "./rule-element/fast-healing.ts";
 import { FlatModifierRuleElement } from "./rule-element/flat-modifier.ts";
 import { GrantItemRuleElement } from "./rule-element/grant-item/rule-element.ts";
-import type { RuleElementOptions, RuleElementSchema, RuleElementSource } from "./rule-element/index.ts";
+import type { RuleElementOptions, RuleElementSource } from "./rule-element/index.ts";
 import { ItemAlterationRuleElement } from "./rule-element/item-alteration/rule-element.ts";
 import { ImmunityRuleElement } from "./rule-element/iwr/immunity.ts";
 import { ResistanceRuleElement } from "./rule-element/iwr/resistance.ts";
@@ -129,9 +128,9 @@ class RuleElements {
     }
 }
 
-type RuleElementConstructor = { schema: LaxSchemaField<RuleElementSchema>; LOCALIZATION_PREFIXES: string[] } & (new (
-    data: RuleElementSource,
-    options: RuleElementOptions,
-) => RuleElement);
+type RuleElementConstructor = {
+    schema: DataModelSchemaField;
+    LOCALIZATION_PREFIXES: string[];
+} & (new (data: RuleElementSource, options: RuleElementOptions) => RuleElement);
 
 export { RuleElement, RuleElementOptions, RuleElements, RuleElementSource };

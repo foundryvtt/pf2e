@@ -26,7 +26,6 @@ export class HotbarDrop {
             case "Item": {
                 const itemId = data.id ?? (R.isPlainObject(data.data) ? data.data._id : null);
                 const uuid = data.uuid;
-
                 const prefix =
                     typeof data.pack === "string"
                         ? `Compendium.${data.pack}`
@@ -105,7 +104,7 @@ export class HotbarDrop {
         data: Pick<RollOptionData, "label" | "domain" | "option"> & { item: ItemPF2e },
         slot: number,
     ): Promise<void> {
-        const name = game.i18n.format("PF2E.ToggleWithName", { property: data.label });
+        const name = _loc("PF2E.ToggleWithName", { property: data.label });
         const escapedName = new Handlebars.SafeString(data.label);
         const { item, domain, option } = data;
         const command = `const item = fromUuidSync("${item.uuid}");
@@ -113,8 +112,8 @@ if (!(item instanceof Item && item.isEmbedded && item.isOwner)) {
 ui.notifications.error("PF2E.MacroActionNoActorError", { localize: true });
 }
 const result = await item.actor.toggleRollOption("${domain}", "${option}", "${item.id}");
-const state = game.i18n.localize(result ? "PF2E.Macro.OptionToggle.On" : "PF2E.Macro.OptionToggle.Off");
-const message = game.i18n.format("PF2E.Macro.OptionToggle.Notification", { toggle: "${escapedName}", state });
+const state = _loc(result ? "PF2E.Macro.OptionToggle.On" : "PF2E.Macro.OptionToggle.Off");
+const message = _loc("PF2E.Macro.OptionToggle.Notification", { toggle: "${escapedName}", state });
 if (typeof result === "boolean") {
 ui.notifications.info(message);
 }`;

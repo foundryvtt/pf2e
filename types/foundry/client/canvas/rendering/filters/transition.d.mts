@@ -23,7 +23,7 @@ export default class TextureTransitionFilter extends AbstractBaseFilter {
     };
 
     /** Maps the type number to its string. */
-    static TYPE_NUMBER_TO_STRING: Readonly<string[]>;
+    static TYPE_NUMBER_TO_STRING: readonly string[];
 
     /** Maps the type string to its number. */
     static TYPE_STRING_TO_NUMBER: Readonly<{
@@ -31,7 +31,7 @@ export default class TextureTransitionFilter extends AbstractBaseFilter {
     }>;
 
     /** Types that requires padding */
-    static PADDED_TYPES: Readonly<string[]>;
+    static PADDED_TYPES: readonly string[];
 
     /**
      * Animate a transition from a subject SpriteMesh/PIXI.Sprite to a given texture.

@@ -2,8 +2,6 @@ import type { ApplicationFormConfiguration, ApplicationRenderContext, Applicatio
 import type ApplicationV2 from "./application.d.mts";
 
 /** Augment an Application class with [Handlebars](https://handlebarsjs.com) template rendering behavior. */
-/* eslint-disable @typescript-eslint/no-unused-expressions, no-unused-expressions */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types @typescript-eslint/no-explicit-any
 export default function HandlebarsApplicationMixin<TBase extends AbstractConstructorOf<ApplicationV2<any>>>(
     BaseApplication: TBase,
 ): ConstructorOf<HandlebarsApplication> & HandlebarsApplicationStatic & TBase;

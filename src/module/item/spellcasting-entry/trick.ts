@@ -104,7 +104,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
     }
 
     get name(): string {
-        return game.i18n.localize("PF2E.TrickMagicItemPopup.Title");
+        return _loc("PF2E.TrickMagicItemPopup.Title");
     }
 
     /** Unused since a Trick Magic Item ability isn't displayed in an actor sheet */
@@ -138,12 +138,12 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
     }
 
     async cast(spell: SpellPF2e, options: CastOptions = {}): Promise<void> {
-        const { rollMode, message } = options;
+        const { messageMode, message } = options;
         const castRank = spell.computeCastRank(spell.rank);
         if (message === false) return;
 
         spell = spell.loadVariant({ entryId: this.id }) ?? spell;
-        await spell.toMessage(null, { rollMode, data: { castRank } });
+        await spell.toMessage(null, { mode: messageMode, data: { castRank } });
     }
 
     async getSheetData(): Promise<SpellcastingSheetData> {
@@ -163,5 +163,5 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
     }
 }
 
-export { TRICK_MAGIC_SKILLS, TrickMagicItemEntry, traditionSkills };
+export { traditionSkills, TRICK_MAGIC_SKILLS, TrickMagicItemEntry };
 export type { TrickMagicItemSkill };

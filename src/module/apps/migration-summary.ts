@@ -11,8 +11,8 @@ export class MigrationSummary extends appv1.api.Application<MigrationSummaryOpti
         super(options);
         this.options.troubleshoot ??= false;
         this.options.title = options.troubleshoot
-            ? game.i18n.localize("PF2E.Migrations.Summary.Troubleshoot.Title")
-            : game.i18n.localize("PF2E.Migrations.Summary.Title");
+            ? _loc("PF2E.Migrations.Summary.Troubleshoot.Title")
+            : _loc("PF2E.Migrations.Summary.Title");
 
         const existing = Object.values(ui.windows).find(
             (app): app is MigrationSummary => app instanceof MigrationSummary,
@@ -46,9 +46,7 @@ export class MigrationSummary extends appv1.api.Application<MigrationSummaryOpti
         const canRemigrate =
             this.options.troubleshoot || actors.successful < actors.total || items.successful < items.total;
 
-        const helpResourcesText = await TextEditorPF2e.enrichHTML(
-            game.i18n.localize("PF2E.Migrations.Summary.HelpResources"),
-        );
+        const helpResourcesText = await TextEditorPF2e.enrichHTML(_loc("PF2E.Migrations.Summary.HelpResources"));
 
         return {
             options: this.options,

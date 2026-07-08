@@ -2,7 +2,7 @@ import { DocumentUUID } from "@client/utils/helpers.mjs";
 import { DataField } from "@common/data/fields.mjs";
 import { DataModel, Document } from "./_module.mjs";
 
-export type DataSchema = { [K in string]: DataField<JSONValue, unknown> };
+export type DataSchema = { [K in string]: DataField<unknown, unknown> };
 
 export interface DataModelValidationOptions {
     /** Validate each individual field */
@@ -33,8 +33,10 @@ export interface DataModelValidationOptions {
     dropInvalidEmbedded?: boolean;
 }
 
-interface DataModelConstructionContext<TParent extends DataModel | null>
-    extends Pick<DataModelValidationOptions, "strict" | "fallback" | "dropInvalidEmbedded"> {
+interface DataModelConstructionContext<TParent extends DataModel | null> extends Pick<
+    DataModelValidationOptions,
+    "strict" | "fallback" | "dropInvalidEmbedded"
+> {
     /** A parent DataModel instance to which this DataModel belongs */
     parent?: TParent;
     /** Allow partial source data, ignoring absent fields? */
@@ -99,8 +101,10 @@ export interface DatabaseCreateOperation<TParent extends Document | null> {
     parentUuid?: DocumentUUID;
 }
 
-export interface DatabaseCreateCallbackOptions
-    extends Omit<Partial<DatabaseCreateOperation<null>>, "action" | "data" | "pack" | "parent" | "noHook"> {}
+export interface DatabaseCreateCallbackOptions extends Omit<
+    Partial<DatabaseCreateOperation<null>>,
+    "action" | "data" | "pack" | "parent" | "noHook"
+> {}
 
 export interface DatabaseUpdateOperation<TParent extends Document | null> {
     action: "update";
@@ -132,11 +136,10 @@ export interface DatabaseUpdateOperation<TParent extends Document | null> {
     parentUuid?: DocumentUUID;
 }
 
-export interface DatabaseUpdateCallbackOptions
-    extends Omit<
-        Partial<DatabaseUpdateOperation<null>>,
-        "action" | "pack" | "parent" | "restoreDelta" | "noHook" | "updates"
-    > {}
+export interface DatabaseUpdateCallbackOptions extends Omit<
+    Partial<DatabaseUpdateOperation<null>>,
+    "action" | "pack" | "parent" | "restoreDelta" | "noHook" | "updates"
+> {}
 
 export interface DatabaseDeleteOperation<TParent extends Document | null> {
     action: "delete";
@@ -160,11 +163,10 @@ export interface DatabaseDeleteOperation<TParent extends Document | null> {
     parentUuid?: DocumentUUID;
 }
 
-export interface DatabaseDeleteCallbackOptions
-    extends Omit<
-        Partial<DatabaseDeleteOperation<null>>,
-        "action" | "deleteAll" | "ids" | "pack" | "parent" | "noHook"
-    > {}
+export interface DatabaseDeleteCallbackOptions extends Omit<
+    Partial<DatabaseDeleteOperation<null>>,
+    "action" | "deleteAll" | "ids" | "pack" | "parent" | "noHook"
+> {}
 
 export type DatabaseAction = "get" | "create" | "update" | "delete";
 

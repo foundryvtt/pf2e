@@ -11,7 +11,7 @@ async function createFirstParty(): Promise<void> {
             {
                 _id: CONFIG.PF2E.defaultPartyId,
                 type: "party",
-                name: game.i18n.localize("PF2E.Actor.Party.DefaultName"),
+                name: _loc("PF2E.Actor.Party.DefaultName"),
             },
             { keepId: true },
         );

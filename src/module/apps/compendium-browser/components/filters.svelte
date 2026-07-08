@@ -64,15 +64,15 @@
             oninput={onSearch}
             autocomplete="off"
             spellcheck="false"
-            placeholder={game.i18n.localize("PF2E.CompendiumBrowser.Filter.SearchPlaceholder")}
+            placeholder={_loc("PF2E.CompendiumBrowser.Filter.SearchPlaceholder")}
         />
         <div class="order-by-select">
             <label id="sort-order">
-                {game.i18n.localize("PF2E.CompendiumBrowser.Filter.OrderByLabel")}:
+                {_loc("PF2E.CompendiumBrowser.Filter.OrderByLabel")}:
                 <div class="select-container">
                     <select bind:value={filter.order.by} onchange={onChangeSortValue}>
                         {#each R.entries(filter.order.options) as [key, data]}
-                            <option value={key}>{game.i18n.localize(data.label)}</option>
+                            <option value={key}>{_loc(data.label)}</option>
                         {/each}
                     </select>
                     <button onclick={onChangeSortOrder} aria-labelledby="sort-order" type="button" class="order-button">
@@ -87,12 +87,12 @@
             {#if "selects" in filter}
                 {#each R.entries(filter.selects) as [key, data]}
                     <label>
-                        {game.i18n.localize(data.label)}:
+                        {_loc(data.label)}:
                         <div class="select-container">
                             <select bind:value={filter.selects[key].selected} data-key={key}>
                                 <option value="">-</option>
                                 {#each R.entries(data.options) as [key, label]}
-                                    <option value={key}>{game.i18n.localize(label)}</option>
+                                    <option value={key}>{_loc(label)}</option>
                                 {/each}
                             </select>
                         </div>
@@ -101,7 +101,7 @@
             {/if}
         </div>
         <button type="button" class="clear-filters" onclick={() => resetFilters()}>
-            {game.i18n.localize("PF2E.CompendiumBrowser.Filter.ClearAllFilters")}
+            {_loc("PF2E.CompendiumBrowser.Filter.ClearAllFilters")}
         </button>
     </div>
     <FilterContainer label="PF2E.Traits">

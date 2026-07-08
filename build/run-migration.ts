@@ -80,18 +80,15 @@ function jsonStringifyOrder(obj: object): string {
     const allKeys: Set<string> = new Set();
     const idKeys: string[] = [];
     JSON.stringify(obj, (key, value) => {
-        if (key.startsWith("-=") || key.includes(".-=")) return;
-
+        if (value === _del) return;
         if (/^[a-z0-9]{20,}$/g.test(key)) {
             idKeys.push(key);
         } else {
             allKeys.add(key);
         }
-
         return value;
     });
     const sortedKeys = Array.from(allKeys).sort().concat(idKeys);
-
     const newJson = JSON.stringify(obj, sortedKeys, 4);
     return `${newJson}\n`;
 }
@@ -143,7 +140,7 @@ async function migrate() {
             source = JSON.parse(content);
         } catch (error) {
             if (error instanceof Error) {
-                throw Error(`File ${filePath} could not be parsed. Error: ${error.message}`);
+                throw Error(`File ${filePath} could not be parsed. Error: ${error.message}`, { cause: error });
             }
             return;
         }
@@ -160,33 +157,33 @@ async function migrate() {
 
                 if (isActorData(source)) {
                     const update = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
-                    update.items = update.items.map((i) => fu.mergeObject({}, i, { performDeletions: true }));
+                    update.items = update.items.map((i) => fu.mergeObject({}, i, { applyOperators: true }));
                     pruneDefaults(source);
                     pruneDefaults(update);
 
-                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
+                    return fu.mergeObject(source, update, { inplace: false, applyOperators: true });
                 } else if (isItemData(source)) {
                     source.system.slug = sluggify(source.name);
                     const update = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
                     pruneDefaults(source);
                     pruneDefaults(update);
 
-                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
+                    return fu.mergeObject(source, update, { inplace: false, applyOperators: true });
                 } else if (isJournalEntryData(source)) {
                     const update = await migrationRunner.getUpdatedJournalEntry(source, migrationRunner.migrations);
                     pruneDefaults(source);
                     pruneDefaults(update);
-                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
+                    return fu.mergeObject(source, update, { inplace: false, applyOperators: true });
                 } else if (isMacroData(source)) {
                     const update = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
                     pruneDefaults(source);
                     pruneDefaults(update);
-                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
+                    return fu.mergeObject(source, update, { inplace: false, applyOperators: true });
                 } else if (isTableData(source)) {
                     const update = await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
                     pruneDefaults(source);
                     pruneDefaults(update);
-                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
+                    return fu.mergeObject(source, update, { inplace: false, applyOperators: true });
                 } else {
                     pruneDefaults(source);
                     return source;

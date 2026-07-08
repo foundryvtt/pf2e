@@ -21,7 +21,7 @@ export default class ConvolverEffect extends ConvolverNode {
      */
     get intensity(): number;
 
-    set intensity(value);
+    set intensity(value: number);
 
     /**
      * Update the state of the effect node given the active flag and numeric intensity.

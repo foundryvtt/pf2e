@@ -10,6 +10,7 @@ import fields = foundry.data.fields;
 export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.SceneConfig<TDocument> {
     static override DEFAULT_OPTIONS: DeepPartial<fa.api.DocumentSheetConfiguration> = {
         sheetConfig: false,
+        position: { width: 660 },
         actions: {
             openAutomationSettings: SceneConfigPF2e.#onClickOpenAutomationSettings,
             openWorldClockSettings: SceneConfigPF2e.#onClickOpenWorldClockSettings,
@@ -36,9 +37,9 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
     /** Prepare context data for the system tab. */
     protected override async _preparePartContext(
         partId: string,
-        context: fa.api.DocumentSheetRenderContext,
+        context: fa.api.DocumentSheetRenderContext<TDocument>,
         options: fa.api.HandlebarsRenderOptions,
-    ): Promise<fa.api.DocumentSheetRenderContext> {
+    ): Promise<fa.api.DocumentSheetRenderContext<TDocument>> {
         const partContext = await super._preparePartContext(partId, context, options);
         if (partId !== SYSTEM_ID) return partContext;
         const scene = this.document;
@@ -49,30 +50,30 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
             rbvOptions: [
                 {
                     value: "",
-                    label: game.i18n.format("PF2E.SETTINGS.EnabledDisabled.Default", {
-                        worldDefault: game.i18n.localize(
+                    label: _loc("PF2E.SETTINGS.EnabledDisabled.Default", {
+                        worldDefault: _loc(
                             game.pf2e.settings.rbv
                                 ? "PF2E.SETTINGS.EnabledDisabled.Enabled"
                                 : "PF2E.SETTINGS.EnabledDisabled.Disabled",
                         ),
                     }),
                 },
-                { value: "true", label: game.i18n.localize("PF2E.SETTINGS.EnabledDisabled.Enabled") },
-                { value: "false", label: game.i18n.localize("PF2E.SETTINGS.EnabledDisabled.Disabled") },
+                { value: "true", label: _loc("PF2E.SETTINGS.EnabledDisabled.Enabled") },
+                { value: "false", label: _loc("PF2E.SETTINGS.EnabledDisabled.Disabled") },
             ],
             syncDarknessOptions: [
                 {
                     value: "default",
-                    label: game.i18n.format("PF2E.SETTINGS.EnabledDisabled.Default", {
-                        worldDefault: game.i18n.localize(
+                    label: _loc("PF2E.SETTINGS.EnabledDisabled.Default", {
+                        worldDefault: _loc(
                             game.pf2e.settings.worldClock.syncDarkness
                                 ? "PF2E.SETTINGS.EnabledDisabled.Enabled"
                                 : "PF2E.SETTINGS.EnabledDisabled.Disabled",
                         ),
                     }),
                 },
-                { value: "enabled", label: game.i18n.localize("PF2E.SETTINGS.EnabledDisabled.Enabled") },
-                { value: "disabled", label: game.i18n.localize("PF2E.SETTINGS.EnabledDisabled.Disabled") },
+                { value: "enabled", label: _loc("PF2E.SETTINGS.EnabledDisabled.Enabled") },
+                { value: "disabled", label: _loc("PF2E.SETTINGS.EnabledDisabled.Disabled") },
             ],
             environmentTypes: new fields.SetField(
                 new fields.StringField({ required: true, initial: undefined, choices: CONFIG.PF2E.environmentTypes }),
@@ -114,7 +115,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends fa.sheets.Scen
         const managedBy = createHTMLElement("button", {
             classes: ["inline-control", "icon", "fa-solid", "fa-robot"],
             dataset: { tooltip: true, action: "openAutomationSettings" },
-            aria: { label: game.i18n.localize("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy") },
+            aria: { label: _loc("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy") },
         });
         managedBy.type = "button";
         managedBy.disabled = !game.user.isGM;

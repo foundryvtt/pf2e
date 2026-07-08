@@ -12,14 +12,22 @@
         },
         "category": "defensive",
         "description": {
-            "value": "<p><strong>Trigger</strong> The strigoi is reduced to 0 HP</p>\n<hr />\n<p><strong>Effect</strong> The strigoi uses Shadow Form. It can take move actions to move toward its coffin even though it's at 0 HP. While at 0 HP in this form, the strigoi is unaffected by further damage. Once the strigoi reaches its coffin, or if it hasn't done so within 2 hours, it automatically returns to its physical form, @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>"
+            "value": "<p><strong>Trigger</strong> The strigoi is reduced to 0 HP</p>\n<hr />\n<p><strong>Effect</strong> The strigoi uses Shadow Form. They can take move actions to move toward their coffin even though they're at 0 HP. While at 0 HP in this form, the strigoi is unaffected by further damage. Once the strigoi reaches their coffin, or if they haven't done so within 2 hours, they automatically return to their physical form, @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>"
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Adventure: Shadows at Sundown"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path #215: To Blot Out the Sun"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "name",
+                "value": "PF2E.NPCAbility.Vampire.ShadowEscape.Name"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

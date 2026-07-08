@@ -1,0 +1,105 @@
+{
+    "_id": "XLNW0J4gjcrk8oJL",
+    "folder": "pmnSkDuZV0KoZHZV",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "uyoeJ8ZLNlKUM8Ow",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Eatable Enticement",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature passes within 5 feet of the open northern side of the glass display case</p><hr /><p><strong>Effect</strong> The tantalizing smell of the enchanted sweets overrides the target's olfactory senses. The target must attempt a @Check[will|dc:24|options:inflicts:sickened] save. On a failure or critical failure, the enchanted sweets roll Initiative.</p><hr /><p><strong>Critical Success</strong> The target is unaffected, immune to the enchanted sweets for 1 minute, and aware that the hazard was attempting to compel them.</p>\n<p><strong>Success</strong> The target is unaffected but remains unaware that the enchanted sweets were attempting to compel them.</p>\n<p><strong>Failure</strong> The target is compelled to remain beside the display case on its next turn and spend at least 2 of its actions consuming the enchanted sweets. It can repeat the Will save at the end of each of its turns, ending the effect on a success. If compelled to consume the sweets for more than 2 consecutive rounds, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The target is compelled to spend all of its actions consuming the enchanted sweets and immediately becomes sickened 1. It can repeat the Will save at the end of each of its turns, ending the compulsion on a success.</p>\n<p>The sickened condition increases by 1 for each turn the target is compelled to spend all of its actions consuming sweets, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Enchanted Sweets",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 13
+            },
+            "emitsSound": "encounter",
+            "hardness": 2,
+            "hp": {
+                "details": "",
+                "max": 59,
+                "temp": 0,
+                "value": 59
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 17
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The enchanted pile of cookies and pastries arranged in this tasteful display case emit a supernaturally delicious aroma that compels those who fall under its smell to eat, eat, eat. No matter how many are consumed, the case always fills with more.</p>",
+            "disable": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (3rd rank; counteract DC 20); destroying the case and its contents also shatters the enchantment and prevents further compulsion or poisonings.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventures: Troubles in Grayce"
+            },
+            "reset": "",
+            "routine": "<p>(1 action) On the hazard's turn, if any creature is within the range of eatable enticement that is neither compelled by nor immune to it, the enchanted sweets target that creature with the same effect. Otherwise, it targets all creatures who have consumed some of its contents with a gut-rotting magical poison. Any creature who has consumed some of the enchanted sweets takes @Damage[2d12[poison]] damage with a @Check[fortitude|dc:22|basic] save.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 11
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical",
+                "mental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

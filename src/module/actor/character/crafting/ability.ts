@@ -119,16 +119,14 @@ class CraftingAbility implements CraftingAbilityData {
         const rollOptions = item.getRollOptions("item");
         if (!this.craftableItems.some((c) => c.predicate.test(rollOptions))) {
             if (warn) {
-                ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.ItemMissingTraits"));
+                ui.notifications.warn(_loc("PF2E.CraftingTab.Alerts.ItemMissingTraits"));
             }
             return false;
         }
 
         if (item.level > this.maxItemLevel) {
             if (warn) {
-                ui.notifications.warn(
-                    game.i18n.format("PF2E.CraftingTab.Alerts.MaxItemLevel", { level: this.maxItemLevel }),
-                );
+                ui.notifications.warn(_loc("PF2E.CraftingTab.Alerts.MaxItemLevel", { level: this.maxItemLevel }));
             }
             return false;
         }
@@ -189,7 +187,7 @@ class CraftingAbility implements CraftingAbilityData {
         // Determine if we're maxed out, if so, exit with a warning
         const increasing = value === "increase" || !data || (typeof value === "number" && value > currentQuantity);
         if (!this.resource && consumed >= this.maxSlots && increasing) {
-            ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MaxSlots"));
+            ui.notifications.warn(_loc("PF2E.CraftingTab.Alerts.MaxSlots"));
             return;
         }
 

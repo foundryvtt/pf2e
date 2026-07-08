@@ -2,7 +2,7 @@ import { TextEditorEnricherConfig } from "@client/config.mjs";
 import { ClientDocument } from "@client/documents/abstract/client-document.mjs";
 import ChatMessage from "@client/documents/chat-message.mjs";
 import Document from "@common/abstract/document.mjs";
-import ProseMirrorEditor from "./prosemirror-editor.mjs";
+import ProseMirrorEditor, { EditorCreateOptions } from "./prosemirror-editor.mjs";
 
 interface EnrichmentOptions {
     /** Include unrevealed secret tags in the final HTML? If false, unrevealed secret blocks will be removed. */
@@ -94,23 +94,13 @@ export default class TextEditor {
     /**
      * Create a Rich Text Editor. The current implementation uses TinyMCE
      * @param options Configuration options provided to the Editor init
-     * @param options.engine Which rich text editor engine to use, "tinymce" or "prosemirror". TinyMCE is deprecated and
-     *                       will be removed in a later version.
      * @param content Initial HTML or text content to populate the editor with
      * @returns The editor instance.
      */
     static create(
-        options?: { engine?: "prosemirror" | "tinymice" },
+        options: Partial<EditorCreateOptions> & { target: HTMLElement },
         content?: string,
-    ): Promise<TinyMCE.Editor | ProseMirrorEditor>;
-
-    /**
-     * Create a TinyMCE editor instance.
-     * @param options Configuration options passed to the editor.
-     * @param content Initial HTML or text content to populate the editor with.
-     * @returns The TinyMCE editor instance.
-     */
-    protected static _createTinyMCE(options?: object, content?: string): Promise<TinyMCE.Editor>;
+    ): Promise<ProseMirrorEditor>;
 
     /* -------------------------------------------- */
     /*  HTML Manipulation Helpers                   */

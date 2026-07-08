@@ -17,7 +17,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature comes within 30 feet of the aiudara</p>\n<hr />\n<p><strong>Effect</strong> Three aiudara wraiths screech in unison and manifest to protect the arch. Each creature within 30 feet must attempt a @Check[will|dc:27] save. The haunt rolls initiative.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature takes @Damage[(2d8+9)[force]].</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[(4d8+9)[force]] and is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued].</p>"
+                    "value": "<p><strong>Trigger</strong> A creature comes within 30 feet of the <em>aiudara</em></p><hr /><p><strong>Effect</strong> Three aiudara wraiths screech in unison and manifest to protect the arch. Each creature within @Template[emanation|distance:30]{30 feet} must attempt a @Check[will|dc:27|options:area-effect,damaging-effect,inflicts:fatigued] save. The haunt rolls initiative.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature takes @Damage[(2d8+9)[force]] damage.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[(4d8+9)[force]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Fatigued].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -46,9 +46,7 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": [
-                        "no-map"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 17
@@ -60,7 +58,7 @@
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>No multiple attack penalty</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -70,6 +68,7 @@
                 "range": null,
                 "rules": [],
                 "slug": null,
+                "subjectToMAP": false,
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -78,36 +77,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "goUGeKSDNF4oljJz",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "No MAP",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": null,
-                "description": {
-                    "value": "<p>No multiple attack penalty on forceful hand strikes.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
         }
     ],
     "name": "Haunted Aiudara",
@@ -125,7 +94,7 @@
                 "value": 0
             },
             "stealth": {
-                "details": "",
+                "details": "<p>(expert)</p>",
                 "value": 15
             }
         },
@@ -143,20 +112,20 @@
                 "title": "Pathfinder Adventure Path: Gatewalkers"
             },
             "reset": "<p>The aiudara wraiths disperse after 1 minute, but the haunt resets after 24 hours.</p>",
-            "routine": "<p>(3 actions; conjuration, divine, teleportation) With spectral claws, the aiudara wraiths hurl trespassers through time and space. Each of the three wraiths has 1 action which it can use to make a forceful hand Strike against a creature within 60 feet. The haunt loses 1 action for each successful check to disable the haunt.</p>\n<p>When the haunt rolls a critical hit to Strike a creature, the creature is instantly shunted to an empty space within 30 feet. The haunt chooses which space the creature is transported to.</p>"
+            "routine": "<p>(3 actions; conjuration, divine, teleportation) With spectral claws, the aiudara wraiths hurl trespassers through time and space. Each of the three wraiths has 1 action which it can use to make a forceful hand Strike against a creature within 60 feet. The haunt loses 1 action for each successful check to disable the haunt.</p><p>When the haunt rolls a critical hit to Strike a creature, the creature is instantly shunted to an empty space within 30 feet. The haunt chooses which space the creature is transported to.</p>"
         },
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 0
+                "value": null
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 0
+                "value": null
             },
             "will": {
                 "saveDetail": "",
-                "value": 0
+                "value": null
             }
         },
         "statusEffects": [],

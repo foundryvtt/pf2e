@@ -67,7 +67,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
 
         const content = await fa.handlebars.renderTemplate(TEMPLATES.content, {
             imgPath: shield.img,
-            message: localize("Content", { actor: speaker.alias, shield: game.i18n.localize("TYPES.Item.shield") }),
+            message: localize("Content", { actor: speaker.alias, shield: _loc("TYPES.Item.shield") }),
         });
         const flavor = await fa.handlebars.renderTemplate(TEMPLATES.flavor, {
             action: { title: localize(`${actionType}Title`), glyph },

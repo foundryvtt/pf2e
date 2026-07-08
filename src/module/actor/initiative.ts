@@ -33,7 +33,7 @@ class ActorInitiative {
 
         const base = actor.getStatistic(statistic);
         const ponderousPenalty = actor.isOfType("character") ? createPonderousPenalty(actor) : null;
-        const rollLabel = game.i18n.format("PF2E.InitiativeWithSkill", { skillName: base?.label ?? "" });
+        const rollLabel = _loc("PF2E.InitiativeWithSkill", { skillName: base?.label ?? "" });
 
         const data: StatisticData = {
             slug: "initiative",
@@ -61,10 +61,7 @@ class ActorInitiative {
             args.combatant?.actor === this.actor ? args.combatant : await CombatantPF2e.fromActor(this.actor, false);
         if (!combatant) return null;
 
-        if (combatant.hidden) {
-            args.rollMode = CONST.DICE_ROLL_MODES.PRIVATE;
-        }
-
+        if (combatant.hidden) args.messageMode = "gm";
         const roll = await this.statistic.roll(args);
         if (!roll) {
             // Render combat sidebar in case a combatant was created but the roll was not completed
@@ -83,7 +80,6 @@ class ActorInitiative {
 
     getTraceData(): InitiativeTraceData {
         const initiativeData = this.actor.system.initiative;
-
         return {
             ...this.statistic.getTraceData(),
             statistic: initiativeData?.statistic ?? "perception",

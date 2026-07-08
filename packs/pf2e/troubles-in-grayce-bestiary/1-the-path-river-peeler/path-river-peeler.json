@@ -1,0 +1,381 @@
+{
+    "_id": "65OzVr2FfL0mX3Qy",
+    "folder": "646X6Ch7e37x5toe",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "IOHdFSTrTNxIidgc",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "mIb32nydue9rSxbl": {
+                        "damage": "1d8+5",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "2spAgLxNPA1nAhMO",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Echolocation",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The Path River Peeler can use its hearing as a precise sense at the listed range.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vAPQSlUH9VsnU2ZV",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Flight Response",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The Path River Peeler gains the @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition or its frightened condition increases</p><hr /><p><strong>Effect</strong> The Peeler Strides or Climbs up to its Speed. The Peeler gains a +2 circumstance bonus to AC against reactions triggered by this movement.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "flight-response",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "flight-response"
+                        ],
+                        "selector": [
+                            "ac"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "szdkQFr3AldA3Otw",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sensitive Ears",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The Path River Peeler's oversized ears make it particularly sensitive to loud noises. A creature that attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] the Peeler by shouting, banging on a shield, or similar tactic ignores the usual –4 circumstance penalty for not sharing a language with the Peeler. Whenever the Peeler takes sonic damage, it must succeed at a @Check[will|dc:16|options:inflicts:frightened] saving throw or be @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:damage:type:sonic"
+                        ],
+                        "selector": [
+                            "damage-received"
+                        ],
+                        "text": "PF2E.NPCAbility.PathRiverPeeler.SensitiveEars.Note",
+                        "title": "{item|name}",
+                        "visibility": "gm"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tNWOyHfH3aDWO5Ej",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Blood Run Cold",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Path River Peeler extends a bony finger at a creature it can see within 60 feet, draining heat from the creature's body and sapping the strength from their muscles. The creature takes @Damage[4d6[cold]] damage with a @Check[will|dc:20|basic|options:inflicts:enfeebled] save. On a failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 10 minutes (or @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for an hour on a critical failure). The Peeler can't use Blood Run Cold again for [[/gmr 1d4 #Recharge Blood Run Cold]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "cold",
+                        "concentrate",
+                        "manipulate",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "EakwP9kxpt2CaAK9",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Otherworldly Cry",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Path River Peeler makes an eerie, spine-tingling vocalization that can be heard up to a mile away. Each creature in a @Template[type:emanation|distance:60] must attempt a @Check[will|dc:20|options:area-effect,inflicts:frightened,inflicts:fleeing] save. Regardless of the result, a creature is temporarily immune to the Peeler's Otherworldly Cry for 10 minutes.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hWoeh0M83ShRqiLh",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Rend",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Claw</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "rend",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Path River Peeler",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -1
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -3
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 18
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 55,
+                "temp": 0,
+                "value": 55
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 20
+                    }
+                ],
+                "value": 30
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Like many cryptids, even the name of the Path River Peeler is a matter of dispute. Some say the creature earns its name from the corpses of its victims, which are often found stripped clean of skin but otherwise untouched. Others claim that corpses left in such condition are the exception to the rule. More frequently, no trace of the Peeler's victims is ever found—perhaps these skinless kills were simply abandoned by the Peeler before it could finish with its meal. Those who subscribe to this theory argue that a better name would be the \"Pealer,\" after the echoing cries the beast makes while on the hunt. But what sense does it make to call it the Pealer, when everyone knows loud noises are the best way to drive off the monster? The arguments go round and round, with no end to the debate in sight.</p>\n<p>The Peeler is most frequently encountered in a wild and largely unoccupied area north of Grayce called the Shivering Bluffs. Most people in Grayce, with the exception of the elderly who have tales from their youth, think the Peeler is just a story to frighten children and explain the killed and missing sheep that fall victim to wolves or other predators. Even so, everyone who grew up in Grayce can sing a few lines of a popular skipping rhyme the children in town sing while playing.</p><h2>Barrow Claw</h2><p>Purported sightings of the Path River Peeler often coincide with an outbreak of barrow claw: a rare, disease-bearing fungus that is cold to the touch and devastates nearby vegetation. Outbreaks of barrow claw have led some enthusiastic scholars to postulate that the cryptid itself is the source of the fungus. A more likely theory is that the Peeler and barrow claw share a habitat in the Netherworld, and that the former simply carries spores of the latter on its bristly hide.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventures: Troubles in Grayce"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 10,
+            "senses": [
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "echolocation"
+                },
+                {
+                    "type": "low-light-vision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 6
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 10
+            },
+            "athletics": {
+                "base": 9
+            },
+            "stealth": {
+                "base": 12
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "beast",
+                "shadow"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -1,5 +1,5 @@
 import {
-    DocumentOwnershipLevel,
+    DocumentOwnershipNumber,
     ImageFilePath,
     UserAction,
     UserPermission,
@@ -40,7 +40,7 @@ export default class BaseAdventure extends Document<null, AdventureSchema> {
      */
     can(action: UserAction): boolean;
 
-    getUserLevel(user: documents.BaseUser): DocumentOwnershipLevel;
+    override getUserLevel(user: documents.BaseUser): DocumentOwnershipNumber;
 
     /**
      * Test whether the User has at least a specific permission
@@ -59,8 +59,7 @@ export default class BaseAdventure extends Document<null, AdventureSchema> {
 }
 
 export default interface BaseAdventure
-    extends Document<null, AdventureSchema>,
-        fields.ModelPropsFromSchema<AdventureSchema> {
+    extends Document<null, AdventureSchema>, fields.ModelPropsFromSchema<AdventureSchema> {
     get documentName(): AdventureMetadata["name"];
 }
 

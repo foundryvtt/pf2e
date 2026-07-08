@@ -246,7 +246,7 @@ abstract class RollContext<
         // Add an epehemeral effect from flanking
         const isFlankingAttack = this.isFlankingAttack;
         if (which === "target" && isFlankingAttack && isOffGuardFromFlanking(uncloned.actor, opposingActor)) {
-            const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
+            const name = _loc("PF2E.Item.Condition.Flanked");
             const condition = game.pf2e.ConditionManager.getCondition("off-guard", { name });
             ephemeralEffects.push(condition.toObject());
         }

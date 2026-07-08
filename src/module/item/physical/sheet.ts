@@ -43,10 +43,10 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
                 : "PF2E.Item.Weapon.FromMaterialAndRunes";
             const levelLabel =
                 game.i18n.lang === "de"
-                    ? game.i18n.localize("PF2E.LevelLabel")
-                    : game.i18n.localize("PF2E.LevelLabel").toLocaleLowerCase(game.i18n.lang);
+                    ? _loc("PF2E.LevelLabel")
+                    : _loc("PF2E.LevelLabel").toLocaleLowerCase(game.i18n.lang);
             return item.level !== item._source.system.level.value
-                ? game.i18n.format(hintText, {
+                ? _loc(hintText, {
                       property: levelLabel,
                       value: item.level,
                   })
@@ -60,10 +60,10 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             const derivedPrice = item.assetValue.copperValue;
             const priceLabel =
                 game.i18n.lang === "de"
-                    ? game.i18n.localize("PF2E.PriceLabel")
-                    : game.i18n.localize("PF2E.PriceLabel").toLocaleLowerCase(game.i18n.lang);
+                    ? _loc("PF2E.PriceLabel")
+                    : _loc("PF2E.PriceLabel").toLocaleLowerCase(game.i18n.lang);
             return basePrice !== derivedPrice
-                ? game.i18n.format(game.i18n.localize("PF2E.Item.Weapon.FromMaterialAndRunes"), {
+                ? _loc("PF2E.Item.Weapon.FromMaterialAndRunes", {
                       property: priceLabel,
                       value: item.price.value.toString(),
                   })
@@ -79,7 +79,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
 
         return {
             ...sheetData,
-            itemType: game.i18n.localize("PF2E.ItemTitle"),
+            itemType: _loc("PF2E.ItemTitle"),
             sidebarTemplate: `systems/${SYSTEM_ID}/templates/items/physical-sidebar.hbs`,
             bulkAdjustment,
             adjustedLevelHint,
@@ -135,10 +135,10 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
                 (grade) => !!materialData[grade] && (!isSpecificMagicItem || item.system.material.type === materialKey),
             );
             if (validGrades.length) {
-                const group = game.i18n.localize(preciousMaterials[materialKey]);
+                const group = _loc(preciousMaterials[materialKey]);
                 for (const grade of validGrades) {
-                    const gradeLabel = game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[grade]);
-                    const label = game.i18n.format("PF2E.Item.Weapon.MaterialAndRunes.MaterialOption", {
+                    const gradeLabel = _loc(CONFIG.PF2E.preciousMaterialGrades[grade]);
+                    const label = _loc("PF2E.Item.Weapon.MaterialAndRunes.MaterialOption", {
                         type: group,
                         grade: gradeLabel,
                     });
@@ -207,8 +207,9 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
 
         // Convert price from a string to an actual object
         if ("system.price.value" in formData) {
-            formData["system.price.==value"] = Coins.fromString(String(formData["system.price.value"])).toObject();
-            delete formData["system.price.value"];
+            formData["system.price.value"] = _replace(
+                Coins.fromString(String(formData["system.price.value"])).toObject(),
+            );
         }
 
         return super._updateObject(event, formData);

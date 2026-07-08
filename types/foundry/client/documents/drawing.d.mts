@@ -22,8 +22,9 @@ export default class DrawingDocument<TParent extends Scene | null = Scene | null
     override get isOwner(): boolean;
 }
 
-export default interface DrawingDocument<TParent extends Scene | null = Scene | null>
-    extends CanvasBaseDrawing<TParent> {
+export default interface DrawingDocument<
+    TParent extends Scene | null = Scene | null,
+> extends CanvasBaseDrawing<TParent> {
     readonly _object: Drawing<this> | null;
 }
 

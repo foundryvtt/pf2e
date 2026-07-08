@@ -7,6 +7,7 @@ import {
 } from "@common/abstract/_module.mjs";
 import Document from "@common/abstract/document.mjs";
 import { BaseUser } from "../_module.mjs";
+import Level from "../level.mjs";
 import { ClientDocument, ClientDocumentStatic } from "./client-document.mjs";
 
 /**
@@ -48,6 +49,19 @@ export class CanvasDocument<TParent extends Document | null = Document | null> e
      * An indicator for whether this document is currently rendered on the game canvas.
      */
     get rendered(): boolean;
+
+    override get visible(): boolean;
+
+    /**
+     * Is this CanvasDocument viewed?
+     */
+    get viewed(): boolean;
+
+    /**
+     * Is this CanvasDocument included in a given Level?
+     * @param level The Level or ID
+     */
+    includedInLevel(level: string | Level): boolean;
 
     /* -------------------------------------------- */
     /*  Event Handlers                              */

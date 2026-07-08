@@ -20,7 +20,7 @@ class RecallKnowledgeActionVariant extends SingleCheckActionVariant {
     override async use(options: RecallKnowledgeActionUseOptions): Promise<CheckResultCallback[]> {
         // ensure a statistic is provided
         if (!options?.statistic) {
-            throw new Error(game.i18n.localize(`${PREFIX}.Warning.NoSkill`));
+            throw new Error(_loc(`${PREFIX}.Warning.NoSkill`));
         }
         const rollOption = `action:recall-knowledge:${options.statistic}`;
         options.rollOptions ??= [];

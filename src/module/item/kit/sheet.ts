@@ -58,11 +58,9 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         const target = htmlClosest(event.currentTarget ?? null, "li");
         const index = target?.dataset.index;
         if (!index) return this.item;
-
         const containerId = target.closest<HTMLElement>("[data-container-id]")?.dataset.containerId;
-        const path =
-            containerId && containerId !== index ? `${containerId}.items.-=${index}` : `-=${target.dataset.index}`;
-        const update = await this.item.update({ [`system.items.${path}`]: null });
+        const path = containerId && containerId !== index ? `${containerId}.items.${index}` : `${target.dataset.index}`;
+        const update = await this.item.update({ [`system.items.${path}`]: _del });
         return update ?? null;
     }
 

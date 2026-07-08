@@ -1,0 +1,46 @@
+{
+    "_id": "Eecbbol29eIP3zvf",
+    "img": "icons/skills/melee/strike-slashes-orange.webp",
+    "name": "Effect: A Thousand Cuts",
+    "system": {
+        "description": {
+            "value": "<p>You gain weakness 2 to slashing damage while affected by persistent bleed damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "self:condition:persistent-damage:bleed"
+                ],
+                "type": "slashing",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import Token from "@client/canvas/placeables/token.mjs";
 import { TokenMovementCostFunction } from "@client/documents/_types.mjs";
 import TokenDocument from "@client/documents/token.mjs";

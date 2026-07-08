@@ -27,7 +27,7 @@ export class NPCSkillsEditor extends appv1.api.DocumentSheet<NPCPF2e> {
     }
 
     override get title(): string {
-        return game.i18n.format("PF2E.Actor.NPC.SkillsEditor.Title", { actor: this.actor.name });
+        return _loc("PF2E.Actor.NPC.SkillsEditor.Title", { actor: this.actor.name });
     }
 
     /** Prepare data to be sent to HTML. */
@@ -85,11 +85,7 @@ export class NPCSkillsEditor extends appv1.api.DocumentSheet<NPCPF2e> {
                 const index = Number(event.currentTarget.dataset.specialSkillIndex);
                 const special =
                     this.actor._source.system.skills[skill]?.special?.filter((_, idx) => index !== idx) ?? [];
-                if (special.length === 0) {
-                    this.actor.update({ [`system.skills.${skill}.-=special`]: null });
-                } else {
-                    this.actor.update({ [`system.skills.${skill}.special`]: special });
-                }
+                this.actor.update({ [`system.skills.${skill}.special`]: special.length ? special : _del });
             });
         }
 
@@ -124,7 +120,7 @@ export class NPCSkillsEditor extends appv1.api.DocumentSheet<NPCPF2e> {
                 const skill = htmlClosest(anchor, "[data-skill]")?.dataset.skill;
                 const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
                 if (skill) {
-                    this.actor.update({ [`system.skills.-=${skill}`]: null });
+                    this.actor.update({ [`system.skills.${skill}`]: _del });
                 } else if (itemId) {
                     const item = this.actor.items.get(itemId, { strict: true });
                     item.delete();
@@ -153,7 +149,7 @@ export class NPCSkillsEditor extends appv1.api.DocumentSheet<NPCPF2e> {
                     if (special.predicate?.length === 0) {
                         delete special.predicate;
                     } else if (!Array.isArray(special.predicate)) {
-                        throw Error(game.i18n.localize("PF2E.Actor.NPC.SkillsEditor.Error.PredicateArray"));
+                        throw Error(_loc("PF2E.Actor.NPC.SkillsEditor.Error.PredicateArray"));
                     }
                 }
             }

@@ -15,7 +15,7 @@ function stabilizeDifficultyClass(target: ActorPF2e): CheckDC | null {
 
     const { dying } = target.attributes;
     if (!dying?.value) {
-        throw new Error(game.i18n.localize(`${PREFIX}.Warning.TargetNotDying`));
+        throw new Error(_loc(`${PREFIX}.Warning.TargetNotDying`));
     }
     const dcModifier = new Modifier({
         slug: "dying-recovery",
@@ -32,7 +32,7 @@ function stabilizeDifficultyClass(target: ActorPF2e): CheckDC | null {
 
 function administerFirstAid(options: { variant: AdministerFirstAidVariant } & SkillActionOptions): void {
     const { notes, title, variant } = (() => {
-        const mainTitle = game.i18n.localize(`${PREFIX}.Title`);
+        const mainTitle = _loc(`${PREFIX}.Title`);
         switch (options?.variant) {
             case "stabilize":
                 return {
@@ -40,7 +40,7 @@ function administerFirstAid(options: { variant: AdministerFirstAidVariant } & Sk
                         criticalFailure: `${PREFIX}.Stabilize.Notes.criticalFailure`,
                         success: `${PREFIX}.Stabilize.Notes.success`,
                     },
-                    title: mainTitle + " - " + game.i18n.localize(`${PREFIX}.Stabilize.Title`),
+                    title: mainTitle + " - " + _loc(`${PREFIX}.Stabilize.Title`),
                     variant: options.variant,
                 };
             case "stop-bleeding":
@@ -49,14 +49,14 @@ function administerFirstAid(options: { variant: AdministerFirstAidVariant } & Sk
                         criticalFailure: `${PREFIX}.StopBleeding.Notes.criticalFailure`,
                         success: `${PREFIX}.StopBleeding.Notes.success`,
                     },
-                    title: mainTitle + " - " + game.i18n.localize(`${PREFIX}.StopBleeding.Title`),
+                    title: mainTitle + " - " + _loc(`${PREFIX}.StopBleeding.Title`),
                     variant: options.variant,
                 };
             default: {
                 const variant = options?.variant ? `'${options.variant}'` : "null";
                 const variants = ADMINISTER_FIRST_AID_VARIANTS.map((v) => `'${v}'`).join(", ");
                 const error = `${PREFIX}.Warning.UnknownVariant`;
-                ui.notifications.error(game.i18n.format(error, { variant, variants }));
+                ui.notifications.error(_loc(error, { variant, variants }));
                 throw new Error(`Unknown variant ${variant} for Administer First Aid, use one of ${variants}.`);
             }
         }

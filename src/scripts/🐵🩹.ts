@@ -1,4 +1,5 @@
 import type { ProseMirrorMenu } from "@common/prosemirror/_module.d.mts";
+import type { ProseMirrorMenuItem } from "@common/prosemirror/_types.d.mts";
 import type { Mark, NodeType, ResolvedPos } from "prosemirror-model";
 import * as R from "remeda";
 
@@ -22,8 +23,7 @@ function isMarkActive(this: ProseMirrorMenu, item: ProseMirrorMenuItem): boolean
     const markCompare = (mark: Mark) => {
         if (mark.type !== item.mark) return false;
         // R.isDeepEqual returns false here so we use the foundry helper
-        if (item.attrs) return fu.objectsEqual(mark.attrs, item.attrs);
-        return true;
+        return item.attrs ? fu.equals(mark.attrs, item.attrs) : true;
     };
     if (empty) return $from.marks().some(markCompare);
     let active = false;
@@ -78,7 +78,7 @@ function hasAncestor(pos: ResolvedPos, other?: NodeType, attrs?: Record<string, 
         // Depth 0 is the root document, so we don't need to test that.
         const node = pos.node(i);
         if (node.type === other) {
-            if (attrs) return fu.objectsEqual(node.attrs, attrs);
+            if (attrs) return fu.equals(node.attrs, attrs);
             return true;
         }
     }

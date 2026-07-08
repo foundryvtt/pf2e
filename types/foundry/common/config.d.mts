@@ -16,8 +16,7 @@ declare class ServerSettings extends DataModel<null, ServerSettingsSchema> {
 }
 
 declare interface ServerSettings
-    extends DataModel<null, ServerSettingsSchema>,
-        fields.ModelPropsFromSchema<ServerSettingsSchema> {}
+    extends DataModel<null, ServerSettingsSchema>, fields.ModelPropsFromSchema<ServerSettingsSchema> {}
 
 /**
  * @property {string|null} adminPassword
@@ -92,25 +91,8 @@ type ServerSettingsSchema = {
  * @property {string} [notes]           Release notes for the update version
  * @property {string} [download]        A temporary download URL where this version may be obtained
  */
-declare class ReleaseData extends DataModel {
-    static override defineSchema(): {
-        generation: fields.NumberField<number, number, true, false, true>;
-        maxGeneration: fields.NumberField<any, any, false, false, true>;
-        maxStableGeneration: fields.NumberField<any, any, false, false, true>;
-        channel: fields.StringField<
-            "stable" | "testing" | "development" | "prototype",
-            "stable" | "testing" | "development" | "prototype",
-            false,
-            false,
-            false
-        >;
-        suffix: fields.StringField<string, string, false, false, false>;
-        build: fields.NumberField<number, number, true, false, true>;
-        time: fields.NumberField<number, number, false, false, true>;
-        node_version: fields.NumberField<number, number, true, false, true>;
-        notes: fields.StringField<string, string, false, false, false>;
-        download: fields.StringField<string, string, false, false, false>;
-    };
+declare class ReleaseData extends DataModel<null, ReleaseDataSchema> {
+    static override defineSchema(): ReleaseDataSchema;
 
     /**
      * A formatted string for shortened display, such as "Version 9"
@@ -143,5 +125,26 @@ declare class ReleaseData extends DataModel {
      */
     isGenerationalChange(other: string | ReleaseData): boolean;
 }
+
+interface ReleaseData extends DataModel<null, ReleaseDataSchema>, fields.ModelPropsFromSchema<ReleaseDataSchema> {}
+
+type ReleaseDataSchema = {
+    generation: fields.NumberField<number, number, true, false, true>;
+    maxGeneration: fields.NumberField<number, number, false, false, true>;
+    maxStableGeneration: fields.NumberField<number, number, false, false, true>;
+    channel: fields.StringField<
+        "stable" | "testing" | "development" | "prototype",
+        "stable" | "testing" | "development" | "prototype",
+        false,
+        false,
+        false
+    >;
+    suffix: fields.StringField<string, string, false, false, false>;
+    build: fields.NumberField<number, number, true, false, true>;
+    time: fields.NumberField<number, number, false, false, true>;
+    node_version: fields.NumberField<number, number, true, false, true>;
+    notes: fields.StringField<string, string, false, false, false>;
+    download: fields.StringField<string, string, false, false, false>;
+};
 
 export { ReleaseData, ServerSettings };

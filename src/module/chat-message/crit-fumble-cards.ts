@@ -58,12 +58,12 @@ export class CriticalHitAndFumbleCards {
         if (!this.#rollTypes.includes(type)) return;
 
         const $critButton = $(
-            `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fa-solid fa-thumbs-up" title="${game.i18n.localize(
+            `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fa-solid fa-thumbs-up" title="${_loc(
                 "PF2E.CriticalHitCardButtonTitle",
             )}"></i></button>`,
         );
         const $fumbleButton = $(
-            `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fa-solid fa-thumbs-down" title="${game.i18n.localize(
+            `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fa-solid fa-thumbs-down" title="${_loc(
                 "PF2E.CriticalFumbleCardButtonTitle",
             )}"></i></button>`,
         );

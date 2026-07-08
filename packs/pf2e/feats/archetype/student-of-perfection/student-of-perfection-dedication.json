@@ -70,6 +70,28 @@
                 "mode": "override",
                 "path": "flags.system.houseOfPerfection.element",
                 "value": "{item|flags.system.rulesSelections.houseOfPerfectionElement}"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Acrobatics",
+                        "value": "acrobatics"
+                    },
+                    {
+                        "label": "PF2E.Skill.Athletics",
+                        "value": "athletics"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.system.rulesSelections.skill}.rank",
+                "value": 1
             }
         ],
         "traits": {

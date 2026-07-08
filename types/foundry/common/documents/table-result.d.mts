@@ -1,4 +1,4 @@
-import { DocumentOwnershipLevel, DocumentOwnershipString, ImageFilePath, TableResultType } from "@common/constants.mjs";
+import { DocumentOwnershipLevel, ImageFilePath, TableResultType } from "@common/constants.mjs";
 import { Document, DocumentMetadata } from "../abstract/_module.mjs";
 import * as fields from "../data/fields.mjs";
 import * as documents from "./_module.mjs";
@@ -18,13 +18,15 @@ export default class BaseTableResult<TParent extends documents.BaseRollTable | n
 
     override testUserPermission(
         user: documents.BaseUser,
-        permission: DocumentOwnershipString | DocumentOwnershipLevel,
+        permission: DocumentOwnershipLevel,
         { exact }?: { exact?: boolean },
     ): boolean;
 }
 
-export default interface BaseTableResult<TParent extends documents.BaseRollTable | null>
-    extends Document<TParent, TableResultSchema> {
+export default interface BaseTableResult<TParent extends documents.BaseRollTable | null> extends Document<
+    TParent,
+    TableResultSchema
+> {
     get documentName(): TableResultMetadata["name"];
 }
 

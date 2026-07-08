@@ -44,9 +44,9 @@
     </div>
     <hr />
     <section class="add-entry-row add-modifier-panel">
-        <input type="text" class="add-modifier-name" placeholder={{localize "PF2E.ModifierTitle"}}>
-        <input type="number" class="add-modifier-value" placeholder="+1" />
-        <select class="add-modifier-type">
+        <input type="text" class="add-modifier-name" placeholder={{localize "PF2E.ModifierTitle"}} aria-label="{{localize "PF2E.Roll.Dialog.ModifierName"}}">
+        <input type="text" class="add-modifier-value" placeholder="1" aria-label="{{localize "PF2E.Roll.Dialog.ModifierValue"}}" />
+        <select class="add-modifier-type" aria-label="{{localize "PF2E.Roll.Dialog.ModifierType"}}">
             <option value="circumstance" selected>{{localize "PF2E.ModifierType.circumstance"}}</option>
             <option value="item">{{localize "PF2E.ModifierType.item"}}</option>
             <option value="status">{{localize "PF2E.ModifierType.status"}}</option>
@@ -58,7 +58,7 @@
     </section>
     <hr/>
 
-    <div class="fate">
+    <div class="roll-twice" data-roll-twice>
         <label>
             <input type="radio" name="rollTwice" value="keep-higher" {{checked fortune}} />
             {{localize "PF2E.Roll.KeepHigher"}}
@@ -72,21 +72,31 @@
             {{localize "PF2E.Roll.KeepLower"}}
         </label>
     </div>
-    <hr/>
 
-    <div class="roll-mode-panel">
-        <label class="roll-mode">
-            {{localize "PF2E.RollModeLabel"}}
-            <select name="rollmode">
-                {{selectOptions rollModes selected=rollMode localize=true}}
-            </select>
-        </label>
-        <label data-tooltip="PF2E.Roll.Dialog.ShowDefaultHint">
-            {{localize "PF2E.Roll.Dialog.ShowDefault"}}
-            <input data-action="change-show-default" type="checkbox" {{checked showCheckDialogs}} />
-        </label>
+    <hr />
+
+    <div class="roll-mode-panel flexcol">
+        <div class="form-group roll-mode">
+            <label for="{{appId}}-messageMode">{{localize "CHAT.RollVisibility"}}</label>
+            <div class="form-fields">
+                <select name="messageMode" id="{{appId}}-messageMode">
+                    {{selectOptions messageModes selected=messageMode localize=true}}
+                </select>
+            </div>
+        </div>
+        <div class="form-group" data-tooltip aria-label="{{localize "PF2E.Roll.Dialog.ShowDefaultHint"}}">
+            <label for="{{appId}}-showDefault">{{localize "PF2E.Roll.Dialog.ShowDefault"}}</label>
+            <div class="form-fields">
+                <input id="{{appId}}-showDefault" data-action="change-show-default" type="checkbox"
+                       {{checked showCheckDialogs}} />
+            </div>
+        </div>
     </div>
-    <hr/>
 
-    <button type="button" class="roll">{{localize "PF2E.Roll.Roll"}} ({{numberFormat totalModifier decimals=0 sign=true}})</button>
+    <hr />
+
+    <button type="submit">
+        {{localize "PF2E.Roll.Roll"}}
+        ({{numberFormat totalModifier decimals=0 sign=true}})
+    </button>
 </form>

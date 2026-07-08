@@ -180,7 +180,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         // Saving Throws
         return SAVE_TYPES.reduce((saves: { [K in SaveType]?: Statistic }, saveType) => {
             const save = system.saves[saveType];
-            const label = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
+            const label = _loc(CONFIG.PF2E.saves[saveType]);
             const base = save.value;
             if (base === null) return saves;
 

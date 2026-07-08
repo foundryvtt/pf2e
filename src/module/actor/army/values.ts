@@ -45,8 +45,8 @@ function getArmyGearData(): Record<ArmyGearType, ArmyGearData> {
                     type === "melee"
                         ? "icons/weapons/axes/axe-battle-black.webp"
                         : "icons/weapons/crossbows/crossbow-simple-brown.webp",
-                name: game.i18n.format("PF2E.Kingmaker.Army.Gear.AdditionalWeapon.Name", {
-                    type: game.i18n.format(`PF2E.Kingmaker.Army.Strikes.${type}`),
+                name: _loc("PF2E.Kingmaker.Army.Gear.AdditionalWeapon.Name", {
+                    type: _loc(`PF2E.Kingmaker.Army.Strikes.${type}`),
                 }),
                 description: "PF2E.Kingmaker.Army.Gear.AdditionalWeapon.Description",
                 traits: ["army"],
@@ -62,8 +62,8 @@ function getArmyGearData(): Record<ArmyGearType, ArmyGearData> {
                     type === "melee"
                         ? "icons/weapons/axes/axe-battle-black.webp"
                         : "icons/weapons/crossbows/crossbow-simple-brown.webp",
-                name: game.i18n.format("PF2E.Kingmaker.Army.Gear.MagicWeapons.Name", {
-                    type: game.i18n.format(`PF2E.Kingmaker.Army.Strikes.${type}`),
+                name: _loc("PF2E.Kingmaker.Army.Gear.MagicWeapons.Name", {
+                    type: _loc(`PF2E.Kingmaker.Army.Strikes.${type}`),
                 }),
                 description: "PF2E.Kingmaker.Army.Gear.MagicWeapons.Description",
                 traits: ["army", "magical"],
@@ -88,8 +88,8 @@ function getArmyGearData(): Record<ArmyGearType, ArmyGearData> {
         },
         armor: {
             img: "icons/equipment/shield/heater-wooden-brown-axe.webp",
-            name: game.i18n.localize("PF2E.Kingmaker.Army.Gear.Armor.Name"),
-            description: game.i18n.localize("PF2E.Kingmaker.Army.Gear.Armor.Description"),
+            name: _loc("PF2E.Kingmaker.Army.Gear.Armor.Name"),
+            description: _loc("PF2E.Kingmaker.Army.Gear.Armor.Description"),
             traits: ["army", "magical"],
             ranks: [
                 { price: 25, level: 5 },

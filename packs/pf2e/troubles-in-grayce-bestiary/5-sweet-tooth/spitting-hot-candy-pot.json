@@ -1,0 +1,136 @@
+{
+    "_id": "TKrZNNfYOnpxQzfK",
+    "folder": "pmnSkDuZV0KoZHZV",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "loWa5eMcOQDnOubb",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Bubble Bubble",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Larmine rolls initiative</p><hr /><p><strong>Effect</strong> With a wave of her hand, Larmine instantly brings her candy pot to a violent boil. The pot blows its top and targets all creatures hostile to Larmine within 20 feet of it, dealing @Damage[2d8[fire]|options:area-damage] damage with a @Check[reflex|dc:16|basic|options:area-effect] save. On a critical failure, the targeted creature also takes @Damage[1d4[persistent,fire]|options:area-damage] damage as the hot candy sticks to their exposed skin. The spitting hot candy pot then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fuFqAYmvf0diZODf",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Rupture",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The spitting hot candy pot Breaks</p><hr /><p><strong>Effect</strong> The pot splits open, spilling its remaining contents in a @Template[type:cone|distance:15] that deals @Damage[2d12[fire]|options:area-damage] damage with a @Check[reflex|dc:20|options:area-effect,damaging-effect] save. The area covered by this reaction lingers as difficult terrain for the rest of the encounter.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes tangled in the sticky mess of hot candy, which imposes a –10-foot circumstance penalty to its Speeds until it leaves the area of the rupture's effect. Until the creature leaves the area of effect, it also takes @Damage[1d4[persistent,fire]|options:area-damage] damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] (DC 18 to [[/act escape dc=18]]), after which it takes a –10-foot circumstance penalty to its Speeds and @Damage[1d4[persistent,fire]|options:area-damage] damage as failure.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Spitting Hot Candy Pot",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 17
+            },
+            "emitsSound": "encounter",
+            "hardness": 5,
+            "hp": {
+                "details": "",
+                "max": 40,
+                "temp": 0,
+                "value": 40
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "",
+                "value": 10
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>A massive bronze cauldron of molten candy bubbles on the stove, spraying sticky-sweet hot caramel in all directions.</p>",
+            "disable": "<p>Breaking the pot disables it as soon as its rupture reaction is resolved.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventures: Troubles in Grayce"
+            },
+            "reset": "",
+            "routine": "<p>(2 actions) On each of the pot's actions, it targets one creature hostile against Larmine within 30 feet of the pot, spitting a glob of hot molten candy that deals @Damage[(1d8+4)[fire]] damage; the target creature must attempt a @Check[reflex|dc:16|options:damaging-effect,inflicts:slowed] save.</p><hr><p><strong>Critical Success</strong> The target is unaffected.</p><p><strong>Success</strong> The target takes half damage.</p><p><strong>Failure</strong> The target takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as the sticky molten candy glues them to the floor.</p><p><strong>Critical Failure</strong> The target takes double damage, is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2}, and takes @Damage[1d4[persistent,fire]] damage as the hot candy sticks to their exposed skin.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 9
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

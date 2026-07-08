@@ -38,10 +38,9 @@ class WeaponDamagePF2e {
         actor,
         context,
     }: NPCStrikeCalculateParams): Promise<WeaponDamageTemplate | null> {
-        const baseDamage = attack.baseDamage;
         const secondaryInstances = Object.values(attack.system.damageRolls)
             .map(this.npcDamageToWeaponDamage)
-            .filter((d) => !R.isDeepEqual(d, baseDamage));
+            .filter((d) => !fu.equals(d, attack.baseDamage));
 
         // Collect damage dice and modifiers from secondary damage instances
         const damageDice: DamageDicePF2e[] = [];
@@ -70,9 +69,10 @@ class WeaponDamagePF2e {
                 );
             }
             if (instance.modifier) {
+                const slug = modifiers.length === 0 ? "base" : `base-${modifiers.length}`;
                 modifiers.push(
                     new Modifier({
-                        slug: "base",
+                        slug,
                         label: labelFromCategory[instance.category ?? "null"],
                         modifier: instance.modifier,
                         damageType,
@@ -81,7 +81,6 @@ class WeaponDamagePF2e {
                 );
             }
         }
-
         return WeaponDamagePF2e.calculate({
             weapon: attack,
             actor,
@@ -277,7 +276,7 @@ class WeaponDamagePF2e {
             damageDice.push(
                 new DamageDicePF2e({
                     selector: `${weapon.id}-damage`,
-                    slug,
+                    slug, // todo: simplify to just "deadly" and then migrate
                     label: traitLabels[slug],
                     diceNumber,
                     dieSize: (/-\d?(d\d{1,2})$/.exec(slug)?.at(1) ?? baseDamage.die) as DamageDieSize,
@@ -292,7 +291,7 @@ class WeaponDamagePF2e {
             damageDice.push(
                 new DamageDicePF2e({
                     selector: `${weapon.id}-damage`,
-                    slug: trait,
+                    slug: trait, // todo: simplify to just "fatal" and then migrate
                     label: traitLabels[trait],
                     diceNumber: 1,
                     dieSize,
@@ -358,6 +357,25 @@ class WeaponDamagePF2e {
                 damageCategory: "persistent",
             });
             modifiers.push(modifier);
+        }
+
+        // Boost trait
+        if (weapon.system.traits.config.boost) {
+            const boostConfig = weapon.system.traits.config.boost;
+            const dieSize = boostConfig.substring(boostConfig.indexOf("d")) as DamageDieSize;
+            const baseNumber = Number(/(\d)d\d{1,2}$/.exec(boostConfig)?.at(1)) || 1;
+            const diceNumber = strikingDice > 0 ? baseNumber + strikingDice : baseNumber;
+            damageDice.push(
+                new DamageDicePF2e({
+                    selector: `${weapon.id}-damage`,
+                    slug: "boost",
+                    label: traitLabels[`boost-${boostConfig}`],
+                    diceNumber: diceNumber,
+                    dieSize,
+                    critical: false,
+                    enabled: options.has(`item:boosted:${weapon.id}`),
+                }),
+            );
         }
 
         // Add roll notes to the context
@@ -493,7 +511,7 @@ class WeaponDamagePF2e {
         };
 
         return {
-            name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
+            name: `${_loc("PF2E.DamageRoll")}: ${weapon.name}`,
             materials: Array.from(materials),
             modifiers: [...damageDice, ...testedModifiers],
             damage: {

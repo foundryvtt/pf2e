@@ -114,9 +114,9 @@ class LanguageSettings extends foundry.abstract.DataModel<null, LanguageSettings
                 blank: false,
                 initial: DEFAULT_COMMON_LANGUAGE,
             }),
-            uncommon: languageSetField([...LANGUAGES_BY_RARITY.uncommon]),
-            rare: languageSetField([...LANGUAGES_BY_RARITY.rare]),
-            secret: languageSetField([...LANGUAGES_BY_RARITY.secret]),
+            uncommon: languageSetField([...LANGUAGES_BY_RARITY[SYSTEM_ID].uncommon]),
+            rare: languageSetField([...LANGUAGES_BY_RARITY[SYSTEM_ID].rare]),
+            secret: languageSetField([...LANGUAGES_BY_RARITY[SYSTEM_ID].secret]),
             unavailable: languageSetField([]),
         };
     }

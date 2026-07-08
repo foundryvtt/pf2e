@@ -1,0 +1,280 @@
+{
+    "_id": "rA6ZwEATCgbw45Yc",
+    "folder": "w1E6in5pl7MHDdUi",
+    "img": "systems/sf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "WRKol0mQaJ7dZgj6",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "pOZEFgUp4F49XaxF": {
+                        "damage": "1d4+6",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "agile"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "vMQipv2yyNxVU68c",
+            "img": "systems/sf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "YSQU5kYP1k77E3V2": {
+                        "damage": "1d6+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "50kP1tfSwkericcS",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Gnaw Rock",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A cave khefak chews on rock to feed, dealing @Damage[4[piercing]] damage every 10 minutes to the object. This damage ignores 10 points of Hardness. If a khefak doesn't spend at least 1 hour Gnawing Rock per day, it begins to starve until it spends 10 minutes Gnawing Rock.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "exploration"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gvWZwSAxjhC19HG2",
+            "img": "systems/sf2e/icons/actions/Passive.webp",
+            "name": "Cave Radiation",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>10 feet. A cave khefak gives off an aura of mild radiation. A creature that starts its turn in the emanation must succeed at a @Check[fortitude|dc:20] save or take @Damage[1d6[poison]] damage and become @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "level": "radiation",
+                        "radius": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "radiation"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Cave Khefak",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 1
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 18
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 45,
+                "temp": 0,
+                "value": 45
+            },
+            "resistances": [
+                {
+                    "type": "poison",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "burrow",
+                        "value": 10
+                    },
+                    {
+                        "type": "climb",
+                        "value": 20
+                    }
+                ],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Tales From the Vast"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 9,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 6
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 10
+            },
+            "survival": {
+                "base": 10
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -1,11 +1,21 @@
 <script lang="ts">
+    import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { FormulaPickerContext } from "./app.ts";
     import ItemSummary from "@module/sheet/components/item-summary.svelte";
     import ItemTraits from "@module/sheet/components/item-traits.svelte";
     import HoverIconButton from "@module/sheet/components/hover-icon-button.svelte";
     import { sendItemToChat } from "@module/sheet/helpers.ts";
 
-    const { state: data, actor, ability, mode, searchEngine, onSelect, onDeselect }: FormulaPickerContext = $props();
+    const {
+        actor,
+        ability,
+        mode,
+        searchEngine,
+        onSelect,
+        onDeselect,
+        getState,
+    }: FormulaPickerContext & SvelteAppProps<FormulaPickerContext> = $props();
+    const data = $derived(getState());
     const openStates: Record<string, boolean> = $state({});
     let queryText = $state("");
 
@@ -31,17 +41,17 @@
             type="search"
             spellcheck="false"
             bind:value={queryText}
-            placeholder={game.i18n.localize("PF2E.Actor.Character.Crafting.Search")}
+            placeholder={_loc("PF2E.Actor.Character.Crafting.Search")}
         />
     </div>
     {#if !ability.isPrepared && !data.resource?.value}
-        <p class="notification warning">{game.i18n.localize("PF2E.Actor.Character.Crafting.MissingResource")}</p>
+        <p class="notification warning">{_loc("PF2E.Actor.Character.Crafting.MissingResource")}</p>
     {/if}
 </header>
 
 <section class="content">
     {#each filteredSections as section (section.level)}
-        <header>{game.i18n.format("PF2E.LevelN", { level: section.level })}</header>
+        <header>{_loc("PF2E.LevelN", { level: section.level })}</header>
         <ol class="items-list">
             {#each section.formulas as formula (formula.item.id)}
                 <li

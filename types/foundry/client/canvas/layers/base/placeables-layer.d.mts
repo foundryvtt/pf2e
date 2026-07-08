@@ -1,4 +1,5 @@
 import BasePlaceableHUD from "@client/applications/hud/placeable-hud.mjs";
+import { ShapeControlsHandle } from "@client/canvas/containers/_module.mjs";
 import DocumentCollection from "@client/documents/abstract/document-collection.mjs";
 import User from "@client/documents/user.mjs";
 import { ElevatedPoint, Point } from "@common/_types.mjs";
@@ -292,7 +293,7 @@ export default class PlaceablesLayer<TObject extends PlaceableObject = Placeable
      * @param options.cut  Cut instead of copy?
      * @returns  The Array of copied PlaceableObject instances
      */
-    copyObjects(options?: { cut: boolean }): Readonly<TObject[]>;
+    copyObjects(options?: { cut: boolean }): readonly TObject[];
 
     /**
      * Paste currently copied PlaceableObjects back to the layer by creating new copies
@@ -423,6 +424,7 @@ export interface PlaceableInteractionData<TObject extends PIXI.Container> {
     preview?: TObject | null;
     clones?: TObject[];
     dragHandle?: unknown;
+    handle?: ShapeControlsHandle;
     object: TObject;
     origin: Point;
     destination: Point;

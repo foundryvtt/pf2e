@@ -1,5 +1,6 @@
 <script lang="ts">
     import SvelectePf2e from "@module/sheet/components/svelecte-pf2e.svelte";
+    import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { PickableThing, PickAThingRenderContext } from "./app.ts";
     import { UUIDUtils } from "@util/uuid.ts";
     import { ItemPF2e } from "@item";
@@ -7,7 +8,13 @@
     import { sluggify } from "@util/misc.ts";
     import * as R from "remeda";
 
-    const { state: data, updateSelection, resolve, testAllowedDrop }: PickAThingRenderContext = $props();
+    const {
+        getState,
+        updateSelection,
+        resolve,
+        testAllowedDrop,
+    }: PickAThingRenderContext & SvelteAppProps<PickAThingRenderContext> = $props();
+    const data = $derived(getState());
     const { containsItems, selectMenu, allowNoSelection, includeDropZone } = $derived(data);
     let droppedOption: PickableThing | null = $state(null);
 
@@ -75,7 +82,7 @@
                         class="item-info icon fa-solid fa-info-circle"
                         disabled={!selectedIndex}
                         data-tooltip
-                        aria-label={game.i18n.localize(
+                        aria-label={_loc(
                             `PF2E.UI.RuleElements.ChoiceSet.ViewItem.${selectedIndex ? "Tooltip" : "Disabled"}`,
                         )}
                         onclick={() => viewItem(selectedChoice?.value)}
@@ -98,20 +105,20 @@
                     class="fa-solid fa-fw fa-info-circle"
                     inert
                     data-tooltip
-                    aria-label={game.i18n.localize("PF2E.UI.RuleElements.ChoiceSet.DragHomebrewItem")}
+                    aria-label={_loc("PF2E.UI.RuleElements.ChoiceSet.DragHomebrewItem")}
                 ></i>
-                <span>{game.i18n.localize("PF2E.UI.RuleElements.ChoiceSet.HomebrewItem")}</span>
+                <span>{_loc("PF2E.UI.RuleElements.ChoiceSet.HomebrewItem")}</span>
             </div>
         {/if}
     </section>
 
     {#if selectMenu}
         <button type="button" onclick={() => resolve(selectedChoice)}>
-            {game.i18n.localize("PF2E.UI.RuleElements.ChoiceSet.SaveLabel")}
+            {_loc("PF2E.UI.RuleElements.ChoiceSet.SaveLabel")}
         </button>
     {:else if allowNoSelection}
         <button type="button" data-action="close">
-            <span>{game.i18n.localize("PF2E.UI.RuleElements.ChoiceSet.Decline")}</span>
+            <span>{_loc("PF2E.UI.RuleElements.ChoiceSet.Decline")}</span>
         </button>
     {/if}
 </div>
@@ -128,7 +135,7 @@
                 type="button"
                 class="item-info icon fa-solid fa-info-circle"
                 data-tooltip
-                aria-label={game.i18n.localize("PF2E.UI.RuleElements.ChoiceSet.ViewItem.Tooltip")}
+                aria-label={_loc("PF2E.UI.RuleElements.ChoiceSet.ViewItem.Tooltip")}
                 onclick={() => viewItem(value)}
             ></button>
         {/if}

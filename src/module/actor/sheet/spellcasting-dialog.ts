@@ -42,7 +42,7 @@ class SpellcastingCreateAndEditDialog extends appv1.api.FormApplication<Spellcas
                 ...extraStatistics,
                 ...classDCs.map((c) => ({
                     slug: c.slug,
-                    label: game.i18n.format("PF2E.Actor.Character.ClassDC.LabelSpecific", { class: c.label }),
+                    label: _loc("PF2E.Actor.Character.ClassDC.LabelSpecific", { class: c.label }),
                 })),
             ],
             magicTraditions: CONFIG.PF2E.magicTraditions,
@@ -56,7 +56,7 @@ class SpellcastingCreateAndEditDialog extends appv1.api.FormApplication<Spellcas
             autoHeightenLevels: Object.fromEntries(
                 R.range(1, 11).map((level) => [
                     level.toString(),
-                    game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(level) }),
+                    _loc("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(level) }),
                 ]),
             ),
             validItemTypes: { scroll: "PF2E.Actor.Creature.Spellcasting.ValidItemTypes.Scroll" },
@@ -128,13 +128,13 @@ class SpellcastingCreateAndEditDialog extends appv1.api.FormApplication<Spellcas
         if (this.object.id === null) {
             updateData.name = (() => {
                 const locKey = CONFIG.PF2E.preparationType[updateData.system.prepared.value];
-                const preparationType = game.i18n.localize(locKey);
+                const preparationType = _loc(locKey);
                 const magicTraditions: Record<string, string> = CONFIG.PF2E.magicTraditions;
-                const traditionSpells = game.i18n.localize(magicTraditions[this.object.tradition ?? ""]);
+                const traditionSpells = _loc(magicTraditions[this.object.tradition ?? ""]);
                 if (!traditionSpells) {
                     return preparationType;
                 } else {
-                    return game.i18n.format("PF2E.SpellCastingFormat", { preparationType, traditionSpells });
+                    return _loc("PF2E.SpellCastingFormat", { preparationType, traditionSpells });
                 }
             })();
 
