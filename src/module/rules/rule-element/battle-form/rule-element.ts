@@ -301,6 +301,8 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
             range: strikeData.range,
             traits: strikeData.traits ?? [],
             ability: strikeData.ability,
+            traitToggles: strikeData.traitToggles,
+            handsHeld: strikeData.handsHeld,
             battleForm: true,
         }));
 
@@ -327,7 +329,9 @@ class BattleFormRuleElement extends RuleElement<BattleFormRuleSchema> {
 
             for (const datum of ruleData) {
                 if (!datum.traits.includes("magical")) datum.traits.push("magical");
-                new StrikeRuleElement(datum, { parent: this.item }).beforePrepareData();
+                // Pass this rule's source index so that toggle and grip selections can be persisted
+                const sourceIndex = this.sourceIndex ?? undefined;
+                new StrikeRuleElement(datum, { parent: this.item, sourceIndex }).beforePrepareData();
             }
         }
 

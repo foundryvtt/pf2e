@@ -16,6 +16,7 @@ import type { OneToTwo } from "@module/data.ts";
 import type { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import { objectHasKey, sluggify } from "@util";
 import { RuleElement, RuleElementOptions } from "./base.ts";
+import type { BattleFormSource } from "./battle-form/types.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 import fields = foundry.data.fields;
 
@@ -302,9 +303,14 @@ class StrikeRuleElement extends RuleElement<StrikeSchema> {
     /** Persist changes to this rule element's own source on the parent item */
     async #persistSource(changes: Partial<StrikeSource>): Promise<void> {
         const ruleSources = fu.deepClone(this.item._source.system.rules);
-        const rule: StrikeSource | undefined = ruleSources.at(this.sourceIndex ?? NaN);
+        const rule = ruleSources.at(this.sourceIndex ?? NaN);
         if (rule?.key === "Strike") {
             Object.assign(rule, changes);
+            await this.item.update({ "system.rules": ruleSources });
+        } else if (rule?.key === "BattleForm" && this.battleForm && this.slug) {
+            // Persist to the constructing BattleForm rule's strike override
+            const battleForm: BattleFormSource = rule;
+            fu.mergeObject(battleForm, { overrides: { strikes: { [this.slug]: changes } } });
             await this.item.update({ "system.rules": ruleSources });
         }
     }
