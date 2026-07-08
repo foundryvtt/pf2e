@@ -58,7 +58,7 @@ class ItemAlterationRuleElement extends RuleElement<ItemAlterationRuleSchema> {
     }
 
     /** Alteration properties that should be processed at the end of data preparation */
-    static #DELAYED_PROPERTIES = ["damage-dice-faces", "pd-recovery-dc"];
+    static #DELAYED_PROPERTIES = ["pd-recovery-dc"];
 
     /** Alteration properties that should only be processed when requested directly */
     static #LAZY_PROPERTIES = ["description"];
