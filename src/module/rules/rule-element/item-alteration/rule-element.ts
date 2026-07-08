@@ -45,8 +45,6 @@ class ItemAlterationRuleElement extends RuleElement<ItemAlterationRuleSchema> {
                 initial: undefined,
             }),
             battleForm: new fields.BooleanField(),
-            /** When false, a damage-die override to a larger size does not set `damageFacesUpgraded` */
-            overrideAppliesFacesUpgrade: new fields.BooleanField({ initial: true }),
             ...ItemAlteration.defineSchema(),
         };
     }
@@ -199,8 +197,6 @@ type ItemAlterationRuleSchema = RuleElementSchema &
         itemId: fields.StringField<string, string, false, false, false>;
         /** Whether this rule element is compatible with battle forms */
         battleForm: fields.BooleanField;
-        /** If true (default), `damage-dice-faces` override to a larger die sets `damageFacesUpgraded` */
-        overrideAppliesFacesUpgrade: fields.BooleanField;
     };
 
 interface ApplyAlterationOptions {

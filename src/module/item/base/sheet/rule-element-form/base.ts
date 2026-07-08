@@ -138,14 +138,7 @@ class RuleElementForm<
             form: await this.#getFormHelpers(mergedRule),
             autogenerate,
             rootId: this.sheet.id,
-            hiddenFields: [
-                "ignored",
-                "requiresEquipped",
-                "requiresInvestment",
-                "removeUponCreate",
-                "battleForm",
-                "overrideAppliesFacesUpgrade",
-            ],
+            hiddenFields: ["ignored", "requiresEquipped", "requiresInvestment", "removeUponCreate", "battleForm"],
             omittedFields: ["key", "priority", "spinoff"],
             validationFailures,
         };

@@ -10,6 +10,7 @@ import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/val
 import type { ItemType } from "@item/types.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values.ts";
+import { adjustTwoHandTraitForDamageFacesChange } from "@item/weapon/helpers.ts";
 import { RARITIES, ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { nextDamageDieSize } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
@@ -311,11 +312,6 @@ const ITEM_ALTERATION_HANDLERS = {
                 choices: () => DAMAGE_DICE_FACES,
                 initial: null,
             } as const),
-            overrideAppliesFacesUpgrade: new fields.BooleanField({
-                required: false,
-                nullable: false,
-                initial: true,
-            }),
         },
         validate: (data) => {
             const hasBasicStructure = R.isPlainObject(data) && "mode" in data && "value" in data;
@@ -350,17 +346,16 @@ const ITEM_ALTERATION_HANDLERS = {
             if (mode === "upgrade" && !item.flags[SYSTEM_ID].damageFacesUpgraded && die) {
                 item.system.damage.die = nextDamageDieSize({ upgrade: die });
                 item.flags[SYSTEM_ID].damageFacesUpgraded = true;
+                adjustTwoHandTraitForDamageFacesChange(item, mode);
             } else if (mode === "downgrade" && die) {
                 item.system.damage.die = nextDamageDieSize({ downgrade: die });
+                adjustTwoHandTraitForDamageFacesChange(item, mode);
             } else if (mode === "override" && typeof data.alteration.value === "number") {
-                if (
-                    data.alteration.overrideAppliesFacesUpgrade &&
-                    die &&
-                    data.alteration.value > Number(die.replace("d", ""))
-                ) {
+                if (die && data.alteration.value > Number(die.replace("d", ""))) {
                     item.flags[SYSTEM_ID].damageFacesUpgraded = true;
                 }
                 item.system.damage.die = `d${data.alteration.value}`;
+                adjustTwoHandTraitForDamageFacesChange(item, mode);
             }
         },
     }),
