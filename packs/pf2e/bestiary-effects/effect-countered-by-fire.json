@@ -4,7 +4,7 @@
     "name": "Effect: Countered by Fire",
     "system": {
         "description": {
-            "value": "<p>The creature takes a -1 circumstance penalty to attack rolls and AC, and its jaws Strike doesn't deal electricity damage.</p>"
+            "value": "<p>You take a –1 circumstance penalty to attack rolls and AC, and your jaws Strike doesn't deal electricity damage.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -31,10 +31,17 @@
                 "value": -1
             },
             {
-                "domain": "damage",
-                "key": "RollOption",
-                "option": "countered-by-fire",
-                "value": true
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "damage:type:electricity"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "jaws-damage"
+                ],
+                "slug": "base",
+                "value": 0
             }
         ],
         "start": {

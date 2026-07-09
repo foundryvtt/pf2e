@@ -1619,6 +1619,10 @@
                     "rX0kc5sOUnU77i30": {
                         "damage": "2d6+12",
                         "damageType": "piercing"
+                    },
+                    "wsZvi9jRen9soGMi": {
+                        "damage": "1d12",
+                        "damageType": "electricity"
                     }
                 },
                 "description": {
@@ -1630,26 +1634,14 @@
                     "title": ""
                 },
                 "range": null,
-                "rules": [
-                    {
-                        "damageType": "electricity",
-                        "diceNumber": 1,
-                        "dieSize": "d12",
-                        "key": "DamageDice",
-                        "predicate": [
-                            {
-                                "not": "countered-by-fire"
-                            }
-                        ],
-                        "selector": "{item|_id}-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
                         "electricity",
                         "magical",
-                        "reach-10"
+                        "reach-10",
+                        "unarmed"
                     ]
                 }
             },
@@ -1691,7 +1683,8 @@
                 "traits": {
                     "value": [
                         "agile",
-                        "magical"
+                        "magical",
+                        "unarmed"
                     ]
                 }
             },
@@ -1733,7 +1726,8 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "reach-20"
+                        "reach-20",
+                        "unarmed"
                     ]
                 }
             },
@@ -1789,7 +1783,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "item:damage:type:fire"
+                        ],
+                        "selector": "damage-received",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -1922,14 +1927,26 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A sky dragon can hover in place without spending an action, and they automatically succeed at all Acrobatics checks to Maneuver in Flight.</p>"
+                    "value": "<p>A sky dragon can hover in place without spending an action, and they automatically succeed at all Acrobatics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Maneuver in Flight].</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "adjustment": {
+                            "criticalFailure": "to-success",
+                            "failure": "to-success"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "action:maneuver-in-flight"
+                        ],
+                        "selector": "acrobatics"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -1951,7 +1968,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon shoots a ball of electricity that deals @Damage[5d12[electricity]|options:area-damage] damage in a @Template[type:burst|distance:20] within 40 feet (@Check[reflex|dc:28|basic] save). They can't use Steel Lightning Breath again for [[/gmr 1d4 #Recharge Steel Lightning Breath]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon shoots a ball of electricity that deals @Damage[5d12[electricity]|options:area-damage] damage in a @Template[burst|distance:20] within 40 feet (@Check[reflex|dc:28|basic|options:area-effect] save). They can't use Steel Lightning Breath again for [[/gmr 1d4 #Recharge Steel Lightning Breath]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2056,7 +2073,7 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "",
+            "details": "mist vision",
             "mod": 19,
             "senses": [
                 {
