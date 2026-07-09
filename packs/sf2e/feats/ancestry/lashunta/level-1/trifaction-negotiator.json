@@ -25,7 +25,53 @@
             "remaster": true,
             "title": "Starfinder Galactic Ancestries"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "trifaction-negotiator",
+                "selection": "advantageous-target",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Lashunta.TrifactionNegotiator.AdvantageousTarget",
+                        "value": "advantageous-target"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Lashunta.TrifactionNegotiator.DisadvantageousTarget",
+                        "value": "disadvantageous-target"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Lashunta.TrifactionNegotiator.Bonus",
+                "predicate": [
+                    "action:make-an-impression",
+                    "trifaction-negotiator:advantageous-target"
+                ],
+                "selector": [
+                    "skill-check"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Lashunta.TrifactionNegotiator.Penalty",
+                "predicate": [
+                    "action:make-an-impression",
+                    "trifaction-negotiator:disadvantageous-target"
+                ],
+                "selector": [
+                    "skill-check"
+                ],
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
