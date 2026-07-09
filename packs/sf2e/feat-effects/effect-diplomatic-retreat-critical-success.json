@@ -1,0 +1,53 @@
+{
+    "_id": "P17W2LiaziPOkT8f",
+    "img": "icons/equipment/feet/boots-galosh-white.webp",
+    "name": "Effect: Diplomatic Retreat (Critical Success)",
+    "system": {
+        "description": {
+            "value": "<p>You take a –2 circumstance penalty to attack rolls and to your save DCs for any hostile actions that include the origin as a target or include the origin in the area.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 13
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "diplomatic-retreat"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:diplomatic-retreat"
+                ],
+                "selector": [
+                    "attack"
+                ],
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

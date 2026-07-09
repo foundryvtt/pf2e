@@ -1,10 +1,10 @@
 {
-    "_id": "S3GNkuot8Ll6m0vK",
-    "img": "icons/magic/control/voodoo-doll-pain-damage-tan.webp",
-    "name": "Effect: Psychic Wedge",
+    "_id": "FaLV7NboBARQ1PG5",
+    "img": "icons/equipment/feet/boots-galosh-white.webp",
+    "name": "Effect: Diplomatic Retreat (Critical Failure)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Psychic Wedge]</p>\n<p>You take a –1 status penalty to saving throws against the origin's other innate spells until the end of their next turn.</p>"
+            "value": "<p>You take a +1 circumstance bonus to attack rolls and to your save DCs for any hostile actions that include the origin as a target or include the origin in the area.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -14,7 +14,7 @@
         },
         "fromSpell": false,
         "level": {
-            "value": 5
+            "value": 13
         },
         "publication": {
             "license": "ORC",
@@ -23,25 +23,24 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": [
-                    "spellcasting:innate",
-                    "origin:mark:psychic-wedge"
-                ],
-                "selector": [
-                    "saving-throw"
-                ],
-                "type": "status",
-                "value": -1
+                "key": "TokenMark",
+                "slug": "diplomatic-retreat"
             },
             {
-                "key": "TokenMark",
-                "slug": "psychic-wedge"
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:diplomatic-retreat"
+                ],
+                "selector": [
+                    "attack"
+                ],
+                "type": "circumstance",
+                "value": 1
             }
         ],
         "start": {
             "initiative": null,
-            "value": 6
+            "value": 0
         },
         "tokenIcon": {
             "show": true
