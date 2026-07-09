@@ -26,7 +26,22 @@
             "remaster": true,
             "title": "Starfinder Galactic Ancestries"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "property": "traits",
+                "value": "ancestry"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|system.details.ancestry.trait}"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
@@ -34,7 +49,9 @@
         },
         "traits": {
             "rarity": "common",
-            "value": []
+            "value": [
+                "ancestry"
+            ]
         }
     },
     "type": "feat"

@@ -750,6 +750,7 @@ const featTraits = {
     ...damageTraits,
     ...magicTraditions,
     ...spellTraits,
+    ancestry: "PF2E.TraitAncestry",
     additive: "PF2E.TraitAdditive",
     additive1: "PF2E.TraitAdditive1",
     additive2: "PF2E.TraitAdditive2",

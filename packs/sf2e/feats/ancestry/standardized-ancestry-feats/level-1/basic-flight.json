@@ -31,6 +31,20 @@
         },
         "rules": [
             {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "property": "traits",
+                "value": "ancestry"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|system.details.ancestry.trait}"
+            },
+            {
                 "key": "RollOption",
                 "option": "basic-flight",
                 "predicate": [
@@ -59,6 +73,7 @@
         "traits": {
             "rarity": "common",
             "value": [
+                "ancestry",
                 "manipulate"
             ]
         }

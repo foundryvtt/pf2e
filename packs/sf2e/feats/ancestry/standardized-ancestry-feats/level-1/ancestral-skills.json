@@ -27,6 +27,20 @@
         },
         "rules": [
             {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "property": "traits",
+                "value": "ancestry"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|system.details.ancestry.trait}"
+            },
+            {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.{actor|flags.system.standardizedAncestryFeats.ancestralSkills.skillOne}.rank",
@@ -60,7 +74,9 @@
         },
         "traits": {
             "rarity": "common",
-            "value": []
+            "value": [
+                "ancestry"
+            ]
         }
     },
     "type": "feat"

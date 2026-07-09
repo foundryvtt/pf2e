@@ -13,8 +13,6 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     override searchFields = ["name", "originalName"];
     override storeFields = ["name", "originalName", "img", "uuid", "level", "rarity", "options"];
 
-    #creatureTraits = CONFIG.PF2E.creatureTraits;
-
     constructor(browser: CompendiumBrowser) {
         super(browser);
 
@@ -98,11 +96,6 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     `rarity:${system.traits.rarity}`,
                     this.preparePublicationSource(pubSource, publications),
                 ];
-
-                // Tag ancestry items without an ancestry trait
-                if (category === "ancestry" && !traits.some((t) => t in this.#creatureTraits)) {
-                    options.push("trait:ancestry:universal");
-                }
 
                 feats.push({
                     name: featData.name,

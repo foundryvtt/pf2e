@@ -33,6 +33,20 @@
             {
                 "itemId": "{item|id}",
                 "key": "ItemAlteration",
+                "mode": "remove",
+                "property": "traits",
+                "value": "ancestry"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|system.details.ancestry.trait}"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
                 "mode": "override",
                 "property": "description",
                 "value": [
@@ -49,7 +63,9 @@
         },
         "traits": {
             "rarity": "common",
-            "value": []
+            "value": [
+                "ancestry"
+            ]
         }
     },
     "type": "feat"
