@@ -29,7 +29,25 @@
             "remaster": true,
             "title": "Starfinder Galactic Ancestries"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:jaws"
+                ],
+                "property": "traits",
+                "value": "finesse"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "selector": "jaws-damage"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
