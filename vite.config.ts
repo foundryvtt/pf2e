@@ -243,6 +243,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         publicDir: "static",
         define: {
             SYSTEM_ID: JSON.stringify(SYSTEM_ID),
+            SYSTEM_NAME: JSON.stringify(SYSTEM_ID === "pf2e" ? "PF2e" : "SF2e"),
             BUILD_MODE: JSON.stringify(buildMode),
             CONDITION_SOURCES: JSON.stringify(CONDITION_SOURCES),
             EN_JSON: JSON.stringify(EN_JSON),

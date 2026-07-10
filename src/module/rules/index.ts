@@ -102,7 +102,7 @@ class RuleElements {
         for (const [sourceIndex, source] of item.system.rules.entries()) {
             if (typeof source.key !== "string") {
                 console.error(
-                    `PF2e System | Missing key in rule element ${source.key} on item ${item.name} (${item.uuid})`,
+                    `${SYSTEM_NAME} System | Missing key in rule element ${source.key} on item ${item.name} (${item.uuid})`,
                 );
                 continue;
             }
@@ -113,7 +113,7 @@ class RuleElements {
                 } catch (error) {
                     if (!options?.suppressWarnings) {
                         console.warn(
-                            `PF2e System | Failed to construct rule element ${source.key} on item ${item.name}`,
+                            `${SYSTEM_NAME} System | Failed to construct rule element ${source.key} on item ${item.name}`,
                             `(${item.uuid})`,
                         );
                         console.warn(error);
@@ -121,7 +121,9 @@ class RuleElements {
                 }
             } else {
                 const { name, uuid } = item;
-                console.warn(`PF2e System | Unrecognized rule element ${source.key} on item ${name} (${uuid})`);
+                console.warn(
+                    `${SYSTEM_NAME} System | Unrecognized rule element ${source.key} on item ${name} (${uuid})`,
+                );
             }
         }
         return rules;

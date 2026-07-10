@@ -51,7 +51,7 @@ class HTMLTagifyTagsElement extends foundry.applications.elements.AbstractFormIn
         } catch (error) {
             if (error instanceof Error) {
                 console.error(
-                    new Error(`PF2e System | Invalid value for HTMLTagifyTagsElement: ${value}`, {
+                    new Error(`${SYSTEM_NAME} System | Invalid value for HTMLTagifyTagsElement: ${value}`, {
                         cause: error,
                     }),
                 );

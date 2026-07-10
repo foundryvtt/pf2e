@@ -72,7 +72,7 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     override prepareActorData(this: AncestryPF2e<CharacterPF2e>): void {
         const actor = this.actor;
         if (!actor.isOfType("character")) {
-            console.error("PF2e System | Only a character can have an ancestry");
+            console.error(`${SYSTEM_NAME} System | Only a character can have an ancestry`);
             return;
         }
 

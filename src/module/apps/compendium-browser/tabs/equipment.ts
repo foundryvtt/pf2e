@@ -24,7 +24,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     }
 
     protected override async loadData(): Promise<void> {
-        console.debug("PF2e System | Compendium Browser | Started loading inventory items");
+        console.debug(`${SYSTEM_NAME} System | Compendium Browser | Started loading inventory items`);
 
         const equipment: CompendiumBrowserIndexData[] = [];
         const itemTypes = [...PHYSICAL_ITEM_TYPES, "kit"];
@@ -42,7 +42,9 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             this.browser.loadedPacks("equipment"),
             indexFields,
         )) {
-            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
+            console.debug(
+                `${SYSTEM_NAME} System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`,
+            );
             for (const itemData of index) {
                 if (itemData.type === "treasure" && itemData.system.category === "coin") continue;
                 if (itemTypes.includes(itemData.type)) {
@@ -148,7 +150,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         });
         this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
 
-        console.debug("PF2e System | Compendium Browser | Finished loading inventory items");
+        console.debug(`${SYSTEM_NAME} System | Compendium Browser | Finished loading inventory items`);
     }
 
     override parseRangeFilterInput(name: string, lower: string, upper: string): RangesInputData["values"] {

@@ -40,6 +40,7 @@ global.game = Object.freeze({
 
 Object.assign(globalThis, {
     SYSTEM_ID: "pf2e",
+    SYSTEM_NAME: "PF2e",
     CONFIG: { PF2E: { skills: {} } },
     Actor: MockActor,
     Item: MockItem,
