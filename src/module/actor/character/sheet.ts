@@ -428,13 +428,14 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 ...baseData,
                 img: ((): ImageFilePath => {
                     const actionIcon = getActionIcon(item.actionCost);
+                    if (!baseData.usable) return actionIcon;
+
                     const defaultIcon = ItemPF2e.getDefaultArtwork(item._source).img;
                     const commonFeatIcon = "icons/sundries/books/book-red-exclamation.webp";
                     const isDefaultImage = [actionIcon, defaultIcon, commonFeatIcon].includes(item.img);
-                    if (item.isOfType("action") && !isDefaultImage) {
-                        return item.img;
-                    }
-                    return item.system.selfEffect?.img ?? (baseData.usable && !isDefaultImage ? item.img : actionIcon);
+                    return !isDefaultImage && item.isOfType("action")
+                        ? item.img
+                        : (item.system.selfEffect?.img ?? actionIcon);
                 })(),
                 feat: item.isOfType("feat") ? item : null,
                 toggles: item.system.traits.toggles?.getSheetData() ?? [],
