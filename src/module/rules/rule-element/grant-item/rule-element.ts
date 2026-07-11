@@ -1,15 +1,20 @@
 import type { ActorPF2e, ActorType } from "@actor";
 import type { ClientDocument } from "@client/documents/abstract/_module.d.mts";
 import type { DatabaseCreateOperation } from "@common/abstract/_module.d.mts";
-import type { SourceFromSchema } from "@common/data/fields.d.mts";
 import { ConditionPF2e, ItemPF2e, ItemProxyPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
-import type { ItemGrantDeleteAction, ItemGranterSource, ItemSourceFlagsPF2e } from "@item/base/data/system.ts";
+import type { ItemGranterSource, ItemSourceFlagsPF2e } from "@item/base/data/system.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
-import { SlugField, StrictArrayField } from "@system/schema-data-fields.ts";
-import { ErrorPF2e, setHasElement, sluggify, tupleHasValue } from "@util";
+import {
+    DataUnionField,
+    RecordField,
+    SlugField,
+    StrictArrayField,
+    StrictNumberField,
+    StrictStringField,
+} from "@system/schema-data-fields.ts";
+import { ErrorPF2e, setHasElement, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
-import * as R from "remeda";
 import { RuleElement, RuleElementOptions } from "../base.ts";
 import type { ChoiceSetSource } from "../choice-set/data.ts";
 import { ChoiceSetRuleElement } from "../choice-set/rule-element.ts";
@@ -17,20 +22,13 @@ import type { ModelPropsFromRESchema, RuleElementSource } from "../data.ts";
 import { ItemAlteration } from "../item-alteration/alteration.ts";
 import type { GrantItemSchema } from "./schema.ts";
 
+import fields = foundry.data.fields;
+
 class GrantItemRuleElement extends RuleElement<GrantItemSchema> {
     static override validActorTypes: ActorType[] = ["army", "character", "npc", "familiar"];
 
     /** The id of the granted item */
     grantedId: string | null = null;
-
-    /**
-     * If the granted item has a `ChoiceSet`, its selection may be predetermined. The key of the record must be the
-     * `ChoiceSet`'s designated `flag` property.
-     */
-    preselectChoices: Record<string, string | number> = {};
-
-    /** Actions taken when either the parent or child item are deleted */
-    onDeleteActions: OnDeleteActions | null = null;
 
     constructor(data: GrantItemSource, options: RuleElementOptions) {
         // Run slightly earlier if granting an in-memory condition
@@ -49,13 +47,6 @@ class GrantItemRuleElement extends RuleElement<GrantItemSchema> {
             }
         }
 
-        this.onDeleteActions = this.#getOnDeleteActions(data);
-        const isValidPreselect = (p: Record<string, unknown>): p is Record<string, string | number> =>
-            Object.values(p).every((v) => ["string", "number"].includes(typeof v));
-        this.preselectChoices =
-            R.isPlainObject(data.preselectChoices) && isValidPreselect(data.preselectChoices)
-                ? fu.deepClone(data.preselectChoices)
-                : {};
         this.grantedId = this.parent.flags[SYSTEM_ID].itemGrants[this.flag ?? ""]?.id ?? null;
 
         if (this.track) {
@@ -69,7 +60,7 @@ class GrantItemRuleElement extends RuleElement<GrantItemSchema> {
     }
 
     static override defineSchema(): GrantItemSchema {
-        const fields = foundry.data.fields;
+        const deleteActions = ["cascade", "detach", "restrict"] as const;
         return {
             ...super.defineSchema(),
             uuid: new fields.StringField({
@@ -86,6 +77,31 @@ class GrantItemRuleElement extends RuleElement<GrantItemSchema> {
                 initial: true,
                 label: "PF2E.RuleEditor.GrantItem.AllowDuplicate",
             }),
+            onDeleteActions: new fields.SchemaField({
+                granter: new fields.StringField({
+                    required: true,
+                    nullable: true,
+                    choices: deleteActions,
+                    initial: null,
+                }),
+                grantee: new fields.StringField({
+                    required: true,
+                    nullable: true,
+                    choices: deleteActions,
+                    initial: null,
+                }),
+            }),
+            preselectChoices: new RecordField(
+                new fields.StringField({ required: true, blank: false }),
+                new DataUnionField(
+                    [
+                        new StrictStringField<string, string, true, false, false>({ required: true, blank: false }),
+                        new StrictNumberField<number, number, true, false, false>({ required: true, nullable: false }),
+                    ],
+                    { required: true, nullable: false, initial: undefined },
+                ),
+                { required: true, nullable: true, initial: null },
+            ),
             nestUnderGranter: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             alterations: new StrictArrayField(new fields.EmbeddedDataField(ItemAlteration)),
             track: new fields.BooleanField(),
@@ -94,7 +110,7 @@ class GrantItemRuleElement extends RuleElement<GrantItemSchema> {
 
     static ON_DELETE_ACTIONS = ["cascade", "detach", "restrict"] as const;
 
-    static override validateJoint(data: SourceFromSchema<GrantItemSchema>): void {
+    static override validateJoint(data: fields.SourceFromSchema<GrantItemSchema>): void {
         super.validateJoint(data);
 
         if (data.track && !data.flag) {
@@ -274,19 +290,6 @@ class GrantItemRuleElement extends RuleElement<GrantItemSchema> {
         }
     }
 
-    #getOnDeleteActions(data: GrantItemSource): OnDeleteActions | null {
-        const actions = data.onDeleteActions;
-        if (!R.isPlainObject(actions)) return null;
-        const ACTIONS = GrantItemRuleElement.ON_DELETE_ACTIONS;
-        const { granter, grantee } = actions;
-        return granter || grantee
-            ? {
-                  granter: tupleHasValue(ACTIONS, granter) ? granter : null,
-                  grantee: tupleHasValue(ACTIONS, grantee) ? grantee : null,
-              }
-            : null;
-    }
-
     /** Apply preselected choices to the granted item's choices sets. */
     #applyChoicePreselections(grantedItem: ItemPF2e<ActorPF2e>): void {
         const source = grantedItem._source;
@@ -297,7 +300,7 @@ class GrantItemRuleElement extends RuleElement<GrantItemSchema> {
             if (rule) {
                 const ruleSource = source.system.rules[grantedItem.rules.indexOf(rule)] as ChoiceSetSource;
                 const resolvedSelection = this.resolveInjectedProperties(selection);
-                rule.selection = ruleSource.selection = resolvedSelection;
+                if (resolvedSelection !== undefined) rule.selection = ruleSource.selection = resolvedSelection;
             }
         }
     }
@@ -315,7 +318,7 @@ class GrantItemRuleElement extends RuleElement<GrantItemSchema> {
             id: grantee instanceof ItemPF2e ? grantee.id : grantee._id!,
             // The on-delete action determines what will happen to the granter item when the granted item is deleted:
             // Default to "detach" (do nothing).
-            onDelete: this.onDeleteActions?.grantee ?? "detach",
+            onDelete: this.onDeleteActions.grantee ?? "detach",
         };
         if (granter.type === "feat" && grantee.type === "feat" && this.nestUnderGranter === false) {
             newFlagData.nested = this.nestUnderGranter;
@@ -431,11 +434,6 @@ interface GrantItemSource extends RuleElementSource {
     onDeleteActions?: unknown;
     flag?: unknown;
     alterations?: unknown;
-}
-
-interface OnDeleteActions {
-    granter: ItemGrantDeleteAction | null;
-    grantee: ItemGrantDeleteAction | null;
 }
 
 export { GrantItemRuleElement, type GrantItemSource };
