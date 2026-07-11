@@ -175,8 +175,10 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
                 const active = populateList
                     ? group.prepared.map((slot) => {
                           const spell = slot && this.get(slot.id ?? "");
-                          const castRank = spell?.computeCastRank(rank);
-                          return spell ? { castRank, spell, expended: slot.expended } : null;
+                          if (!spell) return null;
+                          const castRank = spell.computeCastRank(rank);
+                          const variant = (castRank ? spell.loadVariant({ castRank }) : null) ?? spell;
+                          return { castRank, spell: variant, expended: slot.expended };
                       })
                     : [];
 
@@ -199,7 +201,9 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
             const normal = spells.filter((spell) => !spell.isCantrip);
 
             if (cantrips.length) {
-                const active = cantrips.map((spell) => ({ spell }));
+                const active = cantrips.map((spell) => ({
+                    spell: spell.loadVariant({ castRank: spell.rank }) ?? spell,
+                }));
                 groups.push({
                     id: "cantrips",
                     maxRank: maxCantripRank,
@@ -209,7 +213,9 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
             }
 
             if (normal.length > 0) {
-                const active = normal.map((spell) => ({ spell }));
+                const active = normal.map((spell) => ({
+                    spell: spell.loadVariant({ castRank: spell.rank }) ?? spell,
+                }));
                 groups.push({
                     id: maxCantripRank,
                     maxRank: maxCantripRank,
@@ -230,7 +236,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
                     const uses =
                         this.entry.isSpontaneous && rank !== 0 ? { value: data.value, max: data.max } : undefined;
                     const active = spells.map((spell) => ({
-                        spell,
+                        spell: spell.loadVariant({ castRank: spell.rank }) ?? spell,
                         expended: isInnate && !spell.system.location.uses?.value,
                         uses: isInnate && !spell.atWill ? spell.system.location.uses : undefined,
                     }));
@@ -275,7 +281,8 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
                         existing.signature = true;
                     } else if (group.uses?.max) {
                         const castRank = group.id;
-                        group.active.push({ spell, castRank, signature: true, virtual: true });
+                        const variant = spell.loadVariant({ castRank }) ?? spell;
+                        group.active.push({ spell: variant, castRank, signature: true, virtual: true });
                     }
                 }
             }
@@ -316,7 +323,10 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
                     id: Number(rank) as SpellSlotGroupId,
                     label: _loc("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(Number(rank)) }),
                     maxRank: 10,
-                    active: spells.map((spell) => ({ spell, expended: spell.parentItem?.uses.value === 0 })),
+                    active: spells.map((spell) => ({
+                        spell: spell.loadVariant({ castRank: spell.rank }) ?? spell,
+                        expended: spell.parentItem?.uses.value === 0,
+                    })),
                 }),
             );
 
