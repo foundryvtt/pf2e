@@ -311,14 +311,12 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<string, Spell
         const groupedByRank = R.groupBy(Array.from(this.values()), (s) => s.rank);
         const groups = R.entries(groupedByRank)
             .sort(([a], [b]) => Number(a) - Number(b))
-            .map(
-                ([rank, spells]): SpellcastingSlotGroup => ({
-                    id: Number(rank) as SpellSlotGroupId,
-                    label: _loc("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(Number(rank)) }),
-                    maxRank: 10,
-                    active: spells.map((spell) => ({ spell, expended: spell.parentItem?.uses.value === 0 })),
-                }),
-            );
+            .map(([rank, spells]): SpellcastingSlotGroup => ({
+                id: Number(rank) as SpellSlotGroupId,
+                label: _loc("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(Number(rank)) }),
+                maxRank: 10,
+                active: spells.map((spell) => ({ spell, expended: spell.parentItem?.uses.value === 0 })),
+            }));
 
         return { groups, prepList: null };
     }

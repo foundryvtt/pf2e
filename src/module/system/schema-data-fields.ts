@@ -508,22 +508,19 @@ class PredicateField<
 
 type RecordFieldModelProp<
     TKeyField extends
-        | fields.StringField<string, string, true, false, false>
-        | fields.NumberField<number, number, true, false, false>,
+        fields.StringField<string, string, true, false, false> | fields.NumberField<number, number, true, false, false>,
     TValueField extends fields.DataField,
     TDense extends boolean = false,
 > = TDense extends true
     ? Record<ModelPropFromDataField<TKeyField>, ModelPropFromDataField<TValueField>>
     : TDense extends false
       ? Partial<Record<ModelPropFromDataField<TKeyField>, ModelPropFromDataField<TValueField>>>
-      :
-            | Record<ModelPropFromDataField<TKeyField>, ModelPropFromDataField<TValueField>>
-            | Partial<Record<ModelPropFromDataField<TKeyField>, ModelPropFromDataField<TValueField>>>;
+      : | Record<ModelPropFromDataField<TKeyField>, ModelPropFromDataField<TValueField>>
+        | Partial<Record<ModelPropFromDataField<TKeyField>, ModelPropFromDataField<TValueField>>>;
 
 type RecordFieldSourceProp<
     TKeyField extends
-        | fields.StringField<string, string, true, false, false>
-        | fields.NumberField<number, number, true, false, false>,
+        fields.StringField<string, string, true, false, false> | fields.NumberField<number, number, true, false, false>,
     TValueField extends fields.DataField,
     /** Whether this is to be treated as a "dense" record; i.e., any valid key should return a value */
     TDense extends boolean = false,
@@ -531,14 +528,12 @@ type RecordFieldSourceProp<
     ? Record<SourceFromDataField<TKeyField>, SourceFromDataField<TValueField>>
     : TDense extends false
       ? Partial<Record<SourceFromDataField<TKeyField>, SourceFromDataField<TValueField>>>
-      :
-            | Record<SourceFromDataField<TKeyField>, SourceFromDataField<TValueField>>
-            | Partial<Record<SourceFromDataField<TKeyField>, SourceFromDataField<TValueField>>>;
+      : | Record<SourceFromDataField<TKeyField>, SourceFromDataField<TValueField>>
+        | Partial<Record<SourceFromDataField<TKeyField>, SourceFromDataField<TValueField>>>;
 
 class RecordField<
     TKeyField extends
-        | fields.StringField<string, string, true, false, false>
-        | fields.NumberField<number, number, true, false, false>,
+        fields.StringField<string, string, true, false, false> | fields.NumberField<number, number, true, false, false>,
     TValueField extends fields.DataField,
     TRequired extends boolean = true,
     TNullable extends boolean = false,

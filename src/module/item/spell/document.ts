@@ -826,12 +826,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         const variants = this.overlays.overrideVariants
-            .map(
-                (variant): SpellVariantChatData => ({
-                    ...R.pick(variant, ["name", "actionGlyph", "sort"]),
-                    overlayIds: [...variant.appliedOverlays!.values()],
-                }),
-            )
+            .map((variant): SpellVariantChatData => ({
+                ...R.pick(variant, ["name", "actionGlyph", "sort"]),
+                overlayIds: [...variant.appliedOverlays!.values()],
+            }))
             .sort((a, b) => a.sort - b.sort);
 
         const rollData =

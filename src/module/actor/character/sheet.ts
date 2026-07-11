@@ -225,13 +225,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const allClassDCs = Object.values(sheetData.data.proficiencies.classDCs);
         const classDCs = allClassDCs
             .filter((cdc) => cdc.rank > 0 || allClassDCs.length > 1)
-            .map(
-                (classDC): ClassDCSheetData => ({
-                    ...classDC,
-                    icon: this.getProficiencyIcon(classDC.rank),
-                    hover: CONFIG.PF2E.proficiencyLevels[classDC.rank],
-                }),
-            )
+            .map((classDC): ClassDCSheetData => ({
+                ...classDC,
+                icon: this.getProficiencyIcon(classDC.rank),
+                hover: CONFIG.PF2E.proficiencyLevels[classDC.rank],
+            }))
             .sort((a, b) => (a.primary ? -1 : b.primary ? 1 : a.slug.localeCompare(b.slug)));
         const primaryClassDC = sheetData.data.attributes.classDC?.slug ?? null;
 

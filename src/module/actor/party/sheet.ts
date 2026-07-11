@@ -227,18 +227,16 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         return {
             languages: R.sortBy(
-                [...allLanguages].map(
-                    (language): LanguageSheetData => ({
-                        slug: language,
-                        label:
-                            language === "common" && commonLanguage
-                                ? _loc("PF2E.Actor.Creature.Language.CommonLanguage", {
-                                      language: _loc(CONFIG.PF2E.languages[commonLanguage]),
-                                  })
-                                : _loc(CONFIG.PF2E.languages[language]),
-                        actors: this.#getActorsThatUnderstand(language),
-                    }),
-                ),
+                [...allLanguages].map((language): LanguageSheetData => ({
+                    slug: language,
+                    label:
+                        language === "common" && commonLanguage
+                            ? _loc("PF2E.Actor.Creature.Language.CommonLanguage", {
+                                  language: _loc(CONFIG.PF2E.languages[commonLanguage]),
+                              })
+                            : _loc(CONFIG.PF2E.languages[language]),
+                    actors: this.#getActorsThatUnderstand(language),
+                })),
                 (l) => (l.slug === "common" ? "" : l.label),
             ),
             skills: R.sortBy(

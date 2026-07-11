@@ -130,8 +130,7 @@ interface ToggleDoubleBarrelParams {
 }
 
 type ToggleModularVersatileParams =
-    | { trait: "modular"; selected: number | null }
-    | { trait: "versatile"; selected: DamageType | null };
+    { trait: "modular"; selected: number | null } | { trait: "versatile"; selected: DamageType | null };
 
 type ToggleWeaponTraitParams = ToggleDoubleBarrelParams | ToggleModularVersatileParams;
 

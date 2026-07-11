@@ -185,14 +185,12 @@ function calculateMAPs(
     const fromSynthetics = domains
         .flatMap((d) => maps[d] ?? [])
         .filter((p) => p.predicate.test(optionSet))
-        .map(
-            (p): MultipleAttackPenaltyData => ({
-                slug: baseMap.slug,
-                label: p.label,
-                map1: p.penalty,
-                map2: p.penalty * 2,
-            }),
-        );
+        .map((p): MultipleAttackPenaltyData => ({
+            slug: baseMap.slug,
+            label: p.label,
+            map1: p.penalty,
+            map2: p.penalty * 2,
+        }));
 
     // Find lowest multiple attack penalty: penalties are negative, so actually looking for the highest value
     return [baseMap, ...fromSynthetics].reduce((lowest, p) => (p.map1 > lowest.map1 ? p : lowest));

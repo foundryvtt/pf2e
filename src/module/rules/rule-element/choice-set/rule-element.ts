@@ -378,13 +378,11 @@ class ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema> {
         const choices = [...iterateAllItems(this.actor)]
             .filter((i) => i.isOfType(...types) && predicate.test([...actorRollOptions, ...i.getRollOptions("item")]))
             .filter((i) => !i.isOfType("weapon") || i.category !== "unarmed")
-            .map(
-                (i): PickableThing<string> => ({
-                    img: i.img,
-                    label: i.name,
-                    value: i.id,
-                }),
-            );
+            .map((i): PickableThing<string> => ({
+                img: i.img,
+                label: i.name,
+                value: i.id,
+            }));
 
         if (includeHandwraps) {
             choices.push(
@@ -404,13 +402,11 @@ class ChoiceSetRuleElement extends RuleElement<ChoiceSetSchema> {
                     (i) => i.isOfType(...types) && predicate.test([...actorRollOptions, ...i.getRollOptions("item")]),
                 )
                 .filter((i) => !i.isOfType("weapon") || i.category !== "unarmed")
-                .map(
-                    (i): PickableThing<string> => ({
-                        img: i.img,
-                        label: i.name,
-                        value: i.id,
-                    }),
-                ),
+                .map((i): PickableThing<string> => ({
+                    img: i.img,
+                    label: i.name,
+                    value: i.id,
+                })),
         );
 
         return choices;

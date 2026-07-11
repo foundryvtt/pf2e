@@ -59,8 +59,7 @@ export default class BaseSamplerShader extends AbstractBaseShader {
      * Batch geometry associated with this sampler.
      */
     static batchGeometry:
-        | typeof PIXI.BatchGeometry
-        | { id: string; size: number; normalized: boolean; type: PIXI.TYPES }[];
+        typeof PIXI.BatchGeometry | { id: string; size: number; normalized: boolean; type: PIXI.TYPES }[];
 
     /**
      * The size of a vertice with all its packed attributes.
