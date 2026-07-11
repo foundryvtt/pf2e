@@ -114,7 +114,8 @@
 
             const baseBoosts = Object.values(ancestry.system.boosts);
             const selectedBoosts = baseBoosts.map((b) => b.selected).filter((b): b is AttributeString => !!b);
-            const maxBoosts = baseBoosts.filter((b) => b.value.length > 0 || b.selected).length;
+            // Count only slots that offer options. Empty slots grant nothing
+            const maxBoosts = baseBoosts.filter((b) => b.value.length > 0).length;
             return [maxBoosts, selectedBoosts];
         })();
 

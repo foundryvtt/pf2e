@@ -201,11 +201,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
             const keyAttributeSelected =
                 !sheetData.class || build.attributes.keyOptions.includes(sheetData.data.details.keyability.value);
+            // Complete when selections cover every slot that offers options
+            const unfilledAncestryBoosts = Object.values(sheetData.ancestry?.system.boosts ?? {}).reduce(
+                (count, b) => count + (b.value.length > 0 ? 1 : 0) - (b.selected ? 1 : 0),
+                0,
+            );
             const ancestryBoostsSelected =
-                (sheetData.ancestry?.system.alternateAncestryBoosts?.length === 2 ||
-                    Object.values(sheetData.ancestry?.system.boosts ?? {}).every(
-                        (b) => b.value.length === 0 || !!b.selected,
-                    )) &&
+                (sheetData.ancestry?.system.alternateAncestryBoosts?.length === 2 || unfilledAncestryBoosts <= 0) &&
                 sheetData.ancestry?.system.voluntary?.boost !== null;
             const backgroundBoostsSelected = Object.values(sheetData.background?.system.boosts ?? {}).every(
                 (b) => b.value.length === 0 || !!b.selected,
