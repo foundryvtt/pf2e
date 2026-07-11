@@ -1,6 +1,6 @@
 {
     "_id": "UL5eKHxrLJZw2If1",
-    "img": "icons/magic/acid/dissolve-vomit-green-brown.webp",
+    "img": "icons/consumables/food/chicken-bird-cooked.webp",
     "name": "Spell Effect: Overstuff",
     "system": {
         "description": {
@@ -26,20 +26,33 @@
                 "choices": [
                     {
                         "label": "PF2E.Check.Result.Degree.Check.success",
-                        "value": 1
+                        "value": {
+                            "badge": 1,
+                            "degree": "success"
+                        }
                     },
                     {
                         "label": "PF2E.Check.Result.Degree.Check.failure",
-                        "value": 1
+                        "value": {
+                            "badge": 1,
+                            "degree": "failure"
+                        }
                     },
                     {
                         "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
-                        "value": 2
+                        "value": {
+                            "badge": 2,
+                            "degree": "critical-failure"
+                        }
                     }
                 ],
                 "flag": "overstuff",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "RollOption",
+                "option": "overstuff:{item|flags.system.rulesSelections.overstuff.degree}"
             },
             {
                 "key": "FlatModifier",
@@ -55,12 +68,27 @@
                     {
                         "mode": "override",
                         "property": "badge-value",
-                        "value": "@item.flags.system.rulesSelections.overstuff"
+                        "value": "@item.flags.system.rulesSelections.overstuff.badge"
                     }
                 ],
                 "inMemoryOnly": true,
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.conditionitems.Item.Sickened"
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:granter:id:{item|id}",
+                    "overstuff:success"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.SpellEffectOverstuff.Addendum"
+                    }
+                ]
             }
         ],
         "start": {
