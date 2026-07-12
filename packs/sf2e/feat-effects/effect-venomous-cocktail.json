@@ -1,0 +1,138 @@
+{
+    "_id": "2i0i7JDaUdAXc0bJ",
+    "img": "icons/creatures/slimes/slime-movement-swirling-green.webp",
+    "name": "Effect: Venomous Cocktail",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Venomous Cocktail]</p>\n<p>Add poison damage to the next Strike you make with your venomous jaws.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Vesk.VenomousCocktail.PoisonDose",
+                        "value": "poison-dose"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Equipment.Grades.Commercial",
+                        "value": "commercial"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Equipment.Grades.Tactical",
+                        "value": "tactical"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Equipment.Grades.Advanced",
+                        "value": "advanced"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Equipment.Grades.Superior",
+                        "value": "superior"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Equipment.Grades.Elite",
+                        "value": "elite"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Equipment.Grades.Ultimate",
+                        "value": "ultimate"
+                    },
+                    {
+                        "label": "SF2E.SpecificRule.Equipment.Grades.Paragon",
+                        "value": "paragon"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Vesk.VenomousCocktail.ChoiceLabel",
+                "rollOption": "venomous-cocktail"
+            },
+            {
+                "critical": false,
+                "damageType": "poison",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "venomous-cocktail:poison-dose",
+                            "venomous-cocktail:commercial",
+                            "venomous-cocktail:tactical"
+                        ]
+                    }
+                ],
+                "selector": "venomous-jaws-damage"
+            },
+            {
+                "critical": false,
+                "damageType": "poison",
+                "diceNumber": 2,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "venomous-cocktail:advanced",
+                            "venomous-cocktail:superior"
+                        ]
+                    }
+                ],
+                "selector": "venomous-jaws-damage"
+            },
+            {
+                "critical": false,
+                "damageType": "poison",
+                "diceNumber": 3,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "venomous-cocktail:elite",
+                            "venomous-cocktail:ultimate"
+                        ]
+                    }
+                ],
+                "selector": "venomous-jaws-damage"
+            },
+            {
+                "critical": false,
+                "damageType": "poison",
+                "diceNumber": 4,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "venomous-cocktail:paragon"
+                ],
+                "selector": "venomous-jaws-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
