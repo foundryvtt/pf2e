@@ -1,0 +1,100 @@
+{
+    "_id": "inA9IHhA3O9CMYQn",
+    "folder": "EqAdk5RuC4lxlZkq",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Pij1LMVH9GA7ZgD2",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Your Legacies are Failures",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A humanoid ends their turn in the room</p><hr /><p><strong>Effect</strong> The room's built-in light sources lower to dim illumination (although any light sources carried by PCs are unaffected), and the depictions of the heroics in the dioramas and statues transform into depictions of fear and cowardice. All humanoids in the room must make a @Check[will|dc:24|options:inflicts:frightened] save to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure). The haunt then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "What All Heroes Fear",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 15
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The depictions of heroic deeds transform as the lights dim, becoming testaments to cowardice and failure.</p>",
+            "disable": "<p>@Check[intimidation|dc:25] to push back against the haunt with your own memories of bravery or @Check[religion|dc:28] to exorcise the haunt; three successes are required to disable it.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+            },
+            "reset": "<p>The haunt deactivates at the start of any round in which there are no living humanoids in the room, then resets 1 minute later.</p>",
+            "routine": "<p>(2 actions; emotion, fear, mental) On its initiative, the haunt's first action is to randomly select one humanoid in the room. All of the depictions of Eragayl in the artwork transform to depict that humanoid, who becomes the focus of the haunt. On its second action, the haunt's depictions animate, showing the targeted humanoid as they are slowly destroyed by what they fear most. All humanoids in the room must make a @Check[will|dc:24|options:inflicts:frightened,inflicts:paralyzed|traits:emotion,fear,mental] save, with the target taking a –2 status penalty to the save.</p><hr><p><strong>Critical Success</strong> The creature is unaffected.</p><p><strong>Success</strong> The creature takes @Damage[(2d6+1)[mental]|traits:emotion,fear,mental] damage from the conviction that they'll be remembered as a coward and a failure.</p><p><strong>Failure</strong> As success, but @Damage[(4d6+2)[mental]|traits:emotion,fear,mental] damage, and the creature increases its frightened condition value by 1 to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4}.</p><p><strong>Critical Failure</strong> As failure, but @Damage[(8d6+4)[mental]|traits:emotion,fear,mental] damage. If the creature is already frightened 4, they become @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] with fear until the start of the haunt's next turn.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -1,0 +1,137 @@
+{
+    "_id": "Hd7R87hWYtxYspko",
+    "folder": "WCdMT7pfY0oN0rSO",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "dRKOkFI2TRRFC8Us",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Dreamtime Bloom",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A Small or larger living creature spends more than a minute in the room, or anyone attempts to move or damage the plant</p><hr /><p><strong>Effect</strong> The dreamwell plant's flowers bloom and fill the air in area <strong>F14</strong> with soporific scents. All creatures in the room must attempt a @Check[will|dc:30|options:inflicts:incapacitated,inflicts:slowed] save with the following effects; the haunt then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The character is unaffected.</p>\n<p><strong>Success</strong> The character takes a –1 status penalty to their initiative roll at the start of the following round.</p>\n<p><strong>Failure</strong> As success, but the character is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} from sudden tiredness. The affected character can attempt a new @Check[will|dc:30] save at the end of a round to recover from this condition; otherwise, it lasts for 1 minute.</p>\n<p><strong>Critical Failure</strong> The character falls @UUID[Compendium.pf2e.conditionitems.Item.Unconscious]. If it's still unconscious (and alive) after 1 hour, it wakes up automatically.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "incapacitation",
+                        "mental",
+                        "sleep"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "The Babies Are So Hungry",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 31
+            },
+            "emitsSound": "encounter",
+            "hardness": 20,
+            "hp": {
+                "details": "",
+                "max": 80,
+                "temp": 0,
+                "value": 80
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 10
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 10
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 23
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "axe-vulnerability",
+                    "value": 10
+                },
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 10
+                },
+                {
+                    "exceptions": [],
+                    "type": "vitality",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>The dreamwell plant shudders and pulses, emitting more potent odors before it bursts into swarms of ravenous ghostly spiders.</p>",
+            "disable": "<p>@Check[nature|dc:33] (master) to use the dreamwell plant's own blooms to soothe the ghostly spiders or @Check[religion|dc:36] (trained) to exorcise the ghostly spiders; three successes are required to disable the haunt completely</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+            },
+            "reset": "<p>The haunt deactivates at the end of any round in which there are no Small or larger living creatures in the room, then resets automatically.</p>",
+            "routine": "<p>(2 actions) An immense swarm of thumb-sized spiders boil out of the plant's planter box and its bulbous trunk, filling the air with the nauseating sound of tens of thousands of tiny clawed feet scuttling everywhere. The haunt uses its first action to spray webbing through the area so that every creature in the room must succeed at a @Check[reflex|dc:30] save to avoid taking a –5-foot status penalty to their Speed. These penalties stack with multiple failed Reflex saves, and a character whose penalties reduce their Speed to 0 becomes @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] ([[/act escape dc=30]]).</p><p>On its second action, the phantasmal spiders begin to bite and gnaw at living flesh with fangs that are suddenly both very real and very toxic. Every creature in the room takes 2d10 piercing and @Damage[2d10[poison]] damage (@Check[fortitude|dc:30|basic] save).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 24
+            },
+            "reflex": {
+                "value": 18
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

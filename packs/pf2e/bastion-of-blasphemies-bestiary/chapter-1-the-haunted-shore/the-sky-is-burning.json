@@ -1,0 +1,144 @@
+{
+    "_id": "Er9C1qCEcQjbaqhz",
+    "folder": "VH6XwP3aPSaYPPDQ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "m3NfARJAfsbPn7Lu",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "The Sky Breathes Smoke",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature ends their turn inside the schoolroom</p><hr /><p><strong>Effect</strong> Harrowing shrieks and frightening howls echo from the skies above as smoke plumes down into the rooms below. All creatures in the schoolhouse (areas <strong>A4</strong> a–A4c) must attempt a @Check[fortitude|dc:21] save to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} from the smoke (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure). The haunt then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "naKvytPAranmHEqO",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Burning Debris",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "JoFb6C9HZJ2fioNz": {
+                        "damage": "1d6",
+                        "damageType": "fire"
+                    },
+                    "Ndh0lttMpRBb4Dnw": {
+                        "damage": "1d6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": []
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "The Sky is Burning",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 13
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>Fires suddenly spring up along the rafters of the exposed roof as strange, monstrous shapes can be glimpsed in the sky above, which is suddenly filled with smoke.</p>",
+            "disable": "<p>@Check[survival|dc:26] (trained) to extinguish fires swiftly or @Check[religion|dc:23] (expert) to exorcise the haunt; two total successes are required to disable the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+            },
+            "reset": "<p>The haunt deactivates and then resets after 1 round in which no living creatures are within the schoolhouse.</p>",
+            "routine": "<p>(4 actions) Ghostly figures flying in the skies above hurl bits of burning debris down into the three rooms of the schoolhouse below. The haunt uses its first three actions to target a random creature within the schoolhouse with a burning debris ranged Strike. A creature can't be targeted more than once per round—if there aren't enough targets for all 3 Strikes, the leftover Strike actions are wasted. On its fourth action, the haunt causes the fires in the building itself to flare up—all creatures inside the building take @Damage[2d8[fire]] damage (@Check[reflex|dc:21|basic] save). These flare-ups are the most extreme in area <strong>A4a</strong>; creatures in areas <strong>A4b</strong> or <strong>A4c</strong> gain a +2 circumstance bonus on this Reflex save.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

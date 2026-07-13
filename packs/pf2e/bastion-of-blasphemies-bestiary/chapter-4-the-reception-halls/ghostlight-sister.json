@@ -1,0 +1,515 @@
+{
+    "_id": "br1fuSnpsRfkYW1z",
+    "folder": "EqAdk5RuC4lxlZkq",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "iU95LL6xQRX0h6Yy",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.bAfyWCvgsYDyw3ff"
+            },
+            "img": "systems/pf2e/icons/equipment/held-items/maestros-instrument.webp",
+            "name": "Maestro's Intrument",
+            "sort": 100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A <em>maestro's instrument</em> can be crafted in the form of any variety of handheld musical instruments. A <em>maestro's instrument</em> grants you a +1 item bonus to Performance checks while playing music with the instrument.</p><hr /><p><strong>Activate—Charming Performance</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You play the instrument, causing it to cast a DC 17 @UUID[Compendium.pf2e.spells-srd.Item.Charm] spell.</p><hr /><p><strong>Craft Requirements</strong> You must supply a casting of <em>charm</em> of the appropriate rank.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 60
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "domain": "performance",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.PlayingItem",
+                        "option": "playing",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "playing"
+                        ],
+                        "selector": "performance",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "maestros-instrument-lesser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "qYmyshNAJp0KNRGo",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Stamping Foot",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "AzJX3VmovgKKSCHP": {
+                        "damage": "2d8+7",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "finesse",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "5waRqwECS0mBnr0n",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dissonant Chord",
+            "sort": 300000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "V5mCVP6jTGh0f95z": {
+                        "damage": "2d6+7",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": {
+                    "increment": null,
+                    "max": 40
+                },
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "6CKierkkY3pJRTtl",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rhapsodic Flourish",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The Ghostlight Sister would roll a save against an auditory or sonic effect</p><hr /><p><strong>Effect</strong> The Ghostlight Sister performs a refrain that deflects sonic vibrations and rolls a @Check[performance] check in place of the triggering saving throw. Sonic feedback rebounds from the effect, dealing @Damage[1d6[sonic]] damage to the source of the triggering effect if the Performance check succeeded or @Damage[2d6[sonic]] damage to the Ghostlight Sister on a failure.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jUE7TwqwoMWl3hfF",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JhDfZXMe5uR60tT4",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Soloist's Curse",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Trio's Torment is in effect</p><hr /><p><strong>Effect</strong> The Ghostlight Sister performs a haunting solo. This sustains an ongoing Trio's Torment if at least one other Ghostlight Sister is taking part. The Ghostlight Sister targets a single creature she can see within 60 feet as the focus of her unsettling music; that creature must attempt a @Check[will|dc:24|options:damaging-effect,inflicts:clumsy] save with the following effects. The Ghostlight Sister can't use Soloist's Curse again for 1 minute; if all Ghostlight Sisters in a Trio's Torment can't use Soloist's Curse, then the ongoing Trio's Torment ends and all three Ghostlight Sisters can't use Trio's Torment for 1 minute.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[3d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round as the music dredges up what feel like repressed memories of forgotten agonies.</p>\n<p><strong>Failure</strong> As success, but @Damage[6d6[mental]] damage and clumsy 1 for 1 hour.</p>\n<p><strong>Critical Failure</strong> As failure, but @Damage[12d6[mental]] damage and clumsy 1 with an unlimited duration.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eCH1Pdylvplum55p",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Trio's Torment",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Ghostlight Sister begins playing a catchy song that compels others to dance. If other Ghostlight Sisters within 30 feet of her want to join the Trio's Torment, the Ghostlight Sister can delay to begin the torment. In this case, the effect occurs after the last Ghostlight Sister uses Trio's Torment or when one of them chooses to complete that round of the torment. Each non–Ghostlight Sister in a @Template[type:emanation|distance:50] must attempt a @Check[will|dc:24|options:inflicts:frightened] save; for each additional Ghostlight Sister involved, the save DC increases by 1 (to a maximum of DC 26). The effect lasts until the end of the next round, but if all of the Ghostlight Sisters choose to Sustain the effect on all affected creatures that remain within the emanation, the effect persists for one additional round.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 1 hour.</p>\n<p><strong>Success</strong> The creature can't use actions with the move trait except to dance, which uses the Stride action to move up to half the creature's Speed. If the creature has other Speeds, it can also dance using those modes of travel. If it's after dark, the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> As success, and the creature must spend at least 1 action each turn dancing; the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "etGBetPKKHhXrKYn",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Theater Lore",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Ghostlight Sister",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 5
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": 3
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 23
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 70,
+                "temp": 0,
+                "value": 70
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "cold",
+                    "value": 5
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "electricity",
+                    "value": 5
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 5
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "sonic",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "Variant fiddling bones",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "necril",
+                    "varisian"
+                ]
+            },
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 14,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 14
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 15
+            },
+            "athletics": {
+                "base": 13
+            },
+            "diplomacy": {
+                "base": 13
+            },
+            "intimidation": {
+                "base": 15
+            },
+            "performance": {
+                "base": 17
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

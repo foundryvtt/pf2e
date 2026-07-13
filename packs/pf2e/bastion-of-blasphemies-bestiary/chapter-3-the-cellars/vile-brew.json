@@ -1,0 +1,190 @@
+{
+    "_id": "r1yrKVUxXjZ3a9bh",
+    "folder": "LIyBalqfNL1tbX7c",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "KbanV6KI6FBmIMn6",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Nightmare Recrudescence",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature attempts to use the brewing equipment, or at least one living creature spends 1 minute in the room</p><hr /><p><strong>Effect</strong> The brewing equipment rattles to life as a hideous mash of what looks like clotted blood and body parts surges up and out of the machinery, pushing a nauseating stench into the room. All creatures in area <strong>C46</strong> must succeed at a @Check[fortitude|dc:26|options:inflicts:sickened] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure). The haunt then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DK4JSgZsforrZ0SQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Flesh Fermentation",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:26|options:damaging-effect,inflicts:drained,inflicts:enfeebled]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage, enfeebled 2 (1 round), and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "PTjCvHo0Y4C16pFC",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Vile Lash",
+            "sort": 0,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "flesh-fermentation"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "pxO1DEaIRzmyQtVR": {
+                        "damage": "3d4",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": false,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "reach-30"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Vile Brew",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "emitsSound": "encounter",
+            "hardness": 15,
+            "hp": {
+                "details": "",
+                "max": 64,
+                "temp": 0,
+                "value": 64
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "acid"
+                },
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "vitality",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>The brewing equipment begins to shudder and shake, and thick foamy sludge starts to bubble up out of the various pipes, tuns, and barrels—sludge that contains blinking eyes, screaming mouths, and twitching fingers among its turbulent mass!</p>",
+            "disable": "<p>@Check[crafting|dc:28] (master) to swiftly dismantle key parts of the contraption containing the vile brew, or @Check[religion|dc:31] (expert) to exorcise the haunt; three total successes in all are needed to disable the haunt</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+            },
+            "reset": "<p>The haunt deactivates at the start of any round in which no living creatures are in the room; it then reactivates 1 minute later.</p>",
+            "routine": "<p>(3 actions) On its initiative, the churning awfulness extrudes a long, slimy tendril of clotted blood, tangled hair, and jagged broken teeth. These long, whiplike lengths then make three vile lash Strikes on three randomly determined targets in the room. With their reach and ability to manifest from any part of the machinery, these Strikes can target any creature in the room. They only target a creature more than once if there's not enough targets to split their attention.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 13
+            },
+            "reflex": {
+                "value": 19
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

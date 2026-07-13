@@ -1,0 +1,421 @@
+{
+    "_id": "4rQYgIPrbA83EDVC",
+    "folder": "tmfsq8P5yQkoYVZD",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "NumkuLRYKNzZJZMe",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": [
+                        "decaying-touch"
+                    ]
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "IvJpP9ZwZdIUuWeZ": {
+                        "damage": "2d6",
+                        "damageType": "spirit"
+                    },
+                    "Zp32UcMfMO79KQir": {
+                        "damage": "2d6+13",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical",
+                        "unarmed",
+                        "unholy"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Mu6FpyKr1OEAaYL5",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Vitality",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:vitality"
+                        ],
+                        "selector": [
+                            "saving-throw"
+                        ],
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RTRrUt1B4aJw3AYv",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Blasphemous Stench",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. A creature entering or starting its turn in the aura must succeed at a @Check[fortitude|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as long as it's sickened on a critical failure). A holy creature takes a –2 status penalty to this saving throw. A creature that succeeds at its save or recovers from being sickened is temporarily immune to blasphemous stench for 1 minute unless it is holy.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "divine",
+                        "olfactory"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VNZ48aAFIiwsERtX",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "fbJI9jlFhaJjYDZq",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Decaying Touch",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The first time each round that a living creature takes damage from a carrion angel's claw Strike, it must attempt a @Check[fortitude|dc:30|options:inflicts:drained,inflicts:sickened] save to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} on a failure (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "divine",
+                        "unholy",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eWwvulvAEpgjwEtv",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Living Facade",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The carrion angel hides their true appearance behind a potent illusion that makes them appear as they did in life. The carrion angel has an automatic result of 42 on Deception checks and DCs to pass as living. While Living Facade is in effect, the carrion angel loses void healing and can be healed as if they were alive. This illusion lasts until the start of the carrion angel's next turn, but the angel can Sustain it indefinitely—when the carrion angel chooses to stop Sustaining it, they cannot use Living Facade again for 24 hours. The carrion angel's blasphemous stench aura is suppressed for as long as they maintain their Living Facade.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "living-facade",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "predicate": [
+                            "living-facade"
+                        ],
+                        "priority": 55,
+                        "value": false
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "illusion"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Carrion Angel",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 7
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": 3
+            },
+            "str": {
+                "mod": 7
+            },
+            "wis": {
+                "mod": 5
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 31
+            },
+            "allSaves": {
+                "value": "+1 status to all saves vs. vitality"
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 225,
+                "temp": 0,
+                "value": 225
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 40
+                    }
+                ],
+                "value": 30
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "holy",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "diabolic",
+                    "draconic",
+                    "empyrean",
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 11
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Obscure and profane rites enable a blasphemer to transform a captured angel into an undead monstrosity known as a carrion angel. With their decaying flesh, foul stench of decay, and broken wings crawling with flies, none would mistake a carrion angel for anything but the atrocity they are—that is, unless the carrion angel chooses to cloak themself in a more pleasant, illusory deception. A carrion angel is not controlled by their creator, yet they generally regard their creator as an ally. Most outlast their creators, at which point they seek their own evil agendas in the world.</p>\n<p>Similar undead atrocities created via sacrifices of other types of celestials exist, and have similar abilities to the carrion angel. Yet for whatever reason, carrion angels are the most well-known and commonly encountered of these rare horrors.</p><h2>Blasphemous Choices</h2><p>The typical carrion angel presented here represents the least powerful of their kind, an undead abomination created through vile rites involving an angel's sacrifice to an evil deity. Yet sometimes, fallen angels seek undeath deliberately—not to avoid immortality, as do so many mortals, but simply to embrace an unwholesome and blasphemous new source of power. These carrion angels are often much more powerful than those who had no choice in their fate.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 22,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 24
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 21
+            },
+            "athletics": {
+                "base": 24
+            },
+            "deception": {
+                "base": 22
+            },
+            "intimidation": {
+                "base": 24
+            },
+            "religion": {
+                "base": 22
+            },
+            "stealth": {
+                "base": 22
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

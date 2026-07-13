@@ -1,0 +1,153 @@
+{
+    "_id": "gpsTtIhD8wk2MwbW",
+    "img": "icons/consumables/grains/pastry-bread-brown.webp",
+    "name": "Effect: Poet's Fritter",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Poet's Fritter (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Poet's Fritter (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Poet's Fritter (Greater)]</p>\n<p>You gain an item bonus to Deception checks to Lie and to Performance checks made for vocal-based performances, and resistance against mental damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:poets-fritter-lesser",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Poet's Fritter (Lesser)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:poets-fritter-moderate",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Poet's Fritter (Moderate)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:poets-fritter-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Poet's Fritter (Greater)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "poets-fritter"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:lie",
+                            "action:perform:singing",
+                            "vocal-performance"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "deception",
+                    "performance"
+                ],
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "poets-fritter:poets-fritter-moderate"
+                ],
+                "selectors": [
+                    "deception",
+                    "performance"
+                ],
+                "slug": "poets-fritter",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "poets-fritter:poets-fritter-greater"
+                ],
+                "selectors": [
+                    "deception",
+                    "performance"
+                ],
+                "slug": "poets-fritter",
+                "value": 3
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "poets-fritter:poets-fritter-lesser"
+                ],
+                "type": "mental",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "poets-fritter:poets-fritter-moderate"
+                ],
+                "type": "mental",
+                "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "poets-fritter:poets-fritter-greater"
+                ],
+                "type": "mental",
+                "value": 15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
