@@ -1,0 +1,50 @@
+{
+    "_id": "jp73xHXJgb5GwQtP",
+    "img": "icons/creatures/abilities/tail-swipe-green.webp",
+    "name": "Effect: Wriggling Tail (Penalty)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Wriggling Tail]</p>\n<p>You can't use your tail, and you take a –2 circumstance penalty on checks to Balance.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:balance"
+                ],
+                "selector": [
+                    "acrobatics"
+                ],
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
