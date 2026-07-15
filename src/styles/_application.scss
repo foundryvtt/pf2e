@@ -38,6 +38,12 @@
             outline: none;
             text-shadow: 0 0 8px var(--color-shadow-primary);
         }
+
+        // Restore core's button focus ring, which the reset above removes, for keyboard focus
+        &:focus-visible {
+            box-shadow: 0 0 4px var(--button-focus-outline-color);
+            outline: 1px solid var(--button-focus-outline-color);
+        }
     }
 }
 

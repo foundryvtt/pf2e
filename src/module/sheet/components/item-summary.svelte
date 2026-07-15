@@ -9,71 +9,88 @@
         open: boolean;
         uuid: ItemUUID;
         exclude?: ("traits" | "price")[];
+        /** Optional element id, for aria-controls wiring from the disclosure trigger */
+        id?: string;
+        /** A value that changes when the item does (e.g. `_stats.modifiedTime`), refreshing the summary */
+        version?: number;
     }
 
-    const { open, uuid, exclude = [] }: ItemSummaryProps = $props();
-    let chatData = $state<RawItemChatData | null>(null);
-    let identified = $state(false);
-    let itemLevel = $state<number | null>(null);
-    let priceString = $state("");
+    interface SummaryData {
+        chatData: RawItemChatData;
+        identified: boolean;
+        itemLevel: number | null;
+        priceString: string;
+    }
 
-    async function loadItemData(): Promise<void> {
+    const { open, uuid, exclude = [], id, version }: ItemSummaryProps = $props();
+
+    async function loadItemData(uuid: ItemUUID): Promise<SummaryData | null> {
         const document = await fromUuid<ItemPF2e>(uuid);
+        const chatData = (await document?.getChatData()) ?? null;
+        if (!document || !chatData) return null;
         const isEffect = document instanceof AbstractEffectPF2e;
-        const price = document?.isOfType("physical") ? document.price : null;
-
-        // Load and assign to state
-        chatData = (await document?.getChatData()) ?? null;
-        if (chatData && document) {
-            identified = game.user.isGM || !(document.isOfType("physical") || isEffect) || document.isIdentified;
-            itemLevel = "level" in document && typeof document.level === "number" ? document.level : null;
-            priceString = price?.value.toString() ?? "";
-        }
+        const price = document.isOfType("physical") ? document.price : null;
+        return {
+            chatData,
+            identified: game.user.isGM || !(document.isOfType("physical") || isEffect) || document.isIdentified,
+            itemLevel: "level" in document && typeof document.level === "number" ? document.level : null,
+            priceString: price?.value.toString() ?? "",
+        };
     }
 
-    $effect(() => {
-        if (!open) return;
-        loadItemData();
+    // The fetch is keyed on the item's version, or on each expand when no version is provided.
+    // Deriveds are lazy, so nothing loads until the summary is first expanded.
+    const summary = $derived.by(() => {
+        if (version === undefined) void open;
+        return loadItemData(uuid);
     });
 </script>
 
-{#if open && chatData}
-    <div class="item-summary" transition:slide={{ duration: 500 }}>
-        {#if identified}
-            {#if !exclude.includes("traits")}
-                <ItemTraits
-                    rarity={chatData.rarity?.slug}
-                    traits={chatData.traits ?? []}
-                    properties={chatData.properties}
-                />
-            {:else if chatData.properties?.length}
-                <div class="tags">
-                    {#each chatData.properties as property (property)}
-                        <span class="tag light property">{_loc(property)}</span>
-                    {/each}
+{#if open}
+    {#await summary then data}
+        {#if data}
+            <!-- global: the transition must also play when the outer open/data blocks are created or destroyed -->
+            <div class="item-summary" {id} transition:slide|global={{ duration: 500 }}>
+                {#if data.identified}
+                    {#if !exclude.includes("traits")}
+                        <ItemTraits
+                            rarity={data.chatData.rarity?.slug}
+                            traits={data.chatData.traits ?? []}
+                            properties={data.chatData.properties}
+                        />
+                    {:else if data.chatData.properties?.length}
+                        <div class="tags">
+                            {#each data.chatData.properties as property (property)}
+                                <span class="tag light property">{_loc(property)}</span>
+                            {/each}
+                        </div>
+                    {/if}
+                    {#if data.chatData.levelLabel}
+                        <div class="level">{data.chatData.levelLabel}</div>
+                    {/if}
+                    {#if data.priceString && !exclude.includes("price")}
+                        <section>
+                            <div>{_loc("PF2E.Item.Physical.LevelLabel", { level: data.itemLevel })}</div>
+                            <div>{_loc("PF2E.Item.Physical.PriceLabel", { price: data.priceString })}</div>
+                        </section>
+                    {/if}
+                {/if}
+
+                {#if data.chatData.description.gm}
+                    <section class="description gm-notes">
+                        {@html data.chatData.description.gm}
+                    </section>
+                {/if}
+
+                <!-- TODO: the legacy summary (item-summary.hbs) also renders cast/attack/damage buttons for spells -->
+                <div class="description">
+                    {@html data.chatData.description.value}
                 </div>
-            {/if}
-            {#if chatData.levelLabel}
-                <div class="level">{chatData.levelLabel}</div>
-            {/if}
-            {#if priceString && !exclude.includes("price")}
-                <section>
-                    <div>{_loc("PF2E.Item.Physical.LevelLabel", { level: itemLevel })}</div>
-                    <div>{_loc("PF2E.Item.Physical.PriceLabel", { price: priceString })}</div>
-                </section>
-            {/if}
+            </div>
         {/if}
-
-        {#if chatData.description.gm}
-            <section class="description gm-notes">
-                {@html chatData.description.gm}
-            </section>
-        {/if}
-
-        <div class="description">
-            {@html chatData.description.value}
-        </div>
-    </div>
+    {:catch}
+        <!-- render nothing -->
+    {/await}
 {/if}
 
 <style lang="scss">
