@@ -29,7 +29,41 @@
             "remaster": true,
             "title": "Starfinder Galactic Ancestries"
         },
-        "rules": [],
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.StandardizedAncestryFeats.StretchingReach.Grip",
+                "option": "grip",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.StandardizedAncestryFeats.StretchingReach.Typical",
+                        "value": "typical"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.StandardizedAncestryFeats.StretchingReach.Extended",
+                        "value": "extended"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "grip:extended",
+                    "item:equipped",
+                    "item:melee",
+                    "item:usage:hands:2",
+                    {
+                        "not": "item:trait:reach"
+                    }
+                ],
+                "property": "traits",
+                "value": "reach"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
