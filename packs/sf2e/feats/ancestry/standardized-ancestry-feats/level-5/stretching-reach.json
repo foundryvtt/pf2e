@@ -31,20 +31,8 @@
         },
         "rules": [
             {
-                "alwaysActive": true,
                 "key": "RollOption",
-                "label": "PF2E.SpecificRule.StandardizedAncestryFeats.StretchingReach.Grip",
-                "option": "grip",
-                "suboptions": [
-                    {
-                        "label": "PF2E.SpecificRule.StandardizedAncestryFeats.StretchingReach.Typical",
-                        "value": "typical"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.StandardizedAncestryFeats.StretchingReach.Extended",
-                        "value": "extended"
-                    }
-                ],
+                "option": "extended-grip",
                 "toggleable": true
             },
             {
@@ -52,7 +40,7 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "grip:extended",
+                    "extended-grip",
                     "item:equipped",
                     "item:melee",
                     "item:usage:hands:2",
