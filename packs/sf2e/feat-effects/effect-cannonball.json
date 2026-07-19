@@ -4,7 +4,7 @@
     "name": "Effect: Cannonball",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Cannonball]</p>\n<p>You can use a reaction to attempt a ranged Strike with the origin's body that gains the benefits of the origin's worn <em>hardlight handwraps</em>.</p>"
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Cannonball]</p>\n<p>You can use a reaction to attempt a ranged Strike with the origin's body as an unarmed attack that deals 1d10 bludgeoning damage. This unarmed attack is in the brawling weapon group and has the agile, analog, brutal, and thrown (20 feet) traits. This unarmed attack gains the benefits of the origin's worn <em>hardlight handwraps</em>.</p>"
         },
         "duration": {
             "expiry": "round-end",
@@ -81,12 +81,13 @@
                     "agile",
                     "analog",
                     "brutal",
-                    "thrown"
+                    "thrown",
+                    "unarmed"
                 ]
             },
             {
                 "definition": [
-                    "item:slug:cannonball"
+                    "item:id:{item|id}"
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
@@ -103,7 +104,7 @@
             },
             {
                 "definition": [
-                    "item:slug:cannonball"
+                    "item:id:{item|id}"
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
@@ -120,7 +121,7 @@
             },
             {
                 "definition": [
-                    "item:slug:cannonball"
+                    "item:id:{item|id}"
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
@@ -148,7 +149,7 @@
                 ],
                 "property": "dice-number",
                 "selectors": [
-                    "cannonball-damage"
+                    "{item|id}-damage"
                 ],
                 "value": 1
             },
@@ -164,7 +165,7 @@
                 ],
                 "property": "dice-number",
                 "selectors": [
-                    "cannonball-damage"
+                    "{item|id}-damage"
                 ],
                 "value": 2
             },
@@ -175,7 +176,7 @@
                 ],
                 "property": "dice-number",
                 "selectors": [
-                    "cannonball-damage"
+                    "{item|id}-damage"
                 ],
                 "value": 3
             }
