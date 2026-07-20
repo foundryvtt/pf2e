@@ -5,9 +5,6 @@
     "items": [
         {
             "_id": "jPZb7g1lsQyPQQw3",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.62nnVQvGhoVLLl2K"
-            },
             "img": "systems/pf2e/icons/equipment/weapons/crossbow.webp",
             "name": "Crossbow",
             "sort": 100000,
@@ -43,6 +40,7 @@
                     "invested": null
                 },
                 "expend": 1,
+                "grade": null,
                 "group": "crossbow",
                 "hardness": 0,
                 "hp": {
@@ -94,13 +92,11 @@
         },
         {
             "_id": "wDV5VP9FUeUWN0DC",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
-            },
             "img": "icons/weapons/swords/sword-guard-purple.webp",
             "name": "Shortsword",
             "sort": 200000,
             "system": {
+                "ammo": null,
                 "baseItem": "shortsword",
                 "bonus": {
                     "value": 0
@@ -127,6 +123,7 @@
                     "invested": null
                 },
                 "expend": null,
+                "grade": null,
                 "group": "sword",
                 "hardness": 0,
                 "hp": {
@@ -182,9 +179,6 @@
         },
         {
             "_id": "Zq63yGixyP7bRSeE",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.4tIVTg9wj56RrveA"
-            },
             "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
             "name": "Leather Armor",
             "sort": 300000,
@@ -203,9 +197,11 @@
                 "dexCap": 4,
                 "equipped": {
                     "carryType": "worn",
-                    "inSlot": false,
+                    "handsHeld": 0,
+                    "inSlot": true,
                     "invested": null
                 },
+                "grade": null,
                 "group": "leather",
                 "hardness": 0,
                 "hp": {
@@ -248,83 +244,10 @@
             "type": "armor"
         },
         {
-            "_id": "IYmEqvZ2cTUbaxKq",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.uhka9LHEP3wDKytG"
-            },
-            "img": "icons/containers/chest/chest-simple-box-steel-brown.webp",
-            "name": "Alchemist's Lab (Expanded)",
-            "sort": 400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 6
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>You need an alchemist's lab to Craft alchemical items during downtime.</p>\n<p>An expanded alchemist's lab gives a +1 item bonus to Crafting checks to create alchemical items.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 55
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Alchemist's Lab, Expanded (craft alchemical items)",
-                        "predicate": [
-                            "alchemical",
-                            "action:craft"
-                        ],
-                        "selector": "crafting",
-                        "type": "item",
-                        "value": 1
-                    }
-                ],
-                "size": "med",
-                "slug": "alchemists-lab-expanded",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
             "_id": "rzMtRbnW5Hj2wyGz",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.5g0rE5yMsTH3E2LJ"
-            },
             "img": "icons/sundries/survival/cuffs-shackles-steel.webp",
             "name": "Manacles (Good) (Marked with the Symbol of the Scarlet Triad)",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -379,7 +302,7 @@
             "_id": "DqY7L33t5uJuYvA3",
             "img": "systems/pf2e/icons/equipment/held-items/key-purple.webp",
             "name": "Key to Manacles",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -429,10 +352,61 @@
             "type": "equipment"
         },
         {
-            "_id": "DaLkbBb0LzlQcqbr",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.d5aCuFS1dhKXhsZ0"
+            "_id": "w4JMw9xoDYkREZqn",
+            "img": "icons/tools/laboratory/vials-blue-pink.webp",
+            "name": "Expanded Alchemist's Tools",
+            "sort": 600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This mobile collection of vials and chemicals can be used for simple alchemical tasks. If you wear your alchemist's toolkit, you can draw and replace it as part of the action that uses it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "alchemists-toolkit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
             },
+            "type": "equipment"
+        },
+        {
+            "_id": "DaLkbBb0LzlQcqbr",
             "img": "icons/commodities/materials/bowl-powder-grey.webp",
             "name": "Addlebrain",
             "sort": 700000,
@@ -499,9 +473,6 @@
         },
         {
             "_id": "ASUFUt8eIMDoJPkX",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.XWkeL34yJK6t5qUE"
-            },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.webp",
             "name": "Antidote (Greater)",
             "sort": 800000,
@@ -568,9 +539,6 @@
         },
         {
             "_id": "9yiCjxLdJV4KSZ7b",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.QGXNqpP5KvSldoZz"
-            },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/giant-scorpion-venom.webp",
             "name": "Giant Scorpion Venom (Applied to Bolts)",
             "sort": 900000,
@@ -637,9 +605,6 @@
         },
         {
             "_id": "wJU8l7IA566ORi33",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.equipment-srd.Item.AITVZmakiu3RgfKo"
-            },
             "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
             "name": "Bolts",
             "sort": 1000000,
@@ -653,8 +618,20 @@
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
                 "level": {
                     "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
                 },
                 "price": {
                     "per": 10,
@@ -696,6 +673,8 @@
             "name": "Shortsword",
             "sort": 1100000,
             "system": {
+                "action": "strike",
+                "area": null,
                 "attack": {
                     "value": ""
                 },
@@ -722,7 +701,9 @@
                 "range": null,
                 "rules": [],
                 "slug": null,
+                "subjectToMAP": true,
                 "traits": {
+                    "config": {},
                     "rarity": "common",
                     "value": [
                         "agile",
@@ -744,6 +725,8 @@
             "name": "Crossbow",
             "sort": 1200000,
             "system": {
+                "action": "strike",
+                "area": null,
                 "attack": {
                     "value": ""
                 },
@@ -776,7 +759,9 @@
                 },
                 "rules": [],
                 "slug": null,
+                "subjectToMAP": true,
                 "traits": {
+                    "config": {},
                     "rarity": "common",
                     "value": [
                         "reload-1"
@@ -787,9 +772,6 @@
         },
         {
             "_id": "yCCEm7HEqedgAAhD",
-            "_stats": {
-                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
-            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Poison",
             "sort": 1300000,
