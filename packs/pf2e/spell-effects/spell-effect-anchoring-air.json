@@ -1,0 +1,74 @@
+{
+    "_id": "dIk087Q4V9pS4eMe",
+    "img": "icons/magic/air/wind-swirl-gray-blue.webp",
+    "name": "Spell Effect: Anchoring Air",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Anchoring Air]</p>\n<p><strong>Success</strong> You take a –2 circumstance penalty to the triggering melee Strike's attack roll.</p>\n<p><strong>Failure</strong> You take a –2 circumstance penalty to all attack rolls.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens High Seas"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "anchoring-air"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "anchoring-air:success"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "melee-strike-attack-roll",
+                "slug": "anchoring-air-success",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "anchoring-air:failure"
+                ],
+                "selector": "attack-roll",
+                "slug": "anchoring-air-failure",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
