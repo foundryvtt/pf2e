@@ -147,9 +147,7 @@ export const MATH_FUNCTION_NAMES: Set<MathFunctionName> = new Set([
 ] as const);
 
 type EnfolderableDocumentPF2e =
-    | ActorPF2e<null>
-    | ItemPF2e<null>
-    | Exclude<EnfolderableDocument, Actor<null> | Item<null>>;
+    ActorPF2e<null> | ItemPF2e<null> | Exclude<EnfolderableDocument, Actor<null> | Item<null>>;
 
 export { goesToEleven, RARITIES, SIZE_SLUGS, SIZES };
 export type {

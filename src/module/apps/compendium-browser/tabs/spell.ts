@@ -23,7 +23,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     }
 
     protected override async loadData(): Promise<void> {
-        console.debug("PF2e System | Compendium Browser | Started loading spells");
+        console.debug(`${SYSTEM_NAME} System | Compendium Browser | Started loading spells`);
 
         const spells: CompendiumBrowserIndexData[] = [];
         const times = new Set<string>();
@@ -40,7 +40,9 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
 
         const data = this.browser.packLoader.loadPacks("Item", this.browser.loadedPacks("spell"), indexFields);
         for await (const { pack, index } of data) {
-            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
+            console.debug(
+                `${SYSTEM_NAME} System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`,
+            );
             for (const spellData of index) {
                 if (spellData.type !== "spell") continue;
 
@@ -142,7 +144,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
             {} as Record<string, string>,
         );
 
-        console.debug("PF2e System | Compendium Browser | Finished loading spells");
+        console.debug(`${SYSTEM_NAME} System | Compendium Browser | Finished loading spells`);
     }
 
     protected override prepareFilterData(): SpellFilters {

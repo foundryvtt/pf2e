@@ -184,9 +184,8 @@ async function processPreUpdateActorHooks(
     actor.flags[SYSTEM_ID].rollOptions = actor.clone(changed, { keepId: true }).flags[SYSTEM_ID].rollOptions;
     const createDeletes = (
         await Promise.all(
-            rules.map(
-                (r): Promise<{ create: ItemSourcePF2e[]; delete: string[] }> =>
-                    actor.items.has(r.item.id) ? r.preUpdateActor() : Promise.resolve({ create: [], delete: [] }),
+            rules.map((r): Promise<{ create: ItemSourcePF2e[]; delete: string[] }> =>
+                actor.items.has(r.item.id) ? r.preUpdateActor() : Promise.resolve({ create: [], delete: [] }),
             ),
         )
     ).reduce(

@@ -103,10 +103,7 @@ interface MutationObserverContext {
 }
 
 type Destroyable =
-    | Tagify<{ id: string; value: string }>
-    | Tagify<Tagify.TagData>
-    | Sortable
-    | JQueryTooltipster.ITooltipsterInstance;
+    Tagify<{ id: string; value: string }> | Tagify<Tagify.TagData> | Sortable | JQueryTooltipster.ITooltipsterInstance;
 
 function createSortable(list: HTMLElement, options: Sortable.Options): Sortable {
     const sortable = new Sortable(list, Object.assign(options, { noJQuery: true }));

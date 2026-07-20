@@ -1,0 +1,74 @@
+{
+    "_id": "a9Kooj6ihx2LpnbE",
+    "img": "icons/skills/toxins/symbol-poison-drop-skull-green.webp",
+    "name": "Effect: Envenom Magazine",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Envenom Magazine]</p>\n<p>Each Strike or use of Auto-Fire with the chosen weapon that deals acid, bludgeoning, poison, piercing, or slashing damage, also deals an additional 2d6 poison damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:ranged",
+                        {
+                            "or": [
+                                "item:damage:type:acid",
+                                "item:damage:type:bludgeoning",
+                                "item:damage:type:poison",
+                                "item:damage:type:piercing",
+                                "item:damage:type:slashing"
+                            ]
+                        }
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "DamageDice",
+                "selector": [
+                    "strike-damage",
+                    "auto-fire-damage"
+                ],
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "damageType": "poison",
+                "predicate": [
+                    "item:id:{item|flags.system.rulesSelections.weapon}"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

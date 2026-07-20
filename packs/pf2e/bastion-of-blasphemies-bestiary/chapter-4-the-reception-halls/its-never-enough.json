@@ -1,0 +1,129 @@
+{
+    "_id": "XhMloMPbPL7IUlG7",
+    "folder": "EqAdk5RuC4lxlZkq",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "gzYHMYW74PpsmOVc",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Break Your Fast",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature enters area <strong>D2</strong></p><hr /><p><strong>Effect</strong> The sight and scent of the baked goods grows nearly irresistible. The triggering creature must succeed at a @Check[will|dc:26|options:inflicts:stupefied] save to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} on a critical failure) for 24 hours. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "D2zAKlRmidev45HE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rancid Breakfast",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:26] (this increases to @Check[fortitude|dc:28] if a creature spent two actions eating or @Check[fortitude|dc:30] if a creature spent three actions eating)</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 round) and @Damage[1d6[poison]]</p>\n<p><strong>Stage 2</strong> clumsy 1 (1 hour) and @Damage[2d6[poison]]</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} (24 hours) and @Damage[4d6[poison]]</p>\n<p><strong>Stage 4</strong> clumsy 2 (unlimited duration) and @Damage[6d6[poison]]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "It's Never Enough",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": null
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "immunities": [],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The smells and sights of fresh baked goods compel those who experience them to take part in a grisly feast.</p>",
+            "disable": "<p>@Check[survival|dc:28] (trained) to draw upon memories of leaner times and counteract the temptation of the promised meal or @Check[religion|dc:31] (expert) to exorcise the haunt; 2 successes are required to disable it, and once the haunt is disabled, the food on the table is revealed to be foul, rotting, and moldy.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+            },
+            "reset": "<p>The haunt deactivates at the start of any round in which there are no living creatures in area <strong>D2</strong>, then reactivates 1 minute later.</p>",
+            "routine": "<p>(1 action; mental) On its initiative, the haunt exudes mental compulsions to all living creatures in the room, driving them to take part in the offered feast. Each living creature in the room must attempt a @Check[will|dc:26] save with the following results. Food consumed during this hazard's routine is automatically replenished at the start of the next round.</p><hr><p><strong>Critical Success</strong> The creature is unaffected.</p><p><strong>Success</strong> The creature is compelled to approach the table of food and be seated. On the creature's turn, it Strides as often as needed to reach the table, then Interacts with a chair to be seated. If it has any remaining actions, it can use them normally (such as by Interacting again to stand up from being seated at the table).</p><p><strong>Failure</strong> As success, but the creature must spend at least one of its actions this turn (if any are available after potentially approaching and taking a seat) Interacting with the food to eat some of it. Eating the food afflicts the creature with Rancid Breakfast.</p><p><strong>Critical Failure</strong> As failure, but the creature must use any actions not used to approach the table or be seated at it to Interact and eat food.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": null
+            },
+            "reflex": {
+                "value": null
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

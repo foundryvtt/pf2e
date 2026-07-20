@@ -41,7 +41,9 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
             this.browser.loadedPacks("bestiary"),
             indexFields,
         )) {
-            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
+            console.debug(
+                `${SYSTEM_NAME} System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`,
+            );
             for (const actorData of index.filter((d) => d.type === "npc")) {
                 if (!this.hasAllIndexFields(actorData, this.index)) {
                     console.warn(
@@ -72,7 +74,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                     options: new Set(options),
                 });
             }
-            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
+            console.debug(`${SYSTEM_NAME} System | Compendium Browser | ${pack.metadata.label} - Loaded`);
         }
 
         // Set indexData
@@ -86,7 +88,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
         this.filterData.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.creatureTraits);
         this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
 
-        console.debug("PF2e System | Compendium Browser | Finished loading Bestiary actors");
+        console.debug(`${SYSTEM_NAME} System | Compendium Browser | Finished loading Bestiary actors`);
     }
 
     protected override prepareFilterData(): BestiaryFilters {

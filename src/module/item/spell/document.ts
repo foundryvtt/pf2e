@@ -826,12 +826,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         const variants = this.overlays.overrideVariants
-            .map(
-                (variant): SpellVariantChatData => ({
-                    ...R.pick(variant, ["name", "actionGlyph", "sort"]),
-                    overlayIds: [...variant.appliedOverlays!.values()],
-                }),
-            )
+            .map((variant): SpellVariantChatData => ({
+                ...R.pick(variant, ["name", "actionGlyph", "sort"]),
+                overlayIds: [...variant.appliedOverlays!.values()],
+            }))
             .sort((a, b) => a.sort - b.sort);
 
         const rollData =
@@ -844,7 +842,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const spellcasting = this.spellcasting;
         if (!spellcasting) {
             console.warn(
-                `PF2e System | Orphaned spell ${this.name} (${this.id}) on actor ${this.actor.name} (${this.actor.id})`,
+                `${SYSTEM_NAME} System | Orphaned spell ${this.name} (${this.id}) on actor ${this.actor.name} (${this.actor.id})`,
             );
             return { ...systemData, traits: this.traitChatData() };
         }
@@ -852,7 +850,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const statistic = spellcasting?.statistic;
         if (!statistic && !this.isRitual) {
             console.warn(
-                `PF2e System | Spell ${this.name} is missing a statistic to cast with (${this.id}) on actor ${this.actor.name} (${this.actor.id})`,
+                `${SYSTEM_NAME} System | Spell ${this.name} is missing a statistic to cast with (${this.id}) on actor ${this.actor.name} (${this.actor.id})`,
             );
             return { ...systemData, traits: this.traitChatData() };
         }

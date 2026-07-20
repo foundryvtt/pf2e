@@ -672,10 +672,7 @@ interface TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> ext
 
 type NumericFloatyEffect = { name: string; value?: number | null };
 type ShowFloatyEffectParams =
-    | number
-    | { create: NumericFloatyEffect }
-    | { update: NumericFloatyEffect }
-    | { delete: NumericFloatyEffect };
+    number | { create: NumericFloatyEffect } | { update: NumericFloatyEffect } | { delete: NumericFloatyEffect };
 
 type TokenOrPoint =
     | TokenPF2e

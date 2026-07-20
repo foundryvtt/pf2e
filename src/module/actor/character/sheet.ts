@@ -201,11 +201,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
             const keyAttributeSelected =
                 !sheetData.class || build.attributes.keyOptions.includes(sheetData.data.details.keyability.value);
+            // Complete when selections cover every slot that offers options
+            const unfilledAncestryBoosts = Object.values(sheetData.ancestry?.system.boosts ?? {}).reduce(
+                (count, b) => count + (b.value.length > 0 ? 1 : 0) - (b.selected ? 1 : 0),
+                0,
+            );
             const ancestryBoostsSelected =
-                (sheetData.ancestry?.system.alternateAncestryBoosts?.length === 2 ||
-                    Object.values(sheetData.ancestry?.system.boosts ?? {}).every(
-                        (b) => b.value.length === 0 || !!b.selected,
-                    )) &&
+                (sheetData.ancestry?.system.alternateAncestryBoosts?.length === 2 || unfilledAncestryBoosts <= 0) &&
                 sheetData.ancestry?.system.voluntary?.boost !== null;
             const backgroundBoostsSelected = Object.values(sheetData.background?.system.boosts ?? {}).every(
                 (b) => b.value.length === 0 || !!b.selected,
@@ -225,13 +227,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const allClassDCs = Object.values(sheetData.data.proficiencies.classDCs);
         const classDCs = allClassDCs
             .filter((cdc) => cdc.rank > 0 || allClassDCs.length > 1)
-            .map(
-                (classDC): ClassDCSheetData => ({
-                    ...classDC,
-                    icon: this.getProficiencyIcon(classDC.rank),
-                    hover: CONFIG.PF2E.proficiencyLevels[classDC.rank],
-                }),
-            )
+            .map((classDC): ClassDCSheetData => ({
+                ...classDC,
+                icon: this.getProficiencyIcon(classDC.rank),
+                hover: CONFIG.PF2E.proficiencyLevels[classDC.rank],
+            }))
             .sort((a, b) => (a.primary ? -1 : b.primary ? 1 : a.slug.localeCompare(b.slug)));
         const primaryClassDC = sheetData.data.attributes.classDC?.slug ?? null;
 
@@ -428,13 +428,14 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 ...baseData,
                 img: ((): ImageFilePath => {
                     const actionIcon = getActionIcon(item.actionCost);
+                    if (!baseData.usable) return actionIcon;
+
                     const defaultIcon = ItemPF2e.getDefaultArtwork(item._source).img;
                     const commonFeatIcon = "icons/sundries/books/book-red-exclamation.webp";
                     const isDefaultImage = [actionIcon, defaultIcon, commonFeatIcon].includes(item.img);
-                    if (item.isOfType("action") && !isDefaultImage) {
-                        return item.img;
-                    }
-                    return item.system.selfEffect?.img ?? (baseData.usable && !isDefaultImage ? item.img : actionIcon);
+                    return !isDefaultImage && item.isOfType("action")
+                        ? item.img
+                        : (item.system.selfEffect?.img ?? actionIcon);
                 })(),
                 feat: item.isOfType("feat") ? item : null,
                 toggles: item.system.traits.toggles?.getSheetData() ?? [],

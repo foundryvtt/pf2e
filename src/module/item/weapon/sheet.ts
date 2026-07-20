@@ -93,13 +93,11 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         const ammoTypes = R.pipe(
             CONFIG.PF2E.ammoTypes,
             R.entries(),
-            R.map(
-                ([key, data]): foundry.applications.fields.FormSelectOption => ({
-                    value: key,
-                    label: _loc(data.label),
-                    group: data.weapon ? _loc("PF2E.Item.Ammo.Groups.WeaponSpecific") : undefined,
-                }),
-            ),
+            R.map(([key, data]): foundry.applications.fields.FormSelectOption => ({
+                value: key,
+                label: _loc(data.label),
+                group: data.weapon ? _loc("PF2E.Item.Ammo.Groups.WeaponSpecific") : undefined,
+            })),
             R.sortBy((o) => o.label),
         );
 

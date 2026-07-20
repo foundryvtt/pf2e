@@ -40,10 +40,7 @@ interface AuxiliaryReleaseParams {
 }
 
 type AuxiliaryActionParams =
-    | AuxiliaryInteractParams
-    | AuxiliaryWeaponParryParams
-    | AuxiliaryShieldParams
-    | AuxiliaryReleaseParams;
+    AuxiliaryInteractParams | AuxiliaryWeaponParryParams | AuxiliaryShieldParams | AuxiliaryReleaseParams;
 type AuxiliaryActionType = AuxiliaryActionParams["action"];
 type AuxiliaryActionPurpose = AuxiliaryActionParams["annotation"];
 

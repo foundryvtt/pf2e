@@ -116,7 +116,9 @@ class WeaponTraitToggles {
         } else if (trait !== "double-barrel" && weapon.rule) {
             await weapon.rule.toggleTrait(options);
         } else {
-            console.warn(`PF2e System | Unable to resolve an update target for ${weapon.name}'s ${trait} toggle`);
+            console.warn(
+                `${SYSTEM_NAME} System | Unable to resolve an update target for ${weapon.name}'s ${trait} toggle`,
+            );
             return false;
         }
 
@@ -130,8 +132,7 @@ interface ToggleDoubleBarrelParams {
 }
 
 type ToggleModularVersatileParams =
-    | { trait: "modular"; selected: number | null }
-    | { trait: "versatile"; selected: DamageType | null };
+    { trait: "modular"; selected: number | null } | { trait: "versatile"; selected: DamageType | null };
 
 type ToggleWeaponTraitParams = ToggleDoubleBarrelParams | ToggleModularVersatileParams;
 

@@ -214,7 +214,7 @@ export default abstract class ApplicationV2<
      * When the Application is rendered, optionally update aspects of the window frame.
      * @param options               Options provided at render-time
      */
-    protected _updateFrame(options: TRenderOptions): void;
+    protected _updateFrame(options: DeepPartial<TRenderOptions>): void;
 
     /**
      * Insert the application HTML element into the DOM.

@@ -29,7 +29,7 @@ import type {
 } from "@actor/data/base.ts";
 import { InitiativeTraceData } from "@actor/initiative.ts";
 import type { Modifier, StatisticModifier } from "@actor/modifiers.ts";
-import type { ActorAlliance, SaveType, SkillSlug } from "@actor/types.ts";
+import type { ActorAlliance, SaveType } from "@actor/types.ts";
 import type { MeleePF2e } from "@item";
 import type { PublicationData, ValueAndMax } from "@module/data.ts";
 import type { RawPredicate } from "@system/predication.ts";
@@ -51,7 +51,8 @@ interface NPCSystemSource extends CreatureSystemSource {
     /** Any special attributes for this NPC, such as AC or health. */
     attributes: NPCAttributesSource;
 
-    skills: Partial<Record<SkillSlug, NPCSkillSource>>;
+    /** Keyed by skill slug; `string` rather than `SkillSlug` so system-specific skills are covered. */
+    skills: Partial<Record<string, NPCSkillSource>>;
 
     /** Modifier of the perception statistic */
     perception: NPCPerceptionSource;

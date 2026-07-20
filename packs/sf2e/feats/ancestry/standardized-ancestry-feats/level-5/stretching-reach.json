@@ -31,18 +31,25 @@
         },
         "rules": [
             {
-                "itemId": "{item|id}",
-                "key": "ItemAlteration",
-                "mode": "remove",
-                "property": "traits",
-                "value": "ancestry"
+                "key": "RollOption",
+                "option": "stretching-reach",
+                "toggleable": true
             },
             {
-                "itemId": "{item|id}",
+                "itemType": "weapon",
                 "key": "ItemAlteration",
                 "mode": "add",
+                "predicate": [
+                    "stretching-reach",
+                    "item:equipped",
+                    "item:melee",
+                    "item:usage:hands:2",
+                    {
+                        "not": "item:trait:reach"
+                    }
+                ],
                 "property": "traits",
-                "value": "{actor|system.details.ancestry.trait}"
+                "value": "reach"
             }
         ],
         "subfeatures": {

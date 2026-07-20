@@ -4,7 +4,6 @@ import type {
 } from "@client/applications/api/handlebars-application.d.mts";
 import { ErrorPF2e, htmlQuery, ordinalString, tupleHasValue } from "@util";
 import { DateTime } from "luxon";
-import * as R from "remeda";
 import { animateDarkness } from "./animate-darkness.ts";
 import { TimeChangeMode, TimeOfDay } from "./time-of-day.ts";
 
@@ -35,8 +34,8 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
             advanceTime: WorldClock.#onClickAdvanceTime,
             advanceOrRetract: WorldClock.#onClickAdvanceOrRetract,
             openSettings: () => {
-                const menu = game.settings.menus.get("pf2e.worldClock");
-                if (!menu) throw ErrorPF2e("PF2e System | World Clock Settings application not found");
+                const menu = game.settings.menus.get(`${SYSTEM_ID}.worldClock`);
+                if (!menu) throw ErrorPF2e("World Clock Settings application not found");
                 const app = new menu.type();
                 app.render(true);
             },
@@ -96,7 +95,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
     get timeConvention(): 24 | 12 {
         const setting = game.pf2e.settings.worldClock.timeConvention;
         if (setting !== 24 && setting !== 12) {
-            throw Error("PF2e System | Unrecognized time convention");
+            throw ErrorPF2e("Unrecognized time convention");
         }
         return setting;
     }
@@ -195,8 +194,6 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
     #initialize() {
         /* Save world creation date/time if equal to default (i.e., server time at first retrieval of the setting) */
         const setting = game.pf2e.settings.worldClock;
-        const defaults = game.settings.settings.get(`${SYSTEM_ID}.worldClock`)?.default;
-        if (!R.isPlainObject(defaults)) throw ErrorPF2e("Unexpected failure to find setting");
         if (setting.worldCreatedOn === null) {
             game.settings.set(SYSTEM_ID, "worldClock", { ...setting, worldCreatedOn: DateTime.utc().toISO() });
         }
@@ -234,17 +231,17 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
         return controls;
     }
 
-    static #calculateIncrement(wordTime: DateTime, interval: string, intervalMode: string): number {
+    static #calculateIncrement(worldTime: DateTime, interval: string, intervalMode: string): number {
         const mode = intervalMode === "+" ? TimeChangeMode.ADVANCE : TimeChangeMode.RETRACT;
         switch (interval) {
             case "dawn":
-                return TimeOfDay.DAWN.diffSeconds(wordTime, mode);
+                return TimeOfDay.DAWN.diffSeconds(worldTime, mode);
             case "noon":
-                return TimeOfDay.NOON.diffSeconds(wordTime, mode);
+                return TimeOfDay.NOON.diffSeconds(worldTime, mode);
             case "dusk":
-                return TimeOfDay.DUSK.diffSeconds(wordTime, mode);
+                return TimeOfDay.DUSK.diffSeconds(worldTime, mode);
             case "midnight":
-                return TimeOfDay.MIDNIGHT.diffSeconds(wordTime, mode);
+                return TimeOfDay.MIDNIGHT.diffSeconds(worldTime, mode);
             default: {
                 const sign = mode === TimeChangeMode.ADVANCE ? 1 : -1;
                 return Number(interval) * sign;
@@ -286,7 +283,7 @@ export class WorldClock extends fa.api.HandlebarsApplicationMixin(fa.api.Applica
         anchor.addEventListener("click", (event) => {
             event.preventDefault();
             event.stopPropagation();
-            const menu = game.settings.menus.get("pf2e.worldClock");
+            const menu = game.settings.menus.get(`${SYSTEM_ID}.worldClock`);
             if (!menu) throw ErrorPF2e("World Clock Settings application not found");
             const app = new menu.type();
             app.render(true);

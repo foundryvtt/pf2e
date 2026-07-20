@@ -1,0 +1,64 @@
+{
+    "_id": "FeTIulA91s33rExI",
+    "img": "icons/magic/nature/leaf-flower-wreath-glow-green-blue.webp",
+    "name": "Graverose Garland",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This long, scarf-like garment appears to be made of living vines on which a dozen black roses bloom. While the vines appear to be thorny, they lack the capability to puncture or scratch, allowing the garland to be worn comfortably as a scarf or belt. The scent of the black roses evokes faint feelings of melancholy and nostalgia to the living, but undead find the odor to be unnerving and distracting. As long as you have a <em>graverose garland</em> invested, it grants a +1 item bonus to Deception and Intimidation checks against undead.</p><hr /><p><strong>Activate—To the Grave with You!</strong> <span class=\"action-glyph\">2</span> (emotion, fear, manipulation, mental)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You lift some of the garland to your lips and blow, sending the scent of the black roses outward to target an undead creature you can see within 60 feet. The targeted undead becomes filled with the conviction that it belongs in its grave, and it must attempt a @Check[will|dc:19|options:inflicts:off-guard,inflicts:prone,inflicts:frightened,inflicts:fleeing|traits:emotion,fear,manipulation,mental] save against the following effects.</p><hr /><p><strong>Critical Success</strong> The undead creature is unaffected.</p>\n<p><strong>Success</strong> The undead creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of your next turn.</p>\n<p><strong>Failure</strong> The undead creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and is off-guard as long as it remains frightened.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}, and the undead is also @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] as long as it remains frightened. If the undead knows of a nearby empty grave, it must flee toward that grave—if it enters the grave, it drops @UUID[Compendium.pf2e.conditionitems.Item.Prone] into the grave and remains prone until it is no longer frightened.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 5
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 160
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mode:undead"
+                ],
+                "selector": [
+                    "deception",
+                    "intimidation"
+                ],
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "divine",
+                "invested"
+            ]
+        },
+        "usage": {
+            "value": "wornbelt"
+        }
+    },
+    "type": "equipment"
+}

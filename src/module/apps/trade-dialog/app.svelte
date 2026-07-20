@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { ErrorPF2e } from "@util";
     import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
     import type { TradeDialogRenderContext, TradeQueryData, TradeItemData } from "./app.svelte.ts";
 
@@ -68,7 +67,7 @@
     }
 
     function search(event: Event): void {
-        if (!(event.target instanceof HTMLInputElement)) throw ErrorPF2e("Unexpected event received during search");
+        if (!(event.target instanceof HTMLInputElement)) throw Error("Unexpected event received during search");
         const searchText = event.target.value.trim();
         const results = new Map(searchEngine.search(searchText).map((r) => [r.id, r.score]));
         const fallbackScore = results.size > 0 ? 0 : 1;

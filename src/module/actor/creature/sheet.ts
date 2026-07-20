@@ -414,7 +414,9 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                 // if the drop container target is a spellcastingEntry then check if the item is a spell and if so update its location.
                 // if the dragged item is a spell and is from the same actor
                 if (CONFIG.debug.hooks) {
-                    console.debug("PF2e System | ***** spell from same actor dropped on a spellcasting entry *****");
+                    console.debug(
+                        `${SYSTEM_NAME} System | ***** spell from same actor dropped on a spellcasting entry *****`,
+                    );
                 }
 
                 const dropId = htmlClosest(event.target, "li[data-container-id]")?.dataset.containerId;

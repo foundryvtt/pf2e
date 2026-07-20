@@ -1,0 +1,392 @@
+{
+    "_id": "ZNSDataoZlnuv8eP",
+    "folder": "tmfsq8P5yQkoYVZD",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "xMhoO91md5MO9mrG",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 30
+                },
+                "damageRolls": {
+                    "9lN9XdDsV0pB8Z1Z": {
+                        "damage": "3d10+15",
+                        "damageType": "piercing"
+                    },
+                    "oWkhafTKfoBvwo0V": {
+                        "damage": "2d6",
+                        "damageType": "poison"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical",
+                        "reach-15",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "6Dtqqamb0AGYgcXx",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 200000,
+            "system": {
+                "action": "strike",
+                "area": null,
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 0
+                },
+                "damageRolls": {
+                    "GflcntqlOubF6D0R": {
+                        "damage": "3d8+15",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "subjectToMAP": true,
+                "traits": {
+                    "config": {},
+                    "value": [
+                        "magical",
+                        "reach-20",
+                        "unarmed"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "wnqtY6O2Z5IX6qcu",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.etMnv73EIdEZrYYu"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frightful Presence",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>60 feet (360 underwater). @Check[will|dc:|options:area-effect,inflicts:frightened]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.Voldrak.FrightfulPresence.ToggleLabel",
+                        "option": "terrain:underwater",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    },
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "terrain:underwater"
+                        ],
+                        "radius": 360,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": "frightful-presence",
+                "traits": {
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GUmXcN197bEojqp6",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Dread Gaze",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Voldrak fixes his gaze upon a creature he can see within 60 feet. His eyes glow with blue light, then begin to pulse, compelling the creature he views to remain motionless with fear. The target must attempt a @Check[will|dc:36|options:inflicts:frightened,inflicts:slowed,inflicts:paralyzed] save with the following effects. Voldrak can't use Dread Gaze again for [[/gmr 1d4 #Recharge Dread Gaze]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Dread Gaze for 24 hours.</p>\n<p><strong>Success</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature increases the value of its frightened condition by 1 (or becomes frightened 1 if not yet frightened). As long as the creature remains frightened, it is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2}.</p>\n<p><strong>Critical Failure</strong> As failure, but as long as the creature remains frightened, it is @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "incapacitation",
+                        "mental",
+                        "occult",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NpfYo9pZdjLrFsyx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Maimed But Alive",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If Voldrak would kill a creature with damage from his bite or tail Strike, he can opt instead to reduce the creature to 1 Hit Point and maim it, causing the creature to become permanently @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3} or @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3} (Voldrak's choice) from the horrific wound.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eNt8p4zPo4PdSqJ4",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Toxic Spit",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Voldrak spews a @Template[type:line|distance:60] of toxic sludge, dealing @Damage[8d6[poison]|options:area-damage] damage to all creatures in the area (@Check[fortitude|dc:36|basic|options:area-effect] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Voldrak",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -2
+            },
+            "str": {
+                "mod": 9
+            },
+            "wis": {
+                "mod": 6
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 35
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 340,
+                "temp": 0,
+                "value": 340
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "cold",
+                    "value": 15
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 15
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 50
+                    }
+                ],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo"
+                ]
+            },
+            "level": {
+                "value": 15
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>It seems like every lake in Ustalav of any considerable size has its own legend about a lake monster, but in the case of Lake Laroba, these legends have been fact for as long as anyone can remember. The lake's denizen, Voldrak, was only rarely sighted in the days before the curse, despite entire expeditions of hopeful monster-watchers spending extensive hours on the lake.</p>\n<p>Now, like all other creatures swept up by the Bastardhall Curse, Voldrak has grown worse. The lake monster torments anyone who dares ply the waters for too long. He generally prefers to frighten or maim rather than kill, for this new Voldrak enjoys the knowledge that his horrific legend might spread.</p>\n<p>Voldrak is a sleek, plesiosaur-like serpent, with four clawed flippers, deep-red eyes, and a long tail that ends in a single long rudder-like fin. His teeth are long and terrible and protrude over his lips even when his mouth is closed.</p><h2>Voldrak's Fate</h2><p>Before the curse, Voldrak was an elusive @UUID[Compendium.pf2e.pathfinder-monster-core-2.Actor.Water Orm] regarded by the Arudoras almost as a mascot or pet to such an extent that they worked his image into their family crest. After the curse, though, Voldrak became a much more aggressive and dangerous monster. While he's unlikely to survive the events of Bastion of Blasphemies, Lake Laroba is deep, and who's to say the lake monster's ghost doesn't survive in its depths after the PCs return home?</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 27,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 23
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 27
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 30,
+                "special": []
+            },
+            "stealth": {
+                "base": 27,
+                "special": [
+                    {
+                        "base": 31,
+                        "label": "In water",
+                        "predicate": [
+                            "terrain:aquatic"
+                        ]
+                    }
+                ]
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "beast"
+            ]
+        }
+    },
+    "type": "npc"
+}

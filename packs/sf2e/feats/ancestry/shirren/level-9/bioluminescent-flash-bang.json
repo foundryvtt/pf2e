@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per day</p><hr /><p>The chemical reaction in your body has grown more potent with time. You release a blinding burst of bioluminescence. Creatures in a @Template[type:emanation|distance:10] around you must attempt a Fortitude save against the higher of your class DC or spell DC. On a failure, the creature becomes @UUID[Compendium.sf2e.conditions.Item.Dazzled] for [[/gmr 1d4 #rounds]]{1d4 rounds}. On a critical failure, the creature is also @UUID[Compendium.sf2e.conditions.Item.Blinded] for 1 round.</p>"
+            "value": "<p><strong>Frequency</strong> once per day</p><hr /><p>The chemical reaction in your body has grown more potent with time. You release a blinding burst of bioluminescence. Creatures in a @Template[emanation|distance:10] around you must attempt a @Check[fortitude|against:class-spell|options:area-effect,inflicts:blinded,inflicts:dazzled] save against the higher of your class DC or spell DC. On a failure, the creature becomes @UUID[Compendium.sf2e.conditions.Item.Dazzled] for [[/r 1d4 #rounds]]{1d4 rounds}. On a critical failure, the creature is also @UUID[Compendium.sf2e.conditions.Item.Blinded] for 1 round.</p>"
         },
         "frequency": {
             "max": 1,

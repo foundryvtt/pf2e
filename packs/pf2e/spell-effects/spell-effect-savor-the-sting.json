@@ -1,0 +1,55 @@
+{
+    "_id": "TBohBF0ASta9rf9a",
+    "img": "systems/pf2e/icons/spells/savor-the-sting.webp",
+    "name": "Spell Effect: Savor the Sting",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Savor the Sting]</p>\n<p>As long as your target is taking persistent damage from this spell, you gain a +1 status bonus to attack rolls and skill checks against the target.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "savor-the-sting"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:condition:persistent-damage:mental",
+                    "target:mark:savor-the-sting"
+                ],
+                "selector": [
+                    "attack-roll",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

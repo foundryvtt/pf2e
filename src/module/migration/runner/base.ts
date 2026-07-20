@@ -91,18 +91,29 @@ export class MigrationRunnerBase {
         }
 
         for (const migration of migrations) {
-            await migration.updateActor?.(currentActor);
+            try {
+                await migration.updateActor?.(currentActor);
+            } catch (error) {
+                throw new Error(`migration ${migration.version} failed`, { cause: error });
+            }
 
             for (const currentItem of currentActor.items) {
-                await migration.updateItem?.(currentItem, currentActor);
-                // Handle embedded items
-                if (currentItem.type === "consumable" && currentItem.system.spell) {
-                    await migration.updateItem?.(currentItem.system.spell, currentActor);
-                }
-                if (itemIsOfType(currentItem, "armor", "equipment", "shield", "weapon")) {
-                    for (const subitem of currentItem.system.subitems) {
-                        migration.updateItem?.(subitem);
+                try {
+                    await migration.updateItem?.(currentItem, currentActor);
+                    // Handle embedded items
+                    if (currentItem.type === "consumable" && currentItem.system.spell) {
+                        await migration.updateItem?.(currentItem.system.spell, currentActor);
                     }
+                    if (itemIsOfType(currentItem, "armor", "equipment", "shield", "weapon")) {
+                        for (const subitem of currentItem.system.subitems) {
+                            migration.updateItem?.(subitem);
+                        }
+                    }
+                } catch (error) {
+                    throw new Error(
+                        `migration ${migration.version} failed on embedded item "${currentItem.name}" (${currentItem._id})`,
+                        { cause: error },
+                    );
                 }
             }
         }
@@ -137,15 +148,19 @@ export class MigrationRunnerBase {
         }
 
         for (const migration of migrations) {
-            await migration.updateItem?.(current);
-            // Handle embedded spells
-            if (current.type === "consumable" && current.system.spell) {
-                await migration.updateItem?.(current.system.spell);
-            }
-            if (itemIsOfType(current, "armor", "equipment", "shield", "weapon")) {
-                for (const subitem of current.system.subitems) {
-                    migration.updateItem?.(subitem);
+            try {
+                await migration.updateItem?.(current);
+                // Handle embedded spells
+                if (current.type === "consumable" && current.system.spell) {
+                    await migration.updateItem?.(current.system.spell);
                 }
+                if (itemIsOfType(current, "armor", "equipment", "shield", "weapon")) {
+                    for (const subitem of current.system.subitems) {
+                        migration.updateItem?.(subitem);
+                    }
+                }
+            } catch (error) {
+                throw new Error(`migration ${migration.version} failed`, { cause: error });
             }
         }
 

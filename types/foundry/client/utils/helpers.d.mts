@@ -88,8 +88,7 @@ export function fromUuidSync<TResult extends Actor | CompendiumIndexData = Actor
 ): TResult | null;
 export function fromUuidSync<
     TResult extends (Document & { name?: string }) | CompendiumIndexData =
-        | (ClientDocument & { name?: string })
-        | CompendiumIndexData,
+        (ClientDocument & { name?: string }) | CompendiumIndexData,
 >(
     uuid: string,
     options?: {

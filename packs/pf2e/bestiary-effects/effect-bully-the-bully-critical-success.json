@@ -1,0 +1,63 @@
+{
+    "_id": "WoU5RKBuin0DOmcT",
+    "img": "icons/magic/control/fear-fright-mask-orange.webp",
+    "name": "Effect: Bully the Bully (Critical Success)",
+    "system": {
+        "description": {
+            "value": "<p>Augsten is cut deep by your teasing! He becomes @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} by his rage, and is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to your attacks for the next 24 hours. During this time, he takes a –4 circumstance penalty to all attempts to use [[/act demoralize]] on any target, and can't use Bullying Command.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:demoralize"
+                ],
+                "selector": [
+                    "intimidation"
+                ],
+                "type": "circumstance",
+                "value": -4
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:bullying-command"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.NPCAbility.AugstenArudora.BullyTheBully.BullyingCommand"
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

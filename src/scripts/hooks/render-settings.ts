@@ -1,5 +1,5 @@
 import { LegalNotice } from "@module/apps/legal-notice.ts";
-import { MigrationSummary } from "@module/apps/migration-summary.ts";
+import { MigrationSummary } from "@module/apps/migration-summary/app.ts";
 import { ErrorPF2e, createHTMLElement, htmlQuery } from "@util";
 
 /** Attach system buttons and other knickknacks to the settings sidebar */
@@ -66,7 +66,9 @@ export const RenderSettings = {
                 const shootButton = document.createElement("button");
                 shootButton.type = "button";
                 shootButton.append(createIcon("wrench"), _loc("PF2E.Migrations.Troubleshooting"));
-                shootButton.addEventListener("click", () => new MigrationSummary({ troubleshoot: true }).render(true));
+                shootButton.addEventListener("click", () =>
+                    new MigrationSummary({ troubleshoot: true }).render({ force: true }),
+                );
                 pf2eSettings.append(shootButton);
             }
         });

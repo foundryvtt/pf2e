@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Your massive pincer can crush your foes and never let go. Your pincer unarmed attack deals @Damage[1d8[untyped]] damage instead of 1d6 and gains the versatile S trait.</p>"
+            "value": "<p>Your massive pincer can crush your foes and never let go. Your pincer unarmed attack deals 1d8 damage instead of 1d6 and gains the versatile S trait.</p>"
         },
         "level": {
             "value": 5
@@ -29,7 +29,26 @@
             "remaster": true,
             "title": "Starfinder Galactic Ancestries"
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "item:slug:pincer"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "versatile-s"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "property": "dice-faces",
+                "selectors": [
+                    "pincer-damage"
+                ],
+                "value": 8
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

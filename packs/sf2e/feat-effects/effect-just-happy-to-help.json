@@ -1,0 +1,54 @@
+{
+    "_id": "3sB7LkiM8MPMugBm",
+    "img": "icons/skills/social/diplomacy-handshake-yellow.webp",
+    "name": "Effect: Just Happy to Help!",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Just Happy to Help!]</p>\n<p>You gain a +1 circumstance bonus to skill checks using the same skill as the ally you Aided.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "config": "skills"
+                },
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "{item|flags.system.rulesSelections.skill}"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

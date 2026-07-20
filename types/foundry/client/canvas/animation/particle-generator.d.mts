@@ -22,10 +22,7 @@ export type ParticleGeneratorPoint = PIXI.IPointData;
  * - A function which returns a point-like object in scene coordinates.
  */
 export type ParticleGeneratorAnchor =
-    | PlaceableObject
-    | ParticleGeneratorPoint
-    | (() => { x: number; y: number })
-    | null;
+    PlaceableObject | ParticleGeneratorPoint | (() => { x: number; y: number }) | null;
 
 /**
  * Which point to use when anchoring to an object.
@@ -34,9 +31,7 @@ export type ParticleGeneratorAnchor =
  * - function: invoked as (source) => ({x, y}).
  */
 export type ParticleGeneratorAnchorPoint =
-    | "center"
-    | "position"
-    | ((source: PlaceableObject) => { x: number; y: number });
+    "center" | "position" | ((source: PlaceableObject) => { x: number; y: number });
 
 export type ParticleGeneratorBehaviorId = "default" | "orbit" | "follow";
 

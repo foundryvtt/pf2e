@@ -404,14 +404,7 @@ const AMMO_STACK_TO_CATEGORY = {
 } satisfies Record<AmmoStackGroup, AmmoType>;
 
 type AmmoStackGroup =
-    | "arrows"
-    | "blowgunDarts"
-    | "bolts"
-    | "rounds5"
-    | "rounds10"
-    | "slingBullets"
-    | "sprayPellets"
-    | "woodenTaws";
+    "arrows" | "blowgunDarts" | "bolts" | "rounds5" | "rounds10" | "slingBullets" | "sprayPellets" | "woodenTaws";
 
 interface ConsumableToAmmoSource extends Omit<ConsumableSource, "type"> {
     type: "consumable" | "ammo";
