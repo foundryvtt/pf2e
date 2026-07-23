@@ -1,70 +1,46 @@
-import type { ActorPF2e, CharacterPF2e } from "@actor";
+import type { CharacterPF2e } from "@actor";
 import type { ConsumablePF2e } from "@item";
-import { TrickMagicItemDifficultyData, calculateTrickMagicItemCheckDC } from "@item/consumable/spell-consumables.ts";
-import { TRICK_MAGIC_SKILLS, TrickMagicItemEntry, TrickMagicItemSkill } from "@item/spellcasting-entry/trick.ts";
-import { ErrorPF2e, fontAwesomeIcon, localizer } from "@util";
-import appv1 = foundry.appv1;
+import { calculateTrickMagicItemCheckDC } from "@item/consumable/spell-consumables.ts";
+import { TRICK_MAGIC_SKILLS, TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
+import { ErrorPF2e, localizer, tupleHasValue } from "@util";
 
-export class TrickMagicItemPopup {
-    /** The wand or scroll being "tricked" */
-    readonly item: ConsumablePF2e<ActorPF2e>;
-
-    /** The actor doing the tricking */
-    declare readonly actor: CharacterPF2e;
-
-    /** The skill DC of the action's check */
-    readonly checkDC: TrickMagicItemDifficultyData;
-
-    #localize = localizer("PF2E.TrickMagicItemPopup");
-
-    constructor(item: ConsumablePF2e) {
-        if (!item.isOfType("consumable")) {
-            throw ErrorPF2e("Unexpected item used for Trick Magic Item");
-        }
-        if (!item.actor?.isOfType("character")) {
-            throw ErrorPF2e(this.#localize("InvalidActor"));
-        }
-
-        this.item = item as ConsumablePF2e<CharacterPF2e>;
-        this.actor = item.actor;
-        this.checkDC = calculateTrickMagicItemCheckDC(item);
-
-        this.#initialize();
+/** Prompt the user for a skill with which to trick a magic item, then roll the check and cast the embedded spell. */
+async function trickMagicItem(item: ConsumablePF2e): Promise<void> {
+    const localize = localizer("PF2E.TrickMagicItemPopup");
+    if (!item.isOfType("consumable")) {
+        throw ErrorPF2e("Unexpected item used for Trick Magic Item");
     }
-
-    async #initialize(): Promise<void> {
-        const skills = TRICK_MAGIC_SKILLS.filter((skill) => skill in this.checkDC).map((value) => ({
-            value,
-            label: _loc(CONFIG.PF2E.skills[value].label),
-            modifier: this.actor.skills[value].check.mod,
-        }));
-        const buttons = skills.reduce((accumulated: Record<string, appv1.api.DialogButton>, skill) => {
-            const button: appv1.api.DialogButton = {
-                icon: fontAwesomeIcon("dice-d20").outerHTML,
-                label: `${skill.label} (${skill.modifier < 0 ? "" : "+"}${skill.modifier})`,
-                callback: () => this.#handleTrickItem(skill.value),
-            };
-            return { ...accumulated, [skill.value]: button };
-        }, {});
-        new appv1.api.Dialog(
-            {
-                title: this.#localize("Title"),
-                content: `<p>${this.#localize("Label")}</p>`,
-                buttons,
-            },
-            { classes: ["dialog", "trick-magic-item"], width: "auto" },
-        ).render(true);
+    if (!item.actor?.isOfType("character")) {
+        throw ErrorPF2e(localize("InvalidActor"));
     }
+    const consumable = item as ConsumablePF2e<CharacterPF2e>;
+    const actor = consumable.actor;
+    const checkDC = calculateTrickMagicItemCheckDC(consumable);
+    const buttons = TRICK_MAGIC_SKILLS.filter((skill) => skill in checkDC).map((action) => {
+        const modifier = actor.skills[action].check.mod;
+        return {
+            action,
+            icon: "fa-solid fa-dice-d20",
+            label: `${_loc(CONFIG.PF2E.skills[action].label)} (${modifier < 0 ? "" : "+"}${modifier})`,
+        };
+    });
+    const skill = await foundry.applications.api.DialogV2.wait({
+        id: "trick-magic-item-{id}",
+        classes: ["column-buttons"],
+        window: { title: localize("Title") },
+        content: `<p>${localize("Label")}</p>`,
+        buttons,
+        rejectClose: false,
+    });
+    if (!tupleHasValue(TRICK_MAGIC_SKILLS, skill)) return;
 
-    #handleTrickItem(skill: TrickMagicItemSkill): void {
-        const stat = this.actor.skills[skill];
-        stat.check.roll({
-            extraRollOptions: ["action:trick-magic-item"],
-            dc: { value: this.checkDC[skill] ?? 0 },
-            item: this.item,
-        });
+    actor.skills[skill].check.roll({
+        extraRollOptions: ["action:trick-magic-item"],
+        dc: { value: checkDC[skill] ?? 0 },
+        item: consumable,
+    });
 
-        const trick = new TrickMagicItemEntry(this.actor, skill);
-        this.item.castEmbeddedSpell(trick);
-    }
+    await consumable.castEmbeddedSpell(new TrickMagicItemEntry(actor, skill));
 }
+
+export { trickMagicItem };

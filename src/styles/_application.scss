@@ -1,5 +1,11 @@
 // Application V2
 .application {
+    // Stack a dialog's buttons in full-width rows: for skill/option pickers with several buttons
+    &.dialog.column-buttons .form-footer {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
     .window-content.compact {
         padding: 0;
         gap: var(--space-6);
