@@ -6,12 +6,10 @@ import { tupleHasValue } from "@util";
 import * as R from "remeda";
 import { WeaponPF2e } from "./document.ts";
 
-const TRAIT_DIE_SUFFIX = /-d(4|6|8|10|12)$/;
-
 /** Upgrade a trait with a dice annotation, if possible, or otherwise return the original trait. */
 function upgradeWeaponTrait<TTrait extends string>(trait: TTrait): TTrait;
 function upgradeWeaponTrait(trait: string): string {
-    const match = TRAIT_DIE_SUFFIX.exec(trait);
+    const match = /-d(4|6|8|10|12)$/.exec(trait);
     const value = Number(match?.at(1));
     if (tupleHasValue(DAMAGE_DICE_FACES, value)) {
         const upgraded = nextDamageDieSize({ upgrade: `d${value}` });
