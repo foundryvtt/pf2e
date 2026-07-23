@@ -1129,10 +1129,7 @@ const ITEM_ALTERATION_HANDLERS = {
  * When item alterations change weapon damage faces, keep an existing `two-hand-d*` trait in sync so
  * `processTwoHandTrait` still applies the correct two-hand die after the base die changes.
  */
-function adjustTwoHandTraitForDamageFacesChange(
-    weapon: WeaponPF2e,
-    mode: "downgrade" | "override" | "upgrade",
-): void {
+function adjustTwoHandTraitForDamageFacesChange(weapon: WeaponPF2e, mode: "downgrade" | "override" | "upgrade"): void {
     const traits = weapon.system.traits;
     const index = traits.value.findIndex((t) => t.startsWith("two-hand-d"));
     if (index < 0) return;
