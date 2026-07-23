@@ -10,11 +10,11 @@ import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/val
 import type { ItemType } from "@item/types.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values.ts";
-import { adjustTwoHandTraitForDamageFacesChange } from "@item/weapon/helpers.ts";
+import { upgradeWeaponTrait } from "@item/weapon/helpers.ts";
 import { RARITIES, ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { nextDamageDieSize } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import type { DamageDiceFaces } from "@system/damage/types.ts";
+import type { DamageDiceFaces, DamageDieSize } from "@system/damage/types.ts";
 import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
 import {
     DataUnionField,
@@ -1124,6 +1124,45 @@ const ITEM_ALTERATION_HANDLERS = {
         },
     }),
 };
+
+/**
+ * When item alterations change weapon damage faces, keep an existing `two-hand-d*` trait in sync so
+ * `processTwoHandTrait` still applies the correct two-hand die after the base die changes.
+ */
+function adjustTwoHandTraitForDamageFacesChange(
+    weapon: WeaponPF2e,
+    mode: "downgrade" | "override" | "upgrade",
+): void {
+    const traits = weapon.system.traits;
+    const index = traits.value.findIndex((t) => t.startsWith("two-hand-d"));
+    if (index < 0) return;
+
+    const twoHandTrait = traits.value[index];
+    const newTrait = ((): string => {
+        if (mode === "upgrade") return upgradeWeaponTrait(twoHandTrait);
+        if (mode === "downgrade") {
+            const faces = Number(twoHandTrait.replace("two-hand-d", ""));
+            if (!tupleHasValue(DAMAGE_DICE_FACES, faces)) return twoHandTrait;
+            return `two-hand-${nextDamageDieSize({ downgrade: `d${faces}` as DamageDieSize })}`;
+        }
+
+        const currentDie = weapon.system.damage.die;
+        if (!currentDie) return twoHandTrait;
+
+        const dieFaces = Number(currentDie.replace("d", ""));
+        const twoHandFaces = Number(twoHandTrait.replace("two-hand-d", ""));
+        if (!tupleHasValue(DAMAGE_DICE_FACES, dieFaces) || !tupleHasValue(DAMAGE_DICE_FACES, twoHandFaces)) {
+            return twoHandTrait;
+        }
+        if (twoHandFaces > dieFaces) return twoHandTrait;
+
+        const upgraded = nextDamageDieSize({ upgrade: currentDie });
+        const upgradedFaces = Number(upgraded.replace("d", ""));
+        return upgradedFaces > dieFaces ? `two-hand-d${upgradedFaces}` : twoHandTrait;
+    })();
+
+    if (newTrait !== twoHandTrait) traits.value.splice(index, 1, newTrait as typeof twoHandTrait);
+}
 
 interface AlterationFieldOptions<
     TSchema extends AlterationSchema,
