@@ -343,20 +343,30 @@ const ITEM_ALTERATION_HANDLERS = {
             const item = data.item;
             const mode = data.alteration.mode;
             const die = item.system.damage.die;
-            if (mode === "upgrade" && !item.flags[SYSTEM_ID].damageFacesUpgraded && die) {
-                item.system.damage.die = nextDamageDieSize({ upgrade: die });
-                item.flags[SYSTEM_ID].damageFacesUpgraded = true;
-                adjustTwoHandTraitForDamageFacesChange(item, mode);
-            } else if (mode === "downgrade" && die) {
-                item.system.damage.die = nextDamageDieSize({ downgrade: die });
-                adjustTwoHandTraitForDamageFacesChange(item, mode);
-            } else if (mode === "override" && typeof data.alteration.value === "number") {
-                if (die && data.alteration.value > Number(die.replace("d", ""))) {
+            switch (mode) {
+                case "upgrade": {
+                    if (item.flags[SYSTEM_ID].damageFacesUpgraded || !die) return;
+                    item.system.damage.die = nextDamageDieSize({ upgrade: die });
                     item.flags[SYSTEM_ID].damageFacesUpgraded = true;
+                    break;
                 }
-                item.system.damage.die = `d${data.alteration.value}`;
-                adjustTwoHandTraitForDamageFacesChange(item, mode);
+                case "downgrade": {
+                    if (!die) return;
+                    item.system.damage.die = nextDamageDieSize({ downgrade: die });
+                    break;
+                }
+                case "override": {
+                    if (typeof data.alteration.value !== "number") return;
+                    if (die && data.alteration.value > Number(die.replace("d", ""))) {
+                        item.flags[SYSTEM_ID].damageFacesUpgraded = true;
+                    }
+                    item.system.damage.die = `d${data.alteration.value}`;
+                    break;
+                }
+                default:
+                    return;
             }
+            adjustTwoHandTraitForDamageFacesChange(item, mode);
         },
     }),
     "damage-dice-number": new ItemAlterationHandler({
