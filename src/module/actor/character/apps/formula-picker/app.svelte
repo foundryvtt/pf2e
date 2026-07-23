@@ -123,6 +123,7 @@
                     {/if}
                     <ItemSummary
                         uuid={formula.item.uuid}
+                        version={formula.item.updatedAt}
                         open={!!openStates[formula.item.uuid]}
                         exclude={["traits", "price"]}
                     />
