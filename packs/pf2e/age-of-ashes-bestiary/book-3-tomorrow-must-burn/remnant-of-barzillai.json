@@ -9,6 +9,8 @@
             "name": "Burning Mace",
             "sort": 100000,
             "system": {
+                "action": "strike",
+                "area": null,
                 "attack": {
                     "value": ""
                 },
@@ -39,7 +41,9 @@
                 "range": null,
                 "rules": [],
                 "slug": null,
+                "subjectToMAP": true,
                 "traits": {
+                    "config": {},
                     "rarity": "common",
                     "value": [
                         "fire",
@@ -71,7 +75,29 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "haunted-form",
+                        "toggleable": true
+                    },
+                    {
+                        "doubleVs": [
+                            "non-magical"
+                        ],
+                        "exceptions": [
+                            "force",
+                            "ghost-touch",
+                            "vitality"
+                        ],
+                        "key": "Resistance",
+                        "predicate": [
+                            "haunted-form"
+                        ],
+                        "type": "all-damage",
+                        "value": 12
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -140,7 +166,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         }

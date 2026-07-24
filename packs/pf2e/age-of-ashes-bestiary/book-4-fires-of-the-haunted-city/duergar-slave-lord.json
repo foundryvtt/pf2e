@@ -28,6 +28,9 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
                 "slots": {},
                 "slug": null,
                 "spelldc": {
@@ -37,7 +40,8 @@
                 },
                 "tradition": {
                     "value": "occult"
-                }
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
         },
@@ -813,6 +817,47 @@
                 "slug": null,
                 "traits": {
                     "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3Px1gkPg0rUxmmXE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "+2 Status to All Saves vs. Magic",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": [
+                            "saving-throw"
+                        ],
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
                     "value": []
                 }
             },
