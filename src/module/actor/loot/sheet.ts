@@ -10,7 +10,7 @@ import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlClosest, htmlQuery } from "@util";
 import { ActorSheetPF2e } from "../sheet/base.ts";
 import { DistributeCoinsDialog } from "../sheet/popups/distribute-coins-dialog.ts";
-import { LootNPCsPopup } from "../sheet/popups/loot-npcs-popup.ts";
+import { lootNPCs } from "../sheet/popups/loot-npcs-popup.ts";
 import type { LootSystemSchema } from "./data.ts";
 
 export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActor> {
@@ -61,11 +61,7 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
             if (button?.dataset.action === "split-coins") {
                 new DistributeCoinsDialog({ actor: this.actor }).render(true);
             } else if (button?.dataset.action === "loot-npcs") {
-                if (canvas.tokens.controlled.some((token) => token.actor?.id !== this.actor.id)) {
-                    new LootNPCsPopup(this.actor).render(true);
-                } else {
-                    ui.notifications.warn("No tokens selected.");
-                }
+                lootNPCs(this.actor);
             } else if (button?.dataset.action === "send-to-party-stash") {
                 if (!game.actors.party) return;
                 transferItemsBetweenActors(this.actor, game.actors.party);
