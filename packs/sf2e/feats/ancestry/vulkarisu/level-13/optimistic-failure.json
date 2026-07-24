@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You're an eternal optimist, and you wouldn't have it any other way! No matter how close you come to failing at a task (or how often you fail), you know if you just keep trying, you're bound to succeed. You can use Aw, Nuts! once per hour, rather than once per day.</p>"
+            "value": "<p>You're an eternal optimist, and you wouldn't have it any other way! No matter how close you come to failing at a task (or how often you fail), you know if you just keep trying, you're bound to succeed. You can use @UUID[Compendium.sf2e.feats.Item.Aw, Nuts!] once per hour, rather than once per day.</p>"
         },
         "level": {
             "value": 13
@@ -29,7 +29,18 @@
             "remaster": true,
             "title": "Beyond the Blood Door Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    "item:slug:aw-nuts"
+                ],
+                "property": "frequency-per",
+                "value": "PT1H"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},
