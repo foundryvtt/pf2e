@@ -27,18 +27,16 @@
         },
         "rules": [
             {
-                "domain": "all",
                 "key": "RollOption",
                 "option": "trifaction-negotiator",
-                "selection": "advantageous-target",
                 "suboptions": [
                     {
-                        "label": "PF2E.SpecificRule.Lashunta.TrifactionNegotiator.AdvantageousTarget",
-                        "value": "advantageous-target"
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusTwo",
+                        "value": "2"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Lashunta.TrifactionNegotiator.DisadvantageousTarget",
-                        "value": "disadvantageous-target"
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeTwo",
+                        "value": "-2"
                     }
                 ],
                 "toggleable": true
@@ -46,30 +44,15 @@
             {
                 "hideIfDisabled": true,
                 "key": "FlatModifier",
-                "label": "PF2E.SpecificRule.Lashunta.TrifactionNegotiator.Bonus",
                 "predicate": [
                     "action:make-an-impression",
-                    "trifaction-negotiator:advantageous-target"
-                ],
-                "selector": [
-                    "skill-check"
+                    "trifaction-negotiator"
                 ],
                 "type": "circumstance",
-                "value": 2
-            },
-            {
-                "hideIfDisabled": true,
-                "key": "FlatModifier",
-                "label": "PF2E.SpecificRule.Lashunta.TrifactionNegotiator.Penalty",
-                "predicate": [
-                    "action:make-an-impression",
-                    "trifaction-negotiator:disadvantageous-target"
-                ],
+                "value": "{item|flags.system.rulesSelections.trifactionNegotiator}",
                 "selector": [
                     "skill-check"
-                ],
-                "type": "circumstance",
-                "value": -2
+                ]
             }
         ],
         "subfeatures": {

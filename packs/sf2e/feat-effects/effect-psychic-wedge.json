@@ -4,7 +4,7 @@
     "name": "Effect: Psychic Wedge",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Psychic Wedge]</p>\n<p>You take a –1 status penalty to saving throws against the origin's other innate spells until the end of their next turn.</p>"
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Psychic Wedge]</p>\n<p>You take a –1 status penalty to saving throws against the origin's other innate spells.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -26,17 +26,13 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "spellcasting:innate",
-                    "origin:mark:psychic-wedge"
+                    "origin:signature:{item|origin.signature}"
                 ],
                 "selector": [
                     "saving-throw"
                 ],
                 "type": "status",
                 "value": -1
-            },
-            {
-                "key": "TokenMark",
-                "slug": "psychic-wedge"
             }
         ],
         "start": {

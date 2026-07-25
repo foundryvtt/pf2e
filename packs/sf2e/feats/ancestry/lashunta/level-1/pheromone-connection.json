@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You learned to manipulate your pheromones in compensation for a lack of telepathy. You can [[/act make-an-impression]] with your pheromones, which causes your attempt to lose the auditory and linguistic traits and instead gain the olfactory trait. If you use your pheromones to [[/act make-an-impression traits=olfactory]]{enhance your speech} (by retaining the auditory and linguistic traits while also adding the olfactory trait to the action), you gain a +2 circumstance bonus to this check. When modified in this way, a failure on a check to Make an Impression becomes a critical failure instead.</p>"
+            "value": "<p>You learned to manipulate your pheromones in compensation for a lack of telepathy. You can [[/act make-an-impression traits=olfactory]] with your pheromones, which causes your attempt to lose the auditory and linguistic traits and instead gain the olfactory trait. If you use your pheromones to enhance your speech (by retaining the auditory and linguistic traits while also adding the olfactory trait to the action), you gain a +2 circumstance bonus to this check. When modified in this way, a failure on a check to Make an Impression becomes a critical failure instead.</p>"
         },
         "level": {
             "value": 1
@@ -34,7 +34,9 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "action:make-an-impression",
-                    "olfactory"
+                    "item:trait:auditory",
+                    "item:trait:linguistic",
+                    "item:trait:olfactory"
                 ],
                 "selector": [
                     "skill-check"
@@ -48,8 +50,10 @@
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
-                    "action:make-an-impression",
-                    "olfactory"
+                    "action:make-an-impression",  
+                    "item:trait:auditory",  
+                    "item:trait:linguistic",
+                    "item:trait:olfactory"
                 ],
                 "selector": "skill-check"
             }
