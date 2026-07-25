@@ -1,0 +1,58 @@
+{
+    "_id": "CoQvuLMyHZxaHKNC",
+    "img": "icons/creatures/mammals/wolf-shadow-black.webp",
+    "name": "Stance: Squox Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Squox Stance]</p>\n<p>You gain a +1 circumstance bonus to your Fortitude and Reflex DCs against attempts to Shove, Reposition, or Trip you. This bonus also applies to saving throws against spells or effects that attempt to move you or knock you prone.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Beyond the Blood Door Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:reposition",
+                            "action:trip",
+                            "inflicts:prone"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude-dc",
+                    "reflex-dc",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
