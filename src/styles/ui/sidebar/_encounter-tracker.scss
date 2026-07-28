@@ -9,26 +9,7 @@
         line-height: 1.5rem;
         white-space: nowrap;
         .threat .value {
-            &.trivial {
-                color: aqua;
-            }
-
-            &.low {
-                color: lime;
-            }
-
-            &.moderate {
-                color: yellow;
-            }
-
-            &.severe {
-                color: orange;
-            }
-
-            &.extreme {
-                color: red;
-            }
-            text-shadow: 1px 1px 2px var(--color-shadow-dark);
+            @include threat-rating-colors;
         }
         .award .value {
             color: var(--color-text-primary);
