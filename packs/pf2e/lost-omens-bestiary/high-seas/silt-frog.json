@@ -37,7 +37,9 @@
                 "subjectToMAP": true,
                 "traits": {
                     "config": {},
-                    "value": []
+                    "value": [
+                        "unarmed"
+                    ]
                 }
             },
             "type": "melee"
@@ -79,7 +81,8 @@
                 "traits": {
                     "config": {},
                     "value": [
-                        "reach-10"
+                        "reach-10",
+                        "unarmed"
                     ]
                 }
             },
@@ -161,7 +164,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The silt frog unleashes an eardrum-rattling croak. All creatures within 30 feet become @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute unless they succeed at a @Check[fortitude|dc:24] save; those that critically succeed are temporarily immune for 1 minute.</p>"
+                    "value": "<p>The silt frog unleashes an eardrum-rattling croak. All creatures within @Template[emanation|distance:30]{30 feet} become @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute unless they succeed at a @Check[fortitude|dc:24|options:area-effect,inflicts:deafened] save; those that critically succeed are temporarily immune for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
