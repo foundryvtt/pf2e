@@ -33,6 +33,26 @@
             {
                 "itemType": "weapon",
                 "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:base:blowgun"
+                ],
+                "property": "damage-dice-faces",
+                "value": 4
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "diceNumber": "max(1 + @weapon.system.runes.striking, @weapon.system.damage.dice)"
+                },
+                "predicate": [
+                    "item:base:blowgun"
+                ],
+                "selector": "blowgun-damage"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
                     "item:base:blowgun"
