@@ -144,6 +144,7 @@ class FormulaPicker extends SvelteApplicationMixin<
                                 level: f.item.level,
                                 rarity: f.item.rarity,
                                 traits: f.item.traitChatData(),
+                                updatedAt: f.item._stats.modifiedTime ?? undefined,
                             },
                             quantity: mode === "prepare" ? preparedQuantity : f.batchSize,
                             selected: preparedQuantity > 0,
@@ -196,6 +197,8 @@ interface FormulaViewData {
     traits: TraitChatData[];
     level: number | null;
     rarity: Rarity | null;
+    /** When the item was last modified, keeping its expanded summary fresh */
+    updatedAt?: number;
 }
 
 export { FormulaPicker };

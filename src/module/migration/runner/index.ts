@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import type WorldCollection from "@client/documents/abstract/world-collection.d.mts";
 import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
+import type { CompendiumIndexData } from "@client/documents/collections/compendium-collection.d.mts";
 import type { ItemPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { MacroPF2e } from "@module/macro.ts";
@@ -18,6 +19,12 @@ export class MigrationRunner extends MigrationRunnerBase {
 
     override needsMigration(): boolean {
         return super.needsMigration(game.settings.get(SYSTEM_ID, "worldSchemaVersion"));
+    }
+
+    /** Read the schema version from a compendium index entry */
+    static schemaVersionFromIndex(entry: CompendiumIndexData): number {
+        const system = entry.system ?? entry.data;
+        return Number(system?._migration?.version ?? system?.schema?.version);
     }
 
     /** Flatten an error and its cause into a single human-readable message */
@@ -324,6 +331,17 @@ export class MigrationRunner extends MigrationRunnerBase {
             await this.#saveUpdateGroup(compendium, [...batch], pack, undefined, { diff: false });
         }
         ui.notifications.info("PF2E.Migrations.Finished", { format: { version: game.system.version } });
+
+        // Verify the results: a save can resolve without anything being persisted
+        const index = await compendium.getIndex({
+            fields: [fu.randomID(), "system._migration", "system.schema", "data.schema"],
+        });
+        const outdated = index.filter(
+            (e) => !(MigrationRunner.schemaVersionFromIndex(e) >= MigrationRunner.LATEST_SCHEMA_VERSION),
+        ).length;
+        if (outdated > 0) {
+            ui.notifications.warn("PF2E.Migrations.StillOutdated", { format: { count: String(outdated) } });
+        }
     }
 
     async runMigrations(migrations: MigrationBase[]): Promise<void> {

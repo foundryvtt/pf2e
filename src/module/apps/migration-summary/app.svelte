@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { SvelteAppProps } from "@module/sheet/mixin.svelte.ts";
-    import type { MigrationSummaryContext, UnmigratedDocument } from "./app.ts";
+    import type { MigrationSummaryContext } from "./app.ts";
+    import UnmigratedList from "./unmigrated-list.svelte";
 
     const {
         foundryApp,
@@ -28,11 +29,6 @@
             // The remigrate button usually disappears after a run, dropping keyboard focus
             if (document.activeElement === document.body) okButton?.focus();
         }
-    }
-
-    async function openDocument(uuid: string): Promise<void> {
-        const document = await fromUuid(uuid);
-        document?.sheet?.render(true);
     }
 </script>
 
@@ -62,22 +58,6 @@
             {/if}
         </td>
     </tr>
-{/snippet}
-
-{#snippet documentEntry(document: UnmigratedDocument)}
-    <li>
-        <button
-            type="button"
-            data-tooltip-text={document.reason ? `${document.name}: ${document.reason}` : document.name}
-            onclick={() => openDocument(document.uuid)}
-        >
-            <span class="name">{document.name}</span>
-            {#if document.reason}
-                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-                <span class="sr-only">{document.reason}</span>
-            {/if}
-        </button>
-    </li>
 {/snippet}
 
 <div class="container" aria-busy={isRemigrating}>
@@ -116,28 +96,12 @@
                             : "PF2E.Migrations.Summary.UnmigratedDocumentsHintRemigrate",
                     )}
                 </p>
-                <div class="document-list">
-                    {#if data.unmigrated.actors.length > 0}
-                        {#if data.unmigrated.items.length > 0}
-                            <h4>{_loc("PF2E.Actor.Plural")}</h4>
-                        {/if}
-                        <ul role="list" aria-label={_loc("PF2E.Actor.Plural")}>
-                            {#each data.unmigrated.actors as document (document.uuid)}
-                                {@render documentEntry(document)}
-                            {/each}
-                        </ul>
-                    {/if}
-                    {#if data.unmigrated.items.length > 0}
-                        {#if data.unmigrated.actors.length > 0}
-                            <h4>{_loc("PF2E.Item.Plural")}</h4>
-                        {/if}
-                        <ul role="list" aria-label={_loc("PF2E.Item.Plural")}>
-                            {#each data.unmigrated.items as document (document.uuid)}
-                                {@render documentEntry(document)}
-                            {/each}
-                        </ul>
-                    {/if}
-                </div>
+                <UnmigratedList
+                    groups={[
+                        { label: _loc("PF2E.Actor.Plural"), documents: data.unmigrated.actors },
+                        { label: _loc("PF2E.Item.Plural"), documents: data.unmigrated.items },
+                    ]}
+                />
             </section>
         {/if}
         {#if showHelpResources}
@@ -198,93 +162,6 @@
 
         p.hint {
             margin: 0 0 var(--space-6);
-        }
-
-        h4 {
-            background: var(--table-header-bg-color);
-            font-family: inherit;
-            font-size: var(--font-size-14);
-            font-variant: small-caps;
-            font-weight: bold;
-            letter-spacing: 0.05em;
-            line-height: 1.75;
-            margin: var(--space-12) 0 0;
-            padding: 0 var(--space-8);
-
-            &:first-child {
-                margin-top: 0;
-            }
-        }
-
-        .document-list {
-            max-height: 10rem;
-            overflow-y: auto;
-            border: 1px solid var(--color-border);
-            border-radius: 3px;
-
-            ul {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-            }
-
-            li {
-                margin-bottom: 0;
-                overflow: hidden;
-
-                &:nth-child(odd) {
-                    background-color: var(--table-row-color-odd);
-                }
-
-                &:nth-child(even) {
-                    background-color: var(--table-row-color-even);
-                }
-
-                &:hover {
-                    background-color: var(--table-row-color-highlight);
-                }
-            }
-
-            button {
-                align-items: center;
-                background: none;
-                border: none;
-                box-shadow: none;
-                cursor: pointer;
-                transition: none;
-                display: flex;
-                gap: var(--space-4);
-                width: 100%;
-                height: auto;
-                padding: 0 var(--space-12);
-                text-align: left;
-
-                .name {
-                    flex: 1;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                }
-
-                i.fa-triangle-exclamation {
-                    color: var(--color-level-warning);
-                }
-
-                &:hover {
-                    box-shadow: none;
-                    text-shadow: none;
-                }
-
-                &:focus {
-                    outline: none;
-                    box-shadow: none;
-                }
-
-                &:focus-visible {
-                    outline: 2px solid var(--button-focus-outline-color);
-                    outline-offset: -2px;
-                }
-            }
         }
     }
 </style>

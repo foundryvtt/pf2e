@@ -559,9 +559,14 @@
                     }
                 },
                 "SpellPreparation": {
-                    "Hint": "To prepare a spell, drag one from this list to a slot on the actor sheet.",
-                    "HintFlexible": "To prepare a spell, enable it here. To prepare a cantrip, drag one from this list to a slot on the actor sheet.",
-                    "Search": "Search Spells",
+                    "CantripPrepared": "Cantrips only need to be prepared once",
+                    "EmptyGroup": "No spells known",
+                    "Hint": "To prepare a spell, use its prepare button or drag it to a slot on the actor sheet.",
+                    "HintFlexible": "To prepare a spell, enable it here. To prepare a cantrip, use its prepare button or drag it to a slot on the actor sheet.",
+                    "NoFreeSlots": "No free slots of an eligible rank",
+                    "NotPrepared": "Not prepared",
+                    "Prepare": "Prepare Spell",
+                    "RemovePreparation": "Remove Preparation",
                     "Title": "{actor}: Spell Preparation"
                 },
                 "Spellcasting": {
@@ -1150,11 +1155,13 @@
         },
         "CompendiumMigrationStatus": {
             "Document": "Document",
+            "FailedDocuments": "Failed Documents",
             "Foundry": "Foundry",
             "FoundryOld": "0.7 or older",
             "Invalid": "Invalid",
             "LockedTooltip": "Unable to migrate — compendium is locked",
             "MigrateCompendium": "Migrate Compendium",
+            "OutOfDate": "Out of Date",
             "Schema": "Schema",
             "Size": "Size",
             "Title": "Migration Status",
@@ -3282,6 +3289,7 @@
             "OutsideSchemaRange": "The specified range is outside the system's schema version range (between {minimum} and {maximum}).",
             "Running": "Running system migration ...",
             "Starting": "Applying PF2E System Migration to version {version}. Please be patient and do not close your game or shut down your server.",
+            "StillOutdated": "Migration finished, but {count} documents remain on an older schema",
             "Summary": {
                 "Complete": "Complete",
                 "Documents": "Documents",
@@ -4259,6 +4267,12 @@
         "SpellLevelBase": "Base: {level}",
         "SpellLevelHeightened": "Heightened: +{heightened}",
         "SpellLevelLabel": "Spell Rank",
+        "SpellList": {
+            "Search": "Search Spells",
+            "SearchResults": "Matching spells: {count}",
+            "SortAscending": "sorted ascending",
+            "SortDescending": "sorted descending"
+        },
         "SpellPreparedLabel": "Prepared",
         "SpellRequirementsLabel": "Requirements",
         "SpellScalingInterval": {
@@ -5225,6 +5239,7 @@
         "TraitDescriptionVitality": "Effects with this trait heal living creatures with energy from the Forge of Creation, deal vitality energy damage to undead, or manipulate vitality energy.",
         "TraitDescriptionVoid": "Effects with this trait heal undead creatures with void energy, deal void damage to living creatures, or manipulate void energy.",
         "TraitDescriptionVolley": "This ranged weapon is less effective at close distances. Your attacks against targets that are at a distance within the range listed take a -2 penalty.",
+        "TraitDescriptionVulkarisu": "Vulkarisu are intelligent, bipedal humanoids that look like a mix between a fox and a squirrel.",
         "TraitDescriptionWand": "A wand contains a single spell which you can cast once per day.",
         "TraitDescriptionWandering": "Wandering identifies animist feats attuned to particular types of apparitions. These feats require you to have attuned to an apparition who matches their prerequisites when you select them, and represent knowledge and ability pulled from that specific bond. When you make your daily preparations, you can retrain any wandering feat you know for any other wandering feat available at the level you took the exchanged feat (including lower-level wandering feats, as usual). You must meet all the new feat's other prerequisites.",
         "TraitDescriptionWater": "Effects with the water trait either manipulate or conjure water. Those that manipulate water have no effect in an area without water. Creatures with this trait consist primarily of water or have a connection to magical water.",
@@ -5814,6 +5829,7 @@
         "TraitVolley50": "Volley 50 ft.",
         "TraitVolley60": "Volley 60 ft.",
         "TraitVorpalFear": "Vorpal Fear",
+        "TraitVulkarisu": "Vulkarisu",
         "TraitWand": "Wand",
         "TraitWandering": "Wandering",
         "TraitWater": "Water",
@@ -7195,6 +7211,7 @@
             "LootUnknownNPCMessage": "an unidentified creature",
             "LootNPCsLabel": "Loot Selected Tokens",
             "LootNPCsPopupHeader": "Choose tokens to loot from",
+            "LootNPCsTitle": "Loot NPCs",
             "LootNamePlaceholder": "Loot",
             "LootSubtitle": "Loot item",
             "MerchantDescription": "Allows players to purchase items directly from the sheet",

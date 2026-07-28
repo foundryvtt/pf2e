@@ -1,5 +1,11 @@
 // Application V2
 .application {
+    // Stack a dialog's buttons in full-width rows: for skill/option pickers with several buttons
+    &.dialog.column-buttons .form-footer {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
     .window-content.compact {
         padding: 0;
         gap: var(--space-6);
@@ -37,6 +43,12 @@
             box-shadow: none;
             outline: none;
             text-shadow: 0 0 8px var(--color-shadow-primary);
+        }
+
+        // Restore core's button focus ring, which the reset above removes, for keyboard focus
+        &:focus-visible {
+            box-shadow: 0 0 4px var(--button-focus-outline-color);
+            outline: 1px solid var(--button-focus-outline-color);
         }
     }
 }
