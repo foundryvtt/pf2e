@@ -1,0 +1,47 @@
+{
+    "_id": "eRxSdMi6Y2XTQWql",
+    "img": "icons/magic/fire/explosion-fireball-large-red-orange.webp",
+    "name": "Effect: Heat Surge",
+    "system": {
+        "description": {
+            "value": "<p>The damage of your Internal Furnace increases to 10d8.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 17
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #149: Against the Scarlet Triad"
+        },
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "dice-number",
+                "selectors": [
+                    "internal-furnace-inline-damage"
+                ],
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
