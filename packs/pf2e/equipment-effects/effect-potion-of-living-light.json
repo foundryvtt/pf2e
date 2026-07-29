@@ -1,0 +1,63 @@
+{
+    "_id": "s4yWMBNFpBRFqSvm",
+    "img": "icons/consumables/potions/bottle-conical-corked-purple.webp",
+    "name": "Effect: Potion of Living Light",
+    "system": {
+        "description": {
+            "value": "<p>Your skin sheds an aura of bright light in a @Template[type:emanation|distance:20] (and dim light for another 20 feet), even through your clothing and armor, for 1 hour. While glowing, you gain a +2 status bonus to saving throws against darkness and shadow effects. You can Dismiss this effect, causing a flash of light that causes every creature in a @Template[type:emanation|distance:20] to be @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round unless they succeed at a @Check[fortitude|dc:27] save.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:darkness",
+                    "item:trait:shadow"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "TokenLight",
+                "value": {
+                    "alpha": 0.05,
+                    "animation": {
+                        "type": "flame"
+                    },
+                    "attenuation": 0.4,
+                    "bright": 20,
+                    "dim": 40,
+                    "shadows": 0.2
+                }
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -4,7 +4,7 @@
     "name": "Stance: Arcane Cascade",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Arcane Cascade]</p>\n<p>Your melee Strikes deal 1 extra force damage. This damage increases to 2 if you have weapon specialization and 3 if you have greater weapon specialization. Any Strike that benefits from this damage gains the arcane trait, making it magical.</p>\n<p>If your most recent spell before entering the stance was one that can deal damage, the damage from the stance is instead the same type that spell could deal (or one type of your choice if the spell could deal multiple types of damage).</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Arcane Cascade]</p>\n<p>Your melee Strikes gain the arcane trait and deal 1 extra force damage, and you gain resistance 1 to damage from spells. If you have the @UUID[Compendium.pf2e.classfeatures.Item.Weapon Specialization] class feature, the damage and resistance increase to 2, and if you have @UUID[Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization], they increase to 3.</p>\n<p>If you Cast a Spell and then enter Arcane Cascade on the same turn, you can change the damage from the stance to any one damage type that spell could deal instead of force.</p>"
         },
         "duration": {
             "expiry": null,
@@ -16,24 +16,11 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Secrets of Magic"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
         },
         "rules": [
-            {
-                "events": {
-                    "onCreate": true,
-                    "onTurnStart": true
-                },
-                "key": "TempHP",
-                "predicate": [
-                    "feature:inexorable-iron",
-                    "self:weapon:melee",
-                    "self:weapon:hands-held:2"
-                ],
-                "value": "max(floor(@actor.level / 2), 1)"
-            },
             {
                 "actorFlag": true,
                 "choices": [
@@ -158,6 +145,40 @@
                 "mode": "override",
                 "path": "flags.system.arcaneCascade.damageType",
                 "value": "{item|flags.system.rulesSelections.stanceArcaneCascade}"
+            },
+            {
+                "key": "Resistance",
+                "type": "spells",
+                "value": 1
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "feature:weapon-specialization"
+                ],
+                "type": "spells",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "feature:greater-weapon-specialization"
+                ],
+                "type": "spells",
+                "value": 3
+            },
+            {
+                "events": {
+                    "onCreate": true,
+                    "onTurnStart": true
+                },
+                "key": "TempHP",
+                "predicate": [
+                    "feature:inexorable-iron",
+                    "self:weapon:melee",
+                    "self:weapon:hands-held:2"
+                ],
+                "value": "max(floor(@actor.level / 2), 1)"
             }
         ],
         "start": {

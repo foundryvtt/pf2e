@@ -1,0 +1,58 @@
+{
+    "_id": "p5FAn20HQcWNdS0A",
+    "folder": "s0jFHs2ZHTBq0v95",
+    "img": "icons/skills/trades/smithing-tongs-metal-red.webp",
+    "name": "Assured Runic Crafter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You're so used to tracing and etching runes in the field that when given the peace and quiet of a proper workshop, it's hard for things to go too astray. When you roll a check to @UUID[Compendium.pf2e.actionspf2e.Item.Craft] a magic item in downtime and that item is a permanent rune, you get the outcome one degree of success better than the result of your Crafting check.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "assured-runic-crafter",
+                "toggleable": true
+            },
+            {
+                "adjustment": {
+                    "all": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "assured-runic-crafter"
+                ],
+                "selector": "crafting"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {},
+            "senses": {},
+            "suppressedFeatures": []
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "runesmith"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -4,7 +4,7 @@
     "name": "Effect: Potion of Stable Form (Greater)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Stable Form (Greater)]</p>\n<p>You gain a +3 item bonus against transmutation effects, which is +4 against polymorph effects. If you roll a success against a polymorph effect during that time, you get a critical success instead.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Potion of Stable Form (Greater)]</p>\n<p>You gain a +4 item bonus against morph and polymorph effects. If you roll a success against a polymorph effect during that time, you get a critical success instead.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,28 +16,24 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Secrets of Magic"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Potion of Stable Form (Transmutation)",
                 "predicate": [
-                    "transmutation"
+                    {
+                        "or": [
+                            "item:trait:morph",
+                            "item:trait:polymorph"
+                        ]
+                    }
                 ],
-                "selector": "saving-throw",
-                "type": "item",
-                "value": 3
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Potion of Stable Form (Polymorph)",
-                "predicate": [
-                    "polymorph"
+                "selector": [
+                    "saving-throw"
                 ],
-                "selector": "saving-throw",
                 "type": "item",
                 "value": 4
             },

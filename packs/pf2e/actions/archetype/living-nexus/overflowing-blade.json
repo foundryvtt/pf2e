@@ -1,0 +1,49 @@
+{
+    "_id": "dEN2xLWOMXWhjGAF",
+    "folder": "WevvNDbzknqD3kBC",
+    "img": "systems/pf2e/icons/actions/OneAction.webp",
+    "name": "Overflowing Blade",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are overflowing</p><hr /><p><strong>Effect</strong> You conduct the magic in your internal nexus to coat your weapon or unarmed strike, empowering it with magical energy for a devastating attack. Make a melee Strike. If the Strike hits, you deal an additional @Damage[1d4[force]] damage. At 10th level, the additional damage increases to @Damage[2d4[force]] damage. At 18th level, the additional damage increases to @Damage[3d4[force]] damage. You are no longer overflowing.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "overflowing-blade",
+                "predicate": [
+                    "self:effect:overflowing"
+                ],
+                "toggleable": true
+            },
+            {
+                "damageType": "force",
+                "diceNumber": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "melee-strike-damage",
+                "slug": "overflowing-blade"
+            }
+        ],
+        "traits": {
+            "value": [
+                "concentrate",
+                "force",
+                "magical"
+            ]
+        }
+    },
+    "type": "action"
+}
