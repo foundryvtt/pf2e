@@ -1,0 +1,55 @@
+{
+    "_id": "SGM1wyBdYyv9bZBT",
+    "img": "icons/magic/control/energy-stream-link-spiral-teal.webp",
+    "name": "Effect: Overflowing",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Absorb Magic], @UUID[Compendium.pf2e.feats-srd.Item.Harness Natural Magic]</p>\n<p>You gain a status bonus to saving throws against effects with the arcane, divine, magical, occult, and primal traits.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:arcane",
+                            "item:trait:divine",
+                            "item:trait:occult",
+                            "item:trait:primal"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "value": "ternary(gte(@actor.level,15),2,1)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

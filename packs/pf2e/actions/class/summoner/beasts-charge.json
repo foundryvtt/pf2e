@@ -12,14 +12,28 @@
         },
         "category": "offensive",
         "description": {
-            "value": "<p>Your eidolon rushes forward, using its momentum to increase the power of its attack. Your eidolon Strides twice and then Strikes. If the eidolon moved at least 20 feet away from its starting position and moved entirely in a straight line, it gains a +1 circumstance bonus to this attack roll.</p>"
+            "value": "<p>Your eidolon rushes forward, using their momentum to increase the power of their attack. Your eidolon Strides twice and then Strikes. If the eidolon moved at least 20 feet away from their starting position and moved entirely in a straight line, they gain a +1 circumstance bonus to this attack roll.</p>"
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Secrets of Magic"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "beasts-charge",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "strike-attack-roll"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

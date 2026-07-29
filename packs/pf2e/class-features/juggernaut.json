@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p><strong>Barbarian</strong> Your body is accustomed to physical hardship and resistant to ailments. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead.</p>\n<p><strong>Magus</strong> Your body is accustomed to physical hardship and resistant to a wide range of ailments. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead.</p>"
+            "value": "<p>Your body is accustomed to physical hardship and resistant to ailments. Your proficiency rank for Fortitude saves increases to master. When you roll a success on a Fortitude save, you get a critical success instead.</p>"
         },
         "level": {
             "value": 7
@@ -27,28 +27,10 @@
         "rules": [
             {
                 "adjustment": {
-                    "success": "one-degree-better"
+                    "success": "to-critical-success"
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "selector": "fortitude"
-            },
-            {
-                "itemId": "{item|id}",
-                "key": "ItemAlteration",
-                "mode": "override",
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.ClassFeatures.Juggernaut.{actor|class.slug}.Description"
-                    }
-                ]
-            },
-            {
-                "itemId": "{item|id}",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "property": "traits",
-                "value": "{actor|class.slug}"
             }
         ],
         "subfeatures": {
@@ -61,8 +43,7 @@
         "traits": {
             "rarity": "common",
             "value": [
-                "barbarian",
-                "magus"
+                "barbarian"
             ]
         }
     },

@@ -1,0 +1,52 @@
+{
+    "_id": "5exj14jbFVvz5fQt",
+    "img": "systems/pf2e/icons/equipment/consumables/ammunition/silencing-shot.webp",
+    "name": "Effect: Daybreak Ammunition",
+    "system": {
+        "description": {
+            "value": "<p>The bronze inlays of daybreak ammunition glow noticeably, even under direct sunlight. When activated daybreak ammunition hits a target, the missile flares with an aura of bright light in a @Template[type:emanation|distance:10] from the target for 1 round. Each creature in the area must attempt a @Check[fortitude|dc:18] save. Creatures with darkvision take a –2 circumstance penalty to this save.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 1,
+                        "type": "pulse"
+                    },
+                    "bright": 10,
+                    "color": "#975335",
+                    "dim": 0,
+                    "shadows": 0.2
+                }
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

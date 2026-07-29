@@ -1,0 +1,98 @@
+{
+    "_id": "6qsUtlVDWrESE0bm",
+    "img": "icons/magic/lightning/fist-unarmed-strike-blue.webp",
+    "name": "Spell Effect: Fulminating Impact (Initial Strike)",
+    "system": {
+        "description": {
+            "value": "<p>Make a melee Strike. If the Strike hits, you deal an additional 1d6 electricity damage and 1d6 sonic damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "damageType": "electricity",
+                "diceNumber": "1",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "lt": [
+                            "parent:origin:item:level",
+                            8
+                        ]
+                    }
+                ],
+                "selector": "melee-strike-damage"
+            },
+            {
+                "damageType": "sonic",
+                "diceNumber": "1",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "lt": [
+                            "parent:origin:item:level",
+                            8
+                        ]
+                    }
+                ],
+                "selector": "melee-strike-damage"
+            },
+            {
+                "damageType": "electricity",
+                "diceNumber": "1",
+                "dieSize": "d12",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "gte": [
+                            "parent:origin:item:level",
+                            8
+                        ]
+                    }
+                ],
+                "selector": "melee-strike-damage"
+            },
+            {
+                "damageType": "sonic",
+                "diceNumber": "1",
+                "dieSize": "d12",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "gte": [
+                            "parent:origin:item:level",
+                            8
+                        ]
+                    }
+                ],
+                "selector": "melee-strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

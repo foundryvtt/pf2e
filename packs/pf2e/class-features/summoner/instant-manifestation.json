@@ -1,0 +1,52 @@
+{
+    "_id": "H0iWhiyP0QqgmAKs",
+    "folder": "lfC1sbtzTalNS6Tl",
+    "img": "systems/pf2e/icons/features/classes/instant-manifestation.webp",
+    "name": "Instant Manifestation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You can manifest your eidolon with incredible speed. You can use @UUID[Compendium.pf2e.actionspf2e.Item.Manifest Eidolon] as a single action, instead of a three-action activity.</p>"
+        },
+        "level": {
+            "value": 19
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Impossible Magic"
+        },
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:manifest-eidolon"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "summoner"
+            ]
+        }
+    },
+    "type": "feat"
+}
