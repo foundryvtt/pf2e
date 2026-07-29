@@ -422,6 +422,7 @@ const spellTraits = {
     healing: "PF2E.TraitHealing",
     hex: "PF2E.TraitHex",
     illusion: "PF2E.TraitIllusion",
+    impossible: "PF2E.TraitImpossible",
     incapacitation: "PF2E.TraitIncapacitation",
     incarnate: "PF2E.TraitIncarnate",
     incorporeal: "PF2E.TraitIncorporeal",
@@ -446,6 +447,7 @@ const spellTraits = {
     rage: "PF2E.TraitRage",
     revelation: "PF2E.TraitRevelation",
     sanctified: "PF2E.TraitSanctified",
+    secret: "PF2E.TraitSecret",
     scrying: "PF2E.TraitScrying",
     shadow: "PF2E.TraitShadow",
     sleep: "PF2E.TraitSleep",
@@ -1163,6 +1165,7 @@ const shieldTraits = {
     "deflecting-physical-ranged": "PF2E.TraitDeflectingPhysicalRanged",
     "deflecting-piercing": "PF2E.TraitDeflectingPiercing",
     "deflecting-slashing": "PF2E.TraitDeflectingSlashing",
+    extradimensional: "PF2E.TraitExtradimensional",
     foldaway: "PF2E.TraitFoldaway",
     harnessed: "PF2E.TraitHarnessed",
     "hefty-2": "PF2E.TraitHefty2",
@@ -1227,6 +1230,7 @@ const armorTraits = {
     "resilient-2": "PF2E.TraitResilient2",
     "resilient-3": "PF2E.TraitResilient3",
     tech: "PF2E.TraitTech",
+    visual: "PF2E.TraitVisual",
 };
 
 const kingmakerTraits = {
@@ -1568,6 +1572,7 @@ const traitDescriptions = {
     ijtikri: "PF2E.TraitDescriptionIjtikri",
     ikon: "PF2E.TraitDescriptionIkon",
     illusion: "PF2E.TraitDescriptionIllusion",
+    impossible: "PF2E.TraitDescriptionImpossible",
     impulse: "PF2E.TraitDescriptionImpulse",
     incapacitation: "PF2E.TraitDescriptionIncapacitation",
     incarnate: "PF2E.TraitDescriptionIncarnate",
