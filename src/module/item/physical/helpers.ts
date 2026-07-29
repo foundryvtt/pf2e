@@ -403,11 +403,11 @@ async function transferCredits({
         }).request();
     }
 
+    // Perform the updates
     quantity = Math.min(quantity, item.system.price.value.credits);
     await targetActor.inventory.addCurrency({ credits: quantity });
-    await item.update({
-        "system.price.value": new Coins({ credits: item.system.price.value.credits - quantity }).toObject(),
-    });
+    const newPrice = new Coins({ credits: item.system.price.value.credits - quantity }).toObject();
+    await item.update({ "system.price.value": _replace(newPrice) });
 }
 
 export {

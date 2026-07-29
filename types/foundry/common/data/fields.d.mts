@@ -1322,8 +1322,7 @@ export class EmbeddedCollectionField<
 export class EmbeddedCollectionDeltaField<
     TDocument extends abstract.Document<abstract.Document>,
     TSource extends (SourceFromDocument<TDocument> | SourceFromSchema<TombstoneDataSchema>)[] = (
-        | SourceFromDocument<TDocument>
-        | SourceFromSchema<TombstoneDataSchema>
+        SourceFromDocument<TDocument> | SourceFromSchema<TombstoneDataSchema>
     )[],
     TRequired extends boolean = true,
     TNullable extends boolean = false,

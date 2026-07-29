@@ -122,7 +122,7 @@ export class InlineRollLinks {
                     traits,
                 });
             } else {
-                console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
+                console.warn(`${SYSTEM_NAME} System | Skip executing unknown action '${pf2Action}'`);
             }
         }
     }
@@ -315,7 +315,7 @@ export class InlineRollLinks {
         if (!canvas.ready) return;
         const dataset = link.dataset;
         if (!tupleHasValue(EFFECT_AREA_SHAPES, dataset.type)) {
-            console.warn(`PF2e System | Could not create region.`);
+            console.warn(`${SYSTEM_NAME} System | Could not create region.`);
             return;
         }
         const { actor: actorFromHTML, item, message } = resolveActorAndItemFromHTML(link);

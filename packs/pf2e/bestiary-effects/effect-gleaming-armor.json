@@ -4,7 +4,7 @@
     "name": "Effect: Gleaming Armor",
     "system": {
         "description": {
-            "value": "<p>The creature gains a +2 status bonus to AC and resistance to energy damage based on the specific creature.</p>"
+            "value": "<p>You gain a +2 status bonus to AC and resistance to acid, cold, electricity, fire, and sonic damage.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -16,9 +16,9 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Bestiary 3"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
         },
         "rules": [
             {
@@ -29,7 +29,13 @@
             },
             {
                 "key": "Resistance",
-                "type": "energy",
+                "type": [
+                    "acid",
+                    "cold",
+                    "electricity",
+                    "fire",
+                    "sonic"
+                ],
                 "value": "@actor.flags.system.gleamingArmorMod"
             }
         ],

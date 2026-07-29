@@ -119,6 +119,7 @@ const ancestryTraits = {
     vesk: "PF2E.TraitVesk",
     vishkanya: "PF2E.TraitVishkanya",
     vlaka: "PF2E.TraitVlaka",
+    vulkarisu: "PF2E.TraitVulkarisu",
     wayang: "PF2E.TraitWayang",
     worlanisi: "PF2E.TraitWorlanisi",
     "xenometric-android": "PF2E.TraitXenometricAndroid",
@@ -932,6 +933,7 @@ const actionTraits = {
     ...spellTraits,
     ...weaponActionTraits,
     "certain-kill": "PF2E.TraitCertainKill",
+    skirmish: "PF2E.TraitSkirmish",
     summon: "PF2E.TraitSummon",
 };
 
@@ -1769,6 +1771,7 @@ const traitDescriptions = {
     skeleton: "PF2E.TraitDescriptionSkeleton",
     skelm: "PF2E.TraitDescriptionSkelm",
     skill: "PF2E.TraitDescriptionSkill",
+    skirmish: "PF2E.TraitDescriptionSkirmish",
     skulk: "PF2E.TraitDescriptionSkulk",
     sleep: "PF2E.TraitDescriptionSleep",
     snare: "PF2E.TraitDescriptionSnare",
@@ -1891,6 +1894,7 @@ const traitDescriptions = {
     "volley-30": "PF2E.TraitDescriptionVolley",
     "volley-50": "PF2E.TraitDescriptionVolley",
     "volley-60": "PF2E.TraitDescriptionVolley",
+    vulkarisu: "PF2E.TraitDescriptionVulkarisu",
     wand: "PF2E.TraitDescriptionWand",
     wandering: "PF2E.TraitDescriptionWandering",
     water: "PF2E.TraitDescriptionWater",

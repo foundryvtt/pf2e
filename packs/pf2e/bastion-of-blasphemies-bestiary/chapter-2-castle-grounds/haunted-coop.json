@@ -1,0 +1,120 @@
+{
+    "_id": "TynpBOMea7aDkcfw",
+    "folder": "cJEnuedoOsbLBNue",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Y6cdBvZT1OHTo9Lt",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "The Pigeons! The Pigeons!",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A person attempts to open the coop, searches the mounds within, or causes damage to it</p><hr /><p><strong>Effect</strong> A sudden blast of shadowy pigeons emerges from the coop, shrieking and flapping into the face of the triggering creature anywhere they might be in the room. That creature must attempt a @Check[will|dc:27|options:inflicts:frightened] save with the following results.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected and temporarily immune to these haunts for 24 hours.</p>\n<p><strong>Success</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}, and this frightened condition can't be reduced below 1 as long as they remain in area <strong>B2a</strong>.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and convinced that the pigeons are harbingers of a greater doom awaiting them. They cannot reduce their frightened condition below 1 for 24 hours.</p>\n<p><strong>Critical Failure</strong> As failure, but with an unlimited duration.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Haunted Coop",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "emitsSound": "encounter",
+            "hardness": 10,
+            "hp": {
+                "details": "",
+                "max": 56,
+                "temp": 0,
+                "value": 56
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "object-immunities"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 15
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "vitality",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>A sudden flurry of shadowy pigeons erupts into a frenzy and breaks out of the coop.</p>",
+            "disable": "<p>@Check[nature|dc:25] to recognize the unquiet animal spirits and soothe them, allowing the spirits to disperse</p>",
+            "isComplex": false,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+            },
+            "reset": "<p>The haunted coop resets [[/gmr 1d4 #rounds]]{1d4 rounds} after it's triggered.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "value": 17
+            },
+            "reflex": {
+                "value": 11
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

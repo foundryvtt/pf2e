@@ -97,6 +97,10 @@ class ItemTransferDialog extends fa.api.DialogV2<ItemTransferConfiguration> {
             buttons.push({ type: "submit", icon, label, action: mode, callback });
         }
 
+        // Close the open dialog first to avoid colliding on the shared id; this cancels the prior request.
+        // TODO: re-target in place (no close) once this moves from DialogV2 to a full ApplicationV2.
+        await foundry.applications.instances.get("item-transfer-dialog")?.close();
+
         return super.wait(Object.assign(options, { item, mode, newStack, lockStack, content, buttons }));
     }
 

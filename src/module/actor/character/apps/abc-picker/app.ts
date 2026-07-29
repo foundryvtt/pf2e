@@ -70,6 +70,19 @@ class ABCPicker extends SvelteApplicationMixin<
         return initialized;
     }
 
+    protected override async _onFirstRender(
+        context: ABCPickerContext,
+        options: fa.ApplicationRenderOptions,
+    ): Promise<void> {
+        await super._onFirstRender(context, options);
+        this.options.actor.apps[this.id] = this;
+    }
+
+    protected override _tearDown(options: fa.ApplicationClosingOptions): void {
+        delete this.options.actor.apps[this.id];
+        super._tearDown(options);
+    }
+
     /** Gather all items of the request type from the world and across all item compendiums. */
     async #gatherItems(): Promise<ABCItemRef[]> {
         const { actor, itemType } = this.options;

@@ -22,7 +22,7 @@ class ModuleArt {
                 const pack = game.packs.get(`pf2e.${packName}`);
                 if (!pack) {
                     console.warn(
-                        `PF2e System | Failed pack lookup from module art registration (${moduleKey}): ${packName}`,
+                        `${SYSTEM_NAME} System | Failed pack lookup from module art registration (${moduleKey}): ${packName}`,
                     );
                     continue;
                 }
@@ -76,14 +76,14 @@ class ModuleArt {
             try {
                 const response = await fetch(art);
                 if (!response.ok) {
-                    console.warn(`PF2e System | Failed loading art mapping file at ${art}`);
+                    console.warn(`${SYSTEM_NAME} System | Failed loading art mapping file at ${art}`);
                     return null;
                 }
                 const map = await response.json();
                 return this.#isModuleArt(map) ? map : null;
             } catch (error) {
                 if (error instanceof Error) {
-                    console.warn(`PF2e System | ${error.message}`);
+                    console.warn(`${SYSTEM_NAME} System | ${error.message}`);
                 }
             }
         }

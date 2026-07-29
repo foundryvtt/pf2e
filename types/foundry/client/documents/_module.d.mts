@@ -83,12 +83,4 @@ export type WorldDocument =
     | User;
 
 export type CompendiumDocument =
-    | Actor<null>
-    | Adventure
-    | Cards
-    | Item<null>
-    | JournalEntry
-    | Macro
-    | Playlist
-    | RollTable
-    | Scene;
+    Actor<null> | Adventure | Cards | Item<null> | JournalEntry | Macro | Playlist | RollTable | Scene;

@@ -2493,13 +2493,13 @@
                     "value": 20
                 },
                 "damageRolls": {
-                    "NAq9h3kmDElZUUd7": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    },
-                    "h6Zi87RHd84mOwow": {
+                    "0": {
                         "damage": "2d8+8",
                         "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -2540,7 +2540,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A cuckoo hag adds @UUID[Compendium.pf2e.spells-srd.Item.Dominate], @UUID[Compendium.pf2e.spells-srd.Item.Nightmare], @UUID[Compendium.pf2e.spells-srd.Item.Outcast's Curse], and scrying to their coven's spells.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Coven]</p>"
+                    "value": "<p>A cuckoo hag adds @UUID[Compendium.pf2e.spells-srd.Item.Dominate], @UUID[Compendium.pf2e.spells-srd.Item.Nightmare], @UUID[Compendium.pf2e.spells-srd.Item.Outcast's Curse], and @UUID[Compendium.pf2e.spells-srd.Item.Scrying] to their coven's spells.</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Coven]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -2616,14 +2616,25 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A cuckoo hag who succeeds at a Deception check to Lie can mimic the sound of any feminine voice they have heard (in cases where this may be unclear, the GM is the final arbiter) and have a +4 circumstance bonus to this check.</p>"
+                    "value": "<p>A cuckoo hag who succeeds at a Deception check to [[/act lie options=sound-imitation]] can mimic the sound of any feminine voice they have heard (in cases where this may be unclear, the GM is the final arbiter) and have a +4 circumstance bonus to this check.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:lie",
+                            "sound-imitation"
+                        ],
+                        "selector": "deception",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

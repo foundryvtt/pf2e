@@ -32,10 +32,52 @@
             "type": "action"
         },
         {
+            "_id": "50CFIPxlJQPGd3n3",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:magical"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "8bzkCFUzSsFfD8Ot",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Troop Defenses",
-            "sort": 200000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -52,7 +94,15 @@
                     "remaster": true,
                     "title": "Pathfinder NPC Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": [
+                            "spirit"
+                        ]
+                    }
+                ],
                 "slug": "troop-defenses",
                 "traits": {
                     "value": []
@@ -64,7 +114,7 @@
             "_id": "uqboeybBh0I1wSgK",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Troop Movement",
-            "sort": 300000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -93,7 +143,7 @@
             "_id": "HOIGg1GjZy5R358W",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Barbed Net Barrage",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -125,7 +175,7 @@
             "_id": "rOoWVnQC0r8nJ53z",
             "img": "systems/pf2e/icons/actions/OneThreeActions.webp",
             "name": "Merciless Tridents",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -157,7 +207,7 @@
             "_id": "lEO7Z3PavizGJcvk",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vicious Cruelty",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -186,7 +236,7 @@
             "_id": "TqKNRAXOQGrXx1o8",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Warfare Lore",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -237,7 +287,7 @@
                 "value": 41
             },
             "allSaves": {
-                "value": ""
+                "value": "+1 status to all saves vs. magic"
             },
             "hp": {
                 "details": "",
@@ -245,6 +295,22 @@
                 "temp": 0,
                 "value": 330
             },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "fire"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "silver"
+                    ],
+                    "type": "physical",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "details": "troop movement",
                 "otherSpeeds": [
@@ -254,7 +320,24 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 15
+                },
+                {
+                    "exceptions": [],
+                    "type": "holy",
+                    "value": 15
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "blurb": "",
@@ -321,7 +404,7 @@
         "traits": {
             "rarity": "uncommon",
             "size": {
-                "value": "med"
+                "value": "grg"
             },
             "value": [
                 "construct",

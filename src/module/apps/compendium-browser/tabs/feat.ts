@@ -23,7 +23,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     }
 
     protected override async loadData(): Promise<void> {
-        console.debug("PF2e System | Compendium Browser | Started loading feats");
+        console.debug(`${SYSTEM_NAME} System | Compendium Browser | Started loading feats`);
 
         const feats: CompendiumBrowserIndexData[] = [];
         const publications = new Set<string>();
@@ -44,7 +44,9 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
             this.browser.loadedPacks("feat"),
             indexFields,
         )) {
-            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
+            console.debug(
+                `${SYSTEM_NAME} System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`,
+            );
             for (const featData of index) {
                 if (featData.type !== "feat") continue;
                 // Check separately for one of "system.category or "system.featType.value" to provide backward
@@ -126,7 +128,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
         this.filterData.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.featTraits);
 
-        console.debug("PF2e System | Compendium Browser | Finished loading feats");
+        console.debug(`${SYSTEM_NAME} System | Compendium Browser | Finished loading feats`);
     }
 
     protected override prepareFilterData(): FeatFilters {

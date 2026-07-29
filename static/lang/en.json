@@ -138,6 +138,11 @@
                 "ShieldDamagedForNBroken": "Their shield also takes {shieldDamage} damage, breaking it.",
                 "ShieldDamagedForNDestroyed": "Their shield also takes {shieldDamage} damage, destroying it.",
                 "ShieldNotRaised": "{actor} has not raised their shield.",
+                "PersistentEntry": {
+                    "bleed": "{formula} {damageType}",
+                    "default": "{formula} persistent {damageType} damage"
+                },
+                "StartsTakingDamage": "<actor>{actor}</actor> starts taking {persistentDamages}.",
                 "TakesNoDamage": "<actor>{actor}</actor> takes no damage.",
                 "TheTarget": "The target",
                 "TroopThresholdReached": "The troop has reached their next threshold ({segments} segments remaining)."
@@ -554,9 +559,14 @@
                     }
                 },
                 "SpellPreparation": {
-                    "Hint": "To prepare a spell, drag one from this list to a slot on the actor sheet.",
-                    "HintFlexible": "To prepare a spell, enable it here. To prepare a cantrip, drag one from this list to a slot on the actor sheet.",
-                    "Search": "Search Spells",
+                    "CantripPrepared": "Cantrips only need to be prepared once",
+                    "EmptyGroup": "No spells known",
+                    "Hint": "To prepare a spell, use its prepare button or drag it to a slot on the actor sheet.",
+                    "HintFlexible": "To prepare a spell, enable it here. To prepare a cantrip, use its prepare button or drag it to a slot on the actor sheet.",
+                    "NoFreeSlots": "No free slots of an eligible rank",
+                    "NotPrepared": "Not prepared",
+                    "Prepare": "Prepare Spell",
+                    "RemovePreparation": "Remove Preparation",
                     "Title": "{actor}: Spell Preparation"
                 },
                 "Spellcasting": {
@@ -694,13 +704,16 @@
                 "SimpleSheet": "Simple NPC Sheet",
                 "SpecialSkill": "+{mod} {label}",
                 "SkillsEditor": {
+                    "AddLore": "Add Lore",
                     "AddSpecial": "Add Special",
                     "Error": {
                         "PredicateArray": "Predicate must be an array"
                     },
+                    "LoreAlreadyExists": "A lore with this name already exists",
                     "LorePlaceholder": "Carpentry Lore",
                     "Note": "Note",
                     "Predicate": "Predicate",
+                    "RemoveSpecial": "Remove Special",
                     "Special": "Special",
                     "Title": "Skills Editor ({actor})"
                 },
@@ -1142,11 +1155,13 @@
         },
         "CompendiumMigrationStatus": {
             "Document": "Document",
+            "FailedDocuments": "Failed Documents",
             "Foundry": "Foundry",
             "FoundryOld": "0.7 or older",
             "Invalid": "Invalid",
             "LockedTooltip": "Unable to migrate — compendium is locked",
             "MigrateCompendium": "Migrate Compendium",
+            "OutOfDate": "Out of Date",
             "Schema": "Schema",
             "Size": "Size",
             "Title": "Migration Status",
@@ -3274,17 +3289,27 @@
             "OutsideSchemaRange": "The specified range is outside the system's schema version range (between {minimum} and {maximum}).",
             "Running": "Running system migration ...",
             "Starting": "Applying PF2E System Migration to version {version}. Please be patient and do not close your game or shut down your server.",
+            "StillOutdated": "Migration finished, but {count} documents remain on an older schema",
             "Summary": {
+                "Complete": "Complete",
                 "Documents": "Documents",
-                "HelpResources": "An unexpected error was encountered while migrating some actors or items. If you would like further assistance, feel free to report an issue at the <a href=\"https://github.com/foundryvtt/pf2e/issues\">system repository</a> or visit us on <a href=\"https://discord.gg/SajryVzCyf\">Discord</a> for community support.",
+                "Download": "Download",
+                "HelpResources": "An unexpected error was encountered while migrating some actors or items. If you would like further assistance, feel free to report an issue at the <a href=\"https://github.com/foundryvtt/pf2e/issues\">system repository</a> or visit us on <a href=\"https://discord.gg/pf2e\">Discord</a> for community support. Use the Download button to save a report you can attach.",
+                "Incomplete": "Incomplete",
                 "Migrated": "Migrated",
                 "Remigrate": "Remigrate",
+                "RemigrateFailed": "An error interrupted the remigration: see the console (F12) for details.",
+                "ReportDownloaded": "Migration report downloaded.",
+                "Status": "Status",
                 "Title": "Migration Summary",
                 "Total": "Total",
                 "Troubleshoot": {
                     "Hint": "Here you can run a remigration, which will attempt to automatically fix issues with actors and items.",
                     "Title": "System Troubleshooting"
-                }
+                },
+                "UnmigratedDocuments": "Unmigrated Documents",
+                "UnmigratedDocumentsHint": "Click a document to open it. Hover over one marked with a warning icon to see why it failed to migrate.",
+                "UnmigratedDocumentsHintRemigrate": "Click a document to open it, or remigrate to gather details on why documents failed to migrate."
             },
             "Troubleshooting": "Troubleshooting",
             "WorldNotReady": "Game world not ready: try again in a few seconds."
@@ -3737,6 +3762,11 @@
                     "TitleCritical": "Critical Damage Roll",
                     "Title": "Damage Roll"
                 },
+                "ModifierDamageCategory": "Damage Category",
+                "ModifierDamageType": "Damage Type",
+                "ModifierName": "Modifier Name",
+                "ModifierType": "Modifier Type",
+                "ModifierValue": "Modifier Value",
                 "ShowDefault": "Always Show Dialog",
                 "ShowDefaultHint": "If enabled, this dialog is always shown unless you hold Shift. If disabled, you can open this dialog by holding Shift."
             },
@@ -4237,6 +4267,12 @@
         "SpellLevelBase": "Base: {level}",
         "SpellLevelHeightened": "Heightened: +{heightened}",
         "SpellLevelLabel": "Spell Rank",
+        "SpellList": {
+            "Search": "Search Spells",
+            "SearchResults": "Matching spells: {count}",
+            "SortAscending": "sorted ascending",
+            "SortDescending": "sorted descending"
+        },
         "SpellPreparedLabel": "Prepared",
         "SpellRequirementsLabel": "Requirements",
         "SpellScalingInterval": {
@@ -4814,7 +4850,7 @@
         "TraitDescriptionCritical": "This weapon uses the critical weapon specialization of the listed weapon type rather than its own.",
         "TraitDescriptionCriticalFusion": "Critical fusion is a new trait for combination weapons that grants you two additional options for the critical specialization effect when using the combination weapon's melee version to make a melee attack while the firearm is loaded. If you choose to use one of them, they replace the melee usage's normal critical specialization effect. First, you can discharge the firearm to create a loud bang and concussion, using the critical specialization effect for firearms instead of the melee weapon group's critical specialization effect. Second, you can choose to discharge the firearm to increase the critical hit's momentum or shoot the foe as you attack them in melee, dealing 2 additional damage per weapon damage die. Both of these options discharge the firearm, which typically means you have to reload it before firing it again.",
         "TraitDescriptionCurse": "A curse is an effect that places some long-term affliction on a creature. Curses are always magical and are typically the result of a spell or trap. Effects with this trait can be removed only by effects that specifically target curses.",
-        "TraitDescriptionCursebound": "Spells with this trait increase the severity of your oracular curse when cast. Usually, only revelation spells have this trait. You can't cast a cursebound spell if you don't have an oracular curse. A cursebound ability that allows a defense uses your spell attack modifier or spell DC unless noted otherwise.",
+        "TraitDescriptionCursebound": "Abilities with this trait tighten your oracular curse's grasp on your soul in exchange for divine insights, giving you the cursebound condition (see below). When you use a cursebound ability, you become cursebound 1, or if you were already cursebound, you increase the value of your cursebound condition by 1. As cursebound abilities are directly linked to your oracular curse, you can't use a cursebound ability if you don't have an oracular curse or if you are already at your maximum cursebound value. You can't mitigate or bypass the drawbacks of any cursebound ability with spells or other effects, and the effects of any cursebound ability end when you Refocus and remove the cursebound condition. A cursebound ability that allows a defense uses your spell attack modifier or spell DC unless noted otherwise.",
         "TraitDescriptionCursed": "An item with this trait is cursed to cause trouble for its owner. A curse isn't detected when the item is identified, though a critical success reveals both the presence and exact nature of the curse. Cursed items can't be discarded once they've been triggered or invested the first time. The item can be removed only if the curse is removed.",
         "TraitDescriptionCycle": "Actions with the cycle trait change your current stellar attunement to its opposite state. When you take such an action with this trait, you benefit from the additional effect of your current attunement if the action had the attuned trait, but once you complete the action, your attunement changes to its counterpart (so graviton-attuned if you were photon-attuned before taking the action, or vice versa).",
         "TraitDescriptionDaemon": "A family of fiends spawned on the desolate plane of Abaddon, most daemons are irredeemably unholy. They typically have darkvision and weakness to holy.",
@@ -5111,6 +5147,7 @@
         "TraitDescriptionSkeleton": "This undead is made by animating a dead creature's skeleton with void energy. An ability with this trait can be used or selected only by skeletons.",
         "TraitDescriptionSkelm": "These creatures are monstrous, wrathful misanthropes who seek to control others through anger and spite.",
         "TraitDescriptionSkill": "A general feat with the skill trait improves your skills and their actions or gives you new actions for a skill. A feat with this trait can be selected when a class grants a skill feat or general feat. Archetype feats with the skill trait can be selected in place of a skill feat if you have that archetype's dedication feat.",
+        "TraitDescriptionSkirmish": "This trait indicates abilities that can be used only during skirmish encounters.",
         "TraitDescriptionSkulk": "Skulks are a family of humanoids whose skin can shift coloration to aid in stealth.",
         "TraitDescriptionSleep": "This effect can cause a creature to fall asleep or get drowsy.",
         "TraitDescriptionSnare": "Traps typically made by rangers, snares follow special rules that allow them to be constructed quickly and used on the battlefield.",
@@ -5154,7 +5191,7 @@
         "TraitDescriptionTattoo": "A tattoo is a type of item that is drawn or cut into a creature's skin and usually takes the form of images or symbols.",
         "TraitDescriptionTea": "<p>Magic tea is a type of potion. It activates when you drink it, which uses it up. Magic tea has the potion and tea traits. When you craft a dose of magic tea, the raw materials you supply are in the form of unusual and costly tea leaves. The process of crafting magic tea includes infusing the leaves with magical reagents, purifying the water, and steeping the tea in the water, resulting in what's essentially a particularly delicious-tasting potion. You can activate magic tea with an Interact action as you drink it or feed it to another creature, as if it were a potion. You can also activate magic tea with a 10-minute activity that requires sterling tea ware (these artisan's tools can be shared by up to four people who take this activity simultaneously) to prepare the tea and then consume it or present it to someone during a short tea ceremony, after which the magic tea's effects begin; activating magic tea in this way enhances its effect, as detailed in each entry's Tea Ceremony.</p><p>Once you drink a dose of magic tea, you're temporarily immune to that particular type of magic tea for 24 hours.</p>",
         "TraitDescriptionTearing": "This weapon is edged with curved teeth that leave bleeding wounds. When you hit a creature with this weapon, it deals an additional 1 persistent bleed damage. This increases to 2 persistent bleed damage if the weapon has a greater striking rune.",
-        "TraitDescriptionTech": "<p>Equipment with the tech trait rely on electricity and may gain the glitching condition. Some creatures and hazards also have the tech trait, such as artificial intelligence, robots, and turrets.</p>\n<p>Armor with the tech trait incorporate electronics, computer systems, integrated power sources, and a comm unit.</p>\n<p>Shields with the tech trait incorporate electronics, computer systems, and integrated power sources.<p>\n</p>Weapons with the tech trait incorporate electronics, computer systems, and power sources. Usually the weapons rely on integrated power sources (such as melee weapons that don't have the powered trait), while others drain batteries with each attack.</p>\n<p>Cybernetic augmentations are technological, not magical, though they aren't subject to any effect or attack that targets technology unless it specifies that it affects cybernetics.<p>",
+        "TraitDescriptionTech": "<p>Equipment with the tech trait rely on electricity and may gain the glitching condition. Some creatures and hazards also have the tech trait, such as artificial intelligence, robots, and turrets.</p>\n<p>Armor with the tech trait incorporate electronics, computer systems, integrated power sources, and a comm unit.</p>\n<p>Shields with the tech trait incorporate electronics, computer systems, and integrated power sources.<p>\n</p>Weapons with the tech trait incorporate electronics, computer systems, and power sources. Usually the weapons rely on integrated power sources (such as melee weapons that don't have the powered trait), while others drain batteries with each attack.</p>\n<p>Cybernetic augmentations are technological, not magical, though they aren't subject to any effect or attack that targets technology unless it specifies that it affects cybernetics.</p>",
         "TraitDescriptionTelepathy": "A creature with telepathy can communicate mentally with creatures. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.",
         "TraitDescriptionTeleportation": "Teleportation effects allow you to instantaneously move from one point in space to another. Teleportation does not usually trigger reactions based on movement.",
         "TraitDescriptionTengu": "A creature with this trait is a member of the tengu ancestry. Tengus are humanoids who resemble crows. An ability with this trait can be used or selected only by tengus. An item with this trait is created and used by tengus.",
@@ -5202,6 +5239,7 @@
         "TraitDescriptionVitality": "Effects with this trait heal living creatures with energy from the Forge of Creation, deal vitality energy damage to undead, or manipulate vitality energy.",
         "TraitDescriptionVoid": "Effects with this trait heal undead creatures with void energy, deal void damage to living creatures, or manipulate void energy.",
         "TraitDescriptionVolley": "This ranged weapon is less effective at close distances. Your attacks against targets that are at a distance within the range listed take a -2 penalty.",
+        "TraitDescriptionVulkarisu": "Vulkarisu are intelligent, bipedal humanoids that look like a mix between a fox and a squirrel.",
         "TraitDescriptionWand": "A wand contains a single spell which you can cast once per day.",
         "TraitDescriptionWandering": "Wandering identifies animist feats attuned to particular types of apparitions. These feats require you to have attuned to an apparition who matches their prerequisites when you select them, and represent knowledge and ability pulled from that specific bond. When you make your daily preparations, you can retrain any wandering feat you know for any other wandering feat available at the level you took the exchanged feat (including lower-level wandering feats, as usual). You must meet all the new feat's other prerequisites.",
         "TraitDescriptionWater": "Effects with the water trait either manipulate or conjure water. Those that manipulate water have no effect in an area without water. Creatures with this trait consist primarily of water or have a connection to magical water.",
@@ -5646,6 +5684,7 @@
         "TraitSkeleton": "Skeleton",
         "TraitSkelm": "Skelm",
         "TraitSkill": "Skill",
+        "TraitSkirmish": "Skirmish",
         "TraitSkittermander": "Skittermander",
         "TraitSkulk": "Skulk",
         "TraitSlashing": "Slashing",
@@ -5794,6 +5833,7 @@
         "TraitVolley50": "Volley 50 ft.",
         "TraitVolley60": "Volley 60 ft.",
         "TraitVorpalFear": "Vorpal Fear",
+        "TraitVulkarisu": "Vulkarisu",
         "TraitWand": "Wand",
         "TraitWandering": "Wandering",
         "TraitWater": "Water",
@@ -7175,6 +7215,7 @@
             "LootUnknownNPCMessage": "an unidentified creature",
             "LootNPCsLabel": "Loot Selected Tokens",
             "LootNPCsPopupHeader": "Choose tokens to loot from",
+            "LootNPCsTitle": "Loot NPCs",
             "LootNamePlaceholder": "Loot",
             "LootSubtitle": "Loot item",
             "MerchantDescription": "Allows players to purchase items directly from the sheet",

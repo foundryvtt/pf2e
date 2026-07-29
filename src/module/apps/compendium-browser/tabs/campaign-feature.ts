@@ -21,7 +21,7 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
     }
 
     protected override async loadData(): Promise<void> {
-        console.debug("PF2e System | Compendium Browser | Started loading feats");
+        console.debug(`${SYSTEM_NAME} System | Compendium Browser | Started loading feats`);
 
         const feats: CompendiumBrowserIndexData[] = [];
         const publications = new Set<string>();
@@ -42,7 +42,9 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
             this.browser.loadedPacks("campaignFeature"),
             indexFields,
         )) {
-            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
+            console.debug(
+                `${SYSTEM_NAME} System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`,
+            );
             for (const featData of index.filter((i) => i.type === "campaignFeature")) {
                 const system = featData.system;
 
@@ -76,7 +78,7 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
         this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
         this.filterData.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.kingmakerTraits);
 
-        console.debug("PF2e System | Compendium Browser | Finished loading feats");
+        console.debug(`${SYSTEM_NAME} System | Compendium Browser | Finished loading feats`);
     }
 
     protected override prepareFilterData(): CampaignFeatureFilters {

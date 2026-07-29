@@ -3,8 +3,9 @@ import type { AbilityTrait } from "@item/ability/index.ts";
 import type { ProficiencyRank } from "@item/base/data/index.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import type { ZeroToThree } from "@module/data.ts";
 
-type ActionCost = "free" | "reaction" | 0 | 1 | 2 | 3;
+type ActionCost = "free" | "reaction" | ZeroToThree;
 type ActionSection = "basic" | "skill" | "specialty-basic";
 
 interface ActionMessageOptions {

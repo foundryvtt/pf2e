@@ -195,7 +195,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You inflict pain upon the target and revel in their anguish. This deals 1d4 mental damage and @Damage[(@item.level)d4[persistent,mental]] damage; the target must attempt a Will save. As long as the target is taking persistent damage from this spell, you gain a +1 status bonus to attack rolls and skill checks against the target.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage and no persistent damage.</p>\n<p><strong>Failure</strong> The target takes full initial and persistent damage.</p>\n<p><strong>Critical Failure</strong> The target takes double initial and persistent damage.</p><hr /><p><strong>Heightened (+1)</strong> The initial damage increases by 1d4 and the persistent damage increases by 1d4.</p>"
+                    "value": "<p>You inflict pain upon the target and revel in their anguish. This deals 1d4 mental damage and @Damage[(@item.level)d4[persistent,mental]] damage; the target must attempt a Will save. As long as the target is taking persistent damage from this spell, you gain a +1 status bonus to attack rolls and skill checks against the target.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage and no persistent damage.</p>\n<p><strong>Failure</strong> The target takes full initial and persistent damage.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Savor the Sting]</p>\n<p><strong>Critical Failure</strong> The target takes double initial and persistent damage.</p><hr /><p><strong>Heightened (+1)</strong> The initial damage increases by 1d4 and the persistent damage increases by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -380,6 +380,9 @@
         },
         {
             "_id": "qxK87N9YPLpJzcQV",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.jD0M3yV6gjkXafsJ"
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Divine Destruction",
             "sort": 700000,
@@ -393,7 +396,7 @@
                 "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the divine warden is reduced to 0 HP, it erupts with divine energy in a @Template[type:emanation|distance:30], dealing @Damage[16d6[spirit]|options:area-damage] damage. Each creature in the area must attempt a @Check[will|dc:37|options:area-effect,damaging-effect] save.</p><hr /><p><strong>Critical Success</strong> The creature takes half damage.</p>\n<p><strong>Success</strong> The creature takes full damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes temporarily cursed by the patron deity. The cursed creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 day; this is a curse effect that uses the Will save DC as the counteract DC.</p>\n<p><strong>Critical Failure</strong> As failure, except the cursed creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}.</p>"
+                    "value": "<p>When the divine warden is reduced to 0 HP, it erupts with divine energy in a @Template[type:emanation|distance:30], dealing @Damage[16d6[spirit]|options:area-damage] damage. Each creature in the area must attempt a @Check[will|dc:37|options:area-effect,damaging-effect,inflicts:enfeebled,inflicts:stupefied] save.</p><hr /><p><strong>Critical Success</strong> The creature takes half damage.</p>\n<p><strong>Success</strong> The creature takes full damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes temporarily cursed by the patron deity. The cursed creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 day; this is a curse effect that uses the Will save DC as the counteract DC.</p>\n<p><strong>Critical Failure</strong> As failure, except the cursed creature is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -479,6 +482,9 @@
         },
         {
             "_id": "85s665zTTD0IE2l9",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-family-ability-glossary.Item.L80gn6WOWi9roJW3"
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Instrument of Faith",
             "sort": 1000000,
@@ -491,7 +497,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The divine warden is a beacon for its deity's faith. A cleric of the divine warden's patron deity can channel a heal spell through a divine warden they can see within 60 feet. The cleric determines any targets or area for the spell as if they were standing in the divine warden's space.</p>"
+                    "value": "<p>The divine warden is a beacon for its deity's faith. A cleric of the divine warden's patron deity can channel a @UUID[Compendium.pf2e.spells-srd.Item.Heal] spell through a divine warden they can see within 60 feet. The cleric determines any targets or area for the spell as if they were standing in the divine warden's space.</p>"
                 },
                 "publication": {
                     "license": "OGL",

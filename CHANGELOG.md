@@ -1,3 +1,94 @@
+## 8.3.0
+
+## Bugfixes
+
+- (Chromatic Penguin) Accept a leading "+" in modifier dialog inputs on Firefox
+- (Chromatic Penguin) Apply roll options to inline damage rolled from effect tooltips
+- (Chromatic Penguin) Fix attribute builder breaking after opening it for a second character
+- (Chromatic Penguin) Fix background color on dragged equipment
+- (Chromatic Penguin) Fix runes added to handwraps via item alterations not applying to unarmed strikes
+- (Chromatic Penguin) Fix senses granted via Details not upgrading
+- (Chromatic Penguin) Fix stale and clobbered state in Svelte applications
+- (Chromatic Penguin) Fix total price not updating on item transfer dialogs
+- (Chromatic Penguin) Fix two-handed grip toggle on Strike rule elements
+- (Chromatic Penguin) Improve trade initiation: party-sheet member drops, request expiry with alerts on both sides, prevent sending to familiars
+- (Chromatic Penguin) Improve visual accessibility of spell slot number input
+- (Chromatic Penguin) Include origin item roll options in effects dragged from a sheet
+- (Chromatic Penguin) Match self-applied effect card body to the standard action card
+- (Chromatic Penguin) Recalculate encounter threat/XP when a combatant's level or alliance changes
+- (Chromatic Penguin) Remove manipulate trait from alchemical bomb strikes
+- (Chromatic Penguin) Truncate long names, fix broken search icon in Trade Dialog
+- (Chromatic Penguin) Snapshot area fire save DC in chat message context
+- (Dantar) Add back TakesNoDamage text on applyDamage card
+- (Dantar) Apply each persistent damage from dragged formula
+- (Dantar) Make clown car respect elevation and levels
+- (Dantar) Prevent chat bubbles if message isn't in the in-character style
+- (kromko) Fix not being able to remove spells from deities
+- (Noisyink) Use check icon for trade accept button in unaccepted state
+- (stwlam) Prevent some some fields in the Aura RE form from resetting their values
+
+### Data Updates
+
+- (Ambrose, kromko) Add content from Lost Omens High Seas
+- (Ambrose) Add Animate Nightmare actor variants
+- (Ambrose) Add automation to Vrolikai's Focused Flames ability
+- (Ambrose) Add Chelaxian Scion Archetype feats and actions
+- (Ambrose) Add Chelaxian Scion dedication to Archetypes journals
+- (Ambrose) Add effect for Ten Day's Breath
+- (Ambrose) Add effect to Sanguine Evasion and restore missing folders
+- (Ambrose) Add Marine Marauder to Archetype Journals
+- (Ambrose) Add Spell Effect: Fly to Urveth
+- (Ambrose) Add toggle to Scamp's Fast Healing
+- (Ambrose) Add variants for Create a Diversion to Deceptive Tactics
+- (Ambrose) Correct Aqueous Dragonblood RE FlatModifier selector
+- (Ambrose) Correct Malfunctioning Perfumery's Crushing Notes DC value
+- (Ambrose) Expand GM Screen Research journal entry
+- (Ambrose) Fix Blood Painter spellcasting stats
+- (Ambrose) Remove and redirect reprinted Lost Omens High Seas actors
+- (Ambrose) Remove Cyclonic Cannon equipment item
+- (Ambrose) Remove redundant sleep immunity from Lythazossa
+- (Ambrose) Remove Wyrm on the Wing tattoos
+- (Ambrose) Update Know-It-All to account for Archetypes
+- (Dantar) Add master spellcasting into the Master Eldritch Archer Spellcasting
+- (Dantar) Add rules for verdant- and pristine- weapon feats
+- (Dantar) Exclude self from fire and metal aura junction effects
+- (Dantar) Implement One-Inch Punch for Monastic Archer Stance
+- (Dantar) Implement rule for effortless reach
+- (Dantar) Localize family ability glossary
+- (Dantar) Update description of boulder seed bombs, add critSuccess note
+- (Dire Weasel) Add automation for Ioton's Leech Thought
+- (Dire Weasel) Add automation for Ogre Hurler's Toss Kobold
+- (Dire Weasel) Add effect for Golden Wings
+- (Dire Weasel) Add inflicts roll option to Greater Constrict
+- (Dire Weasel) Add inline roll options to Engulf
+- (Dire Weasel) Add link to effect for NPC ability Pinpoint Poisoner
+- (Dire Weasel) Add SpecialStatistic automation to Efficient Capture, Envelop, Hurl Net, Shackle, Swift Capture
+- (Dire Weasel) Add spell effect for Scholarly Recollection
+- (Dire Weasel) Add Strike automation for Xulgath Gutrager's Corrosive Kiss
+- (Dire Weasel) Fix compendiumSource for Romi Bracken's copy of Blood-Drinker Blade
+- (Dire Weasel) Fix order of Ochiastis's Quill damage partials
+- (Dire Weasel) Fix spelling of rank in all copies of Spell Repertoire
+- (Dire Weasel) Remove spell name override from Pickled Demon Tongue (Major) description
+- (Dire Weasel) Tidy description for Redemption
+- (Dire Weasel) Unify damage for Nethershade
+- (Dire Weasel) Unify damage for Warcat of Rull's Piercing Fangs
+- (Dire Weasel) Unify Ravener's Void Breath damage
+- (Dire Weasel) Update Azlanti Elemental Nexus's Elemental Wave to use selectable damage
+- (Dire Weasel) Update Sliding Statue's Slide to use `@Damage`
+- (hollyvalenta) Correct Arcana modifier for Dust Bunny Swarm
+- (hollyvalenta) Update Hellknight-Errant to not increase Hellknight feat count by 5
+- (kromko) Move Lead the Way to Knight Vigilant archetype
+- (Longstrider) Fix ruffian Combat Grab requirement
+- (rectulo) Change Attack of Opportunity to Reactive Strike in Baomal
+- (rectulo) Correct spelling of "Talmandor" in For Talmandor! For…
+- (rectulo) Fix spelling of "effect" in zhuraita
+- (Rigo) Implement Bodyguard's increased Taunt penalty using Ephemeral Effect
+- (Rigo) Replace core inline roll with Shove inline action in Bands of Force
+- (Rigo) Update critical specialization predicate in Weapon implement's initiate benefit
+- (SpartanCPA) Add Hell's Destiny Player's Guide Backgrounds
+- (SpartanCPA) Combine Klacktel Inline Damage
+- (Tikael) Add missing Skirmish trait and skirmish actions
+
 ## 8.2.0
 
 ### System Improvements
@@ -9,11 +100,11 @@
 
 ### Bugfixes
 
-- (iDantar) Add {item|id}-{meleeOrRanged}-damage domain to attacks, to enable ammunition rules
-- (iDantar) Hide ActorsDeadAtZero setting from players
+- (Chromatic Penguin) Fix hiding roll opposer names
+- (Dantar) Add {item|id}-{meleeOrRanged}-damage domain to attacks, to enable ammunition rules
+- (Dantar) Hide ActorsDeadAtZero setting from players
 - (In3luki) Restore missing radio buttons in shield block dialog
 - (In3luki) Restore missing reroll icons in chat context menu
-- (jfn4th) Fix hiding roll opposer names
 - (Noisyink) Fix DOM helpers returning null cross-window in PopOut!
 - (Noisyink) Preserve token mirror state when applying TokenImage scale override
 - (stwlam) Allow "base" actor and item subtypes to construct
@@ -51,13 +142,13 @@
 - (Dire Weasel) Standardize inline action for Embrace
 - (Dire Weasel) Tidy description of Malefic Mirror and some inline actions
 - (Dire Weasel) Update some equipment to grant conditions
-- (iDantar) Add a separate effect for redcap brigade
-- (iDantar) Add Arcane tradition to Retrocognition and its references
-- (iDantar) Add missing `replaceAll: true` for Talon and Claw stance effects
-- (iDantar) Allow didactic strike to affect attack spell damage
-- (iDantar) Fix greater Endless Quiver material choices
-- (iDantar) Implement rules for Hellknight Mobility feat
-- (iDantar) Update dawnsilver-tree and shield-pistol rounds
+- (Dantar) Add a separate effect for redcap brigade
+- (Dantar) Add Arcane tradition to Retrocognition and its references
+- (Dantar) Add missing `replaceAll: true` for Talon and Claw stance effects
+- (Dantar) Allow didactic strike to affect attack spell damage
+- (Dantar) Fix greater Endless Quiver material choices
+- (Dantar) Implement rules for Hellknight Mobility feat
+- (Dantar) Update dawnsilver-tree and shield-pistol rounds
 - (kromko) Add some missing compendium sources for physical items
 - (kromko) Clean up whitespace around inline buttons; Fix Spellsap Grenades data
 - (kromko) Fix Fire and Water Wisps' Resonance description
@@ -100,7 +191,7 @@
 
 ### Bugfixes
 
-- (jfn4th) Refresh token bars on Temp HP updates.
+- (Chromatic Penguin) Refresh token bars on Temp HP updates.
 - (kromko) Fix item transfer message localization
 - (steve148) Update changelog link in foundry to the new one
 - (stwlam) Fix aura rule forms not updating includeSelf
@@ -145,9 +236,9 @@
 
 ### Bugfixes
 
+- (Chromatic Penguin) Fix updating scene darkness via darkness adjuster tool
 - (Dantar) Fix precision immunity crit damage miscalculation
 - (Dantar) Apply holy/unholy to sanctified NPC attacks
-- (jfn4th) Fix updating scene darkness via darkness adjuster tool
 - (oWave) Fix feat delete on ABCSheet silently failing
 - (Rigo) Use modifier type to find proficiency modifier in mythic rerolls
 - (stwlam) Add system roll-link listeners to detached windows

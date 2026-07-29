@@ -219,7 +219,11 @@ class ChatCards {
                     return;
                 }
                 case "roll-area-save": {
-                    const dc = attack && "statistic" in attack ? attack.statistic.dc : null;
+                    const context = message.flags[SYSTEM_ID].context;
+                    // Fall back to the live strike for messages created in 8.2.0 or earlier
+                    const dc =
+                        (tupleHasValue(["area-fire", "auto-fire"], context?.type) ? context.dc : null) ??
+                        (attack && "statistic" in attack ? attack.statistic.dc : null);
                     return this.#rollActorSaves({ event, saveType: "reflex", origin: actor, item, dc });
                 }
                 case "roll-area-damage":

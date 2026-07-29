@@ -14,7 +14,7 @@ export async function craft(options: CraftActionOptions): Promise<void> {
 
     // ensure item is a valid crafting target
     if (!(item instanceof ItemPF2e)) {
-        console.warn("PF2e System | No item selected to craft: aborting");
+        console.warn(`${SYSTEM_NAME} System | No item selected to craft: aborting`);
         return;
     }
     if (!item.isOfType("physical")) {

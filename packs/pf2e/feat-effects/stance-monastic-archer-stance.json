@@ -20,7 +20,152 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "option": "monastic-archer:half-increment",
+                "predicate": [
+                    "item:group:bow",
+                    "target:range-increment:1",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:base:longbow",
+                                    {
+                                        "lte": [
+                                            "target:distance",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:base:shortbow",
+                                    {
+                                        "lte": [
+                                            "target:distance",
+                                            30
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:trait:monk",
+                                    {
+                                        "or": [
+                                            "item:category:simple",
+                                            "item:category:martial"
+                                        ]
+                                    },
+                                    {
+                                        "or": [
+                                            {
+                                                "and": [
+                                                    "item:range-increment:100",
+                                                    {
+                                                        "lte": [
+                                                            "target:distance",
+                                                            50
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "item:range-increment:60",
+                                                    {
+                                                        "lte": [
+                                                            "target:distance",
+                                                            30
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "domain": "damage",
+                "key": "RollOption",
+                "option": "monastic-archer:half-increment",
+                "predicate": [
+                    "item:group:bow",
+                    "target:range-increment:1",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "item:base:longbow",
+                                    {
+                                        "lte": [
+                                            "target:distance",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:base:shortbow",
+                                    {
+                                        "lte": [
+                                            "target:distance",
+                                            30
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:trait:monk",
+                                    {
+                                        "or": [
+                                            "item:category:simple",
+                                            "item:category:martial"
+                                        ]
+                                    },
+                                    {
+                                        "or": [
+                                            {
+                                                "and": [
+                                                    "item:range-increment:100",
+                                                    {
+                                                        "lte": [
+                                                            "target:distance",
+                                                            50
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "item:range-increment:60",
+                                                    {
+                                                        "lte": [
+                                                            "target:distance",
+                                                            30
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0

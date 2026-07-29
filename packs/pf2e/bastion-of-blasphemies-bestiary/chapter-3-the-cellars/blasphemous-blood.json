@@ -1,0 +1,137 @@
+{
+    "_id": "dawMb9pgXKeQ5qgS",
+    "folder": "LIyBalqfNL1tbX7c",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "nkKbxR9OlT0vfxhS",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Let the Walls Weep Blood",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A non-sahkil creature moves more than 10 feet into area <strong>C13</strong></p><hr /><p><strong>Effect</strong> The walls and ceiling begin to weep blood at an alarming rate, causing the floor of area <strong>C13</strong> to grow slick. A non-sahkil that moves across the slick floor is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] and must [[/act balance]] (@Check[acrobatics|dc:20]) as long as the hazard remains active. An area of effect with the cold trait created in this area freezes the blood on the floor, making it even more slippery (increasing the Acrobatics check to Balance to DC 22). The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "p6TE5fNBRYfpkfsd",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Curse of Death's Blood",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:22]</p><hr /><p><strong>Effect</strong> Your blood grows cold and imbued with death. Whenever you are struck by a critical hit, you take an additional @Damage[1d6[persistent,bleed]] damage, and as long as you are taking persistent bleed damage, you become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} as your body weakens under the lure of death's embrace. If you make your daily preparations at a location sanctified to Pharasma or Shelyn (such as area <strong>A9</strong> after Shirail's phantom returns), you can attempt a new saving throw to end this curse.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Blasphemous Blood",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "emitsSound": "encounter",
+            "hardness": 12,
+            "hp": {
+                "details": "",
+                "max": 50,
+                "temp": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 13
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "description": "<p>The walls and ceiling begin bleeding more and more, and gouts of cursed blood spew from both decapitated statues' necks.</p>",
+            "disable": "<p>@Check[religion|dc:23] to exorcise the influence of Charg from a statue, @Check[thievery|dc:26] to dismantle the magical blood generator in a statue's neck, @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (3rd-rank, counteract DC 20) to render a statue inert; each statue must be disabled separately</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+            },
+            "reset": "<p>The blasphemous blood deactivates at the start of any round in which no creatures other than a sahkil are in area <strong>C13</strong>, then resets after 3 rounds.</p>",
+            "routine": "<p>(2 actions) The hazard sprays a sizzling gout of cursed blood from the neck stumps of each of the defiled statues of Pharasma for each of its actions. If a statue is disabled or destroyed, the hazard loses that corresponding action. Each gout targets a randomly determined non-sahkil creature in area <strong>C13</strong>, who must then attempt a @Check[reflex|dc:22] save against the following effects. After dark, this trap gains 4 actions instead of 2, with each statue firing two gouts of blood. Regardless of how many gouts are fired, a creature can be targeted only once per round by these gouts.</p><hr><p><strong>Critical Success</strong> The target is unaffected.</p><p><strong>Success</strong> The target takes @Damage[2d6[spirit]] damage.</p><p><strong>Failure</strong> The target takes @Damage[2d8[spirit]] damage, @Damage[1d6[persistent,bleed]] damage, and is exposed to the curse of death's blood.</p><p><strong>Critical Failure</strong> The target takes @Damage[4d8[spirit]] damage, @Damage[2d6[persistent,bleed]] damage, and is exposed to the curse of death's blood (and takes a –2 circumstance penalty to save against the curse).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "value": 15
+            },
+            "reflex": {
+                "value": 9
+            },
+            "will": {
+                "value": null
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "environmental",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

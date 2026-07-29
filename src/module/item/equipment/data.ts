@@ -25,14 +25,6 @@ interface EquipmentSystemData
 }
 
 type SourceOmission =
-    | "apex"
-    | "bulk"
-    | "description"
-    | "hp"
-    | "identification"
-    | "material"
-    | "price"
-    | "temporary"
-    | "usage";
+    "apex" | "bulk" | "description" | "hp" | "identification" | "material" | "price" | "temporary" | "usage";
 
 export type { EquipmentSource, EquipmentSystemData, EquipmentSystemSource, EquipmentTrait };

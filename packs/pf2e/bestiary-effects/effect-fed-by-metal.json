@@ -4,7 +4,7 @@
     "name": "Effect: Fed by Metal",
     "system": {
         "description": {
-            "value": "<p>The creature gains a +1 item bonus to AC.</p>"
+            "value": "<p>You gain an item bonus to AC.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,16 +16,16 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Bestiary 3"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "selector": "ac",
                 "type": "item",
-                "value": 1
+                "value": "@item.origin.flags.system.fedByMetalAC"
             }
         ],
         "start": {

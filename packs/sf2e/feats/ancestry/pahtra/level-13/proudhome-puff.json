@@ -12,7 +12,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You've integrated a fungal biotech to help manage your growth. You vent spores from your body in a @Template[type:emanation|distance:30], dealing @Damage[max(ceil(@actor.level/2),7)d4[poison]|options:area-damage] damage to creatures in the area with a basic Fortitude save against the higher of your class DC or spell DC. The damage increases by 1d4 for every two levels you have beyond 13th level. A creature that fails its save is also @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 1} (@UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 2} on a critical failure). You can't use Proudhome Puff again for [[/gmr 1d4 #Recharge Proudhome Puff]]{1d4 rounds}.</p>"
+            "value": "<p>You've integrated a fungal biotech to help manage your growth. You vent spores from your body in a @Template[emanation|distance:30], dealing @Damage[max(ceil(@actor.level/2),7)d4[poison]|options:area-damage] damage to creatures in the area with a basic @Check[fortitude|against:class-spell|basic|options:area-effect,inflicts:sickened] save against the higher of your class DC or spell DC. The damage increases by 1d4 for every two levels you have beyond 13th level. A creature that fails its save is also @UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 1} (@UUID[Compendium.sf2e.conditions.Item.Sickened]{Sickened 2} on a critical failure). You can't use Proudhome Puff again for [[/r 1d4 #Recharge Proudhome Puff]]{1d4 rounds}.</p>"
         },
         "level": {
             "value": 13

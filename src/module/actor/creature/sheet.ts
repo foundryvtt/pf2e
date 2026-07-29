@@ -17,7 +17,7 @@ import * as R from "remeda";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "../sheet/base.ts";
 import { CreatureConfig } from "./config.ts";
 import { Language, ResourceData } from "./index.ts";
-import { SpellPreparationSheet } from "./spell-preparation-sheet.ts";
+import { SpellPreparationApp } from "./apps/spell-preparation/app.ts";
 
 /**
  * Base class for NPC and character sheets
@@ -66,11 +66,15 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     #openSpellPreparation(collectionId: string, event?: DragEvent | PointerEvent): void {
         const entry = this.actor.items.get(collectionId, { strict: true });
         if (entry?.isOfType("spellcastingEntry") && entry.isPrepared) {
+            const existing = fa.instances.get(`spell-preparation-${entry.uuid}`);
+            if (existing) {
+                existing.bringToFront();
+                return;
+            }
             const referenceEl = htmlClosest(event?.target, "[data-action=open-spell-preparation]");
             const offset = referenceEl ? ($(referenceEl).offset() ?? { left: 0, top: 0 }) : null;
-            const options = offset ? { top: offset.top - 60, left: offset.left + 200 } : {};
-            const sheet = new SpellPreparationSheet(entry, options);
-            sheet.render(true);
+            const position = offset ? { top: offset.top - 60, left: offset.left + 200 } : {};
+            new SpellPreparationApp({ entry, position }).render({ force: true });
         }
     }
 
@@ -414,7 +418,9 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                 // if the drop container target is a spellcastingEntry then check if the item is a spell and if so update its location.
                 // if the dragged item is a spell and is from the same actor
                 if (CONFIG.debug.hooks) {
-                    console.debug("PF2e System | ***** spell from same actor dropped on a spellcasting entry *****");
+                    console.debug(
+                        `${SYSTEM_NAME} System | ***** spell from same actor dropped on a spellcasting entry *****`,
+                    );
                 }
 
                 const dropId = htmlClosest(event.target, "li[data-container-id]")?.dataset.containerId;

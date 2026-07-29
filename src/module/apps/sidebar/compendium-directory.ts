@@ -6,7 +6,7 @@ import type { ContextMenuEntry } from "@client/applications/ux/context-menu.d.mt
 import type CompendiumCollection from "@client/documents/collections/compendium-collection.d.mts";
 import type { ItemPF2e } from "@item";
 import { ErrorPF2e } from "@util";
-import { CompendiumMigrationStatus } from "../compendium-migration-status.ts";
+import { CompendiumMigrationStatus } from "../compendium-migration-status/app.ts";
 
 /** Extend CompendiumDirectory to support a search bar */
 export class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory {
@@ -95,7 +95,7 @@ export class CompendiumDirectoryPF2e extends fa.sidebar.tabs.CompendiumDirectory
                 const compendium = game.packs.get(li.dataset.pack, { strict: true }) as CompendiumCollection<
                     ActorPF2e<null> | ItemPF2e<null>
                 >;
-                new CompendiumMigrationStatus(compendium).render(true);
+                new CompendiumMigrationStatus({ compendium }).render({ force: true });
             },
         });
         return options;

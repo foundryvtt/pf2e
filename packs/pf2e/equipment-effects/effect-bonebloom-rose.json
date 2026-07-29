@@ -1,0 +1,61 @@
+{
+    "_id": "dQfUsEqT87Ib7tpn",
+    "img": "icons/commodities/flowers/clover-red.webp",
+    "name": "Effect: Bonebloom Rose",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Bonebloom Rose]</p>\n<p>You gain 40 temporary Hit Points. As long as you have at least 1 of these temporary Hit Points remaining, your Strikes deal an additional 2 spirit damage to undead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure Path: Bastion of Blasphemies"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": 40
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.BonebloomRose.ToggleLabel",
+                "option": "bonebloom-rose-temp-hp",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "predicate": [
+                    "bonebloom-rose-temp-hp",
+                    "target:mode:undead"
+                ],
+                "selector": [
+                    "strike-damage"
+                ],
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

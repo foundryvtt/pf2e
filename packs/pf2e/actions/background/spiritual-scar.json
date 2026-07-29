@@ -1,0 +1,45 @@
+{
+    "_id": "f8vqWQktvmtSRpUb",
+    "folder": "FNxbJYoNSk7eTegP",
+    "img": "systems/pf2e/icons/actions/Reaction.webp",
+    "name": "Spiritual Scar",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "defensive",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You would take spirit damage from a fiend</p><hr /><p><strong>Effect</strong> You gain resistance to spirit damage equal to twice your level plus your Charisma modifier against the triggering damage. If this resistance prevents you from taking any damage at all, the spiritual backlash against the fiend who attempted to damage you forces them to attempt a @Check[will|against:class|options:inflicts:slowed] save against your class DC to avoid being @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for one round.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Bastion of Blasphemies Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "spiritual-scar",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "type": "spirit",
+                "value": "@actor.abilities.cha.mod + 2*@actor.level"
+            }
+        ],
+        "traits": {
+            "value": [
+                "concentrate"
+            ]
+        }
+    },
+    "type": "action"
+}

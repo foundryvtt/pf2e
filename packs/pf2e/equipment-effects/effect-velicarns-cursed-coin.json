@@ -1,0 +1,71 @@
+{
+    "_id": "a2DB0gqfriXhU1PU",
+    "img": "icons/commodities/currency/coin-inset-snail-silver.webp",
+    "name": "Effect: Velicarn's Cursed Coin",
+    "system": {
+        "description": {
+            "value": "<p>Granted by Velicarn's Cursed Coin</p>\n<p>If the result is heads, you become immune to fear effects. If the result is tails, you take a –2 item penalty against fear saves.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.GenericLabel.CoinFlip.Heads",
+                        "value": "heads"
+                    },
+                    {
+                        "label": "PF2E.GenericLabel.CoinFlip.Tails",
+                        "value": "tails"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "velicarns-cursed-coin"
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "velicarns-cursed-coin:heads"
+                ],
+                "type": "fear-effects"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "velicarns-cursed-coin:tails",
+                    "item:trait:fear"
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "item",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

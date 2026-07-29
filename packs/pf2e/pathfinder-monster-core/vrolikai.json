@@ -1065,14 +1065,58 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The vrolikai attacks a single target with all of their black flame knives. The demon makes a black flame knife Strike with the following additional effects. This counts toward the vrolikai's multiple attack penalty as a number of attacks equal to the number of back flame knives the vrolikai used.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes an additional 2d6 void damage for each knife beyond the first (typically @Damage[6d6[void]]{6d6 extra damage}) and takes @Damage[4d6[persistent,void]] damage.</p>\n<p><strong>Success</strong> The target takes an additional 2d6 void damage for each knife beyond the first.</p>\n<p><strong>Failure</strong> The vrolikai deals the damage their black flame knife Strike normally deals on a hit.</p>"
+                    "value": "<p>The vrolikai attacks a single target with all of their black flame knives. The demon makes a black flame knife Strike with the following additional effects. This counts toward the vrolikai's multiple attack penalty as a number of attacks equal to the number of back flame knives the vrolikai used.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes an additional 2d6 void damage for each knife beyond the first (typically 6d6 extra damage) and takes 4d6 persistent void damage.</p>\n<p><strong>Success</strong> The target takes an additional 2d6 void damage for each knife beyond the first.</p>\n<p><strong>Failure</strong> The vrolikai deals the damage their black flame knife Strike normally deals on a hit.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "focused-flames",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.Vrolikai.FocusedFlames.One",
+                                "value": "0"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Vrolikai.FocusedFlames.Two",
+                                "value": "2"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Vrolikai.FocusedFlames.Three",
+                                "value": "4"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Vrolikai.FocusedFlames.Four",
+                                "value": "6"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "critical": false,
+                        "diceNumber": "{item|flags.system.rulesSelections.focusedFlames}",
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "black-flame-knife-damage"
+                    },
+                    {
+                        "category": "persistent",
+                        "critical": false,
+                        "damageType": "void",
+                        "diceNumber": 4,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "check:outcome:critical-success",
+                            "focused-flames"
+                        ],
+                        "selector": "black-flame-knife-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

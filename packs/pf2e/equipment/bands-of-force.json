@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>Decorated with clear gemstones, these thick metal bands spread an inflexible layer of force over your body. The force grants you a +1 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5 as armor. You can affix talismans to the bands as though they were light armor.</p>\n<p><strong>Activate—Return Force</strong> <span class=\"action-glyph\">R</span> (force, manipulate)</p>\n<p><strong>Trigger</strong> A creature critically misses you with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> You Shove the creature using the bands' Athletics modifier of [[/r d20+14]]{+14}.</p>"
+            "value": "<p>Decorated with clear gemstones, these thick metal bands spread an inflexible layer of force over your body. The force grants you a +1 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5 as armor. You can affix talismans to the bands as though they were light armor.</p>\n<p><strong>Activate—Return Force</strong> <span class=\"action-glyph\">R</span> (force, manipulate)</p>\n<p><strong>Trigger</strong> A creature critically misses you with a melee Strike</p><hr /><p><strong>Effect</strong> You [[/act shove options=bands-of-force]] the creature using the bands' Athletics modifier of +14.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -48,6 +48,31 @@
             {
                 "key": "DexterityModifierCap",
                 "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "bands-of-force"
+                ],
+                "selector": [
+                    "athletics"
+                ],
+                "slug": "bands-of-force",
+                "value": 14
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "bands-of-force",
+                    {
+                        "or": [
+                            "bonus:type:proficiency",
+                            "modifier:type:ability"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "suppress": true
             }
         ],
         "size": "med",

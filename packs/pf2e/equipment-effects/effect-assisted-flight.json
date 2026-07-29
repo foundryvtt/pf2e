@@ -1,0 +1,143 @@
+{
+    "_id": "7uih4ELs2cePqkF2",
+    "img": "icons/creatures/birds/raptor-hawk-flying.webp",
+    "name": "Effect: Assisted Flight",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Golden Wings], @UUID[Compendium.pf2e.equipment-srd.Item.Golden Wings (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Golden Wings (Major)], @UUID[Compendium.pf2e.equipment-srd.Item.Golden Wings (True)]</p>\n<p>You emit a bright light in a 20-foot radius and dim light for the next 20 feet. You take a –2 item penalty to Stealth checks to Hide and Sneak.</p>\n<p>When you activate <em>major golden wings</em>, you also gain a fly Speed of 20 feet.</p>\n<p>When you activate <em>true golden wings</em>, you also gain a fly Speed equal to your Speed or 25 feet, whichever is greater.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens High Seas"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:golden-wings",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Golden Wings"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:golden-wings-greater",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Golden Wings (Greater)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:golden-wings-major",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Golden Wings (Major)"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:golden-wings-true",
+                                    {
+                                        "not": "parent:origin:item"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.equipment-srd.Item.Golden Wings (True)"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety",
+                "rollOption": "golden-wings"
+            },
+            {
+                "key": "TokenLight",
+                "value": {
+                    "alpha": 0.15,
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "torch"
+                    },
+                    "bright": 20,
+                    "color": "#975335",
+                    "dim": 40,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak"
+                        ]
+                    }
+                ],
+                "selector": "stealth",
+                "type": "item",
+                "value": -2
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "golden-wings:golden-wings-major"
+                ],
+                "selector": "fly",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "golden-wings:golden-wings-true"
+                ],
+                "selector": "fly",
+                "value": "max(25,@actor.system.movement.speeds.land.value)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

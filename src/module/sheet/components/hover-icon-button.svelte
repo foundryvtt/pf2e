@@ -9,9 +9,9 @@
     const { src, icon, ...args }: HoverIconProps = $props();
 </script>
 
-<button {...args} class={`flat ${args.class ?? ""}`}>
+<button {...args} class={["flat", args.class]}>
     <img {src} alt="" />
-    <i class={icon}></i>
+    <i class={icon} aria-hidden="true"></i>
 </button>
 
 <style>

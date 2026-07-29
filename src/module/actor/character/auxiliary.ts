@@ -40,10 +40,7 @@ interface AuxiliaryReleaseParams {
 }
 
 type AuxiliaryActionParams =
-    | AuxiliaryInteractParams
-    | AuxiliaryWeaponParryParams
-    | AuxiliaryShieldParams
-    | AuxiliaryReleaseParams;
+    AuxiliaryInteractParams | AuxiliaryWeaponParryParams | AuxiliaryShieldParams | AuxiliaryReleaseParams;
 type AuxiliaryActionType = AuxiliaryActionParams["action"];
 type AuxiliaryActionPurpose = AuxiliaryActionParams["annotation"];
 
@@ -152,7 +149,11 @@ class WeaponAuxiliaryAction {
         const { actor, weapon } = this;
         const COVER_UUID = `Compendium.${SYSTEM_ID}.other-effects.Item.I9lfZUiCwMiGogVi`;
 
-        if (this.carryType) {
+        if (this.annotation === "grip" && weapon.rule) {
+            // Synthetic strikes (from a Strike rule element) aren't real items, so their grip can't be
+            // changed via carry type. Persist the change to the rule element instead
+            await weapon.rule.toggleGrip(this.hands === 2 ? 2 : 1);
+        } else if (this.carryType) {
             await actor.changeCarryType(this.weapon, { carryType: this.carryType, handsHeld: this.hands ?? 0 });
         } else if (selection && this.annotation === "modular" && selection) {
             const updated = await weapon.system.traits.toggles.update({

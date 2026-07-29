@@ -29,7 +29,29 @@
             "remaster": true,
             "title": "Starfinder Galactic Ancestries"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "stretching-reach",
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "stretching-reach",
+                    "item:equipped",
+                    "item:melee",
+                    "item:usage:hands:2",
+                    {
+                        "not": "item:trait:reach"
+                    }
+                ],
+                "property": "traits",
+                "value": "reach"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {},
             "senses": {},

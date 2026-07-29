@@ -1243,7 +1243,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         traits: ["magical"],
     },
     extending: {
-        level: 7,
+        level: 9,
         name: "PF2E.WeaponPropertyRune.extending.Name",
         price: 700,
         rarity: "common",

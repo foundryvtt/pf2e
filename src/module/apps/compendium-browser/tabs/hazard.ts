@@ -26,7 +26,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
     }
 
     protected override async loadData(): Promise<void> {
-        console.debug("PF2e System | Compendium Browser | Started loading Hazard actors");
+        console.debug(`${SYSTEM_NAME} System | Compendium Browser | Started loading Hazard actors`);
 
         const hazardActors: CompendiumBrowserIndexData[] = [];
         const publications = new Set<string>();
@@ -37,7 +37,9 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
             this.browser.loadedPacks("hazard"),
             indexFields,
         )) {
-            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
+            console.debug(
+                `${SYSTEM_NAME} System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`,
+            );
             for (const actorData of index.filter((d) => d.type === "hazard")) {
                 if (!this.hasAllIndexFields(actorData, this.index)) {
                     console.warn(
@@ -67,7 +69,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                     options: new Set(options),
                 });
             }
-            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
+            console.debug(`${SYSTEM_NAME} System | Compendium Browser | ${pack.metadata.label} - Loaded`);
         }
 
         // Set indexData
@@ -87,7 +89,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
         this.filterData.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.hazardTraits);
         this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
 
-        console.debug("PF2e System | Compendium Browser | Finished loading Hazard actors");
+        console.debug(`${SYSTEM_NAME} System | Compendium Browser | Finished loading Hazard actors`);
     }
 
     protected override prepareFilterData(): HazardFilters {

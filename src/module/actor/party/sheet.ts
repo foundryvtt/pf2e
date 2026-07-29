@@ -227,18 +227,16 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         return {
             languages: R.sortBy(
-                [...allLanguages].map(
-                    (language): LanguageSheetData => ({
-                        slug: language,
-                        label:
-                            language === "common" && commonLanguage
-                                ? _loc("PF2E.Actor.Creature.Language.CommonLanguage", {
-                                      language: _loc(CONFIG.PF2E.languages[commonLanguage]),
-                                  })
-                                : _loc(CONFIG.PF2E.languages[language]),
-                        actors: this.#getActorsThatUnderstand(language),
-                    }),
-                ),
+                [...allLanguages].map((language): LanguageSheetData => ({
+                    slug: language,
+                    label:
+                        language === "common" && commonLanguage
+                            ? _loc("PF2E.Actor.Creature.Language.CommonLanguage", {
+                                  language: _loc(CONFIG.PF2E.languages[commonLanguage]),
+                              })
+                            : _loc(CONFIG.PF2E.languages[language]),
+                    actors: this.#getActorsThatUnderstand(language),
+                })),
                 (l) => (l.slug === "common" ? "" : l.label),
             ),
             skills: R.sortBy(
@@ -286,7 +284,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         // Show metagame option if clicked
         htmlQuery(html, "a[data-action=open-meta-setting]")?.addEventListener("click", () => {
-            const menu = game.settings.menus.get("pf2e.metagame");
+            const menu = game.settings.menus.get(`${SYSTEM_ID}.metagame`);
             if (menu) {
                 const options: Partial<SettingsMenuOptions> = { highlightSetting: "showPartyStats" };
                 const app = new menu.type(undefined, options);

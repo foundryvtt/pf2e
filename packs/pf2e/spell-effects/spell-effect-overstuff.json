@@ -1,0 +1,111 @@
+{
+    "_id": "UL5eKHxrLJZw2If1",
+    "img": "icons/consumables/food/chicken-bird-cooked.webp",
+    "name": "Spell Effect: Overstuff",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Overstuff]</p>\n<p>You are sickened and take a –10-foot status penalty to your Speed until you are no longer sickened.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": {
+                            "badge": 1,
+                            "degree": "success"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": {
+                            "badge": 1,
+                            "degree": "failure"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": {
+                            "badge": 2,
+                            "degree": "critical-failure"
+                        }
+                    }
+                ],
+                "flag": "overstuff",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "RollOption",
+                "option": "overstuff:{item|flags.system.rulesSelections.overstuff.degree}"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:condition:sickened"
+                ],
+                "selector": [
+                    "land-speed"
+                ],
+                "type": "status",
+                "value": -10
+            },
+            {
+                "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": "@item.flags.system.rulesSelections.overstuff.badge"
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Sickened"
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:granter:id:{item|id}",
+                    "overstuff:success"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.SpellEffectOverstuff.Addendum"
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

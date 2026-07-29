@@ -46,7 +46,7 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "target is subjected to a crushing despair spell",
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -54,7 +54,7 @@
                 },
                 "damageRolls": {},
                 "description": {
-                    "value": ""
+                    "value": "<p>Target is subjected to a @UUID[Compendium.pf2e.spells-srd.Item.Wave of Despair]{Crushing Despair} spell (@Check[will|dc:33|options:item:magical|traits:concentrate,emotion,manipulate,mental])</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -62,8 +62,8 @@
                     "title": ""
                 },
                 "range": {
-                    "increment": 100,
-                    "max": null
+                    "increment": null,
+                    "max": 100
                 },
                 "rules": [],
                 "slug": null,
@@ -87,7 +87,7 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "target is subjected to a feeblemind spell (DC 36)",
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -95,19 +95,25 @@
                 },
                 "damageRolls": {},
                 "description": {
-                    "value": ""
+                    "value": "<p>Target is subjected to a @UUID[Compendium.pf2e.spells-srd.Item.Never Mind]{Feeblemind} spell (@Check[will|dc:36|options:item:magical|traits:concentrate,curse,incapacitation,manipulate,mental])</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "range": null,
+                "range": {
+                    "increment": null,
+                    "max": 100
+                },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "curse",
+                        "mental"
+                    ]
                 }
             },
             "type": "melee"
@@ -122,7 +128,7 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "target is subjected to a spirit blast spell (DC 36)",
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -130,7 +136,7 @@
                 },
                 "damageRolls": {},
                 "description": {
-                    "value": ""
+                    "value": "<p>Target is subjected to a @UUID[Compendium.pf2e.spells-srd.Item.Spirit Blast] spell (@Check[fortitude|basic|dc:36|options:item:magical|traits:concentrate,manipulate,spirit])</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -138,14 +144,16 @@
                     "title": ""
                 },
                 "range": {
-                    "increment": 100,
-                    "max": null
+                    "increment": null,
+                    "max": 100
                 },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "force"
+                    ]
                 }
             },
             "type": "melee"
@@ -164,7 +172,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The tank reaches its Broken Threshold</p>\n<hr />\n<p><strong>Effect</strong> The glass shatters, spilling eyeballs onto the floor in a @Template[emanation|distance:15]{15-foot radius} and casting <em>grease</em> (DC 33) on the affected area. The eyeball tank is permanently destroyed and can't be reset.<strong>Reset</strong> The trap can be reset by adding 100 new eyeballs to the tank and allowing them to grow in the slime for 1 week.</p>"
+                    "value": "<p><strong>Trigger</strong> The tank reaches its Broken Threshold</p><hr /><p><strong>Effect</strong> The glass shatters, spilling eyeballs onto the floor in a @Template[emanation|distance:15]{15-foot radius} and casting @UUID[Compendium.pf2e.spells-srd.Item.Grease] (@Check[reflex|dc:33|options:item:magical|traits:concentrate,manipulate]) on the affected area. The eyeball tank is permanently destroyed and can't be reset.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -187,7 +195,7 @@
             "ac": {
                 "value": 33
             },
-            "hardness": 0,
+            "hardness": 2,
             "hasHealth": true,
             "hp": {
                 "details": "",
@@ -222,7 +230,7 @@
                 "remaster": false,
                 "title": "Pathfinder #161: Belly of the Black Whale"
             },
-            "reset": "",
+            "reset": "<p>The trap can be reset by adding 100 new eyeballs to the tank and allowing them to grow in the slime for 1 week.</p>",
             "routine": "<p>(3 actions) Each round, the vat uses all three of its actions to shoot random eye rays at any living creatures (except Ixusoth) in range.</p>"
         },
         "saves": {
@@ -236,7 +244,7 @@
             },
             "will": {
                 "saveDetail": "",
-                "value": 0
+                "value": null
             }
         },
         "statusEffects": [],
@@ -246,7 +254,8 @@
                 "value": "med"
             },
             "value": [
-                "magical"
+                "magical",
+                "trap"
             ]
         }
     },

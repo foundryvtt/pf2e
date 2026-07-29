@@ -1,0 +1,43 @@
+{
+    "_id": "hhkmOtzPa3S9yyqq",
+    "img": "icons/magic/water/waves-water-blue.webp",
+    "name": "Effect: Liquefy",
+    "system": {
+        "description": {
+            "value": "<p>You gain fire resistance.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens Draconic Codex"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "fire",
+                "value": "@item.origin.flags.system.liquefyResistance"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

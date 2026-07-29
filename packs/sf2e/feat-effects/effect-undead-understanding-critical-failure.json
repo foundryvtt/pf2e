@@ -1,0 +1,47 @@
+{
+    "_id": "WloLZGDERsq9JDP7",
+    "img": "icons/magic/death/skeleton-skull-soul-blue.webp",
+    "name": "Effect: Undead Understanding (Critical Failure)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.sf2e.feats.Item.Undead Understanding]</p>\n<p>If you're a mindless undead, you lose immunity to mental effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "fromSpell": false,
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Starfinder Galactic Ancestries"
+        },
+        "rules": [
+            {
+                "key": "Immunity",
+                "mode": "remove",
+                "predicate": [
+                    "self:mode:undead",
+                    "self:trait:mindless"
+                ],
+                "type": "mental"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

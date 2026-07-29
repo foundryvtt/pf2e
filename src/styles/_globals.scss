@@ -84,36 +84,32 @@ i.action-glyph {
 
 table.pf2e,
 table.pf2-table {
+    --pf2-table-header-bg: var(--color-pf-primary-dark);
+    --pf2-table-stripe-odd: var(--tertiary-light);
+    --pf2-table-stripe-even: var(--text-light);
+
     border-collapse: collapse;
     color: var(--text-dark);
     font-size: var(--font-size-13);
     user-select: text;
 
-    thead,
-    tbody,
-    th,
-    td {
-        box-sizing: border-box;
-        user-select: text;
-        word-break: auto-phrase;
-    }
-
     tr:nth-child(odd) {
-        background-color: var(--tertiary-light);
+        background-color: var(--pf2-table-stripe-odd);
     }
 
     tr:nth-child(even) {
-        background-color: var(--text-light);
+        background-color: var(--pf2-table-stripe-even);
     }
 
     th,
     td {
-        border: solid 1px var(--color-border-light-tertiary);
+        border: solid 1px var(--color-border-book);
         text-align: center;
+        word-break: auto-phrase;
     }
 
     th {
-        background-color: var(--color-pf-primary-dark);
+        background-color: var(--pf2-table-header-bg);
         color: var(--text-light);
         font-weight: bold;
         padding: var(--spacer-8) var(--spacer-4);
@@ -124,41 +120,15 @@ table.pf2-table {
     }
 
     &.remaster {
-        tr:nth-child(odd) {
-            background-color: #eee3c8;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f5efe0;
-        }
-
-        th,
-        td {
-            border-color: var(--color-border-light-tertiary);
-        }
-
-        th {
-            background-color: #002a17;
-        }
+        --pf2-table-header-bg: #002a17;
+        --pf2-table-stripe-odd: #eee3c8;
+        --pf2-table-stripe-even: #f5efe0;
     }
 
     &.lost-omens {
-        tr:nth-child(odd) {
-            background-color: #efe5ca;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f6f2e2;
-        }
-
-        th,
-        td {
-            border-color: var(--color-border-light-tertiary);
-        }
-
-        th {
-            background-color: #042564;
-        }
+        --pf2-table-header-bg: #042564;
+        --pf2-table-stripe-odd: #efe5ca;
+        --pf2-table-stripe-even: #f6f2e2;
     }
 }
 
@@ -488,4 +458,20 @@ aside.locked-tooltip.pf2e {
 
 button:disabled {
     cursor: default;
+}
+
+/* ----------------------------------------- */
+/* Accessibility                             */
+/* ----------------------------------------- */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }

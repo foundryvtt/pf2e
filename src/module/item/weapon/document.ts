@@ -187,6 +187,15 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         );
     }
 
+    /**
+     * The actor-owned item backing this weapon. This may be the weapon itself, its subitem entry if attached to
+     * another item, the original of a clone (alt usages, shield-generated weapons), or the granting item in the
+     * case of a synthetic weapon from a rule element.
+     */
+    get realItem(): ItemPF2e | null {
+        return this.parentItem?.subitems.get(this.id) ?? this.actor?.items.get(this.id) ?? null;
+    }
+
     get ammo(): AmmoPF2e<TParent> | WeaponPF2e<TParent> | null {
         if (!this.system.ammo) return null; // omit if this usage doesn't support ammo
 

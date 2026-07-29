@@ -94,12 +94,10 @@ class IWREditor<TActor extends ActorPF2e> extends appv1.api.DocumentSheet<TActor
             const exceptionsData: unknown = JSON.parse(
                 htmlQuery<HTMLInputElement>(entryElem, "input[data-property=exceptions]")?.value || "[]",
             );
-            if (
-                !(
-                    Array.isArray(exceptionsData) &&
-                    exceptionsData.every((o: unknown): o is { id: string } => R.isPlainObject(o))
-                )
-            ) {
+            if (!(
+                Array.isArray(exceptionsData) &&
+                exceptionsData.every((o: unknown): o is { id: string } => R.isPlainObject(o))
+            )) {
                 throw ErrorPF2e("Unexpected data encountered while submitting form");
             }
             const exceptions = exceptionsData.map((e: { id: string }) => e.id);

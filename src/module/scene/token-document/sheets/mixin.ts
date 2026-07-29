@@ -176,7 +176,7 @@ function TokenConfigMixinPF2e<TBase extends ReturnType<typeof TokenApplicationMi
         /* -------------------------------------------- */
 
         static async #onClickOpenAutomationSettings(this: PrototypeTokenConfigPF2e): Promise<void> {
-            const menu = game.settings.menus.get("pf2e.automation");
+            const menu = game.settings.menus.get(`${SYSTEM_ID}.automation`);
             if (menu) {
                 const options: Partial<SettingsMenuOptions> = { highlightSetting: "rulesBasedVision" };
                 const app = new menu.type(undefined, options);
