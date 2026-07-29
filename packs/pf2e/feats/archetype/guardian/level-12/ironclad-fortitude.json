@@ -1,8 +1,8 @@
 {
-    "_id": "1xzeh0vQ1WWFVO3j",
-    "folder": "6JuWlCfOlFt4XvgQ",
+    "_id": "vtYJJCQKOffjd6L7",
+    "folder": "ewaTmmINsCmvr3lr",
     "img": "icons/sundries/books/book-red-exclamation.webp",
-    "name": "Guerrilla Weaponry",
+    "name": "Ironclad Fortitude",
     "system": {
         "actionType": {
             "value": "passive"
@@ -12,15 +12,18 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You are especially skilled in transforming simple weapons that can be easily assembled from readily available materials into deadly weapons. In your hands, a blowgun's base damage increases from 1 to a 1d4 damage die, and it gains the deadly d4 trait. In addition, you gain the @UUID[Compendium.pf2e.actionspf2e.Item.Guerrilla Assault] action.</p>"
+            "value": "<p>Your proficiency rank in Fortitude saves increases to master.</p>"
         },
         "level": {
-            "value": 4
+            "value": 12
         },
         "prerequisites": {
             "value": [
                 {
-                    "value": "Guerrilla Dedication"
+                    "value": "Guardian Dedication"
+                },
+                {
+                    "value": "expert in Fortitude saves"
                 }
             ]
         },
@@ -31,18 +34,19 @@
         },
         "rules": [
             {
-                "itemType": "weapon",
-                "key": "ItemAlteration",
+                "key": "ActiveEffectLike",
                 "mode": "add",
-                "predicate": [
-                    "item:base:blowgun"
-                ],
-                "property": "traits",
-                "value": "deadly-d4"
+                "path": "flags.system.guardianDedicationCount",
+                "value": 1
             }
         ],
         "subfeatures": {
-            "proficiencies": {},
+            "proficiencies": {
+                "fortitude": {
+                    "attribute": null,
+                    "rank": 3
+                }
+            },
             "senses": {},
             "suppressedFeatures": []
         },
