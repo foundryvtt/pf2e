@@ -81,7 +81,8 @@
                 "traits": {
                     "config": {},
                     "value": [
-                        "agile"
+                        "agile",
+                        "unarmed"
                     ]
                 }
             },
@@ -101,14 +102,36 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>When a lunar consort is underwater, their skin floats around them, appearing as the clothing of a drowned person. This grants the lunar consort a +4 circumstance bonus to Deception checks to Impersonate a dead body and to Stealth checks to [[/act hide]].</p>"
+                    "value": "<p>When a lunar consort is underwater, their skin floats around them, appearing as the clothing of a drowned person. This grants the lunar consort a +4 circumstance bonus to Deception checks to [[/act impersonate options=impersonate-dead-body]] a dead body and to Stealth checks to [[/act hide]].</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:impersonate",
+                            "impersonate-dead-body",
+                            "terrain:underwater"
+                        ],
+                        "selector": "deception",
+                        "type": "circumstance",
+                        "value": 4
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:hide",
+                            "terrain:underwater"
+                        ],
+                        "selector": "stealth",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -139,6 +162,7 @@
                 },
                 "rules": [
                     {
+                        "domain": "ac",
                         "key": "RollOption",
                         "option": "defensive-skin",
                         "toggleable": true
@@ -146,7 +170,8 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "defensive-skin"
+                            "defensive-skin",
+                            "item:ranged"
                         ],
                         "selector": [
                             "ac"
@@ -176,14 +201,29 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>The lunar consort's skin grants it concealment while underwater.</p>"
+                    "value": "<p>The lunar consort's skin grants it @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealment} while underwater.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.SkillVariant.Underwater",
+                        "option": "terrain:underwater",
+                        "toggleable": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "terrain:underwater"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -276,7 +316,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The lunar consort is underwater</p><hr /><p><strong>Effect</strong> The lunar consort spins in an elegant motion, causing their gossamer skin to shed a ghostly and beautiful glow that hypnotizes those who can see them. Each creature within 30 feet of the lunar consort must attempt a @Check[will|dc:18] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] for 1 minute, and it must spend at least 1 of its actions each turn to move closer to the lunar consort for as long as it is fascinated. On a critical failure, the creature also can't use reactions. Regardless of the result, a creature is temporarily immune to Moonlight Waltz for 24 hours.</p>"
+                    "value": "<p><strong>Requirements</strong> The lunar consort is underwater</p><hr /><p><strong>Effect</strong> The lunar consort spins in an elegant motion, causing their gossamer skin to shed a ghostly and beautiful glow that hypnotizes those who can see them. Each creature within @Template[emanation|distance:30]{30 feet} of the lunar consort must attempt a @Check[will|dc:18|options:area-effect,inflicts:fascinated] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] for 1 minute, and it must spend at least 1 of its actions each turn to move closer to the lunar consort for as long as it is fascinated. On a critical failure, the creature also can't use reactions. Regardless of the result, a creature is temporarily immune to Moonlight Waltz for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -360,7 +400,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "void healing",
                 "max": 30,
                 "temp": 0,
                 "value": 30

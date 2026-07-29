@@ -50,7 +50,7 @@
             },
             "folder": "6JF73zNhT8zbp1qC",
             "img": "icons/magic/lightning/bolts-salvo-clouds-sky.webp",
-            "name": "Control Weather (doesn't require a secondary caster)",
+            "name": "Control Weather (Doesn't Require a Secondary Caster)",
             "sort": 200000,
             "system": {
                 "area": null,
@@ -946,7 +946,8 @@
                     "config": {},
                     "value": [
                         "finesse",
-                        "reach-20"
+                        "reach-20",
+                        "unarmed"
                     ]
                 }
             },
@@ -990,7 +991,8 @@
                     "config": {},
                     "value": [
                         "agile",
-                        "finesse"
+                        "finesse",
+                        "unarmed"
                     ]
                 }
             },
@@ -1058,7 +1060,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The scylla calls their companion charybdis, which appears within 60 feet as a churning whirlpool of water and teeth that fills a @Template[type:burst|distance:15]. Creatures in the area when it forms or who end their turn there take @Damage[4d12[bludgeoning]|options:area-damage] damage and must attempt a @Check[reflex|dc:38] saving throw. In a significant body of water, the charybdis is stronger, increasing the damage to @Damage[5d12[bludgeoning]|shortLabel]. The charybdis remains for 10 minutes. The scylla can Dismiss this effect.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the charybdis ([[/act escape dc=38]]).</p>\n<p><strong>Critical Failure</strong> As a failure, but the creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] instead.</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour</p><hr /><p><strong>Effect</strong> The scylla calls their companion charybdis, which appears within 60 feet as a churning whirlpool of water and teeth that fills a @Template[type:burst|distance:15]. Creatures in the area when it forms or who end their turn there take @Damage[4d12[bludgeoning]|options:area-damage] damage and must attempt a @Check[reflex|dc:38|options:area-effect,damaging-effect,inflicts:grabbed,inflicts:restrained] saving throw. In a significant body of water, the charybdis is stronger, increasing the damage to @Damage[5d12[bludgeoning]|shortLabel|options:area-damage]. The charybdis remains for 10 minutes. The scylla can Dismiss this effect.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the charybdis ([[/act escape dc=38]]).</p>\n<p><strong>Critical Failure</strong> As a failure, but the creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] instead.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -1129,7 +1131,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The scylla has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained], and there's an active charybdis within 30 feet</p><hr /><p><strong>Effect</strong> The scylla attempts an Athletics check against the required creature's Fortitude DC. If they succeed, that creature is thrown into a free space in the charybdis, immediately taking the effects of a failed save against it. On a critical success, the creature takes the effects of a critically failed save instead.</p>"
+                    "value": "<p><strong>Requirements</strong> The scylla has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained], and there's an active charybdis within 30 feet</p><hr /><p><strong>Effect</strong> The scylla attempts an @Check[athletics|against:fortitude] check against the required creature's Fortitude DC. If they succeed, that creature is thrown into a free space in the charybdis, immediately taking the effects of a failed save against it. On a critical success, the creature takes the effects of a critically failed save instead.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1160,7 +1162,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Effect</strong> The scylla lets out an ear-piercing screech in a @Template[type:emanation|distance:30], dealing @Damage[4d10[mental],4d10[sonic]|options:area-damage]{4d10 mental damage and 4d10 sonic damage}. Each creature in the area must attempt a @Check[will|dc:36] save. The scylla can't use Tortured Screech again for [[/gmr 1d4 #Recharge Tortured Screech]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}.</p>\n<p><strong>Critical Failure</strong> The creature double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}.</p>"
+                    "value": "<p><strong>Effect</strong> The scylla lets out an ear-piercing screech in a @Template[type:emanation|distance:30], dealing @Damage[4d10[mental],4d10[sonic]|options:area-damage] damage. Each creature in the area must attempt a @Check[will|dc:36|options:area-effect,damaging-effect,inflicts:stunned] save. The scylla can't use Tortured Screech again for [[/gmr 1d4 #Recharge Tortured Screech]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}.</p>\n<p><strong>Critical Failure</strong> The creature double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1244,6 +1246,32 @@
                 }
             },
             "type": "action"
+        },
+        {
+            "_id": "vLcVP0fxgMkIhw2m",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "High Seas Lore",
+            "sort": 2300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 30
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
         }
     ],
     "name": "Scylla",
@@ -1332,7 +1360,7 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "see the unseen",
+            "details": "",
             "mod": 30,
             "senses": [
                 {
@@ -1379,7 +1407,7 @@
                         "base": 32,
                         "label": "in deep water",
                         "predicate": [
-                            "in-deep-water"
+                            "terrain:deep-water"
                         ]
                     }
                 ]
